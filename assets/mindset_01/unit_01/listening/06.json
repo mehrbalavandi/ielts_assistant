@@ -1,0 +1,126 @@
+[
+  {
+    "text": "Sales assistant: Good afternoon, can I help you? Customer: Yes, I'm ",
+    "isInteractive": false
+  },
+  {
+    "text": "looking for a gift",
+    "isInteractive": true,
+    "translation": "دنبال یک هدیه هستم",
+    "explanation": "ساختاری رایج برای بیان اینکه کسی در حال جستجوی خرید یک چیز است."
+  },
+  {
+    "text": " for my sister. She's going to be 18 next week. So I thought ",
+    "isInteractive": false
+  },
+  {
+    "text": "a piece of jewellery",
+    "isInteractive": true,
+    "translation": "یک قطعه جواهر",
+    "explanation": "عبارت رایج برای اشاره کلی به زیورآلات."
+  },
+  {
+    "text": " would be nice. Sales assistant: Good idea! Do you have anything particular ",
+    "isInteractive": false
+  },
+  {
+    "text": "in mind",
+    "isInteractive": true,
+    "translation": "در ذهن دارید / مدنظر دارید",
+    "explanation": "اصطلاح برای سؤال درباره داشتن گزینه مشخص."
+  },
+  {
+    "text": " - a necklace, perhaps? Customer: Mm, she has so many necklaces. I was thinking of ",
+    "isInteractive": false
+  },
+  {
+    "text": "a pair of earrings",
+    "isInteractive": true,
+    "translation": "یک جفت گوشواره",
+    "explanation": "عبارت استاندارد برای گوشواره."
+  },
+  {
+    "text": ", possibly. Sales assistant: Does she have a favourite colour? Customer: Mm, she likes blue... Sales assistant: ",
+    "isInteractive": false
+  },
+  {
+    "text": "What about this pair?",
+    "isInteractive": true,
+    "translation": "این یکی‌ها چطور؟",
+    "explanation": "عبارت رایج برای پیشنهاد دادن یک گزینه هنگام خرید."
+  },
+  {
+    "text": " They have some beautiful little blue stones. Customer: Mm... They're quite nice, I suppose. Sales assistant: They're silver, and they're handmade, ",
+    "isInteractive": false
+  },
+  {
+    "text": "handmade",
+    "isInteractive": true,
+    "translation": "دست‌ساز",
+    "explanation": "ویژگی مهم برای توصیف کالاهای خاص و گران‌تر."
+  },
+  {
+    "text": ", so you won't find anything like them anywhere else. Customer: Oh, really? So, how much are they? Sales assistant: Well, they were £30, but actually we've got ",
+    "isInteractive": false
+  },
+  {
+    "text": "a sale on",
+    "isInteractive": true,
+    "translation": "حراج داریم",
+    "explanation": "اصطلاحی برای اعلان تخفیف فروشگاه."
+  },
+  {
+    "text": " at the moment, so they're a little cheaper - only £20. So you can ",
+    "isInteractive": false
+  },
+  {
+    "text": "save £10",
+    "isInteractive": true,
+    "translation": "ده پوند صرفه‌جویی کنید",
+    "explanation": "ساختار رایج برای بیان میزان تخفیف."
+  },
+  {
+    "text": "! Customer: Great. I'll take them. Sales assistant: And would you like me to ",
+    "isInteractive": false
+  },
+  {
+    "text": "giftwrap them",
+    "isInteractive": true,
+    "translation": "برای شما کادوپیچ کنم",
+    "explanation": "اصطلاح متداول در خرید هدیه."
+  },
+  {
+    "text": " for you? Customer: How much do you charge for that? Sales assistant: For £4 we give you a pretty box and your own choice of wrapping paper. Or for £5 you can have our ",
+    "isInteractive": false
+  },
+  {
+    "text": "luxury wrapping service",
+    "isInteractive": true,
+    "translation": "خدمات کادوپیچی لوکس",
+    "explanation": "اصطلاح تجاری برای بسته‌بندی سطح بالا."
+  },
+  {
+    "text": ", which includes a silver box and silver ribbon. And if you would like a card to write ",
+    "isInteractive": false
+  },
+  {
+    "text": "your own personal message",
+    "isInteractive": true,
+    "translation": "پیام شخصی خودتان",
+    "explanation": "عبارت رایج برای کارت هدیه."
+  },
+  {
+    "text": ", that will be £2 extra. Customer: Well, it's a special birthday so I'll take the luxury option. But I already have a card, thank you. Sales assistant: That's fine. I'll do that for you now. And how would you like to pay - ",
+    "isInteractive": false
+  },
+  {
+    "text": "cash or card",
+    "isInteractive": true,
+    "translation": "نقد یا کارت",
+    "explanation": "سؤال بسیار رایج برای پرداخت."
+  },
+  {
+    "text": "?",
+    "isInteractive": false
+  }
+]

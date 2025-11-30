@@ -1,0 +1,48 @@
+[
+  {
+    "text": "Customer: That sounds perfect.\nManager: Excellent. Now we offer a set three-course menu for £23 per person and we can also supply you with a birthday cake at no extra charge. How does that sound?\nCustomer: That sounds good. So how much would that cost in total?\nManager: Let me see - for the food and the room, that will come to £318.\nCustomer: Did you say three hundred and eighty pounds?\nManager: No, three hundred and eighteen.\nCustomer: OK, I think I'd like to go ahead and make a booking.\nManager: OK, I'll just take your details.",
+    "isInteractive": false
+  },
+
+  {
+    "text": "That sounds perfect",
+    "isInteractive": true,
+    "translation": "عالیه / خیلی خوبه",
+    "explanation": "یک عبارت رایج برای ابراز رضایت یا تایید کامل پیشنهاد یا شرایط."
+  },
+
+  {
+    "text": "set three-course menu",
+    "isInteractive": true,
+    "translation": "منوی ثابت سه‌دوره‌ای (پیش‌غذا، غذای اصلی، دسر)",
+    "explanation": "اصطلاح رایج در رستوران‌ها برای منوهای از پیش تعیین‌شده با سه مرحله."
+  },
+
+  {
+    "text": "at no extra charge",
+    "isInteractive": true,
+    "translation": "بدون پرداخت هزینه اضافه",
+    "explanation": "عبارتی رایج برای خدمات رایگان یا بدون هزینه اضافه."
+  },
+
+  {
+    "text": "How does that sound?",
+    "isInteractive": true,
+    "translation": "چطوره؟ / نظرتون چیه؟",
+    "explanation": "پرسش مودبانه برای گرفتن نظر فرد مقابل درباره یک پیشنهاد."
+  },
+
+  {
+    "text": "go ahead and make a booking",
+    "isInteractive": true,
+    "translation": "ادامه دادن و انجام رزرو",
+    "explanation": "عبارت کاربردی برای بیان تصمیم قطعی به رزرو کردن."
+  },
+
+  {
+    "text": "I'll just take your details",
+    "isInteractive": true,
+    "translation": "فقط جزئیات‌تون رو می‌گیرم",
+    "explanation": "عبارتی رایج در رزرواسیون برای جمع‌آوری اطلاعات مشتری."
+  }
+]
