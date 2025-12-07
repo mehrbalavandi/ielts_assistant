@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
 class Subject {
@@ -30,8 +31,18 @@ class Topic {
   });
 
   factory Topic.fromDirectory(Directory topicDir) {
+    debugPrint('--- Checking Topic: ${topicDir.path}');
     final files = topicDir.listSync(recursive: false);
+    debugPrint('Found items: ${files.length}');
 
+    // ۲. ببینید مسیر فایل MP3 شما چه شکلی است (اگر پیدایش نکرده):
+    for (var f in files) {
+      if (f.path.endsWith('.mp3') || f.path.endsWith('.MP3')) {
+        debugPrint('--- YES! MP3 found: ${f.path}');
+      } else {
+        debugPrint('--- Item: ${f.path} (NOT AUDIO)');
+      }
+    }
     // استخراج تمامی فایل‌های صوتی موجود در پوشه مبحث
     final List<String> audioPaths = files
         .where(
@@ -53,7 +64,7 @@ class Topic {
     );
 
     final realmId = topicDir.path;
-
+    debugPrint('Final audioPaths count: ${audioPaths.length}');
     return Topic(
       name: basename(topicDir.path),
       audioFilePaths: audioPaths, // ذخیره لیست مسیرها

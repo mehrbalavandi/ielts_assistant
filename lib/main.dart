@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/audio_player_widget.dart';
@@ -6,6 +7,7 @@ import 'package:ielts_assistant/common/directory_state.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:path/path.dart' show basename;
+import 'package:permission_handler/permission_handler.dart';
 // import 'realm_service.dart'; // فرض می‌کنیم RealmService تعریف شده است
 
 void main() {
@@ -42,14 +44,52 @@ class DirectoryPickerScreen extends ConsumerWidget {
 
   Future<void> _pickDirectory(WidgetRef ref) async {
     // از file_picker برای انتخاب پوشه استفاده می شود
-    final String? selectedDirectory = await FilePicker.platform
-        .getDirectoryPath();
+    // final String? selectedDirectory = await FilePicker.platform
+    //     .getDirectoryPath();
 
-    if (selectedDirectory != null) {
-      final notifier = ref.read(directoryDataProvider.notifier);
-      await notifier.loadDirectoryData(selectedDirectory);
-    }
+    // if (selectedDirectory != null) {
+    //   final notifier = ref.read(directoryDataProvider.notifier);
+    //   await notifier.loadDirectoryData(selectedDirectory);
+    // }
+
+    try {
+      var res = await Permission.manageExternalStorage.status;
+      if (!res.isGranted) {
+        Permission.manageExternalStorage.request().then((onValue) async {
+          var res2 = await Permission.manageExternalStorage.status;
+          if (res2.isGranted) {
+            final String? selectedDirectory = await FilePicker.platform
+                .getDirectoryPath();
+
+            if (selectedDirectory != null) {
+              final notifier = ref.read(directoryDataProvider.notifier);
+              await notifier.loadDirectoryData(selectedDirectory);
+            }
+          }
+        });
+      } else if (res.isGranted) {
+        final String? selectedDirectory = await FilePicker.platform
+            .getDirectoryPath();
+
+        if (selectedDirectory != null) {
+          final notifier = ref.read(directoryDataProvider.notifier);
+          await notifier.loadDirectoryData(selectedDirectory);
+        }
+      }
+    } catch (exception) {}
   }
+  // Future<void> _pickDirectory(WidgetRef ref) async {
+  //   // از openDirectoryPath استفاده می کنیم که برای دسکتاپ مناسب است.
+  //   // اگر از نسخه قدیمی تر استفاده می کنید ممکن است مجبور شوید از openFile استفاده کنید
+  //   // و انتظار داشته باشید که خروجی یک دایرکتوری باشد.
+  //   final String? selectedDirectory = await getDirectoryPath();
+
+  //   if (selectedDirectory != null) {
+  //     // شروع لودینگ داده ها با استفاده از ناتیفایر
+  //     final notifier = ref.read(directoryDataProvider.notifier);
+  //     await notifier.loadDirectoryData(selectedDirectory);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
