@@ -1,5 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+// import 'package:just_audio/just_audio.dart';
 
 // 1. مدل داده (Data Model)
 class TextSegment {
@@ -27,7 +29,7 @@ class _InteractiveTextDisplayState extends State<InteractiveTextDisplay> {
   final List<TextSegment> conversationData = [
     TextSegment(text: "Customer: Yes, I'm "),
     TextSegment(
-      text: "**(1) looking for a gift**",
+      text: "(1) looking for a gift",
       isInteractive: true,
       translation: "دنبال یک هدیه هستم",
       explanation:
@@ -36,13 +38,21 @@ class _InteractiveTextDisplayState extends State<InteractiveTextDisplay> {
     TextSegment(text: " for my sister. She's going to be 18 next week. "),
     TextSegment(text: "Sales assistant: Do you "),
     TextSegment(
-      text: "**(2) have anything particular in mind**",
+      text: "(2) have anything particular in mind",
       isInteractive: true,
       translation: "مورد خاصی در ذهن دارید",
       explanation: "این اصطلاح به معنای \"تصور خاصی از چیزی داشتن\" است.",
     ),
     TextSegment(text: " — a necklace, perhaps?"),
   ];
+
+  bool isLoading = true;
+  final audioPlayer = AudioPlayer();
+  String? currentAudioUrl;
+  bool isAudioPlaying = false;
+  double audioPosition = 0.0;
+  double audioDuration = 1.0;
+
   @override
   void initState() {
     super.initState();
@@ -163,5 +173,52 @@ class _InteractiveTextDisplayState extends State<InteractiveTextDisplay> {
         );
       },
     );
+  }
+
+  void _initAudioPlayer() {
+    audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+      if (mounted) {
+        setState(() {
+          isAudioPlaying = state == PlayerState.playing;
+        });
+      }
+    });
+
+    audioPlayer.onDurationChanged.listen((Duration duration) {
+      if (mounted) {
+        setState(() {
+          audioDuration = duration.inMilliseconds.toDouble();
+        });
+      }
+    });
+
+    audioPlayer.onPositionChanged.listen((Duration position) {
+      if (mounted) {
+        setState(() {
+          audioPosition = position.inMilliseconds.toDouble();
+        });
+      }
+    });
+  }
+
+  Future<void> _playAudio(String localPath) async {
+    await audioPlayer.play(DeviceFileSource(localPath));
+    if (mounted) {
+      setState(() {
+        currentAudioUrl = localPath;
+      });
+    }
+  }
+
+  Future<void> _togglePlayPause() async {
+    if (isAudioPlaying) {
+      await audioPlayer.pause();
+    } else {
+      await audioPlayer.resume();
+    }
+  }
+
+  Future<void> _seek(double value) async {
+    await audioPlayer.seek(Duration(milliseconds: value.toInt()));
   }
 }
