@@ -60,7 +60,11 @@ class DirectoryPickerScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.folder_open),
-            onPressed: asyncData.isLoading ? null : () => _pickDirectory(ref),
+            onPressed: asyncData.isLoading
+                ? null
+                : () {
+                    _pickDirectory(ref);
+                  },
           ),
         ],
       ),
