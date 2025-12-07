@@ -44,11 +44,6 @@ class FileTraversalService {
     final subjects = <Subject>[];
 
     for (final subjectDir in subjectDirs) {
-      // می‌توان برای مطابقت دقیق‌تر نام پوشه‌ها فیلتر اعمال کرد
-      if (!basename(subjectDir.path).startsWith('ریاضی')) {
-        continue;
-      }
-
       // پیمایش زیرپوشه‌های درس
       final lessonDirs = subjectDir.listSync().whereType<Directory>().toList();
       final lessons = <Lesson>[];
