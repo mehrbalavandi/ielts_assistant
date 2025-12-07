@@ -22,8 +22,9 @@ class MyApp extends StatelessWidget {
       title: 'Course Navigator',
       debugShowCheckedModeBanner: false,
       // تنظیمات برای پشتیبانی زبان فارسی (راست به چپ)
-      localizationsDelegates: const [],
-      supportedLocales: const [Locale('fa', 'IR')],
+      // locale: const Locale("fa", "IR"),
+      supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
+      locale: Locale("en", "US"),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
