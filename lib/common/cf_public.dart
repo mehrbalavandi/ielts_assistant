@@ -3,7 +3,9 @@ import 'dart:io';
 
 // import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:file_selector/file_selector.dart';
+import 'package:path_provider/path_provider.dart' show getTemporaryDirectory;
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<bool> setImagesPathNewMethod(SettingsController settingsCtrl) async {
   try {
