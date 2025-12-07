@@ -1,8 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/audio_player_widget.dart';
 import 'package:ielts_assistant/common/directory_state.dart';
 import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:path/path.dart' show basename;
 // import 'realm_service.dart'; // فرض می‌کنیم RealmService تعریف شده است
 
@@ -170,26 +172,36 @@ class _TopicListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // تعداد فایل‌های صوتی موجود در این مبحث
+    final int fileCount = topic.audioFilePaths.length;
+
     return ListTile(
       contentPadding: const EdgeInsets.only(right: 32.0, left: 16.0),
-      leading: const Icon(Icons.music_note, color: Colors.indigo),
+      leading: Icon(
+        // اگر فایلی نباشد، آیکون متفاوت نمایش داده شود (اختیاری)
+        fileCount > 0 ? Icons.music_note : Icons.music_off,
+        color: fileCount > 0 ? Colors.indigo : Colors.grey,
+      ),
       title: Text('مبحث: ${topic.name}', style: const TextStyle(fontSize: 14)),
       subtitle: Text(
-        'فایل صوتی: ${basename(topic.audioFilePath)}',
+        fileCount > 0
+            ? 'تعداد فایل‌های صوتی: $fileCount' // نمایش تعداد
+            : 'فایل صوتی یافت نشد.', // پیام در صورت نبود فایل
         style: const TextStyle(fontSize: 12),
       ),
-      onTap: () async {
-        // TODO:
-        // ۱. موقعیت ذخیره شده در Realm را با استفاده از topic.realmId بخوانید.
-        // ۲. یک نمونه AudioPlayer (just_audio/audioplayers) ایجاد کنید.
-        // ۳. فایل صوتی را با موقعیت اولیه (از Realm) لود و پخش کنید.
-        // ۴. stream موقعیت پخش را برای به‌روزرسانی Realm در پس‌زمینه گوش دهید.
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('شروع پخش فایل: ${basename(topic.audioFilePath)}'),
-          ),
-        );
-      },
+      onTap: fileCount > 0
+          ? () async {
+              // ۱. لود لیست پخش
+              await ref.read(audioPlayerProvider.notifier).loadPlaylist(topic);
+
+              // ۲. نمایش ویجت پخش‌کننده
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true, // اگر ویجت بزرگ است
+                builder: (context) => AudioPlayerWidget(topic: topic),
+              );
+            }
+          : null, // اگر فایلی نباشد، دکمه غیرفعال می‌شود (null)
     );
   }
 }
