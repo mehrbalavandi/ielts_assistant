@@ -1,20 +1,17 @@
-import 'package:file_picker/file_picker.dart';
-import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/audio_player_widget.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:ielts_assistant/common/directory_state.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:path/path.dart' show basename;
-import 'package:permission_handler/permission_handler.dart';
-// import 'realm_service.dart'; // فرض می‌کنیم RealmService تعریف شده است
+
+// ایمپورت مدل‌ها و سرویس‌ها
+import 'player_display_state.dart';
+import 'mini_player_widget.dart'; // ویجت پلیر کوچک
 
 void main() {
-  runApp(
-    // استفاده از ProviderScope در بالاترین سطح برای Riverpod
-    const ProviderScope(child: MyApp()),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,10 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Course Navigator',
       debugShowCheckedModeBanner: false,
-      // تنظیمات برای پشتیبانی زبان فارسی (راست به چپ)
-      // locale: const Locale("fa", "IR"),
-      supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
-      locale: Locale("en", "US"),
+      localizationsDelegates: const [],
+      supportedLocales: const [Locale('fa', 'IR')],
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
@@ -43,58 +38,97 @@ class DirectoryPickerScreen extends ConsumerWidget {
   const DirectoryPickerScreen({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
-    // از file_picker برای انتخاب پوشه استفاده می شود
-    // final String? selectedDirectory = await FilePicker.platform
-    //     .getDirectoryPath();
+    final String? selectedDirectory = await FilePicker.platform
+        .getDirectoryPath();
 
-    // if (selectedDirectory != null) {
-    //   final notifier = ref.read(directoryDataProvider.notifier);
-    //   await notifier.loadDirectoryData(selectedDirectory);
-    // }
-
-    try {
-      var res = await Permission.manageExternalStorage.status;
-      if (!res.isGranted) {
-        Permission.manageExternalStorage.request().then((onValue) async {
-          var res2 = await Permission.manageExternalStorage.status;
-          if (res2.isGranted) {
-            final String? selectedDirectory = await FilePicker.platform
-                .getDirectoryPath();
-
-            if (selectedDirectory != null) {
-              final notifier = ref.read(directoryDataProvider.notifier);
-              await notifier.loadDirectoryData(selectedDirectory);
-            }
-          }
-        });
-      } else if (res.isGranted) {
-        final String? selectedDirectory = await FilePicker.platform
-            .getDirectoryPath();
-
-        if (selectedDirectory != null) {
-          final notifier = ref.read(directoryDataProvider.notifier);
-          await notifier.loadDirectoryData(selectedDirectory);
-        }
-      }
-    } catch (exception) {}
+    if (selectedDirectory != null) {
+      final notifier = ref.read(directoryDataProvider.notifier);
+      await notifier.loadDirectoryData(selectedDirectory);
+    }
   }
-  // Future<void> _pickDirectory(WidgetRef ref) async {
-  //   // از openDirectoryPath استفاده می کنیم که برای دسکتاپ مناسب است.
-  //   // اگر از نسخه قدیمی تر استفاده می کنید ممکن است مجبور شوید از openFile استفاده کنید
-  //   // و انتظار داشته باشید که خروجی یک دایرکتوری باشد.
-  //   final String? selectedDirectory = await getDirectoryPath();
 
-  //   if (selectedDirectory != null) {
-  //     // شروع لودینگ داده ها با استفاده از ناتیفایر
-  //     final notifier = ref.read(directoryDataProvider.notifier);
-  //     await notifier.loadDirectoryData(selectedDirectory);
-  //   }
-  // }
+  // ویجت اصلی که محتوای لیست پوشه‌ها را نمایش می‌دهد
+  Widget _buildMainContent(
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<List<Subject>> asyncData,
+    DirectoryDataNotifier notifier,
+  ) {
+    // اگر پلیر کوچک فعال است، PaddingBottom را برای جلوگیری از همپوشانی اضافه کنید
+    final isMinimized =
+        ref.watch(playerDisplayProvider) == PlayerDisplayMode.minimized;
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: 16.0,
+          bottom: isMinimized ? 70.0 : 16.0, // 70 پیکسل برای پلیر کوچک
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (notifier.rootDirectoryPath != null)
+              Text(
+                'مسیر ریشه: ${basename(notifier.rootDirectoryPath!)}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: asyncData.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (error, stack) => Center(child: Text('خطا: $error')),
+                data: (subjects) {
+                  if (subjects.isEmpty) {
+                    return Center(
+                      child: Text(
+                        notifier.rootDirectoryPath == null
+                            ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
+                            : 'ساختار مورد نظر یافت نشد.',
+                      ),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: subjects.length,
+                    itemBuilder: (context, index) {
+                      return _SubjectExpansionTile(subject: subjects[index]);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // متد ساخت ویجت پلیر شناور در Stack
+  Widget _buildPlayerWidget(
+    WidgetRef ref,
+    PlayerDisplayMode mode,
+    Topic topic,
+  ) {
+    // در این ساختار، پلیر بزرگ به صورت Modal نمایش داده می‌شود و نه به عنوان یک ویجت در Stack
+    // بنابراین، ما فقط حالت Minimized را در Stack قرار می‌دهیم.
+    if (mode == PlayerDisplayMode.minimized) {
+      return Positioned(
+        top: 0, // قرارگیری در بالای Stack
+        left: 0,
+        right: 0,
+        child: MiniPlayerWidget(topic: topic),
+      );
+    }
+    return const SizedBox.shrink();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(directoryDataProvider);
     final notifier = ref.read(directoryDataProvider.notifier);
+    final displayMode = ref.watch(playerDisplayProvider);
+    final topic = ref.watch(currentPlayingTopicProvider); // مبحث در حال پخش
 
     return Scaffold(
       appBar: AppBar(
@@ -102,63 +136,34 @@ class DirectoryPickerScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.folder_open),
-            onPressed: asyncData.isLoading
-                ? null
-                : () {
-                    _pickDirectory(ref);
-                  },
+            onPressed: asyncData.isLoading ? null : () => _pickDirectory(ref),
           ),
+          // دکمه باز کردن پلیر کوچک اگر در حالت minimized باشد و روی صفحه نیست
+          if (displayMode != PlayerDisplayMode.hidden &&
+              displayMode != PlayerDisplayMode.minimized)
+            IconButton(
+              icon: const Icon(Icons.music_note),
+              onPressed: ref.read(playerDisplayProvider.notifier).minimize,
+            ),
         ],
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl, // جهت متن
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (notifier.rootDirectoryPath != null)
-                Text(
-                  'مسیر ریشه: ${basename(notifier.rootDirectoryPath!)}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              const SizedBox(height: 16),
-              Expanded(
-                // مدیریت حالت‌های لودینگ، خطا و داده با استفاده از asyncData.when
-                child: asyncData.when(
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
-                  error: (error, stack) => Center(child: Text('خطا: $error')),
-                  data: (subjects) {
-                    if (subjects.isEmpty) {
-                      return Center(
-                        child: Text(
-                          notifier.rootDirectoryPath == null
-                              ? 'لطفاً پوشه ریشه را انتخاب کنید.'
-                              : 'ساختار مورد نظر یافت نشد.',
-                        ),
-                      );
-                    }
+      // استفاده از Stack برای همپوشانی محتوای اصلی و پلیر شناور
+      body: Stack(
+        children: [
+          // ۱. محتوای اصلی صفحه
+          _buildMainContent(context, ref, asyncData, notifier),
 
-                    // نمایش فهرست کتاب‌ها (ریاضی ۱، ۲، ...)
-                    return ListView.builder(
-                      itemCount: subjects.length,
-                      itemBuilder: (context, index) {
-                        return _SubjectExpansionTile(subject: subjects[index]);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
+          // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
+          if (displayMode != PlayerDisplayMode.hidden && topic != null)
+            _buildPlayerWidget(ref, displayMode, topic),
+        ],
       ),
     );
   }
 }
 
-// ویجت سطح ۱: نمایش کتاب و دروس با ExpansionTile
+// --- ویجت‌های پیمایش (بدون تغییر عمده) ---
+
 class _SubjectExpansionTile extends StatelessWidget {
   final Subject subject;
   const _SubjectExpansionTile({required this.subject});
@@ -172,7 +177,6 @@ class _SubjectExpansionTile extends StatelessWidget {
           subject.name,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-        // لیست دروس (Level 2)
         children: subject.lessons.map((lesson) {
           return _LessonExpansionTile(lesson: lesson);
         }).toList(),
@@ -181,7 +185,6 @@ class _SubjectExpansionTile extends StatelessWidget {
   }
 }
 
-// ویجت سطح ۲: نمایش درس و مباحث آن با ExpansionTile
 class _LessonExpansionTile extends StatelessWidget {
   final Lesson lesson;
   const _LessonExpansionTile({required this.lesson});
@@ -196,7 +199,6 @@ class _LessonExpansionTile extends StatelessWidget {
           'درس: ${lesson.name}',
           style: const TextStyle(fontSize: 16),
         ),
-        // لیست مباحث (Level 3)
         children: lesson.topics.map((topic) {
           return _TopicListTile(topic: topic);
         }).toList(),
@@ -205,43 +207,45 @@ class _LessonExpansionTile extends StatelessWidget {
   }
 }
 
-// ویجت سطح ۳: نمایش مبحث نهایی و فایل‌های آن با ListTile
 class _TopicListTile extends ConsumerWidget {
   final Topic topic;
   const _TopicListTile({required this.topic});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // تعداد فایل‌های صوتی موجود در این مبحث
     final int fileCount = topic.audioFilePaths.length;
 
     return ListTile(
       contentPadding: const EdgeInsets.only(right: 32.0, left: 16.0),
       leading: Icon(
-        // اگر فایلی نباشد، آیکون متفاوت نمایش داده شود (اختیاری)
         fileCount > 0 ? Icons.music_note : Icons.music_off,
         color: fileCount > 0 ? Colors.indigo : Colors.grey,
       ),
       title: Text('مبحث: ${topic.name}', style: const TextStyle(fontSize: 14)),
       subtitle: Text(
         fileCount > 0
-            ? 'تعداد فایل‌های صوتی: $fileCount' // نمایش تعداد
-            : 'فایل صوتی یافت نشد.', // پیام در صورت نبود فایل
+            ? 'تعداد فایل‌های صوتی: $fileCount'
+            : 'فایل صوتی یافت نشد.',
         style: const TextStyle(fontSize: 12),
       ),
       onTap: fileCount > 0
           ? () async {
-              // ۱. لود لیست پخش
-              await ref.read(audioPlayerProvider.notifier).loadPlaylist(topic);
-
-              // ۲. نمایش ویجت پخش‌کننده
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true, // اگر ویجت بزرگ است
-                builder: (context) => AudioPlayerWidget(topic: topic),
+              final audioNotifier = ref.read(audioPlayerProvider.notifier);
+              final displayNotifier = ref.read(playerDisplayProvider.notifier);
+              final currentTopicNotifier = ref.read(
+                currentPlayingTopicProvider.notifier,
               );
+
+              // ۱. لود لیست پخش و شروع پخش
+              await audioNotifier.loadPlaylist(topic);
+
+              // ۲. ذخیره مبحث در حال پخش
+              currentTopicNotifier.state = topic;
+
+              // ۳. تغییر حالت نمایش به کوچک و شناور
+              displayNotifier.minimize();
             }
-          : null, // اگر فایلی نباشد، دکمه غیرفعال می‌شود (null)
+          : null,
     );
   }
 }
