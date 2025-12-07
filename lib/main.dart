@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ielts_assistant/interactive_text_display.dart';
 
 void main() {
-  runApp(InteractiveTextDisplay());
+  runApp(const MaterialApp(home: InteractiveTextDisplay()));
 }
 
 class MyApp extends StatelessWidget {

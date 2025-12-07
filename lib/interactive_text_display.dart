@@ -16,9 +16,14 @@ class TextSegment {
   });
 }
 
-// 2. ویجت اصلی برای نمایش مکالمه
-class InteractiveTextDisplay extends StatelessWidget {
-  // مثال داده‌های ورودی (بخشی از مکالمه شما)
+class InteractiveTextDisplay extends StatefulWidget {
+  const InteractiveTextDisplay({super.key});
+
+  @override
+  State<InteractiveTextDisplay> createState() => _InteractiveTextDisplayState();
+}
+
+class _InteractiveTextDisplayState extends State<InteractiveTextDisplay> {
   final List<TextSegment> conversationData = [
     TextSegment(text: "Customer: Yes, I'm "),
     TextSegment(
@@ -38,8 +43,10 @@ class InteractiveTextDisplay extends StatelessWidget {
     ),
     TextSegment(text: " — a necklace, perhaps?"),
   ];
-
-  InteractiveTextDisplay({super.key});
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,12 +165,3 @@ class InteractiveTextDisplay extends StatelessWidget {
     );
   }
 }
-
-// برای اجرای این ویجت، آن را در تابع main() خود به صورت زیر فراخوانی کنید:
-/*
-void main() {
-  runApp(const MaterialApp(
-    home: InteractiveTextDisplay(),
-  ));
-}
-*/
