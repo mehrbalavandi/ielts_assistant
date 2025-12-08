@@ -3,31 +3,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 
+// تابع کمکی برای نمایش زمان به فرمت 00:00 (اگر قبلاً تعریف نشده)
+String _formatDuration(Duration d) {
+  String twoDigits(int n) => n.toString().padLeft(2, "0");
+  final minutes = twoDigits(d.inMinutes.remainder(60));
+  final seconds = twoDigits(d.inSeconds.remainder(60));
+  return "$minutes:$seconds";
+}
+
 class AudioPlayerWidget extends ConsumerWidget {
   final Topic topic;
   const AudioPlayerWidget({required this.topic, super.key});
-
-  // تابع کمکی برای نمایش زمان به فرمت 00:00
-  String _formatDuration(Duration d) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    final minutes = twoDigits(d.inMinutes.remainder(60));
-    final seconds = twoDigits(d.inSeconds.remainder(60));
-    return "$minutes:$seconds";
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final audioState = ref.watch(audioPlayerProvider);
     final notifier = ref.read(audioPlayerProvider.notifier);
 
-    // لود کردن لیست پخش مبحث هنگام اولین بار مشاهده
-    // این منطق بهتر است در onTap دکمه در صفحه قبل باشد یا از طریق یک متد lifecycle اجرا شود.
-    // در اینجا برای سادگی در اولین بیلد قرار داده شده:
-    // Future.microtask(() => notifier.loadPlaylist(topic));
+    // وضعیت حلقه A-B
+    final isALoopSet = audioState.loopStart != null;
+    final isBLoopSet = audioState.loopEnd != null;
 
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Padding(
+      child: SingleChildScrollView(
+        // استفاده از SingleChildScrollView برای Modal
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -44,7 +44,6 @@ class AudioPlayerWidget extends ConsumerWidget {
               'فایل: ${audioState.currentIndex != null && topic.audioFilePaths.isNotEmpty ? topic.audioFilePaths[audioState.currentIndex!].split('/').last : '---'}',
               style: Theme.of(context).textTheme.titleSmall,
             ),
-
             // نوار پیشرفت پخش
             Slider(
               min: 0,
@@ -55,7 +54,6 @@ class AudioPlayerWidget extends ConsumerWidget {
                 notifier.seek(Duration(seconds: value.toInt()));
               },
             ),
-
             // نمایش زمان
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -110,7 +108,51 @@ class AudioPlayerWidget extends ConsumerWidget {
               ],
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
+            const Text('تکرار بخش (A-B Loop)'),
+            const Divider(),
+
+            // --- کنترل‌های تکرار A-B ---
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // دکمه A (شروع)
+                _LoopButton(
+                  label: 'A',
+                  isActive: isALoopSet,
+                  position: audioState.loopStart,
+                  onTap: () {
+                    if (isALoopSet) {
+                      notifier.setLoopStart(null); // پاک کردن A
+                    } else {
+                      notifier.setLoopStart(
+                        audioState.position,
+                      ); // تنظیم A در موقعیت فعلی
+                    }
+                  },
+                ),
+
+                const SizedBox(width: 40),
+
+                // دکمه B (پایان)
+                _LoopButton(
+                  label: 'B',
+                  isActive: isBLoopSet,
+                  position: audioState.loopEnd,
+                  onTap: () {
+                    if (isBLoopSet) {
+                      notifier.setLoopEnd(null); // پاک کردن B
+                    } else {
+                      notifier.setLoopEnd(
+                        audioState.position,
+                      ); // تنظیم B در موقعیت فعلی
+                    }
+                  },
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 20),
 
             // نمایش لیست قطعات (برای ناوبری آسان)
             SizedBox(
@@ -139,6 +181,58 @@ class AudioPlayerWidget extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// ویجت کمکی برای دکمه‌های A و B
+class _LoopButton extends StatelessWidget {
+  final String label;
+  final bool isActive;
+  final Duration? position;
+  final VoidCallback onTap;
+
+  const _LoopButton({
+    required this.label,
+    required this.isActive,
+    required this.onTap,
+    this.position,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isActive ? Colors.red : Colors.grey;
+    final positionText = position != null
+        ? _formatDuration(position!)
+        : 'تنظیم';
+
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              border: Border.all(color: color, width: isActive ? 2 : 1),
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(positionText, style: TextStyle(fontSize: 12, color: color)),
+      ],
     );
   }
 }

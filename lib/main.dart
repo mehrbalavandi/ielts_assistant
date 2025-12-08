@@ -252,7 +252,10 @@ class _TopicListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final int fileCount = topic.audioFilePaths.length;
-
+    // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
+    final audioNotifier = ref.read(audioPlayerProvider.notifier);
+    final isCurrentlyPlaying =
+        audioNotifier.currentTopic?.realmId == topic.realmId;
     return ListTile(
       contentPadding: const EdgeInsets.only(right: 32.0, left: 16.0),
       leading: Icon(
@@ -268,22 +271,21 @@ class _TopicListTile extends ConsumerWidget {
       ),
       onTap: fileCount > 0
           ? () async {
-              final audioNotifier = ref.read(audioPlayerProvider.notifier);
               final displayNotifier = ref.read(playerDisplayProvider.notifier);
               final currentTopicNotifier = ref.read(
                 currentPlayingTopicProvider.notifier,
               );
 
-              // ۱. لود لیست پخش و شروع پخش
-              await audioNotifier.loadPlaylist(topic);
+              // ۲. شرط: اگر مبحث در حال پخش نیست، آن را لود کن
+              if (!isCurrentlyPlaying) {
+                await audioNotifier.loadPlaylist(topic);
+                currentTopicNotifier.state = topic;
+              }
 
-              // ۲. ذخیره مبحث در حال پخش
-              currentTopicNotifier.state = topic;
-
-              // ۳. تغییر حالت نمایش به کوچک و شناور (برای نمایش در صفحه جدید)
+              // ۳. تغییر حالت نمایش به کوچک و شناور (این کار همیشه انجام می‌شود)
               displayNotifier.minimize();
 
-              // ۴. هدایت به صفحه محتوای درس
+              // ۴. هدایت به صفحه محتوای درس (این کار همیشه انجام می‌شود)
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => LessonContentScreen(topic: topic),
