@@ -1,43 +1,73 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/models/data_models.dart';
-import 'package:ielts_assistant/services/file_service.dart';
+import 'package:ielts_assistant/services/file_service.dart'; // استفاده از GetStorage
+// ... سایر ایمپورت‌ها: data_models.dart, file_service.dart
 
-// یک Provider برای دسترسی به سرویس پیمایش
+// کلید ذخیره‌سازی
+const String _ROOT_PATH_KEY = 'lastRootDirectoryPath';
+
+final _storageBox = GetStorage(); // نمونه GetStorage
+
 final fileTraversalServiceProvider = Provider((ref) => FileTraversalService());
 
-// نوتیفایر برای نگهداری و بارگذاری داده‌های ساختار پوشه
+// تعریف StateNotifier برای مدیریت داده های برنامه
 class DirectoryDataNotifier extends AsyncNotifier<List<Subject>> {
   String? _rootDirectoryPath;
 
   @override
   Future<List<Subject>> build() async {
-    return []; // وضعیت اولیه خالی است
+    // ۱. تلاش برای بازیابی مسیر ذخیره شده
+    final savedPath = _storageBox.read(_ROOT_PATH_KEY) as String?;
+
+    if (savedPath != null) {
+      // مسیر ذخیره شده پیدا شد. شروع پیمایش خودکار.
+
+      // حالت را به لودینگ تغییر دهید
+      state = const AsyncValue.loading();
+      _rootDirectoryPath = savedPath;
+
+      try {
+        final service = ref.read(fileTraversalServiceProvider);
+        final subjects = await service.traverseRootDirectory(savedPath);
+
+        // اگر پیمایش موفقیت آمیز بود
+        return subjects;
+      } catch (e, st) {
+        // اگر مسیر ذخیره شده دیگر معتبر نباشد (مثلاً پوشه حذف شده باشد)
+        print('Error traversing saved path: $e');
+
+        // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
+        await _storageBox.remove(_ROOT_PATH_KEY);
+        return []; // بازگشت وضعیت خالی
+      }
+    }
+
+    // اگر هیچ مسیری ذخیره نشده باشد
+    return [];
   }
 
-  // تابع اصلی برای انتخاب پوشه و لود کردن داده‌ها
+  // تابع برای انتخاب پوشه و لود کردن داده ها (قبلی)
   Future<void> loadDirectoryData(String path) async {
-    // تغییر وضعیت به لودینگ
     state = const AsyncValue.loading();
     _rootDirectoryPath = path;
 
     try {
       final service = ref.read(fileTraversalServiceProvider);
-      // فراخوانی تابع پیمایش فایل
       final subjects = await service.traverseRootDirectory(path);
 
-      // تغییر وضعیت به داده
+      // **۲. ذخیره مسیر جدید در GetStorage پس از موفقیت**
+      await _storageBox.write(_ROOT_PATH_KEY, path);
+
       state = AsyncValue.data(subjects);
     } catch (e, st) {
-      // تغییر وضعیت به خطا
-      state = AsyncValue.error('خطا در بارگذاری داده‌ها: $e', st);
+      state = AsyncValue.error(e, st);
     }
   }
 
-  // برای نمایش مسیر انتخاب شده در UI
   String? get rootDirectoryPath => _rootDirectoryPath;
 }
 
-// Provider اصلی که در UI مشاهده می‌شود
 final directoryDataProvider =
     AsyncNotifierProvider<DirectoryDataNotifier, List<Subject>>(() {
       return DirectoryDataNotifier();

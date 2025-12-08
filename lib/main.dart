@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/common/directory_state.dart';
+import 'package:ielts_assistant/common/enums.dart';
+import 'package:ielts_assistant/common/variables.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:path/path.dart' show basename;
@@ -10,7 +16,11 @@ import 'package:path/path.dart' show basename;
 import 'player_display_state.dart';
 import 'mini_player_widget.dart'; // ویجت پلیر کوچک
 
-void main() {
+Future<void> main() async {
+  debugPaintSizeEnabled =
+      false; // این خط برای اطمینان از مقداردهی اولیه فلاتر قبل از استفاده از get_storage است
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init(); // مقداردهی اولیه
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -30,19 +40,39 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
         //rtl
       ),
-      home: const DirectoryPickerScreen(),
+      home: DirectoryPickerScreen(),
     );
   }
 }
 
 class DirectoryPickerScreen extends ConsumerWidget {
-  const DirectoryPickerScreen({super.key});
+  final _storageBox = GetStorage(); // نمونه GetStorage
+  DirectoryPickerScreen({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
+    bool existPreviousPath = false;
+    String? previousPath = _storageBox.read(
+      StorageVariables.lastRootDirectoryPath.name,
+    );
+    if (previousPath != null &&
+        await Directory(
+          _storageBox.read(StorageVariables.lastRootDirectoryPath.name),
+        ).exists()) {
+      existPreviousPath = true;
+    }
     final String? selectedDirectory = await FilePicker.platform
-        .getDirectoryPath();
+        .getDirectoryPath(
+          initialDirectory: existPreviousPath ? previousPath : null,
+        );
 
     if (selectedDirectory != null) {
+      if (selectedDirectory != previousPath) {
+        await _storageBox.write(
+          StorageVariables.lastRootDirectoryPath.name,
+          selectedDirectory,
+        );
+      }
+
       final notifier = ref.read(directoryDataProvider.notifier);
       await notifier.loadDirectoryData(selectedDirectory);
     }
