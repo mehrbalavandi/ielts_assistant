@@ -21,9 +21,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Course Navigator',
+      supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
+      locale: Locale("en", "US"),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [],
-      supportedLocales: const [Locale('fa', 'IR')],
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
