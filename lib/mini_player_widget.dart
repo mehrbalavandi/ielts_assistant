@@ -28,7 +28,7 @@ class MiniPlayerWidget extends ConsumerWidget {
         builder: (context) {
           // استفاده از ویجت بزرگ قبلی (AudioPlayerWidget)
           return FractionallySizedBox(
-            heightFactor: 0.9, // 90% صفحه را بگیرد
+            heightFactor: 0.45, // 90% صفحه را بگیرد
             child: AudioPlayerWidget(topic: topic),
           );
         },
@@ -95,7 +95,7 @@ class MiniPlayerWidget extends ConsumerWidget {
               icon: const Icon(Icons.close, color: Colors.grey),
               onPressed: () {
                 notifier.stop(); // توقف پخش
-                displayNotifier.hide(); // پنهان کردن پلیر
+                // displayNotifier.hide(); // پنهان کردن پلیر
               },
             ),
           ],

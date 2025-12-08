@@ -45,7 +45,7 @@ class LessonContentScreen extends ConsumerWidget {
           // افزودن PaddingBottom به اندازه پلیر کوچک
           padding: EdgeInsets.only(
             top: 16.0,
-            bottom: isMinimized ? 70.0 : 16.0,
+            bottom: isMinimized ? 32.0 : 16.0,
           ),
           child: contentAsyncValue.when(
             loading: () => const Center(child: CircularProgressIndicator()),
