@@ -5,6 +5,9 @@ import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'player_display_state.dart';
 import 'audio_player_widget.dart'; // ویجت Modal/Maximized قبلی
 
+// ... (ایمپورت‌ها)
+// ...
+
 class MiniPlayerWidget extends ConsumerWidget {
   final Topic topic;
   const MiniPlayerWidget({required this.topic, super.key});
@@ -15,70 +18,87 @@ class MiniPlayerWidget extends ConsumerWidget {
     final notifier = ref.read(audioPlayerProvider.notifier);
     final displayNotifier = ref.read(playerDisplayProvider.notifier);
 
-    // تابع برای بزرگ کردن پلیر
+    // تابع برای بزرگ کردن پلیر (Modal نمایش داده و وضعیت را به Maximized می‌برد)
     void maximizePlayer() {
-      // ۱. تغییر حالت نمایش به maximized
       displayNotifier.maximize();
 
-      // ۲. نمایش ویجت بزرگ (Modal)
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (context) {
-          return AudioPlayerWidget(topic: topic);
+          // استفاده از ویجت بزرگ قبلی (AudioPlayerWidget)
+          return FractionallySizedBox(
+            heightFactor: 0.9, // 90% صفحه را بگیرد
+            child: AudioPlayerWidget(topic: topic),
+          );
         },
       ).then((_) {
-        // ۳. پس از بسته شدن Modal، حالت را به minimized برگردان (یا اگر پخش متوقف شد، hidden)
-        displayNotifier.minimize();
+        // پس از بسته شدن Modal
+        if (audioState.isPlaying) {
+          displayNotifier.minimize(); // اگر پخش ادامه دارد، به کوچک برگرد
+        } else {
+          displayNotifier.hide(); // در غیر این صورت، پنهان کن
+        }
       });
     }
 
+    // استفاده از Container برای تعیین ارتفاع ثابت پلیر کوچک
     return GestureDetector(
-      onTap: maximizePlayer, // با زدن روی پلیر کوچک، بزرگ می‌شود
-      child: Card(
-        margin: EdgeInsets.zero,
-        elevation: 8,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(Icons.queue_music, color: Colors.indigo),
+      onTap: maximizePlayer,
+      child: Container(
+        height: 60,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 5,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Icon(Icons.queue_music, color: Colors.indigo),
 
-              // اطلاعات قطعه
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    '${topic.name} - ${audioState.currentIndex != null ? 'قطعه ${audioState.currentIndex! + 1}' : '---'}',
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
+            // اطلاعات قطعه
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  '${topic.name} - ${audioState.currentIndex != null ? 'قطعه ${audioState.currentIndex! + 1}' : '---'}',
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
+            ),
 
-              // دکمه پخش/توقف
-              IconButton(
-                icon: Icon(
-                  audioState.isPlaying ? Icons.pause : Icons.play_arrow,
-                  color: Colors.indigo,
-                ),
-                onPressed: () {
-                  if (audioState.isPlaying) {
-                    notifier.pause();
-                  } else {
-                    notifier.play();
-                  }
-                },
+            // دکمه پخش/توقف
+            IconButton(
+              icon: Icon(
+                audioState.isPlaying ? Icons.pause : Icons.play_arrow,
+                color: Colors.indigo,
               ),
+              onPressed: () {
+                if (audioState.isPlaying) {
+                  notifier.pause();
+                } else {
+                  notifier.play();
+                }
+              },
+            ),
 
-              // دکمه بستن
-              IconButton(
-                icon: const Icon(Icons.close, color: Colors.grey),
-                onPressed: notifier.stop, // توقف کامل و پنهان شدن پلیر
-              ),
-            ],
-          ),
+            // دکمه بستن (پنهان کردن و توقف پخش)
+            IconButton(
+              icon: const Icon(Icons.close, color: Colors.grey),
+              onPressed: () {
+                notifier.stop(); // توقف پخش
+                displayNotifier.hide(); // پنهان کردن پلیر
+              },
+            ),
+          ],
         ),
       ),
     );

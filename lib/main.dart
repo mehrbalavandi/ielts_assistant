@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/common/directory_state.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/common/variables.dart';
+import 'package:ielts_assistant/lesson_content_screen.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:path/path.dart' show basename;
@@ -100,9 +101,12 @@ class DirectoryPickerScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (notifier.rootDirectoryPath != null)
-              Text(
-                'مسیر ریشه: ${basename(notifier.rootDirectoryPath!)}',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'مسیر اصلی: ${basename(notifier.rootDirectoryPath!)}',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             const SizedBox(height: 16),
             Expanded(
@@ -120,11 +124,14 @@ class DirectoryPickerScreen extends ConsumerWidget {
                     );
                   }
 
-                  return ListView.builder(
-                    itemCount: subjects.length,
-                    itemBuilder: (context, index) {
-                      return _SubjectExpansionTile(subject: subjects[index]);
-                    },
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemCount: subjects.length,
+                      itemBuilder: (context, index) {
+                        return _SubjectExpansionTile(subject: subjects[index]);
+                      },
+                    ),
                   );
                 },
               ),
@@ -273,8 +280,15 @@ class _TopicListTile extends ConsumerWidget {
               // ۲. ذخیره مبحث در حال پخش
               currentTopicNotifier.state = topic;
 
-              // ۳. تغییر حالت نمایش به کوچک و شناور
+              // ۳. تغییر حالت نمایش به کوچک و شناور (برای نمایش در صفحه جدید)
               displayNotifier.minimize();
+
+              // ۴. هدایت به صفحه محتوای درس
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => LessonContentScreen(topic: topic),
+                ),
+              );
             }
           : null,
     );
