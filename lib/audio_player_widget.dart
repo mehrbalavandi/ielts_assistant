@@ -25,7 +25,7 @@ class AudioPlayerWidget extends ConsumerWidget {
     final isBLoopSet = audioState.loopEnd != null;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: TextDirection.ltr,
       child: SingleChildScrollView(
         // استفاده از SingleChildScrollView برای Modal
         padding: const EdgeInsets.all(16.0),
@@ -40,9 +40,12 @@ class AudioPlayerWidget extends ConsumerWidget {
             const SizedBox(height: 8),
 
             // نمایش نام فایل در حال پخش
-            Text(
-              'فایل: ${audioState.currentIndex != null && topic.audioFilePaths.isNotEmpty ? topic.audioFilePaths[audioState.currentIndex!].split('/').last : '---'}',
-              style: Theme.of(context).textTheme.titleSmall,
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: Text(
+                'فایل: ${audioState.currentIndex != null && topic.audioFilePaths.isNotEmpty ? topic.audioFilePaths[audioState.currentIndex!].split('/').last : '---'}',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
             // نوار پیشرفت پخش
             Slider(
@@ -109,7 +112,10 @@ class AudioPlayerWidget extends ConsumerWidget {
             ),
 
             const SizedBox(height: 20),
-            const Text('تکرار بخش (A-B Loop)'),
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: const Text('تکرار بخش (A-B Loop)'),
+            ),
             const Divider(),
 
             // --- کنترل‌های تکرار A-B ---
@@ -152,7 +158,7 @@ class AudioPlayerWidget extends ConsumerWidget {
               ],
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 8.0),
 
             // نمایش لیست قطعات (برای ناوبری آسان)
             SizedBox(
