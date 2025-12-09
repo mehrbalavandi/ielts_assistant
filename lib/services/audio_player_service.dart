@@ -36,18 +36,25 @@ class AudioState {
     Duration? position,
     Duration? duration,
     int? currentIndex,
-    Duration? loopStart,
-    Duration? loopEnd,
+    Object? loopStart = const _Sentinel(),
+    Object? loopEnd = const _Sentinel(),
   }) {
     return AudioState(
       isPlaying: isPlaying ?? this.isPlaying,
       position: position ?? this.position,
       duration: duration ?? this.duration,
       currentIndex: currentIndex ?? this.currentIndex,
-      loopStart: loopStart ?? this.loopStart,
-      loopEnd: loopEnd ?? this.loopEnd,
+      loopStart: loopStart is _Sentinel
+          ? this.loopStart
+          : loopStart as Duration?,
+      loopEnd: loopEnd is _Sentinel ? this.loopEnd : loopEnd as Duration?,
     );
   }
+}
+
+// کلاس کمکی برای تشخیص عدم ارسال پارامتر
+class _Sentinel {
+  const _Sentinel();
 }
 
 class AudioPlayerNotifier extends StateNotifier<AudioState> {
@@ -128,7 +135,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
       _loopEnd = null;
       return;
     }
-    debugPrint('لاگ: set B To $position');
+    // debugPrint('لاگ: set B To $position');
     _loopEnd = position;
     _updateStateWithLoopPoints();
   }

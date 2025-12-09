@@ -152,9 +152,9 @@ class AudioPlayerWidget extends ConsumerWidget {
                   onTap: () {
                     if (isBLoopSet) {
                       notifier.setLoopEnd(null);
-                      debugPrint('لاگ: set B To Null');
+                      // debugPrint('لاگ: set B To Null');
                     } else {
-                      debugPrint('لاگ: set B To ${audioState.position}');
+                      // debugPrint('لاگ: set B To ${audioState.position}');
                       notifier.setLoopEnd(audioState.position);
                     }
                     // notifier.setLoopEnd(audioState.position);
