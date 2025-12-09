@@ -98,7 +98,7 @@ class LessonContentScreen extends ConsumerWidget {
                         ? Colors.deepOrange
                         : Colors.black,
                     fontWeight: item.isInteractive ? FontWeight.bold : null,
-                    fontSize: item.isInteractive ? 18.0 : 17.0,
+                    fontSize: item.isInteractive ? 17.0 : 17.0,
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {

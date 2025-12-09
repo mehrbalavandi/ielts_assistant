@@ -26,18 +26,18 @@ class MiniPlayerWidget extends ConsumerWidget {
         context: context,
         isScrollControlled: true,
         builder: (context) {
-          // استفاده از ویجت بزرگ قبلی (AudioPlayerWidget)
-          return FractionallySizedBox(
-            heightFactor: 0.45, // 90% صفحه را بگیرد
-            child: AudioPlayerWidget(topic: topic),
-          );
+          // return FractionallySizedBox(
+          //   heightFactor: 0.45, // 90% صفحه را بگیرد
+          //   child: AudioPlayerWidget(topic: topic),
+          // );
+          return AudioPlayerWidget(topic: topic);
         },
       ).then((_) {
         // پس از بسته شدن Modal
         if (audioState.isPlaying) {
           displayNotifier.minimize(); // اگر پخش ادامه دارد، به کوچک برگرد
         } else {
-          displayNotifier.hide(); // در غیر این صورت، پنهان کن
+          displayNotifier.minimize(); // در غیر این صورت، پنهان کن
         }
       });
     }
