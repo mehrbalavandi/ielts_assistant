@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/models/data_models.dart';
@@ -91,11 +92,28 @@ class LessonContentScreen extends ConsumerWidget {
 
                 return TextSpan(
                   text: item.text, // اعمال استایل بر اساس status
+                  style: TextStyle(
+                    color: item.isInteractive
+                        ? Colors.deepOrange
+                        : Colors.black,
+                    fontWeight: item.isInteractive ? FontWeight.bold : null,
+                    fontSize: item.isInteractive ? 18.0 : 17.0,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      _showPopup(context, item.translation!, item.explanation!);
+                    },
                 );
               }).toList();
               return SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: RichText(text: TextSpan(children: spans)),
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: RichText(
+                    textAlign: TextAlign.justify,
+                    text: TextSpan(children: spans),
+                  ),
+                ),
               );
             },
           ),
@@ -104,6 +122,57 @@ class LessonContentScreen extends ConsumerWidget {
 
       // پلیر کوچک در پایین صفحه (Mini Player in the Bottom)
       bottomSheet: isMinimized ? MiniPlayerWidget(topic: topic) : null,
+    );
+  }
+
+  void _showPopup(
+    BuildContext context,
+    String translation,
+    String explanation,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            '💡 معنی و توضیحات اصطلاح',
+            textDirection: TextDirection.rtl,
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'ترجمه فارسی:',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                Text(translation, textDirection: TextDirection.rtl),
+                const Divider(height: 20),
+                Text(
+                  'توضیحات تکمیلی:',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                Text(explanation, textDirection: TextDirection.rtl),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('بستن'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

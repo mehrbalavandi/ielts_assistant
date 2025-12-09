@@ -52,7 +52,6 @@ class _InteractiveTextDisplayState extends State<InteractiveTextDisplay> {
   bool isAudioPlaying = false;
   double audioPosition = 0.0;
   double audioDuration = 1.0;
-
   @override
   void initState() {
     super.initState();
