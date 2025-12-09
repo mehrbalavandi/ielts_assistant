@@ -92,20 +92,18 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
 
   void _checkLoopBoundary(Duration position) {
     if (_loopStart != null && _loopEnd != null) {
-      // اطمینان از اینکه A قبل از B است
       if (_loopStart! < _loopEnd!) {
-        // تلورانس را کمی بیشتر می‌کنیم یا مطمئن می‌شویم که دقیقاً در نقطه B پرش می‌کند
-        const threshold = Duration(milliseconds: 100); // 0.1 ثانیه
+        const threshold = Duration(milliseconds: 30);
 
-        // اگر موقعیت کنونی به نقطه پایان (B) نزدیک شد یا از آن عبور کرد
         if (position >= (_loopEnd! - threshold)) {
-          // پرش به نقطه شروع (A)
           _player.seek(_loopStart);
           // مهم: پس از پرش، باید مطمئن شویم که پخش ادامه دارد
-          if (!_player.playing) {
-            _player.play();
-          }
-          print('A-B Loop: Jumping back to ${_formatDuration(_loopStart!)}');
+          // جلوگیری از اجرای چند seek پشت هم
+          Future.delayed(Duration(milliseconds: 10), () {
+            if (!_player.playing) {
+              _player.play();
+            }
+          });
         }
       }
     }
@@ -113,21 +111,23 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
 
   // متدها برای تنظیم نقطه شروع A
   void setLoopStart(Duration? position) {
-    _loopStart = position;
-    // اگر A بعد از B تنظیم شد، B را ریست کن
-    if (_loopStart != null && _loopEnd != null && _loopStart! > _loopEnd!) {
+    if (_loopStart != null) {
       _loopEnd = null;
     }
+    _loopStart = position;
     _updateStateWithLoopPoints();
   }
 
   // متدها برای تنظیم نقطه پایان B
   void setLoopEnd(Duration? position) {
-    _loopEnd = position;
-    // اگر B قبل از A تنظیم شد، A را ریست کن
-    if (_loopStart != null && _loopEnd != null && _loopEnd! < _loopStart!) {
-      _loopStart = null;
+    if (_loopStart == null) {
+      return;
     }
+    if (position! <= _loopStart!) {
+      _loopEnd = null;
+      return;
+    }
+    _loopEnd = position;
     _updateStateWithLoopPoints();
   }
 
@@ -185,9 +185,12 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   // توقف کامل (همراه با ریست A و B)
   void stop() {
     _player.stop();
-    _loopStart = null;
-    _loopEnd = null;
-    _updateStateWithLoopPoints();
+    state = state.copyWith(
+      loopStart: null,
+      loopEnd: null,
+      isPlaying: false, // مطمئن شوید که isPlaying هم false شود
+      position: Duration.zero, // موقعیت هم ریست شود
+    );
   }
 
   void seekNext() {

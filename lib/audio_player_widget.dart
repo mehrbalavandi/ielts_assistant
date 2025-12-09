@@ -128,13 +128,14 @@ class AudioPlayerWidget extends ConsumerWidget {
                   isActive: isALoopSet,
                   position: audioState.loopStart,
                   onTap: () {
-                    if (isALoopSet) {
-                      notifier.setLoopStart(null); // پاک کردن A
-                    } else {
-                      notifier.setLoopStart(
-                        audioState.position,
-                      ); // تنظیم A در موقعیت فعلی
-                    }
+                    // if (isALoopSet) {
+                    //   notifier.setLoopStart(null); // پاک کردن A
+                    // } else {
+                    //   notifier.setLoopStart(
+                    //     audioState.position,
+                    //   ); // تنظیم A در موقعیت فعلی
+                    // }
+                    notifier.setLoopStart(audioState.position);
                   },
                 ),
 
@@ -146,13 +147,14 @@ class AudioPlayerWidget extends ConsumerWidget {
                   isActive: isBLoopSet,
                   position: audioState.loopEnd,
                   onTap: () {
-                    if (isBLoopSet) {
-                      notifier.setLoopEnd(null); // پاک کردن B
-                    } else {
-                      notifier.setLoopEnd(
-                        audioState.position,
-                      ); // تنظیم B در موقعیت فعلی
-                    }
+                    // if (isBLoopSet) {
+                    //   notifier.setLoopEnd(null); // پاک کردن B
+                    // } else {
+                    //   notifier.setLoopEnd(
+                    //     audioState.position,
+                    //   ); // تنظیم B در موقعیت فعلی
+                    // }
+                    notifier.setLoopEnd(audioState.position);
                   },
                 ),
               ],
