@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:just_audio/just_audio.dart';
@@ -123,10 +124,11 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     if (_loopStart == null) {
       return;
     }
-    if (position! <= _loopStart!) {
+    if (position != null && position <= _loopStart!) {
       _loopEnd = null;
       return;
     }
+    debugPrint('لاگ: set B To $position');
     _loopEnd = position;
     _updateStateWithLoopPoints();
   }
@@ -146,9 +148,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     _updateStateWithLoopPoints(); // به‌روزرسانی وضعیت UI
 
     // ریست کردن نقاط A و B هنگام لود لیست پخش جدید
-    _loopStart = null;
-    _loopEnd = null;
-    _updateStateWithLoopPoints();
+    state = state.copyWith(loopStart: null, loopEnd: null);
 
     final List<AudioSource> sources = topic.audioFilePaths
         .map((path) => AudioSource.uri(Uri.file(path)))

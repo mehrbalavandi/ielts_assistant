@@ -24,6 +24,9 @@ class AudioPlayerWidget extends ConsumerWidget {
     final isALoopSet = audioState.loopStart != null;
     final isBLoopSet = audioState.loopEnd != null;
 
+    // debugPrint('لاگ: isALoopSet = ${isALoopSet.toString()}');
+    // debugPrint('لاگ: isBLoopSet = ${isBLoopSet.toString()}');
+
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SingleChildScrollView(
@@ -147,14 +150,14 @@ class AudioPlayerWidget extends ConsumerWidget {
                   isActive: isBLoopSet,
                   position: audioState.loopEnd,
                   onTap: () {
-                    // if (isBLoopSet) {
-                    //   notifier.setLoopEnd(null); // پاک کردن B
-                    // } else {
-                    //   notifier.setLoopEnd(
-                    //     audioState.position,
-                    //   ); // تنظیم B در موقعیت فعلی
-                    // }
-                    notifier.setLoopEnd(audioState.position);
+                    if (isBLoopSet) {
+                      notifier.setLoopEnd(null);
+                      debugPrint('لاگ: set B To Null');
+                    } else {
+                      debugPrint('لاگ: set B To ${audioState.position}');
+                      notifier.setLoopEnd(audioState.position);
+                    }
+                    // notifier.setLoopEnd(audioState.position);
                   },
                 ),
               ],
