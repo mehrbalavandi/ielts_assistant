@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -101,7 +102,12 @@ class LessonContentScreen extends ConsumerWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      _showPopup(context, item.translation!, item.explanation!);
+                      _showPopup(
+                        context,
+                        item.text,
+                        item.translation!,
+                        item.explanation!,
+                      );
                     },
                 );
               }).toList();
@@ -127,6 +133,7 @@ class LessonContentScreen extends ConsumerWidget {
 
   void _showPopup(
     BuildContext context,
+    String text,
     String translation,
     String explanation,
   ) {
@@ -134,10 +141,11 @@ class LessonContentScreen extends ConsumerWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(
-            '💡 معنی و توضیحات اصطلاح',
-            textDirection: TextDirection.rtl,
-          ),
+          title: Text(
+            text,
+            textDirection: TextDirection.ltr,
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ), //! 💡
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -150,7 +158,8 @@ class LessonContentScreen extends ConsumerWidget {
                   textDirection: TextDirection.rtl,
                 ),
                 Text(translation, textDirection: TextDirection.rtl),
-                const Divider(height: 20),
+                SizedBox(height: 16.0),
+                // const Divider(height: 20),
                 Text(
                   'توضیحات تکمیلی:',
                   style: const TextStyle(
@@ -165,7 +174,13 @@ class LessonContentScreen extends ConsumerWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('بستن'),
+              child: Text(
+                'بستن',
+                style: TextStyle(
+                  fontFamily: FontFamily.yekanBakhBold.asText,
+                  fontSize: 16.0,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
