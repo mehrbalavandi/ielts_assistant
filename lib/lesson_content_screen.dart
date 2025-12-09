@@ -7,16 +7,50 @@ import 'dart:io';
 import 'player_display_state.dart';
 import 'mini_player_widget.dart'; // ویجت پلیر کوچک
 
+class TextSegment {
+  final String text;
+  final bool isInteractive;
+  final String? translation; // ترجمه فارسی
+  final String? explanation; // توضیحات تکمیلی
+
+  TextSegment({
+    required this.text,
+    required this.isInteractive,
+    this.translation,
+    this.explanation,
+  });
+
+  factory TextSegment.fromJson(Map<String, dynamic> json) {
+    return TextSegment(
+      text: json['text'] as String,
+      isInteractive: json['isInteractive'] as bool,
+      translation: json['translation'] as String?,
+      explanation: json['explanation'] as String?,
+    );
+  }
+}
+
 // Provider برای نگه داشتن متن درس لود شده
-final lessonContentProvider =
-    FutureProvider.family<Map<String, dynamic>, String>((ref, jsonPath) async {
-      final file = File(jsonPath);
-      if (!await file.exists()) {
-        throw Exception('فایل JSON درس یافت نشد.');
-      }
-      final contents = await file.readAsString();
-      return jsonDecode(contents) as Map<String, dynamic>;
-    });
+final lessonContentProvider = FutureProvider.family<List<TextSegment>, String>((
+  ref,
+  jsonPath,
+) async {
+  final file = File(jsonPath);
+  if (!await file.exists()) {
+    throw Exception('فایل JSON درس یافت نشد.');
+  }
+  final contents = await file.readAsString();
+
+  // return jsonDecode(contents) as Map<String, dynamic>;
+  // 2. دیکد کردن JSON
+  // فرض می‌کنیم که فایل یک لیست JSON از اشیاء است.
+  final List<dynamic> jsonList = jsonDecode(contents);
+
+  // 3. تبدیل به لیست مدل‌های StatusItem
+  return jsonList
+      .map((json) => TextSegment.fromJson(json as Map<String, dynamic>))
+      .toList();
+});
 
 class LessonContentScreen extends ConsumerWidget {
   final Topic topic;
@@ -52,23 +86,16 @@ class LessonContentScreen extends ConsumerWidget {
             error: (e, st) =>
                 Center(child: Text('خطا در بارگذاری محتوای درس: $e')),
             data: (data) {
+              final List<TextSpan> spans = data.map((item) {
+                // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+
+                return TextSpan(
+                  text: item.text, // اعمال استایل بر اساس status
+                );
+              }).toList();
               return SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // فرض می‌کنیم کلیدهای 'title' و 'content' در JSON وجود دارند
-                    Text(
-                      data['title'] ?? 'عنوان نامشخص',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    const Divider(height: 32),
-                    Text(
-                      data['content'] ?? 'متن درس نامشخص',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
+                child: RichText(text: TextSpan(children: spans)),
               );
             },
           ),
