@@ -90,21 +90,22 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     });
   }
 
-  // منطق اصلی چک کردن نقطه پایان B و پرش به A
   void _checkLoopBoundary(Duration position) {
     if (_loopStart != null && _loopEnd != null) {
       // اطمینان از اینکه A قبل از B است
       if (_loopStart! < _loopEnd!) {
-        // تلورانس کوچک برای جلوگیری از عبور ناگهانی و توقف پخش
-        const threshold = Duration(milliseconds: 50);
+        // تلورانس را کمی بیشتر می‌کنیم یا مطمئن می‌شویم که دقیقاً در نقطه B پرش می‌کند
+        const threshold = Duration(milliseconds: 100); // 0.1 ثانیه
 
         // اگر موقعیت کنونی به نقطه پایان (B) نزدیک شد یا از آن عبور کرد
         if (position >= (_loopEnd! - threshold)) {
           // پرش به نقطه شروع (A)
           _player.seek(_loopStart);
-          print(
-            'A-B Loop: Jumping from ${_formatDuration(_loopEnd!)} to ${_formatDuration(_loopStart!)}',
-          );
+          // مهم: پس از پرش، باید مطمئن شویم که پخش ادامه دارد
+          if (!_player.playing) {
+            _player.play();
+          }
+          print('A-B Loop: Jumping back to ${_formatDuration(_loopStart!)}');
         }
       }
     }
@@ -139,6 +140,10 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   Future<void> loadPlaylist(Topic topic) async {
     _currentTopic = topic;
     await _player.stop();
+    // ✅ ریست کردن نقاط A و B هنگام لود لیست پخش جدید
+    _loopStart = null;
+    _loopEnd = null;
+    _updateStateWithLoopPoints(); // به‌روزرسانی وضعیت UI
 
     // ریست کردن نقاط A و B هنگام لود لیست پخش جدید
     _loopStart = null;
@@ -185,8 +190,22 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     _updateStateWithLoopPoints();
   }
 
-  void seekNext() => _player.seekToNext();
-  void seekPrevious() => _player.seekToPrevious();
+  void seekNext() {
+    _player.seekToNext();
+    // ✅ ریست A و B پس از پرش به قطعه جدید
+    _loopStart = null;
+    _loopEnd = null;
+    _updateStateWithLoopPoints();
+  }
+
+  void seekPrevious() {
+    _player.seekToPrevious();
+    // ✅ ریست A و B پس از پرش به قطعه جدید
+    _loopStart = null;
+    _loopEnd = null;
+    _updateStateWithLoopPoints();
+  }
+
   void seek(Duration position) => _player.seek(position);
   void skipToItem(int index) => _player.seek(Duration.zero, index: index);
 
