@@ -277,6 +277,15 @@ class _SubTopicListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final int fileCount = subTopic.audioFilePaths.length;
+
+    final bool hasAudio = fileCount > 0;
+    final bool hasContent =
+        subTopic.jsonFilePathEnglish.isNotEmpty &&
+        subTopic.jsonFilePathTranslation.isNotEmpty; // ✅ چک کردن وجود فایل JSON
+
+    // ✅ مبحث فعال است اگر فایل صوتی یا فایل محتوا داشته باشد
+    final bool isSelectable = hasAudio || hasContent;
+
     // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
     final audioNotifier = ref.read(audioPlayerProvider.notifier);
     final isCurrentlyPlaying =
@@ -297,23 +306,44 @@ class _SubTopicListTile extends ConsumerWidget {
             : 'فایل صوتی یافت نشد.',
         style: const TextStyle(fontSize: 12),
       ),
-      onTap: fileCount > 0
+      onTap:
+          isSelectable // ✅ استفاده از شرط جدید
           ? () async {
               final displayNotifier = ref.read(playerDisplayProvider.notifier);
               final currentTopicNotifier = ref.read(
                 currentPlayingTopicProvider.notifier,
               );
 
-              // ۲. شرط: اگر مبحث در حال پخش نیست، آن را لود کن
-              if (!isCurrentlyPlaying) {
-                await audioNotifier.loadPlaylist(subTopic);
-                currentTopicNotifier.state = subTopic;
+              // ----------------------------------------------------
+              // ۱. مدیریت پخش و وضعیت پلیر
+              // ----------------------------------------------------
+
+              if (hasAudio) {
+                // الف. اگر فایل صوتی دارد:
+                if (!isCurrentlyPlaying) {
+                  // اگر در حال پخش نیست، لود و پخش کن
+                  await audioNotifier.loadPlaylist(subTopic);
+                  currentTopicNotifier.state = subTopic;
+                }
+                // پلیر را در حالت کوچک نمایش بده (برای پخش)
+                displayNotifier.minimize();
+              } else {
+                // ب. اگر فایل صوتی ندارد (فقط محتوا دارد):
+
+                // اگر پلیر در حال پخش هر فایل دیگری است، آن را متوقف کن
+                if (audioNotifier.currentTopic != null &&
+                    audioNotifier.currentTopic?.realmId != subTopic.realmId) {
+                  audioNotifier.stop();
+                }
+
+                // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
+                displayNotifier.hide();
               }
 
-              // ۳. تغییر حالت نمایش به کوچک و شناور (این کار همیشه انجام می‌شود)
-              displayNotifier.minimize();
+              // ----------------------------------------------------
+              // ۲. ناوبری به صفحه LessonContentScreen
+              // ----------------------------------------------------
 
-              // ۴. هدایت به صفحه محتوای درس (این کار همیشه انجام می‌شود)
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => LessonContentScreen(subtopic: subTopic),

@@ -39,8 +39,9 @@ class FileTraversalService {
                             // ساخت شیء SubTopic و استخراج فایل‌ها و مسیر JSON
                             return SubTopic.fromDirectory(subTopicDir);
                           })
-                          .where((st) => st.audioFilePaths.isNotEmpty)
-                          .toList(); // فقط زیرمبحث‌های دارای فایل صوتی را در نظر بگیرید.
+                          // .where((st) => st.audioFilePaths.isNotEmpty)
+                          // .toList(); // فقط زیرمبحث‌های دارای فایل صوتی را در نظر بگیرید.
+                          .toList(); // همه زیرمبحث‌ها را در نظر بگیرید.
 
                       // ساخت ParentTopic، فقط اگر حداقل یک SubTopic معتبر داشته باشد
                       return ParentTopic(

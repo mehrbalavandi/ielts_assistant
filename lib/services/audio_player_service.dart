@@ -147,6 +147,9 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
 
   // لود کردن و پخش لیست صوت
   Future<void> loadPlaylist(SubTopic topic) async {
+    if (topic.audioFilePaths.isEmpty) {
+      return;
+    }
     _currentTopic = topic;
     await _player.stop();
     // ✅ ریست کردن نقاط A و B هنگام لود لیست پخش جدید

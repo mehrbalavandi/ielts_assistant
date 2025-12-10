@@ -29,21 +29,37 @@ class SubTopic {
   final String name;
   final String realmId; // شناسه منحصر به فرد (مسیر کامل پوشه)
   final List<String> audioFilePaths;
-  final String jsonFilePath; // مسیر فایل متنی درس
+  final String jsonFilePathEnglish; // مسیر فایل متنی درس
+  final String jsonFilePathTranslation; // مسیر فایل متنی ترجمه درس
 
   SubTopic({
     required this.name,
     required this.realmId,
     required this.audioFilePaths,
-    required this.jsonFilePath,
+    required this.jsonFilePathEnglish,
+    required this.jsonFilePathTranslation,
   });
 
   // تابع کمکی برای پیدا کردن فایل JSON و جلوگیری از خطای StateError
   // اگر فایل پیدا نشود، null برمی‌گرداند.
-  static FileSystemEntity? _findJsonFile(List<FileSystemEntity> fileList) {
+  static FileSystemEntity? _findJsonFileEnglish(
+    List<FileSystemEntity> fileList,
+  ) {
     try {
       // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('.json'));
+      return fileList.firstWhere((f) => f.path.endsWith('english.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
+  }
+
+  static FileSystemEntity? _findJsonFileTranslation(
+    List<FileSystemEntity> fileList,
+  ) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('translation.json'));
     } on StateError {
       // اگر هیچ فایلی با پسوند .json پیدا نشد
       return null;
@@ -61,17 +77,24 @@ class SubTopic {
         .toList();
 
     // ۲. استخراج فایل JSON
-    final jsonFileEntity = _findJsonFile(files);
+    final jsonFileEntityEnglish = _findJsonFileEnglish(files);
 
     // ۳. مدیریت خطای Null: دسترسی شرطی به 'path'
     // اگر jsonFileEntity برابر null باشد، jsonFilePath یک رشته خالی خواهد بود.
-    final jsonFilePath = jsonFileEntity?.path ?? '';
+    final jsonFilePathEnglish = jsonFileEntityEnglish?.path ?? '';
+    // ۲. استخراج فایل JSON
+    final jsonFileEntityTranslation = _findJsonFileTranslation(files);
+
+    // ۳. مدیریت خطای Null: دسترسی شرطی به 'path'
+    // اگر jsonFileEntity برابر null باشد، jsonFilePath یک رشته خالی خواهد بود.
+    final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
 
     return SubTopic(
       name: basename(subTopicDir.path),
       realmId: subTopicDir.path, // مسیر کامل پوشه به عنوان ID
       audioFilePaths: audioFiles.cast<String>(),
-      jsonFilePath: jsonFilePath,
+      jsonFilePathEnglish: jsonFilePathEnglish,
+      jsonFilePathTranslation: jsonFilePathTranslation,
     );
   }
 }

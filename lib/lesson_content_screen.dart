@@ -66,7 +66,7 @@ class LessonContentScreen extends ConsumerWidget {
 
     // لود محتوای JSON
     final contentAsyncValue = ref.watch(
-      lessonContentProvider(subtopic.jsonFilePath),
+      lessonContentProvider(subtopic.jsonFilePathEnglish),
     );
 
     return Scaffold(
