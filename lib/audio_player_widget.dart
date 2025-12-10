@@ -101,20 +101,7 @@ class AudioPlayerWidget extends ConsumerWidget {
                   icon: // در AudioPlayerWidget یا MiniPlayerWidget، به جای IconButton:
                   GestureDetector(
                     onTap: notifier.toggleRepeatMode,
-                    child: Container(
-                      padding: const EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        color: loopMode != LoopMode.off
-                            ? Colors.blue.withOpacity(0.2)
-                            : Colors
-                                  .transparent, // رنگ پس‌زمینه کم‌رنگ در حالت فعال
-                        shape: BoxShape.circle,
-                        border: loopMode != LoopMode.off
-                            ? Border.all(color: Colors.blue, width: 1.5)
-                            : null, // حاشیه در حالت فعال
-                      ),
-                      child: Icon(repeatIcon, color: repeatColor, size: 30.0),
-                    ),
+                    child: Icon(repeatIcon, color: repeatColor, size: 30.0),
                   ),
                   iconSize: 30.0,
                   onPressed: notifier.toggleRepeatMode, // فراخوانی متد جدید

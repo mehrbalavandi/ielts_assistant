@@ -30,15 +30,15 @@ class MiniPlayerWidget extends ConsumerWidget {
     switch (loopMode) {
       case LoopMode.off:
         repeatIcon = Icons.repeat;
-        repeatColor = Colors.white70; // رنگ خاکستری روشن برای حالت خاموش
+        repeatColor = Colors.grey; // رنگ خاکستری روشن برای حالت خاموش
         break;
       case LoopMode.one:
         repeatIcon = Icons.repeat_one_on;
-        repeatColor = Colors.blue;
+        repeatColor = Colors.indigo;
         break;
       case LoopMode.all:
         repeatIcon = Icons.repeat_on;
-        repeatColor = Colors.blue;
+        repeatColor = Colors.indigo;
         break;
     }
     // تابع برای بزرگ کردن پلیر (Modal نمایش داده و وضعیت را به Maximized می‌برد)
@@ -117,20 +117,7 @@ class MiniPlayerWidget extends ConsumerWidget {
               icon: // در AudioPlayerWidget یا MiniPlayerWidget، به جای IconButton:
               GestureDetector(
                 onTap: notifier.toggleRepeatMode,
-                child: Container(
-                  padding: const EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    color: loopMode != LoopMode.off
-                        ? Colors.blue.withOpacity(0.2)
-                        : Colors
-                              .transparent, // رنگ پس‌زمینه کم‌رنگ در حالت فعال
-                    shape: BoxShape.circle,
-                    border: loopMode != LoopMode.off
-                        ? Border.all(color: Colors.blue, width: 1.5)
-                        : null, // حاشیه در حالت فعال
-                  ),
-                  child: Icon(repeatIcon, color: repeatColor, size: 30.0),
-                ),
+                child: Icon(repeatIcon, color: repeatColor, size: 30.0),
               ),
               iconSize: 20.0, // اندازه کوچک‌تر برای مینی‌پلیر
               onPressed: notifier.toggleRepeatMode, // فراخوانی متد سرویس

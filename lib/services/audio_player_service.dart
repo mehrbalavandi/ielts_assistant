@@ -55,6 +55,7 @@ class AudioState {
           ? this.loopStart
           : loopStart as Duration?,
       loopEnd: loopEnd is _Sentinel ? this.loopEnd : loopEnd as Duration?,
+      loopMode: loopMode ?? this.loopMode,
     );
   }
 }
