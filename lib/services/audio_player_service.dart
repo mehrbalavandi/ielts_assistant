@@ -59,7 +59,7 @@ class _Sentinel {
 
 class AudioPlayerNotifier extends StateNotifier<AudioState> {
   final AudioPlayer _player = AudioPlayer();
-  Topic? _currentTopic;
+  SubTopic? _currentTopic;
 
   // متغیرهای داخلی برای نگهداری نقاط A و B
   Duration? _loopStart;
@@ -146,7 +146,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   }
 
   // لود کردن و پخش لیست صوت
-  Future<void> loadPlaylist(Topic topic) async {
+  Future<void> loadPlaylist(SubTopic topic) async {
     _currentTopic = topic;
     await _player.stop();
     // ✅ ریست کردن نقاط A و B هنگام لود لیست پخش جدید
@@ -220,7 +220,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   void skipToItem(int index) => _player.seek(Duration.zero, index: index);
 
   // Getter برای دسترسی به مبحث در حال پخش در UI
-  Topic? get currentTopic => _currentTopic;
+  SubTopic? get currentTopic => _currentTopic;
 
   @override
   void dispose() {

@@ -46,6 +46,7 @@ dependencies:
   audioplayers: ^6.5.1
   file_picker: ^10.3.7
   flutter_localization: ^0.3.3
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

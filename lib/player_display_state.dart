@@ -24,4 +24,4 @@ final playerDisplayProvider =
 
 // این یک Provider ساده برای نگه داشتن مبحث در حال پخش است
 // اگرچه این بهتر است در audio_player_service مدیریت شود، اما برای دسترسی آسان به UI اینجا تعریف می‌شود
-final currentPlayingTopicProvider = StateProvider<Topic?>((ref) => null);
+final currentPlayingTopicProvider = StateProvider<SubTopic?>((ref) => null);

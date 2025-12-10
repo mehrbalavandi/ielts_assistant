@@ -146,7 +146,7 @@ class DirectoryPickerScreen extends ConsumerWidget {
   Widget _buildPlayerWidget(
     WidgetRef ref,
     PlayerDisplayMode mode,
-    Topic topic,
+    SubTopic subTopic,
   ) {
     // در این ساختار، پلیر بزرگ به صورت Modal نمایش داده می‌شود و نه به عنوان یک ویجت در Stack
     // بنابراین، ما فقط حالت Minimized را در Stack قرار می‌دهیم.
@@ -155,7 +155,7 @@ class DirectoryPickerScreen extends ConsumerWidget {
         top: 0, // قرارگیری در بالای Stack
         left: 0,
         right: 0,
-        child: MiniPlayerWidget(topic: topic),
+        child: MiniPlayerWidget(subTopic: subTopic),
       );
     }
     return const SizedBox.shrink();
@@ -200,7 +200,29 @@ class DirectoryPickerScreen extends ConsumerWidget {
   }
 }
 
-// --- ویجت‌های پیمایش (بدون تغییر عمده) ---
+// ۱. ویجت جدید برای Parent Topic (جایگزین _TopicListTile قبلی)
+class _ParentTopicExpansionTile extends StatelessWidget {
+  final ParentTopic parentTopic;
+  const _ParentTopicExpansionTile({required this.parentTopic});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 32.0),
+      child: ExpansionTile(
+        tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        title: Text(
+          'مبحث اصلی: ${parentTopic.name}',
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ),
+        children: parentTopic.subTopics.map((subTopic) {
+          // هدایت به ویجت نهایی SubTopic (جایگزین _TopicListTile قبلی)
+          return _SubTopicListTile(subTopic: subTopic);
+        }).toList(),
+      ),
+    );
+  }
+}
 
 class _SubjectExpansionTile extends StatelessWidget {
   final Subject subject;
@@ -237,32 +259,38 @@ class _LessonExpansionTile extends StatelessWidget {
           'درس: ${lesson.name}',
           style: const TextStyle(fontSize: 16),
         ),
-        children: lesson.topics.map((topic) {
-          return _TopicListTile(topic: topic);
+        children: lesson.topics.map((parentTopic) {
+          // درس شامل لیست ParentTopic است
+          return _ParentTopicExpansionTile(
+            parentTopic: parentTopic,
+          ); // فراخوانی ویجت جدید
         }).toList(),
       ),
     );
   }
 }
 
-class _TopicListTile extends ConsumerWidget {
-  final Topic topic;
-  const _TopicListTile({required this.topic});
+class _SubTopicListTile extends ConsumerWidget {
+  final SubTopic subTopic;
+  const _SubTopicListTile({required this.subTopic});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int fileCount = topic.audioFilePaths.length;
+    final int fileCount = subTopic.audioFilePaths.length;
     // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
     final audioNotifier = ref.read(audioPlayerProvider.notifier);
     final isCurrentlyPlaying =
-        audioNotifier.currentTopic?.realmId == topic.realmId;
+        audioNotifier.currentTopic?.realmId == subTopic.realmId;
     return ListTile(
       contentPadding: const EdgeInsets.only(right: 32.0, left: 16.0),
       leading: Icon(
         fileCount > 0 ? Icons.music_note : Icons.music_off,
         color: fileCount > 0 ? Colors.indigo : Colors.grey,
       ),
-      title: Text('مبحث: ${topic.name}', style: const TextStyle(fontSize: 14)),
+      title: Text(
+        'مبحث: ${subTopic.name}',
+        style: const TextStyle(fontSize: 14),
+      ),
       subtitle: Text(
         fileCount > 0
             ? 'تعداد فایل‌های صوتی: $fileCount'
@@ -278,8 +306,8 @@ class _TopicListTile extends ConsumerWidget {
 
               // ۲. شرط: اگر مبحث در حال پخش نیست، آن را لود کن
               if (!isCurrentlyPlaying) {
-                await audioNotifier.loadPlaylist(topic);
-                currentTopicNotifier.state = topic;
+                await audioNotifier.loadPlaylist(subTopic);
+                currentTopicNotifier.state = subTopic;
               }
 
               // ۳. تغییر حالت نمایش به کوچک و شناور (این کار همیشه انجام می‌شود)
@@ -288,7 +316,7 @@ class _TopicListTile extends ConsumerWidget {
               // ۴. هدایت به صفحه محتوای درس (این کار همیشه انجام می‌شود)
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => LessonContentScreen(topic: topic),
+                  builder: (context) => LessonContentScreen(subtopic: subTopic),
                 ),
               );
             }

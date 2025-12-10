@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:collection/collection.dart';
 
 class Subject {
   final String name;
@@ -11,66 +12,125 @@ class Subject {
 // مدل برای دروس درون هر کتاب
 class Lesson {
   final String name;
-  final List<Topic> topics;
+  final List<ParentTopic> topics;
   Lesson({required this.name, required this.topics});
 }
 
-class Topic {
+// کلاس مبحث اصلی (Parent Topic) که اکنون شامل لیستی از زیرمبحث‌ها است
+class ParentTopic {
   final String name;
-  final List<String> audioFilePaths; // تغییر: لیست مسیرهای صوتی
-  final String jsonFilePath;
-  final String txtFilePath;
-  final String realmId;
+  final List<SubTopic> subTopics; // ✅ لیست زیرمبحث‌ها
 
-  Topic({
+  ParentTopic({required this.name, required this.subTopics});
+}
+
+// کلاس نهایی که فایل‌های صوتی و JSON را در خود دارد (سطح نهایی پیمایش)
+class SubTopic {
+  final String name;
+  final String realmId; // شناسه منحصر به فرد (مسیر کامل پوشه)
+  final List<String> audioFilePaths;
+  final String jsonFilePath; // مسیر فایل متنی درس
+
+  SubTopic({
     required this.name,
+    required this.realmId,
     required this.audioFilePaths,
     required this.jsonFilePath,
-    required this.txtFilePath,
-    required this.realmId,
   });
 
-  factory Topic.fromDirectory(Directory topicDir) {
-    debugPrint('--- Checking Topic: ${topicDir.path}');
-    final files = topicDir.listSync(recursive: false);
-    debugPrint('Found items: ${files.length}');
-
-    // ۲. ببینید مسیر فایل MP3 شما چه شکلی است (اگر پیدایش نکرده):
-    for (var f in files) {
-      if (f.path.endsWith('.mp3') || f.path.endsWith('.MP3')) {
-        debugPrint('--- YES! MP3 found: ${f.path}');
-      } else {
-        debugPrint('--- Item: ${f.path} (NOT AUDIO)');
-      }
+  // تابع کمکی برای پیدا کردن فایل JSON و جلوگیری از خطای StateError
+  // اگر فایل پیدا نشود، null برمی‌گرداند.
+  static FileSystemEntity? _findJsonFile(List<FileSystemEntity> fileList) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
     }
-    // استخراج تمامی فایل‌های صوتی موجود در پوشه مبحث
-    final List<String> audioPaths = files
-        .where(
-          (f) =>
-              f.path.endsWith('.mp3') ||
-              f.path.endsWith('.m4a') ||
-              f.path.endsWith('.wav'),
-        )
+  }
+
+  // متد سازنده کارخانه‌ای برای ساخت شیء SubTopic از روی پوشه نهایی
+  factory SubTopic.fromDirectory(Directory subTopicDir) {
+    final files = subTopicDir.listSync();
+
+    // ۱. استخراج مسیر فایل‌های صوتی (.mp3)
+    final audioFiles = files
+        .where((f) => f.path.endsWith('.mp3'))
         .map((f) => f.path)
         .toList();
 
-    final jsonFile = files.firstWhere(
-      (f) => f.path.endsWith('.json'),
-      orElse: () => File(''),
-    );
-    final txtFile = files.firstWhere(
-      (f) => f.path.endsWith('.txt'),
-      orElse: () => File(''),
-    );
+    // ۲. استخراج فایل JSON
+    final jsonFileEntity = _findJsonFile(files);
 
-    final realmId = topicDir.path;
-    debugPrint('Final audioPaths count: ${audioPaths.length}');
-    return Topic(
-      name: basename(topicDir.path),
-      audioFilePaths: audioPaths, // ذخیره لیست مسیرها
-      jsonFilePath: jsonFile.path,
-      txtFilePath: txtFile.path,
-      realmId: realmId,
+    // ۳. مدیریت خطای Null: دسترسی شرطی به 'path'
+    // اگر jsonFileEntity برابر null باشد، jsonFilePath یک رشته خالی خواهد بود.
+    final jsonFilePath = jsonFileEntity?.path ?? '';
+
+    return SubTopic(
+      name: basename(subTopicDir.path),
+      realmId: subTopicDir.path, // مسیر کامل پوشه به عنوان ID
+      audioFilePaths: audioFiles.cast<String>(),
+      jsonFilePath: jsonFilePath,
     );
   }
 }
+// class Topic {
+//   final String name;
+//   final List<String> audioFilePaths; // تغییر: لیست مسیرهای صوتی
+//   final String jsonFilePath;
+//   final String txtFilePath;
+//   final String realmId;
+
+//   Topic({
+//     required this.name,
+//     required this.audioFilePaths,
+//     required this.jsonFilePath,
+//     required this.txtFilePath,
+//     required this.realmId,
+//   });
+
+//   factory Topic.fromDirectory(Directory topicDir) {
+//     debugPrint('--- Checking Topic: ${topicDir.path}');
+//     final files = topicDir.listSync(recursive: false);
+//     debugPrint('Found items: ${files.length}');
+
+//     // ۲. ببینید مسیر فایل MP3 شما چه شکلی است (اگر پیدایش نکرده):
+//     for (var f in files) {
+//       if (f.path.endsWith('.mp3') || f.path.endsWith('.MP3')) {
+//         debugPrint('--- YES! MP3 found: ${f.path}');
+//       } else {
+//         debugPrint('--- Item: ${f.path} (NOT AUDIO)');
+//       }
+//     }
+//     // استخراج تمامی فایل‌های صوتی موجود در پوشه مبحث
+//     final List<String> audioPaths = files
+//         .where(
+//           (f) =>
+//               f.path.endsWith('.mp3') ||
+//               f.path.endsWith('.m4a') ||
+//               f.path.endsWith('.wav'),
+//         )
+//         .map((f) => f.path)
+//         .toList();
+
+//     final jsonFile = files.firstWhere(
+//       (f) => f.path.endsWith('.json'),
+//       orElse: () => File(''),
+//     );
+//     final txtFile = files.firstWhere(
+//       (f) => f.path.endsWith('.txt'),
+//       orElse: () => File(''),
+//     );
+
+//     final realmId = topicDir.path;
+//     debugPrint('Final audioPaths count: ${audioPaths.length}');
+//     return Topic(
+//       name: basename(topicDir.path),
+//       audioFilePaths: audioPaths, // ذخیره لیست مسیرها
+//       jsonFilePath: jsonFile.path,
+//       txtFilePath: txtFile.path,
+//       realmId: realmId,
+//     );
+//   }
+// }
