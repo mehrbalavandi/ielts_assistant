@@ -237,6 +237,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
 
   // توقف کامل (همراه با ریست A و B)
   void stop() {
+    _player.seek(Duration.zero); // ✅ اضافه کردن این خط
     _player.stop();
     state = state.copyWith(
       loopStart: null,

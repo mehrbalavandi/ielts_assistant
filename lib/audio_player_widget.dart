@@ -194,7 +194,7 @@ class AudioPlayerWidget extends ConsumerWidget {
             ),
 
             const SizedBox(height: 8.0),
-
+            /*
             // نمایش لیست قطعات (برای ناوبری آسان)
             SizedBox(
               height: 100, // محدود کردن ارتفاع
@@ -219,6 +219,7 @@ class AudioPlayerWidget extends ConsumerWidget {
                 },
               ),
             ),
+            */
           ],
         ),
       ),
