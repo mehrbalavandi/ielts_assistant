@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
+import 'package:just_audio/just_audio.dart';
 import 'player_display_state.dart';
 import 'audio_player_widget.dart'; // ویجت Modal/Maximized قبلی
 
@@ -17,7 +18,29 @@ class MiniPlayerWidget extends ConsumerWidget {
     final audioState = ref.watch(audioPlayerProvider);
     final notifier = ref.read(audioPlayerProvider.notifier);
     final displayNotifier = ref.read(playerDisplayProvider.notifier);
+    final isReadyToPlay = audioState.processingState == ProcessingState.ready;
+    final isPlaying =
+        audioState.processingState == ProcessingState.ready &&
+        audioState.isPlaying;
+    // --- منطق حالت تکرار (Repeat Mode) ---
+    final loopMode = audioState.loopMode;
+    IconData repeatIcon;
+    Color repeatColor;
 
+    switch (loopMode) {
+      case LoopMode.off:
+        repeatIcon = Icons.repeat;
+        repeatColor = Colors.white70; // رنگ خاکستری روشن برای حالت خاموش
+        break;
+      case LoopMode.one:
+        repeatIcon = Icons.repeat_one_on;
+        repeatColor = Colors.blue;
+        break;
+      case LoopMode.all:
+        repeatIcon = Icons.repeat_on;
+        repeatColor = Colors.blue;
+        break;
+    }
     // تابع برای بزرگ کردن پلیر (Modal نمایش داده و وضعیت را به Maximized می‌برد)
     void maximizePlayer() {
       displayNotifier.maximize();
@@ -89,7 +112,29 @@ class MiniPlayerWidget extends ConsumerWidget {
                 }
               },
             ),
-
+            // ✅ دکمه کنترل تکرار (Repeat)
+            IconButton(
+              icon: // در AudioPlayerWidget یا MiniPlayerWidget، به جای IconButton:
+              GestureDetector(
+                onTap: notifier.toggleRepeatMode,
+                child: Container(
+                  padding: const EdgeInsets.all(4.0),
+                  decoration: BoxDecoration(
+                    color: loopMode != LoopMode.off
+                        ? Colors.blue.withOpacity(0.2)
+                        : Colors
+                              .transparent, // رنگ پس‌زمینه کم‌رنگ در حالت فعال
+                    shape: BoxShape.circle,
+                    border: loopMode != LoopMode.off
+                        ? Border.all(color: Colors.blue, width: 1.5)
+                        : null, // حاشیه در حالت فعال
+                  ),
+                  child: Icon(repeatIcon, color: repeatColor, size: 30.0),
+                ),
+              ),
+              iconSize: 20.0, // اندازه کوچک‌تر برای مینی‌پلیر
+              onPressed: notifier.toggleRepeatMode, // فراخوانی متد سرویس
+            ),
             // دکمه بستن (پنهان کردن و توقف پخش)
             IconButton(
               icon: const Icon(Icons.close, color: Colors.grey),

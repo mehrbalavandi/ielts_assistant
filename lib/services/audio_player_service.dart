@@ -15,32 +15,39 @@ String _formatDuration(Duration d) {
 // مدل برای نگهداری وضعیت پخش کنونی (به روز رسانی شده برای A-B Loop)
 class AudioState {
   final bool isPlaying;
+  final ProcessingState processingState;
   final Duration? position;
   final Duration? duration;
   final int? currentIndex;
   final Duration? loopStart; // نقطه A
   final Duration? loopEnd; // نقطه B
+  final LoopMode loopMode;
 
   AudioState({
     this.isPlaying = false,
+    this.processingState = ProcessingState.idle,
     this.position,
     this.duration,
     this.currentIndex,
     this.loopStart,
     this.loopEnd,
+    this.loopMode = LoopMode.off, // پیش‌فرض: خاموش
   });
 
   // متد کمکی برای به روز رسانی ساده وضعیت
   AudioState copyWith({
     bool? isPlaying,
+    ProcessingState? processingState,
     Duration? position,
     Duration? duration,
     int? currentIndex,
     Object? loopStart = const _Sentinel(),
     Object? loopEnd = const _Sentinel(),
+    LoopMode? loopMode,
   }) {
     return AudioState(
       isPlaying: isPlaying ?? this.isPlaying,
+      processingState: processingState ?? this.processingState,
       position: position ?? this.position,
       duration: duration ?? this.duration,
       currentIndex: currentIndex ?? this.currentIndex,
@@ -70,6 +77,21 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   }
 
   void _initStreams() {
+    // گوش دادن به تغییر وضعیت پلیر و پردازش
+    _player.playerStateStream.listen((playerState) {
+      final isPlaying = playerState.playing;
+      // ✅ انتقال ProcessingState
+      final processingState = playerState.processingState;
+
+      state = state.copyWith(
+        isPlaying: isPlaying,
+        processingState: processingState, // ✅ به‌روزرسانی مدل
+      );
+    });
+    // ✅ اضافه کردن Stream Listener برای گوش دادن به تغییر حالت تکرار
+    _player.loopModeStream.listen((mode) {
+      state = state.copyWith(loopMode: mode);
+    });
     // گوش دادن به تغییر وضعیت پلیر
     _player.playerStateStream.listen((playerState) {
       final isPlaying = playerState.playing;
@@ -96,6 +118,26 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     _player.sequenceStateStream.listen((sequenceState) {
       state = state.copyWith(currentIndex: _player.currentIndex);
     });
+  }
+
+  void toggleRepeatMode() {
+    LoopMode nextMode;
+    switch (_player.loopMode) {
+      case LoopMode.off:
+        // اگر خاموش است، به تکرار کل لیست/قطعه بروید (بسته به نیاز شما، می‌توانیم آن را به LoopMode.one یا LoopMode.all ببرید)
+        // برای سادگی، اگر یک قطعه در حال پخش است، LoopMode.one مناسب است. اگر لیست پخش است، LoopMode.all.
+        // فرض می‌کنیم در اینجا منظور تکرار لیست پخش است:
+        nextMode = LoopMode.all;
+        break;
+      case LoopMode.one:
+      case LoopMode.all:
+        nextMode = LoopMode.off;
+        break;
+      // اگر از قابلیت Shuffle استفاده می‌کنید، ممکن است به منطق پیچیده‌تری نیاز باشد.
+      default:
+        nextMode = LoopMode.off;
+    }
+    _player.setLoopMode(nextMode);
   }
 
   void _checkLoopBoundary(Duration position) {

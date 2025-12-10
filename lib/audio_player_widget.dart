@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
+import 'package:just_audio/just_audio.dart';
 
 // تابع کمکی برای نمایش زمان به فرمت 00:00 (اگر قبلاً تعریف نشده)
 String _formatDuration(Duration d) {
@@ -19,7 +20,26 @@ class AudioPlayerWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final audioState = ref.watch(audioPlayerProvider);
     final notifier = ref.read(audioPlayerProvider.notifier);
+    // وضعیت Loop Mode
+    final loopMode = audioState.loopMode;
 
+    // تعیین آیکون و رنگ دکمه بر اساس حالت
+    IconData repeatIcon;
+    Color repeatColor;
+    switch (loopMode) {
+      case LoopMode.off:
+        repeatIcon = Icons.repeat;
+        repeatColor = Colors.grey;
+        break;
+      case LoopMode.one:
+        repeatIcon = Icons.repeat_one_on;
+        repeatColor = Colors.blue;
+        break;
+      case LoopMode.all:
+        repeatIcon = Icons.repeat_on;
+        repeatColor = Colors.blue;
+        break;
+    }
     // وضعیت حلقه A-B
     final isALoopSet = audioState.loopStart != null;
     final isBLoopSet = audioState.loopEnd != null;
@@ -76,6 +96,29 @@ class AudioPlayerWidget extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // ✅ دکمه کنترل تکرار
+                IconButton(
+                  icon: // در AudioPlayerWidget یا MiniPlayerWidget، به جای IconButton:
+                  GestureDetector(
+                    onTap: notifier.toggleRepeatMode,
+                    child: Container(
+                      padding: const EdgeInsets.all(4.0),
+                      decoration: BoxDecoration(
+                        color: loopMode != LoopMode.off
+                            ? Colors.blue.withOpacity(0.2)
+                            : Colors
+                                  .transparent, // رنگ پس‌زمینه کم‌رنگ در حالت فعال
+                        shape: BoxShape.circle,
+                        border: loopMode != LoopMode.off
+                            ? Border.all(color: Colors.blue, width: 1.5)
+                            : null, // حاشیه در حالت فعال
+                      ),
+                      child: Icon(repeatIcon, color: repeatColor, size: 30.0),
+                    ),
+                  ),
+                  iconSize: 30.0,
+                  onPressed: notifier.toggleRepeatMode, // فراخوانی متد جدید
+                ),
                 // دکمه قبلی
                 IconButton(
                   icon: const Icon(Icons.skip_previous, size: 40),
