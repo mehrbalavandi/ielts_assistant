@@ -34,11 +34,11 @@ class MiniPlayerWidget extends ConsumerWidget {
         break;
       case LoopMode.one:
         repeatIcon = Icons.repeat_one_on;
-        repeatColor = Colors.indigo;
+        repeatColor = Colors.blue;
         break;
       case LoopMode.all:
         repeatIcon = Icons.repeat_on;
-        repeatColor = Colors.indigo;
+        repeatColor = Colors.blue;
         break;
     }
     // تابع برای بزرگ کردن پلیر (Modal نمایش داده و وضعیت را به Maximized می‌برد)
