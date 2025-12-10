@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/services/lesson_content_service.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -55,6 +56,7 @@ final lessonContentProvider = FutureProvider.family<List<TextSegment>, String>((
 });
 
 class LessonContentScreen extends ConsumerWidget {
+  // class LessonContentScreen extends ConsumerStatefulWidget {
   final SubTopic subtopic;
   const LessonContentScreen({required this.subtopic, super.key});
 
@@ -66,7 +68,7 @@ class LessonContentScreen extends ConsumerWidget {
 
     // لود محتوای JSON
     final contentAsyncValue = ref.watch(
-      lessonContentProvider(subtopic.jsonFilePathEnglish),
+      lessonContentProvider(subtopic.jsonFilePath),
     );
 
     return Scaffold(
@@ -190,4 +192,120 @@ class LessonContentScreen extends ConsumerWidget {
       },
     );
   }
+
+  // @override
+  //   ConsumerState<LessonContentScreen> createState() => _LessonContentScreenState();
 }
+/*
+class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
+  // ✅ کنترلرهای اسکرول برای همگام‌سازی
+  final ScrollController _mainScrollController = ScrollController();
+  final ScrollController _translationScrollController = ScrollController();
+
+  // پرچم برای جلوگیری از لوپ اسکرول (بسیار مهم)
+  bool _scrolling = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // ✅ اتصال Listenerها برای همگام‌سازی
+    _mainScrollController.addListener(_syncScroll);
+    _translationScrollController.addListener(_syncScroll);
+  }
+
+  @override
+  void dispose() {
+    _mainScrollController.removeListener(_syncScroll);
+    _translationScrollController.removeListener(_syncScroll);
+    _mainScrollController.dispose();
+    _translationScrollController.dispose();
+    super.dispose();
+  }
+
+  void _syncScroll() {
+    if (_scrolling) return; // اگر در حال حاضر اسکرول از طریق کد انجام می‌شود، نادیده بگیر
+
+    if (_mainScrollController.hasClients && _translationScrollController.hasClients) {
+      double mainOffset = _mainScrollController.offset;
+      double transOffset = _translationScrollController.offset;
+
+      if (_mainScrollController.position.isScrollingNotifier.value) {
+        // اسکرول اصلی توسط کاربر انجام شده است
+        _scrolling = true;
+        _translationScrollController.jumpTo(mainOffset);
+      } else if (_translationScrollController.position.isScrollingNotifier.value) {
+        // اسکرول ترجمه توسط کاربر انجام شده است
+        _scrolling = true;
+        _mainScrollController.jumpTo(transOffset);
+      }
+    }
+    
+    // تأخیر کوچک برای رفع پرچم scrolling
+    Future.delayed(const Duration(milliseconds: 10)).then((_) => _scrolling = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // ✅ مشاهده وضعیت محتوای درس
+    final contentState = ref.watch(lessonContentProvider(widget.topic));
+    final notifier = ref.read(lessonContentProvider(widget.topic).notifier);
+    
+    // ... (UI ناوبری و عنوان)
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.topic.name),
+        actions: [
+          // ✅ دکمه فعال/غیرفعال کردن ترجمه
+          if (contentState.translationContent.isNotEmpty)
+            IconButton(
+              icon: Icon(
+                contentState.showTranslation ? Icons.translate_on : Icons.translate_off,
+                color: contentState.showTranslation ? Colors.blue : Colors.grey,
+              ),
+              onPressed: notifier.toggleTranslation,
+            ),
+        ],
+      ),
+      body: contentState.mainContent.isEmpty
+          ? const Center(child: CircularProgressIndicator()) // نمایش لودینگ تا بارگذاری محتوا
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: contentState.showTranslation
+                  ? _buildDualView(contentState) // نمایش دو ستونه
+                  : _buildSingleView(contentState.mainContent), // نمایش تک ستونه
+            ),
+    );
+  }
+
+  // ویجت برای نمایش تک ستونه
+  Widget _buildSingleView(String content) {
+    return SingleChildScrollView(
+      child: Text(content),
+    );
+  }
+  
+  // ✅ ویجت برای نمایش دو ستونه همگام‌سازی شده
+  Widget _buildDualView(LessonContentState contentState) {
+    return Row(
+      children: [
+        // ستون اول: متن اصلی
+        Expanded(
+          child: SingleChildScrollView(
+            controller: _mainScrollController,
+            child: Text(contentState.mainContent),
+          ),
+        ),
+        const VerticalDivider(width: 20),
+        // ستون دوم: ترجمه
+        Expanded(
+          child: SingleChildScrollView(
+            controller: _translationScrollController,
+            child: Text(contentState.translationContent),
+          ),
+        ),
+      ],
+    );
+  }
+}
+*/

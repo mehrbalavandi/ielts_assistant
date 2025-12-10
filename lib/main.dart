@@ -280,8 +280,8 @@ class _SubTopicListTile extends ConsumerWidget {
 
     final bool hasAudio = fileCount > 0;
     final bool hasContent =
-        subTopic.jsonFilePathEnglish.isNotEmpty &&
-        subTopic.jsonFilePathTranslation.isNotEmpty; // ✅ چک کردن وجود فایل JSON
+        subTopic.jsonFilePath.isNotEmpty &&
+        subTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
 
     // ✅ مبحث فعال است اگر فایل صوتی یا فایل محتوا داشته باشد
     final bool isSelectable = hasAudio || hasContent;

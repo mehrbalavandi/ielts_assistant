@@ -29,15 +29,15 @@ class SubTopic {
   final String name;
   final String realmId; // شناسه منحصر به فرد (مسیر کامل پوشه)
   final List<String> audioFilePaths;
-  final String jsonFilePathEnglish; // مسیر فایل متنی درس
-  final String jsonFilePathTranslation; // مسیر فایل متنی ترجمه درس
+  final String jsonFilePath; // مسیر فایل متنی درس
+  final String translationFilePath; // مسیر فایل متنی ترجمه درس
 
   SubTopic({
     required this.name,
     required this.realmId,
     required this.audioFilePaths,
-    required this.jsonFilePathEnglish,
-    required this.jsonFilePathTranslation,
+    required this.jsonFilePath,
+    required this.translationFilePath,
   });
 
   // تابع کمکی برای پیدا کردن فایل JSON و جلوگیری از خطای StateError
@@ -93,8 +93,8 @@ class SubTopic {
       name: basename(subTopicDir.path),
       realmId: subTopicDir.path, // مسیر کامل پوشه به عنوان ID
       audioFilePaths: audioFiles.cast<String>(),
-      jsonFilePathEnglish: jsonFilePathEnglish,
-      jsonFilePathTranslation: jsonFilePathTranslation,
+      jsonFilePath: jsonFilePathEnglish,
+      translationFilePath: jsonFilePathTranslation,
     );
   }
 }
