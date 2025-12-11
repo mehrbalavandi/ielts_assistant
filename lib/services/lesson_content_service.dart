@@ -5,6 +5,12 @@ import 'dart:io';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 
+class TextSegment {
+  final String mainText;
+  final String translationText;
+  TextSegment(this.mainText, this.translationText);
+}
+
 class LessonContentState {
   final bool showTranslation; // وضعیت نمایش ترجمه
   final String mainContent;
