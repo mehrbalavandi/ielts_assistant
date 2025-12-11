@@ -148,37 +148,36 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
 
   // ویجت برای نمایش تک ستونه (متن اصلی)
   Widget _buildSingleView(List<TextSegment> segments) {
-    // return ListView.builder(
-    //   itemCount: segments.length,
-    //   itemBuilder: (context, index) {
-    //     return Padding(
-    //       padding: const EdgeInsets.only(bottom: 12.0),
-    //       child: Text(segments[index].mainText),
-    //     );
-    //   },
-    // );
-    final List<TextSpan> spans = segments.map((item) {
-      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
-
-      return TextSpan(
-        text: item.text, // اعمال استایل بر اساس status
-        style: TextStyle(
-          color: item.isInteractive ? Colors.deepOrange : Colors.black,
-          fontWeight: item.isInteractive ? FontWeight.bold : null,
-          fontSize: item.isInteractive ? 17.0 : 17.0,
-        ),
-        recognizer: TapGestureRecognizer()
-          ..onTap = item.isInteractive
-              ? () {
-                  _showPopup(
-                    context,
-                    item.text,
-                    item.translation!,
-                    item.explanation!,
-                  );
-                }
-              : null,
-      );
+    int _interactiveIndex = 0;
+    final List<InlineSpan> spans = segments.map((item) {
+      if (item.isInteractive) {
+        return TextSpan(
+          text:
+              '(${++_interactiveIndex})${item.text}', // اعمال استایل بر اساس status
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.error,
+            fontWeight: FontWeight.bold,
+            fontSize: 20.0,
+          ),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              _showPopup(
+                context,
+                item.text,
+                item.translation!,
+                item.explanation!,
+              );
+            },
+        );
+      } else {
+        return TextSpan(
+          text: item.text, // اعمال استایل بر اساس status
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 20.0,
+          ),
+        );
+      }
     }).toList();
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -220,7 +219,7 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Directionality(
-              textDirection: TextDirection.ltr,
+              textDirection: TextDirection.rtl,
               child: RichText(
                 textAlign: TextAlign.justify,
                 text: TextSpan(children: spans),
