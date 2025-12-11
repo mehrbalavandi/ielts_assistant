@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/mini_player_widget.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/player_display_state.dart';
@@ -151,7 +153,7 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
     //     );
     //   },
     // );
-    final List<TextSpan> spans = data.map((item) {
+    final List<TextSpan> spans = segments.map((item) {
       // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
 
       return TextSpan(
@@ -185,7 +187,10 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
   }
 
   // ویجت برای نمایش دو ردیفی همگام‌سازی شده (بالا و پایین)
-  Widget _buildDualView(List<TextSegment> segments) {
+  Widget _buildDualView(
+    List<TextSegment> segments,
+    List<TranslationTextSegment> translationTextSegments,
+  ) {
     return Column(
       // ✅ تغییر به Column برای نمایش بالا و پایین
       children: [
@@ -220,6 +225,66 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  void _showPopup(
+    BuildContext context,
+    String text,
+    String translation,
+    String explanation,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            text,
+            textDirection: TextDirection.ltr,
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ), //! 💡
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'ترجمه فارسی:',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                Text(translation, textDirection: TextDirection.rtl),
+                SizedBox(height: 16.0),
+                // const Divider(height: 20),
+                Text(
+                  'توضیحات تکمیلی:',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                Text(explanation, textDirection: TextDirection.rtl),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'بستن',
+                style: TextStyle(
+                  fontFamily: FontFamily.yekanBakhBold.asText,
+                  fontSize: 16.0,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
