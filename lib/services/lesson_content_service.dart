@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -6,25 +7,63 @@ import 'package:ielts_assistant/models/data_models.dart';
 
 // مدل برای هر قطعه از متن (برای همگام‌سازی اسکرول)
 class TextSegment {
-  final String mainText;
-  final String translationText;
-  TextSegment(this.mainText, this.translationText);
+  final String text;
+  final bool isInteractive;
+  final String? translation; // ترجمه فارسی
+  final String? explanation; // توضیحات تکمیلی
+
+  TextSegment({
+    required this.text,
+    required this.isInteractive,
+    this.translation,
+    this.explanation,
+  });
+
+  factory TextSegment.fromJson(Map<String, dynamic> json) {
+    return TextSegment(
+      text: json['text'] as String,
+      isInteractive: json['isInteractive'] as bool,
+      translation: json['translation'] as String?,
+      explanation: json['explanation'] as String?,
+    );
+  }
+}
+
+class TranslationTextSegment {
+  final String text;
+  final bool isBold;
+
+  TranslationTextSegment({required this.text, required this.isBold});
+
+  factory TranslationTextSegment.fromJson(Map<String, dynamic> json) {
+    return TranslationTextSegment(
+      text: json['text'] as String,
+      isBold: json['isInteractive'] as bool,
+    );
+  }
 }
 
 // مدل وضعیت برای LessonContentScreen
 class LessonContentState {
   final bool showTranslation; // وضعیت نمایش ترجمه
-  final List<TextSegment> segments; // لیست قطعات متن و ترجمه
+  final List<TextSegment> segments; // لیست قطعات متن
+  final List<TranslationTextSegment> translationSegments; // لیست قطعات ترجمه
 
-  LessonContentState({required this.showTranslation, required this.segments});
+  LessonContentState({
+    required this.showTranslation,
+    required this.segments,
+    required this.translationSegments,
+  });
 
   LessonContentState copyWith({
     bool? showTranslation,
     List<TextSegment>? segments,
+    List<TranslationTextSegment>? translationSegments,
   }) {
     return LessonContentState(
       showTranslation: showTranslation ?? this.showTranslation,
       segments: segments ?? this.segments,
+      translationSegments: translationSegments ?? this.translationSegments,
     );
   }
 }
@@ -35,7 +74,8 @@ class LessonContentNotifier extends StateNotifier<LessonContentState> {
     : super(
         LessonContentState(
           showTranslation: false,
-          segments: const [], // لیست خالی در ابتدا
+          segments: const [],
+          translationSegments: [], // لیست خالی در ابتدا
         ),
       ) {
     _loadContent(topic);
@@ -47,34 +87,32 @@ class LessonContentNotifier extends StateNotifier<LessonContentState> {
     List<dynamic> transList = [];
 
     try {
-      // ۱. خواندن فایل اصلی
       if (topic.jsonFilePath.isNotEmpty) {
         final mainJson = await File(topic.jsonFilePath).readAsString();
         mainList = jsonDecode(mainJson);
       }
-      // ۲. خواندن فایل ترجمه
       if (topic.translationFilePath.isNotEmpty) {
         final transJson = await File(topic.translationFilePath).readAsString();
         transList = jsonDecode(transJson);
       }
     } catch (e) {
-      print('Error loading or parsing content for ${topic.name}: $e');
-      // در صورت خطا، با لیست خالی ادامه می‌دهیم
+      debugPrint('Error loading or parsing content for ${topic.name}: $e');
     }
 
-    // ۳. ساخت لیست قطعات TextSegment برای همگام‌سازی
-    final int count = mainList.length;
-    List<TextSegment> newSegments = List.generate(count, (index) {
-      final mainText = mainList[index].toString();
-      // اگر لیست ترجمه کوتاه‌تر بود، از رشته خالی استفاده می‌کنیم
-      final transText = (index < transList.length)
-          ? transList[index].toString()
-          : '';
-      return TextSegment(mainText, transText);
-    });
-
+    List<TextSegment> newSegments = mainList
+        .map((json) => TextSegment.fromJson(json as Map<String, dynamic>))
+        .toList();
+    List<TranslationTextSegment> newTranslationSegments = transList
+        .map(
+          (json) =>
+              TranslationTextSegment.fromJson(json as Map<String, dynamic>),
+        )
+        .toList();
     // به‌روزرسانی وضعیت با قطعات لود شده
-    state = state.copyWith(segments: newSegments);
+    state = state.copyWith(
+      segments: newSegments,
+      translationSegments: newTranslationSegments,
+    );
   }
 
   // متد برای فعال/غیرفعال کردن نمایش ترجمه

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/mini_player_widget.dart';
 import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/player_display_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/lesson_content_service.dart'; // import 'audio_player_widget.dart'; // برای استفاده از AudioPlayerWidget یا MiniPlayerWidget (اختیاری)
 
@@ -73,15 +75,14 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
     // ✅ دسترسی به topic از طریق widget.topic
     final contentState = ref.watch(lessonContentProvider(widget.topic));
     final notifier = ref.read(lessonContentProvider(widget.topic).notifier);
+    final displayMode = ref.watch(playerDisplayProvider);
 
     final playerState = ref.watch(audioPlayerProvider);
     // ✅ رفع خطا: دسترسی به currentTopic از طریق playerState
     final isPlayingThisTopic =
         playerState.currentTopic?.realmId == widget.topic.realmId;
 
-    final bool hasTranslation = contentState.segments.any(
-      (s) => s.translationText.isNotEmpty,
-    );
+    final bool hasTranslation = contentState.translationSegments.isNotEmpty;
 
     return Scaffold(
       appBar: AppBar(
@@ -97,6 +98,10 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
             ),
         ],
       ),
+      bottomSheet:
+          (isPlayingThisTopic && (displayMode == PlayerDisplayMode.minimized))
+          ? MiniPlayerWidget(subTopic: widget.topic)
+          : null,
       body: contentState.segments.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : Column(
@@ -137,14 +142,45 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
 
   // ویجت برای نمایش تک ستونه (متن اصلی)
   Widget _buildSingleView(List<TextSegment> segments) {
-    return ListView.builder(
-      itemCount: segments.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 12.0),
-          child: Text(segments[index].mainText),
-        );
-      },
+    // return ListView.builder(
+    //   itemCount: segments.length,
+    //   itemBuilder: (context, index) {
+    //     return Padding(
+    //       padding: const EdgeInsets.only(bottom: 12.0),
+    //       child: Text(segments[index].mainText),
+    //     );
+    //   },
+    // );
+    final List<TextSpan> spans = data.map((item) {
+      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+
+      return TextSpan(
+        text: item.text, // اعمال استایل بر اساس status
+        style: TextStyle(
+          color: item.isInteractive ? Colors.deepOrange : Colors.black,
+          fontWeight: item.isInteractive ? FontWeight.bold : null,
+          fontSize: item.isInteractive ? 17.0 : 17.0,
+        ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            _showPopup(
+              context,
+              item.text,
+              item.translation!,
+              item.explanation!,
+            );
+          },
+      );
+    }).toList();
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: RichText(
+          textAlign: TextAlign.justify,
+          text: TextSpan(children: spans),
+        ),
+      ),
     );
   }
 
