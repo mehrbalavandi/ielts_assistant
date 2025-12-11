@@ -346,7 +346,7 @@ class _SubTopicListTile extends ConsumerWidget {
 
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => LessonContentScreen(subtopic: subTopic),
+                  builder: (context) => LessonContentScreen(topic: subTopic),
                 ),
               );
             }

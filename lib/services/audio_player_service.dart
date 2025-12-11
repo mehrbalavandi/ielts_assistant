@@ -22,6 +22,7 @@ class AudioState {
   final Duration? loopStart; // نقطه A
   final Duration? loopEnd; // نقطه B
   final LoopMode loopMode;
+  final SubTopic? currentTopic;
 
   AudioState({
     this.isPlaying = false,
@@ -32,6 +33,7 @@ class AudioState {
     this.loopStart,
     this.loopEnd,
     this.loopMode = LoopMode.off, // پیش‌فرض: خاموش
+    this.currentTopic,
   });
 
   // متد کمکی برای به روز رسانی ساده وضعیت
@@ -44,6 +46,7 @@ class AudioState {
     Object? loopStart = const _Sentinel(),
     Object? loopEnd = const _Sentinel(),
     LoopMode? loopMode,
+    SubTopic? currentTopic,
   }) {
     return AudioState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -56,6 +59,7 @@ class AudioState {
           : loopStart as Duration?,
       loopEnd: loopEnd is _Sentinel ? this.loopEnd : loopEnd as Duration?,
       loopMode: loopMode ?? this.loopMode,
+      currentTopic: currentTopic ?? this.currentTopic,
     );
   }
 }
@@ -67,6 +71,9 @@ class _Sentinel {
 
 class AudioPlayerNotifier extends StateNotifier<AudioState> {
   final AudioPlayer _player = AudioPlayer();
+
+  // متغیر داخلی _currentTopic را حذف کنید یا اگر برای منطق داخلی لازم است، حفظ کنید
+  // اما برای به‌روزرسانی وضعیت از state.copyWith استفاده کنید.
   SubTopic? _currentTopic;
 
   // متغیرهای داخلی برای نگهداری نقاط A و B
@@ -193,7 +200,9 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     if (topic.audioFilePaths.isEmpty) {
       return;
     }
-    _currentTopic = topic;
+    // اگر متغیر داخلی _currentTopic را حفظ کردید:
+    // _currentTopic = topic;
+    state = state.copyWith(currentTopic: topic);
     await _player.stop();
     // ✅ ریست کردن نقاط A و B هنگام لود لیست پخش جدید
     _loopStart = null;
@@ -240,6 +249,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     _player.seek(Duration.zero); // ✅ اضافه کردن این خط
     _player.stop();
     state = state.copyWith(
+      currentTopic: null,
       loopStart: null,
       loopEnd: null,
       isPlaying: false, // مطمئن شوید که isPlaying هم false شود
