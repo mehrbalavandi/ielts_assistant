@@ -108,6 +108,7 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
+                /*
                 // ۱. نمایش پلیر (کنترل‌های اصلی)
                 if (isPlayingThisTopic)
                   // 💡 اینجا باید ویجت کنترل‌های پخش کامل شما قرار گیرد.
@@ -127,13 +128,16 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
                       ),
                     ),
                   ),
-
+*/
                 // ۲. محتوای درس (متن و ترجمه)
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: contentState.showTranslation
-                        ? _buildDualView(contentState.segments)
+                        ? _buildDualView(
+                            contentState.segments,
+                            contentState.translationSegments,
+                          )
                         : _buildSingleView(contentState.segments),
                   ),
                 ),
@@ -191,37 +195,35 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
     List<TextSegment> segments,
     List<TranslationTextSegment> translationTextSegments,
   ) {
+    final List<TextSpan> spans = translationTextSegments.map((item) {
+      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+
+      return TextSpan(
+        text: item.text, // اعمال استایل بر اساس status
+        style: TextStyle(
+          color: item.isBold ? Colors.deepOrange : Colors.black,
+          fontWeight: item.isBold ? FontWeight.bold : null,
+          fontSize: item.isBold ? 17.0 : 17.0,
+        ),
+      );
+    }).toList();
     return Column(
       // ✅ تغییر به Column برای نمایش بالا و پایین
       children: [
         // ردیف اول: متن اصلی
-        Expanded(
-          child: ListView.builder(
-            controller: _mainScrollController,
-            itemCount: segments.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: Text(
-                  segments[index].mainText,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              );
-            },
-          ),
-        ),
+        Expanded(child: _buildSingleView(segments)),
         const Divider(height: 20),
         // ردیف دوم: ترجمه
         Expanded(
-          child: ListView.builder(
-            controller: _translationScrollController, // اتصال کنترلر ترجمه
-            itemCount: segments.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: Text(segments[index].translationText),
-              );
-            },
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: RichText(
+                textAlign: TextAlign.justify,
+                text: TextSpan(children: spans),
+              ),
+            ),
           ),
         ),
       ],

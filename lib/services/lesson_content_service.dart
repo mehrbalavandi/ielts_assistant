@@ -38,7 +38,7 @@ class TranslationTextSegment {
   factory TranslationTextSegment.fromJson(Map<String, dynamic> json) {
     return TranslationTextSegment(
       text: json['text'] as String,
-      isBold: json['isInteractive'] as bool,
+      isBold: json['isBold'] as bool,
     );
   }
 }
