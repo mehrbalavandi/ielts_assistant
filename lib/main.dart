@@ -7,7 +7,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/common/directory_state.dart';
 import 'package:ielts_assistant/common/enums.dart';
-import 'package:ielts_assistant/common/variables.dart';
 import 'package:ielts_assistant/lesson_content_screen.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';

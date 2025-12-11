@@ -56,8 +56,8 @@ final lessonContentProvider = FutureProvider.family<List<TextSegment>, String>((
 
 class LessonContentScreen extends ConsumerWidget {
   // class LessonContentScreen extends ConsumerStatefulWidget {
-  final SubTopic subtopic;
-  const LessonContentScreen({required this.subtopic, super.key});
+  final SubTopic topic;
+  const LessonContentScreen({required this.topic, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -67,12 +67,12 @@ class LessonContentScreen extends ConsumerWidget {
 
     // لود محتوای JSON
     final contentAsyncValue = ref.watch(
-      lessonContentProvider(subtopic.jsonFilePath),
+      lessonContentProvider(topic.jsonFilePath),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(subtopic.name),
+        title: Text(topic.name),
         backgroundColor: Colors.indigo.shade700,
       ),
       // بدنه اصلی که متن درس را نمایش می‌دهد
@@ -128,7 +128,7 @@ class LessonContentScreen extends ConsumerWidget {
       ),
 
       // پلیر کوچک در پایین صفحه (Mini Player in the Bottom)
-      bottomSheet: isMinimized ? MiniPlayerWidget(subTopic: subtopic) : null,
+      bottomSheet: isMinimized ? MiniPlayerWidget(subTopic: topic) : null,
     );
   }
 

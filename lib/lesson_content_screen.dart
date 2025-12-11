@@ -168,14 +168,16 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
           fontSize: item.isInteractive ? 17.0 : 17.0,
         ),
         recognizer: TapGestureRecognizer()
-          ..onTap = () {
-            _showPopup(
-              context,
-              item.text,
-              item.translation!,
-              item.explanation!,
-            );
-          },
+          ..onTap = item.isInteractive
+              ? () {
+                  _showPopup(
+                    context,
+                    item.text,
+                    item.translation!,
+                    item.explanation!,
+                  );
+                }
+              : null,
       );
     }).toList();
     return SingleChildScrollView(
