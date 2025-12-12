@@ -10,6 +10,7 @@ import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/selection_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
 import 'player_display_state.dart';
@@ -20,24 +21,60 @@ class MainPageScreen extends ConsumerWidget {
   MainPageScreen({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
-    bool existPreviousPath = false;
-    String? previousPath = _storageService.getLastDirectoryPath();
-    if (previousPath != null && await Directory(previousPath).exists()) {
-      existPreviousPath = true;
-    }
-    final String? selectedDirectory = await FilePicker.platform
-        .getDirectoryPath(
-          initialDirectory: existPreviousPath ? previousPath : null,
-        );
+    try {
+      var res = await Permission.manageExternalStorage.status;
+      if (!res.isGranted) {
+        Permission.manageExternalStorage.request().then((onValue) async {
+          var res2 = await Permission.manageExternalStorage.status;
+          if (res2.isGranted) {
+            try {
+              bool existPreviousPath = false;
+              String? previousPath = _storageService.getLastDirectoryPath();
+              if (previousPath != null &&
+                  await Directory(previousPath).exists()) {
+                existPreviousPath = true;
+              }
+              final String? selectedDirectory = await FilePicker.platform
+                  .getDirectoryPath(
+                    initialDirectory: existPreviousPath ? previousPath : null,
+                  );
 
-    if (selectedDirectory != null) {
-      if (selectedDirectory != previousPath) {
-        _storageService.saveLastDirectoryPath(selectedDirectory);
+              if (selectedDirectory != null) {
+                if (selectedDirectory != previousPath) {
+                  _storageService.saveLastDirectoryPath(selectedDirectory);
+                }
+
+                final notifier = ref.read(directoryDataProvider.notifier);
+                await notifier.loadDirectoryData(selectedDirectory);
+              }
+            } catch (exception) {
+              // TODO
+            }
+          }
+        });
+      } else if (res.isGranted) {
+        try {
+          bool existPreviousPath = false;
+          String? previousPath = _storageService.getLastDirectoryPath();
+          if (previousPath != null && await Directory(previousPath).exists()) {
+            existPreviousPath = true;
+          }
+          final String? selectedDirectory = await FilePicker.platform
+              .getDirectoryPath(
+                initialDirectory: existPreviousPath ? previousPath : null,
+              );
+
+          if (selectedDirectory != null) {
+            if (selectedDirectory != previousPath) {
+              _storageService.saveLastDirectoryPath(selectedDirectory);
+            }
+
+            final notifier = ref.read(directoryDataProvider.notifier);
+            await notifier.loadDirectoryData(selectedDirectory);
+          }
+        } catch (exception) {}
       }
-
-      final notifier = ref.read(directoryDataProvider.notifier);
-      await notifier.loadDirectoryData(selectedDirectory);
-    }
+    } catch (exception) {}
   }
 
   @override
@@ -58,7 +95,11 @@ class MainPageScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.folder_open),
-            onPressed: asyncData.isLoading ? null : () => _pickDirectory(ref),
+            onPressed: asyncData.isLoading
+                ? null
+                : () {
+                    _pickDirectory(ref);
+                  },
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
