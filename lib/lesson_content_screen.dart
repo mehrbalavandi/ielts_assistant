@@ -88,6 +88,8 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(widget.topic.name), // ✅ استفاده از widget.topic.name
         actions: [
           if (hasTranslation)
