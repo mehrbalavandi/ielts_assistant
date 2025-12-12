@@ -292,9 +292,9 @@ class _SubTopicListTile extends ConsumerWidget {
     // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
     final audioNotifier = ref.read(audioPlayerProvider.notifier);
     final audioState = ref.watch(audioPlayerProvider);
-    final isCurrentlyPlaying =
-        audioNotifier.currentTopic?.realmId == subTopic.realmId &&
-        audioState.isPlaying;
+    final isCurrentlyLoaded =
+        audioState.currentTopic?.realmId == subTopic.realmId;
+    final isCurrentlyPlaying = isCurrentlyLoaded && audioState.isPlaying;
 
     final Color backgroundColor = isLastSelected
         ? Colors
