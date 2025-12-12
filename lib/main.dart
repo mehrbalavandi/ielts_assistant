@@ -11,6 +11,7 @@ import 'package:ielts_assistant/lesson_content_screen.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/selection_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
+import 'package:ielts_assistant/services/storage_service.dart';
 import 'package:path/path.dart' show basename;
 
 // ایمپورت مدل‌ها و سرویس‌ها
@@ -47,18 +48,13 @@ class MyApp extends StatelessWidget {
 }
 
 class DirectoryPickerScreen extends ConsumerWidget {
-  final _storageBox = GetStorage(); // نمونه GetStorage
+  final _storageService = StorageService();
   DirectoryPickerScreen({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
     bool existPreviousPath = false;
-    String? previousPath = _storageBox.read(
-      StorageVariables.lastRootDirectoryPath.name,
-    );
-    if (previousPath != null &&
-        await Directory(
-          _storageBox.read(StorageVariables.lastRootDirectoryPath.name),
-        ).exists()) {
+    String? previousPath = _storageService.getLastDirectoryPath();
+    if (previousPath != null && await Directory(previousPath).exists()) {
       existPreviousPath = true;
     }
     final String? selectedDirectory = await FilePicker.platform
@@ -68,10 +64,7 @@ class DirectoryPickerScreen extends ConsumerWidget {
 
     if (selectedDirectory != null) {
       if (selectedDirectory != previousPath) {
-        await _storageBox.write(
-          StorageVariables.lastRootDirectoryPath.name,
-          selectedDirectory,
-        );
+        _storageService.saveLastDirectoryPath(selectedDirectory);
       }
 
       final notifier = ref.read(directoryDataProvider.notifier);
@@ -200,10 +193,79 @@ class DirectoryPickerScreen extends ConsumerWidget {
   }
 }
 
-// ۱. ویجت جدید برای Parent Topic (جایگزین _TopicListTile قبلی)
-class _ParentTopicExpansionTile extends StatelessWidget {
+// ✅ تغییر به ConsumerStatefulWidget
+class _ParentTopicExpansionTile extends ConsumerStatefulWidget {
   final ParentTopic parentTopic;
   const _ParentTopicExpansionTile({required this.parentTopic});
+
+  @override
+  ConsumerState<_ParentTopicExpansionTile> createState() =>
+      _ParentTopicExpansionTileState();
+}
+
+class _ParentTopicExpansionTileState
+    extends ConsumerState<_ParentTopicExpansionTile> {
+  // وضعیت داخلی برای باز/بسته بودن
+  bool _isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // ۱. بررسی وضعیت آخرین SubTopic انتخاب شده
+    final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
+
+    if (lastSelectedTopic != null) {
+      // آیا آخرین انتخاب متعلق به این والد است؟
+      final isChildSelected = widget.parentTopic.subTopics.any(
+        (s) => s.realmId == lastSelectedTopic.realmId,
+      );
+
+      if (isChildSelected) {
+        _isExpanded = true;
+      }
+    }
+  }
+
+  // ✅ متد مدیریت تغییر وضعیت باز/بسته شدن
+  void _handleExpansionChange(bool expanded) {
+    setState(() {
+      _isExpanded = expanded;
+    });
+
+    // ۲. مدیریت Provider آخرین والد باز شده
+    final notifier = ref.read(lastOpenedParentIdProvider.notifier);
+
+    if (expanded) {
+      notifier.state = widget.parentTopic.realmId;
+    } else {
+      // اگر این والد بسته شد و شناسه آن در Provider بود، آن را حذف کن
+      if (notifier.state == widget.parentTopic.realmId) {
+        notifier.state = null;
+      }
+    }
+  }
+
+  // ✅ متد dispose برای ریست کردن آخرین انتخاب
+  @override
+  void dispose() {
+    // اگر این ویجت از درخت حذف شد (صفحه بسته شد) و خودش آخرین والد باز بود،
+    // یا اگر آخرین SubTopic انتخاب شده متعلق به این والد بود، آن را ریست کن.
+    final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
+    final lastOpenedParentId = ref.read(lastOpenedParentIdProvider);
+
+    if (lastOpenedParentId == widget.parentTopic.realmId ||
+        (lastSelectedTopic != null &&
+            widget.parentTopic.subTopics.any(
+              (s) => s.realmId == lastSelectedTopic.realmId,
+            ))) {
+      // ریست کردن وضعیت انتخاب و والد
+      ref.read(lastSelectedTopicProvider.notifier).state = null;
+      ref.read(lastOpenedParentIdProvider.notifier).state = null;
+    }
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,11 +274,13 @@ class _ParentTopicExpansionTile extends StatelessWidget {
       child: ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
         title: Text(
-          'مبحث اصلی: ${parentTopic.name}',
+          'مبحث اصلی: ${widget.parentTopic.name}', // ✅ استفاده از widget.parentTopic
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
         ),
-        children: parentTopic.subTopics.map((subTopic) {
-          // هدایت به ویجت نهایی SubTopic (جایگزین _TopicListTile قبلی)
+        initiallyExpanded: _isExpanded, // ✅ استفاده از وضعیت داخلی
+        onExpansionChanged: _handleExpansionChange, // ✅ متد مدیریت تغییر
+        children: widget.parentTopic.subTopics.map((subTopic) {
+          // ✅ استفاده از widget.parentTopic
           return _SubTopicListTile(subTopic: subTopic);
         }).toList(),
       ),

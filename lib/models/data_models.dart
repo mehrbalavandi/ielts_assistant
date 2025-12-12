@@ -19,9 +19,14 @@ class Lesson {
 // کلاس مبحث اصلی (Parent Topic) که اکنون شامل لیستی از زیرمبحث‌ها است
 class ParentTopic {
   final String name;
+  final String realmId;
   final List<SubTopic> subTopics; // ✅ لیست زیرمبحث‌ها
 
-  ParentTopic({required this.name, required this.subTopics});
+  ParentTopic({
+    required this.name,
+    required this.realmId,
+    required this.subTopics,
+  });
 }
 
 // کلاس نهایی که فایل‌های صوتی و JSON را در خود دارد (سطح نهایی پیمایش)

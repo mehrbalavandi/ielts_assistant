@@ -1,5 +1,3 @@
-enum StorageVariables { lastRootDirectoryPath }
-
 enum FontFamily {
   zar,
   titr,

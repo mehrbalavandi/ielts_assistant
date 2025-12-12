@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/common/enums.dart';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/services/storage_service.dart';
 
 // مدل برای هر قطعه از متن (برای همگام‌سازی اسکرول)
 class TextSegment {
@@ -43,6 +46,8 @@ class TranslationTextSegment {
   }
 }
 
+final _storageBox = GetStorage();
+
 // مدل وضعیت برای LessonContentScreen
 class LessonContentState {
   final bool showTranslation; // وضعیت نمایش ترجمه
@@ -70,10 +75,11 @@ class LessonContentState {
 
 // کلاس مدیریت وضعیت محتوای درس (Notifier)
 class LessonContentNotifier extends StateNotifier<LessonContentState> {
+  final _storageService = StorageService();
   LessonContentNotifier(SubTopic topic)
     : super(
         LessonContentState(
-          showTranslation: false,
+          showTranslation: StorageService().getShowTranslation(),
           segments: const [],
           translationSegments: [], // لیست خالی در ابتدا
         ),
@@ -117,7 +123,11 @@ class LessonContentNotifier extends StateNotifier<LessonContentState> {
 
   // متد برای فعال/غیرفعال کردن نمایش ترجمه
   void toggleTranslation() {
-    state = state.copyWith(showTranslation: !state.showTranslation);
+    final newValue = !state.showTranslation;
+    state = state.copyWith(showTranslation: newValue);
+
+    // ✅ ذخیره وضعیت جدید
+    _storageService.saveShowTranslation(newValue);
   }
 }
 

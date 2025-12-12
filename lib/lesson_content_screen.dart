@@ -100,10 +100,10 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
             ),
         ],
       ),
-      bottomSheet:
-          (isPlayingThisTopic && (displayMode == PlayerDisplayMode.minimized))
-          ? MiniPlayerWidget(subTopic: widget.topic)
-          : null,
+      // bottomSheet:
+      //     (isPlayingThisTopic && (displayMode == PlayerDisplayMode.minimized))
+      //     ? MiniPlayerWidget(subTopic: widget.topic)
+      //     : null,
       body: contentState.segments.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : Column(
@@ -141,6 +141,9 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
                         : _buildSingleView(contentState.segments),
                   ),
                 ),
+                if (isPlayingThisTopic &&
+                    (displayMode == PlayerDisplayMode.minimized))
+                  MiniPlayerWidget(subTopic: widget.topic),
               ],
             ),
     );

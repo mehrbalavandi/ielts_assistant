@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/services/storage_service.dart';
 import 'package:just_audio/just_audio.dart';
 import 'dart:async';
+import 'package:rxdart/rxdart.dart';
 
 // تابع کمکی برای نمایش زمان به فرمت 00:00 (برای استفاده در پرینت‌ها و منطق)
 String _formatDuration(Duration d) {
@@ -14,6 +17,7 @@ String _formatDuration(Duration d) {
 // مدل برای نگهداری وضعیت پخش کنونی (به روز رسانی شده برای A-B Loop)
 class AudioState {
   final bool isPlaying;
+  final bool isLoading;
   final ProcessingState processingState;
   final Duration? position;
   final Duration? duration;
@@ -25,6 +29,7 @@ class AudioState {
 
   AudioState({
     this.isPlaying = false,
+    this.isLoading = false,
     this.processingState = ProcessingState.idle,
     this.position,
     this.duration,
@@ -38,6 +43,7 @@ class AudioState {
   // متد کمکی برای به روز رسانی ساده وضعیت
   AudioState copyWith({
     bool? isPlaying,
+    bool? isLoading,
     ProcessingState? processingState,
     Duration? position,
     Duration? duration,
@@ -49,6 +55,7 @@ class AudioState {
   }) {
     return AudioState(
       isPlaying: isPlaying ?? this.isPlaying,
+      isLoading: isLoading ?? this.isLoading,
       processingState: processingState ?? this.processingState,
       position: position ?? this.position,
       duration: duration ?? this.duration,
@@ -70,9 +77,8 @@ class _Sentinel {
 
 class AudioPlayerNotifier extends StateNotifier<AudioState> {
   final AudioPlayer _player = AudioPlayer();
-
-  // متغیر داخلی _currentTopic را حذف کنید یا اگر برای منطق داخلی لازم است، حفظ کنید
-  // اما برای به‌روزرسانی وضعیت از state.copyWith استفاده کنید.
+  final _storageService = StorageService();
+  StreamSubscription? _positionSubscription;
   SubTopic? _currentTopic;
 
   // متغیرهای داخلی برای نگهداری نقاط A و B
@@ -81,6 +87,145 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
 
   AudioPlayerNotifier() : super(AudioState()) {
     _initStreams();
+    _loadSavedLoopMode();
+    _tryRecoverLastSession();
+  }
+  LoopMode _getNextLoopMode(LoopMode current) {
+    if (current == LoopMode.off) return LoopMode.all;
+    if (current == LoopMode.all) return LoopMode.one;
+    return LoopMode.off;
+  }
+
+  void _saveCurrentPosition() {
+    if (state.currentTopic != null && _player.position.inMilliseconds > 1000) {
+      _storageService.saveLastPlayedPosition(_player.position.inMilliseconds);
+    } else {
+      _storageService.saveLastPlayedPosition(0);
+    }
+  }
+
+  Future<void> _tryRecoverLastSession() async {
+    final lastTopicId = _storageService.getLastPlayedTopicId();
+    final lastPositionMs = _storageService.getLastPlayedPositionMs();
+
+    if (lastTopicId != null &&
+        lastPositionMs != null &&
+        lastPositionMs > 1000) {
+      // ۱. پیدا کردن SubTopic بر اساس realmId (نیاز به یک Repository دارید!)
+      // این بخش نیازمند دسترسی به لیست کامل دروس است
+
+      // ❗ فرض: شما متدی به نام findTopicById در Repository دارید
+      // final SubTopic? recoveredTopic = await _topicRepository.findTopicById(lastTopicId);
+
+      // 💡 برای سادگی فعلاً از یک ساختار فرضی استفاده می‌کنیم.
+      // شما باید منطق پیدا کردن SubTopic را بر اساس RealmId در اینجا پیاده کنید.
+      final SubTopic? recoveredTopic = await _findTopicByIdStub(lastTopicId);
+
+      if (recoveredTopic != null) {
+        // ۲. لود پلی‌لیست، اما بدون شروع پخش فوری
+        await _loadAndSeek(
+          recoveredTopic,
+          Duration(milliseconds: lastPositionMs),
+        );
+
+        // ۳. به‌روزرسانی وضعیت (isPlaying را true نمی‌گذاریم تا کاربر خودش تصمیم بگیرد)
+        state = state.copyWith(
+          currentTopic: recoveredTopic,
+          position: Duration(milliseconds: lastPositionMs),
+        );
+      }
+    }
+  }
+
+  Future<void> _loadAndSeek(SubTopic topic, Duration position) async {
+    if (topic.audioFilePaths.isEmpty) return;
+
+    state = state.copyWith(currentTopic: topic, isLoading: true);
+
+    final List<AudioSource> sources = topic.audioFilePaths
+        .map((path) => AudioSource.uri(Uri.file(path)))
+        .toList();
+    final ConcatenatingAudioSource playlist = ConcatenatingAudioSource(
+      children: sources,
+    );
+
+    try {
+      await _player.setAudioSource(
+        playlist,
+        initialIndex: 0,
+        initialPosition: Duration.zero,
+      );
+
+      // ذخیره realmId در storage
+      _storageService.saveLastPlayedTopicId(topic.realmId);
+
+      state = state.copyWith(
+        isLoading: false,
+        duration: _player.duration ?? Duration.zero,
+      );
+    } catch (e) {
+      print("Error loading audio sources: $e");
+      state = state.copyWith(
+        currentTopic: null,
+        isLoading: false,
+        isPlaying: false,
+      );
+    }
+  }
+
+  Future<void> loadPlaylist(SubTopic topic) async {
+    if (state.currentTopic?.realmId != topic.realmId &&
+        state.currentTopic != null) {
+      _saveCurrentPosition();
+    }
+    if (state.currentTopic?.realmId == topic.realmId) {
+      if (!state.isPlaying) {
+        play();
+      }
+      return;
+    }
+    if (topic.audioFilePaths.isEmpty) {
+      return;
+    }
+    _loopStart = null;
+    _loopEnd = null;
+    _updateStateWithLoopPoints();
+    await _loadAndSeek(topic, Duration.zero);
+    _player.play();
+  }
+
+  void _startPositionSaving() {
+    // ابتدا سابسکرایپشن قبلی را کنسل می‌کنیم
+    _positionSubscription?.cancel();
+
+    // ذخیره‌سازی موقعیت هر ۵ ثانیه یا بیشتر
+    _positionSubscription = _player.positionStream
+        .throttleTime(const Duration(seconds: 5))
+        .listen((position) {
+          if (_player.playing) {
+            _storageService.saveLastPlayedPosition(position.inMilliseconds);
+          }
+        });
+  }
+
+  void _loadSavedLoopMode() {
+    final savedModeString = _storageService.getLoopMode();
+
+    if (savedModeString != null) {
+      // تبدیل String به enum (با فرض اینکه toString() استفاده شده است)
+      LoopMode? savedMode;
+      if (savedModeString == LoopMode.off.toString()) {
+        savedMode = LoopMode.off;
+      } else if (savedModeString == LoopMode.one.toString()) {
+        savedMode = LoopMode.one;
+      } else if (savedModeString == LoopMode.all.toString()) {
+        savedMode = LoopMode.all;
+      }
+
+      if (savedMode != null) {
+        _player.setLoopMode(savedMode);
+      }
+    }
   }
 
   void _initStreams() {
@@ -98,11 +243,6 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     // ✅ اضافه کردن Stream Listener برای گوش دادن به تغییر حالت تکرار
     _player.loopModeStream.listen((mode) {
       state = state.copyWith(loopMode: mode);
-    });
-    // گوش دادن به تغییر وضعیت پلیر
-    _player.playerStateStream.listen((playerState) {
-      final isPlaying = playerState.playing;
-      state = state.copyWith(isPlaying: isPlaying);
     });
 
     // گوش دادن به تغییر موقعیت پخش و اعمال منطق A-B
@@ -125,26 +265,30 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     _player.sequenceStateStream.listen((sequenceState) {
       state = state.copyWith(currentIndex: _player.currentIndex);
     });
+
+    _player.processingStateStream.listen((state) {
+      if (state == ProcessingState.completed) {
+        // ۱. موقعیت را به ابتدای فایل برمی‌گردانیم (بدون reset کردن currentTopic)
+        _player.seek(Duration.zero);
+        _player.pause(); // متوقف کردن پخش پس از رسیدن به انتها
+
+        // ۲. موقعیت ذخیره‌شده را نیز ریست می‌کنیم (برای اجرای بعدی)
+        _storageService.saveLastPlayedPosition(0);
+
+        // ۳. به‌روزرسانی وضعیت در State (اگر لازم بود)
+        this.state = this.state.copyWith(
+          position: Duration.zero,
+          isPlaying: false,
+        );
+      }
+    });
   }
 
   void toggleRepeatMode() {
-    LoopMode nextMode;
-    switch (_player.loopMode) {
-      case LoopMode.off:
-        // اگر خاموش است، به تکرار کل لیست/قطعه بروید (بسته به نیاز شما، می‌توانیم آن را به LoopMode.one یا LoopMode.all ببرید)
-        // برای سادگی، اگر یک قطعه در حال پخش است، LoopMode.one مناسب است. اگر لیست پخش است، LoopMode.all.
-        // فرض می‌کنیم در اینجا منظور تکرار لیست پخش است:
-        nextMode = LoopMode.all;
-        break;
-      case LoopMode.one:
-      case LoopMode.all:
-        nextMode = LoopMode.off;
-        break;
-      // اگر از قابلیت Shuffle استفاده می‌کنید، ممکن است به منطق پیچیده‌تری نیاز باشد.
-      default:
-        nextMode = LoopMode.off;
-    }
+    final nextMode = _getNextLoopMode(state.loopMode);
+
     _player.setLoopMode(nextMode);
+    _storageService.saveLoopMode(nextMode.toString());
   }
 
   void _checkLoopBoundary(Duration position) {
@@ -194,66 +338,24 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     state = state.copyWith(loopStart: _loopStart, loopEnd: _loopEnd);
   }
 
-  // لود کردن و پخش لیست صوت
-  Future<void> loadPlaylist(SubTopic topic) async {
-    if (state.currentTopic?.realmId == topic.realmId) {
-      // اگر همان درس است، فرض می‌کنیم آماده پخش است.
-      // فقط مطمئن شوید که play() فراخوانی شود (اگر کاربر قصد پخش داشته باشد).
-      if (!state.isPlaying) {
-        play(); // یا هر متدی که پخش را از سر می‌گیرد
-      }
-      return; // از لود مجدد جلوگیری شود
-    }
-    if (topic.audioFilePaths.isEmpty) {
-      return;
-    }
-    // اگر متغیر داخلی _currentTopic را حفظ کردید:
-    // _currentTopic = topic;
-    state = state.copyWith(currentTopic: topic);
-    await _player.stop();
-    // ✅ ریست کردن نقاط A و B هنگام لود لیست پخش جدید
-    _loopStart = null;
-    _loopEnd = null;
-    _updateStateWithLoopPoints(); // به‌روزرسانی وضعیت UI
-
-    final List<AudioSource> sources = topic.audioFilePaths
-        .map((path) => AudioSource.uri(Uri.file(path)))
-        .toList();
-    final ConcatenatingAudioSource playlist = ConcatenatingAudioSource(
-      children: sources,
-    );
-
-    await _player.setAudioSource(
-      playlist,
-      initialIndex: 0,
-      initialPosition: Duration.zero,
-    );
+  void play() {
     _player.play();
+    state = state.copyWith(isPlaying: true);
+    _startPositionSaving(); // شروع ذخیره‌سازی پیوسته
   }
 
-  // متد ذخیره سازی پیشرفت (برای رفع خطای "متد تعریف نشده")
-  void saveProgress() {
-    if (_currentTopic != null && _player.currentIndex != null) {
-      final index = _player.currentIndex!;
-      final position = _player.position.inSeconds;
-
-      // TODO: منطق ذخیره (topicId, index, position) در GetStorage یا Realm
-      print(
-        'Saving progress for ${_currentTopic!.name}: file index $index, position $position seconds.',
-      );
-    }
+  void pause() {
+    _player.pause();
+    state = state.copyWith(isPlaying: false);
+    _saveCurrentPosition(); // ذخیره موقعیت هنگام توقف
+    _positionSubscription?.cancel(); // توقف ذخیره‌سازی پیوسته
   }
 
-  // کنترل‌های پخش
-  void play() => _player.play();
-  void pause() => _player.pause();
-
-  // توقف کامل (همراه با ریست A و B)
   void stop() {
+    _saveCurrentPosition();
     _player.seek(Duration.zero); // ✅ اضافه کردن این خط
     _player.stop();
     state = state.copyWith(
-      currentTopic: null,
       loopStart: null,
       loopEnd: null,
       isPlaying: false, // مطمئن شوید که isPlaying هم false شود
@@ -277,7 +379,12 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     _updateStateWithLoopPoints();
   }
 
-  void seek(Duration position) => _player.seek(position);
+  void seek(Duration position) {
+    _player.seek(position);
+    state = state.copyWith(position: position);
+    _saveCurrentPosition(); // ذخیره موقعیت هنگام Seek
+  }
+
   void skipToItem(int index) => _player.seek(Duration.zero, index: index);
 
   // Getter برای دسترسی به مبحث در حال پخش در UI
@@ -285,14 +392,269 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
 
   @override
   void dispose() {
-    // فراخوانی متد ذخیره قبل از حذف شدن
-    saveProgress();
+    _saveCurrentPosition();
+    _positionSubscription?.cancel();
+    _player.dispose();
+    super.dispose();
+  }
+
+  Future<SubTopic?> _findTopicByIdStub(String realmId) async {
+    // این تابع باید در دیتابیس یا لیست دروس شما جستجو کند
+    // و SubTopic مربوطه را برگرداند.
+    // اگر نتوانید این کار را انجام دهید، Recovery امکان‌پذیر نخواهد بود.
+    return null; // فعلاً همیشه null برمی‌گرداند
+  }
+}
+
+final audioPlayerProvider =
+    StateNotifierProvider<AudioPlayerNotifier, AudioState>((ref) {
+      return AudioPlayerNotifier();
+    });
+
+class AudioPlayerNotifier2 extends StateNotifier<AudioState> {
+  final _player = AudioPlayer();
+  final _storageService = StorageService();
+  StreamSubscription? _positionSubscription;
+
+  // 💡 فرض: این تابع از جای دیگری در برنامه شما SubTopic را پیدا می‌کند.
+  // شما باید این تابع را در Repository یا سرویس دیگری پیاده‌سازی کنید.
+  Future<SubTopic?> Function(String) findTopicById;
+
+  AudioPlayerNotifier2(this.findTopicById) : super(AudioState()) {
+    _initStreams();
+    _loadSavedLoopMode();
+    _tryRecoverLastSession(); // ✅ تلاش برای بازیابی موقعیت
+  }
+
+  // متد Private برای یافتن LoopMode بعدی
+  LoopMode _getNextLoopMode(LoopMode current) {
+    if (current == LoopMode.off) return LoopMode.all;
+    if (current == LoopMode.all) return LoopMode.one;
+    return LoopMode.off;
+  }
+
+  // ✅ متد کمکی برای ذخیره‌سازی نهایی موقعیت
+  void _saveCurrentPosition() {
+    // موقعیت را فقط اگر بیشتر از ۱ ثانیه پخش شده باشد، ذخیره کن
+    if (state.currentTopic != null && _player.position.inMilliseconds > 1000) {
+      _storageService.saveLastPlayedPosition(_player.position.inMilliseconds);
+    } else {
+      // در غیر این صورت، موقعیت را صفر کن
+      _storageService.saveLastPlayedPosition(0);
+    }
+  }
+
+  // -------------------------------------------------------------------
+  // I. مدیریت پخش و توقف
+  // -------------------------------------------------------------------
+
+  void play() {
+    _player.play();
+    state = state.copyWith(isPlaying: true);
+    _startPositionSaving(); // شروع ذخیره‌سازی پیوسته
+  }
+
+  void pause() {
+    _player.pause();
+    state = state.copyWith(isPlaying: false);
+    _saveCurrentPosition(); // ذخیره موقعیت هنگام توقف
+    _positionSubscription?.cancel(); // توقف ذخیره‌سازی پیوسته
+  }
+
+  void seek(Duration position) {
+    _player.seek(position);
+    state = state.copyWith(position: position);
+    _saveCurrentPosition(); // ذخیره موقعیت هنگام Seek
+  }
+
+  // ✅ اصلاح متد stop()
+  void stop() {
+    _saveCurrentPosition(); // ذخیره موقعیت قبل از توقف
+    _player.stop();
+    state = state.copyWith(isPlaying: false, position: Duration.zero);
+  }
+
+  void toggleRepeatMode() {
+    final newMode = _getNextLoopMode(state.loopMode);
+    _player.setLoopMode(newMode);
+    state = state.copyWith(loopMode: newMode);
+
+    // ذخیره وضعیت جدید
+    _storageService.saveLoopMode(newMode.toString());
+  }
+
+  // -------------------------------------------------------------------
+  // II. مدیریت لود و Recovery
+  // -------------------------------------------------------------------
+
+  // ✅ متد بارگذاری Loop Mode ذخیره شده
+  void _loadSavedLoopMode() {
+    final savedModeString = _storageService.getLoopMode();
+    if (savedModeString != null) {
+      LoopMode? savedMode;
+      // منطق تبدیل رشته به LoopMode
+      if (savedModeString == LoopMode.off.toString())
+        savedMode = LoopMode.off;
+      else if (savedModeString == LoopMode.one.toString())
+        savedMode = LoopMode.one;
+      else if (savedModeString == LoopMode.all.toString())
+        savedMode = LoopMode.all;
+
+      if (savedMode != null) {
+        _player.setLoopMode(savedMode);
+        state = state.copyWith(loopMode: savedMode);
+      }
+    }
+  }
+
+  // ✅ متد جدید: تلاش برای بازیابی آخرین جلسه پخش شده
+  Future<void> _tryRecoverLastSession() async {
+    final lastTopicId = _storageService.getLastPlayedTopicId();
+    final lastPositionMs = _storageService.getLastPlayedPositionMs();
+
+    if (lastTopicId != null && lastPositionMs != null && lastPositionMs > 0) {
+      // پیدا کردن SubTopic بر اساس realmId
+      final SubTopic? recoveredTopic = await findTopicById(lastTopicId);
+
+      if (recoveredTopic != null) {
+        await _loadAndSeek(
+          recoveredTopic,
+          Duration(milliseconds: lastPositionMs),
+        );
+
+        // به‌روزرسانی وضعیت (isPlaying را false می‌گذاریم تا کاربر خودش play را بزند)
+        state = state.copyWith(
+          currentTopic: recoveredTopic,
+          position: Duration(milliseconds: lastPositionMs),
+          isLoading: false,
+        );
+      }
+    }
+  }
+
+  // ✅ متد جدید: لود و Seek (برای استفاده در Recovery)
+  Future<void> _loadAndSeek(SubTopic topic, Duration position) async {
+    if (topic.audioFilePaths.isEmpty) return;
+
+    state = state.copyWith(currentTopic: topic, isLoading: true);
+
+    final List<AudioSource> sources = topic.audioFilePaths
+        .map((path) => AudioSource.uri(Uri.file(path)))
+        .toList();
+    final ConcatenatingAudioSource playlist = ConcatenatingAudioSource(
+      children: sources,
+    );
+
+    try {
+      await _player.setAudioSource(
+        playlist,
+        initialIndex: 0,
+        initialPosition: Duration.zero,
+      );
+
+      // ذخیره realmId در storage
+      _storageService.saveLastPlayedTopicId(topic.realmId);
+
+      state = state.copyWith(
+        isLoading: false,
+        duration: _player.duration ?? Duration.zero,
+      );
+    } catch (e) {
+      print("Error loading audio sources: $e");
+      state = state.copyWith(
+        currentTopic: null,
+        isLoading: false,
+        isPlaying: false,
+      );
+    }
+  }
+
+  // ✅ اصلاح loadPlaylist برای استفاده از منطق جدید
+  Future<void> loadPlaylist(SubTopic topic) async {
+    // اگر درس فعلی عوض می‌شود، موقعیت درس قبلی را ذخیره کن
+    if (state.currentTopic?.realmId != topic.realmId &&
+        state.currentTopic != null) {
+      _saveCurrentPosition();
+    }
+
+    // اگر همان درس است، فقط play را بزن و برگرد
+    if (state.currentTopic?.realmId == topic.realmId) {
+      if (!state.isPlaying) {
+        play();
+      }
+      return;
+    }
+
+    if (topic.audioFilePaths.isEmpty) return;
+
+    // لود و Seek از ابتدا (Position.zero)
+    await _loadAndSeek(topic, Duration.zero);
+
+    // به‌روزرسانی وضعیت و شروع پخش
+    state = state.copyWith(currentTopic: topic, position: Duration.zero);
+    play();
+  }
+
+  // -------------------------------------------------------------------
+  // III. مدیریت Streams
+  // -------------------------------------------------------------------
+
+  void _initStreams() {
+    // ۱. جریان وضعیت پخش
+    _player.playerStateStream.listen((playerState) {
+      // به‌روزرسانی isPlaying (فقط اگر کاربر به صورت دستی تغییر داده باشد)
+      state = state.copyWith(isPlaying: playerState.playing);
+    });
+
+    // ۲. جریان موقعیت
+    _player.positionStream.listen((position) {
+      state = state.copyWith(position: position);
+    });
+
+    // ۳. جریان مدت زمان کل
+    _player.durationStream.listen((duration) {
+      state = state.copyWith(duration: duration ?? Duration.zero);
+    });
+
+    // ✅ ۴. منطق ریست موقعیت پس از اتمام فایل (Completed)
+    _player.processingStateStream.listen((pState) {
+      if (pState == ProcessingState.completed) {
+        // موقعیت را به ابتدای فایل برمی‌گردانیم
+        _player.seek(Duration.zero);
+        _player.pause();
+
+        // موقعیت ذخیره‌شده را نیز ریست می‌کنیم (برای اجرای بعدی)
+        _storageService.saveLastPlayedPosition(0);
+
+        // به‌روزرسانی وضعیت در State
+        state = state.copyWith(position: Duration.zero, isPlaying: false);
+      }
+    });
+  }
+
+  // ✅ شروع ذخیره‌سازی موقعیت در حین پخش
+  void _startPositionSaving() {
+    _positionSubscription?.cancel();
+
+    // ذخیره‌سازی موقعیت هر ۵ ثانیه
+    _positionSubscription = _player.positionStream
+        .throttleTime(const Duration(seconds: 5))
+        .listen((position) {
+          // فقط کافی است ذخیره کنیم، چون شرط playing در _saveCurrentPosition چک می‌شود
+          _storageService.saveLastPlayedPosition(position.inMilliseconds);
+        });
+  }
+
+  @override
+  void dispose() {
+    _saveCurrentPosition(); // ذخیره موقعیت نهایی
+    _positionSubscription?.cancel();
     _player.dispose();
     super.dispose();
   }
 }
 
-final audioPlayerProvider =
+final audioPlayerProvider2 =
     StateNotifierProvider<AudioPlayerNotifier, AudioState>((ref) {
       return AudioPlayerNotifier();
     });

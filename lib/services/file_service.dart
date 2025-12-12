@@ -45,6 +45,7 @@ class FileTraversalService {
 
                       // ساخت ParentTopic، فقط اگر حداقل یک SubTopic معتبر داشته باشد
                       return ParentTopic(
+                        realmId: parentTopicDir.path,
                         name: basename(parentTopicDir.path),
                         subTopics: subTopics,
                       );
