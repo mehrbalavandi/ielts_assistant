@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:just_audio/just_audio.dart';
@@ -197,6 +196,14 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
 
   // لود کردن و پخش لیست صوت
   Future<void> loadPlaylist(SubTopic topic) async {
+    if (state.currentTopic?.realmId == topic.realmId) {
+      // اگر همان درس است، فرض می‌کنیم آماده پخش است.
+      // فقط مطمئن شوید که play() فراخوانی شود (اگر کاربر قصد پخش داشته باشد).
+      if (!state.isPlaying) {
+        play(); // یا هر متدی که پخش را از سر می‌گیرد
+      }
+      return; // از لود مجدد جلوگیری شود
+    }
     if (topic.audioFilePaths.isEmpty) {
       return;
     }
@@ -208,9 +215,6 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     _loopStart = null;
     _loopEnd = null;
     _updateStateWithLoopPoints(); // به‌روزرسانی وضعیت UI
-
-    // ریست کردن نقاط A و B هنگام لود لیست پخش جدید
-    state = state.copyWith(loopStart: null, loopEnd: null);
 
     final List<AudioSource> sources = topic.audioFilePaths
         .map((path) => AudioSource.uri(Uri.file(path)))

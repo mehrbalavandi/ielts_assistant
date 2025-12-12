@@ -148,12 +148,12 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
 
   // ویجت برای نمایش تک ستونه (متن اصلی)
   Widget _buildSingleView(List<TextSegment> segments) {
-    int _interactiveIndex = 0;
+    int interactiveIndex = 0;
     final List<InlineSpan> spans = segments.map((item) {
       if (item.isInteractive) {
         return TextSpan(
           text:
-              '(${++_interactiveIndex})${item.text}', // اعمال استایل بر اساس status
+              '(${++interactiveIndex})${item.text}', // اعمال استایل بر اساس status
           style: TextStyle(
             color: Theme.of(context).colorScheme.error,
             fontWeight: FontWeight.bold,

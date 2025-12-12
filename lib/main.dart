@@ -9,6 +9,7 @@ import 'package:ielts_assistant/common/directory_state.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/lesson_content_screen.dart';
 import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/selection_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:path/path.dart' show basename;
 
@@ -275,8 +276,11 @@ class _SubTopicListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int fileCount = subTopic.audioFilePaths.length;
+    // خواندن وضعیت آخرین انتخاب
+    final SubTopic? lastSelectedTopic = ref.watch(lastSelectedTopicProvider);
+    final bool isLastSelected = lastSelectedTopic?.realmId == subTopic.realmId;
 
+    final int fileCount = subTopic.audioFilePaths.length;
     final bool hasAudio = fileCount > 0;
     final bool hasContent =
         subTopic.jsonFilePath.isNotEmpty &&
@@ -287,9 +291,19 @@ class _SubTopicListTile extends ConsumerWidget {
 
     // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
     final audioNotifier = ref.read(audioPlayerProvider.notifier);
+    final audioState = ref.watch(audioPlayerProvider);
     final isCurrentlyPlaying =
-        audioNotifier.currentTopic?.realmId == subTopic.realmId;
+        audioNotifier.currentTopic?.realmId == subTopic.realmId &&
+        audioState.isPlaying;
+
+    final Color backgroundColor = isLastSelected
+        ? Colors
+              .yellow
+              .shade100 // رنگ متمایز کننده برای آخرین انتخاب
+        : Colors.transparent; // رنگ عادی
+
     return ListTile(
+      tileColor: backgroundColor,
       contentPadding: const EdgeInsets.only(right: 32.0, left: 16.0),
       leading: Icon(
         fileCount > 0 ? Icons.music_note : Icons.music_off,
@@ -305,26 +319,18 @@ class _SubTopicListTile extends ConsumerWidget {
             : 'فایل صوتی یافت نشد.',
         style: const TextStyle(fontSize: 12),
       ),
-      onTap:
-          isSelectable // ✅ استفاده از شرط جدید
+      onTap: isSelectable
           ? () async {
               final displayNotifier = ref.read(playerDisplayProvider.notifier);
               final currentTopicNotifier = ref.read(
                 currentPlayingTopicProvider.notifier,
               );
-
-              // ----------------------------------------------------
-              // ۱. مدیریت پخش و وضعیت پلیر
-              // ----------------------------------------------------
-
               if (hasAudio) {
-                // الف. اگر فایل صوتی دارد:
                 if (!isCurrentlyPlaying) {
                   // اگر در حال پخش نیست، لود و پخش کن
                   await audioNotifier.loadPlaylist(subTopic);
                   currentTopicNotifier.state = subTopic;
                 }
-                // پلیر را در حالت کوچک نمایش بده (برای پخش)
                 displayNotifier.minimize();
               } else {
                 // ب. اگر فایل صوتی ندارد (فقط محتوا دارد):
@@ -338,10 +344,7 @@ class _SubTopicListTile extends ConsumerWidget {
                 // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
                 displayNotifier.hide();
               }
-
-              // ----------------------------------------------------
-              // ۲. ناوبری به صفحه LessonContentScreen
-              // ----------------------------------------------------
+              ref.read(lastSelectedTopicProvider.notifier).state = subTopic;
 
               Navigator.of(context).push(
                 MaterialPageRoute(
