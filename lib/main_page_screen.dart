@@ -122,7 +122,7 @@ class MainPageScreen extends ConsumerWidget {
           //       style: const TextStyle(fontWeight: FontWeight.bold),
           //     ),
           //   ),
-          // const SizedBox(height: 16),
+          const SizedBox(height: 8.0),
           Expanded(
             child: asyncData.when(
               loading: () => const Center(child: CircularProgressIndicator()),
@@ -139,7 +139,7 @@ class MainPageScreen extends ConsumerWidget {
                 }
 
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ListView.builder(
                     itemCount: subjects.length,
                     itemBuilder: (context, index) {
