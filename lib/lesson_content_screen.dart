@@ -214,6 +214,7 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
       );
     }).toList();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       // ✅ تغییر به Column برای نمایش بالا و پایین
       children: [
         // ردیف اول: متن اصلی
@@ -223,11 +224,14 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: RichText(
-                textAlign: TextAlign.justify,
-                text: TextSpan(children: spans),
+            child: Align(
+              alignment: AlignmentGeometry.centerRight,
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: RichText(
+                  textAlign: TextAlign.justify,
+                  text: TextSpan(children: spans),
+                ),
               ),
             ),
           ),

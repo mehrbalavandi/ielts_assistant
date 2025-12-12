@@ -56,7 +56,8 @@ class AudioPlayerWidget extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'مبحث: ${subtopic.name}',
+              // مبحث:
+              subtopic.name,
               style: Theme.of(context).textTheme.titleLarge,
             ),
 

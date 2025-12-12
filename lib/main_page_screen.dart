@@ -10,7 +10,6 @@ import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/selection_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
-import 'package:path/path.dart' show basename;
 
 // ایمپورت مدل‌ها و سرویس‌ها
 import 'player_display_state.dart';
@@ -164,12 +163,7 @@ class MainPageScreen extends ConsumerWidget {
     // در این ساختار، پلیر بزرگ به صورت Modal نمایش داده می‌شود و نه به عنوان یک ویجت در Stack
     // بنابراین، ما فقط حالت Minimized را در Stack قرار می‌دهیم.
     if (mode == PlayerDisplayMode.minimized) {
-      return Positioned(
-        top: 0, // قرارگیری در بالای Stack
-        left: 0,
-        right: 0,
-        child: MiniPlayerWidget(subTopic: subTopic),
-      );
+      return MiniPlayerWidget(subTopic: subTopic);
     }
     return const SizedBox.shrink();
   }
@@ -287,8 +281,9 @@ class _ParentTopicExpansionTileState
       child: ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
         title: Text(
-          'مبحث اصلی: ${widget.parentTopic.name}', // ✅ استفاده از widget.parentTopic
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          // مبحث اصلی
+          widget.parentTopic.name, // ✅ استفاده از widget.parentTopic
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         initiallyExpanded: _isExpanded, // ✅ استفاده از وضعیت داخلی
         onExpansionChanged: _handleExpansionChange, // ✅ متد مدیریت تغییر
@@ -333,7 +328,8 @@ class _LessonExpansionTile extends StatelessWidget {
       child: ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
         title: Text(
-          'درس: ${lesson.name}',
+          //! درس:
+          lesson.name,
           style: const TextStyle(fontSize: 16),
         ),
         children: lesson.topics.map((parentTopic) {
@@ -387,15 +383,16 @@ class _SubTopicListTile extends ConsumerWidget {
         color: fileCount > 0 ? Colors.indigo : Colors.grey,
       ),
       title: Text(
-        'مبحث: ${subTopic.name}',
+        // مبحث:
+        subTopic.name,
         style: const TextStyle(fontSize: 14),
       ),
-      subtitle: Text(
-        fileCount > 0
-            ? 'تعداد فایل‌های صوتی: $fileCount'
-            : 'فایل صوتی یافت نشد.',
-        style: const TextStyle(fontSize: 12),
-      ),
+      // subtitle: Text(
+      //   fileCount > 0
+      //       ? 'تعداد فایل‌های صوتی: $fileCount'
+      //       : 'فایل صوتی یافت نشد.',
+      //   style: const TextStyle(fontSize: 12),
+      // ),
       onTap: isSelectable
           ? () async {
               final displayNotifier = ref.read(playerDisplayProvider.notifier);
@@ -410,14 +407,7 @@ class _SubTopicListTile extends ConsumerWidget {
                 }
                 displayNotifier.minimize();
               } else {
-                // ب. اگر فایل صوتی ندارد (فقط محتوا دارد):
-
-                // اگر پلیر در حال پخش هر فایل دیگری است، آن را متوقف کن
-                if (audioNotifier.currentTopic != null &&
-                    audioNotifier.currentTopic?.realmId != subTopic.realmId) {
-                  audioNotifier.stop();
-                }
-
+                audioNotifier.stop();
                 // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
                 displayNotifier.hide();
               }
