@@ -124,7 +124,7 @@ class MiniPlayerWidget extends ConsumerWidget {
             ),
             // دکمه بستن (پنهان کردن و توقف پخش)
             IconButton(
-              icon: const Icon(Icons.close, color: Colors.grey),
+              icon: const Icon(Icons.stop, color: Colors.indigo),
               onPressed: () {
                 notifier.stop(); // توقف پخش
                 // displayNotifier.hide(); // پنهان کردن پلیر

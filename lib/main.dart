@@ -208,6 +208,8 @@ class _ParentTopicExpansionTileState
   // وضعیت داخلی برای باز/بسته بودن
   bool _isExpanded = false;
 
+  String? _lastOpenedParentId;
+  String? _lastSelectedTopicId;
   @override
   void initState() {
     super.initState();
@@ -243,26 +245,55 @@ class _ParentTopicExpansionTileState
       if (notifier.state == widget.parentTopic.realmId) {
         notifier.state = null;
       }
+
+      /*
+      final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
+      if (lastSelectedTopic != null &&
+          widget.parentTopic.subTopics.any(
+            (s) => s.realmId == lastSelectedTopic.realmId,
+          )) {
+        // هنگام بسته شدن لیست، آخرین انتخاب SubTopic را نیز null می‌کنیم
+        ref.read(lastSelectedTopicProvider.notifier).state = null;
+      }
+      */
     }
+  }
+
+  @override
+  void deactivate() {
+    // در اینجا (deactivate) هنوز استفاده از ref ایمن است.
+    final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
+    _lastSelectedTopicId = lastSelectedTopic?.realmId;
+    _lastOpenedParentId = ref.read(lastOpenedParentIdProvider);
+
+    super.deactivate();
   }
 
   // ✅ متد dispose برای ریست کردن آخرین انتخاب
   @override
   void dispose() {
-    // اگر این ویجت از درخت حذف شد (صفحه بسته شد) و خودش آخرین والد باز بود،
-    // یا اگر آخرین SubTopic انتخاب شده متعلق به این والد بود، آن را ریست کن.
-    final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
-    final lastOpenedParentId = ref.read(lastOpenedParentIdProvider);
+    // final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
+    // final lastOpenedParentId = ref.read(lastOpenedParentIdProvider);
 
-    if (lastOpenedParentId == widget.parentTopic.realmId ||
-        (lastSelectedTopic != null &&
-            widget.parentTopic.subTopics.any(
-              (s) => s.realmId == lastSelectedTopic.realmId,
-            ))) {
-      // ریست کردن وضعیت انتخاب و والد
-      ref.read(lastSelectedTopicProvider.notifier).state = null;
-      ref.read(lastOpenedParentIdProvider.notifier).state = null;
-    }
+    // if (lastOpenedParentId == widget.parentTopic.realmId ||
+    //     (lastSelectedTopic != null &&
+    //         widget.parentTopic.subTopics.any(
+    //           (s) => s.realmId == lastSelectedTopic.realmId,
+    //         ))) {
+    //   // ریست کردن وضعیت انتخاب و والد
+    //   ref.read(lastSelectedTopicProvider.notifier).state = null;
+    //   ref.read(lastOpenedParentIdProvider.notifier).state = null;
+    // }
+
+    final bool wasLastOpenedParent =
+        _lastOpenedParentId == widget.parentTopic.realmId;
+    final bool wasChildSelected =
+        _lastSelectedTopicId != null &&
+        widget.parentTopic.subTopics.any(
+          (s) => s.realmId == _lastSelectedTopicId,
+        );
+
+    if (wasLastOpenedParent || wasChildSelected) {}
 
     super.dispose();
   }
