@@ -177,10 +177,18 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
       } else {
         return TextSpan(
           text: item.text, // اعمال استایل بر اساس status
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontSize: 20.0,
-          ),
+          style: item.isBold
+              ? TextStyle(
+                  backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.bold,
+                  // fontStyle: FontStyle.italic,
+                  fontSize: 20.0,
+                )
+              : TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 20.0,
+                ),
         );
       }
     }).toList();
@@ -207,7 +215,9 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
       return TextSpan(
         text: item.text, // اعمال استایل بر اساس status
         style: TextStyle(
-          color: item.isBold ? Colors.deepOrange : Colors.black,
+          color: item.isBold
+              ? Colors.deepOrange
+              : Theme.of(context).colorScheme.onSurface,
           fontWeight: item.isBold ? FontWeight.bold : null,
           fontSize: item.isBold ? 17.0 : 17.0,
         ),
