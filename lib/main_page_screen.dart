@@ -183,7 +183,10 @@ class MainPageScreen extends ConsumerWidget {
                   child: ListView.builder(
                     itemCount: subjects.length,
                     itemBuilder: (context, index) {
-                      return _SubjectExpansionTile(subject: subjects[index]);
+                      return Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: _SubjectExpansionTile(subject: subjects[index]),
+                      );
                     },
                   ),
                 );
