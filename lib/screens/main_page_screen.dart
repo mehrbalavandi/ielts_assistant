@@ -376,7 +376,7 @@ class _LessonExpansionTile extends StatelessWidget {
           lesson.name,
           style: const TextStyle(fontSize: 16),
         ),
-        children: lesson.topics.map((parentTopic) {
+        children: lesson.parentTopics.map((parentTopic) {
           // درس شامل لیست ParentTopic است
           return _ParentTopicExpansionTile(
             parentTopic: parentTopic,

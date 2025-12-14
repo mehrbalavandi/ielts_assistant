@@ -44,7 +44,7 @@ class FileTraversalService {
                           (a, b) => a.path.compareTo(b.path),
                         ); // مرتب‌سازی درجا
 
-                      // ✅ سطح جدید: پیمایش زیرمبحث‌ها (Sub Topics)
+                      // ✅ سطح: پیمایش زیرمبحث‌ها (Sub Topics)
                       final subTopics = subTopicEntities
                           .whereType<Directory>()
                           .map((subTopicDir) {
@@ -67,10 +67,10 @@ class FileTraversalService {
                 // ساخت Lesson، فقط اگر حداقل یک ParentTopic معتبر داشته باشد
                 return Lesson(
                   name: basename(lessonDir.path),
-                  topics: parentTopics,
+                  parentTopics: parentTopics,
                 );
               })
-              .where((l) => l.topics.isNotEmpty)
+              .where((l) => l.parentTopics.isNotEmpty)
               .toList(); // فقط درس‌های دارای ParentTopic را در نظر بگیرید.
 
           // ساخت Subject، فقط اگر حداقل یک Lesson معتبر داشته باشد

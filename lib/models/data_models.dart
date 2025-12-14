@@ -10,8 +10,8 @@ class Subject {
 // مدل برای دروس درون هر کتاب
 class Lesson {
   final String name;
-  final List<ParentTopic> topics;
-  Lesson({required this.name, required this.topics});
+  final List<ParentTopic> parentTopics;
+  Lesson({required this.name, required this.parentTopics});
 }
 
 // کلاس مبحث اصلی (Parent Topic) که اکنون شامل لیستی از زیرمبحث‌ها است
