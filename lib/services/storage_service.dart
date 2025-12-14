@@ -9,7 +9,7 @@ class StorageKeys {
   static const String lastPlayedPositionMs = 'audio_lastPlayedPositionMs';
 
   static const String lastSubject = 'last_subject';
-  static const String lastUnit = 'last_unit';
+  static const String lastLesson = 'last_lesson';
 }
 
 class StorageService {
@@ -63,11 +63,11 @@ class StorageService {
     return _box.read(StorageKeys.lastSubject);
   }
 
-  void saveLastUnit(String unit) {
-    _box.write(StorageKeys.lastUnit, unit);
+  void saveLastLesson(String lesson) {
+    _box.write(StorageKeys.lastLesson, lesson);
   }
 
   String? getLastUnit() {
-    return _box.read(StorageKeys.lastUnit);
+    return _box.read(StorageKeys.lastLesson);
   }
 }

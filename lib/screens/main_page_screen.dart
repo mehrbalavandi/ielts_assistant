@@ -155,7 +155,7 @@ class MainPageScreen extends ConsumerWidget {
                   children: [
                     DropdownButton(
                       key: _dropdownKeySubjects,
-                      value: subjects[0],
+                      value: ref.watch(selectedSubjectProvider)?.name,
                       items: subjects
                           .map(
                             (x) => DropdownMenuItem(value: x, child: Text(x)),
@@ -165,17 +165,18 @@ class MainPageScreen extends ConsumerWidget {
                         if (value != null) {
                           ref.read(selectedSubjectProvider.notifier).state =
                               data.where((x) => x.name == value).firstOrNull;
-                          _storageService.saveLastSubject(value);
+                          ref.read(selectedUnitProvider.notifier).state = null;
+                          // _storageService.saveLastSubject(value);
                         }
                       },
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: Icon(Icons.arrow_forward_ios),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(Icons.arrow_forward_ios, size: 16.0),
                     ),
                     DropdownButton(
                       key: _dropdownKeyUnits,
-                      value: subjects[0],
+                      value: ref.watch(selectedUnitProvider)?.name,
                       items: lessons
                           .map(
                             (x) => DropdownMenuItem(
@@ -188,7 +189,7 @@ class MainPageScreen extends ConsumerWidget {
                         if (value != null) {
                           ref.read(selectedUnitProvider.notifier).state =
                               lessons.where((x) => x.name == value).firstOrNull;
-                          _storageService.saveLastUnit(value);
+                          // _storageService.saveLastLesson(value);
                         }
                       },
                     ),
