@@ -10,6 +10,7 @@ import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/states/selection_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
+import 'package:ielts_assistant/widgets/custom_dropdown.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
@@ -18,6 +19,7 @@ import '../widgets/mini_player_widget.dart'; // ویجت پلیر کوچ
 
 class MainPageScreen extends ConsumerWidget {
   final _storageService = StorageService();
+  final GlobalKey<CustomDropdownState> _dropdownKey = GlobalKey();
   MainPageScreen({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
@@ -127,6 +129,25 @@ class MainPageScreen extends ConsumerWidget {
       // استفاده از Stack برای همپوشانی محتوای اصلی و پلیر شناور
       body: Column(
         children: [
+          Row(
+            children: [
+              asyncData.when(
+                data: (subject) {
+                  final items = subject.map((x) => x.name).toList();
+                  return CustomDropdown(
+                    key: _dropdownKey,
+                    value: items[0],
+                    items: items,
+                    onChanged: (value) async {
+                      if (value != null) {}
+                    },
+                  );
+                },
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (error, stack) => Center(child: Text('خطا: $error')),
+              ),
+            ],
+          ),
           // ۱. محتوای اصلی صفحه
           Expanded(child: _buildMainContent(context, ref, asyncData, notifier)),
 
@@ -145,23 +166,11 @@ class MainPageScreen extends ConsumerWidget {
     AsyncValue<List<Subject>> asyncData,
     DirectoryDataNotifier notifier,
   ) {
-    // اگر پلیر کوچک فعال است، PaddingBottom را برای جلوگیری از همپوشانی اضافه کنید
-    final isMinimized =
-        ref.watch(playerDisplayProvider) == PlayerDisplayMode.minimized;
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // if (notifier.rootDirectoryPath != null)
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Text(
-          //       'کتاب: ${basename(notifier.rootDirectoryPath!)}',
-          //       style: const TextStyle(fontWeight: FontWeight.bold),
-          //     ),
-          //   ),
           const SizedBox(height: 8.0),
           Expanded(
             child: asyncData.when(
