@@ -51,8 +51,8 @@ flutter clean
 flutter pub get
 flutter build apk --release --split-per-abi --tree-shake-icons
 
-01- visitory(1.0.29), v8a
-02- visitory(1.0.29), v7a
+01- دستیار آیلتس(1.0.0), v8a
+02- دستیار آیلتس(1.0.0), v7a
 flutter build apk --release --tree-shake-icons
 
 🧪 استفاده از App Bundle (.aab) برای انتشار در Play Store
