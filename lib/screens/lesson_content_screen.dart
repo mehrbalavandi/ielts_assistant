@@ -9,17 +9,16 @@ import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/lesson_content_service.dart'; // import 'audio_player_widget.dart'; // برای استفاده از AudioPlayerWidget یا MiniPlayerWidget (اختیاری)
 
 // کلاس اصلی
-class LessonContentScreen extends ConsumerStatefulWidget {
+class unitContentScreen extends ConsumerStatefulWidget {
   // ✅ بله، topic از نوع mainTopic است.
   final FinalTopic topic;
-  const LessonContentScreen({required this.topic, super.key});
+  const unitContentScreen({required this.topic, super.key});
 
   @override
-  ConsumerState<LessonContentScreen> createState() =>
-      _LessonContentScreenState();
+  ConsumerState<unitContentScreen> createState() => _unitContentScreenState();
 }
 
-class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
+class _unitContentScreenState extends ConsumerState<unitContentScreen> {
   final ScrollController _mainScrollController = ScrollController();
   final ScrollController _translationScrollController = ScrollController();
 
@@ -75,8 +74,8 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
   @override
   Widget build(BuildContext context) {
     // ✅ دسترسی به topic از طریق widget.topic
-    final contentState = ref.watch(lessonContentProvider(widget.topic));
-    final notifier = ref.read(lessonContentProvider(widget.topic).notifier);
+    final contentState = ref.watch(unitContentProvider(widget.topic));
+    final notifier = ref.read(unitContentProvider(widget.topic).notifier);
     final displayMode = ref.watch(playerDisplayProvider);
 
     final playerState = ref.watch(audioPlayerProvider);

@@ -19,7 +19,7 @@ import '../widgets/mini_player_widget.dart'; // ویجت پلیر کوچ
 
 class MainPageScreen extends ConsumerWidget {
   final _storageService = StorageService();
-  final GlobalKey<CustomDropdownState> _dropdownKeySubjects = GlobalKey();
+  final GlobalKey<CustomDropdownState> _dropdownKeybooks = GlobalKey();
   final GlobalKey<CustomDropdownState> _dropdownKeyUnits = GlobalKey();
   MainPageScreen({super.key});
 
@@ -132,9 +132,9 @@ class MainPageScreen extends ConsumerWidget {
         children: [
           asyncData.when(
             data: (data) {
-              final subjects = data.map((x) => x.name).toList();
-              final lessons = ref
-                  .watch(lessonsProvider(ref.watch(selectedSubjectProvider)))
+              final books = data.map((x) => x.name).toList();
+              final units = ref
+                  .watch(unitsProvider(ref.watch(selectedbookProvider)))
                   .when(
                     data: (data) {
                       return data;
@@ -146,7 +146,7 @@ class MainPageScreen extends ConsumerWidget {
                       return <Unit>[];
                     },
                   );
-              if (subjects.isEmpty) {
+              if (books.isEmpty) {
                 return SizedBox.shrink();
               }
               return Padding(
@@ -154,20 +154,20 @@ class MainPageScreen extends ConsumerWidget {
                 child: Row(
                   children: [
                     DropdownButton(
-                      key: _dropdownKeySubjects,
-                      value: ref.watch(selectedSubjectProvider)?.name,
-                      items: subjects
+                      key: _dropdownKeybooks,
+                      value: ref.watch(selectedbookProvider)?.name,
+                      items: books
                           .map(
                             (x) => DropdownMenuItem(value: x, child: Text(x)),
                           )
                           .toList(),
                       onChanged: (value) async {
                         if (value != null) {
-                          ref.read(selectedSubjectProvider.notifier).state =
-                              data.where((x) => x.name == value).firstOrNull;
-                          ref.read(selectedLessonProvider.notifier).state =
-                              null;
-                          // _storageService.saveLastSubject(value);
+                          ref.read(selectedbookProvider.notifier).state = data
+                              .where((x) => x.name == value)
+                              .firstOrNull;
+                          ref.read(selectedunitProvider.notifier).state = null;
+                          // _storageService.saveLastbook(value);
                         }
                       },
                     ),
@@ -177,8 +177,8 @@ class MainPageScreen extends ConsumerWidget {
                     ),
                     DropdownButton(
                       key: _dropdownKeyUnits,
-                      value: ref.watch(selectedLessonProvider)?.name,
-                      items: lessons
+                      value: ref.watch(selectedunitProvider)?.name,
+                      items: units
                           .map(
                             (x) => DropdownMenuItem(
                               value: x.name,
@@ -188,9 +188,10 @@ class MainPageScreen extends ConsumerWidget {
                           .toList(),
                       onChanged: (value) async {
                         if (value != null) {
-                          ref.read(selectedLessonProvider.notifier).state =
-                              lessons.where((x) => x.name == value).firstOrNull;
-                          // _storageService.saveLastLesson(value);
+                          ref.read(selectedunitProvider.notifier).state = units
+                              .where((x) => x.name == value)
+                              .firstOrNull;
+                          // _storageService.saveLastunit(value);
                         }
                       },
                     ),
@@ -202,7 +203,7 @@ class MainPageScreen extends ConsumerWidget {
             error: (error, stack) => Text('خطا: $error'),
           ),
           // ۱. محتوای اصلی صفحه
-          Expanded(child: _buildLessons(context, ref, asyncData, notifier)),
+          Expanded(child: _buildunits(context, ref, asyncData, notifier)),
 
           // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
           if (displayMode != PlayerDisplayMode.hidden && topic != null)
@@ -212,7 +213,7 @@ class MainPageScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildLessons(
+  Widget _buildunits(
     BuildContext context,
     WidgetRef ref,
     AsyncValue<List<Book>> asyncData,
@@ -228,8 +229,8 @@ class MainPageScreen extends ConsumerWidget {
             child: asyncData.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stack) => Center(child: Text('خطا: $error')),
-              data: (subjects) {
-                if (subjects.isEmpty) {
+              data: (books) {
+                if (books.isEmpty) {
                   return Center(
                     child: Text(
                       notifier.rootDirectoryPath == null
@@ -238,27 +239,27 @@ class MainPageScreen extends ConsumerWidget {
                     ),
                   );
                 }
-                var selectedSubject = subjects
+                var selectedbook = books
                     .where(
-                      (x) => x.name == ref.watch(selectedSubjectProvider)?.name,
+                      (x) => x.name == ref.watch(selectedbookProvider)?.name,
                     )
                     .firstOrNull;
-                if (selectedSubject == null) {
+                if (selectedbook == null) {
                   return Center(
                     child: Text('لطفاً موضوع مورد نظر را انتخاب نمائید'),
                   );
                 }
-                var selectedLesson = selectedSubject.units
+                var selectedunit = selectedbook.units
                     .where(
-                      (x) => x.name == ref.watch(selectedLessonProvider)?.name,
+                      (x) => x.name == ref.watch(selectedunitProvider)?.name,
                     )
                     .firstOrNull;
-                if (selectedLesson == null) {
+                if (selectedunit == null) {
                   return Center(
                     child: Text('لطفاً درس مورد نظر را انتخاب نمائید'),
                   );
                 }
-                var units = selectedLesson.mainTopics;
+                var units = selectedunit.mainTopics;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ListView.builder(
@@ -266,16 +267,14 @@ class MainPageScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       return Directionality(
                         textDirection: TextDirection.ltr,
-                        child: _ParentTopicExpansionTile(
-                          parentTopic: units[index],
-                        ),
+                        child: _mainTopicExpansionTile(mainTopic: units[index]),
                       );
                     },
                   ),
                 );
               },
             ),
-            // child: ref.watch(selectedLessonProvider)?.name == null
+            // child: ref.watch(selectedunitProvider)?.name == null
             //     ?                   Center(
             //         child: Text(
             //           notifier.rootDirectoryPath == null
@@ -286,11 +285,11 @@ class MainPageScreen extends ConsumerWidget {
             //     : Padding(
             //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
             //       child: ListView.builder(
-            //         itemCount: subjects.,
+            //         itemCount: books.,
             //         itemBuilder: (context, index) {
             //           return Directionality(
             //             textDirection: TextDirection.ltr,
-            //             child: _SubjectExpansionTile(subject: subjects[index]),
+            //             child: _bookExpansionTile(book: books[index]),
             //           );
             //         },
             //       ),
@@ -302,52 +301,52 @@ class MainPageScreen extends ConsumerWidget {
   }
 
   // ویجت اصلی که محتوای لیست پوشه‌ها را نمایش می‌دهد
-  Widget _buildMainContent(
-    BuildContext context,
-    WidgetRef ref,
-    AsyncValue<List<Book>> asyncData,
-    DirectoryDataNotifier notifier,
-  ) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 8.0),
-          Expanded(
-            child: asyncData.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Center(child: Text('خطا: $error')),
-              data: (subjects) {
-                if (subjects.isEmpty) {
-                  return Center(
-                    child: Text(
-                      notifier.rootDirectoryPath == null
-                          ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
-                          : 'ساختار مورد نظر یافت نشد.',
-                    ),
-                  );
-                }
+  // Widget _buildMainContent(
+  //   BuildContext context,
+  //   WidgetRef ref,
+  //   AsyncValue<List<Book>> asyncData,
+  //   DirectoryDataNotifier notifier,
+  // ) {
+  //   return Directionality(
+  //     textDirection: TextDirection.rtl,
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const SizedBox(height: 8.0),
+  //         Expanded(
+  //           child: asyncData.when(
+  //             loading: () => const Center(child: CircularProgressIndicator()),
+  //             error: (error, stack) => Center(child: Text('خطا: $error')),
+  //             data: (books) {
+  //               if (books.isEmpty) {
+  //                 return Center(
+  //                   child: Text(
+  //                     notifier.rootDirectoryPath == null
+  //                         ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
+  //                         : 'ساختار مورد نظر یافت نشد.',
+  //                   ),
+  //                 );
+  //               }
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: ListView.builder(
-                    itemCount: subjects.length,
-                    itemBuilder: (context, index) {
-                      return Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: _SubjectExpansionTile(subject: subjects[index]),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  //               return Padding(
+  //                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
+  //                 child: ListView.builder(
+  //                   itemCount: books.length,
+  //                   itemBuilder: (context, index) {
+  //                     return Directionality(
+  //                       textDirection: TextDirection.ltr,
+  //                       child: _bookExpansionTile(book: books[index]),
+  //                     );
+  //                   },
+  //                 ),
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   // متد ساخت ویجت پلیر شناور در Stack
   Widget _buildPlayerWidget(
@@ -365,17 +364,17 @@ class MainPageScreen extends ConsumerWidget {
 }
 
 // ✅ تغییر به ConsumerStatefulWidget
-class _ParentTopicExpansionTile extends ConsumerStatefulWidget {
-  final MainTopic parentTopic;
-  const _ParentTopicExpansionTile({required this.parentTopic});
+class _mainTopicExpansionTile extends ConsumerStatefulWidget {
+  final MainTopic mainTopic;
+  const _mainTopicExpansionTile({required this.mainTopic});
 
   @override
-  ConsumerState<_ParentTopicExpansionTile> createState() =>
-      _ParentTopicExpansionTileState();
+  ConsumerState<_mainTopicExpansionTile> createState() =>
+      _mainTopicExpansionTileState();
 }
 
-class _ParentTopicExpansionTileState
-    extends ConsumerState<_ParentTopicExpansionTile> {
+class _mainTopicExpansionTileState
+    extends ConsumerState<_mainTopicExpansionTile> {
   // وضعیت داخلی برای باز/بسته بودن
   bool _isExpanded = false;
 
@@ -390,7 +389,7 @@ class _ParentTopicExpansionTileState
 
     if (lastSelectedTopic != null) {
       // آیا آخرین انتخاب متعلق به این والد است؟
-      final isChildSelected = widget.parentTopic.mainTopics.any(
+      final isChildSelected = widget.mainTopic.subTopics.any(
         (s) => s.realmId == lastSelectedTopic.realmId,
       );
 
@@ -410,17 +409,17 @@ class _ParentTopicExpansionTileState
     final notifier = ref.read(lastOpenedParentIdProvider.notifier);
 
     if (expanded) {
-      notifier.state = widget.parentTopic.realmId;
+      notifier.state = widget.mainTopic.realmId;
     } else {
       // اگر این والد بسته شد و شناسه آن در Provider بود، آن را حذف کن
-      if (notifier.state == widget.parentTopic.realmId) {
+      if (notifier.state == widget.mainTopic.realmId) {
         notifier.state = null;
       }
 
       /*
       final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
       if (lastSelectedTopic != null &&
-          widget.parentTopic.mainTopics.any(
+          widget.mainTopic.mainTopics.any(
             (s) => s.realmId == lastSelectedTopic.realmId,
           )) {
         // هنگام بسته شدن لیست، آخرین انتخاب mainTopic را نیز null می‌کنیم
@@ -446,9 +445,9 @@ class _ParentTopicExpansionTileState
     // final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
     // final lastOpenedParentId = ref.read(lastOpenedParentIdProvider);
 
-    // if (lastOpenedParentId == widget.parentTopic.realmId ||
+    // if (lastOpenedParentId == widget.mainTopic.realmId ||
     //     (lastSelectedTopic != null &&
-    //         widget.parentTopic.mainTopics.any(
+    //         widget.mainTopic.mainTopics.any(
     //           (s) => s.realmId == lastSelectedTopic.realmId,
     //         ))) {
     //   // ریست کردن وضعیت انتخاب و والد
@@ -457,10 +456,10 @@ class _ParentTopicExpansionTileState
     // }
 
     final bool wasLastOpenedParent =
-        _lastOpenedParentId == widget.parentTopic.realmId;
+        _lastOpenedParentId == widget.mainTopic.realmId;
     final bool wasChildSelected =
         _lastSelectedTopicId != null &&
-        widget.parentTopic.mainTopics.any(
+        widget.mainTopic.subTopics.any(
           (s) => s.realmId == _lastSelectedTopicId,
         );
 
@@ -477,23 +476,23 @@ class _ParentTopicExpansionTileState
         tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
         title: Text(
           // مبحث اصلی
-          widget.parentTopic.name, // ✅ استفاده از widget.parentTopic
+          widget.mainTopic.name, // ✅ استفاده از widget.mainTopic
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         initiallyExpanded: _isExpanded, // ✅ استفاده از وضعیت داخلی
         onExpansionChanged: _handleExpansionChange, // ✅ متد مدیریت تغییر
-        children: widget.parentTopic.mainTopics.map((mainTopic) {
-          // ✅ استفاده از widget.parentTopic
-          return _mainTopicListTile(mainTopic: mainTopic);
+        children: widget.mainTopic.subTopics.map((mainTopic) {
+          // ✅ استفاده از widget.mainTopic
+          return _mainTopicListTile(finalTopic: mainTopic.finalTopics.first);
         }).toList(),
       ),
     );
   }
 }
 
-class _SubjectExpansionTile extends StatelessWidget {
-  final Book subject;
-  const _SubjectExpansionTile({required this.subject});
+class _bookExpansionTile extends StatelessWidget {
+  final Book book;
+  const _bookExpansionTile({required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -501,20 +500,20 @@ class _SubjectExpansionTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8.0),
       child: ExpansionTile(
         title: Text(
-          subject.name,
+          book.name,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-        children: subject.units.map((lesson) {
-          return _LessonExpansionTile(lesson: lesson);
+        children: book.units.map((unit) {
+          return _unitExpansionTile(unit: unit);
         }).toList(),
       ),
     );
   }
 }
 
-class _LessonExpansionTile extends StatelessWidget {
-  final Unit lesson;
-  const _LessonExpansionTile({required this.lesson});
+class _unitExpansionTile extends StatelessWidget {
+  final Unit unit;
+  const _unitExpansionTile({required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -524,13 +523,13 @@ class _LessonExpansionTile extends StatelessWidget {
         tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
         title: Text(
           //! درس:
-          lesson.name,
+          unit.name,
           style: const TextStyle(fontSize: 16),
         ),
-        children: lesson.mainTopics.map((parentTopic) {
-          // درس شامل لیست ParentTopic است
-          return _ParentTopicExpansionTile(
-            parentTopic: parentTopic,
+        children: unit.mainTopics.map((mainTopic) {
+          // درس شامل لیست mainTopic است
+          return _mainTopicExpansionTile(
+            mainTopic: mainTopic,
           ); // فراخوانی ویجت جدید
         }).toList(),
       ),
@@ -539,20 +538,21 @@ class _LessonExpansionTile extends StatelessWidget {
 }
 
 class _mainTopicListTile extends ConsumerWidget {
-  final FinalTopic mainTopic;
-  const _mainTopicListTile({required this.mainTopic});
+  final FinalTopic finalTopic;
+  const _mainTopicListTile({required this.finalTopic});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // خواندن وضعیت آخرین انتخاب
     final FinalTopic? lastSelectedTopic = ref.watch(lastSelectedTopicProvider);
-    final bool isLastSelected = lastSelectedTopic?.realmId == mainTopic.realmId;
+    final bool isLastSelected =
+        lastSelectedTopic?.realmId == finalTopic.realmId;
 
-    final int fileCount = mainTopic.audioFilePaths.length;
+    final int fileCount = finalTopic.audioFilePaths.length;
     final bool hasAudio = fileCount > 0;
     final bool hasContent =
-        mainTopic.jsonFilePath.isNotEmpty &&
-        mainTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
+        finalTopic.jsonFilePath.isNotEmpty &&
+        finalTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
 
     // ✅ مبحث فعال است اگر فایل صوتی یا فایل محتوا داشته باشد
     final bool isSelectable = hasAudio || hasContent;
@@ -561,7 +561,7 @@ class _mainTopicListTile extends ConsumerWidget {
     final audioNotifier = ref.read(audioPlayerProvider.notifier);
     final audioState = ref.watch(audioPlayerProvider);
     final isCurrentlyLoaded =
-        audioState.currentTopic?.realmId == mainTopic.realmId;
+        audioState.currentTopic?.realmId == finalTopic.realmId;
     final isCurrentlyPlaying = isCurrentlyLoaded && audioState.isPlaying;
 
     final Color backgroundColor = isLastSelected
@@ -579,7 +579,7 @@ class _mainTopicListTile extends ConsumerWidget {
       ),
       title: Text(
         // مبحث:
-        mainTopic.name,
+        finalTopic.name,
         style: const TextStyle(fontSize: 14),
       ),
       // subtitle: Text(
@@ -597,8 +597,8 @@ class _mainTopicListTile extends ConsumerWidget {
               if (hasAudio) {
                 if (!isCurrentlyPlaying) {
                   // اگر در حال پخش نیست، لود و پخش کن
-                  await audioNotifier.loadPlaylist(mainTopic);
-                  currentTopicNotifier.state = mainTopic;
+                  await audioNotifier.loadPlaylist(finalTopic);
+                  currentTopicNotifier.state = finalTopic;
                 }
                 displayNotifier.minimize();
               } else {
@@ -606,11 +606,11 @@ class _mainTopicListTile extends ConsumerWidget {
                 // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
                 displayNotifier.hide();
               }
-              ref.read(lastSelectedTopicProvider.notifier).state = mainTopic;
+              ref.read(lastSelectedTopicProvider.notifier).state = finalTopic;
 
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => LessonContentScreen(topic: mainTopic),
+                  builder: (context) => unitContentScreen(topic: finalTopic),
                 ),
               );
             }

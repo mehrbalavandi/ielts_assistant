@@ -18,12 +18,24 @@ class Unit {
 class MainTopic {
   final String name;
   final String realmId;
-  final List<FinalTopic> mainTopics; // ✅ لیست زیرمبحث‌ها
+  final List<SubTopic> subTopics; // ✅ لیست زیرمبحث‌ها
 
   MainTopic({
     required this.name,
     required this.realmId,
-    required this.mainTopics,
+    required this.subTopics,
+  });
+}
+
+class SubTopic {
+  final String name;
+  final String realmId;
+  final List<FinalTopic> finalTopics; // ✅ لیست زیرمبحث‌ها
+
+  SubTopic({
+    required this.name,
+    required this.realmId,
+    required this.finalTopics,
   });
 }
 

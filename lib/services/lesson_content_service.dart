@@ -47,24 +47,24 @@ class TranslationTextSegment {
   }
 }
 
-// مدل وضعیت برای LessonContentScreen
-class LessonContentState {
+// مدل وضعیت برای unitContentScreen
+class unitContentState {
   final bool showTranslation; // وضعیت نمایش ترجمه
   final List<TextSegment> segments; // لیست قطعات متن
   final List<TranslationTextSegment> translationSegments; // لیست قطعات ترجمه
 
-  LessonContentState({
+  unitContentState({
     required this.showTranslation,
     required this.segments,
     required this.translationSegments,
   });
 
-  LessonContentState copyWith({
+  unitContentState copyWith({
     bool? showTranslation,
     List<TextSegment>? segments,
     List<TranslationTextSegment>? translationSegments,
   }) {
-    return LessonContentState(
+    return unitContentState(
       showTranslation: showTranslation ?? this.showTranslation,
       segments: segments ?? this.segments,
       translationSegments: translationSegments ?? this.translationSegments,
@@ -73,11 +73,11 @@ class LessonContentState {
 }
 
 // کلاس مدیریت وضعیت محتوای درس (Notifier)
-class LessonContentNotifier extends StateNotifier<LessonContentState> {
+class unitContentNotifier extends StateNotifier<unitContentState> {
   final _storageService = StorageService();
-  LessonContentNotifier(FinalTopic topic)
+  unitContentNotifier(FinalTopic topic)
     : super(
-        LessonContentState(
+        unitContentState(
           showTranslation: StorageService().getShowTranslation(),
           segments: const [],
           translationSegments: [], // لیست خالی در ابتدا
@@ -131,10 +131,7 @@ class LessonContentNotifier extends StateNotifier<LessonContentState> {
 }
 
 // Provider که به mainTopic وابسته است
-final lessonContentProvider = StateNotifierProvider.autoDispose
-    .family<LessonContentNotifier, LessonContentState, FinalTopic>((
-      ref,
-      topic,
-    ) {
-      return LessonContentNotifier(topic);
+final unitContentProvider = StateNotifierProvider.autoDispose
+    .family<unitContentNotifier, unitContentState, FinalTopic>((ref, topic) {
+      return unitContentNotifier(topic);
     });

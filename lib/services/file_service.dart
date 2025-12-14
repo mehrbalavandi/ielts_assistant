@@ -11,35 +11,35 @@ class FileTraversalService {
       return [];
     }
 
-    // ۱. Subject (Mindset 1، Mindset ۲، ...)
+    // ۱. book (Mindset 1، Mindset ۲، ...)
     // لیست کردن، تبدیل به لیست، مرتب‌سازی
-    final subjectEntities = rootDir.listSync()
+    final bookEntities = rootDir.listSync()
       ..sort((a, b) => a.path.compareTo(b.path)); // مرتب‌سازی درجا
 
-    final subjects = subjectEntities
+    final books = bookEntities
         .whereType<Directory>()
-        .map((subjectDir) {
-          // ۲. Lesson (Unit 01، Unit 02، ...)
+        .map((bookDir) {
+          // ۲. unit (Unit 01، Unit 02، ...)
           // لیست کردن، تبدیل به لیست، مرتب‌سازی
-          final lessonEntities = subjectDir.listSync()
+          final unitEntities = bookDir.listSync()
             ..sort((a, b) => a.path.compareTo(b.path)); // مرتب‌سازی درجا
 
-          // پیمایش داخل Subject: Lessonها
-          final lessons = lessonEntities
+          // پیمایش داخل book: unitها
+          final units = unitEntities
               .whereType<Directory>()
-              .map((lessonDir) {
-                // ۳. ParentTopic (مبحث اصلی ۱، مبحث اصلی ۲، ...)
+              .map((unitDir) {
+                // ۳. mainTopic (مبحث اصلی ۱، مبحث اصلی ۲، ...)
                 // لیست کردن، تبدیل به لیست، مرتب‌سازی
-                final parentTopicEntities = lessonDir.listSync()
+                final mainTopicEntities = unitDir.listSync()
                   ..sort((a, b) => a.path.compareTo(b.path)); // مرتب‌سازی درجا
 
-                // پیمایش داخل Lesson: ParentTopicها
-                final parentTopics = parentTopicEntities
+                // پیمایش داخل unit: mainTopicها
+                final mainTopics = mainTopicEntities
                     .whereType<Directory>()
-                    .map((parentTopicDir) {
+                    .map((mainTopicDir) {
                       // ۴. mainTopic (پوشه نهایی حاوی فایل‌ها)
                       // لیست کردن، تبدیل به لیست، مرتب‌سازی
-                      final mainTopicEntities = parentTopicDir.listSync()
+                      final mainTopicEntities = mainTopicDir.listSync()
                         ..sort(
                           (a, b) => a.path.compareTo(b.path),
                         ); // مرتب‌سازی درجا
@@ -54,31 +54,31 @@ class FileTraversalService {
                           })
                           .toList(); // همه زیرمبحث‌ها را در نظر بگیرید.
 
-                      // ساخت ParentTopic، فقط اگر حداقل یک mainTopic معتبر داشته باشد
+                      // ساخت mainTopic، فقط اگر حداقل یک mainTopic معتبر داشته باشد
                       return MainTopic(
-                        realmId: parentTopicDir.path,
-                        name: basename(parentTopicDir.path),
-                        mainTopics: mainTopics,
+                        realmId: mainTopicDir.path,
+                        name: basename(mainTopicDir.path),
+                        subTopics: mainTopics,
                       );
                     })
-                    .where((pt) => pt.mainTopics.isNotEmpty)
+                    .where((pt) => pt.subTopics.isNotEmpty)
                     .toList(); // فقط مباحث اصلی دارای زیرمبحث را در نظر بگیرید.
 
-                // ساخت Lesson، فقط اگر حداقل یک ParentTopic معتبر داشته باشد
+                // ساخت unit، فقط اگر حداقل یک mainTopic معتبر داشته باشد
                 return Unit(
-                  name: basename(lessonDir.path),
-                  mainTopics: parentTopics,
+                  name: basename(unitDir.path),
+                  mainTopics: mainTopics,
                 );
               })
               .where((l) => l.mainTopics.isNotEmpty)
-              .toList(); // فقط درس‌های دارای ParentTopic را در نظر بگیرید.
+              .toList(); // فقط درس‌های دارای mainTopic را در نظر بگیرید.
 
-          // ساخت Subject، فقط اگر حداقل یک Lesson معتبر داشته باشد
-          return Book(name: basename(subjectDir.path), units: lessons);
+          // ساخت book، فقط اگر حداقل یک unit معتبر داشته باشد
+          return Book(name: basename(bookDir.path), units: units);
         })
         .where((s) => s.units.isNotEmpty)
-        .toList(); // فقط Subjectهای دارای Lesson را در نظر بگیرید.
+        .toList(); // فقط bookهای دارای unit را در نظر بگیرید.
 
-    return subjects;
+    return books;
   }
 }

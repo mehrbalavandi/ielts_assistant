@@ -29,10 +29,10 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
 
       try {
         final service = ref.read(fileTraversalServiceProvider);
-        final subjects = await service.traverseRootDirectory(savedPath);
+        final books = await service.traverseRootDirectory(savedPath);
 
         // اگر پیمایش موفقیت آمیز بود
-        return subjects;
+        return books;
       } catch (e, st) {
         // اگر مسیر ذخیره شده دیگر معتبر نباشد (مثلاً پوشه حذف شده باشد)
         print('Error traversing saved path: $e');
@@ -54,12 +54,12 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
 
     try {
       final service = ref.read(fileTraversalServiceProvider);
-      final subjects = await service.traverseRootDirectory(path);
+      final books = await service.traverseRootDirectory(path);
 
       // **۲. ذخیره مسیر جدید در GetStorage پس از موفقیت**
       await _storageBox.write(_ROOT_PATH_KEY, path);
 
-      state = AsyncValue.data(subjects);
+      state = AsyncValue.data(books);
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }
