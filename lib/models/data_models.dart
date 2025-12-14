@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
-import 'package:collection/collection.dart';
 
 class Subject {
   final String name;
