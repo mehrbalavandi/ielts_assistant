@@ -21,6 +21,8 @@ class MainPageScreen extends ConsumerWidget {
   final _storageService = StorageService();
   final GlobalKey<CustomDropdownState> _dropdownKeybooks = GlobalKey();
   final GlobalKey<CustomDropdownState> _dropdownKeyUnits = GlobalKey();
+  final GlobalKey<CustomDropdownState> _dropdownKeyMainTopics = GlobalKey();
+  final GlobalKey<CustomDropdownState> _dropdownKeySubTopics = GlobalKey();
   MainPageScreen({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
@@ -133,8 +135,12 @@ class MainPageScreen extends ConsumerWidget {
           asyncData.when(
             data: (data) {
               final books = data.map((x) => x.name).toList();
+
+              if (books.isEmpty) {
+                return SizedBox.shrink();
+              }
               final units = ref
-                  .watch(unitsProvider(ref.watch(selectedbookProvider)))
+                  .watch(unitsProvider(ref.watch(selectedBookProvider)))
                   .when(
                     data: (data) {
                       return data;
@@ -146,16 +152,42 @@ class MainPageScreen extends ConsumerWidget {
                       return <Unit>[];
                     },
                   );
-              if (books.isEmpty) {
-                return SizedBox.shrink();
-              }
+              final mainTopics = ref
+                  .watch(mainTopicsProvider(ref.watch(selectedUnitProvider)))
+                  .when(
+                    data: (data) {
+                      return data;
+                    },
+                    error: (_, _) {
+                      return <MainTopic>[];
+                    },
+                    loading: () {
+                      return <MainTopic>[];
+                    },
+                  );
+              final subTopics = ref
+                  .watch(
+                    subTopicsProvider(ref.watch(selectedMainTopicProvider)),
+                  )
+                  .when(
+                    data: (data) {
+                      return data;
+                    },
+                    error: (_, _) {
+                      return <SubTopic>[];
+                    },
+                    loading: () {
+                      return <SubTopic>[];
+                    },
+                  );
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     DropdownButton(
                       key: _dropdownKeybooks,
-                      value: ref.watch(selectedbookProvider)?.name,
+                      value: ref.watch(selectedBookProvider)?.name,
                       items: books
                           .map(
                             (x) => DropdownMenuItem(value: x, child: Text(x)),
@@ -163,10 +195,10 @@ class MainPageScreen extends ConsumerWidget {
                           .toList(),
                       onChanged: (value) async {
                         if (value != null) {
-                          ref.read(selectedbookProvider.notifier).state = data
+                          ref.read(selectedBookProvider.notifier).state = data
                               .where((x) => x.name == value)
                               .firstOrNull;
-                          ref.read(selectedunitProvider.notifier).state = null;
+                          ref.read(selectedUnitProvider.notifier).state = null;
                           // _storageService.saveLastbook(value);
                         }
                       },
@@ -177,7 +209,7 @@ class MainPageScreen extends ConsumerWidget {
                     ),
                     DropdownButton(
                       key: _dropdownKeyUnits,
-                      value: ref.watch(selectedunitProvider)?.name,
+                      value: ref.watch(selectedUnitProvider)?.name,
                       items: units
                           .map(
                             (x) => DropdownMenuItem(
@@ -188,7 +220,59 @@ class MainPageScreen extends ConsumerWidget {
                           .toList(),
                       onChanged: (value) async {
                         if (value != null) {
-                          ref.read(selectedunitProvider.notifier).state = units
+                          ref.read(selectedUnitProvider.notifier).state = units
+                              .where((x) => x.name == value)
+                              .firstOrNull;
+                          // _storageService.saveLastunit(value);
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(Icons.arrow_forward_ios, size: 16.0),
+                    ),
+                    DropdownButton(
+                      key: _dropdownKeyMainTopics,
+                      value: ref.watch(selectedMainTopicProvider)?.name,
+                      items: mainTopics
+                          .map(
+                            (x) => DropdownMenuItem(
+                              value: x.name,
+                              child: Text(x.name),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) async {
+                        if (value != null) {
+                          ref
+                              .read(selectedMainTopicProvider.notifier)
+                              .state = mainTopics
+                              .where((x) => x.name == value)
+                              .firstOrNull;
+                          // _storageService.saveLastunit(value);
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(Icons.arrow_forward_ios, size: 16.0),
+                    ),
+                    DropdownButton(
+                      key: _dropdownKeySubTopics,
+                      value: ref.watch(selectedSubTopicProvider)?.name,
+                      items: subTopics
+                          .map(
+                            (x) => DropdownMenuItem(
+                              value: x.name,
+                              child: Text(x.name),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) async {
+                        if (value != null) {
+                          ref
+                              .read(selectedSubTopicProvider.notifier)
+                              .state = subTopics
                               .where((x) => x.name == value)
                               .firstOrNull;
                           // _storageService.saveLastunit(value);
@@ -203,7 +287,7 @@ class MainPageScreen extends ConsumerWidget {
             error: (error, stack) => Text('خطا: $error'),
           ),
           // ۱. محتوای اصلی صفحه
-          Expanded(child: _buildunits(context, ref, asyncData, notifier)),
+          Expanded(child: _buildUnits(context, ref, asyncData, notifier)),
 
           // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
           if (displayMode != PlayerDisplayMode.hidden && topic != null)
@@ -213,7 +297,7 @@ class MainPageScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildunits(
+  Widget _buildUnits(
     BuildContext context,
     WidgetRef ref,
     AsyncValue<List<Book>> asyncData,
@@ -239,27 +323,27 @@ class MainPageScreen extends ConsumerWidget {
                     ),
                   );
                 }
-                var selectedbook = books
+                var selectedBook = books
                     .where(
-                      (x) => x.name == ref.watch(selectedbookProvider)?.name,
+                      (x) => x.name == ref.watch(selectedBookProvider)?.name,
                     )
                     .firstOrNull;
-                if (selectedbook == null) {
+                if (selectedBook == null) {
                   return Center(
                     child: Text('لطفاً موضوع مورد نظر را انتخاب نمائید'),
                   );
                 }
-                var selectedunit = selectedbook.units
+                var selectedUnit = selectedBook.units
                     .where(
-                      (x) => x.name == ref.watch(selectedunitProvider)?.name,
+                      (x) => x.name == ref.watch(selectedUnitProvider)?.name,
                     )
                     .firstOrNull;
-                if (selectedunit == null) {
+                if (selectedUnit == null) {
                   return Center(
                     child: Text('لطفاً درس مورد نظر را انتخاب نمائید'),
                   );
                 }
-                var units = selectedunit.mainTopics;
+                var units = selectedUnit.mainTopics;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ListView.builder(
