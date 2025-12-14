@@ -18,24 +18,24 @@ class Unit {
 class MainTopic {
   final String name;
   final String realmId;
-  final List<SubTopic> subTopics; // ✅ لیست زیرمبحث‌ها
+  final List<FinalTopic> mainTopics; // ✅ لیست زیرمبحث‌ها
 
   MainTopic({
     required this.name,
     required this.realmId,
-    required this.subTopics,
+    required this.mainTopics,
   });
 }
 
 // کلاس نهایی که فایل‌های صوتی و JSON را در خود دارد (سطح نهایی پیمایش)
-class SubTopic {
+class FinalTopic {
   final String name;
   final String realmId; // شناسه منحصر به فرد (مسیر کامل پوشه)
   final List<String> audioFilePaths;
   final String jsonFilePath; // مسیر فایل متنی درس
   final String translationFilePath; // مسیر فایل متنی ترجمه درس
 
-  SubTopic({
+  FinalTopic({
     required this.name,
     required this.realmId,
     required this.audioFilePaths,
@@ -69,9 +69,9 @@ class SubTopic {
     }
   }
 
-  // متد سازنده کارخانه‌ای برای ساخت شیء SubTopic از روی پوشه نهایی
-  factory SubTopic.fromDirectory(Directory subTopicDir) {
-    final files = subTopicDir.listSync();
+  // متد سازنده کارخانه‌ای برای ساخت شیء mainTopic از روی پوشه نهایی
+  factory FinalTopic.fromDirectory(Directory mainTopicDir) {
+    final files = mainTopicDir.listSync();
 
     // ۱. استخراج مسیر فایل‌های صوتی (.mp3)
     final audioFiles = files
@@ -92,9 +92,9 @@ class SubTopic {
     // اگر jsonFileEntity برابر null باشد، jsonFilePath یک رشته خالی خواهد بود.
     final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
 
-    return SubTopic(
-      name: basename(subTopicDir.path),
-      realmId: subTopicDir.path, // مسیر کامل پوشه به عنوان ID
+    return FinalTopic(
+      name: basename(mainTopicDir.path),
+      realmId: mainTopicDir.path, // مسیر کامل پوشه به عنوان ID
       audioFilePaths: audioFiles.cast<String>(),
       jsonFilePath: jsonFilePathEnglish,
       translationFilePath: jsonFilePathTranslation,

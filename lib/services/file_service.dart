@@ -37,31 +37,31 @@ class FileTraversalService {
                 final parentTopics = parentTopicEntities
                     .whereType<Directory>()
                     .map((parentTopicDir) {
-                      // ۴. SubTopic (پوشه نهایی حاوی فایل‌ها)
+                      // ۴. mainTopic (پوشه نهایی حاوی فایل‌ها)
                       // لیست کردن، تبدیل به لیست، مرتب‌سازی
-                      final subTopicEntities = parentTopicDir.listSync()
+                      final mainTopicEntities = parentTopicDir.listSync()
                         ..sort(
                           (a, b) => a.path.compareTo(b.path),
                         ); // مرتب‌سازی درجا
 
                       // ✅ سطح: پیمایش زیرمبحث‌ها (Sub Topics)
-                      final subTopics = subTopicEntities
+                      final mainTopics = mainTopicEntities
                           .whereType<Directory>()
-                          .map((subTopicDir) {
-                            // ۴. SubTopic (پوشه نهایی حاوی فایل‌ها)
-                            // ساخت شیء SubTopic و استخراج فایل‌ها و مسیر JSON
-                            return SubTopic.fromDirectory(subTopicDir);
+                          .map((mainTopicDir) {
+                            // ۴. mainTopic (پوشه نهایی حاوی فایل‌ها)
+                            // ساخت شیء mainTopic و استخراج فایل‌ها و مسیر JSON
+                            return FinalTopic.fromDirectory(mainTopicDir);
                           })
                           .toList(); // همه زیرمبحث‌ها را در نظر بگیرید.
 
-                      // ساخت ParentTopic، فقط اگر حداقل یک SubTopic معتبر داشته باشد
+                      // ساخت ParentTopic، فقط اگر حداقل یک mainTopic معتبر داشته باشد
                       return MainTopic(
                         realmId: parentTopicDir.path,
                         name: basename(parentTopicDir.path),
-                        subTopics: subTopics,
+                        mainTopics: mainTopics,
                       );
                     })
-                    .where((pt) => pt.subTopics.isNotEmpty)
+                    .where((pt) => pt.mainTopics.isNotEmpty)
                     .toList(); // فقط مباحث اصلی دارای زیرمبحث را در نظر بگیرید.
 
                 // ساخت Lesson، فقط اگر حداقل یک ParentTopic معتبر داشته باشد

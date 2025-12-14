@@ -353,12 +353,12 @@ class MainPageScreen extends ConsumerWidget {
   Widget _buildPlayerWidget(
     WidgetRef ref,
     PlayerDisplayMode mode,
-    SubTopic subTopic,
+    FinalTopic mainTopic,
   ) {
     // در این ساختار، پلیر بزرگ به صورت Modal نمایش داده می‌شود و نه به عنوان یک ویجت در Stack
     // بنابراین، ما فقط حالت Minimized را در Stack قرار می‌دهیم.
     if (mode == PlayerDisplayMode.minimized) {
-      return MiniPlayerWidget(subTopic: subTopic);
+      return MiniPlayerWidget(mainTopic: mainTopic);
     }
     return const SizedBox.shrink();
   }
@@ -385,12 +385,12 @@ class _ParentTopicExpansionTileState
   void initState() {
     super.initState();
 
-    // ۱. بررسی وضعیت آخرین SubTopic انتخاب شده
+    // ۱. بررسی وضعیت آخرین mainTopic انتخاب شده
     final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
 
     if (lastSelectedTopic != null) {
       // آیا آخرین انتخاب متعلق به این والد است؟
-      final isChildSelected = widget.parentTopic.subTopics.any(
+      final isChildSelected = widget.parentTopic.mainTopics.any(
         (s) => s.realmId == lastSelectedTopic.realmId,
       );
 
@@ -420,10 +420,10 @@ class _ParentTopicExpansionTileState
       /*
       final lastSelectedTopic = ref.read(lastSelectedTopicProvider);
       if (lastSelectedTopic != null &&
-          widget.parentTopic.subTopics.any(
+          widget.parentTopic.mainTopics.any(
             (s) => s.realmId == lastSelectedTopic.realmId,
           )) {
-        // هنگام بسته شدن لیست، آخرین انتخاب SubTopic را نیز null می‌کنیم
+        // هنگام بسته شدن لیست، آخرین انتخاب mainTopic را نیز null می‌کنیم
         ref.read(lastSelectedTopicProvider.notifier).state = null;
       }
       */
@@ -448,7 +448,7 @@ class _ParentTopicExpansionTileState
 
     // if (lastOpenedParentId == widget.parentTopic.realmId ||
     //     (lastSelectedTopic != null &&
-    //         widget.parentTopic.subTopics.any(
+    //         widget.parentTopic.mainTopics.any(
     //           (s) => s.realmId == lastSelectedTopic.realmId,
     //         ))) {
     //   // ریست کردن وضعیت انتخاب و والد
@@ -460,7 +460,7 @@ class _ParentTopicExpansionTileState
         _lastOpenedParentId == widget.parentTopic.realmId;
     final bool wasChildSelected =
         _lastSelectedTopicId != null &&
-        widget.parentTopic.subTopics.any(
+        widget.parentTopic.mainTopics.any(
           (s) => s.realmId == _lastSelectedTopicId,
         );
 
@@ -482,9 +482,9 @@ class _ParentTopicExpansionTileState
         ),
         initiallyExpanded: _isExpanded, // ✅ استفاده از وضعیت داخلی
         onExpansionChanged: _handleExpansionChange, // ✅ متد مدیریت تغییر
-        children: widget.parentTopic.subTopics.map((subTopic) {
+        children: widget.parentTopic.mainTopics.map((mainTopic) {
           // ✅ استفاده از widget.parentTopic
-          return _SubTopicListTile(subTopic: subTopic);
+          return _mainTopicListTile(mainTopic: mainTopic);
         }).toList(),
       ),
     );
@@ -538,21 +538,21 @@ class _LessonExpansionTile extends StatelessWidget {
   }
 }
 
-class _SubTopicListTile extends ConsumerWidget {
-  final SubTopic subTopic;
-  const _SubTopicListTile({required this.subTopic});
+class _mainTopicListTile extends ConsumerWidget {
+  final FinalTopic mainTopic;
+  const _mainTopicListTile({required this.mainTopic});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // خواندن وضعیت آخرین انتخاب
-    final SubTopic? lastSelectedTopic = ref.watch(lastSelectedTopicProvider);
-    final bool isLastSelected = lastSelectedTopic?.realmId == subTopic.realmId;
+    final FinalTopic? lastSelectedTopic = ref.watch(lastSelectedTopicProvider);
+    final bool isLastSelected = lastSelectedTopic?.realmId == mainTopic.realmId;
 
-    final int fileCount = subTopic.audioFilePaths.length;
+    final int fileCount = mainTopic.audioFilePaths.length;
     final bool hasAudio = fileCount > 0;
     final bool hasContent =
-        subTopic.jsonFilePath.isNotEmpty &&
-        subTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
+        mainTopic.jsonFilePath.isNotEmpty &&
+        mainTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
 
     // ✅ مبحث فعال است اگر فایل صوتی یا فایل محتوا داشته باشد
     final bool isSelectable = hasAudio || hasContent;
@@ -561,7 +561,7 @@ class _SubTopicListTile extends ConsumerWidget {
     final audioNotifier = ref.read(audioPlayerProvider.notifier);
     final audioState = ref.watch(audioPlayerProvider);
     final isCurrentlyLoaded =
-        audioState.currentTopic?.realmId == subTopic.realmId;
+        audioState.currentTopic?.realmId == mainTopic.realmId;
     final isCurrentlyPlaying = isCurrentlyLoaded && audioState.isPlaying;
 
     final Color backgroundColor = isLastSelected
@@ -579,7 +579,7 @@ class _SubTopicListTile extends ConsumerWidget {
       ),
       title: Text(
         // مبحث:
-        subTopic.name,
+        mainTopic.name,
         style: const TextStyle(fontSize: 14),
       ),
       // subtitle: Text(
@@ -597,8 +597,8 @@ class _SubTopicListTile extends ConsumerWidget {
               if (hasAudio) {
                 if (!isCurrentlyPlaying) {
                   // اگر در حال پخش نیست، لود و پخش کن
-                  await audioNotifier.loadPlaylist(subTopic);
-                  currentTopicNotifier.state = subTopic;
+                  await audioNotifier.loadPlaylist(mainTopic);
+                  currentTopicNotifier.state = mainTopic;
                 }
                 displayNotifier.minimize();
               } else {
@@ -606,11 +606,11 @@ class _SubTopicListTile extends ConsumerWidget {
                 // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
                 displayNotifier.hide();
               }
-              ref.read(lastSelectedTopicProvider.notifier).state = subTopic;
+              ref.read(lastSelectedTopicProvider.notifier).state = mainTopic;
 
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => LessonContentScreen(topic: subTopic),
+                  builder: (context) => LessonContentScreen(topic: mainTopic),
                 ),
               );
             }

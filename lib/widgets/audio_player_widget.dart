@@ -13,8 +13,8 @@ String _formatDuration(Duration d) {
 }
 
 class AudioPlayerWidget extends ConsumerWidget {
-  final SubTopic subtopic;
-  const AudioPlayerWidget({required this.subtopic, super.key});
+  final FinalTopic mainTopic;
+  const AudioPlayerWidget({required this.mainTopic, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +57,7 @@ class AudioPlayerWidget extends ConsumerWidget {
           children: [
             Text(
               // مبحث:
-              subtopic.name,
+              mainTopic.name,
               style: Theme.of(context).textTheme.titleLarge,
             ),
 
@@ -67,7 +67,7 @@ class AudioPlayerWidget extends ConsumerWidget {
             Directionality(
               textDirection: TextDirection.ltr,
               child: Text(
-                'فایل: ${audioState.currentIndex != null && subtopic.audioFilePaths.isNotEmpty ? subtopic.audioFilePaths[audioState.currentIndex!].split('/').last : '---'}',
+                'فایل: ${audioState.currentIndex != null && mainTopic.audioFilePaths.isNotEmpty ? mainTopic.audioFilePaths[audioState.currentIndex!].split('/').last : '---'}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
@@ -201,7 +201,7 @@ class AudioPlayerWidget extends ConsumerWidget {
               height: 100, // محدود کردن ارتفاع
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: subtopic.audioFilePaths.length,
+                itemCount: mainTopic.audioFilePaths.length,
                 itemBuilder: (context, index) {
                   final isCurrent = index == audioState.currentIndex;
                   return Padding(

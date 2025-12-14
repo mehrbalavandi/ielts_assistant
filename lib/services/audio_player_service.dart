@@ -16,7 +16,7 @@ class AudioState {
   final Duration? loopStart; // نقطه A
   final Duration? loopEnd; // نقطه B
   final LoopMode loopMode;
-  final SubTopic? currentTopic;
+  final FinalTopic? currentTopic;
 
   AudioState({
     this.isPlaying = false,
@@ -42,7 +42,7 @@ class AudioState {
     Object? loopStart = const _Sentinel(),
     Object? loopEnd = const _Sentinel(),
     LoopMode? loopMode,
-    SubTopic? currentTopic,
+    FinalTopic? currentTopic,
   }) {
     return AudioState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -70,7 +70,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   final AudioPlayer _player = AudioPlayer();
   final _storageService = StorageService();
   StreamSubscription? _positionSubscription;
-  SubTopic? _currentTopic;
+  FinalTopic? _currentTopic;
 
   // متغیرهای داخلی برای نگهداری نقاط A و B
   Duration? _loopStart;
@@ -102,15 +102,15 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     if (lastTopicId != null &&
         lastPositionMs != null &&
         lastPositionMs > 1000) {
-      // ۱. پیدا کردن SubTopic بر اساس realmId (نیاز به یک Repository دارید!)
+      // ۱. پیدا کردن mainTopic بر اساس realmId (نیاز به یک Repository دارید!)
       // این بخش نیازمند دسترسی به لیست کامل دروس است
 
       // ❗ فرض: شما متدی به نام findTopicById در Repository دارید
-      // final SubTopic? recoveredTopic = await _topicRepository.findTopicById(lastTopicId);
+      // final mainTopic? recoveredTopic = await _topicRepository.findTopicById(lastTopicId);
 
       // 💡 برای سادگی فعلاً از یک ساختار فرضی استفاده می‌کنیم.
-      // شما باید منطق پیدا کردن SubTopic را بر اساس RealmId در اینجا پیاده کنید.
-      final SubTopic? recoveredTopic = await _findTopicByIdStub(lastTopicId);
+      // شما باید منطق پیدا کردن mainTopic را بر اساس RealmId در اینجا پیاده کنید.
+      final FinalTopic? recoveredTopic = await _findTopicByIdStub(lastTopicId);
 
       if (recoveredTopic != null) {
         // ۲. لود پلی‌لیست، اما بدون شروع پخش فوری
@@ -128,7 +128,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     }
   }
 
-  Future<void> _loadAndSeek(SubTopic topic, Duration position) async {
+  Future<void> _loadAndSeek(FinalTopic topic, Duration position) async {
     if (topic.audioFilePaths.isEmpty) return;
 
     state = state.copyWith(currentTopic: topic, isLoading: true);
@@ -164,7 +164,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     }
   }
 
-  Future<void> loadPlaylist(SubTopic topic) async {
+  Future<void> loadPlaylist(FinalTopic topic) async {
     if (state.currentTopic?.realmId != topic.realmId &&
         state.currentTopic != null) {
       _saveCurrentPosition();
@@ -379,7 +379,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   void skipToItem(int index) => _player.seek(Duration.zero, index: index);
 
   // Getter برای دسترسی به مبحث در حال پخش در UI
-  SubTopic? get currentTopic => _currentTopic;
+  FinalTopic? get currentTopic => _currentTopic;
 
   @override
   void dispose() {
@@ -389,9 +389,9 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     super.dispose();
   }
 
-  Future<SubTopic?> _findTopicByIdStub(String realmId) async {
+  Future<FinalTopic?> _findTopicByIdStub(String realmId) async {
     // این تابع باید در دیتابیس یا لیست دروس شما جستجو کند
-    // و SubTopic مربوطه را برگرداند.
+    // و mainTopic مربوطه را برگرداند.
     // اگر نتوانید این کار را انجام دهید، Recovery امکان‌پذیر نخواهد بود.
     return null; // فعلاً همیشه null برمی‌گرداند
   }
@@ -402,4 +402,4 @@ final audioPlayerProvider =
       return AudioPlayerNotifier();
     });
 
-final currentPlayingTopicProvider = StateProvider<SubTopic?>((ref) => null);
+final currentPlayingTopicProvider = StateProvider<FinalTopic?>((ref) => null);

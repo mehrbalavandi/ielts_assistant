@@ -10,8 +10,8 @@ import 'package:ielts_assistant/services/lesson_content_service.dart'; // import
 
 // کلاس اصلی
 class LessonContentScreen extends ConsumerStatefulWidget {
-  // ✅ بله، topic از نوع SubTopic است.
-  final SubTopic topic;
+  // ✅ بله، topic از نوع mainTopic است.
+  final FinalTopic topic;
   const LessonContentScreen({required this.topic, super.key});
 
   @override
@@ -104,7 +104,7 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
       ),
       // bottomSheet:
       //     (isPlayingThisTopic && (displayMode == PlayerDisplayMode.minimized))
-      //     ? MiniPlayerWidget(subTopic: widget.topic)
+      //     ? MiniPlayerWidget(mainTopic: widget.topic)
       //     : null,
       body: contentState.segments.isEmpty
           ? const Center(child: CircularProgressIndicator())
@@ -145,7 +145,7 @@ class _LessonContentScreenState extends ConsumerState<LessonContentScreen> {
                 ),
                 if (isPlayingThisTopic &&
                     (displayMode == PlayerDisplayMode.minimized))
-                  MiniPlayerWidget(subTopic: widget.topic),
+                  MiniPlayerWidget(mainTopic: widget.topic),
               ],
             ),
     );

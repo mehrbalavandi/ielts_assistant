@@ -10,8 +10,8 @@ import 'audio_player_widget.dart'; // ویجت Modal/Maximized قبلی
 // ...
 
 class MiniPlayerWidget extends ConsumerWidget {
-  final SubTopic subTopic;
-  const MiniPlayerWidget({required this.subTopic, super.key});
+  final FinalTopic mainTopic;
+  const MiniPlayerWidget({required this.mainTopic, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,7 +53,7 @@ class MiniPlayerWidget extends ConsumerWidget {
           //   heightFactor: 0.45, // 90% صفحه را بگیرد
           //   child: AudioPlayerWidget(topic: topic),
           // );
-          return AudioPlayerWidget(subtopic: subTopic);
+          return AudioPlayerWidget(mainTopic: mainTopic);
         },
       ).then((_) {
         // پس از بسته شدن Modal
@@ -91,7 +91,7 @@ class MiniPlayerWidget extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
-                  '${subTopic.name} - ${audioState.currentIndex != null ? 'قطعه ${audioState.currentIndex! + 1}' : '---'}',
+                  '${mainTopic.name} - ${audioState.currentIndex != null ? 'قطعه ${audioState.currentIndex! + 1}' : '---'}',
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),

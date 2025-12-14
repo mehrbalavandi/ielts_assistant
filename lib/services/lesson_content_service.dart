@@ -75,7 +75,7 @@ class LessonContentState {
 // کلاس مدیریت وضعیت محتوای درس (Notifier)
 class LessonContentNotifier extends StateNotifier<LessonContentState> {
   final _storageService = StorageService();
-  LessonContentNotifier(SubTopic topic)
+  LessonContentNotifier(FinalTopic topic)
     : super(
         LessonContentState(
           showTranslation: StorageService().getShowTranslation(),
@@ -87,7 +87,7 @@ class LessonContentNotifier extends StateNotifier<LessonContentState> {
   }
 
   // متد لود محتوا از فایل‌های JSON
-  Future<void> _loadContent(SubTopic topic) async {
+  Future<void> _loadContent(FinalTopic topic) async {
     List<dynamic> mainList = [];
     List<dynamic> transList = [];
 
@@ -130,8 +130,11 @@ class LessonContentNotifier extends StateNotifier<LessonContentState> {
   }
 }
 
-// Provider که به SubTopic وابسته است
+// Provider که به mainTopic وابسته است
 final lessonContentProvider = StateNotifierProvider.autoDispose
-    .family<LessonContentNotifier, LessonContentState, SubTopic>((ref, topic) {
+    .family<LessonContentNotifier, LessonContentState, FinalTopic>((
+      ref,
+      topic,
+    ) {
       return LessonContentNotifier(topic);
     });
