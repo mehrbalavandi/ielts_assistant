@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:ielts_assistant/common/directory_state.dart';
+import 'package:ielts_assistant/states/directory_state.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/screens/lesson_content_screen.dart';
 import 'package:ielts_assistant/models/data_models.dart';
@@ -165,7 +165,8 @@ class MainPageScreen extends ConsumerWidget {
                         if (value != null) {
                           ref.read(selectedSubjectProvider.notifier).state =
                               data.where((x) => x.name == value).firstOrNull;
-                          ref.read(selectedUnitProvider.notifier).state = null;
+                          ref.read(selectedLessonProvider.notifier).state =
+                              null;
                           // _storageService.saveLastSubject(value);
                         }
                       },
@@ -176,7 +177,7 @@ class MainPageScreen extends ConsumerWidget {
                     ),
                     DropdownButton(
                       key: _dropdownKeyUnits,
-                      value: ref.watch(selectedUnitProvider)?.name,
+                      value: ref.watch(selectedLessonProvider)?.name,
                       items: lessons
                           .map(
                             (x) => DropdownMenuItem(
@@ -187,7 +188,7 @@ class MainPageScreen extends ConsumerWidget {
                           .toList(),
                       onChanged: (value) async {
                         if (value != null) {
-                          ref.read(selectedUnitProvider.notifier).state =
+                          ref.read(selectedLessonProvider.notifier).state =
                               lessons.where((x) => x.name == value).firstOrNull;
                           // _storageService.saveLastLesson(value);
                         }
@@ -201,11 +202,100 @@ class MainPageScreen extends ConsumerWidget {
             error: (error, stack) => Text('خطا: $error'),
           ),
           // ۱. محتوای اصلی صفحه
-          Expanded(child: _buildMainContent(context, ref, asyncData, notifier)),
+          Expanded(child: _buildLessons(context, ref, asyncData, notifier)),
 
           // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
           if (displayMode != PlayerDisplayMode.hidden && topic != null)
             _buildPlayerWidget(ref, displayMode, topic),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLessons(
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<List<Subject>> asyncData,
+    DirectoryDataNotifier notifier,
+  ) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 8.0),
+          Expanded(
+            child: asyncData.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stack) => Center(child: Text('خطا: $error')),
+              data: (subjects) {
+                if (subjects.isEmpty) {
+                  return Center(
+                    child: Text(
+                      notifier.rootDirectoryPath == null
+                          ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
+                          : 'ساختار مورد نظر یافت نشد.',
+                    ),
+                  );
+                }
+                var selectedSubject = subjects
+                    .where(
+                      (x) => x.name == ref.watch(selectedSubjectProvider)?.name,
+                    )
+                    .firstOrNull;
+                if (selectedSubject == null) {
+                  return Center(
+                    child: Text('لطفاً موضوع مورد نظر را انتخاب نمائید'),
+                  );
+                }
+                var selectedLesson = selectedSubject.lessons
+                    .where(
+                      (x) => x.name == ref.watch(selectedLessonProvider)?.name,
+                    )
+                    .firstOrNull;
+                if (selectedLesson == null) {
+                  return Center(
+                    child: Text('لطفاً درس مورد نظر را انتخاب نمائید'),
+                  );
+                }
+                var units = selectedLesson.parentTopics;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: ListView.builder(
+                    itemCount: units.length,
+                    itemBuilder: (context, index) {
+                      return Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: _ParentTopicExpansionTile(
+                          parentTopic: units[index],
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            // child: ref.watch(selectedLessonProvider)?.name == null
+            //     ?                   Center(
+            //         child: Text(
+            //           notifier.rootDirectoryPath == null
+            //               ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
+            //               : 'ساختار مورد نظر یافت نشد.',
+            //         ),
+            //       )
+            //     : Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            //       child: ListView.builder(
+            //         itemCount: subjects.,
+            //         itemBuilder: (context, index) {
+            //           return Directionality(
+            //             textDirection: TextDirection.ltr,
+            //             child: _SubjectExpansionTile(subject: subjects[index]),
+            //           );
+            //         },
+            //       ),
+            //     ),
+          ),
         ],
       ),
     );

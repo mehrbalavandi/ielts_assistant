@@ -19,4 +19,4 @@ final lessonsProvider = FutureProvider.family<List<Lesson>, Subject?>((
   return subject.lessons;
 });
 
-final selectedUnitProvider = StateProvider<Lesson?>((ref) => null);
+final selectedLessonProvider = StateProvider<Lesson?>((ref) => null);
