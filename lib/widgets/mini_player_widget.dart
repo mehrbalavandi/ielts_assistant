@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:just_audio/just_audio.dart';
-import 'player_display_state.dart';
+import '../states/player_display_state.dart';
 import 'audio_player_widget.dart'; // ویجت Modal/Maximized قبلی
 
 // ... (ایمپورت‌ها)

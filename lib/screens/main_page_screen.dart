@@ -5,16 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:ielts_assistant/common/directory_state.dart';
 import 'package:ielts_assistant/common/enums.dart';
-import 'package:ielts_assistant/lesson_content_screen.dart';
+import 'package:ielts_assistant/screens/lesson_content_screen.dart';
 import 'package:ielts_assistant/models/data_models.dart';
-import 'package:ielts_assistant/selection_state.dart';
+import 'package:ielts_assistant/states/selection_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
-import 'player_display_state.dart';
-import 'mini_player_widget.dart'; // ویجت پلیر کوچ
+import '../states/player_display_state.dart';
+import '../widgets/mini_player_widget.dart'; // ویجت پلیر کوچ
 
 class MainPageScreen extends ConsumerWidget {
   final _storageService = StorageService();

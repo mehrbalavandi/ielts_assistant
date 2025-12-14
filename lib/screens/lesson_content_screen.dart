@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
-import 'package:ielts_assistant/mini_player_widget.dart';
+import 'package:ielts_assistant/widgets/mini_player_widget.dart';
 import 'package:ielts_assistant/models/data_models.dart';
-import 'package:ielts_assistant/player_display_state.dart';
+import 'package:ielts_assistant/states/player_display_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/lesson_content_service.dart'; // import 'audio_player_widget.dart'; // برای استفاده از AudioPlayerWidget یا MiniPlayerWidget (اختیاری)
 

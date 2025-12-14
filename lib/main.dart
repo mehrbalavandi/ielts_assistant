@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/main_page_screen.dart';
+import 'package:ielts_assistant/screens/main_page_screen.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
 // ویجت پلیر کوچک
