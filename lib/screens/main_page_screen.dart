@@ -140,10 +140,10 @@ class MainPageScreen extends ConsumerWidget {
                       return data;
                     },
                     error: (_, _) {
-                      return <Lesson>[];
+                      return <Unit>[];
                     },
                     loading: () {
-                      return <Lesson>[];
+                      return <Unit>[];
                     },
                   );
               if (subjects.isEmpty) {
@@ -215,7 +215,7 @@ class MainPageScreen extends ConsumerWidget {
   Widget _buildLessons(
     BuildContext context,
     WidgetRef ref,
-    AsyncValue<List<Subject>> asyncData,
+    AsyncValue<List<Book>> asyncData,
     DirectoryDataNotifier notifier,
   ) {
     return Directionality(
@@ -248,7 +248,7 @@ class MainPageScreen extends ConsumerWidget {
                     child: Text('لطفاً موضوع مورد نظر را انتخاب نمائید'),
                   );
                 }
-                var selectedLesson = selectedSubject.lessons
+                var selectedLesson = selectedSubject.units
                     .where(
                       (x) => x.name == ref.watch(selectedLessonProvider)?.name,
                     )
@@ -258,7 +258,7 @@ class MainPageScreen extends ConsumerWidget {
                     child: Text('لطفاً درس مورد نظر را انتخاب نمائید'),
                   );
                 }
-                var units = selectedLesson.parentTopics;
+                var units = selectedLesson.mainTopics;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ListView.builder(
@@ -305,7 +305,7 @@ class MainPageScreen extends ConsumerWidget {
   Widget _buildMainContent(
     BuildContext context,
     WidgetRef ref,
-    AsyncValue<List<Subject>> asyncData,
+    AsyncValue<List<Book>> asyncData,
     DirectoryDataNotifier notifier,
   ) {
     return Directionality(
@@ -366,7 +366,7 @@ class MainPageScreen extends ConsumerWidget {
 
 // ✅ تغییر به ConsumerStatefulWidget
 class _ParentTopicExpansionTile extends ConsumerStatefulWidget {
-  final ParentTopic parentTopic;
+  final MainTopic parentTopic;
   const _ParentTopicExpansionTile({required this.parentTopic});
 
   @override
@@ -492,7 +492,7 @@ class _ParentTopicExpansionTileState
 }
 
 class _SubjectExpansionTile extends StatelessWidget {
-  final Subject subject;
+  final Book subject;
   const _SubjectExpansionTile({required this.subject});
 
   @override
@@ -504,7 +504,7 @@ class _SubjectExpansionTile extends StatelessWidget {
           subject.name,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-        children: subject.lessons.map((lesson) {
+        children: subject.units.map((lesson) {
           return _LessonExpansionTile(lesson: lesson);
         }).toList(),
       ),
@@ -513,7 +513,7 @@ class _SubjectExpansionTile extends StatelessWidget {
 }
 
 class _LessonExpansionTile extends StatelessWidget {
-  final Lesson lesson;
+  final Unit lesson;
   const _LessonExpansionTile({required this.lesson});
 
   @override
@@ -527,7 +527,7 @@ class _LessonExpansionTile extends StatelessWidget {
           lesson.name,
           style: const TextStyle(fontSize: 16),
         ),
-        children: lesson.parentTopics.map((parentTopic) {
+        children: lesson.mainTopics.map((parentTopic) {
           // درس شامل لیست ParentTopic است
           return _ParentTopicExpansionTile(
             parentTopic: parentTopic,

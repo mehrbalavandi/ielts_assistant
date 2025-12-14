@@ -1,26 +1,26 @@
 import 'dart:io';
 import 'package:path/path.dart';
 
-class Subject {
+class Book {
   final String name;
-  final List<Lesson> lessons;
-  Subject({required this.name, required this.lessons});
+  final List<Unit> units;
+  Book({required this.name, required this.units});
 }
 
 // مدل برای دروس درون هر کتاب
-class Lesson {
+class Unit {
   final String name;
-  final List<ParentTopic> parentTopics;
-  Lesson({required this.name, required this.parentTopics});
+  final List<MainTopic> mainTopics;
+  Unit({required this.name, required this.mainTopics});
 }
 
 // کلاس مبحث اصلی (Parent Topic) که اکنون شامل لیستی از زیرمبحث‌ها است
-class ParentTopic {
+class MainTopic {
   final String name;
   final String realmId;
   final List<SubTopic> subTopics; // ✅ لیست زیرمبحث‌ها
 
-  ParentTopic({
+  MainTopic({
     required this.name,
     required this.realmId,
     required this.subTopics,

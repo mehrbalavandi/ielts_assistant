@@ -12,11 +12,11 @@ final _storageBox = GetStorage(); // نمونه GetStorage
 final fileTraversalServiceProvider = Provider((ref) => FileTraversalService());
 
 // تعریف StateNotifier برای مدیریت داده های برنامه
-class DirectoryDataNotifier extends AsyncNotifier<List<Subject>> {
+class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
   String? _rootDirectoryPath;
 
   @override
-  Future<List<Subject>> build() async {
+  Future<List<Book>> build() async {
     // ۱. تلاش برای بازیابی مسیر ذخیره شده
     final savedPath = _storageBox.read(_ROOT_PATH_KEY) as String?;
 
@@ -69,6 +69,6 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Subject>> {
 }
 
 final directoryDataProvider =
-    AsyncNotifierProvider<DirectoryDataNotifier, List<Subject>>(() {
+    AsyncNotifierProvider<DirectoryDataNotifier, List<Book>>(() {
       return DirectoryDataNotifier();
     });

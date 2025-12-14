@@ -8,15 +8,15 @@ import 'package:ielts_assistant/models/data_models.dart';
 final lastSelectedTopicProvider = StateProvider<SubTopic?>((ref) => null);
 final lastOpenedParentIdProvider = StateProvider<String?>((ref) => null);
 
-final selectedSubjectProvider = StateProvider<Subject?>((ref) => null);
-final lessonsProvider = FutureProvider.family<List<Lesson>, Subject?>((
+final selectedSubjectProvider = StateProvider<Book?>((ref) => null);
+final lessonsProvider = FutureProvider.family<List<Unit>, Book?>((
   ref,
   subject,
 ) async {
   if (subject == null) {
     return [];
   }
-  return subject.lessons;
+  return subject.units;
 });
 
-final selectedLessonProvider = StateProvider<Lesson?>((ref) => null);
+final selectedLessonProvider = StateProvider<Unit?>((ref) => null);

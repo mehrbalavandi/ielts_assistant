@@ -4,7 +4,7 @@ import 'package:ielts_assistant/models/data_models.dart';
 import 'package:path/path.dart';
 
 class FileTraversalService {
-  Future<List<Subject>> traverseRootDirectory(String rootPath) async {
+  Future<List<Book>> traverseRootDirectory(String rootPath) async {
     final rootDir = Directory(rootPath);
     if (!await rootDir.exists()) {
       debugPrint('Root directory not found: $rootPath');
@@ -55,7 +55,7 @@ class FileTraversalService {
                           .toList(); // همه زیرمبحث‌ها را در نظر بگیرید.
 
                       // ساخت ParentTopic، فقط اگر حداقل یک SubTopic معتبر داشته باشد
-                      return ParentTopic(
+                      return MainTopic(
                         realmId: parentTopicDir.path,
                         name: basename(parentTopicDir.path),
                         subTopics: subTopics,
@@ -65,18 +65,18 @@ class FileTraversalService {
                     .toList(); // فقط مباحث اصلی دارای زیرمبحث را در نظر بگیرید.
 
                 // ساخت Lesson، فقط اگر حداقل یک ParentTopic معتبر داشته باشد
-                return Lesson(
+                return Unit(
                   name: basename(lessonDir.path),
-                  parentTopics: parentTopics,
+                  mainTopics: parentTopics,
                 );
               })
-              .where((l) => l.parentTopics.isNotEmpty)
+              .where((l) => l.mainTopics.isNotEmpty)
               .toList(); // فقط درس‌های دارای ParentTopic را در نظر بگیرید.
 
           // ساخت Subject، فقط اگر حداقل یک Lesson معتبر داشته باشد
-          return Subject(name: basename(subjectDir.path), lessons: lessons);
+          return Book(name: basename(subjectDir.path), units: lessons);
         })
-        .where((s) => s.lessons.isNotEmpty)
+        .where((s) => s.units.isNotEmpty)
         .toList(); // فقط Subjectهای دارای Lesson را در نظر بگیرید.
 
     return subjects;
