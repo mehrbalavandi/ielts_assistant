@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/common/enums.dart';
 import 'dart:convert';
 import 'dart:io';
 
@@ -48,8 +46,6 @@ class TranslationTextSegment {
     );
   }
 }
-
-final _storageBox = GetStorage();
 
 // مدل وضعیت برای LessonContentScreen
 class LessonContentState {

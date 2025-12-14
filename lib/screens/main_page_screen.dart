@@ -19,7 +19,8 @@ import '../widgets/mini_player_widget.dart'; // ویجت پلیر کوچ
 
 class MainPageScreen extends ConsumerWidget {
   final _storageService = StorageService();
-  final GlobalKey<CustomDropdownState> _dropdownKey = GlobalKey();
+  final GlobalKey<CustomDropdownState> _dropdownKeySubjects = GlobalKey();
+  final GlobalKey<CustomDropdownState> _dropdownKeyUnits = GlobalKey();
   MainPageScreen({super.key});
 
   Future<void> _pickDirectory(WidgetRef ref) async {
@@ -85,7 +86,7 @@ class MainPageScreen extends ConsumerWidget {
     final notifier = ref.read(directoryDataProvider.notifier);
     final displayMode = ref.watch(playerDisplayProvider);
     final topic = ref.watch(currentPlayingTopicProvider); // مبحث در حال پخش
-
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -129,24 +130,74 @@ class MainPageScreen extends ConsumerWidget {
       // استفاده از Stack برای همپوشانی محتوای اصلی و پلیر شناور
       body: Column(
         children: [
-          Row(
-            children: [
-              asyncData.when(
-                data: (subject) {
-                  final items = subject.map((x) => x.name).toList();
-                  return CustomDropdown(
-                    key: _dropdownKey,
-                    value: items[0],
-                    items: items,
-                    onChanged: (value) async {
-                      if (value != null) {}
+          asyncData.when(
+            data: (data) {
+              final subjects = data.map((x) => x.name).toList();
+              final lessons = ref
+                  .watch(lessonsProvider(ref.watch(selectedSubjectProvider)))
+                  .when(
+                    data: (data) {
+                      return data;
+                    },
+                    error: (_, _) {
+                      return <Lesson>[];
+                    },
+                    loading: () {
+                      return <Lesson>[];
                     },
                   );
-                },
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, stack) => Center(child: Text('خطا: $error')),
-              ),
-            ],
+              if (subjects.isEmpty) {
+                return SizedBox.shrink();
+              }
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    DropdownButton(
+                      key: _dropdownKeySubjects,
+                      value: subjects[0],
+                      items: subjects
+                          .map(
+                            (x) => DropdownMenuItem(value: x, child: Text(x)),
+                          )
+                          .toList(),
+                      onChanged: (value) async {
+                        if (value != null) {
+                          ref.read(selectedSubjectProvider.notifier).state =
+                              data.where((x) => x.name == value).firstOrNull;
+                          _storageService.saveLastSubject(value);
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Icon(Icons.arrow_forward_ios),
+                    ),
+                    DropdownButton(
+                      key: _dropdownKeyUnits,
+                      value: subjects[0],
+                      items: lessons
+                          .map(
+                            (x) => DropdownMenuItem(
+                              value: x.name,
+                              child: Text(x.name),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) async {
+                        if (value != null) {
+                          ref.read(selectedUnitProvider.notifier).state =
+                              lessons.where((x) => x.name == value).firstOrNull;
+                          _storageService.saveLastUnit(value);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+            loading: () => CircularProgressIndicator(),
+            error: (error, stack) => Text('خطا: $error'),
           ),
           // ۱. محتوای اصلی صفحه
           Expanded(child: _buildMainContent(context, ref, asyncData, notifier)),

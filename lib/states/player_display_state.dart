@@ -1,6 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:ielts_assistant/models/data_models.dart';
 
 enum PlayerDisplayMode {
   hidden, // پلیر پنهان است (مثلاً وقتی چیزی پخش نمی‌شود)

@@ -7,6 +7,9 @@ class StorageKeys {
   static const String lastRootDirectoryPath = 'last_root_directory_path';
   static const String lastPlayedTopicId = 'audio_lastPlayedTopicId';
   static const String lastPlayedPositionMs = 'audio_lastPlayedPositionMs';
+
+  static const String lastSubject = 'last_subject';
+  static const String lastUnit = 'last_unit';
 }
 
 class StorageService {
@@ -50,5 +53,21 @@ class StorageService {
 
   int? getLastPlayedPositionMs() {
     return _box.read(StorageKeys.lastPlayedPositionMs);
+  }
+
+  void saveLastSubject(String subject) {
+    _box.write(StorageKeys.lastSubject, subject);
+  }
+
+  String? getLastSubject() {
+    return _box.read(StorageKeys.lastSubject);
+  }
+
+  void saveLastUnit(String unit) {
+    _box.write(StorageKeys.lastUnit, unit);
+  }
+
+  String? getLastUnit() {
+    return _box.read(StorageKeys.lastUnit);
   }
 }

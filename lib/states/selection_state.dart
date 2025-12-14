@@ -1,4 +1,5 @@
 // در فایل selection_state.dart
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 
@@ -6,3 +7,16 @@ import 'package:ielts_assistant/models/data_models.dart';
 // اگر آیتمی انتخاب نشده باشد (یا والد جمع شده باشد)، مقدار آن null است.
 final lastSelectedTopicProvider = StateProvider<SubTopic?>((ref) => null);
 final lastOpenedParentIdProvider = StateProvider<String?>((ref) => null);
+
+final selectedSubjectProvider = StateProvider<Subject?>((ref) => null);
+final lessonsProvider = FutureProvider.family<List<Lesson>, Subject?>((
+  ref,
+  subject,
+) async {
+  if (subject == null) {
+    return [];
+  }
+  return subject.lessons;
+});
+
+final selectedUnitProvider = StateProvider<Lesson?>((ref) => null);
