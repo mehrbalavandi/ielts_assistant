@@ -133,7 +133,7 @@ class MainPageScreen extends ConsumerWidget {
       body: Column(
         children: [
           __buildHeaders(context, ref, asyncData, notifier),
-          Expanded(child: _buildMainContent(context, ref, asyncData, notifier)),
+          Expanded(child: _buildUnits(context, ref, asyncData, notifier)),
 
           // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
           if (displayMode != PlayerDisplayMode.hidden && topic != null)
@@ -196,91 +196,101 @@ class MainPageScreen extends ConsumerWidget {
               },
             );
         return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              DropdownButton(
-                key: _dropdownKeybooks,
-                value: ref.watch(selectedBookProvider)?.name,
-                items: books
-                    .map((x) => DropdownMenuItem(value: x, child: Text(x)))
-                    .toList(),
-                onChanged: (value) async {
-                  if (value != null) {
-                    ref.read(selectedBookProvider.notifier).state = data
-                        .where((x) => x.name == value)
-                        .firstOrNull;
-                    ref.read(selectedUnitProvider.notifier).state = null;
-                    // _storageService.saveLastbook(value);
-                  }
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(Icons.arrow_forward_ios, size: 16.0),
-              ),
-              DropdownButton(
-                key: _dropdownKeyUnits,
-                value: ref.watch(selectedUnitProvider)?.name,
-                items: units
-                    .map(
-                      (x) =>
-                          DropdownMenuItem(value: x.name, child: Text(x.name)),
-                    )
-                    .toList(),
-                onChanged: (value) async {
-                  if (value != null) {
-                    ref.read(selectedUnitProvider.notifier).state = units
-                        .where((x) => x.name == value)
-                        .firstOrNull;
-                    // _storageService.saveLastunit(value);
-                  }
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(Icons.arrow_forward_ios, size: 16.0),
-              ),
-              DropdownButton(
-                key: _dropdownKeyMainTopics,
-                value: ref.watch(selectedMainTopicProvider)?.name,
-                items: mainTopics
-                    .map(
-                      (x) =>
-                          DropdownMenuItem(value: x.name, child: Text(x.name)),
-                    )
-                    .toList(),
-                onChanged: (value) async {
-                  if (value != null) {
-                    ref.read(selectedMainTopicProvider.notifier).state =
-                        mainTopics.where((x) => x.name == value).firstOrNull;
-                    // _storageService.saveLastunit(value);
-                  }
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(Icons.arrow_forward_ios, size: 16.0),
-              ),
-              DropdownButton(
-                key: _dropdownKeySubTopics,
-                value: ref.watch(selectedSubTopicProvider)?.name,
-                items: subTopics
-                    .map(
-                      (x) =>
-                          DropdownMenuItem(value: x.name, child: Text(x.name)),
-                    )
-                    .toList(),
-                onChanged: (value) async {
-                  if (value != null) {
-                    ref.read(selectedSubTopicProvider.notifier).state =
-                        subTopics.where((x) => x.name == value).firstOrNull;
-                    // _storageService.saveLastunit(value);
-                  }
-                },
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Align(
+            alignment: AlignmentGeometry.centerLeft,
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                DropdownButton(
+                  key: _dropdownKeybooks,
+                  value: ref.watch(selectedBookProvider)?.name,
+                  items: books
+                      .map((x) => DropdownMenuItem(value: x, child: Text(x)))
+                      .toList(),
+                  onChanged: (value) async {
+                    if (value != null &&
+                        value != ref.read(selectedBookProvider)?.name) {
+                      ref.read(selectedBookProvider.notifier).state = data
+                          .where((x) => x.name == value)
+                          .firstOrNull;
+                      ref.read(selectedUnitProvider.notifier).state = null;
+                      // _storageService.saveLastbook(value);
+                    }
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Icon(Icons.arrow_forward_ios, size: 16.0),
+                ),
+                DropdownButton(
+                  key: _dropdownKeyUnits,
+                  value: ref.watch(selectedUnitProvider)?.name,
+                  items: units
+                      .map(
+                        (x) => DropdownMenuItem(
+                          value: x.name,
+                          child: Text(x.name),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) async {
+                    if (value != null &&
+                        value != ref.read(selectedUnitProvider)?.name) {
+                      ref.read(selectedUnitProvider.notifier).state = units
+                          .where((x) => x.name == value)
+                          .firstOrNull;
+                      // _storageService.saveLastunit(value);
+                    }
+                  },
+                ),
+                //! بقیه کومبوباکس‌ها
+                /*
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Icon(Icons.arrow_forward_ios, size: 16.0),
+                ),
+                DropdownButton(
+                  key: _dropdownKeyMainTopics,
+                  value: ref.watch(selectedMainTopicProvider)?.name,
+                  items: mainTopics
+                      .map(
+                        (x) =>
+                            DropdownMenuItem(value: x.name, child: Text(x.name)),
+                      )
+                      .toList(),
+                  onChanged: (value) async {
+                    if (value != null) {
+                      ref.read(selectedMainTopicProvider.notifier).state =
+                          mainTopics.where((x) => x.name == value).firstOrNull;
+                      // _storageService.saveLastunit(value);
+                    }
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Icon(Icons.arrow_forward_ios, size: 16.0),
+                ),
+                DropdownButton(
+                  key: _dropdownKeySubTopics,
+                  value: ref.watch(selectedSubTopicProvider)?.name,
+                  items: subTopics
+                      .map(
+                        (x) =>
+                            DropdownMenuItem(value: x.name, child: Text(x.name)),
+                      )
+                      .toList(),
+                  onChanged: (value) async {
+                    if (value != null) {
+                      ref.read(selectedSubTopicProvider.notifier).state =
+                          subTopics.where((x) => x.name == value).firstOrNull;
+                      // _storageService.saveLastunit(value);
+                    }
+                  },
+                ),
+              */
+              ],
+            ),
           ),
         );
       },
@@ -343,7 +353,12 @@ class MainPageScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       return Directionality(
                         textDirection: TextDirection.ltr,
-                        child: _mainTopicExpansionTile(mainTopic: units[index]),
+                        child: Card(
+                          margin: const EdgeInsets.only(bottom: 8.0),
+                          child: _mainTopicExpansionTile(
+                            mainTopic: units[index],
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -417,6 +432,267 @@ class MainPageScreen extends ConsumerWidget {
   }
 }
 
+class _bookExpansionTile extends StatelessWidget {
+  final Book book;
+  const _bookExpansionTile({required this.book});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8.0),
+      child: ExpansionTile(
+        title: Text(
+          book.name,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
+        children: book.units.map((unit) {
+          return _unitExpansionTile(unit: unit);
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class _unitExpansionTile extends StatelessWidget {
+  final Unit unit;
+  const _unitExpansionTile({required this.unit});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0),
+      child: ExpansionTile(
+        tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        title: Text(
+          //! درس:
+          unit.name,
+          style: const TextStyle(fontSize: 16),
+        ),
+        children: unit.mainTopics.map((mainTopic) {
+          // درس شامل لیست mainTopic است
+          return _mainTopicExpansionTile(
+            mainTopic: mainTopic,
+          ); // فراخوانی ویجت جدید
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class _mainTopicExpansionTile extends StatelessWidget {
+  final MainTopic mainTopic;
+  const _mainTopicExpansionTile({required this.mainTopic});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: ExpansionTile(
+        tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        title: Text(
+          // مبحث اصلی
+          mainTopic.name, // ✅ استفاده از widget.mainTopic
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ), // ✅ متد مدیریت تغییر
+        children: mainTopic.subTopics.map((subTopic) {
+          // ✅ استفاده از widget.mainTopic
+          return _subTopicExpansionTile(subTopic: subTopic);
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class _subTopicExpansionTile extends StatelessWidget {
+  final SubTopic subTopic;
+  const _subTopicExpansionTile({required this.subTopic});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: ExpansionTile(
+        tilePadding: const EdgeInsets.only(left: 24.0, right: 16.0),
+        title: Text(
+          // مبحث اصلی
+          subTopic.name, // ✅ استفاده از widget.mainTopic
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ), // ✅ متد مدیریت تغییر
+        children: subTopic.finalTopics.map((finalTopic) {
+          // ✅ استفاده از widget.mainTopic
+          return _finalTopicListTile(finalTopic: finalTopic);
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class _finalTopicListTile extends ConsumerWidget {
+  final FinalTopic finalTopic;
+  const _finalTopicListTile({required this.finalTopic});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // خواندن وضعیت آخرین انتخاب
+    final FinalTopic? lastSelectedTopic = ref.watch(lastSelectedTopicProvider);
+    final bool isLastSelected =
+        lastSelectedTopic?.realmId == finalTopic.realmId;
+
+    final int fileCount = finalTopic.audioFilePaths.length;
+    final bool hasAudio = fileCount > 0;
+    final bool hasContent =
+        finalTopic.jsonFilePath.isNotEmpty &&
+        finalTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
+
+    // ✅ مبحث فعال است اگر فایل صوتی یا فایل محتوا داشته باشد
+    final bool isSelectable = hasAudio || hasContent;
+
+    // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
+    final audioNotifier = ref.read(audioPlayerProvider.notifier);
+    final audioState = ref.watch(audioPlayerProvider);
+    final isCurrentlyLoaded =
+        audioState.currentTopic?.realmId == finalTopic.realmId;
+    final isCurrentlyPlaying = isCurrentlyLoaded && audioState.isPlaying;
+
+    final Color backgroundColor = isLastSelected
+        ? Colors
+              .yellow
+              .shade100 // رنگ متمایز کننده برای آخرین انتخاب
+        : Colors.transparent; // رنگ عادی
+
+    return ListTile(
+      tileColor: backgroundColor,
+      contentPadding: const EdgeInsets.only(left: 40.0),
+      leading: Icon(
+        fileCount > 0 ? Icons.music_note : Icons.music_off,
+        color: fileCount > 0 ? Colors.indigo : Colors.grey,
+      ),
+      title: Text(
+        // مبحث:
+        finalTopic.name,
+        style: const TextStyle(fontSize: 14),
+      ),
+      // subtitle: Text(
+      //   fileCount > 0
+      //       ? 'تعداد فایل‌های صوتی: $fileCount'
+      //       : 'فایل صوتی یافت نشد.',
+      //   style: const TextStyle(fontSize: 12),
+      // ),
+      onTap: isSelectable
+          ? () async {
+              final displayNotifier = ref.read(playerDisplayProvider.notifier);
+              final currentTopicNotifier = ref.read(
+                currentPlayingTopicProvider.notifier,
+              );
+              if (hasAudio) {
+                if (!isCurrentlyPlaying) {
+                  // اگر در حال پخش نیست، لود و پخش کن
+                  await audioNotifier.loadPlaylist(finalTopic);
+                  currentTopicNotifier.state = finalTopic;
+                }
+                displayNotifier.minimize();
+              } else {
+                audioNotifier.stop();
+                // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
+                displayNotifier.hide();
+              }
+              ref.read(lastSelectedTopicProvider.notifier).state = finalTopic;
+
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => unitContentScreen(topic: finalTopic),
+                ),
+              );
+            }
+          : null,
+    );
+  }
+}
+
+/*
+class _mainTopicListTile extends ConsumerWidget {
+  final FinalTopic finalTopic;
+  const _mainTopicListTile({required this.finalTopic});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // خواندن وضعیت آخرین انتخاب
+    final FinalTopic? lastSelectedTopic = ref.watch(lastSelectedTopicProvider);
+    final bool isLastSelected =
+        lastSelectedTopic?.realmId == finalTopic.realmId;
+
+    final int fileCount = finalTopic.audioFilePaths.length;
+    final bool hasAudio = fileCount > 0;
+    final bool hasContent =
+        finalTopic.jsonFilePath.isNotEmpty &&
+        finalTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
+
+    // ✅ مبحث فعال است اگر فایل صوتی یا فایل محتوا داشته باشد
+    final bool isSelectable = hasAudio || hasContent;
+
+    // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
+    final audioNotifier = ref.read(audioPlayerProvider.notifier);
+    final audioState = ref.watch(audioPlayerProvider);
+    final isCurrentlyLoaded =
+        audioState.currentTopic?.realmId == finalTopic.realmId;
+    final isCurrentlyPlaying = isCurrentlyLoaded && audioState.isPlaying;
+
+    final Color backgroundColor = isLastSelected
+        ? Colors
+              .yellow
+              .shade100 // رنگ متمایز کننده برای آخرین انتخاب
+        : Colors.transparent; // رنگ عادی
+
+    return ListTile(
+      tileColor: backgroundColor,
+      contentPadding: const EdgeInsets.only(right: 32.0, left: 16.0),
+      leading: Icon(
+        fileCount > 0 ? Icons.music_note : Icons.music_off,
+        color: fileCount > 0 ? Colors.indigo : Colors.grey,
+      ),
+      title: Text(
+        // مبحث:
+        finalTopic.name,
+        style: const TextStyle(fontSize: 14),
+      ),
+      // subtitle: Text(
+      //   fileCount > 0
+      //       ? 'تعداد فایل‌های صوتی: $fileCount'
+      //       : 'فایل صوتی یافت نشد.',
+      //   style: const TextStyle(fontSize: 12),
+      // ),
+      onTap: isSelectable
+          ? () async {
+              final displayNotifier = ref.read(playerDisplayProvider.notifier);
+              final currentTopicNotifier = ref.read(
+                currentPlayingTopicProvider.notifier,
+              );
+              if (hasAudio) {
+                if (!isCurrentlyPlaying) {
+                  // اگر در حال پخش نیست، لود و پخش کن
+                  await audioNotifier.loadPlaylist(finalTopic);
+                  currentTopicNotifier.state = finalTopic;
+                }
+                displayNotifier.minimize();
+              } else {
+                audioNotifier.stop();
+                // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
+                displayNotifier.hide();
+              }
+              ref.read(lastSelectedTopicProvider.notifier).state = finalTopic;
+
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => unitContentScreen(topic: finalTopic),
+                ),
+              );
+            }
+          : null,
+    );
+  }
+}
+*/
+/*
 class _mainTopicExpansionTile extends ConsumerStatefulWidget {
   final MainTopic mainTopic;
   const _mainTopicExpansionTile({required this.mainTopic});
@@ -543,131 +819,4 @@ class _mainTopicExpansionTileState
   }
 }
 
-class _bookExpansionTile extends StatelessWidget {
-  final Book book;
-  const _bookExpansionTile({required this.book});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8.0),
-      child: ExpansionTile(
-        title: Text(
-          book.name,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        children: book.units.map((unit) {
-          return _unitExpansionTile(unit: unit);
-        }).toList(),
-      ),
-    );
-  }
-}
-
-class _unitExpansionTile extends StatelessWidget {
-  final Unit unit;
-  const _unitExpansionTile({required this.unit});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: ExpansionTile(
-        tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
-        title: Text(
-          //! درس:
-          unit.name,
-          style: const TextStyle(fontSize: 16),
-        ),
-        children: unit.mainTopics.map((mainTopic) {
-          // درس شامل لیست mainTopic است
-          return _mainTopicExpansionTile(
-            mainTopic: mainTopic,
-          ); // فراخوانی ویجت جدید
-        }).toList(),
-      ),
-    );
-  }
-}
-
-class _mainTopicListTile extends ConsumerWidget {
-  final FinalTopic finalTopic;
-  const _mainTopicListTile({required this.finalTopic});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // خواندن وضعیت آخرین انتخاب
-    final FinalTopic? lastSelectedTopic = ref.watch(lastSelectedTopicProvider);
-    final bool isLastSelected =
-        lastSelectedTopic?.realmId == finalTopic.realmId;
-
-    final int fileCount = finalTopic.audioFilePaths.length;
-    final bool hasAudio = fileCount > 0;
-    final bool hasContent =
-        finalTopic.jsonFilePath.isNotEmpty &&
-        finalTopic.translationFilePath.isNotEmpty; // ✅ چک کردن وجود فایل JSON
-
-    // ✅ مبحث فعال است اگر فایل صوتی یا فایل محتوا داشته باشد
-    final bool isSelectable = hasAudio || hasContent;
-
-    // ۱. بررسی مبحث در حال پخش: مقایسه بر اساس realmId (مسیر کامل)
-    final audioNotifier = ref.read(audioPlayerProvider.notifier);
-    final audioState = ref.watch(audioPlayerProvider);
-    final isCurrentlyLoaded =
-        audioState.currentTopic?.realmId == finalTopic.realmId;
-    final isCurrentlyPlaying = isCurrentlyLoaded && audioState.isPlaying;
-
-    final Color backgroundColor = isLastSelected
-        ? Colors
-              .yellow
-              .shade100 // رنگ متمایز کننده برای آخرین انتخاب
-        : Colors.transparent; // رنگ عادی
-
-    return ListTile(
-      tileColor: backgroundColor,
-      contentPadding: const EdgeInsets.only(right: 32.0, left: 16.0),
-      leading: Icon(
-        fileCount > 0 ? Icons.music_note : Icons.music_off,
-        color: fileCount > 0 ? Colors.indigo : Colors.grey,
-      ),
-      title: Text(
-        // مبحث:
-        finalTopic.name,
-        style: const TextStyle(fontSize: 14),
-      ),
-      // subtitle: Text(
-      //   fileCount > 0
-      //       ? 'تعداد فایل‌های صوتی: $fileCount'
-      //       : 'فایل صوتی یافت نشد.',
-      //   style: const TextStyle(fontSize: 12),
-      // ),
-      onTap: isSelectable
-          ? () async {
-              final displayNotifier = ref.read(playerDisplayProvider.notifier);
-              final currentTopicNotifier = ref.read(
-                currentPlayingTopicProvider.notifier,
-              );
-              if (hasAudio) {
-                if (!isCurrentlyPlaying) {
-                  // اگر در حال پخش نیست، لود و پخش کن
-                  await audioNotifier.loadPlaylist(finalTopic);
-                  currentTopicNotifier.state = finalTopic;
-                }
-                displayNotifier.minimize();
-              } else {
-                audioNotifier.stop();
-                // پلیر را پنهان کن (چون چیزی برای پخش وجود ندارد)
-                displayNotifier.hide();
-              }
-              ref.read(lastSelectedTopicProvider.notifier).state = finalTopic;
-
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => unitContentScreen(topic: finalTopic),
-                ),
-              );
-            }
-          : null,
-    );
-  }
-}
+*/
