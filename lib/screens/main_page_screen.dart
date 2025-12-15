@@ -132,168 +132,160 @@ class MainPageScreen extends ConsumerWidget {
       // استفاده از Stack برای همپوشانی محتوای اصلی و پلیر شناور
       body: Column(
         children: [
-          asyncData.when(
-            data: (data) {
-              final books = data.map((x) => x.name).toList();
-
-              if (books.isEmpty) {
-                return SizedBox.shrink();
-              }
-              final units = ref
-                  .watch(unitsProvider(ref.watch(selectedBookProvider)))
-                  .when(
-                    data: (data) {
-                      return data;
-                    },
-                    error: (_, _) {
-                      return <Unit>[];
-                    },
-                    loading: () {
-                      return <Unit>[];
-                    },
-                  );
-              final mainTopics = ref
-                  .watch(mainTopicsProvider(ref.watch(selectedUnitProvider)))
-                  .when(
-                    data: (data) {
-                      return data;
-                    },
-                    error: (_, _) {
-                      return <MainTopic>[];
-                    },
-                    loading: () {
-                      return <MainTopic>[];
-                    },
-                  );
-              final subTopics = ref
-                  .watch(
-                    subTopicsProvider(ref.watch(selectedMainTopicProvider)),
-                  )
-                  .when(
-                    data: (data) {
-                      return data;
-                    },
-                    error: (_, _) {
-                      return <SubTopic>[];
-                    },
-                    loading: () {
-                      return <SubTopic>[];
-                    },
-                  );
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    DropdownButton(
-                      key: _dropdownKeybooks,
-                      value: ref.watch(selectedBookProvider)?.name,
-                      items: books
-                          .map(
-                            (x) => DropdownMenuItem(value: x, child: Text(x)),
-                          )
-                          .toList(),
-                      onChanged: (value) async {
-                        if (value != null) {
-                          ref.read(selectedBookProvider.notifier).state = data
-                              .where((x) => x.name == value)
-                              .firstOrNull;
-                          ref.read(selectedUnitProvider.notifier).state = null;
-                          // _storageService.saveLastbook(value);
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.arrow_forward_ios, size: 16.0),
-                    ),
-                    DropdownButton(
-                      key: _dropdownKeyUnits,
-                      value: ref.watch(selectedUnitProvider)?.name,
-                      items: units
-                          .map(
-                            (x) => DropdownMenuItem(
-                              value: x.name,
-                              child: Text(x.name),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) async {
-                        if (value != null) {
-                          ref.read(selectedUnitProvider.notifier).state = units
-                              .where((x) => x.name == value)
-                              .firstOrNull;
-                          // _storageService.saveLastunit(value);
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.arrow_forward_ios, size: 16.0),
-                    ),
-                    DropdownButton(
-                      key: _dropdownKeyMainTopics,
-                      value: ref.watch(selectedMainTopicProvider)?.name,
-                      items: mainTopics
-                          .map(
-                            (x) => DropdownMenuItem(
-                              value: x.name,
-                              child: Text(x.name),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) async {
-                        if (value != null) {
-                          ref
-                              .read(selectedMainTopicProvider.notifier)
-                              .state = mainTopics
-                              .where((x) => x.name == value)
-                              .firstOrNull;
-                          // _storageService.saveLastunit(value);
-                        }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.arrow_forward_ios, size: 16.0),
-                    ),
-                    DropdownButton(
-                      key: _dropdownKeySubTopics,
-                      value: ref.watch(selectedSubTopicProvider)?.name,
-                      items: subTopics
-                          .map(
-                            (x) => DropdownMenuItem(
-                              value: x.name,
-                              child: Text(x.name),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) async {
-                        if (value != null) {
-                          ref
-                              .read(selectedSubTopicProvider.notifier)
-                              .state = subTopics
-                              .where((x) => x.name == value)
-                              .firstOrNull;
-                          // _storageService.saveLastunit(value);
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-            loading: () => CircularProgressIndicator(),
-            error: (error, stack) => Text('خطا: $error'),
-          ),
-          // ۱. محتوای اصلی صفحه
-          Expanded(child: _buildUnits(context, ref, asyncData, notifier)),
+          __buildHeaders(context, ref, asyncData, notifier),
+          Expanded(child: _buildMainContent(context, ref, asyncData, notifier)),
 
           // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
           if (displayMode != PlayerDisplayMode.hidden && topic != null)
             _buildPlayerWidget(ref, displayMode, topic),
         ],
       ),
+    );
+  }
+
+  Widget __buildHeaders(
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<List<Book>> asyncData,
+    DirectoryDataNotifier notifier,
+  ) {
+    return asyncData.when(
+      data: (data) {
+        final books = data.map((x) => x.name).toList();
+
+        if (books.isEmpty) {
+          return SizedBox.shrink();
+        }
+        final units = ref
+            .watch(unitsProvider(ref.watch(selectedBookProvider)))
+            .when(
+              data: (data) {
+                return data;
+              },
+              error: (_, _) {
+                return <Unit>[];
+              },
+              loading: () {
+                return <Unit>[];
+              },
+            );
+        final mainTopics = ref
+            .watch(mainTopicsProvider(ref.watch(selectedUnitProvider)))
+            .when(
+              data: (data) {
+                return data;
+              },
+              error: (_, _) {
+                return <MainTopic>[];
+              },
+              loading: () {
+                return <MainTopic>[];
+              },
+            );
+        final subTopics = ref
+            .watch(subTopicsProvider(ref.watch(selectedMainTopicProvider)))
+            .when(
+              data: (data) {
+                return data;
+              },
+              error: (_, _) {
+                return <SubTopic>[];
+              },
+              loading: () {
+                return <SubTopic>[];
+              },
+            );
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              DropdownButton(
+                key: _dropdownKeybooks,
+                value: ref.watch(selectedBookProvider)?.name,
+                items: books
+                    .map((x) => DropdownMenuItem(value: x, child: Text(x)))
+                    .toList(),
+                onChanged: (value) async {
+                  if (value != null) {
+                    ref.read(selectedBookProvider.notifier).state = data
+                        .where((x) => x.name == value)
+                        .firstOrNull;
+                    ref.read(selectedUnitProvider.notifier).state = null;
+                    // _storageService.saveLastbook(value);
+                  }
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Icon(Icons.arrow_forward_ios, size: 16.0),
+              ),
+              DropdownButton(
+                key: _dropdownKeyUnits,
+                value: ref.watch(selectedUnitProvider)?.name,
+                items: units
+                    .map(
+                      (x) =>
+                          DropdownMenuItem(value: x.name, child: Text(x.name)),
+                    )
+                    .toList(),
+                onChanged: (value) async {
+                  if (value != null) {
+                    ref.read(selectedUnitProvider.notifier).state = units
+                        .where((x) => x.name == value)
+                        .firstOrNull;
+                    // _storageService.saveLastunit(value);
+                  }
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Icon(Icons.arrow_forward_ios, size: 16.0),
+              ),
+              DropdownButton(
+                key: _dropdownKeyMainTopics,
+                value: ref.watch(selectedMainTopicProvider)?.name,
+                items: mainTopics
+                    .map(
+                      (x) =>
+                          DropdownMenuItem(value: x.name, child: Text(x.name)),
+                    )
+                    .toList(),
+                onChanged: (value) async {
+                  if (value != null) {
+                    ref.read(selectedMainTopicProvider.notifier).state =
+                        mainTopics.where((x) => x.name == value).firstOrNull;
+                    // _storageService.saveLastunit(value);
+                  }
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Icon(Icons.arrow_forward_ios, size: 16.0),
+              ),
+              DropdownButton(
+                key: _dropdownKeySubTopics,
+                value: ref.watch(selectedSubTopicProvider)?.name,
+                items: subTopics
+                    .map(
+                      (x) =>
+                          DropdownMenuItem(value: x.name, child: Text(x.name)),
+                    )
+                    .toList(),
+                onChanged: (value) async {
+                  if (value != null) {
+                    ref.read(selectedSubTopicProvider.notifier).state =
+                        subTopics.where((x) => x.name == value).firstOrNull;
+                    // _storageService.saveLastunit(value);
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
+      loading: () => CircularProgressIndicator(),
+      error: (error, stack) => Text('خطا: $error'),
     );
   }
 
@@ -358,81 +350,59 @@ class MainPageScreen extends ConsumerWidget {
                 );
               },
             ),
-            // child: ref.watch(selectedunitProvider)?.name == null
-            //     ?                   Center(
-            //         child: Text(
-            //           notifier.rootDirectoryPath == null
-            //               ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
-            //               : 'ساختار مورد نظر یافت نشد.',
-            //         ),
-            //       )
-            //     : Padding(
-            //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            //       child: ListView.builder(
-            //         itemCount: books.,
-            //         itemBuilder: (context, index) {
-            //           return Directionality(
-            //             textDirection: TextDirection.ltr,
-            //             child: _bookExpansionTile(book: books[index]),
-            //           );
-            //         },
-            //       ),
-            //     ),
           ),
         ],
       ),
     );
   }
 
-  // ویجت اصلی که محتوای لیست پوشه‌ها را نمایش می‌دهد
-  // Widget _buildMainContent(
-  //   BuildContext context,
-  //   WidgetRef ref,
-  //   AsyncValue<List<Book>> asyncData,
-  //   DirectoryDataNotifier notifier,
-  // ) {
-  //   return Directionality(
-  //     textDirection: TextDirection.rtl,
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         const SizedBox(height: 8.0),
-  //         Expanded(
-  //           child: asyncData.when(
-  //             loading: () => const Center(child: CircularProgressIndicator()),
-  //             error: (error, stack) => Center(child: Text('خطا: $error')),
-  //             data: (books) {
-  //               if (books.isEmpty) {
-  //                 return Center(
-  //                   child: Text(
-  //                     notifier.rootDirectoryPath == null
-  //                         ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
-  //                         : 'ساختار مورد نظر یافت نشد.',
-  //                   ),
-  //                 );
-  //               }
+  Widget _buildMainContent(
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<List<Book>> asyncData,
+    DirectoryDataNotifier notifier,
+  ) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 8.0),
+          Expanded(
+            child: asyncData.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stack) => Center(child: Text('خطا: $error')),
+              data: (books) {
+                if (books.isEmpty) {
+                  return Center(
+                    child: Text(
+                      notifier.rootDirectoryPath == null
+                          ? 'لطفاً پوشه ریشه دوره آموزشی خود را انتخاب کنید.'
+                          : 'ساختار مورد نظر یافت نشد.',
+                    ),
+                  );
+                }
 
-  //               return Padding(
-  //                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-  //                 child: ListView.builder(
-  //                   itemCount: books.length,
-  //                   itemBuilder: (context, index) {
-  //                     return Directionality(
-  //                       textDirection: TextDirection.ltr,
-  //                       child: _bookExpansionTile(book: books[index]),
-  //                     );
-  //                   },
-  //                 ),
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: ListView.builder(
+                    itemCount: books.length,
+                    itemBuilder: (context, index) {
+                      return Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: _bookExpansionTile(book: books[index]),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-  // متد ساخت ویجت پلیر شناور در Stack
   Widget _buildPlayerWidget(
     WidgetRef ref,
     PlayerDisplayMode mode,
@@ -447,7 +417,6 @@ class MainPageScreen extends ConsumerWidget {
   }
 }
 
-// ✅ تغییر به ConsumerStatefulWidget
 class _mainTopicExpansionTile extends ConsumerStatefulWidget {
   final MainTopic mainTopic;
   const _mainTopicExpansionTile({required this.mainTopic});
