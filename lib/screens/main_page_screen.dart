@@ -242,10 +242,8 @@ class MainPageScreen extends ConsumerWidget {
                   onChanged: (value) async {
                     if (value != null &&
                         value != ref.read(selectedUnitProvider)?.name) {
-                      ref.read(selectedUnitProvider.notifier).state = units
-                          .where((x) => x.name == value)
-                          .firstOrNull;
-                      // _storageService.saveLastunit(value);
+                      Unit unit = units.where((x) => x.name == value).first;
+                      ref.read(unitDropdownProvider.notifier).selectItem(unit);
                     }
                   },
                 ),

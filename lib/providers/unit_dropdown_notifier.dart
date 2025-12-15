@@ -24,19 +24,23 @@ class UnitDropdownNotifier extends AsyncNotifier<List<Unit>> {
       state = const AsyncValue.loading();
 
       try {
-        final units = ref.read(selectedBookProvider);
-        final storedUnitName = _storageService.getLastUnit();
+        final units = ref.read(selectedBookProvider)?.units;
+        if (units != null && units.isNotEmpty) {
+          final storedUnitName = _storageService.getLastUnit();
 
-        Unit? storedUnit;
-        if (storedUnitName != null) {
-          storedUnit = units
-              .where((item) => item.name == storedUnitName)
-              .firstOrNull;
+          Unit? storedUnit;
+          if (storedUnitName != null) {
+            storedUnit = units
+                .where((item) => item.name == storedUnitName)
+                .firstOrNull;
+          }
+          if (storedUnit != null) {
+            ref.read(selectedUnitProvider.notifier).state = storedUnit;
+          }
+          return units;
+        } else {
+          return [];
         }
-        if (storedUnit != null) {
-          ref.read(selectedUnitProvider.notifier).state = storedUnit;
-        }
-        return units;
       } catch (e, st) {
         debugPrint('Error traversing saved path: $e');
         // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
