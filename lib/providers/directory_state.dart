@@ -1,24 +1,25 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/models/data_models.dart';
-import 'package:ielts_assistant/services/file_service.dart'; // استفاده از GetStorage
+import 'package:ielts_assistant/providers/selection_state.dart';
+import 'package:ielts_assistant/services/file_service.dart';
+import 'package:ielts_assistant/services/storage_service.dart'; // استفاده از GetStorage
 // ... سایر ایمپورت‌ها: data_models.dart, file_service.dart
 
-// کلید ذخیره‌سازی
-const String _ROOT_PATH_KEY = 'lastRootDirectoryPath';
-
 final _storageBox = GetStorage(); // نمونه GetStorage
-
 final fileTraversalServiceProvider = Provider((ref) => FileTraversalService());
 
 // تعریف StateNotifier برای مدیریت داده های برنامه
 class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
   String? _rootDirectoryPath;
+  final _storageService = StorageService();
 
   @override
   Future<List<Book>> build() async {
     // ۱. تلاش برای بازیابی مسیر ذخیره شده
-    final savedPath = _storageBox.read(_ROOT_PATH_KEY) as String?;
+    final savedPath =
+        _storageBox.read(StorageKeys.lastRootDirectoryPath) as String?;
 
     if (savedPath != null) {
       // مسیر ذخیره شده پیدا شد. شروع پیمایش خودکار.
@@ -31,14 +32,24 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
         final service = ref.read(fileTraversalServiceProvider);
         final books = await service.traverseRootDirectory(savedPath);
 
-        // اگر پیمایش موفقیت آمیز بود
+        final storedBookName = _storageService.getLastbook();
+
+        Book? storedBook;
+        if (storedBookName != null) {
+          storedBook = books
+              .where((item) => item.name == storedBookName)
+              .firstOrNull;
+          if (storedBook != null) {
+            ref.read(selectedBookProvider.notifier).state = storedBook;
+          } else if (books.isNotEmpty) {
+            ref.read(selectedBookProvider.notifier).state = books[0];
+          }
+        }
+
         return books;
       } catch (e, st) {
-        // اگر مسیر ذخیره شده دیگر معتبر نباشد (مثلاً پوشه حذف شده باشد)
-        print('Error traversing saved path: $e');
-
-        // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
-        await _storageBox.remove(_ROOT_PATH_KEY);
+        debugPrint('Error traversing saved path: $e');
+        await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
         return []; // بازگشت وضعیت خالی
       }
     }
@@ -57,7 +68,7 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
       final books = await service.traverseRootDirectory(path);
 
       // **۲. ذخیره مسیر جدید در GetStorage پس از موفقیت**
-      await _storageBox.write(_ROOT_PATH_KEY, path);
+      await _storageBox.write(StorageKeys.lastRootDirectoryPath, path);
 
       state = AsyncValue.data(books);
     } catch (e, st) {
@@ -66,6 +77,11 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
   }
 
   String? get rootDirectoryPath => _rootDirectoryPath;
+  void selectItem(Book item) {
+    ref.read(selectedBookProvider.notifier).state = item;
+    // ذخیره در get_storage
+    _storageService.saveLastbook(item.name);
+  }
 }
 
 final directoryDataProvider =

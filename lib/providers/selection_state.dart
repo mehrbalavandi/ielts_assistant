@@ -29,6 +29,7 @@ final mainTopicsProvider = FutureProvider.family<List<MainTopic>, Unit?>((
   if (unit == null) {
     return [];
   }
+
   return unit.mainTopics;
 });
 
