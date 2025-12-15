@@ -20,7 +20,7 @@ final unitsProvider = FutureProvider.family<List<Unit>, Book?>((
   return book.units;
 });
 
-final selectedUnitProvider = StateProvider<Unit?>((ref) => null);
+// final selectedUnitProvider = StateProvider<Unit?>((ref) => null);
 
 final mainTopicsProvider = FutureProvider.family<List<MainTopic>, Unit?>((
   ref,

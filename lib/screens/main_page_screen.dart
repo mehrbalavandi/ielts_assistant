@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:ielts_assistant/providers/book_dropdown_notifier.dart';
 import 'package:ielts_assistant/providers/directory_state.dart';
 import 'package:ielts_assistant/common/enums.dart';
+import 'package:ielts_assistant/providers/unit_dropdown_notifier.dart';
 import 'package:ielts_assistant/screens/lesson_content_screen.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/providers/selection_state.dart';
