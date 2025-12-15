@@ -55,16 +55,16 @@ class StorageService {
     return _box.read(StorageKeys.lastPlayedPositionMs);
   }
 
-  void saveLastbook(String book) {
-    _box.write(StorageKeys.lastbook, book);
+  Future<void> saveLastbook(String book) async {
+    await _box.write(StorageKeys.lastbook, book);
   }
 
   String? getLastbook() {
     return _box.read(StorageKeys.lastbook);
   }
 
-  void saveLastunit(String unit) {
-    _box.write(StorageKeys.lastunit, unit);
+  Future<void> saveLastunit(String unit) async {
+    await _box.write(StorageKeys.lastunit, unit);
   }
 
   String? getLastUnit() {

@@ -40,7 +40,7 @@ class BookDropdownNotifier extends AsyncNotifier<List<Book>> {
       } catch (e, st) {
         debugPrint('Error traversing saved path: $e');
         // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
-        await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
+        // await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
         return []; // بازگشت وضعیت خالی
       }
     }
@@ -50,10 +50,10 @@ class BookDropdownNotifier extends AsyncNotifier<List<Book>> {
   }
 
   // متدی برای به‌روزرسانی و ذخیره وضعیت در آینده
-  void selectItem(Book item) {
+  Future<void> selectItem(Book item) async {
     ref.read(selectedBookProvider.notifier).state = item;
     // ذخیره در get_storage
-    _storageService.saveLastbook(item.name);
+    await _storageService.saveLastbook(item.name);
   }
 }
 

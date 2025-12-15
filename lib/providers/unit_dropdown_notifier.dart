@@ -44,7 +44,7 @@ class UnitDropdownNotifier extends AsyncNotifier<List<Unit>> {
       } catch (e, st) {
         debugPrint('Error traversing saved path: $e');
         // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
-        await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
+        // await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
         return []; // بازگشت وضعیت خالی
       }
     }
@@ -54,10 +54,10 @@ class UnitDropdownNotifier extends AsyncNotifier<List<Unit>> {
   }
 
   // متدی برای به‌روزرسانی و ذخیره وضعیت در آینده
-  void selectItem(Unit item) {
+  Future<void> selectItem(Unit item) async {
     ref.read(selectedUnitProvider.notifier).state = item;
     // ذخیره در get_storage
-    _storageService.saveLastunit(item.name);
+    await _storageService.saveLastunit(item.name);
   }
 }
 

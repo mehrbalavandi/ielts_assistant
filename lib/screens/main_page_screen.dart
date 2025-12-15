@@ -219,7 +219,7 @@ class MainPageScreen extends ConsumerWidget {
                       ref.read(selectedBookProvider.notifier).state = data
                           .where((x) => x.name == value)
                           .firstOrNull;
-                      ref.read(selectedUnitProvider.notifier).state = null;
+                      // ref.read(selectedUnitProvider.notifier).state = null;
                       // _storageService.saveLastbook(value);
                     }
                   },
@@ -242,8 +242,16 @@ class MainPageScreen extends ConsumerWidget {
                   onChanged: (value) async {
                     if (value != null &&
                         value != ref.read(selectedUnitProvider)?.name) {
-                      Unit unit = units.where((x) => x.name == value).first;
-                      ref.read(unitDropdownProvider.notifier).selectItem(unit);
+                      Unit? unit = ref
+                          .read(unitDropdownProvider)
+                          .value
+                          ?.where((x) => x.name == value)
+                          .first;
+                      if (unit != null) {
+                        ref
+                            .read(unitDropdownProvider.notifier)
+                            .selectItem(unit);
+                      }
                     }
                   },
                 ),
