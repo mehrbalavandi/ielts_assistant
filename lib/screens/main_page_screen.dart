@@ -562,7 +562,7 @@ class _finalTopicListTile extends ConsumerWidget {
 
     return ListTile(
       tileColor: backgroundColor,
-      contentPadding: const EdgeInsets.only(left: 40.0),
+      contentPadding: const EdgeInsets.only(left: 36.0),
       leading: Icon(
         fileCount > 0 ? Icons.music_note : Icons.music_off,
         color: fileCount > 0 ? Colors.indigo : Colors.grey,
