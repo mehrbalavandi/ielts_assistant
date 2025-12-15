@@ -230,7 +230,7 @@ class MainPageScreen extends ConsumerWidget {
                 ),
                 DropdownButton(
                   key: _dropdownKeyUnits,
-                  value: ref.watch(selectedUnitProvider)?.name,
+                  value: ref.read(selectedUnitProvider)?.name,
                   items: units
                       .map(
                         (x) => DropdownMenuItem(
