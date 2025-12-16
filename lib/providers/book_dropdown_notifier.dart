@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/models/data_models.dart';
 import 'package:ielts_assistant/providers/directory_state.dart';
+import 'package:ielts_assistant/providers/unit_dropdown_notifier.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
 
 final selectedBookProvider = StateProvider<Book?>((ref) => null);
@@ -48,6 +49,8 @@ class BookDropdownNotifier extends AsyncNotifier<List<Book>> {
     }
 
     // اگر هیچ مسیری ذخیره نشده باشد
+    ref.read(selectedBookProvider.notifier).state = null;
+    ref.read(selectedUnitProvider.notifier).state = null;
     return [];
   }
 
