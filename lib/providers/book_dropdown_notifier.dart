@@ -25,16 +25,18 @@ class BookDropdownNotifier extends AsyncNotifier<List<Book>> {
       try {
         final service = ref.read(fileTraversalServiceProvider);
         final books = await service.traverseRootDirectory(savedPath);
-        final storedBookName = _storageService.getLastbook();
 
-        Book? storedBook;
-        if (storedBookName != null) {
-          storedBook = books
-              .where((item) => item.name == storedBookName)
-              .firstOrNull;
-        }
-        if (storedBook != null) {
-          ref.read(selectedBookProvider.notifier).state = storedBook;
+        if (ref.read(selectedBookProvider)?.name == null) {
+          final storedBookName = _storageService.getLastbook();
+          Book? storedBook;
+          if (storedBookName != null) {
+            storedBook = books
+                .where((item) => item.name == storedBookName)
+                .firstOrNull;
+          }
+          if (storedBook != null) {
+            ref.read(selectedBookProvider.notifier).state = storedBook;
+          }
         }
         return books;
       } catch (e, st) {

@@ -212,8 +212,7 @@ class MainPageScreen extends ConsumerWidget {
                       .map((x) => DropdownMenuItem(value: x, child: Text(x)))
                       .toList(),
                   onChanged: (value) async {
-                    if (value != null &&
-                        value != ref.read(selectedBookProvider)?.name) {
+                    if (value != null) {
                       Book book = data.where((x) => x.name == value).first;
                       ref.read(bookDropdownProvider.notifier).selectItem(book);
                     }
