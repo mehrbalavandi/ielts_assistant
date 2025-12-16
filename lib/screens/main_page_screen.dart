@@ -224,7 +224,14 @@ class MainPageScreen extends ConsumerWidget {
                     }
                   },
                 ),
-                Padding(
+
+                asyncDataUnits.when(
+                  data: (unitsData) {
+                    final units = books.map((x) => x.name).toList();
+                    if(units.isEmpty){
+                      return
+                    }
+                                    Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Icon(Icons.arrow_forward_ios, size: 16.0),
                 ),
@@ -256,6 +263,11 @@ class MainPageScreen extends ConsumerWidget {
                       }
                     }
                   },
+                ),
+                
+                  },
+                  loading: () => CircularProgressIndicator(),
+                  error: (error, stack) => Text('خطا: $error'),
                 ),
                 //! بقیه کومبوباکس‌ها
                 /*
