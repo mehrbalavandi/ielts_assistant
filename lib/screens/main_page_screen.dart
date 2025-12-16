@@ -157,8 +157,7 @@ class MainPageScreen extends ConsumerWidget {
         if (books.isEmpty) {
           return SizedBox.shrink();
         }
-        String? lastSelectedBook = _storageService.getLastbook();
-        String? lastSelectedUnit = _storageService.getLastUnit();
+        /*
         final units = ref
             .watch(unitsProvider(ref.watch(selectedBookProvider)))
             .when(
@@ -198,6 +197,7 @@ class MainPageScreen extends ConsumerWidget {
                 return <SubTopic>[];
               },
             );
+*/
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Align(
@@ -230,8 +230,10 @@ class MainPageScreen extends ConsumerWidget {
                 ),
                 DropdownButton(
                   key: _dropdownKeyUnits,
-                  value: ref.read(selectedUnitProvider)?.name,
-                  items: units
+                  value: ref.watch(selectedUnitProvider)?.name,
+                  items: ref
+                      .watch(selectedBookProvider)
+                      ?.units
                       .map(
                         (x) => DropdownMenuItem(
                           value: x.name,

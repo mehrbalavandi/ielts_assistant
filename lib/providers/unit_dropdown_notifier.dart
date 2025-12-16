@@ -35,7 +35,9 @@ class UnitDropdownNotifier extends AsyncNotifier<List<Unit>> {
                 .firstOrNull;
           }
           if (storedUnit != null) {
-            ref.read(selectedUnitProvider.notifier).state = storedUnit;
+            Future.microtask(() {
+              ref.read(selectedUnitProvider.notifier).state = storedUnit;
+            });
           }
           return units;
         } else {
@@ -44,13 +46,30 @@ class UnitDropdownNotifier extends AsyncNotifier<List<Unit>> {
       } catch (e, st) {
         debugPrint('Error traversing saved path: $e');
         // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
-        // await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
+        await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
         return []; // بازگشت وضعیت خالی
       }
     }
 
     // اگر هیچ مسیری ذخیره نشده باشد
     return [];
+  }
+
+  Future<void> selectItemBaseOnSelectedBook(Book book) async {
+    final units = book.units;
+    if (units.isNotEmpty) {
+      final storedUnitName = _storageService.getLastUnit();
+
+      Unit? storedUnit;
+      if (storedUnitName != null) {
+        storedUnit = units
+            .where((item) => item.name == storedUnitName)
+            .firstOrNull;
+      }
+      if (storedUnit != null) {
+        ref.read(selectedUnitProvider.notifier).state = storedUnit;
+      }
+    }
   }
 
   // متدی برای به‌روزرسانی و ذخیره وضعیت در آینده

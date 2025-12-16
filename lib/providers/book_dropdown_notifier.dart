@@ -40,7 +40,7 @@ class BookDropdownNotifier extends AsyncNotifier<List<Book>> {
       } catch (e, st) {
         debugPrint('Error traversing saved path: $e');
         // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
-        // await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
+        await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
         return []; // بازگشت وضعیت خالی
       }
     }

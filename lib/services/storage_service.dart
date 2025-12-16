@@ -15,40 +15,40 @@ class StorageKeys {
 class StorageService {
   final _box = GetStorage();
 
-  void saveLastDirectoryPath(String path) {
-    _box.write(StorageKeys.lastRootDirectoryPath, path);
+  Future<void> saveLastDirectoryPath(String path) async {
+    await _box.write(StorageKeys.lastRootDirectoryPath, path);
   }
 
   String? getLastDirectoryPath() {
     return _box.read(StorageKeys.lastRootDirectoryPath);
   }
 
-  void saveLoopMode(String mode) {
-    _box.write(StorageKeys.loopMode, mode);
+  Future<void> saveLoopMode(String mode) async {
+    await _box.write(StorageKeys.loopMode, mode);
   }
 
   String? getLoopMode() {
     return _box.read(StorageKeys.loopMode);
   }
 
-  void saveShowTranslation(bool value) {
-    _box.write(StorageKeys.showTranslation, value);
+  Future<void> saveShowTranslation(bool value) async {
+    await _box.write(StorageKeys.showTranslation, value);
   }
 
   bool getShowTranslation() {
     return _box.read(StorageKeys.showTranslation) ?? false;
   }
 
-  void saveLastPlayedTopicId(String realmId) {
-    _box.write(StorageKeys.lastPlayedTopicId, realmId);
+  Future<void> saveLastPlayedTopicId(String realmId) async {
+    await _box.write(StorageKeys.lastPlayedTopicId, realmId);
   }
 
   String? getLastPlayedTopicId() {
     return _box.read(StorageKeys.lastPlayedTopicId);
   }
 
-  void saveLastPlayedPosition(int milliseconds) {
-    _box.write(StorageKeys.lastPlayedPositionMs, milliseconds);
+  Future<void> saveLastPlayedPosition(int milliseconds) async {
+    await _box.write(StorageKeys.lastPlayedPositionMs, milliseconds);
   }
 
   int? getLastPlayedPositionMs() {
