@@ -216,11 +216,6 @@ class MainPageScreen extends ConsumerWidget {
                         value != ref.read(selectedBookProvider)?.name) {
                       Book book = data.where((x) => x.name == value).first;
                       ref.read(bookDropdownProvider.notifier).selectItem(book);
-                      ref.read(selectedBookProvider.notifier).state = data
-                          .where((x) => x.name == value)
-                          .firstOrNull;
-                      // ref.read(selectedUnitProvider.notifier).state = null;
-                      // _storageService.saveLastbook(value);
                     }
                   },
                 ),
