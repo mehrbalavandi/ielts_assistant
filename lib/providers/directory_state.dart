@@ -18,50 +18,40 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
 
   @override
   Future<List<Book>> build() async {
-    // ۱. تلاش برای بازیابی مسیر ذخیره شده
     final savedPath =
         _storageBox.read(StorageKeys.lastRootDirectoryPath) as String?;
 
     if (savedPath != null) {
-      // مسیر ذخیره شده پیدا شد. شروع پیمایش خودکار.
-
-      // حالت را به لودینگ تغییر دهید
       state = const AsyncValue.loading();
-      _rootDirectoryPath = savedPath;
 
       try {
         final service = ref.read(fileTraversalServiceProvider);
         final books = await service.traverseRootDirectory(savedPath);
 
-        final storedBookName = _storageService.getLastbook();
-
-        Book? storedBook;
-        if (storedBookName != null) {
-          storedBook = books
-              .where((item) => item.name == storedBookName)
-              .firstOrNull;
+        if (ref.read(selectedBookProvider)?.name == null) {
+          final storedBookName = _storageService.getLastbook();
+          Book? storedBook;
+          if (storedBookName != null) {
+            storedBook = books
+                .where((item) => item.name == storedBookName)
+                .firstOrNull;
+          }
           if (storedBook != null) {
             ref.read(selectedBookProvider.notifier).state = storedBook;
-            ref
-                .read(unitDropdownProvider.notifier)
-                .selectItemBaseOnSelectedBook(storedBook);
-          } else if (books.isNotEmpty) {
-            ref.read(selectedBookProvider.notifier).state = books[0];
-            ref
-                .read(unitDropdownProvider.notifier)
-                .selectItemBaseOnSelectedBook(books[0]);
           }
         }
-
         return books;
       } catch (e, st) {
         debugPrint('Error traversing saved path: $e');
+        // در صورت خطا، مسیر ذخیره شده را پاک کنید تا دفعه بعد دوباره انتخاب شود
         await _storageBox.remove(StorageKeys.lastRootDirectoryPath);
         return []; // بازگشت وضعیت خالی
       }
     }
 
     // اگر هیچ مسیری ذخیره نشده باشد
+    ref.read(selectedBookProvider.notifier).state = null;
+    ref.read(selectedUnitProvider.notifier).state = null;
     return [];
   }
 

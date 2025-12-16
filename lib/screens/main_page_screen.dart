@@ -87,6 +87,7 @@ class MainPageScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(directoryDataProvider);
+    final asyncDataUnits = ref.watch(unitDropdownProvider);
     final notifier = ref.read(directoryDataProvider.notifier);
     final displayMode = ref.watch(playerDisplayProvider);
     final topic = ref.watch(currentPlayingTopicProvider); // مبحث در حال پخش
@@ -134,7 +135,7 @@ class MainPageScreen extends ConsumerWidget {
       // استفاده از Stack برای همپوشانی محتوای اصلی و پلیر شناور
       body: Column(
         children: [
-          __buildHeaders(context, ref, asyncData, notifier),
+          __buildHeaders(context, ref, asyncData, asyncDataUnits, notifier),
           Expanded(child: _buildUnits(context, ref, asyncData, notifier)),
 
           // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
@@ -149,6 +150,7 @@ class MainPageScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     AsyncValue<List<Book>> asyncData,
+    AsyncValue<List<Unit>> asyncDataUnits,
     DirectoryDataNotifier notifier,
   ) {
     return asyncData.when(
@@ -157,6 +159,7 @@ class MainPageScreen extends ConsumerWidget {
         if (books.isEmpty) {
           return SizedBox.shrink();
         }
+
         /*
         final units = ref
             .watch(unitsProvider(ref.watch(selectedBookProvider)))
@@ -213,8 +216,11 @@ class MainPageScreen extends ConsumerWidget {
                       .toList(),
                   onChanged: (value) async {
                     if (value != null) {
+                      // && value != ref.read(selectedBookProvider)?.name
                       Book book = data.where((x) => x.name == value).first;
-                      ref.read(bookDropdownProvider.notifier).selectItem(book);
+                      // ref.read(bookDropdownProvider.notifier).selectItem(book);
+                      ref.read(selectedBookProvider.notifier).state = book;
+                      await _storageService.saveLastbook(book.name);
                     }
                   },
                 ),
