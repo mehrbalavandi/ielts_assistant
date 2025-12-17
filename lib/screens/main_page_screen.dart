@@ -87,7 +87,6 @@ class MainPageScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncData = ref.watch(directoryDataProvider);
-    final asyncDataUnits = ref.watch(unitDropdownProvider);
     final notifier = ref.read(directoryDataProvider.notifier);
     final displayMode = ref.watch(playerDisplayProvider);
     final topic = ref.watch(currentPlayingTopicProvider); // مبحث در حال پخش
@@ -135,7 +134,7 @@ class MainPageScreen extends ConsumerWidget {
       // استفاده از Stack برای همپوشانی محتوای اصلی و پلیر شناور
       body: Column(
         children: [
-          __buildHeaders(context, ref, asyncData, asyncDataUnits, notifier),
+          __buildHeaders(context, ref, asyncData, notifier),
           Expanded(child: _buildUnits(context, ref, asyncData, notifier)),
 
           // ۲. ویجت پلیر شناور (اگر hidden نباشد و مبحثی برای پخش باشد)
@@ -150,7 +149,6 @@ class MainPageScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     AsyncValue<List<Book>> asyncData,
-    AsyncValue<List<Unit>> asyncDataUnits,
     DirectoryDataNotifier notifier,
   ) {
     return asyncData.when(
@@ -225,13 +223,7 @@ class MainPageScreen extends ConsumerWidget {
                   },
                 ),
 
-                asyncDataUnits.when(
-                  data: (unitsData) {
-                    final units = books.map((x) => x.name).toList();
-                    if(units.isEmpty){
-                      return
-                    }
-                                    Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Icon(Icons.arrow_forward_ios, size: 16.0),
                 ),
@@ -263,11 +255,6 @@ class MainPageScreen extends ConsumerWidget {
                       }
                     }
                   },
-                ),
-                
-                  },
-                  loading: () => CircularProgressIndicator(),
-                  error: (error, stack) => Text('خطا: $error'),
                 ),
                 //! بقیه کومبوباکس‌ها
                 /*
