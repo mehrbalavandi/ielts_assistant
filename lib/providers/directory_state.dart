@@ -38,6 +38,22 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
           }
           if (storedBook != null) {
             ref.read(selectedBookProvider.notifier).state = storedBook;
+            final units = ref.read(selectedBookProvider)?.units;
+            if (units != null && units.isNotEmpty) {
+              final storedUnitName = _storageService.getLastUnit();
+
+              Unit? storedUnit;
+              if (storedUnitName != null) {
+                storedUnit = units
+                    .where((item) => item.name == storedUnitName)
+                    .firstOrNull;
+              }
+              if (storedUnit != null) {
+                // Future.microtask(() {
+                ref.read(selectedUnitProvider.notifier).state = storedUnit;
+                // });
+              }
+            }
           }
         }
         return books;
@@ -74,6 +90,7 @@ class DirectoryDataNotifier extends AsyncNotifier<List<Book>> {
   }
 
   String? get rootDirectoryPath => _rootDirectoryPath;
+
   void selectItem(Book item) {
     ref.read(selectedBookProvider.notifier).state = item;
     // ذخیره در get_storage
