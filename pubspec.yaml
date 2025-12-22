@@ -49,10 +49,12 @@ dependencies:
   collection: ^1.19.1
   rxdart: ^0.28.0
   freezed_annotation: ^3.1.0
+  riverpod_annotation: ^3.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  freezed: 3.0.6
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
