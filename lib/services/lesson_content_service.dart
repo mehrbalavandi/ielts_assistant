@@ -94,11 +94,11 @@ class unitContentNotifier extends StateNotifier<unitContentState> {
     try {
       if (topic.jsonFilePath.isNotEmpty) {
         final mainJson = await File(topic.jsonFilePath).readAsString();
-        mainList = jsonDecode(mainJson);
+        mainList = jsonDecode((mainJson));
       }
       if (topic.translationFilePath.isNotEmpty) {
         final transJson = await File(topic.translationFilePath).readAsString();
-        transList = jsonDecode(transJson);
+        transList = jsonDecode((transJson));
       }
     } catch (e) {
       debugPrint('Error loading or parsing content for ${topic.name}: $e');
@@ -119,6 +119,69 @@ class unitContentNotifier extends StateNotifier<unitContentState> {
       translationSegments: newTranslationSegments,
     );
   }
+
+  /*
+  String sanitizeJsonString(String input) {
+    return input
+        // حذف BOM اگر وجود داشته باشد
+        .replaceAll('\uFEFF', '')
+        // تبدیل newline واقعی به escape استاندارد JSON
+        .replaceAll('\r\n', '\\n')
+        .replaceAll('\n', '\\n')
+        .replaceAll('\r', '\\n')
+        // تبدیل tab
+        .replaceAll('\t', '\\t')
+        // حذف کاراکترهای کنترلی نامعتبر (0x00–0x1F به‌جز \n و \t)
+        .replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F]'), '');
+  }
+  String sanitizeJsonString(String input) {
+    return input
+        // حذف BOM
+        .replaceAll('\uFEFF', '')
+        // تبدیل tab واقعی به space
+        .replaceAll('\t', ' ')
+        // نرمال‌سازی bullet
+        .replaceAll('•', '-')
+        // نرمال‌سازی newline
+        .replaceAll('\r\n', '\\n')
+        .replaceAll('\n', '\\n')
+        .replaceAll('\r', '\\n')
+        // حذف کاراکترهای کنترلی خطرناک
+        .replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F]'), '');
+  }
+  String sanitizeJsonStringKeepBullets(String input) {
+    return input
+        // حذف BOM
+        .replaceAll('\uFEFF', '')
+        // 🔴 TAB واقعی خطرناک است → تبدیل به space
+        .replaceAll('\t', ' ')
+        // 🔴 newline واقعی → escape استاندارد JSON
+        .replaceAll('\r\n', '\\n')
+        .replaceAll('\n', '\\n')
+        .replaceAll('\r', '\\n')
+        // 🔴 حذف کاراکترهای کنترلی نامعتبر
+        // (bullet جزو این‌ها نیست و حذف نمی‌شود)
+        .replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F]'), '');
+  }
+
+  String escapeJsonString(String input) {
+    return input
+        // حذف BOM
+        .replaceAll('\uFEFF', '')
+        // escape backslash
+        .replaceAll(r'\', r'\\')
+        // escape double quotes
+        .replaceAll('"', r'\"')
+        // نرمال‌سازی newline
+        .replaceAll('\r\n', r'\n')
+        .replaceAll('\n', r'\n')
+        .replaceAll('\r', r'\n')
+        // تبدیل tab به space
+        .replaceAll('\t', ' ')
+        // حذف کاراکترهای کنترلی نامعتبر
+        .replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F]'), '');
+  }
+  */
 
   // متد برای فعال/غیرفعال کردن نمایش ترجمه
   void toggleTranslation() {
