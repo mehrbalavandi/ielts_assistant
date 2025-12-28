@@ -156,8 +156,10 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
     final List<InlineSpan> spans = segments.map((item) {
       if (item.isInteractive) {
         return TextSpan(
-          text:
-              '(${++interactiveIndex})${item.text}', // اعمال استایل بر اساس status
+          text: '(${++interactiveIndex})${item.text}'.replaceAll(
+            '\\n',
+            '\n',
+          ), // اعمال استایل بر اساس status
           style: TextStyle(
             color: Theme.of(context).colorScheme.error,
             fontWeight: FontWeight.bold,
@@ -175,7 +177,10 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
         );
       } else {
         return TextSpan(
-          text: item.text, // اعمال استایل بر اساس status
+          text: item.text.replaceAll(
+            '\\n',
+            '\n',
+          ), // اعمال استایل بر اساس status
           style: item.isBold
               ? TextStyle(
                   backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
@@ -212,7 +217,7 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
       // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
 
       return TextSpan(
-        text: item.text, // اعمال استایل بر اساس status
+        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
         style: TextStyle(
           color: item.isBold
               ? Colors.deepOrange
