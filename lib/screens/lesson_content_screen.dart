@@ -196,7 +196,7 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: RichText(
-          textAlign: TextAlign.justify,
+          textAlign: TextAlign.left,
           text: TextSpan(children: spans),
         ),
       ),
@@ -238,7 +238,7 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: RichText(
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.right,
                   text: TextSpan(children: spans),
                 ),
               ),
