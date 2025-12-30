@@ -181,7 +181,7 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
             '\\n',
             '\n',
           ), // اعمال استایل بر اساس status
-          style: item.isBold
+          style: (item.isBold != null && item.isBold == true)
               ? TextStyle(
                   backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
