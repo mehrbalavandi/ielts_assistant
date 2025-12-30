@@ -35,14 +35,14 @@ class TextSegment {
 
 class TranslationTextSegment {
   final String text;
-  final bool isBold;
+  final bool? isBold;
 
-  TranslationTextSegment({required this.text, required this.isBold});
+  TranslationTextSegment({required this.text, this.isBold});
 
   factory TranslationTextSegment.fromJson(Map<String, dynamic> json) {
     return TranslationTextSegment(
       text: json['text'] as String,
-      isBold: json['isBold'] as bool,
+      isBold: json['isBold'] as bool?,
     );
   }
 }
