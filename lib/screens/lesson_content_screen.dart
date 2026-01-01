@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/widgets/mini_player_widget.dart';
-import 'package:ielts_assistant/shared/models/data_models.dart';
+import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/providers/player_display_state.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:ielts_assistant/services/lesson_content_service.dart'; // import 'audio_player_widget.dart'; // برای استفاده از AudioPlayerWidget یا MiniPlayerWidget (اختیاری)
@@ -11,8 +11,8 @@ import 'package:ielts_assistant/services/lesson_content_service.dart'; // import
 // کلاس اصلی
 class unitContentScreen extends ConsumerStatefulWidget {
   // ✅ بله، topic از نوع mainTopic است.
-  final FinalTopic topic;
-  const unitContentScreen({required this.topic, super.key});
+  final FinalTopic finalTopic;
+  const unitContentScreen({required this.finalTopic, super.key});
 
   @override
   ConsumerState<unitContentScreen> createState() => _unitContentScreenState();
@@ -74,14 +74,14 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
   @override
   Widget build(BuildContext context) {
     // ✅ دسترسی به topic از طریق widget.topic
-    final contentState = ref.watch(unitContentProvider(widget.topic));
-    final notifier = ref.read(unitContentProvider(widget.topic).notifier);
+    final contentState = ref.watch(unitContentProvider(widget.finalTopic));
+    final notifier = ref.read(unitContentProvider(widget.finalTopic).notifier);
     final displayMode = ref.watch(playerDisplayProvider);
 
     final playerState = ref.watch(audioPlayerProvider);
     // ✅ رفع خطا: دسترسی به currentTopic از طریق playerState
     final isPlayingThisTopic =
-        playerState.currentTopic?.realmId == widget.topic.realmId;
+        playerState.currentTopic?.realmId == widget.finalTopic.realmId;
 
     final bool hasTranslation = contentState.translationSegments.isNotEmpty;
 
@@ -89,7 +89,7 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(widget.topic.name), // ✅ استفاده از widget.topic.name
+        title: Text(widget.finalTopic.name), // ✅ استفاده از widget.topic.name
         actions: [
           if (hasTranslation)
             IconButton(
@@ -144,7 +144,7 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
                 ),
                 if (isPlayingThisTopic &&
                     (displayMode == PlayerDisplayMode.minimized))
-                  MiniPlayerWidget(mainTopic: widget.topic),
+                  MiniPlayerWidget(mainTopic: widget.finalTopic),
               ],
             ),
     );

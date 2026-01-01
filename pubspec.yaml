@@ -48,6 +48,7 @@ dependencies:
   flutter_localization: ^0.3.3
   collection: ^1.19.1
   rxdart: ^0.28.0
+  json_annotation: ^4.9.0
   freezed_annotation: ^3.1.0
   riverpod_annotation: ^3.0.3
   drift: ^2.30.0  

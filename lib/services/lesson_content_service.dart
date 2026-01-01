@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ielts_assistant/shared/models/data_models.dart';
+import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
 
 // مدل برای هر قطعه از متن (برای همگام‌سازی اسکرول)

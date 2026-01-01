@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:ielts_assistant/shared/models/data_models.dart';
+import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
 import 'package:just_audio/just_audio.dart';
 import 'dart:async';
@@ -164,24 +164,24 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     }
   }
 
-  Future<void> loadPlaylist(FinalTopic topic) async {
-    if (state.currentTopic?.realmId != topic.realmId &&
+  Future<void> loadPlaylist(FinalTopic finalTopic) async {
+    if (state.currentTopic?.realmId != finalTopic.realmId &&
         state.currentTopic != null) {
       _saveCurrentPosition();
     }
-    if (state.currentTopic?.realmId == topic.realmId) {
+    if (state.currentTopic?.realmId == finalTopic.realmId) {
       if (!state.isPlaying) {
         play();
       }
       return;
     }
-    if (topic.audioFilePaths.isEmpty) {
+    if (finalTopic.audioFilePaths.isEmpty) {
       return;
     }
     _loopStart = null;
     _loopEnd = null;
     _updateStateWithLoopPoints();
-    await _loadAndSeek(topic, Duration.zero);
+    await _loadAndSeek(finalTopic, Duration.zero);
     _player.play();
   }
 
