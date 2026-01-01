@@ -181,7 +181,7 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
             '\\n',
             '\n',
           ), // اعمال استایل بر اساس status
-          style: item.isBold
+          style: (item.isBold != null && item.isBold == true)
               ? TextStyle(
                   backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -215,15 +215,15 @@ class _unitContentScreenState extends ConsumerState<unitContentScreen> {
   ) {
     final List<TextSpan> spans = translationTextSegments.map((item) {
       // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
-
+      bool isBold = (item.isBold != null && item.isBold == true);
       return TextSpan(
         text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
         style: TextStyle(
-          color: item.isBold
+          color: isBold
               ? Colors.deepOrange
               : Theme.of(context).colorScheme.onSurface,
-          fontWeight: item.isBold ? FontWeight.bold : null,
-          fontSize: item.isBold ? 17.0 : 17.0,
+          fontWeight: isBold ? FontWeight.bold : null,
+          fontSize: isBold ? 17.0 : 17.0,
         ),
       );
     }).toList();

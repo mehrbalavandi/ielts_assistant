@@ -10,14 +10,14 @@ import 'package:ielts_assistant/services/storage_service.dart';
 class TextSegment {
   final String text;
   final bool isInteractive;
-  final bool isBold;
+  final bool? isBold;
   final String? translation; // ترجمه فارسی
   final String? explanation; // توضیحات تکمیلی
 
   TextSegment({
     required this.text,
     required this.isInteractive,
-    required this.isBold,
+    this.isBold,
     this.translation,
     this.explanation,
   });
@@ -28,21 +28,21 @@ class TextSegment {
       isInteractive: json['isInteractive'] as bool,
       translation: json['translation'] as String?,
       explanation: json['explanation'] as String?,
-      isBold: json['isBold'] as bool,
+      isBold: json['isBold'] as bool?,
     );
   }
 }
 
 class TranslationTextSegment {
   final String text;
-  final bool isBold;
+  final bool? isBold;
 
-  TranslationTextSegment({required this.text, required this.isBold});
+  TranslationTextSegment({required this.text, this.isBold});
 
   factory TranslationTextSegment.fromJson(Map<String, dynamic> json) {
     return TranslationTextSegment(
       text: json['text'] as String,
-      isBold: json['isBold'] as bool,
+      isBold: json['isBold'] as bool?,
     );
   }
 }
