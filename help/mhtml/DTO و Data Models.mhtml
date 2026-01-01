@@ -1,14 +1,14 @@
 From: <Saved by Blink>
 Snapshot-Content-Location: https://chatgpt.com/c/695669df-8d94-832e-b1b0-c91a23096f88
 Subject: =?utf-8?Q?DTO=20=D9=88=20Data=20Models?=
-Date: Thu, 1 Jan 2026 16:07:12 +0330
+Date: Thu, 1 Jan 2026 16:21:12 +0330
 MIME-Version: 1.0
 Content-Type: multipart/related;
 	type="text/html";
-	boundary="----MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----"
+	boundary="----MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----"
 
 
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/html
 Content-ID: <frame-A2EB1E921E13F69866D39363E16EC3E9@mhtml.blink>
 Content-Transfer-Encoding: quoted-printable
@@ -1650,156 +1650,156 @@ in-h-0 min-w-0 flex-1 flex-col [scrollbar-gutter:stable] not-print:overflow=
 gable no-draggable-children sticky top-0 p-2 touch:p-2.5 flex items-center =
 justify-between z-20 h-header-height bg-token-main-surface-primary pointer-=
 events-none select-none [view-transition-name:var(--vt-page-header)] *:poin=
-ter-events-auto motion-safe:transition @w-xl/main:bg-transparent @w-xl/main=
-:shadow-none! [box-shadow:var(--sharp-edge-top-shadow-placeholder)]"><div c=
-lass=3D"pointer-events-none absolute start-0 flex flex-col items-center gap=
--2 lg:start-1/2 ltr:-translate-x-1/2 rtl:translate-x-1/2"><div class=3D"hid=
-den lg:block"><div class=3D"inline-flex items-center gap-1 rounded-full tex=
-t-sm font-medium pe-2 bg-[#F1F1FB] text-[#5D5BD0] hover:bg-[#E4E4F6] dark:b=
-g-[#373669] dark:text-[#DCDBF6] dark:hover:bg-[#414071]"><button type=3D"bu=
-tton" class=3D"flex items-center gap-1 bg-transparent ps-2.5 text-current f=
-ocus:outline-none py-2 pe-0"><svg xmlns=3D"http://www.w3.org/2000/svg" widt=
-h=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"icon-sm"><use href=3D"=
-/cdn/assets/sprites-core-i9agxugi.svg#5f66c3" fill=3D"currentColor"></use><=
-/svg>Upgrade to Go</button><button type=3D"button" class=3D"ms-0 flex h-4 w=
--4 items-center justify-center rounded-full text-[black] hover:bg-[#E4E4F6]=
- dark:text-[white] dark:hover:bg-[#414071] transform transition-all duratio=
-n-200 ease-out pointer-events-auto visible translate-x-0 opacity-100" aria-=
-label=3D"Dismiss upgrade reminder" tabindex=3D"0"><svg xmlns=3D"http://www.=
-w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" color=3D"t=
-ext-token-text-primary"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#=
-5ed5de" fill=3D"currentColor"></use></svg></button></div></div></div><div c=
-lass=3D"pointer-events-none! flex flex-1 items-center *:pointer-events-auto=
-"><button aria-label=3D"Model selector, current model is 5.2" type=3D"butto=
-n" id=3D"radix-_r_gf_" aria-haspopup=3D"menu" aria-expanded=3D"false" data-=
-state=3D"closed" data-testid=3D"model-switcher-dropdown-button" class=3D"gr=
-oup flex cursor-pointer justify-center items-center gap-1 rounded-lg min-h-=
-9 touch:min-h-10 px-2.5 text-lg hover:bg-token-surface-hover focus-visible:=
-bg-token-surface-hover font-normal whitespace-nowrap focus-visible:outline-=
-none" style=3D"view-transition-name: var(--vt-thread-model-switcher);"><div=
->ChatGPT</div><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"16" height=
-=3D"16" aria-hidden=3D"true" class=3D"icon-sm text-token-text-tertiary"><us=
-e href=3D"/cdn/assets/sprites-core-i9agxugi.svg#ba3792" fill=3D"currentColo=
-r"></use></svg></button><div class=3D"block lg:hidden"><div class=3D"inline=
--flex items-center gap-1 rounded-full text-sm font-medium pe-2 bg-[#F1F1FB]=
- text-[#5D5BD0] hover:bg-[#E4E4F6] dark:bg-[#373669] dark:text-[#DCDBF6] da=
-rk:hover:bg-[#414071]"><button type=3D"button" class=3D"flex items-center g=
-ap-1 bg-transparent ps-2.5 text-current focus:outline-none py-2 pe-0"><svg =
-xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=
-=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9agxugi.=
-svg#5f66c3" fill=3D"currentColor"></use></svg>Upgrade to Go</button><button=
- type=3D"button" class=3D"ms-0 flex h-4 w-4 items-center justify-center rou=
-nded-full text-[black] hover:bg-[#E4E4F6] dark:text-[white] dark:hover:bg-[=
-#414071] transform transition-all duration-200 ease-out pointer-events-auto=
- visible translate-x-0 opacity-100" aria-label=3D"Dismiss upgrade reminder"=
- tabindex=3D"0"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" heig=
-ht=3D"20" aria-hidden=3D"true" color=3D"text-token-text-primary"><use href=
-=3D"/cdn/assets/sprites-core-i9agxugi.svg#5ed5de" fill=3D"currentColor"></u=
-se></svg></button></div></div></div><div class=3D"flex items-center justify=
--center gap-3 overflow-x-hidden"><div class=3D"shrink-0"></div><div class=
-=3D"flex items-center justify-end gap-2 overflow-x-hidden"><div class=3D"fl=
-ex items-center" id=3D"conversation-header-actions"><button class=3D"btn re=
-lative btn-ghost text-token-text-primary hover:bg-token-surface-hover keybo=
-ard-focused:bg-token-surface-hover rounded-lg max-sm:hidden" aria-label=3D"=
-Share" data-testid=3D"share-chat-button" style=3D"view-transition-name: var=
-(--vt_share_chat_wide_button);"><div class=3D"flex w-full items-center just=
-ify-center gap-1.5"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" =
-height=3D"20" aria-label=3D"" class=3D"-ms-0.5 icon"><use href=3D"/cdn/asse=
-ts/sprites-core-i9agxugi.svg#630ca2" fill=3D"currentColor"></use></svg>Shar=
-e</div></button><button class=3D"btn relative btn-ghost text-token-text-pri=
-mary hover:bg-token-surface-hover keyboard-focused:bg-token-surface-hover r=
-ounded-lg whitespace-nowrap max-sm:hidden" aria-label=3D"Start a group chat=
-" data-testid=3D"start-group-chat-from-conversation-button" data-state=3D"c=
-losed" style=3D"view-transition-name: var(--vt_share_chat_wide_button);"><d=
-iv class=3D"flex w-full items-center justify-center gap-1.5"><svg xmlns=3D"=
-http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-label=3D"" clas=
-s=3D"-ms-0.5 icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#427dd=
-9" fill=3D"currentColor"></use></svg><span class=3D"max-md:hidden">Add peop=
-le</span></div></button><div class=3D"flex items-center"><div class=3D"rela=
-tive overflow-hidden" type=3D"button" id=3D"radix-_r_gr_" aria-haspopup=3D"=
-menu" aria-expanded=3D"false" data-state=3D"closed"><button aria-label=3D"O=
-pen conversation options" data-testid=3D"conversation-options-button" class=
-=3D"text-token-text-primary no-draggable hover:bg-token-surface-hover keybo=
-ard-focused:bg-token-surface-hover touch:h-10 touch:w-10 flex h-9 w-9 items=
--center justify-center rounded-lg focus:outline-none disabled:opacity-50"><=
-svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hi=
-dden=3D"true" class=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi=
-.svg#f6d0e2" fill=3D"currentColor"></use></svg></button></div></div></div><=
-/div></div></header><main class=3D"min-h-0 flex-1" id=3D"main" z-index=3D"-=
-1"><div id=3D"thread" class=3D"group/thread flex flex-col min-h-full"><div =
-role=3D"presentation" class=3D"composer-parent flex flex-1 flex-col focus-v=
-isible:outline-0"><div class=3D"relative basis-auto flex-col -mb-(--compose=
-r-overlap-px) [--composer-overlap-px:28px] grow flex"><div aria-hidden=3D"t=
-rue" data-edge=3D"true" class=3D"pointer-events-none h-px w-px absolute top=
--0"></div><div class=3D"flex flex-col text-sm pb-25"><article class=3D"text=
--token-text-primary w-full focus:outline-none [--shadow-height:45px] has-da=
-ta-writing-block:pointer-events-none has-data-writing-block:-mt-(--shadow-h=
-eight) has-data-writing-block:pt-(--shadow-height) [&amp;:has([data-writing=
--block])&gt;*]:pointer-events-auto scroll-mt-(--header-height)" tabindex=3D=
-"-1" dir=3D"auto" data-turn-id=3D"d6a17245-7f29-4696-ab82-622a5efdc73b" dat=
-a-testid=3D"conversation-turn-1" data-scroll-anchor=3D"false" data-turn=3D"=
-user"><h5 class=3D"sr-only">You said:</h5><div class=3D"text-base my-auto m=
-x-auto pt-3 [--thread-content-margin:--spacing(4)] @w-sm/main:[--thread-con=
-tent-margin:--spacing(6)] @w-lg/main:[--thread-content-margin:--spacing(16)=
-] px-(--thread-content-margin)"><div class=3D"[--thread-content-max-width:4=
-0rem] @w-lg/main:[--thread-content-max-width:48rem] mx-auto max-w-(--thread=
--content-max-width) flex-1 group/turn-messages focus-visible:outline-hidden=
- relative flex w-full min-w-0 flex-col" tabindex=3D"-1"><div class=3D"flex =
-max-w-full flex-col grow"><div data-message-author-role=3D"user" data-messa=
-ge-id=3D"d6a17245-7f29-4696-ab82-622a5efdc73b" dir=3D"auto" class=3D"min-h-=
-8 text-message relative flex w-full flex-col items-end gap-2 text-start bre=
-ak-words whitespace-normal [.text-message+&amp;]:mt-1"><div class=3D"flex w=
--full flex-col gap-1 empty:hidden items-end rtl:items-start"><div class=3D"=
-user-message-bubble-color corner-superellipse/1.1 relative rounded-[18px] p=
-x-4 py-1.5 data-[multiline]:py-3 max-w-[var(--user-chat-width,70%)]"><div c=
-lass=3D"whitespace-pre-wrap">=D9=84=D8=B7=D9=81=D8=A7=D9=8B =D8=AF=D8=B1 =
-=D8=AE=D8=B5=D9=88=D8=B5 dto=D8=8C data models =D9=88 domain models =D8=AA=
-=D9=88=D8=B6=DB=8C=D8=AD =D8=AF=D9=87=DB=8C=D8=AF!</div></div></div></div><=
-/div><div class=3D"z-0 flex justify-end"><div class=3D"touch:-me-2 touch:-m=
-s-3.5 -ms-2.5 -me-1 flex flex-wrap items-center gap-y-4 p-1 select-none foc=
-us-within:transition-none hover:transition-none touch:pointer-events-auto t=
-ouch:opacity-100 duration-300 group-hover/turn-messages:delay-300 pointer-e=
-vents-none opacity-0 motion-safe:transition-opacity group-hover/turn-messag=
-es:pointer-events-auto group-hover/turn-messages:opacity-100 group-focus-wi=
-thin/turn-messages:pointer-events-auto group-focus-within/turn-messages:opa=
-city-100 has-data-[state=3Dopen]:pointer-events-auto has-data-[state=3Dopen=
-]:opacity-100" style=3D"mask-position: 0% 0%;"><button class=3D"text-token-=
-text-secondary hover:bg-token-bg-secondary rounded-lg" aria-label=3D"Copy" =
-aria-pressed=3D"false" data-testid=3D"copy-turn-action-button" data-state=
-=3D"closed"><span class=3D"flex items-center justify-center touch:w-10 h-8 =
-w-8"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" a=
-ria-hidden=3D"true" class=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9=
-agxugi.svg#ce3544" fill=3D"currentColor"></use></svg></span></button><butto=
-n class=3D"text-token-text-secondary hover:bg-token-bg-secondary rounded-lg=
-" aria-label=3D"Edit message" aria-pressed=3D"false" data-state=3D"closed">=
-<span class=3D"flex items-center justify-center touch:w-10 h-8 w-8"><svg xm=
-lns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=
-=3D"true" class=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg=
-#6d87e1" fill=3D"currentColor"></use></svg></span></button></div></div></di=
-v></div></article><article class=3D"text-token-text-primary w-full focus:ou=
-tline-none [--shadow-height:45px] has-data-writing-block:pointer-events-non=
-e has-data-writing-block:-mt-(--shadow-height) has-data-writing-block:pt-(-=
--shadow-height) [&amp;:has([data-writing-block])&gt;*]:pointer-events-auto =
-[content-visibility:auto] supports-[content-visibility:auto]:[contain-intri=
-nsic-size:auto_100lvh] scroll-mt-[calc(var(--header-height)+min(200px,max(7=
-0px,20svh)))]" tabindex=3D"-1" dir=3D"auto" data-turn-id=3D"7c2a041c-64f7-4=
-326-9cde-b17f198b512f" data-testid=3D"conversation-turn-2" data-scroll-anch=
-or=3D"true" data-turn=3D"assistant"><h6 class=3D"sr-only">ChatGPT said:</h6=
-><div class=3D"text-base my-auto mx-auto pb-10 [--thread-content-margin:--s=
-pacing(4)] @w-sm/main:[--thread-content-margin:--spacing(6)] @w-lg/main:[--=
-thread-content-margin:--spacing(16)] px-(--thread-content-margin)"><div cla=
-ss=3D"[--thread-content-max-width:40rem] @w-lg/main:[--thread-content-max-w=
-idth:48rem] mx-auto max-w-(--thread-content-max-width) flex-1 group/turn-me=
-ssages focus-visible:outline-hidden relative flex w-full min-w-0 flex-col a=
-gent-turn" tabindex=3D"-1"><div class=3D"flex max-w-full flex-col grow"><di=
-v data-message-author-role=3D"assistant" data-message-id=3D"d36cad21-f894-4=
-c4b-aa9e-9cb3649f8e79" dir=3D"auto" class=3D"min-h-8 text-message relative =
-flex w-full flex-col items-end gap-2 text-start break-words whitespace-norm=
-al [.text-message+&amp;]:mt-1" data-message-model-slug=3D"gpt-5-2"><div cla=
-ss=3D"flex w-full flex-col gap-1 empty:hidden first:pt-[1px]"><div class=3D=
-"markdown prose dark:prose-invert w-full break-words light markdown-new-sty=
-ling"><p data-start=3D"0" data-end=3D"203">=D8=AD=D8=AA=D9=85=D8=A7=D9=8B =
-=F0=9F=99=82<br data-start=3D"8" data-end=3D"11">
+ter-events-auto motion-safe:transition @w-xl/main:shadow-none! [box-shadow:=
+var(--sharp-edge-top-shadow)] @w-xl/main:bg-token-main-surface-primary @w-x=
+l/main:[box-shadow:var(--sharp-edge-top-shadow)]!"><div class=3D"pointer-ev=
+ents-none absolute start-0 flex flex-col items-center gap-2 lg:start-1/2 lt=
+r:-translate-x-1/2 rtl:translate-x-1/2"><div class=3D"hidden lg:block"><div=
+ class=3D"inline-flex items-center gap-1 rounded-full text-sm font-medium p=
+e-2 bg-[#F1F1FB] text-[#5D5BD0] hover:bg-[#E4E4F6] dark:bg-[#373669] dark:t=
+ext-[#DCDBF6] dark:hover:bg-[#414071]"><button type=3D"button" class=3D"fle=
+x items-center gap-1 bg-transparent ps-2.5 text-current focus:outline-none =
+py-2 pe-0"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D=
+"20" aria-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprite=
+s-core-i9agxugi.svg#5f66c3" fill=3D"currentColor"></use></svg>Upgrade to Go=
+</button><button type=3D"button" class=3D"ms-0 flex h-4 w-4 items-center ju=
+stify-center rounded-full text-[black] hover:bg-[#E4E4F6] dark:text-[white]=
+ dark:hover:bg-[#414071] transform transition-all duration-200 ease-out poi=
+nter-events-auto visible translate-x-0 opacity-100" aria-label=3D"Dismiss u=
+pgrade reminder" tabindex=3D"0"><svg xmlns=3D"http://www.w3.org/2000/svg" w=
+idth=3D"20" height=3D"20" aria-hidden=3D"true" color=3D"text-token-text-pri=
+mary"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#5ed5de" fill=3D"cu=
+rrentColor"></use></svg></button></div></div></div><div class=3D"pointer-ev=
+ents-none! flex flex-1 items-center *:pointer-events-auto"><button aria-lab=
+el=3D"Model selector, current model is 5.2" type=3D"button" id=3D"radix-_r_=
+gf_" aria-haspopup=3D"menu" aria-expanded=3D"false" data-state=3D"closed" d=
+ata-testid=3D"model-switcher-dropdown-button" class=3D"group flex cursor-po=
+inter justify-center items-center gap-1 rounded-lg min-h-9 touch:min-h-10 p=
+x-2.5 text-lg hover:bg-token-surface-hover focus-visible:bg-token-surface-h=
+over font-normal whitespace-nowrap focus-visible:outline-none" style=3D"vie=
+w-transition-name: var(--vt-thread-model-switcher);"><div>ChatGPT</div><svg=
+ xmlns=3D"http://www.w3.org/2000/svg" width=3D"16" height=3D"16" aria-hidde=
+n=3D"true" class=3D"icon-sm text-token-text-tertiary"><use href=3D"/cdn/ass=
+ets/sprites-core-i9agxugi.svg#ba3792" fill=3D"currentColor"></use></svg></b=
+utton><div class=3D"block lg:hidden"><div class=3D"inline-flex items-center=
+ gap-1 rounded-full text-sm font-medium pe-2 bg-[#F1F1FB] text-[#5D5BD0] ho=
+ver:bg-[#E4E4F6] dark:bg-[#373669] dark:text-[#DCDBF6] dark:hover:bg-[#4140=
+71]"><button type=3D"button" class=3D"flex items-center gap-1 bg-transparen=
+t ps-2.5 text-current focus:outline-none py-2 pe-0"><svg xmlns=3D"http://ww=
+w.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" class=3D=
+"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#5f66c3" fill=
+=3D"currentColor"></use></svg>Upgrade to Go</button><button type=3D"button"=
+ class=3D"ms-0 flex h-4 w-4 items-center justify-center rounded-full text-[=
+black] hover:bg-[#E4E4F6] dark:text-[white] dark:hover:bg-[#414071] transfo=
+rm transition-all duration-200 ease-out pointer-events-auto visible transla=
+te-x-0 opacity-100" aria-label=3D"Dismiss upgrade reminder" tabindex=3D"0">=
+<svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-h=
+idden=3D"true" color=3D"text-token-text-primary"><use href=3D"/cdn/assets/s=
+prites-core-i9agxugi.svg#5ed5de" fill=3D"currentColor"></use></svg></button=
+></div></div></div><div class=3D"flex items-center justify-center gap-3 ove=
+rflow-x-hidden"><div class=3D"shrink-0"></div><div class=3D"flex items-cent=
+er justify-end gap-2 overflow-x-hidden"><div class=3D"flex items-center" id=
+=3D"conversation-header-actions"><button class=3D"btn relative btn-ghost te=
+xt-token-text-primary hover:bg-token-surface-hover keyboard-focused:bg-toke=
+n-surface-hover rounded-lg max-sm:hidden" aria-label=3D"Share" data-testid=
+=3D"share-chat-button" style=3D"view-transition-name: var(--vt_share_chat_w=
+ide_button);"><div class=3D"flex w-full items-center justify-center gap-1.5=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-label=3D"" class=3D"-ms-0.5 icon"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#630ca2" fill=3D"currentColor"></use></svg>Share</div></button><b=
+utton class=3D"btn relative btn-ghost text-token-text-primary hover:bg-toke=
+n-surface-hover keyboard-focused:bg-token-surface-hover rounded-lg whitespa=
+ce-nowrap max-sm:hidden" aria-label=3D"Start a group chat" data-testid=3D"s=
+tart-group-chat-from-conversation-button" data-state=3D"closed" style=3D"vi=
+ew-transition-name: var(--vt_share_chat_wide_button);"><div class=3D"flex w=
+-full items-center justify-center gap-1.5"><svg xmlns=3D"http://www.w3.org/=
+2000/svg" width=3D"20" height=3D"20" aria-label=3D"" class=3D"-ms-0.5 icon"=
+><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#427dd9" fill=3D"current=
+Color"></use></svg><span class=3D"max-md:hidden">Add people</span></div></b=
+utton><div class=3D"flex items-center"><div class=3D"relative overflow-hidd=
+en" type=3D"button" id=3D"radix-_r_gr_" aria-haspopup=3D"menu" aria-expande=
+d=3D"false" data-state=3D"closed"><button aria-label=3D"Open conversation o=
+ptions" data-testid=3D"conversation-options-button" class=3D"text-token-tex=
+t-primary no-draggable hover:bg-token-surface-hover keyboard-focused:bg-tok=
+en-surface-hover touch:h-10 touch:w-10 flex h-9 w-9 items-center justify-ce=
+nter rounded-lg focus:outline-none disabled:opacity-50"><svg xmlns=3D"http:=
+//www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" clas=
+s=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#f6d0e2" fill=
+=3D"currentColor"></use></svg></button></div></div></div></div></div></head=
+er><main class=3D"min-h-0 flex-1" id=3D"main" z-index=3D"-1"><div id=3D"thr=
+ead" class=3D"group/thread flex flex-col min-h-full"><div role=3D"presentat=
+ion" class=3D"composer-parent flex flex-1 flex-col focus-visible:outline-0"=
+><div class=3D"relative basis-auto flex-col -mb-(--composer-overlap-px) [--=
+composer-overlap-px:28px] grow flex"><div aria-hidden=3D"true" data-edge=3D=
+"true" class=3D"pointer-events-none h-px w-px absolute top-0"></div><div cl=
+ass=3D"flex flex-col text-sm pb-25"><article class=3D"text-token-text-prima=
+ry w-full focus:outline-none [--shadow-height:45px] has-data-writing-block:=
+pointer-events-none has-data-writing-block:-mt-(--shadow-height) has-data-w=
+riting-block:pt-(--shadow-height) [&amp;:has([data-writing-block])&gt;*]:po=
+inter-events-auto scroll-mt-(--header-height)" tabindex=3D"-1" dir=3D"auto"=
+ data-turn-id=3D"d6a17245-7f29-4696-ab82-622a5efdc73b" data-testid=3D"conve=
+rsation-turn-1" data-scroll-anchor=3D"false" data-turn=3D"user"><h5 class=
+=3D"sr-only">You said:</h5><div class=3D"text-base my-auto mx-auto pt-3 [--=
+thread-content-margin:--spacing(4)] @w-sm/main:[--thread-content-margin:--s=
+pacing(6)] @w-lg/main:[--thread-content-margin:--spacing(16)] px-(--thread-=
+content-margin)"><div class=3D"[--thread-content-max-width:40rem] @w-lg/mai=
+n:[--thread-content-max-width:48rem] mx-auto max-w-(--thread-content-max-wi=
+dth) flex-1 group/turn-messages focus-visible:outline-hidden relative flex =
+w-full min-w-0 flex-col" tabindex=3D"-1"><div class=3D"flex max-w-full flex=
+-col grow"><div data-message-author-role=3D"user" data-message-id=3D"d6a172=
+45-7f29-4696-ab82-622a5efdc73b" dir=3D"auto" class=3D"min-h-8 text-message =
+relative flex w-full flex-col items-end gap-2 text-start break-words whites=
+pace-normal [.text-message+&amp;]:mt-1"><div class=3D"flex w-full flex-col =
+gap-1 empty:hidden items-end rtl:items-start"><div class=3D"user-message-bu=
+bble-color corner-superellipse/1.1 relative rounded-[18px] px-4 py-1.5 data=
+-[multiline]:py-3 max-w-[var(--user-chat-width,70%)]"><div class=3D"whitesp=
+ace-pre-wrap">=D9=84=D8=B7=D9=81=D8=A7=D9=8B =D8=AF=D8=B1 =D8=AE=D8=B5=D9=
+=88=D8=B5 dto=D8=8C data models =D9=88 domain models =D8=AA=D9=88=D8=B6=DB=
+=8C=D8=AD =D8=AF=D9=87=DB=8C=D8=AF!</div></div></div></div></div><div class=
+=3D"z-0 flex justify-end"><div class=3D"touch:-me-2 touch:-ms-3.5 -ms-2.5 -=
+me-1 flex flex-wrap items-center gap-y-4 p-1 select-none focus-within:trans=
+ition-none hover:transition-none touch:pointer-events-auto touch:opacity-10=
+0 duration-300 group-hover/turn-messages:delay-300 pointer-events-none opac=
+ity-0 motion-safe:transition-opacity group-hover/turn-messages:pointer-even=
+ts-auto group-hover/turn-messages:opacity-100 group-focus-within/turn-messa=
+ges:pointer-events-auto group-focus-within/turn-messages:opacity-100 has-da=
+ta-[state=3Dopen]:pointer-events-auto has-data-[state=3Dopen]:opacity-100" =
+style=3D"mask-position: 0% 0%;"><button class=3D"text-token-text-secondary =
+hover:bg-token-bg-secondary rounded-lg" aria-label=3D"Copy" aria-pressed=3D=
+"false" data-testid=3D"copy-turn-action-button" data-state=3D"closed"><span=
+ class=3D"flex items-center justify-center touch:w-10 h-8 w-8"><svg xmlns=
+=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"t=
+rue" class=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#ce35=
+44" fill=3D"currentColor"></use></svg></span></button><button class=3D"text=
+-token-text-secondary hover:bg-token-bg-secondary rounded-lg" aria-label=3D=
+"Edit message" aria-pressed=3D"false" data-state=3D"closed"><span class=3D"=
+flex items-center justify-center touch:w-10 h-8 w-8"><svg xmlns=3D"http://w=
+ww.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" class=
+=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#6d87e1" fill=
+=3D"currentColor"></use></svg></span></button></div></div></div></div></art=
+icle><article class=3D"text-token-text-primary w-full focus:outline-none [-=
+-shadow-height:45px] has-data-writing-block:pointer-events-none has-data-wr=
+iting-block:-mt-(--shadow-height) has-data-writing-block:pt-(--shadow-heigh=
+t) [&amp;:has([data-writing-block])&gt;*]:pointer-events-auto scroll-mt-[ca=
+lc(var(--header-height)+min(200px,max(70px,20svh)))]" tabindex=3D"-1" dir=
+=3D"auto" data-turn-id=3D"7c2a041c-64f7-4326-9cde-b17f198b512f" data-testid=
+=3D"conversation-turn-2" data-scroll-anchor=3D"false" data-turn=3D"assistan=
+t"><h6 class=3D"sr-only">ChatGPT said:</h6><div class=3D"text-base my-auto =
+mx-auto [--thread-content-margin:--spacing(4)] @w-sm/main:[--thread-content=
+-margin:--spacing(6)] @w-lg/main:[--thread-content-margin:--spacing(16)] px=
+-(--thread-content-margin)"><div class=3D"[--thread-content-max-width:40rem=
+] @w-lg/main:[--thread-content-max-width:48rem] mx-auto max-w-(--thread-con=
+tent-max-width) flex-1 group/turn-messages focus-visible:outline-hidden rel=
+ative flex w-full min-w-0 flex-col agent-turn" tabindex=3D"-1"><div class=
+=3D"flex max-w-full flex-col grow"><div data-message-author-role=3D"assista=
+nt" data-message-id=3D"d36cad21-f894-4c4b-aa9e-9cb3649f8e79" dir=3D"auto" c=
+lass=3D"min-h-8 text-message relative flex w-full flex-col items-end gap-2 =
+text-start break-words whitespace-normal [.text-message+&amp;]:mt-1" data-m=
+essage-model-slug=3D"gpt-5-2"><div class=3D"flex w-full flex-col gap-1 empt=
+y:hidden first:pt-[1px]"><div class=3D"markdown prose dark:prose-invert w-f=
+ull break-words light markdown-new-styling"><p data-start=3D"0" data-end=3D=
+"203">=D8=AD=D8=AA=D9=85=D8=A7=D9=8B =F0=9F=99=82<br data-start=3D"8" data-=
+end=3D"11">
 =D8=A7=DB=8C=D9=86 =D8=B3=D9=87 =D9=85=D9=81=D9=87=D9=88=D9=85 =D8=AE=DB=8C=
 =D9=84=DB=8C =D8=A8=D9=87 =D9=87=D9=85 =D9=86=D8=B2=D8=AF=DB=8C=DA=A9=E2=80=
 =8C=D8=A7=D9=86=D8=AF=D8=8C =D8=A7=D9=85=D8=A7 <strong data-start=3D"50" da=
@@ -2333,7 +2333,7 @@ enter touch:w-10 h-8 w-8"><svg xmlns=3D"http://www.w3.org/2000/svg" width=
 =3D"20" height=3D"20" aria-hidden=3D"true" class=3D"icon"><use href=3D"/cdn=
 /assets/sprites-core-i9agxugi.svg#630ca2" fill=3D"currentColor"></use></svg=
 ></span></button><span class=3D"" data-state=3D"closed"><button type=3D"but=
-ton" id=3D"radix-_r_h7_" aria-haspopup=3D"menu" aria-expanded=3D"false" dat=
+ton" id=3D"radix-_r_hm_" aria-haspopup=3D"menu" aria-expanded=3D"false" dat=
 a-state=3D"closed" class=3D"cursor-pointer text-token-text-secondary hover:=
 bg-token-bg-secondary touch:px-2.5 h-[30px] rounded-md px-1.5" aria-label=
 =3D"Switch model"><div class=3D"flex items-center"><svg xmlns=3D"http://www=
@@ -2346,6 +2346,789 @@ id=3D"radix-_r_ha_" aria-haspopup=3D"menu" aria-expanded=3D"false" data-sta=
 te=3D"closed"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=
 =3D"20" aria-hidden=3D"true" class=3D"icon"><use href=3D"/cdn/assets/sprite=
 s-core-i9agxugi.svg#f6d0e2" fill=3D"currentColor"></use></svg></button></di=
+v></div></div></div></article><article class=3D"text-token-text-primary w-f=
+ull focus:outline-none [--shadow-height:45px] has-data-writing-block:pointe=
+r-events-none has-data-writing-block:-mt-(--shadow-height) has-data-writing=
+-block:pt-(--shadow-height) [&amp;:has([data-writing-block])&gt;*]:pointer-=
+events-auto scroll-mt-(--header-height)" tabindex=3D"-1" dir=3D"auto" data-=
+turn-id=3D"d61d3439-a084-4318-868e-a782e6a016ac" data-testid=3D"conversatio=
+n-turn-3" data-scroll-anchor=3D"false" data-turn=3D"user" style=3D"scroll-m=
+argin-top: -64px;"><h5 class=3D"sr-only">You said:</h5><div class=3D"text-b=
+ase my-auto mx-auto pt-12 [--thread-content-margin:--spacing(4)] @w-sm/main=
+:[--thread-content-margin:--spacing(6)] @w-lg/main:[--thread-content-margin=
+:--spacing(16)] px-(--thread-content-margin)"><div class=3D"[--thread-conte=
+nt-max-width:40rem] @w-lg/main:[--thread-content-max-width:48rem] mx-auto m=
+ax-w-(--thread-content-max-width) flex-1 group/turn-messages focus-visible:=
+outline-hidden relative flex w-full min-w-0 flex-col" tabindex=3D"-1"><div =
+class=3D"flex max-w-full flex-col grow"><div data-message-author-role=3D"us=
+er" data-message-id=3D"d61d3439-a084-4318-868e-a782e6a016ac" dir=3D"auto" c=
+lass=3D"min-h-8 text-message relative flex w-full flex-col items-end gap-2 =
+text-start break-words whitespace-normal [.text-message+&amp;]:mt-1"><butto=
+n class=3D"text-token-text-tertiary mx-2 mb-1 flex items-start gap-1.5 text=
+-sm font-normal focus-visible:outline focus-visible:outline-2 focus-visible=
+:outline-offset-2 focus-visible:outline-current hover:text-token-text-prima=
+ry mt-1 justify-end" type=3D"button"><span aria-hidden=3D"true" class=3D"po=
+inter-events-none"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" h=
+eight=3D"20" aria-hidden=3D"true" data-rtl-flip=3D"" class=3D"icon"><use hr=
+ef=3D"/cdn/assets/sprites-core-i9agxugi.svg#e04414" fill=3D"currentColor"><=
+/use></svg></span><p class=3D"line-clamp-3">=D8=A7=D8=B4=D8=AA=D8=A8=D8=A7=
+=D9=87=D8=A7=D8=AA =D8=B1=D8=A7=DB=8C=D8=AC</p></button><div class=3D"flex =
+w-full flex-col gap-1 empty:hidden items-end rtl:items-start"><div class=3D=
+"user-message-bubble-color corner-superellipse/1.1 relative rounded-[18px] =
+px-4 py-1.5 data-[multiline]:py-3 max-w-[var(--user-chat-width,70%)]"><div =
+class=3D"whitespace-pre-wrap">=D8=AF=D8=B1 =D8=AE=D8=B5=D9=88=D8=B5 =D8=A7=
+=D8=B4=D8=AA=D8=A8=D8=A7=D9=87=D8=A7=D8=AA =D8=B1=D8=A7=DB=8C=D8=AC =D8=A8=
+=D8=A7=D9=84=D8=A7 =D8=A8=DB=8C=D8=B4=D8=AA=D8=B1 =D8=AA=D9=88=D8=B6=DB=8C=
+=D8=AD =D8=AF=D9=87=DB=8C=D8=AF!</div></div></div></div></div><div class=3D=
+"z-0 flex justify-end"><div class=3D"touch:-me-2 touch:-ms-3.5 -ms-2.5 -me-=
+1 flex flex-wrap items-center gap-y-4 p-1 select-none focus-within:transiti=
+on-none hover:transition-none touch:pointer-events-auto touch:opacity-100 d=
+uration-300 group-hover/turn-messages:delay-300 pointer-events-none opacity=
+-0 motion-safe:transition-opacity group-hover/turn-messages:pointer-events-=
+auto group-hover/turn-messages:opacity-100 group-focus-within/turn-messages=
+:pointer-events-auto group-focus-within/turn-messages:opacity-100 has-data-=
+[state=3Dopen]:pointer-events-auto has-data-[state=3Dopen]:opacity-100" sty=
+le=3D"mask-position: 0% 0%;"><button class=3D"text-token-text-secondary hov=
+er:bg-token-bg-secondary rounded-lg" aria-label=3D"Copy" aria-pressed=3D"fa=
+lse" data-testid=3D"copy-turn-action-button" data-state=3D"closed"><span cl=
+ass=3D"flex items-center justify-center touch:w-10 h-8 w-8"><svg xmlns=3D"h=
+ttp://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" =
+class=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#ce3544" f=
+ill=3D"currentColor"></use></svg></span></button><button class=3D"text-toke=
+n-text-secondary hover:bg-token-bg-secondary rounded-lg" aria-label=3D"Edit=
+ message" aria-pressed=3D"false" data-state=3D"closed"><span class=3D"flex =
+items-center justify-center touch:w-10 h-8 w-8"><svg xmlns=3D"http://www.w3=
+.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"ico=
+n"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#6d87e1" fill=3D"curre=
+ntColor"></use></svg></span></button></div></div></div></div></article><art=
+icle class=3D"text-token-text-primary w-full focus:outline-none [--shadow-h=
+eight:45px] has-data-writing-block:pointer-events-none has-data-writing-blo=
+ck:-mt-(--shadow-height) has-data-writing-block:pt-(--shadow-height) [&amp;=
+:has([data-writing-block])&gt;*]:pointer-events-auto scroll-mt-[calc(var(--=
+header-height)+min(200px,max(70px,20svh)))]" tabindex=3D"-1" dir=3D"auto" d=
+ata-turn-id=3D"187b2a74-e032-43a3-badc-564fd74b0368" data-testid=3D"convers=
+ation-turn-4" data-scroll-anchor=3D"true" data-turn=3D"assistant" style=3D"=
+min-height: calc(-248px + 100dvh);"><h6 class=3D"sr-only">ChatGPT said:</h6=
+><div class=3D"text-base my-auto mx-auto pb-10 [--thread-content-margin:--s=
+pacing(4)] @w-sm/main:[--thread-content-margin:--spacing(6)] @w-lg/main:[--=
+thread-content-margin:--spacing(16)] px-(--thread-content-margin)"><div cla=
+ss=3D"[--thread-content-max-width:40rem] @w-lg/main:[--thread-content-max-w=
+idth:48rem] mx-auto max-w-(--thread-content-max-width) flex-1 group/turn-me=
+ssages focus-visible:outline-hidden relative flex w-full min-w-0 flex-col a=
+gent-turn" tabindex=3D"-1"><div class=3D"flex max-w-full flex-col grow"><di=
+v data-message-author-role=3D"assistant" data-message-id=3D"a12f9743-e1f7-4=
+e5e-ab55-8291cba4c840" dir=3D"auto" class=3D"min-h-8 text-message relative =
+flex w-full flex-col items-end gap-2 text-start break-words whitespace-norm=
+al [.text-message+&amp;]:mt-1" data-message-model-slug=3D"gpt-5-2"><div cla=
+ss=3D"flex w-full flex-col gap-1 empty:hidden first:pt-[1px]"><div class=3D=
+"markdown prose dark:prose-invert w-full break-words light markdown-new-sty=
+ling"><p data-start=3D"0" data-end=3D"220">=D8=AE=DB=8C=D9=84=DB=8C =D8=B3=
+=D8=A4=D8=A7=D9=84 =D8=AE=D9=88=D8=A8=DB=8C =D9=BE=D8=B1=D8=B3=DB=8C=D8=AF=
+=DB=8C =F0=9F=91=8D<br data-start=3D"24" data-end=3D"27">
+=D8=A7=DB=8C=D9=86 =C2=AB=D8=A7=D8=B4=D8=AA=D8=A8=D8=A7=D9=87=D8=A7=D8=AA =
+=D8=B1=D8=A7=DB=8C=D8=AC=C2=BB =D8=AF=D9=82=DB=8C=D9=82=D8=A7=D9=8B =D9=87=
+=D9=85=D8=A7=D9=86 =D8=AC=D8=A7=D9=87=D8=A7=DB=8C=DB=8C =D9=87=D8=B3=D8=AA=
+=D9=86=D8=AF =DA=A9=D9=87 =D9=BE=D8=B1=D9=88=DA=98=D9=87=E2=80=8C=D9=87=D8=
+=A7=DB=8C Flutter / Backend =D8=A8=D8=B9=D8=AF =D8=A7=D8=B2 =DA=86=D9=86=D8=
+=AF =D9=85=D8=A7=D9=87 <strong data-start=3D"118" data-end=3D"151">=DA=A9=
+=D9=86=D8=AF=D8=8C =D8=B4=DA=A9=D9=86=D9=86=D8=AF=D9=87 =D9=88 =D9=BE=D8=B1=
+ =D8=A7=D8=B2 if =D9=88 hack</strong> =D9=85=DB=8C=E2=80=8C=D8=B4=D9=88=D9=
+=86=D8=AF.<br data-start=3D"160" data-end=3D"163">
+=D8=A8=DB=8C=D8=A7=DB=8C=D9=85 <strong data-start=3D"169" data-end=3D"204">=
+=D8=AF=D8=A7=D9=86=D9=87=E2=80=8C=D8=AF=D8=A7=D9=86=D9=87=D8=8C =D8=B9=D9=
+=85=DB=8C=D9=82 =D9=88 =D8=A8=D8=A7 =D9=85=D8=AB=D8=A7=D9=84 =D9=88=D8=A7=
+=D9=82=D8=B9=DB=8C</strong> =D8=A8=D8=B1=D8=B1=D8=B3=DB=8C=E2=80=8C=D8=B4=
+=D8=A7=D9=86 =DA=A9=D9=86=DB=8C=D9=85.</p>
+<hr data-start=3D"222" data-end=3D"225">
+<h1 data-start=3D"227" data-end=3D"268">=E2=9D=8C =D8=A7=D8=B4=D8=AA=D8=A8=
+=D8=A7=D9=87 =DB=B1: =D8=A7=D8=B3=D8=AA=D9=81=D8=A7=D8=AF=D9=87 =D9=85=D8=
+=B3=D8=AA=D9=82=DB=8C=D9=85 =D8=A7=D8=B2 DTO =D8=AF=D8=B1 UI</h1>
+<h3 data-start=3D"270" data-end=3D"287">=F0=9F=94=B4 =D9=85=D8=B4=DA=A9=D9=
+=84 =DA=86=DB=8C=D8=B3=D8=AA=D8=9F</h3>
+<p data-start=3D"288" data-end=3D"340">DTO =D9=88=D8=A7=D8=A8=D8=B3=D8=AA=
+=D9=87 =D8=A8=D9=87 API =D8=A7=D8=B3=D8=AA=D8=8C =D8=A7=D9=85=D8=A7 UI =D9=
+=86=D8=A8=D8=A7=DB=8C=D8=AF =D8=A8=D8=A7 API =DA=A9=D9=88=D9=BE=D9=84 =D8=
+=B4=D9=88=D8=AF.</p>
+<h3 data-start=3D"342" data-end=3D"357">=D9=85=D8=AB=D8=A7=D9=84 =D8=A7=D8=
+=B4=D8=AA=D8=A8=D8=A7=D9=87</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"358" data-end=3D"492">=
+<div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 relat=
+ive bg-token-sidebar-surface-primary"><div class=3D"flex items-center text-=
+token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-tok=
+en-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellipse/=
+1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-hei=
+ght))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 ite=
+ms-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-tex=
+t-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><but=
+ton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy">=
+<svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-h=
+idden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9ag=
+xugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></div>=
+</div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D"w=
+hitespace-pre! language-dart"><span>FutureBuilder&lt;UserDto&gt;(
+  future: api.getUser(),
+  builder: (_, snapshot) {
+    return Text(snapshot.data!.email);
+  },
+);
+</span></code></div></div></pre>
+<h3 data-start=3D"494" data-end=3D"513">=DA=86=D8=B1=D8=A7 =D8=AE=D8=B7=D8=
+=B1=D9=86=D8=A7=DA=A9 =D8=A7=D8=B3=D8=AA=D8=9F</h3>
+<ul data-start=3D"514" data-end=3D"595">
+<li data-start=3D"514" data-end=3D"534">
+<p data-start=3D"516" data-end=3D"534">=D8=AA=D8=BA=DB=8C=DB=8C=D8=B1 API =
+=E2=86=92 =DA=A9=D8=B1=D8=B4 UI</p>
+</li>
+<li data-start=3D"535" data-end=3D"565">
+<p data-start=3D"537" data-end=3D"565">=D9=86=D8=A7=D9=85=E2=80=8C=DA=AF=D8=
+=B0=D8=A7=D8=B1=DB=8C API =D9=88=D8=A7=D8=B1=D8=AF UI =D9=85=DB=8C=E2=80=8C=
+=D8=B4=D9=88=D8=AF</p>
+</li>
+<li data-start=3D"566" data-end=3D"595">
+<p data-start=3D"568" data-end=3D"595">Validation =D8=AF=D8=B1 UI =D9=BE=D8=
+=AE=D8=B4 =D9=85=DB=8C=E2=80=8C=D8=B4=D9=88=D8=AF</p>
+</li>
+</ul>
+<p data-start=3D"597" data-end=3D"617">=D9=85=D8=AB=D9=84=D8=A7=D9=8B =D8=
+=A7=DA=AF=D8=B1 API =D8=A8=DA=AF=D9=88=DB=8C=D8=AF:</p>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"618" data-end=3D"660">=
+<div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 relat=
+ive bg-token-sidebar-surface-primary"><div class=3D"flex items-center text-=
+token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-tok=
+en-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellipse/=
+1.1">json</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-hei=
+ght))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 ite=
+ms-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-tex=
+t-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><but=
+ton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy">=
+<svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-h=
+idden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9ag=
+xugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></div>=
+</div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D"w=
+hitespace-pre! language-json"><span><span><span class=3D"hljs-punctuation">=
+{</span></span><span> </span><span><span class=3D"hljs-attr">"email_address=
+"</span></span><span><span class=3D"hljs-punctuation">:</span></span><span>=
+ </span><span><span class=3D"hljs-string">"a@b.com"</span></span><span> </s=
+pan><span><span class=3D"hljs-punctuation">}</span></span><span>
+</span></span></code></div></div></pre>
+<p data-start=3D"661" data-end=3D"682">=DA=A9=D9=84 UI =D8=A8=D8=A7=DB=8C=
+=D8=AF =D8=AA=D8=BA=DB=8C=DB=8C=D8=B1 =DA=A9=D9=86=D8=AF.</p>
+<h3 data-start=3D"684" data-end=3D"698">=E2=9C=85 =D8=B1=D8=A7=D9=87 =D8=AF=
+=D8=B1=D8=B3=D8=AA</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"699" data-end=3D"839">=
+<div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 relat=
+ive bg-token-sidebar-surface-primary"><div class=3D"flex items-center text-=
+token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-tok=
+en-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellipse/=
+1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-hei=
+ght))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 ite=
+ms-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-tex=
+t-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><but=
+ton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy">=
+<svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-h=
+idden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9ag=
+xugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></div>=
+</div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D"w=
+hitespace-pre! language-dart"><span>FutureBuilder&lt;User&gt;(
+  future: getUserUseCase(),
+  builder: (_, snapshot) {
+    return Text(snapshot.data!.email.value);
+  },
+);
+</span></code></div></div></pre>
+<p data-start=3D"841" data-end=3D"880">=F0=9F=93=8C UI =D9=81=D9=82=D8=B7 <=
+strong data-start=3D"851" data-end=3D"867">Domain Model</strong> =D8=B1=D8=
+=A7 =D9=85=DB=8C=E2=80=8C=D8=B4=D9=86=D8=A7=D8=B3=D8=AF.</p>
+<hr data-start=3D"882" data-end=3D"885">
+<h1 data-start=3D"887" data-end=3D"940">=E2=9D=8C =D8=A7=D8=B4=D8=AA=D8=A8=
+=D8=A7=D9=87 =DB=B2: =D8=A7=D8=B3=D8=AA=D9=81=D8=A7=D8=AF=D9=87 =D8=A7=D8=
+=B2 Data Model =D8=AF=D8=B1 Business Logic</h1>
+<h3 data-start=3D"942" data-end=3D"965">=D9=85=D8=AB=D8=A7=D9=84 =D8=A7=D8=
+=B4=D8=AA=D8=A8=D8=A7=D9=87 (Realm)</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"966" data-end=3D"1054"=
+><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rela=
+tive bg-token-sidebar-surface-primary"><div class=3D"flex items-center text=
+-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-to=
+ken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellipse=
+/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-he=
+ight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 it=
+ems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-te=
+xt-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><bu=
+tton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy"=
+><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-=
+hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9a=
+gxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></div=
+></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D"=
+whitespace-pre! language-dart"><span>bool canSell(UserEntity user) {
+  return user.credit &gt; 0 &amp;&amp; user.isActive;
+}
+</span></code></div></div></pre>
+<h3 data-start=3D"1056" data-end=3D"1065">=D9=85=D8=B4=DA=A9=D9=84=D8=9F</h=
+3>
+<ul data-start=3D"1066" data-end=3D"1134">
+<li data-start=3D"1066" data-end=3D"1093">
+<p data-start=3D"1068" data-end=3D"1093">=D9=85=D9=86=D8=B7=D9=82 =D8=A8=D9=
+=87 =D8=AF=DB=8C=D8=AA=D8=A7=D8=A8=DB=8C=D8=B3 =D9=88=D8=A7=D8=A8=D8=B3=D8=
+=AA=D9=87 =D8=B4=D8=AF</p>
+</li>
+<li data-start=3D"1094" data-end=3D"1110">
+<p data-start=3D"1096" data-end=3D"1110">=D8=AA=D8=B3=D8=AA =D8=B3=D8=AE=D8=
+=AA =D9=85=DB=8C=E2=80=8C=D8=B4=D9=88=D8=AF</p>
+</li>
+<li data-start=3D"1111" data-end=3D"1134">
+<p data-start=3D"1113" data-end=3D"1134">=D8=AA=D8=BA=DB=8C=DB=8C=D8=B1 DB =
+=3D =D8=AA=D8=BA=DB=8C=DB=8C=D8=B1 =D9=85=D9=86=D8=B7=D9=82</p>
+</li>
+</ul>
+<h3 data-start=3D"1136" data-end=3D"1150">=E2=9C=85 =D8=B1=D8=A7=D9=87 =D8=
+=AF=D8=B1=D8=B3=D8=AA</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"1151" data-end=3D"1215=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>bool canSell(User user) {
+  return user.canSell();
+}
+</span></code></div></div></pre>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"1217" data-end=3D"1287=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>class User {
+  bool canSell() =3D&gt; credit &gt; 0 &amp;&amp; isActive;
+}
+</span></code></div></div></pre>
+<p data-start=3D"1289" data-end=3D"1334">=F0=9F=93=8C Domain =D8=AA=D8=B5=
+=D9=85=DB=8C=D9=85 =D9=85=DB=8C=E2=80=8C=DA=AF=DB=8C=D8=B1=D8=AF=D8=8C DB =
+=D9=81=D9=82=D8=B7 =D8=B0=D8=AE=DB=8C=D8=B1=D9=87 =D9=85=DB=8C=E2=80=8C=DA=
+=A9=D9=86=D8=AF.</p>
+<hr data-start=3D"1336" data-end=3D"1339">
+<h1 data-start=3D"1341" data-end=3D"1382">=E2=9D=8C =D8=A7=D8=B4=D8=AA=D8=
+=A8=D8=A7=D9=87 =DB=B3: =DB=8C=DA=A9=DB=8C =DA=A9=D8=B1=D8=AF=D9=86 DTO =D9=
+=88 Domain Model</h1>
+<h3 data-start=3D"1384" data-end=3D"1397">=D9=85=D8=AB=D8=A7=D9=84 =D8=B1=
+=D8=A7=DB=8C=D8=AC</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"1398" data-end=3D"1540=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>class User {
+  final int id;
+  final String email;
+
+  User.fromJson(Map&lt;String, dynamic&gt; json);
+  Map&lt;String, dynamic&gt; toJson();
+}
+</span></code></div></div></pre>
+<h3 data-start=3D"1542" data-end=3D"1564">=DA=86=D8=B1=D8=A7 =D8=A7=DB=8C=
+=D9=86 =D9=81=D8=A7=D8=AC=D8=B9=D9=87 =D8=A7=D8=B3=D8=AA=D8=9F</h3>
+<p data-start=3D"1565" data-end=3D"1579">=D8=A7=DB=8C=D9=86 =DA=A9=D9=84=D8=
+=A7=D8=B3 =D8=A7=D9=84=D8=A2=D9=86:</p>
+<ul data-start=3D"1580" data-end=3D"1646">
+<li data-start=3D"1580" data-end=3D"1595">
+<p data-start=3D"1582" data-end=3D"1595">=D9=87=D9=85 Domain =D8=A7=D8=B3=
+=D8=AA</p>
+</li>
+<li data-start=3D"1596" data-end=3D"1604">
+<p data-start=3D"1598" data-end=3D"1604">=D9=87=D9=85 DTO</p>
+</li>
+<li data-start=3D"1605" data-end=3D"1621">
+<p data-start=3D"1607" data-end=3D"1621">=D9=87=D9=85 API =D9=85=DB=8C=E2=
+=80=8C=D9=81=D9=87=D9=85=D8=AF</p>
+</li>
+<li data-start=3D"1622" data-end=3D"1646">
+<p data-start=3D"1624" data-end=3D"1646">=D9=87=D9=85 Business Logic =D8=AF=
+=D8=A7=D8=B1=D8=AF</p>
+</li>
+</ul>
+<p data-start=3D"1648" data-end=3D"1657">=F0=9F=93=89 =D9=86=D8=AA=DB=8C=D8=
+=AC=D9=87:</p>
+<ul data-start=3D"1658" data-end=3D"1714">
+<li data-start=3D"1658" data-end=3D"1690">
+<p data-start=3D"1660" data-end=3D"1690">=D9=87=D8=B1 =D8=AA=D8=BA=DB=8C=DB=
+=8C=D8=B1 =DA=A9=D9=88=DA=86=DA=A9 =E2=86=92 =D8=AA=D8=BA=DB=8C=DB=8C=D8=B1=
+ =DA=A9=D9=84 =D8=B3=DB=8C=D8=B3=D8=AA=D9=85</p>
+</li>
+<li data-start=3D"1691" data-end=3D"1714">
+<p data-start=3D"1693" data-end=3D"1714">=D8=AA=D8=B3=D8=AA=E2=80=8C=D9=87=
+=D8=A7 =D8=A8=D9=87 =D9=87=D9=85 =D9=85=DB=8C=E2=80=8C=D8=B1=DB=8C=D8=B2=D9=
+=86=D8=AF</p>
+</li>
+</ul>
+<h3 data-start=3D"1716" data-end=3D"1730">=E2=9C=85 =D8=B1=D8=A7=D9=87 =D8=
+=AF=D8=B1=D8=B3=D8=AA</h3>
+<ul data-start=3D"1731" data-end=3D"1766">
+<li data-start=3D"1731" data-end=3D"1748">
+<p data-start=3D"1733" data-end=3D"1748">DTO =E2=86=92 <code data-start=3D"=
+1739" data-end=3D"1748">UserDto</code></p>
+</li>
+<li data-start=3D"1749" data-end=3D"1766">
+<p data-start=3D"1751" data-end=3D"1766">Domain =E2=86=92 <code data-start=
+=3D"1760" data-end=3D"1766">User</code></p>
+</li>
+</ul>
+<p data-start=3D"1768" data-end=3D"1804">=D8=AD=D8=AA=DB=8C =D8=A7=DA=AF=D8=
+=B1 =D8=B4=D8=A8=DB=8C=D9=87 =D9=87=D9=85 =D9=87=D8=B3=D8=AA=D9=86=D8=AF <s=
+trong data-start=3D"1790" data-end=3D"1803">=D8=AC=D8=AF=D8=A7 =D8=A8=D8=A7=
+=D8=B4=D9=86=D8=AF</strong>.</p>
+<hr data-start=3D"1806" data-end=3D"1809">
+<h1 data-start=3D"1811" data-end=3D"1851">=E2=9D=8C =D8=A7=D8=B4=D8=AA=D8=
+=A8=D8=A7=D9=87 =DB=B4: =DA=AF=D8=B0=D8=A7=D8=B4=D8=AA=D9=86 Validation =D8=
+=AF=D8=A7=D8=AE=D9=84 DTO</h1>
+<h3 data-start=3D"1853" data-end=3D"1868">=D9=85=D8=AB=D8=A7=D9=84 =D8=A7=
+=D8=B4=D8=AA=D8=A8=D8=A7=D9=87</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"1869" data-end=3D"1979=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>class RegisterDto {
+  String email;
+
+  bool isValidEmail() {
+    return email.contains('@');
+  }
+}
+</span></code></div></div></pre>
+<h3 data-start=3D"1981" data-end=3D"1997">=DA=86=D8=B1=D8=A7 =D8=BA=D9=84=
+=D8=B7 =D8=A7=D8=B3=D8=AA=D8=9F</h3>
+<p data-start=3D"1998" data-end=3D"2002">DTO:</p>
+<ul data-start=3D"2003" data-end=3D"2044">
+<li data-start=3D"2003" data-end=3D"2024">
+<p data-start=3D"2005" data-end=3D"2024">=D9=81=D9=82=D8=B7 =C2=AB=D9=BE=D8=
+=A7=DA=A9=D8=AA =D9=BE=D8=B3=D8=AA=DB=8C=C2=BB =D8=A7=D8=B3=D8=AA</p>
+</li>
+<li data-start=3D"2025" data-end=3D"2044">
+<p data-start=3D"2027" data-end=3D"2044">=D9=86=D8=A8=D8=A7=DB=8C=D8=AF =D8=
+=AA=D8=B5=D9=85=DB=8C=D9=85 =D8=A8=DA=AF=DB=8C=D8=B1=D8=AF</p>
+</li>
+</ul>
+<h3 data-start=3D"2046" data-end=3D"2059">=D9=85=D8=B4=DA=A9=D9=84 =D8=B9=
+=D9=85=D9=84=DB=8C</h3>
+<ul data-start=3D"2060" data-end=3D"2120">
+<li data-start=3D"2060" data-end=3D"2092">
+<p data-start=3D"2062" data-end=3D"2092">=D8=A7=DA=AF=D8=B1 =D8=AB=D8=A8=D8=
+=AA=E2=80=8C=D9=86=D8=A7=D9=85 =D8=A7=D8=B2 DB =D8=A7=D9=86=D8=AC=D8=A7=D9=
+=85 =D8=B4=D8=AF =DA=86=DB=8C=D8=9F</p>
+</li>
+<li data-start=3D"2093" data-end=3D"2120">
+<p data-start=3D"2095" data-end=3D"2120">=D8=A7=DA=AF=D8=B1 UI =D8=AF=D8=B3=
+=D8=AA=DB=8C =D8=AF=DB=8C=D8=AA=D8=A7 =D8=B3=D8=A7=D8=AE=D8=AA =DA=86=DB=8C=
+=D8=9F</p>
+</li>
+</ul>
+<h3 data-start=3D"2122" data-end=3D"2136">=E2=9C=85 =D8=B1=D8=A7=D9=87 =D8=
+=AF=D8=B1=D8=B3=D8=AA</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"2137" data-end=3D"2288=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>class Email {
+  final String value;
+
+  Email(this.value) {
+    if (!value.contains('@')) {
+      throw InvalidEmailException();
+    }
+  }
+}
+</span></code></div></div></pre>
+<p data-start=3D"2290" data-end=3D"2312">=F0=9F=93=8C Validation =3D Domain=
+</p>
+<hr data-start=3D"2314" data-end=3D"2317">
+<h1 data-start=3D"2319" data-end=3D"2361">=E2=9D=8C =D8=A7=D8=B4=D8=AA=D8=
+=A8=D8=A7=D9=87 =DB=B5: =D9=84=D9=88 =D8=B1=D9=81=D8=AA=D9=86 =D8=AC=D8=B2=
+=D8=A6=DB=8C=D8=A7=D8=AA =D8=AF=DB=8C=D8=AA=D8=A7=D8=A8=DB=8C=D8=B3 =D8=A8=
+=D9=87 UI</h1>
+<h3 data-start=3D"2363" data-end=3D"2378">=D9=85=D8=AB=D8=A7=D9=84 =D8=A7=
+=D8=B4=D8=AA=D8=A8=D8=A7=D9=87</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"2379" data-end=3D"2435=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>Text(userEntity.createdAt.toIso8601St=
+ring())
+</span></code></div></div></pre>
+<h3 data-start=3D"2437" data-end=3D"2446">=D9=85=D8=B4=DA=A9=D9=84=D8=9F</h=
+3>
+<ul data-start=3D"2447" data-end=3D"2494">
+<li data-start=3D"2447" data-end=3D"2467">
+<p data-start=3D"2449" data-end=3D"2467">=D9=81=D8=B1=D9=85=D8=AA DB =D9=88=
+=D8=A7=D8=B1=D8=AF UI =D8=B4=D8=AF</p>
+</li>
+<li data-start=3D"2468" data-end=3D"2494">
+<p data-start=3D"2470" data-end=3D"2494">Locale / UX =D9=86=D8=A7=D8=A8=D9=
+=88=D8=AF =D9=85=DB=8C=E2=80=8C=D8=B4=D9=88=D8=AF</p>
+</li>
+</ul>
+<h3 data-start=3D"2496" data-end=3D"2510">=E2=9C=85 =D8=B1=D8=A7=D9=87 =D8=
+=AF=D8=B1=D8=B3=D8=AA</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"2511" data-end=3D"2561=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>Text(user.createdDate.formatForUser()=
+)
+</span></code></div></div></pre>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"2563" data-end=3D"2659=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>extension on DateTime {
+  String formatForUser() =3D&gt; DateFormat.yMd().format(this);
+}
+</span></code></div></div></pre>
+<hr data-start=3D"2661" data-end=3D"2664">
+<h1 data-start=3D"2666" data-end=3D"2709">=E2=9D=8C =D8=A7=D8=B4=D8=AA=D8=
+=A8=D8=A7=D9=87 =DB=B6: Mapper=D9=87=D8=A7=DB=8C =D8=B6=D8=B9=DB=8C=D9=81 =
+=DB=8C=D8=A7 =D8=A8=D8=AF=D9=88=D9=86 Mapper</h1>
+<h3 data-start=3D"2711" data-end=3D"2722">=D9=85=D8=AB=D8=A7=D9=84 =D8=A8=
+=D8=AF</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"2723" data-end=3D"2802=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>User(
+  id: dto.id,
+  name: dto.name,
+  email: Email(dto.email),
+);
+</span></code></div></div></pre>
+<p data-start=3D"2804" data-end=3D"2825">(=D8=AF=D8=B1 =D9=87=D8=B1 =D8=AC=
+=D8=A7 =D8=AA=DA=A9=D8=B1=D8=A7=D8=B1 =D8=B4=D8=AF=D9=87!)</p>
+<h3 data-start=3D"2827" data-end=3D"2836">=D9=85=D8=B4=DA=A9=D9=84=D8=9F</h=
+3>
+<ul data-start=3D"2837" data-end=3D"2873">
+<li data-start=3D"2837" data-end=3D"2847">
+<p data-start=3D"2839" data-end=3D"2847">=DA=A9=D9=BE=DB=8C=E2=80=8C=D9=BE=
+=DB=8C=D8=B3=D8=AA</p>
+</li>
+<li data-start=3D"2848" data-end=3D"2859">
+<p data-start=3D"2850" data-end=3D"2859">=D9=86=D8=A7=D8=B3=D8=A7=D8=B2=DA=
+=AF=D8=A7=D8=B1=DB=8C</p>
+</li>
+<li data-start=3D"2860" data-end=3D"2873">
+<p data-start=3D"2862" data-end=3D"2873">=D8=AE=D8=B7=D8=A7=DB=8C =D8=A7=D9=
+=86=D8=B3=D8=A7=D9=86=DB=8C</p>
+</li>
+</ul>
+<h3 data-start=3D"2875" data-end=3D"2889">=E2=9C=85 =D8=B1=D8=A7=D9=87 =D8=
+=AF=D8=B1=D8=B3=D8=AA</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"2890" data-end=3D"3025=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>extension UserDtoMapper on UserDto {
+  User toDomain() =3D&gt; User(
+    id: id,
+    name: name,
+    email: Email(email),
+  );
+}
+</span></code></div></div></pre>
+<p data-start=3D"3027" data-end=3D"3052">=F0=9F=93=8C Mapper =3D =DB=8C=DA=
+=A9 =D9=86=D9=82=D8=B7=D9=87 =D8=AA=D8=BA=DB=8C=DB=8C=D8=B1</p>
+<hr data-start=3D"3054" data-end=3D"3057">
+<h1 data-start=3D"3059" data-end=3D"3108">=E2=9D=8C =D8=A7=D8=B4=D8=AA=D8=
+=A8=D8=A7=D9=87 =DB=B7: Anemic Domain Model (Domain =D8=A8=DB=8C=E2=80=8C=
+=D8=AC=D8=A7=D9=86)</h1>
+<h3 data-start=3D"3110" data-end=3D"3125">=D9=85=D8=AB=D8=A7=D9=84 =D8=A7=
+=D8=B4=D8=AA=D8=A8=D8=A7=D9=87</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"3126" data-end=3D"3183=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>class User {
+  int credit;
+  bool isActive;
+}
+</span></code></div></div></pre>
+<p data-start=3D"3185" data-end=3D"3212">=D8=AA=D9=85=D8=A7=D9=85 =D9=85=D9=
+=86=D8=B7=D9=82 =D8=AF=D8=B1 UI =DB=8C=D8=A7 Service:</p>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"3214" data-end=3D"3271=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>if (user.credit &gt; 0 &amp;&amp; use=
+r.isActive) { ... }
+</span></code></div></div></pre>
+<h3 data-start=3D"3273" data-end=3D"3282">=D9=85=D8=B4=DA=A9=D9=84=D8=9F</h=
+3>
+<ul data-start=3D"3283" data-end=3D"3331">
+<li data-start=3D"3283" data-end=3D"3297">
+<p data-start=3D"3285" data-end=3D"3297">=D9=85=D9=86=D8=B7=D9=82 =D9=BE=D8=
+=AE=D8=B4 =D8=B4=D8=AF=D9=87</p>
+</li>
+<li data-start=3D"3298" data-end=3D"3315">
+<p data-start=3D"3300" data-end=3D"3315">=D8=AA=D8=B3=D8=AA=E2=80=8C=D9=BE=
+=D8=B0=DB=8C=D8=B1=DB=8C =D9=BE=D8=A7=DB=8C=DB=8C=D9=86</p>
+</li>
+<li data-start=3D"3316" data-end=3D"3331">
+<p data-start=3D"3318" data-end=3D"3331">=D8=AE=D8=B7=D8=A7=D9=87=D8=A7=DB=
+=8C =D8=AA=DA=A9=D8=B1=D8=A7=D8=B1=DB=8C</p>
+</li>
+</ul>
+<h3 data-start=3D"3333" data-end=3D"3347">=E2=9C=85 =D8=B1=D8=A7=D9=87 =D8=
+=AF=D8=B1=D8=B3=D8=AA</h3>
+<pre class=3D"overflow-visible! px-0!" data-start=3D"3348" data-end=3D"3454=
+"><div class=3D"contain-inline-size rounded-2xl corner-superellipse/1.1 rel=
+ative bg-token-sidebar-surface-primary"><div class=3D"flex items-center tex=
+t-token-text-secondary px-4 py-2 text-xs font-sans justify-between h-9 bg-t=
+oken-sidebar-surface-primary select-none rounded-t-2xl corner-t-superellips=
+e/1.1">dart</div><div class=3D"sticky top-[calc(--spacing(9)+var(--header-h=
+eight))] @w-xl/main:top-9"><div class=3D"absolute end-0 bottom-0 flex h-9 i=
+tems-center pe-2"><div class=3D"bg-token-bg-elevated-secondary text-token-t=
+ext-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"><b=
+utton class=3D"flex gap-1 items-center select-none py-1" aria-label=3D"Copy=
+"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria=
+-hidden=3D"true" class=3D"icon-sm"><use href=3D"/cdn/assets/sprites-core-i9=
+agxugi.svg#ce3544" fill=3D"currentColor"></use></svg>Copy code</button></di=
+v></div></div><div class=3D"overflow-y-auto p-4" dir=3D"ltr"><code class=3D=
+"whitespace-pre! language-dart"><span>class User {
+  int credit;
+  bool isActive;
+
+  bool canPurchase() =3D&gt; credit &gt; 0 &amp;&amp; isActive;
+}
+</span></code></div></div></pre>
+<p data-start=3D"3456" data-end=3D"3484">=F0=9F=93=8C Domain =D8=A8=D8=A7=
+=DB=8C=D8=AF =C2=AB=D8=A8=D8=A7=D9=87=D9=88=D8=B4=C2=BB =D8=A8=D8=A7=D8=B4=
+=D8=AF.</p>
+<hr data-start=3D"3486" data-end=3D"3489">
+<h1 data-start=3D"3491" data-end=3D"3525">=F0=9F=A7=A0 =D8=AE=D9=84=D8=A7=
+=D8=B5=D9=87=D9=94 =D9=85=D8=B1=DA=AF=D8=A8=D8=A7=D8=B1 (Rule of Thumb)</h1=
+>
+<p data-start=3D"3527" data-end=3D"3539">=E2=9D=8C =D8=A7=DA=AF=D8=B1 =DA=
+=A9=D9=84=D8=A7=D8=B3=DB=8C:</p>
+<ul data-start=3D"3540" data-end=3D"3603">
+<li data-start=3D"3540" data-end=3D"3557">
+<p data-start=3D"3542" data-end=3D"3557"><code data-start=3D"3542" data-end=
+=3D"3552">fromJson</code> =D8=AF=D8=A7=D8=B1=D8=AF</p>
+</li>
+<li data-start=3D"3558" data-end=3D"3583">
+<p data-start=3D"3560" data-end=3D"3583">annotation =D8=AF=DB=8C=D8=AA=D8=
+=A7=D8=A8=DB=8C=D8=B3 =D8=AF=D8=A7=D8=B1=D8=AF</p>
+</li>
+<li data-start=3D"3584" data-end=3D"3603">
+<p data-start=3D"3586" data-end=3D"3603">=D9=88=D8=A7=D8=A8=D8=B3=D8=AA=D9=
+=87 =D8=A8=D9=87 API =D8=A7=D8=B3=D8=AA</p>
+</li>
+</ul>
+<p data-start=3D"3605" data-end=3D"3647">=F0=9F=91=89 <strong data-start=3D=
+"3608" data-end=3D"3647">=D9=86=D8=A8=D8=A7=DB=8C=D8=AF =D9=88=D8=A7=D8=B1=
+=D8=AF UI =DB=8C=D8=A7 Business Logic =D8=B4=D9=88=D8=AF</strong></p>
+<hr data-start=3D"3649" data-end=3D"3652">
+<h2 data-start=3D"3654" data-end=3D"3696">=F0=9F=8E=AF =D8=AC=D9=85=D8=B9=
+=E2=80=8C=D8=A8=D9=86=D8=AF=DB=8C =D9=85=D8=AE=D8=B5=D9=88=D8=B5 =D9=BE=D8=
+=B1=D9=88=DA=98=D9=87=E2=80=8C=D9=87=D8=A7=DB=8C Flutter =D8=B4=D9=85=D8=A7=
+</h2>
+<p data-start=3D"3697" data-end=3D"3718">=D8=A8=D8=A7 =D8=AA=D9=88=D8=AC=D9=
+=87 =D8=A8=D9=87 =D8=AA=D8=AC=D8=B1=D8=A8=D9=87 =D8=B4=D9=85=D8=A7:</p>
+<ul data-start=3D"3719" data-end=3D"3801">
+<li data-start=3D"3719" data-end=3D"3749">
+<p data-start=3D"3721" data-end=3D"3749">Realm / SQL =E2=86=92 =D9=81=D9=82=
+=D8=B7 Data Layer</p>
+</li>
+<li data-start=3D"3750" data-end=3D"3778">
+<p data-start=3D"3752" data-end=3D"3778">Riverpod / UI =E2=86=92 =D9=81=D9=
+=82=D8=B7 Domain</p>
+</li>
+<li data-start=3D"3779" data-end=3D"3801">
+<p data-start=3D"3781" data-end=3D"3801">API / Sync =E2=86=92 =D9=81=D9=82=
+=D8=B7 DTO</p>
+</li>
+</ul>
+<p data-start=3D"3803" data-end=3D"3833">=D8=A7=DA=AF=D8=B1 =D8=A8=D8=AE=D9=
+=88=D8=A7=D9=87=DB=8C=D8=8C =D8=AF=D8=B1 =D8=A7=D8=AF=D8=A7=D9=85=D9=87 =D9=
+=85=DB=8C=E2=80=8C=D8=AA=D9=88=D8=A7=D9=86=D9=85:</p>
+<ul data-start=3D"3834" data-end=3D"3998" data-is-last-node=3D"" data-is-on=
+ly-node=3D"">
+<li data-start=3D"3834" data-end=3D"3914">
+<p data-start=3D"3836" data-end=3D"3914">=D9=87=D9=85=DB=8C=D9=86 =D8=A7=D8=
+=B4=D8=AA=D8=A8=D8=A7=D9=87=D8=A7=D8=AA =D8=B1=D8=A7 =D8=B1=D9=88=DB=8C <st=
+rong data-start=3D"3857" data-end=3D"3900">=DB=8C=DA=A9 =D9=81=DB=8C=DA=86=
+=D8=B1 =D9=88=D8=A7=D9=82=D8=B9=DB=8C (=D9=85=D8=AB=D9=84=D8=A7=D9=8B =D9=
+=81=D8=B1=D9=88=D8=B4 =DB=8C=D8=A7 =D8=B4=D8=AC=D8=B1=D9=87=E2=80=8C=D9=86=
+=D8=A7=D9=85=D9=87)</strong> =D8=A8=D8=A7=D8=B2=D8=B3=D8=A7=D8=B2=DB=8C =DA=
+=A9=D9=86=D9=85</p>
+</li>
+<li data-start=3D"3915" data-end=3D"3998" data-is-last-node=3D"">
+<p data-start=3D"3917" data-end=3D"3998" data-is-last-node=3D"">=DB=8C=D8=
+=A7 =DA=86=DA=A9=E2=80=8C=D9=84=DB=8C=D8=B3=D8=AA Code Review =D9=85=D8=AE=
+=D8=B5=D9=88=D8=B5 Flutter =D8=A8=D9=87=D8=AA =D8=A8=D8=AF=D9=87=D9=85 =DA=
+=A9=D9=87 =D8=A8=D8=A7 =D8=A2=D9=86 =D8=B3=D8=B1=DB=8C=D8=B9 =D8=A7=DB=8C=
+=D9=86 =D8=AE=D8=B7=D8=A7=D9=87=D8=A7 =D8=B1=D8=A7 =D9=BE=DB=8C=D8=AF=D8=A7=
+ =DA=A9=D9=86=DB=8C</p>
+</li>
+</ul></div></div></div></div><div class=3D"z-0 flex min-h-[46px] justify-st=
+art"><div class=3D"touch:-me-2 touch:-ms-3.5 -ms-2.5 -me-1 flex flex-wrap i=
+tems-center gap-y-4 p-1 select-none touch:w-[calc(100%+--spacing(3.5))] -mt=
+-1 w-[calc(100%+--spacing(2.5))] duration-[1.5s] focus-within:transition-no=
+ne hover:transition-none touch:pointer-events-auto pointer-events-none [mas=
+k-image:linear-gradient(to_right,black_33%,transparent_66%)] [mask-size:300=
+%_100%] [mask-position:100%_0%] motion-safe:transition-[mask-position] grou=
+p-hover/turn-messages:pointer-events-auto group-hover/turn-messages:[mask-p=
+osition:0_0] group-focus-within/turn-messages:pointer-events-auto group-foc=
+us-within/turn-messages:[mask-position:0_0] has-data-[state=3Dopen]:pointer=
+-events-auto has-data-[state=3Dopen]:[mask-position:0_0]" style=3D"mask-pos=
+ition: 0% 0%;"><button class=3D"text-token-text-secondary hover:bg-token-bg=
+-secondary rounded-lg" aria-label=3D"Copy" aria-pressed=3D"false" data-test=
+id=3D"copy-turn-action-button" data-state=3D"closed"><span class=3D"flex it=
+ems-center justify-center touch:w-10 h-8 w-8"><svg xmlns=3D"http://www.w3.o=
+rg/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"icon"=
+><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#ce3544" fill=3D"current=
+Color"></use></svg></span></button><button class=3D"text-token-text-seconda=
+ry hover:bg-token-bg-secondary rounded-lg" aria-label=3D"Good response" ari=
+a-pressed=3D"false" data-testid=3D"good-response-turn-action-button" data-s=
+tate=3D"closed"><span class=3D"flex items-center justify-center touch:w-10 =
+h-8 w-8"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"2=
+0" aria-hidden=3D"true" class=3D"icon"><use href=3D"/cdn/assets/sprites-cor=
+e-i9agxugi.svg#51753c" fill=3D"currentColor"></use></svg></span></button><b=
+utton class=3D"text-token-text-secondary hover:bg-token-bg-secondary rounde=
+d-lg" aria-label=3D"Bad response" aria-pressed=3D"false" data-testid=3D"bad=
+-response-turn-action-button" data-state=3D"closed"><span class=3D"flex ite=
+ms-center justify-center touch:w-10 h-8 w-8"><svg xmlns=3D"http://www.w3.or=
+g/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"icon">=
+<use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#2126ae" fill=3D"currentC=
+olor"></use></svg></span></button><button class=3D"text-token-text-secondar=
+y hover:bg-token-bg-secondary rounded-lg" aria-label=3D"Share" aria-pressed=
+=3D"false" data-state=3D"closed"><span class=3D"flex items-center justify-c=
+enter touch:w-10 h-8 w-8"><svg xmlns=3D"http://www.w3.org/2000/svg" width=
+=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"icon"><use href=3D"/cdn=
+/assets/sprites-core-i9agxugi.svg#630ca2" fill=3D"currentColor"></use></svg=
+></span></button><span class=3D"" data-state=3D"closed"><button type=3D"but=
+ton" id=3D"radix-_r_ht_" aria-haspopup=3D"menu" aria-expanded=3D"false" dat=
+a-state=3D"closed" class=3D"cursor-pointer text-token-text-secondary hover:=
+bg-token-bg-secondary touch:px-2.5 h-[30px] rounded-md px-1.5" aria-label=
+=3D"Switch model"><div class=3D"flex items-center"><svg xmlns=3D"http://www=
+.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"=
+icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#ec66f0" fill=3D"cu=
+rrentColor"></use></svg></div></button></span><button class=3D"text-token-t=
+ext-secondary hover:bg-token-bg-secondary touch:w-10 flex h-8 w-8 items-cen=
+ter justify-center rounded-lg" aria-label=3D"More actions" type=3D"button" =
+id=3D"radix-_r_i0_" aria-haspopup=3D"menu" aria-expanded=3D"false" data-sta=
+te=3D"closed"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=
+=3D"20" aria-hidden=3D"true" class=3D"icon"><use href=3D"/cdn/assets/sprite=
+s-core-i9agxugi.svg#f6d0e2" fill=3D"currentColor"></use></svg></button></di=
 v></div><div class=3D"mt-3 w-full empty:hidden"><div class=3D"text-center">=
 </div></div></div></div></article></div><div aria-hidden=3D"true" data-edge=
 =3D"true" class=3D"pointer-events-none h-px w-px absolute bottom-0"></div><=
@@ -2354,87 +3137,80 @@ ead-bottom-container relative isolate z-10 w-full basis-auto has-data-has-t=
 hread-error:pt-2 has-data-has-thread-error:[box-shadow:var(--sharp-edge-bot=
 tom-shadow)] md:border-transparent md:pt-0 dark:border-white/20 md:dark:bor=
 der-transparent print:hidden content-fade single-line flex flex-col"><div c=
-lass=3D"relative h-0"><div style=3D"opacity: 1;"><button class=3D"cursor-po=
-inter absolute z-30 rounded-full bg-clip-padding border text-token-text-sec=
-ondary border-token-border-default end-1/2 translate-x-1/2 bg-token-main-su=
-rface-primary w-8 h-8 flex items-center justify-center print:hidden bottom-=
-[calc(100%+6*var(--spacing))]"><svg xmlns=3D"http://www.w3.org/2000/svg" wi=
-dth=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"icon text-token-text=
--primary"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#ac89a7" fill=
-=3D"currentColor"></use></svg></button></div></div><div id=3D"thread-bottom=
-"><div class=3D"text-base mx-auto [--thread-content-margin:--spacing(4)] @w=
--sm/main:[--thread-content-margin:--spacing(6)] @w-lg/main:[--thread-conten=
-t-margin:--spacing(16)] px-(--thread-content-margin)"><div class=3D"[--thre=
-ad-content-max-width:40rem] @w-lg/main:[--thread-content-max-width:48rem] m=
-x-auto max-w-(--thread-content-max-width) flex-1 mb-4"><div class=3D"flex j=
-ustify-center empty:hidden"></div><div class=3D"pointer-events-auto relativ=
-e z-1 flex h-(--composer-container-height,100%) max-w-full flex-(--composer=
--container-flex,1) flex-col"><button type=3D"button" name=3D"context-connec=
-tor-pasted-link-popover-trigger" class=3D"invisible absolute self-center" a=
-ria-hidden=3D"true" tabindex=3D"-1" aria-haspopup=3D"dialog" aria-expanded=
-=3D"false" aria-controls=3D"radix-_r_gj_" data-state=3D"closed"></button><d=
-iv class=3D"absolute start-0 end-0 bottom-full z-20"></div><form class=3D"g=
-roup/composer w-full" data-type=3D"unified-composer" style=3D"view-transiti=
-on-name: var(--vt-composer);"><div class=3D"hidden"><input multiple=3D"" ta=
-bindex=3D"-1" type=3D"file" style=3D"border: 0px; clip: rect(0px, 0px, 0px,=
- 0px); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overf=
-low: hidden; padding: 0px; position: absolute; width: 1px; white-space: now=
-rap;"></div><div class=3D""><div class=3D"bg-token-bg-primary corner-supere=
-llipse/1.1 cursor-text overflow-clip bg-clip-padding p-2.5 contain-inline-s=
-ize dark:bg-[#303030] grid grid-cols-[auto_1fr_auto] [grid-template-areas:'=
-header_header_header'_'leading_primary_trailing'_'._footer_.'] group-data-e=
-xpanded/composer:[grid-template-areas:'header_header_header'_'primary_prima=
-ry_primary'_'leading_footer_trailing'] shadow-short" style=3D"border-radius=
-: 28px;"><div class=3D"-my-2.5 flex min-h-14 items-center overflow-x-hidden=
- px-1.5 [grid-area:primary] group-data-expanded/composer:mb-0 group-data-ex=
-panded/composer:px-2.5"><div class=3D"wcDTda_prosemirror-parent text-token-=
-text-primary max-h-[max(30svh,5rem)] max-h-52 min-h-[var(--deep-research-co=
-mposer-extra-height,unset)] flex-1 overflow-auto [scrollbar-width:thin] def=
-ault-browser vertical-scroll-fade-mask"><textarea class=3D"wcDTda_fallbackT=
-extarea" name=3D"prompt-textarea" placeholder=3D"Ask anything" data-virtual=
-keyboard=3D"true" style=3D"display: none;"></textarea><div contenteditable=
-=3D"true" translate=3D"no" class=3D"ProseMirror ProseMirror-focused" id=3D"=
-prompt-textarea" data-virtualkeyboard=3D"true"><p data-placeholder=3D"Ask a=
-nything" class=3D"placeholder"><br class=3D"ProseMirror-trailingBreak"></p>=
-</div></div></div><div class=3D"[grid-area:leading]"><span class=3D"flex" d=
-ata-state=3D"closed"><button type=3D"button" class=3D"composer-btn" data-te=
-stid=3D"composer-plus-btn" aria-label=3D"Add files and more" id=3D"composer=
--plus-btn" aria-haspopup=3D"menu" aria-expanded=3D"false" data-state=3D"clo=
-sed"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" a=
-ria-hidden=3D"true" class=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9=
-agxugi.svg#6be74c" fill=3D"currentColor"></use></svg></button></span></div>=
-<div class=3D"flex items-center gap-2 [grid-area:trailing]"><div class=3D"m=
-s-auto flex items-center gap-1.5"><span class=3D"" data-state=3D"closed"><b=
-utton aria-label=3D"Dictate button" type=3D"button" class=3D"composer-btn">=
-<svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-l=
-abel=3D"" class=3D"icon" font-size=3D"inherit"><use href=3D"/cdn/assets/spr=
-ites-core-i9agxugi.svg#29f921" fill=3D"currentColor"></use></svg></button><=
-/span><div><span class=3D"" data-state=3D"closed"><div><div class=3D"relati=
-ve"><button type=3D"button" aria-label=3D"Start voice mode" class=3D"compos=
-er-submit-button-color text-submit-btn-text flex h-9 w-9 items-center justi=
-fy-center rounded-full transition-colors hover:opacity-70 focus-visible:out=
-line-black focus-visible:outline-none disabled:text-[#f4f4f4] disabled:opac=
-ity-30 dark:focus-visible:outline-white" style=3D"view-transition-name: var=
-(--vt-composer-speech-button);"><svg xmlns=3D"http://www.w3.org/2000/svg" w=
-idth=3D"20" height=3D"20" aria-hidden=3D"true" class=3D"h-5 w-5"><use href=
-=3D"/cdn/assets/sprites-core-i9agxugi.svg#f8aa74" fill=3D"currentColor"></u=
-se></svg></button></div></div></span></div></div></div></div></div></form><=
-/div><input class=3D"sr-only" tabindex=3D"-1" aria-hidden=3D"true" id=3D"up=
-load-photos" accept=3D"image/*" multiple=3D"" type=3D"file"><input class=3D=
-"sr-only" tabindex=3D"-1" aria-hidden=3D"true" id=3D"upload-camera" accept=
-=3D"image/*" capture=3D"environment" multiple=3D"" type=3D"file"></div></di=
-v></div><div class=3D"-mt-4 text-token-text-secondary relative flex min-h-8=
- w-full items-center justify-center p-2 text-center text-xs [view-transitio=
-n-name:var(--vt-disclaimer)] md:px-[60px]"><div class=3D"pointer-events-aut=
-o">ChatGPT can make mistakes. Check important info. See <a class=3D"text-to=
-ken-text-primary decoration-token-text-primary cursor-pointer underline">Co=
-okie Preferences</a>.</div></div></div></div></div></main></div></div></div=
-></div><div></div></div><div aria-live=3D"assertive" aria-atomic=3D"true" c=
-lass=3D"sr-only" id=3D"live-region-assertive"></div><div aria-live=3D"polit=
-e" aria-atomic=3D"true" class=3D"sr-only" id=3D"live-region-polite"></div><=
-!--$--><!--/$--><!--$--><!--/$--><audio class=3D"fixed start-0 bottom-0 hid=
-den h-0 w-0" autoplay=3D"" crossorigin=3D"anonymous"></audio><!--$--><!--$-=
--><!--$--><!--/$--><!--/$--><!--/$-->
+lass=3D"relative h-0"></div><div id=3D"thread-bottom"><div class=3D"text-ba=
+se mx-auto [--thread-content-margin:--spacing(4)] @w-sm/main:[--thread-cont=
+ent-margin:--spacing(6)] @w-lg/main:[--thread-content-margin:--spacing(16)]=
+ px-(--thread-content-margin)"><div class=3D"[--thread-content-max-width:40=
+rem] @w-lg/main:[--thread-content-max-width:48rem] mx-auto max-w-(--thread-=
+content-max-width) flex-1 mb-4"><div class=3D"flex justify-center empty:hid=
+den"></div><div class=3D"pointer-events-auto relative z-1 flex h-(--compose=
+r-container-height,100%) max-w-full flex-(--composer-container-flex,1) flex=
+-col"><button type=3D"button" name=3D"context-connector-pasted-link-popover=
+-trigger" class=3D"invisible absolute self-center" aria-hidden=3D"true" tab=
+index=3D"-1" aria-haspopup=3D"dialog" aria-expanded=3D"false" aria-controls=
+=3D"radix-_r_gj_" data-state=3D"closed"></button><div class=3D"absolute sta=
+rt-0 end-0 bottom-full z-20"></div><form class=3D"group/composer w-full" da=
+ta-type=3D"unified-composer" style=3D"view-transition-name: var(--vt-compos=
+er);"><div class=3D"hidden"><input multiple=3D"" tabindex=3D"-1" type=3D"fi=
+le" style=3D"border: 0px; clip: rect(0px, 0px, 0px, 0px); clip-path: inset(=
+50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0p=
+x; position: absolute; width: 1px; white-space: nowrap;"></div><div class=
+=3D""><div class=3D"bg-token-bg-primary corner-superellipse/1.1 cursor-text=
+ overflow-clip bg-clip-padding p-2.5 contain-inline-size dark:bg-[#303030] =
+grid grid-cols-[auto_1fr_auto] [grid-template-areas:'header_header_header'_=
+'leading_primary_trailing'_'._footer_.'] group-data-expanded/composer:[grid=
+-template-areas:'header_header_header'_'primary_primary_primary'_'leading_f=
+ooter_trailing'] shadow-short" style=3D"border-radius: 28px;"><div class=3D=
+"-my-2.5 flex min-h-14 items-center overflow-x-hidden px-1.5 [grid-area:pri=
+mary] group-data-expanded/composer:mb-0 group-data-expanded/composer:px-2.5=
+"><div class=3D"wcDTda_prosemirror-parent text-token-text-primary max-h-[ma=
+x(30svh,5rem)] max-h-52 min-h-[var(--deep-research-composer-extra-height,un=
+set)] flex-1 overflow-auto [scrollbar-width:thin] default-browser vertical-=
+scroll-fade-mask"><textarea class=3D"wcDTda_fallbackTextarea" name=3D"promp=
+t-textarea" placeholder=3D"Ask anything" data-virtualkeyboard=3D"true" styl=
+e=3D"display: none;"></textarea><div contenteditable=3D"true" translate=3D"=
+no" class=3D"ProseMirror ProseMirror-focused" id=3D"prompt-textarea" data-v=
+irtualkeyboard=3D"true"><p data-placeholder=3D"Ask anything" class=3D"place=
+holder"><br class=3D"ProseMirror-trailingBreak"></p></div></div></div><div =
+class=3D"[grid-area:leading]"><span class=3D"flex" data-state=3D"closed"><b=
+utton type=3D"button" class=3D"composer-btn" data-testid=3D"composer-plus-b=
+tn" aria-label=3D"Add files and more" id=3D"composer-plus-btn" aria-haspopu=
+p=3D"menu" aria-expanded=3D"false" data-state=3D"closed"><svg xmlns=3D"http=
+://www.w3.org/2000/svg" width=3D"20" height=3D"20" aria-hidden=3D"true" cla=
+ss=3D"icon"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#6be74c" fill=
+=3D"currentColor"></use></svg></button></span></div><div class=3D"flex item=
+s-center gap-2 [grid-area:trailing]"><div class=3D"ms-auto flex items-cente=
+r gap-1.5"><span class=3D"" data-state=3D"closed"><button aria-label=3D"Dic=
+tate button" type=3D"button" class=3D"composer-btn"><svg xmlns=3D"http://ww=
+w.w3.org/2000/svg" width=3D"20" height=3D"20" aria-label=3D"" class=3D"icon=
+" font-size=3D"inherit"><use href=3D"/cdn/assets/sprites-core-i9agxugi.svg#=
+29f921" fill=3D"currentColor"></use></svg></button></span><div><span class=
+=3D"" data-state=3D"closed"><div><div class=3D"relative"><button type=3D"bu=
+tton" aria-label=3D"Start voice mode" class=3D"composer-submit-button-color=
+ text-submit-btn-text flex h-9 w-9 items-center justify-center rounded-full=
+ transition-colors hover:opacity-70 focus-visible:outline-black focus-visib=
+le:outline-none disabled:text-[#f4f4f4] disabled:opacity-30 dark:focus-visi=
+ble:outline-white" style=3D"view-transition-name: var(--vt-composer-speech-=
+button);"><svg xmlns=3D"http://www.w3.org/2000/svg" width=3D"20" height=3D"=
+20" aria-hidden=3D"true" class=3D"h-5 w-5"><use href=3D"/cdn/assets/sprites=
+-core-i9agxugi.svg#f8aa74" fill=3D"currentColor"></use></svg></button></div=
+></div></span></div></div></div></div></div></form></div><input class=3D"sr=
+-only" tabindex=3D"-1" aria-hidden=3D"true" id=3D"upload-photos" accept=3D"=
+image/*" multiple=3D"" type=3D"file"><input class=3D"sr-only" tabindex=3D"-=
+1" aria-hidden=3D"true" id=3D"upload-camera" accept=3D"image/*" capture=3D"=
+environment" multiple=3D"" type=3D"file"></div></div></div><div class=3D"-m=
+t-4 text-token-text-secondary relative flex min-h-8 w-full items-center jus=
+tify-center p-2 text-center text-xs [view-transition-name:var(--vt-disclaim=
+er)] md:px-[60px]"><div class=3D"pointer-events-auto">ChatGPT can make mist=
+akes. Check important info. See <a class=3D"text-token-text-primary decorat=
+ion-token-text-primary cursor-pointer underline">Cookie Preferences</a>.</d=
+iv></div></div></div></div></main></div></div></div></div><div></div></div>=
+<div aria-live=3D"assertive" aria-atomic=3D"true" class=3D"sr-only" id=3D"l=
+ive-region-assertive"></div><div aria-live=3D"polite" aria-atomic=3D"true" =
+class=3D"sr-only" id=3D"live-region-polite"></div><!--$--><!--/$--><!--$-->=
+<!--/$--><audio class=3D"fixed start-0 bottom-0 hidden h-0 w-0" autoplay=3D=
+"" crossorigin=3D"anonymous"></audio><!--$--><!--$--><!--$--><!--/$--><!--/=
+$--><!--/$-->
 
 
 
@@ -2448,7 +3224,7 @@ den h-0 w-0" autoplay=3D"" crossorigin=3D"anonymous"></audio><!--$--><!--$-=
 
 <iframe height=3D"1" width=3D"1" style=3D"position: absolute; top: 0px; lef=
 t: 0px; border: none; visibility: hidden;"></iframe></body></html>
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/FormattedText-fam2v8ob.css
@@ -2609,7 +3385,7 @@ ak { display: none; }
 
 .firefox.writing-block-editor .ProseMirror p.isSelectedEnd::after { display=
 : inline; }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/table-components-gjyj5koo.css
@@ -2624,7 +3400,7 @@ ow-x: auto; }
 
 .TyagGW_tableWrapper { margin-inline: var(--thread-gutter-size)var(--thread=
 -content-margin); pointer-events: auto; }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/map-with-entities-ejapwmw2.css
@@ -3576,7 +4352,7 @@ L3N2Zz4K"); background-size: 18px 18px; }
 ont-weight: 500; bottom: 10px; right: 10px; background-color: rgb(13, 13, 1=
 3) !important; width: auto !important; height: auto !important; font-size: =
 13px !important; top: auto !important; left: auto !important; }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/ansi-1f6vhsjh.css
@@ -3630,7 +4406,7 @@ Content-Location: https://chatgpt.com/cdn/assets/ansi-1f6vhsjh.css
 .ansi-bright-cyan-fg { color: rgb(173, 255, 255); }
 
 .ansi-bright-white-fg { color: rgb(255, 255, 255); }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/product-variants-pcfu1bfm.css
@@ -3661,7 +4437,7 @@ nimation-range-start: ; animation-range-end: ; animation-iteration-count: 1=
 @media (prefers-reduced-motion: reduce) {
   .YfNCsW_marker.YfNCsW_animate { --duration: 0s; opacity: 1; }
 }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/silk-hq-lutwos9z.css
@@ -4221,7 +4997,7 @@ ticky !important; left: 0px !important; right: 0px !important; }
   [data-silk~=3D"c3"][data-silk~=3D"cDa"][data-silk~=3D"cJb"] { position: s=
 ticky !important; top: 0px !important; bottom: 0px !important; }
 }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/conversation-small-332fs9rk.css
@@ -4770,7 +5546,7 @@ inset-top,0px)); --screen-anchor-top: var(--safe-area-top); }
 m"]) { --safe-area-bottom: env(safe-area-inset-bottom,0px); --keyboard-safe=
 -area-bottom: max(var(--screen-keyboard-height),env(_56rfYG_keyboard-inset-=
 height,0px)); --screen-anchor-bottom: var(--safe-area-bottom); }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/css
 Content-Transfer-Encoding: quoted-printable
 Content-Location: https://chatgpt.com/cdn/assets/root-ipvq9zhe.css
@@ -21647,11 +22423,11 @@ one; }
   50% { left: 0px; }
   100% { transform: translateX(calc(-100%*var(--to-end-unit,1))); }
 }
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW----
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC----
 Content-Type: text/html
 Content-ID: <frame-46F3BA64942726461BD16E7FC3D055D7@mhtml.blink>
 Content-Transfer-Encoding: quoted-printable
 
 <html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
 =3DUTF-8"></head><body></body></html>
-------MultipartBoundary--46dVobzVINKE92imcvFNWcdeT2LMiIrI59IV90YdqW------
+------MultipartBoundary--3jSOMMOHosDbbgFaAxAfOBCuGxqmpLC7B2w0tz8WMC------
