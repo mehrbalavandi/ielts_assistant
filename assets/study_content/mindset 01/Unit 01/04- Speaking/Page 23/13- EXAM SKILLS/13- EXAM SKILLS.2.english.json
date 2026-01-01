@@ -1,0 +1,82 @@
+[
+  {
+    "text": "[EXAM SKILLS]\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "13\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "With a partner, ask and answer the questions below about your family. Try to talk for about 20 seconds for each question.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "1 Do you ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "come from a large family",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "عضو یک خانواده پرجمعیت بودن",
+    "explanation": "یک اصطلاح رایج برای بیان اینکه خانواده فرد دارای تعداد زیادی عضو (خواهر، برادر و غیره) است."
+  },
+  {
+    "text": "?\n2 Is there anything you ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "usually do together",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "معمولاً با هم انجام دادن",
+    "explanation": "اشاره به فعالیت‌های روتین و مشترک خانوادگی دارد."
+  },
+  {
+    "text": " with your family?\n3 How often do you see your grandparents?\n4 Who do you like the most in your family?\n5 Would you like to ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "spend more time with",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "وقت بیشتری را با کسی گذراندن",
+    "explanation": "یک کالوکیشن پرکاربرد در آیلتس برای صحبت درباره روابط اجتماعی و خانوادگی."
+  },
+  {
+    "text": " your family?\nWhen your partner is speaking, ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "make notes",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "یادداشت برداری کردن",
+    "explanation": "نوشتن نکات مهم هنگام گوش دادن به صحبت‌های دیگران."
+  },
+  {
+    "text": " about any interesting vocabulary (particularly ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "collocations",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ترکیبات واژگانی (همایندها)",
+    "explanation": "کلماتی که به طور طبیعی در کنار هم استفاده می‌شوند؛ یادگیری این‌ها برای نمره بالای اسپیکینگ ضروری است."
+  },
+  {
+    "text": ") that you hear. Then, ask and answer the questions again.",
+    "isBold": false,
+    "isInteractive": false
+  }
+]

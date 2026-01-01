@@ -1,0 +1,158 @@
+[
+  {
+    "text": "05\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "The words Serena uses to connect her ideas are in bold. Match phrases 1-7 with the connecting words and phrases A-G.\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "1 ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "This is because",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "این به این دلیل است که",
+    "explanation": "عبارتی برای بیان علت و دلیل یک موضوع در جملات قبلی."
+  },
+  {
+    "text": " I love Latin music\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "2 I love the way the dancers move and shake.\n3 I like learning new steps\n4 I really want to learn the tango\n5 I've tried Flamenco dancing\n6 I'm also worried about finding the right dance partner\n7 I might fall over sometimes.\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "A ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "In fact",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در حقیقت / در واقع",
+    "explanation": "قید ربطی برای تاکید بر درستی چیزی یا ارائه جزئیات بیشتر و غافلگیرکننده."
+  },
+  {
+    "text": ", I'll probably fall over quite a lot!\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "B ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "For example",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به عنوان مثال",
+    "explanation": "عبارتی برای معرفی یک مصداق یا نمونه برای توضیح بیشتر مطلب."
+  },
+  {
+    "text": ", I really want to learn the tango\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "C ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "or",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "یا",
+    "explanation": "حرف ربط برای نشان دادن انتخاب یا جایگزین بین دو چیز."
+  },
+  {
+    "text": " the samba\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "D ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "I also want to ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "give myself a challenge",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "خود را به چالش کشیدن",
+    "explanation": "اصطلاحی به معنای انجام کاری سخت برای آزمایش توانایی‌های خود."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "E ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "but",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اما / ولی",
+    "explanation": "حرف ربط تضاد که برای پیوند دادن دو جمله با معنای متفاوت یا متضاد به کار می‌رود."
+  },
+  {
+    "text": " I'm not very good.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "F ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "and",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "و",
+    "explanation": "حرف ربط برای افزودن اطلاعات مشابه یا مرتبط."
+  },
+  {
+    "text": " I love the way the dancers move and shake.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "G ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "because",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زیرا / چون که",
+    "explanation": "حرف ربط برای بیان علت یا دلیل وقوع یک اتفاق."
+  },
+  {
+    "text": " I'll be a little slow to learn in the beginning.\n\nListen again and check your answers.",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

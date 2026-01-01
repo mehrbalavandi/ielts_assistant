@@ -1,0 +1,215 @@
+[
+  {
+    "text": "UNIT/06: LEISURE TIME\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "LISTENING\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "IN THIS UNIT YOU WILL LEARN HOW TO\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "understand a description of a place",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "درک توصیف یک مکان",
+    "explanation": "توانایی فهمیدن جزئیات و ویژگی‌های یک محل زمانی که کسی درباره آن صحبت می‌کند."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "follow directions",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دنبال کردن آدرس/مسیر",
+    "explanation": "گوش دادن به دستورالعمل‌های مسیریابی و پیدا کردن راه بر اساس آن‌ها."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "label a map",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "برچسب‌گذاری یک نقشه",
+    "explanation": "یکی از تسک‌های رایج آیلتس که در آن باید نام مکان‌ها را روی نقشه بنویسید."
+  },
+  {
+    "text": "\n\n⚫",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "recognise distractors",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شناسایی عوامل حواس‌پرت‌کن",
+    "explanation": "در آزمون آیلتس، گزینه‌های گمراه‌کننده‌ای وجود دارند که برای امتحان کردن دقت شما طراحی شده‌اند."
+  },
+  {
+    "text": ".\nA common task in the Listening test is labelling a map. In order to complete this type of question, it is important that you are ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "familiar with",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آشنا با",
+    "explanation": "داشتن دانش یا تجربه قبلی در مورد چیزی."
+  },
+  {
+    "text": " words and phrases for giving directions.\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "LEAD-IN\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "01\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Each picture illustrates a word or phrase used to give directions. Match the pictures with the words in the box.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "behind",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پشت / عقب",
+    "explanation": "حرف اضافه‌ای برای بیان موقعیت مکانی چیزی که در عقب شیء دیگری قرار دارد."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "go past",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "رد شدن از کنار چیزی",
+    "explanation": "عبور کردن از یک مکان بدون توقف در آن."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "go straight ahead / straight on",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مستقیم رفتن",
+    "explanation": "ادامه دادن مسیر در یک خط مستقیم بدون پیچیدن به طرفین."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "in front of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "جلویِ",
+    "explanation": "موقعیتی که دقیقاً در مقابل یا پیش روی چیزی قرار دارد."
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "next to",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کنار / مجاور",
+    "explanation": "بسیار نزدیک یا چسبیده به چیزی یا کسی."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "opposite",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "روبرو / مقابل",
+    "explanation": "در طرف دیگر یک خیابان یا فضا، رو در روی چیزی."
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "turn left",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به چپ پیچیدن",
+    "explanation": "تغییر جهت به سمت چپ در هنگام حرکت."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "turn right",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به راست پیچیدن",
+    "explanation": "تغییر جهت به سمت راست در هنگام حرکت."
+  },
+  {
+    "text": "\n\nUseful verbs\nUseful prepositions of place\n\nCheck with a partner. Did you get the same answers?\nCan you think of any more useful words for giving directions?\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "02\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Describe a route you often take to a partner.\nTo walk to my local shop, I have to turn left outside my house and then turn right onto a main road. I then walk straight ahead until I get to a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "mini-roundabout",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "میدان کوچک",
+    "explanation": "یک فلکه یا میدان ترافیکی در ابعاد کوچک برای کنترل جریان ترافیک."
+  },
+  {
+    "text": "...",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

@@ -1,0 +1,227 @@
+[
+  {
+    "text": "10\nLook at the pictures, which show the process of making cherry jam. Complete the sentences with a verb from the box in the correct form.\n\nadd\nshake\ncheck\nspread\ncollect\nstick\ncook\ntake\nwash\nput\nremove\ntransport\n\nl A sheet is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "spread",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "پهن شده / گسترده شده",
+    "explanation": "قسمت سوم فعل spread که به معنی پهن کردن ملحفه یا پارچه روی زمین است."
+  },
+  {
+    "text": " on the ground and the tree is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "shaken",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "تکان داده شده",
+    "explanation": "قسمت سوم فعل shake (تکان دادن) که در ساختار مجهول به کار رفته است."
+  },
+  {
+    "text": " to get the cherries.\n2 The cherries are ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "collected",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "جمع‌آوری شده",
+    "explanation": "جمع‌آوری محصول پس از چیدن یا ریختن روی زمین."
+  },
+  {
+    "text": " and are ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "transported/ taken",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "حمل شده / برده شده",
+    "explanation": "انتقال کالا از مزرعه به کارخانه فرآوری."
+  },
+  {
+    "text": " to the processing plant.\n3 The leaves and stems are ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "removed",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "جدا شده / حذف شده",
+    "explanation": "برداشتن اضافات مانند برگ و ساقه از میوه."
+  },
+  {
+    "text": ".\n4 The cherries are ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "washed",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "شسته شده",
+    "explanation": "مرحله شستشوی میوه."
+  },
+  {
+    "text": ".\n5 The stone is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "taken out",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "بیرون آورده شده",
+    "explanation": "خارج کردن هسته (stone) از وسط گیلاس."
+  },
+  {
+    "text": " out of the middle of the cherry.\n6 The cherries are ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "cooked",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "پخته شده",
+    "explanation": "فرآیند پختن برای تبدیل میوه به مربا."
+  },
+  {
+    "text": " and extra ingredients are ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "added",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "اضافه شده",
+    "explanation": "افزودن چاشنی‌ها یا شکر به ترکیب."
+  },
+  {
+    "text": ".\n7 The quality of the jam is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "checked",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "بررسی شده / چک شده",
+    "explanation": "کنترل کیفیت محصول نهایی."
+  },
+  {
+    "text": ".\n8 The jam is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "put",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "قرار داده شده / ریخته شده",
+    "explanation": "قرار دادن مربا داخل شیشه‌ها."
+  },
+  {
+    "text": " into jars.\n9 A label is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "stuck",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "isLineThrough": false,
+    "translation": "چسبانده شده",
+    "explanation": "قسمت سوم فعل stick؛ چسباندن برچسب روی ظرف."
+  },
+  {
+    "text": " on the jars.",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  }
+]

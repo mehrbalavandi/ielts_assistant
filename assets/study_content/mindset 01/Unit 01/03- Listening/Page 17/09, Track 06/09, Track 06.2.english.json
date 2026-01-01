@@ -1,0 +1,286 @@
+[
+  {
+    "text": "09\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Listen to the second part of conversation 2 and answer the questions.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "1 The price of the earrings now is ...\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "A £10\nB £20\nC £30\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "2 How much does the customer pay for the ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "gift wrapping",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کادوپیچی",
+    "explanation": "فرایند بسته‌بندی هدیه با کاغذ کادو و تزئینات."
+  },
+  {
+    "text": "?\nA £4\nB £5\nC £7\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Track 06\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Good afternoon, can I help you?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Yes, I'm looking for a gift for my sister. She's going to be 18 next week. So I thought a piece of ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "jewellery",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "جواهرات",
+    "explanation": "اشیاء زینتی مانند گردنبند، گوشواره یا انگشتر که معمولاً از فلزات گرانبها ساخته می‌شوند."
+  },
+  {
+    "text": " would be nice.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Good idea! Do you have ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "anything particular in mind",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چیز خاصی در مد نظر",
+    "explanation": "عبارتی برای پرسش درباره داشتن ایده یا انتخاب مشخص قبل از تصمیم‌گیری."
+  },
+  {
+    "text": " - a necklace, perhaps?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Mm, she has so many necklaces. I was thinking of a pair of earrings, possibly.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Does she have a favourite colour?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Mm, she likes blue...\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "What about this pair? They have some beautiful little blue stones.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Mm... They're quite nice, I suppose.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "They're silver, and they're ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "handmade",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دست‌ساز",
+    "explanation": "محصولاتی که با دست ساخته شده‌اند و ماشینی نیستند، که معمولاً ارزش بیشتری دارند."
+  },
+  {
+    "text": ", so you won't find anything like them anywhere else.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Oh, really? So, how much are they?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Well, they were £30, but actually we've got a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "sale on",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حراج",
+    "explanation": "دوره‌ای که در آن فروشگاه اجناس خود را با قیمت کمتر عرضه می‌کند."
+  },
+  {
+    "text": " at the moment, so they're a little cheaper - only £20. So you can save £10!\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Great. I'll take them.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "And would you like me to giftwrap them for you?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "How much do you ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "charge",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "هزینه گرفتن / مطالبه کردن",
+    "explanation": "درخواست مبلغی مشخص برای کالا یا خدمات ارائه‌شده."
+  },
+  {
+    "text": " for that?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "For £4 we give you a pretty box and your own choice of wrapping paper. Or for £5 you can have our ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "luxury",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "لوکس / مجلل",
+    "explanation": "اشاره به خدمات یا کالاهای با کیفیت بسیار بالا و گران‌قیمت."
+  },
+  {
+    "text": " wrapping service, which includes a silver box and silver ribbon. And if you would like a card to write your own personal message, that will be £2 extra.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Well, it's a special birthday so I'll take the luxury option. But I already have a card, thank you.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "That's fine. I'll do that for you now. And how would you like to pay - cash or card?",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

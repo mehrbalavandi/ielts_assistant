@@ -1,0 +1,299 @@
+[
+  {
+    "text": "UNIT/01: RELATIONSHIPS\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "READING\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "IN THIS UNIT YOU WILL LEARN HOW TO\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "•\tanswer questions using up to three words\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "•\tidentify key words in a question\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "•\tscan a text to find specific information.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "LEAD-IN\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "01\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "In pairs, explain the words in the box.\nExample: ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "sister",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "خواهر",
+    "explanation": "یک کلمه پایه در روابط خانوادگی."
+  },
+  {
+    "text": " My sister is my parents' daughter / other daughter.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "sister",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "brother",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "برادر",
+    "explanation": "A male sibling."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "cousin",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "پسرعمو، دخترعمو، پسرخاله، دخترخاله، پسردایی، دختردایی، پسرعمه، دخترعمه",
+    "explanation": "The child of your aunt or uncle."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "father-in-law",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "پدر شوهر یا پدر زن",
+    "explanation": "The father of your husband or wife."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "grandfather",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "پدربزرگ",
+    "explanation": "The father of your father or mother."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "uncle",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "عمو یا دایی",
+    "explanation": "The brother of your mother or father, or the husband of your aunt."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "aunt",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "عمه یا خاله",
+    "explanation": "The sister of your mother or father, or the wife of your uncle."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "nephew",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "پسر برادر یا پسر خواهر",
+    "explanation": "A son of your brother or sister."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "niece",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "دختر برادر یا دختر خواهر",
+    "explanation": "A daughter of your brother or sister."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "great-aunt",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "عمه یا خاله ی پدر یا مادر",
+    "explanation": "The aunt of one of your parents."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "grandmother",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": "مادربزرگ",
+    "explanation": "The mother of your father or mother."
+  },
+  {
+    "text": "\n\nTell your partner who you live with. Which other family members are you close to?",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "isLineThrough": false,
+    "translation": null,
+    "explanation": null
+  }
+]

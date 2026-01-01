@@ -1,0 +1,68 @@
+[
+  {
+    "text": "LISTENING FOR NUMBERS\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "05\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Listen and ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "circle",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دایره کشیدن دور چیزی",
+    "explanation": "در آزمون‌های مهارت شنیداری، به معنای انتخاب کردن گزینه صحیح با کشیدن دایره دور آن است."
+  },
+  {
+    "text": " the number you hear in each pair.\na 1st/3rd\ne 19/90\nb $10.50/$10.15\nf 52/62\nc 6th/5th\ng £110/£810\nd 17/70\nh 22nd/27th\nListen again and ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "practise",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تمرین کردن",
+    "explanation": "تکرار یک فعالیت برای مهارت یافتن در آن. توجه داشته باشید که در انگلیسی بریتانیایی فعل با s و اسم با c نوشته می‌شود."
+  },
+  {
+    "text": " saying the numbers.\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Track 03\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "a the 3rd\nb $10.50\nc the 6th\nd 70\ne 19\nf 62\ng £110\nh the 27th\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "⚫In Section 1 of the Listening test you need to listen for ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "specific details",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "جزئیات خاص",
+    "explanation": "اطلاعات دقیق و مشخصی مانند نام، تاریخ، زمان یا اعداد که در بخش اول آزمون آیلتس بسیار حیاتی هستند."
+  },
+  {
+    "text": ". These details often include numbers.",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

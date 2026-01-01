@@ -1,0 +1,294 @@
+[
+  {
+    "text": "08\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Read the essay and answer the questions below.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "TIP 08\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Some questions have two parts to them. Your essay must answer both parts. Your two main paragraphs should answer one part of the question each.\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "MODEL ANSWER\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Many ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "species",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گونه‌ها",
+    "explanation": "گروهی از حیوانات یا گیاهان که ویژگی‌های مشابهی دارند و می‌توانند با هم تولید مثل کنند."
+  },
+  {
+    "text": " of wild animal are now ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "endangered",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در معرض خطر انقراض",
+    "explanation": "به حیوانات یا گیاهانی گفته می‌شود که تعداد آن‌ها بسیار کم شده و خطر نابودی کل نسل آن‌ها وجود دارد."
+  },
+  {
+    "text": ". For example, the number of black rhinos has ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "declined",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کاهش یافته است",
+    "explanation": "کم شدن از نظر تعداد، مقدار یا کیفیت؛ در آیلتس برای توصیف نمودارها بسیار کاربردی است."
+  },
+  {
+    "text": " from over 65,000 in the 1960s to just 2,500 today. Sea animals like some types of whale are also ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "at risk",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در معرض خطر",
+    "explanation": "قرار داشتن در موقعیتی که احتمال آسیب یا نابودی وجود دارد."
+  },
+  {
+    "text": ". In this essay I will look at some of the ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "causes",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "علت‌ها / عوامل",
+    "explanation": "دلایلی که باعث وقوع یک اتفاق (معمولاً منفی) می‌شوند."
+  },
+  {
+    "text": " of this situation, I will then move on to consider what governments can do to ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "deal with",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مقابله کردن با / رسیدگی کردن",
+    "explanation": "انجام دادن اقدامات لازم برای حل یک مشکل یا مدیریت یک وضعیت."
+  },
+  {
+    "text": " this problem.\nIt is clear that animals are ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "dying out",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "منقرض شدن / از میان رفتن",
+    "explanation": "به تدریج ناپدید شدن یا از بین رفتن یک گونه به طور کامل."
+  },
+  {
+    "text": " because of human activity, People have hunted animals for sport or for their fur, horns or other body parts. For instance, they hunted tigers for their bones, which were used for medicines. Another reason for species to ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "become extinct",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "منقرض شدن",
+    "explanation": "زمانی که یک گونه دیگر در هیچ کجای زمین وجود نداشته باشد."
+  },
+  {
+    "text": " is that humans have destroyed their ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "natural habitats",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زیستگاه‌های طبیعی",
+    "explanation": "محیط‌های طبیعی که یک حیوان یا گیاه به طور معمول در آن زندگی می‌کند."
+  },
+  {
+    "text": ". One example of this is gorillas in the rainforests, which are now endangered. Finally, pollution from industry has created problems for many sea creatures.\nGovernments can help in several ways. First of all they need to make ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "strong laws",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "قوانین سخت‌گیرانه",
+    "explanation": "قوانینی که به شدت اجرا می‌شوند تا از انجام کارهای غیرقانونی جلوگیری کنند."
+  },
+  {
+    "text": " and give punishments to those who hunt illegally. Next, they need education programmes in schools and on television to help everyone understand the problem. Finally, governments should ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "invest in",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سرمایه‌گذاری کردن در",
+    "explanation": "اختصاص دادن منابع یا پول برای توسعه یا بهبود چیزی در آینده."
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "renewable",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تجدیدپذیر",
+    "explanation": "منابع انرژی که تمام نمی‌شوند، مانند خورشید و باد."
+  },
+  {
+    "text": " and clean energy sources such as solar and wind power.\nSo, in conclusion, we can say that hunting and damage to the environment are the main ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "threats",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تهدیدها",
+    "explanation": "خطراتی که ممکن است باعث آسیب یا نابودی چیزی شوند."
+  },
+  {
+    "text": " that animals face. Governments should use the law, education and clean energy to improve the situation. Everyone must work together to save endangered animals.\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "1 Complete the chart with the main points of the essay.\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "The causes\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "hunting for sport or body parts\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "habitats destroyed",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "تخریب زیستگاه‌ها",
+    "explanation": "تخریب محیط‌های طبیعی که حیوانات و گیاهان در آن زندگی می‌کنند."
+  },
+  {
+    "text": "\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "pollution",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "آلودگی",
+    "explanation": "وارد شدن مواد مضر به محیط زیست."
+  },
+  {
+    "text": "\n\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Government actions\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "laws/punishments\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "education programmes",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "برنامه‌های آموزشی",
+    "explanation": "طرح‌هایی برای افزایش آگاهی عمومی در مورد یک موضوع خاص."
+  },
+  {
+    "text": "\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "invest in clean energy",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "سرمایه‌گذاری در انرژی پاک",
+    "explanation": "اختصاص منابع مالی برای توسعه انرژی‌های تجدیدپذیر مانند خورشیدی و بادی."
+  },
+  {
+    "text": "\n\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "2 Tick the causes and government actions that are mentioned in the conclusion. ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "All of them are mentioned in the conclusion. ",
+    "isBold": false,
+    "isInteractive": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n3 Complete the sentence by choosing the correct option.\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "The conclusion ends with a prediction/hope/fear/recommendation. ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "The conclusion ends with a recommendation.",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "نتیجه‌گیری با یک پیشنهاد/توصیه پایان می‌یابد.",
+    "explanation": "ارائه راهکار یا پیشنهاد برای انجام کاری در انتهای یک متن."
+  }
+]

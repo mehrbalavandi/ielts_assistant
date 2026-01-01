@@ -1,0 +1,160 @@
+[
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "I need a table for 12-it's my husband's 30th birthday, so we're having a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "celebration dinner",
+    "translation": "شام جشن/مهمانی شام",
+    "explanation": "یک وعده شام رسمی یا ویژه که به منظور جشن گرفتن یک مناسبت خاص (مانند تولد) برگزار می‌شود.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Manager: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "So that's 12 people for the 16th.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "No, no, it's the ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "day after the 17th",
+    "translation": "روز هفدهم/روز بعد",
+    "explanation": "اشتباهی در مکالمه رخ داده است. مشتری منظور روز ۱۷اُم را دارد اما عبارت را کمی اشتباه بیان می‌کند. منظور ۱۷اُم است.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "-Saturday the 17th, at ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "eight o'clock",
+    "translation": "ساعت هشت",
+    "explanation": "اشاره به ساعت ۸:۰۰، اغلب در این بافت، ۸ شب است.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Manager: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Ah, yes, of course. A ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "party of 12",
+    "translation": "گروه ۱۲ نفره",
+    "explanation": "منظور از 'party' در این بافت، گروهی از افراد است که برای صرف غذا یا فعالیت مشترک دور هم جمع شده‌اند.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": " for the Saturday... Oh, I'm sorry, but I'm afraid our ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "main restaurant is fully booked",
+    "translation": "رستوران اصلی ما کاملاً رزرو شده است",
+    "explanation": "نشان می‌دهد که تمام میزهای رستوران اصلی برای تاریخ مورد نظر رزرو شده و جایی خالی نیست.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": " that evening, but we do have a small room ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "available for private hire",
+    "translation": "برای اجاره خصوصی در دسترس است",
+    "explanation": "یک اتاق یا فضا که می‌توان آن را به طور کامل برای یک رویداد شخصی یا گروهی (و نه برای عموم) اجاره کرد.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ". It can ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "seat up to 20 people",
+    "translation": "تا ۲۰ نفر گنجایش دارد",
+    "explanation": "حداکثر ظرفیت یک مکان (مانند اتاق) برای نشاندن افراد.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ", so therewould be ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "plenty of space",
+    "translation": "فضای زیادی/به اندازه کافی جا",
+    "explanation": "مقدار زیادی جا یا محیط فیزیکی.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": " for 12 of you.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "That ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "sounds perfect",
+    "translation": "عالی به نظر می‌رسد",
+    "explanation": "عبارتی برای تأیید یا ابراز رضایت از یک پیشنهاد یا ایده.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ".",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "text": "Once you have ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "understood the map",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "نقشه را درک کردید",
+    "explanation": "در آزمون آیلتس، فهمیدن جزئیات بصری نقشه پیش از شروع پخش فایل صوتی برای جهت‌یابی درست بسیار حیاتی است."
+  },
+  {
+    "text": ", you are in a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "much better position",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "موقعیت بسیار بهتر",
+    "explanation": "عبارتی برای بیان داشتن برتری یا آمادگی بیشتر برای انجام یک کار."
+  },
+  {
+    "text": " to complete the listening task. Note that the questions are ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "in the order in which",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به همان ترتیبی که",
+    "explanation": "اشاره به توالی و ترتیب همگام بین سوالات دفترچه و اطلاعاتی که در فایل صوتی شنیده می‌شود."
+  },
+  {
+    "text": " you will hear the answers on the recording.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

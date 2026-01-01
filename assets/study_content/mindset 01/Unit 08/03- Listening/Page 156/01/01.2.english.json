@@ -1,0 +1,111 @@
+[
+  {
+    "text": "LISTENING\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "IN THIS UNIT YOU WILL LEARN HOW TO\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "•  listen to people talking about a topic related to work or study\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "•  complete notes in a task\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "•  use headings in the notes to guide you through what the speaker is saying\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "•  use the speaker's '",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "signposting words",
+    "isInteractive": false,
+    "isBold": false,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "signposting words",
+        "isInteractive": true,
+        "translation": "واژگان راهنما",
+        "explanation": "کلماتی که ساختار صحبت را مشخص می‌کنند (مانند: اولاً، در نتیجه).",
+        "cerfLevel": "B2"
+      }
+    ]
+  },
+  {
+    "text": " to help you follow notes.\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "LEAD-IN\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "01\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Match photographs A-D with the names of the animals.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Arabian leopard ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "D",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\nblue ring octopus ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "B",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\nmountain gorilla ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "A",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\nPere David's deer ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "C",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  }
+]

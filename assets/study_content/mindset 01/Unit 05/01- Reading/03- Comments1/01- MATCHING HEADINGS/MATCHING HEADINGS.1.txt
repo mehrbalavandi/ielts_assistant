@@ -1,0 +1,8 @@
+[MATCHING HEADINGS]
+Matching headings tests your ability to summarise and understand the main idea of a paragraph.
+You are given a list of headings (more than the number of paragraphs) and you must choose a suitable heading for each paragraph.
+To match headings, you need to be able to find the main idea of a paragraph. You can usually find one sentence that sums up the main idea. This is the topic sentence. This has been highlighted in paragraph A: Malls need to change to survive.
+The sentence Malls need to change to survive is supported by evidence in the paragraph, including:
+The world has moved oп.
+Malls became less popular at the start of the 21st century, mainly because of online shopping.
+There is even a website, deadmalls.com, which shows the end of many US malls.

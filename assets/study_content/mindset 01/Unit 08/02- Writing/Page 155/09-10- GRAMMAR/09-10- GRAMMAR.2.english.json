@@ -1,0 +1,101 @@
+[
+  {
+    "text": "GRAMMAR FOCUS: PRESENT PERFECT AND PAST SIMPLE",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "09\\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "According to the model essay above, how ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "have",
+    "isInteractive": true,
+    "isBold": false,
+    "isUnderLine": true,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "have",
+        "isInteractive": true,
+        "translation": "داشتن (فعل کمکی)",
+        "explanation": "فعل کمکی برای ساخت زمان حال کامل (Present Perfect) که به اثر گذشته در حال اشاره دارد."
+      }
+    ]
+  },
+  {
+    "text": " past human actions ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "affected",
+    "isInteractive": true,
+    "isBold": false,
+    "isUnderLine": true,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "affected",
+        "isInteractive": true,
+        "translation": "تحت تاثیر قرار داده‌اند",
+        "explanation": "قسمت سوم فعل (p.p) از affect به معنای اثرگذاری؛ در اینجا نشان‌دهنده پیامد رفتارهای گذشته بر حیوانات است."
+      }
+    ]
+  },
+  {
+    "text": " animals today? Complete the list.\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "1 ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "People ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "have hunted",
+    "isInteractive": true,
+    "isBold": false,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "have hunted",
+        "isInteractive": true,
+        "translation": "شکار کرده‌اند",
+        "explanation": "ساختار حال کامل؛ اشاره به فعالیتی که در گذشته شروع شده و اثرات آن (مثل کاهش جمعیت گونه‌ها) هنوز باقی است."
+      }
+    ]
+  },
+  {
+    "text": " animals for sport or for their body parts.\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "2\\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "3\\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Find the present perfect sentence in the introduction to the model essay above.\\nOne use of the present perfect tense is to talk about actions that happened in the past which have results in the present.\\nIntroductions often contain a sentence or two in the present perfect tense. Showing how the past has affected the present is often a good way to introduce the topic.",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "text": "04\nLook at the map and find Tanya's house. Then listen to the phone message. Tanya has ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "offered to give",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پیشنهاد داد که برسانَد",
+    "explanation": "ترکیب offer + to do something برای بیان پیشنهاد انجام کاری به کسی استفاده می‌شود."
+  },
+  {
+    "text": " Melissa a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "lift",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "رساندن (با ماشین)",
+    "explanation": "در اصطلاح give someone a lift به معنای سوار کردن کسی و رساندن او به مقصدی است."
+  },
+  {
+    "text": " to a concert. Listen to Melissa giving Tanya directions to her house and label the map. Write the correct letter, A-K, next to questions 1 and 2.\nThen listen again and find Melissa's house. Write the correct letter, A-K, next to question 3.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Track 49:\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Melissa: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Thanks for offering to drive us all to the concert. It's really kind of you and makes getting there much easier. I don't live far from you at all. First, you need to turn right onto Maple Avenue and drive to the bottom of the road, passing the supermarket on your left. Then, you need to turn left at the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "traffic lights",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چراغ راهنمایی",
+    "explanation": "سیستم نوری برای کنترل ترافیک در تقاطع‌ها."
+  },
+  {
+    "text": " and then take a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "sharp right",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پیچ تند به راست",
+    "explanation": "اصطلاح sharp turn برای پیچ‌هایی با زاویه تند (کمتر از ۹۰ درجه) به کار می‌رود."
+  },
+  {
+    "text": " onto Main Street. You can also go straight on here, past the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "surgery",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مطب پزشک",
+    "explanation": "در انگلیسی بریتانیایی، surgery به معنای مطب پزشک یا دندان‌پزشک است."
+  },
+  {
+    "text": ", but I usually drive down Main Street. Follow this road until you reach a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "roundabout",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "میدان",
+    "explanation": "محل تلاقی خیابان‌ها که در آن خودروها به دور یک جزیره مرکزی می‌چرخند."
+  },
+  {
+    "text": "-you'll pass a park and some shops on your right. When you get to the roundabout, take the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "first turning on the left",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اولین خروجی سمت چپ",
+    "explanation": "عبارتی رایج در آدرس‌دهی برای اشاره به اولین خیابانی که باید به سمت آن پیچید."
+  },
+  {
+    "text": ", onto Silver Street. As you approach the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "crossroads",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چهارراه",
+    "explanation": "نقطه‌ای که دو خیابان یکدیگر را قطع می‌کنند."
+  },
+  {
+    "text": " here, my house is the first on the corner.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

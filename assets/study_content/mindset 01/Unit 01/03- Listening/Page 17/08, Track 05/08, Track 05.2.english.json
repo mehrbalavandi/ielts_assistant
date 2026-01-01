@@ -1,0 +1,217 @@
+[
+  {
+    "text": "08\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Now listen to the rest of ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "conversation",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "مکالمه / گفتگو",
+    "explanation": "یک صحبت غیررسمی بین دو یا چند نفر."
+  },
+  {
+    "text": " 1 and choose the correct answer.\nHow much is the ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "total cost",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "هزینه کل",
+    "explanation": "مجموع تمام هزینه‌های پرداختنی برای یک سرویس یا کالا."
+  },
+  {
+    "text": " of the ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "booking",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "رزرو",
+    "explanation": "فرآیند هماهنگ کردن برای استفاده از چیزی در آینده (مثل هتل یا رستوران)."
+  },
+  {
+    "text": "?\nA £218\nB £318\nC £380\n\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Track 05\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " That sounds perfect.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Manager:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " Excellent. Now we offer a ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "set three-course menu",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "منوی ثابت سه پرس غذا",
+    "explanation": "منویی که شامل پیش‌غذا، غذای اصلی و دسر با قیمت مشخص است."
+  },
+  {
+    "text": " for £23 ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "per person",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "به ازای هر نفر",
+    "explanation": "اصطلاحی برای بیان هزینه برای هر فرد به صورت جداگانه."
+  },
+  {
+    "text": " and we can also ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "supply",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "تامین کردن / ارائه دادن",
+    "explanation": "فراهم کردن چیزی که مورد نیاز یا مورد نظر کسی است."
+  },
+  {
+    "text": " you with a birthday cake at ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "no extra charge",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "بدون هزینه اضافی",
+    "explanation": "وقتی خدماتی به صورت رایگان و بدون دریافت پول بیشتر انجام می‌شود."
+  },
+  {
+    "text": ". How does that sound?\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " That sounds good. So how much would that cost ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "in total",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "در مجموع / کلاً",
+    "explanation": "عبارتی برای پرسیدن یا بیان کردن جمع نهایی مقادیر یا اعداد."
+  },
+  {
+    "text": "?\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Manager:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " Let me see - for the food and the room, that will ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "come to",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "بالغ شدن بر / معادل شدن با",
+    "explanation": "فعل عبارتی به معنای رسیدن به یک عدد یا مبلغ خاص در مجموع."
+  },
+  {
+    "text": " £318.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " Did you say three hundred and eighty pounds?\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Manager:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " No, three hundred and eighteen.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " OK, I think I'd like to ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "go ahead",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "ادامه دادن / اقدام کردن",
+    "explanation": "شروع به انجام کاری که از قبل برنامه ریزی شده یا مورد بحث بوده است."
+  },
+  {
+    "text": " and make a booking.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Manager:",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": " OK, I'll just take your details.",
+    "isBold": false,
+    "isInteractive": false
+  }
+]

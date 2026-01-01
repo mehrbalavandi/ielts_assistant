@@ -1,0 +1,142 @@
+[
+  {
+    "text": "Melissa: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Sorry, I've just remembered, I told Sarah you would ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "collect her",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "او را سوار کنی",
+    "explanation": "در این بافتار به معنای دنبال کسی رفتن و او را با وسیله نقلیه همراه خود بردن است."
+  },
+  {
+    "text": " on the way. ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Forget the route",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مسیر را فراموش کن",
+    "explanation": "عبارتی برای نادیده گرفتن دستورالعمل‌های قبلی و جایگزینی آن‌ها با اطلاعات جدید."
+  },
+  {
+    "text": " I just gave you, I'll give you another ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "set of directions",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مجموعه‌ای از آدرس‌ها",
+    "explanation": "به مجموعه‌ای از دستورالعمل‌ها برای پیدا کردن یک مکان گفته می‌شود."
+  },
+  {
+    "text": ". This route might even be easier. Again, you need to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "turn right",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به راست بپیچ",
+    "explanation": "تغییر جهت به سمت راست در رانندگی یا پیاده‌روی."
+  },
+  {
+    "text": " onto Maple Avenue, and go up to the lights. Instead of turning left here, turn right, with the park on your left. Then after the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "zebra crossing",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "خط‌کشی عابر پیاده",
+    "explanation": "خطوط سیاه و سفید روی جاده که مخصوص عبور افراد پیاده است."
+  },
+  {
+    "text": ", take the first turning on your left onto New Road. Drive along New Road until you reach the bridge. Sarah's house is the second house after the bridge. That's on the right; there are shops on the left. Once you've ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "picked up",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سوار کردی / دنبال کسی رفتی",
+    "explanation": "فعل عبارتی به معنای توقف کردن و سوار کردن کسی در خودرو."
+  },
+  {
+    "text": " Sarah, take the first turning on the left, onto Silver Street, and go ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "straight ahead",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مستقیم رو به جلو",
+    "explanation": "ادامه دادن مسیر بدون پیچیدن به طرفین."
+  },
+  {
+    "text": " until you reach the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "roundabout",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "میدان",
+    "explanation": "یک محل تلاقی جاده‌ها که در آن ترافیک به دور یک جزیره مرکزی می‌چرخد."
+  },
+  {
+    "text": ". Go straight ahead at the roundabout and then take the first turning on the right, Oak Avenue. My house is number 1. It's ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "on the corner",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در نبش / در گوشه",
+    "explanation": "موقعیتی که یک ساختمان در محل تلاقی دو خیابان قرار دارد."
+  },
+  {
+    "text": ".",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

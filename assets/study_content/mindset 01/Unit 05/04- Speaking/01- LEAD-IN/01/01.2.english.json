@@ -1,0 +1,72 @@
+[
+  {
+    "text": "afford place\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "از عهده هزینه مکان برآمدن",
+    "explanation": "توانایی مالی برای پرداخت هزینه‌های یک ملک یا مکان خاص."
+  },
+  {
+    "text": "all sorts of original\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "انواع و اقسام موارد اصیل و خاص",
+    "explanation": "اشاره به تنوعی از اشیاء یا ایده‌های بکر و دست‌اول."
+  },
+  {
+    "text": "atmosphere\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "جو و فضا",
+    "explanation": "احساس یا حال و هوایی که یک مکان به فرد منتقل می‌کند."
+  },
+  {
+    "text": "selection\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مجموعه انتخابی / تنوع کالا",
+    "explanation": "تعدادی از گزینه‌های موجود برای انتخاب در یک فروشگاه یا مکان."
+  },
+  {
+    "text": "convenient\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "راحت و در دسترس",
+    "explanation": "چیزی که استفاده از آن آسان است یا دسترسی به آن زحمتی ندارد."
+  },
+  {
+    "text": "traditional\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سنتی",
+    "explanation": "مطابق با آداب و رسوم قدیمی و متداول."
+  },
+  {
+    "text": "keen on\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "علاقه‌مند به",
+    "explanation": "اشتیاق داشتن یا تمایل زیاد به انجام یک کار یا داشتن چیزی."
+  },
+  {
+    "text": "trying on\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پرو کردن (لباس)",
+    "explanation": "پوشیدن لباس برای بررسی اندازه و ظاهر قبل از خرید."
+  },
+  {
+    "text": "out-of-the-way\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دورافتاده / خارج از مسیر اصلی",
+    "explanation": "مکانی که دسترسی به آن سخت است یا در مرکز شهر نیست."
+  },
+  {
+    "text": "reasonable",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "منصفانه / معقول",
+    "explanation": "معمولاً برای قیمت‌هایی به کار می‌رود که خیلی گران نیستند و ارزش خرید دارند."
+  }
+]

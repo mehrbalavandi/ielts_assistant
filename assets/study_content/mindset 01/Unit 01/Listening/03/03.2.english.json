@@ -1,0 +1,173 @@
+[
+  {
+    "text": "a",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "the 3rd",
+    "translation": "سومین/سه‌اُم",
+    "explanation": "شکل ترتیبی عدد سه، اغلب برای تاریخ (روز سوم) استفاده می‌شود.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "b",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "$10.50",
+    "translation": "۱۰ دلار و ۵۰ سنت",
+    "explanation": "یک مبلغ پولی معادل ۱۰ واحد اصلی و ۵۰ واحد فرعی دلار آمریکا.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "c",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "the 6th",
+    "translation": "ششمین/شش‌اُم",
+    "explanation": "شکل ترتیبی عدد شش، اغلب برای تاریخ (روز ششم) استفاده می‌شود.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "d",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "70",
+    "translation": "هفتاد",
+    "explanation": "عدد اصلی هفتاد.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "e",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "19",
+    "translation": "نوزده",
+    "explanation": "عدد اصلی نوزده.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "f",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "62",
+    "translation": "شصت و دو",
+    "explanation": "عدد اصلی شصت و دو.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "g",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "£110",
+    "translation": "۱۱۰ پوند",
+    "explanation": "یک مبلغ پولی معادل صد و ده واحد اصلی پوند استرلینگ (واحد پول بریتانیا).",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "h",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "the 27th",
+    "translation": "بیست و هفتمین/بیست و هفتم",
+    "explanation": "شکل ترتیبی عدد بیست و هفت، اغلب برای تاریخ (روز بیست و هفتم) استفاده می‌شود.",
+    "isInteractive": true,
+    "isBold": true
+  }
+]

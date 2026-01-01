@@ -1,0 +1,233 @@
+[
+  {
+    "text": "SPEAKING\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "IN THIS UNIT YOU WILL LEARN HOW TO\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "•\texttend your knowledge of ",
+    "isInteractive": false
+  },
+  {
+    "text": "vocabulary",
+    "isInteractive": true,
+    "translation": "واژگان",
+    "explanation": "مجموعه لغاتی که در یک زبان یا موضوع خاص استفاده می‌شود.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " related to ",
+    "isInteractive": false
+  },
+  {
+    "text": "animals",
+    "isInteractive": true,
+    "translation": "حیوانات",
+    "explanation": "موجودات زنده که از مواد آلی تغذیه می‌کنند.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " and their ",
+    "isInteractive": false
+  },
+  {
+    "text": "habitat\n",
+    "isInteractive": true,
+    "translation": "زیستگاه",
+    "explanation": "محیط طبیعی که یک گیاه یا حیوان در آن زندگی می‌کند.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": "•\ttalk at length about animals and pets for Speaking Parts 2 and 3\n",
+    "isInteractive": false
+  },
+  {
+    "text": "•\tdevelop your answers in Part 3.\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "LEAD-IN\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "01\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Match pictures A-D with a word or phrase from each box.\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Animals\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Camel, deer, dolphin, eagle\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Characteristics\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "hard antlers, big claws, long fin, round hump\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Habitat\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "desert forest, nest, underwater\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "A: ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "eagle: big claws, nest",
+    "isInteractive": false,
+    "isBlank": true,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "eagle",
+        "isInteractive": true,
+        "translation": "عقاب",
+        "explanation": "پرنده شکاری بزرگ با منقار کج و بینایی قوی.",
+        "cerfLevel": "B1"
+      },
+      {
+        "text": "claws",
+        "isInteractive": true,
+        "translation": "چنگال",
+        "explanation": "ناخن‌های تیز و خمیده در حیوانات و پرندگان شکاری.",
+        "cerfLevel": "B2"
+      }
+    ]
+  },
+  {
+    "text": "\nB: ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "dolphin: long fin, underwater",
+    "isInteractive": false,
+    "isBlank": true,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "dolphin",
+        "isInteractive": true,
+        "translation": "دلفین",
+        "explanation": "پستاندار دریایی باهوش.",
+        "cerfLevel": "B1"
+      },
+      {
+        "text": "fin",
+        "isInteractive": true,
+        "translation": "باله",
+        "explanation": "عضوی از بدن ماهی یا سایر موجودات آبزی برای شنا کردن.",
+        "cerfLevel": "B2"
+      }
+    ]
+  },
+  {
+    "text": "\nC: ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "camel: round hump, desert",
+    "isInteractive": false,
+    "isBlank": true,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "camel",
+        "isInteractive": true,
+        "translation": "شتر",
+        "explanation": "حیوان بزرگ صحرایی با یک یا دو کوهان.",
+        "cerfLevel": "B1"
+      },
+      {
+        "text": "hump",
+        "isInteractive": true,
+        "translation": "کوهان",
+        "explanation": "برآمدگی پشت شتر که در آن چربی ذخیره می‌شود.",
+        "cerfLevel": "C1"
+      }
+    ]
+  },
+  {
+    "text": "\nD: ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "deer: hard antlers, forest",
+    "isInteractive": false,
+    "isBlank": true,
+    "hasSubItems": true,
+    "subItems": [
+      {
+        "text": "deer",
+        "isInteractive": true,
+        "translation": "گوزن/آهو",
+        "explanation": "حیوان وحشی علف‌خوار با شاخ‌های شاخه‌دار.",
+        "cerfLevel": "B1"
+      },
+      {
+        "text": "antlers",
+        "isInteractive": true,
+        "translation": "شاخ (گوزن)",
+        "explanation": "شاخ‌های شاخه‌دار که معمولاً در خانواده گوزن‌ها دیده می‌شود.",
+        "cerfLevel": "C2"
+      }
+    ]
+  },
+  {
+    "text": "\n\n02\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Take turns to describe one of the animals in the pictures to your partner. Talk about what the animal is, anything special about the animal (its ",
+    "isInteractive": false
+  },
+  {
+    "text": "characteristics",
+    "isInteractive": true,
+    "translation": "ویژگی‌ها",
+    "explanation": "ویژگی یا خصوصیتی که متعلق به یک شخص یا چیز است.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": ") and about where the animal lives (its ",
+    "isInteractive": false
+  },
+  {
+    "text": "habitat",
+    "isInteractive": true,
+    "translation": "زیستگاه",
+    "explanation": "محیط طبیعی زندگی یک موجود.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": ").",
+    "isInteractive": false
+  }
+]

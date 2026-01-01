@@ -1,0 +1,238 @@
+[
+  {
+    "text": "07\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Listen again to Hoi Chin talking about her family and giving more information.\nComplete the notes below.\n•\tHer parents and 1",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "close",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "نزدیک، صمیمی",
+    "explanation": "در اینجا به معنای داشتن رابطه عاطفی عمیق و صمیمی بین اعضای خانواده است."
+  },
+  {
+    "text": " older brother.\n•\tThey are a 2",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "eating",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "خوردن",
+    "explanation": "اسم مصدر از فعل eat، در اینجا به فعالیت غذا خوردن اشاره دارد."
+  },
+  {
+    "text": ", happy family.\n•\tThey like preparing food and 3",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "cook",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "آشپزی کردن",
+    "explanation": "فعل به معنای تهیه غذا با استفاده از حرارت."
+  },
+  {
+    "text": " it.\n•\tHer father is a better 4",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "married",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "متأهل / ازدواج کرده",
+    "explanation": "صفت برای کسی که ازدواج کرده است؛ در اینجا به عنوان گزینه انحرافی در تمرین آمده است."
+  },
+  {
+    "text": " than her mother.\n•\tHer brother is getting 5",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "6/7",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "۶ یا ۷",
+    "explanation": "اعداد مشخص شده در متن تمرین."
+  },
+  {
+    "text": " next year.\n•\tHoi Chin would like to have a 6",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "niece",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "دخترِ برادر یا دخترِ خواهر",
+    "explanation": "واژه‌ای برای نسبت فامیلی: فرزند دخترِ برادر یا خواهر."
+  },
+  {
+    "text": "or 7",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "nephew",
+    "isBold": false,
+    "isInteractive": true,
+    "isBlank": true,
+    "translation": "پسرِ برادر یا پسرِ خواهر",
+    "explanation": "واژه‌ای برای نسبت فامیلی: فرزند پسرِ برادر یا خواهر."
+  },
+  {
+    "text": " one day.\nTell your partner what you remember about Hoi Chin's family. Is your family similar or very different to hers?\n\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Track 11\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Hoi Chin: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "My family? Well, my family isn't a ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "large family",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "خانواده پرجمعیت",
+    "explanation": "خانواده‌ای که شامل تعداد زیادی از اعضا (فرزندان زیاد) باشد."
+  },
+  {
+    "text": ". It's quite a small family in fact - and quite a ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "typical family",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "خانواده معمولی/متعارف",
+    "explanation": "خانواده‌ای که ساختار آن مطابق با استانداردهای رایج جامعه است."
+  },
+  {
+    "text": " for my country. Just my parents, my older brother and me. So, I'm the ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "baby of the family",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "ته‌تغاری خانواده",
+    "explanation": "اصطلاحی برای اشاره به کوچکترین فرزند یک خانواده."
+  },
+  {
+    "text": "! I think we're a ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "close",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "صمیمی",
+    "explanation": "اشاره به روابط بسیار نزدیک و دوستانه بین اعضای خانواده."
+  },
+  {
+    "text": ", happy family. We do a lot of things together, particularly ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "preparing food",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "آماده کردن غذا",
+    "explanation": "مراحل مقدماتی آشپزی."
+  },
+  {
+    "text": " - and eating it of course! Yes, we spend a lot of time in the kitchen. My father's a very good ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "cook",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "آشپز",
+    "explanation": "در اینجا به عنوان اسم به معنای فردی که آشپزی می‌کند به کار رفته است."
+  },
+  {
+    "text": " - he's much better than my mother.\nMy brother's ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "getting married",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "ازدواج کردن",
+    "explanation": "فعل عبارتی برای شروع زندگی مشترک رسمی."
+  },
+  {
+    "text": " next year, so I'm really ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "looking forward to",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "مشتاقانه منتظرِ چیزی بودن",
+    "explanation": "یک Phrasal Verb پرکاربرد برای ابراز اشتیاق برای اتفاقی در آینده."
+  },
+  {
+    "text": " having a ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "sister-in-law",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "زن‌برادر (در اینجا)",
+    "explanation": "به طور کلی به خواهرِ همسر یا همسرِ برادر گفته می‌شود."
+  },
+  {
+    "text": "! And who knows? Perhaps our family will get bigger in the future! I'd love to have a niece or a little nephew to take to the park one day. Yes, I really want to be an ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "aunt",
+    "isBold": false,
+    "isInteractive": true,
+    "translation": "عمه / خاله",
+    "explanation": "در اینجا به معنای عمه (چون برادرش قرار است صاحب فرزند شود)."
+  },
+  {
+    "text": "!",
+    "isBold": false,
+    "isInteractive": false
+  }
+]

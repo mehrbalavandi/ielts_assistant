@@ -1,0 +1,283 @@
+[
+  {
+    "text": "A: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "So do you think that we now have ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "everything ready",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "همه چیز آماده",
+    "explanation": "یک عبارت رایج برای تأیید اینکه آیا تمام مقدمات یا تدارکات لازم به پایان رسیده‌اند. (مثال: Is everything ready for the trip?)"
+  },
+  {
+    "text": " for the meal?\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "B: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Almost, I was just ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "wondering",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "داشتم فکر می‌کردم",
+    "explanation": "به معنای فکر کردن یا تعجب کردن در مورد چیزی (مثال: I was wondering if you could help me)."
+  },
+  {
+    "text": " what would be the best way of ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "preparing",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آماده کردن/طبخ",
+    "explanation": "به معنای انجام مراحل لازم برای آماده‌سازی غذا، معمولاً قبل از پختن یا سرو کردن."
+  },
+  {
+    "text": " the potatoes.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "A: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Well, you could just ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "boil them",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آن‌ها را آب‌پز کنی",
+    "explanation": "فعل 'boil' به معنای جوشاندن غذا در آب یا مایع دیگر است. (مثال: boil the water)."
+  },
+  {
+    "text": " and serve them with the fish.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "B: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "That would be easy, but I don't think it would be very ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "exciting",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "هیجان‌انگیز/جذاب",
+    "explanation": "به معنای جالب یا مهیج بودن؛ در اینجا به معنای کسل‌کننده نبودن یا کمی خاص بودن."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "A: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "What about ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "frying them",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سرخ کردن آن‌ها",
+    "explanation": "فعل 'fry' به معنای پختن غذا در روغن داغ. (مثال: fry an egg)."
+  },
+  {
+    "text": "? Everybody likes fried potatoes.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "B: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "They aren't very ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "healthy though",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اما خیلی سالم نیستند",
+    "explanation": "استفاده از 'though' در انتهای جمله برای بیان یک تناقض یا نکته‌ای مخالف، شبیه به 'however' یا 'but'."
+  },
+  {
+    "text": ", and I haven't ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "got much oil left",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "روغن زیادی برایم نمانده",
+    "explanation": "عبارت 'not much left' به معنای باقی نماندن مقدار زیادی از چیزی است."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "A: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You could ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "bake them",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آن‌ها را در فر بپزی",
+    "explanation": "فعل 'bake' به معنای پختن غذا در فر خشک. (مثال: bake a cake)."
+  },
+  {
+    "text": " and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "serve them with",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آن‌ها را با ... سرو کنی",
+    "explanation": "عبارت 'serve with' به معنای ارائه یا قرار دادن دو نوع غذا در کنار هم است."
+  },
+  {
+    "text": " the salad Elly's preparing.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "B: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null
+    ,
+    "explanation": null
+  },
+  {
+    "text": "That would ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "taste good",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مزه خوبی می‌دهد",
+    "explanation": "به معنای داشتن طعم خوشایند. (مثال: This soup tastes good)."
+  },
+  {
+    "text": ", but it ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "takes ages",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زمان خیلی زیادی می‌برد",
+    "explanation": "یک اصطلاح رایج به معنای طول کشیدن مدت زمان بسیار زیاد. (مثال: It takes ages to wait for the bus)."
+  },
+  {
+    "text": " to bake potatoes in the oven. I know, I'll boil them and then put them with Elly's salad.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

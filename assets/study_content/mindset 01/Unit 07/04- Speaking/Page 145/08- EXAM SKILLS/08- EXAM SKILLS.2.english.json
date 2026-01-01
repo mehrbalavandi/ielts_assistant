@@ -1,0 +1,100 @@
+[
+  {
+    "text": "[EXAM SKILLS]\n\n08\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Think of ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "your own answers",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پاسخ‌های شخصی خودتان",
+    "explanation": "در آزمون آیلتس، داشتن پاسخ‌های شخصی و منحصر به فرد (Personalized) به جای حفظ کردن جملات کلیشه‌ای، نمره بخش Content و Fluency را افزایش می‌دهد."
+  },
+  {
+    "text": " to the Part 3 questions from exercise 6 with a partner.\nIf possible, ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "record yourselves",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "صدای خود را ضبط کنید",
+    "explanation": "تکنیک ضبط صدا (Recording) یکی از بهترین روش‌های خودارزیابی برای شناسایی نقاط ضعف در تلفظ و مکث‌های غیرضروری است."
+  },
+  {
+    "text": " and listen to the recordings together.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Make notes of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "یادداشت‌برداری کنید از",
+    "explanation": "یک عبارت کاربردی برای ثبت نکات مهم حین گوش دادن یا مطالعه."
+  },
+  {
+    "text": " which ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "tenses",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زمان‌های دستوری",
+    "explanation": "در بخش سوم آیلتس، استفاده صحیح از زمان‌های مختلف (گذشته، حال کامل، آینده) برای نشان دادن تسلط گرامری (Grammatical Range) ضروری است."
+  },
+  {
+    "text": " your partner uses, and also any ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "interesting phrases",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "عبارات جالب و جذاب",
+    "explanation": "اشاره به Collocations یا اصطلاحات غیرمعمول (Less common lexis) که باعث افزایش نمره واژگان می‌شود."
+  },
+  {
+    "text": ", then try to answer the questions ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "one more time",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "یک بار دیگر",
+    "explanation": "تکرار تمرین بعد از تحلیل اشتباهات، باعث تثبیت یادگیری و افزایش اعتماد به نفس در صحبت کردن می‌شود."
+  },
+  {
+    "text": ".",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

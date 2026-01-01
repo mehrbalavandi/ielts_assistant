@@ -1,0 +1,114 @@
+[
+  {
+    "text": "PARAPHRASE\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "In a 'matching headings' task, the headings you have to match will be a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "paraphrase",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بازنویسی",
+    "explanation": "بیان یا توضیح یک عبارت یا متن با استفاده از کلمات دیگر، به ویژه برای دستیابی به وضوح بیشتر یا اجتناب از تکرار."
+  },
+  {
+    "text": " of the main idea of the paragraph. Don't ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "expect",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "انتظار داشتن",
+    "explanation": "فعل به معنای در نظر گرفتن چیزی به عنوان محتمل یا قطعی؛ فرض کردن یا باور داشتن به وقوع یک چیز."
+  },
+  {
+    "text": " the same words to be used in the headings and the passage. The headings may contain ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "synonyms",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مترادف‌ها",
+    "explanation": "کلماتی که معنای مشابهی دارند. (کلمات کلیدی آیلتس)"
+  },
+  {
+    "text": " (words which mean the same) and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "antonyms",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "متضادها",
+    "explanation": "کلماتی که معنای متضاد یا مخالف دارند. (کلمات کلیدی آیلتس)"
+  },
+  {
+    "text": " (words which mean the opposite) or they may use paraphrase (phrases which have a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "similar meaning",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "معنای مشابه",
+    "explanation": "داشتن مفهومی که تا حد زیادی با مفهوم دیگر مشترک است یا نزدیک به آن می‌باشد."
+  },
+  {
+    "text": " to words in the passage).\nFor example, a heading for paragraph A in The future of malls might be '",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Adapt or die",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سازگار شو یا بمیر",
+    "explanation": "یک اصطلاح کنایه‌آمیز به معنای 'تغییر کن تا زنده بمانی' یا 'باید خودت را با شرایط وفق دهی وگرنه از بین خواهی رفت'."
+  },
+  {
+    "text": "'. This is a paraphrase of the main idea 'Malls need to change to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "survive",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بقا پیدا کردن / زنده ماندن",
+    "explanation": "فعل به معنای ادامه دادن به حیات یا وجود؛ باقی ماندن علیرغم یک خطر یا سختی."
+  },
+  {
+    "text": "'.\nchange-adapt (synonyms) survive-die (antonyms)",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

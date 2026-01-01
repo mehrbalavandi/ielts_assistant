@@ -1,0 +1,142 @@
+[
+  {
+    "text": "06\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Read this short text about what it is like to be famous. Then answer the questions below.\nBeing famous is ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "not as much fun as it sounds",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آنقدرها که به نظر می‌رسد سرگرم‌کننده نیست",
+    "explanation": "این ساختار برای مقایسه منفی به کار می‌رود و بیانگر این است که واقعیت با تصورات متفاوت است."
+  },
+  {
+    "text": ". I am only a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "little bit",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کمی / تا حدی",
+    "explanation": "قیدی برای نشان دادن مقدار کم که در آزمون‌های آیلتس برای تعدیل جملات (Hedging) استفاده می‌شود."
+  },
+  {
+    "text": " famous. About two or three times a day people stop me to ask me to sign a piece of paper or to have their photo taken with me. For me, it is ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "not at all enjoyable",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اصلاً لذت‌بخش نیست",
+    "explanation": "عبارت 'not at all' برای تاکید قوی بر منفی بودن یک صفت استفاده می‌شود."
+  },
+  {
+    "text": ", as it often ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "makes me late",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "باعث دیر شدنم می‌شود",
+    "explanation": "ساختار make + object + adjective به معنای مسبب حالتی شدن است."
+  },
+  {
+    "text": ". However, I feel I should be polite to the person and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "have a chat",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گپ زدن / گفتگو کردن",
+    "explanation": "یک کالوکیشن رایج و غیررسمی به جای فعل talk."
+  },
+  {
+    "text": " with them. Sometimes I ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "wonder",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در عجبم / کنجکاوم بدانم",
+    "explanation": "فعل مناسب برای بیان کنجکاوی ذهنی در مورد یک موقعیت فرضی."
+  },
+  {
+    "text": " how it would feel to be very famous. You wouldn't be able to get a quick coffee with a friend or go to a movie. I don't think life would be very easy.\n\nDo the following statements agree with the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "claims",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ادعاها / اظهارات",
+    "explanation": "در متون آیلتس به معنای نظراتی است که نویسنده به عنوان حقیقت بیان می‌کند."
+  },
+  {
+    "text": " of the writer? Write\nYES       if the statement agrees with the claims of the writer\nNO        if the statement ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "contradicts",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تناقض داشتن / رد کردن",
+    "explanation": "کلمه‌ای کلیدی در سوالات Reading آیلتس که به معنای بیان چیزی کاملاً مخالف متن است."
+  },
+  {
+    "text": " the claims of the writer\nNOT GIVEN if it is impossible to say what the writer thinks about this\n\n1 The writer considers herself to be very well known.\n2 It is ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "inconvenient",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "باعث دردسر / ناراحت",
+    "explanation": "صفتی برای توصیف شرایطی که باعث ایجاد مشکل یا زحمت می‌شود."
+  },
+  {
+    "text": " for her to be stopped by people she doesn't know.\n3 She would like to drink more coffee.\n4 Being very famous would be enjoyable.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

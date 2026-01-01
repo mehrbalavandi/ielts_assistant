@@ -1,0 +1,9 @@
+1 hockey
+4 football
+7 table tennis
+2 tennis
+5 rugby
+8 martial arts
+3 volleyball
+6 baseball
+9 basketball

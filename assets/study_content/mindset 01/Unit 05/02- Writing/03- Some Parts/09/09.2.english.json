@@ -1,0 +1,65 @@
+[
+  {
+    "text": "A '",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "cashless society",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "جامعه بدون نقد",
+    "explanation": "به جامعه‌ای گفته می‌شود که در آن از پول نقد (اسکناس و سکه) به عنوان ابزار اصلی پرداخت استفاده نمی‌شود و معاملات عمدتاً از طریق کارت‌های اعتباری/بانکی، پرداخت‌های موبایلی و سایر روش‌های الکترونیکی انجام می‌گیرد."
+  },
+  {
+    "text": "' is one where people use ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "debit/credit cards",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کارت‌های بدهکاری/اعتباری",
+    "explanation": "وسیله‌ای برای پرداخت‌های الکترونیکی. کارت بدهکاری (Debit Card) مستقیماً به حساب بانکی شخص وصل است، در حالی که کارت اعتباری (Credit Card) به فرد امکان می‌دهد تا سقف مشخصی از بانک قرض بگیرد."
+  },
+  {
+    "text": " and other ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "forms of payment",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "روش‌های پرداخت",
+    "explanation": "اشاره به ابزارها یا وسایلی که برای انتقال ارزش در یک معامله استفاده می‌شوند، مانند پول نقد، کارت‌ها، چک، یا کیف پول‌های دیجیتال."
+  },
+  {
+    "text": " instead of cash. Do the advantages of a cashless society ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "outweigh",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سنگین‌تر بودن، برتری داشتن",
+    "explanation": "به معنی مهم‌تر یا قابل توجه‌تر بودن یک چیز (در اینجا، مزایا) نسبت به چیز دیگر (در اینجا، معایب). این واژه معمولاً در ارزیابی‌ها و مباحثات استفاده می‌شود."
+  },
+  {
+    "text": " the disadvantages?",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

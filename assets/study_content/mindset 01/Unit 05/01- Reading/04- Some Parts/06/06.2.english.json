@@ -1,0 +1,86 @@
+[
+  {
+    "text": "i ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Innovate",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "نوآوری کردن",
+    "explanation": "به معنی معرفی ایده‌ها، محصولات یا روش‌های جدید و اصلی."
+  },
+  {
+    "text": " and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "stay alive\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بقا پیدا کردن، زنده ماندن",
+    "explanation": "به معنی ادامه دادن به حیات یا وجود؛ در این بافت، به معنی ادامه فعالیت و موفقیت است."
+  },
+  {
+    "text": "ii Fast food ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "paradise\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بهشت",
+    "explanation": "به معنی مکانی با خوشی و سعادت مطلق؛ در اینجا به معنی مکانی است که تعداد بسیار زیادی از چیزی (فست فود) در آن وجود دارد."
+  },
+  {
+    "text": "iii ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Expanding and improving\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "توسعه و بهبود",
+    "explanation": "Expanding (توسعه دادن): بزرگتر شدن یا افزایش یافتن در مقیاس یا حجم. Improving (بهبود دادن): بهتر کردن یا بهتر شدن."
+  },
+  {
+    "text": "iv Malls and the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "natural world\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دنیای طبیعی",
+    "explanation": "به محیط زیست، طبیعت و موجودات غیرساخته دست بشر اشاره دارد."
+  },
+  {
+    "text": "v A new ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "city centre",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مرکز شهر",
+    "explanation": "به بخش اصلی، مرکزی و تجاری یک شهر اشاره دارد."
+  }
+]

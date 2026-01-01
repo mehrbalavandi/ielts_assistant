@@ -1,0 +1,240 @@
+[
+  {
+    "text": "10\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Read the essay and answer the questions about it that follow.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "1 ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "1 What is the writer's opinion?\n2. What three pieces of specific support does the writer give?\n3 Does the writer consider the opposite opinion?\n4 These are all possible plans for this essay. Which one has the writer used?\n\nPlan 1\nOpinion Opposing argument why I disagree Opposing argument + why I disagree Restate opinion\nPlan 2\nOpinion\nMy main arguments Opposing arguments Restate opinion\nPlan 3\nGeneral introduction (no opinion) Arguments for Arguments against My opinion (given for the first time)\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "MODEL ANSWER",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\nAll children have the right to a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "normal childhood",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کودکی معمولی (نرمال)",
+    "explanation": "اشاره به گذراندن دوران کودکی به دور از فشار رسانه‌ها و شهرت."
+  },
+  {
+    "text": ". ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "On the other hand",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "از طرف دیگر",
+    "explanation": "عبارت ربطی (Linker) برای بیان تضاد یا دیدگاه متفاوت."
+  },
+  {
+    "text": ", everyone is interested in child stars and the children of celebrities. ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Overall",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به طور کلی / در مجموع",
+    "explanation": "برای جمع‌بندی یا بیان نتیجه نهایی در ابتدای جمله می‌آید."
+  },
+  {
+    "text": ", I agree that it is more important to protect children, so we should not allow people to take photographs of people under 18.\nIt is true that people are interested in seeing photos of famous children. They want to see if they look like their celebrity parents. The Beckham children, ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "for example",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به عنوان مثال",
+    "explanation": "رایج‌ترین راه برای ارائه مثال در رایتینگ آیلتس."
+  },
+  {
+    "text": ", are often in the newspapers. People think the Beckham boys should play football like their father. The little girl has to be ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "perfectly dressed",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بی‌نقص لباس پوشیده",
+    "explanation": "صفت مرکب برای توصیف ظاهر آراسته و شیک."
+  },
+  {
+    "text": " like her mother. ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "In my opinion",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به عقیده من",
+    "explanation": "عبارتی استاندارد برای بیان دیدگاه شخصی."
+  },
+  {
+    "text": ", this is not fair on the children. Another problem is that people believe they have the right to see pictures of famous children, ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "particularly",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به‌ویژه / علی‌الخصوص",
+    "explanation": "قیدی قوی برای تاکید بر یک مورد خاص."
+  },
+  {
+    "text": " important ones like those of the British royal family. Prince William is working hard to make sure his children, Prince George and Princess Charlotte, can grow up with their ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "privacy protected",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حفظ حریم خصوصی",
+    "explanation": "یک کالوکیشن (Collocation) مهم در موضوعات اجتماعی و اخلاقی."
+  },
+  {
+    "text": ".\nPeople say that '",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "fame has a price",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شهرت هزینه دارد",
+    "explanation": "اصطلاحی به این معنی که مشهور بودن سختی‌ها و محدودیت‌های خاص خود را دارد."
+  },
+  {
+    "text": "'. They think that if photographers take pictures of well-known people, that is ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "part of the price",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بخشی از هزینه (بهای شهرت)",
+    "explanation": "استفاده از استعاره برای توضیح پیامدهای مشهور شدن."
+  },
+  {
+    "text": ". I disagree with children 'paying for fame'. They didn't choose to be famous. They have the right to be ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "badly dressed",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بد لباس پوشیده",
+    "explanation": "نقطه مقابل perfectly dressed، اشاره به شلختگی ظاهری."
+  },
+  {
+    "text": " or have a bad day like everyone else. I once saw a website called 'Celebrities with ugly kids'. How will those children feel when they see that website one day?\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "In conclusion",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در نتیجه / در پایان",
+    "explanation": "عبارت استاندارد برای شروع پاراگراف نتیجه‌گیری در مقالات."
+  },
+  {
+    "text": ", I understand that photos of famous children sell newspapers. ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "However",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "با این حال / اما",
+    "explanation": "کلمه ربطی برای بیان تضاد که در آیلتس بسیار پرکاربرد است."
+  },
+  {
+    "text": ", I think such photos should be ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "banned",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ممنوع شدن",
+    "explanation": "واژه‌ای رسمی برای قدغن کردن یک فعالیت."
+  },
+  {
+    "text": " to protect the children.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

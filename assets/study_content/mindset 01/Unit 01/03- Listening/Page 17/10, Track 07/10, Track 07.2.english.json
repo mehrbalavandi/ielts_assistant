@@ -1,0 +1,117 @@
+[
+  {
+    "text": "10\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Listen again and complete this part of the conversation.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Oh, really? So, how much are they?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Assistant\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Well, they were 1 moment, so they're a little ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "cheaper",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ارزان‌تر",
+    "explanation": "صفت تفضیلی cheap به معنای دارای قیمت پایین."
+  },
+  {
+    "text": " - only 2 pounds, but ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "actually",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در واقع / در حقیقت",
+    "explanation": "قیدی برای تاکید بر واقعیتی که ممکن است غافلگیرکننده باشد."
+  },
+  {
+    "text": " we've got a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "sale on",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حراج / فروش ویژه",
+    "explanation": "اصطلاحی برای دوره‌ای که اجناس با قیمت کمتر فروخته می‌شوند."
+  },
+  {
+    "text": " at the pounds. So you can save 3 pounds!\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Track 07\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Oh, really? So, how much are they?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Well they were £30, but actually we've got a sale on ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "at the moment",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در حال حاضر / الان",
+    "explanation": "عبارتی مترادف با currently یا right now."
+  },
+  {
+    "text": ", so they're a little cheaper - only £20. So you can ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "save",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پس‌انداز کردن / صرفه‌جویی کردن",
+    "explanation": "در خرید به معنای پرداخت مبلغی کمتر از قیمت اصلی و نگه داشتن مابقی پول است."
+  },
+  {
+    "text": " £10!",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

@@ -1,0 +1,11 @@
+a It's a team sport.
+e You hit the ball over a net.
+i It's played with a ball.
+b. You score goals.
+f You hit the ball with a bat.
+j You tackle other players.
+c There's a goalkeeper.
+g You can play singles or doubles.
+k You use a racket.
+d You earn coloured belts.
+h You mustn't run with the ball.

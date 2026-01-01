@@ -1,0 +1,218 @@
+[
+  {
+    "text": "06\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Look at the following sentences from the essay:\nPeople are less active.\nSome physical activities are becoming more popular.\nPeople are lazier and less fit.\nIt is easier to stay at home.\nChoose the correct form to make some more comparisons between the past and present.\n1 Joining a gym is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "expensiver/more expensive",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "گران‌تر / گران‌تر (شکل صحیح)",
+    "explanation": "صفت expensive سه سیلابی است، بنابراین برای مقایسه از more استفاده می‌کنیم."
+  },
+  {
+    "text": " than it used to be.\n2 It is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "more hard/harder",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "سخت‌تر / سخت‌تر (شکل صحیح)",
+    "explanation": "صفت hard تک سیلابی است و صفت تفضیلی آن با افزودن er ساخته می‌شود."
+  },
+  {
+    "text": " to find the time to do exercise.\n3 Most people eat ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "healthier/more healthy",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "سالم‌تر / سالم‌تر (شکل صحیح)",
+    "explanation": "برای صفت‌هایی که به y ختم می‌شوند، y به i تبدیل شده و er می‌گیرند، هرچند more healthy هم گاهی استفاده می‌شود اما healthier رایج‌تر است."
+  },
+  {
+    "text": " food than they did before.\n4 It is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "dangerous / more dangerous",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "خطرناک / خطرناک‌تر",
+    "explanation": "در مقایسه برای صفت‌های بلند از more استفاده می‌شود."
+  },
+  {
+    "text": " for children to play outside.\n5. The pace of life is ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "faster/more faster",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "سریع‌تر / سریع‌تر (غلط)",
+    "explanation": "استفاده همزمان از er و more غلط است (Double Comparative). شکل صحیح faster است."
+  },
+  {
+    "text": " than it used to be.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "LINKING IDEAS\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "07\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Find the following expressions in the essay.\n1 two expressions used to give an opinion ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "I agree with, in my opinion, in my view, I agree that",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "من با... موافقم، به عقیده من، از دیدگاه من، من موافقم که",
+    "explanation": "عبارات کلیدی برای بیان نظر شخصی در رایتینگ آیلتس."
+  },
+  {
+    "text": "\n2 two expressions used to introduce the opposite view ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "on the other hand, however",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "از سوی دیگر، با این حال",
+    "explanation": "کلمات ربط برای بیان تضاد و دیدگاه مخالف."
+  },
+  {
+    "text": "\n3 an expression to show there are two sides to the argument ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "There are points for and against this idea",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "نکاتی موافق و مخالف این ایده وجود دارد",
+    "explanation": "جمله‌ای کاربردی برای معرفی یک بحث دوطرفه در مقدمه یا بدنه متن."
+  },
+  {
+    "text": "\n4 an expression to introduce the conclusion ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "To sum up",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "برای خلاصه کردن / در نتیجه",
+    "explanation": "عبارتی استاندارد برای شروع پاراگراف نتیجه‌گیری."
+  },
+  {
+    "text": "\n5 an expression to show that a point is the most important ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "the main reason",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "دلیل اصلی",
+    "explanation": "برای تاکید بر مهم‌ترین علت در یک استدلال."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "08\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Read this Writing Part 2 question and then, before you read the essay in exercise 9, think of some advantages and disadvantages.\nSome children spend most of their free time taking part in clubs and other planned activities. Do the advantages of this outweigh the disadvantages?",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  }
+]

@@ -1,0 +1,69 @@
+[
+  {
+    "text": "03\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Which ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "adjective",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "صفت",
+    "explanation": "کلمه‌ای که اسم را توصیف می‌کند؛ در آزمون آیلتس شناسایی اجزای کلام (Parts of Speech) برای بخش Reading و Writing ضروری است."
+  },
+  {
+    "text": " in the box can you NOT use in this sentence?\nWe are a ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "best",
+    "isBold": false,
+    "isInteractive": false,
+    "isBlank": true
+  },
+  {
+    "text": " family.\nbest close happy large small typical\nWith a partner, describe your family using the ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "collocations",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ترکیبات کلمات / همنشینی واژگان",
+    "explanation": "کلماتی که معمولاً با هم به کار می‌روند. استفاده صحیح از کالوکیشن‌ها یکی از معیارهای اصلی نمره‌دهی در آیلتس (Lexical Resource) است."
+  },
+  {
+    "text": " in the box.\n\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "TIP 03\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "It is a good idea to make a list of useful words and add to the list as you meet new words when you read and listen, and also to write down words which go together.\nYou may want to ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "group",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دسته‌بندی کردن",
+    "explanation": "سازماندهی کردن داده‌ها یا کلمات بر اساس ویژگی‌های مشترک برای یادگیری بهتر."
+  },
+  {
+    "text": " words under headings to help you remember them.",
+    "isBold": false,
+    "isInteractive": false
+  }
+]

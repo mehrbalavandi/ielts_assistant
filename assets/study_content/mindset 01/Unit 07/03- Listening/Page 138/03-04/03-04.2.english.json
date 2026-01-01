@@ -1,0 +1,218 @@
+[
+  {
+    "text": "03\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Think about how you completed the flow-chart in exercise 2 and answer the questions.\n1 Were the words in the recording exactly the same as the words in the flow-chart?\n2 Was there extra information in the listening which you didn't need to use and which might have led you to give the wrong answer?\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "PREDICTING THE ANSWER\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "04\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Read the opinions below on being famous and complete these tasks:\nUnderline the key words in each sentence.\nRead the word before and after the gap.\nMake a note of the possible grammatical forms of the missing word,\ni.e. adjective, noun, verb, etc.\nTry to guess the missing word, or some possible words.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "A",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": ": I wouldn't like to be famous. I would hate people to 1",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "recognise",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "تشخیص دادن / به جا آوردن",
+    "explanation": "در اینجا به معنی شناختن چهره یک فرد مشهور در مکان‌های عمومی است."
+  },
+  {
+    "text": " me all the time. You would always be followed by 2",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "journalists",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "روزنامه‌نگاران / خبرنگاران",
+    "explanation": "اشاره به پاپاراتزی‌ها و افرادی دارد که برای رسانه‌ها خبر تهیه می‌کنند."
+  },
+  {
+    "text": " and never able to have a private life. Being followed on a good day, when you've been to the hairdresser and are wearing your best jeans, is perhaps 3",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "acceptable",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "قابل قبول / پذیرفتنی",
+    "explanation": "صفت؛ به معنای چیزی که می‌توان آن را تحمل کرد یا پذیرفت."
+  },
+  {
+    "text": ", but can you imagine how it would make you feel on a bad day?\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "B",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": ": I would love to be famous. I would adore all the 4",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "attention",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "توجه",
+    "explanation": "در اینجا به معنی مورد توجه عموم و رسانه‌ها قرار گرفتن است."
+  },
+  {
+    "text": " and the special treatment. Everywhere I went, people would know my name and I wouldn't need to 5",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "queue",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "در صف ایستادن",
+    "explanation": "به عنوان فعل به معنی منتظر ماندن در صف (مثلاً برای ورود به جایی) است."
+  },
+  {
+    "text": " any more. The best part, though, would be meeting other famous people. I can imagine that would be so 6",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "interesting",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "جالب / جذاب",
+    "explanation": "صفتی برای توصیف یک تجربه یا موقعیت مهیج."
+  },
+  {
+    "text": ". They would come to my 7",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "private",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "خصوصی / شخصی",
+    "explanation": "در اینجا برای توصیف مالکیت شخصی (قایق تفریحی خصوصی) به کار رفته است."
+  },
+  {
+    "text": " yacht and I would 8",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "visit",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "ملاقات کردن / بازدید کردن",
+    "explanation": "فعل؛ رفتن به جایی برای دیدن کسی یا مکانی."
+  },
+  {
+    "text": " their mansions.\n\nCompare your answers with a partner. Were some of your guesses\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "TIP 04\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "In the exam it is unlikely that you will be able to guess the actual missing word. However, it will help you a lot if you think about the type of word you are listening for.\nthe same?",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  }
+]

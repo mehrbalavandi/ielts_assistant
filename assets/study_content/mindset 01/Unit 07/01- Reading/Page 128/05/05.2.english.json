@@ -1,0 +1,124 @@
+[
+  {
+    "text": "[IDENTIFYING THE WRITER'S VIEWS]\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "05\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Look at statements A to C. All of them give information about ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "social media",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "رسانه‌های اجتماعی",
+    "explanation": "پلتفرم‌های آنلاین که به کاربران اجازه اشتراک‌گذاری محتوا و تعامل را می‌دهند (مانند اینستاگرام یا توییتر)."
+  },
+  {
+    "text": ". Only one of them contains the writer's ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "personal view",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دیدگاه شخصی",
+    "explanation": "نظرات یا باورهایی که متعلق به خود فرد است و لزوماً فکت یا واقعیت محض نیست."
+  },
+  {
+    "text": ". Which one?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "A ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "'Weibo' is the Twitter of China, but actually has twice as many users as Twitter.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "B ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "In the United States, over 70% of the population have a social media account.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "C ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Over 1.5 billion people ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "waste their time",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "وقت خود را تلف می‌کنند",
+    "explanation": "عبارتی که نشان‌دهنده قضاوت منفی نویسنده است. در آزمون آیلتس، شناسایی این کلمات باردار (Value-laden words) برای درک دیدگاه نویسنده ضروری است."
+  },
+  {
+    "text": " on Facebook.\nDoes the writer directly ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "state",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بیان کردن / ذکر کردن",
+    "explanation": "در متون آکادمیک به معنای اظهار کردن صریح یک موضوع است."
+  },
+  {
+    "text": " his/her opinion? How can you ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "identify",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شناسایی کردن / تشخیص دادن",
+    "explanation": "پیدا کردن یا تشخیص ویژگی‌های خاص در متن."
+  },
+  {
+    "text": " his/her opinion?\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "⚫This task tests your ability to decide if statements ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "represent",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "نشان دادن / بازتاب دادن",
+    "explanation": "در اینجا به معنی این است که آیا جملات بازتاب‌دهنده نظرات نویسنده هستند یا خیر."
+  },
+  {
+    "text": " the writer's views. The views will not be stated directly.",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

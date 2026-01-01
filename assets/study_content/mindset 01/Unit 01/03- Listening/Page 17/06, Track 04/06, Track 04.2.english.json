@@ -1,0 +1,161 @@
+[
+  {
+    "text": "06\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Listen to the next part of conversation 1 and choose the correct answer.\n1 How many people does the woman want to make the booking for?\nA 8\nB 12\nC 16\n2 What is the date of the booking?\nA 12th\nB 16th\nC 17th\n\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Track 04\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "I need a table for 12 - it's my husband's 30th birthday, so we're having a ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "celebration dinner",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شام جشن",
+    "explanation": "یک وعده شام خاص که به مناسبت یک رویداد فرخنده مانند تولد یا سالگرد برگزار می‌شود."
+  },
+  {
+    "text": ".\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Manager: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "So that's 12 people for the 16th.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "No, no, it's the day after - the 17th - Saturday the 17th, at eight o'clock.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Manager: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Ah, yes, of course. A ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "party of 12",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گروه ۱۲ نفره",
+    "explanation": "در کانتکست رستوران، party به معنای گروهی از افراد است که با هم برای صرف غذا می‌آیند."
+  },
+  {
+    "text": " for the Saturday ... Oh, I'm sorry, but I'm afraid our main restaurant is ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "fully booked",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کاملاً رزرو شده",
+    "explanation": "زمانی که تمام ظرفیت یک هتل یا رستوران تکمیل شده باشد."
+  },
+  {
+    "text": " that evening, but we do have a small room available for ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "private hire",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اجاره خصوصی",
+    "explanation": "رزرو کردن یک اتاق یا فضای خاص به طور انحصاری برای یک گروه خاص."
+  },
+  {
+    "text": ". It can ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "seat up to",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تا سقف ... گنجایش داشتن",
+    "explanation": "بیانگر حداکثر تعداد افرادی است که می‌توانند در یک فضا بنشینند."
+  },
+  {
+    "text": " 20 people, so there would be ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "plenty of space",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "فضای بسیار زیاد",
+    "explanation": "عبارتی برای تاکید بر اینکه فضا بیش از حد نیاز و کاملاً کافی است."
+  },
+  {
+    "text": " for 12 of you.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "Customer: ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "That sounds perfect.\n\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "TIP 06\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "You will usually hear all the numbers given in the options but only one will be correct. It is important to listen carefully for ",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "key phrases",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "عبارات کلیدی",
+    "explanation": "بخش‌های مهمی از کلام که حاوی اطلاعات اصلی برای پاسخ به سوالات هستند."
+  },
+  {
+    "text": ", so that you can choose the correct one.",
+    "isBold": false,
+    "isInteractive": false
+  }
+]

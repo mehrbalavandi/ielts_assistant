@@ -1,0 +1,65 @@
+[
+  {
+    "text": "1 hockey\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۱ هاکی",
+    "explanation": "یک ورزش تیمی که با چوب و توپ (یا دیسک) روی زمین یا یخ بازی می‌شود."
+  },
+  {
+    "text": "4 football\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۴ فوتبال",
+    "explanation": "محبوب‌ترین ورزش جهان که در آن دو تیم برای گل زدن با پا به توپ تلاش می‌کنند."
+  },
+  {
+    "text": "7 table tennis\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۷ تنیس روی میز",
+    "explanation": "ورزشی که روی میز انجام می‌شود و به پینگ‌پنگ نیز معروف است."
+  },
+  {
+    "text": "2 tennis\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۲ تنیس",
+    "explanation": "ورزشی که با راکت و توپ زرد رنگ در زمین‌های مخصوص بازی می‌شود."
+  },
+  {
+    "text": "5 rugby\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۵ راگبی",
+    "explanation": "ورزشی تیمی و پربرخورد که با توپ بیضی شکل انجام می‌شود."
+  },
+  {
+    "text": "8 martial arts\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۸ هنرهای رزمی",
+    "explanation": "اصطلاحی کلی برای ورزش‌های دفاع شخصی مانند کاراته، تکواندو و جودو."
+  },
+  {
+    "text": "3 volleyball\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۳ والیبال",
+    "explanation": "ورزشی که در آن دو تیم با دست به توپ ضربه می‌زنند تا آن را از روی تور عبور دهند."
+  },
+  {
+    "text": "6 baseball\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۶ بیسبال",
+    "explanation": "ورزش ملی آمریکا که با چوب (بت) و توپ مخصوص بازی می‌شود."
+  },
+  {
+    "text": "9 basketball",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "۹ بسکتبال",
+    "explanation": "ورزشی که در آن بازیکنان تلاش می‌کنند توپ را داخل سبد حریف بیندازند."
+  }
+]

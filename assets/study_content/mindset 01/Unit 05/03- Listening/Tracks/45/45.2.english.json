@@ -1,0 +1,484 @@
+[
+  {
+    "text": "You will hear a tour guide talking to some tourists. Listen and answer questions 1-6.\nHello everyone. So can you all hear me and see me? OK, my name's David Edwards and I'm your ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "tour leader",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "راهنمای تور / سرپرست تور",
+    "explanation": "کسی که مسئولیت هدایت و سرپرستی یک گروه گردشگری را بر عهده دارد."
+  },
+  {
+    "text": " for your shopping tour today. Now, as you can see, we're parked just in front of the main theatre. If any of you would like tickets for tonight's performance, we can ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "arrange that",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آن را ترتیب دهیم",
+    "explanation": "به معنای آماده‌سازی، برنامه‌ریزی یا فراهم کردن چیزی برای دیگران."
+  },
+  {
+    "text": " for you. We're just ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "round the corner from",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "درست نبش / نزدیکی",
+    "explanation": "اصطلاحی به معنای واقع شدن در یک فاصله بسیار نزدیک و در کنار چیزی."
+  },
+  {
+    "text": " the railway station. If you want to come on our ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Historic Buildings tour",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تور ساختمان‌های تاریخی",
+    "explanation": "بازدید سازماندهی شده از مکان‌ها و بناهایی که از نظر تاریخی مهم هستند."
+  },
+  {
+    "text": " tomorrow, the coach will leave from just outside the station. And if you want to go for a drink at the end of our tour today, there are ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "plenty of cafés",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کافه‌های زیادی",
+    "explanation": "مقدار زیادی یا تعداد فراوانی از کافه‌ها."
+  },
+  {
+    "text": " just behind the station.\nWe're still waiting for a few people, but while we wait I can tell you a little about the theatre. Although the building is very modern, in facta theatre has existed on this site for over 200 years. The original theatre used to be very popular because of the musicals it ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "put on",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اجرا می‌کرد / نمایش می‌داد",
+    "explanation": "فعل عبارتی به معنای سازماندهی و اجرای یک نمایش، نمایشگاه یا رویداد."
+  },
+  {
+    "text": ". However, it had to be ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "rebuilt after a fire",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پس از آتش‌سوزی بازسازی شود",
+    "explanation": "ساختن دوباره یک بنا پس از تخریب توسط آتش‌سوزی."
+  },
+  {
+    "text": ". Some peoplelove the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "striking modern design",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "طراحی مدرن چشمگیر",
+    "explanation": "طرحی که به دلیل جدید و متفاوت بودن، بلافاصله توجه را جلب می‌کند."
+  },
+  {
+    "text": ", others hate it. These days, its popularity is mainly ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "due to the fact that",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به این دلیل که",
+    "explanation": "عبارتی برای بیان دلیل اصلی یا علت چیزی."
+  },
+  {
+    "text": " it attracts a lot of ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "well-known performers",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اجراکنندگان/هنرمندان مشهور",
+    "explanation": "افرادی که به خوبی شناخته شده و در زمینه هنر یا نمایش شهرت دارند."
+  },
+  {
+    "text": ".\nNow, in a few minutes' time at 9.30-we'll be starting our tour. First we're going to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "make our way down to",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به سمت ... برویم",
+    "explanation": "عبارتی به معنای حرکت کردن به سمت یک مکان خاص."
+  },
+  {
+    "text": " Market Place, which is one of the most famous squares in the city-that should take us about ten minutes. There's not too much traffic on the roads, so we should ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "get there at quarter to ten at the latest",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حداکثر تا ده ربع کم (ساعت ۹:۴۵) به آنجا برسیم",
+    "explanation": "بیان حداکثر زمان رسیدن به یک مکان (در بدترین حالت)."
+  },
+  {
+    "text": ".\nMarket Place was the city's old food market. People used to come in from the countryside to sell their ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "fresh fruit and vegetables",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "میوه و سبزیجات تازه",
+    "explanation": "محصولات کشاورزی که اخیراً برداشت شده‌اند و کیفیت بالایی دارند."
+  },
+  {
+    "text": ". Remember that these were the days before supermarkets! You won't find any food here now though. It's now a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "craft market",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بازار صنایع دستی",
+    "explanation": "بازاری که در آن اجناس دست‌ساز و هنری فروخته می‌شود."
+  },
+  {
+    "text": " and I think you'll find ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "lots to interest you",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چیزهای زیادی که برایتان جالب باشد",
+    "explanation": "عبارتی به معنای وجود تعداد زیادی مورد یا آیتم جذاب."
+  },
+  {
+    "text": " - especially if you want to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "take presents home",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سوغاتی به خانه ببرید",
+    "explanation": "خرید هدایا برای خانواده یا دوستان هنگام بازگشت از سفر."
+  },
+  {
+    "text": ". You'll see all kinds of things like ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "hand-painted local pottery",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سفالگری/کوزه‌گری محلی نقاشی شده با دست",
+    "explanation": "اشیاء سرامیکی یا سفالی که هنرمندان محلی با دست روی آن‌ها نقاشی کرده‌اند."
+  },
+  {
+    "text": " and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "leather goods",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کالاهای چرمی",
+    "explanation": "محصولاتی مانند کیف، کفش یا کمربند که از چرم ساخته شده‌اند."
+  },
+  {
+    "text": ".\nPersonally, I ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "suggest that you visit",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پیشنهاد می‌کنم که بازدید کنید",
+    "explanation": "ارائه یک توصیه یا نظر برای انجام کاری."
+  },
+  {
+    "text": " the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "jewellery stalls",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غرفه‌های جواهرات",
+    "explanation": "میزها یا مکان‌هایی در بازار که در آن زیورآلات و جواهرات فروخته می‌شود."
+  },
+  {
+    "text": ". You really won't find anything like it anywhere else! But if you're looking for clothes, I'm afraid you'll be ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "disappointed",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ناامید/مأیوس",
+    "explanation": "احساس ناراحتی یا شکست خوردن انتظارات."
+  },
+  {
+    "text": ". Wait for this afternoon's visit.\nWe'll stop at Market Place for an hour and a half and then continue the tour with a visit to the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Regional Food Centre",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مرکز غذای منطقه‌ای",
+    "explanation": "مرکزی که بر روی فروش یا نمایش مواد غذایی خاص یک منطقه یا ناحیه تمرکز دارد."
+  },
+  {
+    "text": ". Here you can find over 50 types of local cheeses! There is also fresh fruit juice ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "on sale",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "برای فروش / موجود برای خرید",
+    "explanation": "به معنای در دسترس بودن چیزی برای خریدن در یک فروشگاه یا بازار."
+  },
+  {
+    "text": " - orange juice, peach juice, pomegranate juice, produced in the villages of the region, and local jam too. You're ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "welcome to buy things",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مجازید/می‌توانید چیزهایی بخرید",
+    "explanation": "به معنای تشویق یا دادن اجازه به کسی برای انجام کاری."
+  },
+  {
+    "text": " to take home with you, but the real reason for our visit is lunch. The idea is that you buy food and drink from the stalls and take it to eat in the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "lovely open-air dining area",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "فضای ناهارخوری روباز دوست‌داشتنی",
+    "explanation": "محلی دلپذیر در فضای باز که برای خوردن غذا در نظر گرفته شده است."
+  },
+  {
+    "text": ".\nAnd finally, in the afternoon we will be visiting the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Fashion Fair",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "نمایشگاه مد و لباس",
+    "explanation": "یک رویداد یا نمایشگاه بزرگ که در آن محصولات مرتبط با مد، لباس و زیورآلات نمایش داده و فروخته می‌شود."
+  },
+  {
+    "text": " in the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "exhibition centre",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مرکز نمایشگاهی",
+    "explanation": "مکانی بزرگ برای برگزاری نمایشگاه‌ها و رویدادهای عمومی."
+  },
+  {
+    "text": " on the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null
+  },
+  {
+    "text": "outskirts of the city",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حومه شهر",
+    "explanation": "مناطقی که درست در خارج از مرزهای اصلی یک شهر قرار دارند."
+  },
+  {
+    "text": ". This is a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "huge venue",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مکان/فضای عظیم",
+    "explanation": "یک محل برگزاری بسیار بزرگ و وسیع."
+  },
+  {
+    "text": ", so ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "try not to get lost",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سعی کنید گم نشوید",
+    "explanation": "توصیه به مراقبت برای پیدا کردن راه در یک مکان بزرگ یا پیچیده."
+  },
+  {
+    "text": ". There is a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "whole hali devoted just to footwear",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "یک سالن کامل که منحصراً به کفش و پاپوش اختصاص داده شده است",
+    "explanation": "یک فضای بزرگ که تنها برای نمایش یا فروش انواع کفش و چکمه در نظر گرفته شده است."
+  },
+  {
+    "text": "-every kind of shoes and boots you can imagine. You can easily find it because it has a green roof. Just don't go through the blue doors at the entrance of the centre - you have to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "pay for that part of the exhibition",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بابت آن قسمت از نمایشگاه پول بپردازید",
+    "explanation": "نیاز به پرداخت هزینه ورودی برای بازدید از یک بخش خاص از نمایشگاه."
+  },
+  {
+    "text": ". And if all that shopping has ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "exhausted you",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شما را خسته کرده است",
+    "explanation": "به معنای بسیار خسته و فرسوده شدن."
+  },
+  {
+    "text": ", there's a café where you can ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "rest your weary feet",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به پاهای خسته‌تان استراحت دهید",
+    "explanation": "اصطلاحی برای نشستن و استراحت کردن پس از یک دوره طولانی پیاده‌روی یا ایستادن."
+  },
+  {
+    "text": "! That's in the building with a red sign. But don't worry, I'll remind you all about that later.\nRight, everyone's here now, so, if you've all got your shopping bags, let's go!",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

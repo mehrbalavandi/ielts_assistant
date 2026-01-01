@@ -1,0 +1,132 @@
+[
+  {
+    "text": "04\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Read paragraph B in detail. Then match the words and phrases 1-5 from paragraph B with words and phrases a-e which have similar meanings.\n",
+    "isBold": false,
+    "isInteractive": false
+  },
+  {
+    "text": "1 ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "filming",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "فیلم‌برداری",
+    "explanation": "عمل ضبط تصاویر متحرک با استفاده از دوربین."
+  },
+  {
+    "text": "\n2 ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "came to his rescue",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به نجات او آمدند",
+    "explanation": "اصطلاحی به معنای کمک کردن به کسی که در شرایط خطرناکی قرار دارد."
+  },
+  {
+    "text": "\n3 ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "well-known",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مشهور / شناخته شده",
+    "explanation": "صفت برای اشاره به شخص یا چیزی که بسیاری از مردم آن را می‌شناسند."
+  },
+  {
+    "text": "\n4 ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "against the killing of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بر علیه کشتارِ",
+    "explanation": "بیانگر مخالفت یا مبارزه با از بین بردن موجودات زنده."
+  },
+  {
+    "text": "\n5 ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "pod",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گروه (دلفین‌ها یا نهنگ‌ها)",
+    "explanation": "واحد شمارش و نام دسته‌ای از پستانداران دریایی که با هم زندگی می‌کنند."
+  },
+  {
+    "text": "\n\na ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "saved the life of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "جانِ (کسی را) نجات داد",
+    "explanation": "مترادف عبارت came to someone's rescue."
+  },
+  {
+    "text": "\nb ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "famous",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "معروف",
+    "explanation": "مترادف دقیق well-known."
+  },
+  {
+    "text": "\nc ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "videoing",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ویدیو گرفتن / ضبط فیلم",
+    "explanation": "مترادف برای فعالیت filming."
+  },
+  {
+    "text": "\nd ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "group (of dolphins)",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گروه (دلفین‌ها)",
+    "explanation": "تعریف واژه‌ pod در دنیای حیات وحش."
+  },
+  {
+    "text": "\ne ",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "for the protection of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "برای محافظت از",
+    "explanation": "مفهومی که در مقابل 'کشتار' قرار می‌گیرد و هدف آن حفظ بقا است."
+  }
+]

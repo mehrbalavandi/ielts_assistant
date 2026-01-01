@@ -1,0 +1,156 @@
+[
+  {
+    "text": "[MATCHING HEADINGS]\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Matching headings",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تطبیق عناوین",
+    "explanation": "یک نوع سوال در آزمون‌هایی مانند آیلتس (IELTS) است که در آن داوطلب باید عنوان مناسبی را برای هر پاراگراف از متن پیدا کند."
+  },
+  {
+    "text": " tests your ability to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "summarise",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "خلاصه کردن",
+    "explanation": "فعل به معنای بیان نکات اصلی یک متن یا موضوع به طور مختصر."
+  },
+  {
+    "text": " and understand the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "main idea",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ایده اصلی",
+    "explanation": "مفهوم یا پیام مرکزی که یک پاراگراف یا متن قصد انتقال آن را دارد. (Key Concept)"
+  },
+  {
+    "text": " of a paragraph.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You are given a list of headings (more than the number of paragraphs) and you must choose a suitable heading for each paragraph.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "To match headings, you need to be able to find the main idea of a paragraph. You can usually find one sentence that ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "sums up",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "خلاصه می‌کند/جمع‌بندی می‌کند",
+    "explanation": "عبارت فعلی (Phrasal Verb) به معنای بیان مختصر نکات اصلی؛ معادل 'summarizes'."
+  },
+  {
+    "text": " the main idea. This is the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "topic sentence",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "جمله موضوعی",
+    "explanation": "اولین جمله یک پاراگراف که ایده اصلی (Main Idea) یا موضوع آن پاراگراف را معرفی می‌کند."
+  },
+  {
+    "text": ". This has been ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "highlighted",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "برجسته شده",
+    "explanation": "صفت مفعولی به معنای مورد توجه قرار گرفته یا مشخص شده (از نظر رنگ یا قالب‌بندی)."
+  },
+  {
+    "text": " in paragraph A: Malls need to change to survive.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "The sentence Malls need to change to survive is ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "supported by evidence",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "توسط شواهد پشتیبانی می‌شود",
+    "explanation": "به معنای آنکه یک ادعا یا ایده با استفاده از حقایق، آمار یا مثال‌ها تقویت و تأیید می‌شود."
+  },
+  {
+    "text": " in the paragraph, including:\nThe world has ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "moved on",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تغییر کرده است/پیشرفت کرده است",
+    "explanation": "عبارت فعلی (Phrasal Verb) به معنای تغییر شرایط، پیشرفت یا گذر از یک مرحله. (The world has changed)"
+  },
+  {
+    "text": ".\nMalls became less popular at the start of the 21st century, mainly because of online shopping.\nThere is even a website, deadmalls.com, which shows the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "end of many US malls",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پایان بسیاری از مراکز خرید آمریکا",
+    "explanation": "اشاره به ورشکستگی یا بسته شدن تعداد زیادی از مراکز خرید سنتی در ایالات متحده."
+  },
+  {
+    "text": ".",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

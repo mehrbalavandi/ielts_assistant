@@ -1,0 +1,212 @@
+[
+  {
+    "text": "Mike:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " So, what type of meal do you think we should have at the party, Jane?\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Jane:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " I don't know, Mike. Do you have any ideas?\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Mike:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " What do you think about ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "preparing a Mexican meal",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تدارک دیدن یک وعده غذای مکزیکی",
+    "explanation": "عبارت 'preparing a Mexican meal' به معنای آماده‌سازی یا طبخ غذاهای مکزیکی است."
+  },
+  {
+    "text": "?\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Jane:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " I really like Mexican food and we could have some fun Mexican party games, but I think it ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "might be too spicy",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شاید زیادی تند باشد",
+    "explanation": "عبارت 'might be too spicy' نشان‌دهنده احتمال تندی بیش از حد غذا برای برخی افراد است."
+  },
+  {
+    "text": " for some people.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Mike:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "That's true",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "این درست است",
+    "explanation": "یک عبارت رایج برای تأیید صحت نکته یا دیدگاه مطرح شده توسط طرف مقابل."
+  },
+  {
+    "text": ". We could have pizza. Everybody likes pizza.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Jane:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " Hmm, I think we should have ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "something healthier",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چیزی سالم‌تر",
+    "explanation": "اشاره به یک وعده غذایی یا انتخابی که از نظر تغذیه‌ای بهتر و مفیدتر باشد."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Mike:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " I know! We could have ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "salad and roast chicken",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سالاد و مرغ بریان",
+    "explanation": "یک ترکیب غذایی رایج و معمولاً سالم‌تر نسبت به فست فودها یا غذاهای سنگین."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Jane:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "That sounds like a good idea",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "این ایده خوبی به نظر می‌رسد",
+    "explanation": "عبارتی برای ابراز موافقت و تأیید یک پیشنهاد."
+  },
+  {
+    "text": ". And it's ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "fairly simple to prepare",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آماده کردن آن نسبتاً آسان است",
+    "explanation": "عبارت 'fairly simple to prepare' به معنای این است که روند آماده‌سازی و طبخ آن پیچیدگی زیادی ندارد و نسبتاً آسان است."
+  },
+  {
+    "text": ". Let's do that.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

@@ -1,0 +1,53 @@
+[
+  {
+    "text": "12\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Read questions 1-6 in the ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Exam skills",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مهارت‌های آزمون",
+    "explanation": "اشاره به تکنیک‌ها و توانایی‌های لازم برای پاسخگویی به سوالات امتحانات استاندارد مانند آیلتس."
+  },
+  {
+    "text": " task below and ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "match",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تطبیق دادن",
+    "explanation": "وصل کردن یا جفت کردن دو مورد مرتبط به یکدیگر در تمرین‌های آموزشی."
+  },
+  {
+    "text": " them with the ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "topic areas",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حوزه‌های موضوعی",
+    "explanation": "موضوعات یا دسته‌بندی‌های خاصی که در یک متن یا مکالمه مورد بحث قرار می‌گیرند."
+  },
+  {
+    "text": " in the box.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Colour\nFood\nPresents\nThe meaning of something\nThe relationship between the people\nThe type of event",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

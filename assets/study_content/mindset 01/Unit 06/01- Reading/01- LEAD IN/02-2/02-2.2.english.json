@@ -1,0 +1,310 @@
+[
+  {
+    "text": "a ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "It's a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "team sport",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ورزش تیمی",
+    "explanation": "ورزشی که در آن افراد در قالب یک گروه با هم همکاری می‌کنند (مانند فوتبال یا والیبال)."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "e ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "hit the ball",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ضربه زدن به توپ",
+    "explanation": "فعل hit برای ضربه زدن با دست، راکت یا چوب به کار می‌رود."
+  },
+  {
+    "text": " over a net.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "i ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "It's played with a ball.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "b. ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "score goals",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گل زدن",
+    "explanation": "ترکیب رایج برای کسب امتیاز در ورزش‌هایی مثل فوتبال."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "f ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You hit the ball with a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "bat",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چوب بازی / بت",
+    "explanation": "وسیله‌ای چوبی برای ضربه زدن به توپ در ورزش‌هایی مثل بیسبال یا کریکت."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "j ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "tackle",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تکل زدن / مهار کردن",
+    "explanation": "تلاش برای گرفتن توپ از حریف یا متوقف کردن او در ورزش."
+  },
+  {
+    "text": " other players.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "c ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "There's a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "goalkeeper",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دروازه‌بان",
+    "explanation": "بازیکنی که وظیفه‌اش جلوگیری از ورود توپ به دروازه است."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "g ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You can play ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "singles or doubles",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "انفرادی یا دو نفره",
+    "explanation": "در ورزش‌هایی مثل تنیس، singles یعنی بازی یک به یک و doubles یعنی دو به دو."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "k ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You use a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "racket",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "راکت",
+    "explanation": "وسیله‌ای که برای ضربه زدن به توپ در تنیس یا بدمینتون استفاده می‌شود."
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "d ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "earn",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به دست آوردن / کسب کردن",
+    "explanation": "در اینجا به معنی دریافت درجه یا رتبه است."
+  },
+  {
+    "text": " coloured belts.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "h ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "mustn't",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "نباید",
+    "explanation": "بیانگر ممنوعیت قطعی در قوانین."
+  },
+  {
+    "text": " run with the ball.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "l ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You play on grass.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

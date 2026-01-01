@@ -1,0 +1,93 @@
+[
+  {
+    "text": "05\nNow listen to Melissa's second message. She wants Tanya to pick up another friend, Sarah, on the way. Listen and label the map. Write the correct letter, A-K, next to questions 4-6.\n\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Melissa: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Sorry, I've just remembered, I told Sarah you would ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "collect her",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دنبال کسی رفتن / سوار کردن",
+    "explanation": "در اینجا به معنای رفتن به سراغ کسی و سوار کردن او برای رفتن به جایی است."
+  },
+  {
+    "text": " on the way. Forget the route I just gave you, I'll give you another set of directions. This route might even be easier. Again, you need to turn right onto Maple Avenue, and go up to the lights. Instead of turning left here, turn right, with the park on your left. Then after the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "zebra crossing",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "خط‌کشی عابر پیاده",
+    "explanation": "خطوط سفید موازی روی جاده که مخصوص عبور پیاده‌ها است."
+  },
+  {
+    "text": ", take the first turning on your left onto New Road. Drive along New Road until you reach the bridge. Sarah's house is the second house after the bridge. That's on the right; there are shops on the left. Once you've picked up Sarah, take the first turning on the left, onto Silver Street, and go ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "straight ahead",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مستقیم رو به جلو",
+    "explanation": "عبارتی برای جهت‌دهی که به معنای ادامه مسیر بدون پیچیدن به طرفین است."
+  },
+  {
+    "text": " until you reach the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "roundabout",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "میدان",
+    "explanation": "محل تلاقی چند خیابان که ماشین‌ها در آن به دور یک مرکز می‌چرخند."
+  },
+  {
+    "text": ". Go straight ahead at the roundabout and then take the first turning on the right, Oak Avenue. My house is number 1. It's ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "on the corner",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در گوشه / نبش",
+    "explanation": "اصطلاحی برای توصیف موقعیت مکانی ساختمان‌هایی که در محل تلاقی دو خیابان قرار دارند."
+  },
+  {
+    "text": ".",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

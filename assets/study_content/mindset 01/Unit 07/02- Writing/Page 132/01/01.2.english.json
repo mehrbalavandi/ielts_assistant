@@ -1,0 +1,324 @@
+[
+  {
+    "text": "UNIT/07: FAME AND THE MEDIA\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "WRITING\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "IN THIS UNIT YOU WILL LEARN HOW TO\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "⚫",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "avoid repeating",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اجتناب از تکرار کردن",
+    "explanation": "در نوشتار آیلتس، استفاده از مترادف‌ها به جای تکرار کلمات برای کسب نمره بالا در بخش Lexical Resource ضروری است."
+  },
+  {
+    "text": " words in your Part 2 essay\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "develop a paragraph\n",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بسط دادن یک پاراگراف",
+    "explanation": "به معنای پروراندن ایده اصلی با استفاده از جزئیات، مثال‌ها و توضیحات منطقی."
+  },
+  {
+    "text": "provide",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "specific support",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پشتیبانی/استدلال جزئی و دقیق",
+    "explanation": "ارائه شواهد و مثال‌های عینی برای اثبات ادعاهای مطرح شده در متن."
+  },
+  {
+    "text": " for your main points.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "LEAD-IN\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "01\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Put the words into the correct column.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "celebrity",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چهره مشهور",
+    "explanation": "فردی که به واسطه رسانه‌ها شناخته شده است (سلبریتی)."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "newspaper",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "reporter",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گزارشگر",
+    "explanation": "شخصی که اخبار را برای روزنامه یا تلویزیون جمع‌آوری و ارائه می‌کند."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "blogger",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "model",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talented",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "با استعداد",
+    "explanation": "داشتن توانایی طبیعی برای انجام کاری به نحو احسن."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "famous",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "fortune",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ثروت کلان",
+    "explanation": "مقدار بسیار زیادی پول یا دارایی؛ همچنین به معنای بخت و اقبال."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "wealthy",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ثروتمند",
+    "explanation": "مترادف کلمه rich که در متون رسمی و آکادمیک کاربرد بیشتری دارد."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "fan",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "star",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "website",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "paparazzi",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پاپاراتزی",
+    "explanation": "عکاسانی که به صورت سمج از افراد مشهور در زندگی خصوصی‌شان عکس می‌گیرند."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "photographer",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "well-known",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سرشناس",
+    "explanation": "صفتی برای توصیف فرد یا چیزی که توسط بسیاری از مردم شناخته شده است."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "media",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "رسانه‌ها",
+    "explanation": "وسایل ارتباط جمعی مانند تلویزیون، رادیو، روزنامه‌ها و اینترنت."
+  },
+  {
+    "text": "\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "popular",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

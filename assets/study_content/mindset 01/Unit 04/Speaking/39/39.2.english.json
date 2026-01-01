@@ -1,0 +1,225 @@
+[
+  {
+    "text": "Angelica:",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": " I'm going to talk about an Italian dish - ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "risotto",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ریزوتو",
+    "explanation": "یک غذای برنجی سنتی ایتالیایی که به آرامی در آبگوشت پخته می‌شود تا به بافت خامه‌ای برسد."
+  },
+  {
+    "text": ". It's a rice\ndish and most people in my country enjoy it. Unlike in most countries, we ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "fry the rice with onion in olive oil",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "برنج را با پیاز در روغن زیتون سرخ می‌کنیم",
+    "explanation": "اشاره به مرحله اولیه تهیه ریزوتو که به آن 'Soffritto' می‌گویند؛ تفت دادن برنج با چاشنی‌ها قبل از اضافه کردن مایع."
+  },
+  {
+    "text": " before we add any liquid. We don't cook it in water, but a kind of ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "soup or broth",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سوپ یا آبگوشت (عصاره)",
+    "explanation": "مایعی که برای پختن ریزوتو استفاده می‌شود؛ معمولاً آب مرغ، گوشت یا سبزیجات. در متن ایتالیایی به آن 'Brodo' می‌گویند."
+  },
+  {
+    "text": ", which can be made of meat, fish or chicken. I'm from Milan, and our ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "traditional risotto is made using saffron",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ریزوتوی سنتی با استفاده از زعفران تهیه می‌شود",
+    "explanation": "اشاره به 'Risotto alla Milanese' که یکی از مشهورترین انواع ریزوتو است و زعفران رنگ زرد زیبایی به آن می‌دهد."
+  },
+  {
+    "text": ", which gives the dish a beautiful yellow colour. It's a very ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "creamy and delicious dish",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غذایی بسیار خامه‌ای و خوشمزه",
+    "explanation": "شرحی از بافت و طعم ریزوتوی با کیفیت؛ 'Creamy' (خامه‌ای) به بافت مخصوصی که برنج در اثر هم زدن و آزاد کردن نشاسته پیدا می‌کند، اشاره دارد."
+  },
+  {
+    "text": ". We usually have it as a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "starter",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پیش غذا",
+    "explanation": "کورس اول غذا در یک وعده غذایی رسمی؛ در ایتالیا 'Primo Piatto' نامیده می‌شود."
+  },
+  {
+    "text": ", not as the main meal.\nFirstly, I think that it's popular in my country because - and not a lot of people know this - but Italy's one of the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "biggest producers of rice in Europe",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بزرگترین تولیدکنندگان برنج در اروپا",
+    "explanation": "یک واقعیت اقتصادی/کشاورزی که توضیح می‌دهد چرا برنج (ماده اصلی ریزوتو) در ایتالیا به وفور یافت می‌شود."
+  },
+  {
+    "text": ". It's very simple to cook, and as I said before, you can use all types of ingredients. Anything that you can find in the fridge! Also, Italians don't like to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "waste food",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غذا را هدر دهند",
+    "explanation": "نشان‌دهنده یک فرهنگ یا عادت صرفه‌جویی؛ در بافت این متن، ریزوتو راهی برای استفاده از باقی‌مانده‌های غذا است."
+  },
+  {
+    "text": ", so if you have some fish or some meat and it isn't enough for a meal, you can always make risotto.\nI love it first of all because it always ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "reminds me of home",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مرا یاد خانه می‌اندازد",
+    "explanation": "یک عبارت رایج برای بیان حس نوستالژی یا خاطرات خوش مرتبط با دوران کودکی یا محیط خانه."
+  },
+  {
+    "text": ". My mother's very ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "fond of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "علاقه‌مند به، دوستدار",
+    "explanation": "به معنای 'به شدت چیزی را دوست داشتن' یا 'از انجام کاری لذت بردن' است. (مثلاً: I am fond of cooking)."
+  },
+  {
+    "text": " cooking risotto and if i was unhappy, she used to make it for me and it always ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null
+  },
+  {
+    "text": "cheered me up",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حالم را خوب می‌کرد",
+    "explanation": "یک فعل عبارتی (Phrasal Verb) به معنی 'شاد کردن' یا 'باعث بهتر شدن حال کسی شدن'."
+  },
+  {
+    "text": ". I don't live at home now and so when I'm feeling ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "homesick",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دلتنگ خانه و خانواده",
+    "explanation": "حالتی از غم و اندوه که فرد به دلیل دوری از خانه، خانواده یا وطن خود تجربه می‌کند."
+  },
+  {
+    "text": " and missing my family, I always try to find an Italian restaurant and have some risotto! And secondly, I like it because it's a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "great meal to make for friends",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "یک غذای عالی برای درست کردن برای دوستان",
+    "explanation": "اشاره به قابلیت پذیرایی از مهمانان با آن؛ در مکالمات روزمره بسیار کاربردی است."
+  },
+  {
+    "text": "- easy to prepare, but very tasty.\nYou can get risotto everywhere nowadays, but it isn't always that good. If you visit my country, especially the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "northern part",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بخش شمالی",
+    "explanation": "اشاره به مناطق جغرافیایی شمال ایتالیا که مرکز تولید برنج و خاستگاه اصلی ریزوتو هستند."
+  },
+  {
+    "text": ", I recommend that you try to taste risotto there. It really is special and I promise that you will find it ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "different to",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "متفاوت از",
+    "explanation": "یک ساختار گرامری رایج برای بیان تفاوت؛ در انگلیسی بریتانیایی 'different to' و در انگلیسی آمریکایی 'different than' یا 'different from' نیز استفاده می‌شود."
+  },
+  {
+    "text": " any risotto that you have tasted before.",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]

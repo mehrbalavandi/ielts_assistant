@@ -1,0 +1,128 @@
+[
+  {
+    "text": "GRAMMAR FOCUS: ADVERBS OF FREQUENCY SOMETIMES, OFTEN, NEVER, RARELY AND ALWAYS\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "04\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Listen to a candidate talking about the things he does with his family. Answer the questions.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "10%\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "1 How often does he go out with his family? ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "once a week",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n2 What days of the week does he go out with his family? ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "on Saturdays or Sundays / at weekends",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n3 Where do they ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "often",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اغلب",
+    "explanation": "یک قید تکرار (Adverb of Frequency) که برای کارهایی که با فرکانس بالا (حدود ۷۰-۸۰ درصد مواقع) انجام می‌شوند به کار می‌رود."
+  },
+  {
+    "text": " go? ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "to the beach",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n4 What do they ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "usually",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "معمولاً",
+    "explanation": "قیدی برای بیان عادات و روتین‌هایی که در اکثر مواقع (حدود ۹۰ درصد) رخ می‌دهند."
+  },
+  {
+    "text": " do when they get to the park? ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "They usually go for a long walk.",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n5 Who ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "sometimes",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گاهی اوقات",
+    "explanation": "نشان‌دهنده فرکانس متوسط (حدود ۵۰ درصد)؛ این قید می‌تواند در ابتدای جمله نیز بیاید."
+  },
+  {
+    "text": " comes with them? ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "His cousin sometimes comes with them.",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Track 10\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "asks, chooses, enjoys, keeps, plays, talks, wants, watches",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

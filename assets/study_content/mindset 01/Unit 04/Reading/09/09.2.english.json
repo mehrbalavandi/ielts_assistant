@@ -1,0 +1,975 @@
+[
+  {
+    "text": "A\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Shows about ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "cookery",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آشپزی، فن پخت و پز",
+    "explanation": "هنر یا عمل آماده کردن، پختن و سرو غذا."
+  },
+  {
+    "text": " have become more and more popular ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "all over the world",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در سراسر جهان",
+    "explanation": "به معنی در همه نقاط دنیا."
+  },
+  {
+    "text": ". But what are the reasons for this, and does it make us cook more? In the UK, BBC ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "viewers complained",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تماشاچیان شکایت کردند",
+    "explanation": "شاکی شدن بینندگان یک برنامه تلویزیونی."
+  },
+  {
+    "text": " to the programme Points of View that there were too many cookery shows on TV. In one week, the BBC showed 21 hours of cookery. When shows on other channels were included, this came to an ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "amazing",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حیرت‌انگیز، بسیار زیاد",
+    "explanation": "بسیار شگفت‌انگیز یا تعجب‌آور؛ در اینجا برای تأکید بر عدد زیاد استفاده شده است."
+  },
+  {
+    "text": " 434.5 hours of food TV.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "B\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "In the past, TV cookery shows were there to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "teach people how to cook",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به مردم آشپزی یاد بدهند",
+    "explanation": "هدف اصلی برنامه‌ها آموزش مهارت‌های پخت و پز به بینندگان بود."
+  },
+  {
+    "text": ", One of the first famous TV cooks, Julia Child, was American. She began her career as a cook when, in 1948, she moved to Paris and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "learnt to cook",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آشپزی یاد گرفت",
+    "explanation": "کسب مهارت‌های لازم برای تهیه غذا."
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "sophisticated",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پیچیده، ماهرانه",
+    "explanation": "دارای طعم یا تکنیک‌های پیچیده، نه ساده."
+  },
+  {
+    "text": " French ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "cuisine",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آشپزی، نوع غذا (معمولاً مربوط به یک کشور)",
+    "explanation": "سبک خاصی از پخت و پز یا غذا، به‌ویژه در یک کشور خاص."
+  },
+  {
+    "text": " because her husband loved ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "good food",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غذای خوب",
+    "explanation": "غذایی که خوشمزه، با کیفیت و به خوبی آماده شده باشد."
+  },
+  {
+    "text": ". On her return home, she published a collection of French recipes made ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "simple",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ساده",
+    "explanation": "آسان برای درک یا انجام، بدون پیچیدگی."
+  },
+  {
+    "text": ", for ordinary American ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "housewives",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زنان خانه‌دار",
+    "explanation": "زنانی که وقت خود را صرف رسیدگی به خانه و خانواده می‌کنند."
+  },
+  {
+    "text": " to use, which was an ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "instant success",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "موفقیت فوری",
+    "explanation": "رسیدن به موفقیت بلافاصله یا در مدت زمان بسیار کوتاه."
+  },
+  {
+    "text": ". She was invited to do a TV show, where her ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "humour",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شوخ‌طبعی، طنز",
+    "explanation": "کیفیت خنده‌دار بودن یا توانایی دیدن جنبه خنده‌دار موقعیت‌ها."
+  },
+  {
+    "text": " and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "strong personality",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شخصیت قوی",
+    "explanation": "شخصیتی که خودباور، مصمم و پر از انرژی است و تأثیر زیادی بر دیگران می‌گذارد."
+  },
+  {
+    "text": " soon ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "won her great fame",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "برای او شهرت زیادی به ارمغان آورد",
+    "explanation": "باعث شد که فرد به سرعت بسیار مشهور و شناخته شده شود."
+  },
+  {
+    "text": ".\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "C\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Nowadays TV chefs are famous for ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "all sorts of different reasons",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "دلایل کاملاً متفاوتی",
+    "explanation": "مجموعه‌ای متنوع و گوناگون از علل و دلایل."
+  },
+  {
+    "text": ". Gordon Ramsay, for example, is an interesting TV chef. He is famous for having a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "bad temper",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بدخلقی، کج‌خلقی",
+    "explanation": "تمایل به عصبانی شدن سریع و آسان."
+  },
+  {
+    "text": " and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "using foul language",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "استفاده از زبان رکیک/فحاشی",
+    "explanation": "به کار بردن کلمات توهین‌آمیز یا نامناسب."
+  },
+  {
+    "text": ". In his TV show, Hell's Kitchen, he ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "shouts at his staff",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سر کارمندانش داد می‌زند",
+    "explanation": "با صدای بلند و عصبانی با کارکنان خود صحبت می‌کند."
+  },
+  {
+    "text": " when they ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "make mistakes",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مرتکب اشتباه می‌شوند",
+    "explanation": "انجام دادن کاری غلط یا نادرست."
+  },
+  {
+    "text": " because he wants all the food at his restaurants to be ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "perfect",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کامل، بی‌نقص",
+    "explanation": "بدون نقص یا ایراد؛ بهترین وضعیت ممکن."
+  },
+  {
+    "text": ". He has many restaurants in different countries. Jamie Oliver is a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "good-looking",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "خوش‌تیپ، جذاب",
+    "explanation": "دارای ظاهری جذاب و دلپذیر."
+  },
+  {
+    "text": ", ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "working-class boy",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پسری از طبقه کارگر",
+    "explanation": "فردی که از یک خانواده با درآمد متوسط یا پایین و مشاغل یدی یا خدماتی می‌آید."
+  },
+  {
+    "text": " who made ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "healthy eating fashionable",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تغذیه سالم را مد روز کرد",
+    "explanation": "باعث شد که خوردن غذای سالم به عنوان یک سبک زندگی مطلوب و محبوب پذیرفته شود."
+  },
+  {
+    "text": ". He believes children should eat healthy food and he worked with the government to make ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "school meals healthier",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "وعده‌های غذایی مدرسه را سالم‌تر کند",
+    "explanation": "تلاش برای بهبود کیفیت و ارزش غذایی غذاهای سرو شده در مدارس."
+  },
+  {
+    "text": ". His ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "style of cooking",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سبک آشپزی",
+    "explanation": "روش یا رویکرد خاصی که فرد برای تهیه غذا استفاده می‌کند."
+  },
+  {
+    "text": " is quick, easy and fun.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "D\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "There are some famous ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "pairs of TV cooks",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زوج‌های معروف آشپز تلویزیونی",
+    "explanation": "دو نفر که با هم در برنامه‌های تلویزیونی آشپزی می‌کنند."
+  },
+  {
+    "text": " as well. The Hairy Bikers are a pair of chefs who have ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "beards",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ریش",
+    "explanation": "مویی که روی چانه، گونه‌ها و گلوی مردان رشد می‌کند."
+  },
+  {
+    "text": " and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "ride motorbikes",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "موتورسواری می‌کنند",
+    "explanation": "سوار شدن و راندن موتور سیکلت."
+  },
+  {
+    "text": ". They travel around to different places and cook there. They were both fat but then did a series of shows on how to cook ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "diet food",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غذای رژیمی",
+    "explanation": "غذایی که کم‌کالری یا کم‌چربی است و برای کاهش یا کنترل وزن مناسب است."
+  },
+  {
+    "text": " and both ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "lost weight",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "وزن کم کردند",
+    "explanation": "کاهش وزن بدن."
+  },
+  {
+    "text": ". Another famous pair was the Two Fat Ladies. They cooked ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "unhealthy food",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غذای ناسالم",
+    "explanation": "غذایی که برای سلامتی مفید نیست، معمولاً به دلیل داشتن چربی، نمک یا قند زیاد."
+  },
+  {
+    "text": " using lots of fat and they didn't ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "care about healthy eating",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اهمیتی به تغذیه سالم نمی‌دادند",
+    "explanation": "توجهی به مصرف غذاهایی که برای بدن مفید هستند نداشتند."
+  },
+  {
+    "text": ". They also rode a motorbike.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "E\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "The ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "introduction of a competitive element",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "معرفی عنصر رقابتی",
+    "explanation": "اضافه کردن رقابت و مسابقه به ساختار برنامه."
+  },
+  {
+    "text": " to many cookery shows reminds us that food TV is more ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "entertainment",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سرگرمی",
+    "explanation": "آنچه برای لذت و گذراندن وقت فراهم می‌شود، نه لزوماً آموزش."
+  },
+  {
+    "text": " than ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "education",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آموزش",
+    "explanation": "فرآیند تدریس یا یادگیری دانش و مهارت."
+  },
+  {
+    "text": " these days. Many of us love shows like Masterchef, where a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "contestant",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شرکت‌کننده (در مسابقه)",
+    "explanation": "شخصی که در یک مسابقه یا رقابت شرکت می‌کند."
+  },
+  {
+    "text": " is ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "eliminated",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "حذف می‌شود",
+    "explanation": "از رقابت کنار گذاشته می‌شود."
+  },
+  {
+    "text": " on every show. The ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "personalities",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شخصیت‌ها",
+    "explanation": "ویژگی‌های متمایز کننده فردی که باعث جذابیت یا عدم جذابیت او می‌شود."
+  },
+  {
+    "text": " of both the contestants and the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "judges",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "داوران",
+    "explanation": "افرادی که مسئول ارزیابی و قضاوت عملکرد شرکت‌کنندگان در یک مسابقه هستند."
+  },
+  {
+    "text": " are ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "far more important than",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بسیار مهم‌تر از",
+    "explanation": "تأکید بر اینکه چیزی اهمیت بیشتری نسبت به چیز دیگر دارد."
+  },
+  {
+    "text": " the cookery. In a popular competitive show called The Great British Bake-Off, there was a '",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "nice judge",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "داور مهربان",
+    "explanation": "داوری که برخورد ملایم و دلپذیری دارد."
+  },
+  {
+    "text": "', Mary Berry, and a '",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "nasty judge",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "داور خشن/سخت‌گیر",
+    "explanation": "داوری که برخورد خشن، سخت‌گیرانه یا ناخوشایندی دارد."
+  },
+  {
+    "text": "', Paul Hollywood.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "F\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "We know that ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "cooking at home is better for us than",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در خانه آشپزی کردن برای ما بهتر است از",
+    "explanation": "نشان دهنده برتری غذای خانگی بر غذاهای آماده و بیرون‌بر از نظر سلامتی یا کیفیت."
+  },
+  {
+    "text": " eating ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "ready-made or takeaway meals",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غذاهای آماده یا بیرون‌بر",
+    "explanation": "وعده‌های غذایی که از قبل آماده شده‌اند یا از رستوران خریداری و برده می‌شوند."
+  },
+  {
+    "text": ". However, the fact that there is more cookery on TV doesn't ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "necessarily",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "الزاماً",
+    "explanation": "به معنی لزوماً یا حتماً؛ بیان می‌کند که یک چیز همیشه نتیجه قطعی دیگری نیست."
+  },
+  {
+    "text": " mean people cook more. Different ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "studies have produced different results",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مطالعات نتایج متفاوتی به دست آورده‌اند",
+    "explanation": "تحقیقات انجام شده به نتایج یکسانی نرسیده‌اند."
+  },
+  {
+    "text": ", but most ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "agree",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "موافق هستند",
+    "explanation": "به یک نظر مشترک یا توافق می‌رسند."
+  },
+  {
+    "text": " that people generally ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "spend less time cooking",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زمان کمتری را صرف آشپزی می‌کنند",
+    "explanation": "وقت کمتری را نسبت به گذشته برای تهیه غذا می‌گذارند."
+  },
+  {
+    "text": " than they did in the past. Certain cookery shows ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "influence viewers more than others",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "بر بینندگان بیشتر از بقیه تأثیر می‌گذارند",
+    "explanation": "برخی از برنامه‌ها نفوذ یا اثرگذاری بیشتری بر رفتار مخاطبان دارند."
+  },
+  {
+    "text": ". One study found that the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "most influential show",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تأثیرگذارترین برنامه",
+    "explanation": "برنامه‌ای که بیشترین اثر را بر عقاید، رفتار یا عادات بینندگان دارد."
+  },
+  {
+    "text": " was Jamie Oliver's 15 Minute Meals, which influenced 21% of viewers. This may be because his method is to cook quick, ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "simple, healthy meals",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "وعده‌های غذایی ساده و سالم",
+    "explanation": "غذاهایی که تهیه آن‌ها آسان است و برای سلامتی مفید هستند."
+  },
+  {
+    "text": " rather than '",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "restaurant-style food",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "غذای به سبک رستوران",
+    "explanation": "غذایی که پیچیدگی و ظاهر خاص غذاهای سرو شده در رستوران‌های سطح بالا را دارد."
+  },
+  {
+    "text": "'.\n\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "G\n",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "It seems, though, that ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "teaching children to cook",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آموزش آشپزی به کودکان",
+    "explanation": "یاد دادن مهارت‌های پخت و پز به بچه‌ها."
+  },
+  {
+    "text": " at home and at school has much more ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "influence on healthy eating",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تأثیر بر تغذیه سالم",
+    "explanation": "قدرت تغییر دادن عادات غذایی افراد به سمت گزینه‌های سالم‌تر."
+  },
+  {
+    "text": " than watching TV programmes on cooking. Grandparents have an ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "important role to play",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "نقش مهمی ایفا می‌کنند",
+    "explanation": "وظیفه یا عملکرد قابل توجهی برای انجام دادن دارند."
+  },
+  {
+    "text": " because they may have more time and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "experience",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تجربه",
+    "explanation": "دانش یا مهارتی که از طریق انجام کارها در طول زمان به دست آمده است."
+  },
+  {
+    "text": " - than parents. ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Cooking with family members",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آشپزی با اعضای خانواده",
+    "explanation": "درگیر شدن در فرآیند تهیه غذا به همراه والدین، پدربزرگ و مادربزرگ یا خواهر و برادر."
+  },
+  {
+    "text": " on a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "regular basis",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به طور منظم",
+    "explanation": "انجام دادن کاری در فواصل زمانی ثابت یا مکرر."
+  },
+  {
+    "text": " and making ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "food preparation",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آماده‌سازی غذا",
+    "explanation": "فعالیت‌هایی که برای تهیه غذا قبل از پخت انجام می‌شود، مانند بریدن سبزیجات."
+  },
+  {
+    "text": " part of the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "school curriculum",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "برنامه درسی مدرسه",
+    "explanation": "مجموعه دروس و محتوای آموزشی که در مدرسه تدریس می‌شود."
+  },
+  {
+    "text": " is ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "likely to ensure",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "احتمالاً تضمین می‌کند",
+    "explanation": "به احتمال زیاد باعث می‌شود که یک نتیجه خاص به دست آید."
+  },
+  {
+    "text": " that children become adults who can and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "do cook",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آشپزی می‌کنند",
+    "explanation": "بر عمل واقعی پخت و پز تأکید می‌کند."
+  }
+]

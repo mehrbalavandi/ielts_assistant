@@ -1,0 +1,79 @@
+[
+  {
+    "text": "[EXAM SKILLS]",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "\\n11\\nRead the essay title. How would you organise this essay? What ideas do you have for this topic?\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Global warming is one of the biggest threats to our environment. What causes global warming? What solutions are there to this problem?\\nGive reasons for your answer and include any relevant examples from your own knowledge or experience.",
+    "isInteractive": true,
+    "isBold": false,
+    "isItalic": true,
+    "hasSubItems": true,
+    "translation": "گرمایش جهانی یکی از بزرگترین تهدیدها برای محیط زیست ماست. چه چیزی باعث گرمایش جهانی می‌شود؟ چه راه‌حل‌هایی برای این مشکل وجود دارد؟ دلایل پاسخ خود را بیان کنید و نمونه‌های مرتبط از دانش یا تجربه خود را ذکر کنید.",
+    "explanation": "یک نمونه سوال استاندارد Problem/Solution در آزمون آیلتس.",
+    "subItems": [
+      {
+        "text": "Global warming",
+        "isInteractive": true,
+        "translation": "گرمایش جهانی",
+        "explanation": "افزایش دمای کره زمین به دلیل گازهای گلخانه‌ای."
+      }
+    ]
+  },
+  {
+    "text": "\\nWrite at least 250 words.\\n\\n12\\nRead a student's plan for this essay.\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Paragraph 1 - Introduction ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "\\nDefinition of global warming: increasing temperatures due to air pollution (climate change)\\nPlan of essay: causes/solutions\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Paragraph 2 – Causes",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "\\nCutting down trees (e.g. due to population growth)\\nBurning fossil fuels (cars, power stations, factories)\\nUsing too much electricity (computers, TV, lights)\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Paragraph 2 – Solutions",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "\\nRenewable energy (solar, wind)\\nManage the rainforests (less cutting, more planting)\\nTransport solutions (share cars, use public transport)\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Paragraph 4 – Conclusion",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "\\nSummarise causes and solutions.\\nRecommendation: we can all try to be more 'green'\\nWrite the essay in full, following the advice in the box.\\n\\nMake sure your answers to two-part questions are balanced. Don't spend too much time on one part so that you don't develop the other.\\n\\n⚫\\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "• Give examples to support your ideas.\\n• Use linking expressions.\\n• Refer back to the main points of the essay in the conclusion.\\n• Use phrases such as 'in conclusion' or 'to conclude' for the final paragraph.\\n• Don't introduce any new points in the conclusion.\\n• In your last sentence, suggest what should happen in the future.",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

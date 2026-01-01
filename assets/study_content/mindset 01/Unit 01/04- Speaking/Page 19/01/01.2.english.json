@@ -1,0 +1,68 @@
+[
+  {
+    "text": "SPEAKING\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "IN THIS UNIT YOU WILL LEARN HOW TO\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "•\tuse simple ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "adjective-noun collocations",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ترکیبات صفت و اسم",
+    "explanation": "عباراتی که در آن یک صفت و یک اسم به طور معمول با هم می‌آیند (مانند close family)."
+  },
+  {
+    "text": " relating to family\n•\tanswer simple questions about your family\n•\tgive ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "full answers",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "پاسخ‌های کامل",
+    "explanation": "در آزمون آیلتس، به جای پاسخ‌های کوتاه بله/خیر، باید با جزئیات و بسط دادن موضوع پاسخ دهید."
+  },
+  {
+    "text": " to Part 1 questions.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "LEAD-IN\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "01\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Talk to a partner about these members of your family for 20 seconds each. Try to ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "keep talking",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به صحبت کردن ادامه دادن",
+    "explanation": "مهارت تداوم در صحبت کردن (fluency) که یکی از معیارهای نمره‌دهی آیلتس است."
+  },
+  {
+    "text": " for the full 20 seconds.\nfather\nmother\nbrother\nsister\ngrandmother\ngrandfather",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

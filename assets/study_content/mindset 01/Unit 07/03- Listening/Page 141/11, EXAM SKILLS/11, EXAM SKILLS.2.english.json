@@ -1,0 +1,378 @@
+[
+  {
+    "text": "[EXAM SKILLS]\n11\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "You will hear a lecture on how to make a short film. Complete the flow-chart below.\nWrite ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "NO MORE THAN TWO WORDS",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "بیش از دو کلمه نباشد",
+    "explanation": "یک محدودیت رایج در سوالات آزمون آیلتس برای تعداد کلمات مجاز در پاسخ."
+  },
+  {
+    "text": " for each answer.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "63\nMaking a short film\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "When deciding which type of film to make, use the 1",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talents",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "استعدادها",
+    "explanation": "اشاره به توانمندی‌های درونی افراد گروه."
+  },
+  {
+    "text": " you have among you.\n↓\nMake the ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "plot",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "طرح داستان / پیرنگ",
+    "explanation": "ساختار و توالی وقایع در یک داستان یا فیلم."
+  },
+  {
+    "text": " of your film 2",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talents",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "استعدادها",
+    "explanation": null
+  },
+  {
+    "text": " Have a 3",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talents",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "استعدادها",
+    "explanation": null
+  },
+  {
+    "text": " with you at all times.\n↓\nWrite the ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "screenplay",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "فیلم‌نامه",
+    "explanation": "متن مکتوبی که شامل دیالوگ‌ها و دستورالعمل‌های اجرای یک فیلم است."
+  },
+  {
+    "text": ": a description of the scene, the location, the actors' words, the 4",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talents",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "استعدادها",
+    "explanation": null
+  },
+  {
+    "text": " and directions for the actors about what they should do.\n↓\nPrepare a ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "storyboard",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "استوری‌بورد / فیلم‌نامه مصور",
+    "explanation": "طرح‌های ترسیمی اولیه برای نشان دادن سکانس‌های فیلم."
+  },
+  {
+    "text": ". This is a bit like a 5",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talents",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "استعدادها",
+    "explanation": null
+  },
+  {
+    "text": ".\n↓\nChoose a director. He or she is in control of the 6",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talents",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "استعدادها",
+    "explanation": null
+  },
+  {
+    "text": " elements of the film.\n↓\n",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Cast",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "انتخاب بازیگر",
+    "explanation": "فرایند انتخاب بازیگران برای نقش‌های مختلف."
+  },
+  {
+    "text": " your film. One way to find actors might be to 7",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talents",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "استعدادها",
+    "explanation": null
+  },
+  {
+    "text": ".\n\nTrack 63\n",
+    "isInteractive": false,
+    "isBold": true,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "So welcome to Film-makers' Club. I hope you're excited at the thought of making a film and that you're ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "bursting with",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "لبریز از / پر از",
+    "explanation": "اصطلاحی برای نشان دادن شدت زیاد یک احساس یا ایده."
+  },
+  {
+    "text": " great ideas. I've put you all into groups, so here's what you're going to do. Now you might think the first thing that you need to do is to ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "come up with",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "ارائه دادن / پیدا کردن",
+    "explanation": "به معنی فکر کردن و پیدا کردن یک ایده یا راه حل."
+  },
+  {
+    "text": " an idea for a story, but even before that you need to think about what type of film you want to make.\nRemember that a film is really a story in pictures. There are lots of ways of telling a story. So choose a style of film that ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "suits",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "مناسب بودن / برازنده بودن",
+    "explanation": "مطابقت داشتن با نیازها یا ویژگی‌های خاص."
+  },
+  {
+    "text": " the talents of the group. If you have talented artists, but no good writers, or actors, you might want to make your film in the style of a cartoon or some other kind of animation. Last year a group made an excellent film using Lego bricks.\nSo having decided that, you can start to think of your idea for the story. Think about the movies you like to watch. What is it that makes them interesting? Is it the characters, the plot? As regards plot, my advice is - don't be too ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "ambitious",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "بلندپروازانه",
+    "explanation": "در اینجا به معنی انتخاب پروژه‌ای که فراتر از توانایی فعلی فرد باشد."
+  },
+  {
+    "text": ", don't make it complicated. Keep it simple-the simplest ideas are often the ones that work the best. Initially you just need to find the basic concept. You can fill in the details later. It's a good idea to keep a notebook in your pocket and carry it everywhere. You never know when a great idea will suddenly come to you! And the more ideas, the better, in my opinion.\nThe next stage is to write the screenplay - for this you need to divide the story up into a series of scenes. For each scene, the screenplay should begin with a short description of where it takes place and the time of day, that is day or night. Then the rest consists of the script - the lines the actors will speak, and it should also describe the ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "camera movements",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "حرکات دوربین",
+    "explanation": "نحوه جابجایی یا زاویه دوربین در زمان فیلم‌برداری."
+  },
+  {
+    "text": ", and give directions to the actors about how they should move.\nBefore you can start filming, you need to prepare a storyboard of your film to help everyone involved to imagine the scenes clearly and to understand what you are trying to achieve. This is similar to a comic-book version of your film, but without speech balloons.\nAnd at this point you need to ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "appoint",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "منصوب کردن / تعیین کردن",
+    "explanation": "انتخاب فردی برای یک پست یا وظیفه خاص."
+  },
+  {
+    "text": " a director. This is a major role and it's vital that he or she is a good communicator, as they are the key link between the actors and the rest of the team. This person will have responsibility for the ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "creative side",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "جنبه خلاقانه",
+    "explanation": "بخش‌های مرتبط با هنر و خلاقیت در یک پروژه."
+  },
+  {
+    "text": " of the project. He or she will have the final say in the choice of the main actors and in directing the action of the film.\nThat brings me to the next stage-casting your film - finding the actors. Don't just rely on your friends. Be creative! Perhaps you could ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "advertise",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "تبلیغ کردن",
+    "explanation": "اعلام عمومی برای جذب افراد یا مشتری."
+  },
+  {
+    "text": " on social media. Or if your film needs a doctor, perhaps you could ask one from the local hospital if they could spare a couple of hours for you?\nAnd then before filming finally starts, you will need to assign other jobs, such as director of photography - in your case this will be the person who operates the camera; someone in charge of sound and music, and someone in charge of ",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "costumes and props",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": false,
+    "translation": "لباس‌ها و وسایل صحنه",
+    "explanation": "اشیایی که در صحنه فیلم‌برداری استفاده می‌شوند و لباس بازیگران."
+  },
+  {
+    "text": " (including furniture and any other objects needed) and also someone to look after hair and make-up. But we'll look at these roles in more detail in our next session.",
+    "isInteractive": false,
+    "isBold": false,
+    "isBlank": false,
+    "translation": null,
+    "explanation": null
+  }
+]

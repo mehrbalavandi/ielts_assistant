@@ -1,0 +1,360 @@
+[
+  {
+    "text": "PART 3 QUESTIONS\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "⚫In Part 3 of the Speaking test the examiner will ask you some questions about the topic in Part 2. They will be questions which ",
+    "isInteractive": false
+  },
+  {
+    "text": "require",
+    "isInteractive": true,
+    "translation": "مستلزم بودن / نیاز داشتن",
+    "explanation": "در متون آکادمیک به معنای نیاز داشتن به یک پیش‌نیاز یا انجام عملی خاص است.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " you to think. For example you might be asked for your opinion, or for ideas, ",
+    "isInteractive": false
+  },
+  {
+    "text": "solutions to problems",
+    "isInteractive": true,
+    "translation": "راه حل برای مشکلات",
+    "explanation": "یک عبارت پرکاربرد در رایتینگ و اسپیکینگ آیلتس برای بحث در مورد چالش‌ها.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": " or for an explanation about why something happens.\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "05\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Read the Part 3 questions 1-4 on the topic of animals and match them with the beginning of some students' responses a-d.\n1 What can governments do to ",
+    "isInteractive": false
+  },
+  {
+    "text": "prevent",
+    "isInteractive": true,
+    "translation": "جلوگیری کردن",
+    "explanation": "فعل کلیدی برای بحث در مورد پیشگیری از وقوع جرم یا حوادث ناگوار.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " ",
+    "isInteractive": false
+  },
+  {
+    "text": "illegal hunting",
+    "isInteractive": true,
+    "translation": "شکار غیرقانونی",
+    "explanation": "موضوعی تخصصی (Topic-specific) مربوط به محیط زیست و حیات وحش.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": "? ",
+    "isInteractive": false
+  },
+  {
+    "text": "b",
+    "isInteractive": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n2 Should the government ",
+    "isInteractive": false
+  },
+  {
+    "text": "provide",
+    "isInteractive": true,
+    "translation": "فراهم کردن / تامین کردن",
+    "explanation": "فعل رسمی به جای give که در تسک‌های دولتی و بودجه‌بندی استفاده می‌شود.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " more money for zoos? ",
+    "isInteractive": false
+  },
+  {
+    "text": "a",
+    "isInteractive": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n3 How might we be able to ",
+    "isInteractive": false
+  },
+  {
+    "text": "protect wildlife",
+    "isInteractive": true,
+    "translation": "محافظت از حیات وحش",
+    "explanation": "یک کالوکیشن نمره آور در موضوعات محیط زیستی.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": " in the future? ",
+    "isInteractive": false
+  },
+  {
+    "text": "d",
+    "isInteractive": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n4 Is there any difference in how children learn about wildlife now than in the past? ",
+    "isInteractive": false
+  },
+  {
+    "text": "c",
+    "isInteractive": false,
+    "isBlank": true
+  },
+  {
+    "text": "\n\na They definitely should. ",
+    "isInteractive": false
+  },
+  {
+    "text": "It seems to me that",
+    "isInteractive": true,
+    "translation": "به نظر من / چنین به نظر می‌رسد که",
+    "explanation": "عبارتی رسمی و جایگزین مناسب برای I think در اسپیکینگ آیلتس.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": " ...\nb There are two things X can do. The first is...\nc. There's a big difference, I think. In the past, we...\nd Well, in the future, it might be a good idea to...\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Track 70 ",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Listen and check.\n",
+    "isInteractive": false
+  },
+  {
+    "text": "1\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Examiner:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " What can governments do to prevent illegal hunting?\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Student 1:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " There are two things the government can do to prevent illegal hunting. The first is to be more serious about ",
+    "isInteractive": false
+  },
+  {
+    "text": "punishing",
+    "isInteractive": true,
+    "translation": "مجازات کردن",
+    "explanation": "فعل مرتبط با مباحث قانونی و جرم و جنایت.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": " hunters, for example...\n",
+    "isInteractive": false
+  },
+  {
+    "text": "2\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Examiner:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " Should the government provide more money for zoos?\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Student 2:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " They definitely should. It seems to me that zoos need money now ",
+    "isInteractive": false
+  },
+  {
+    "text": "more than ever",
+    "isInteractive": true,
+    "translation": "بیش از هر زمان دیگری",
+    "explanation": "عبارتی تاکیدی برای نشان دادن ضرورت یک موضوع.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": ". Many of them have very old ",
+    "isInteractive": false
+  },
+  {
+    "text": "facilities",
+    "isInteractive": true,
+    "translation": "امکانات / تجهیزات",
+    "explanation": "کلمه ای سطح بالا برای اشاره به ساختمان‌ها، تجهیزات و خدماتی که برای هدفی خاص ارائه می‌شوند.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": " for the animals...\n",
+    "isInteractive": false
+  },
+  {
+    "text": "3\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Examiner:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " How might we be able to protect wildlife in the future?\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Student 3:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " Well, in the future, it might be a good idea to use technology to ",
+    "isInteractive": false
+  },
+  {
+    "text": "track",
+    "isInteractive": true,
+    "translation": "ردیابی کردن / دنبال کردن",
+    "explanation": "دنبال کردن مسیر یا وضعیت چیزی با استفاده از ابزار یا شواهد.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": " where wild animals are ...\n",
+    "isInteractive": false
+  },
+  {
+    "text": "4\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Examiner:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " Is there any difference in how children learn about wildlife now than in the past?\n",
+    "isInteractive": false
+  },
+  {
+    "text": "Student 4:",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": " There's a big difference, I think. In the past, we ",
+    "isInteractive": false
+  },
+  {
+    "text": "used to",
+    "isInteractive": true,
+    "translation": "قبلاً عادت داشتیم (کاری را انجام دهیم)",
+    "explanation": "ساختاری برای بیان عادات یا وضعیت‌هایی که در گذشته بوده و الان نیست.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " go on more ",
+    "isInteractive": false
+  },
+  {
+    "text": "field trips",
+    "isInteractive": true,
+    "translation": "اردوهای علمی / بازدیدهای میدانی",
+    "explanation": "سفرهایی که دانش‌آموزان برای یادگیری عملی به خارج از محیط آموزشی می‌روند.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " to places to see wild animals, but now we mostly just see them on the internet.\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "06\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Answer the questions 1-4 in exercise 5 with a partner, using the sentence beginnings to start your answer.\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "TIP 05\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "Listen for key words. You must always answer the question the examiner asks you. You will ",
+    "isInteractive": false
+  },
+  {
+    "text": "lose marks",
+    "isInteractive": true,
+    "translation": "نمره از دست دادن",
+    "explanation": "اصطلاحی پرکاربرد در فضای آزمون و ارزیابی.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " if you talk about the topic without answering the question. So you must listen carefully to the question and then begin your answer in an ",
+    "isInteractive": false
+  },
+  {
+    "text": "appropriate",
+    "isInteractive": true,
+    "translation": "مناسب / شایسته",
+    "explanation": "صفت آکادمیک برای چیزی که با موقعیت خاصی سازگاری دارد.",
+    "cerfLevel": "B2"
+  },
+  {
+    "text": " way.\n\n",
+    "isInteractive": false
+  },
+  {
+    "text": "TIP 06\n",
+    "isInteractive": false,
+    "isBold": true
+  },
+  {
+    "text": "I feel..., I believe Don't always use I think.... It's good to learn some other ",
+    "isInteractive": false
+  },
+  {
+    "text": "phrases",
+    "isInteractive": true,
+    "translation": "عبارات",
+    "explanation": "گروهی از کلمات که با هم معنای خاصی می‌دهند.",
+    "cerfLevel": "B1"
+  },
+  {
+    "text": " such as it seems to me that....",
+    "isInteractive": false
+  }
+]

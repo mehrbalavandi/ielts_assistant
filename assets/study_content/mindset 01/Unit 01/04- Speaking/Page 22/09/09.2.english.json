@@ -1,0 +1,118 @@
+[
+  {
+    "text": "09\n",
+    "isBold": true,
+    "isInteractive": false
+  },
+  {
+    "text": "Use one of the words in the box to help you complete the sentences with ideas of your own. Try to use a different word from the box in each sentence.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "also and because but so even though\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "1 I visit my parents every weekend ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "because they are the most important people in my life.",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "چون آن‌ها مهم‌ترین افراد زندگی من هستند.",
+    "explanation": "استفاده از because برای بیان علت و دلیل در جملات پیچیده آیلتس."
+  },
+  {
+    "text": "\n2 We have a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "large family",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "خانواده پرجمعیت",
+    "explanation": "عبارتی رایج برای توصیف ساختار خانواده."
+  },
+  {
+    "text": " ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "but we still get along very well.",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "اما ما هنوز خیلی خوب با هم کنار می‌آییم.",
+    "explanation": "اصطلاح get along به معنای داشتن رابطه خوب با دیگران است."
+  },
+  {
+    "text": "\n3 My sister is ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "getting married",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ازدواج کردن",
+    "explanation": "ترکیب فعل get با married برای نشان دادن تغییر وضعیت."
+  },
+  {
+    "text": " next year ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "and she is going to move to a different city with her husband.",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "و او قصد دارد با همسرش به شهر دیگری نقل مکان کند.",
+    "explanation": "استفاده از move برای جابجایی محل سکونت."
+  },
+  {
+    "text": "\n4. My father works ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "long hours",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "ساعات طولانی",
+    "explanation": "اشاره به پرکار بودن یا داشتن شغل وقت‌گیر."
+  },
+  {
+    "text": ", ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "so I don't spend as much time with him as I want to.",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "بنابراین آنقدر که دلم می‌خواهد با او وقت نمی‌گذرانم.",
+    "explanation": "ساختار spend time with برای وقت گذراندن با کسی."
+  },
+  {
+    "text": "\n5 My brother likes the same things as me ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "even though he is quite a bit older.",
+    "isInteractive": true,
+    "isBold": false,
+    "isBlank": true,
+    "translation": "اگرچه او تا حدودی بزرگتر است.",
+    "explanation": "حرف ربط even though برای بیان تضاد (Concession) در سطح پیشرفته."
+  }
+]

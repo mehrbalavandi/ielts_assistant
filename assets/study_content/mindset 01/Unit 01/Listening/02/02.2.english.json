@@ -1,0 +1,256 @@
+[
+  {
+    "text": "Conversation 1\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Manager: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Good evening, Willowtree Hotel. How can I help?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Hello, I'd like to ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "make a reservation",
+    "translation": "رزرو کنم",
+    "explanation": "ثبت نام یا درخواست برای نگه داشتن یک مکان، مانند میز در رستوران یا اتاق در هتل، برای استفاده در آینده.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": " in your restaurant for ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "next Saturday evening",
+    "translation": "عصر شنبه آینده",
+    "explanation": "اشاره به شب شنبه هفته بعد.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ".\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Manager: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Next Saturday? If you ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "hold on",
+    "translation": "صبر کنید/یک لحظه بمانید",
+    "explanation": "فعل عبارتی به معنی توقف کوتاه یا منتظر ماندن (اغلب هنگام صحبت تلفنی).",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ", I'll just check... So... ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "for how many people",
+    "translation": "برای چند نفر",
+    "explanation": "سؤالی برای تعیین تعداد افراد در یک گروه یا برای رزرو.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "I need a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "table for 12",
+    "translation": "میزی برای ۱۲ نفر",
+    "explanation": "درخواست رزرو میز در رستوران برای گروهی شامل دوازده نفر.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "-it's my husband's ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "30th birthday",
+    "translation": "تولد ۳۰ سالگی",
+    "explanation": "سالگرد تولد سی سالگی یک فرد.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ", so we're having a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "celebration dinner",
+    "translation": "شام جشن/مهمانی شام",
+    "explanation": "یک وعده شام رسمی یا ویژه که به منظور جشن گرفتن یک مناسبت خاص (مانند تولد) برگزار می‌شود.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ".\n\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Conversation 2\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Good afternoon, can I help you?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Yes, I'm ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "looking for a gift",
+    "translation": "به دنبال یک هدیه هستم",
+    "explanation": "عبارتی برای توضیح قصد خود از خرید، یعنی جستجو برای کالایی به عنوان کادو.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": " for my sister. She's going to be 18 next week. So I thought a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "piece of jewellery",
+    "translation": "یک قطعه جواهر",
+    "explanation": "یک شیء زینتی مانند گردنبند، انگشتر، یا گوشواره.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": " would be nice.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Good idea! Do you have ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "anything particular in mind",
+    "translation": "چیز خاصی در ذهن دارید",
+    "explanation": "سؤالی برای دانستن اینکه آیا مشتری از قبل نوع محصول مورد نظرش را مشخص کرده است.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": " a necklace, perhaps?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Mm, she has so many necklaces. I was thinking of a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "pair of earrings",
+    "translation": "یک جفت گوشواره",
+    "explanation": "دو قطعه جواهر که برای آویزان کردن از گوش استفاده می‌شوند.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": ", possibly.\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Sales assistant: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Does she have a ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "favourite colour",
+    "translation": "رنگ مورد علاقه",
+    "explanation": "رنگی که فرد بیش از بقیه رنگ‌ها دوست دارد.",
+    "isInteractive": true,
+    "isBold": true
+  },
+  {
+    "text": "?\n",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Customer: ",
+    "isInteractive": false,
+    "isBold": false
+  },
+  {
+    "text": "Mm, she likes blue....",
+    "isInteractive": false,
+    "isBold": false
+  }
+]

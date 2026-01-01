@@ -1,0 +1,474 @@
+[
+  {
+    "text": "Chef: ",
+    "isInteractive": false,
+    "isBold": true,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "I ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "suppose",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "فرض می‌کنم، گمان می‌کنم",
+    "explanation": "یک فعل رایج برای بیان عقیده یا فرضیه. مثال: I suppose you're right. (فکر می‌کنم حق با شماست.)",
+    "isEmphasis": true
+  },
+  {
+    "text": " one thing that everybody knows about Japanese,\nChinese and Korean cooking is that they all use ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "chopsticks",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "چوب‌غذاخوری",
+    "explanation": "ابزار سنتی غذا خوردن در شرق آسیا (چین، ژاپن، کره، ویتنام).",
+    "isEmphasis": true
+  },
+  {
+    "text": " rather than knives and forks ",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به جای چاقو و چنگال",
+    "explanation": "یک عبارت متضاد که برای نشان دادن ترجیح یا جایگزینی چیزی به جای چیز دیگر استفاده می‌شود. 'rather than' ساختاری برای مقایسه است.",
+    "isEmphasis": true
+  },
+  {
+    "text": " like people in the West. The chopsticks that people use in the different countries are ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "quite different though",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "با این حال کاملاً متفاوت هستند",
+    "explanation": "ترکیبی برای نشان دادن تفاوت زیاد. 'though' در انتهای جمله به معنای 'با این حال' یا 'اما' است و لحن متضاد یا اصلاحی دارد.",
+    "isEmphasis": true
+  },
+  {
+    "text": ". In China the chopsticks ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "tend to be made of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "اغلب از جنس ... هستند",
+    "explanation": "عبارتی برای اشاره به یک تمایل، عادت یا ویژگی معمول. مثال: People in the North tend to speak faster. (مردم در شمال معمولاً سریع‌تر صحبت می‌کنند.)",
+    "isEmphasis": true
+  },
+  {
+    "text": " wood and are round at the end, ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "whereas",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "در حالی که، اما",
+    "explanation": "حرف ربطی برای نشان دادن تضاد یا مقایسه مستقیم بین دو چیز. مثال: She likes tea, whereas I prefer coffee. (او چای دوست دارد، در حالی که من قهوه ترجیح می‌دهم.)",
+    "isEmphasis": true
+  },
+  {
+    "text": " in Korea they're made of ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "stainless steel",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "فولاد ضد زنگ",
+    "explanation": "نوعی آلیاژ فولاد که در برابر زنگ‌زدگی مقاوم است.",
+    "isEmphasis": true
+  },
+  {
+    "text": " and are ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "rough",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "زبر، خشن",
+    "explanation": "صفتی به معنای داشتن سطح ناصاف یا زبر. متضاد 'smooth'.",
+    "isEmphasis": true
+  },
+  {
+    "text": " at the end. This is because in the past the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "emperor",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "امپراتور",
+    "explanation": "حاکم یا پادشاه یک امپراتوری.",
+    "isEmphasis": true
+  },
+  {
+    "text": " would use silver chopsticks, as they ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "changed colour if there was any poison in the dish",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تغییر رنگ می‌دادند اگر سمی در غذا بود",
+    "explanation": "یک نکته تاریخی/فرهنگی: نقره در واکنش به برخی ترکیبات سمی (مانند سولفیدها) سیاه می‌شود، که در گذشته به عنوان یک روش ابتدایی تشخیص سم استفاده می‌شد.",
+    "isEmphasis": true
+  },
+  {
+    "text": ". They can be ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "quite tricky to use",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "استفاده از آن‌ها نسبتاً دشوار است",
+    "explanation": "عبارت 'tricky' به معنای 'دشوار'، 'پیچیده' یا 'حیلت‌آمیز' است. 'quite tricky' یعنی 'نه خیلی سخت اما نیاز به مهارت دارد'.",
+    "isEmphasis": true
+  },
+  {
+    "text": ", but in Korea people use a spoon to eat their rice. In Japan they use a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "variety of things",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "مواد/چیزهای متنوعی",
+    "explanation": "عبارتی برای اشاره به مجموعه گسترده‌ای از آیتم‌ها یا گزینه‌ها. 'variety' به معنای تنوع است.",
+    "isEmphasis": true
+  },
+  {
+    "text": " to make chopsticks. Wood and plastic are the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "most popular",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "محبوب‌ترین",
+    "explanation": "شکل عالی صفت 'popular' (محبوب)، برای اشاره به چیزی که بیشترین علاقه را در بین مردم دارد.",
+    "isEmphasis": true
+  },
+  {
+    "text": " now, but you can find bone, metal and even ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "ivory",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "عاج",
+    "explanation": "ماده سفید سخت دندان فیل و برخی حیوانات دیگر که برای ساخت اشیاء استفاده می‌شود.",
+    "isEmphasis": true
+  },
+  {
+    "text": " ones.\nIf we look at the food of the different countries, it's very difficult to ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "talk about China in general terms",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به صورت کلی در مورد چین صحبت کنیم",
+    "explanation": "عبارتی به معنای صحبت کردن بدون اشاره به جزئیات خاص، کلی‌گویی کردن. در مقابل 'in specific terms' قرار می‌گیرد.",
+    "isEmphasis": true
+  },
+  {
+    "text": " because it has many different ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "cuisines",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "آشپزی‌ها، سبک‌های غذایی",
+    "explanation": "سبک یا روش خاصی از آشپزی که معمولاً با یک منطقه یا فرهنگ خاص مرتبط است.",
+    "isEmphasis": true
+  },
+  {
+    "text": ". So it ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "might be better if we look at",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "شاید بهتر باشد که به بررسی ... بپردازیم",
+    "explanation": "عبارتی مودبانه برای پیشنهاد یک مسیر یا اقدام جایگزین. 'might be' نشان‌دهنده احتمال است.",
+    "isEmphasis": true
+  },
+  {
+    "text": " Korean and Japanese food a little more. It's ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "well known that",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به خوبی شناخته شده است که",
+    "explanation": "عبارتی برای معرفی یک حقیقت عمومی، اطلاعات مشترک یا نظری که مورد پذیرش عموم است. مترادف 'It's a fact that'.",
+    "isEmphasis": true
+  },
+  {
+    "text": " Koreans ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "tend to like",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تمایل دارند که دوست داشته باشند",
+    "explanation": "اشاره به یک ترجیح یا عادت رایج در یک گروه. (مترادف 'often like').",
+    "isEmphasis": true
+  },
+  {
+    "text": " spicier food and red peppers can be found in a ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "wide number of dishes",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تعداد زیادی از غذاها",
+    "explanation": "عبارتی برای اشاره به مقدار زیاد یا تنوع گسترده‌ای از چیزی. 'wide' در اینجا به معنای 'بسیار زیاد' است.",
+    "isEmphasis": true
+  },
+  {
+    "text": ". I suppose that everybody thinks of ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "sushi",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "سوشی",
+    "explanation": "یک غذای ژاپنی که معمولاً از برنج پخته شده با سرکه به همراه مواد مختلفی مانند ماهی خام، غذاهای دریایی، سبزیجات یا تخم مرغ تهیه می‌شود.",
+    "isEmphasis": true
+  },
+  {
+    "text": " when they think of Japanese food, but you can also find a lot of ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "influences",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تأثیرات",
+    "explanation": "اثر یا نفوذ چیزی یا کسی بر چیز یا کس دیگری. در اینجا به تأثیر سبک‌های آشپزی دیگر اشاره دارد.",
+    "isEmphasis": true
+  },
+  {
+    "text": " from all over Asia and even Europe, for example ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "tempura",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "تمپورا",
+    "explanation": "یک روش آشپزی ژاپنی که در آن غذاهای دریایی و سبزیجات را در خمیر مخصوصی فرو برده و سرخ می‌کنند. منشأ پرتغالی دارد.",
+    "isEmphasis": true
+  },
+  {
+    "text": ", which came to Japan from Portugal. Those aren't ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "present in",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "وجود ندارند در",
+    "explanation": "صفتی به معنای 'موجود'، 'حاضر' یا 'فعلی'. در اینجا یعنی 'در آن یافت نمی‌شوند'.",
+    "isEmphasis": true
+  },
+  {
+    "text": " Chinese and Korean food.\n",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "Traditionally",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "به صورت سنتی",
+    "explanation": "قیود حالت برای اشاره به چیزی که بر اساس سنت‌ها یا عادت‌های قدیمی انجام می‌شود.",
+    "isEmphasis": true
+  },
+  {
+    "text": ", in both Japan and in Korea ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "meat plays less of an important role than",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گوشت نقش کم‌اهمیت‌تری نسبت به ... ایفا می‌کند",
+    "explanation": "یک ساختار مقایسه‌ای (less ... than) برای نشان دادن وزن یا اهمیت کمتر یک چیز نسبت به دیگری.",
+    "isEmphasis": true
+  },
+  {
+    "text": " in Europe, perhaps because it's so expensive due to the ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "lack of space for keeping animals",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "کمبود فضا برای نگهداری حیوانات",
+    "explanation": "عبارتی که به نبودن فضای کافی برای دامداری و مزرعه اشاره دارد. 'lack' به معنای کمبود است.",
+    "isEmphasis": true
+  },
+  {
+    "text": ". ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "That said",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "با این حال، با وجود این",
+    "explanation": "یک عبارت انتقالی برای معرفی یک نکته متضاد یا مکمل پس از ذکر یک نکته دیگر. شبیه 'however' یا 'nevertheless'.",
+    "isEmphasis": true
+  },
+  {
+    "text": ", both the Japanese and Koreans ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "enjoy meat",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "از گوشت لذت می‌برند",
+    "explanation": "عبارتی ساده برای بیان علاقه به خوردن گوشت.",
+    "isEmphasis": true
+  },
+  {
+    "text": ". Barbecues of all types are ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "popular in",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "محبوب هستند در",
+    "explanation": "صفت 'popular' به همراه حرف اضافه 'in' برای بیان اینکه چیزی در یک مکان یا در بین گروهی از افراد مورد علاقه است.",
+    "isEmphasis": true
+  },
+  {
+    "text": " Korea and ",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  },
+  {
+    "text": "beef forms the basis of",
+    "isInteractive": true,
+    "isBold": false,
+    "translation": "گوشت گاو اساس/پایه ... را تشکیل می‌دهد",
+    "explanation": "عبارتی برای اشاره به اینکه یک ماده یا عنصر اصلی‌ترین یا مهم‌ترین قسمت یک چیز (در اینجا غذا) است.",
+    "isEmphasis": true
+  },
+  {
+    "text": " many special meals in both of the countries. Now moving back to Chinese cuisine...",
+    "isInteractive": false,
+    "isBold": false,
+    "translation": null,
+    "explanation": null
+  }
+]
