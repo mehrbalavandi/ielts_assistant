@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/shared/models/data_models.dart';
 import 'package:ielts_assistant/services/storage_service.dart';
 import 'package:just_audio/just_audio.dart';
 import 'dart:async';

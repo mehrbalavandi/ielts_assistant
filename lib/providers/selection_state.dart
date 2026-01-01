@@ -1,7 +1,7 @@
 // در فایل selection_state.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/shared/models/data_models.dart';
 
 // Provider برای نگهداری mainTopic آخرین آیتم انتخاب شده
 // اگر آیتمی انتخاب نشده باشد (یا والد جمع شده باشد)، مقدار آن null است.

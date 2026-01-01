@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/shared/models/data_models.dart';
 import 'package:path/path.dart';
 
 class FileTraversalService {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/models/data_models.dart';
+import 'package:ielts_assistant/shared/models/data_models.dart';
 import 'package:ielts_assistant/services/audio_player_service.dart';
 import 'package:just_audio/just_audio.dart';
 import '../providers/player_display_state.dart';
