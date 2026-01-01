@@ -10,29 +10,29 @@ class Book {
 // مدل برای دروس درون هر کتاب
 class Unit {
   final String name;
-  final List<MainTopic> mainTopics;
-  Unit({required this.name, required this.mainTopics});
+  final List<Topic> topics;
+  Unit({required this.name, required this.topics});
 }
 
 // کلاس مبحث اصلی (Parent Topic) که اکنون شامل لیستی از زیرمبحث‌ها است
-class MainTopic {
+class Topic {
   final String name;
   final String realmId;
-  final List<SubTopic> subTopics; // ✅ لیست زیرمبحث‌ها
+  final List<PageContent> pageContents; // ✅ لیست زیرمبحث‌ها
 
-  MainTopic({
+  Topic({
     required this.name,
     required this.realmId,
-    required this.subTopics,
+    required this.pageContents,
   });
 }
 
-class SubTopic {
+class PageContent {
   final String name;
   final String realmId;
   final List<FinalTopic> finalTopics; // ✅ لیست زیرمبحث‌ها
 
-  SubTopic({
+  PageContent({
     required this.name,
     required this.realmId,
     required this.finalTopics,

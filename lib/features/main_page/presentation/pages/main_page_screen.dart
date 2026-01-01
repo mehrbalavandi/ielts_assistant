@@ -357,7 +357,7 @@ class MainPageScreen extends ConsumerWidget {
                     child: Text('لطفاً درس مورد نظر را انتخاب نمائید'),
                   );
                 }
-                var units = selectedUnit.mainTopics;
+                var units = selectedUnit.topics;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ListView.builder(
@@ -367,9 +367,7 @@ class MainPageScreen extends ConsumerWidget {
                         textDirection: TextDirection.ltr,
                         child: Card(
                           margin: const EdgeInsets.only(bottom: 8.0),
-                          child: _mainTopicExpansionTile(
-                            mainTopic: units[index],
-                          ),
+                          child: _mainTopicExpansionTile(topic: units[index]),
                         ),
                       );
                     },
@@ -480,11 +478,9 @@ class _unitExpansionTile extends StatelessWidget {
           unit.name,
           style: const TextStyle(fontSize: 16),
         ),
-        children: unit.mainTopics.map((mainTopic) {
+        children: unit.topics.map((topic) {
           // درس شامل لیست mainTopic است
-          return _mainTopicExpansionTile(
-            mainTopic: mainTopic,
-          ); // فراخوانی ویجت جدید
+          return _mainTopicExpansionTile(topic: topic); // فراخوانی ویجت جدید
         }).toList(),
       ),
     );
@@ -492,8 +488,8 @@ class _unitExpansionTile extends StatelessWidget {
 }
 
 class _mainTopicExpansionTile extends StatelessWidget {
-  final MainTopic mainTopic;
-  const _mainTopicExpansionTile({required this.mainTopic});
+  final Topic topic;
+  const _mainTopicExpansionTile({required this.topic});
 
   @override
   Widget build(BuildContext context) {
@@ -503,12 +499,12 @@ class _mainTopicExpansionTile extends StatelessWidget {
         tilePadding: const EdgeInsets.symmetric(horizontal: 8.0),
         title: Text(
           // مبحث اصلی
-          mainTopic.name, // ✅ استفاده از widget.mainTopic
+          topic.name, // ✅ استفاده از widget.mainTopic
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ), // ✅ متد مدیریت تغییر
-        children: mainTopic.subTopics.map((subTopic) {
+        children: topic.pageContents.map((pageContent) {
           // ✅ استفاده از widget.mainTopic
-          return _subTopicExpansionTile(subTopic: subTopic);
+          return _subTopicExpansionTile(pageContent: pageContent);
         }).toList(),
       ),
     );
@@ -516,8 +512,8 @@ class _mainTopicExpansionTile extends StatelessWidget {
 }
 
 class _subTopicExpansionTile extends StatelessWidget {
-  final SubTopic subTopic;
-  const _subTopicExpansionTile({required this.subTopic});
+  final PageContent pageContent;
+  const _subTopicExpansionTile({required this.pageContent});
 
   @override
   Widget build(BuildContext context) {
@@ -527,10 +523,10 @@ class _subTopicExpansionTile extends StatelessWidget {
         tilePadding: const EdgeInsets.only(left: 24.0, right: 16.0),
         title: Text(
           // مبحث اصلی
-          subTopic.name, // ✅ استفاده از widget.mainTopic
+          pageContent.name, // ✅ استفاده از widget.mainTopic
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ), // ✅ متد مدیریت تغییر
-        children: subTopic.finalTopics.map((finalTopic) {
+        children: pageContent.finalTopics.map((finalTopic) {
           // ✅ استفاده از widget.mainTopic
           return _finalTopicListTile(finalTopic: finalTopic);
         }).toList(),

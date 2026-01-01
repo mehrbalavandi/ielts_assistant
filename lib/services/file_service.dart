@@ -62,7 +62,7 @@ class FileTraversalService {
                                   );
                                 })
                                 .toList(); // همه زیرمبحث‌ها را در نظر بگیرید.
-                            return SubTopic(
+                            return PageContent(
                               realmId: subTopicDir.path,
                               name: basename(subTopicDir.path),
                               finalTopics: finalTopics,
@@ -71,22 +71,19 @@ class FileTraversalService {
                           .where((x) => x.finalTopics.isNotEmpty)
                           .toList();
                       // ساخت mainTopic، فقط اگر حداقل یک mainTopic معتبر داشته باشد
-                      return MainTopic(
+                      return Topic(
                         realmId: mainTopicDir.path,
                         name: basename(mainTopicDir.path),
-                        subTopics: subTopics,
+                        pageContents: subTopics,
                       );
                     })
-                    .where((pt) => pt.subTopics.isNotEmpty)
+                    .where((pt) => pt.pageContents.isNotEmpty)
                     .toList(); // فقط مباحث اصلی دارای زیرمبحث را در نظر بگیرید.
 
                 // ساخت unit، فقط اگر حداقل یک mainTopic معتبر داشته باشد
-                return Unit(
-                  name: basename(unitDir.path),
-                  mainTopics: mainTopics,
-                );
+                return Unit(name: basename(unitDir.path), topics: mainTopics);
               })
-              .where((l) => l.mainTopics.isNotEmpty)
+              .where((l) => l.topics.isNotEmpty)
               .toList(); // فقط درس‌های دارای mainTopic را در نظر بگیرید.
 
           // ساخت book، فقط اگر حداقل یک unit معتبر داشته باشد

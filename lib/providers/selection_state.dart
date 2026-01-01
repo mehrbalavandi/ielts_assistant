@@ -22,7 +22,7 @@ final unitsProvider = FutureProvider.family<List<Unit>, Book?>((
 
 // final selectedUnitProvider = StateProvider<Unit?>((ref) => null);
 
-final mainTopicsProvider = FutureProvider.family<List<MainTopic>, Unit?>((
+final mainTopicsProvider = FutureProvider.family<List<Topic>, Unit?>((
   ref,
   unit,
 ) async {
@@ -30,19 +30,19 @@ final mainTopicsProvider = FutureProvider.family<List<MainTopic>, Unit?>((
     return [];
   }
 
-  return unit.mainTopics;
+  return unit.topics;
 });
 
-final selectedMainTopicProvider = StateProvider<MainTopic?>((ref) => null);
+final selectedMainTopicProvider = StateProvider<Topic?>((ref) => null);
 
-final subTopicsProvider = FutureProvider.family<List<SubTopic>, MainTopic?>((
+final subTopicsProvider = FutureProvider.family<List<PageContent>, Topic?>((
   ref,
   mainTopic,
 ) async {
   if (mainTopic == null) {
     return [];
   }
-  return mainTopic.subTopics;
+  return mainTopic.pageContents;
 });
 
-final selectedSubTopicProvider = StateProvider<SubTopic?>((ref) => null);
+final selectedSubTopicProvider = StateProvider<PageContent?>((ref) => null);
