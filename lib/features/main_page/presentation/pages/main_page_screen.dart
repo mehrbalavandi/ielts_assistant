@@ -16,8 +16,8 @@ import 'package:ielts_assistant/widgets/custom_dropdown.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
-import '../providers/player_display_state.dart';
-import '../widgets/mini_player_widget.dart'; // ویجت پلیر کوچ
+import '../../../../providers/player_display_state.dart';
+import '../../../../widgets/mini_player_widget.dart'; // ویجت پلیر کوچ
 
 class MainPageScreen extends ConsumerWidget {
   final _storageService = StorageService();
