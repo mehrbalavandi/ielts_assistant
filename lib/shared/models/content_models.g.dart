@@ -89,3 +89,17 @@ Map<String, dynamic> _$FinalTopicToJson(_FinalTopic instance) =>
       'audioFilePaths': instance.audioFilePaths,
       'audioFileName': instance.audioFileName,
     };
+
+_AudioBookmark _$AudioBookmarkFromJson(Map<String, dynamic> json) =>
+    _AudioBookmark(
+      id: json['id'] as String,
+      position: Duration(microseconds: (json['position'] as num).toInt()),
+      label: json['label'] as String,
+    );
+
+Map<String, dynamic> _$AudioBookmarkToJson(_AudioBookmark instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'position': instance.position.inMicroseconds,
+      'label': instance.label,
+    };

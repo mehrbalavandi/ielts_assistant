@@ -115,10 +115,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _StudyContent():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -177,10 +174,7 @@ return $default(_that.books);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Book> books)  $default,) {final _that = this;
 switch (_that) {
 case _StudyContent():
-return $default(_that.books);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.books);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -385,10 +379,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _Book():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -447,10 +438,7 @@ return $default(_that.name,_that.units);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Unit> units)  $default,) {final _that = this;
 switch (_that) {
 case _Book():
-return $default(_that.name,_that.units);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.name,_that.units);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -657,10 +645,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _Unit():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -719,10 +704,7 @@ return $default(_that.name,_that.topics);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Topic> topics)  $default,) {final _that = this;
 switch (_that) {
 case _Unit():
-return $default(_that.name,_that.topics);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.name,_that.topics);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -930,10 +912,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _Topic():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -992,10 +971,7 @@ return $default(_that.name,_that.realmId,_that.pageContents);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String realmId,  List<PageContent> pageContents)  $default,) {final _that = this;
 switch (_that) {
 case _Topic():
-return $default(_that.name,_that.realmId,_that.pageContents);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.name,_that.realmId,_that.pageContents);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -1205,10 +1181,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PageContent():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -1267,10 +1240,7 @@ return $default(_that.name,_that.realmId,_that.finalTopics);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String realmId,  List<FinalTopic> finalTopics)  $default,) {final _that = this;
 switch (_that) {
 case _PageContent():
-return $default(_that.name,_that.realmId,_that.finalTopics);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.name,_that.realmId,_that.finalTopics);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -1483,10 +1453,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _FinalTopic():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -1545,10 +1512,7 @@ return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFil
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String realmId,  String jsonFilePath,  String translationFilePath,  List<String> audioFilePaths,  String? audioFileName)  $default,) {final _that = this;
 switch (_that) {
 case _FinalTopic():
-return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFilePath,_that.audioFilePaths,_that.audioFileName);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFilePath,_that.audioFilePaths,_that.audioFileName);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -1652,6 +1616,269 @@ as String,translationFilePath: null == translationFilePath ? _self.translationFi
 as String,audioFilePaths: null == audioFilePaths ? _self._audioFilePaths : audioFilePaths // ignore: cast_nullable_to_non_nullable
 as List<String>,audioFileName: freezed == audioFileName ? _self.audioFileName : audioFileName // ignore: cast_nullable_to_non_nullable
 as String?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$AudioBookmark {
+
+ String get id; Duration get position; String get label;
+/// Create a copy of AudioBookmark
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AudioBookmarkCopyWith<AudioBookmark> get copyWith => _$AudioBookmarkCopyWithImpl<AudioBookmark>(this as AudioBookmark, _$identity);
+
+  /// Serializes this AudioBookmark to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AudioBookmark&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.label, label) || other.label == label));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,position,label);
+
+@override
+String toString() {
+  return 'AudioBookmark(id: $id, position: $position, label: $label)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AudioBookmarkCopyWith<$Res>  {
+  factory $AudioBookmarkCopyWith(AudioBookmark value, $Res Function(AudioBookmark) _then) = _$AudioBookmarkCopyWithImpl;
+@useResult
+$Res call({
+ String id, Duration position, String label
+});
+
+
+
+
+}
+/// @nodoc
+class _$AudioBookmarkCopyWithImpl<$Res>
+    implements $AudioBookmarkCopyWith<$Res> {
+  _$AudioBookmarkCopyWithImpl(this._self, this._then);
+
+  final AudioBookmark _self;
+  final $Res Function(AudioBookmark) _then;
+
+/// Create a copy of AudioBookmark
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? position = null,Object? label = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as Duration,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AudioBookmark].
+extension AudioBookmarkPatterns on AudioBookmark {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AudioBookmark value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AudioBookmark() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AudioBookmark value)  $default,){
+final _that = this;
+switch (_that) {
+case _AudioBookmark():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AudioBookmark value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AudioBookmark() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Duration position,  String label)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AudioBookmark() when $default != null:
+return $default(_that.id,_that.position,_that.label);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Duration position,  String label)  $default,) {final _that = this;
+switch (_that) {
+case _AudioBookmark():
+return $default(_that.id,_that.position,_that.label);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Duration position,  String label)?  $default,) {final _that = this;
+switch (_that) {
+case _AudioBookmark() when $default != null:
+return $default(_that.id,_that.position,_that.label);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AudioBookmark implements AudioBookmark {
+  const _AudioBookmark({required this.id, required this.position, required this.label});
+  factory _AudioBookmark.fromJson(Map<String, dynamic> json) => _$AudioBookmarkFromJson(json);
+
+@override final  String id;
+@override final  Duration position;
+@override final  String label;
+
+/// Create a copy of AudioBookmark
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AudioBookmarkCopyWith<_AudioBookmark> get copyWith => __$AudioBookmarkCopyWithImpl<_AudioBookmark>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AudioBookmarkToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AudioBookmark&&(identical(other.id, id) || other.id == id)&&(identical(other.position, position) || other.position == position)&&(identical(other.label, label) || other.label == label));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,position,label);
+
+@override
+String toString() {
+  return 'AudioBookmark(id: $id, position: $position, label: $label)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AudioBookmarkCopyWith<$Res> implements $AudioBookmarkCopyWith<$Res> {
+  factory _$AudioBookmarkCopyWith(_AudioBookmark value, $Res Function(_AudioBookmark) _then) = __$AudioBookmarkCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, Duration position, String label
+});
+
+
+
+
+}
+/// @nodoc
+class __$AudioBookmarkCopyWithImpl<$Res>
+    implements _$AudioBookmarkCopyWith<$Res> {
+  __$AudioBookmarkCopyWithImpl(this._self, this._then);
+
+  final _AudioBookmark _self;
+  final $Res Function(_AudioBookmark) _then;
+
+/// Create a copy of AudioBookmark
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? position = null,Object? label = null,}) {
+  return _then(_AudioBookmark(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
+as Duration,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
