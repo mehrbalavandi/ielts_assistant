@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
+import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
 import '../../../../../../../shared/models/content_models.dart';
 
 class MainDrawer extends ConsumerWidget {
@@ -45,9 +46,14 @@ class MainDrawer extends ConsumerWidget {
             leading: const Icon(Icons.settings),
             title: const Text('تنظیمات مسیر فایل‌ها'),
             onTap: () {
-              // هدایت به صفحه تنظیمات
+              // ۱. بستن دراور
               Navigator.pop(context);
-              // Navigator.push...
+
+              // ۲. رفتن به صفحه تنظیمات
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
             },
           ),
         ],
