@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ielts_assistant/shared/providers/storage_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:file_selector/file_selector.dart';
 
 part 'settings_provider.g.dart';
 
@@ -19,22 +18,14 @@ class SettingsNotifier extends _$SettingsNotifier {
     return box.read(_pathKey);
   }
 
-  // Future<void> pickAndSaveDirectory() async {
-  //   // ۱. اجرای عملیات انتخاب پوشه (ممکن است زمان‌بر باشد)
-  //   final String? directoryPath = await _pickDirectory();
+  Future<void> updatePath(String newPath) async {
+    final box = ref.read(storageProvider);
+    await box.write(_pathKey, newPath);
+    state = newPath; // به‌روزرسانی وضعیت که باعث ری‌بیلد شدن بقیه جاها می‌شود
+  }
 
-  //   // ۲. چک کردن mounted بعد از await (شکاف ناهمگام)
-  //   // این خط بررسی می‌کند که آیا هنوز پرووایدر زنده است یا خیر
-  //   if (!ref.mounted) return;
-
-  //   if (directoryPath != null) {
-  //     // ۳. حالا با خیال راحت از ref استفاده کنید
-  //     await ref.read(storageProvider).write(_pathKey, directoryPath);
-  //     state = directoryPath;
-  //   }
-  // }
-
-  Future<void> pickAndSaveDirectory() async {
+  Future<String?> pickAndSaveDirectory(String? previousPath) async {
+    String? result = previousPath;
     try {
       var res = await Permission.manageExternalStorage.status;
       if (!res.isGranted) {
@@ -43,7 +34,6 @@ class SettingsNotifier extends _$SettingsNotifier {
           if (res2.isGranted) {
             try {
               bool existPreviousPath = false;
-              String? previousPath = ref.read(storageProvider).read(_pathKey);
               if (previousPath != null &&
                   await Directory(previousPath).exists()) {
                 existPreviousPath = true;
@@ -54,23 +44,17 @@ class SettingsNotifier extends _$SettingsNotifier {
                   );
 
               if (selectedDirectory != null) {
-                if (selectedDirectory != previousPath) {
-                  await ref
-                      .read(storageProvider)
-                      .write(_pathKey, selectedDirectory);
-                }
-
-                await _loadDirectoryData(selectedDirectory);
+                result = selectedDirectory;
               }
             } catch (exception) {
-              // TODO
+              String st = exception.toString();
+              debugPrint(st);
             }
           }
         });
       } else if (res.isGranted) {
         try {
           bool existPreviousPath = false;
-          String? previousPath = ref.read(storageProvider).read(_pathKey);
           if (previousPath != null && await Directory(previousPath).exists()) {
             existPreviousPath = true;
           }
@@ -79,21 +63,16 @@ class SettingsNotifier extends _$SettingsNotifier {
                 initialDirectory: existPreviousPath ? previousPath : null,
               );
 
-          if (selectedDirectory != null) {
-            if (selectedDirectory != previousPath) {
-              await ref
-                  .read(storageProvider)
-                  .write(_pathKey, selectedDirectory);
-            }
-
-            await _loadDirectoryData(selectedDirectory);
-          }
-        } catch (exception) {}
+          result = selectedDirectory;
+        } catch (exception) {
+          String st = exception.toString();
+          debugPrint(st);
+        }
       }
-    } catch (exception) {}
-  }
-
-  Future<void> _loadDirectoryData(String path) async {
-    // ref.invalidate(allContentProvider);
+    } catch (exception) {
+      String st = exception.toString();
+      debugPrint(st);
+    }
+    return result;
   }
 }

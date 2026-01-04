@@ -13,8 +13,17 @@ class SettingsScreen extends ConsumerWidget {
         children: [
           ListTile(
             title: const Text('انتخاب مسیر فایل‌های صوتی'),
-            onTap: () =>
-                ref.read(settingsProvider.notifier).pickAndSaveDirectory(),
+            onTap: () async {
+              String? previousPath = ref.read(settingsProvider);
+              String? selectedDirectory = await ref
+                  .read(settingsProvider.notifier)
+                  .pickAndSaveDirectory(previousPath);
+              if (selectedDirectory != previousPath) {
+                ref
+                    .read(settingsProvider.notifier)
+                    .updatePath(selectedDirectory!);
+              }
+            },
           ),
           const Divider(),
           ListTile(

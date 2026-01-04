@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
+import 'package:ielts_assistant/features/home/providers/drawer_expansion_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
 import '../../../../../../../shared/models/content_models.dart';
@@ -61,13 +62,22 @@ class MainDrawer extends ConsumerWidget {
     );
   }
 
-  // ایجاد شاخه کتاب (Book)
   Widget _buildBookTile(Book book, WidgetRef ref, BuildContext context) {
+    final expansionState = ref.watch(drawerExpansionProvider);
+    final isSelected =
+        ref.watch(navigationProvider).selectedBook?.name == book.name;
+
     return ExpansionTile(
-      leading: const Icon(Icons.menu_book),
+      // استفاده از کلید برای کنترل باز و بسته شدن از بیرون
+      key: Key('book_${book.name}_${expansionState['book'] == book.name}'),
+      initiallyExpanded: expansionState['book'] == book.name,
+      onExpansionChanged: (expanded) {
+        if (expanded)
+          ref.read(drawerExpansionProvider.notifier).expandBook(book.name);
+      },
       title: Text(
         book.name,
-        style: const TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(color: isSelected ? Colors.blue : Colors.black),
       ),
       children: book.units
           .map((unit) => _buildUnitTile(unit, book, ref, context))
@@ -75,32 +85,41 @@ class MainDrawer extends ConsumerWidget {
     );
   }
 
-  // ایجاد شاخه واحد (Unit)
   Widget _buildUnitTile(
     Unit unit,
     Book book,
     WidgetRef ref,
     BuildContext context,
   ) {
+    final expansionState = ref.watch(drawerExpansionProvider);
+    final nav = ref.watch(navigationProvider);
+    final isUnitSelected = nav.selectedUnit?.name == unit.name;
+
     return ExpansionTile(
-      title: Text(unit.name),
-      children: unit.topics
-          .map(
-            (topic) => ListTile(
-              contentPadding: const EdgeInsets.only(right: 32, left: 16),
-              leading: const Icon(Icons.topic, size: 20),
-              title: Text(topic.name, style: const TextStyle(fontSize: 13)),
-              onTap: () {
-                // آپدیت وضعیت ناوبری و بستن دراور
-                final nav = ref.read(navigationProvider.notifier);
-                nav.selectBook(book);
-                nav.selectUnit(unit);
-                nav.selectTopic(topic);
-                Navigator.pop(context);
-              },
-            ),
-          )
-          .toList(),
+      key: Key('unit_${unit.name}_${expansionState['unit'] == unit.name}'),
+      initiallyExpanded: expansionState['unit'] == unit.name,
+      onExpansionChanged: (expanded) {
+        if (expanded)
+          ref.read(drawerExpansionProvider.notifier).expandUnit(unit.name);
+      },
+      title: Text(
+        unit.name,
+        style: TextStyle(color: isUnitSelected ? Colors.blue : Colors.black87),
+      ),
+      children: unit.topics.map((topic) {
+        final isTopicSelected = nav.selectedTopic?.name == topic.name;
+        return ListTile(
+          selected: isTopicSelected,
+          selectedTileColor: Colors.blue.withOpacity(0.1),
+          title: Text(topic.name),
+          onTap: () {
+            ref.read(navigationProvider.notifier).selectBook(book);
+            ref.read(navigationProvider.notifier).selectUnit(unit);
+            ref.read(navigationProvider.notifier).selectTopic(topic);
+            Navigator.pop(context);
+          },
+        );
+      }).toList(),
     );
   }
 }

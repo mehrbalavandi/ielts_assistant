@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,52 +18,82 @@ sealed class NavigationState with _$NavigationState {
 
 @riverpod
 class NavigationNotifier extends _$NavigationNotifier {
-  @override
-  NavigationState build() => const NavigationState();
+  final _box = GetStorage();
 
-  // انتخاب کتاب
+  // کلیدهای ذخیره‌سازی
+  static const _kBook = 'last_book';
+  static const _kUnit = 'last_unit';
+  static const _kTopic = 'last_topic';
+
+  @override
+  NavigationState build() {
+    // در ابتدا وضعیت خالی است.
+    // بازیابی داده‌ها را در یک متد جداگانه بعد از لود شدن محتوا انجام می‌دهیم.
+    return const NavigationState();
+  }
+
+  // متدی برای بازیابی وضعیت از حافظه (باید بعد از لود شدن allContentProvider فراخوانی شود)
+  void restoreLastState(List<Book> allBooks) {
+    final lastBookName = _box.read(_kBook);
+    final lastUnitName = _box.read(_kUnit);
+    final lastTopicName = _box.read(_kTopic);
+
+    if (lastBookName == null) return;
+
+    try {
+      final book = allBooks.firstWhere((b) => b.name == lastBookName);
+      state = state.copyWith(selectedBook: book);
+
+      if (lastUnitName != null) {
+        final unit = book.units.firstWhere((u) => u.name == lastUnitName);
+        state = state.copyWith(selectedUnit: unit);
+
+        if (lastTopicName != null) {
+          final topic = unit.topics.firstWhere((t) => t.name == lastTopicName);
+          state = state.copyWith(selectedTopic: topic);
+        }
+      }
+    } catch (e) {
+      // اگر ساختار فایل‌ها عوض شده بود و پیدا نشد، خطا را نادیده بگیر
+      print("Could not restore state: $e");
+    }
+  }
+
   void selectBook(Book book) {
     state = state.copyWith(
       selectedBook: book,
-      selectedUnit: null, // با تغییر کتاب، واحد قبلی پاک شود
+      selectedUnit: null,
       selectedTopic: null,
       selectedPage: null,
     );
+    _box.write(_kBook, book.name);
+    _box.remove(_kUnit);
+    _box.remove(_kTopic);
   }
 
-  // انتخاب واحد
   void selectUnit(Unit unit) {
     state = state.copyWith(
       selectedUnit: unit,
-      selectedTopic: null, // با تغییر واحد، موضوع قبلی پاک شود
+      selectedTopic: null,
       selectedPage: null,
     );
+    _box.write(_kUnit, unit.name);
+    _box.remove(_kTopic);
   }
 
-  // انتخاب موضوع
   void selectTopic(Topic topic) {
-    state = state.copyWith(
-      selectedTopic: topic,
-      selectedPage: null, // با تغییر موضوع، صفحه قبلی پاک شود
-    );
+    state = state.copyWith(selectedTopic: topic, selectedPage: null);
+    _box.write(_kTopic, topic.name);
   }
 
-  // انتخاب صفحه
   void selectPage(PageContent page) {
     state = state.copyWith(selectedPage: page);
   }
 
-  // بازگشت به عقب (مثلاً از صفحه به لیست صفحات موضوع)
-  void goBack() {
-    if (state.selectedPage != null) {
-      state = state.copyWith(selectedPage: null);
-    } else if (state.selectedTopic != null) {
-      state = state.copyWith(selectedTopic: null);
-    }
-  }
-
-  // ریست کردن کل مسیر (بازگشت به حالت اولیه)
   void reset() {
     state = const NavigationState();
+    _box.remove(_kBook);
+    _box.remove(_kUnit);
+    _box.remove(_kTopic);
   }
 }

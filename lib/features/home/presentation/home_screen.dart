@@ -16,7 +16,7 @@ class HomeScreen extends ConsumerWidget {
       drawer: const MainDrawer(),
       body: Column(
         children: [
-          _buildBreadcrumbs(nav, ref),
+          _buildBreadcrumbs(nav),
           Expanded(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
@@ -67,8 +67,31 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildBreadcrumbs(NavigationState nav, WidgetRef ref) {
-    // پیاده‌سازی ساده لیست افقی از نام کتاب > واحد > موضوع
-    return Container(height: 40, color: Colors.grey[200]);
+  Widget _buildBreadcrumbs(NavigationState nav) {
+    List<String> labels = [];
+    if (nav.selectedBook != null) labels.add(nav.selectedBook!.name);
+    if (nav.selectedUnit != null) labels.add(nav.selectedUnit!.name);
+    if (nav.selectedTopic != null) labels.add(nav.selectedTopic!.name);
+
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      color: Colors.grey[200],
+      child: Row(
+        children: labels.map((label) {
+          bool isLast = labels.last == label;
+          return Row(
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontWeight: isLast ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+              if (!isLast) const Icon(Icons.chevron_left, size: 16),
+            ],
+          );
+        }).toList(),
+      ),
+    );
   }
 }
