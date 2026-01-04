@@ -101,21 +101,18 @@ class Player extends _$Player {
     final navState = ref.read(navigationProvider);
     if (navState.selectedPage == null) return;
 
-    final topics = navState.selectedPage!.finalTopics;
+    final finalTopics = navState.selectedPage!.finalTopics;
     // پیدا کردن ایندکس فایلی که در حال حاضر پخش می‌شود
-    final currentIndex = topics.indexWhere(
-      (t) => t.audioFileName == state.currentFileName,
+    final currentIndex = finalTopics.indexWhere(
+      (t) => t.audioFilePath == state.currentFilePath,
     );
 
-    if (currentIndex != -1 && currentIndex < topics.length - 1) {
-      final nextTopic = topics[currentIndex + 1];
-      if (nextTopic.audioFileName != null) {
+    if (currentIndex != -1 && currentIndex < finalTopics.length - 1) {
+      final nextTopic = finalTopics[currentIndex + 1];
+      if (nextTopic.audioFilePath != null) {
         // استفاده از مسیر ریشه ذخیره شده در تنظیمات
-        final rootPath = ref.read(settingsProvider) ?? "";
-        playFile(
-          "${rootPath}/${nextTopic.audioFileName}",
-          nextTopic.audioFileName!,
-        );
+        final rootPath = ref.read(settingsProvider) ?? '';
+        playFile('$rootPath/${nextTopic.audioFilePath}');
       }
     }
   }
@@ -126,17 +123,14 @@ class Player extends _$Player {
 
     final topics = navState.selectedPage!.finalTopics;
     final currentIndex = topics.indexWhere(
-      (t) => t.audioFileName == state.currentFileName,
+      (t) => t.audioFilePath == state.currentFilePath,
     );
 
     if (currentIndex > 0) {
       final prevTopic = topics[currentIndex - 1];
-      if (prevTopic.audioFileName != null) {
+      if (prevTopic.audioFilePath != null) {
         final rootPath = ref.read(settingsProvider) ?? "";
-        playFile(
-          "${rootPath}/${prevTopic.audioFileName}",
-          prevTopic.audioFileName!,
-        );
+        playFile('$rootPath/${prevTopic.audioFilePath}');
       }
     }
   }

@@ -128,16 +128,17 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
     }
   }
 
-  Future<void> _loadAndSeek(FinalTopic topic, Duration position) async {
-    if (topic.audioFilePaths.isEmpty) return;
+  Future<void> _loadAndSeek(FinalTopic finalTopic, Duration position) async {
+    if (finalTopic.audioFilePath == null || finalTopic.audioFilePath!.isEmpty)
+      return;
 
-    state = state.copyWith(currentTopic: topic, isLoading: true);
+    state = state.copyWith(currentTopic: finalTopic, isLoading: true);
 
-    final List<AudioSource> sources = topic.audioFilePaths
-        .map((path) => AudioSource.uri(Uri.file(path)))
-        .toList();
+    // final List<AudioSource> sources = finalTopic.audioFilePaths
+    //     .map((path) => AudioSource.uri(Uri.file(path)))
+    //     .toList();
     final ConcatenatingAudioSource playlist = ConcatenatingAudioSource(
-      children: sources,
+      children: [AudioSource.uri(Uri.file(finalTopic.audioFilePath!))],
     );
 
     try {
@@ -148,7 +149,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
       );
 
       // ذخیره realmId در storage
-      _storageService.saveLastPlayedTopicId(topic.realmId);
+      _storageService.saveLastPlayedTopicId(finalTopic.realmId);
 
       state = state.copyWith(
         isLoading: false,
@@ -175,7 +176,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
       }
       return;
     }
-    if (finalTopic.audioFilePaths.isEmpty) {
+    if (finalTopic.audioFilePath == null || finalTopic.audioFilePath!.isEmpty) {
       return;
     }
     _loopStart = null;

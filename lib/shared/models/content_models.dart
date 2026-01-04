@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:path/path.dart';
-
+import 'package:path/path.dart' as p;
 part 'content_models.freezed.dart';
 part 'content_models.g.dart';
 
@@ -58,8 +57,8 @@ sealed class FinalTopic with _$FinalTopic {
     required String realmId,
     required String jsonFilePath,
     required String translationFilePath,
-    required List<String> audioFilePaths,
-    String? audioFileName,
+    // required List<String> audioFilePaths,
+    String? audioFilePath,
   }) = _FinalTopic;
 
   factory FinalTopic.fromJson(Map<String, dynamic> json) =>
@@ -70,7 +69,7 @@ sealed class FinalTopic with _$FinalTopic {
   ) {
     try {
       // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('english.json'));
+      return fileList.firstWhere((f) => f.path.endsWith('.english.json'));
     } on StateError {
       // اگر هیچ فایلی با پسوند .json پیدا نشد
       return null;
@@ -82,9 +81,23 @@ sealed class FinalTopic with _$FinalTopic {
   ) {
     try {
       // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('translation.json'));
+      return fileList.firstWhere((f) => f.path.endsWith('.translation.json'));
     } on StateError {
       // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
+  }
+
+  static String? _findAudioFile(List<FileSystemEntity> fileList) {
+    try {
+      FileSystemEntity? fileSystemEntity = fileList
+          .where((f) => f.path.endsWith('.sound.txt'))
+          .firstOrNull;
+      if (fileSystemEntity != null) {
+        String fileName = p.basenameWithoutExtension(fileSystemEntity.path);
+        return '$fileName.mp3';
+      }
+    } on StateError {
       return null;
     }
   }
@@ -106,9 +119,10 @@ sealed class FinalTopic with _$FinalTopic {
     final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
 
     return FinalTopic(
-      name: basename(mainTopicDir.path),
+      name: p.basename(mainTopicDir.path),
       realmId: mainTopicDir.path, // مسیر کامل پوشه به عنوان ID
-      audioFilePaths: audioFiles.cast<String>(),
+      // audioFilePaths: audioFiles.cast<String>(),
+      audioFilePath: _findAudioFile(files),
       jsonFilePath: jsonFilePathEnglish,
       translationFilePath: jsonFilePathTranslation,
     );

@@ -74,10 +74,7 @@ _FinalTopic _$FinalTopicFromJson(Map<String, dynamic> json) => _FinalTopic(
   realmId: json['realmId'] as String,
   jsonFilePath: json['jsonFilePath'] as String,
   translationFilePath: json['translationFilePath'] as String,
-  audioFilePaths: (json['audioFilePaths'] as List<dynamic>)
-      .map((e) => e as String)
-      .toList(),
-  audioFileName: json['audioFileName'] as String?,
+  audioFilePath: json['audioFilePath'] as String?,
 );
 
 Map<String, dynamic> _$FinalTopicToJson(_FinalTopic instance) =>
@@ -86,8 +83,7 @@ Map<String, dynamic> _$FinalTopicToJson(_FinalTopic instance) =>
       'realmId': instance.realmId,
       'jsonFilePath': instance.jsonFilePath,
       'translationFilePath': instance.translationFilePath,
-      'audioFilePaths': instance.audioFilePaths,
-      'audioFileName': instance.audioFileName,
+      'audioFilePath': instance.audioFilePath,
     };
 
 _AudioBookmark _$AudioBookmarkFromJson(Map<String, dynamic> json) =>

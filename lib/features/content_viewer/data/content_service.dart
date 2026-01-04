@@ -70,25 +70,18 @@ class ContentService {
     return books;
   }
 
-  static Future<FinalTopic> _parseFinalTopic(Directory dir) async {
-    final files = dir.listSync().whereType<File>();
-    String eng = "", trans = "", audio = "";
-    for (var file in files) {
-      if (file.path.endsWith('.english.json')) eng = await file.readAsString();
-      if (file.path.endsWith('.translation.json'))
-        trans = await file.readAsString();
-      if (p.basename(file.path) == 'soundName.txt')
-        audio = (await file.readAsString()).trim();
-    }
+  static FinalTopic _parseFinalTopic(Directory dir) {
+    final files = dir.listSync();
+    final jsonFileEntityEnglish = _findJsonFileEnglish(files);
+    final jsonFilePathEnglish = jsonFileEntityEnglish?.path ?? '';
+    final jsonFileEntityTranslation = _findJsonFileTranslation(files);
+    final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
     return FinalTopic(
-      name: p.basename(dir.path),
-      englishText: eng,
-      translationText: trans,
-      audioFileName: audio.isNotEmpty ? audio : null,
-      realmId: '',
-      jsonFilePath: '',
-      translationFilePath: '',
-      audioFilePaths: [],
+      name: basename(dir.path),
+      realmId: dir.path, // مسیر کامل پوشه به عنوان ID
+      // audioFilePaths: audioFiles.cast<String>(),
+      jsonFilePath: jsonFilePathEnglish,
+      translationFilePath: jsonFilePathTranslation,
     );
   }
 

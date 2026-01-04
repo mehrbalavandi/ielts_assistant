@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/audio_player/mini_audio_player.dart';
+import 'package:ielts_assistant/features/audio_player/presentation/widgets/mini_audio_player.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/main_drawer.dart';
 
@@ -57,7 +57,7 @@ class HomeScreen extends ConsumerWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(16),
-                    child: Text(f.englishText),
+                    child: Text(f.jsonFilePath),
                   ),
                 ],
               ),

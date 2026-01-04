@@ -67,7 +67,7 @@ class AudioPlayerWidget extends ConsumerWidget {
             Directionality(
               textDirection: TextDirection.ltr,
               child: Text(
-                'فایل: ${audioState.currentIndex != null && mainTopic.audioFilePaths.isNotEmpty ? mainTopic.audioFilePaths[audioState.currentIndex!].split('/').last : '---'}',
+                'فایل: ${audioState.currentIndex != null && mainTopic.audioFilePath != null ? mainTopic.audioFilePath : '---'}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),

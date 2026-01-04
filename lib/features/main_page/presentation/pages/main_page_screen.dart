@@ -546,7 +546,7 @@ class _finalTopicListTile extends ConsumerWidget {
     final bool isLastSelected =
         lastSelectedTopic?.realmId == finalTopic.realmId;
 
-    final int fileCount = finalTopic.audioFilePaths.length;
+    final int fileCount = (finalTopic.audioFilePath != null) ? 1 : 0;
     final bool hasAudio = fileCount > 0;
     final bool hasContent =
         finalTopic.jsonFilePath.isNotEmpty &&
