@@ -42,7 +42,7 @@ final class NavigationNotifierProvider
 }
 
 String _$navigationNotifierHash() =>
-    r'6f1af4adf0d8b76d62a9006c8aa71cc92bb793b7';
+    r'2ebee1dcbe52217cd7bc9d503519a5441dbce9ff';
 
 abstract class _$NavigationNotifier extends $Notifier<NavigationState> {
   NavigationState build();

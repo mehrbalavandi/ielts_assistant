@@ -3,20 +3,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:ielts_assistant/providers/book_dropdown_notifier.dart';
-import 'package:ielts_assistant/providers/directory_state.dart';
+import 'package:ielts_assistant/old_providers/book_dropdown_notifier.dart';
+import 'package:ielts_assistant/old_providers/directory_state.dart';
 import 'package:ielts_assistant/common/enums.dart';
-import 'package:ielts_assistant/providers/unit_dropdown_notifier.dart';
+import 'package:ielts_assistant/old_providers/unit_dropdown_notifier.dart';
 import 'package:ielts_assistant/screens/lesson_content_screen.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:ielts_assistant/providers/selection_state.dart';
-import 'package:ielts_assistant/services/audio_player_service.dart';
-import 'package:ielts_assistant/services/storage_service.dart';
+import 'package:ielts_assistant/old_providers/selection_state.dart';
+import 'package:ielts_assistant/old_services/audio_player_service.dart';
+import 'package:ielts_assistant/old_services/storage_service.dart';
 import 'package:ielts_assistant/widgets/custom_dropdown.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
-import '../../../../providers/player_display_state.dart';
+import '../../../../old_providers/player_display_state.dart';
 import '../../../../widgets/mini_player_widget.dart'; // ویجت پلیر کوچ
 
 class MainPageScreen extends ConsumerWidget {

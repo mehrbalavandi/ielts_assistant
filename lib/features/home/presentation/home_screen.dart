@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio_player/mini_audio_player.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
-import 'package:ielts_assistant/shared/main_drawer.dart';
+import 'package:ielts_assistant/features/home/presentation/widgets/main_drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

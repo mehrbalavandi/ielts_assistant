@@ -1,3 +1,5 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:just_audio/just_audio.dart' hide PlayerState;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'player_state.dart';

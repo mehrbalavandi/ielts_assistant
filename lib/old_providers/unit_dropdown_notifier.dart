@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:ielts_assistant/providers/book_dropdown_notifier.dart';
-import 'package:ielts_assistant/services/storage_service.dart';
+import 'package:ielts_assistant/old_providers/book_dropdown_notifier.dart';
+import 'package:ielts_assistant/old_services/storage_service.dart';
 
 final selectedUnitProvider = StateProvider<Unit?>((ref) => null);
 final _storageBox = GetStorage();

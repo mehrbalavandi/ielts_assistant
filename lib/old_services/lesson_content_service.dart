@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:ielts_assistant/services/storage_service.dart';
+import 'package:ielts_assistant/old_services/storage_service.dart';
 
 // مدل برای هر قطعه از متن (برای همگام‌سازی اسکرول)
 class TextSegment {

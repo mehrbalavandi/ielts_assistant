@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:ielts_assistant/services/audio_player_service.dart';
+import 'package:ielts_assistant/old_services/audio_player_service.dart';
 import 'package:just_audio/just_audio.dart';
-import '../providers/player_display_state.dart';
+import '../old_providers/player_display_state.dart';
 import 'audio_player_widget.dart'; // ویجت Modal/Maximized قبلی
 
 // ... (ایمپورت‌ها)

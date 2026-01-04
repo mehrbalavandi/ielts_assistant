@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:ielts_assistant/services/audio_player_service.dart';
+import 'package:ielts_assistant/old_services/audio_player_service.dart';
 import 'package:just_audio/just_audio.dart';
 
 // تابع کمکی برای نمایش زمان به فرمت 00:00 (اگر قبلاً تعریف نشده)

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
-import '../../../../shared/models/content_models.dart';
+import '../../../../../../../shared/models/content_models.dart';
 
 class MainDrawer extends ConsumerWidget {
   const MainDrawer({super.key});

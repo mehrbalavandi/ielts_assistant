@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/widgets/mini_player_widget.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:ielts_assistant/providers/player_display_state.dart';
-import 'package:ielts_assistant/services/audio_player_service.dart';
-import 'package:ielts_assistant/services/lesson_content_service.dart'; // import 'audio_player_widget.dart'; // برای استفاده از AudioPlayerWidget یا MiniPlayerWidget (اختیاری)
+import 'package:ielts_assistant/old_providers/player_display_state.dart';
+import 'package:ielts_assistant/old_services/audio_player_service.dart';
+import 'package:ielts_assistant/old_services/lesson_content_service.dart'; // import 'audio_player_widget.dart'; // برای استفاده از AudioPlayerWidget یا MiniPlayerWidget (اختیاری)
 
 // کلاس اصلی
 class unitContentScreen extends ConsumerStatefulWidget {
