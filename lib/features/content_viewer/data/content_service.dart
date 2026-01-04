@@ -1,36 +1,71 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:path/path.dart' as p;
+import 'package:path/path.dart';
 
 class ContentService {
   static Future<List<Book>> scanRootFolder(String rootPath) async {
     final rootDir = Directory(rootPath);
-    if (!await rootDir.exists()) return [];
-
-    List<Book> books = [];
-    final bookDirs = rootDir.listSync().whereType<Directory>();
-
-    for (var bDir in bookDirs) {
-      List<Unit> units = [];
-      for (var uDir in bDir.listSync().whereType<Directory>()) {
-        List<Topic> topics = [];
-        for (var tDir in uDir.listSync().whereType<Directory>()) {
-          List<PageContent> pages = [];
-          for (var pDir in tDir.listSync().whereType<Directory>()) {
-            List<FinalTopic> finals = [];
-            for (var fDir in pDir.listSync().whereType<Directory>()) {
-              finals.add(await _parseFinalTopic(fDir));
-            }
-            pages.add(
-              PageContent(name: p.basename(pDir.path), finalTopics: finals),
-            );
-          }
-          topics.add(Topic(name: p.basename(tDir.path), pages: pages));
-        }
-        units.add(Unit(name: p.basename(uDir.path), topics: topics));
-      }
-      books.add(Book(name: p.basename(bDir.path), units: units));
+    if (!await rootDir.exists()) {
+      debugPrint('Root directory not found: $rootPath');
+      return [];
     }
+    final bookEntities = rootDir.listSync()
+      ..sort((a, b) => a.path.compareTo(b.path)); // مرتب‌سازی درجا
+
+    final books = bookEntities
+        .whereType<Directory>()
+        .map((bookDir) {
+          final unitEntities = bookDir.listSync()
+            ..sort((a, b) => a.path.compareTo(b.path));
+          final units = unitEntities
+              .whereType<Directory>()
+              .map((unitDir) {
+                final topicEntities = unitDir.listSync()
+                  ..sort((a, b) => a.path.compareTo(b.path));
+                final mainTopics = topicEntities
+                    .whereType<Directory>()
+                    .map((mainTopicDir) {
+                      final pageContentEntities = mainTopicDir.listSync()
+                        ..sort((a, b) => a.path.compareTo(b.path));
+                      final pageContents = pageContentEntities
+                          .whereType<Directory>()
+                          .map((pageContentDir) {
+                            final finalTopicEntities = pageContentDir.listSync()
+                              ..sort((a, b) => a.path.compareTo(b.path));
+                            final finalTopics = finalTopicEntities
+                                .whereType<Directory>()
+                                .map((finalTopicDir) {
+                                  return FinalTopic.fromDirectory(
+                                    finalTopicDir,
+                                  );
+                                })
+                                .toList();
+                            return PageContent(
+                              realmId: pageContentDir.path,
+                              name: basename(pageContentDir.path),
+                              finalTopics: finalTopics,
+                            );
+                          })
+                          .where((x) => x.finalTopics.isNotEmpty)
+                          .toList();
+                      return Topic(
+                        realmId: mainTopicDir.path,
+                        name: basename(mainTopicDir.path),
+                        pageContents: pageContents,
+                      );
+                    })
+                    .where((pt) => pt.pageContents.isNotEmpty)
+                    .toList();
+                return Unit(name: basename(unitDir.path), topics: mainTopics);
+              })
+              .where((l) => l.topics.isNotEmpty)
+              .toList();
+          return Book(name: basename(bookDir.path), units: units);
+        })
+        .where((s) => s.units.isNotEmpty)
+        .toList();
+
     return books;
   }
 

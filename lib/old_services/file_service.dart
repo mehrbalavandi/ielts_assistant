@@ -10,87 +10,61 @@ class FileTraversalService {
       debugPrint('Root directory not found: $rootPath');
       return [];
     }
-
-    // ۱. book (Mindset 1، Mindset ۲، ...)
-    // لیست کردن، تبدیل به لیست، مرتب‌سازی
     final bookEntities = rootDir.listSync()
       ..sort((a, b) => a.path.compareTo(b.path)); // مرتب‌سازی درجا
 
     final books = bookEntities
         .whereType<Directory>()
         .map((bookDir) {
-          // ۲. unit (Unit 01، Unit 02، ...)
-          // لیست کردن، تبدیل به لیست، مرتب‌سازی
           final unitEntities = bookDir.listSync()
-            ..sort((a, b) => a.path.compareTo(b.path)); // مرتب‌سازی درجا
-
-          // پیمایش داخل book: unitها
+            ..sort((a, b) => a.path.compareTo(b.path));
           final units = unitEntities
               .whereType<Directory>()
               .map((unitDir) {
-                // ۳. mainTopic (مبحث اصلی ۱، مبحث اصلی ۲، ...)
-                // لیست کردن، تبدیل به لیست، مرتب‌سازی
-                final mainTopicEntities = unitDir.listSync()
-                  ..sort((a, b) => a.path.compareTo(b.path)); // مرتب‌سازی درجا
-
-                // پیمایش داخل unit: mainTopicها
-                final mainTopics = mainTopicEntities
+                final topicEntities = unitDir.listSync()
+                  ..sort((a, b) => a.path.compareTo(b.path));
+                final mainTopics = topicEntities
                     .whereType<Directory>()
                     .map((mainTopicDir) {
-                      // ۴. mainTopic (پوشه نهایی حاوی فایل‌ها)
-                      // لیست کردن، تبدیل به لیست، مرتب‌سازی
-                      final subTopicEntities = mainTopicDir.listSync()
-                        ..sort(
-                          (a, b) => a.path.compareTo(b.path),
-                        ); // مرتب‌سازی درجا
-
-                      // ✅ سطح: پیمایش زیرمبحث‌ها (Sub Topics)
-                      final subTopics = subTopicEntities
+                      final pageContentEntities = mainTopicDir.listSync()
+                        ..sort((a, b) => a.path.compareTo(b.path));
+                      final pageContents = pageContentEntities
                           .whereType<Directory>()
-                          .map((subTopicDir) {
-                            final finalTopicEntities = subTopicDir.listSync()
-                              ..sort(
-                                (a, b) => a.path.compareTo(b.path),
-                              ); // مرتب‌سازی درجا
+                          .map((pageContentDir) {
+                            final finalTopicEntities = pageContentDir.listSync()
+                              ..sort((a, b) => a.path.compareTo(b.path));
                             final finalTopics = finalTopicEntities
                                 .whereType<Directory>()
                                 .map((finalTopicDir) {
-                                  // ۴. mainTopic (پوشه نهایی حاوی فایل‌ها)
-                                  // ساخت شیء mainTopic و استخراج فایل‌ها و مسیر JSON
                                   return FinalTopic.fromDirectory(
                                     finalTopicDir,
                                   );
                                 })
-                                .toList(); // همه زیرمبحث‌ها را در نظر بگیرید.
+                                .toList();
                             return PageContent(
-                              realmId: subTopicDir.path,
-                              name: basename(subTopicDir.path),
+                              realmId: pageContentDir.path,
+                              name: basename(pageContentDir.path),
                               finalTopics: finalTopics,
-                            ); // همه زیرمبحث‌ها را در نظر بگیرید.
+                            );
                           })
                           .where((x) => x.finalTopics.isNotEmpty)
                           .toList();
-                      // ساخت mainTopic، فقط اگر حداقل یک mainTopic معتبر داشته باشد
                       return Topic(
                         realmId: mainTopicDir.path,
                         name: basename(mainTopicDir.path),
-                        pageContents: subTopics,
+                        pageContents: pageContents,
                       );
                     })
                     .where((pt) => pt.pageContents.isNotEmpty)
-                    .toList(); // فقط مباحث اصلی دارای زیرمبحث را در نظر بگیرید.
-
-                // ساخت unit، فقط اگر حداقل یک mainTopic معتبر داشته باشد
+                    .toList();
                 return Unit(name: basename(unitDir.path), topics: mainTopics);
               })
               .where((l) => l.topics.isNotEmpty)
-              .toList(); // فقط درس‌های دارای mainTopic را در نظر بگیرید.
-
-          // ساخت book، فقط اگر حداقل یک unit معتبر داشته باشد
+              .toList();
           return Book(name: basename(bookDir.path), units: units);
         })
         .where((s) => s.units.isNotEmpty)
-        .toList(); // فقط bookهای دارای unit را در نظر بگیرید.
+        .toList();
 
     return books;
   }
