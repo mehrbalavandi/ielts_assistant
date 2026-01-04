@@ -36,9 +36,10 @@ class ContentService {
                             final finalTopics = finalTopicEntities
                                 .whereType<Directory>()
                                 .map((finalTopicDir) {
-                                  return FinalTopic.fromDirectory(
-                                    finalTopicDir,
-                                  );
+                                  // return FinalTopic.fromDirectory(
+                                  //   finalTopicDir,
+                                  // );
+                                  return _parseFinalTopic(finalTopicDir);
                                 })
                                 .toList();
                             return PageContent(
@@ -89,5 +90,29 @@ class ContentService {
       translationFilePath: '',
       audioFilePaths: [],
     );
+  }
+
+  static FileSystemEntity? _findJsonFileEnglish(
+    List<FileSystemEntity> fileList,
+  ) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('english.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
+  }
+
+  static FileSystemEntity? _findJsonFileTranslation(
+    List<FileSystemEntity> fileList,
+  ) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('translation.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
   }
 }
