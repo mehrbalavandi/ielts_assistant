@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'audio_notifier.dart';
+part of 'player_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PlayerState {
 
- bool get isPlaying; Duration get position; Duration get duration; Duration? get startA; Duration? get endB;
+ bool get isPlaying; Duration get position; Duration get duration; LoopMode get loopMode; Duration? get startA; Duration? get endB; String? get currentFilePath;
 /// Create a copy of PlayerState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $PlayerStateCopyWith<PlayerState> get copyWith => _$PlayerStateCopyWithImpl<Play
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlayerState&&(identical(other.isPlaying, isPlaying) || other.isPlaying == isPlaying)&&(identical(other.position, position) || other.position == position)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.startA, startA) || other.startA == startA)&&(identical(other.endB, endB) || other.endB == endB));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlayerState&&(identical(other.isPlaying, isPlaying) || other.isPlaying == isPlaying)&&(identical(other.position, position) || other.position == position)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.loopMode, loopMode) || other.loopMode == loopMode)&&(identical(other.startA, startA) || other.startA == startA)&&(identical(other.endB, endB) || other.endB == endB)&&(identical(other.currentFilePath, currentFilePath) || other.currentFilePath == currentFilePath));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isPlaying,position,duration,startA,endB);
+int get hashCode => Object.hash(runtimeType,isPlaying,position,duration,loopMode,startA,endB,currentFilePath);
 
 @override
 String toString() {
-  return 'PlayerState(isPlaying: $isPlaying, position: $position, duration: $duration, startA: $startA, endB: $endB)';
+  return 'PlayerState(isPlaying: $isPlaying, position: $position, duration: $duration, loopMode: $loopMode, startA: $startA, endB: $endB, currentFilePath: $currentFilePath)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $PlayerStateCopyWith<$Res>  {
   factory $PlayerStateCopyWith(PlayerState value, $Res Function(PlayerState) _then) = _$PlayerStateCopyWithImpl;
 @useResult
 $Res call({
- bool isPlaying, Duration position, Duration duration, Duration? startA, Duration? endB
+ bool isPlaying, Duration position, Duration duration, LoopMode loopMode, Duration? startA, Duration? endB, String? currentFilePath
 });
 
 
@@ -62,14 +62,16 @@ class _$PlayerStateCopyWithImpl<$Res>
 
 /// Create a copy of PlayerState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isPlaying = null,Object? position = null,Object? duration = null,Object? startA = freezed,Object? endB = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isPlaying = null,Object? position = null,Object? duration = null,Object? loopMode = null,Object? startA = freezed,Object? endB = freezed,Object? currentFilePath = freezed,}) {
   return _then(_self.copyWith(
 isPlaying: null == isPlaying ? _self.isPlaying : isPlaying // ignore: cast_nullable_to_non_nullable
 as bool,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
 as Duration,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
-as Duration,startA: freezed == startA ? _self.startA : startA // ignore: cast_nullable_to_non_nullable
+as Duration,loopMode: null == loopMode ? _self.loopMode : loopMode // ignore: cast_nullable_to_non_nullable
+as LoopMode,startA: freezed == startA ? _self.startA : startA // ignore: cast_nullable_to_non_nullable
 as Duration?,endB: freezed == endB ? _self.endB : endB // ignore: cast_nullable_to_non_nullable
-as Duration?,
+as Duration?,currentFilePath: freezed == currentFilePath ? _self.currentFilePath : currentFilePath // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -116,10 +118,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PlayerState():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -154,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isPlaying,  Duration position,  Duration duration,  Duration? startA,  Duration? endB)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isPlaying,  Duration position,  Duration duration,  LoopMode loopMode,  Duration? startA,  Duration? endB,  String? currentFilePath)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PlayerState() when $default != null:
-return $default(_that.isPlaying,_that.position,_that.duration,_that.startA,_that.endB);case _:
+return $default(_that.isPlaying,_that.position,_that.duration,_that.loopMode,_that.startA,_that.endB,_that.currentFilePath);case _:
   return orElse();
 
 }
@@ -175,13 +174,10 @@ return $default(_that.isPlaying,_that.position,_that.duration,_that.startA,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isPlaying,  Duration position,  Duration duration,  Duration? startA,  Duration? endB)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isPlaying,  Duration position,  Duration duration,  LoopMode loopMode,  Duration? startA,  Duration? endB,  String? currentFilePath)  $default,) {final _that = this;
 switch (_that) {
 case _PlayerState():
-return $default(_that.isPlaying,_that.position,_that.duration,_that.startA,_that.endB);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.isPlaying,_that.position,_that.duration,_that.loopMode,_that.startA,_that.endB,_that.currentFilePath);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -195,10 +191,10 @@ return $default(_that.isPlaying,_that.position,_that.duration,_that.startA,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isPlaying,  Duration position,  Duration duration,  Duration? startA,  Duration? endB)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isPlaying,  Duration position,  Duration duration,  LoopMode loopMode,  Duration? startA,  Duration? endB,  String? currentFilePath)?  $default,) {final _that = this;
 switch (_that) {
 case _PlayerState() when $default != null:
-return $default(_that.isPlaying,_that.position,_that.duration,_that.startA,_that.endB);case _:
+return $default(_that.isPlaying,_that.position,_that.duration,_that.loopMode,_that.startA,_that.endB,_that.currentFilePath);case _:
   return null;
 
 }
@@ -210,14 +206,16 @@ return $default(_that.isPlaying,_that.position,_that.duration,_that.startA,_that
 
 
 class _PlayerState implements PlayerState {
-  const _PlayerState({this.isPlaying = false, this.position = Duration.zero, this.duration = Duration.zero, this.startA, this.endB});
+  const _PlayerState({this.isPlaying = false, this.position = Duration.zero, this.duration = Duration.zero, this.loopMode = LoopMode.off, this.startA, this.endB, this.currentFilePath});
   
 
 @override@JsonKey() final  bool isPlaying;
 @override@JsonKey() final  Duration position;
 @override@JsonKey() final  Duration duration;
+@override@JsonKey() final  LoopMode loopMode;
 @override final  Duration? startA;
 @override final  Duration? endB;
+@override final  String? currentFilePath;
 
 /// Create a copy of PlayerState
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +227,16 @@ _$PlayerStateCopyWith<_PlayerState> get copyWith => __$PlayerStateCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlayerState&&(identical(other.isPlaying, isPlaying) || other.isPlaying == isPlaying)&&(identical(other.position, position) || other.position == position)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.startA, startA) || other.startA == startA)&&(identical(other.endB, endB) || other.endB == endB));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlayerState&&(identical(other.isPlaying, isPlaying) || other.isPlaying == isPlaying)&&(identical(other.position, position) || other.position == position)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.loopMode, loopMode) || other.loopMode == loopMode)&&(identical(other.startA, startA) || other.startA == startA)&&(identical(other.endB, endB) || other.endB == endB)&&(identical(other.currentFilePath, currentFilePath) || other.currentFilePath == currentFilePath));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isPlaying,position,duration,startA,endB);
+int get hashCode => Object.hash(runtimeType,isPlaying,position,duration,loopMode,startA,endB,currentFilePath);
 
 @override
 String toString() {
-  return 'PlayerState(isPlaying: $isPlaying, position: $position, duration: $duration, startA: $startA, endB: $endB)';
+  return 'PlayerState(isPlaying: $isPlaying, position: $position, duration: $duration, loopMode: $loopMode, startA: $startA, endB: $endB, currentFilePath: $currentFilePath)';
 }
 
 
@@ -249,7 +247,7 @@ abstract mixin class _$PlayerStateCopyWith<$Res> implements $PlayerStateCopyWith
   factory _$PlayerStateCopyWith(_PlayerState value, $Res Function(_PlayerState) _then) = __$PlayerStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isPlaying, Duration position, Duration duration, Duration? startA, Duration? endB
+ bool isPlaying, Duration position, Duration duration, LoopMode loopMode, Duration? startA, Duration? endB, String? currentFilePath
 });
 
 
@@ -266,14 +264,16 @@ class __$PlayerStateCopyWithImpl<$Res>
 
 /// Create a copy of PlayerState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isPlaying = null,Object? position = null,Object? duration = null,Object? startA = freezed,Object? endB = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isPlaying = null,Object? position = null,Object? duration = null,Object? loopMode = null,Object? startA = freezed,Object? endB = freezed,Object? currentFilePath = freezed,}) {
   return _then(_PlayerState(
 isPlaying: null == isPlaying ? _self.isPlaying : isPlaying // ignore: cast_nullable_to_non_nullable
 as bool,position: null == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
 as Duration,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
-as Duration,startA: freezed == startA ? _self.startA : startA // ignore: cast_nullable_to_non_nullable
+as Duration,loopMode: null == loopMode ? _self.loopMode : loopMode // ignore: cast_nullable_to_non_nullable
+as LoopMode,startA: freezed == startA ? _self.startA : startA // ignore: cast_nullable_to_non_nullable
 as Duration?,endB: freezed == endB ? _self.endB : endB // ignore: cast_nullable_to_non_nullable
-as Duration?,
+as Duration?,currentFilePath: freezed == currentFilePath ? _self.currentFilePath : currentFilePath // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

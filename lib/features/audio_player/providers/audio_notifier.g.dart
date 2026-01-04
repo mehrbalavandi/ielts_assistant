@@ -40,7 +40,7 @@ final class PlayerProvider extends $NotifierProvider<Player, PlayerState> {
   }
 }
 
-String _$playerHash() => r'bf83befbfbf78b75bace5805366c5f5ae0d5a13c';
+String _$playerHash() => r'6df0de2afd3d5f4b4b8427f3acb7ff5169a9b37a';
 
 abstract class _$Player extends $Notifier<PlayerState> {
   PlayerState build();
