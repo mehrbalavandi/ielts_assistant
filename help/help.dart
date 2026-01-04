@@ -34,6 +34,7 @@ Remove-Item Env:FLUTTER_STORAGE_BASE_URL
 //! json_serializable
 /*
 dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 */
 
 //! realm

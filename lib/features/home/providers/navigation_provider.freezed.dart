@@ -163,10 +163,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _NavigationState():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -225,10 +222,7 @@ return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage)  $default,) {final _that = this;
 switch (_that) {
 case _NavigationState():
-return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
