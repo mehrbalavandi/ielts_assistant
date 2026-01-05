@@ -104,15 +104,15 @@ class Player extends _$Player {
     final finalTopics = navState.selectedPage!.finalTopics;
     // پیدا کردن ایندکس فایلی که در حال حاضر پخش می‌شود
     final currentIndex = finalTopics.indexWhere(
-      (t) => t.audioFilePath == state.currentFilePath,
+      (t) => t.audioFileName == state.currentFilePath,
     );
 
     if (currentIndex != -1 && currentIndex < finalTopics.length - 1) {
       final nextTopic = finalTopics[currentIndex + 1];
-      if (nextTopic.audioFilePath != null) {
+      if (nextTopic.audioFileName != null) {
         // استفاده از مسیر ریشه ذخیره شده در تنظیمات
         final rootPath = ref.read(settingsProvider) ?? '';
-        playFile('$rootPath/${nextTopic.audioFilePath}');
+        playFile('$rootPath/${nextTopic.audioFileName}');
       }
     }
   }
@@ -123,14 +123,14 @@ class Player extends _$Player {
 
     final topics = navState.selectedPage!.finalTopics;
     final currentIndex = topics.indexWhere(
-      (t) => t.audioFilePath == state.currentFilePath,
+      (t) => t.audioFileName == state.currentFilePath,
     );
 
     if (currentIndex > 0) {
       final prevTopic = topics[currentIndex - 1];
-      if (prevTopic.audioFilePath != null) {
+      if (prevTopic.audioFileName != null) {
         final rootPath = ref.read(settingsProvider) ?? "";
-        playFile('$rootPath/${prevTopic.audioFilePath}');
+        playFile('$rootPath/${prevTopic.audioFileName}');
       }
     }
   }

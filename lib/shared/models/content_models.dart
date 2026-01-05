@@ -58,7 +58,7 @@ sealed class FinalTopic with _$FinalTopic {
     required String jsonFilePath,
     required String translationFilePath,
     // required List<String> audioFilePaths,
-    String? audioFilePath,
+    String? audioFileName,
   }) = _FinalTopic;
 
   factory FinalTopic.fromJson(Map<String, dynamic> json) =>
@@ -94,12 +94,15 @@ sealed class FinalTopic with _$FinalTopic {
           .where((f) => f.path.endsWith('.sound.txt'))
           .firstOrNull;
       if (fileSystemEntity != null) {
-        String fileName = p.basenameWithoutExtension(fileSystemEntity.path);
-        return '$fileName.mp3';
+        String fileName = p
+            .basenameWithoutExtension(fileSystemEntity.path)
+            .replaceAll('.sound', '');
+        return fileName;
       }
     } on StateError {
       return null;
     }
+    return null;
   }
 
   factory FinalTopic.fromDirectory(Directory mainTopicDir) {
@@ -122,7 +125,7 @@ sealed class FinalTopic with _$FinalTopic {
       name: p.basename(mainTopicDir.path),
       realmId: mainTopicDir.path, // مسیر کامل پوشه به عنوان ID
       // audioFilePaths: audioFiles.cast<String>(),
-      audioFilePath: _findAudioFile(files),
+      audioFileName: _findAudioFile(files),
       jsonFilePath: jsonFilePathEnglish,
       translationFilePath: jsonFilePathTranslation,
     );

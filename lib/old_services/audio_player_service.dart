@@ -129,16 +129,16 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
   }
 
   Future<void> _loadAndSeek(FinalTopic finalTopic, Duration position) async {
-    if (finalTopic.audioFilePath == null || finalTopic.audioFilePath!.isEmpty)
+    if (finalTopic.audioFileName == null || finalTopic.audioFileName!.isEmpty)
       return;
 
     state = state.copyWith(currentTopic: finalTopic, isLoading: true);
 
-    // final List<AudioSource> sources = finalTopic.audioFilePaths
+    // final List<AudioSource> sources = finalTopic.audioFileNames
     //     .map((path) => AudioSource.uri(Uri.file(path)))
     //     .toList();
     final ConcatenatingAudioSource playlist = ConcatenatingAudioSource(
-      children: [AudioSource.uri(Uri.file(finalTopic.audioFilePath!))],
+      children: [AudioSource.uri(Uri.file(finalTopic.audioFileName!))],
     );
 
     try {
@@ -176,7 +176,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioState> {
       }
       return;
     }
-    if (finalTopic.audioFilePath == null || finalTopic.audioFilePath!.isEmpty) {
+    if (finalTopic.audioFileName == null || finalTopic.audioFileName!.isEmpty) {
       return;
     }
     _loopStart = null;

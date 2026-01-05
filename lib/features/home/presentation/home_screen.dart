@@ -124,7 +124,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       });
     });
     ref.listen(navigationProvider, (previous, next) {
-      if (next.selectedTopic != null && previous?.selectedTopic == null) {
+      if (next.selectedFinalTopic != null &&
+          previous?.selectedFinalTopic == null) {
         Navigator.of(context)
             .push(
               MaterialPageRoute(
@@ -132,7 +133,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             )
             .then((_) {
-              // ref.read(navigationProvider.notifier).goBack();
+              ref.read(navigationProvider.notifier).goBack();
             });
       }
     });
@@ -145,7 +146,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(title: const Text('دستیار آیلتس')),
-        drawer: null, //const MainDrawer(),
+        drawer: const MainDrawer(),
         body: Column(
           children: [
             _buildBreadcrumbs(nav, allContent),
@@ -228,22 +229,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildMainContent(NavigationState nav, AsyncValue allContent) {
     // ۱. نمایش محتوای نهایی (Topic)
-    if (nav.selectedFinalTopic != null) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.audiotrack, size: 64, color: Colors.blue),
-            const SizedBox(height: 16),
-            Text(
-              nav.selectedFinalTopic!.name,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const Text('در حال پخش فایل صوتی...'),
-          ],
-        ),
-      );
-    }
+    // if (nav.selectedFinalTopic != null) {
+    //   return Center(
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         const Icon(Icons.audiotrack, size: 64, color: Colors.blue),
+    //         const SizedBox(height: 16),
+    //         Text(
+    //           nav.selectedFinalTopic!.name,
+    //           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    //         ),
+    //         const Text('در حال پخش فایل صوتی...'),
+    //       ],
+    //     ),
+    //   );
+    // }
 
     // ۱. نمایش محتوای نهایی (Topic)
     if (nav.selectedPage != null) {

@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -192,21 +193,25 @@ class NavigationNotifier extends _$NavigationNotifier {
     _box.remove(_kFinalTopic);
   }
 
-  void selectFinalTopic(FinalTopic finalTopic) {
+  Future<void> selectFinalTopic(FinalTopic finalTopic) async {
     state = state.copyWith(selectedFinalTopic: finalTopic);
     _box.write(_kFinalTopic, finalTopic.name);
     // منطق پخش خودکار صدا
-    if (finalTopic.audioFilePath != null &&
-        finalTopic.audioFilePath!.isNotEmpty) {
+    if (finalTopic.audioFileName != null &&
+        finalTopic.audioFileName!.isNotEmpty) {
       final fullPath = _buildFullPath(finalTopic);
+      await Future.delayed(const Duration(milliseconds: 300));
       ref.read(audioPlayerProvider.notifier).playFile(fullPath);
+
+      ///storage/emulated/0/000- English Learning/00- ielts assistant/mindset 01/Tracks/66 Mindset_L1_66.sound
     }
   }
 
   String _buildFullPath(FinalTopic finalTopic) {
     // این متد باید بر اساس ساختار پوشه‌بندی شما، مسیر کامل فایل mp3 را بسازد
-    final root = _box.read('audio_path') ?? '';
-    return "$root/${state.selectedBook!.name}/${state.selectedUnit!.name}/${finalTopic.name}/${finalTopic.audioFilePath}";
+    // final root = _box.read('audio_path') ?? '';
+    final rootPath = ref.read(settingsProvider);
+    return "$rootPath/${state.selectedBook!.name}/Tracks/${finalTopic.audioFileName}.mp3"; //000- English Learning/00- ielts assistant /mindset 01/Tracks
   }
 
   void goBack() {

@@ -18,11 +18,11 @@ class SettingsScreen extends ConsumerWidget {
               String? selectedDirectory = await ref
                   .read(settingsProvider.notifier)
                   .pickAndSaveDirectory(previousPath);
-              if (selectedDirectory != previousPath) {
-                ref
-                    .read(settingsProvider.notifier)
-                    .updatePath(selectedDirectory!);
-              }
+              // if (selectedDirectory != previousPath) {
+              ref
+                  .read(settingsProvider.notifier)
+                  .updatePath(selectedDirectory!);
+              // }
             },
           ),
           const Divider(),

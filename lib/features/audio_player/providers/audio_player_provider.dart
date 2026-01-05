@@ -1,5 +1,7 @@
 // lib/features/audio_player/providers/audio_player_provider.dart
 
+import 'dart:async';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -36,24 +38,33 @@ class AudioPlayerState {
 @riverpod
 class AudioPlayerNotifier extends _$AudioPlayerNotifier {
   late AudioPlayer _player;
+  // تعریف متغیرهایی برای نگه داشتن اشتراک‌ها
+  StreamSubscription? _playStateSub;
+  StreamSubscription? _posSub;
+  StreamSubscription? _durSub;
 
   @override
   AudioPlayerState build() {
     _player = AudioPlayer();
 
-    // گوش دادن به تغییرات وضعیت پخش (پخش/توقف)
-    _player.playingStream.listen((playing) {
-      state = state.copyWith(isPlaying: playing);
+    _playStateSub = _player.playingStream.listen((playing) {
+      if (ref.mounted) state = state.copyWith(isPlaying: playing);
     });
 
-    // گوش دادن به تغییرات موقعیت زمانی
-    _player.positionStream.listen((pos) {
-      state = state.copyWith(position: pos);
+    _posSub = _player.positionStream.listen((pos) {
+      if (ref.mounted) state = state.copyWith(position: pos);
     });
 
-    // گوش دادن به مدت زمان کل فایل
-    _player.durationStream.listen((dur) {
-      state = state.copyWith(duration: dur ?? Duration.zero);
+    _durSub = _player.durationStream.listen((dur) {
+      if (ref.mounted) state = state.copyWith(duration: dur ?? Duration.zero);
+    });
+
+    // لغو کردن تمام استریم‌ها و آزاد کردن حافظه موقع نابودی پرووایدر
+    ref.onDispose(() {
+      _playStateSub?.cancel();
+      _posSub?.cancel();
+      _durSub?.cancel();
+      _player.dispose();
     });
 
     return AudioPlayerState();
@@ -61,15 +72,29 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
 
   Future<void> playFile(String path) async {
     try {
-      if (state.currentPath == path) {
+      // اگر همین فایل در حال پخش است، فقط ادامه بده
+      if (state.currentPath == path && _player.duration != null) {
         _player.play();
         return;
       }
+
+      // توقف کامل هر پخش یا بارگذاری قبلی برای جلوگیری از وقفه (Interruption)
+      await _player.stop();
+
+      state = state.copyWith(currentPath: path, isPlaying: false);
+
+      // بارگذاری فایل جدید
+      // استفاده از setFilePath به تنهایی گاهی باعث خطا می‌شود، بهتر است از وقفه کوتاه استفاده کنید
       await _player.setFilePath(path);
-      state = state.copyWith(currentPath: path);
+
       _player.play();
     } catch (e) {
-      print("خطا در پخش فایل: $e");
+      // اگر خطا از نوع Interruption بود، معمولاً نادیده گرفته می‌شود
+      if (e is PlayerInterruptedException) {
+        print("بارگذاری قبلی متوقف شد تا فایل جدید لود شود.");
+      } else {
+        print("خطا در پخش فایل: $e");
+      }
     }
   }
 

@@ -2,11 +2,16 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:path/path.dart';
+import 'package:path/path.dart' as p;
 
 class ContentService {
   static Future<List<Book>> scanRootFolder(String rootPath) async {
+    return await compute(_heavyScanner, rootPath);
+  }
+
+  static List<Book> _heavyScanner(String rootPath) {
     final rootDir = Directory(rootPath);
-    if (!await rootDir.exists()) {
+    if (!rootDir.existsSync()) {
       debugPrint('Root directory not found: $rootPath');
       return [];
     }
@@ -79,7 +84,7 @@ class ContentService {
     return FinalTopic(
       name: basename(dir.path),
       realmId: dir.path, // مسیر کامل پوشه به عنوان ID
-      // audioFilePaths: audioFiles.cast<String>(),
+      audioFileName: _findAudioFile(files),
       jsonFilePath: jsonFilePathEnglish,
       translationFilePath: jsonFilePathTranslation,
     );
@@ -107,5 +112,21 @@ class ContentService {
       // اگر هیچ فایلی با پسوند .json پیدا نشد
       return null;
     }
+  }
+
+  static String? _findAudioFile(List<FileSystemEntity> fileList) {
+    try {
+      FileSystemEntity? fileSystemEntity = fileList
+          .where((f) => f.path.endsWith('.sound.txt'))
+          .firstOrNull;
+      if (fileSystemEntity != null) {
+        String fileName = p.basenameWithoutExtension(fileSystemEntity.path);
+        fileName = fileName.replaceAll('.sound', '');
+        return fileName;
+      }
+    } on StateError {
+      return null;
+    }
+    return null;
   }
 }

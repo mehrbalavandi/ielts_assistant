@@ -67,7 +67,7 @@ class AudioPlayerWidget extends ConsumerWidget {
             Directionality(
               textDirection: TextDirection.ltr,
               child: Text(
-                'فایل: ${audioState.currentIndex != null && mainTopic.audioFilePath != null ? mainTopic.audioFilePath : '---'}',
+                'فایل: ${audioState.currentIndex != null && mainTopic.audioFileName != null ? mainTopic.audioFileName : '---'}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
@@ -201,7 +201,7 @@ class AudioPlayerWidget extends ConsumerWidget {
               height: 100, // محدود کردن ارتفاع
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: mainTopic.audioFilePaths.length,
+                itemCount: mainTopic.audioFileNames.length,
                 itemBuilder: (context, index) {
                   final isCurrent = index == audioState.currentIndex;
                   return Padding(
