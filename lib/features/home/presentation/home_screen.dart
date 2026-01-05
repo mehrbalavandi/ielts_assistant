@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/mini_audio_player.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/topic_detail_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/main_drawer.dart';
@@ -121,6 +122,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           });
         }
       });
+    });
+    ref.listen(navigationProvider, (previous, next) {
+      if (next.selectedTopic != null && previous?.selectedTopic == null) {
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(
+                builder: (context) => const TopicDetailScreen(),
+              ),
+            )
+            .then((_) {
+              // ref.read(navigationProvider.notifier).goBack();
+            });
+      }
     });
 
     return PopScope(

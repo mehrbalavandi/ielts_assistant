@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -194,6 +195,18 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectFinalTopic(FinalTopic finalTopic) {
     state = state.copyWith(selectedFinalTopic: finalTopic);
     _box.write(_kFinalTopic, finalTopic.name);
+    // منطق پخش خودکار صدا
+    if (finalTopic.audioFilePath != null &&
+        finalTopic.audioFilePath!.isNotEmpty) {
+      final fullPath = _buildFullPath(finalTopic);
+      ref.read(audioPlayerProvider.notifier).playFile(fullPath);
+    }
+  }
+
+  String _buildFullPath(FinalTopic finalTopic) {
+    // این متد باید بر اساس ساختار پوشه‌بندی شما، مسیر کامل فایل mp3 را بسازد
+    final root = _box.read('audio_path') ?? '';
+    return "$root/${state.selectedBook!.name}/${state.selectedUnit!.name}/${finalTopic.name}/${finalTopic.audioFilePath}";
   }
 
   void goBack() {
