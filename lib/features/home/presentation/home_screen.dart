@@ -151,10 +151,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
           ],
         ),
-        drawer: const MainDrawer(),
+        drawer: null, //const MainDrawer(),
         body: Column(
           children: [
-            _buildBreadcrumbs(nav),
+            _buildBreadcrumbs(nav, allContent),
             Expanded(child: _buildMainContent(nav, allContent)),
             const MiniAudioPlayer(),
           ],
@@ -163,11 +163,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildBreadcrumbs(NavigationState nav) {
+  Widget _buildBreadcrumbs(NavigationState nav, AsyncValue allContent) {
     final List<String> labels = [];
     if (nav.selectedBook != null) labels.add(nav.selectedBook!.name);
     if (nav.selectedUnit != null) labels.add(nav.selectedUnit!.name);
     if (nav.selectedTopic != null) labels.add(nav.selectedTopic!.name);
+    if (nav.selectedPage != null) labels.add(nav.selectedPage!.name);
+    // if (nav.selectedFinalTopic != null) {
+    //   labels.add(nav.selectedFinalTopic!.name);
+    // }
 
     if (labels.isEmpty) return const SizedBox.shrink();
 
@@ -180,16 +184,47 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: labels.length,
         separatorBuilder: (_, __) =>
-            const Icon(Icons.chevron_left, size: 18, color: Colors.grey),
+            const Icon(Icons.chevron_right, size: 18, color: Colors.grey),
         itemBuilder: (_, i) => Center(
-          child: Text(
-            labels[i],
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: i == labels.length - 1
-                  ? FontWeight.bold
-                  : FontWeight.normal,
-              color: i == labels.length - 1 ? Colors.blue[800] : Colors.black54,
+          child: GestureDetector(
+            onTap: () {
+              if (i == 0) {
+                if (labels.length > 1) {
+                  ref
+                      .read(navigationProvider.notifier)
+                      .selectBook(nav.selectedBook!);
+                }
+              } else if (i == 1) {
+                if (labels.length > 2) {
+                  ref
+                      .read(navigationProvider.notifier)
+                      .selectUnit(nav.selectedUnit!);
+                }
+              } else if (i == 2) {
+                if (labels.length > 3) {
+                  ref
+                      .read(navigationProvider.notifier)
+                      .selectTopic(nav.selectedTopic!);
+                }
+              } else if (i == 3) {
+                if (labels.length > 4) {
+                  ref
+                      .read(navigationProvider.notifier)
+                      .selectPageContent(nav.selectedPage!);
+                }
+              }
+            },
+            child: Text(
+              labels[i],
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: i == labels.length - 1
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+                color: i == labels.length - 1
+                    ? Colors.blue[800]
+                    : Colors.black54,
+              ),
             ),
           ),
         ),
@@ -199,7 +234,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildMainContent(NavigationState nav, AsyncValue allContent) {
     // ۱. نمایش محتوای نهایی (Topic)
-    if (nav.selectedTopic != null) {
+    if (nav.selectedFinalTopic != null) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -207,12 +242,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const Icon(Icons.audiotrack, size: 64, color: Colors.blue),
             const SizedBox(height: 16),
             Text(
-              nav.selectedTopic!.name,
+              nav.selectedFinalTopic!.name,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const Text('در حال پخش فایل صوتی...'),
           ],
         ),
+      );
+    }
+
+    // ۱. نمایش محتوای نهایی (Topic)
+    if (nav.selectedPage != null) {
+      return _buildGrid(
+        title: 'موضوعات نهایی ${nav.selectedPage!.name}',
+        items: nav.selectedPage!.finalTopics.map((e) => e.name).toList(),
+        icon: Icons.description_outlined,
+        onTap: (index) => ref
+            .read(navigationProvider.notifier)
+            .selectFinalTopic(nav.selectedPage!.finalTopics[index]),
+      );
+    }
+
+    // ۱. نمایش محتوای نهایی (Topic)
+    if (nav.selectedTopic != null) {
+      return _buildGrid(
+        title: 'صفحات ${nav.selectedTopic!.name}',
+        items: nav.selectedTopic!.pageContents.map((e) => e.name).toList(),
+        icon: Icons.description_outlined,
+        onTap: (index) => ref
+            .read(navigationProvider.notifier)
+            .selectPageContent(nav.selectedTopic!.pageContents[index]),
       );
     }
 

@@ -107,6 +107,7 @@ sealed class NavigationState with _$NavigationState {
     Unit? selectedUnit,
     Topic? selectedTopic,
     PageContent? selectedPage,
+    FinalTopic? selectedFinalTopic,
   }) = _NavigationState;
 }
 
@@ -116,6 +117,8 @@ class NavigationNotifier extends _$NavigationNotifier {
   static const _kBook = 'last_book';
   static const _kUnit = 'last_unit';
   static const _kTopic = 'last_topic';
+  static const _kPage = 'last_page';
+  static const _kFinalTopic = 'last_final_topic';
 
   @override
   NavigationState build() => const NavigationState();
@@ -149,10 +152,13 @@ class NavigationNotifier extends _$NavigationNotifier {
       selectedUnit: null,
       selectedTopic: null,
       selectedPage: null,
+      selectedFinalTopic: null,
     );
     _box.write(_kBook, book.name);
     _box.remove(_kUnit);
     _box.remove(_kTopic);
+    _box.remove(_kPage);
+    _box.remove(_kFinalTopic);
   }
 
   void selectUnit(Unit unit) {
@@ -160,18 +166,44 @@ class NavigationNotifier extends _$NavigationNotifier {
       selectedUnit: unit,
       selectedTopic: null,
       selectedPage: null,
+      selectedFinalTopic: null,
     );
     _box.write(_kUnit, unit.name);
     _box.remove(_kTopic);
+    _box.remove(_kPage);
+    _box.remove(_kFinalTopic);
   }
 
   void selectTopic(Topic topic) {
-    state = state.copyWith(selectedTopic: topic, selectedPage: null);
+    state = state.copyWith(
+      selectedTopic: topic,
+      selectedPage: null,
+      selectedFinalTopic: null,
+    );
     _box.write(_kTopic, topic.name);
+    _box.remove(_kPage);
+    _box.remove(_kFinalTopic);
+  }
+
+  void selectPageContent(PageContent pageContent) {
+    state = state.copyWith(selectedPage: pageContent, selectedFinalTopic: null);
+    _box.write(_kPage, pageContent.name);
+    _box.remove(_kFinalTopic);
+  }
+
+  void selectFinalTopic(FinalTopic finalTopic) {
+    state = state.copyWith(selectedFinalTopic: finalTopic);
+    _box.write(_kFinalTopic, finalTopic.name);
   }
 
   void goBack() {
-    if (state.selectedTopic != null) {
+    if (state.selectedFinalTopic != null) {
+      state = state.copyWith(selectedFinalTopic: null);
+      _box.remove(_kFinalTopic);
+    } else if (state.selectedPage != null) {
+      state = state.copyWith(selectedPage: null);
+      _box.remove(_kPage);
+    } else if (state.selectedTopic != null) {
       state = state.copyWith(selectedTopic: null);
       _box.remove(_kTopic);
     } else if (state.selectedUnit != null) {
