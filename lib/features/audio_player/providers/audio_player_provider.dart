@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -12,25 +14,38 @@ class AudioPlayerState {
   final Duration position;
   final Duration duration;
   final String? currentPath;
+  final bool isRepeatEnabled; // قابلیت تکرار
+  final Duration? pointA; // نقطه شروع A
+  final Duration? pointB; // نقطه پایان B
 
   AudioPlayerState({
     this.isPlaying = false,
     this.position = Duration.zero,
     this.duration = Duration.zero,
     this.currentPath,
+    this.isRepeatEnabled = false,
+    this.pointA,
+    this.pointB,
   });
 
+  // متد copyWith برای بروزرسانی وضعیت
   AudioPlayerState copyWith({
     bool? isPlaying,
     Duration? position,
     Duration? duration,
     String? currentPath,
+    bool? isRepeatEnabled,
+    Duration? pointA,
+    Duration? pointB,
   }) {
     return AudioPlayerState(
       isPlaying: isPlaying ?? this.isPlaying,
       position: position ?? this.position,
       duration: duration ?? this.duration,
       currentPath: currentPath ?? this.currentPath,
+      isRepeatEnabled: isRepeatEnabled ?? this.isRepeatEnabled,
+      pointA: pointA ?? this.pointA,
+      pointB: pointB ?? this.pointB,
     );
   }
 }
@@ -38,6 +53,7 @@ class AudioPlayerState {
 @riverpod
 class AudioPlayerNotifier extends _$AudioPlayerNotifier {
   late AudioPlayer _player;
+  final _box = GetStorage();
   // تعریف متغیرهایی برای نگه داشتن اشتراک‌ها
   StreamSubscription? _playStateSub;
   StreamSubscription? _posSub;
@@ -52,7 +68,19 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     });
 
     _posSub = _player.positionStream.listen((pos) {
-      if (ref.mounted) state = state.copyWith(position: pos);
+      if (!ref.mounted) return;
+
+      state = state.copyWith(position: pos);
+
+      // منطق A-B Repeat
+      if (state.pointA != null && state.pointB != null) {
+        if (pos >= state.pointB!) {
+          _player.seek(state.pointA!); // پرش به نقطه A
+        }
+      }
+      if (state.currentPath != null) {
+        _box.write('pos_${state.currentPath}', pos.inMilliseconds);
+      }
     });
 
     _durSub = _player.durationStream.listen((dur) {
@@ -77,25 +105,43 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
         _player.play();
         return;
       }
-
-      // توقف کامل هر پخش یا بارگذاری قبلی برای جلوگیری از وقفه (Interruption)
       await _player.stop();
 
-      state = state.copyWith(currentPath: path, isPlaying: false);
+      final lastPosMs = _box.read('pos_$path') ?? 0;
 
-      // بارگذاری فایل جدید
-      // استفاده از setFilePath به تنهایی گاهی باعث خطا می‌شود، بهتر است از وقفه کوتاه استفاده کنید
+      state = state.copyWith(
+        currentPath: path,
+        pointA: null,
+        pointB: null,
+        position: Duration(milliseconds: lastPosMs),
+      );
       await _player.setFilePath(path);
-
+      await _player.seek(Duration(milliseconds: lastPosMs));
       _player.play();
     } catch (e) {
-      // اگر خطا از نوع Interruption بود، معمولاً نادیده گرفته می‌شود
       if (e is PlayerInterruptedException) {
-        print("بارگذاری قبلی متوقف شد تا فایل جدید لود شود.");
+        debugPrint("بارگذاری قبلی متوقف شد تا فایل جدید لود شود.");
       } else {
-        print("خطا در پخش فایل: $e");
+        debugPrint("خطا در پخش فایل: $e");
       }
     }
+  }
+
+  // مدیریت A-B Repeat
+  void setPointA() => state = state.copyWith(pointA: state.position);
+  void setPointB() => state = state.copyWith(pointB: state.position);
+  void clearAB() => state = state.copyWith(pointA: null, pointB: null);
+
+  // تکرار کل فایل
+  void toggleRepeat() {
+    final nextMode = !state.isRepeatEnabled;
+    state = state.copyWith(isRepeatEnabled: nextMode);
+    _player.setLoopMode(nextMode ? LoopMode.one : LoopMode.off);
+  }
+
+  void stopAndClear() {
+    _player.stop();
+    state = AudioPlayerState(); // ریست کامل پلیر
   }
 
   void pause() => _player.pause();

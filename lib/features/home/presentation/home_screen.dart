@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/mini_audio_player.dart';
+import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/topic_detail_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
@@ -111,6 +113,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final nav = ref.watch(navigationProvider);
     final allContent = ref.watch(allContentProvider);
+    final audioState = ref.watch(audioPlayerProvider);
 
     // گوش دادن به تغییرات محتوا برای بازیابی وضعیت قبلی
     ref.listen(allContentProvider, (previous, next) {
@@ -151,7 +154,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             _buildBreadcrumbs(nav, allContent),
             Expanded(child: _buildMainContent(nav, allContent)),
-            const MiniAudioPlayer(),
+          ],
+        ),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // ۲. اضافه کردن شرط نمایش مینی پلیر در صفحه اصلی
+            if (nav.selectedTopic == null && audioState.currentPath != null)
+              ExpandableMiniPlayer(
+                onClose: () =>
+                    ref.read(audioPlayerProvider.notifier).stopAndClear(),
+              ),
           ],
         ),
       ),

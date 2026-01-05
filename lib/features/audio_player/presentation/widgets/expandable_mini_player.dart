@@ -8,7 +8,8 @@ import 'package:ielts_assistant/features/audio_player/providers/audio_player_pro
 final isPlayerExpandedProvider = StateProvider<bool>((ref) => false);
 
 class ExpandableMiniPlayer extends ConsumerWidget {
-  const ExpandableMiniPlayer({super.key});
+  final VoidCallback? onClose;
+  const ExpandableMiniPlayer({super.key, this.onClose});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,6 +74,10 @@ class ExpandableMiniPlayer extends ConsumerWidget {
             ),
           ),
           const Icon(Icons.keyboard_arrow_up, color: Colors.white54),
+          IconButton(
+            icon: const Icon(Icons.close, color: Colors.white54),
+            onPressed: onClose, // استفاده از پارامتر onClose
+          ),
         ],
       ),
     );
@@ -80,6 +85,7 @@ class ExpandableMiniPlayer extends ConsumerWidget {
 
   // حالت باز شده (کامل)
   Widget _buildFullView(AudioPlayerState state, WidgetRef ref) {
+    final totalMs = state.duration.inMilliseconds.toDouble();
     return Column(
       children: [
         const SizedBox(height: 8),
@@ -95,18 +101,68 @@ class ExpandableMiniPlayer extends ConsumerWidget {
         ),
 
         // اسلایدر واقعی
-        Slider(
-          value: state.position.inSeconds.toDouble(),
-          max: state.duration.inSeconds.toDouble() > 0
-              ? state.duration.inSeconds.toDouble()
-              : 1.0,
-          onChanged: (v) => ref
-              .read(audioPlayerProvider.notifier)
-              .seek(Duration(seconds: v.toInt())),
-          activeColor: Colors.blueAccent,
-          inactiveColor: Colors.white24,
-        ),
+        // Slider(
+        //   value: state.position.inSeconds.toDouble(),
+        //   max: state.duration.inSeconds.toDouble() > 0
+        //       ? state.duration.inSeconds.toDouble()
+        //       : 1.0,
+        //   onChanged: (v) => ref
+        //       .read(audioPlayerProvider.notifier)
+        //       .seek(Duration(seconds: v.toInt())),
+        //   activeColor: Colors.blueAccent,
+        //   inactiveColor: Colors.white24,
+        // ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // ۱. اسلایدر اصلی
+              Slider(
+                value: state.position.inMilliseconds.toDouble().clamp(
+                  0,
+                  totalMs,
+                ),
+                max: totalMs > 0 ? totalMs : 1.0,
+                onChanged: (v) => ref
+                    .read(audioPlayerProvider.notifier)
+                    .seek(Duration(milliseconds: v.toInt())),
+                activeColor: Colors.blueAccent,
+                inactiveColor: Colors.white24,
+              ),
 
+              // ۲. نمایشگر نقطه A (نشانگر نارنجی در پایین اسلایدر)
+              if (state.pointA != null && totalMs > 0)
+                Positioned(
+                  left:
+                      24 +
+                      (state.pointA!.inMilliseconds / totalMs) *
+                          (MediaQuery.of(ref.context).size.width - 80),
+                  bottom: 12,
+                  child: const Icon(
+                    Icons.arrow_drop_up,
+                    color: Colors.orange,
+                    size: 20,
+                  ),
+                ),
+
+              // ۳. نمایشگر نقطه B (نشانگر قرمز در پایین اسلایدر)
+              if (state.pointB != null && totalMs > 0)
+                Positioned(
+                  left:
+                      24 +
+                      (state.pointB!.inMilliseconds / totalMs) *
+                          (MediaQuery.of(ref.context).size.width - 80),
+                  bottom: 12,
+                  child: const Icon(
+                    Icons.arrow_drop_up,
+                    color: Colors.redAccent,
+                    size: 20,
+                  ),
+                ),
+            ],
+          ),
+        ),
         // زمان‌سنج
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -152,6 +208,43 @@ class ExpandableMiniPlayer extends ConsumerWidget {
               icon: const Icon(Icons.forward_10, color: Colors.white, size: 30),
               onPressed: () =>
                   ref.read(audioPlayerProvider.notifier).skip10Sec(true),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () =>
+                  ref.read(audioPlayerProvider.notifier).setPointA(),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: state.pointA != null
+                    ? Colors.orange
+                    : Colors.grey,
+              ),
+              child: const Text('A'),
+            ),
+            ElevatedButton(
+              onPressed: () =>
+                  ref.read(audioPlayerProvider.notifier).setPointB(),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: state.pointB != null
+                    ? Colors.orange
+                    : Colors.grey,
+              ),
+              child: const Text('B'),
+            ),
+            IconButton(
+              icon: const Icon(Icons.refresh, color: Colors.white),
+              onPressed: () => ref.read(audioPlayerProvider.notifier).clearAB(),
+            ),
+            IconButton(
+              icon: Icon(
+                state.isRepeatEnabled ? Icons.repeat_one : Icons.repeat,
+                color: state.isRepeatEnabled ? Colors.blue : Colors.white,
+              ),
+              onPressed: () =>
+                  ref.read(audioPlayerProvider.notifier).toggleRepeat(),
             ),
           ],
         ),
