@@ -160,7 +160,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // ۲. اضافه کردن شرط نمایش مینی پلیر در صفحه اصلی
-            if (nav.selectedTopic == null && audioState.currentPath != null)
+            if (nav.selectedFinalTopic == null &&
+                audioState.currentPath != null)
               ExpandableMiniPlayer(
                 onClose: () =>
                     ref.read(audioPlayerProvider.notifier).stopAndClear(),

@@ -34,9 +34,9 @@ class AudioPlayerState {
     Duration? position,
     Duration? duration,
     String? currentPath,
-    bool? isRepeatEnabled,
-    Duration? pointA,
-    Duration? pointB,
+    bool? isRepeatEnabled, // استفاده از تابع برای اجازه دادن به پاس دادن null
+    Duration? Function()? pointA,
+    Duration? Function()? pointB,
   }) {
     return AudioPlayerState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -44,8 +44,8 @@ class AudioPlayerState {
       duration: duration ?? this.duration,
       currentPath: currentPath ?? this.currentPath,
       isRepeatEnabled: isRepeatEnabled ?? this.isRepeatEnabled,
-      pointA: pointA ?? this.pointA,
-      pointB: pointB ?? this.pointB,
+      pointA: pointA != null ? pointA() : this.pointA,
+      pointB: pointB != null ? pointB() : this.pointB,
     );
   }
 }
@@ -128,9 +128,28 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
   }
 
   // مدیریت A-B Repeat
-  void setPointA() => state = state.copyWith(pointA: state.position);
-  void setPointB() => state = state.copyWith(pointB: state.position);
-  void clearAB() => state = state.copyWith(pointA: null, pointB: null);
+  void setPointA() {
+    // اگر نقطه B قبلاً ست شده و زمان فعلی بعد از B است، اجازه نده
+    if (state.pointB != null && state.position >= state.pointB!) {
+      // می‌توانید اینجا یک Snackbar نشان دهید یا فقط عملیات را انجام ندهید
+      return;
+    }
+    state = state.copyWith(pointA: () => state.position);
+  }
+
+  void setPointB() {
+    // فقط در صورتی اجازه بده که نقطه B بعد از نقطه A باشد
+    if (state.pointA != null && state.position <= state.pointA!) {
+      // خطای منطقی: نقطه پایان نمی‌تواند قبل از شروع باشد
+      return;
+    }
+    state = state.copyWith(pointB: () => state.position);
+  }
+
+  void clearAB() {
+    // ارسال تابع که null برمی‌گرداند برای ریست کردن مقادیر
+    state = state.copyWith(pointA: () => null, pointB: () => null);
+  }
 
   // تکرار کل فایل
   void toggleRepeat() {

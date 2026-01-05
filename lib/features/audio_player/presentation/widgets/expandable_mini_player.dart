@@ -25,7 +25,7 @@ class ExpandableMiniPlayer extends ConsumerWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 400),
         curve: Curves.fastOutSlowIn,
-        height: isExpanded ? 220 : 75,
+        height: isExpanded ? 242 : 60,
         decoration: BoxDecoration(
           color: Colors.blueGrey[900],
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
@@ -33,7 +33,7 @@ class ExpandableMiniPlayer extends ConsumerWidget {
         ),
         child: SingleChildScrollView(
           // برای جلوگیری از خطای Overflow هنگام انیمیشن
-          physics: const NeverScrollableScrollPhysics(),
+          // physics: const NeverScrollableScrollPhysics(),
           child: isExpanded
               ? _buildFullView(audioState, ref)
               : _buildMiniView(audioState, ref),
@@ -45,7 +45,7 @@ class ExpandableMiniPlayer extends ConsumerWidget {
   // حالت کوچک شده
   Widget _buildMiniView(AudioPlayerState state, WidgetRef ref) {
     return Container(
-      height: 75,
+      height: 60,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
@@ -173,6 +173,63 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                 _formatDuration(state.position),
                 style: const TextStyle(color: Colors.white70, fontSize: 12),
               ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      // اگر زمان فعلی از B بیشتر باشد، دکمه A غیرفعال می‌شود
+                      onPressed:
+                          (state.pointB != null &&
+                              state.position >= state.pointB!)
+                          ? null
+                          : () => ref
+                                .read(audioPlayerProvider.notifier)
+                                .setPointA(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: state.pointA != null
+                            ? Colors.orange
+                            : Colors.grey,
+                      ),
+                      child: const Text('A'),
+                    ),
+                    const SizedBox(width: 8),
+                    ElevatedButton(
+                      // اگر هنوز A ست نشده یا زمان فعلی قبل از A است، دکمه B غیرفعال است
+                      onPressed:
+                          (state.pointA == null ||
+                              state.position <= state.pointA!)
+                          ? null
+                          : () => ref
+                                .read(audioPlayerProvider.notifier)
+                                .setPointB(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: state.pointB != null
+                            ? Colors.red
+                            : Colors.grey,
+                      ),
+                      child: const Text('B'),
+                    ),
+                    // دکمه پاک کردن همیشه فعال است
+                    IconButton(
+                      icon: const Icon(Icons.layers_clear, color: Colors.white),
+                      onPressed: () =>
+                          ref.read(audioPlayerProvider.notifier).clearAB(),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        state.isRepeatEnabled ? Icons.repeat_one : Icons.repeat,
+                        color: state.isRepeatEnabled
+                            ? Colors.blue
+                            : Colors.white,
+                      ),
+                      onPressed: () =>
+                          ref.read(audioPlayerProvider.notifier).toggleRepeat(),
+                    ),
+                  ],
+                ),
+              ),
+
               Text(
                 _formatDuration(state.duration),
                 style: const TextStyle(color: Colors.white70, fontSize: 12),
@@ -208,43 +265,6 @@ class ExpandableMiniPlayer extends ConsumerWidget {
               icon: const Icon(Icons.forward_10, color: Colors.white, size: 30),
               onPressed: () =>
                   ref.read(audioPlayerProvider.notifier).skip10Sec(true),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              onPressed: () =>
-                  ref.read(audioPlayerProvider.notifier).setPointA(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: state.pointA != null
-                    ? Colors.orange
-                    : Colors.grey,
-              ),
-              child: const Text('A'),
-            ),
-            ElevatedButton(
-              onPressed: () =>
-                  ref.read(audioPlayerProvider.notifier).setPointB(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: state.pointB != null
-                    ? Colors.orange
-                    : Colors.grey,
-              ),
-              child: const Text('B'),
-            ),
-            IconButton(
-              icon: const Icon(Icons.refresh, color: Colors.white),
-              onPressed: () => ref.read(audioPlayerProvider.notifier).clearAB(),
-            ),
-            IconButton(
-              icon: Icon(
-                state.isRepeatEnabled ? Icons.repeat_one : Icons.repeat,
-                color: state.isRepeatEnabled ? Colors.blue : Colors.white,
-              ),
-              onPressed: () =>
-                  ref.read(audioPlayerProvider.notifier).toggleRepeat(),
             ),
           ],
         ),
