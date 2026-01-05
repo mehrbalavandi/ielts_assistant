@@ -130,27 +130,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ref.read(navigationProvider.notifier).goBack();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('دستیار آیلتس'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                // allContent.whenData((books) {
-                //   showSearch(
-                //     context: context,
-                //     delegate: ContentSearchDelegate(allBooks: books, ref: ref),
-                //   );
-                // });
-              },
-            ),
-            if (nav.selectedBook != null)
-              IconButton(
-                icon: const Icon(Icons.home_outlined),
-                onPressed: () => ref.read(navigationProvider.notifier).goBack(),
-              ),
-          ],
-        ),
+        appBar: AppBar(title: const Text('دستیار آیلتس')),
         drawer: null, //const MainDrawer(),
         body: Column(
           children: [
