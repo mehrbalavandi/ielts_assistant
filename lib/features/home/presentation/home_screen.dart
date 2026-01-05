@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/mini_audio_player.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/main_drawer.dart';
-
+/*
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -92,6 +93,252 @@ class HomeScreen extends ConsumerWidget {
           );
         }).toList(),
       ),
+    );
+  }
+}
+*/
+
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final nav = ref.watch(navigationProvider);
+    final allContent = ref.watch(allContentProvider);
+
+    // گوش دادن به تغییرات محتوا برای بازیابی وضعیت قبلی
+    ref.listen(allContentProvider, (previous, next) {
+      next.whenData((books) {
+        if (books.isNotEmpty && nav.selectedBook == null) {
+          // استفاده از Future.microtask برای جلوگیری از تداخل در ساخت ویجت
+          Future.microtask(() {
+            ref.read(navigationProvider.notifier).restoreLastState(books);
+          });
+        }
+      });
+    });
+
+    return PopScope(
+      canPop: nav.selectedBook == null,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        ref.read(navigationProvider.notifier).goBack();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('دستیار آیلتس'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                // allContent.whenData((books) {
+                //   showSearch(
+                //     context: context,
+                //     delegate: ContentSearchDelegate(allBooks: books, ref: ref),
+                //   );
+                // });
+              },
+            ),
+            if (nav.selectedBook != null)
+              IconButton(
+                icon: const Icon(Icons.home_outlined),
+                onPressed: () => ref.read(navigationProvider.notifier).goBack(),
+              ),
+          ],
+        ),
+        drawer: const MainDrawer(),
+        body: Column(
+          children: [
+            _buildBreadcrumbs(nav),
+            Expanded(child: _buildMainContent(nav, allContent)),
+            const MiniAudioPlayer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBreadcrumbs(NavigationState nav) {
+    final List<String> labels = [];
+    if (nav.selectedBook != null) labels.add(nav.selectedBook!.name);
+    if (nav.selectedUnit != null) labels.add(nav.selectedUnit!.name);
+    if (nav.selectedTopic != null) labels.add(nav.selectedTopic!.name);
+
+    if (labels.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      height: 45,
+      width: double.infinity,
+      color: Colors.blue.withOpacity(0.05),
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: labels.length,
+        separatorBuilder: (_, __) =>
+            const Icon(Icons.chevron_left, size: 18, color: Colors.grey),
+        itemBuilder: (_, i) => Center(
+          child: Text(
+            labels[i],
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: i == labels.length - 1
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+              color: i == labels.length - 1 ? Colors.blue[800] : Colors.black54,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMainContent(NavigationState nav, AsyncValue allContent) {
+    // ۱. نمایش محتوای نهایی (Topic)
+    if (nav.selectedTopic != null) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.audiotrack, size: 64, color: Colors.blue),
+            const SizedBox(height: 16),
+            Text(
+              nav.selectedTopic!.name,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const Text('در حال پخش فایل صوتی...'),
+          ],
+        ),
+      );
+    }
+
+    // ۲. نمایش لیست موضوعات (Topics)
+    if (nav.selectedUnit != null) {
+      return _buildGrid(
+        title: 'موضوعات واحد ${nav.selectedUnit!.name}',
+        items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
+        icon: Icons.description_outlined,
+        onTap: (index) => ref
+            .read(navigationProvider.notifier)
+            .selectTopic(nav.selectedUnit!.topics[index]),
+      );
+    }
+
+    // ۳. نمایش لیست واحدها (Units)
+    if (nav.selectedBook != null) {
+      return _buildGrid(
+        title: 'واحدهای کتاب ${nav.selectedBook!.name}',
+        items: nav.selectedBook!.units.map((e) => e.name).toList(),
+        icon: Icons.folder_open_outlined,
+        onTap: (index) => ref
+            .read(navigationProvider.notifier)
+            .selectUnit(nav.selectedBook!.units[index]),
+      );
+    }
+
+    // ۴. نمایش لیست کتاب‌ها
+    return allContent.when(
+      data: (books) {
+        if (books.isEmpty) {
+          return const Center(
+            child: Text('هیچ کتابی در پوشه مورد نظر پیدا نشد.'),
+          );
+        }
+        return _buildGrid(
+          title: 'کتاب‌های آموزشی',
+          items: books.map((e) => e.name).cast<String>().toList(),
+          icon: Icons.book_outlined,
+          onTap: (index) =>
+              ref.read(navigationProvider.notifier).selectBook(books[index]),
+        );
+      },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (e, _) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('مسیر فایل‌ها تنظیم نشده یا در دسترس نیست.'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              child: const Text('رفتن به تنظیمات'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGrid({
+    required String title,
+    required List<String> items,
+    required IconData icon,
+    required Function(int) onTap,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+          child: GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 1.2,
+            ),
+            itemCount: items.length,
+            itemBuilder: (_, i) => Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () => onTap(i),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(icon, color: Colors.blue[800], size: 30),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        items[i],
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

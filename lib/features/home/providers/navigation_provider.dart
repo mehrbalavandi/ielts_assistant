@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'navigation_provider.g.dart';
 part 'navigation_provider.freezed.dart';
-
+/*
 @freezed
 sealed class NavigationState with _$NavigationState {
   const factory NavigationState({
@@ -95,5 +95,91 @@ class NavigationNotifier extends _$NavigationNotifier {
     _box.remove(_kBook);
     _box.remove(_kUnit);
     _box.remove(_kTopic);
+  }
+}
+*/
+// lib/features/home/providers/navigation_provider.dart
+
+@freezed
+sealed class NavigationState with _$NavigationState {
+  const factory NavigationState({
+    Book? selectedBook,
+    Unit? selectedUnit,
+    Topic? selectedTopic,
+    PageContent? selectedPage,
+  }) = _NavigationState;
+}
+
+@riverpod
+class NavigationNotifier extends _$NavigationNotifier {
+  final _box = GetStorage();
+  static const _kBook = 'last_book';
+  static const _kUnit = 'last_unit';
+  static const _kTopic = 'last_topic';
+
+  @override
+  NavigationState build() => const NavigationState();
+
+  void restoreLastState(List<Book> allBooks) {
+    final lastBookName = _box.read(_kBook);
+    final lastUnitName = _box.read(_kUnit);
+    final lastTopicName = _box.read(_kTopic);
+
+    if (lastBookName == null) return;
+
+    try {
+      final book = allBooks.firstWhere((b) => b.name == lastBookName);
+      state = state.copyWith(selectedBook: book);
+
+      if (lastUnitName != null) {
+        final unit = book.units.firstWhere((u) => u.name == lastUnitName);
+        state = state.copyWith(selectedUnit: unit);
+
+        if (lastTopicName != null) {
+          final topic = unit.topics.firstWhere((t) => t.name == lastTopicName);
+          state = state.copyWith(selectedTopic: topic);
+        }
+      }
+    } catch (_) {}
+  }
+
+  void selectBook(Book book) {
+    state = state.copyWith(
+      selectedBook: book,
+      selectedUnit: null,
+      selectedTopic: null,
+      selectedPage: null,
+    );
+    _box.write(_kBook, book.name);
+    _box.remove(_kUnit);
+    _box.remove(_kTopic);
+  }
+
+  void selectUnit(Unit unit) {
+    state = state.copyWith(
+      selectedUnit: unit,
+      selectedTopic: null,
+      selectedPage: null,
+    );
+    _box.write(_kUnit, unit.name);
+    _box.remove(_kTopic);
+  }
+
+  void selectTopic(Topic topic) {
+    state = state.copyWith(selectedTopic: topic, selectedPage: null);
+    _box.write(_kTopic, topic.name);
+  }
+
+  void goBack() {
+    if (state.selectedTopic != null) {
+      state = state.copyWith(selectedTopic: null);
+      _box.remove(_kTopic);
+    } else if (state.selectedUnit != null) {
+      state = state.copyWith(selectedUnit: null);
+      _box.remove(_kUnit);
+    } else if (state.selectedBook != null) {
+      state = state.copyWith(selectedBook: null);
+      _box.remove(_kBook);
+    }
   }
 }
