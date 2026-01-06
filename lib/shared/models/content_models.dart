@@ -143,7 +143,7 @@ class MainTextSegment {
   final bool isInteractive;
   final bool? isBlank;
   final bool? hasSubItems;
-  final List<MainTextSegment>? subItems;
+  final List<dynamic>? subItems;
   final bool? isBold;
   final String? translation; // ترجمه فارسی
   final String? explanation; // توضیحات تکمیلی
@@ -167,7 +167,7 @@ class MainTextSegment {
       explanation: json['explanation'] as String?,
       isBlank: json['isBlank'] as bool?,
       hasSubItems: json['hasSubItems'] as bool?,
-      subItems: json['subItems'] as List<MainTextSegment>?,
+      subItems: json['subItems'] as List<dynamic>?,
       isBold: json['isBold'] as bool?,
     );
   }
