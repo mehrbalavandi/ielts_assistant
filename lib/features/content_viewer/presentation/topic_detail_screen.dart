@@ -1,16 +1,12 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
-import 'package:ielts_assistant/features/content_viewer/data/models.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/sentence_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import '../../home/providers/navigation_provider.dart';
-import '../../audio_player/presentation/widgets/mini_audio_player.dart';
 
 // پرووایدر برای مدیریت حالت تک‌ستونه یا دو ستونه
 final isDualPaneProvider = StateProvider<bool>((ref) => false);
@@ -39,26 +35,6 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
     _englishController.dispose();
     _persianController.dispose();
     super.dispose();
-  }
-
-  void _showWarningDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('هشدار'),
-        content: const Text('آیا از انجام این عملیات اطمینان دارید؟'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('انصراف'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('تایید'),
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -207,60 +183,60 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
     );
   }
 
-  Widget _buildEnglishSection(List<MainTextSegment> segments) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "English Content",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.blue,
-          ),
-        ),
-        const SizedBox(height: 10),
-        const Text(
-          "This is the English text of the lesson. It can be very long and scrollable...",
-          style: TextStyle(fontSize: 16, height: 1.6),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton.icon(
-          onPressed: () => _showWarningDialog(context),
-          icon: const Icon(Icons.warning_amber_rounded),
-          label: const Text('عملیات حساس'),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange.shade50,
-          ),
-        ),
-      ],
-    );
-  }
+  List<TextSpan> _buildTextSpans(String rawText, WidgetRef ref) {
+    // // تعریف پرووایدر به صورت Family برای تفکیک بر اساس نام یا آی‌دی درس
+    // final sentenceNotifierProvider =
+    //     StateNotifierProvider.family<
+    //       SentenceNotifier,
+    //       Map<int, SentenceStatus>,
+    //       String
+    //     >((ref, topicId) {
+    //       return SentenceNotifier(ref, topicId);
+    //     });
+    final sentenceStates = ref.watch(sentenceProvider);
+    // فرض: جملات با نقطه از هم جدا شده‌اند. شما می‌توانید بر اساس نیاز خود (Regex) جدا کنید.
+    List<String> sentences = rawText.split('. ');
 
-  Widget _buildPersianSection() {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Text(
-          "متن فارسی",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.green,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          "این متن ترجمه فارسی درس است که در حالت دو ستونه به صورت مجزا اسکرول می‌شود.",
-          textDirection: TextDirection.rtl,
-          style: TextStyle(fontSize: 16, height: 1.6),
-        ),
-      ],
-    );
-  }
+    return sentences.asMap().entries.map((entry) {
+      int idx = entry.key;
+      String text = entry.value;
 
-  String normalizeText(String text) {
-    return text.replaceAll('\\n', '\n');
+      // تشخیص اینکه آیا این جمله باید "تعاملی" باشد یا خیر
+      bool isSpecial = text.startsWith('#');
+      String cleanText = isSpecial ? text.substring(1) : text;
+
+      SentenceStatus status = sentenceStates[idx] ?? SentenceStatus.normal;
+
+      Color textColor;
+      switch (status) {
+        case SentenceStatus.red:
+          textColor = Colors.red;
+          break;
+        case SentenceStatus.green:
+          textColor = Colors.green;
+          break;
+        case SentenceStatus.normal:
+          textColor = Colors.black87;
+          break;
+      }
+
+      return TextSpan(
+        text: cleanText + (idx == sentences.length - 1 ? "" : ". "),
+        style: TextStyle(
+          color: isSpecial ? textColor : Colors.black87,
+          fontWeight: isSpecial ? FontWeight.bold : FontWeight.normal,
+          backgroundColor: isSpecial && status != SentenceStatus.normal
+              ? textColor.withOpacity(0.1)
+              : null,
+        ),
+        recognizer: isSpecial
+            ? (TapGestureRecognizer()
+                ..onTap = () {
+                  ref.read(sentenceProvider.notifier).toggleStatus(idx);
+                })
+            : null,
+      );
+    }).toList();
   }
 
   void _showPopup(

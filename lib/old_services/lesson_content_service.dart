@@ -120,10 +120,6 @@ class unitContentNotifier extends StateNotifier<unitContentState> {
     );
   }
 
-  String normalizeText(String text) {
-    return text.replaceAll('\\n', '\n');
-  }
-
   /*
   String sanitizeJsonString(String input) {
     return input

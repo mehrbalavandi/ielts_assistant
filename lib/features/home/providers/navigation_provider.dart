@@ -114,9 +114,6 @@ class NavigationNotifier extends _$NavigationNotifier {
       currentPersianTextSegments: null,
       isLoading: true,
     );
-    final root = ref.read(
-      settingsProvider,
-    ); //GetStorage().read('root_path') ?? '';
 
     // خواندن موازی برای بهینه‌سازی زمان
     final results = await Future.wait([
@@ -145,8 +142,8 @@ class NavigationNotifier extends _$NavigationNotifier {
     if (raw == null) {
       return <MainTextSegment>[];
     }
-    final json = jsonDecode(raw);
-    return json
+    final List<dynamic> jsonFormat = jsonDecode(raw);
+    return jsonFormat
         .map((json) => MainTextSegment.fromJson(json as Map<String, dynamic>))
         .toList();
   }
@@ -155,8 +152,8 @@ class NavigationNotifier extends _$NavigationNotifier {
     if (raw == null) {
       return <PersianTextSegment>[];
     }
-    final json = jsonDecode(raw);
-    return json
+    final List<dynamic> jsonFormat = jsonDecode(raw);
+    return jsonFormat
         .map(
           (json) => PersianTextSegment.fromJson(json as Map<String, dynamic>),
         )
