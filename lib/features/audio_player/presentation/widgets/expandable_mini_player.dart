@@ -161,88 +161,71 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
-                      // اگر زمان فعلی از B بیشتر باشد، دکمه A غیرفعال می‌شود
-                      onPressed:
-                          (state.pointB != null &&
-                              state.position >= state.pointB!)
-                          ? null
-                          : () => ref
-                                .read(audioPlayerProvider.notifier)
-                                .setPointA(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: state.pointA != null
-                            ? Colors.orange
-                            : Colors.grey,
-                      ),
-                      child: const Text('A'),
+                    // دکمه نقطه A
+                    _buildSmallCircleButton(
+                      label: "A",
+                      isActive: state.pointA != null,
+                      isDisabled:
+                          state.pointB != null &&
+                          state.position >= state.pointB!,
+                      onTap: () =>
+                          ref.read(audioPlayerProvider.notifier).setPointA(),
                     ),
-                    const SizedBox(width: 8),
-                    ElevatedButton(
-                      // اگر هنوز A ست نشده یا زمان فعلی قبل از A است، دکمه B غیرفعال است
-                      onPressed:
-                          (state.pointA == null ||
-                              state.position <= state.pointA!)
-                          ? null
-                          : () => ref
-                                .read(audioPlayerProvider.notifier)
-                                .setPointB(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: state.pointB != null
-                            ? Colors.red
-                            : Colors.grey,
-                      ),
-                      child: const Text('B'),
+
+                    // دکمه نقطه B
+                    _buildSmallCircleButton(
+                      label: "B",
+                      isActive: state.pointB != null,
+                      isDisabled:
+                          state.pointA == null ||
+                          state.position <= state.pointA!,
+                      onTap: () =>
+                          ref.read(audioPlayerProvider.notifier).setPointB(),
                     ),
-                    // دکمه پاک کردن همیشه فعال است
+
+                    // دکمه پاک کردن (کوچک و بدون پس‌زمینه)
                     IconButton(
-                      icon: const Icon(Icons.layers_clear, color: Colors.white),
+                      icon: const Icon(
+                        Icons.layers_clear_outlined,
+                        color: Colors.white54,
+                        size: 20,
+                      ),
                       onPressed: () =>
                           ref.read(audioPlayerProvider.notifier).clearAB(),
+                      tooltip: 'پاک کردن نقاط',
                     ),
+
+                    // منوی سرعت (که حالا با دکمه‌ها هماهنگ‌تر است)
                     PopupMenuButton<double>(
                       initialValue: state.speed,
-                      icon: Container(
-                        padding: const EdgeInsets.all(4),
+                      offset: const Offset(0, -200), // باز شدن منو به سمت بالا
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white54),
-                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: Colors.white30),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           "${state.speed}x",
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
                           ),
                         ),
                       ),
-                      onSelected: (double value) {
-                        ref.read(audioPlayerProvider.notifier).setSpeed(value);
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<double>>[
-                            const PopupMenuItem(
-                              value: 0.5,
-                              child: Text('0.5x (بسیار کند)'),
-                            ),
-                            const PopupMenuItem(
-                              value: 0.8,
-                              child: Text('0.8x (کند)'),
-                            ),
-                            const PopupMenuItem(
-                              value: 1.0,
-                              child: Text('1.0x (معمولی)'),
-                            ),
-                            const PopupMenuItem(
-                              value: 1.2,
-                              child: Text('1.2x (سریع)'),
-                            ),
-                            const PopupMenuItem(
-                              value: 1.5,
-                              child: Text('1.5x (بسیار سریع)'),
-                            ),
-                          ],
+                      onSelected: (value) => ref
+                          .read(audioPlayerProvider.notifier)
+                          .setSpeed(value),
+                      itemBuilder: (context) => <PopupMenuEntry<double>>[
+                        const PopupMenuItem(value: 0.5, child: Text('0.5x')),
+                        const PopupMenuItem(value: 0.8, child: Text('0.8x')),
+                        const PopupMenuItem(value: 1.0, child: Text('1.0x')),
+                        const PopupMenuItem(value: 1.2, child: Text('1.2x')),
+                        const PopupMenuItem(value: 1.5, child: Text('1.5x')),
+                      ],
                     ),
                     IconButton(
                       icon: Icon(
@@ -304,5 +287,39 @@ class ExpandableMiniPlayer extends ConsumerWidget {
     final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
     final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
     return "$minutes:$seconds";
+  }
+
+  Widget _buildSmallCircleButton({
+    required String label,
+    required bool isActive,
+    required bool isDisabled,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: isDisabled ? null : onTap,
+      child: Opacity(
+        opacity: isDisabled ? 0.3 : 1.0,
+        child: Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isActive ? Colors.orangeAccent : Colors.transparent,
+            border: Border.all(
+              color: isActive ? Colors.orangeAccent : Colors.white54,
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextStyle(
+              color: isActive ? Colors.black : Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
