@@ -41,18 +41,22 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
   Widget build(BuildContext context) {
     final nav = ref.watch(navigationProvider);
     final isDualPane = ref.watch(isDualPaneProvider);
-    final selectedTopic = nav.selectedTopic;
+    final selectedFinalTopic = nav.selectedTopic;
     final mainTextSegments = nav.currentEnglishSegments ?? <MainTextSegment>[];
     final persianTextSegments =
         nav.currentPersianTextSegments ?? <PersianTextSegment>[];
 
-    if (selectedTopic == null) {
+    if (selectedFinalTopic == null) {
       return const Scaffold(body: Center(child: Text('درسی انتخاب نشده است')));
     }
+    final String finalTopicId = selectedFinalTopic.name;
 
+    // استفاده از پروایدر به صورت family
+    // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
+    final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedTopic.name),
+        title: Text(selectedFinalTopic.name),
         actions: [
           IconButton(
             icon: Icon(isDualPane ? Icons.view_stream : Icons.view_column),
@@ -69,8 +73,14 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
                 ? _buildBothEnglishAndPersianLayout(
                     mainTextSegments,
                     persianTextSegments,
+                    sentenceStates,
+                    finalTopicId,
                   )
-                : _buildOnlyEnglishLayout(mainTextSegments),
+                : _buildOnlyEnglishLayout(
+                    mainTextSegments,
+                    sentenceStates,
+                    finalTopicId,
+                  ),
           ),
           // مینی پلیر که قابلیت باز و بسته شدن دارد
           const ExpandableMiniPlayer(),
@@ -80,9 +90,18 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
   }
 
   // چیدمان تک ستونه (انگلیسی بالای فارسی)
-  Widget _buildOnlyEnglishLayout(List<MainTextSegment> mainTexSegments) {
+  Widget _buildOnlyEnglishLayout(
+    List<MainTextSegment> mainTexSegments,
+    Map<int, SentenceStatus> sentenceStates,
+    String finalTopicId,
+  ) {
     int interactiveIndex = 0;
-    final List<InlineSpan> spans = mainTexSegments.map((item) {
+    final List<InlineSpan> spans = mainTexSegments.asMap().entries.map((entry) {
+      final index = entry.key;
+      final item = entry.value;
+
+      // وضعیت رنگ این جمله خاص
+      final status = sentenceStates[index] ?? SentenceStatus.hide;
       if (item.isInteractive) {
         return TextSpan(
           text: '(${++interactiveIndex})${item.text}'.replaceAll(
@@ -102,6 +121,9 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
                 item.translation!,
                 item.explanation!,
               );
+              ref
+                  .read(sentenceProvider(finalTopicId).notifier)
+                  .toggleStatus(index);
             },
         );
       } else if (item.isBlank != null && item.isBlank == true) {
@@ -143,6 +165,8 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
   Widget _buildBothEnglishAndPersianLayout(
     List<MainTextSegment> mainTexSegments,
     List<PersianTextSegment> translationTextSegments,
+    Map<int, SentenceStatus> sentenceStates,
+    String finalTopicId,
   ) {
     final List<TextSpan> spans = translationTextSegments.map((item) {
       // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
@@ -163,7 +187,13 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
       // ✅ تغییر به Column برای نمایش بالا و پایین
       children: [
         // ردیف اول: متن اصلی
-        Expanded(child: _buildOnlyEnglishLayout(mainTexSegments)),
+        Expanded(
+          child: _buildOnlyEnglishLayout(
+            mainTexSegments,
+            sentenceStates,
+            finalTopicId,
+          ),
+        ),
         const Divider(height: 20),
         // ردیف دوم: ترجمه
         Expanded(
@@ -183,62 +213,6 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
         ),
       ],
     );
-  }
-
-  List<TextSpan> _buildTextSpans(String rawText, WidgetRef ref) {
-    // // تعریف پرووایدر به صورت Family برای تفکیک بر اساس نام یا آی‌دی درس
-    // final sentenceNotifierProvider =
-    //     StateNotifierProvider.family<
-    //       SentenceNotifier,
-    //       Map<int, SentenceStatus>,
-    //       String
-    //     >((ref, topicId) {
-    //       return SentenceNotifier(ref, topicId);
-    //     });
-    final sentenceStates = ref.watch(sentenceProvider);
-    // فرض: جملات با نقطه از هم جدا شده‌اند. شما می‌توانید بر اساس نیاز خود (Regex) جدا کنید.
-    List<String> sentences = rawText.split('. ');
-
-    return sentences.asMap().entries.map((entry) {
-      int idx = entry.key;
-      String text = entry.value;
-
-      // تشخیص اینکه آیا این جمله باید "تعاملی" باشد یا خیر
-      bool isSpecial = text.startsWith('#');
-      String cleanText = isSpecial ? text.substring(1) : text;
-
-      SentenceStatus status = sentenceStates[idx] ?? SentenceStatus.normal;
-
-      Color textColor;
-      switch (status) {
-        case SentenceStatus.red:
-          textColor = Colors.red;
-          break;
-        case SentenceStatus.green:
-          textColor = Colors.green;
-          break;
-        case SentenceStatus.normal:
-          textColor = Colors.black87;
-          break;
-      }
-
-      return TextSpan(
-        text: cleanText + (idx == sentences.length - 1 ? "" : ". "),
-        style: TextStyle(
-          color: isSpecial ? textColor : Colors.black87,
-          fontWeight: isSpecial ? FontWeight.bold : FontWeight.normal,
-          backgroundColor: isSpecial && status != SentenceStatus.normal
-              ? textColor.withOpacity(0.1)
-              : null,
-        ),
-        recognizer: isSpecial
-            ? (TapGestureRecognizer()
-                ..onTap = () {
-                  ref.read(sentenceProvider.notifier).toggleStatus(idx);
-                })
-            : null,
-      );
-    }).toList();
   }
 
   void _showPopup(
