@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -96,72 +98,142 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
     String finalTopicId,
   ) {
     int interactiveIndex = 0;
-    final List<InlineSpan> spans = mainTexSegments.asMap().entries.map((entry) {
+    final List<List<InlineSpan>> spans = mainTexSegments.asMap().entries.map((
+      entry,
+    ) {
       final index = entry.key;
       final item = entry.value;
 
       // وضعیت رنگ این جمله خاص
       final status = sentenceStates[index] ?? SentenceStatus.hide;
       if (item.isInteractive) {
-        return TextSpan(
-          text: '(${++interactiveIndex})${item.text}'.replaceAll(
-            '\\n',
-            '\n',
-          ), // اعمال استایل بر اساس status
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.error,
-            fontWeight: FontWeight.bold,
-            fontSize: 20.0,
-          ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              _showPopup(
-                context,
-                item.text,
-                item.translation!,
-                item.explanation!,
-              );
-              ref
-                  .read(sentenceProvider(finalTopicId).notifier)
-                  .toggleStatus(index);
-            },
-        );
-      } else if (item.isBlank != null && item.isBlank == true) {
-        if (status == SentenceStatus.hide) {
-          return TextSpan(
-            text: " ________ ", // نمایش جاخالی
-            style: const TextStyle(
-              color: Colors.blueAccent,
+        return [
+          TextSpan(
+            text: '(${++interactiveIndex})${item.text}'.replaceAll(
+              '\\n',
+              '\n',
+            ), // اعمال استایل بر اساس status
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.error,
               fontWeight: FontWeight.bold,
-              backgroundColor:
-                  Colors.black12, // هایلایت ملایم برای مشخص بودن جای کلیک
+              fontSize: 20.0,
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => ref
-                  .read(sentenceProvider(finalTopicId).notifier)
-                  .toggleStatus(index),
-          );
-        } else if (item.hasSubItems != null && item.hasSubItems == true) {}
-        return TextSpan(text: '');
-      } else {
-        return TextSpan(
-          text: item.text.replaceAll(
-            '\\n',
-            '\n',
-          ), // اعمال استایل بر اساس status
-          style: (item.isBold != null && item.isBold == true)
-              ? TextStyle(
-                  backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  fontWeight: FontWeight.bold,
-                  // fontStyle: FontStyle.italic,
-                  fontSize: 20.0,
+              ..onTap = () {
+                _showPopup(
+                  context,
+                  item.text,
+                  item.translation!,
+                  item.explanation!,
+                );
+                ref
+                    .read(sentenceProvider(finalTopicId).notifier)
+                    .toggleStatus(index);
+              },
+          ),
+        ];
+      } else if (item.isBlank != null && item.isBlank == true) {
+        if (status == SentenceStatus.hide) {
+          return [
+            TextSpan(
+              text: " ________ ", // نمایش جاخالی
+              style: const TextStyle(
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.bold,
+                backgroundColor:
+                    Colors.black12, // هایلایت ملایم برای مشخص بودن جای کلیک
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => ref
+                    .read(sentenceProvider(finalTopicId).notifier)
+                    .toggleStatus(index),
+            ),
+          ];
+        } else if (item.hasSubItems != null && item.hasSubItems == true) {
+          if (item.subItems != null) {
+            final List<dynamic> jsonFormat = jsonDecode(item.subItems!);
+            final subSegments = jsonFormat
+                .map(
+                  (json) =>
+                      MainTextSegment.fromJson(json as Map<String, dynamic>),
                 )
-              : TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontSize: 20.0,
-                ),
-        );
+                .toList();
+            if (subSegments.isNotEmpty) {
+              final List<InlineSpan> subSpans = subSegments.map((item) {
+                if (item.isInteractive) {
+                  return TextSpan(
+                    text: '(${++interactiveIndex})${item.text}'.replaceAll(
+                      '\\n',
+                      '\n',
+                    ), // اعمال استایل بر اساس status
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        _showPopup(
+                          context,
+                          item.text,
+                          item.translation!,
+                          item.explanation!,
+                        );
+                      },
+                  );
+                } else {
+                  return TextSpan(
+                    text: item.text.replaceAll(
+                      '\\n',
+                      '\n',
+                    ), // اعمال استایل بر اساس status
+                    style: (item.isBold != null && item.isBold == true)
+                        ? TextStyle(
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surfaceVariant,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                            fontWeight: FontWeight.bold,
+                            // fontStyle: FontStyle.italic,
+                            fontSize: 20.0,
+                          )
+                        : TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 20.0,
+                          ),
+                  );
+                }
+              }).toList();
+              return subSpans;
+            }
+          }
+        }
+        return [TextSpan(text: '')];
+      } else {
+        return [
+          TextSpan(
+            text: item.text.replaceAll(
+              '\\n',
+              '\n',
+            ), // اعمال استایل بر اساس status
+            style: (item.isBold != null && item.isBold == true)
+                ? TextStyle(
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceVariant,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.bold,
+                    // fontStyle: FontStyle.italic,
+                    fontSize: 20.0,
+                  )
+                : TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 20.0,
+                  ),
+          ),
+        ];
       }
     }).toList();
     return SingleChildScrollView(
@@ -170,7 +242,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
         textDirection: TextDirection.ltr,
         child: RichText(
           textAlign: TextAlign.left,
-          text: TextSpan(children: spans),
+          text: TextSpan(children: spans.expand((e) => e).toList()),
         ),
       ),
     );
