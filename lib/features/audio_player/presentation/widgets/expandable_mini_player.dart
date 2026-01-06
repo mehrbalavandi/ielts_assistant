@@ -101,69 +101,53 @@ class ExpandableMiniPlayer extends ConsumerWidget {
         ),
 
         // اسلایدر واقعی
-        // Slider(
-        //   value: state.position.inSeconds.toDouble(),
-        //   max: state.duration.inSeconds.toDouble() > 0
-        //       ? state.duration.inSeconds.toDouble()
-        //       : 1.0,
-        //   onChanged: (v) => ref
-        //       .read(audioPlayerProvider.notifier)
-        //       .seek(Duration(seconds: v.toInt())),
-        //   activeColor: Colors.blueAccent,
-        //   inactiveColor: Colors.white24,
-        // ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // ۱. اسلایدر اصلی
-              Slider(
-                value: state.position.inMilliseconds.toDouble().clamp(
-                  0,
-                  totalMs,
-                ),
-                max: totalMs > 0 ? totalMs : 1.0,
-                onChanged: (v) => ref
-                    .read(audioPlayerProvider.notifier)
-                    .seek(Duration(milliseconds: v.toInt())),
-                activeColor: Colors.blueAccent,
-                inactiveColor: Colors.white24,
-              ),
-
-              // ۲. نمایشگر نقطه A (نشانگر نارنجی در پایین اسلایدر)
-              if (state.pointA != null && totalMs > 0)
-                Positioned(
-                  left:
-                      24 +
-                      (state.pointA!.inMilliseconds / totalMs) *
-                          (MediaQuery.of(ref.context).size.width - 80),
-                  bottom: 12,
-                  child: const Icon(
-                    Icons.arrow_drop_up,
-                    color: Colors.orange,
-                    size: 20,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  // نشانگر خط عمودی برای نقطه A
+                  if (state.pointA != null && totalMs > 0)
+                    Positioned(
+                      left:
+                          (state.pointA!.inMilliseconds / totalMs) *
+                              (constraints.maxWidth - 24) +
+                          12,
+                      top: 10,
+                      bottom: 10,
+                      child: Container(width: 2, color: Colors.orange),
+                    ),
+                  // نشانگر خط عمودی برای نقطه B
+                  if (state.pointB != null && totalMs > 0)
+                    Positioned(
+                      left:
+                          (state.pointB!.inMilliseconds / totalMs) *
+                              (constraints.maxWidth - 24) +
+                          12,
+                      top: 10,
+                      bottom: 10,
+                      child: Container(width: 2, color: Colors.redAccent),
+                    ),
+                  // خودِ اسلایدر
+                  Slider(
+                    value: state.position.inMilliseconds.toDouble().clamp(
+                      0,
+                      totalMs,
+                    ),
+                    max: totalMs > 0 ? totalMs : 1.0,
+                    onChanged: (v) => ref
+                        .read(audioPlayerProvider.notifier)
+                        .seek(Duration(milliseconds: v.toInt())),
+                    activeColor: Colors.blueAccent.withOpacity(0.7),
+                    inactiveColor: Colors.white12,
                   ),
-                ),
-
-              // ۳. نمایشگر نقطه B (نشانگر قرمز در پایین اسلایدر)
-              if (state.pointB != null && totalMs > 0)
-                Positioned(
-                  left:
-                      24 +
-                      (state.pointB!.inMilliseconds / totalMs) *
-                          (MediaQuery.of(ref.context).size.width - 80),
-                  bottom: 12,
-                  child: const Icon(
-                    Icons.arrow_drop_up,
-                    color: Colors.redAccent,
-                    size: 20,
-                  ),
-                ),
-            ],
+                ],
+              );
+            },
           ),
-        ),
-        // زمان‌سنج
+        ), // زمان‌سنج
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
@@ -215,6 +199,50 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                       icon: const Icon(Icons.layers_clear, color: Colors.white),
                       onPressed: () =>
                           ref.read(audioPlayerProvider.notifier).clearAB(),
+                    ),
+                    PopupMenuButton<double>(
+                      initialValue: state.speed,
+                      icon: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white54),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          "${state.speed}x",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      onSelected: (double value) {
+                        ref.read(audioPlayerProvider.notifier).setSpeed(value);
+                      },
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<double>>[
+                            const PopupMenuItem(
+                              value: 0.5,
+                              child: Text('0.5x (بسیار کند)'),
+                            ),
+                            const PopupMenuItem(
+                              value: 0.8,
+                              child: Text('0.8x (کند)'),
+                            ),
+                            const PopupMenuItem(
+                              value: 1.0,
+                              child: Text('1.0x (معمولی)'),
+                            ),
+                            const PopupMenuItem(
+                              value: 1.2,
+                              child: Text('1.2x (سریع)'),
+                            ),
+                            const PopupMenuItem(
+                              value: 1.5,
+                              child: Text('1.5x (بسیار سریع)'),
+                            ),
+                          ],
                     ),
                     IconButton(
                       icon: Icon(

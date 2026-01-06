@@ -17,6 +17,7 @@ class AudioPlayerState {
   final bool isRepeatEnabled; // قابلیت تکرار
   final Duration? pointA; // نقطه شروع A
   final Duration? pointB; // نقطه پایان B
+  final double speed;
 
   AudioPlayerState({
     this.isPlaying = false,
@@ -26,6 +27,7 @@ class AudioPlayerState {
     this.isRepeatEnabled = false,
     this.pointA,
     this.pointB,
+    this.speed = 1.0,
   });
 
   // متد copyWith برای بروزرسانی وضعیت
@@ -37,6 +39,7 @@ class AudioPlayerState {
     bool? isRepeatEnabled, // استفاده از تابع برای اجازه دادن به پاس دادن null
     Duration? Function()? pointA,
     Duration? Function()? pointB,
+    double? speed,
   }) {
     return AudioPlayerState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -46,6 +49,7 @@ class AudioPlayerState {
       isRepeatEnabled: isRepeatEnabled ?? this.isRepeatEnabled,
       pointA: pointA != null ? pointA() : this.pointA,
       pointB: pointB != null ? pointB() : this.pointB,
+      speed: speed ?? this.speed,
     );
   }
 }
@@ -171,5 +175,10 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
         ? state.position + const Duration(seconds: 10)
         : state.position - const Duration(seconds: 10);
     _player.seek(target);
+  }
+
+  void setSpeed(double newSpeed) {
+    _player.setSpeed(newSpeed); // دستور به موتور پخش
+    state = state.copyWith(speed: newSpeed); // بروزرسانی UI
   }
 }
