@@ -133,20 +133,32 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
 
   // مدیریت A-B Repeat
   void setPointA() {
-    // اگر نقطه B قبلاً ست شده و زمان فعلی بعد از B است، اجازه نده
-    if (state.pointB != null && state.position >= state.pointB!) {
-      // می‌توانید اینجا یک Snackbar نشان دهید یا فقط عملیات را انجام ندهید
+    if (state.pointA != null) {
+      state = state.copyWith(pointA: () => null);
       return;
     }
+
+    if (state.pointB != null && state.position >= state.pointB!) {
+      return;
+    }
+
     state = state.copyWith(pointA: () => state.position);
   }
 
   void setPointB() {
-    // فقط در صورتی اجازه بده که نقطه B بعد از نقطه A باشد
-    if (state.pointA != null && state.position <= state.pointA!) {
-      // خطای منطقی: نقطه پایان نمی‌تواند قبل از شروع باشد
+    // ۱. اگر از قبل نقطه B ست شده باشد، با زدن دوباره دکمه آن را پاک کن
+    if (state.pointB != null) {
+      state = state.copyWith(pointB: () => null);
       return;
     }
+
+    // ۲. اگر نقطه B نیست و می‌خواهیم ست کنیم، شرط بزرگتر بودن از A را چک کن
+    if (state.pointA != null && state.position <= state.pointA!) {
+      // اجازه نده B قبل از A باشد
+      return;
+    }
+
+    // ۳. ست کردن نقطه B
     state = state.copyWith(pointB: () => state.position);
   }
 

@@ -60,8 +60,9 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
     final isDualPane = ref.watch(isDualPaneProvider);
     final topic = nav.selectedTopic;
 
-    if (topic == null)
+    if (topic == null) {
       return const Scaffold(body: Center(child: Text('درسی انتخاب نشده است')));
+    }
 
     return Scaffold(
       appBar: AppBar(
