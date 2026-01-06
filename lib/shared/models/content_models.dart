@@ -132,13 +132,48 @@ sealed class FinalTopic with _$FinalTopic {
   }
 }
 
-@freezed
-sealed class AudioBookmark with _$AudioBookmark {
-  const factory AudioBookmark({
-    required String id,
-    required Duration position,
-    required String label,
-  }) = _AudioBookmark;
-  factory AudioBookmark.fromJson(Map<String, dynamic> json) =>
-      _$AudioBookmarkFromJson(json);
+// class Sentence {
+//   final String text;
+//   final bool isSpecial; // آیا جمله‌ای است که قابلیت تغییر رنگ دارد؟
+
+//   Sentence({required this.text, required this.isSpecial});
+// }
+class MainTextSegment {
+  final String text;
+  final bool isInteractive;
+  final bool? isBold;
+  final String? translation; // ترجمه فارسی
+  final String? explanation; // توضیحات تکمیلی
+
+  MainTextSegment({
+    required this.text,
+    required this.isInteractive,
+    this.isBold,
+    this.translation,
+    this.explanation,
+  });
+
+  factory MainTextSegment.fromJson(Map<String, dynamic> json) {
+    return MainTextSegment(
+      text: json['text'] as String,
+      isInteractive: json['isInteractive'] as bool,
+      translation: json['translation'] as String?,
+      explanation: json['explanation'] as String?,
+      isBold: json['isBold'] as bool?,
+    );
+  }
+}
+
+class PersianTextSegment {
+  final String text;
+  final bool? isBold;
+
+  PersianTextSegment({required this.text, this.isBold});
+
+  factory PersianTextSegment.fromJson(Map<String, dynamic> json) {
+    return PersianTextSegment(
+      text: json['text'] as String,
+      isBold: json['isBold'] as bool?,
+    );
+  }
 }

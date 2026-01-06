@@ -28,18 +28,18 @@ class MainDrawer extends ConsumerWidget {
           ),
 
           // لیست درختی محتوا
-          Expanded(
-            child: allContentAsync.when(
-              data: (books) => ListView.builder(
-                itemCount: books.length,
-                itemBuilder: (context, index) =>
-                    _buildBookTile(books[index], ref, context),
-              ),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, stack) =>
-                  Center(child: Text('خطا در بارگذاری: $err')),
-            ),
-          ),
+          // Expanded(
+          //   child: allContentAsync.when(
+          //     data: (books) => ListView.builder(
+          //       itemCount: books.length,
+          //       itemBuilder: (context, index) =>
+          //           _buildBookTile(books[index], ref, context),
+          //     ),
+          //     loading: () => const Center(child: CircularProgressIndicator()),
+          //     error: (err, stack) =>
+          //         Center(child: Text('خطا در بارگذاری: $err')),
+          //   ),
+          // ),
 
           // دکمه تنظیمات در پایین دراور
           const Divider(),

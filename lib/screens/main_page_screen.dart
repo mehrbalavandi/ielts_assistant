@@ -609,7 +609,7 @@ class _finalTopicListTile extends ConsumerWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) =>
-                      unitContentScreen(finalTopic: finalTopic),
+                      UnitContentScreen(finalTopic: finalTopic),
                 ),
               );
             }

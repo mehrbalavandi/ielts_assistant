@@ -129,4 +129,16 @@ class ContentService {
     }
     return null;
   }
+
+  Future<String?> readFile(String path) async {
+    try {
+      final file = File(path);
+      if (await file.exists()) {
+        return await file.readAsString();
+      }
+    } catch (e) {
+      print("Error reading file at $path: $e");
+    }
+    return null;
+  }
 }

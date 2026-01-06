@@ -9,16 +9,16 @@ import 'package:ielts_assistant/old_services/audio_player_service.dart';
 import 'package:ielts_assistant/old_services/lesson_content_service.dart'; // import 'audio_player_widget.dart'; // برای استفاده از AudioPlayerWidget یا MiniPlayerWidget (اختیاری)
 
 // کلاس اصلی
-class unitContentScreen extends ConsumerStatefulWidget {
+class UnitContentScreen extends ConsumerStatefulWidget {
   // ✅ بله، topic از نوع mainTopic است.
   final FinalTopic finalTopic;
-  const unitContentScreen({required this.finalTopic, super.key});
+  const UnitContentScreen({required this.finalTopic, super.key});
 
   @override
-  ConsumerState<unitContentScreen> createState() => _unitContentScreenState();
+  ConsumerState<UnitContentScreen> createState() => _UnitContentScreenState();
 }
 
-class _unitContentScreenState extends ConsumerState<unitContentScreen> {
+class _UnitContentScreenState extends ConsumerState<UnitContentScreen> {
   final ScrollController _mainScrollController = ScrollController();
   final ScrollController _translationScrollController = ScrollController();
 

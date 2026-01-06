@@ -1,106 +1,15 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/data/content_service.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'navigation_provider.g.dart';
 part 'navigation_provider.freezed.dart';
-/*
-@freezed
-sealed class NavigationState with _$NavigationState {
-  const factory NavigationState({
-    Book? selectedBook,
-    Unit? selectedUnit,
-    Topic? selectedTopic,
-    PageContent? selectedPage,
-  }) = _NavigationState;
-}
-
-@riverpod
-class NavigationNotifier extends _$NavigationNotifier {
-  final _box = GetStorage();
-
-  // کلیدهای ذخیره‌سازی
-  static const _kBook = 'last_book';
-  static const _kUnit = 'last_unit';
-  static const _kTopic = 'last_topic';
-
-  @override
-  NavigationState build() {
-    // در ابتدا وضعیت خالی است.
-    // بازیابی داده‌ها را در یک متد جداگانه بعد از لود شدن محتوا انجام می‌دهیم.
-    return const NavigationState();
-  }
-
-  // متدی برای بازیابی وضعیت از حافظه (باید بعد از لود شدن allContentProvider فراخوانی شود)
-  void restoreLastState(List<Book> allBooks) {
-    final lastBookName = _box.read(_kBook);
-    final lastUnitName = _box.read(_kUnit);
-    final lastTopicName = _box.read(_kTopic);
-
-    if (lastBookName == null) return;
-
-    try {
-      final book = allBooks.firstWhere((b) => b.name == lastBookName);
-      state = state.copyWith(selectedBook: book);
-
-      if (lastUnitName != null) {
-        final unit = book.units.firstWhere((u) => u.name == lastUnitName);
-        state = state.copyWith(selectedUnit: unit);
-
-        if (lastTopicName != null) {
-          final topic = unit.topics.firstWhere((t) => t.name == lastTopicName);
-          state = state.copyWith(selectedTopic: topic);
-        }
-      }
-    } catch (e) {
-      // اگر ساختار فایل‌ها عوض شده بود و پیدا نشد، خطا را نادیده بگیر
-      print("Could not restore state: $e");
-    }
-  }
-
-  void selectBook(Book book) {
-    state = state.copyWith(
-      selectedBook: book,
-      selectedUnit: null,
-      selectedTopic: null,
-      selectedPage: null,
-    );
-    _box.write(_kBook, book.name);
-    _box.remove(_kUnit);
-    _box.remove(_kTopic);
-  }
-
-  void selectUnit(Unit unit) {
-    state = state.copyWith(
-      selectedUnit: unit,
-      selectedTopic: null,
-      selectedPage: null,
-    );
-    _box.write(_kUnit, unit.name);
-    _box.remove(_kTopic);
-  }
-
-  void selectTopic(Topic topic) {
-    state = state.copyWith(selectedTopic: topic, selectedPage: null);
-    _box.write(_kTopic, topic.name);
-  }
-
-  void selectPage(PageContent page) {
-    state = state.copyWith(selectedPage: page);
-  }
-
-  void reset() {
-    state = const NavigationState();
-    _box.remove(_kBook);
-    _box.remove(_kUnit);
-    _box.remove(_kTopic);
-  }
-}
-*/
-// lib/features/home/providers/navigation_provider.dart
 
 @freezed
 sealed class NavigationState with _$NavigationState {
@@ -110,12 +19,17 @@ sealed class NavigationState with _$NavigationState {
     Topic? selectedTopic,
     PageContent? selectedPage,
     FinalTopic? selectedFinalTopic,
+    List<MainTextSegment>? currentEnglishSegments,
+    List<PersianTextSegment>? currentPersianTextSegments,
+    @Default(false) bool isLoading,
   }) = _NavigationState;
 }
 
 @riverpod
 class NavigationNotifier extends _$NavigationNotifier {
   final _box = GetStorage();
+  final _contentService = ContentService();
+
   static const _kBook = 'last_book';
   static const _kUnit = 'last_unit';
   static const _kTopic = 'last_topic';
@@ -194,7 +108,27 @@ class NavigationNotifier extends _$NavigationNotifier {
   }
 
   Future<void> selectFinalTopic(FinalTopic finalTopic) async {
-    state = state.copyWith(selectedFinalTopic: finalTopic);
+    // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
+    state = state.copyWith(
+      currentEnglishSegments: null,
+      currentPersianTextSegments: null,
+      isLoading: true,
+    );
+    final root = ref.read(
+      settingsProvider,
+    ); //GetStorage().read('root_path') ?? '';
+
+    // خواندن موازی برای بهینه‌سازی زمان
+    final results = await Future.wait([
+      _contentService.readFile(finalTopic.jsonFilePath),
+      _contentService.readFile(finalTopic.translationFilePath),
+    ]);
+    state = state.copyWith(
+      selectedFinalTopic: finalTopic,
+      currentEnglishSegments: _parseEnglishContent(results[0]),
+      currentPersianTextSegments: _parsePersianContent(results[1]),
+      isLoading: false,
+    );
     _box.write(_kFinalTopic, finalTopic.name);
     // منطق پخش خودکار صدا
     if (finalTopic.audioFileName != null &&
@@ -205,6 +139,28 @@ class NavigationNotifier extends _$NavigationNotifier {
 
       ///storage/emulated/0/000- English Learning/00- ielts assistant/mindset 01/Tracks/66 Mindset_L1_66.sound
     }
+  }
+
+  List<MainTextSegment> _parseEnglishContent(String? raw) {
+    if (raw == null) {
+      return <MainTextSegment>[];
+    }
+    final json = jsonDecode(raw);
+    return json
+        .map((json) => MainTextSegment.fromJson(json as Map<String, dynamic>))
+        .toList();
+  }
+
+  List<PersianTextSegment> _parsePersianContent(String? raw) {
+    if (raw == null) {
+      return <PersianTextSegment>[];
+    }
+    final json = jsonDecode(raw);
+    return json
+        .map(
+          (json) => PersianTextSegment.fromJson(json as Map<String, dynamic>),
+        )
+        .toList();
   }
 
   String _buildFullPath(FinalTopic finalTopic) {

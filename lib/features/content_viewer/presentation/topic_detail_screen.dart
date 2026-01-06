@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
+import 'package:ielts_assistant/features/content_viewer/data/models.dart';
+import 'package:ielts_assistant/shared/models/content_models.dart';
 import '../../home/providers/navigation_provider.dart';
 import '../../audio_player/presentation/widgets/mini_audio_player.dart';
 
@@ -172,5 +177,9 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
         ),
       ],
     );
+  }
+
+  String normalizeText(String text) {
+    return text.replaceAll('\\n', '\n');
   }
 }
