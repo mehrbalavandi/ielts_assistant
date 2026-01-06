@@ -127,6 +127,21 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
             },
         );
       } else if (item.isBlank != null && item.isBlank == true) {
+        if (status == SentenceStatus.hide) {
+          return TextSpan(
+            text: " ________ ", // نمایش جاخالی
+            style: const TextStyle(
+              color: Colors.blueAccent,
+              fontWeight: FontWeight.bold,
+              backgroundColor:
+                  Colors.black12, // هایلایت ملایم برای مشخص بودن جای کلیک
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => ref
+                  .read(sentenceProvider(finalTopicId).notifier)
+                  .toggleStatus(index),
+          );
+        } else if (item.hasSubItems != null && item.hasSubItems == true) {}
         return TextSpan(text: '');
       } else {
         return TextSpan(

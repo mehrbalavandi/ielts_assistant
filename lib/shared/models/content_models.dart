@@ -142,6 +142,7 @@ class MainTextSegment {
   final String text;
   final bool isInteractive;
   final bool? isBlank;
+  final bool? hasSubItems;
   final bool? isBold;
   final String? translation; // ترجمه فارسی
   final String? explanation; // توضیحات تکمیلی
@@ -150,6 +151,7 @@ class MainTextSegment {
     required this.text,
     required this.isInteractive,
     this.isBlank,
+    this.hasSubItems,
     this.isBold,
     this.translation,
     this.explanation,
@@ -162,6 +164,7 @@ class MainTextSegment {
       translation: json['translation'] as String?,
       explanation: json['explanation'] as String?,
       isBlank: json['isBlank'] as bool?,
+      hasSubItems: json['hasSubItems'] as bool?,
       isBold: json['isBold'] as bool?,
     );
   }
