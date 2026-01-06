@@ -179,21 +179,25 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                       label: "B",
                       isActive: state.pointB != null,
                       isDisabled: false, // همیشه فعال باشد
-                      onTap: () =>
-                          ref.read(audioPlayerProvider.notifier).setPointB(),
+                      onTap: () {
+                        if (state.pointA != null) {
+                          ref.read(audioPlayerProvider.notifier).setPointB();
+                        }
+                      },
                     ),
 
                     // دکمه پاک کردن (کوچک و بدون پس‌زمینه)
-                    IconButton(
-                      icon: const Icon(
-                        Icons.layers_clear_outlined,
-                        color: Colors.white54,
-                        size: 20,
+                    if (state.pointA != null)
+                      IconButton(
+                        icon: const Icon(
+                          Icons.layers_clear_outlined,
+                          color: Colors.white54,
+                          size: 20,
+                        ),
+                        onPressed: () =>
+                            ref.read(audioPlayerProvider.notifier).clearAB(),
+                        tooltip: 'پاک کردن نقاط',
                       ),
-                      onPressed: () =>
-                          ref.read(audioPlayerProvider.notifier).clearAB(),
-                      tooltip: 'پاک کردن نقاط',
-                    ),
                   ],
                 ),
               ),

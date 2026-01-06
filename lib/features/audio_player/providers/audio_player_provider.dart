@@ -133,16 +133,18 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
 
   // مدیریت A-B Repeat
   void setPointA() {
-    if (state.pointA != null) {
-      state = state.copyWith(pointA: () => null);
-      return;
+    if (state.pointB != null) {
+      if (state.position < state.pointB!) {
+        state = state.copyWith(pointA: () => state.position);
+      } else {
+        state = state.copyWith(
+          pointA: () => state.position,
+          pointB: () => null,
+        );
+      }
+    } else {
+      state = state.copyWith(pointA: () => state.position);
     }
-
-    if (state.pointB != null && state.position >= state.pointB!) {
-      return;
-    }
-
-    state = state.copyWith(pointA: () => state.position);
   }
 
   void setPointB() {
