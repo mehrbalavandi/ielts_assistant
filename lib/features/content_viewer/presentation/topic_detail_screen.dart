@@ -151,15 +151,15 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
           ];
         } else if (item.hasSubItems != null && item.hasSubItems == true) {
           if (item.subItems != null) {
-            final List<dynamic> jsonFormat = jsonDecode(item.subItems!);
-            final subSegments = jsonFormat
-                .map(
-                  (json) =>
-                      MainTextSegment.fromJson(json as Map<String, dynamic>),
-                )
-                .toList();
-            if (subSegments.isNotEmpty) {
-              final List<InlineSpan> subSpans = subSegments.map((item) {
+            // final List<dynamic> jsonFormat = jsonDecode(item.subItems!);
+            // final subSegments = jsonFormat
+            //     .map(
+            //       (json) =>
+            //           MainTextSegment.fromJson(json as Map<String, dynamic>),
+            //     )
+            //     .toList();
+            if (item.subItems!.isNotEmpty) {
+              final List<InlineSpan> subSpans = item.subItems!.map((item) {
                 if (item.isInteractive) {
                   return TextSpan(
                     text: '(${++interactiveIndex})${item.text}'.replaceAll(
