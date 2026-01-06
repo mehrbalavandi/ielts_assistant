@@ -104,6 +104,8 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
               );
             },
         );
+      } else if (item.isBlank != null && item.isBlank == true) {
+        return TextSpan(text: '');
       } else {
         return TextSpan(
           text: item.text.replaceAll(

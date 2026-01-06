@@ -141,6 +141,7 @@ sealed class FinalTopic with _$FinalTopic {
 class MainTextSegment {
   final String text;
   final bool isInteractive;
+  final bool? isBlank;
   final bool? isBold;
   final String? translation; // ترجمه فارسی
   final String? explanation; // توضیحات تکمیلی
@@ -148,6 +149,7 @@ class MainTextSegment {
   MainTextSegment({
     required this.text,
     required this.isInteractive,
+    this.isBlank,
     this.isBold,
     this.translation,
     this.explanation,
@@ -159,6 +161,7 @@ class MainTextSegment {
       isInteractive: json['isInteractive'] as bool,
       translation: json['translation'] as String?,
       explanation: json['explanation'] as String?,
+      isBlank: json['isBlank'] as bool?,
       isBold: json['isBold'] as bool?,
     );
   }
