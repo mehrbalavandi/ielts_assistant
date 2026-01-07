@@ -72,13 +72,13 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
         children: [
           Expanded(
             child: isDualPane
-                ? _buildBothEnglishAndPersianLayout(
+                ? _buildEnglishAndPersianLayout(
                     mainTextSegments,
                     persianTextSegments,
                     sentenceStates,
                     finalTopicId,
                   )
-                : _buildOnlyEnglishLayout(
+                : _buildEnglishLayout(
                     mainTextSegments,
                     sentenceStates,
                     finalTopicId,
@@ -92,7 +92,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
   }
 
   // چیدمان تک ستونه (انگلیسی بالای فارسی)
-  Widget _buildOnlyEnglishLayout(
+  Widget _buildEnglishLayout(
     List<MainTextSegment> mainTexSegments,
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
@@ -209,6 +209,23 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
               return subSpans;
             }
           }
+        } else {
+          return [
+            TextSpan(
+              text:
+                  '[${item.text.replaceAll('\\n', '\n')}]', // اعمال استایل بر اساس status
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+              //! اصلاح شود: در صورت نیاز استفاده گردد
+              // recognizer: TapGestureRecognizer()
+              //   ..onTap = () => ref
+              //       .read(sentenceProvider(finalTopicId).notifier)
+              //       .toggleStatus(index),
+            ),
+          ];
         }
         return [TextSpan(text: '')];
       } else {
@@ -249,7 +266,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
   }
 
   // چیدمان دو ستونه (دو لیست اسکرول‌شونده مجزا)
-  Widget _buildBothEnglishAndPersianLayout(
+  Widget _buildEnglishAndPersianLayout(
     List<MainTextSegment> mainTexSegments,
     List<PersianTextSegment> translationTextSegments,
     Map<int, SentenceStatus> sentenceStates,
@@ -275,7 +292,7 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
       children: [
         // ردیف اول: متن اصلی
         Expanded(
-          child: _buildOnlyEnglishLayout(
+          child: _buildEnglishLayout(
             mainTexSegments,
             sentenceStates,
             finalTopicId,
