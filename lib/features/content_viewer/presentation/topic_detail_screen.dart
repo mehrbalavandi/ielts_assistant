@@ -212,9 +212,12 @@ class _TopicDetailScreenState extends ConsumerState<TopicDetailScreen> {
         } else {
           return [
             TextSpan(
-              text:
-                  '[${item.text.replaceAll('\\n', '\n')}]', // اعمال استایل بر اساس status
+              text: item.text.replaceAll(
+                '\\n',
+                '\n',
+              ), // اعمال استایل بر اساس status
               style: TextStyle(
+                // backgroundColor: Colors.amberAccent.shade100,
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
