@@ -140,13 +140,17 @@ sealed class FinalTopic with _$FinalTopic {
 // }
 class MainTextSegment {
   final String text;
+  final String? originText;
   final bool isInteractive;
   final bool? isBlank;
   final bool? hasSubItems;
   final List<dynamic>? subItems;
   final bool? isBold;
+  final bool? isAmberHighlighted;
   final String? translation; // ترجمه فارسی
   final String? explanation; // توضیحات تکمیلی
+  final String? cerfLevel; // توضیحات تکمیلی
+  final String? pronounce;
 
   MainTextSegment({
     required this.text,
@@ -155,8 +159,12 @@ class MainTextSegment {
     this.hasSubItems,
     this.subItems,
     this.isBold,
+    this.originText,
+    this.isAmberHighlighted,
     this.translation,
     this.explanation,
+    this.cerfLevel,
+    this.pronounce,
   });
 
   factory MainTextSegment.fromJson(Map<String, dynamic> json) {
@@ -176,8 +184,13 @@ class MainTextSegment {
 class PersianTextSegment {
   final String text;
   final bool? isBold;
+  final bool? isAmberHighlighted;
 
-  PersianTextSegment({required this.text, this.isBold});
+  PersianTextSegment({
+    required this.text,
+    this.isBold,
+    this.isAmberHighlighted,
+  });
 
   factory PersianTextSegment.fromJson(Map<String, dynamic> json) {
     return PersianTextSegment(
@@ -185,4 +198,23 @@ class PersianTextSegment {
       isBold: json['isBold'] as bool?,
     );
   }
+}
+
+class OriginalContent {
+  final String book;
+  final String unit;
+  final String topic;
+  final String page;
+  final String root;
+  final String originalContent;
+  final FinalTopic finalTopic;
+  OriginalContent({
+    required this.book,
+    required this.unit,
+    required this.topic,
+    required this.page,
+    required this.root,
+    required this.originalContent,
+    required this.finalTopic,
+  });
 }

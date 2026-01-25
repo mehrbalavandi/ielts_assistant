@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/content_viewer/data/content_service.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -23,6 +24,7 @@ class SettingsScreen extends ConsumerWidget {
                   .read(settingsProvider.notifier)
                   .updatePath(selectedDirectory!);
               // }
+              await ContentService.scanRootFolder(selectedDirectory);
             },
           ),
           const Divider(),

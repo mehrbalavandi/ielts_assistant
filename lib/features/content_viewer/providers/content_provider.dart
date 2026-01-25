@@ -14,6 +14,6 @@ Future<List<Book>> allContent(Ref ref) async {
   if (rootPath == null || rootPath.isEmpty) {
     return []; // اگر مسیری انتخاب نشده باشد
   }
-
-  return await ContentService.scanRootFolder(rootPath);
+  final result = await ContentService.scanRootFolder(rootPath);
+  return result;
 }

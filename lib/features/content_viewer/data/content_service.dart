@@ -1,15 +1,16 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:path/path.dart';
 import 'package:path/path.dart' as p;
 
 class ContentService {
   static Future<List<Book>> scanRootFolder(String rootPath) async {
-    return await compute(_heavyScanner, rootPath);
+    return await compute(_heavyScannerGetBooks, rootPath);
   }
 
-  static List<Book> _heavyScanner(String rootPath) {
+  static List<Book> _heavyScannerGetBooks(String rootPath) {
     final rootDir = Directory(rootPath);
     if (!rootDir.existsSync()) {
       debugPrint('Root directory not found: $rootPath');

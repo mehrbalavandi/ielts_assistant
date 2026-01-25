@@ -86,7 +86,16 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
         _box.write('pos_${state.currentPath}', pos.inMilliseconds);
       }
     });
-
+    _player.processingStateStream.listen((status) {
+      if (status == ProcessingState.completed) {
+        // ۱. موقعیت را به ابتدای فایل برمی‌گردانیم (بدون reset کردن currentTopic)
+        _player.seek(Duration.zero);
+        if (!state.isRepeatEnabled) {
+          _player.pause();
+        }
+        state = state.copyWith(position: Duration.zero);
+      }
+    });
     _durSub = _player.durationStream.listen((dur) {
       if (ref.mounted) state = state.copyWith(duration: dur ?? Duration.zero);
     });
@@ -179,6 +188,10 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
   void stopAndClear() {
     _player.stop();
     state = AudioPlayerState(); // ریست کامل پلیر
+  }
+
+  bool isPlaying() {
+    return _player.playing;
   }
 
   void pause() => _player.pause();

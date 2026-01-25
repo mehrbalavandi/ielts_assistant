@@ -1,105 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
-import 'package:ielts_assistant/features/audio_player/presentation/widgets/mini_audio_player.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/topic_detail_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/data/content_service.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/final_topic_detail_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
-import 'package:ielts_assistant/features/home/presentation/widgets/main_drawer.dart';
-/*
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final nav = ref.watch(navigationProvider);
-
-    return Scaffold(
-      appBar: AppBar(title: const Text('آموزش هوشمند')),
-      drawer: const MainDrawer(),
-      body: Column(
-        children: [
-          _buildBreadcrumbs(nav),
-          Expanded(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: _buildBody(nav, ref),
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: MiniAudioPlayer(),
-    );
-  }
-
-  Widget _buildBody(NavigationState nav, WidgetRef ref) {
-    if (nav.selectedTopic == null) {
-      return const Center(child: Text('درسی انتخاب نشده'));
-    }
-    if (nav.selectedPage == null) {
-      return ListView(
-        key: const ValueKey('page_list'),
-        children: nav.selectedTopic!.pageContents
-            .map(
-              (p) => ListTile(
-                title: Text(p.name),
-                onTap: () =>
-                    ref.read(navigationProvider.notifier).selectPage(p),
-              ),
-            )
-            .toList(),
-      );
-    }
-    return ListView(
-      key: const ValueKey('content_list'),
-      children: nav.selectedPage!.finalTopics
-          .map(
-            (f) => Card(
-              child: ExpansionTile(
-                title: Text(f.name),
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text(f.jsonFilePath),
-                  ),
-                ],
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  Widget _buildBreadcrumbs(NavigationState nav) {
-    List<String> labels = [];
-    if (nav.selectedBook != null) labels.add(nav.selectedBook!.name);
-    if (nav.selectedUnit != null) labels.add(nav.selectedUnit!.name);
-    if (nav.selectedTopic != null) labels.add(nav.selectedTopic!.name);
-
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      color: Colors.grey[200],
-      child: Row(
-        children: labels.map((label) {
-          bool isLast = labels.last == label;
-          return Row(
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: isLast ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-              if (!isLast) const Icon(Icons.chevron_left, size: 16),
-            ],
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
-*/
+import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
+import 'package:ielts_assistant/shared/cf_public.dart';
+import 'package:ielts_assistant/shared/customer_search_delegate.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -122,6 +32,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           // استفاده از Future.microtask برای جلوگیری از تداخل در ساخت ویجت
           Future.microtask(() {
             ref.read(navigationProvider.notifier).restoreLastState(books);
+            CfPublic()
+                .getOriginalContentsAsync(
+                  ref.read(allContentProvider).value,
+                  ref.read(navigationProvider),
+                )
+                .then((result) {
+                  ref.read(originalContentListProvider.notifier).state = result;
+                });
           });
         }
       });
@@ -129,10 +47,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.listen(navigationProvider, (previous, next) {
       if (next.selectedFinalTopic != null &&
           previous?.selectedFinalTopic == null) {
+        ref.read(isPlayerExpandedProvider.notifier).state = false;
         Navigator.of(context)
             .push(
               MaterialPageRoute(
-                builder: (context) => const TopicDetailScreen(),
+                builder: (context) => const FinalTopicDetailScreen(),
               ),
             )
             .then((_) {
@@ -148,8 +67,89 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ref.read(navigationProvider.notifier).goBack();
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('دستیار آیلتس')),
-        drawer: const MainDrawer(),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          title: Text(
+            'دستیار آیلتس',
+            style: TextStyle(
+              fontFamily: FontFamily.yekanBakhBold.asText,
+              fontSize: 20.0,
+              // color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          actions: [
+            //! ویجت جستجو
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: IconButton(
+                onPressed: () async {
+                  var result = await showSearch(
+                    context: context,
+                    delegate: CustomerSearchDelegate(
+                      ref: ref,
+                      // dataFuture: CfPublic().getOriginalContentsAsync(
+                      //   ref.read(allContentProvider).value,
+                      //   ref.read(navigationProvider),
+                      // ),
+                      data: ref.read(originalContentListProvider),
+                    ),
+                  );
+                  if (result != null) {}
+                },
+                icon: Icon(Icons.search),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () async {
+                ref.invalidate(allContentProvider);
+                Future.delayed(const Duration(seconds: 2)).then((onValue) {
+                  final books = ref.read(allContentProvider).value;
+                  if (books != null) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .restoreLastState(books);
+                    Future.microtask(() {
+                      ref
+                          .read(navigationProvider.notifier)
+                          .restoreLastState(books);
+                      CfPublic()
+                          .getOriginalContentsAsync(
+                            ref.read(allContentProvider).value,
+                            ref.read(navigationProvider),
+                          )
+                          .then((result) {
+                            ref
+                                    .read(originalContentListProvider.notifier)
+                                    .state =
+                                result;
+                          });
+                    });
+                  }
+                });
+              },
+              tooltip: 'تازه‌سازی',
+            ),
+            IconButton(
+              icon: Icon(Icons.folder),
+              onPressed: () async {
+                String? previousPath = ref.read(settingsProvider);
+                String? selectedDirectory = await ref
+                    .read(settingsProvider.notifier)
+                    .pickAndSaveDirectory(previousPath);
+                if (selectedDirectory != null) {
+                  ref
+                      .read(settingsProvider.notifier)
+                      .updatePath(selectedDirectory);
+                  await ContentService.scanRootFolder(selectedDirectory);
+                }
+              },
+              tooltip: 'انتخاب مسیر',
+            ),
+          ],
+        ),
+        // drawer: const MainDrawer(),
         body: Column(
           children: [
             _buildBreadcrumbs(nav, allContent),

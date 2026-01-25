@@ -1,0 +1,743 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:ielts_assistant/common/enums.dart';
+import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/sentence_provider.dart';
+import 'package:ielts_assistant/shared/cf_public.dart';
+import 'package:ielts_assistant/shared/customer_search_delegate.dart';
+import 'package:ielts_assistant/shared/models/content_models.dart';
+import '../../home/providers/navigation_provider.dart';
+
+// پرووایدر برای مدیریت حالت تک‌ستونه یا دو ستونه
+final isDualPaneProvider = StateProvider<bool>((ref) => false);
+
+class FinalTopicDetailScreen extends ConsumerStatefulWidget {
+  const FinalTopicDetailScreen({super.key});
+
+  @override
+  ConsumerState<FinalTopicDetailScreen> createState() =>
+      _TopicDetailScreenState();
+}
+
+class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
+  // تعریف اسکرول کنترلرها برای حفظ وضعیت اسکرول
+  late ScrollController _englishController;
+  late ScrollController _persianController;
+
+  @override
+  void initState() {
+    super.initState();
+    _englishController = ScrollController();
+    _persianController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _englishController.dispose();
+    _persianController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final nav = ref.watch(navigationProvider);
+    final isDualPane = ref.watch(isDualPaneProvider);
+    final selectedBook = nav.selectedBook;
+    final selectedTopic = nav.selectedTopic;
+    final selectedUnit = nav.selectedUnit;
+    final selectedPage = nav.selectedPage;
+    final selectedFinalTopic = nav.selectedFinalTopic;
+    final mainTextSegments = nav.currentEnglishSegments ?? <MainTextSegment>[];
+    final persianTextSegments =
+        nav.currentPersianTextSegments ?? <PersianTextSegment>[];
+
+    if (selectedFinalTopic == null) {
+      return const Scaffold(body: Center(child: Text('درسی انتخاب نشده است')));
+    }
+    final String finalTopicId = selectedFinalTopic.name;
+
+    // استفاده از پروایدر به صورت family
+    // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
+    final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
+    return PopScope(
+      canPop:
+          true, //ref.read(isPlayerExpandedProvider.notifier).state == false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          ref.read(isPlayerExpandedProvider.notifier).state = false;
+          return;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          title: Text(
+            '${selectedBook!.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${selectedUnit!.name.replaceAll('Unit ', 'U ')}>${selectedPage!.name.replaceAll('Page ', 'P ')}>${selectedFinalTopic.name.substring(selectedFinalTopic.name.indexOf(' ') + 1)}',
+            style: TextStyle(
+              // fontFamily: FontFamily.yekanBakhBold.asText,
+              fontSize: 16.0,
+              // color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          actions: [
+            //! ویجت جستجو
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: IconButton(
+                onPressed: () async {
+                  var result = await showSearch(
+                    context: context,
+                    delegate: CustomerSearchDelegate(
+                      ref: ref,
+                      // dataFuture: CfPublic().getOriginalContentsAsync(
+                      //   ref.read(allContentProvider).value,
+                      //   ref.read(navigationProvider),
+                      // ),
+                      data: ref.read(originalContentListProvider),
+                    ),
+                  );
+                  if (result != null) {}
+                },
+                icon: Icon(Icons.search),
+              ),
+            ),
+            IconButton(
+              icon: Icon(isDualPane ? Icons.view_stream : Icons.view_column),
+              onPressed: () =>
+                  ref.read(isDualPaneProvider.notifier).state = !isDualPane,
+              tooltip: 'تغییر چیدمان متن',
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: isDualPane
+                  ? _buildEnglishAndPersianLayout(
+                      selectedBook.name.contains('قالبهای موقعیتی'),
+                      mainTextSegments,
+                      persianTextSegments,
+                      sentenceStates,
+                      finalTopicId,
+                    )
+                  : selectedBook.name.contains('قالبهای موقعیتی')
+                  ? _buildPersianLayout(persianTextSegments, finalTopicId)
+                  : _buildEnglishLayout(
+                      mainTextSegments,
+                      sentenceStates,
+                      finalTopicId,
+                    ),
+            ),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                  bottom: 8.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        final int idxFinalTopic = selectedPage.finalTopics
+                            .indexOf(selectedFinalTopic);
+                        final lastFinalTopicIndex =
+                            selectedPage.finalTopics.length - 1;
+                        if (idxFinalTopic < lastFinalTopicIndex) {
+                          await ref
+                              .read(navigationProvider.notifier)
+                              .selectFinalTopic(
+                                selectedPage.finalTopics[idxFinalTopic + 1],
+                              );
+                          // final books = ref.read(allContentProvider).value;
+                          // if (books != null) {
+                          //   Future.microtask(() {
+                          //     ref
+                          //         .read(navigationProvider.notifier)
+                          //         .restoreLastState(books);
+                          //   });
+                          // }
+                        } else if (idxFinalTopic == lastFinalTopicIndex) {
+                          final int pageIndex = nav.selectedTopic!.pageContents
+                              .indexOf(selectedPage);
+                          final lastPageIndex =
+                              nav.selectedTopic!.pageContents.length - 1;
+                          if (pageIndex < lastPageIndex) {
+                            await ref
+                                .read(navigationProvider.notifier)
+                                .selectPageAndFinalTopic(
+                                  nav.selectedTopic!.pageContents[pageIndex +
+                                      1],
+                                  nav
+                                      .selectedTopic!
+                                      .pageContents[pageIndex + 1]
+                                      .finalTopics
+                                      .first,
+                                );
+                            // final books = ref.read(allContentProvider).value;
+                            // if (books != null) {
+                            //   Future.microtask(() {
+                            //     ref
+                            //         .read(navigationProvider.notifier)
+                            //         .restoreLastState(books);
+                            //   });
+                            // }
+                          }
+                        }
+                      },
+                      icon: Icon(Icons.keyboard_arrow_right_outlined),
+                      label: const Text('بعدی'),
+                    ),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          final int idxFinalTopic = selectedPage.finalTopics
+                              .indexOf(selectedFinalTopic);
+                          if (idxFinalTopic > 0) {
+                            await ref
+                                .read(navigationProvider.notifier)
+                                .selectFinalTopic(
+                                  selectedPage.finalTopics[idxFinalTopic - 1],
+                                );
+                            // final books = ref.read(allContentProvider).value;
+                            // if (books != null) {
+                            //   Future.microtask(() {
+                            //     ref
+                            //         .read(navigationProvider.notifier)
+                            //         .restoreLastState(books);
+                            //   });
+                            // }
+                          } else if (idxFinalTopic == 0) {
+                            final int pageIndex = nav
+                                .selectedTopic!
+                                .pageContents
+                                .indexOf(selectedPage);
+                            if (pageIndex > 0) {
+                              await ref
+                                  .read(navigationProvider.notifier)
+                                  .selectPageAndFinalTopic(
+                                    nav.selectedTopic!.pageContents[pageIndex -
+                                        1],
+                                    nav
+                                        .selectedTopic!
+                                        .pageContents[pageIndex - 1]
+                                        .finalTopics
+                                        .last,
+                                  );
+                              // final books = ref.read(allContentProvider).value;
+                              // if (books != null) {
+                              //   Future.microtask(() {
+                              //     ref
+                              //         .read(navigationProvider.notifier)
+                              //         .restoreLastState(books);
+                              //   });
+                              // }
+                            }
+                          }
+                        },
+                        icon: Icon(Icons.keyboard_arrow_left_outlined),
+                        label: const Text('قبلی'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // مینی پلیر که قابلیت باز و بسته شدن دارد
+            const ExpandableMiniPlayer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // چیدمان تک ستونه (انگلیسی بالای فارسی)
+  Widget _buildEnglishLayout0(
+    List<MainTextSegment> mainTexSegments,
+    Map<int, SentenceStatus> sentenceStates,
+    String finalTopicId,
+  ) {
+    int interactiveIndex = 0;
+    final List<List<InlineSpan>> spans = mainTexSegments.asMap().entries.map((
+      entry,
+    ) {
+      final index = entry.key;
+      final item = entry.value;
+
+      // وضعیت رنگ این جمله خاص
+      final status = sentenceStates[index] ?? SentenceStatus.hide;
+      if (item.isInteractive) {
+        return [
+          TextSpan(
+            text: '(${++interactiveIndex})${item.text}'.replaceAll(
+              '\\n',
+              '\n',
+            ), // اعمال استایل بر اساس status
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.error,
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                _showPopup(
+                  context,
+                  item.text,
+                  item.translation!,
+                  item.explanation!,
+                );
+                ref
+                    .read(sentenceProvider(finalTopicId).notifier)
+                    .toggleStatus(index);
+              },
+          ),
+        ];
+      } else if (item.isBlank != null && item.isBlank == true) {
+        if (status == SentenceStatus.hide) {
+          return [
+            TextSpan(
+              text: " ________ ", // نمایش جاخالی
+              style: const TextStyle(
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.bold,
+                backgroundColor:
+                    Colors.black12, // هایلایت ملایم برای مشخص بودن جای کلیک
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => ref
+                    .read(sentenceProvider(finalTopicId).notifier)
+                    .toggleStatus(index),
+            ),
+          ];
+        } else if (item.hasSubItems != null && item.hasSubItems == true) {
+          if (item.subItems != null) {
+            // final List<dynamic> jsonFormat = jsonDecode(item.subItems!);
+            final subSegments = item.subItems!
+                .map(
+                  (json) =>
+                      MainTextSegment.fromJson(json as Map<String, dynamic>),
+                )
+                .toList();
+            if (subSegments.isNotEmpty) {
+              final List<InlineSpan> subSpans = subSegments.map((item) {
+                if (item.isInteractive) {
+                  return TextSpan(
+                    text: '(${++interactiveIndex})${item.text}'.replaceAll(
+                      '\\n',
+                      '\n',
+                    ), // اعمال استایل بر اساس status
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        _showPopup(
+                          context,
+                          item.text,
+                          item.translation!,
+                          item.explanation!,
+                        );
+                      },
+                  );
+                } else {
+                  return TextSpan(
+                    text: item.text.replaceAll(
+                      '\\n',
+                      '\n',
+                    ), // اعمال استایل بر اساس status
+                    style: (item.isBold != null && item.isBold == true)
+                        ? TextStyle(
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surfaceVariant,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                            fontWeight: FontWeight.bold,
+                            // fontStyle: FontStyle.italic,
+                            fontSize: 20.0,
+                          )
+                        : TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 20.0,
+                          ),
+                  );
+                }
+              }).toList();
+              return subSpans;
+            }
+          }
+        } else {
+          return [
+            TextSpan(
+              text: item.text.replaceAll(
+                '\\n',
+                '\n',
+              ), // اعمال استایل بر اساس status
+              style: TextStyle(
+                // backgroundColor: Colors.amberAccent.shade100,
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+              //! اصلاح شود: در صورت نیاز استفاده گردد
+              // recognizer: TapGestureRecognizer()
+              //   ..onTap = () => ref
+              //       .read(sentenceProvider(finalTopicId).notifier)
+              //       .toggleStatus(index),
+            ),
+          ];
+        }
+        return [TextSpan(text: '')];
+      } else {
+        return [
+          TextSpan(
+            text: item.text.replaceAll(
+              '\\n',
+              '\n',
+            ), // اعمال استایل بر اساس status
+            style: (item.isBold != null && item.isBold == true)
+                ? TextStyle(
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceVariant,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.bold,
+                    // fontStyle: FontStyle.italic,
+                    fontSize: 20.0,
+                  )
+                : TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 20.0,
+                  ),
+          ),
+        ];
+      }
+    }).toList();
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Align(
+        alignment: AlignmentGeometry.centerLeft,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: RichText(
+            textAlign: TextAlign.left,
+            text: TextSpan(children: spans.expand((e) => e).toList()),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEnglishLayout(
+    List<MainTextSegment> mainTexSegments,
+    Map<int, SentenceStatus> sentenceStates,
+    String finalTopicId,
+  ) {
+    // int interactiveIndex = 0;
+    // List<List<InlineSpan>>
+    final spans = mainTexSegments.asMap().entries.map((entry) {
+      final index = entry.key;
+      final ms = entry.value;
+      final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+      TextStyle style = TextStyle(
+        fontSize: (ms.isBold != null)
+            ? Theme.of(context).textTheme.titleLarge!.fontSize
+            : Theme.of(context).textTheme.bodyLarge!.fontSize,
+        fontWeight: (ms.isBold != null) ? FontWeight.bold : FontWeight.normal,
+        color: Theme.of(
+          context,
+        ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
+      );
+
+      // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
+      if (ms.isAmberHighlighted != null && ms.isAmberHighlighted == true) {
+        style = style.copyWith(backgroundColor: Colors.amber.shade100);
+      }
+      if (ms.isInteractive) {
+        style = style.copyWith(color: Theme.of(context).colorScheme.error);
+      } else if (ms.isBlank != null) {
+        style = style.copyWith(color: Colors.blueAccent);
+      }
+
+      if (ms.isInteractive) {
+        return [
+          TextSpan(
+            text: ms.text.replaceAll('\\n', '\n'),
+            style: style,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                _showPopup(context, ms.text, ms.translation!, ms.explanation!);
+              },
+          ),
+        ];
+      } else {
+        if (ms.isBlank != null) {
+          if (blankStatus == SentenceStatus.hide) {
+            return [
+              TextSpan(
+                text: " ________ ", // نمایش جاخالی
+                style: style,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => ref
+                      .read(sentenceProvider(finalTopicId).notifier)
+                      .toggleStatus(index),
+              ),
+            ];
+          }
+        }
+        if (ms.hasSubItems == null) {
+          return [
+            TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style),
+          ];
+        } else {
+          final subItemsAsMainTextSegment = ms.subItems!.map((e) {
+            return MainTextSegment(
+              text: e['text'] as String,
+              isInteractive: e['isInteractive'] as bool,
+              isBold: e['isBold'] as bool?,
+              isBlank: e['isBlank'] as bool?,
+              hasSubItems: false,
+              subItems: null,
+              translation: e['translation'] as String?,
+              explanation: e['explanation'] as String?,
+              cerfLevel: e['cerfLevel'] as String?,
+              pronounce: e['pronounce'] as String?,
+            );
+          }).toList();
+          final List<MainTextSegment> subMicroSegments = CfPublic()
+              .fillGapsInFullText(ms.text, subItemsAsMainTextSegment);
+          final subSpans = subMicroSegments.asMap().entries.map((entry) {
+            // final index = entry.key;
+            final subMs = entry.value;
+            // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+            TextStyle subStyle = style;
+
+            if (subMs.isInteractive) {
+              return [
+                TextSpan(
+                  text: subMs.text.replaceAll('\\n', '\n'),
+                  style: style.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      _showPopup(
+                        context,
+                        subMs.text,
+                        subMs.translation!,
+                        subMs.explanation!,
+                      );
+                    },
+                ),
+              ];
+            } else {
+              return [
+                TextSpan(
+                  text: subMs.text.replaceAll('\\n', '\n'),
+                  style: subStyle,
+                ),
+              ];
+            }
+          }).toList();
+          return subSpans.expand((e) => e).toList();
+        }
+      }
+    }).toList();
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Align(
+        alignment: AlignmentGeometry.centerLeft,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: RichText(
+            textAlign: TextAlign.left,
+            text: TextSpan(children: spans.expand((e) => e).toList()),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPersianLayout(
+    List<PersianTextSegment> translationTextSegments,
+    String finalTopicId,
+  ) {
+    final List<TextSpan> spans = translationTextSegments.map((item) {
+      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+      bool isBold = (item.isBold != null && item.isBold == true);
+      return TextSpan(
+        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
+        style: TextStyle(
+          color: isBold
+              ? Colors.deepOrange
+              : Theme.of(context).colorScheme.onSurface,
+          fontWeight: isBold ? FontWeight.bold : null,
+          fontSize: isBold ? 17.0 : 17.0,
+        ),
+      );
+    }).toList();
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Align(
+        alignment: AlignmentGeometry.centerRight,
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: RichText(
+            textAlign: TextAlign.right,
+            text: TextSpan(children: spans),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // چیدمان دو ستونه (دو لیست اسکرول‌شونده مجزا)
+  Widget _buildEnglishAndPersianLayout(
+    bool isPersianFirst,
+    List<MainTextSegment> mainTexSegments,
+    List<PersianTextSegment> translationTextSegments,
+    Map<int, SentenceStatus> sentenceStates,
+    String finalTopicId,
+  ) {
+    final List<TextSpan> spans = translationTextSegments.map((item) {
+      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+      bool isBold = (item.isBold != null && item.isBold == true);
+      return TextSpan(
+        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
+        style: TextStyle(
+          color: isBold
+              ? Colors.deepOrange
+              : Theme.of(context).colorScheme.onSurface,
+          fontWeight: isBold ? FontWeight.bold : null,
+          fontSize: isBold ? 17.0 : 17.0,
+        ),
+      );
+    }).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // ✅ تغییر به Column برای نمایش بالا و پایین
+      children: [
+        // ردیف اول: متن اصلی
+        isPersianFirst
+            ? Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Align(
+                    alignment: AlignmentGeometry.centerRight,
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: RichText(
+                        textAlign: TextAlign.right,
+                        text: TextSpan(children: spans),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : Expanded(
+                child: _buildEnglishLayout(
+                  mainTexSegments,
+                  sentenceStates,
+                  finalTopicId,
+                ),
+              ),
+        const Divider(height: 8.0),
+        // const SizedBox(height: 40),
+        // ردیف دوم: ترجمه
+        isPersianFirst
+            ? Expanded(
+                child: _buildEnglishLayout(
+                  mainTexSegments,
+                  sentenceStates,
+                  finalTopicId,
+                ),
+              )
+            : Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Align(
+                    alignment: AlignmentGeometry.centerRight,
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: RichText(
+                        textAlign: TextAlign.right,
+                        text: TextSpan(children: spans),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+      ],
+    );
+  }
+
+  void _showPopup(
+    BuildContext context,
+    String text,
+    String translation,
+    String explanation,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            text,
+            textDirection: TextDirection.ltr,
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ), //! 💡
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'ترجمه فارسی:',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                Text(translation, textDirection: TextDirection.rtl),
+                SizedBox(height: 16.0),
+                // const Divider(height: 20),
+                Text(
+                  'توضیحات تکمیلی:',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                Text(explanation, textDirection: TextDirection.rtl),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'بستن',
+                style: TextStyle(
+                  fontFamily: FontFamily.yekanBakhBold.asText,
+                  fontSize: 16.0,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

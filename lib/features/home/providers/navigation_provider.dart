@@ -1,10 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/data/content_service.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
+import 'package:ielts_assistant/shared/cf_public.dart';
+import 'package:ielts_assistant/shared/customer_search_delegate.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -43,6 +48,8 @@ class NavigationNotifier extends _$NavigationNotifier {
     final lastBookName = _box.read(_kBook);
     final lastUnitName = _box.read(_kUnit);
     final lastTopicName = _box.read(_kTopic);
+    final lastPageName = _box.read(_kPage);
+    final lastFinalTopicName = _box.read(_kFinalTopic);
 
     if (lastBookName == null) return;
 
@@ -57,8 +64,32 @@ class NavigationNotifier extends _$NavigationNotifier {
         if (lastTopicName != null) {
           final topic = unit.topics.firstWhere((t) => t.name == lastTopicName);
           state = state.copyWith(selectedTopic: topic);
+
+          if (lastPageName != null) {
+            final page = topic.pageContents.firstWhere(
+              (t) => t.name == lastPageName,
+            );
+            state = state.copyWith(selectedPage: page);
+
+            // if (lastFinalTopicName != null) {
+            //   final finalTopic = page.finalTopics.firstWhere(
+            //     (t) => t.name == lastFinalTopicName,
+            //   );
+            //   state = state.copyWith(selectedFinalTopic: finalTopic);
+            // }
+          }
         }
       }
+      // Future.microtask(() {
+      // CfPublic()
+      //     .getOriginalContentsAsync(
+      //       ref.read(allContentProvider).value,
+      //       ref.read(navigationProvider),
+      //     )
+      //     .then((result) {
+      //       ref.read(originalContentListProvider.notifier).state = result;
+      //     });
+      // });
     } catch (_) {}
   }
 
@@ -75,6 +106,13 @@ class NavigationNotifier extends _$NavigationNotifier {
     _box.remove(_kTopic);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
+    Future.delayed(Duration.zero).then((value) async {
+      CfPublic()
+          .getOriginalContentsAsync(ref.read(allContentProvider).value, state)
+          .then((result) {
+            ref.read(originalContentListProvider.notifier).state = result;
+          });
+    });
   }
 
   void selectUnit(Unit unit) {
@@ -99,6 +137,69 @@ class NavigationNotifier extends _$NavigationNotifier {
     _box.write(_kTopic, topic.name);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
+  }
+
+  Future<void> selectPageAndFinalTopic(
+    PageContent pageContent,
+    FinalTopic finalTopic,
+  ) async {
+    // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
+    state = state.copyWith(
+      currentEnglishSegments: null,
+      currentPersianTextSegments: null,
+      isLoading: true,
+    );
+
+    // خواندن موازی برای بهینه‌سازی زمان
+    final results = await Future.wait([
+      _contentService.readFile(finalTopic.jsonFilePath),
+      _contentService.readFile(finalTopic.translationFilePath),
+    ]);
+    state = state.copyWith(
+      selectedPage: pageContent,
+      selectedFinalTopic: finalTopic,
+      currentEnglishSegments: _parseEnglishContent(results[0]),
+      currentPersianTextSegments: _parsePersianContent(results[1]),
+      isLoading: false,
+    );
+    _box.write(_kPage, pageContent.name);
+    _box.write(_kFinalTopic, finalTopic.name);
+    // منطق پخش خودکار صدا
+    if (finalTopic.audioFileName != null &&
+        finalTopic.audioFileName!.isNotEmpty) {
+      final fullPath = _buildFullPath(finalTopic);
+      await Future.delayed(const Duration(milliseconds: 300));
+      ref.read(audioPlayerProvider.notifier).playFile(fullPath);
+    }
+  }
+
+  Future<SearchResultSegments> selectPageAndFinalTopicForSearchResult(
+    OriginalContent originalContent,
+  ) async {
+    // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
+    state = state.copyWith(isLoading: true);
+
+    // خواندن موازی برای بهینه‌سازی زمان
+    final results = await Future.wait([
+      _contentService.readFile(originalContent.finalTopic.jsonFilePath),
+      _contentService.readFile(originalContent.finalTopic.translationFilePath),
+    ]);
+    List<MainTextSegment>? englishSegments = _parseEnglishContent(results[0]);
+    List<PersianTextSegment>? persianTextSegments = _parsePersianContent(
+      results[1],
+    );
+    state = state.copyWith(isLoading: false);
+    // منطق پخش خودکار صدا
+    // if (originalContent.finalTopic.audioFileName != null &&
+    //     originalContent.finalTopic.audioFileName!.isNotEmpty) {
+    //   final fullPath = _buildFullPathForSearchResult(originalContent);
+    //   await Future.delayed(const Duration(milliseconds: 300));
+    //   ref.read(audioPlayerProvider.notifier).playFile(fullPath);
+    // }
+    return SearchResultSegments(
+      enSegments: englishSegments,
+      faSegments: persianTextSegments,
+    );
   }
 
   void selectPageContent(PageContent pageContent) {
@@ -167,6 +268,13 @@ class NavigationNotifier extends _$NavigationNotifier {
     return "$rootPath/${state.selectedBook!.name}/Tracks/${finalTopic.audioFileName}.mp3"; //000- English Learning/00- ielts assistant /mindset 01/Tracks
   }
 
+  String buildFullPathForSearchResult(OriginalContent originalContent) {
+    // این متد باید بر اساس ساختار پوشه‌بندی شما، مسیر کامل فایل mp3 را بسازد
+    // final root = _box.read('audio_path') ?? '';
+    final rootPath = ref.read(settingsProvider);
+    return "$rootPath/${originalContent.book}/Tracks/${originalContent.finalTopic.audioFileName}.mp3"; //000- English Learning/00- ielts assistant /mindset 01/Tracks
+  }
+
   void goBack() {
     if (state.selectedFinalTopic != null) {
       state = state.copyWith(selectedFinalTopic: null);
@@ -186,3 +294,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     }
   }
 }
+
+final originalContentListProvider = StateProvider<List<OriginalContent>>(
+  (ref) => <OriginalContent>[],
+);

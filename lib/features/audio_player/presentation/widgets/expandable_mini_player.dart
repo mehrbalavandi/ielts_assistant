@@ -14,6 +14,7 @@ class ExpandableMiniPlayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final audioState = ref.watch(audioPlayerProvider);
+
     final isExpanded = ref.watch(isPlayerExpandedProvider);
 
     // اگر فایلی انتخاب نشده باشد، پلیر را کلاً نشان نده
