@@ -265,7 +265,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     // این متد باید بر اساس ساختار پوشه‌بندی شما، مسیر کامل فایل mp3 را بسازد
     // final root = _box.read('audio_path') ?? '';
     final rootPath = ref.read(settingsProvider);
-    return "$rootPath/${state.selectedBook!.name}/Tracks/${finalTopic.audioFileName}.mp3"; //000- English Learning/00- ielts assistant /mindset 01/Tracks
+    return '$rootPath/${state.selectedBook!.name}/Tracks/${finalTopic.audioFileName}.mp3'; //000- English Learning/00- ielts assistant /mindset 01/Tracks
   }
 
   String buildFullPathForSearchResult(OriginalContent originalContent) {

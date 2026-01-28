@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 // import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -139,7 +141,7 @@ class CfPublic {
     return result;
   }
 
-  Future<bool?> manageExternalStorageIsGranted() async {
+  Future<bool?> getExternalStoragePermissionStatus() async {
     try {
       var res = await Permission.manageExternalStorage.status;
       if (!res.isGranted) {
@@ -158,5 +160,57 @@ class CfPublic {
       return false;
     }
     return false;
+  }
+
+  Future<bool> saveMainTextSegmentToExternalStorage({
+    required String fileName,
+    required MainTextSegment textSement,
+  }) async {
+    final file = File(fileName);
+
+    try {
+      final content = await file.readAsString();
+      final List<dynamic> data = jsonDecode(content);
+      final dataList = data
+          .map((json) => MainTextSegment.fromJson(json))
+          .toList();
+      dataList.add(textSement);
+      final jsonString = jsonEncode(
+        dataList
+            .map((p) => JsonEncoder.withIndent('  ').convert(p.toJson()))
+            .toList(),
+      );
+      await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      return true;
+    } catch (e) {
+      debugPrint('⚠️ خطا در خواندن فایل: $e');
+      return false;
+    }
+  }
+
+  Future<bool> savePersianTextSegmentToExternalStorage({
+    required String fileName,
+    required PersianTextSegment textSement,
+  }) async {
+    final file = File(fileName);
+
+    try {
+      final content = await file.readAsString();
+      final List<dynamic> data = jsonDecode(content);
+      final dataList = data
+          .map((json) => PersianTextSegment.fromJson(json))
+          .toList();
+      dataList.add(textSement);
+      final jsonString = jsonEncode(
+        dataList
+            .map((p) => JsonEncoder.withIndent('  ').convert(p.toJson()))
+            .toList(),
+      );
+      await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      return true;
+    } catch (e) {
+      debugPrint('⚠️ خطا در خواندن فایل: $e');
+      return false;
+    }
   }
 }

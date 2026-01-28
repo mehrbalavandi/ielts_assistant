@@ -1,32 +1,31 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:ielts_assistant/common/enums.dart';
+import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/smart_text_form_field.dart';
 
-class AddOrEditClientDialog extends StatefulWidget {
-  final int? clientId;
-  final void Function(List<String> data)? onSubmit;
+class AddNewTempelate extends StatefulWidget {
+  final void Function(
+    String allText,
+    MainTextSegment mainTextSegment,
+    PersianTextSegment persianTextSegment,
+  )?
+  onSubmit;
 
-  // final int? initialCityId;
-  // final String? initialCityTitle;
-  final bool enableCitySearch;
-
-  const AddOrEditClientDialog({
-    super.key,
-    required this.onSubmit,
-    this.enableCitySearch = true,
-    this.clientId,
-  });
+  const AddNewTempelate({super.key, required this.onSubmit});
 
   @override
-  State<AddOrEditClientDialog> createState() => _AddOrEditClientDialogState();
+  State<AddNewTempelate> createState() => _AddNewTempelateState();
 }
 
-class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
+class _AddNewTempelateState extends State<AddNewTempelate> {
   bool isDoing = false;
   bool isSendingRequest = false;
   //!
   //* انگلیسی
   late TextEditingController txtEnglish;
-  late FocusNode nameFocusNode;
+  late FocusNode englishFocusNode;
   //* فارسی
   late TextEditingController txtPersian;
   late FocusNode persianFocusNode;
@@ -36,7 +35,7 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
     super.initState();
     //* انگلیسی
     txtEnglish = TextEditingController();
-    nameFocusNode = FocusNode();
+    englishFocusNode = FocusNode();
     //* فارسی
     txtPersian = TextEditingController();
     persianFocusNode = FocusNode();
@@ -48,7 +47,7 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
   void dispose() {
     //* انگلیسی
     txtEnglish.dispose();
-    nameFocusNode.dispose();
+    englishFocusNode.dispose();
     //* فارسی
     txtPersian.dispose();
     persianFocusNode.dispose();
@@ -90,7 +89,7 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
                     });
                     if (txtEnglish.text.trim() == '') {
                       String message = 'متن انگلیسی نباید خالی باشد';
-                      FocusScope.of(context).requestFocus(nameFocusNode);
+                      FocusScope.of(context).requestFocus(englishFocusNode);
                       setState(() {
                         isDoing = false;
                       });
@@ -98,13 +97,27 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
                     }
                     if (txtPersian.text.trim() == '') {
                       String message = 'متن فارسی نباید خالی باشد';
-                      FocusScope.of(context).requestFocus(nameFocusNode);
+                      FocusScope.of(context).requestFocus(englishFocusNode);
                       setState(() {
                         isDoing = false;
                       });
                       return;
                     }
-                    widget.onSubmit?.call(['formData']);
+                    String allText = '${txtEnglish.text}\n\n${txtPersian.text}';
+                    MainTextSegment mainTextSegment = MainTextSegment(
+                      text: txtEnglish.text,
+                      isInteractive: false,
+                    );
+
+                    PersianTextSegment persianTextSegment = PersianTextSegment(
+                      text: txtPersian.text,
+                    );
+
+                    widget.onSubmit?.call(
+                      allText,
+                      mainTextSegment,
+                      persianTextSegment,
+                    );
                     Navigator.pop(context);
                     //
                     setState(() {
@@ -112,8 +125,10 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
                     });
                   },
                   child: Text(
-                    (widget.clientId == null) ? 'افزودن' : 'ذخیره',
-                    style: TextStyle(fontFamily: 'YekanBakhBold'),
+                    'افزودن',
+                    style: TextStyle(
+                      fontFamily: FontFamily.yekanBakhBold.asText,
+                    ),
                   ),
                 ),
                 TextButton(
@@ -168,13 +183,12 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
                           textDirection: TextDirection.ltr,
                           child: TextFormField(
                             onChanged: (value) {},
-                            style: TextStyle(fontFamily: 'YekanBakhRegular'),
-                            keyboardType: TextInputType.phone,
+                            // style: TextStyle(fontFamily: 'YekanBakhRegular'),
                             textAlign: TextAlign.start,
                             textAlignVertical: TextAlignVertical.center,
                             textDirection: TextDirection.ltr,
                             decoration: InputDecoration(
-                              label: Text('فارسی'),
+                              label: Text('انگلیسی'),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
                               floatingLabelAlignment:
@@ -197,7 +211,7 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
                             ),
                             controller: txtEnglish,
                             autofocus: true,
-                            focusNode: persianFocusNode,
+                            focusNode: englishFocusNode,
                             textInputAction: TextInputAction.next,
                             onEditingComplete: () {
                               // تکمیل شود
@@ -211,7 +225,9 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
                           child: SmartTextFormField(
                             onChanged: (value) {},
                             maxLines: null,
-                            style: TextStyle(fontFamily: 'YekanBakhRegular'),
+                            style: TextStyle(
+                              fontFamily: FontFamily.yekanBakhRegular.asText,
+                            ),
                             // keyboardType: TextInputType.number,
                             textAlign: TextAlign.start,
                             textAlignVertical: TextAlignVertical.center,
@@ -238,7 +254,7 @@ class _AddOrEditClientDialogState extends State<AddOrEditClientDialog> {
                               ),
                             ),
                             controller: txtPersian,
-                            autofocus: true,
+                            autofocus: false,
                             focusNode: persianFocusNode,
                             textInputAction: TextInputAction.next,
                             onEditingComplete: () {

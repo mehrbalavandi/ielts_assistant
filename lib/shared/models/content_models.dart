@@ -169,6 +169,24 @@ class MainTextSegment {
     this.isRtl,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': text,
+      'originText': originText,
+      'isInteractive': isInteractive,
+      'isBlank': isBlank,
+      'hasSubItems': hasSubItems,
+      'subItems': subItems,
+      'isBold': isBold,
+      'isAmberHighlighted': isAmberHighlighted,
+      'translation': translation,
+      'explanation': explanation,
+      'cerfLevel': cerfLevel,
+      'pronounce': pronounce,
+      'isRtl': isRtl,
+    };
+  }
+
   factory MainTextSegment.fromJson(Map<String, dynamic> json) {
     return MainTextSegment(
       text: json['text'] as String,
@@ -193,6 +211,14 @@ class PersianTextSegment {
     this.isBold,
     this.isAmberHighlighted,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': text,
+      'isBold': isBold,
+      'isAmberHighlighted': isAmberHighlighted,
+    };
+  }
 
   factory PersianTextSegment.fromJson(Map<String, dynamic> json) {
     return PersianTextSegment(
