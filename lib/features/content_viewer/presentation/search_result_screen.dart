@@ -7,6 +7,7 @@ import 'package:ielts_assistant/features/content_viewer/providers/sentence_provi
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/customer_search_delegate.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
+import 'package:ielts_assistant/shared/utility_persian.dart';
 
 // پرووایدر برای مدیریت حالت تک‌ستونه یا دو ستونه
 final isDualPaneProviderSearchResult = StateProvider<bool>((ref) => false);
@@ -127,10 +128,12 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
       final ms = entry.value;
       // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
       TextStyle style = TextStyle(
-        fontSize: (ms.isBold != null)
+        fontSize: (ms.isBold != null && ms.isBold == true)
             ? Theme.of(context).textTheme.titleLarge!.fontSize
             : Theme.of(context).textTheme.bodyLarge!.fontSize,
-        fontWeight: (ms.isBold != null) ? FontWeight.bold : FontWeight.normal,
+        fontWeight: (ms.isBold != null && ms.isBold == true)
+            ? FontWeight.bold
+            : FontWeight.normal,
         color: Theme.of(
           context,
         ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
@@ -147,27 +150,36 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
       }
 
       if (ms.isInteractive) {
-        return [
-          TextSpan(
-            text: ms.text.replaceAll('\\n', '\n'),
-            style: style,
+        final formattedSpans = UtilityPersian().buildMixedTextSpans(
+          ms.text.replaceAll('\\n', '\n'),
+          persianStyle: style.copyWith(
+            fontFamily: FontFamily.yekanBakhRegular.asText,
+            fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+          ),
+          normalStyle: style,
+        );
+        return formattedSpans.map((e) {
+          return TextSpan(
+            text: e.text,
+            style: e.style,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                _showPopup(
-                  context,
-                  ms.isInteractive ? ms.originText! : ms.text,
-                  ms.translation!,
-                  ms.explanation!,
-                );
+                _showPopup(context, ms.text, ms.translation!, ms.explanation!);
               },
-          ),
-        ];
+          );
+        }).toList();
       } else {
         // return [TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style)];
         if (ms.hasSubItems == null) {
-          return [
-            TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style),
-          ];
+          final formattedSpans = UtilityPersian().buildMixedTextSpans(
+            ms.text.replaceAll('\\n', '\n'),
+            persianStyle: style.copyWith(
+              fontFamily: FontFamily.yekanBakhRegular.asText,
+              fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+            ),
+            normalStyle: style,
+          );
+          return formattedSpans;
         } else {
           final subItemsAsMainTextSegment = ms.subItems!.map((e) {
             return MainTextSegment(
@@ -181,6 +193,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
               explanation: e['explanation'] as String?,
               cerfLevel: e['cerfLevel'] as String?,
               pronounce: e['pronounce'] as String?,
+              isRtl: e['isRtl'] as bool?,
             );
           }).toList();
           final List<MainTextSegment> subMicroSegments = _processSegments(
@@ -194,12 +207,18 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
             TextStyle subStyle = style;
 
             if (subMs.isInteractive) {
-              return [
-                TextSpan(
-                  text: subMs.text.replaceAll('\\n', '\n'),
-                  style: style.copyWith(
-                    color: Theme.of(context).colorScheme.error,
-                  ),
+              final formattedSpans = UtilityPersian().buildMixedTextSpans(
+                subMs.text.replaceAll('\\n', '\n'),
+                persianStyle: style.copyWith(
+                  fontFamily: FontFamily.yekanBakhRegular.asText,
+                  fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+                ),
+                normalStyle: style,
+              );
+              return formattedSpans.map((e) {
+                return TextSpan(
+                  text: e.text,
+                  style: e.style,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       _showPopup(
@@ -209,15 +228,18 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
                         subMs.explanation!,
                       );
                     },
-                ),
-              ];
+                );
+              }).toList();
             } else {
-              return [
-                TextSpan(
-                  text: subMs.text.replaceAll('\\n', '\n'),
-                  style: subStyle,
+              final formattedSpans = UtilityPersian().buildMixedTextSpans(
+                subMs.text.replaceAll('\\n', '\n'),
+                persianStyle: style.copyWith(
+                  fontFamily: FontFamily.yekanBakhRegular.asText,
+                  fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
                 ),
-              ];
+                normalStyle: style,
+              );
+              return formattedSpans;
             }
           }).toList();
           return subSpans.expand((e) => e).toList();

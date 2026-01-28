@@ -151,6 +151,7 @@ class MainTextSegment {
   final String? explanation; // توضیحات تکمیلی
   final String? cerfLevel; // توضیحات تکمیلی
   final String? pronounce;
+  final bool? isRtl;
 
   MainTextSegment({
     required this.text,
@@ -165,6 +166,7 @@ class MainTextSegment {
     this.explanation,
     this.cerfLevel,
     this.pronounce,
+    this.isRtl,
   });
 
   factory MainTextSegment.fromJson(Map<String, dynamic> json) {

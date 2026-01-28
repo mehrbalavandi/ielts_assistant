@@ -149,6 +149,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          heroTag: 'addNewTempelate',
+          onPressed: () async {
+            if (await CfPublic().manageExternalStorageIsGranted() == true) {
+              String st = '';
+            }
+          },
+          child: Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         // drawer: const MainDrawer(),
         body: Column(
           children: [

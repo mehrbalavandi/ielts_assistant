@@ -3,6 +3,7 @@ import 'dart:io';
 // import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CfPublic {
   // 1: ساخت یک نمونه استاتیک خصوصی از خود کلاس
@@ -136,5 +137,26 @@ class CfPublic {
     }
 
     return result;
+  }
+
+  Future<bool?> manageExternalStorageIsGranted() async {
+    try {
+      var res = await Permission.manageExternalStorage.status;
+      if (!res.isGranted) {
+        Permission.manageExternalStorage.request().then((onValue) async {
+          var res2 = await Permission.manageExternalStorage.status;
+          if (res2.isGranted) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      } else if (res.isGranted) {
+        return true;
+      }
+    } catch (exception) {
+      return false;
+    }
+    return false;
   }
 }
