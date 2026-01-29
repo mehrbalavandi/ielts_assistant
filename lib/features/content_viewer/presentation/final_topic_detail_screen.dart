@@ -7,6 +7,7 @@ import 'package:ielts_assistant/features/audio_player/presentation/widgets/expan
 import 'package:ielts_assistant/features/content_viewer/providers/sentence_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/customer_search_delegate.dart';
+import 'package:ielts_assistant/shared/list_item_text_segment.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/utility_persian.dart';
 import '../../home/providers/navigation_provider.dart';
@@ -62,6 +63,10 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     // استفاده از پروایدر به صورت family
     // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
     final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
+    final isManualFinalTopic =
+        ((nav.selectedBook?.name != null) &&
+            selectedBook!.name.contains('قالبهای موقعیتی')) &&
+        (selectedPage?.name == '00');
     return PopScope(
       canPop:
           true, //ref.read(isPlayerExpandedProvider.notifier).state == false,
@@ -136,7 +141,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         body: Column(
           children: [
             Expanded(
-              child: isDualPane
+              child: isManualFinalTopic
+                  ? _buildManualLayout(
+                      isDualPane,
+                      mainTextSegments,
+                      persianTextSegments,
+                      sentenceStates,
+                      finalTopicId,
+                    )
+                  : isDualPane
                   ? _buildEnglishAndPersianLayout(
                       selectedBook.name.contains('قالبهای موقعیتی'),
                       mainTextSegments,
@@ -284,7 +297,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     List<MainTextSegment> mainTexSegments,
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId, {
-    bool? isPersianFirst,
+    bool? isTempelatePage,
   }) {
     // int interactiveIndex = 0;
     // List<List<InlineSpan>>
@@ -333,16 +346,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               },
           );
         }).toList();
-        // return [
-        //   TextSpan(
-        //     text: ms.text.replaceAll('\\n', '\n'),
-        //     style: style,
-        //     recognizer: TapGestureRecognizer()
-        //       ..onTap = () {
-        //         _showPopup(context, ms.text, ms.translation!, ms.explanation!);
-        //       },
-        //   ),
-        // ];
       } else {
         if (ms.isBlank != null) {
           if (blankStatus == SentenceStatus.hide) {
@@ -419,23 +422,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     },
                 );
               }).toList();
-              // return [
-              //   TextSpan(
-              //     text: subMs.text.replaceAll('\\n', '\n'),
-              //     style: style.copyWith(
-              //       color: Theme.of(context).colorScheme.error,
-              //     ),
-              //     recognizer: TapGestureRecognizer()
-              //       ..onTap = () {
-              //         _showPopup(
-              //           context,
-              //           subMs.text,
-              //           subMs.translation!,
-              //           subMs.explanation!,
-              //         );
-              //       },
-              //   ),
-              // ];
             } else {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),
@@ -446,12 +432,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 normalStyle: style,
               );
               return formattedSpans;
-              // return [
-              //   TextSpan(
-              //     text: subMs.text.replaceAll('\\n', '\n'),
-              //     style: subStyle,
-              //   ),
-              // ];
             }
           }).toList();
           return subSpans.expand((e) => e).toList();
@@ -580,7 +560,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   mainTexSegments,
                   sentenceStates,
                   finalTopicId,
-                  isPersianFirst: true,
+                  isTempelatePage: true,
                 ),
               )
             : Expanded(
@@ -598,6 +578,104 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   ),
                 ),
               ),
+      ],
+    );
+  }
+
+  Widget _buildManualLayout(
+    bool isDualPane,
+    List<MainTextSegment> mainTexSegments,
+    List<PersianTextSegment> persianTextSegments,
+    Map<int, SentenceStatus> sentenceStates,
+    String finalTopicId,
+  ) {
+    final List<TextSpan> faSpans = persianTextSegments.map((item) {
+      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+      TextStyle style = TextStyle(
+        fontSize: (item.isBold != null && item.isBold == true)
+            ? Theme.of(context).textTheme.titleMedium!.fontSize
+            : Theme.of(context).textTheme.bodyMedium!.fontSize,
+        fontWeight: (item.isBold != null && item.isBold == true)
+            ? FontWeight.bold
+            : FontWeight.normal,
+        color: (item.isBold != null && item.isBold == true)
+            ? Colors.deepOrange
+            : Theme.of(
+                context,
+              ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
+        fontFamily: FontFamily.yekanBakhRegular.asText,
+      );
+      return TextSpan(
+        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
+        style: style,
+      );
+    }).toList();
+
+    final List<TextSpan> enSpans = mainTexSegments.map((item) {
+      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+      TextStyle style = TextStyle(
+        fontSize: (item.isBold != null && item.isBold == true)
+            ? Theme.of(context).textTheme.titleMedium!.fontSize
+            : Theme.of(context).textTheme.bodyMedium!.fontSize,
+        fontWeight: (item.isBold != null && item.isBold == true)
+            ? FontWeight.bold
+            : FontWeight.normal,
+        color: (item.isBold != null && item.isBold == true)
+            ? Colors.deepOrange
+            : Theme.of(
+                context,
+              ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
+      );
+      return TextSpan(
+        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
+        style: style,
+      );
+    }).toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // ✅ تغییر به Column برای نمایش بالا و پایین
+      children: [
+        Expanded(
+          child: Align(
+            alignment: AlignmentGeometry.centerRight,
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: ListView.builder(
+                itemCount: faSpans.length,
+                itemBuilder: (context, index) {
+                  return ListItemTextSegment(
+                    isPersianTextSegment: true,
+                    number: index + 1,
+                    segmentText: faSpans[index].text ?? '',
+                    onTap: () async {},
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+        if (isDualPane) const Divider(height: 8.0),
+        if (isDualPane)
+          Expanded(
+            child: Align(
+              alignment: AlignmentGeometry.centerRight,
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: ListView.builder(
+                  itemCount: enSpans.length,
+                  itemBuilder: (context, index) {
+                    return ListItemTextSegment(
+                      isPersianTextSegment: false,
+                      number: index + 1,
+                      segmentText: enSpans[index].text ?? '',
+                      onTap: () async {},
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }
