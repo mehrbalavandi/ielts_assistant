@@ -18,50 +18,38 @@ class ListItemTextSegment extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
     return RepaintBoundary(
-      child: ListTile(
-        isThreeLine: true,
-        horizontalTitleGap: 4.0,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-        onTap: () {
-          onTap();
-        },
-        //! عنوان کتاب
-        title: Padding(
-          padding: const EdgeInsets.only(right: 8.0, bottom: 5.0),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Row(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: number.toString(),
-                        style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(
-                              fontFamily: isPersianTextSegment
-                                  ? FontFamily.yekanBakhRegular.asText
-                                  : null,
-                              fontWeight: FontWeight.bold,
-                              fontSize: isPersianTextSegment ? 12.0 : 16.0,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      child: Card(
+        margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+        color: colorScheme.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        elevation: 1.0,
+        child: ListTile(
+          isThreeLine: false,
+          horizontalTitleGap: 4.0,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+          onTap: () {
+            onTap();
+          },
+
+          //! عنوان کتاب
+          title: Text(
+            number.toString(),
+            textAlign: TextAlign.justify,
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              fontFamily: isPersianTextSegment
+                  ? FontFamily.yekanBakhLight.asText
+                  : null,
+              fontWeight: FontWeight.bold,
+              fontSize: isPersianTextSegment ? 12.0 : null,
             ),
           ),
-        ),
-        titleAlignment: ListTileTitleAlignment.top,
-        //! سایر موارد
-        subtitle: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Text(
+          titleAlignment: ListTileTitleAlignment.top,
+          //! سایر موارد
+          subtitle: Text(
             segmentText,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontFamily: isPersianTextSegment
-                  ? FontFamily.yekanBakhRegular.asText
+                  ? FontFamily.yekanBakhLight.asText
                   : null,
               fontWeight: FontWeight.bold,
             ),

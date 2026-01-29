@@ -89,26 +89,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             ),
           ),
           actions: [
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: IconButton(
-                onPressed: () async {
-                  var result = await showSearch(
-                    context: context,
-                    delegate: CustomerSearchDelegate(
-                      ref: ref,
-                      // dataFuture: CfPublic().getOriginalContentsAsync(
-                      //   ref.read(allContentProvider).value,
-                      //   ref.read(navigationProvider),
-                      // ),
-                      data: ref.read(originalContentListProvider),
-                    ),
-                  );
-                  if (result != null) {}
-                },
-                icon: Icon(Icons.add),
-              ),
-            ),
             //! ویجت جستجو
             Directionality(
               textDirection: TextDirection.rtl,
@@ -655,7 +635,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             ),
           ),
         ),
-        if (isDualPane) const Divider(height: 8.0),
+        if (isDualPane)
+          const Divider(height: 12.0, color: Colors.grey, thickness: 6.0),
         if (isDualPane)
           Expanded(
             child: Align(

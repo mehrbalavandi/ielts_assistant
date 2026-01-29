@@ -186,7 +186,7 @@ class CfPublic {
         segments = existingData
             .map((json) => MainTextSegment.fromJson(json))
             .toList();
-        segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
+        // segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
         segments.add(textSement);
         // تبدیل لیست به JSON با فرمت خوانا (pretty)
         final jsonString = encoder.convert(
@@ -225,7 +225,7 @@ class CfPublic {
         segments = existingData
             .map((json) => PersianTextSegment.fromJson(json))
             .toList();
-        segments.add(PersianTextSegment(text: '\n\n'));
+        // segments.add(PersianTextSegment(text: '\n\n'));
         segments.add(textSement);
         // تبدیل لیست به JSON با فرمت خوانا (pretty)
         final jsonString = encoder.convert(
