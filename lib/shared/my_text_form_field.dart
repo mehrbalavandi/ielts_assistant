@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SmartTextFormField extends StatefulWidget {
+class MyTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final InputDecoration? decoration;
@@ -25,7 +25,7 @@ class SmartTextFormField extends StatefulWidget {
   final bool selectAllOnFocus;
   final List<TextInputFormatter>? inputFormatters;
 
-  const SmartTextFormField({
+  const MyTextFormField({
     super.key,
     required this.controller,
     this.focusNode,
@@ -52,10 +52,10 @@ class SmartTextFormField extends StatefulWidget {
   });
 
   @override
-  State<SmartTextFormField> createState() => _SmartTextFormFieldState();
+  State<MyTextFormField> createState() => _MyTextFormFieldState();
 }
 
-class _SmartTextFormFieldState extends State<SmartTextFormField> {
+class _MyTextFormFieldState extends State<MyTextFormField> {
   late FocusNode _focusNode;
 
   @override

@@ -167,20 +167,33 @@ class CfPublic {
     required MainTextSegment textSement,
   }) async {
     final file = File(fileName);
+    var segments = <MainTextSegment>[];
+    final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
 
     try {
       final content = await file.readAsString();
-      final List<dynamic> data = jsonDecode(content);
-      final dataList = data
-          .map((json) => MainTextSegment.fromJson(json))
-          .toList();
-      dataList.add(textSement);
-      final jsonString = jsonEncode(
-        dataList
-            .map((p) => JsonEncoder.withIndent('  ').convert(p.toJson()))
-            .toList(),
-      );
-      await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      if (content.isEmpty) {
+        segments.add(textSement);
+        final jsonString = encoder.convert(
+          segments.map((s) => s.toJson()).toList(),
+        );
+        await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      } else {
+        var existingData = jsonDecode(content);
+        if (existingData is! List) {
+          existingData = [existingData];
+        }
+        segments = existingData
+            .map((json) => MainTextSegment.fromJson(json))
+            .toList();
+        segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
+        segments.add(textSement);
+        // تبدیل لیست به JSON با فرمت خوانا (pretty)
+        final jsonString = encoder.convert(
+          segments.map((s) => s.toJson()).toList(),
+        );
+        await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      }
       return true;
     } catch (e) {
       debugPrint('⚠️ خطا در خواندن فایل: $e');
@@ -193,20 +206,33 @@ class CfPublic {
     required PersianTextSegment textSement,
   }) async {
     final file = File(fileName);
+    var segments = <PersianTextSegment>[];
+    final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
 
     try {
       final content = await file.readAsString();
-      final List<dynamic> data = jsonDecode(content);
-      final dataList = data
-          .map((json) => PersianTextSegment.fromJson(json))
-          .toList();
-      dataList.add(textSement);
-      final jsonString = jsonEncode(
-        dataList
-            .map((p) => JsonEncoder.withIndent('  ').convert(p.toJson()))
-            .toList(),
-      );
-      await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      if (content.isEmpty) {
+        segments.add(textSement);
+        final jsonString = encoder.convert(
+          segments.map((s) => s.toJson()).toList(),
+        );
+        await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      } else {
+        var existingData = jsonDecode(content);
+        if (existingData is! List) {
+          existingData = [existingData];
+        }
+        segments = existingData
+            .map((json) => PersianTextSegment.fromJson(json))
+            .toList();
+        segments.add(PersianTextSegment(text: '\n\n'));
+        segments.add(textSement);
+        // تبدیل لیست به JSON با فرمت خوانا (pretty)
+        final jsonString = encoder.convert(
+          segments.map((s) => s.toJson()).toList(),
+        );
+        await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      }
       return true;
     } catch (e) {
       debugPrint('⚠️ خطا در خواندن فایل: $e');

@@ -171,7 +171,7 @@ class MainTextSegment {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': text,
+      'text': text,
       'originText': originText,
       'isInteractive': isInteractive,
       'isBlank': isBlank,
@@ -214,7 +214,7 @@ class PersianTextSegment {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': text,
+      'text': text,
       'isBold': isBold,
       'isAmberHighlighted': isAmberHighlighted,
     };

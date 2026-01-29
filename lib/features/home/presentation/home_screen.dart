@@ -84,6 +84,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
           actions: [
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: IconButton(
+                onPressed: () async {
+                  if (await CfPublic().getExternalStoragePermissionStatus() ==
+                      true) {
+                    _showPopupAddNewTempelate();
+                  }
+                },
+                icon: Icon(Icons.add),
+                tooltip: 'افزودن قالب جدید',
+              ),
+            ),
             //! ویجت جستجو
             Directionality(
               textDirection: TextDirection.rtl,
@@ -154,16 +167,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          heroTag: 'addNewTempelate',
-          onPressed: () async {
-            if (await CfPublic().getExternalStoragePermissionStatus() == true) {
-              _showPopupAddNewTempelate();
-            }
-          },
-          child: Icon(Icons.add),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // floatingActionButton: FloatingActionButton(
+        //   heroTag: 'addNewTempelate',
+        //   onPressed: () async {
+        //     if (await CfPublic().getExternalStoragePermissionStatus() == true) {
+        //       _showPopupAddNewTempelate();
+        //     }
+        //   },
+        //   child: Icon(Icons.add),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         // drawer: const MainDrawer(),
         body: Column(
           children: [
@@ -429,39 +442,49 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AddNewTempelate(
-          onSubmit: (allText, en, fa) async {
-            final rootPath = ref.read(settingsProvider);
-            String newTemplateDirectory =
-                '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
-            if (!Directory(newTemplateDirectory).existsSync()) {
-              Directory(newTemplateDirectory).createSync(recursive: true);
-            }
-            //! محتوای خام
-            String allTextFileName = '$newTemplateDirectory/me.1.txt';
-            if (!File(allTextFileName).existsSync()) {
-              File(allTextFileName).createSync(recursive: true);
-            }
-            File(allTextFileName).writeAsStringSync(allText);
-            //! محتوای انگلیسی
-            String enFileName = '$newTemplateDirectory/me.2.english.json';
-            if (!File(enFileName).existsSync()) {
-              File(enFileName).createSync(recursive: true);
-            }
-            await CfPublic().saveMainTextSegmentToExternalStorage(
-              fileName: enFileName,
-              textSement: en,
-            );
-            //! محتوای فارسی
-            String faFileName = '$newTemplateDirectory/me.2.translation.json';
-            if (!File(faFileName).existsSync()) {
-              File(faFileName).createSync(recursive: true);
-            }
-            await CfPublic().savePersianTextSegmentToExternalStorage(
-              fileName: faFileName,
-              textSement: fa,
-            );
-          },
+        return Dialog(
+          child: AddNewTempelate(
+            onSubmit: (allText, en, fa) async {
+              final rootPath = ref.read(settingsProvider);
+              String newTemplateDirectory =
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+              if (!Directory(newTemplateDirectory).existsSync()) {
+                Directory(newTemplateDirectory).createSync(recursive: true);
+              }
+              //! محتوای خام
+              String allTextFileName = '$newTemplateDirectory/me.1.txt';
+              if (!File(allTextFileName).existsSync()) {
+                File(allTextFileName).createSync(recursive: true);
+              }
+              File(allTextFileName).writeAsStringSync(allText);
+              //! محتوای انگلیسی
+              String enFileName = '$newTemplateDirectory/me.2.english.json';
+              if (!File(enFileName).existsSync()) {
+                File(enFileName).createSync(recursive: true);
+              }
+              bool result = await CfPublic()
+                  .saveMainTextSegmentToExternalStorage(
+                    fileName: enFileName,
+                    textSement: en,
+                  );
+              if (result) {
+                //! محتوای فارسی
+                String faFileName =
+                    '$newTemplateDirectory/me.2.translation.json';
+                if (!File(faFileName).existsSync()) {
+                  File(faFileName).createSync(recursive: true);
+                }
+                result = await CfPublic()
+                    .savePersianTextSegmentToExternalStorage(
+                      fileName: faFileName,
+                      textSement: fa,
+                    );
+                if (result) {
+                  Navigator.pop(context);
+                }
+              }
+            },
+          ),
         );
       },
     );
