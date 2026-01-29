@@ -170,21 +170,45 @@ class MainTextSegment {
   });
 
   Map<String, dynamic> toJson() {
-    return {
+    Map<String, dynamic> result = {
       'text': text,
-      'originText': originText,
       'isInteractive': isInteractive,
-      'isBlank': isBlank,
-      'hasSubItems': hasSubItems,
-      'subItems': subItems,
-      'isBold': isBold,
-      'isAmberHighlighted': isAmberHighlighted,
-      'translation': translation,
-      'explanation': explanation,
-      'cerfLevel': cerfLevel,
-      'pronounce': pronounce,
-      'isRtl': isRtl,
     };
+    if (originText != null) {
+      result['originText'] = originText;
+    }
+    if (originText != null) {
+      result['isBlank'] = isBlank;
+    }
+    if (originText != null) {
+      result['hasSubItems'] = hasSubItems;
+    }
+    if (originText != null) {
+      result['subItems'] = subItems;
+    }
+    if (originText != null) {
+      result['isBold'] = isBold;
+    }
+    if (originText != null) {
+      result['isAmberHighlighted'] = isAmberHighlighted;
+    }
+    if (originText != null) {
+      result['translation'] = translation;
+    }
+    if (originText != null) {
+      result['explanation'] = explanation;
+    }
+    if (originText != null) {
+      result['cerfLevel'] = cerfLevel;
+    }
+    if (originText != null) {
+      result['pronounce'] = pronounce;
+    }
+    if (originText != null) {
+      result['isRtl'] = isRtl;
+    }
+
+    return result;
   }
 
   factory MainTextSegment.fromJson(Map<String, dynamic> json) {
@@ -213,11 +237,14 @@ class PersianTextSegment {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'text': text,
-      'isBold': isBold,
-      'isAmberHighlighted': isAmberHighlighted,
-    };
+    Map<String, dynamic> result = {'text': text};
+    if (isBold != null) {
+      result['isBold'] = isBold;
+    }
+    if (isBold != null) {
+      result['isAmberHighlighted'] = isAmberHighlighted;
+    }
+    return result;
   }
 
   factory PersianTextSegment.fromJson(Map<String, dynamic> json) {

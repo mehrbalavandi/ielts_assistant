@@ -122,30 +122,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               icon: Icon(Icons.refresh),
               onPressed: () async {
                 ref.invalidate(allContentProvider);
-                Future.delayed(const Duration(seconds: 2)).then((onValue) {
-                  final books = ref.read(allContentProvider).value;
-                  if (books != null) {
+                // Future.delayed(const Duration(seconds: 2)).then((onValue) {
+                final books = ref.read(allContentProvider).value;
+                if (books != null) {
+                  ref.read(navigationProvider.notifier).restoreLastState(books);
+                  Future.microtask(() {
                     ref
                         .read(navigationProvider.notifier)
                         .restoreLastState(books);
-                    Future.microtask(() {
-                      ref
-                          .read(navigationProvider.notifier)
-                          .restoreLastState(books);
-                      CfPublic()
-                          .getOriginalContentsAsync(
-                            ref.read(allContentProvider).value,
-                            ref.read(navigationProvider),
-                          )
-                          .then((result) {
-                            ref
-                                    .read(originalContentListProvider.notifier)
-                                    .state =
-                                result;
-                          });
-                    });
-                  }
-                });
+                    CfPublic()
+                        .getOriginalContentsAsync(
+                          ref.read(allContentProvider).value,
+                          ref.read(navigationProvider),
+                        )
+                        .then((result) {
+                          ref.read(originalContentListProvider.notifier).state =
+                              result;
+                        });
+                  });
+                }
+                // });
               },
               tooltip: 'تازه‌سازی',
             ),

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:path/path.dart';
 import 'package:path/path.dart' as p;
