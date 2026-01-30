@@ -452,7 +452,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               if (!File(allTextFileName).existsSync()) {
                 File(allTextFileName).createSync(recursive: true);
               }
-              File(allTextFileName).writeAsStringSync(allText);
+              final currentText = File(
+                allTextFileName,
+              ).readAsStringSync(encoding: utf8);
+              File(allTextFileName).writeAsStringSync('$currentText\n$allText');
               //! محتوای انگلیسی
               String enFileName = '$newTemplateDirectory/me.2.english.json';
               if (!File(enFileName).existsSync()) {
