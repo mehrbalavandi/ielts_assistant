@@ -3,7 +3,7 @@ import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/my_text_form_field.dart';
 
-class AddNewTempelate extends StatefulWidget {
+class AddOrEditTempelate extends StatefulWidget {
   final String? initEnglishText;
   final String? initPersianText;
   final void Function(
@@ -13,7 +13,7 @@ class AddNewTempelate extends StatefulWidget {
   )?
   onSubmit;
 
-  const AddNewTempelate({
+  const AddOrEditTempelate({
     super.key,
     this.initEnglishText,
     this.initPersianText,
@@ -21,10 +21,10 @@ class AddNewTempelate extends StatefulWidget {
   });
 
   @override
-  State<AddNewTempelate> createState() => _AddNewTempelateState();
+  State<AddOrEditTempelate> createState() => _AddOrEditTempelateState();
 }
 
-class _AddNewTempelateState extends State<AddNewTempelate> {
+class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
   bool isDoing = false;
   bool isSendingRequest = false;
   //!

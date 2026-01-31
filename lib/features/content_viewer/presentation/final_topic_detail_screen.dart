@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/sentence_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/customer_search_delegate.dart';
@@ -787,27 +788,22 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     spans: spanList,
                     onTap: () {},
                     onEdit: () {
+                      updateTempelate(context, index, enSpans, faSpans, nav);
+                    },
+                    onDelete: () {
+                      CfPublic().deleteTempelate(context, ref, index);
                       CfPublic()
-                          .showPopupEditTempelate(
-                            context,
-                            ref,
-                            index,
-                            enSpans[index].text!,
-                            faSpans[index].text!,
+                          .getOriginalContentsAsync(
+                            ref.read(allContentProvider).value,
+                            ref.read(navigationProvider),
                           )
-                          .then((value) {
-                            if (value != null && value == true) {
-                              Future.microtask(() {
-                                ref
-                                    .read(navigationProvider.notifier)
-                                    .selectFinalTopic(
-                                      nav.selectedPage!.finalTopics[index],
-                                    );
-                              });
-                            }
+                          .then((result) {
+                            ref
+                                    .read(originalContentListProvider.notifier)
+                                    .state =
+                                result;
                           });
                     },
-                    onDelete: () {},
                   );
                 },
               ),
@@ -878,25 +874,24 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       spans: spanList,
                       onTap: () {},
                       onEdit: () {
+                        updateTempelate(context, index, enSpans, faSpans, nav);
+                      },
+                      onDelete: () {
+                        CfPublic().deleteTempelate(context, ref, index);
                         CfPublic()
-                            .showPopupEditTempelate(
-                              context,
-                              ref,
-                              index,
-                              enSpans[index].text!,
-                              faSpans[index].text!,
+                            .getOriginalContentsAsync(
+                              ref.read(allContentProvider).value,
+                              ref.read(navigationProvider),
                             )
-                            .then((value) {
-                              if (value != null && value == true) {
-                                ref
-                                    .read(navigationProvider.notifier)
-                                    .selectFinalTopic(
-                                      nav.selectedPage!.finalTopics[index],
-                                    );
-                              }
+                            .then((result) {
+                              ref
+                                      .read(
+                                        originalContentListProvider.notifier,
+                                      )
+                                      .state =
+                                  result;
                             });
                       },
-                      onDelete: () {},
                     );
                   },
                 ),
@@ -905,6 +900,46 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           ),
       ],
     );
+  }
+
+  void updateTempelate(
+    BuildContext context,
+    int index,
+    List<TextSpan> enSpans,
+    List<TextSpan> faSpans,
+    NavigationState nav,
+  ) {
+    CfPublic()
+        .showPopupEditTempelate(
+          context,
+          ref,
+          index,
+          enSpans[index].text!,
+          faSpans[index].text!,
+        )
+        .then((value) {
+          if (value != null && value == true) {
+            if (widget.searchText == null) {
+              ref
+                  .read(navigationProvider.notifier)
+                  .selectFinalTopic(nav.selectedFinalTopic!);
+            } else {
+              ref
+                  .read(navigationProvider.notifier)
+                  .selectPageAndFinalTopicForSearchResult(
+                    widget.originalContent!,
+                  );
+            }
+            CfPublic()
+                .getOriginalContentsAsync(
+                  ref.read(allContentProvider).value,
+                  ref.read(navigationProvider),
+                )
+                .then((result) {
+                  ref.read(originalContentListProvider.notifier).state = result;
+                });
+          }
+        });
   }
 
   Widget _buildEnglishLayoutForSearch(
