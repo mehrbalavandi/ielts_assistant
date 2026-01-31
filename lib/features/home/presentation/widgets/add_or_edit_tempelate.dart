@@ -231,7 +231,10 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                             });
                           },
                           child: Text(
-                            'افزودن',
+                            (widget.initEnglishText == null &&
+                                    widget.initPersianText == null)
+                                ? 'افزودن'
+                                : 'ذخیره',
                             style: TextStyle(
                               fontFamily: FontFamily.yekanBakhBold.asText,
                             ),

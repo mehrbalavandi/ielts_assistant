@@ -790,19 +790,38 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     onEdit: () {
                       updateTempelate(context, index, enSpans, faSpans, nav);
                     },
-                    onDelete: () {
-                      CfPublic().deleteTempelate(context, ref, index);
-                      CfPublic()
-                          .getOriginalContentsAsync(
-                            ref.read(allContentProvider).value,
-                            ref.read(navigationProvider),
-                          )
-                          .then((result) {
-                            ref
-                                    .read(originalContentListProvider.notifier)
-                                    .state =
-                                result;
-                          });
+                    onDelete: () async {
+                      final result = await CfPublic().deleteTempelate(
+                        context,
+                        ref,
+                        index,
+                      );
+                      if (result != null && result == true) {
+                        if (widget.searchText == null) {
+                          ref
+                              .read(navigationProvider.notifier)
+                              .selectFinalTopic(nav.selectedFinalTopic!);
+                        } else {
+                          ref
+                              .read(navigationProvider.notifier)
+                              .selectPageAndFinalTopicForSearchResult(
+                                widget.originalContent!,
+                              );
+                        }
+                        CfPublic()
+                            .getOriginalContentsAsync(
+                              ref.read(allContentProvider).value,
+                              ref.read(navigationProvider),
+                            )
+                            .then((result) {
+                              ref
+                                      .read(
+                                        originalContentListProvider.notifier,
+                                      )
+                                      .state =
+                                  result;
+                            });
+                      }
                     },
                   );
                 },
@@ -876,21 +895,38 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       onEdit: () {
                         updateTempelate(context, index, enSpans, faSpans, nav);
                       },
-                      onDelete: () {
-                        CfPublic().deleteTempelate(context, ref, index);
-                        CfPublic()
-                            .getOriginalContentsAsync(
-                              ref.read(allContentProvider).value,
-                              ref.read(navigationProvider),
-                            )
-                            .then((result) {
-                              ref
-                                      .read(
-                                        originalContentListProvider.notifier,
-                                      )
-                                      .state =
-                                  result;
-                            });
+                      onDelete: () async {
+                        final result = await CfPublic().deleteTempelate(
+                          context,
+                          ref,
+                          index,
+                        );
+                        if (result != null && result == true) {
+                          if (widget.searchText == null) {
+                            ref
+                                .read(navigationProvider.notifier)
+                                .selectFinalTopic(nav.selectedFinalTopic!);
+                          } else {
+                            ref
+                                .read(navigationProvider.notifier)
+                                .selectPageAndFinalTopicForSearchResult(
+                                  widget.originalContent!,
+                                );
+                          }
+                          CfPublic()
+                              .getOriginalContentsAsync(
+                                ref.read(allContentProvider).value,
+                                ref.read(navigationProvider),
+                              )
+                              .then((result) {
+                                ref
+                                        .read(
+                                          originalContentListProvider.notifier,
+                                        )
+                                        .state =
+                                    result;
+                              });
+                        }
                       },
                     );
                   },

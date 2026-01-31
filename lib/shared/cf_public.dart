@@ -785,9 +785,7 @@ class CfPublic {
         }
         //! محتوای خام
         File(allTextFileName).writeAsStringSync(allText, encoding: utf8);
-        if (context.mounted) {
-          return true;
-        }
+        return true;
       } else {
         return false;
       }
