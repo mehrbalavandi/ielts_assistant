@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
-import 'package:ielts_assistant/shared/cf_public.dart';
 
 class ListItemTextSegment extends StatelessWidget {
   final WidgetRef ref;

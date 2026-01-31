@@ -54,8 +54,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final isDualPane = ref.watch(isDualPaneProvider);
+    final nav = ref.watch(navigationProvider);
     if (widget.searchText == null) {
-      final nav = ref.watch(navigationProvider);
       final selectedBook = nav.selectedBook;
       final selectedTopic = nav.selectedTopic;
       final selectedUnit = nav.selectedUnit;
@@ -137,6 +137,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               Expanded(
                 child: isManualFinalTopic
                     ? _buildManualLayout(
+                        nav,
                         isDualPane,
                         textSegmentsEnglish,
                         textSegmentsPersian,
@@ -331,6 +332,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               Expanded(
                 child: isManualFinalTopic
                     ? _buildManualLayout(
+                        nav,
                         isDualPane,
                         widget.searchResultSegments!.enSegments,
                         widget.searchResultSegments!.faSegments,
@@ -673,6 +675,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
   }
 
   Widget _buildManualLayout(
+    NavigationState nav,
     bool isDualPane,
     List<TextSegmentEnglish> textSegmentsEnglish,
     List<TextSegmentPersian> textSegmentsPersian,
@@ -784,13 +787,26 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     spans: spanList,
                     onTap: () {},
                     onEdit: () {
-                      CfPublic().showPopupAddOrEditTempelate(
-                        context,
-                        ref,
-                        index: index,
-                        initEnglishText: enSpans[index].text,
-                        initPersianText: faSpans[index].text,
-                      );
+                      CfPublic()
+                          .showPopupEditTempelate(
+                            context,
+                            ref,
+                            index,
+                            enSpans[index].text!,
+                            faSpans[index].text!,
+                          )
+                          .then((value) {
+                            if (value != null && value == true) {
+                              Future.microtask(() {
+                                ref.invalidate(navigationProvider);
+                                // .read(
+                                //   navigationProvider.notifier,
+                                // ).selectFinalTopic(
+                                //   nav.selectedPage!.finalTopics[index],
+                                // );
+                              });
+                            }
+                          });
                     },
                     onDelete: () {},
                   );
@@ -863,13 +879,23 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       spans: spanList,
                       onTap: () {},
                       onEdit: () {
-                        CfPublic().showPopupAddOrEditTempelate(
-                          context,
-                          ref,
-                          index: index,
-                          initEnglishText: enSpans[index].text,
-                          initPersianText: faSpans[index].text,
-                        );
+                        CfPublic()
+                            .showPopupEditTempelate(
+                              context,
+                              ref,
+                              index,
+                              enSpans[index].text!,
+                              faSpans[index].text!,
+                            )
+                            .then((value) {
+                              if (value != null && value == true) {
+                                ref
+                                    .read(navigationProvider.notifier)
+                                    .selectFinalTopic(
+                                      nav.selectedPage!.finalTopics[index],
+                                    );
+                              }
+                            });
                       },
                       onDelete: () {},
                     );

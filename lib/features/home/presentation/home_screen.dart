@@ -86,7 +86,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   if (await CfPublic().getExternalStoragePermissionStatus() ==
                       true) {
                     if (context.mounted) {
-                      CfPublic().showPopupAddOrEditTempelate(context, ref);
+                      CfPublic().showPopupAddTempelate(context, ref);
                     }
                   }
                 },

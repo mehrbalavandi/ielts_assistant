@@ -526,17 +526,76 @@ class CfPublic {
     }
   }
 
-  Future<bool?> showPopupAddOrEditTempelate(
+  Future<bool?> showPopupAddTempelate(
     BuildContext context,
-    WidgetRef ref, {
-    int? index,
-    String? initEnglishText,
-    String? initPersianText,
-  }) async {
-    await showDialog(
+    WidgetRef ref,
+  ) async {
+    final result = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        if (index != null) {}
+        return Dialog(
+          child: AddNewTempelate(
+            onSubmit: (allText, enText, faText) async {
+              final rootPath = ref.read(settingsProvider);
+              String newTemplateDirectory =
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+              if (!Directory(newTemplateDirectory).existsSync()) {
+                Directory(newTemplateDirectory).createSync(recursive: true);
+              }
+              String allTextFileName = '$newTemplateDirectory/me.1.txt';
+              if (!File(allTextFileName).existsSync()) {
+                File(allTextFileName).createSync(recursive: true);
+              }
+              //! محتوای انگلیسی
+              String enFileName = '$newTemplateDirectory/me.2.english.json';
+              if (!File(enFileName).existsSync()) {
+                File(enFileName).createSync(recursive: true);
+              }
+              bool result = await CfPublic()
+                  .saveMainTextSegmentToExternalStorage(
+                    fileName: enFileName,
+                    textSement: enText,
+                  );
+              if (result) {
+                //! محتوای فارسی
+                String faFileName =
+                    '$newTemplateDirectory/me.3.translation.json';
+                if (!File(faFileName).existsSync()) {
+                  File(faFileName).createSync(recursive: true);
+                }
+                result = await CfPublic()
+                    .savePersianTextSegmentToExternalStorage(
+                      fileName: faFileName,
+                      textSement: faText,
+                    );
+                if (result) {
+                  if (context.mounted) {
+                    Navigator.pop(context, true);
+                  }
+                }
+              }
+            },
+          ),
+        );
+      },
+    );
+    if (result != null) {
+      return result as bool;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool?> showPopupEditTempelate(
+    BuildContext context,
+    WidgetRef ref,
+    int index,
+    String initEnglishText,
+    String initPersianText,
+  ) async {
+    final result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
         return Dialog(
           child: AddNewTempelate(
             initEnglishText: initEnglishText,
@@ -552,86 +611,44 @@ class CfPublic {
               if (!File(allTextFileName).existsSync()) {
                 File(allTextFileName).createSync(recursive: true);
               }
-              if (index == null) {
-                //! محتوای خام
-                // final currentText = File(
-                //   allTextFileName,
-                // ).readAsStringSync(encoding: utf8);
-                // if (currentText.isNotEmpty) {
-                //   File(
-                //     allTextFileName,
-                //   ).writeAsStringSync('$currentText\n\n$allText');
-                // } else {
-                //   File(allTextFileName).writeAsStringSync(allText);
-                // }
-                //! محتوای انگلیسی
-                String enFileName = '$newTemplateDirectory/me.2.english.json';
-                if (!File(enFileName).existsSync()) {
-                  File(enFileName).createSync(recursive: true);
+              //! محتوای انگلیسی
+              String enFileName = '$newTemplateDirectory/me.2.english.json';
+              if (!File(enFileName).existsSync()) {
+                File(enFileName).createSync(recursive: true);
+              }
+              final result = await CfPublic()
+                  .updateMainTextSegmentToExternalStorage(
+                    fileName: enFileName,
+                    index: index,
+                    newText: enText.text,
+                  );
+              if (result != null) {
+                //! محتوای فارسی
+                String faFileName =
+                    '$newTemplateDirectory/me.3.translation.json';
+                if (!File(faFileName).existsSync()) {
+                  File(faFileName).createSync(recursive: true);
                 }
-                bool result = await CfPublic()
-                    .saveMainTextSegmentToExternalStorage(
-                      fileName: enFileName,
-                      textSement: enText,
-                    );
-                if (result) {
-                  //! محتوای فارسی
-                  String faFileName =
-                      '$newTemplateDirectory/me.3.translation.json';
-                  if (!File(faFileName).existsSync()) {
-                    File(faFileName).createSync(recursive: true);
-                  }
-                  result = await CfPublic()
-                      .savePersianTextSegmentToExternalStorage(
-                        fileName: faFileName,
-                        textSement: faText,
-                      );
-                  if (result) {
-                    if (context.mounted) {
-                      Navigator.pop(context, true);
-                    }
-                  }
-                }
-              } else {
-                //! محتوای انگلیسی
-                String enFileName = '$newTemplateDirectory/me.2.english.json';
-                if (!File(enFileName).existsSync()) {
-                  File(enFileName).createSync(recursive: true);
-                }
-                final result = await CfPublic()
-                    .updateMainTextSegmentToExternalStorage(
-                      fileName: enFileName,
+                final result2 = await CfPublic()
+                    .updatePersianTextSegmentToExternalStorage(
+                      fileName: faFileName,
                       index: index,
-                      newText: enText.text,
+                      newText: faText.text,
                     );
-                if (result != null) {
-                  //! محتوای فارسی
-                  String faFileName =
-                      '$newTemplateDirectory/me.3.translation.json';
-                  if (!File(faFileName).existsSync()) {
-                    File(faFileName).createSync(recursive: true);
-                  }
-                  final result2 = await CfPublic()
-                      .updatePersianTextSegmentToExternalStorage(
-                        fileName: faFileName,
-                        index: index,
-                        newText: faText.text,
-                      );
-                  if (result2 != null) {
-                    //! محتوای خام
-                    // final currentText = File(
-                    //   allTextFileName,
-                    // ).readAsStringSync(encoding: utf8);
-                    // if (currentText.isNotEmpty) {
-                    //   File(
-                    //     allTextFileName,
-                    //   ).writeAsStringSync('$currentText\n\n$allText');
-                    // } else {
-                    //   File(allTextFileName).writeAsStringSync(allText);
-                    // }
-                    if (context.mounted) {
-                      Navigator.pop(context, true);
-                    }
+                if (result2 != null) {
+                  //! محتوای خام
+                  // final currentText = File(
+                  //   allTextFileName,
+                  // ).readAsStringSync(encoding: utf8);
+                  // if (currentText.isNotEmpty) {
+                  //   File(
+                  //     allTextFileName,
+                  //   ).writeAsStringSync('$currentText\n\n$allText');
+                  // } else {
+                  //   File(allTextFileName).writeAsStringSync(allText);
+                  // }
+                  if (context.mounted) {
+                    Navigator.pop(context, true);
                   }
                 }
               }
@@ -639,13 +656,11 @@ class CfPublic {
           ),
         );
       },
-    ).then((val) {
-      if (val != null) {
-        return val as bool;
-      } else {
-        return false;
-      }
-    });
-    return null;
+    );
+    if (result != null) {
+      return result as bool;
+    } else {
+      return false;
+    }
   }
 }
