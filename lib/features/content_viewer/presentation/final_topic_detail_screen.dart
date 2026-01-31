@@ -798,12 +798,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           .then((value) {
                             if (value != null && value == true) {
                               Future.microtask(() {
-                                ref.invalidate(navigationProvider);
-                                // .read(
-                                //   navigationProvider.notifier,
-                                // ).selectFinalTopic(
-                                //   nav.selectedPage!.finalTopics[index],
-                                // );
+                                ref
+                                    .read(navigationProvider.notifier)
+                                    .selectFinalTopic(
+                                      nav.selectedPage!.finalTopics[index],
+                                    );
                               });
                             }
                           });
