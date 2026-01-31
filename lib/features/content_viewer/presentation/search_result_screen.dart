@@ -116,12 +116,15 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
   }
 
   Widget _buildEnglishLayout(
-    List<MainTextSegment> mainTexSegments,
+    List<TextSegmentEnglish> textSegmentsEnglish,
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
     // int interactiveIndex = 0;
-    final microSegments = _processSegments(mainTexSegments, widget.searchText);
+    final microSegments = _processSegments(
+      textSegmentsEnglish,
+      widget.searchText,
+    );
     // List<List<InlineSpan>>
     final spans = microSegments.asMap().entries.map((entry) {
       // final index = entry.key;
@@ -182,7 +185,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
           return formattedSpans;
         } else {
           final subItemsAsMainTextSegment = ms.subItems!.map((e) {
-            return MainTextSegment(
+            return TextSegmentEnglish(
               text: e['text'] as String,
               isInteractive: e['isInteractive'] as bool,
               isBold: e['isBold'] as bool?,
@@ -196,7 +199,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
               isRtl: e['isRtl'] as bool?,
             );
           }).toList();
-          final List<MainTextSegment> subMicroSegments = _processSegments(
+          final List<TextSegmentEnglish> subMicroSegments = _processSegments(
             CfPublic().fillGapsInFullText(ms.text, subItemsAsMainTextSegment),
             widget.searchText,
           );
@@ -263,7 +266,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
   }
 
   Widget _buildPersianLayout(
-    List<PersianTextSegment> translationTextSegments,
+    List<TextSegmentPersian> translationTextSegments,
     String finalTopicId,
   ) {
     final List<TextSpan> spans = translationTextSegments.map((item) {
@@ -298,8 +301,8 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
   // چیدمان دو ستونه (دو لیست اسکرول‌شونده مجزا)
   Widget _buildEnglishAndPersianLayout(
     bool isPersianFirst,
-    List<MainTextSegment> mainTexSegments,
-    List<PersianTextSegment> translationTextSegments,
+    List<TextSegmentEnglish> textSegmentsEnglish,
+    List<TextSegmentPersian> translationTextSegments,
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
@@ -343,7 +346,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
               )
             : Expanded(
                 child: _buildEnglishLayout(
-                  mainTexSegments,
+                  textSegmentsEnglish,
                   sentenceStates,
                   finalTopicId,
                 ),
@@ -354,7 +357,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
         isPersianFirst
             ? Expanded(
                 child: _buildEnglishLayout(
-                  mainTexSegments,
+                  textSegmentsEnglish,
                   sentenceStates,
                   finalTopicId,
                 ),
@@ -378,8 +381,8 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
     );
   }
 
-  List<MainTextSegment> _processSegments(
-    List<MainTextSegment> segments,
+  List<TextSegmentEnglish> _processSegments(
+    List<TextSegmentEnglish> segments,
     String searchQuery,
   ) {
     if (searchQuery.isEmpty) {
@@ -390,7 +393,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
     //       final index = entry.key;
     //       final status = sentenceStates[index] ?? SentenceStatus.hide;
     final fullText = segments.map((s) => s.text).join();
-    final List<MainTextSegment> microSegments = [];
+    final List<TextSegmentEnglish> microSegments = [];
     int currentTextIndex = 0;
 
     // 1. پیدا کردن تمامی تطابق‌های عبارت جستجو
@@ -431,7 +434,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
             final endInSegment = nonHighlightEnd - segmentStart;
             final text = segmentText.substring(startInSegment, endInSegment);
             microSegments.add(
-              MainTextSegment(
+              TextSegmentEnglish(
                 text: text,
                 originText: originText,
                 isInteractive: segment.isInteractive,
@@ -457,7 +460,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
             final endInSegment = highlightEnd - segmentStart;
             final text = segmentText.substring(startInSegment, endInSegment);
             microSegments.add(
-              MainTextSegment(
+              TextSegmentEnglish(
                 text: text,
                 originText: originText,
                 isInteractive: segment.isInteractive,
@@ -479,7 +482,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
       if (segmentCurrentPosition < segmentText.length) {
         final text = segmentText.substring(segmentCurrentPosition);
         microSegments.add(
-          MainTextSegment(
+          TextSegmentEnglish(
             text: text,
             originText: originText,
             isInteractive: segment.isInteractive,
@@ -499,13 +502,13 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
     return microSegments;
   }
 
-  List<MainTextSegment> processSubSegments(
+  List<TextSegmentEnglish> processSubSegments(
     String fullText,
-    List<MainTextSegment> segments,
+    List<TextSegmentEnglish> segments,
     List<String> searchQueries,
   ) {
     // ساخت متن کامل
-    final List<MainTextSegment> microSegments = [];
+    final List<TextSegmentEnglish> microSegments = [];
     int currentTextIndex = 0;
 
     // 1️⃣ همه‌ی تطابق‌ها رو از تمام عبارت‌های جستجو پیدا می‌کنیم
@@ -551,7 +554,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
             final endInSegment = nonHighlightEnd - segmentStart;
             final text = segmentText.substring(startInSegment, endInSegment);
             microSegments.add(
-              MainTextSegment(
+              TextSegmentEnglish(
                 text: text,
                 originText: originText,
                 isInteractive: segment.isInteractive,
@@ -575,7 +578,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
             final endInSegment = highlightEnd - segmentStart;
             final text = segmentText.substring(startInSegment, endInSegment);
             microSegments.add(
-              MainTextSegment(
+              TextSegmentEnglish(
                 text: text,
                 originText: originText,
                 isInteractive: segment.isInteractive,
@@ -596,7 +599,7 @@ class _SearchResultScreenState extends ConsumerState<SearchResultScreen> {
       // 🔹 بخش باقیمانده بعد از آخرین تطابق
       if (segmentPos < segmentText.length) {
         microSegments.add(
-          MainTextSegment(
+          TextSegmentEnglish(
             text: segmentText.substring(segmentPos),
             originText: originText,
             isInteractive: segment.isInteractive,

@@ -6,8 +6,8 @@ import 'package:ielts_assistant/shared/my_text_form_field.dart';
 class AddNewTempelate extends StatefulWidget {
   final void Function(
     String allText,
-    MainTextSegment mainTextSegment,
-    PersianTextSegment persianTextSegment,
+    TextSegmentEnglish textSegmentEnglish,
+    TextSegmentPersian persianTextSegment,
   )?
   onSubmit;
 
@@ -85,46 +85,6 @@ class _AddNewTempelateState extends State<AddNewTempelate> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: MyTextFormField(
-                      onChanged: (value) {},
-                      // style: TextStyle(fontFamily: 'YekanBakhRegular'),
-                      keyboardType: TextInputType.multiline,
-                      textAlign: TextAlign.start,
-                      textAlignVertical: TextAlignVertical.center,
-                      textDirection: TextDirection.ltr,
-                      decoration: InputDecoration(
-                        label: Text('انگلیسی'),
-                        // floatingLabelBehavior: FloatingLabelBehavior.always,
-                        // floatingLabelAlignment: FloatingLabelAlignment.center,
-                        labelStyle: TextStyle(fontFamily: 'Zar'),
-                        alignLabelWithHint: false,
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        // contentPadding: const EdgeInsets.symmetric(
-                        //   horizontal: 8.0,
-                        // ),
-                        // hintText: 'انگلیسی',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Zar',
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      controller: txtEnglish,
-                      autofocus: true,
-                      focusNode: englishFocusNode,
-                      textInputAction: TextInputAction.newline,
-                      onEditingComplete: () {
-                        // txtEnglish.text = '${txtEnglish.text.trim()}\n';
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  //* فارسی
-                  Directionality(
                     textDirection: TextDirection.rtl,
                     child: MyTextFormField(
                       onChanged: (value) {},
@@ -168,6 +128,47 @@ class _AddNewTempelateState extends State<AddNewTempelate> {
                     ),
                   ),
 
+                  const SizedBox(height: 16.0),
+                  //* فارسی
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: MyTextFormField(
+                      onChanged: (value) {},
+                      // style: TextStyle(fontFamily: 'YekanBakhRegular'),
+                      keyboardType: TextInputType.multiline,
+                      textAlign: TextAlign.start,
+                      textAlignVertical: TextAlignVertical.center,
+                      textDirection: TextDirection.ltr,
+                      decoration: InputDecoration(
+                        label: Text('انگلیسی'),
+                        // floatingLabelBehavior: FloatingLabelBehavior.always,
+                        // floatingLabelAlignment: FloatingLabelAlignment.center,
+                        labelStyle: TextStyle(fontFamily: 'Zar'),
+                        alignLabelWithHint: false,
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        // contentPadding: const EdgeInsets.symmetric(
+                        //   horizontal: 8.0,
+                        // ),
+                        // hintText: 'انگلیسی',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Zar',
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                      ),
+                      controller: txtEnglish,
+                      autofocus: false,
+                      focusNode: englishFocusNode,
+                      textInputAction: TextInputAction.newline,
+                      onEditingComplete: () {
+                        // txtEnglish.text = '${txtEnglish.text.trim()}\n';
+                      },
+                    ),
+                  ),
+
                   SizedBox(height: 16.0),
                   Directionality(
                     textDirection: TextDirection.rtl,
@@ -202,18 +203,19 @@ class _AddNewTempelateState extends State<AddNewTempelate> {
                               return;
                             }
                             String allText =
-                                '${txtEnglish.text}\n\n${txtPersian.text}';
-                            MainTextSegment mainTextSegment = MainTextSegment(
-                              text: txtEnglish.text,
-                              isInteractive: false,
-                            );
+                                '${txtEnglish.text}\n${txtPersian.text}';
+                            TextSegmentEnglish textSegmentEnglish =
+                                TextSegmentEnglish(
+                                  text: txtEnglish.text,
+                                  isInteractive: false,
+                                );
 
-                            PersianTextSegment persianTextSegment =
-                                PersianTextSegment(text: txtPersian.text);
+                            TextSegmentPersian persianTextSegment =
+                                TextSegmentPersian(text: txtPersian.text);
 
                             widget.onSubmit?.call(
                               allText,
-                              mainTextSegment,
+                              textSegmentEnglish,
                               persianTextSegment,
                             );
                             //

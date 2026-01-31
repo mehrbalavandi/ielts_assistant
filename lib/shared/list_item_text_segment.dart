@@ -4,19 +4,28 @@ import 'package:ielts_assistant/common/enums.dart';
 class ListItemTextSegment extends StatelessWidget {
   final bool isPersianTextSegment;
   final int number;
-  final String segmentText;
+  // final String segmentText;
+  final List<List<TextSpan>> spans;
   final void Function() onTap;
+  final void Function() onEdit;
+  final void Function() onDelete;
   const ListItemTextSegment({
     super.key,
     required this.isPersianTextSegment,
     required this.number,
-    required this.segmentText,
+    required this.spans,
+    // required this.segmentText,
     required this.onTap,
+    required this.onEdit,
+    required this.onDelete,
   });
 
   @override
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
+
+    // List<List<InlineSpan>>
+
     return RepaintBoundary(
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
@@ -32,28 +41,62 @@ class ListItemTextSegment extends StatelessWidget {
           },
 
           //! عنوان کتاب
-          title: Text(
-            number.toString(),
-            textAlign: TextAlign.justify,
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-              fontFamily: isPersianTextSegment
-                  ? FontFamily.yekanBakhLight.asText
-                  : null,
-              fontWeight: FontWeight.bold,
-              fontSize: isPersianTextSegment ? 12.0 : null,
-            ),
+          title: Row(
+            children: [
+              Text(
+                number.toString(),
+                textAlign: TextAlign.justify,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontFamily: isPersianTextSegment
+                      ? FontFamily.yekanBakhLight.asText
+                      : null,
+                  fontWeight: FontWeight.bold,
+                  fontSize: isPersianTextSegment ? 12.0 : null,
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        onEdit();
+                      },
+                      icon: Icon(Icons.edit_outlined),
+                    ),
+                    IconButton(
+                      iconSize: 20.0,
+                      onPressed: () {
+                        onDelete();
+                      },
+                      icon: Icon(
+                        Icons.delete_outline,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           titleAlignment: ListTileTitleAlignment.top,
           //! سایر موارد
-          subtitle: Text(
-            segmentText,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontFamily: isPersianTextSegment
-                  ? FontFamily.yekanBakhLight.asText
-                  : null,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          subtitle:
+              //  Text(
+              //   segmentText,
+              //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              //     fontFamily: isPersianTextSegment
+              //         ? FontFamily.yekanBakhLight.asText
+              //         : null,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
+              RichText(
+                textAlign: isPersianTextSegment
+                    ? TextAlign.right
+                    : TextAlign.left,
+                text: TextSpan(children: spans.expand((e) => e).toList()),
+              ),
         ),
       ),
     );

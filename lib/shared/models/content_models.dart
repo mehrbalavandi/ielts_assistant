@@ -138,7 +138,7 @@ sealed class FinalTopic with _$FinalTopic {
 
 //   Sentence({required this.text, required this.isSpecial});
 // }
-class MainTextSegment {
+class TextSegmentEnglish {
   final String text;
   final String? originText;
   final bool isInteractive;
@@ -153,7 +153,7 @@ class MainTextSegment {
   final String? pronounce;
   final bool? isRtl;
 
-  MainTextSegment({
+  TextSegmentEnglish({
     required this.text,
     required this.isInteractive,
     this.isBlank,
@@ -211,8 +211,8 @@ class MainTextSegment {
     return result;
   }
 
-  factory MainTextSegment.fromJson(Map<String, dynamic> json) {
-    return MainTextSegment(
+  factory TextSegmentEnglish.fromJson(Map<String, dynamic> json) {
+    return TextSegmentEnglish(
       text: json['text'] as String,
       isInteractive: json['isInteractive'] as bool,
       translation: json['translation'] as String?,
@@ -225,12 +225,12 @@ class MainTextSegment {
   }
 }
 
-class PersianTextSegment {
+class TextSegmentPersian {
   final String text;
   final bool? isBold;
   final bool? isAmberHighlighted;
 
-  PersianTextSegment({
+  TextSegmentPersian({
     required this.text,
     this.isBold,
     this.isAmberHighlighted,
@@ -247,8 +247,8 @@ class PersianTextSegment {
     return result;
   }
 
-  factory PersianTextSegment.fromJson(Map<String, dynamic> json) {
-    return PersianTextSegment(
+  factory TextSegmentPersian.fromJson(Map<String, dynamic> json) {
+    return TextSegmentPersian(
       text: json['text'] as String,
       isBold: json['isBold'] as bool?,
     );

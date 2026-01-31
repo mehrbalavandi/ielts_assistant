@@ -24,8 +24,8 @@ sealed class NavigationState with _$NavigationState {
     Topic? selectedTopic,
     PageContent? selectedPage,
     FinalTopic? selectedFinalTopic,
-    List<MainTextSegment>? currentEnglishSegments,
-    List<PersianTextSegment>? currentPersianTextSegments,
+    List<TextSegmentEnglish>? currentEnglishSegments,
+    List<TextSegmentPersian>? currentPersianTextSegments,
     @Default(false) bool isLoading,
   }) = _NavigationState;
 }
@@ -184,8 +184,10 @@ class NavigationNotifier extends _$NavigationNotifier {
       _contentService.readFile(originalContent.finalTopic.jsonFilePath),
       _contentService.readFile(originalContent.finalTopic.translationFilePath),
     ]);
-    List<MainTextSegment>? englishSegments = _parseEnglishContent(results[0]);
-    List<PersianTextSegment>? persianTextSegments = _parsePersianContent(
+    List<TextSegmentEnglish>? englishSegments = _parseEnglishContent(
+      results[0],
+    );
+    List<TextSegmentPersian>? textSegmentsPersian = _parsePersianContent(
       results[1],
     );
     state = state.copyWith(isLoading: false);
@@ -198,7 +200,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     // }
     return SearchResultSegments(
       enSegments: englishSegments,
-      faSegments: persianTextSegments,
+      faSegments: textSegmentsPersian,
     );
   }
 
@@ -239,24 +241,26 @@ class NavigationNotifier extends _$NavigationNotifier {
     }
   }
 
-  List<MainTextSegment> _parseEnglishContent(String? raw) {
+  List<TextSegmentEnglish> _parseEnglishContent(String? raw) {
     if (raw == null) {
-      return <MainTextSegment>[];
-    }
-    final List<dynamic> jsonFormat = jsonDecode(raw);
-    return jsonFormat
-        .map((json) => MainTextSegment.fromJson(json as Map<String, dynamic>))
-        .toList();
-  }
-
-  List<PersianTextSegment> _parsePersianContent(String? raw) {
-    if (raw == null) {
-      return <PersianTextSegment>[];
+      return <TextSegmentEnglish>[];
     }
     final List<dynamic> jsonFormat = jsonDecode(raw);
     return jsonFormat
         .map(
-          (json) => PersianTextSegment.fromJson(json as Map<String, dynamic>),
+          (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
+        )
+        .toList();
+  }
+
+  List<TextSegmentPersian> _parsePersianContent(String? raw) {
+    if (raw == null) {
+      return <TextSegmentPersian>[];
+    }
+    final List<dynamic> jsonFormat = jsonDecode(raw);
+    return jsonFormat
+        .map(
+          (json) => TextSegmentPersian.fromJson(json as Map<String, dynamic>),
         )
         .toList();
   }

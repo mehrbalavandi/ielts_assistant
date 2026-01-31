@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$NavigationState {
 
- Book? get selectedBook; Unit? get selectedUnit; Topic? get selectedTopic; PageContent? get selectedPage; FinalTopic? get selectedFinalTopic; List<MainTextSegment>? get currentEnglishSegments; List<PersianTextSegment>? get currentPersianTextSegments; bool get isLoading;
+ Book? get selectedBook; Unit? get selectedUnit; Topic? get selectedTopic; PageContent? get selectedPage; FinalTopic? get selectedFinalTopic; List<TextSegmentEnglish>? get currentEnglishSegments; List<TextSegmentPersian>? get currentPersianTextSegments; bool get isLoading;
 /// Create a copy of NavigationState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $NavigationStateCopyWith<$Res>  {
   factory $NavigationStateCopyWith(NavigationState value, $Res Function(NavigationState) _then) = _$NavigationStateCopyWithImpl;
 @useResult
 $Res call({
- Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, List<MainTextSegment>? currentEnglishSegments, List<PersianTextSegment>? currentPersianTextSegments, bool isLoading
+ Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, List<TextSegmentEnglish>? currentEnglishSegments, List<TextSegmentPersian>? currentPersianTextSegments, bool isLoading
 });
 
 
@@ -70,8 +70,8 @@ as Unit?,selectedTopic: freezed == selectedTopic ? _self.selectedTopic : selecte
 as Topic?,selectedPage: freezed == selectedPage ? _self.selectedPage : selectedPage // ignore: cast_nullable_to_non_nullable
 as PageContent?,selectedFinalTopic: freezed == selectedFinalTopic ? _self.selectedFinalTopic : selectedFinalTopic // ignore: cast_nullable_to_non_nullable
 as FinalTopic?,currentEnglishSegments: freezed == currentEnglishSegments ? _self.currentEnglishSegments : currentEnglishSegments // ignore: cast_nullable_to_non_nullable
-as List<MainTextSegment>?,currentPersianTextSegments: freezed == currentPersianTextSegments ? _self.currentPersianTextSegments : currentPersianTextSegments // ignore: cast_nullable_to_non_nullable
-as List<PersianTextSegment>?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentEnglish>?,currentPersianTextSegments: freezed == currentPersianTextSegments ? _self.currentPersianTextSegments : currentPersianTextSegments // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentPersian>?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -214,7 +214,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  List<MainTextSegment>? currentEnglishSegments,  List<PersianTextSegment>? currentPersianTextSegments,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  List<TextSegmentEnglish>? currentEnglishSegments,  List<TextSegmentPersian>? currentPersianTextSegments,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NavigationState() when $default != null:
 return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.currentEnglishSegments,_that.currentPersianTextSegments,_that.isLoading);case _:
@@ -235,7 +235,7 @@ return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  List<MainTextSegment>? currentEnglishSegments,  List<PersianTextSegment>? currentPersianTextSegments,  bool isLoading)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  List<TextSegmentEnglish>? currentEnglishSegments,  List<TextSegmentPersian>? currentPersianTextSegments,  bool isLoading)  $default,) {final _that = this;
 switch (_that) {
 case _NavigationState():
 return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.currentEnglishSegments,_that.currentPersianTextSegments,_that.isLoading);}
@@ -252,7 +252,7 @@ return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  List<MainTextSegment>? currentEnglishSegments,  List<PersianTextSegment>? currentPersianTextSegments,  bool isLoading)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  List<TextSegmentEnglish>? currentEnglishSegments,  List<TextSegmentPersian>? currentPersianTextSegments,  bool isLoading)?  $default,) {final _that = this;
 switch (_that) {
 case _NavigationState() when $default != null:
 return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.currentEnglishSegments,_that.currentPersianTextSegments,_that.isLoading);case _:
@@ -267,7 +267,7 @@ return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.
 
 
 class _NavigationState implements NavigationState {
-  const _NavigationState({this.selectedBook, this.selectedUnit, this.selectedTopic, this.selectedPage, this.selectedFinalTopic, final  List<MainTextSegment>? currentEnglishSegments, final  List<PersianTextSegment>? currentPersianTextSegments, this.isLoading = false}): _currentEnglishSegments = currentEnglishSegments,_currentPersianTextSegments = currentPersianTextSegments;
+  const _NavigationState({this.selectedBook, this.selectedUnit, this.selectedTopic, this.selectedPage, this.selectedFinalTopic, final  List<TextSegmentEnglish>? currentEnglishSegments, final  List<TextSegmentPersian>? currentPersianTextSegments, this.isLoading = false}): _currentEnglishSegments = currentEnglishSegments,_currentPersianTextSegments = currentPersianTextSegments;
   
 
 @override final  Book? selectedBook;
@@ -275,8 +275,8 @@ class _NavigationState implements NavigationState {
 @override final  Topic? selectedTopic;
 @override final  PageContent? selectedPage;
 @override final  FinalTopic? selectedFinalTopic;
- final  List<MainTextSegment>? _currentEnglishSegments;
-@override List<MainTextSegment>? get currentEnglishSegments {
+ final  List<TextSegmentEnglish>? _currentEnglishSegments;
+@override List<TextSegmentEnglish>? get currentEnglishSegments {
   final value = _currentEnglishSegments;
   if (value == null) return null;
   if (_currentEnglishSegments is EqualUnmodifiableListView) return _currentEnglishSegments;
@@ -284,8 +284,8 @@ class _NavigationState implements NavigationState {
   return EqualUnmodifiableListView(value);
 }
 
- final  List<PersianTextSegment>? _currentPersianTextSegments;
-@override List<PersianTextSegment>? get currentPersianTextSegments {
+ final  List<TextSegmentPersian>? _currentPersianTextSegments;
+@override List<TextSegmentPersian>? get currentPersianTextSegments {
   final value = _currentPersianTextSegments;
   if (value == null) return null;
   if (_currentPersianTextSegments is EqualUnmodifiableListView) return _currentPersianTextSegments;
@@ -325,7 +325,7 @@ abstract mixin class _$NavigationStateCopyWith<$Res> implements $NavigationState
   factory _$NavigationStateCopyWith(_NavigationState value, $Res Function(_NavigationState) _then) = __$NavigationStateCopyWithImpl;
 @override @useResult
 $Res call({
- Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, List<MainTextSegment>? currentEnglishSegments, List<PersianTextSegment>? currentPersianTextSegments, bool isLoading
+ Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, List<TextSegmentEnglish>? currentEnglishSegments, List<TextSegmentPersian>? currentPersianTextSegments, bool isLoading
 });
 
 
@@ -350,8 +350,8 @@ as Unit?,selectedTopic: freezed == selectedTopic ? _self.selectedTopic : selecte
 as Topic?,selectedPage: freezed == selectedPage ? _self.selectedPage : selectedPage // ignore: cast_nullable_to_non_nullable
 as PageContent?,selectedFinalTopic: freezed == selectedFinalTopic ? _self.selectedFinalTopic : selectedFinalTopic // ignore: cast_nullable_to_non_nullable
 as FinalTopic?,currentEnglishSegments: freezed == currentEnglishSegments ? _self._currentEnglishSegments : currentEnglishSegments // ignore: cast_nullable_to_non_nullable
-as List<MainTextSegment>?,currentPersianTextSegments: freezed == currentPersianTextSegments ? _self._currentPersianTextSegments : currentPersianTextSegments // ignore: cast_nullable_to_non_nullable
-as List<PersianTextSegment>?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentEnglish>?,currentPersianTextSegments: freezed == currentPersianTextSegments ? _self._currentPersianTextSegments : currentPersianTextSegments // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentPersian>?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/final_topic_detail_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/search_result_screen.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/shared/list_item_search.dart';
@@ -178,7 +179,12 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
               Navigator.of(context)
                   .push(
                     MaterialPageRoute(
-                      builder: (context) => SearchResultScreen(
+                      // builder: (context) => SearchResultScreen(
+                      //   originalContent: originalContent,
+                      //   searchResultSegments: searchResultSegments,
+                      //   searchText: query,
+                      // ),
+                      builder: (context) => FinalTopicDetailScreen(
                         originalContent: originalContent,
                         searchResultSegments: searchResultSegments,
                         searchText: query,
@@ -199,7 +205,7 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
 }
 
 class SearchResultSegments {
-  List<MainTextSegment> enSegments;
-  List<PersianTextSegment> faSegments;
+  List<TextSegmentEnglish> enSegments;
+  List<TextSegmentPersian> faSegments;
   SearchResultSegments({required this.enSegments, required this.faSegments});
 }

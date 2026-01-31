@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
@@ -9,12 +6,10 @@ import 'package:ielts_assistant/features/audio_player/providers/audio_player_pro
 import 'package:ielts_assistant/features/content_viewer/data/content_service.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/final_topic_detail_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
-import 'package:ielts_assistant/features/home/presentation/widgets/add_new_tempelate.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/customer_search_delegate.dart';
-import 'package:ielts_assistant/shared/models/content_models.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -90,7 +85,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 onPressed: () async {
                   if (await CfPublic().getExternalStoragePermissionStatus() ==
                       true) {
-                    _showPopupAddNewTempelate();
+                    if (context.mounted) {
+                      CfPublic().showPopupAddOrEditTempelate(context, ref);
+                    }
                   }
                 },
                 icon: Icon(Icons.add),
@@ -106,10 +103,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     context: context,
                     delegate: CustomerSearchDelegate(
                       ref: ref,
-                      // dataFuture: CfPublic().getOriginalContentsAsync(
-                      //   ref.read(allContentProvider).value,
-                      //   ref.read(navigationProvider),
-                      // ),
                       data: ref.read(originalContentListProvider),
                     ),
                   );
@@ -431,61 +424,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
       ],
-    );
-  }
-
-  void _showPopupAddNewTempelate() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: AddNewTempelate(
-            onSubmit: (allText, en, fa) async {
-              final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
-              if (!Directory(newTemplateDirectory).existsSync()) {
-                Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              //! محتوای خام
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
-              }
-              final currentText = File(
-                allTextFileName,
-              ).readAsStringSync(encoding: utf8);
-              File(allTextFileName).writeAsStringSync('$currentText\n$allText');
-              //! محتوای انگلیسی
-              String enFileName = '$newTemplateDirectory/me.2.english.json';
-              if (!File(enFileName).existsSync()) {
-                File(enFileName).createSync(recursive: true);
-              }
-              bool result = await CfPublic()
-                  .saveMainTextSegmentToExternalStorage(
-                    fileName: enFileName,
-                    textSement: en,
-                  );
-              if (result) {
-                //! محتوای فارسی
-                String faFileName =
-                    '$newTemplateDirectory/me.2.translation.json';
-                if (!File(faFileName).existsSync()) {
-                  File(faFileName).createSync(recursive: true);
-                }
-                result = await CfPublic()
-                    .savePersianTextSegmentToExternalStorage(
-                      fileName: faFileName,
-                      textSement: fa,
-                    );
-                if (result) {
-                  Navigator.pop(context);
-                }
-              }
-            },
-          ),
-        );
-      },
     );
   }
 }
