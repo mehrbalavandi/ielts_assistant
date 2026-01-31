@@ -457,6 +457,75 @@ class CfPublic {
     }
   }
 
+  Future<List<TextSegmentEnglish>?> updateMainTextSegmentToExternalStorage({
+    required String fileName,
+    required int index,
+    required String newText,
+  }) async {
+    final file = File(fileName);
+    var segments = <TextSegmentEnglish>[];
+    final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
+
+    try {
+      final content = await file.readAsString();
+      var existingData = jsonDecode(content);
+      if (existingData is! List) {
+        existingData = [existingData];
+      }
+      segments = existingData
+          .map((json) => TextSegmentEnglish.fromJson(json))
+          .toList();
+      // segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
+      segments.removeAt(index);
+      segments.insert(
+        index,
+        TextSegmentEnglish(text: newText, isInteractive: false),
+      );
+      // تبدیل لیست به JSON با فرمت خوانا (pretty)
+      final jsonString = encoder.convert(
+        segments.map((s) => s.toJson()).toList(),
+      );
+      await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      return segments;
+    } catch (e) {
+      debugPrint('⚠️ خطا در خواندن فایل: $e');
+      return null;
+    }
+  }
+
+  Future<List<TextSegmentPersian>?> updatePersianTextSegmentToExternalStorage({
+    required String fileName,
+    required int index,
+    required String newText,
+  }) async {
+    final file = File(fileName);
+    var segments = <TextSegmentPersian>[];
+    final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
+
+    try {
+      final content = await file.readAsString();
+      var existingData = jsonDecode(content);
+      if (existingData is! List) {
+        existingData = [existingData];
+      }
+      segments = existingData
+          .map((json) => TextSegmentPersian.fromJson(json))
+          .toList();
+      // segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
+      segments.removeAt(index);
+      segments.insert(index, TextSegmentPersian(text: newText));
+      // تبدیل لیست به JSON با فرمت خوانا (pretty)
+      final jsonString = encoder.convert(
+        segments.map((s) => s.toJson()).toList(),
+      );
+      await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      return segments;
+    } catch (e) {
+      debugPrint('⚠️ خطا در خواندن فایل: $e');
+      return null;
+    }
+  }
+
   Future<bool?> showPopupAddOrEditTempelate(
     BuildContext context,
     WidgetRef ref, {
@@ -479,46 +548,90 @@ class CfPublic {
               if (!Directory(newTemplateDirectory).existsSync()) {
                 Directory(newTemplateDirectory).createSync(recursive: true);
               }
-              //! محتوای خام
               String allTextFileName = '$newTemplateDirectory/me.1.txt';
               if (!File(allTextFileName).existsSync()) {
                 File(allTextFileName).createSync(recursive: true);
               }
-              final currentText = File(
-                allTextFileName,
-              ).readAsStringSync(encoding: utf8);
-              if (currentText.isNotEmpty) {
-                File(
-                  allTextFileName,
-                ).writeAsStringSync('$currentText\n\n$allText');
-              } else {
-                File(allTextFileName).writeAsStringSync(allText);
-              }
-              //! محتوای انگلیسی
-              String enFileName = '$newTemplateDirectory/me.2.english.json';
-              if (!File(enFileName).existsSync()) {
-                File(enFileName).createSync(recursive: true);
-              }
-              bool result = await CfPublic()
-                  .saveMainTextSegmentToExternalStorage(
-                    fileName: enFileName,
-                    textSement: enText,
-                  );
-              if (result) {
-                //! محتوای فارسی
-                String faFileName =
-                    '$newTemplateDirectory/me.3.translation.json';
-                if (!File(faFileName).existsSync()) {
-                  File(faFileName).createSync(recursive: true);
+              if (index == null) {
+                //! محتوای خام
+                // final currentText = File(
+                //   allTextFileName,
+                // ).readAsStringSync(encoding: utf8);
+                // if (currentText.isNotEmpty) {
+                //   File(
+                //     allTextFileName,
+                //   ).writeAsStringSync('$currentText\n\n$allText');
+                // } else {
+                //   File(allTextFileName).writeAsStringSync(allText);
+                // }
+                //! محتوای انگلیسی
+                String enFileName = '$newTemplateDirectory/me.2.english.json';
+                if (!File(enFileName).existsSync()) {
+                  File(enFileName).createSync(recursive: true);
                 }
-                result = await CfPublic()
-                    .savePersianTextSegmentToExternalStorage(
-                      fileName: faFileName,
-                      textSement: faText,
+                bool result = await CfPublic()
+                    .saveMainTextSegmentToExternalStorage(
+                      fileName: enFileName,
+                      textSement: enText,
                     );
                 if (result) {
-                  if (context.mounted) {
-                    Navigator.pop(context, true);
+                  //! محتوای فارسی
+                  String faFileName =
+                      '$newTemplateDirectory/me.3.translation.json';
+                  if (!File(faFileName).existsSync()) {
+                    File(faFileName).createSync(recursive: true);
+                  }
+                  result = await CfPublic()
+                      .savePersianTextSegmentToExternalStorage(
+                        fileName: faFileName,
+                        textSement: faText,
+                      );
+                  if (result) {
+                    if (context.mounted) {
+                      Navigator.pop(context, true);
+                    }
+                  }
+                }
+              } else {
+                //! محتوای انگلیسی
+                String enFileName = '$newTemplateDirectory/me.2.english.json';
+                if (!File(enFileName).existsSync()) {
+                  File(enFileName).createSync(recursive: true);
+                }
+                final result = await CfPublic()
+                    .updateMainTextSegmentToExternalStorage(
+                      fileName: enFileName,
+                      index: index,
+                      newText: enText.text,
+                    );
+                if (result != null) {
+                  //! محتوای فارسی
+                  String faFileName =
+                      '$newTemplateDirectory/me.3.translation.json';
+                  if (!File(faFileName).existsSync()) {
+                    File(faFileName).createSync(recursive: true);
+                  }
+                  final result2 = await CfPublic()
+                      .updatePersianTextSegmentToExternalStorage(
+                        fileName: faFileName,
+                        index: index,
+                        newText: faText.text,
+                      );
+                  if (result2 != null) {
+                    //! محتوای خام
+                    // final currentText = File(
+                    //   allTextFileName,
+                    // ).readAsStringSync(encoding: utf8);
+                    // if (currentText.isNotEmpty) {
+                    //   File(
+                    //     allTextFileName,
+                    //   ).writeAsStringSync('$currentText\n\n$allText');
+                    // } else {
+                    //   File(allTextFileName).writeAsStringSync(allText);
+                    // }
+                    if (context.mounted) {
+                      Navigator.pop(context, true);
+                    }
                   }
                 }
               }
