@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
+import 'package:ielts_assistant/shared/cf_public.dart';
 
 class ListItemTextSegment extends StatelessWidget {
+  final WidgetRef ref;
   final bool isPersianTextSegment;
   final int number;
   // final String segmentText;
-  final List<List<TextSpan>> spans;
+  final List<TextSpan> spans;
   final void Function() onTap;
   final void Function() onEdit;
   final void Function() onDelete;
   const ListItemTextSegment({
     super.key,
+    required this.ref,
     required this.isPersianTextSegment,
     required this.number,
     required this.spans,
@@ -95,7 +99,7 @@ class ListItemTextSegment extends StatelessWidget {
                 textAlign: isPersianTextSegment
                     ? TextAlign.right
                     : TextAlign.left,
-                text: TextSpan(children: spans.expand((e) => e).toList()),
+                text: TextSpan(children: spans),
               ),
         ),
       ),

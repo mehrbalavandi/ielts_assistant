@@ -4,6 +4,8 @@ import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/my_text_form_field.dart';
 
 class AddNewTempelate extends StatefulWidget {
+  final String? initEnglishText;
+  final String? initPersianText;
   final void Function(
     String allText,
     TextSegmentEnglish textSegmentEnglish,
@@ -11,7 +13,12 @@ class AddNewTempelate extends StatefulWidget {
   )?
   onSubmit;
 
-  const AddNewTempelate({super.key, required this.onSubmit});
+  const AddNewTempelate({
+    super.key,
+    this.initEnglishText,
+    this.initPersianText,
+    required this.onSubmit,
+  });
 
   @override
   State<AddNewTempelate> createState() => _AddNewTempelateState();
@@ -32,10 +39,10 @@ class _AddNewTempelateState extends State<AddNewTempelate> {
   void initState() {
     super.initState();
     //* انگلیسی
-    txtEnglish = TextEditingController();
+    txtEnglish = TextEditingController(text: widget.initEnglishText);
     englishFocusNode = FocusNode();
     //* فارسی
-    txtPersian = TextEditingController();
+    txtPersian = TextEditingController(text: widget.initPersianText);
     persianFocusNode = FocusNode();
 
     _initLoad();

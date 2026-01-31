@@ -364,8 +364,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         finalTopicId,
                       ),
               ),
-              // مینی پلیر که قابلیت باز و بسته شدن دارد
-              const ExpandableMiniPlayer(),
             ],
           ),
         ),
@@ -778,12 +776,22 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     );
                     return formattedSpans;
                   }).toList();
+                  final spanList = spans.expand((e) => e).toList();
                   return ListItemTextSegment(
+                    ref: ref,
                     isPersianTextSegment: true,
                     number: index + 1,
-                    spans: spans,
+                    spans: spanList,
                     onTap: () {},
-                    onEdit: () {},
+                    onEdit: () {
+                      CfPublic().showPopupAddOrEditTempelate(
+                        context,
+                        ref,
+                        index: index,
+                        initEnglishText: enSpans[index].text,
+                        initPersianText: faSpans[index].text,
+                      );
+                    },
                     onDelete: () {},
                   );
                 },
@@ -847,13 +855,22 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           );
                       return formattedSpans;
                     }).toList();
-
+                    final spanList = spans.expand((e) => e).toList();
                     return ListItemTextSegment(
+                      ref: ref,
                       isPersianTextSegment: false,
                       number: index + 1,
-                      spans: spans,
+                      spans: spanList,
                       onTap: () {},
-                      onEdit: () {},
+                      onEdit: () {
+                        CfPublic().showPopupAddOrEditTempelate(
+                          context,
+                          ref,
+                          index: index,
+                          initEnglishText: enSpans[index].text,
+                          initPersianText: faSpans[index].text,
+                        );
+                      },
                       onDelete: () {},
                     );
                   },

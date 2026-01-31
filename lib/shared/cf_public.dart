@@ -457,20 +457,21 @@ class CfPublic {
     }
   }
 
-  void showPopupAddOrEditTempelate(
+  Future<bool?> showPopupAddOrEditTempelate(
     BuildContext context,
     WidgetRef ref, {
     int? index,
-  }) {
-    showDialog(
+    String? initEnglishText,
+    String? initPersianText,
+  }) async {
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
-        if (index != null) {
-          String initEnglishText;
-          String initPersianText;
-        }
+        if (index != null) {}
         return Dialog(
           child: AddNewTempelate(
+            initEnglishText: initEnglishText,
+            initPersianText: initPersianText,
             onSubmit: (allText, enText, faText) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
@@ -517,7 +518,7 @@ class CfPublic {
                     );
                 if (result) {
                   if (context.mounted) {
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                   }
                 }
               }
@@ -525,6 +526,13 @@ class CfPublic {
           ),
         );
       },
-    );
+    ).then((val) {
+      if (val != null) {
+        return val as bool;
+      } else {
+        return false;
+      }
+    });
+    return null;
   }
 }
