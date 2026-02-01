@@ -569,7 +569,7 @@ class CfPublic {
     BuildContext context,
     WidgetRef ref,
   ) async {
-    final result = await showDialog(
+    final dialogResult = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
@@ -595,11 +595,6 @@ class CfPublic {
                     fileName: faFileName,
                     textSement: faText,
                   );
-              if (result1) {
-                if (context.mounted) {
-                  Navigator.pop(context, true);
-                }
-              }
 
               if (result1) {
                 //! محتوای انگلیسی
@@ -625,15 +620,41 @@ class CfPublic {
                           textSement: noteText,
                         );
                     if (result3) {
+                      //! فایل متنی کل
+                      File(
+                        allTextFileName,
+                      ).writeAsStringSync(allText, encoding: utf8);
                       if (context.mounted) {
                         Navigator.pop(context, true);
+                      } else {
+                        if (context.mounted) {
+                          Navigator.pop(context, false);
+                        }
+                      }
+                    } else {
+                      if (context.mounted) {
+                        Navigator.pop(context, false);
                       }
                     }
+                  }
+                } else {
+                  File(
+                    allTextFileName,
+                  ).writeAsStringSync(allText, encoding: utf8);
+                  if (context.mounted) {
+                    Navigator.pop(context, true);
                   } else {
                     if (context.mounted) {
-                      Navigator.pop(context, true);
+                      Navigator.pop(context, false);
                     }
                   }
+                  if (context.mounted) {
+                    Navigator.pop(context, false);
+                  }
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pop(context, false);
                 }
               }
             },
@@ -641,8 +662,8 @@ class CfPublic {
         );
       },
     );
-    if (result != null) {
-      return result as bool;
+    if (dialogResult != null) {
+      return dialogResult as bool;
     } else {
       return false;
     }
@@ -654,14 +675,16 @@ class CfPublic {
     int index,
     String initEnglishText,
     String initPersianText,
+    String initNoteText,
   ) async {
-    final result = await showDialog(
+    final dialogResult = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: AddOrEditTempelate(
             initEnglishText: initEnglishText,
             initPersianText: initPersianText,
+            initNotes: initNoteText,
             onSubmit: (_, enText, faText, noteText) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
@@ -710,6 +733,7 @@ class CfPublic {
                           newText: noteText.text,
                         );
                     if (result3 != null) {
+                      //! فایل متنی کل
                       String allText = '';
                       for (int i = 0; i < result2.length; i++) {
                         if (i == 0) {
@@ -726,8 +750,13 @@ class CfPublic {
                       if (context.mounted) {
                         Navigator.pop(context, true);
                       }
+                    } else {
+                      if (context.mounted) {
+                        Navigator.pop(context, false);
+                      }
                     }
                   } else {
+                    //! فایل متنی کل
                     String allText = '';
                     for (int i = 0; i < result2.length; i++) {
                       if (i == 0) {
@@ -744,6 +773,14 @@ class CfPublic {
                       Navigator.pop(context, true);
                     }
                   }
+                } else {
+                  if (context.mounted) {
+                    Navigator.pop(context, false);
+                  }
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pop(context, false);
                 }
               }
             },
@@ -751,8 +788,8 @@ class CfPublic {
         );
       },
     );
-    if (result != null) {
-      return result as bool;
+    if (dialogResult != null) {
+      return dialogResult as bool;
     } else {
       return false;
     }

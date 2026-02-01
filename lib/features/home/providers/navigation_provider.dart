@@ -194,17 +194,12 @@ class NavigationNotifier extends _$NavigationNotifier {
     List<TextSegmentPersian>? textSegmentsPersian = _parsePersianContent(
       results[1],
     );
+    List<TextSegmentPersian>? noteSegments = _parsePersianContent(results[2]);
     state = state.copyWith(isLoading: false);
-    // منطق پخش خودکار صدا
-    // if (originalContent.finalTopic.audioFileName != null &&
-    //     originalContent.finalTopic.audioFileName!.isNotEmpty) {
-    //   final fullPath = _buildFullPathForSearchResult(originalContent);
-    //   await Future.delayed(const Duration(milliseconds: 300));
-    //   ref.read(audioPlayerProvider.notifier).playFile(fullPath);
-    // }
     return SearchResultSegments(
       enSegments: englishSegments,
       faSegments: textSegmentsPersian,
+      noteSegments: noteSegments,
     );
   }
 

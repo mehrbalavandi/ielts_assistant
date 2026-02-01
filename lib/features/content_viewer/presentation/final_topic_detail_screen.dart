@@ -66,6 +66,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           nav.currentEnglishSegments ?? <TextSegmentEnglish>[];
       final textSegmentsPersian =
           nav.currentPersianTextSegments ?? <TextSegmentPersian>[];
+      final textSegmentsNote =
+          nav.currentNoteTextSegments ?? <TextSegmentPersian>[];
 
       if (selectedFinalTopic == null) {
         return const Scaffold(
@@ -142,6 +144,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         isDualPane,
                         textSegmentsEnglish,
                         textSegmentsPersian,
+                        textSegmentsNote,
                         sentenceStates,
                         finalTopicId,
                       )
@@ -337,6 +340,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         isDualPane,
                         widget.searchResultSegments!.enSegments,
                         widget.searchResultSegments!.faSegments,
+                        widget.searchResultSegments!.noteSegments,
                         sentenceStates,
                         finalTopicId,
                       )
@@ -680,6 +684,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     bool isDualPane,
     List<TextSegmentEnglish> textSegmentsEnglish,
     List<TextSegmentPersian> textSegmentsPersian,
+    List<TextSegmentPersian> textSegmentsNote,
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
@@ -725,7 +730,27 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         style: style,
       );
     }).toList();
-
+    final List<TextSpan> noteSpans = textSegmentsNote.map((item) {
+      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
+      TextStyle style = TextStyle(
+        fontSize: (item.isBold != null && item.isBold == true)
+            ? Theme.of(context).textTheme.titleMedium!.fontSize
+            : Theme.of(context).textTheme.bodyMedium!.fontSize,
+        fontWeight: (item.isBold != null && item.isBold == true)
+            ? FontWeight.bold
+            : FontWeight.normal,
+        color: (item.isBold != null && item.isBold == true)
+            ? Colors.deepOrange
+            : Theme.of(
+                context,
+              ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
+        fontFamily: FontFamily.yekanBakhRegular.asText,
+      );
+      return TextSpan(
+        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
+        style: style,
+      );
+    }).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       // ✅ تغییر به Column برای نمایش بالا و پایین
@@ -788,7 +813,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     spans: spanList,
                     onTap: () {},
                     onEdit: () {
-                      updateTempelate(context, index, enSpans, faSpans, nav);
+                      updateTempelate(
+                        context,
+                        index,
+                        enSpans,
+                        faSpans,
+                        noteSpans,
+                        nav,
+                      );
                     },
                     onDelete: () async {
                       final result = await CfPublic().deleteTempelate(
@@ -893,7 +925,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       spans: spanList,
                       onTap: () {},
                       onEdit: () {
-                        updateTempelate(context, index, enSpans, faSpans, nav);
+                        updateTempelate(
+                          context,
+                          index,
+                          enSpans,
+                          faSpans,
+                          noteSpans,
+                          nav,
+                        );
                       },
                       onDelete: () async {
                         final result = await CfPublic().deleteTempelate(
@@ -943,6 +982,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     int index,
     List<TextSpan> enSpans,
     List<TextSpan> faSpans,
+    List<TextSpan> noteSpans,
     NavigationState nav,
   ) {
     CfPublic()
@@ -952,6 +992,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           index,
           enSpans[index].text!,
           faSpans[index].text!,
+          noteSpans[index].text!,
         )
         .then((value) {
           if (value != null && value == true) {

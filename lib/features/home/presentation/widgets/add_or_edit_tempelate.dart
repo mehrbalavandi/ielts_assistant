@@ -297,7 +297,7 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                             setState(() {
                               isDoing = true;
                             });
-                            Navigator.pop(context);
+                            Navigator.pop(context, false);
                             if (mounted) {
                               setState(() {
                                 isDoing = false;

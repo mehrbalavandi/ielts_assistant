@@ -90,9 +90,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         value,
                       ) {
                         if (value != null && value == true) {
-                          ref
-                              .read(navigationProvider.notifier)
-                              .selectFinalTopic(nav.selectedFinalTopic!);
                           CfPublic()
                               .getOriginalContentsAsync(
                                 ref.read(allContentProvider).value,
