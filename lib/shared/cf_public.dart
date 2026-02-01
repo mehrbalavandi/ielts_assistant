@@ -621,9 +621,12 @@ class CfPublic {
                         );
                     if (result3) {
                       //! فایل متنی کل
-                      File(
-                        allTextFileName,
-                      ).writeAsStringSync(allText, encoding: utf8);
+                      final oldText = File(allTextFileName).readAsStringSync();
+                      File(allTextFileName).writeAsStringSync(
+                        '$oldText\n\n$allText',
+                        encoding: utf8,
+                      );
+
                       if (context.mounted) {
                         Navigator.pop(context, true);
                       } else {
@@ -638,9 +641,11 @@ class CfPublic {
                     }
                   }
                 } else {
+                  //! فایل متنی کل
+                  final oldText = File(allTextFileName).readAsStringSync();
                   File(
                     allTextFileName,
-                  ).writeAsStringSync(allText, encoding: utf8);
+                  ).writeAsStringSync('$oldText\n\n$allText', encoding: utf8);
                   if (context.mounted) {
                     Navigator.pop(context, true);
                   } else {
