@@ -74,6 +74,7 @@ _FinalTopic _$FinalTopicFromJson(Map<String, dynamic> json) => _FinalTopic(
   realmId: json['realmId'] as String,
   jsonFilePath: json['jsonFilePath'] as String,
   translationFilePath: json['translationFilePath'] as String,
+  notesFilePath: json['notesFilePath'] as String,
   audioFileName: json['audioFileName'] as String?,
 );
 
@@ -83,5 +84,6 @@ Map<String, dynamic> _$FinalTopicToJson(_FinalTopic instance) =>
       'realmId': instance.realmId,
       'jsonFilePath': instance.jsonFilePath,
       'translationFilePath': instance.translationFilePath,
+      'notesFilePath': instance.notesFilePath,
       'audioFileName': instance.audioFileName,
     };

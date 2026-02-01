@@ -57,6 +57,7 @@ sealed class FinalTopic with _$FinalTopic {
     required String realmId,
     required String jsonFilePath,
     required String translationFilePath,
+    required String notesFilePath,
     // required List<String> audioFilePaths,
     String? audioFileName,
   }) = _FinalTopic;
@@ -82,6 +83,16 @@ sealed class FinalTopic with _$FinalTopic {
     try {
       // استفاده از firstWhere و مدیریت خطای StateError
       return fileList.firstWhere((f) => f.path.endsWith('.translation.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
+  }
+
+  static FileSystemEntity? _findJsonFileNote(List<FileSystemEntity> fileList) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('.notes.json'));
     } on StateError {
       // اگر هیچ فایلی با پسوند .json پیدا نشد
       return null;
@@ -114,12 +125,13 @@ sealed class FinalTopic with _$FinalTopic {
         .toList();
 
     final jsonFileEntityEnglish = _findJsonFileEnglish(files);
-
     final jsonFilePathEnglish = jsonFileEntityEnglish?.path ?? '';
 
     final jsonFileEntityTranslation = _findJsonFileTranslation(files);
-
     final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
+
+    final jsonFileEntityNote = _findJsonFileNote(files);
+    final jsonFilePathNote = jsonFileEntityNote?.path ?? '';
 
     return FinalTopic(
       name: p.basename(mainTopicDir.path),
@@ -128,6 +140,7 @@ sealed class FinalTopic with _$FinalTopic {
       audioFileName: _findAudioFile(files),
       jsonFilePath: jsonFilePathEnglish,
       translationFilePath: jsonFilePathTranslation,
+      notesFilePath: jsonFilePathNote,
     );
   }
 }

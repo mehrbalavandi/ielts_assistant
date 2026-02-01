@@ -155,12 +155,14 @@ class NavigationNotifier extends _$NavigationNotifier {
     final results = await Future.wait([
       _contentService.readFile(finalTopic.jsonFilePath),
       _contentService.readFile(finalTopic.translationFilePath),
+      _contentService.readFile(finalTopic.notesFilePath),
     ]);
     state = state.copyWith(
       selectedPage: pageContent,
       selectedFinalTopic: finalTopic,
       currentEnglishSegments: _parseEnglishContent(results[0]),
       currentPersianTextSegments: _parsePersianContent(results[1]),
+      currentNoteTextSegments: _parsePersianContent(results[2]),
       isLoading: false,
     );
     _box.write(_kPage, pageContent.name);
@@ -184,6 +186,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     final results = await Future.wait([
       _contentService.readFile(originalContent.finalTopic.jsonFilePath),
       _contentService.readFile(originalContent.finalTopic.translationFilePath),
+      _contentService.readFile(originalContent.finalTopic.notesFilePath),
     ]);
     List<TextSegmentEnglish>? englishSegments = _parseEnglishContent(
       results[0],
@@ -223,11 +226,13 @@ class NavigationNotifier extends _$NavigationNotifier {
     final results = await Future.wait([
       _contentService.readFile(finalTopic.jsonFilePath),
       _contentService.readFile(finalTopic.translationFilePath),
+      _contentService.readFile(finalTopic.notesFilePath),
     ]);
     state = state.copyWith(
       selectedFinalTopic: finalTopic,
       currentEnglishSegments: _parseEnglishContent(results[0]),
       currentPersianTextSegments: _parsePersianContent(results[1]),
+      currentNoteTextSegments: _parsePersianContent(results[2]),
       isLoading: false,
     );
     _box.write(_kFinalTopic, finalTopic.name);
