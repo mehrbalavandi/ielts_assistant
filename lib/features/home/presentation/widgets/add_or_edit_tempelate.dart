@@ -6,10 +6,12 @@ import 'package:ielts_assistant/shared/my_text_form_field.dart';
 class AddOrEditTempelate extends StatefulWidget {
   final String? initEnglishText;
   final String? initPersianText;
+  final String? initNotes;
   final void Function(
     String allText,
     TextSegmentEnglish textSegmentEnglish,
     TextSegmentPersian persianTextSegment,
+    TextSegmentPersian? notesTextSegment,
   )?
   onSubmit;
 
@@ -17,6 +19,7 @@ class AddOrEditTempelate extends StatefulWidget {
     super.key,
     this.initEnglishText,
     this.initPersianText,
+    this.initNotes,
     required this.onSubmit,
   });
 
@@ -34,6 +37,9 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
   //* فارسی
   late TextEditingController txtPersian;
   late FocusNode persianFocusNode;
+  //* نکات
+  late TextEditingController txtNotes;
+  late FocusNode noteFocusNode;
 
   @override
   void initState() {
@@ -44,8 +50,9 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
     //* فارسی
     txtPersian = TextEditingController(text: widget.initPersianText);
     persianFocusNode = FocusNode();
-
-    _initLoad();
+    //* نکات
+    txtNotes = TextEditingController(text: widget.initNotes);
+    noteFocusNode = FocusNode();
   }
 
   @override
@@ -56,21 +63,10 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
     //* فارسی
     txtPersian.dispose();
     persianFocusNode.dispose();
+    //* نکات
+    txtNotes.dispose();
+    noteFocusNode.dispose();
     super.dispose();
-  }
-
-  Future<void> _initLoad() async {}
-
-  InputDecoration _decor(String label) {
-    return InputDecoration(
-      floatingLabelAlignment: FloatingLabelAlignment.center,
-      border: OutlineInputBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-      label: Text(label),
-      labelStyle: TextStyle(fontFamily: 'Zar'),
-    );
   }
 
   @override
@@ -91,6 +87,7 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  //* فارسی
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: MyTextFormField(
@@ -136,7 +133,7 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                   ),
 
                   const SizedBox(height: 16.0),
-                  //* فارسی
+                  //* انگلیسی
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: MyTextFormField(
@@ -177,6 +174,52 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                   ),
 
                   SizedBox(height: 16.0),
+                  //* نکات
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: MyTextFormField(
+                      onChanged: (value) {},
+                      maxLines: null,
+                      style: TextStyle(
+                        fontFamily: FontFamily.yekanBakhRegular.asText,
+                        fontSize: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.fontSize,
+                      ),
+                      keyboardType: TextInputType.multiline,
+                      textAlign: TextAlign.start,
+                      textAlignVertical: TextAlignVertical.center,
+                      textDirection: TextDirection.rtl,
+                      decoration: InputDecoration(
+                        label: Text('نکات'),
+                        // floatingLabelBehavior: FloatingLabelBehavior.always,
+                        // floatingLabelAlignment: FloatingLabelAlignment.center,
+                        labelStyle: TextStyle(fontFamily: 'Zar'),
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        // hintText: 'فارسی',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Zar',
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                      ),
+                      controller: txtNotes,
+                      autofocus: false,
+                      focusNode: noteFocusNode,
+                      textInputAction: TextInputAction.newline,
+                      onEditingComplete: () {
+                        // txtPersian.text = '${txtPersian.text.trim()}\n';
+                      },
+                    ),
+                  ),
+
+                  const SizedBox(height: 16.0),
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: Row(
@@ -189,16 +232,6 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                             setState(() {
                               isDoing = true;
                             });
-                            if (txtEnglish.text.trim() == '') {
-                              String message = 'متن انگلیسی نباید خالی باشد';
-                              FocusScope.of(
-                                context,
-                              ).requestFocus(englishFocusNode);
-                              setState(() {
-                                isDoing = false;
-                              });
-                              return;
-                            }
                             if (txtPersian.text.trim() == '') {
                               String message = 'متن فارسی نباید خالی باشد';
                               FocusScope.of(
@@ -209,21 +242,39 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                               });
                               return;
                             }
+                            if (txtEnglish.text.trim() == '') {
+                              String message = 'متن انگلیسی نباید خالی باشد';
+                              FocusScope.of(
+                                context,
+                              ).requestFocus(englishFocusNode);
+                              setState(() {
+                                isDoing = false;
+                              });
+                              return;
+                            }
                             String allText =
-                                '${txtEnglish.text}\n${txtPersian.text}';
+                                '${txtEnglish.text.trim()}\n${txtPersian.text.trim()}\n${txtNotes.text.trim()}';
+
+                            TextSegmentPersian textSegmentPersian =
+                                TextSegmentPersian(
+                                  text: txtPersian.text.trim(),
+                                );
+
                             TextSegmentEnglish textSegmentEnglish =
                                 TextSegmentEnglish(
-                                  text: txtEnglish.text,
+                                  text: txtEnglish.text.trim(),
                                   isInteractive: false,
                                 );
 
-                            TextSegmentPersian persianTextSegment =
-                                TextSegmentPersian(text: txtPersian.text);
-
+                            TextSegmentPersian? textSegmentNotes =
+                                txtNotes.text.trim().isNotEmpty
+                                ? TextSegmentPersian(text: txtNotes.text.trim())
+                                : null;
                             widget.onSubmit?.call(
                               allText,
                               textSegmentEnglish,
-                              persianTextSegment,
+                              textSegmentPersian,
+                              textSegmentNotes,
                             );
                             //
                             setState(() {

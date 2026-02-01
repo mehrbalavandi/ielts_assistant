@@ -379,6 +379,45 @@ class CfPublic {
     return false;
   }
 
+  Future<bool> savePersianTextSegmentToExternalStorage({
+    required String fileName,
+    required TextSegmentPersian textSement,
+  }) async {
+    final file = File(fileName);
+    var segments = <TextSegmentPersian>[];
+    final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
+
+    try {
+      final content = await file.readAsString();
+      if (content.isEmpty) {
+        segments.add(textSement);
+        final jsonString = encoder.convert(
+          segments.map((s) => s.toJson()).toList(),
+        );
+        await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      } else {
+        var existingData = jsonDecode(content);
+        if (existingData is! List) {
+          existingData = [existingData];
+        }
+        segments = existingData
+            .map((json) => TextSegmentPersian.fromJson(json))
+            .toList();
+        // segments.add(PersianTextSegment(text: '\n\n'));
+        segments.add(textSement);
+        // تبدیل لیست به JSON با فرمت خوانا (pretty)
+        final jsonString = encoder.convert(
+          segments.map((s) => s.toJson()).toList(),
+        );
+        await file.writeAsString(jsonString, flush: true, encoding: utf8);
+      }
+      return true;
+    } catch (e) {
+      debugPrint('⚠️ خطا در خواندن فایل: $e');
+      return false;
+    }
+  }
+
   Future<bool> saveMainTextSegmentToExternalStorage({
     required String fileName,
     required TextSegmentEnglish textSement,
@@ -418,7 +457,7 @@ class CfPublic {
     }
   }
 
-  Future<bool> savePersianTextSegmentToExternalStorage({
+  Future<bool> saveNoteTextSegmentToExternalStorage({
     required String fileName,
     required TextSegmentPersian textSement,
   }) async {
@@ -535,7 +574,7 @@ class CfPublic {
       builder: (BuildContext context) {
         return Dialog(
           child: AddOrEditTempelate(
-            onSubmit: (allText, enText, faText) async {
+            onSubmit: (allText, enText, faText, noteText) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
                   '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
@@ -546,31 +585,54 @@ class CfPublic {
               if (!File(allTextFileName).existsSync()) {
                 File(allTextFileName).createSync(recursive: true);
               }
-              //! محتوای انگلیسی
-              String enFileName = '$newTemplateDirectory/me.2.english.json';
-              if (!File(enFileName).existsSync()) {
-                File(enFileName).createSync(recursive: true);
+              //! محتوای فارسی
+              String faFileName = '$newTemplateDirectory/me.3.translation.json';
+              if (!File(faFileName).existsSync()) {
+                File(faFileName).createSync(recursive: true);
               }
-              bool result = await CfPublic()
-                  .saveMainTextSegmentToExternalStorage(
-                    fileName: enFileName,
-                    textSement: enText,
+              bool result1 = await CfPublic()
+                  .savePersianTextSegmentToExternalStorage(
+                    fileName: faFileName,
+                    textSement: faText,
                   );
-              if (result) {
-                //! محتوای فارسی
-                String faFileName =
-                    '$newTemplateDirectory/me.3.translation.json';
-                if (!File(faFileName).existsSync()) {
-                  File(faFileName).createSync(recursive: true);
+              if (result1) {
+                if (context.mounted) {
+                  Navigator.pop(context, true);
                 }
-                result = await CfPublic()
-                    .savePersianTextSegmentToExternalStorage(
-                      fileName: faFileName,
-                      textSement: faText,
+              }
+
+              if (result1) {
+                //! محتوای انگلیسی
+                String enFileName = '$newTemplateDirectory/me.2.english.json';
+                if (!File(enFileName).existsSync()) {
+                  File(enFileName).createSync(recursive: true);
+                }
+                bool result2 = await CfPublic()
+                    .saveMainTextSegmentToExternalStorage(
+                      fileName: enFileName,
+                      textSement: enText,
                     );
-                if (result) {
-                  if (context.mounted) {
-                    Navigator.pop(context, true);
+                if (result2) {
+                  //! محتوای نکات
+                  String noteFileName = '$newTemplateDirectory/me.4.notes.json';
+                  if (!File(noteFileName).existsSync()) {
+                    File(noteFileName).createSync(recursive: true);
+                  }
+                  if (noteText != null) {
+                    bool result3 = await CfPublic()
+                        .savePersianTextSegmentToExternalStorage(
+                          fileName: noteFileName,
+                          textSement: noteText,
+                        );
+                    if (result3) {
+                      if (context.mounted) {
+                        Navigator.pop(context, true);
+                      }
+                    }
+                  } else {
+                    if (context.mounted) {
+                      Navigator.pop(context, true);
+                    }
                   }
                 }
               }
@@ -600,7 +662,7 @@ class CfPublic {
           child: AddOrEditTempelate(
             initEnglishText: initEnglishText,
             initPersianText: initPersianText,
-            onSubmit: (_, enText, faText) async {
+            onSubmit: (_, enText, faText, noteText) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
                   '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
@@ -611,56 +673,76 @@ class CfPublic {
               if (!File(allTextFileName).existsSync()) {
                 File(allTextFileName).createSync(recursive: true);
               }
-              //! محتوای انگلیسی
-              String enFileName = '$newTemplateDirectory/me.2.english.json';
-              if (!File(enFileName).existsSync()) {
-                File(enFileName).createSync(recursive: true);
+              //! محتوای فارسی
+              String faFileName = '$newTemplateDirectory/me.3.translation.json';
+              if (!File(faFileName).existsSync()) {
+                File(faFileName).createSync(recursive: true);
               }
               final result1 = await CfPublic()
-                  .updateMainTextSegmentToExternalStorage(
-                    fileName: enFileName,
+                  .updatePersianTextSegmentToExternalStorage(
+                    fileName: faFileName,
                     index: index,
-                    newText: enText.text,
+                    newText: faText.text,
                   );
               if (result1 != null) {
-                //! محتوای فارسی
-                String faFileName =
-                    '$newTemplateDirectory/me.3.translation.json';
-                if (!File(faFileName).existsSync()) {
-                  File(faFileName).createSync(recursive: true);
+                //! محتوای انگلیسی
+                String enFileName = '$newTemplateDirectory/me.2.english.json';
+                if (!File(enFileName).existsSync()) {
+                  File(enFileName).createSync(recursive: true);
                 }
                 final result2 = await CfPublic()
-                    .updatePersianTextSegmentToExternalStorage(
-                      fileName: faFileName,
+                    .updateMainTextSegmentToExternalStorage(
+                      fileName: enFileName,
                       index: index,
-                      newText: faText.text,
+                      newText: enText.text,
                     );
                 if (result2 != null) {
-                  String allText = '';
-                  for (int i = 0; i < result1.length; i++) {
-                    if (i == 0) {
-                      allText = '${result1[i].text}\n${result2[i].text}';
-                    } else {
-                      allText =
-                          '$allText\n\n${result1[i].text}\n${result2[i].text}';
-                    }
+                  //! محتوای نکات
+                  String noteFileName = '$newTemplateDirectory/me.4.notes.json';
+                  if (!File(noteFileName).existsSync()) {
+                    File(noteFileName).createSync(recursive: true);
                   }
-                  //! محتوای خام
-                  // final currentText = File(
-                  //   allTextFileName,
-                  // ).readAsStringSync(encoding: utf8);
-                  // if (currentText.isNotEmpty) {
-                  //   File(
-                  //     allTextFileName,
-                  //   ).writeAsStringSync('$currentText\n\n$allText');
-                  // } else {
-                  //   File(allTextFileName).writeAsStringSync(allText);
-                  // }
-                  File(
-                    allTextFileName,
-                  ).writeAsStringSync(allText, encoding: utf8);
-                  if (context.mounted) {
-                    Navigator.pop(context, true);
+                  if (noteText != null) {
+                    final result3 = await CfPublic()
+                        .updatePersianTextSegmentToExternalStorage(
+                          fileName: noteFileName,
+                          index: index,
+                          newText: noteText.text,
+                        );
+                    if (result3 != null) {
+                      String allText = '';
+                      for (int i = 0; i < result2.length; i++) {
+                        if (i == 0) {
+                          allText =
+                              '${result1[i].text}\n${result2[i].text}\n${result3[i].text}';
+                        } else {
+                          allText =
+                              '$allText\n\n${result1[i].text}\n${result2[i].text}\n${result3[i].text}';
+                        }
+                      }
+                      File(
+                        allTextFileName,
+                      ).writeAsStringSync(allText, encoding: utf8);
+                      if (context.mounted) {
+                        Navigator.pop(context, true);
+                      }
+                    }
+                  } else {
+                    String allText = '';
+                    for (int i = 0; i < result2.length; i++) {
+                      if (i == 0) {
+                        allText = '${result1[i].text}\n${result2[i].text}';
+                      } else {
+                        allText =
+                            '$allText\n\n${result1[i].text}\n${result2[i].text}';
+                      }
+                    }
+                    File(
+                      allTextFileName,
+                    ).writeAsStringSync(allText, encoding: utf8);
+                    if (context.mounted) {
+                      Navigator.pop(context, true);
+                    }
                   }
                 }
               }

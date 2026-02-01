@@ -25,6 +25,7 @@ sealed class NavigationState with _$NavigationState {
     FinalTopic? selectedFinalTopic,
     List<TextSegmentEnglish>? currentEnglishSegments,
     List<TextSegmentPersian>? currentPersianTextSegments,
+    List<TextSegmentPersian>? currentNoteTextSegments,
     @Default(false) bool isLoading,
   }) = _NavigationState;
 }
@@ -146,6 +147,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     state = state.copyWith(
       currentEnglishSegments: null,
       currentPersianTextSegments: null,
+      currentNoteTextSegments: null,
       isLoading: true,
     );
 

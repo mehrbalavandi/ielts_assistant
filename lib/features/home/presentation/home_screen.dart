@@ -86,7 +86,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   if (await CfPublic().getExternalStoragePermissionStatus() ==
                       true) {
                     if (context.mounted) {
-                      CfPublic().showPopupAddTempelate(context, ref);
+                      CfPublic().showPopupAddTempelate(context, ref).then((
+                        value,
+                      ) {
+                        if (value != null && value == true) {
+                          ref
+                              .read(navigationProvider.notifier)
+                              .selectFinalTopic(nav.selectedFinalTopic!);
+                          CfPublic()
+                              .getOriginalContentsAsync(
+                                ref.read(allContentProvider).value,
+                                ref.read(navigationProvider),
+                              )
+                              .then((result) {
+                                ref
+                                        .read(
+                                          originalContentListProvider.notifier,
+                                        )
+                                        .state =
+                                    result;
+                              });
+                        }
+                      });
                     }
                   }
                 },
