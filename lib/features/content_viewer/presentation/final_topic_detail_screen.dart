@@ -62,10 +62,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       final selectedUnit = nav.selectedUnit;
       final selectedPage = nav.selectedPage;
       final selectedFinalTopic = nav.selectedFinalTopic;
-      final textSegmentsEnglish = selectedFinalTopic!.contentEnglish;
-      final textSegmentsPersian = selectedFinalTopic!.contentPersian;
-      final textSegmentsNote =
-          nav.currentNoteTextSegments ?? <TextSegmentPersian>[];
+      final textSegmentsEnglish = selectedFinalTopic?.contentEnglish;
+      final textSegmentsPersian = selectedFinalTopic?.contentPersian;
 
       if (selectedFinalTopic == null) {
         return const Scaffold(
@@ -140,8 +138,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     ? _buildManualLayout(
                         nav,
                         isDualPane,
-                        textSegmentsEnglish,
-                        textSegmentsPersian,
+                        textSegmentsEnglish!,
+                        textSegmentsPersian!,
                         // textSegmentsNote,
                         sentenceStates,
                         finalTopicId,
@@ -149,15 +147,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     : isDualPane
                     ? _buildEnglishAndPersianLayout(
                         selectedBook.name.contains('قالبهای موقعیتی'),
-                        textSegmentsEnglish,
-                        textSegmentsPersian,
+                        textSegmentsEnglish!,
+                        textSegmentsPersian!,
                         sentenceStates,
                         finalTopicId,
                       )
                     : selectedBook.name.contains('قالبهای موقعیتی')
-                    ? _buildPersianLayout(textSegmentsPersian, finalTopicId)
+                    ? _buildPersianLayout(textSegmentsPersian!, finalTopicId)
                     : _buildEnglishLayout(
-                        textSegmentsEnglish,
+                        textSegmentsEnglish!,
                         sentenceStates,
                         finalTopicId,
                       ),
@@ -681,12 +679,12 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     NavigationState nav,
     bool isDualPane,
     List<TextSegmentEnglish> textSegmentsEnglish,
-    List<TextSegmentPersian> textSegmentsPersian,
+    List<TextSegmentPersianTempelate> textSegmentsPersianTempelate,
     // List<TextSegmentPersian> textSegmentsNote,
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
-    final List<TextSpan> faSpans = textSegmentsPersian.map((item) {
+    final List<TextSpan> faSpans = textSegmentsPersianTempelate.map((item) {
       // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
       TextStyle style = TextStyle(
         fontSize: (item.isBold != null && item.isBold == true)
@@ -817,7 +815,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         context,
                         index,
                         textSegmentsEnglish,
-                        textSegmentsPersian,
+                        textSegmentsPersianTempelate,
                         // noteSpans,
                         nav,
                       );
@@ -930,7 +928,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           index,
 
                           textSegmentsEnglish,
-                          textSegmentsPersian,
+                          textSegmentsPersianTempelate,
                           // noteSpans,
                           nav,
                         );
@@ -983,7 +981,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     int index,
     // List<TextSegmentEnglish> textSegmentsEnglish
     List<TextSegmentEnglish> textSegmentsEnglish,
-    List<TextSegmentPersian> textSegmentsPersian,
+    List<TextSegmentPersianTempelate> textSegmentsPersianTempelate,
     // List<TextSpan> noteSpans,
     NavigationState nav,
   ) {
@@ -992,9 +990,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           context,
           ref,
           index,
-          textSegmentsEnglish[index].text,
-          textSegmentsPersian[index].text,
-          textSegmentsEnglish[index].explanation ?? '',
+          textSegmentsPersianTempelate[index].translation ?? '',
+          textSegmentsPersianTempelate[index].text,
+          textSegmentsPersianTempelate[index].explanation ?? '',
           // noteSpans[index].text!,
         )
         .then((value) {
