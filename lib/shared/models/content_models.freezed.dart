@@ -1348,7 +1348,7 @@ as List<FinalTopic>,
 /// @nodoc
 mixin _$FinalTopic {
 
- String get name; String get realmId; String get jsonFilePath; String get translationFilePath; String get notesFilePath;// required List<String> audioFilePaths,
+ String get name; String get realmId; String get filePathEnglish; String get filePathPersian; List<TextSegmentEnglish> get contentEnglish; List<TextSegmentPersian> get contentPersian; String get notesFilePath;// required List<String> audioFilePaths,
  String? get audioFileName;
 /// Create a copy of FinalTopic
 /// with the given fields replaced by the non-null parameter values.
@@ -1362,16 +1362,16 @@ $FinalTopicCopyWith<FinalTopic> get copyWith => _$FinalTopicCopyWithImpl<FinalTo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinalTopic&&(identical(other.name, name) || other.name == name)&&(identical(other.realmId, realmId) || other.realmId == realmId)&&(identical(other.jsonFilePath, jsonFilePath) || other.jsonFilePath == jsonFilePath)&&(identical(other.translationFilePath, translationFilePath) || other.translationFilePath == translationFilePath)&&(identical(other.notesFilePath, notesFilePath) || other.notesFilePath == notesFilePath)&&(identical(other.audioFileName, audioFileName) || other.audioFileName == audioFileName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FinalTopic&&(identical(other.name, name) || other.name == name)&&(identical(other.realmId, realmId) || other.realmId == realmId)&&(identical(other.filePathEnglish, filePathEnglish) || other.filePathEnglish == filePathEnglish)&&(identical(other.filePathPersian, filePathPersian) || other.filePathPersian == filePathPersian)&&const DeepCollectionEquality().equals(other.contentEnglish, contentEnglish)&&const DeepCollectionEquality().equals(other.contentPersian, contentPersian)&&(identical(other.notesFilePath, notesFilePath) || other.notesFilePath == notesFilePath)&&(identical(other.audioFileName, audioFileName) || other.audioFileName == audioFileName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,realmId,jsonFilePath,translationFilePath,notesFilePath,audioFileName);
+int get hashCode => Object.hash(runtimeType,name,realmId,filePathEnglish,filePathPersian,const DeepCollectionEquality().hash(contentEnglish),const DeepCollectionEquality().hash(contentPersian),notesFilePath,audioFileName);
 
 @override
 String toString() {
-  return 'FinalTopic(name: $name, realmId: $realmId, jsonFilePath: $jsonFilePath, translationFilePath: $translationFilePath, notesFilePath: $notesFilePath, audioFileName: $audioFileName)';
+  return 'FinalTopic(name: $name, realmId: $realmId, filePathEnglish: $filePathEnglish, filePathPersian: $filePathPersian, contentEnglish: $contentEnglish, contentPersian: $contentPersian, notesFilePath: $notesFilePath, audioFileName: $audioFileName)';
 }
 
 
@@ -1382,7 +1382,7 @@ abstract mixin class $FinalTopicCopyWith<$Res>  {
   factory $FinalTopicCopyWith(FinalTopic value, $Res Function(FinalTopic) _then) = _$FinalTopicCopyWithImpl;
 @useResult
 $Res call({
- String name, String realmId, String jsonFilePath, String translationFilePath, String notesFilePath, String? audioFileName
+ String name, String realmId, String filePathEnglish, String filePathPersian, List<TextSegmentEnglish> contentEnglish, List<TextSegmentPersian> contentPersian, String notesFilePath, String? audioFileName
 });
 
 
@@ -1399,13 +1399,15 @@ class _$FinalTopicCopyWithImpl<$Res>
 
 /// Create a copy of FinalTopic
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? realmId = null,Object? jsonFilePath = null,Object? translationFilePath = null,Object? notesFilePath = null,Object? audioFileName = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? realmId = null,Object? filePathEnglish = null,Object? filePathPersian = null,Object? contentEnglish = null,Object? contentPersian = null,Object? notesFilePath = null,Object? audioFileName = freezed,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,realmId: null == realmId ? _self.realmId : realmId // ignore: cast_nullable_to_non_nullable
-as String,jsonFilePath: null == jsonFilePath ? _self.jsonFilePath : jsonFilePath // ignore: cast_nullable_to_non_nullable
-as String,translationFilePath: null == translationFilePath ? _self.translationFilePath : translationFilePath // ignore: cast_nullable_to_non_nullable
-as String,notesFilePath: null == notesFilePath ? _self.notesFilePath : notesFilePath // ignore: cast_nullable_to_non_nullable
+as String,filePathEnglish: null == filePathEnglish ? _self.filePathEnglish : filePathEnglish // ignore: cast_nullable_to_non_nullable
+as String,filePathPersian: null == filePathPersian ? _self.filePathPersian : filePathPersian // ignore: cast_nullable_to_non_nullable
+as String,contentEnglish: null == contentEnglish ? _self.contentEnglish : contentEnglish // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentEnglish>,contentPersian: null == contentPersian ? _self.contentPersian : contentPersian // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentPersian>,notesFilePath: null == notesFilePath ? _self.notesFilePath : notesFilePath // ignore: cast_nullable_to_non_nullable
 as String,audioFileName: freezed == audioFileName ? _self.audioFileName : audioFileName // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -1489,10 +1491,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String realmId,  String jsonFilePath,  String translationFilePath,  String notesFilePath,  String? audioFileName)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String realmId,  String filePathEnglish,  String filePathPersian,  List<TextSegmentEnglish> contentEnglish,  List<TextSegmentPersian> contentPersian,  String notesFilePath,  String? audioFileName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FinalTopic() when $default != null:
-return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFilePath,_that.notesFilePath,_that.audioFileName);case _:
+return $default(_that.name,_that.realmId,_that.filePathEnglish,_that.filePathPersian,_that.contentEnglish,_that.contentPersian,_that.notesFilePath,_that.audioFileName);case _:
   return orElse();
 
 }
@@ -1510,10 +1512,10 @@ return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFil
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String realmId,  String jsonFilePath,  String translationFilePath,  String notesFilePath,  String? audioFileName)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String realmId,  String filePathEnglish,  String filePathPersian,  List<TextSegmentEnglish> contentEnglish,  List<TextSegmentPersian> contentPersian,  String notesFilePath,  String? audioFileName)  $default,) {final _that = this;
 switch (_that) {
 case _FinalTopic():
-return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFilePath,_that.notesFilePath,_that.audioFileName);}
+return $default(_that.name,_that.realmId,_that.filePathEnglish,_that.filePathPersian,_that.contentEnglish,_that.contentPersian,_that.notesFilePath,_that.audioFileName);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -1527,10 +1529,10 @@ return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFil
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String realmId,  String jsonFilePath,  String translationFilePath,  String notesFilePath,  String? audioFileName)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String realmId,  String filePathEnglish,  String filePathPersian,  List<TextSegmentEnglish> contentEnglish,  List<TextSegmentPersian> contentPersian,  String notesFilePath,  String? audioFileName)?  $default,) {final _that = this;
 switch (_that) {
 case _FinalTopic() when $default != null:
-return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFilePath,_that.notesFilePath,_that.audioFileName);case _:
+return $default(_that.name,_that.realmId,_that.filePathEnglish,_that.filePathPersian,_that.contentEnglish,_that.contentPersian,_that.notesFilePath,_that.audioFileName);case _:
   return null;
 
 }
@@ -1542,13 +1544,27 @@ return $default(_that.name,_that.realmId,_that.jsonFilePath,_that.translationFil
 @JsonSerializable()
 
 class _FinalTopic implements FinalTopic {
-  const _FinalTopic({required this.name, required this.realmId, required this.jsonFilePath, required this.translationFilePath, required this.notesFilePath, this.audioFileName});
+  const _FinalTopic({required this.name, required this.realmId, required this.filePathEnglish, required this.filePathPersian, required final  List<TextSegmentEnglish> contentEnglish, required final  List<TextSegmentPersian> contentPersian, required this.notesFilePath, this.audioFileName}): _contentEnglish = contentEnglish,_contentPersian = contentPersian;
   factory _FinalTopic.fromJson(Map<String, dynamic> json) => _$FinalTopicFromJson(json);
 
 @override final  String name;
 @override final  String realmId;
-@override final  String jsonFilePath;
-@override final  String translationFilePath;
+@override final  String filePathEnglish;
+@override final  String filePathPersian;
+ final  List<TextSegmentEnglish> _contentEnglish;
+@override List<TextSegmentEnglish> get contentEnglish {
+  if (_contentEnglish is EqualUnmodifiableListView) return _contentEnglish;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_contentEnglish);
+}
+
+ final  List<TextSegmentPersian> _contentPersian;
+@override List<TextSegmentPersian> get contentPersian {
+  if (_contentPersian is EqualUnmodifiableListView) return _contentPersian;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_contentPersian);
+}
+
 @override final  String notesFilePath;
 // required List<String> audioFilePaths,
 @override final  String? audioFileName;
@@ -1566,16 +1582,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinalTopic&&(identical(other.name, name) || other.name == name)&&(identical(other.realmId, realmId) || other.realmId == realmId)&&(identical(other.jsonFilePath, jsonFilePath) || other.jsonFilePath == jsonFilePath)&&(identical(other.translationFilePath, translationFilePath) || other.translationFilePath == translationFilePath)&&(identical(other.notesFilePath, notesFilePath) || other.notesFilePath == notesFilePath)&&(identical(other.audioFileName, audioFileName) || other.audioFileName == audioFileName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FinalTopic&&(identical(other.name, name) || other.name == name)&&(identical(other.realmId, realmId) || other.realmId == realmId)&&(identical(other.filePathEnglish, filePathEnglish) || other.filePathEnglish == filePathEnglish)&&(identical(other.filePathPersian, filePathPersian) || other.filePathPersian == filePathPersian)&&const DeepCollectionEquality().equals(other._contentEnglish, _contentEnglish)&&const DeepCollectionEquality().equals(other._contentPersian, _contentPersian)&&(identical(other.notesFilePath, notesFilePath) || other.notesFilePath == notesFilePath)&&(identical(other.audioFileName, audioFileName) || other.audioFileName == audioFileName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,realmId,jsonFilePath,translationFilePath,notesFilePath,audioFileName);
+int get hashCode => Object.hash(runtimeType,name,realmId,filePathEnglish,filePathPersian,const DeepCollectionEquality().hash(_contentEnglish),const DeepCollectionEquality().hash(_contentPersian),notesFilePath,audioFileName);
 
 @override
 String toString() {
-  return 'FinalTopic(name: $name, realmId: $realmId, jsonFilePath: $jsonFilePath, translationFilePath: $translationFilePath, notesFilePath: $notesFilePath, audioFileName: $audioFileName)';
+  return 'FinalTopic(name: $name, realmId: $realmId, filePathEnglish: $filePathEnglish, filePathPersian: $filePathPersian, contentEnglish: $contentEnglish, contentPersian: $contentPersian, notesFilePath: $notesFilePath, audioFileName: $audioFileName)';
 }
 
 
@@ -1586,7 +1602,7 @@ abstract mixin class _$FinalTopicCopyWith<$Res> implements $FinalTopicCopyWith<$
   factory _$FinalTopicCopyWith(_FinalTopic value, $Res Function(_FinalTopic) _then) = __$FinalTopicCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String realmId, String jsonFilePath, String translationFilePath, String notesFilePath, String? audioFileName
+ String name, String realmId, String filePathEnglish, String filePathPersian, List<TextSegmentEnglish> contentEnglish, List<TextSegmentPersian> contentPersian, String notesFilePath, String? audioFileName
 });
 
 
@@ -1603,13 +1619,15 @@ class __$FinalTopicCopyWithImpl<$Res>
 
 /// Create a copy of FinalTopic
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? realmId = null,Object? jsonFilePath = null,Object? translationFilePath = null,Object? notesFilePath = null,Object? audioFileName = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? realmId = null,Object? filePathEnglish = null,Object? filePathPersian = null,Object? contentEnglish = null,Object? contentPersian = null,Object? notesFilePath = null,Object? audioFileName = freezed,}) {
   return _then(_FinalTopic(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,realmId: null == realmId ? _self.realmId : realmId // ignore: cast_nullable_to_non_nullable
-as String,jsonFilePath: null == jsonFilePath ? _self.jsonFilePath : jsonFilePath // ignore: cast_nullable_to_non_nullable
-as String,translationFilePath: null == translationFilePath ? _self.translationFilePath : translationFilePath // ignore: cast_nullable_to_non_nullable
-as String,notesFilePath: null == notesFilePath ? _self.notesFilePath : notesFilePath // ignore: cast_nullable_to_non_nullable
+as String,filePathEnglish: null == filePathEnglish ? _self.filePathEnglish : filePathEnglish // ignore: cast_nullable_to_non_nullable
+as String,filePathPersian: null == filePathPersian ? _self.filePathPersian : filePathPersian // ignore: cast_nullable_to_non_nullable
+as String,contentEnglish: null == contentEnglish ? _self._contentEnglish : contentEnglish // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentEnglish>,contentPersian: null == contentPersian ? _self._contentPersian : contentPersian // ignore: cast_nullable_to_non_nullable
+as List<TextSegmentPersian>,notesFilePath: null == notesFilePath ? _self.notesFilePath : notesFilePath // ignore: cast_nullable_to_non_nullable
 as String,audioFileName: freezed == audioFileName ? _self.audioFileName : audioFileName // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

@@ -63,9 +63,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       final selectedPage = nav.selectedPage;
       final selectedFinalTopic = nav.selectedFinalTopic;
       final textSegmentsEnglish =
-          nav.currentEnglishSegments ?? <TextSegmentEnglish>[];
+          nav.currentTextSegmentsEnglish ?? <TextSegmentEnglish>[];
       final textSegmentsPersian =
-          nav.currentPersianTextSegments ?? <TextSegmentPersian>[];
+          nav.currentTextSegmentsPersian ?? <TextSegmentPersian>[];
       final textSegmentsNote =
           nav.currentNoteTextSegments ?? <TextSegmentPersian>[];
 

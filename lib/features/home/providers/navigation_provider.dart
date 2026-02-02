@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
@@ -23,8 +21,8 @@ sealed class NavigationState with _$NavigationState {
     Topic? selectedTopic,
     PageContent? selectedPage,
     FinalTopic? selectedFinalTopic,
-    List<TextSegmentEnglish>? currentEnglishSegments,
-    List<TextSegmentPersian>? currentPersianTextSegments,
+    List<TextSegmentEnglish>? currentTextSegmentsEnglish,
+    List<TextSegmentPersian>? currentTextSegmentsPersian,
     List<TextSegmentPersian>? currentNoteTextSegments,
     @Default(false) bool isLoading,
   }) = _NavigationState;
@@ -49,7 +47,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     final lastUnitName = _box.read(_kUnit);
     final lastTopicName = _box.read(_kTopic);
     final lastPageName = _box.read(_kPage);
-    final lastFinalTopicName = _box.read(_kFinalTopic);
+    // final lastFinalTopicName = _box.read(_kFinalTopic);
 
     if (lastBookName == null) return;
 
@@ -145,24 +143,24 @@ class NavigationNotifier extends _$NavigationNotifier {
   ) async {
     // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
     state = state.copyWith(
-      currentEnglishSegments: null,
-      currentPersianTextSegments: null,
+      currentTextSegmentsEnglish: null,
+      currentTextSegmentsPersian: null,
       currentNoteTextSegments: null,
       isLoading: true,
     );
 
     // خواندن موازی برای بهینه‌سازی زمان
     final results = await Future.wait([
-      _contentService.readFile(finalTopic.jsonFilePath),
-      _contentService.readFile(finalTopic.translationFilePath),
+      _contentService.readFile(finalTopic.filePathEnglish),
+      _contentService.readFile(finalTopic.filePathPersian),
       _contentService.readFile(finalTopic.notesFilePath),
     ]);
     state = state.copyWith(
       selectedPage: pageContent,
       selectedFinalTopic: finalTopic,
-      currentEnglishSegments: _parseEnglishContent(results[0]),
-      currentPersianTextSegments: _parsePersianContent(results[1]),
-      currentNoteTextSegments: _parsePersianContent(results[2]),
+      currentTextSegmentsEnglish: CfPublic().parseEnglishContent(results[0]),
+      currentTextSegmentsPersian: CfPublic().parsePersianContent(results[1]),
+      currentNoteTextSegments: CfPublic().parsePersianContent(results[2]),
       isLoading: false,
     );
     _box.write(_kPage, pageContent.name);
@@ -184,17 +182,18 @@ class NavigationNotifier extends _$NavigationNotifier {
 
     // خواندن موازی برای بهینه‌سازی زمان
     final results = await Future.wait([
-      _contentService.readFile(originalContent.finalTopic.jsonFilePath),
-      _contentService.readFile(originalContent.finalTopic.translationFilePath),
+      _contentService.readFile(originalContent.finalTopic.filePathEnglish),
+      _contentService.readFile(originalContent.finalTopic.filePathPersian),
       _contentService.readFile(originalContent.finalTopic.notesFilePath),
     ]);
-    List<TextSegmentEnglish>? englishSegments = _parseEnglishContent(
+    List<TextSegmentEnglish>? englishSegments = CfPublic().parseEnglishContent(
       results[0],
     );
-    List<TextSegmentPersian>? textSegmentsPersian = _parsePersianContent(
-      results[1],
+    List<TextSegmentPersian>? textSegmentsPersian = CfPublic()
+        .parsePersianContent(results[1]);
+    List<TextSegmentPersian>? noteSegments = CfPublic().parsePersianContent(
+      results[2],
     );
-    List<TextSegmentPersian>? noteSegments = _parsePersianContent(results[2]);
     state = state.copyWith(isLoading: false);
     return SearchResultSegments(
       enSegments: englishSegments,
@@ -212,22 +211,22 @@ class NavigationNotifier extends _$NavigationNotifier {
   Future<void> selectFinalTopic(FinalTopic finalTopic) async {
     // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
     state = state.copyWith(
-      currentEnglishSegments: null,
-      currentPersianTextSegments: null,
+      currentTextSegmentsEnglish: null,
+      currentTextSegmentsPersian: null,
       isLoading: true,
     );
 
     // خواندن موازی برای بهینه‌سازی زمان
     final results = await Future.wait([
-      _contentService.readFile(finalTopic.jsonFilePath),
-      _contentService.readFile(finalTopic.translationFilePath),
+      _contentService.readFile(finalTopic.filePathEnglish),
+      _contentService.readFile(finalTopic.filePathPersian),
       _contentService.readFile(finalTopic.notesFilePath),
     ]);
     state = state.copyWith(
       selectedFinalTopic: finalTopic,
-      currentEnglishSegments: _parseEnglishContent(results[0]),
-      currentPersianTextSegments: _parsePersianContent(results[1]),
-      currentNoteTextSegments: _parsePersianContent(results[2]),
+      currentTextSegmentsEnglish: CfPublic().parseEnglishContent(results[0]),
+      currentTextSegmentsPersian: CfPublic().parsePersianContent(results[1]),
+      currentNoteTextSegments: CfPublic().parsePersianContent(results[2]),
       isLoading: false,
     );
     _box.write(_kFinalTopic, finalTopic.name);
@@ -242,29 +241,29 @@ class NavigationNotifier extends _$NavigationNotifier {
     }
   }
 
-  List<TextSegmentEnglish> _parseEnglishContent(String? raw) {
-    if (raw == null) {
-      return <TextSegmentEnglish>[];
-    }
-    final List<dynamic> jsonFormat = jsonDecode(raw);
-    return jsonFormat
-        .map(
-          (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
-        )
-        .toList();
-  }
+  // List<TextSegmentEnglish> _parseEnglishContent(String? raw) {
+  //   if (raw == null) {
+  //     return <TextSegmentEnglish>[];
+  //   }
+  //   final List<dynamic> jsonFormat = jsonDecode(raw);
+  //   return jsonFormat
+  //       .map(
+  //         (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
+  //       )
+  //       .toList();
+  // }
 
-  List<TextSegmentPersian> _parsePersianContent(String? raw) {
-    if (raw == null) {
-      return <TextSegmentPersian>[];
-    }
-    final List<dynamic> jsonFormat = jsonDecode(raw);
-    return jsonFormat
-        .map(
-          (json) => TextSegmentPersian.fromJson(json as Map<String, dynamic>),
-        )
-        .toList();
-  }
+  // List<TextSegmentPersian> _parsePersianContent(String? raw) {
+  //   if (raw == null) {
+  //     return <TextSegmentPersian>[];
+  //   }
+  //   final List<dynamic> jsonFormat = jsonDecode(raw);
+  //   return jsonFormat
+  //       .map(
+  //         (json) => TextSegmentPersian.fromJson(json as Map<String, dynamic>),
+  //       )
+  //       .toList();
+  // }
 
   String _buildFullPath(FinalTopic finalTopic) {
     // این متد باید بر اساس ساختار پوشه‌بندی شما، مسیر کامل فایل mp3 را بسازد

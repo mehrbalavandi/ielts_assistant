@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:path/path.dart' as p;
 part 'content_models.freezed.dart';
 part 'content_models.g.dart';
@@ -55,8 +56,10 @@ sealed class FinalTopic with _$FinalTopic {
   const factory FinalTopic({
     required String name,
     required String realmId,
-    required String jsonFilePath,
-    required String translationFilePath,
+    required String filePathEnglish,
+    required String filePathPersian,
+    required List<TextSegmentEnglish> contentEnglish,
+    required List<TextSegmentPersian> contentPersian,
     required String notesFilePath,
     // required List<String> audioFilePaths,
     String? audioFileName,
@@ -65,83 +68,59 @@ sealed class FinalTopic with _$FinalTopic {
   factory FinalTopic.fromJson(Map<String, dynamic> json) =>
       _$FinalTopicFromJson(json);
 
-  static FileSystemEntity? _findJsonFileEnglish(
-    List<FileSystemEntity> fileList,
-  ) {
-    try {
-      // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('.english.json'));
-    } on StateError {
-      // اگر هیچ فایلی با پسوند .json پیدا نشد
-      return null;
-    }
-  }
+  // static FileSystemEntity? _findJsonFileEnglish(
+  //   List<FileSystemEntity> fileList,
+  // ) {
+  //   try {
+  //     // استفاده از firstWhere و مدیریت خطای StateError
+  //     return fileList.firstWhere((f) => f.path.endsWith('.english.json'));
+  //   } on StateError {
+  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
+  //     return null;
+  //   }
+  // }
 
-  static FileSystemEntity? _findJsonFileTranslation(
-    List<FileSystemEntity> fileList,
-  ) {
-    try {
-      // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('.translation.json'));
-    } on StateError {
-      // اگر هیچ فایلی با پسوند .json پیدا نشد
-      return null;
-    }
-  }
+  // static FileSystemEntity? _findJsonFileTranslation(
+  //   List<FileSystemEntity> fileList,
+  // ) {
+  //   try {
+  //     // استفاده از firstWhere و مدیریت خطای StateError
+  //     return fileList.firstWhere((f) => f.path.endsWith('.translation.json'));
+  //   } on StateError {
+  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
+  //     return null;
+  //   }
+  // }
 
-  static FileSystemEntity? _findJsonFileNote(List<FileSystemEntity> fileList) {
-    try {
-      // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('.notes.json'));
-    } on StateError {
-      // اگر هیچ فایلی با پسوند .json پیدا نشد
-      return null;
-    }
-  }
+  // static FileSystemEntity? _findJsonFileNote(List<FileSystemEntity> fileList) {
+  //   try {
+  //     // استفاده از firstWhere و مدیریت خطای StateError
+  //     return fileList.firstWhere((f) => f.path.endsWith('.notes.json'));
+  //   } on StateError {
+  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
+  //     return null;
+  //   }
+  // }
 
-  static String? _findAudioFile(List<FileSystemEntity> fileList) {
-    try {
-      FileSystemEntity? fileSystemEntity = fileList
-          .where((f) => f.path.endsWith('.sound.txt'))
-          .firstOrNull;
-      if (fileSystemEntity != null) {
-        String fileName = p
-            .basenameWithoutExtension(fileSystemEntity.path)
-            .replaceAll('.sound', '');
-        return fileName;
-      }
-    } on StateError {
-      return null;
-    }
-    return null;
-  }
+  // static String? _findAudioFile(List<FileSystemEntity> fileList) {
+  //   try {
+  //     FileSystemEntity? fileSystemEntity = fileList
+  //         .where((f) => f.path.endsWith('.sound.txt'))
+  //         .firstOrNull;
+  //     if (fileSystemEntity != null) {
+  //       String fileName = p
+  //           .basenameWithoutExtension(fileSystemEntity.path)
+  //           .replaceAll('.sound', '');
+  //       return fileName;
+  //     }
+  //   } on StateError {
+  //     return null;
+  //   }
+  //   return null;
+  // }
 
   factory FinalTopic.fromDirectory(Directory mainTopicDir) {
-    final files = mainTopicDir.listSync();
-
-    final audioFiles = files
-        .where((f) => f.path.endsWith('.mp3'))
-        .map((f) => f.path)
-        .toList();
-
-    final jsonFileEntityEnglish = _findJsonFileEnglish(files);
-    final jsonFilePathEnglish = jsonFileEntityEnglish?.path ?? '';
-
-    final jsonFileEntityTranslation = _findJsonFileTranslation(files);
-    final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
-
-    final jsonFileEntityNote = _findJsonFileNote(files);
-    final jsonFilePathNote = jsonFileEntityNote?.path ?? '';
-
-    return FinalTopic(
-      name: p.basename(mainTopicDir.path),
-      realmId: mainTopicDir.path, // مسیر کامل پوشه به عنوان ID
-      // audioFilePaths: audioFiles.cast<String>(),
-      audioFileName: _findAudioFile(files),
-      jsonFilePath: jsonFilePathEnglish,
-      translationFilePath: jsonFilePathTranslation,
-      notesFilePath: jsonFilePathNote,
-    );
+    return CfPublic().parseFinalTopic(mainTopicDir);
   }
 }
 

@@ -58,7 +58,7 @@ final class SentenceNotifierProvider
   }
 }
 
-String _$sentenceNotifierHash() => r'2f284069445d47ead052bbe1bdddb08976c46034';
+String _$sentenceNotifierHash() => r'af4a71ee1761f80088db1746024c4fb986a98dab';
 
 final class SentenceNotifierFamily extends $Family
     with

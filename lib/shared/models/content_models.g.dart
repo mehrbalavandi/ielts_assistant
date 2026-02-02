@@ -72,8 +72,14 @@ Map<String, dynamic> _$PageContentToJson(_PageContent instance) =>
 _FinalTopic _$FinalTopicFromJson(Map<String, dynamic> json) => _FinalTopic(
   name: json['name'] as String,
   realmId: json['realmId'] as String,
-  jsonFilePath: json['jsonFilePath'] as String,
-  translationFilePath: json['translationFilePath'] as String,
+  filePathEnglish: json['filePathEnglish'] as String,
+  filePathPersian: json['filePathPersian'] as String,
+  contentEnglish: (json['contentEnglish'] as List<dynamic>)
+      .map((e) => TextSegmentEnglish.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  contentPersian: (json['contentPersian'] as List<dynamic>)
+      .map((e) => TextSegmentPersian.fromJson(e as Map<String, dynamic>))
+      .toList(),
   notesFilePath: json['notesFilePath'] as String,
   audioFileName: json['audioFileName'] as String?,
 );
@@ -82,8 +88,10 @@ Map<String, dynamic> _$FinalTopicToJson(_FinalTopic instance) =>
     <String, dynamic>{
       'name': instance.name,
       'realmId': instance.realmId,
-      'jsonFilePath': instance.jsonFilePath,
-      'translationFilePath': instance.translationFilePath,
+      'filePathEnglish': instance.filePathEnglish,
+      'filePathPersian': instance.filePathPersian,
+      'contentEnglish': instance.contentEnglish,
+      'contentPersian': instance.contentPersian,
       'notesFilePath': instance.notesFilePath,
       'audioFileName': instance.audioFileName,
     };

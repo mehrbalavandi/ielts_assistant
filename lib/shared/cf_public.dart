@@ -8,6 +8,8 @@ import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_t
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
+import 'package:path/path.dart';
+import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 
 class CfPublic {
@@ -22,6 +24,178 @@ class CfPublic {
     return _instance;
   }
   //--------------------------------------------
+  FinalTopic parseFinalTopic(Directory dir) {
+    final files = dir.listSync();
+    // final audioFiles = files
+    //     .where((f) => f.path.endsWith('.mp3'))
+    //     .map((f) => f.path)
+    //     .toList();
+    final fileEntityEnglish = _findJsonFileEnglish(files);
+    final filePathEnglish = fileEntityEnglish?.path ?? '';
+    final fileEntityPersian = _findJsonFileTranslation(files);
+    final filePathPersian = fileEntityPersian?.path ?? '';
+    final fileEntityNote = _findJsonFileNote(files);
+    final filePathNote = fileEntityNote?.path ?? '';
+    debugPrint('مسیر: $filePathEnglish');
+    return FinalTopic(
+      name: basename(dir.path),
+      realmId: dir.path, // مسیر کامل پوشه به عنوان ID
+      audioFileName: _findAudioFile(files),
+      filePathEnglish: filePathEnglish,
+      contentEnglish: parseEnglishContent(
+        File(filePathEnglish).readAsStringSync(),
+      ),
+      filePathPersian: filePathPersian,
+      contentPersian: parsePersianContent(
+        File(filePathPersian).readAsStringSync(),
+      ),
+      notesFilePath: filePathNote,
+    );
+  }
+
+  List<TextSegmentEnglish> parseEnglishContent(String? raw) {
+    if (raw == null) {
+      return <TextSegmentEnglish>[];
+    }
+    try {
+      final List<dynamic> jsonFormat = jsonDecode(raw);
+      return jsonFormat
+          .map(
+            (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
+          )
+          .toList();
+    } catch (e) {
+      return <TextSegmentEnglish>[];
+    }
+  }
+
+  List<TextSegmentPersian> parsePersianContent(String? raw) {
+    if (raw == null) {
+      return <TextSegmentPersian>[];
+    }
+    try {
+      final List<dynamic> jsonFormat = jsonDecode(raw);
+      return jsonFormat
+          .map(
+            (json) => TextSegmentPersian.fromJson(json as Map<String, dynamic>),
+          )
+          .toList();
+    } catch (e) {
+      return <TextSegmentPersian>[];
+    }
+  }
+
+  FileSystemEntity? _findJsonFileEnglish(List<FileSystemEntity> fileList) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('.english.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
+  }
+
+  FileSystemEntity? _findJsonFileTranslation(List<FileSystemEntity> fileList) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('.translation.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
+  }
+
+  FileSystemEntity? _findJsonFileNote(List<FileSystemEntity> fileList) {
+    try {
+      // استفاده از firstWhere و مدیریت خطای StateError
+      return fileList.firstWhere((f) => f.path.endsWith('.notes.json'));
+    } on StateError {
+      // اگر هیچ فایلی با پسوند .json پیدا نشد
+      return null;
+    }
+  }
+
+  String? _findAudioFile(List<FileSystemEntity> fileList) {
+    try {
+      FileSystemEntity? fileSystemEntity = fileList
+          .where((f) => f.path.endsWith('.sound.txt'))
+          .firstOrNull;
+      if (fileSystemEntity != null) {
+        String fileName = p
+            .basenameWithoutExtension(fileSystemEntity.path)
+            .replaceAll('.sound', '');
+        return fileName;
+      }
+    } on StateError {
+      return null;
+    }
+    return null;
+  }
+
+  // Future<List<OriginalContent>> getOriginalContentsAsync(
+  //   List<Book>? books,
+  //   NavigationState nav,
+  // ) async {
+  //   List<OriginalContent> result = <OriginalContent>[];
+  //   // final books = ref.read(allContentProvider).value;
+
+  //   if (books != null) {
+  //     List<Book> sortedBooks = <Book>[];
+  //     // final nav = ref.read(navigationProvider);
+  //     final selectedBook = nav.selectedBook;
+  //     if (selectedBook != null) {
+  //       final othersBooks = books.where((x) => x != selectedBook).toList();
+  //       sortedBooks.add(selectedBook);
+  //       sortedBooks.addAll(othersBooks);
+  //     } else {
+  //       sortedBooks.addAll(books);
+  //     }
+
+  //     for (var book in sortedBooks) {
+  //       final units = book.units;
+  //       if (units.isNotEmpty) {
+  //         for (var unit in units) {
+  //           final topics = unit.topics;
+  //           if (topics.isNotEmpty) {
+  //             for (var topic in topics) {
+  //               final pages = topic.pageContents;
+  //               if (pages.isNotEmpty) {
+  //                 for (var page in pages) {
+  //                   final finalTopics = page.finalTopics;
+  //                   if (finalTopics.isNotEmpty) {
+  //                     for (var finalTopic in finalTopics) {
+  //                       Directory dir = Directory(finalTopic.realmId);
+  //                       final files = dir.listSync();
+  //                       final textFilePathOriginalContent =
+  //                           findOriginalFileContent(files)?.path;
+  //                       if (textFilePathOriginalContent != null) {
+  //                         String content = File(
+  //                           textFilePathOriginalContent,
+  //                         ).readAsStringSync();
+  //                         OriginalContent originalContent = OriginalContent(
+  //                           book: book.name,
+  //                           unit: unit.name,
+  //                           topic: topic.name,
+  //                           page: page.name,
+  //                           root:
+  //                               '${unit.name}>${topic.name}>${page.name}>${finalTopic.name}',
+  //                           originalContent: content,
+  //                           finalTopic: finalTopic,
+  //                         );
+  //                         result.add(originalContent);
+  //                       }
+  //                     }
+  //                   }
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return result;
+  // }
   Future<List<OriginalContent>> getOriginalContentsAsync(
     List<Book>? books,
     NavigationState nav,
@@ -54,26 +228,19 @@ class CfPublic {
                     final finalTopics = page.finalTopics;
                     if (finalTopics.isNotEmpty) {
                       for (var finalTopic in finalTopics) {
-                        Directory dir = Directory(finalTopic.realmId);
-                        final files = dir.listSync();
-                        final textFilePathOriginalContent =
-                            findOriginalFileContent(files)?.path;
-                        if (textFilePathOriginalContent != null) {
-                          String content = File(
-                            textFilePathOriginalContent,
-                          ).readAsStringSync();
-                          OriginalContent originalContent = OriginalContent(
-                            book: book.name,
-                            unit: unit.name,
-                            topic: topic.name,
-                            page: page.name,
-                            root:
-                                '${unit.name}>${topic.name}>${page.name}>${finalTopic.name}',
-                            originalContent: content,
-                            finalTopic: finalTopic,
-                          );
-                          result.add(originalContent);
-                        }
+                        String content =
+                            '${finalTopic.contentEnglish.map((e) => e.text).toList().join()}\n${finalTopic.contentPersian.map((e) => e.text).toList().join()}';
+                        OriginalContent originalContent = OriginalContent(
+                          book: book.name,
+                          unit: unit.name,
+                          topic: topic.name,
+                          page: page.name,
+                          root:
+                              '${unit.name}>${topic.name}>${page.name}>${finalTopic.name}',
+                          originalContent: content,
+                          finalTopic: finalTopic,
+                        );
+                        result.add(originalContent);
                       }
                     }
                   }

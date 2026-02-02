@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:path/path.dart';
 import 'package:path/path.dart' as p;
@@ -44,7 +45,9 @@ class ContentService {
                                   // return FinalTopic.fromDirectory(
                                   //   finalTopicDir,
                                   // );
-                                  return _parseFinalTopic(finalTopicDir);
+                                  return CfPublic().parseFinalTopic(
+                                    finalTopicDir,
+                                  );
                                 })
                                 .toList();
                             return PageContent(
@@ -75,73 +78,75 @@ class ContentService {
     return books;
   }
 
-  static FinalTopic _parseFinalTopic(Directory dir) {
-    final files = dir.listSync();
-    final jsonFileEntityEnglish = _findJsonFileEnglish(files);
-    final jsonFilePathEnglish = jsonFileEntityEnglish?.path ?? '';
-    final jsonFileEntityTranslation = _findJsonFileTranslation(files);
-    final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
-    final jsonFileEntityNote = _findJsonFileNote(files);
-    final jsonFilePathNote = jsonFileEntityNote?.path ?? '';
-    return FinalTopic(
-      name: basename(dir.path),
-      realmId: dir.path, // مسیر کامل پوشه به عنوان ID
-      audioFileName: _findAudioFile(files),
-      jsonFilePath: jsonFilePathEnglish,
-      translationFilePath: jsonFilePathTranslation,
-      notesFilePath: jsonFilePathNote,
-    );
-  }
+  // static FinalTopic _parseFinalTopic(Directory dir) {
+  //   final files = dir.listSync();
+  //   final jsonFileEntityEnglish = _findJsonFileEnglish(files);
+  //   final jsonFilePathEnglish = jsonFileEntityEnglish?.path ?? '';
+  //   final jsonFileEntityTranslation = _findJsonFileTranslation(files);
+  //   final jsonFilePathTranslation = jsonFileEntityTranslation?.path ?? '';
+  //   final jsonFileEntityNote = _findJsonFileNote(files);
+  //   final jsonFilePathNote = jsonFileEntityNote?.path ?? '';
+  //   return FinalTopic(
+  //     name: basename(dir.path),
+  //     realmId: dir.path, // مسیر کامل پوشه به عنوان ID
+  //     audioFileName: _findAudioFile(files),
+  //     filePathEnglish: jsonFilePathEnglish,
+  //     contentEnglish: File(jsonFilePathEnglish).readAsStringSync(),
+  //     filePathPersian: jsonFilePathTranslation,
+  //     contentPersian: File(jsonFilePathTranslation).readAsStringSync(),
+  //     notesFilePath: jsonFilePathNote,
+  //   );
+  // }
 
-  static FileSystemEntity? _findJsonFileEnglish(
-    List<FileSystemEntity> fileList,
-  ) {
-    try {
-      // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('english.json'));
-    } on StateError {
-      // اگر هیچ فایلی با پسوند .json پیدا نشد
-      return null;
-    }
-  }
+  // static FileSystemEntity? _findJsonFileEnglish(
+  //   List<FileSystemEntity> fileList,
+  // ) {
+  //   try {
+  //     // استفاده از firstWhere و مدیریت خطای StateError
+  //     return fileList.firstWhere((f) => f.path.endsWith('english.json'));
+  //   } on StateError {
+  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
+  //     return null;
+  //   }
+  // }
 
-  static FileSystemEntity? _findJsonFileTranslation(
-    List<FileSystemEntity> fileList,
-  ) {
-    try {
-      // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('translation.json'));
-    } on StateError {
-      // اگر هیچ فایلی با پسوند .json پیدا نشد
-      return null;
-    }
-  }
+  // static FileSystemEntity? _findJsonFileTranslation(
+  //   List<FileSystemEntity> fileList,
+  // ) {
+  //   try {
+  //     // استفاده از firstWhere و مدیریت خطای StateError
+  //     return fileList.firstWhere((f) => f.path.endsWith('translation.json'));
+  //   } on StateError {
+  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
+  //     return null;
+  //   }
+  // }
 
-  static FileSystemEntity? _findJsonFileNote(List<FileSystemEntity> fileList) {
-    try {
-      // استفاده از firstWhere و مدیریت خطای StateError
-      return fileList.firstWhere((f) => f.path.endsWith('notes.json'));
-    } on StateError {
-      // اگر هیچ فایلی با پسوند .json پیدا نشد
-      return null;
-    }
-  }
+  // static FileSystemEntity? _findJsonFileNote(List<FileSystemEntity> fileList) {
+  //   try {
+  //     // استفاده از firstWhere و مدیریت خطای StateError
+  //     return fileList.firstWhere((f) => f.path.endsWith('notes.json'));
+  //   } on StateError {
+  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
+  //     return null;
+  //   }
+  // }
 
-  static String? _findAudioFile(List<FileSystemEntity> fileList) {
-    try {
-      FileSystemEntity? fileSystemEntity = fileList
-          .where((f) => f.path.endsWith('.sound.txt'))
-          .firstOrNull;
-      if (fileSystemEntity != null) {
-        String fileName = p.basenameWithoutExtension(fileSystemEntity.path);
-        fileName = fileName.replaceAll('.sound', '');
-        return fileName;
-      }
-    } on StateError {
-      return null;
-    }
-    return null;
-  }
+  // static String? _findAudioFile(List<FileSystemEntity> fileList) {
+  //   try {
+  //     FileSystemEntity? fileSystemEntity = fileList
+  //         .where((f) => f.path.endsWith('.sound.txt'))
+  //         .firstOrNull;
+  //     if (fileSystemEntity != null) {
+  //       String fileName = p.basenameWithoutExtension(fileSystemEntity.path);
+  //       fileName = fileName.replaceAll('.sound', '');
+  //       return fileName;
+  //     }
+  //   } on StateError {
+  //     return null;
+  //   }
+  //   return null;
+  // }
 
   Future<String?> readFile(String path) async {
     try {
