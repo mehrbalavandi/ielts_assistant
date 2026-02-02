@@ -486,11 +486,7 @@ class CfPublic {
             final endInSegment = nonHighlightEnd - segmentStart;
             final text = segmentText.substring(startInSegment, endInSegment);
             microSegments.add(
-              TextSegmentPersian(
-                text: text,
-                isInteractive: false,
-                isBold: segment.isBold,
-              ),
+              TextSegmentPersian(text: text, isBold: segment.isBold),
             );
             segmentCurrentPosition = endInSegment;
           }
@@ -508,7 +504,6 @@ class CfPublic {
             microSegments.add(
               TextSegmentPersian(
                 text: text,
-                isInteractive: false,
                 isBold: segment.isBold,
                 isAmberHighlighted: true, // اعمال هایلایت
               ),
@@ -522,11 +517,100 @@ class CfPublic {
       if (segmentCurrentPosition < segmentText.length) {
         final text = segmentText.substring(segmentCurrentPosition);
         microSegments.add(
-          TextSegmentPersian(
-            text: text,
-            isInteractive: false,
-            isBold: segment.isBold,
-          ),
+          TextSegmentPersian(text: text, isBold: segment.isBold),
+        );
+      }
+
+      currentTextIndex += segmentText.length;
+    }
+
+    return microSegments;
+  }
+
+  List<TextSegmentPersianTempelate> processSegmentsPersianTempelate(
+    List<TextSegmentPersianTempelate> segments,
+    String searchQuery,
+  ) {
+    if (searchQuery.isEmpty) {
+      // اگر جستجویی نیست، همان segments اصلی را برگردانید.
+      return segments;
+    }
+    // .asMap().entries.map((entry) {
+    //       final index = entry.key;
+    //       final status = sentenceStates[index] ?? SentenceStatus.hide;
+    final fullText = segments.map((s) => s.text).join();
+    final List<TextSegmentPersianTempelate> microSegments = [];
+    int currentTextIndex = 0;
+
+    // 1. پیدا کردن تمامی تطابق‌های عبارت جستجو
+    final matches = RegExp(
+      searchQuery,
+      caseSensitive: false,
+    ).allMatches(fullText).toList();
+
+    if (matches.isEmpty) {
+      // اگر تطابقی پیدا نشد، همان segments اصلی را برگردانید.
+      return segments;
+    }
+
+    // 2. تکرار بر روی segments اصلی و اعمال شکستگی
+    for (final segment in segments) {
+      final segmentText = segment.text;
+      final segmentStart = currentTextIndex;
+      final segmentEnd = currentTextIndex + segmentText.length;
+
+      int segmentCurrentPosition = 0; // پوزیشن داخلی در segmentText
+
+      // بررسی تداخل این segment با هر یک از نتایج جستجو
+      for (final match in matches) {
+        final matchStart = match.start;
+        final matchEnd = match.end;
+
+        // بررسی تداخل
+        if (segmentStart < matchEnd && segmentEnd > matchStart) {
+          // 1. قسمت قبل از هایلایت (اگر وجود دارد)
+          final nonHighlightStart = segmentStart + segmentCurrentPosition;
+          final nonHighlightEnd = matchStart > segmentStart
+              ? matchStart
+              : segmentStart;
+
+          if (nonHighlightEnd > nonHighlightStart) {
+            final startInSegment = nonHighlightStart - segmentStart;
+            final endInSegment = nonHighlightEnd - segmentStart;
+            final text = segmentText.substring(startInSegment, endInSegment);
+            microSegments.add(
+              TextSegmentPersianTempelate(text: text, isBold: segment.isBold),
+            );
+            segmentCurrentPosition = endInSegment;
+          }
+
+          // 2. قسمت هایلایت شده (بخشی از تطابق که در این segment قرار دارد)
+          final highlightStart = matchStart > segmentStart
+              ? matchStart
+              : segmentStart;
+          final highlightEnd = matchEnd < segmentEnd ? matchEnd : segmentEnd;
+
+          if (highlightEnd > highlightStart) {
+            final startInSegment = highlightStart - segmentStart;
+            final endInSegment = highlightEnd - segmentStart;
+            final text = segmentText.substring(startInSegment, endInSegment);
+            microSegments.add(
+              TextSegmentPersianTempelate(
+                text: text,
+                isBold: segment.isBold,
+                isAmberHighlighted: true, // اعمال هایلایت
+              ),
+            );
+            segmentCurrentPosition = endInSegment;
+          }
+        }
+      }
+
+      // 3. قسمت باقی‌مانده از segment بعد از آخرین تطابق (اگر وجود دارد)
+      if (segmentCurrentPosition < segmentText.length) {
+        final text = segmentText.substring(segmentCurrentPosition);
+        microSegments.add(
+          TextSegmentPersianTempelate(text: text, isBold: segment.isBold),
         );
       }
 
@@ -559,10 +643,10 @@ class CfPublic {
 
   Future<bool> savePersianTextSegmentToExternalStorage({
     required String fileName,
-    required TextSegmentPersian textSement,
+    required TextSegmentPersianTempelate textSement,
   }) async {
     final file = File(fileName);
-    var segments = <TextSegmentPersian>[];
+    var segments = <TextSegmentPersianTempelate>[];
     final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
 
     try {
@@ -579,7 +663,7 @@ class CfPublic {
           existingData = [existingData];
         }
         segments = existingData
-            .map((json) => TextSegmentPersian.fromJson(json))
+            .map((json) => TextSegmentPersianTempelate.fromJson(json))
             .toList();
         // segments.add(PersianTextSegment(text: '\n\n'));
         segments.add(textSement);
@@ -710,13 +794,14 @@ class CfPublic {
     }
   }
 
-  Future<List<TextSegmentPersian>?> updatePersianTextSegmentToExternalStorage({
+  Future<List<TextSegmentPersianTempelate>?>
+  updatePersianTextSegmentToExternalStorage({
     required String fileName,
     required int index,
-    required TextSegmentPersian textSegmentPersian,
+    required TextSegmentPersianTempelate textSegmentPersianTempelate,
   }) async {
     final file = File(fileName);
-    var segments = <TextSegmentPersian>[];
+    var segments = <TextSegmentPersianTempelate>[];
     final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
 
     try {
@@ -726,11 +811,11 @@ class CfPublic {
         existingData = [existingData];
       }
       segments = existingData
-          .map((json) => TextSegmentPersian.fromJson(json))
+          .map((json) => TextSegmentPersianTempelate.fromJson(json))
           .toList();
       // segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
       segments.removeAt(index);
-      segments.insert(index, textSegmentPersian);
+      segments.insert(index, textSegmentPersianTempelate);
       // تبدیل لیست به JSON با فرمت خوانا (pretty)
       final jsonString = encoder.convert(
         segments.map((s) => s.toJson()).toList(),
@@ -752,73 +837,82 @@ class CfPublic {
       builder: (BuildContext context) {
         return Dialog(
           child: AddOrEditTempelate(
-            onSubmit: (allText, enText, faText) async {
-              final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
-              if (!Directory(newTemplateDirectory).existsSync()) {
-                Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
-              }
-              //! محتوای فارسی
-              String faFileName = '$newTemplateDirectory/me.3.translation.json';
-              if (!File(faFileName).existsSync()) {
-                File(faFileName).createSync(recursive: true);
-              }
-              bool result1 = await CfPublic()
-                  .savePersianTextSegmentToExternalStorage(
-                    fileName: faFileName,
-                    textSement: faText,
-                  );
+            onSubmit:
+                (
+                  allText,
+                  textSegmentEnglish,
+                  textSegmentPersianTempelate,
+                ) async {
+                  final rootPath = ref.read(settingsProvider);
+                  String newTemplateDirectory =
+                      '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+                  if (!Directory(newTemplateDirectory).existsSync()) {
+                    Directory(newTemplateDirectory).createSync(recursive: true);
+                  }
+                  String allTextFileName = '$newTemplateDirectory/me.1.txt';
+                  if (!File(allTextFileName).existsSync()) {
+                    File(allTextFileName).createSync(recursive: true);
+                  }
+                  //! محتوای فارسی
+                  String faFileName =
+                      '$newTemplateDirectory/me.3.translation.json';
+                  if (!File(faFileName).existsSync()) {
+                    File(faFileName).createSync(recursive: true);
+                  }
+                  bool result1 = await CfPublic()
+                      .savePersianTextSegmentToExternalStorage(
+                        fileName: faFileName,
+                        textSement: textSegmentPersianTempelate,
+                      );
 
-              if (result1) {
-                //! محتوای انگلیسی
-                String enFileName = '$newTemplateDirectory/me.2.english.json';
-                if (!File(enFileName).existsSync()) {
-                  File(enFileName).createSync(recursive: true);
-                }
-                bool result2 = await CfPublic()
-                    .saveMainTextSegmentToExternalStorage(
-                      fileName: enFileName,
-                      textSement: enText,
-                    );
-                if (result2) {
-                  //! فایل متنی کل
-                  final oldText = File(allTextFileName).readAsStringSync();
-                  File(
-                    allTextFileName,
-                  ).writeAsStringSync('$oldText\n\n$allText', encoding: utf8);
+                  if (result1) {
+                    //! محتوای انگلیسی
+                    String enFileName =
+                        '$newTemplateDirectory/me.2.english.json';
+                    if (!File(enFileName).existsSync()) {
+                      File(enFileName).createSync(recursive: true);
+                    }
+                    bool result2 = await CfPublic()
+                        .saveMainTextSegmentToExternalStorage(
+                          fileName: enFileName,
+                          textSement: textSegmentEnglish,
+                        );
+                    if (result2) {
+                      //! فایل متنی کل
+                      final oldText = File(allTextFileName).readAsStringSync();
+                      File(allTextFileName).writeAsStringSync(
+                        '$oldText\n\n$allText',
+                        encoding: utf8,
+                      );
 
-                  if (context.mounted) {
-                    Navigator.pop(context, true);
+                      if (context.mounted) {
+                        Navigator.pop(context, true);
+                      } else {
+                        if (context.mounted) {
+                          Navigator.pop(context, false);
+                        }
+                      }
+                    } else {
+                      //! فایل متنی کل
+                      final oldText = File(allTextFileName).readAsStringSync();
+                      File(allTextFileName).writeAsStringSync(
+                        '$oldText\n\n$allText',
+                        encoding: utf8,
+                      );
+                      if (context.mounted) {
+                        Navigator.pop(context, true);
+                      } else {
+                        if (context.mounted) {
+                          Navigator.pop(context, false);
+                        }
+                      }
+                    }
                   } else {
                     if (context.mounted) {
                       Navigator.pop(context, false);
                     }
                   }
-                } else {
-                  //! فایل متنی کل
-                  final oldText = File(allTextFileName).readAsStringSync();
-                  File(
-                    allTextFileName,
-                  ).writeAsStringSync('$oldText\n\n$allText', encoding: utf8);
-                  if (context.mounted) {
-                    Navigator.pop(context, true);
-                  } else {
-                    if (context.mounted) {
-                      Navigator.pop(context, false);
-                    }
-                  }
-                }
-              } else {
-                if (context.mounted) {
-                  Navigator.pop(context, false);
-                }
-              }
-            },
+                },
           ),
         );
       },
@@ -846,7 +940,7 @@ class CfPublic {
             initEnglishText: initEnglishText,
             initPersianText: initPersianText,
             initNotes: initNoteText,
-            onSubmit: (_, enText, textSegmentPersian) async {
+            onSubmit: (_, textSegmentEnglish, textSegmentPersianTempelate) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
                   '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
@@ -866,7 +960,7 @@ class CfPublic {
                   .updatePersianTextSegmentToExternalStorage(
                     fileName: faFileName,
                     index: index,
-                    textSegmentPersian: textSegmentPersian,
+                    textSegmentPersianTempelate: textSegmentPersianTempelate,
                   );
               if (result1 != null) {
                 //! محتوای انگلیسی
@@ -878,7 +972,7 @@ class CfPublic {
                     .updateMainTextSegmentToExternalStorage(
                       fileName: enFileName,
                       index: index,
-                      newText: enText.text,
+                      newText: textSegmentEnglish.text,
                     );
                 if (result2 != null) {
                   //! فایل متنی کل

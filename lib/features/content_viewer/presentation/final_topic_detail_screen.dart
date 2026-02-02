@@ -761,13 +761,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               child: ListView.builder(
                 itemCount: faSpans.length,
                 itemBuilder: (context, index) {
-                  TextSegmentPersian textSegmentPersian = TextSegmentPersian(
-                    text: faSpans[index].text ?? '',
-                    isInteractive: true,
-                  );
-                  final microSegments = CfPublic().processSegmentsPersian([
-                    textSegmentPersian,
-                  ], widget.searchText ?? '');
+                  TextSegmentPersianTempelate textSegmentPersianTempelate =
+                      TextSegmentPersianTempelate(
+                        text: faSpans[index].text ?? '',
+                      );
+                  final microSegments = CfPublic()
+                      .processSegmentsPersianTempelate([
+                        textSegmentPersianTempelate,
+                      ], widget.searchText ?? '');
                   final spans = microSegments.asMap().entries.map((entry) {
                     // final index = entry.key;
                     final ms = entry.value;
