@@ -141,7 +141,7 @@ class TextSegmentEnglish {
   final bool? isAmberHighlighted;
   final String? translation; // ترجمه فارسی
   final String? explanation; // توضیحات تکمیلی
-  final String? cerfLevel; // توضیحات تکمیلی
+  final String? cerfLevel; //
   final String? pronounce;
   final bool? isRtl;
 
@@ -169,34 +169,34 @@ class TextSegmentEnglish {
     if (originText != null) {
       result['originText'] = originText;
     }
-    if (originText != null) {
+    if (isBlank != null) {
       result['isBlank'] = isBlank;
     }
-    if (originText != null) {
+    if (hasSubItems != null) {
       result['hasSubItems'] = hasSubItems;
     }
-    if (originText != null) {
+    if (subItems != null) {
       result['subItems'] = subItems;
     }
-    if (originText != null) {
+    if (isBold != null) {
       result['isBold'] = isBold;
     }
-    if (originText != null) {
+    if (isAmberHighlighted != null) {
       result['isAmberHighlighted'] = isAmberHighlighted;
     }
-    if (originText != null) {
+    if (translation != null) {
       result['translation'] = translation;
     }
-    if (originText != null) {
+    if (explanation != null) {
       result['explanation'] = explanation;
     }
-    if (originText != null) {
+    if (cerfLevel != null) {
       result['cerfLevel'] = cerfLevel;
     }
-    if (originText != null) {
+    if (pronounce != null) {
       result['pronounce'] = pronounce;
     }
-    if (originText != null) {
+    if (isRtl != null) {
       result['isRtl'] = isRtl;
     }
 
@@ -219,21 +219,38 @@ class TextSegmentEnglish {
 
 class TextSegmentPersian {
   final String text;
+  final bool isInteractive;
+
+  final String? translation; // ترجمه فارسی
+  final String? explanation; // توضیحات تکمیلی
   final bool? isBold;
   final bool? isAmberHighlighted;
 
   TextSegmentPersian({
     required this.text,
+    required this.isInteractive,
+
     this.isBold,
+    this.translation,
+    this.explanation,
     this.isAmberHighlighted,
   });
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {'text': text};
+    Map<String, dynamic> result = {
+      'text': text,
+      'isInteractive': isInteractive,
+    };
     if (isBold != null) {
       result['isBold'] = isBold;
     }
-    if (isBold != null) {
+    if (translation != null) {
+      result['translation'] = translation;
+    }
+    if (explanation != null) {
+      result['explanation'] = explanation;
+    }
+    if (isAmberHighlighted != null) {
       result['isAmberHighlighted'] = isAmberHighlighted;
     }
     return result;
@@ -242,6 +259,9 @@ class TextSegmentPersian {
   factory TextSegmentPersian.fromJson(Map<String, dynamic> json) {
     return TextSegmentPersian(
       text: json['text'] as String,
+      isInteractive: json['isInteractive'] as bool,
+      translation: json['translation'] as String?,
+      explanation: json['explanation'] as String?,
       isBold: json['isBold'] as bool?,
     );
   }

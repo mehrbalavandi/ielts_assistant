@@ -181,24 +181,24 @@ class NavigationNotifier extends _$NavigationNotifier {
     state = state.copyWith(isLoading: true);
 
     // خواندن موازی برای بهینه‌سازی زمان
-    final results = await Future.wait([
-      _contentService.readFile(originalContent.finalTopic.filePathEnglish),
-      _contentService.readFile(originalContent.finalTopic.filePathPersian),
-      _contentService.readFile(originalContent.finalTopic.notesFilePath),
-    ]);
-    List<TextSegmentEnglish>? englishSegments = CfPublic().parseEnglishContent(
-      results[0],
-    );
-    List<TextSegmentPersian>? textSegmentsPersian = CfPublic()
-        .parsePersianContent(results[1]);
-    List<TextSegmentPersian>? noteSegments = CfPublic().parsePersianContent(
-      results[2],
-    );
+    // final results = await Future.wait([
+    //   _contentService.readFile(originalContent.finalTopic.filePathEnglish),
+    //   _contentService.readFile(originalContent.finalTopic.filePathPersian),
+    //   _contentService.readFile(originalContent.finalTopic.notesFilePath),
+    // ]);
+    // List<TextSegmentEnglish>? englishSegments = CfPublic().parseEnglishContent(
+    //   results[0],
+    // );
+    // List<TextSegmentPersian>? textSegmentsPersian = CfPublic()
+    //     .parsePersianContent(results[1]);
+    // List<TextSegmentPersian>? noteSegments = CfPublic().parsePersianContent(
+    //   results[2],
+    // );
     state = state.copyWith(isLoading: false);
     return SearchResultSegments(
-      enSegments: englishSegments,
-      faSegments: textSegmentsPersian,
-      noteSegments: noteSegments,
+      enSegments: originalContent.finalTopic.contentEnglish,
+      faSegments: originalContent.finalTopic.contentPersian,
+      // noteSegments: noteSegments,
     );
   }
 

@@ -207,10 +207,10 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
 class SearchResultSegments {
   List<TextSegmentEnglish> enSegments;
   List<TextSegmentPersian> faSegments;
-  List<TextSegmentPersian> noteSegments;
+  // List<TextSegmentPersian> noteSegments;
   SearchResultSegments({
     required this.enSegments,
     required this.faSegments,
-    required this.noteSegments,
+    // required this.noteSegments,
   });
 }

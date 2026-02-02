@@ -32,11 +32,13 @@ class CfPublic {
     //     .toList();
     final fileEntityEnglish = _findJsonFileEnglish(files);
     final filePathEnglish = fileEntityEnglish?.path ?? '';
+
     final fileEntityPersian = _findJsonFileTranslation(files);
     final filePathPersian = fileEntityPersian?.path ?? '';
+
     final fileEntityNote = _findJsonFileNote(files);
     final filePathNote = fileEntityNote?.path ?? '';
-    debugPrint('مسیر: $filePathEnglish');
+    // debugPrint('مسیر: $filePathEnglish');
     return FinalTopic(
       name: basename(dir.path),
       realmId: dir.path, // مسیر کامل پوشه به عنوان ID
@@ -484,7 +486,11 @@ class CfPublic {
             final endInSegment = nonHighlightEnd - segmentStart;
             final text = segmentText.substring(startInSegment, endInSegment);
             microSegments.add(
-              TextSegmentPersian(text: text, isBold: segment.isBold),
+              TextSegmentPersian(
+                text: text,
+                isInteractive: false,
+                isBold: segment.isBold,
+              ),
             );
             segmentCurrentPosition = endInSegment;
           }
@@ -502,6 +508,7 @@ class CfPublic {
             microSegments.add(
               TextSegmentPersian(
                 text: text,
+                isInteractive: false,
                 isBold: segment.isBold,
                 isAmberHighlighted: true, // اعمال هایلایت
               ),
@@ -515,7 +522,11 @@ class CfPublic {
       if (segmentCurrentPosition < segmentText.length) {
         final text = segmentText.substring(segmentCurrentPosition);
         microSegments.add(
-          TextSegmentPersian(text: text, isBold: segment.isBold),
+          TextSegmentPersian(
+            text: text,
+            isInteractive: false,
+            isBold: segment.isBold,
+          ),
         );
       }
 
@@ -702,7 +713,7 @@ class CfPublic {
   Future<List<TextSegmentPersian>?> updatePersianTextSegmentToExternalStorage({
     required String fileName,
     required int index,
-    required String newText,
+    required TextSegmentPersian textSegmentPersian,
   }) async {
     final file = File(fileName);
     var segments = <TextSegmentPersian>[];
@@ -719,7 +730,7 @@ class CfPublic {
           .toList();
       // segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
       segments.removeAt(index);
-      segments.insert(index, TextSegmentPersian(text: newText));
+      segments.insert(index, textSegmentPersian);
       // تبدیل لیست به JSON با فرمت خوانا (pretty)
       final jsonString = encoder.convert(
         segments.map((s) => s.toJson()).toList(),
@@ -741,7 +752,7 @@ class CfPublic {
       builder: (BuildContext context) {
         return Dialog(
           child: AddOrEditTempelate(
-            onSubmit: (allText, enText, faText, noteText) async {
+            onSubmit: (allText, enText, faText) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
                   '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
@@ -775,36 +786,17 @@ class CfPublic {
                       textSement: enText,
                     );
                 if (result2) {
-                  //! محتوای نکات
-                  String noteFileName = '$newTemplateDirectory/me.4.notes.json';
-                  if (!File(noteFileName).existsSync()) {
-                    File(noteFileName).createSync(recursive: true);
-                  }
-                  if (noteText != null) {
-                    bool result3 = await CfPublic()
-                        .savePersianTextSegmentToExternalStorage(
-                          fileName: noteFileName,
-                          textSement: noteText,
-                        );
-                    if (result3) {
-                      //! فایل متنی کل
-                      final oldText = File(allTextFileName).readAsStringSync();
-                      File(allTextFileName).writeAsStringSync(
-                        '$oldText\n\n$allText',
-                        encoding: utf8,
-                      );
+                  //! فایل متنی کل
+                  final oldText = File(allTextFileName).readAsStringSync();
+                  File(
+                    allTextFileName,
+                  ).writeAsStringSync('$oldText\n\n$allText', encoding: utf8);
 
-                      if (context.mounted) {
-                        Navigator.pop(context, true);
-                      } else {
-                        if (context.mounted) {
-                          Navigator.pop(context, false);
-                        }
-                      }
-                    } else {
-                      if (context.mounted) {
-                        Navigator.pop(context, false);
-                      }
+                  if (context.mounted) {
+                    Navigator.pop(context, true);
+                  } else {
+                    if (context.mounted) {
+                      Navigator.pop(context, false);
                     }
                   }
                 } else {
@@ -819,9 +811,6 @@ class CfPublic {
                     if (context.mounted) {
                       Navigator.pop(context, false);
                     }
-                  }
-                  if (context.mounted) {
-                    Navigator.pop(context, false);
                   }
                 }
               } else {
@@ -857,7 +846,7 @@ class CfPublic {
             initEnglishText: initEnglishText,
             initPersianText: initPersianText,
             initNotes: initNoteText,
-            onSubmit: (_, enText, faText, noteText) async {
+            onSubmit: (_, enText, textSegmentPersian) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
                   '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
@@ -877,7 +866,7 @@ class CfPublic {
                   .updatePersianTextSegmentToExternalStorage(
                     fileName: faFileName,
                     index: index,
-                    newText: faText.text,
+                    textSegmentPersian: textSegmentPersian,
                   );
               if (result1 != null) {
                 //! محتوای انگلیسی
@@ -892,58 +881,21 @@ class CfPublic {
                       newText: enText.text,
                     );
                 if (result2 != null) {
-                  //! محتوای نکات
-                  String noteFileName = '$newTemplateDirectory/me.4.notes.json';
-                  if (!File(noteFileName).existsSync()) {
-                    File(noteFileName).createSync(recursive: true);
-                  }
-                  if (noteText != null) {
-                    final result3 = await CfPublic()
-                        .updatePersianTextSegmentToExternalStorage(
-                          fileName: noteFileName,
-                          index: index,
-                          newText: noteText.text,
-                        );
-                    if (result3 != null) {
-                      //! فایل متنی کل
-                      String allText = '';
-                      for (int i = 0; i < result2.length; i++) {
-                        if (i == 0) {
-                          allText =
-                              '${result1[i].text}\n${result2[i].text}\n${result3[i].text}';
-                        } else {
-                          allText =
-                              '$allText\n\n${result1[i].text}\n${result2[i].text}\n${result3[i].text}';
-                        }
-                      }
-                      File(
-                        allTextFileName,
-                      ).writeAsStringSync(allText, encoding: utf8);
-                      if (context.mounted) {
-                        Navigator.pop(context, true);
-                      }
+                  //! فایل متنی کل
+                  String allText = '';
+                  for (int i = 0; i < result2.length; i++) {
+                    if (i == 0) {
+                      allText = '${result1[i].text}\n${result2[i].text}}';
                     } else {
-                      if (context.mounted) {
-                        Navigator.pop(context, false);
-                      }
+                      allText =
+                          '$allText\n\n${result1[i].text}\n${result2[i].text}';
                     }
-                  } else {
-                    //! فایل متنی کل
-                    String allText = '';
-                    for (int i = 0; i < result2.length; i++) {
-                      if (i == 0) {
-                        allText = '${result1[i].text}\n${result2[i].text}';
-                      } else {
-                        allText =
-                            '$allText\n\n${result1[i].text}\n${result2[i].text}';
-                      }
-                    }
-                    File(
-                      allTextFileName,
-                    ).writeAsStringSync(allText, encoding: utf8);
-                    if (context.mounted) {
-                      Navigator.pop(context, true);
-                    }
+                  }
+                  File(
+                    allTextFileName,
+                  ).writeAsStringSync(allText, encoding: utf8);
+                  if (context.mounted) {
+                    Navigator.pop(context, true);
                   }
                 } else {
                   if (context.mounted) {

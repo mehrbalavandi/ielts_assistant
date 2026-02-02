@@ -11,7 +11,6 @@ class AddOrEditTempelate extends StatefulWidget {
     String allText,
     TextSegmentEnglish textSegmentEnglish,
     TextSegmentPersian persianTextSegment,
-    TextSegmentPersian? notesTextSegment,
   )?
   onSubmit;
 
@@ -258,6 +257,9 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                             TextSegmentPersian textSegmentPersian =
                                 TextSegmentPersian(
                                   text: txtPersian.text.trim(),
+                                  isInteractive: true,
+                                  translation: txtEnglish.text,
+                                  explanation: txtNotes.text,
                                 );
 
                             TextSegmentEnglish textSegmentEnglish =
@@ -266,15 +268,10 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                                   isInteractive: false,
                                 );
 
-                            TextSegmentPersian? textSegmentNotes =
-                                txtNotes.text.trim().isNotEmpty
-                                ? TextSegmentPersian(text: txtNotes.text.trim())
-                                : null;
                             widget.onSubmit?.call(
                               allText,
                               textSegmentEnglish,
                               textSegmentPersian,
-                              textSegmentNotes,
                             );
                             //
                             setState(() {
