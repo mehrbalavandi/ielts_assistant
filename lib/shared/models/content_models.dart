@@ -220,12 +220,16 @@ class TextSegmentEnglish {
 class TextSegmentPersian {
   final String text;
 
+  final String? translation; // ترجمه فارسی
+  final String? explanation; // توضیحات تکمیلی
   final bool? isBold;
   final bool? isAmberHighlighted;
 
   TextSegmentPersian({
     required this.text,
 
+    this.translation,
+    this.explanation,
     this.isBold,
     this.isAmberHighlighted,
   });
@@ -234,6 +238,12 @@ class TextSegmentPersian {
     Map<String, dynamic> result = {'text': text};
     if (isBold != null) {
       result['isBold'] = isBold;
+    }
+    if (translation != null) {
+      result['translation'] = translation;
+    }
+    if (explanation != null) {
+      result['explanation'] = explanation;
     }
     if (isAmberHighlighted != null) {
       result['isAmberHighlighted'] = isAmberHighlighted;
@@ -245,10 +255,13 @@ class TextSegmentPersian {
     return TextSegmentPersian(
       text: json['text'] as String,
       isBold: json['isBold'] as bool?,
+      translation: json['translation'] as String?,
+      explanation: json['explanation'] as String?,
     );
   }
 }
 
+/*
 class TextSegmentPersianTempelate {
   final String text;
 
@@ -292,7 +305,7 @@ class TextSegmentPersianTempelate {
     );
   }
 }
-
+*/
 class OriginalContent {
   final String book;
   final String unit;

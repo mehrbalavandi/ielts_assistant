@@ -4,21 +4,22 @@ import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/my_text_form_field.dart';
 
 class AddOrEditTempelate extends StatefulWidget {
-  final String? initEnglishText;
-  final String? initPersianText;
-  final String? initNotes;
+  TextSegmentPersian? persianTextSegment;
+  // final String? initEnglishText;
+  // final String? initPersianText;
+  // final String? initExplanations;
   final void Function(
-    String allText,
-    TextSegmentEnglish textSegmentEnglish,
-    TextSegmentPersianTempelate persianTextSegmentTempelate,
+    // String allText,
+    // TextSegmentEnglish textSegmentEnglish,
+    TextSegmentPersian persianTextSegment,
   )?
   onSubmit;
 
-  const AddOrEditTempelate({
+  AddOrEditTempelate({
     super.key,
-    this.initEnglishText,
-    this.initPersianText,
-    this.initNotes,
+    // this.initEnglishText,
+    this.persianTextSegment,
+    // this.initExplanations,
     required this.onSubmit,
   });
 
@@ -37,21 +38,25 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
   late TextEditingController txtPersian;
   late FocusNode persianFocusNode;
   //* نکات
-  late TextEditingController txtNotes;
-  late FocusNode noteFocusNode;
+  late TextEditingController txtExplanations;
+  late FocusNode explanationFocusNode;
 
   @override
   void initState() {
     super.initState();
     //* انگلیسی
-    txtEnglish = TextEditingController(text: widget.initEnglishText);
+    txtEnglish = TextEditingController(
+      text: widget.persianTextSegment?.translation,
+    );
     englishFocusNode = FocusNode();
     //* فارسی
-    txtPersian = TextEditingController(text: widget.initPersianText);
+    txtPersian = TextEditingController(text: widget.persianTextSegment?.text);
     persianFocusNode = FocusNode();
     //* نکات
-    txtNotes = TextEditingController(text: widget.initNotes);
-    noteFocusNode = FocusNode();
+    txtExplanations = TextEditingController(
+      text: widget.persianTextSegment?.explanation,
+    );
+    explanationFocusNode = FocusNode();
   }
 
   @override
@@ -63,8 +68,8 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
     txtPersian.dispose();
     persianFocusNode.dispose();
     //* نکات
-    txtNotes.dispose();
-    noteFocusNode.dispose();
+    txtExplanations.dispose();
+    explanationFocusNode.dispose();
     super.dispose();
   }
 
@@ -208,9 +213,9 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                           color: Theme.of(context).colorScheme.outline,
                         ),
                       ),
-                      controller: txtNotes,
+                      controller: txtExplanations,
                       autofocus: false,
-                      focusNode: noteFocusNode,
+                      focusNode: explanationFocusNode,
                       textInputAction: TextInputAction.newline,
                       onEditingComplete: () {
                         // txtPersian.text = '${txtPersian.text.trim()}\n';
@@ -251,36 +256,21 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                               });
                               return;
                             }
-                            String allText =
-                                '${txtEnglish.text.trim()}\n${txtPersian.text.trim()}\n${txtNotes.text.trim()}';
-
-                            TextSegmentPersianTempelate
-                            textSegmentPersianTempelate =
-                                TextSegmentPersianTempelate(
+                            TextSegmentPersian textSegmentPersian =
+                                TextSegmentPersian(
                                   text: txtPersian.text.trim(),
                                   translation: txtEnglish.text,
-                                  explanation: txtNotes.text,
+                                  explanation: txtExplanations.text,
                                 );
 
-                            TextSegmentEnglish textSegmentEnglish =
-                                TextSegmentEnglish(
-                                  text: txtEnglish.text.trim(),
-                                  isInteractive: false,
-                                );
-
-                            widget.onSubmit?.call(
-                              allText,
-                              textSegmentEnglish,
-                              textSegmentPersianTempelate,
-                            );
+                            widget.onSubmit?.call(textSegmentPersian);
                             //
                             setState(() {
                               isDoing = false;
                             });
                           },
                           child: Text(
-                            (widget.initEnglishText == null &&
-                                    widget.initPersianText == null)
+                            (widget.persianTextSegment == null)
                                 ? 'افزودن'
                                 : 'ذخیره',
                             style: TextStyle(
