@@ -19,12 +19,12 @@ final isDualPaneProvider = StateProvider<bool>((ref) => false);
 
 class FinalTopicDetailScreen extends ConsumerStatefulWidget {
   final OriginalContent? originalContent;
-  final SearchResultSegments? searchResultSegments;
+  // final SearchResultSegments? searchResultSegments;
   final String? searchText;
   const FinalTopicDetailScreen({
     super.key,
     this.originalContent,
-    this.searchResultSegments,
+    // this.searchResultSegments,
     this.searchText,
   });
 
@@ -335,9 +335,10 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     ? _buildManualLayout(
                         nav,
                         isDualPane,
-                        widget.searchResultSegments!.enSegments,
-                        widget.searchResultSegments!.faSegments,
-                        // widget.searchResultSegments!.noteSegments,
+                        widget.originalContent?.finalTopic.contentEnglish ??
+                            <TextSegmentEnglish>[],
+                        widget.originalContent?.finalTopic.contentPersian ??
+                            <TextSegmentPersian>[],
                         sentenceStates,
                         finalTopicId,
                       )
@@ -346,24 +347,29 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         widget.originalContent!.book.contains(
                           'قالبهای موقعیتی',
                         ),
-                        widget.searchResultSegments!.enSegments,
-                        widget.searchResultSegments!.faSegments,
+                        widget.originalContent?.finalTopic.contentEnglish ??
+                            <TextSegmentEnglish>[],
+                        widget.originalContent?.finalTopic.contentPersian ??
+                            <TextSegmentPersian>[],
                         sentenceStates,
                         finalTopicId,
                       )
                     : widget.originalContent!.book.contains('قالبهای موقعیتی')
                     ? _buildPersianLayout(
-                        widget.searchResultSegments!.faSegments,
+                        widget.originalContent?.finalTopic.contentPersian ??
+                            <TextSegmentPersian>[],
                         finalTopicId,
                       )
                     : (widget.searchText == null)
                     ? _buildEnglishLayout(
-                        widget.searchResultSegments!.enSegments,
+                        widget.originalContent?.finalTopic.contentEnglish ??
+                            <TextSegmentEnglish>[],
                         sentenceStates,
                         finalTopicId,
                       )
                     : _buildEnglishLayoutForSearch(
-                        widget.searchResultSegments!.enSegments,
+                        widget.originalContent?.finalTopic.contentEnglish ??
+                            <TextSegmentEnglish>[],
                         sentenceStates,
                         finalTopicId,
                       ),
@@ -682,7 +688,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     bool isDualPane,
     List<TextSegmentEnglish> textSegmentsEnglish,
     List<TextSegmentPersian> textSegmentsPersian,
-    // List<TextSegmentPersian> textSegmentsNote,
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {

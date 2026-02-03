@@ -173,9 +173,11 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
               if (mustBeResume) {
                 ref.read(audioPlayerProvider.notifier).pause();
               }
+              /*
               final searchResultSegments = await ref
                   .read(navigationProvider.notifier)
                   .selectPageAndFinalTopicForSearchResult(originalContent);
+                  */
               Navigator.of(context)
                   .push(
                     MaterialPageRoute(
@@ -186,7 +188,7 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
                       // ),
                       builder: (context) => FinalTopicDetailScreen(
                         originalContent: originalContent,
-                        searchResultSegments: searchResultSegments,
+                        // searchResultSegments: searchResultSegments,
                         searchText: query,
                       ),
                     ),
@@ -204,6 +206,7 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
   }
 }
 
+/*
 class SearchResultSegments {
   List<TextSegmentEnglish> enSegments;
   List<TextSegmentPersian> faSegments;
@@ -214,3 +217,4 @@ class SearchResultSegments {
     // required this.noteSegments,
   });
 }
+  */

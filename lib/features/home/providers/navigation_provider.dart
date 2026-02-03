@@ -178,22 +178,12 @@ class NavigationNotifier extends _$NavigationNotifier {
 
   Future<void> selectFinalTopic(FinalTopic finalTopic) async {
     // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
-    state = state.copyWith(
-      // currentTextSegmentsEnglish: null,
-      // currentTextSegmentsPersian: null,
-      isLoading: true,
-    );
+    state = state.copyWith(isLoading: true);
 
     FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
       Directory(finalTopic.realmId),
     );
-    state = state.copyWith(
-      selectedFinalTopic: newFinalTopic,
-      // currentTextSegmentsEnglish: CfPublic().parseEnglishContent(results[0]),
-      // currentTextSegmentsPersian: CfPublic().parsePersianContent(results[1]),
-      // currentNoteTextSegments: CfPublic().parsePersianContent(results[2]),
-      isLoading: false,
-    );
+    state = state.copyWith(selectedFinalTopic: newFinalTopic, isLoading: false);
     _box.write(_kFinalTopic, finalTopic.name);
     // منطق پخش خودکار صدا
     if (finalTopic.audioFileName != null &&
@@ -206,16 +196,22 @@ class NavigationNotifier extends _$NavigationNotifier {
     }
   }
 
+  /*
   Future<SearchResultSegments> selectPageAndFinalTopicForSearchResult(
     OriginalContent originalContent,
   ) async {
+    state = state.copyWith(isLoading: true);
+
+    FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
+      Directory(originalContent.finalTopic.realmId),
+    );
     return SearchResultSegments(
-      enSegments: originalContent.finalTopic.contentEnglish,
-      faSegments: originalContent.finalTopic.contentPersian,
+      enSegments: newFinalTopic.contentEnglish,
+      faSegments: newFinalTopic.contentPersian,
       // noteSegments: noteSegments,
     );
   }
-
+*/
   void selectPageContent(PageContent pageContent) {
     state = state.copyWith(selectedPage: pageContent, selectedFinalTopic: null);
     _box.write(_kPage, pageContent.name);
