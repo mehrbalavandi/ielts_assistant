@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$NavigationState {
 
- Book? get selectedBook; Unit? get selectedUnit; Topic? get selectedTopic; PageContent? get selectedPage; FinalTopic? get selectedFinalTopic;// List<TextSegmentEnglish>? currentTextSegmentsEnglish,
+ Book? get selectedBook; Unit? get selectedUnit; Topic? get selectedTopic; PageContent? get selectedPage; FinalTopic? get selectedFinalTopic; FinalTopic? get selectedFinalTopicSearch;// List<TextSegmentEnglish>? currentTextSegmentsEnglish,
 // List<TextSegmentPersian>? currentTextSegmentsPersian,
 // List<TextSegmentPersian>? currentNoteTextSegments,
  bool get isLoading;
@@ -28,16 +28,16 @@ $NavigationStateCopyWith<NavigationState> get copyWith => _$NavigationStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NavigationState&&(identical(other.selectedBook, selectedBook) || other.selectedBook == selectedBook)&&(identical(other.selectedUnit, selectedUnit) || other.selectedUnit == selectedUnit)&&(identical(other.selectedTopic, selectedTopic) || other.selectedTopic == selectedTopic)&&(identical(other.selectedPage, selectedPage) || other.selectedPage == selectedPage)&&(identical(other.selectedFinalTopic, selectedFinalTopic) || other.selectedFinalTopic == selectedFinalTopic)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NavigationState&&(identical(other.selectedBook, selectedBook) || other.selectedBook == selectedBook)&&(identical(other.selectedUnit, selectedUnit) || other.selectedUnit == selectedUnit)&&(identical(other.selectedTopic, selectedTopic) || other.selectedTopic == selectedTopic)&&(identical(other.selectedPage, selectedPage) || other.selectedPage == selectedPage)&&(identical(other.selectedFinalTopic, selectedFinalTopic) || other.selectedFinalTopic == selectedFinalTopic)&&(identical(other.selectedFinalTopicSearch, selectedFinalTopicSearch) || other.selectedFinalTopicSearch == selectedFinalTopicSearch)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,selectedBook,selectedUnit,selectedTopic,selectedPage,selectedFinalTopic,isLoading);
+int get hashCode => Object.hash(runtimeType,selectedBook,selectedUnit,selectedTopic,selectedPage,selectedFinalTopic,selectedFinalTopicSearch,isLoading);
 
 @override
 String toString() {
-  return 'NavigationState(selectedBook: $selectedBook, selectedUnit: $selectedUnit, selectedTopic: $selectedTopic, selectedPage: $selectedPage, selectedFinalTopic: $selectedFinalTopic, isLoading: $isLoading)';
+  return 'NavigationState(selectedBook: $selectedBook, selectedUnit: $selectedUnit, selectedTopic: $selectedTopic, selectedPage: $selectedPage, selectedFinalTopic: $selectedFinalTopic, selectedFinalTopicSearch: $selectedFinalTopicSearch, isLoading: $isLoading)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $NavigationStateCopyWith<$Res>  {
   factory $NavigationStateCopyWith(NavigationState value, $Res Function(NavigationState) _then) = _$NavigationStateCopyWithImpl;
 @useResult
 $Res call({
- Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, bool isLoading
+ Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, FinalTopic? selectedFinalTopicSearch, bool isLoading
 });
 
 
-$BookCopyWith<$Res>? get selectedBook;$UnitCopyWith<$Res>? get selectedUnit;$TopicCopyWith<$Res>? get selectedTopic;$PageContentCopyWith<$Res>? get selectedPage;$FinalTopicCopyWith<$Res>? get selectedFinalTopic;
+$BookCopyWith<$Res>? get selectedBook;$UnitCopyWith<$Res>? get selectedUnit;$TopicCopyWith<$Res>? get selectedTopic;$PageContentCopyWith<$Res>? get selectedPage;$FinalTopicCopyWith<$Res>? get selectedFinalTopic;$FinalTopicCopyWith<$Res>? get selectedFinalTopicSearch;
 
 }
 /// @nodoc
@@ -65,13 +65,14 @@ class _$NavigationStateCopyWithImpl<$Res>
 
 /// Create a copy of NavigationState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? selectedBook = freezed,Object? selectedUnit = freezed,Object? selectedTopic = freezed,Object? selectedPage = freezed,Object? selectedFinalTopic = freezed,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? selectedBook = freezed,Object? selectedUnit = freezed,Object? selectedTopic = freezed,Object? selectedPage = freezed,Object? selectedFinalTopic = freezed,Object? selectedFinalTopicSearch = freezed,Object? isLoading = null,}) {
   return _then(_self.copyWith(
 selectedBook: freezed == selectedBook ? _self.selectedBook : selectedBook // ignore: cast_nullable_to_non_nullable
 as Book?,selectedUnit: freezed == selectedUnit ? _self.selectedUnit : selectedUnit // ignore: cast_nullable_to_non_nullable
 as Unit?,selectedTopic: freezed == selectedTopic ? _self.selectedTopic : selectedTopic // ignore: cast_nullable_to_non_nullable
 as Topic?,selectedPage: freezed == selectedPage ? _self.selectedPage : selectedPage // ignore: cast_nullable_to_non_nullable
 as PageContent?,selectedFinalTopic: freezed == selectedFinalTopic ? _self.selectedFinalTopic : selectedFinalTopic // ignore: cast_nullable_to_non_nullable
+as FinalTopic?,selectedFinalTopicSearch: freezed == selectedFinalTopicSearch ? _self.selectedFinalTopicSearch : selectedFinalTopicSearch // ignore: cast_nullable_to_non_nullable
 as FinalTopic?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -135,6 +136,18 @@ $FinalTopicCopyWith<$Res>? get selectedFinalTopic {
 
   return $FinalTopicCopyWith<$Res>(_self.selectedFinalTopic!, (value) {
     return _then(_self.copyWith(selectedFinalTopic: value));
+  });
+}/// Create a copy of NavigationState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinalTopicCopyWith<$Res>? get selectedFinalTopicSearch {
+    if (_self.selectedFinalTopicSearch == null) {
+    return null;
+  }
+
+  return $FinalTopicCopyWith<$Res>(_self.selectedFinalTopicSearch!, (value) {
+    return _then(_self.copyWith(selectedFinalTopicSearch: value));
   });
 }
 }
@@ -215,10 +228,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  FinalTopic? selectedFinalTopicSearch,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NavigationState() when $default != null:
-return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.isLoading);case _:
+return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.selectedFinalTopicSearch,_that.isLoading);case _:
   return orElse();
 
 }
@@ -236,10 +249,10 @@ return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  bool isLoading)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  FinalTopic? selectedFinalTopicSearch,  bool isLoading)  $default,) {final _that = this;
 switch (_that) {
 case _NavigationState():
-return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.isLoading);}
+return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.selectedFinalTopicSearch,_that.isLoading);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -253,10 +266,10 @@ return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  bool isLoading)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Book? selectedBook,  Unit? selectedUnit,  Topic? selectedTopic,  PageContent? selectedPage,  FinalTopic? selectedFinalTopic,  FinalTopic? selectedFinalTopicSearch,  bool isLoading)?  $default,) {final _that = this;
 switch (_that) {
 case _NavigationState() when $default != null:
-return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.isLoading);case _:
+return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.selectedPage,_that.selectedFinalTopic,_that.selectedFinalTopicSearch,_that.isLoading);case _:
   return null;
 
 }
@@ -268,7 +281,7 @@ return $default(_that.selectedBook,_that.selectedUnit,_that.selectedTopic,_that.
 
 
 class _NavigationState implements NavigationState {
-  const _NavigationState({this.selectedBook, this.selectedUnit, this.selectedTopic, this.selectedPage, this.selectedFinalTopic, this.isLoading = false});
+  const _NavigationState({this.selectedBook, this.selectedUnit, this.selectedTopic, this.selectedPage, this.selectedFinalTopic, this.selectedFinalTopicSearch, this.isLoading = false});
   
 
 @override final  Book? selectedBook;
@@ -276,6 +289,7 @@ class _NavigationState implements NavigationState {
 @override final  Topic? selectedTopic;
 @override final  PageContent? selectedPage;
 @override final  FinalTopic? selectedFinalTopic;
+@override final  FinalTopic? selectedFinalTopicSearch;
 // List<TextSegmentEnglish>? currentTextSegmentsEnglish,
 // List<TextSegmentPersian>? currentTextSegmentsPersian,
 // List<TextSegmentPersian>? currentNoteTextSegments,
@@ -291,16 +305,16 @@ _$NavigationStateCopyWith<_NavigationState> get copyWith => __$NavigationStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NavigationState&&(identical(other.selectedBook, selectedBook) || other.selectedBook == selectedBook)&&(identical(other.selectedUnit, selectedUnit) || other.selectedUnit == selectedUnit)&&(identical(other.selectedTopic, selectedTopic) || other.selectedTopic == selectedTopic)&&(identical(other.selectedPage, selectedPage) || other.selectedPage == selectedPage)&&(identical(other.selectedFinalTopic, selectedFinalTopic) || other.selectedFinalTopic == selectedFinalTopic)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NavigationState&&(identical(other.selectedBook, selectedBook) || other.selectedBook == selectedBook)&&(identical(other.selectedUnit, selectedUnit) || other.selectedUnit == selectedUnit)&&(identical(other.selectedTopic, selectedTopic) || other.selectedTopic == selectedTopic)&&(identical(other.selectedPage, selectedPage) || other.selectedPage == selectedPage)&&(identical(other.selectedFinalTopic, selectedFinalTopic) || other.selectedFinalTopic == selectedFinalTopic)&&(identical(other.selectedFinalTopicSearch, selectedFinalTopicSearch) || other.selectedFinalTopicSearch == selectedFinalTopicSearch)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,selectedBook,selectedUnit,selectedTopic,selectedPage,selectedFinalTopic,isLoading);
+int get hashCode => Object.hash(runtimeType,selectedBook,selectedUnit,selectedTopic,selectedPage,selectedFinalTopic,selectedFinalTopicSearch,isLoading);
 
 @override
 String toString() {
-  return 'NavigationState(selectedBook: $selectedBook, selectedUnit: $selectedUnit, selectedTopic: $selectedTopic, selectedPage: $selectedPage, selectedFinalTopic: $selectedFinalTopic, isLoading: $isLoading)';
+  return 'NavigationState(selectedBook: $selectedBook, selectedUnit: $selectedUnit, selectedTopic: $selectedTopic, selectedPage: $selectedPage, selectedFinalTopic: $selectedFinalTopic, selectedFinalTopicSearch: $selectedFinalTopicSearch, isLoading: $isLoading)';
 }
 
 
@@ -311,11 +325,11 @@ abstract mixin class _$NavigationStateCopyWith<$Res> implements $NavigationState
   factory _$NavigationStateCopyWith(_NavigationState value, $Res Function(_NavigationState) _then) = __$NavigationStateCopyWithImpl;
 @override @useResult
 $Res call({
- Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, bool isLoading
+ Book? selectedBook, Unit? selectedUnit, Topic? selectedTopic, PageContent? selectedPage, FinalTopic? selectedFinalTopic, FinalTopic? selectedFinalTopicSearch, bool isLoading
 });
 
 
-@override $BookCopyWith<$Res>? get selectedBook;@override $UnitCopyWith<$Res>? get selectedUnit;@override $TopicCopyWith<$Res>? get selectedTopic;@override $PageContentCopyWith<$Res>? get selectedPage;@override $FinalTopicCopyWith<$Res>? get selectedFinalTopic;
+@override $BookCopyWith<$Res>? get selectedBook;@override $UnitCopyWith<$Res>? get selectedUnit;@override $TopicCopyWith<$Res>? get selectedTopic;@override $PageContentCopyWith<$Res>? get selectedPage;@override $FinalTopicCopyWith<$Res>? get selectedFinalTopic;@override $FinalTopicCopyWith<$Res>? get selectedFinalTopicSearch;
 
 }
 /// @nodoc
@@ -328,13 +342,14 @@ class __$NavigationStateCopyWithImpl<$Res>
 
 /// Create a copy of NavigationState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? selectedBook = freezed,Object? selectedUnit = freezed,Object? selectedTopic = freezed,Object? selectedPage = freezed,Object? selectedFinalTopic = freezed,Object? isLoading = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? selectedBook = freezed,Object? selectedUnit = freezed,Object? selectedTopic = freezed,Object? selectedPage = freezed,Object? selectedFinalTopic = freezed,Object? selectedFinalTopicSearch = freezed,Object? isLoading = null,}) {
   return _then(_NavigationState(
 selectedBook: freezed == selectedBook ? _self.selectedBook : selectedBook // ignore: cast_nullable_to_non_nullable
 as Book?,selectedUnit: freezed == selectedUnit ? _self.selectedUnit : selectedUnit // ignore: cast_nullable_to_non_nullable
 as Unit?,selectedTopic: freezed == selectedTopic ? _self.selectedTopic : selectedTopic // ignore: cast_nullable_to_non_nullable
 as Topic?,selectedPage: freezed == selectedPage ? _self.selectedPage : selectedPage // ignore: cast_nullable_to_non_nullable
 as PageContent?,selectedFinalTopic: freezed == selectedFinalTopic ? _self.selectedFinalTopic : selectedFinalTopic // ignore: cast_nullable_to_non_nullable
+as FinalTopic?,selectedFinalTopicSearch: freezed == selectedFinalTopicSearch ? _self.selectedFinalTopicSearch : selectedFinalTopicSearch // ignore: cast_nullable_to_non_nullable
 as FinalTopic?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -399,6 +414,18 @@ $FinalTopicCopyWith<$Res>? get selectedFinalTopic {
 
   return $FinalTopicCopyWith<$Res>(_self.selectedFinalTopic!, (value) {
     return _then(_self.copyWith(selectedFinalTopic: value));
+  });
+}/// Create a copy of NavigationState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FinalTopicCopyWith<$Res>? get selectedFinalTopicSearch {
+    if (_self.selectedFinalTopicSearch == null) {
+    return null;
+  }
+
+  return $FinalTopicCopyWith<$Res>(_self.selectedFinalTopicSearch!, (value) {
+    return _then(_self.copyWith(selectedFinalTopicSearch: value));
   });
 }
 }

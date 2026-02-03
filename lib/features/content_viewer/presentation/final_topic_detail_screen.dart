@@ -56,21 +56,16 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
   Widget build(BuildContext context) {
     final isDualPane = ref.watch(isDualPaneProvider);
     final nav = ref.watch(navigationProvider);
-    final allContent = ref.watch(allContentProvider);
-    if (widget.searchText == null) {
+    final selectedFinalTopic = nav.selectedFinalTopic;
+    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+    if (selectedFinalTopic != null) {
       final selectedBook = nav.selectedBook;
       final selectedTopic = nav.selectedTopic;
       final selectedUnit = nav.selectedUnit;
       final selectedPage = nav.selectedPage;
-      final selectedFinalTopic = nav.selectedFinalTopic;
-      final textSegmentsEnglish = selectedFinalTopic?.contentEnglish;
-      final textSegmentsPersian = selectedFinalTopic?.contentPersian;
+      final textSegmentsEnglish = selectedFinalTopic.contentEnglish;
+      final textSegmentsPersian = selectedFinalTopic.contentPersian;
 
-      if (selectedFinalTopic == null) {
-        return const Scaffold(
-          body: Center(child: Text('درسی انتخاب نشده است')),
-        );
-      }
       final finalTopicId = selectedFinalTopic.name;
       String title =
           '${selectedBook!.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${selectedUnit!.name.replaceAll('Unit ', 'U ')}>${selectedPage!.name.replaceAll('Page ', 'P ')}>${selectedFinalTopic.name.substring(selectedFinalTopic.name.indexOf(' ') + 1)}';
@@ -139,8 +134,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     ? _buildManualLayout(
                         nav,
                         isDualPane,
-                        textSegmentsEnglish!,
-                        textSegmentsPersian!,
+                        textSegmentsEnglish,
+                        textSegmentsPersian,
                         // textSegmentsNote,
                         sentenceStates,
                         finalTopicId,
@@ -148,15 +143,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     : isDualPane
                     ? _buildEnglishAndPersianLayout(
                         selectedBook.name.contains('قالبهای موقعیتی'),
-                        textSegmentsEnglish!,
-                        textSegmentsPersian!,
+                        textSegmentsEnglish,
+                        textSegmentsPersian,
                         sentenceStates,
                         finalTopicId,
                       )
                     : selectedBook.name.contains('قالبهای موقعیتی')
-                    ? _buildPersianLayout(textSegmentsPersian!, finalTopicId)
+                    ? _buildPersianLayout(textSegmentsPersian, finalTopicId)
                     : _buildEnglishLayout(
-                        textSegmentsEnglish!,
+                        textSegmentsEnglish,
                         sentenceStates,
                         finalTopicId,
                       ),
@@ -288,10 +283,10 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           ),
         ),
       );
-    } else {
-      final String finalTopicId = widget.originalContent!.finalTopic.name;
+    } else if (selectedFinalTopicSearch != null) {
+      final String finalTopicId = selectedFinalTopicSearch.name;
       String title =
-          '${widget.originalContent!.book.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.replaceAll('Page ', 'P ')}>${widget.originalContent!.finalTopic.name.substring(widget.originalContent!.finalTopic.name.indexOf(' ') + 1)}';
+          '${widget.originalContent!.book.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.replaceAll('Page ', 'P ')}>${selectedFinalTopicSearch.name.substring(selectedFinalTopicSearch.name.indexOf(' ') + 1)}';
       // استفاده از پروایدر به صورت family
       // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
       final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
@@ -335,10 +330,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     ? _buildManualLayout(
                         nav,
                         isDualPane,
-                        widget.originalContent?.finalTopic.contentEnglish ??
-                            <TextSegmentEnglish>[],
-                        widget.originalContent?.finalTopic.contentPersian ??
-                            <TextSegmentPersian>[],
+                        selectedFinalTopicSearch.contentEnglish,
+                        selectedFinalTopicSearch.contentPersian,
                         sentenceStates,
                         finalTopicId,
                       )
@@ -347,29 +340,24 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         widget.originalContent!.book.contains(
                           'قالبهای موقعیتی',
                         ),
-                        widget.originalContent?.finalTopic.contentEnglish ??
-                            <TextSegmentEnglish>[],
-                        widget.originalContent?.finalTopic.contentPersian ??
-                            <TextSegmentPersian>[],
+                        selectedFinalTopicSearch.contentEnglish,
+                        selectedFinalTopicSearch.contentPersian,
                         sentenceStates,
                         finalTopicId,
                       )
                     : widget.originalContent!.book.contains('قالبهای موقعیتی')
                     ? _buildPersianLayout(
-                        widget.originalContent?.finalTopic.contentPersian ??
-                            <TextSegmentPersian>[],
+                        selectedFinalTopicSearch.contentPersian,
                         finalTopicId,
                       )
                     : (widget.searchText == null)
                     ? _buildEnglishLayout(
-                        widget.originalContent?.finalTopic.contentEnglish ??
-                            <TextSegmentEnglish>[],
+                        selectedFinalTopicSearch.contentEnglish,
                         sentenceStates,
                         finalTopicId,
                       )
                     : _buildEnglishLayoutForSearch(
-                        widget.originalContent?.finalTopic.contentEnglish ??
-                            <TextSegmentEnglish>[],
+                        selectedFinalTopicSearch.contentEnglish,
                         sentenceStates,
                         finalTopicId,
                       ),
@@ -378,6 +366,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           ),
         ),
       );
+    } else {
+      return const Scaffold(body: Center(child: Text('درسی انتخاب نشده است')));
     }
   }
 
@@ -831,15 +821,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         index,
                       );
                       if (result != null && result == true) {
-                        if (widget.searchText == null) {
+                        if (nav.selectedFinalTopic != null) {
                           ref
                               .read(navigationProvider.notifier)
-                              .selectFinalTopic(nav.selectedFinalTopic!);
-                        } else {
+                              .updateFinalTopic(nav.selectedFinalTopic!);
+                        } else if (nav.selectedFinalTopicSearch != null) {
                           ref
                               .read(navigationProvider.notifier)
                               .selectPageAndFinalTopicForSearchResult(
-                                widget.originalContent!,
+                                nav.selectedFinalTopicSearch!,
                               );
                         }
                         CfPublic()
@@ -944,15 +934,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           index,
                         );
                         if (result != null && result == true) {
-                          if (widget.searchText == null) {
+                          if (nav.selectedFinalTopic != null) {
                             ref
                                 .read(navigationProvider.notifier)
-                                .selectFinalTopic(nav.selectedFinalTopic!);
-                          } else {
+                                .updateFinalTopic(nav.selectedFinalTopic!);
+                          } else if (nav.selectedFinalTopicSearch != null) {
                             ref
                                 .read(navigationProvider.notifier)
                                 .selectPageAndFinalTopicForSearchResult(
-                                  widget.originalContent!,
+                                  nav.selectedFinalTopicSearch!,
                                 );
                           }
                           CfPublic()
@@ -999,15 +989,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         )
         .then((value) {
           if (value != null && value == true) {
-            if (widget.searchText == null) {
+            if (nav.selectedFinalTopic != null) {
               ref
                   .read(navigationProvider.notifier)
-                  .selectFinalTopic(nav.selectedFinalTopic!);
-            } else {
+                  .updateFinalTopic(nav.selectedFinalTopic!);
+            } else if (nav.selectedFinalTopicSearch != null) {
               ref
                   .read(navigationProvider.notifier)
                   .selectPageAndFinalTopicForSearchResult(
-                    widget.originalContent!,
+                    nav.selectedFinalTopicSearch!,
                   );
             }
             CfPublic()

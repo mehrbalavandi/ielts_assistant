@@ -8,7 +8,6 @@ import 'package:ielts_assistant/features/content_viewer/data/content_service.dar
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
-import 'package:ielts_assistant/shared/customer_search_delegate.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -23,6 +22,7 @@ sealed class NavigationState with _$NavigationState {
     Topic? selectedTopic,
     PageContent? selectedPage,
     FinalTopic? selectedFinalTopic,
+    FinalTopic? selectedFinalTopicSearch,
     // List<TextSegmentEnglish>? currentTextSegmentsEnglish,
     // List<TextSegmentPersian>? currentTextSegmentsPersian,
     // List<TextSegmentPersian>? currentNoteTextSegments,
@@ -180,10 +180,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
     state = state.copyWith(isLoading: true);
 
-    FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
-      Directory(finalTopic.realmId),
-    );
-    state = state.copyWith(selectedFinalTopic: newFinalTopic, isLoading: false);
+    state = state.copyWith(selectedFinalTopic: finalTopic, isLoading: false);
     _box.write(_kFinalTopic, finalTopic.name);
     // منطق پخش خودکار صدا
     if (finalTopic.audioFileName != null &&
@@ -191,27 +188,52 @@ class NavigationNotifier extends _$NavigationNotifier {
       final fullPath = _buildFullPath(finalTopic);
       await Future.delayed(const Duration(milliseconds: 300));
       ref.read(audioPlayerProvider.notifier).playFile(fullPath);
-
-      ///storage/emulated/0/000- English Learning/00- ielts assistant/mindset 01/Tracks/66 Mindset_L1_66.sound
     }
   }
 
-  /*
-  Future<SearchResultSegments> selectPageAndFinalTopicForSearchResult(
-    OriginalContent originalContent,
+  Future<void> updateFinalTopic(FinalTopic finalTopic) async {
+    // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
+    state = state.copyWith(isLoading: true);
+
+    FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
+      Directory(finalTopic.realmId),
+    );
+    final books = ref.read(allContentProvider).value;
+    final book = books!.firstWhere((b) => b == state.selectedBook);
+    final unit = book.units.firstWhere((u) => u == state.selectedUnit);
+    final topic = unit.topics.firstWhere((t) => t == state.selectedTopic);
+    final page = topic.pageContents.firstWhere((t) => t == state.selectedPage);
+
+    final newFinalTopics = List<FinalTopic>.from(page.finalTopics);
+    final oldFinalTopic = newFinalTopics.firstWhere(
+      (x) => x.name == finalTopic.name,
+    );
+    final idx = newFinalTopics.indexOf(oldFinalTopic);
+    newFinalTopics.remove(oldFinalTopic);
+    newFinalTopics.insert(idx, finalTopic);
+    // page=page.copyWith(finalTopics: newFinalTopics);
+    state = state.copyWith(
+      selectedPage: page,
+      selectedFinalTopic: newFinalTopic,
+      isLoading: false,
+    );
+  }
+
+  Future<void> selectPageAndFinalTopicForSearchResult(
+    FinalTopic finalTopic,
   ) async {
     state = state.copyWith(isLoading: true);
 
     FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
-      Directory(originalContent.finalTopic.realmId),
+      Directory(finalTopic.realmId),
     );
-    return SearchResultSegments(
-      enSegments: newFinalTopic.contentEnglish,
-      faSegments: newFinalTopic.contentPersian,
-      // noteSegments: noteSegments,
+    state = state.copyWith(
+      selectedFinalTopicSearch: newFinalTopic,
+      isLoading: false,
     );
+    // منطق پخش خودکار صدا
   }
-*/
+
   void selectPageContent(PageContent pageContent) {
     state = state.copyWith(selectedPage: pageContent, selectedFinalTopic: null);
     _box.write(_kPage, pageContent.name);
@@ -236,6 +258,8 @@ class NavigationNotifier extends _$NavigationNotifier {
     if (state.selectedFinalTopic != null) {
       state = state.copyWith(selectedFinalTopic: null);
       _box.remove(_kFinalTopic);
+    } else if (state.selectedFinalTopicSearch != null) {
+      state = state.copyWith(selectedFinalTopicSearch: null);
     } else if (state.selectedPage != null) {
       state = state.copyWith(selectedPage: null);
       _box.remove(_kPage);

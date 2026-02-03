@@ -58,6 +58,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ref.read(navigationProvider.notifier).goBack();
             });
       }
+      /*
+       else if (next.selectedFinalTopicSearch != null &&
+          previous?.selectedFinalTopicSearch == null) {
+        bool mustBeResume = ref.read(audioPlayerProvider.notifier).isPlaying();
+        if (mustBeResume) {
+          ref.read(audioPlayerProvider.notifier).pause();
+        }
+        ref.read(isPlayerExpandedProvider.notifier).state = false;
+        Navigator.of(context)
+            .push(
+              MaterialPageRoute(
+                builder: (context) => const FinalTopicDetailScreen(),
+              ),
+            )
+            .then((_) {
+              ref.read(navigationProvider.notifier).goBack();
+              if (mustBeResume) {
+                ref.read(audioPlayerProvider.notifier).resume();
+              }
+            });
+      }
+      */
     });
 
     return PopScope(

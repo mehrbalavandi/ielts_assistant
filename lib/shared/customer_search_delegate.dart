@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/final_topic_detail_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/search_result_screen.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/shared/list_item_search.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
@@ -173,27 +172,23 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
               if (mustBeResume) {
                 ref.read(audioPlayerProvider.notifier).pause();
               }
-              /*
-              final searchResultSegments = await ref
+              ref
                   .read(navigationProvider.notifier)
-                  .selectPageAndFinalTopicForSearchResult(originalContent);
-                  */
+                  .selectPageAndFinalTopicForSearchResult(
+                    originalContent.finalTopic,
+                  );
+
               Navigator.of(context)
                   .push(
                     MaterialPageRoute(
-                      // builder: (context) => SearchResultScreen(
-                      //   originalContent: originalContent,
-                      //   searchResultSegments: searchResultSegments,
-                      //   searchText: query,
-                      // ),
                       builder: (context) => FinalTopicDetailScreen(
                         originalContent: originalContent,
-                        // searchResultSegments: searchResultSegments,
                         searchText: query,
                       ),
                     ),
                   )
                   .then((_) {
+                    ref.read(navigationProvider.notifier).goBack();
                     if (mustBeResume) {
                       ref.read(audioPlayerProvider.notifier).resume();
                     }

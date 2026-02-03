@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
-import 'package:path/path.dart' as p;
 part 'content_models.freezed.dart';
 part 'content_models.g.dart';
 
