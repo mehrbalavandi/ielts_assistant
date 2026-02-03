@@ -210,9 +210,6 @@ class NavigationNotifier extends _$NavigationNotifier {
   Future<SearchResultSegments> selectPageAndFinalTopicForSearchResult(
     OriginalContent originalContent,
   ) async {
-    // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
-    state = state.copyWith(isLoading: true);
-    state = state.copyWith(isLoading: false);
     return SearchResultSegments(
       enSegments: originalContent.finalTopic.contentEnglish,
       faSegments: originalContent.finalTopic.contentPersian,

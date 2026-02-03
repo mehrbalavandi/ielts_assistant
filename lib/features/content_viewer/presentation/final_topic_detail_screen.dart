@@ -56,6 +56,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
   Widget build(BuildContext context) {
     final isDualPane = ref.watch(isDualPaneProvider);
     final nav = ref.watch(navigationProvider);
+    final allContent = ref.watch(allContentProvider);
     if (widget.searchText == null) {
       final selectedBook = nav.selectedBook;
       final selectedTopic = nav.selectedTopic;
@@ -677,6 +678,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
 
   Widget _buildManualLayout(
     NavigationState nav,
+    // AsyncValue allContent,
     bool isDualPane,
     List<TextSegmentEnglish> textSegmentsEnglish,
     List<TextSegmentPersian> textSegmentsPersian,
@@ -726,27 +728,26 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         style: style,
       );
     }).toList();
-    // final List<TextSpan> noteSpans = textSegmentsNote.map((item) {
-    //   // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
-    //   TextStyle style = TextStyle(
-    //     fontSize: (item.isBold != null && item.isBold == true)
-    //         ? Theme.of(context).textTheme.titleMedium!.fontSize
-    //         : Theme.of(context).textTheme.bodyMedium!.fontSize,
-    //     fontWeight: (item.isBold != null && item.isBold == true)
-    //         ? FontWeight.bold
-    //         : FontWeight.normal,
-    //     color: (item.isBold != null && item.isBold == true)
-    //         ? Colors.deepOrange
-    //         : Theme.of(
-    //             context,
-    //           ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-    //     fontFamily: FontFamily.yekanBakhRegular.asText,
-    //   );
-    //   return TextSpan(
-    //     text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
-    //     style: style,
-    //   );
-    // }).toList();
+    // return allContent.when(
+    //   data: (books) {
+    //     if (books.isEmpty) {
+    //       return const Center(
+    //         child: Text('هیچ کتابی در پوشه مورد نظر پیدا نشد.'),
+    //       );
+    //     }
+    //     return _buildGrid(
+    //       title: 'کتاب‌های آموزشی',
+    //       items: books.map((e) => e.name).cast<String>().toList(),
+    //       icon: Icons.book_outlined,
+    //       onTap: (index) =>
+    //           ref.read(navigationProvider.notifier).selectBook(books[index]),
+    //     );
+    //   },
+    //   loading: () => const Center(child: CircularProgressIndicator()),
+    //   error: (e, _) => Center(
+    //     child: const Text('مسیر فایل‌ها تنظیم نشده یا در دسترس نیست.'),
+    //   ),
+    // );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       // ✅ تغییر به Column برای نمایش بالا و پایین
