@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
@@ -182,14 +184,11 @@ class NavigationNotifier extends _$NavigationNotifier {
       isLoading: true,
     );
 
-    // خواندن موازی برای بهینه‌سازی زمان
-    // final results = await Future.wait([
-    //   _contentService.readFile(finalTopic.filePathEnglish),
-    //   _contentService.readFile(finalTopic.filePathPersian),
-    //   _contentService.readFile(finalTopic.notesFilePath),
-    // ]);
+    FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
+      Directory(finalTopic.realmId),
+    );
     state = state.copyWith(
-      selectedFinalTopic: finalTopic,
+      selectedFinalTopic: newFinalTopic,
       // currentTextSegmentsEnglish: CfPublic().parseEnglishContent(results[0]),
       // currentTextSegmentsPersian: CfPublic().parsePersianContent(results[1]),
       // currentNoteTextSegments: CfPublic().parsePersianContent(results[2]),
