@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
@@ -107,12 +109,16 @@ class NavigationNotifier extends _$NavigationNotifier {
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
     Future.delayed(Duration.zero).then((value) async {
-      CfPublic()
-          .getOriginalContentsAsync(ref.read(allContentProvider).value, state)
-          .then((result) {
-            ref.read(originalContentListProvider.notifier).state = result;
-          });
+      updateSearchListData();
     });
+  }
+
+  void updateSearchListData() {
+    CfPublic()
+        .getSearchListDataAsync(ref.read(allContentProvider).value, state)
+        .then((result) {
+          ref.read(searchListProvider.notifier).state = result;
+        });
   }
 
   void selectUnit(Unit unit) {
@@ -144,12 +150,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     FinalTopic finalTopic,
   ) async {
     // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
-    state = state.copyWith(
-      // currentTextSegmentsEnglish: null,
-      // currentTextSegmentsPersian: null,
-      // currentNoteTextSegments: null,
-      isLoading: true,
-    );
+    state = state.copyWith(isLoading: true);
 
     // خواندن موازی برای بهینه‌سازی زمان
     // final results = await Future.wait([
@@ -199,39 +200,96 @@ class NavigationNotifier extends _$NavigationNotifier {
       Directory(finalTopic.realmId),
     );
     final books = ref.read(allContentProvider).value;
-    final book = books!.firstWhere((b) => b == state.selectedBook);
-    final unit = book.units.firstWhere((u) => u == state.selectedUnit);
-    final topic = unit.topics.firstWhere((t) => t == state.selectedTopic);
-    final page = topic.pageContents.firstWhere((t) => t == state.selectedPage);
+    final book = books!.firstWhereOrNull((b) => b == state.selectedBook);
+    if (book != null) {
+      final unit = book.units.firstWhere((u) => u == state.selectedUnit);
+      final topic = unit.topics.firstWhere((t) => t == state.selectedTopic);
+      final page = topic.pageContents.firstWhere(
+        (t) => t == state.selectedPage,
+      );
+      updateAllContents(books, book, unit, topic, page, newFinalTopic);
+      updateSearchListData();
+    }
 
-    final newFinalTopics = List<FinalTopic>.from(page.finalTopics);
-    final oldFinalTopic = newFinalTopics.firstWhere(
-      (x) => x.name == finalTopic.name,
-    );
-    final idx = newFinalTopics.indexOf(oldFinalTopic);
-    newFinalTopics.remove(oldFinalTopic);
-    newFinalTopics.insert(idx, finalTopic);
-    // page=page.copyWith(finalTopics: newFinalTopics);
-    state = state.copyWith(
-      selectedPage: page,
-      selectedFinalTopic: newFinalTopic,
-      isLoading: false,
-    );
+    state = state.copyWith(selectedFinalTopic: newFinalTopic, isLoading: false);
   }
 
   Future<void> selectPageAndFinalTopicForSearchResult(
     FinalTopic finalTopic,
   ) async {
+    state = state.copyWith(
+      selectedFinalTopicSearch: finalTopic,
+      isLoading: false,
+    );
+  }
+
+  Future<void> updateFinalTopicForSearchResult(
+    OriginalContent originalContent,
+  ) async {
     state = state.copyWith(isLoading: true);
 
     FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
-      Directory(finalTopic.realmId),
+      Directory(originalContent.finalTopic.realmId),
     );
+    final books = ref.read(allContentProvider).value;
+    final book = originalContent.book;
+    final unit = originalContent.unit;
+    final topic = originalContent.topic;
+    final page = originalContent.page;
+
+    await updateAllContents(books!, book, unit, topic, page, newFinalTopic);
+    updateSearchListData();
     state = state.copyWith(
       selectedFinalTopicSearch: newFinalTopic,
       isLoading: false,
     );
-    // منطق پخش خودکار صدا
+  }
+
+  Future<void> updateAllContents(
+    List<Book> books,
+    Book book,
+    Unit unit,
+    Topic topic,
+    PageContent page,
+    FinalTopic finalTopic,
+  ) async {
+    final oldIndex = page.finalTopics.indexWhere(
+      (x) => x.name == finalTopic.name,
+    );
+    if (oldIndex == -1) {
+      return; // اگر پیدا نشد
+    }
+
+    final newFinalTopics = List<FinalTopic>.from(page.finalTopics)
+      ..[oldIndex] = finalTopic;
+
+    final newPage = page.copyWith(finalTopics: newFinalTopics);
+    final newPageContents = List<PageContent>.from(topic.pageContents)
+      ..[topic.pageContents.indexOf(page)] = newPage;
+
+    final newTopic = topic.copyWith(pageContents: newPageContents);
+    final newTopics = List<Topic>.from(unit.topics)
+      ..[unit.topics.indexOf(topic)] = newTopic;
+
+    final newUnit = unit.copyWith(topics: newTopics);
+    final newUnits = List<Unit>.from(book.units)
+      ..[book.units.indexOf(unit)] = newUnit;
+
+    final newBook = book.copyWith(units: newUnits);
+    final newBooks = List<Book>.from(books)..[books.indexOf(book)] = newBook;
+    // final newBooks = List<Book>.from(books);
+    // int idx = books.indexOf(books.where((x) => x.name == newBook.name).first);
+    // newBooks[idx] = newBook;
+    await ref.read(allContentProvider.notifier).updateBooks(newBooks);
+
+    if (state.selectedFinalTopicSearch == null) {
+      state = state.copyWith(
+        selectedBook: newBook,
+        selectedUnit: newUnit,
+        selectedTopic: newTopic,
+        selectedPage: newPage,
+      );
+    }
   }
 
   void selectPageContent(PageContent pageContent) {
@@ -276,6 +334,6 @@ class NavigationNotifier extends _$NavigationNotifier {
   }
 }
 
-final originalContentListProvider = StateProvider<List<OriginalContent>>(
+final searchListProvider = StateProvider<List<OriginalContent>>(
   (ref) => <OriginalContent>[],
 );

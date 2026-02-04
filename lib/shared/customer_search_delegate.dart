@@ -17,18 +17,19 @@ import 'package:ielts_assistant/shared/utility_persian.dart';
 class CustomerSearchDelegate extends SearchDelegate<String> {
   WidgetRef ref;
   // final Future<List<OriginalContent>> dataFuture;
-  final List<OriginalContent> data;
+  // final List<OriginalContent> data;
   List<OriginalContent>? _cachedData;
 
   CustomerSearchDelegate({
     required this.ref,
     // required this.dataFuture,
-    required this.data,
+    // required this.data,
   });
   Future<List<OriginalContent>> _getFilteredData() async {
     // اگر داده‌ها قبلاً لود نشده‌اند، منتظر لود شدن می‌مانیم
     // _cachedData ??= await dataFuture;
-    _cachedData ??= await data;
+    // _cachedData ??= await ref.read(searchListProvider);
+    _cachedData = await ref.read(searchListProvider);
 
     // حالا که داده‌ها قطعی در _cachedData هستند، فیلتر می‌کنیم
     if (query.isEmpty) {

@@ -306,10 +306,10 @@ class TextSegmentPersianTempelate {
 }
 */
 class OriginalContent {
-  final String book;
-  final String unit;
-  final String topic;
-  final String page;
+  final Book book;
+  final Unit unit;
+  final Topic topic;
+  final PageContent page;
   final String root;
   final String originalContent;
   final FinalTopic finalTopic;

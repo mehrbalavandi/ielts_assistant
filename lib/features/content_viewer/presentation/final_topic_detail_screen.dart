@@ -105,14 +105,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   onPressed: () async {
                     var result = await showSearch(
                       context: context,
-                      delegate: CustomerSearchDelegate(
-                        ref: ref,
-                        // dataFuture: CfPublic().getOriginalContentsAsync(
-                        //   ref.read(allContentProvider).value,
-                        //   ref.read(navigationProvider),
-                        // ),
-                        data: ref.read(originalContentListProvider),
-                      ),
+                      delegate: CustomerSearchDelegate(ref: ref),
                     );
                     if (result != null) {}
                   },
@@ -286,13 +279,13 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     } else if (selectedFinalTopicSearch != null) {
       final String finalTopicId = selectedFinalTopicSearch.name;
       String title =
-          '${widget.originalContent!.book.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.replaceAll('Page ', 'P ')}>${selectedFinalTopicSearch.name.substring(selectedFinalTopicSearch.name.indexOf(' ') + 1)}';
+          '${widget.originalContent!.book.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.name.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.name.replaceAll('Page ', 'P ')}>${selectedFinalTopicSearch.name.substring(selectedFinalTopicSearch.name.indexOf(' ') + 1)}';
       // استفاده از پروایدر به صورت family
       // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
       final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
       final isManualFinalTopic =
-          (widget.originalContent!.book.contains('قالبهای موقعیتی')) &&
-          (widget.originalContent!.page == '00');
+          (widget.originalContent!.book.name.contains('قالبهای موقعیتی')) &&
+          (widget.originalContent!.page.name == '00');
       return PopScope(
         canPop:
             true, //ref.read(isPlayerExpandedProvider.notifier).state == false,
@@ -337,7 +330,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       )
                     : isDualPane
                     ? _buildEnglishAndPersianLayout(
-                        widget.originalContent!.book.contains(
+                        widget.originalContent!.book.name.contains(
                           'قالبهای موقعیتی',
                         ),
                         selectedFinalTopicSearch.contentEnglish,
@@ -345,7 +338,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         sentenceStates,
                         finalTopicId,
                       )
-                    : widget.originalContent!.book.contains('قالبهای موقعیتی')
+                    : widget.originalContent!.book.name.contains(
+                        'قالبهای موقعیتی',
+                      )
                     ? _buildPersianLayout(
                         selectedFinalTopicSearch.contentPersian,
                         finalTopicId,
@@ -723,26 +718,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         style: style,
       );
     }).toList();
-    // return allContent.when(
-    //   data: (books) {
-    //     if (books.isEmpty) {
-    //       return const Center(
-    //         child: Text('هیچ کتابی در پوشه مورد نظر پیدا نشد.'),
-    //       );
-    //     }
-    //     return _buildGrid(
-    //       title: 'کتاب‌های آموزشی',
-    //       items: books.map((e) => e.name).cast<String>().toList(),
-    //       icon: Icons.book_outlined,
-    //       onTap: (index) =>
-    //           ref.read(navigationProvider.notifier).selectBook(books[index]),
-    //     );
-    //   },
-    //   loading: () => const Center(child: CircularProgressIndicator()),
-    //   error: (e, _) => Center(
-    //     child: const Text('مسیر فایل‌ها تنظیم نشده یا در دسترس نیست.'),
-    //   ),
-    // );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       // ✅ تغییر به Column برای نمایش بالا و پایین
@@ -825,26 +800,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           ref
                               .read(navigationProvider.notifier)
                               .updateFinalTopic(nav.selectedFinalTopic!);
-                        } else if (nav.selectedFinalTopicSearch != null) {
+                        } else if (widget.originalContent != null) {
                           ref
                               .read(navigationProvider.notifier)
-                              .selectPageAndFinalTopicForSearchResult(
-                                nav.selectedFinalTopicSearch!,
+                              .updateFinalTopicForSearchResult(
+                                widget.originalContent!,
                               );
                         }
-                        CfPublic()
-                            .getOriginalContentsAsync(
-                              ref.read(allContentProvider).value,
-                              ref.read(navigationProvider),
-                            )
-                            .then((result) {
-                              ref
-                                      .read(
-                                        originalContentListProvider.notifier,
-                                      )
-                                      .state =
-                                  result;
-                            });
+                        _updateSearchListData();
                       }
                     },
                   );
@@ -938,26 +901,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                             ref
                                 .read(navigationProvider.notifier)
                                 .updateFinalTopic(nav.selectedFinalTopic!);
-                          } else if (nav.selectedFinalTopicSearch != null) {
+                          } else if (widget.originalContent != null) {
                             ref
                                 .read(navigationProvider.notifier)
-                                .selectPageAndFinalTopicForSearchResult(
-                                  nav.selectedFinalTopicSearch!,
+                                .updateFinalTopicForSearchResult(
+                                  widget.originalContent!,
                                 );
                           }
-                          CfPublic()
-                              .getOriginalContentsAsync(
-                                ref.read(allContentProvider).value,
-                                ref.read(navigationProvider),
-                              )
-                              .then((result) {
-                                ref
-                                        .read(
-                                          originalContentListProvider.notifier,
-                                        )
-                                        .state =
-                                    result;
-                              });
+                          _updateSearchListData();
                         }
                       },
                     );
@@ -968,6 +919,17 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           ),
       ],
     );
+  }
+
+  void _updateSearchListData() {
+    CfPublic()
+        .getSearchListDataAsync(
+          ref.read(allContentProvider).value,
+          ref.read(navigationProvider),
+        )
+        .then((result) {
+          ref.read(searchListProvider.notifier).state = result;
+        });
   }
 
   void updateTempelate(
@@ -993,21 +955,12 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               ref
                   .read(navigationProvider.notifier)
                   .updateFinalTopic(nav.selectedFinalTopic!);
-            } else if (nav.selectedFinalTopicSearch != null) {
+            } else if (widget.originalContent != null) {
               ref
                   .read(navigationProvider.notifier)
-                  .selectPageAndFinalTopicForSearchResult(
-                    nav.selectedFinalTopicSearch!,
-                  );
+                  .updateFinalTopicForSearchResult(widget.originalContent!);
             }
-            CfPublic()
-                .getOriginalContentsAsync(
-                  ref.read(allContentProvider).value,
-                  ref.read(navigationProvider),
-                )
-                .then((result) {
-                  ref.read(originalContentListProvider.notifier).state = result;
-                });
+            _updateSearchListData();
           }
         });
   }

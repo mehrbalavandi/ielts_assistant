@@ -38,18 +38,18 @@ class ListItemSearch extends StatelessWidget {
                     text: TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: originalContent.book.toString(),
+                          text: originalContent.book.name,
                           style: Theme.of(context).textTheme.titleMedium!
                               .copyWith(
                                 fontFamily:
-                                    (originalContent.book.toString().contains(
+                                    (originalContent.book.name.contains(
                                       'قالبهای موقعیتی',
                                     ))
                                     ? FontFamily.yekanBakhRegular.asText
                                     : null,
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                    (originalContent.book.toString().contains(
+                                    (originalContent.book.name.contains(
                                       'قالبهای موقعیتی',
                                     ))
                                     ? 12

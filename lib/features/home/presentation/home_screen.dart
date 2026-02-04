@@ -33,12 +33,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Future.microtask(() {
             ref.read(navigationProvider.notifier).restoreLastState(books);
             CfPublic()
-                .getOriginalContentsAsync(
+                .getSearchListDataAsync(
                   ref.read(allContentProvider).value,
                   ref.read(navigationProvider),
                 )
                 .then((result) {
-                  ref.read(originalContentListProvider.notifier).state = result;
+                  ref.read(searchListProvider.notifier).state = result;
                 });
           });
         }
@@ -113,16 +113,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ) {
                         if (value != null && value == true) {
                           CfPublic()
-                              .getOriginalContentsAsync(
+                              .getSearchListDataAsync(
                                 ref.read(allContentProvider).value,
                                 ref.read(navigationProvider),
                               )
                               .then((result) {
-                                ref
-                                        .read(
-                                          originalContentListProvider.notifier,
-                                        )
-                                        .state =
+                                ref.read(searchListProvider.notifier).state =
                                     result;
                               });
                         }
@@ -143,7 +139,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     context: context,
                     delegate: CustomerSearchDelegate(
                       ref: ref,
-                      data: ref.read(originalContentListProvider),
+                      // data: ref.read(searchListProvider),
                     ),
                   );
                   if (result != null) {}
@@ -164,13 +160,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         .read(navigationProvider.notifier)
                         .restoreLastState(books);
                     CfPublic()
-                        .getOriginalContentsAsync(
+                        .getSearchListDataAsync(
                           ref.read(allContentProvider).value,
                           ref.read(navigationProvider),
                         )
                         .then((result) {
-                          ref.read(originalContentListProvider.notifier).state =
-                              result;
+                          ref.read(searchListProvider.notifier).state = result;
                         });
                   });
                 }
