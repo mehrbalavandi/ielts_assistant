@@ -117,6 +117,14 @@ class NavigationNotifier extends _$NavigationNotifier {
     CfPublic()
         .getSearchListDataAsync(ref.read(allContentProvider).value, state)
         .then((result) {
+          // var vvNavigation = result[0]
+          //     .book
+          //     .units[0]
+          //     .topics[0]
+          //     .pageContents[0]
+          //     .finalTopics[0]
+          //     .contentPersian[0]
+          //     .text;
           ref.read(searchListProvider.notifier).state = result;
         });
   }

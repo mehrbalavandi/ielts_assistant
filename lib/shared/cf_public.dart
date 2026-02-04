@@ -142,12 +142,22 @@ class CfPublic {
     // final books = ref.read(allContentProvider).value;
 
     if (books != null) {
+      // var vvPublic = books[2]
+      //     .units[0]
+      //     .topics[0]
+      //     .pageContents[0]
+      //     .finalTopics
+      //     .first
+      //     .contentPersian[0]
+      //     .text;
       List<Book> sortedBooks = <Book>[];
       // final nav = ref.read(navigationProvider);
       final selectedBook = nav.selectedBook;
       if (selectedBook != null) {
-        final othersBooks = books.where((x) => x != selectedBook).toList();
-        sortedBooks.add(selectedBook);
+        final othersBooks = books
+            .where((x) => x.name != selectedBook.name)
+            .toList();
+        sortedBooks.add(books.firstWhere((x) => x.name == selectedBook.name));
         sortedBooks.addAll(othersBooks);
       } else {
         sortedBooks.addAll(books);
@@ -189,6 +199,16 @@ class CfPublic {
         }
       }
     }
+    // var vvPublic2 = result
+    //     .first
+    //     .book
+    //     .units[0]
+    //     .topics[0]
+    //     .pageContents[0]
+    //     .finalTopics
+    //     .first
+    //     .contentPersian[0]
+    //     .text;
     return result;
   }
 

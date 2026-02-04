@@ -38,6 +38,14 @@ class AllContent extends _$AllContent {
 
   // متد برای آپدیت دستی
   Future<void> updateBooks(List<Book> newBooks) async {
+    // var vvContentProvider = newBooks[2]
+    //     .units[0]
+    //     .topics[0]
+    //     .pageContents[0]
+    //     .finalTopics[0]
+    //     .contentPersian
+    //     .first
+    //     .text;
     state = AsyncValue.data(newBooks);
   }
 

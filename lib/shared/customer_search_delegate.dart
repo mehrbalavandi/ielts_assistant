@@ -30,7 +30,18 @@ class CustomerSearchDelegate extends SearchDelegate<String> {
     // _cachedData ??= await dataFuture;
     // _cachedData ??= await ref.read(searchListProvider);
     _cachedData = await ref.read(searchListProvider);
-
+    // var vvCachedData = _cachedData
+    //     ?.first
+    //     .book
+    //     .units
+    //     .first
+    //     .topics[0]
+    //     .pageContents[0]
+    //     .finalTopics
+    //     .first
+    //     .contentPersian
+    //     .first
+    //     .text;
     // حالا که داده‌ها قطعی در _cachedData هستند، فیلتر می‌کنیم
     if (query.isEmpty) {
       return _cachedData!;
