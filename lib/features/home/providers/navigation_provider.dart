@@ -321,11 +321,11 @@ class NavigationNotifier extends _$NavigationNotifier {
   }
 
   void goBack() {
-    if (state.selectedFinalTopic != null) {
+    if (state.selectedFinalTopicSearch != null) {
+      state = state.copyWith(selectedFinalTopicSearch: null);
+    } else if (state.selectedFinalTopic != null) {
       state = state.copyWith(selectedFinalTopic: null);
       _box.remove(_kFinalTopic);
-    } else if (state.selectedFinalTopicSearch != null) {
-      state = state.copyWith(selectedFinalTopicSearch: null);
     } else if (state.selectedPage != null) {
       state = state.copyWith(selectedPage: null);
       _box.remove(_kPage);
