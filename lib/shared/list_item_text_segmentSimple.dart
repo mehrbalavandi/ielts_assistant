@@ -41,7 +41,6 @@ class ListItemTextSegmentSimple extends StatelessWidget {
           contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
           onTap: () {
             onTap();
-            onEdit();
           },
 
           //! عنوان کتاب

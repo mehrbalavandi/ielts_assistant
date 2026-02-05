@@ -6,6 +6,7 @@ import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/sentence_provider.dart';
+import 'package:ielts_assistant/features/home/presentation/widgets/view_tempelate.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/customer_search_delegate.dart';
 import 'package:ielts_assistant/shared/list_item_text_segment.dart';
@@ -910,7 +911,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       isPersianTextSegment: false,
                       number: index + 1,
                       spans: spanList,
-                      onTap: () {},
+                      onTap: () {
+                        ref.read(isEditModeProvider.notifier).state = false;
+                      },
                       onEdit: () {
                         updateTempelate(
                           context,

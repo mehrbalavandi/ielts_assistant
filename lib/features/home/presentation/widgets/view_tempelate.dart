@@ -25,7 +25,6 @@ class ViewTempelate extends ConsumerStatefulWidget {
 
 class _ViewTempelateState extends ConsumerState<ViewTempelate> {
   bool isDoing = false;
-  bool isSendingRequest = false;
   //!
   //* انگلیسی
   late TextEditingController txtEnglish;
@@ -85,219 +84,308 @@ class _ViewTempelateState extends ConsumerState<ViewTempelate> {
                 vertical: 16.0,
                 horizontal: 8.0,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  //* فارسی
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: MyTextFormField(
-                      onChanged: (value) {},
-                      maxLines: null,
-                      style: TextStyle(
-                        fontFamily: FontFamily.yekanBakhRegular.asText,
-                        fontSize: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium!.fontSize,
-                      ),
-                      keyboardType: TextInputType.multiline,
-                      textAlign: TextAlign.start,
-                      textAlignVertical: TextAlignVertical.center,
-                      textDirection: TextDirection.rtl,
-                      decoration: InputDecoration(
-                        label: Text('فارسی'),
-                        // floatingLabelBehavior: FloatingLabelBehavior.always,
-                        // floatingLabelAlignment: FloatingLabelAlignment.center,
-                        labelStyle: TextStyle(fontFamily: 'Zar'),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                        ),
-                        // hintText: 'فارسی',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Zar',
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      controller: txtPersian,
-                      autofocus: false,
-                      focusNode: persianFocusNode,
-                      textInputAction: TextInputAction.newline,
-                      onEditingComplete: () {
-                        // txtPersian.text = '${txtPersian.text.trim()}\n';
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(height: 16.0),
-                  //* انگلیسی
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: MyTextFormField(
-                      onChanged: (value) {},
-                      // style: TextStyle(fontFamily: 'YekanBakhRegular'),
-                      keyboardType: TextInputType.multiline,
-                      textAlign: TextAlign.start,
-                      textAlignVertical: TextAlignVertical.center,
-                      textDirection: TextDirection.ltr,
-                      decoration: InputDecoration(
-                        label: Text('انگلیسی'),
-                        // floatingLabelBehavior: FloatingLabelBehavior.always,
-                        // floatingLabelAlignment: FloatingLabelAlignment.center,
-                        labelStyle: TextStyle(fontFamily: 'Zar'),
-                        alignLabelWithHint: false,
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        // contentPadding: const EdgeInsets.symmetric(
-                        //   horizontal: 8.0,
-                        // ),
-                        // hintText: 'انگلیسی',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Zar',
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      controller: txtEnglish,
-                      autofocus: false,
-                      focusNode: englishFocusNode,
-                      textInputAction: TextInputAction.newline,
-                      onEditingComplete: () {
-                        // txtEnglish.text = '${txtEnglish.text.trim()}\n';
-                      },
-                    ),
-                  ),
-
-                  SizedBox(height: 16.0),
-                  //* نکات
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: MyTextFormField(
-                      onChanged: (value) {},
-                      maxLines: null,
-                      style: TextStyle(
-                        fontFamily: FontFamily.yekanBakhRegular.asText,
-                        fontSize: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium!.fontSize,
-                      ),
-                      keyboardType: TextInputType.multiline,
-                      textAlign: TextAlign.start,
-                      textAlignVertical: TextAlignVertical.center,
-                      textDirection: TextDirection.rtl,
-                      decoration: InputDecoration(
-                        label: Text('نکات'),
-                        // floatingLabelBehavior: FloatingLabelBehavior.always,
-                        // floatingLabelAlignment: FloatingLabelAlignment.center,
-                        labelStyle: TextStyle(fontFamily: 'Zar'),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                        ),
-                        // hintText: 'فارسی',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Zar',
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      controller: txtExplanations,
-                      autofocus: false,
-                      focusNode: explanationFocusNode,
-                      textInputAction: TextInputAction.newline,
-                      onEditingComplete: () {
-                        // txtPersian.text = '${txtPersian.text.trim()}\n';
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(height: 16.0),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+              child: isEditMode
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        //* دکمه افزودن
-                        TextButton(
-                          onPressed: () async {
-                            if (isDoing) return;
-                            setState(() {
-                              isDoing = true;
-                            });
-                            if (txtPersian.text.trim() == '') {
-                              String message = 'متن فارسی نباید خالی باشد';
-                              FocusScope.of(
-                                context,
-                              ).requestFocus(englishFocusNode);
-                              setState(() {
-                                isDoing = false;
-                              });
-                              return;
-                            }
-                            if (txtEnglish.text.trim() == '') {
-                              String message = 'متن انگلیسی نباید خالی باشد';
-                              FocusScope.of(
-                                context,
-                              ).requestFocus(englishFocusNode);
-                              setState(() {
-                                isDoing = false;
-                              });
-                              return;
-                            }
-                            TextSegmentPersian textSegmentPersian =
-                                TextSegmentPersian(
-                                  text: txtPersian.text.trim(),
-                                  translation: txtEnglish.text,
-                                  explanation: txtExplanations.text,
-                                );
-
-                            widget.onSubmit?.call(textSegmentPersian);
-                            //
-                            setState(() {
-                              isDoing = false;
-                            });
-                          },
-                          child: Text(
-                            (widget.persianTextSegment == null)
-                                ? 'افزودن'
-                                : 'ذخیره',
+                        //* فارسی
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: MyTextFormField(
+                            onChanged: (value) {},
+                            maxLines: null,
                             style: TextStyle(
-                              fontFamily: FontFamily.yekanBakhBold.asText,
+                              fontFamily: FontFamily.yekanBakhRegular.asText,
+                              fontSize: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium!.fontSize,
+                            ),
+                            keyboardType: TextInputType.multiline,
+                            textAlign: TextAlign.start,
+                            textAlignVertical: TextAlignVertical.center,
+                            textDirection: TextDirection.rtl,
+                            decoration: InputDecoration(
+                              label: Text('فارسی'),
+                              // floatingLabelBehavior: FloatingLabelBehavior.always,
+                              // floatingLabelAlignment: FloatingLabelAlignment.center,
+                              labelStyle: TextStyle(fontFamily: 'Zar'),
+                              border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              // hintText: 'فارسی',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Zar',
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                            controller: txtPersian,
+                            autofocus: false,
+                            focusNode: persianFocusNode,
+                            textInputAction: TextInputAction.newline,
+                            onEditingComplete: () {
+                              // txtPersian.text = '${txtPersian.text.trim()}\n';
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(height: 16.0),
+                        //* انگلیسی
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: MyTextFormField(
+                            onChanged: (value) {},
+                            // style: TextStyle(fontFamily: 'YekanBakhRegular'),
+                            keyboardType: TextInputType.multiline,
+                            textAlign: TextAlign.start,
+                            textAlignVertical: TextAlignVertical.center,
+                            textDirection: TextDirection.ltr,
+                            decoration: InputDecoration(
+                              label: Text('انگلیسی'),
+                              // floatingLabelBehavior: FloatingLabelBehavior.always,
+                              // floatingLabelAlignment: FloatingLabelAlignment.center,
+                              labelStyle: TextStyle(fontFamily: 'Zar'),
+                              alignLabelWithHint: false,
+                              border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
+                              ),
+                              // contentPadding: const EdgeInsets.symmetric(
+                              //   horizontal: 8.0,
+                              // ),
+                              // hintText: 'انگلیسی',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Zar',
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                            controller: txtEnglish,
+                            autofocus: false,
+                            focusNode: englishFocusNode,
+                            textInputAction: TextInputAction.newline,
+                            onEditingComplete: () {
+                              // txtEnglish.text = '${txtEnglish.text.trim()}\n';
+                            },
+                          ),
+                        ),
+
+                        SizedBox(height: 16.0),
+                        //* نکات
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: MyTextFormField(
+                            onChanged: (value) {},
+                            maxLines: null,
+                            style: TextStyle(
+                              fontFamily: FontFamily.yekanBakhRegular.asText,
+                              fontSize: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium!.fontSize,
+                            ),
+                            keyboardType: TextInputType.multiline,
+                            textAlign: TextAlign.start,
+                            textAlignVertical: TextAlignVertical.center,
+                            textDirection: TextDirection.rtl,
+                            decoration: InputDecoration(
+                              label: Text('نکات'),
+                              // floatingLabelBehavior: FloatingLabelBehavior.always,
+                              // floatingLabelAlignment: FloatingLabelAlignment.center,
+                              labelStyle: TextStyle(fontFamily: 'Zar'),
+                              border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10.0),
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              // hintText: 'فارسی',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Zar',
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                            controller: txtExplanations,
+                            autofocus: false,
+                            focusNode: explanationFocusNode,
+                            textInputAction: TextInputAction.newline,
+                            onEditingComplete: () {
+                              // txtPersian.text = '${txtPersian.text.trim()}\n';
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(height: 16.0),
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              //* دکمه افزودن
+                              TextButton(
+                                onPressed: () async {
+                                  if (isDoing) return;
+                                  setState(() {
+                                    isDoing = true;
+                                  });
+                                  if (txtPersian.text.trim() == '') {
+                                    String message =
+                                        'متن فارسی نباید خالی باشد';
+                                    FocusScope.of(
+                                      context,
+                                    ).requestFocus(englishFocusNode);
+                                    setState(() {
+                                      isDoing = false;
+                                    });
+                                    return;
+                                  }
+                                  if (txtEnglish.text.trim() == '') {
+                                    String message =
+                                        'متن انگلیسی نباید خالی باشد';
+                                    FocusScope.of(
+                                      context,
+                                    ).requestFocus(englishFocusNode);
+                                    setState(() {
+                                      isDoing = false;
+                                    });
+                                    return;
+                                  }
+                                  TextSegmentPersian textSegmentPersian =
+                                      TextSegmentPersian(
+                                        text: txtPersian.text.trim(),
+                                        translation: txtEnglish.text,
+                                        explanation: txtExplanations.text,
+                                      );
+
+                                  widget.onSubmit?.call(textSegmentPersian);
+                                  //
+                                  setState(() {
+                                    isDoing = false;
+                                  });
+                                },
+                                child: Text(
+                                  (widget.persianTextSegment == null)
+                                      ? 'افزودن'
+                                      : 'ذخیره',
+                                  style: TextStyle(
+                                    fontFamily: FontFamily.yekanBakhBold.asText,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  if (isDoing) return;
+                                  setState(() {
+                                    isDoing = true;
+                                  });
+
+                                  ref.read(isEditModeProvider.notifier).state =
+                                      !isEditMode;
+                                  if (mounted) {
+                                    setState(() {
+                                      isDoing = false;
+                                    });
+                                  }
+                                },
+                                child: Text(
+                                  'لغو',
+                                  style: TextStyle(fontFamily: 'YekanBakhBold'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //* فارسی
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Align(
+                            alignment: AlignmentGeometry.centerRight,
+                            child: Text(
+                              widget.persianTextSegment?.text ?? '',
+                              style: TextStyle(
+                                fontFamily: FontFamily.yekanBakhRegular.asText,
+                                fontSize: Theme.of(
+                                  context,
+                                ).textTheme.bodyMedium!.fontSize,
+                              ),
                             ),
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            if (isDoing) return;
-                            setState(() {
-                              isDoing = true;
-                            });
-                            Navigator.pop(context, false);
-                            if (mounted) {
-                              setState(() {
-                                isDoing = false;
-                              });
-                            }
-                          },
+
+                        const SizedBox(height: 16.0),
+                        //* انگلیسی
+                        Directionality(
+                          textDirection: TextDirection.ltr,
                           child: Text(
-                            'لغو',
-                            style: TextStyle(fontFamily: 'YekanBakhBold'),
+                            widget.persianTextSegment?.translation ?? '',
+                            style: TextStyle(
+                              // fontFamily: FontFamily.yekanBakhRegular.asText,
+                              fontSize: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium!.fontSize,
+                            ),
+                          ),
+                        ),
+
+                        if (widget.persianTextSegment?.explanation != null)
+                          SizedBox(height: 16.0),
+                        //* نکات
+                        if (widget.persianTextSegment?.explanation != null)
+                          Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Align(
+                              alignment: AlignmentGeometry.centerRight,
+                              child: Text(
+                                widget.persianTextSegment?.explanation ?? '',
+                                style: TextStyle(
+                                  fontFamily:
+                                      FontFamily.yekanBakhRegular.asText,
+                                  fontSize: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium!.fontSize,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                        const SizedBox(height: 8.0),
+                        Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              //* دکمه ویرایش
+                              IconButton(
+                                onPressed: () async {
+                                  if (isDoing) return;
+                                  setState(() {
+                                    isDoing = true;
+                                  });
+                                  ref.read(isEditModeProvider.notifier).state =
+                                      !isEditMode;
+                                  //
+                                  setState(() {
+                                    isDoing = false;
+                                  });
+                                },
+                                icon: Icon(Icons.edit_outlined),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
             ),
           ),
         ),

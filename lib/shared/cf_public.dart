@@ -843,6 +843,7 @@ class CfPublic {
     int index,
     TextSegmentPersian textSegmentPersian,
   ) async {
+    ref.read(isEditModeProvider.notifier).state = false;
     final dialogResult = await showDialog(
       context: context,
       builder: (BuildContext context) {
