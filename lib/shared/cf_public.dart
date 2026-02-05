@@ -597,7 +597,7 @@ class CfPublic {
     return false;
   }
 
-  Future<bool> savePersianTextSegmentToExternalStorage({
+  Future<FinalTopic?> savePersianTextSegmentToExternalStorage({
     required String fileName,
     required TextSegmentPersian textSement,
   }) async {
@@ -629,10 +629,11 @@ class CfPublic {
         );
         await file.writeAsString(jsonString, flush: true, encoding: utf8);
       }
-      return true;
+      Directory dir = Directory(fileName).parent;
+      return parseFinalTopic(dir);
     } catch (e) {
       debugPrint('⚠️ خطا در خواندن فایل: $e');
-      return false;
+      return null;
     }
   }
 
@@ -783,7 +784,7 @@ class CfPublic {
     }
   }
 
-  Future<bool?> showPopupAddTempelate(
+  Future<FinalTopic?> showPopupAddTempelate(
     BuildContext context,
     WidgetRef ref,
   ) async {
@@ -808,19 +809,19 @@ class CfPublic {
               if (!File(faFileName).existsSync()) {
                 File(faFileName).createSync(recursive: true);
               }
-              bool result1 = await CfPublic()
-                  .savePersianTextSegmentToExternalStorage(
+              FinalTopic? result1 =
+                  await savePersianTextSegmentToExternalStorage(
                     fileName: faFileName,
                     textSement: textSegmentPersian,
                   );
 
-              if (result1) {
+              if (result1 != null) {
                 if (context.mounted) {
-                  Navigator.pop(context, true);
+                  Navigator.pop(context, result1);
                 }
               } else {
                 if (context.mounted) {
-                  Navigator.pop(context, false);
+                  Navigator.pop(context, null);
                 }
               }
             },
@@ -829,9 +830,9 @@ class CfPublic {
       },
     );
     if (dialogResult != null) {
-      return dialogResult as bool;
+      return dialogResult as FinalTopic;
     } else {
-      return false;
+      return null;
     }
   }
 
@@ -862,12 +863,11 @@ class CfPublic {
               if (!File(faFileName).existsSync()) {
                 File(faFileName).createSync(recursive: true);
               }
-              final result1 = await CfPublic()
-                  .updatePersianTextSegmentToExternalStorage(
-                    fileName: faFileName,
-                    index: index,
-                    textSegmentPersian: textSegmentPersian,
-                  );
+              final result1 = await updatePersianTextSegmentToExternalStorage(
+                fileName: faFileName,
+                index: index,
+                textSegmentPersian: textSegmentPersian,
+              );
               if (result1 != null) {
                 if (context.mounted) {
                   Navigator.pop(context, true);
@@ -953,7 +953,7 @@ class CfPublic {
     }
   }
 
-  Future<bool?> deleteTempelate(
+  Future<bool?>? deleteTempelate(
     BuildContext context,
     WidgetRef ref,
     int index,
@@ -964,47 +964,89 @@ class CfPublic {
     if (!Directory(newTemplateDirectory).existsSync()) {
       Directory(newTemplateDirectory).createSync(recursive: true);
     }
-    String allTextFileName = '$newTemplateDirectory/me.1.txt';
-    if (!File(allTextFileName).existsSync()) {
-      File(allTextFileName).createSync(recursive: true);
+    //! محتوای فارسی
+    String faFileName = '$newTemplateDirectory/me.3.translation.json';
+    if (!File(faFileName).existsSync()) {
+      File(faFileName).createSync(recursive: true);
     }
-    //! محتوای انگلیسی
-    String enFileName = '$newTemplateDirectory/me.2.english.json';
-    if (!File(enFileName).existsSync()) {
-      File(enFileName).createSync(recursive: true);
-    }
-    final result1 = await CfPublic().deleteMainTextSegmentFromExternalStorage(
-      fileName: enFileName,
-      index: index,
-    );
+    final result1 = await CfPublic()
+        .deletePersianTextSegmentFromExternalStorage(
+          fileName: faFileName,
+          index: index,
+        );
     if (result1 != null) {
-      //! محتوای فارسی
-      String faFileName = '$newTemplateDirectory/me.3.translation.json';
-      if (!File(faFileName).existsSync()) {
-        File(faFileName).createSync(recursive: true);
-      }
-      final result2 = await CfPublic()
-          .deletePersianTextSegmentFromExternalStorage(
-            fileName: faFileName,
-            index: index,
-          );
-      if (result2 != null) {
-        String allText = '';
-        for (int i = 0; i < result1.length; i++) {
-          if (i == 0) {
-            allText = '${result1[i].text}\n${result2[i].text}';
-          } else {
-            allText = '$allText\n\n${result1[i].text}\n${result2[i].text}';
-          }
-        }
-        //! محتوای خام
-        File(allTextFileName).writeAsStringSync(allText, encoding: utf8);
-        return true;
-      } else {
-        return false;
-      }
+      return true;
     } else {
       return false;
     }
+  }
+
+  Future<bool?> showQuestionDialog(
+    BuildContext context,
+    String question,
+  ) async {
+    return await showDialog<bool>(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Builder(
+          builder: (context) {
+            return Directionality(
+              textDirection: TextDirection.rtl,
+              child: AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                titleTextStyle: TextStyle(
+                  fontFamily: 'Titr',
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                contentTextStyle: TextStyle(
+                  fontFamily: 'YekanBakhRegular',
+                  color: Theme.of(context).colorScheme.onErrorContainer,
+                  fontSize: 16.0,
+                ),
+                title: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.yellowAccent),
+                    SizedBox(width: 8),
+                    const Text('هشدار'),
+                  ],
+                ),
+                content: Text(question, textAlign: TextAlign.justify),
+                actionsPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                actions: <Widget>[
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pop(context, false);
+                    },
+                    label: const Text(
+                      'خیر',
+                      style: TextStyle(fontFamily: 'YekanBakhRegular'),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context, true);
+                    },
+                    label: const Text(
+                      'بله',
+                      style: TextStyle(fontFamily: 'YekanBakhRegular'),
+                    ),
+                    icon: Icon(Icons.check),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

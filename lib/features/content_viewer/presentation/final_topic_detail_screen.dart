@@ -790,6 +790,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       );
                     },
                     onDelete: () async {
+                      String q = 'آیا از حذف این قالب اطمینان دارید؟';
+                      bool? response = await CfPublic().showQuestionDialog(
+                        context,
+                        q,
+                      );
+                      if (response == null || response == false) {
+                        return;
+                      }
                       final result = await CfPublic().deleteTempelate(
                         context,
                         ref,
@@ -799,11 +807,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                         if (nav.selectedFinalTopic != null) {
                           ref
                               .read(navigationProvider.notifier)
-                              .updateFinalTopic(nav.selectedFinalTopic!);
+                              .updateTempelate(nav.selectedFinalTopic!);
                         } else if (widget.originalContent != null) {
                           ref
                               .read(navigationProvider.notifier)
-                              .updateFinalTopicForSearchResult(
+                              .updateTempelateForSearchResult(
                                 widget.originalContent!,
                               );
                         }
@@ -900,11 +908,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           if (nav.selectedFinalTopic != null) {
                             ref
                                 .read(navigationProvider.notifier)
-                                .updateFinalTopic(nav.selectedFinalTopic!);
+                                .updateTempelate(nav.selectedFinalTopic!);
                           } else if (widget.originalContent != null) {
                             ref
                                 .read(navigationProvider.notifier)
-                                .updateFinalTopicForSearchResult(
+                                .updateTempelateForSearchResult(
                                   widget.originalContent!,
                                 );
                           }
@@ -954,11 +962,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             if (nav.selectedFinalTopic != null) {
               ref
                   .read(navigationProvider.notifier)
-                  .updateFinalTopic(nav.selectedFinalTopic!);
+                  .updateTempelate(nav.selectedFinalTopic!);
             } else if (widget.originalContent != null) {
               ref
                   .read(navigationProvider.notifier)
-                  .updateFinalTopicForSearchResult(widget.originalContent!);
+                  .updateTempelateForSearchResult(widget.originalContent!);
             }
             _updateSearchListData();
           }

@@ -109,18 +109,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       true) {
                     if (context.mounted) {
                       CfPublic().showPopupAddTempelate(context, ref).then((
-                        value,
+                        finalTopic,
                       ) {
-                        if (value != null && value == true) {
-                          CfPublic()
-                              .getSearchListDataAsync(
-                                ref.read(allContentProvider).value,
-                                ref.read(navigationProvider),
-                              )
-                              .then((result) {
-                                ref.read(searchListProvider.notifier).state =
-                                    result;
-                              });
+                        if (finalTopic != null) {
+                          ref
+                              .read(navigationProvider.notifier)
+                              .addTempelate(finalTopic);
                         }
                       });
                     }

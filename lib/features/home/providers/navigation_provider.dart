@@ -200,7 +200,25 @@ class NavigationNotifier extends _$NavigationNotifier {
     }
   }
 
-  Future<void> updateFinalTopic(FinalTopic finalTopic) async {
+  Future<void> addTempelate(FinalTopic finalTopic) async {
+    // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
+    state = state.copyWith(isLoading: true);
+
+    final books = ref.read(allContentProvider).value;
+    final book = books!.firstWhereOrNull(
+      (b) => b.name.contains('قالبهای موقعیتی'),
+    );
+    if (book != null) {
+      final unit = book.units.firstWhere((u) => u.name.contains('Band 4–5'));
+      final topic = unit.topics.firstWhere((t) => t.name.contains('Days'));
+      final page = topic.pageContents.firstWhere((t) => t.name.contains('00'));
+      updateAllContents(books, book, unit, topic, page, finalTopic);
+      updateSearchListData();
+    }
+    state = state.copyWith(isLoading: false);
+  }
+
+  Future<void> updateTempelate(FinalTopic finalTopic) async {
     // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
     state = state.copyWith(isLoading: true);
 
@@ -231,7 +249,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     );
   }
 
-  Future<void> updateFinalTopicForSearchResult(
+  Future<void> updateTempelateForSearchResult(
     OriginalContent originalContent,
   ) async {
     state = state.copyWith(isLoading: true);
@@ -304,6 +322,28 @@ class NavigationNotifier extends _$NavigationNotifier {
     state = state.copyWith(selectedPage: pageContent, selectedFinalTopic: null);
     _box.write(_kPage, pageContent.name);
     _box.remove(_kFinalTopic);
+  }
+
+  Future<void> deleteTempelate(FinalTopic finalTopic) async {
+    // ۱. پاک کردن مقادیر قبلی و نمایش حالت لودینگ
+    state = state.copyWith(isLoading: true);
+
+    FinalTopic newFinalTopic = CfPublic().parseFinalTopic(
+      Directory(finalTopic.realmId),
+    );
+    final books = ref.read(allContentProvider).value;
+    final book = books!.firstWhereOrNull((b) => b == state.selectedBook);
+    if (book != null) {
+      final unit = book.units.firstWhere((u) => u == state.selectedUnit);
+      final topic = unit.topics.firstWhere((t) => t == state.selectedTopic);
+      final page = topic.pageContents.firstWhere(
+        (t) => t == state.selectedPage,
+      );
+      updateAllContents(books, book, unit, topic, page, newFinalTopic);
+      updateSearchListData();
+    }
+
+    state = state.copyWith(selectedFinalTopic: newFinalTopic, isLoading: false);
   }
 
   String _buildFullPath(FinalTopic finalTopic) {
