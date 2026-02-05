@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_tempelate.dart';
+import 'package:ielts_assistant/features/home/presentation/widgets/view_tempelate.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
@@ -833,6 +834,60 @@ class CfPublic {
       return dialogResult as FinalTopic;
     } else {
       return null;
+    }
+  }
+
+  Future<bool?> showPopupViewTempelate(
+    BuildContext context,
+    WidgetRef ref,
+    int index,
+    TextSegmentPersian textSegmentPersian,
+  ) async {
+    final dialogResult = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: ViewTempelate(
+            onSubmit: (textSegmentPersian) async {
+              final rootPath = ref.read(settingsProvider);
+              String newTemplateDirectory =
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+              if (!Directory(newTemplateDirectory).existsSync()) {
+                Directory(newTemplateDirectory).createSync(recursive: true);
+              }
+              String allTextFileName = '$newTemplateDirectory/me.1.txt';
+              if (!File(allTextFileName).existsSync()) {
+                File(allTextFileName).createSync(recursive: true);
+              }
+              //! محتوای فارسی
+              String faFileName = '$newTemplateDirectory/me.3.translation.json';
+              if (!File(faFileName).existsSync()) {
+                File(faFileName).createSync(recursive: true);
+              }
+              final result1 = await updatePersianTextSegmentToExternalStorage(
+                fileName: faFileName,
+                index: index,
+                textSegmentPersian: textSegmentPersian,
+              );
+              if (result1 != null) {
+                if (context.mounted) {
+                  Navigator.pop(context, true);
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pop(context, false);
+                }
+              }
+            },
+            persianTextSegment: textSegmentPersian,
+          ),
+        );
+      },
+    );
+    if (dialogResult != null) {
+      return dialogResult as bool;
+    } else {
+      return false;
     }
   }
 

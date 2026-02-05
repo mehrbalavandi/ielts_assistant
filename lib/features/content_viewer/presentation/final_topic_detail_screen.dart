@@ -9,6 +9,7 @@ import 'package:ielts_assistant/features/content_viewer/providers/sentence_provi
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/customer_search_delegate.dart';
 import 'package:ielts_assistant/shared/list_item_text_segment.dart';
+import 'package:ielts_assistant/shared/list_item_text_segmentSimple.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/utility_persian.dart';
 import '../../home/providers/navigation_provider.dart';
@@ -718,6 +719,20 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         style: style,
       );
     }).toList();
+    // return SingleChildScrollView(
+    //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    //   child: Align(
+    //     alignment: AlignmentGeometry.centerLeft,
+    //     child: Directionality(
+    //       textDirection: TextDirection.ltr,
+    //       child: RichText(
+    //         textAlign: TextAlign.left,
+    //         text: TextSpan(children: faSpans),
+    //       ),
+    //     ),
+    //   ),
+    // );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       // ✅ تغییر به Column برای نمایش بالا و پایین
@@ -773,12 +788,21 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     return formattedSpans;
                   }).toList();
                   final spanList = spans.expand((e) => e).toList();
-                  return ListItemTextSegment(
+                  return ListItemTextSegmentSimple(
                     ref: ref,
                     isPersianTextSegment: true,
                     number: index + 1,
                     spans: spanList,
-                    onTap: () {},
+                    onTap: () {
+                      ViewTempelate(
+                        context,
+                        index,
+                        textSegmentsEnglish,
+                        textSegmentsPersian,
+                        // noteSpans,
+                        nav,
+                      );
+                    },
                     onEdit: () {
                       updateTempelate(
                         context,
@@ -937,6 +961,39 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         )
         .then((result) {
           ref.read(searchListProvider.notifier).state = result;
+        });
+  }
+
+  void ViewTempelate(
+    BuildContext context,
+    int index,
+    // List<TextSegmentEnglish> textSegmentsEnglish
+    List<TextSegmentEnglish> textSegmentsEnglish,
+    List<TextSegmentPersian> textSegmentsPersian,
+    // List<TextSpan> noteSpans,
+    NavigationState nav,
+  ) {
+    CfPublic()
+        .showPopupViewTempelate(
+          context,
+          ref,
+          index,
+          textSegmentsPersian[index],
+          // noteSpans[index].text!,
+        )
+        .then((value) {
+          if (value != null && value == true) {
+            if (nav.selectedFinalTopic != null) {
+              ref
+                  .read(navigationProvider.notifier)
+                  .updateTempelate(nav.selectedFinalTopic!);
+            } else if (widget.originalContent != null) {
+              ref
+                  .read(navigationProvider.notifier)
+                  .updateTempelateForSearchResult(widget.originalContent!);
+            }
+            _updateSearchListData();
+          }
         });
   }
 
