@@ -315,26 +315,58 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     // ۲. نمایش لیست موضوعات (Topics)
     if (nav.selectedUnit != null) {
-      return _buildGrid(
-        title: 'موضوعات واحد ${nav.selectedUnit!.name}',
-        items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
-        icon: Icons.description_outlined,
-        onTap: (index) => ref
-            .read(navigationProvider.notifier)
-            .selectTopic(nav.selectedUnit!.topics[index]),
-      );
+      final ListeningContents = nav.selectedUnit!.listeningContent;
+      if (ListeningContents == null) {
+        return _buildGrid(
+          title: 'موضوعات واحد ${nav.selectedUnit!.name}',
+          items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
+          icon: Icons.description_outlined,
+          onTap: (index) => ref
+              .read(navigationProvider.notifier)
+              .selectTopic(nav.selectedUnit!.topics[index]),
+        );
+      } else {
+        return _buildGrid(
+          title: 'موضوعات واحد ${nav.selectedUnit!.name}',
+          items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
+          icon: Icons.description_outlined,
+          onTap: (index) {
+            ref
+                .read(navigationProvider.notifier)
+                .selectFinalTopic(
+                  nav.selectedListeningContent!.finalTopics[index],
+                );
+          },
+        );
+      }
     }
 
     // ۳. نمایش لیست واحدها (Units)
     if (nav.selectedBook != null) {
-      return _buildGrid(
-        title: 'واحدهای کتاب ${nav.selectedBook!.name}',
-        items: nav.selectedBook!.units.map((e) => e.name).toList(),
-        icon: Icons.folder_open_outlined,
-        onTap: (index) => ref
-            .read(navigationProvider.notifier)
-            .selectUnit(nav.selectedBook!.units[index]),
-      );
+      final dayContents = nav.selectedBook!.dayContents;
+      if (dayContents == null) {
+        return _buildGrid(
+          title: 'واحدهای کتاب ${nav.selectedBook!.name}',
+          items: nav.selectedBook!.units.map((e) => e.name).toList(),
+          icon: Icons.folder_open_outlined,
+          onTap: (index) {
+            ref
+                .read(navigationProvider.notifier)
+                .selectUnit(nav.selectedBook!.units[index]);
+          },
+        );
+      } else {
+        return _buildGrid(
+          title: 'واحدهای کتاب ${nav.selectedBook!.name}',
+          items: nav.selectedBook!.dayContents!.map((e) => e.name).toList(),
+          icon: Icons.folder_open_outlined,
+          onTap: (index) {
+            ref
+                .read(navigationProvider.notifier)
+                .selectFinalTopic(nav.selectedDayContent!.finalTopics[index]);
+          },
+        );
+      }
     }
 
     // ۴. نمایش لیست کتاب‌ها
@@ -367,6 +399,133 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildGridUnitOrDayContent({
+    required String title,
+    required List<String> itemsUnit,
+    required IconData iconUnit,
+    required Function(int) onTapUnit,
+
+    required List<String> itemsDay,
+    required IconData iconDay,
+    required Function(int) onTapDay,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+          child: GridView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 1.2,
+            ),
+            itemCount: itemsUnit.length,
+            itemBuilder: (_, i) => Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () => onTapUnit(i),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(iconUnit, color: Colors.blue[800], size: 30),
+                    ),
+                    const SizedBox(height: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        itemsUnit[i],
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        if (itemsDay.isNotEmpty)
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 1.2,
+              ),
+              itemCount: itemsDay.length,
+              itemBuilder: (_, i) => Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () => onTapDay(i),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.green.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          iconDay,
+                          color: Colors.green[800],
+                          size: 30,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          itemsDay[i],
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 

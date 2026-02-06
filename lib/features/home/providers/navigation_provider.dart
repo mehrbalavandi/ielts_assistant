@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
@@ -21,7 +20,9 @@ sealed class NavigationState with _$NavigationState {
   const factory NavigationState({
     Book? selectedBook,
     Unit? selectedUnit,
+    DayContent? selectedDayContent,
     Topic? selectedTopic,
+    ListeningContent? selectedListeningContent,
     PageContent? selectedPage,
     FinalTopic? selectedFinalTopic,
     FinalTopic? selectedFinalTopicSearch,
@@ -39,7 +40,9 @@ class NavigationNotifier extends _$NavigationNotifier {
 
   static const _kBook = 'last_book';
   static const _kUnit = 'last_unit';
+  static const _kDayContent = 'last_day_content';
   static const _kTopic = 'last_topic';
+  static const _kListeningContent = 'last_listening_content';
   static const _kPage = 'last_page';
   static const _kFinalTopic = 'last_final_topic';
 
@@ -49,7 +52,9 @@ class NavigationNotifier extends _$NavigationNotifier {
   void restoreLastState(List<Book> allBooks) {
     final lastBookName = _box.read(_kBook);
     final lastUnitName = _box.read(_kUnit);
+    final lastDayName = _box.read(_kDayContent);
     final lastTopicName = _box.read(_kTopic);
+    final lastListeningContent = _box.read(_kListeningContent);
     final lastPageName = _box.read(_kPage);
     // final lastFinalTopicName = _box.read(_kFinalTopic);
 
@@ -80,32 +85,34 @@ class NavigationNotifier extends _$NavigationNotifier {
             //   state = state.copyWith(selectedFinalTopic: finalTopic);
             // }
           }
+        } else if (lastListeningContent != null) {
+          final listeningContent = unit.listeningContent!.firstWhere(
+            (t) => t.name == lastListeningContent,
+          );
+          state = state.copyWith(selectedListeningContent: listeningContent);
         }
+      } else if (lastDayName != null) {
+        final day = book.dayContents!.firstWhere((u) => u.name == lastDayName);
+        state = state.copyWith(selectedDayContent: day);
       }
-      // Future.microtask(() {
-      // CfPublic()
-      //     .getOriginalContentsAsync(
-      //       ref.read(allContentProvider).value,
-      //       ref.read(navigationProvider),
-      //     )
-      //     .then((result) {
-      //       ref.read(originalContentListProvider.notifier).state = result;
-      //     });
-      // });
     } catch (_) {}
   }
 
   void selectBook(Book book) {
     state = state.copyWith(
       selectedBook: book,
+      selectedDayContent: null,
       selectedUnit: null,
+      selectedListeningContent: null,
       selectedTopic: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kBook, book.name);
     _box.remove(_kUnit);
+    _box.remove(_kDayContent);
     _box.remove(_kTopic);
+    _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
     Future.delayed(Duration.zero).then((value) async {
@@ -117,14 +124,6 @@ class NavigationNotifier extends _$NavigationNotifier {
     CfPublic()
         .getSearchListDataAsync(ref.read(allContentProvider).value, state)
         .then((result) {
-          // var vvNavigation = result[0]
-          //     .book
-          //     .units[0]
-          //     .topics[0]
-          //     .pageContents[0]
-          //     .finalTopics[0]
-          //     .contentPersian[0]
-          //     .text;
           ref.read(searchListProvider.notifier).state = result;
         });
   }
@@ -132,12 +131,33 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectUnit(Unit unit) {
     state = state.copyWith(
       selectedUnit: unit,
+      selectedDayContent: null,
       selectedTopic: null,
+      selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kUnit, unit.name);
+    _box.remove(_kDayContent);
     _box.remove(_kTopic);
+    _box.remove(_kListeningContent);
+    _box.remove(_kPage);
+    _box.remove(_kFinalTopic);
+  }
+
+  void selectDayContent(DayContent dayContent) {
+    state = state.copyWith(
+      selectedUnit: null,
+      selectedDayContent: dayContent,
+      selectedTopic: null,
+      selectedListeningContent: null,
+      selectedPage: null,
+      selectedFinalTopic: null,
+    );
+    _box.write(_kDayContent, dayContent.name);
+    _box.remove(_kUnit);
+    _box.remove(_kTopic);
+    _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
@@ -145,10 +165,25 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectTopic(Topic topic) {
     state = state.copyWith(
       selectedTopic: topic,
+      selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kTopic, topic.name);
+    _box.remove(_kListeningContent);
+    _box.remove(_kPage);
+    _box.remove(_kFinalTopic);
+  }
+
+  void selectListeningContent(ListeningContent listeningContentc) {
+    state = state.copyWith(
+      selectedTopic: null,
+      selectedListeningContent: listeningContentc,
+      selectedPage: null,
+      selectedFinalTopic: null,
+    );
+    _box.write(_kListeningContent, listeningContentc.name);
+    _box.remove(_kTopic);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
