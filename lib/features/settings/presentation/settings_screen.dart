@@ -20,7 +20,7 @@ class SettingsScreen extends ConsumerWidget {
                   .read(settingsProvider.notifier)
                   .pickAndSaveDirectory(previousPath);
               // if (selectedDirectory != previousPath) {
-              ref
+              await ref
                   .read(settingsProvider.notifier)
                   .updatePath(selectedDirectory!);
               // }

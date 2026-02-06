@@ -21,11 +21,15 @@ _Book _$BookFromJson(Map<String, dynamic> json) => _Book(
   units: (json['units'] as List<dynamic>)
       .map((e) => Unit.fromJson(e as Map<String, dynamic>))
       .toList(),
+  dayContents: (json['dayContents'] as List<dynamic>?)
+      ?.map((e) => DayContent.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$BookToJson(_Book instance) => <String, dynamic>{
   'name': instance.name,
   'units': instance.units,
+  'dayContents': instance.dayContents,
 };
 
 _Unit _$UnitFromJson(Map<String, dynamic> json) => _Unit(
@@ -63,6 +67,21 @@ _PageContent _$PageContentFromJson(Map<String, dynamic> json) => _PageContent(
 );
 
 Map<String, dynamic> _$PageContentToJson(_PageContent instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'realmId': instance.realmId,
+      'finalTopics': instance.finalTopics,
+    };
+
+_DayContent _$DayContentFromJson(Map<String, dynamic> json) => _DayContent(
+  name: json['name'] as String,
+  realmId: json['realmId'] as String,
+  finalTopics: (json['finalTopics'] as List<dynamic>)
+      .map((e) => FinalTopic.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$DayContentToJson(_DayContent instance) =>
     <String, dynamic>{
       'name': instance.name,
       'realmId': instance.realmId,

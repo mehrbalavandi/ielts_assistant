@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
@@ -144,26 +146,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () async {
-                ref.invalidate(allContentProvider);
-                // Future.delayed(const Duration(seconds: 2)).then((onValue) {
-                final books = ref.read(allContentProvider).value;
-                if (books != null) {
-                  ref.read(navigationProvider.notifier).restoreLastState(books);
-                  Future.microtask(() {
-                    ref
-                        .read(navigationProvider.notifier)
-                        .restoreLastState(books);
-                    CfPublic()
-                        .getSearchListDataAsync(
-                          ref.read(allContentProvider).value,
-                          ref.read(navigationProvider),
-                        )
-                        .then((result) {
-                          ref.read(searchListProvider.notifier).state = result;
-                        });
-                  });
-                }
-                // });
+                _refreshContents();
               },
               tooltip: 'تازه‌سازی',
             ),
@@ -175,10 +158,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     .read(settingsProvider.notifier)
                     .pickAndSaveDirectory(previousPath);
                 if (selectedDirectory != null) {
-                  ref
+                  await ref
                       .read(settingsProvider.notifier)
                       .updatePath(selectedDirectory);
-                  await ContentService.scanRootFolder(selectedDirectory);
+                  _refreshContents(root: selectedDirectory);
                 }
               },
               tooltip: 'انتخاب مسیر',
@@ -454,5 +437,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       ],
     );
+  }
+
+  Future<void> _refreshContents({String? root}) async {
+    final rootPath = root ?? ref.read(settingsProvider) ?? '';
+    if (!Directory(rootPath).existsSync()) {
+      return;
+    }
+    final newBooks = await ContentService.scanRootFolder(
+      ref.read(settingsProvider)!,
+    );
+    await ref.read(allContentProvider.notifier).updateBooks(newBooks);
+    // Future.delayed(const Duration(seconds: 2)).then((onValue) {
+    final books = ref.read(allContentProvider).value;
+    if (books != null) {
+      ref.read(navigationProvider.notifier).restoreLastState(books);
+      Future.microtask(() {
+        ref.read(navigationProvider.notifier).restoreLastState(books);
+        CfPublic()
+            .getSearchListDataAsync(
+              ref.read(allContentProvider).value,
+              ref.read(navigationProvider),
+            )
+            .then((result) {
+              ref.read(searchListProvider.notifier).state = result;
+            });
+      });
+    }
   }
 }
