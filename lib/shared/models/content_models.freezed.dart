@@ -278,7 +278,7 @@ as List<Book>,
 /// @nodoc
 mixin _$Book {
 
- String get name; List<Unit> get units; List<DayContent>? get dayContents;
+ String get name; List<Unit> get units; List<DayContent> get dayContents;
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -311,7 +311,7 @@ abstract mixin class $BookCopyWith<$Res>  {
   factory $BookCopyWith(Book value, $Res Function(Book) _then) = _$BookCopyWithImpl;
 @useResult
 $Res call({
- String name, List<Unit> units, List<DayContent>? dayContents
+ String name, List<Unit> units, List<DayContent> dayContents
 });
 
 
@@ -328,12 +328,12 @@ class _$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? units = null,Object? dayContents = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? units = null,Object? dayContents = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,units: null == units ? _self.units : units // ignore: cast_nullable_to_non_nullable
-as List<Unit>,dayContents: freezed == dayContents ? _self.dayContents : dayContents // ignore: cast_nullable_to_non_nullable
-as List<DayContent>?,
+as List<Unit>,dayContents: null == dayContents ? _self.dayContents : dayContents // ignore: cast_nullable_to_non_nullable
+as List<DayContent>,
   ));
 }
 
@@ -415,7 +415,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Unit> units,  List<DayContent>? dayContents)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Unit> units,  List<DayContent> dayContents)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Book() when $default != null:
 return $default(_that.name,_that.units,_that.dayContents);case _:
@@ -436,7 +436,7 @@ return $default(_that.name,_that.units,_that.dayContents);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Unit> units,  List<DayContent>? dayContents)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Unit> units,  List<DayContent> dayContents)  $default,) {final _that = this;
 switch (_that) {
 case _Book():
 return $default(_that.name,_that.units,_that.dayContents);}
@@ -453,7 +453,7 @@ return $default(_that.name,_that.units,_that.dayContents);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Unit> units,  List<DayContent>? dayContents)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Unit> units,  List<DayContent> dayContents)?  $default,) {final _that = this;
 switch (_that) {
 case _Book() when $default != null:
 return $default(_that.name,_that.units,_that.dayContents);case _:
@@ -468,7 +468,7 @@ return $default(_that.name,_that.units,_that.dayContents);case _:
 @JsonSerializable()
 
 class _Book implements Book {
-  const _Book({required this.name, required final  List<Unit> units, final  List<DayContent>? dayContents}): _units = units,_dayContents = dayContents;
+  const _Book({required this.name, required final  List<Unit> units, required final  List<DayContent> dayContents}): _units = units,_dayContents = dayContents;
   factory _Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 
 @override final  String name;
@@ -479,13 +479,11 @@ class _Book implements Book {
   return EqualUnmodifiableListView(_units);
 }
 
- final  List<DayContent>? _dayContents;
-@override List<DayContent>? get dayContents {
-  final value = _dayContents;
-  if (value == null) return null;
+ final  List<DayContent> _dayContents;
+@override List<DayContent> get dayContents {
   if (_dayContents is EqualUnmodifiableListView) return _dayContents;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
+  return EqualUnmodifiableListView(_dayContents);
 }
 
 
@@ -522,7 +520,7 @@ abstract mixin class _$BookCopyWith<$Res> implements $BookCopyWith<$Res> {
   factory _$BookCopyWith(_Book value, $Res Function(_Book) _then) = __$BookCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<Unit> units, List<DayContent>? dayContents
+ String name, List<Unit> units, List<DayContent> dayContents
 });
 
 
@@ -539,12 +537,12 @@ class __$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? units = null,Object? dayContents = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? units = null,Object? dayContents = null,}) {
   return _then(_Book(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,units: null == units ? _self._units : units // ignore: cast_nullable_to_non_nullable
-as List<Unit>,dayContents: freezed == dayContents ? _self._dayContents : dayContents // ignore: cast_nullable_to_non_nullable
-as List<DayContent>?,
+as List<Unit>,dayContents: null == dayContents ? _self._dayContents : dayContents // ignore: cast_nullable_to_non_nullable
+as List<DayContent>,
   ));
 }
 
@@ -555,7 +553,7 @@ as List<DayContent>?,
 /// @nodoc
 mixin _$Unit {
 
- String get name; List<Topic> get topics; List<ListeningContent>? get listeningContent;
+ String get name; List<Topic> get topics; List<ListeningContent> get listeningContent;
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -588,7 +586,7 @@ abstract mixin class $UnitCopyWith<$Res>  {
   factory $UnitCopyWith(Unit value, $Res Function(Unit) _then) = _$UnitCopyWithImpl;
 @useResult
 $Res call({
- String name, List<Topic> topics, List<ListeningContent>? listeningContent
+ String name, List<Topic> topics, List<ListeningContent> listeningContent
 });
 
 
@@ -605,12 +603,12 @@ class _$UnitCopyWithImpl<$Res>
 
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? topics = null,Object? listeningContent = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? topics = null,Object? listeningContent = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,topics: null == topics ? _self.topics : topics // ignore: cast_nullable_to_non_nullable
-as List<Topic>,listeningContent: freezed == listeningContent ? _self.listeningContent : listeningContent // ignore: cast_nullable_to_non_nullable
-as List<ListeningContent>?,
+as List<Topic>,listeningContent: null == listeningContent ? _self.listeningContent : listeningContent // ignore: cast_nullable_to_non_nullable
+as List<ListeningContent>,
   ));
 }
 
@@ -692,7 +690,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<ListeningContent>? listeningContent)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<ListeningContent> listeningContent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Unit() when $default != null:
 return $default(_that.name,_that.topics,_that.listeningContent);case _:
@@ -713,7 +711,7 @@ return $default(_that.name,_that.topics,_that.listeningContent);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<ListeningContent>? listeningContent)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<ListeningContent> listeningContent)  $default,) {final _that = this;
 switch (_that) {
 case _Unit():
 return $default(_that.name,_that.topics,_that.listeningContent);}
@@ -730,7 +728,7 @@ return $default(_that.name,_that.topics,_that.listeningContent);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Topic> topics,  List<ListeningContent>? listeningContent)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Topic> topics,  List<ListeningContent> listeningContent)?  $default,) {final _that = this;
 switch (_that) {
 case _Unit() when $default != null:
 return $default(_that.name,_that.topics,_that.listeningContent);case _:
@@ -745,7 +743,7 @@ return $default(_that.name,_that.topics,_that.listeningContent);case _:
 @JsonSerializable()
 
 class _Unit implements Unit {
-  const _Unit({required this.name, required final  List<Topic> topics, final  List<ListeningContent>? listeningContent}): _topics = topics,_listeningContent = listeningContent;
+  const _Unit({required this.name, required final  List<Topic> topics, required final  List<ListeningContent> listeningContent}): _topics = topics,_listeningContent = listeningContent;
   factory _Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
 
 @override final  String name;
@@ -756,13 +754,11 @@ class _Unit implements Unit {
   return EqualUnmodifiableListView(_topics);
 }
 
- final  List<ListeningContent>? _listeningContent;
-@override List<ListeningContent>? get listeningContent {
-  final value = _listeningContent;
-  if (value == null) return null;
+ final  List<ListeningContent> _listeningContent;
+@override List<ListeningContent> get listeningContent {
   if (_listeningContent is EqualUnmodifiableListView) return _listeningContent;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
+  return EqualUnmodifiableListView(_listeningContent);
 }
 
 
@@ -799,7 +795,7 @@ abstract mixin class _$UnitCopyWith<$Res> implements $UnitCopyWith<$Res> {
   factory _$UnitCopyWith(_Unit value, $Res Function(_Unit) _then) = __$UnitCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<Topic> topics, List<ListeningContent>? listeningContent
+ String name, List<Topic> topics, List<ListeningContent> listeningContent
 });
 
 
@@ -816,12 +812,12 @@ class __$UnitCopyWithImpl<$Res>
 
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? topics = null,Object? listeningContent = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? topics = null,Object? listeningContent = null,}) {
   return _then(_Unit(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,topics: null == topics ? _self._topics : topics // ignore: cast_nullable_to_non_nullable
-as List<Topic>,listeningContent: freezed == listeningContent ? _self._listeningContent : listeningContent // ignore: cast_nullable_to_non_nullable
-as List<ListeningContent>?,
+as List<Topic>,listeningContent: null == listeningContent ? _self._listeningContent : listeningContent // ignore: cast_nullable_to_non_nullable
+as List<ListeningContent>,
   ));
 }
 

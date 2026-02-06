@@ -96,7 +96,9 @@ class ContentService {
                   listeningContent: listeningContents,
                 );
               })
-              .where((l) => l.topics.isNotEmpty || l.listeningContent != null)
+              .where(
+                (l) => l.topics.isNotEmpty || l.listeningContent.isNotEmpty,
+              )
               .toList();
           final dayContents = unitEntities
               .whereType<Directory>()
@@ -127,7 +129,7 @@ class ContentService {
             dayContents: dayContents,
           );
         })
-        .where((s) => s.units.isNotEmpty || s.dayContents != null)
+        .where((s) => s.units.isNotEmpty || s.dayContents.isNotEmpty)
         .toList();
 
     return books;
