@@ -555,7 +555,7 @@ as List<DayContent>?,
 /// @nodoc
 mixin _$Unit {
 
- String get name; List<Topic> get topics;
+ String get name; List<Topic> get topics; List<ListeningContent>? get listeningContent;
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -568,16 +568,16 @@ $UnitCopyWith<Unit> get copyWith => _$UnitCopyWithImpl<Unit>(this as Unit, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.topics, topics));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.topics, topics)&&const DeepCollectionEquality().equals(other.listeningContent, listeningContent));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(topics));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(topics),const DeepCollectionEquality().hash(listeningContent));
 
 @override
 String toString() {
-  return 'Unit(name: $name, topics: $topics)';
+  return 'Unit(name: $name, topics: $topics, listeningContent: $listeningContent)';
 }
 
 
@@ -588,7 +588,7 @@ abstract mixin class $UnitCopyWith<$Res>  {
   factory $UnitCopyWith(Unit value, $Res Function(Unit) _then) = _$UnitCopyWithImpl;
 @useResult
 $Res call({
- String name, List<Topic> topics
+ String name, List<Topic> topics, List<ListeningContent>? listeningContent
 });
 
 
@@ -605,11 +605,12 @@ class _$UnitCopyWithImpl<$Res>
 
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? topics = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? topics = null,Object? listeningContent = freezed,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,topics: null == topics ? _self.topics : topics // ignore: cast_nullable_to_non_nullable
-as List<Topic>,
+as List<Topic>,listeningContent: freezed == listeningContent ? _self.listeningContent : listeningContent // ignore: cast_nullable_to_non_nullable
+as List<ListeningContent>?,
   ));
 }
 
@@ -691,10 +692,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Topic> topics)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<ListeningContent>? listeningContent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Unit() when $default != null:
-return $default(_that.name,_that.topics);case _:
+return $default(_that.name,_that.topics,_that.listeningContent);case _:
   return orElse();
 
 }
@@ -712,10 +713,10 @@ return $default(_that.name,_that.topics);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Topic> topics)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<ListeningContent>? listeningContent)  $default,) {final _that = this;
 switch (_that) {
 case _Unit():
-return $default(_that.name,_that.topics);}
+return $default(_that.name,_that.topics,_that.listeningContent);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -729,10 +730,10 @@ return $default(_that.name,_that.topics);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Topic> topics)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Topic> topics,  List<ListeningContent>? listeningContent)?  $default,) {final _that = this;
 switch (_that) {
 case _Unit() when $default != null:
-return $default(_that.name,_that.topics);case _:
+return $default(_that.name,_that.topics,_that.listeningContent);case _:
   return null;
 
 }
@@ -744,7 +745,7 @@ return $default(_that.name,_that.topics);case _:
 @JsonSerializable()
 
 class _Unit implements Unit {
-  const _Unit({required this.name, required final  List<Topic> topics}): _topics = topics;
+  const _Unit({required this.name, required final  List<Topic> topics, final  List<ListeningContent>? listeningContent}): _topics = topics,_listeningContent = listeningContent;
   factory _Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
 
 @override final  String name;
@@ -753,6 +754,15 @@ class _Unit implements Unit {
   if (_topics is EqualUnmodifiableListView) return _topics;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_topics);
+}
+
+ final  List<ListeningContent>? _listeningContent;
+@override List<ListeningContent>? get listeningContent {
+  final value = _listeningContent;
+  if (value == null) return null;
+  if (_listeningContent is EqualUnmodifiableListView) return _listeningContent;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
 
@@ -769,16 +779,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._topics, _topics));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._topics, _topics)&&const DeepCollectionEquality().equals(other._listeningContent, _listeningContent));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_topics));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_topics),const DeepCollectionEquality().hash(_listeningContent));
 
 @override
 String toString() {
-  return 'Unit(name: $name, topics: $topics)';
+  return 'Unit(name: $name, topics: $topics, listeningContent: $listeningContent)';
 }
 
 
@@ -789,7 +799,7 @@ abstract mixin class _$UnitCopyWith<$Res> implements $UnitCopyWith<$Res> {
   factory _$UnitCopyWith(_Unit value, $Res Function(_Unit) _then) = __$UnitCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<Topic> topics
+ String name, List<Topic> topics, List<ListeningContent>? listeningContent
 });
 
 
@@ -806,11 +816,12 @@ class __$UnitCopyWithImpl<$Res>
 
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? topics = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? topics = null,Object? listeningContent = freezed,}) {
   return _then(_Unit(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,topics: null == topics ? _self._topics : topics // ignore: cast_nullable_to_non_nullable
-as List<Topic>,
+as List<Topic>,listeningContent: freezed == listeningContent ? _self._listeningContent : listeningContent // ignore: cast_nullable_to_non_nullable
+as List<ListeningContent>?,
   ));
 }
 
@@ -1614,6 +1625,275 @@ class __$DayContentCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? realmId = null,Object? finalTopics = null,}) {
   return _then(_DayContent(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,realmId: null == realmId ? _self.realmId : realmId // ignore: cast_nullable_to_non_nullable
+as String,finalTopics: null == finalTopics ? _self._finalTopics : finalTopics // ignore: cast_nullable_to_non_nullable
+as List<FinalTopic>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ListeningContent {
+
+ String get name; String get realmId; List<FinalTopic> get finalTopics;
+/// Create a copy of ListeningContent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ListeningContentCopyWith<ListeningContent> get copyWith => _$ListeningContentCopyWithImpl<ListeningContent>(this as ListeningContent, _$identity);
+
+  /// Serializes this ListeningContent to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ListeningContent&&(identical(other.name, name) || other.name == name)&&(identical(other.realmId, realmId) || other.realmId == realmId)&&const DeepCollectionEquality().equals(other.finalTopics, finalTopics));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,realmId,const DeepCollectionEquality().hash(finalTopics));
+
+@override
+String toString() {
+  return 'ListeningContent(name: $name, realmId: $realmId, finalTopics: $finalTopics)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ListeningContentCopyWith<$Res>  {
+  factory $ListeningContentCopyWith(ListeningContent value, $Res Function(ListeningContent) _then) = _$ListeningContentCopyWithImpl;
+@useResult
+$Res call({
+ String name, String realmId, List<FinalTopic> finalTopics
+});
+
+
+
+
+}
+/// @nodoc
+class _$ListeningContentCopyWithImpl<$Res>
+    implements $ListeningContentCopyWith<$Res> {
+  _$ListeningContentCopyWithImpl(this._self, this._then);
+
+  final ListeningContent _self;
+  final $Res Function(ListeningContent) _then;
+
+/// Create a copy of ListeningContent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? realmId = null,Object? finalTopics = null,}) {
+  return _then(_self.copyWith(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,realmId: null == realmId ? _self.realmId : realmId // ignore: cast_nullable_to_non_nullable
+as String,finalTopics: null == finalTopics ? _self.finalTopics : finalTopics // ignore: cast_nullable_to_non_nullable
+as List<FinalTopic>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ListeningContent].
+extension ListeningContentPatterns on ListeningContent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ListeningContent value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ListeningContent() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ListeningContent value)  $default,){
+final _that = this;
+switch (_that) {
+case _ListeningContent():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ListeningContent value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ListeningContent() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String realmId,  List<FinalTopic> finalTopics)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ListeningContent() when $default != null:
+return $default(_that.name,_that.realmId,_that.finalTopics);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String realmId,  List<FinalTopic> finalTopics)  $default,) {final _that = this;
+switch (_that) {
+case _ListeningContent():
+return $default(_that.name,_that.realmId,_that.finalTopics);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String realmId,  List<FinalTopic> finalTopics)?  $default,) {final _that = this;
+switch (_that) {
+case _ListeningContent() when $default != null:
+return $default(_that.name,_that.realmId,_that.finalTopics);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ListeningContent implements ListeningContent {
+  const _ListeningContent({required this.name, required this.realmId, required final  List<FinalTopic> finalTopics}): _finalTopics = finalTopics;
+  factory _ListeningContent.fromJson(Map<String, dynamic> json) => _$ListeningContentFromJson(json);
+
+@override final  String name;
+@override final  String realmId;
+ final  List<FinalTopic> _finalTopics;
+@override List<FinalTopic> get finalTopics {
+  if (_finalTopics is EqualUnmodifiableListView) return _finalTopics;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_finalTopics);
+}
+
+
+/// Create a copy of ListeningContent
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ListeningContentCopyWith<_ListeningContent> get copyWith => __$ListeningContentCopyWithImpl<_ListeningContent>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ListeningContentToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ListeningContent&&(identical(other.name, name) || other.name == name)&&(identical(other.realmId, realmId) || other.realmId == realmId)&&const DeepCollectionEquality().equals(other._finalTopics, _finalTopics));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,name,realmId,const DeepCollectionEquality().hash(_finalTopics));
+
+@override
+String toString() {
+  return 'ListeningContent(name: $name, realmId: $realmId, finalTopics: $finalTopics)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ListeningContentCopyWith<$Res> implements $ListeningContentCopyWith<$Res> {
+  factory _$ListeningContentCopyWith(_ListeningContent value, $Res Function(_ListeningContent) _then) = __$ListeningContentCopyWithImpl;
+@override @useResult
+$Res call({
+ String name, String realmId, List<FinalTopic> finalTopics
+});
+
+
+
+
+}
+/// @nodoc
+class __$ListeningContentCopyWithImpl<$Res>
+    implements _$ListeningContentCopyWith<$Res> {
+  __$ListeningContentCopyWithImpl(this._self, this._then);
+
+  final _ListeningContent _self;
+  final $Res Function(_ListeningContent) _then;
+
+/// Create a copy of ListeningContent
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? realmId = null,Object? finalTopics = null,}) {
+  return _then(_ListeningContent(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,realmId: null == realmId ? _self.realmId : realmId // ignore: cast_nullable_to_non_nullable
 as String,finalTopics: null == finalTopics ? _self._finalTopics : finalTopics // ignore: cast_nullable_to_non_nullable

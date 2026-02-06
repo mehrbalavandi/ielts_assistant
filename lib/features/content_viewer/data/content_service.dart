@@ -25,11 +25,13 @@ class ContentService {
             ..sort((a, b) => a.path.compareTo(b.path));
           final units = unitEntities
               .whereType<Directory>()
+              .where((x) => !basename(x.path).startsWith('Day'))
               .map((unitDir) {
                 final topicEntities = unitDir.listSync()
                   ..sort((a, b) => a.path.compareTo(b.path));
                 final mainTopics = topicEntities
                     .whereType<Directory>()
+                    .where((x) => !basename(x.path).startsWith('Listening'))
                     .map((mainTopicDir) {
                       final pageContentEntities = mainTopicDir.listSync()
                         ..sort((a, b) => a.path.compareTo(b.path));
@@ -65,11 +67,65 @@ class ContentService {
                     })
                     .where((pt) => pt.pageContents.isNotEmpty)
                     .toList();
-                return Unit(name: basename(unitDir.path), topics: mainTopics);
+                final listeningContents = unitEntities
+                    .whereType<Directory>()
+                    .where((x) => basename(x.path).startsWith('Listening'))
+                    .map((dayDir) {
+                      final finalTopicEntities = dayDir.listSync()
+                        ..sort((a, b) => a.path.compareTo(b.path));
+                      final finalTopics = finalTopicEntities
+                          .whereType<Directory>()
+                          .map((finalTopicDir) {
+                            // return FinalTopic.fromDirectory(
+                            //   finalTopicDir,
+                            // );
+                            return CfPublic().parseFinalTopic(finalTopicDir);
+                          })
+                          .toList();
+                      return ListeningContent(
+                        realmId: dayDir.path,
+                        name: basename(dayDir.path),
+                        finalTopics: finalTopics,
+                      );
+                    })
+                    .where((l) => l.finalTopics.isNotEmpty)
+                    .toList();
+                return Unit(
+                  name: basename(unitDir.path),
+                  topics: mainTopics,
+                  listeningContent: listeningContents,
+                );
               })
               .where((l) => l.topics.isNotEmpty)
               .toList();
-          return Book(name: basename(bookDir.path), units: units);
+          final dayContents = unitEntities
+              .whereType<Directory>()
+              .where((x) => basename(x.path).startsWith('Day'))
+              .map((dayDir) {
+                final finalTopicEntities = dayDir.listSync()
+                  ..sort((a, b) => a.path.compareTo(b.path));
+                final finalTopics = finalTopicEntities
+                    .whereType<Directory>()
+                    .map((finalTopicDir) {
+                      // return FinalTopic.fromDirectory(
+                      //   finalTopicDir,
+                      // );
+                      return CfPublic().parseFinalTopic(finalTopicDir);
+                    })
+                    .toList();
+                return DayContent(
+                  realmId: dayDir.path,
+                  name: basename(dayDir.path),
+                  finalTopics: finalTopics,
+                );
+              })
+              .where((l) => l.finalTopics.isNotEmpty)
+              .toList();
+          return Book(
+            name: basename(bookDir.path),
+            units: units,
+            dayContents: dayContents,
+          );
         })
         .where((s) => s.units.isNotEmpty)
         .toList();

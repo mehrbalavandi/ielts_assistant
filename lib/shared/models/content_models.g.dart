@@ -37,11 +37,15 @@ _Unit _$UnitFromJson(Map<String, dynamic> json) => _Unit(
   topics: (json['topics'] as List<dynamic>)
       .map((e) => Topic.fromJson(e as Map<String, dynamic>))
       .toList(),
+  listeningContent: (json['listeningContent'] as List<dynamic>?)
+      ?.map((e) => ListeningContent.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$UnitToJson(_Unit instance) => <String, dynamic>{
   'name': instance.name,
   'topics': instance.topics,
+  'listeningContent': instance.listeningContent,
 };
 
 _Topic _$TopicFromJson(Map<String, dynamic> json) => _Topic(
@@ -82,6 +86,22 @@ _DayContent _$DayContentFromJson(Map<String, dynamic> json) => _DayContent(
 );
 
 Map<String, dynamic> _$DayContentToJson(_DayContent instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'realmId': instance.realmId,
+      'finalTopics': instance.finalTopics,
+    };
+
+_ListeningContent _$ListeningContentFromJson(Map<String, dynamic> json) =>
+    _ListeningContent(
+      name: json['name'] as String,
+      realmId: json['realmId'] as String,
+      finalTopics: (json['finalTopics'] as List<dynamic>)
+          .map((e) => FinalTopic.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ListeningContentToJson(_ListeningContent instance) =>
     <String, dynamic>{
       'name': instance.name,
       'realmId': instance.realmId,

@@ -146,7 +146,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () async {
-                _refreshContents();
+                await _refreshContents();
               },
               tooltip: 'تازه‌سازی',
             ),
@@ -161,7 +161,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   await ref
                       .read(settingsProvider.notifier)
                       .updatePath(selectedDirectory);
-                  _refreshContents(root: selectedDirectory);
+                  await _refreshContents(root: selectedDirectory);
                 }
               },
               tooltip: 'انتخاب مسیر',
