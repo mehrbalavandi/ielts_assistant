@@ -40,20 +40,32 @@ class CfPublic {
     final fileEntityNote = _findJsonFileNote(files);
     final filePathNote = fileEntityNote?.path ?? '';
     // debugPrint('مسیر: $filePathEnglish');
-    return FinalTopic(
-      name: basename(dir.path),
-      realmId: dir.path, // مسیر کامل پوشه به عنوان ID
-      audioFileName: _findAudioFile(files),
-      filePathEnglish: filePathEnglish,
-      contentEnglish: parseEnglishContent(
-        File(filePathEnglish).readAsStringSync(),
-      ),
-      filePathPersian: filePathPersian,
-      contentPersian: parsePersianContent(
-        File(filePathPersian).readAsStringSync(),
-      ),
-      notesFilePath: filePathNote,
-    );
+    try {
+      return FinalTopic(
+        name: basename(dir.path),
+        realmId: dir.path, // مسیر کامل پوشه به عنوان ID
+        audioFileName: _findAudioFile(files),
+        filePathEnglish: filePathEnglish,
+        contentEnglish: parseEnglishContent(
+          File(filePathEnglish).readAsStringSync(),
+        ),
+        filePathPersian: filePathPersian,
+        contentPersian: parsePersianContent(
+          File(filePathPersian).readAsStringSync(),
+        ),
+        notesFilePath: filePathNote,
+      );
+    } catch (e) {
+      return FinalTopic(
+        name: basename(dir.path),
+        realmId: dir.path, // مسیر کامل پوشه به عنوان ID
+        filePathEnglish: filePathEnglish,
+        contentEnglish: <TextSegmentEnglish>[],
+        filePathPersian: filePathPersian,
+        contentPersian: <TextSegmentPersian>[],
+        notesFilePath: filePathNote,
+      );
+    }
   }
 
   List<TextSegmentEnglish> parseEnglishContent(String? raw) {

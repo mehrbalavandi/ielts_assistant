@@ -31,7 +31,12 @@ class ContentService {
                   ..sort((a, b) => a.path.compareTo(b.path));
                 final mainTopics = topicEntities
                     .whereType<Directory>()
-                    .where((x) => !basename(x.path).startsWith('Listening'))
+                    .where(
+                      (x) =>
+                          !basename(x.path).startsWith('Listening') &&
+                          !basename(x.path).contains('Pronunciation') &&
+                          !basename(x.path).contains('Dictation'),
+                    )
                     .map((mainTopicDir) {
                       final pageContentEntities = mainTopicDir.listSync()
                         ..sort((a, b) => a.path.compareTo(b.path));
@@ -43,9 +48,6 @@ class ContentService {
                             final finalTopics = finalTopicEntities
                                 .whereType<Directory>()
                                 .map((finalTopicDir) {
-                                  // return FinalTopic.fromDirectory(
-                                  //   finalTopicDir,
-                                  // );
                                   return CfPublic().parseFinalTopic(
                                     finalTopicDir,
                                   );
@@ -67,24 +69,30 @@ class ContentService {
                     })
                     .where((pt) => pt.pageContents.isNotEmpty)
                     .toList();
-                final listeningContents = unitEntities
+                final listeningContents = topicEntities
                     .whereType<Directory>()
-                    .where((x) => basename(x.path).startsWith('Listening'))
-                    .map((dayDir) {
-                      final finalTopicEntities = dayDir.listSync()
+                    .where((x) {
+                      return basename(x.path).startsWith('Listening') ||
+                          basename(x.path).contains('Pronunciation') ||
+                          basename(x.path).contains('Dictation');
+                    })
+                    .map((finalTopicDir) {
+                      final finalTopicEntities = finalTopicDir.listSync()
                         ..sort((a, b) => a.path.compareTo(b.path));
                       final finalTopics = finalTopicEntities
                           .whereType<Directory>()
                           .map((finalTopicDir) {
-                            // return FinalTopic.fromDirectory(
-                            //   finalTopicDir,
-                            // );
                             return CfPublic().parseFinalTopic(finalTopicDir);
                           })
+                          .where(
+                            (x) =>
+                                x.contentEnglish.isNotEmpty ||
+                                x.contentPersian.isNotEmpty,
+                          )
                           .toList();
                       return ListeningContent(
-                        realmId: dayDir.path,
-                        name: basename(dayDir.path),
+                        realmId: finalTopicDir.path,
+                        name: basename(finalTopicDir.path),
                         finalTopics: finalTopics,
                       );
                     })
