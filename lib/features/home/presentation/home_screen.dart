@@ -359,6 +359,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           },
         );
       } else {
+        final vv = nav.selectedBook!.otherContents!.map((e) => e.name).toList();
         return _buildGrid(
           title: 'واحدهای کتاب ${nav.selectedBook!.name}',
           items: nav.selectedBook!.otherContents!.map((e) => e.name).toList(),

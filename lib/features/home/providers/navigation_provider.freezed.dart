@@ -15,10 +15,7 @@ T _$identity<T>(T value) => value;
 mixin _$NavigationState {
 
  Book? get selectedBook; Unit? get selectedUnit; OtherContent? get selectedOtherContent; Topic? get selectedTopic;// ListeningContent? selectedListeningContent,
- PageContent? get selectedPage; FinalTopic? get selectedFinalTopic; FinalTopic? get selectedFinalTopicSearch;// List<TextSegmentEnglish>? currentTextSegmentsEnglish,
-// List<TextSegmentPersian>? currentTextSegmentsPersian,
-// List<TextSegmentPersian>? currentNoteTextSegments,
- bool get isLoading;
+ PageContent? get selectedPage; FinalTopic? get selectedFinalTopic; FinalTopic? get selectedFinalTopicSearch; bool get isLoading;
 /// Create a copy of NavigationState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -306,9 +303,6 @@ class _NavigationState implements NavigationState {
 @override final  PageContent? selectedPage;
 @override final  FinalTopic? selectedFinalTopic;
 @override final  FinalTopic? selectedFinalTopicSearch;
-// List<TextSegmentEnglish>? currentTextSegmentsEnglish,
-// List<TextSegmentPersian>? currentTextSegmentsPersian,
-// List<TextSegmentPersian>? currentNoteTextSegments,
 @override@JsonKey() final  bool isLoading;
 
 /// Create a copy of NavigationState

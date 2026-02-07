@@ -21,15 +21,11 @@ _Book _$BookFromJson(Map<String, dynamic> json) => _Book(
   units: (json['units'] as List<dynamic>)
       .map((e) => Unit.fromJson(e as Map<String, dynamic>))
       .toList(),
-  otherContents: (json['otherContents'] as List<dynamic>?)
-      ?.map((e) => OtherContent.fromJson(e as Map<String, dynamic>))
-      .toList(),
 );
 
 Map<String, dynamic> _$BookToJson(_Book instance) => <String, dynamic>{
   'name': instance.name,
   'units': instance.units,
-  'otherContents': instance.otherContents,
 };
 
 _Unit _$UnitFromJson(Map<String, dynamic> json) => _Unit(
@@ -37,11 +33,15 @@ _Unit _$UnitFromJson(Map<String, dynamic> json) => _Unit(
   topics: (json['topics'] as List<dynamic>)
       .map((e) => Topic.fromJson(e as Map<String, dynamic>))
       .toList(),
+  otherContents: (json['otherContents'] as List<dynamic>?)
+      ?.map((e) => OtherContent.fromJson(e as Map<String, dynamic>))
+      .toList(),
 );
 
 Map<String, dynamic> _$UnitToJson(_Unit instance) => <String, dynamic>{
   'name': instance.name,
   'topics': instance.topics,
+  'otherContents': instance.otherContents,
 };
 
 _Topic _$TopicFromJson(Map<String, dynamic> json) => _Topic(

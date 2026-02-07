@@ -14,11 +14,7 @@ sealed class StudyContent with _$StudyContent {
 
 @freezed
 sealed class Book with _$Book {
-  const factory Book({
-    required String name,
-    required List<Unit> units,
-    required List<OtherContent>? otherContents,
-  }) = _Book;
+  const factory Book({required String name, required List<Unit> units}) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 }
@@ -28,7 +24,7 @@ sealed class Unit with _$Unit {
   const factory Unit({
     required String name,
     required List<Topic> topics,
-    // required List<ListeningContent> listeningContent,
+    required List<OtherContent>? otherContents,
   }) = _Unit;
 
   factory Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);

@@ -21,9 +21,9 @@ class ContentService {
     final books = bookEntities
         .whereType<Directory>()
         .map((bookDir) {
-          final unitEntities = bookDir.listSync()
+          final unitOrOtherEntities = bookDir.listSync()
             ..sort((a, b) => a.path.compareTo(b.path));
-          final units = unitEntities
+          final units = unitOrOtherEntities
               .whereType<Directory>()
               .where(
                 (x) =>
@@ -72,38 +72,11 @@ class ContentService {
                     })
                     .where((pt) => pt.pageContents.isNotEmpty)
                     .toList();
-                // final finalTopics = topicEntities
-                //     .whereType<Directory>()
-                //     .where(
-                //       (x) =>
-                //           basename(x.path).startsWith('01- ') ||
-                //           basename(x.path).startsWith('02- ') ||
-                //           basename(x.path).startsWith('03- ') ||
-                //           basename(x.path).startsWith('04- ') ||
-                //           basename(x.path).startsWith('05- ') ||
-                //           basename(x.path).startsWith('06- '),
-                //     )
-                //     .map((finalTopicDir) {
-                //       return CfPublic().parseFinalTopic(finalTopicDir);
-                //     })
-                //     .where(
-                //       (l) =>
-                //           l.contentEnglish.isNotEmpty ||
-                //           l.contentPersian.isNotEmpty,
-                //     )
-                //     .toList();
-                /*
-                      return ListeningContent(
-                        realmId: finalTopicDir0.path,
-                        name: basename(finalTopicDir0.path),
-                        finalTopics: finalTopics,
-                      );  
-                      */
                 return Unit(name: basename(unitDir.path), topics: mainTopics);
               })
               .where((l) => l.topics.isNotEmpty)
               .toList();
-          final dayContents = unitEntities
+          final otherContents = unitOrOtherEntities
               .whereType<Directory>()
               .where(
                 (x) =>
@@ -115,21 +88,18 @@ class ContentService {
                     basename(x.path).startsWith('05- ') ||
                     basename(x.path).startsWith('06- '),
               )
-              .map((dayDir) {
-                final finalTopicEntities = dayDir.listSync()
+              .map((otherDir) {
+                final finalTopicEntities = otherDir.listSync()
                   ..sort((a, b) => a.path.compareTo(b.path));
                 final finalTopics = finalTopicEntities
                     .whereType<Directory>()
                     .map((finalTopicDir) {
-                      // return FinalTopic.fromDirectory(
-                      //   finalTopicDir,
-                      // );
                       return CfPublic().parseFinalTopic(finalTopicDir);
                     })
                     .toList();
                 return OtherContent(
-                  realmId: dayDir.path,
-                  name: basename(dayDir.path),
+                  realmId: otherDir.path,
+                  name: basename(otherDir.path),
                   finalTopics: finalTopics,
                 );
               })
@@ -138,7 +108,7 @@ class ContentService {
           return Book(
             name: basename(bookDir.path),
             units: units,
-            otherContents: dayContents,
+            otherContents: otherContents,
           );
         })
         .where((s) => s.units.isNotEmpty || s.otherContents != null)
