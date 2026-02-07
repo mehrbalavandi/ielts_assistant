@@ -21,15 +21,15 @@ _Book _$BookFromJson(Map<String, dynamic> json) => _Book(
   units: (json['units'] as List<dynamic>)
       .map((e) => Unit.fromJson(e as Map<String, dynamic>))
       .toList(),
-  dayContents: (json['dayContents'] as List<dynamic>)
-      .map((e) => DayContent.fromJson(e as Map<String, dynamic>))
+  otherContents: (json['otherContents'] as List<dynamic>?)
+      ?.map((e) => OtherContent.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
 Map<String, dynamic> _$BookToJson(_Book instance) => <String, dynamic>{
   'name': instance.name,
   'units': instance.units,
-  'dayContents': instance.dayContents,
+  'otherContents': instance.otherContents,
 };
 
 _Unit _$UnitFromJson(Map<String, dynamic> json) => _Unit(
@@ -37,15 +37,11 @@ _Unit _$UnitFromJson(Map<String, dynamic> json) => _Unit(
   topics: (json['topics'] as List<dynamic>)
       .map((e) => Topic.fromJson(e as Map<String, dynamic>))
       .toList(),
-  listeningContent: (json['listeningContent'] as List<dynamic>)
-      .map((e) => ListeningContent.fromJson(e as Map<String, dynamic>))
-      .toList(),
 );
 
 Map<String, dynamic> _$UnitToJson(_Unit instance) => <String, dynamic>{
   'name': instance.name,
   'topics': instance.topics,
-  'listeningContent': instance.listeningContent,
 };
 
 _Topic _$TopicFromJson(Map<String, dynamic> json) => _Topic(
@@ -77,23 +73,8 @@ Map<String, dynamic> _$PageContentToJson(_PageContent instance) =>
       'finalTopics': instance.finalTopics,
     };
 
-_DayContent _$DayContentFromJson(Map<String, dynamic> json) => _DayContent(
-  name: json['name'] as String,
-  realmId: json['realmId'] as String,
-  finalTopics: (json['finalTopics'] as List<dynamic>)
-      .map((e) => FinalTopic.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
-
-Map<String, dynamic> _$DayContentToJson(_DayContent instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'realmId': instance.realmId,
-      'finalTopics': instance.finalTopics,
-    };
-
-_ListeningContent _$ListeningContentFromJson(Map<String, dynamic> json) =>
-    _ListeningContent(
+_OtherContent _$OtherContentFromJson(Map<String, dynamic> json) =>
+    _OtherContent(
       name: json['name'] as String,
       realmId: json['realmId'] as String,
       finalTopics: (json['finalTopics'] as List<dynamic>)
@@ -101,7 +82,7 @@ _ListeningContent _$ListeningContentFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$ListeningContentToJson(_ListeningContent instance) =>
+Map<String, dynamic> _$OtherContentToJson(_OtherContent instance) =>
     <String, dynamic>{
       'name': instance.name,
       'realmId': instance.realmId,

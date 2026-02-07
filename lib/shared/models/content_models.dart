@@ -17,7 +17,7 @@ sealed class Book with _$Book {
   const factory Book({
     required String name,
     required List<Unit> units,
-    required List<DayContent> dayContents,
+    required List<OtherContent>? otherContents,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
@@ -28,7 +28,7 @@ sealed class Unit with _$Unit {
   const factory Unit({
     required String name,
     required List<Topic> topics,
-    required List<ListeningContent> listeningContent,
+    // required List<ListeningContent> listeningContent,
   }) = _Unit;
 
   factory Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
@@ -58,28 +58,28 @@ sealed class PageContent with _$PageContent {
 }
 
 @freezed
-sealed class DayContent with _$DayContent {
-  const factory DayContent({
+sealed class OtherContent with _$OtherContent {
+  const factory OtherContent({
     required String name,
     required String realmId,
     required List<FinalTopic> finalTopics,
-  }) = _DayContent;
+  }) = _OtherContent;
 
-  factory DayContent.fromJson(Map<String, dynamic> json) =>
-      _$DayContentFromJson(json);
+  factory OtherContent.fromJson(Map<String, dynamic> json) =>
+      _$OtherContentFromJson(json);
 }
 
-@freezed
-sealed class ListeningContent with _$ListeningContent {
-  const factory ListeningContent({
-    required String name,
-    required String realmId,
-    required List<FinalTopic> finalTopics,
-  }) = _ListeningContent;
+// @freezed
+// sealed class ListeningContent with _$ListeningContent {
+//   const factory ListeningContent({
+//     required String name,
+//     required String realmId,
+//     required List<FinalTopic> finalTopics,
+//   }) = _ListeningContent;
 
-  factory ListeningContent.fromJson(Map<String, dynamic> json) =>
-      _$ListeningContentFromJson(json);
-}
+//   factory ListeningContent.fromJson(Map<String, dynamic> json) =>
+//       _$ListeningContentFromJson(json);
+// }
 
 @freezed
 sealed class FinalTopic with _$FinalTopic {

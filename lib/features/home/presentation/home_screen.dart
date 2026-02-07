@@ -318,36 +318,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     // ۲. نمایش لیست موضوعات (Topics)
     if (nav.selectedUnit != null) {
-      final listeningContents = nav.selectedUnit!.listeningContent;
-      if (listeningContents.isEmpty) {
-        return _buildGrid(
-          title: 'موضوعات واحد ${nav.selectedUnit!.name}',
-          items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
-          icon: Icons.description_outlined,
-          onTap: (index) => ref
-              .read(navigationProvider.notifier)
-              .selectTopic(nav.selectedUnit!.topics[index]),
-        );
-      } else {
-        return _buildGrid(
-          title: 'موضوعات واحد ${nav.selectedUnit!.name}',
-          items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
-          icon: Icons.description_outlined,
-          onTap: (index) {
-            ref
-                .read(navigationProvider.notifier)
-                .selectListeningContent(
-                  nav.selectedUnit!.listeningContent[index],
-                );
-          },
-        );
-      }
+      // final listeningContents = nav.selectedUnit!.listeningContent;
+      // if (listeningContents.isEmpty) {
+      return _buildGrid(
+        title: 'موضوعات واحد ${nav.selectedUnit!.name}',
+        items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
+        icon: Icons.description_outlined,
+        onTap: (index) => ref
+            .read(navigationProvider.notifier)
+            .selectTopic(nav.selectedUnit!.topics[index]),
+      );
+      // } else {
+      //   return _buildGrid(
+      //     title: 'موضوعات واحد ${nav.selectedUnit!.name}',
+      //     items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
+      //     icon: Icons.description_outlined,
+      //     onTap: (index) {
+      //       ref
+      //           .read(navigationProvider.notifier)
+      //           .selectListeningContent(
+      //             nav.selectedUnit!.listeningContent[index],
+      //           );
+      //     },
+      //   );
+      // }
     }
 
     // ۳. نمایش لیست واحدها (Units)
     if (nav.selectedBook != null) {
-      final dayContents = nav.selectedBook!.dayContents;
-      if (dayContents.isEmpty) {
+      final otherContents = nav.selectedBook!.otherContents;
+      if (otherContents == null) {
         return _buildGrid(
           title: 'واحدهای کتاب ${nav.selectedBook!.name}',
           items: nav.selectedBook!.units.map((e) => e.name).toList(),
@@ -361,12 +361,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       } else {
         return _buildGrid(
           title: 'واحدهای کتاب ${nav.selectedBook!.name}',
-          items: nav.selectedBook!.dayContents.map((e) => e.name).toList(),
+          items: nav.selectedBook!.otherContents!.map((e) => e.name).toList(),
           icon: Icons.folder_open_outlined,
           onTap: (index) {
             ref
                 .read(navigationProvider.notifier)
-                .selectDayContent(nav.selectedBook!.dayContents[index]);
+                .selectDayContent(nav.selectedBook!.otherContents![index]);
           },
         );
       }

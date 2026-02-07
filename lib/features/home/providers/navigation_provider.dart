@@ -20,15 +20,12 @@ sealed class NavigationState with _$NavigationState {
   const factory NavigationState({
     Book? selectedBook,
     Unit? selectedUnit,
-    DayContent? selectedDayContent,
+    OtherContent? selectedOtherContent,
     Topic? selectedTopic,
-    ListeningContent? selectedListeningContent,
+    // ListeningContent? selectedListeningContent,
     PageContent? selectedPage,
     FinalTopic? selectedFinalTopic,
     FinalTopic? selectedFinalTopicSearch,
-    // List<TextSegmentEnglish>? currentTextSegmentsEnglish,
-    // List<TextSegmentPersian>? currentTextSegmentsPersian,
-    // List<TextSegmentPersian>? currentNoteTextSegments,
     @Default(false) bool isLoading,
   }) = _NavigationState;
 }
@@ -42,7 +39,7 @@ class NavigationNotifier extends _$NavigationNotifier {
   static const _kUnit = 'last_unit';
   static const _kDayContent = 'last_day_content';
   static const _kTopic = 'last_topic';
-  static const _kListeningContent = 'last_listening_content';
+  // static const _kListeningContent = 'last_listening_content';
   static const _kPage = 'last_page';
   static const _kFinalTopic = 'last_final_topic';
 
@@ -54,7 +51,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     final lastUnitName = _box.read(_kUnit);
     final lastDayName = _box.read(_kDayContent);
     final lastTopicName = _box.read(_kTopic);
-    final lastListeningContent = _box.read(_kListeningContent);
+    // final lastListeningContent = _box.read(_kListeningContent);
     final lastPageName = _box.read(_kPage);
     // final lastFinalTopicName = _box.read(_kFinalTopic);
 
@@ -85,15 +82,18 @@ class NavigationNotifier extends _$NavigationNotifier {
             //   state = state.copyWith(selectedFinalTopic: finalTopic);
             // }
           }
-        } else if (lastListeningContent != null) {
-          final listeningContent = unit.listeningContent!.firstWhere(
-            (t) => t.name == lastListeningContent,
-          );
-          state = state.copyWith(selectedListeningContent: listeningContent);
         }
+        // else if (lastListeningContent != null) {
+        //   final listeningContent = unit.listeningContent!.firstWhere(
+        //     (t) => t.name == lastListeningContent,
+        //   );
+        //   state = state.copyWith(selectedListeningContent: listeningContent);
+        // }
       } else if (lastDayName != null) {
-        final day = book.dayContents!.firstWhere((u) => u.name == lastDayName);
-        state = state.copyWith(selectedDayContent: day);
+        final day = book.otherContents!.firstWhere(
+          (u) => u.name == lastDayName,
+        );
+        state = state.copyWith(selectedOtherContent: day);
       }
     } catch (_) {}
   }
@@ -101,9 +101,9 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectBook(Book book) {
     state = state.copyWith(
       selectedBook: book,
-      selectedDayContent: null,
+      selectedOtherContent: null,
       selectedUnit: null,
-      selectedListeningContent: null,
+      // selectedListeningContent: null,
       selectedTopic: null,
       selectedPage: null,
       selectedFinalTopic: null,
@@ -112,7 +112,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     _box.remove(_kUnit);
     _box.remove(_kDayContent);
     _box.remove(_kTopic);
-    _box.remove(_kListeningContent);
+    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
     Future.delayed(Duration.zero).then((value) async {
@@ -131,33 +131,33 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectUnit(Unit unit) {
     state = state.copyWith(
       selectedUnit: unit,
-      selectedDayContent: null,
+      selectedOtherContent: null,
       selectedTopic: null,
-      selectedListeningContent: null,
+      // selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kUnit, unit.name);
     _box.remove(_kDayContent);
     _box.remove(_kTopic);
-    _box.remove(_kListeningContent);
+    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
 
-  void selectDayContent(DayContent dayContent) {
+  void selectDayContent(OtherContent dayContent) {
     state = state.copyWith(
       selectedUnit: null,
-      selectedDayContent: dayContent,
+      selectedOtherContent: dayContent,
       selectedTopic: null,
-      selectedListeningContent: null,
+      // selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kDayContent, dayContent.name);
     _box.remove(_kUnit);
     _box.remove(_kTopic);
-    _box.remove(_kListeningContent);
+    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
@@ -165,28 +165,28 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectTopic(Topic topic) {
     state = state.copyWith(
       selectedTopic: topic,
-      selectedListeningContent: null,
+      // selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kTopic, topic.name);
-    _box.remove(_kListeningContent);
+    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
 
-  void selectListeningContent(ListeningContent listeningContentc) {
-    state = state.copyWith(
-      selectedTopic: null,
-      selectedListeningContent: listeningContentc,
-      selectedPage: null,
-      selectedFinalTopic: null,
-    );
-    _box.write(_kListeningContent, listeningContentc.name);
-    _box.remove(_kTopic);
-    _box.remove(_kPage);
-    _box.remove(_kFinalTopic);
-  }
+  // void selectListeningContent(ListeningContent listeningContentc) {
+  //   state = state.copyWith(
+  //     selectedTopic: null,
+  //     selectedListeningContent: listeningContentc,
+  //     selectedPage: null,
+  //     selectedFinalTopic: null,
+  //   );
+  //   _box.write(_kListeningContent, listeningContentc.name);
+  //   _box.remove(_kTopic);
+  //   _box.remove(_kPage);
+  //   _box.remove(_kFinalTopic);
+  // }
 
   Future<void> selectPageAndFinalTopic(
     PageContent pageContent,
