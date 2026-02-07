@@ -33,9 +33,12 @@ class ContentService {
                     .whereType<Directory>()
                     .where(
                       (x) =>
-                          !basename(x.path).startsWith('Listening') &&
-                          !basename(x.path).contains('Pronunciation') &&
-                          !basename(x.path).contains('Dictation'),
+                          !basename(x.path).startsWith('01- ') &&
+                          !basename(x.path).startsWith('02- ') &&
+                          !basename(x.path).startsWith('03- ') &&
+                          !basename(x.path).startsWith('04- ') &&
+                          !basename(x.path).startsWith('05- ') &&
+                          !basename(x.path).startsWith('06- '),
                     )
                     .map((mainTopicDir) {
                       final pageContentEntities = mainTopicDir.listSync()
@@ -69,39 +72,37 @@ class ContentService {
                     })
                     .where((pt) => pt.pageContents.isNotEmpty)
                     .toList();
-                final listeningContents = topicEntities
+                final finalTopics = topicEntities
                     .whereType<Directory>()
-                    .where((x) {
-                      return basename(x.path).startsWith('Listening') ||
-                          basename(x.path).contains('Pronunciation') ||
-                          basename(x.path).contains('Dictation');
+                    .where(
+                      (x) =>
+                          basename(x.path).startsWith('01- ') ||
+                          basename(x.path).startsWith('02- ') ||
+                          basename(x.path).startsWith('03- ') ||
+                          basename(x.path).startsWith('04- ') ||
+                          basename(x.path).startsWith('05- ') ||
+                          basename(x.path).startsWith('06- '),
+                    )
+                    .map((finalTopicDir0) {
+                      return CfPublic().parseFinalTopic(finalTopicDir0);
                     })
-                    .map((finalTopicDir) {
-                      final finalTopicEntities = finalTopicDir.listSync()
-                        ..sort((a, b) => a.path.compareTo(b.path));
-                      final finalTopics = finalTopicEntities
-                          .whereType<Directory>()
-                          .map((finalTopicDir) {
-                            return CfPublic().parseFinalTopic(finalTopicDir);
-                          })
-                          .where(
-                            (x) =>
-                                x.contentEnglish.isNotEmpty ||
-                                x.contentPersian.isNotEmpty,
-                          )
-                          .toList();
-                      return ListeningContent(
-                        realmId: finalTopicDir.path,
-                        name: basename(finalTopicDir.path),
-                        finalTopics: finalTopics,
-                      );
-                    })
-                    .where((l) => l.finalTopics.isNotEmpty)
+                    .where(
+                      (l) =>
+                          l.contentEnglish.isNotEmpty ||
+                          l.contentPersian.isNotEmpty,
+                    )
                     .toList();
+                /*
+                      return ListeningContent(
+                        realmId: finalTopicDir0.path,
+                        name: basename(finalTopicDir0.path),
+                        finalTopics: finalTopics,
+                      );  
+                      */
                 return Unit(
                   name: basename(unitDir.path),
                   topics: mainTopics,
-                  listeningContent: listeningContents,
+                  listeningContent: ,
                 );
               })
               .where(
