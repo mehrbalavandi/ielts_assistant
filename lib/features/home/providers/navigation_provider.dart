@@ -401,6 +401,9 @@ class NavigationNotifier extends _$NavigationNotifier {
     } else if (state.selectedTopic != null) {
       state = state.copyWith(selectedTopic: null);
       _box.remove(_kTopic);
+    } else if (state.selectedOtherContent != null) {
+      state = state.copyWith(selectedOtherContent: null);
+      _box.remove(_kOtherContent);
     } else if (state.selectedUnit != null) {
       state = state.copyWith(selectedUnit: null);
       _box.remove(_kUnit);

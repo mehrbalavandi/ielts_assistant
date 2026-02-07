@@ -21,10 +21,11 @@ class ContentService {
     final books = bookEntities
         .whereType<Directory>()
         .map((bookDir) {
-          final unitEntities = bookDir.listSync()
+          final unitOrOtherEntities = bookDir.listSync()
             ..sort((a, b) => a.path.compareTo(b.path));
-          final units = unitEntities
+          final units = unitOrOtherEntities
               .whereType<Directory>()
+              .where((x) => !basename(x.path).startsWith('Day'))
               .map((unitDir) {
                 final topicOrOtherEntities = unitDir.listSync()
                   ..sort((a, b) => a.path.compareTo(b.path));
@@ -33,12 +34,12 @@ class ContentService {
                     .where(
                       (x) =>
                           !basename(x.path).startsWith('Day') &&
-                          !basename(x.path).startsWith('01- ') &&
-                          !basename(x.path).startsWith('02- ') &&
-                          !basename(x.path).startsWith('03- ') &&
-                          !basename(x.path).startsWith('04- ') &&
-                          !basename(x.path).startsWith('05- ') &&
-                          !basename(x.path).startsWith('06- '),
+                          !basename(x.path).startsWith('01. ') &&
+                          !basename(x.path).startsWith('02. ') &&
+                          !basename(x.path).startsWith('03. ') &&
+                          !basename(x.path).startsWith('04. ') &&
+                          !basename(x.path).startsWith('05. ') &&
+                          !basename(x.path).startsWith('06. '),
                     )
                     .map((mainTopicDir) {
                       final pageContentEntities = mainTopicDir.listSync()
@@ -55,6 +56,11 @@ class ContentService {
                                     finalTopicDir,
                                   );
                                 })
+                                .where(
+                                  (x) =>
+                                      x.contentEnglish.isNotEmpty ||
+                                      x.contentPersian.isNotEmpty,
+                                )
                                 .toList();
                             return PageContent(
                               realmId: pageContentDir.path,
@@ -77,12 +83,12 @@ class ContentService {
                     .where(
                       (x) =>
                           basename(x.path).startsWith('Day') ||
-                          basename(x.path).startsWith('01- ') ||
-                          basename(x.path).startsWith('02- ') ||
-                          basename(x.path).startsWith('03- ') ||
-                          basename(x.path).startsWith('04- ') ||
-                          basename(x.path).startsWith('05- ') ||
-                          basename(x.path).startsWith('06- '),
+                          basename(x.path).startsWith('01. ') ||
+                          basename(x.path).startsWith('02. ') ||
+                          basename(x.path).startsWith('03. ') ||
+                          basename(x.path).startsWith('04. ') ||
+                          basename(x.path).startsWith('05. ') ||
+                          basename(x.path).startsWith('06. '),
                     )
                     .map((otherDir) {
                       final finalTopicEntities = otherDir.listSync()
@@ -92,6 +98,11 @@ class ContentService {
                           .map((finalTopicDir) {
                             return CfPublic().parseFinalTopic(finalTopicDir);
                           })
+                          .where(
+                            (x) =>
+                                x.contentEnglish.isNotEmpty ||
+                                x.contentPersian.isNotEmpty,
+                          )
                           .toList();
                       return OtherContent(
                         realmId: otherDir.path,
@@ -99,7 +110,6 @@ class ContentService {
                         finalTopics: finalTopics,
                       );
                     })
-                    .where((l) => l.finalTopics.isNotEmpty)
                     .toList();
                 return Unit(
                   name: basename(unitDir.path),
@@ -107,12 +117,48 @@ class ContentService {
                   otherContents: otherContents,
                 );
               })
-              .where((l) => l.topics.isNotEmpty)
+              .where(
+                (l) =>
+                    l.topics.isNotEmpty ||
+                    (l.otherContents != null && l.otherContents!.isNotEmpty),
+              )
+              .toList();
+          final otherContents = unitOrOtherEntities
+              .whereType<Directory>()
+              .where((x) => basename(x.path).startsWith('Day'))
+              .map((otherDir) {
+                final finalTopicEntities = otherDir.listSync()
+                  ..sort((a, b) => a.path.compareTo(b.path));
+                final finalTopics = finalTopicEntities
+                    .whereType<Directory>()
+                    .map((finalTopicDir) {
+                      return CfPublic().parseFinalTopic(finalTopicDir);
+                    })
+                    .where(
+                      (x) =>
+                          x.contentEnglish.isNotEmpty ||
+                          x.contentPersian.isNotEmpty,
+                    )
+                    .toList();
+                return OtherContent(
+                  realmId: otherDir.path,
+                  name: basename(otherDir.path),
+                  finalTopics: finalTopics,
+                );
+              })
               .toList();
 
-          return Book(name: basename(bookDir.path), units: units);
+          return Book(
+            name: basename(bookDir.path),
+            units: units,
+            otherContents: otherContents,
+          );
         })
-        .where((s) => s.units.isNotEmpty)
+        .where(
+          (s) =>
+              s.units.isNotEmpty ||
+              (s.otherContents != null && s.otherContents!.isNotEmpty),
+        )
         .toList();
 
     return books;
