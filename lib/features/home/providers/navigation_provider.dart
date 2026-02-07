@@ -37,7 +37,7 @@ class NavigationNotifier extends _$NavigationNotifier {
 
   static const _kBook = 'last_book';
   static const _kUnit = 'last_unit';
-  static const _kDayContent = 'last_day_content';
+  static const _kOtherContent = 'last_other_content';
   static const _kTopic = 'last_topic';
   // static const _kListeningContent = 'last_listening_content';
   static const _kPage = 'last_page';
@@ -49,7 +49,7 @@ class NavigationNotifier extends _$NavigationNotifier {
   void restoreLastState(List<Book> allBooks) {
     final lastBookName = _box.read(_kBook);
     final lastUnitName = _box.read(_kUnit);
-    final lastDayName = _box.read(_kDayContent);
+    final lastOtherName = _box.read(_kOtherContent);
     final lastTopicName = _box.read(_kTopic);
     // final lastListeningContent = _box.read(_kListeningContent);
     final lastPageName = _box.read(_kPage);
@@ -82,18 +82,12 @@ class NavigationNotifier extends _$NavigationNotifier {
             //   state = state.copyWith(selectedFinalTopic: finalTopic);
             // }
           }
+        } else if (lastOtherName != null) {
+          final other = unit.otherContents!.firstWhere(
+            (t) => t.name == lastOtherName,
+          );
+          state = state.copyWith(selectedOtherContent: other);
         }
-        // else if (lastListeningContent != null) {
-        //   final listeningContent = unit.listeningContent!.firstWhere(
-        //     (t) => t.name == lastListeningContent,
-        //   );
-        //   state = state.copyWith(selectedListeningContent: listeningContent);
-        // }
-      } else if (lastDayName != null) {
-        final day = book.otherContents!.firstWhere(
-          (u) => u.name == lastDayName,
-        );
-        state = state.copyWith(selectedOtherContent: day);
       }
     } catch (_) {}
   }
@@ -110,7 +104,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     );
     _box.write(_kBook, book.name);
     _box.remove(_kUnit);
-    _box.remove(_kDayContent);
+    _box.remove(_kOtherContent);
     _box.remove(_kTopic);
     // _box.remove(_kListeningContent);
     _box.remove(_kPage);
@@ -138,23 +132,23 @@ class NavigationNotifier extends _$NavigationNotifier {
       selectedFinalTopic: null,
     );
     _box.write(_kUnit, unit.name);
-    _box.remove(_kDayContent);
+    _box.remove(_kOtherContent);
     _box.remove(_kTopic);
     // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
 
-  void selectDayContent(OtherContent dayContent) {
+  void selectOtherContent(OtherContent otherContent) {
     state = state.copyWith(
       selectedUnit: null,
-      selectedOtherContent: dayContent,
+      selectedOtherContent: otherContent,
       selectedTopic: null,
       // selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
-    _box.write(_kDayContent, dayContent.name);
+    _box.write(_kOtherContent, otherContent.name);
     _box.remove(_kUnit);
     _box.remove(_kTopic);
     // _box.remove(_kListeningContent);
@@ -245,7 +239,7 @@ class NavigationNotifier extends _$NavigationNotifier {
     );
     if (book != null) {
       final unit = book.units.firstWhere((u) => u.name.contains('Band 4–5'));
-      final topic = unit.topics.firstWhere((t) => t.name.contains('Days'));
+      final topic = unit.topics.firstWhere((t) => t.name.contains('Others'));
       final page = topic.pageContents.firstWhere((t) => t.name.contains('00'));
       updateAllContents(books, book, unit, topic, page, finalTopic);
       updateSearchListData();
