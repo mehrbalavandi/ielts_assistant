@@ -201,8 +201,10 @@ class NavigationNotifier extends _$NavigationNotifier {
     );
     if (book != null) {
       final unit = book.units.firstWhere((u) => u.name.contains('Band 4–5'));
-      final topic = unit.topics.firstWhere((t) => t.name.contains('Others'));
-      final page = topic.pageContents.firstWhere((t) => t.name.contains('00'));
+      final topic = unit.topics.firstWhere((t) => t.name.contains('Days'));
+      final page = topic.pageContents.firstWhere(
+        (t) => t.name.contains('Day 00'),
+      );
       updateAllContents(books, book, unit, topic, page, finalTopic);
       updateSearchListData();
     }

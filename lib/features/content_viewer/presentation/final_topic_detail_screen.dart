@@ -287,7 +287,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
       final isManualFinalTopic =
           (widget.originalContent!.book.name.contains('قالبهای موقعیتی')) &&
-          (widget.originalContent!.page.name == '00');
+          (widget.originalContent!.page.name == 'Day 00');
       return PopScope(
         canPop:
             true, //ref.read(isPlayerExpandedProvider.notifier).state == false,
@@ -720,19 +720,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         style: style,
       );
     }).toList();
-    // return SingleChildScrollView(
-    //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-    //   child: Align(
-    //     alignment: AlignmentGeometry.centerLeft,
-    //     child: Directionality(
-    //       textDirection: TextDirection.ltr,
-    //       child: RichText(
-    //         textAlign: TextAlign.left,
-    //         text: TextSpan(children: faSpans),
-    //       ),
-    //     ),
-    //   ),
-    // );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -809,7 +809,7 @@ class CfPublic {
             onSubmit: (textSegmentPersian) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
               if (!Directory(newTemplateDirectory).existsSync()) {
                 Directory(newTemplateDirectory).createSync(recursive: true);
               }
@@ -864,7 +864,7 @@ class CfPublic {
             onSubmit: (textSegmentPersian) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
               if (!Directory(newTemplateDirectory).existsSync()) {
                 Directory(newTemplateDirectory).createSync(recursive: true);
               }
@@ -918,7 +918,7 @@ class CfPublic {
             onSubmit: (textSegmentPersian) async {
               final rootPath = ref.read(settingsProvider);
               String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
               if (!Directory(newTemplateDirectory).existsSync()) {
                 Directory(newTemplateDirectory).createSync(recursive: true);
               }
@@ -1028,7 +1028,7 @@ class CfPublic {
   ) async {
     final rootPath = ref.read(settingsProvider);
     String newTemplateDirectory =
-        '$rootPath/قالبهای موقعیتی/Band 4–5/Days/00/Content';
+        '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
     if (!Directory(newTemplateDirectory).existsSync()) {
       Directory(newTemplateDirectory).createSync(recursive: true);
     }
