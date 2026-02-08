@@ -77,7 +77,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       final isManualFinalTopic =
           ((nav.selectedBook?.name != null) &&
               selectedBook.name.contains('قالبهای موقعیتی')) &&
-          (selectedPage.name == '00');
+          (selectedPage.name == 'Day 00');
       return PopScope(
         canPop:
             true, //ref.read(isPlayerExpandedProvider.notifier).state == false,

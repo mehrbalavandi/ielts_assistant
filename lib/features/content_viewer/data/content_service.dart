@@ -25,22 +25,22 @@ class ContentService {
             ..sort((a, b) => a.path.compareTo(b.path));
           final units = unitOrOtherEntities
               .whereType<Directory>()
-              .where((x) => !basename(x.path).startsWith('Day'))
+              // .where((x) => !basename(x.path).startsWith('Day'))
               .map((unitDir) {
                 final topicOrOtherEntities = unitDir.listSync()
                   ..sort((a, b) => a.path.compareTo(b.path));
                 final mainTopics = topicOrOtherEntities
                     .whereType<Directory>()
-                    .where(
-                      (x) =>
-                          !basename(x.path).startsWith('Day') &&
-                          !basename(x.path).startsWith('01. ') &&
-                          !basename(x.path).startsWith('02. ') &&
-                          !basename(x.path).startsWith('03. ') &&
-                          !basename(x.path).startsWith('04. ') &&
-                          !basename(x.path).startsWith('05. ') &&
-                          !basename(x.path).startsWith('06. '),
-                    )
+                    // .where(
+                    //   (x) =>
+                    //       !basename(x.path).startsWith('Day') &&
+                    //       !basename(x.path).startsWith('01. ') &&
+                    //       !basename(x.path).startsWith('02. ') &&
+                    //       !basename(x.path).startsWith('03. ') &&
+                    //       !basename(x.path).startsWith('04. ') &&
+                    //       !basename(x.path).startsWith('05. ') &&
+                    //       !basename(x.path).startsWith('06. '),
+                    // )
                     .map((mainTopicDir) {
                       final pageContentEntities = mainTopicDir.listSync()
                         ..sort((a, b) => a.path.compareTo(b.path));
