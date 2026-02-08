@@ -63,7 +63,95 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     final nav = ref.watch(navigationProvider);
     final selectedFinalTopic = nav.selectedFinalTopic;
     final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
-    if (selectedFinalTopic != null) {
+    if (selectedFinalTopicSearch != null) {
+      final String finalTopicId = selectedFinalTopicSearch.name;
+      String title =
+          '${widget.originalContent!.book.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.name.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.name.replaceAll('Page ', 'P ')}>${selectedFinalTopicSearch.name.substring(selectedFinalTopicSearch.name.indexOf(' ') + 1)}';
+      // استفاده از پروایدر به صورت family
+      // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
+      final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
+      final isManualFinalTopic =
+          (widget.originalContent!.book.name.contains('قالبهای موقعیتی')) &&
+          (widget.originalContent!.page.name == 'Day 00');
+      return PopScope(
+        canPop:
+            true, //ref.read(isPlayerExpandedProvider.notifier).state == false,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop) {
+            ref.read(isPlayerExpandedProvider.notifier).state = false;
+            return;
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            title: Text(
+              title,
+              style: TextStyle(
+                // fontFamily: FontFamily.yekanBakhBold.asText,
+                fontSize: 16.0,
+                // color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            actions: [
+              if (!isManualFinalTopic)
+                IconButton(
+                  icon: Icon(
+                    isDualPane ? Icons.view_stream : Icons.view_column,
+                  ),
+                  onPressed: () =>
+                      ref.read(isDualPaneProvider.notifier).state = !isDualPane,
+                  tooltip: 'تغییر چیدمان متن',
+                ),
+            ],
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: isManualFinalTopic
+                    ? _buildManualLayout(
+                        nav,
+                        isDualPane,
+                        selectedFinalTopicSearch.contentEnglish,
+                        selectedFinalTopicSearch.contentPersian,
+                        sentenceStates,
+                        finalTopicId,
+                      )
+                    : isDualPane
+                    ? _buildEnglishAndPersianLayout(
+                        widget.originalContent!.book.name.contains(
+                          'قالبهای موقعیتی',
+                        ),
+                        selectedFinalTopicSearch.contentEnglish,
+                        selectedFinalTopicSearch.contentPersian,
+                        sentenceStates,
+                        finalTopicId,
+                      )
+                    : widget.originalContent!.book.name.contains(
+                        'قالبهای موقعیتی',
+                      )
+                    ? _buildPersianLayout(
+                        selectedFinalTopicSearch.contentPersian,
+                        finalTopicId,
+                      )
+                    : (widget.searchText == null)
+                    ? _buildEnglishLayout(
+                        selectedFinalTopicSearch.contentEnglish,
+                        sentenceStates,
+                        finalTopicId,
+                      )
+                    : _buildEnglishLayoutForSearch(
+                        selectedFinalTopicSearch.contentEnglish,
+                        sentenceStates,
+                        finalTopicId,
+                      ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else if (selectedFinalTopic != null) {
       final selectedBook = nav.selectedBook;
       final selectedTopic = nav.selectedTopic;
       final selectedUnit = nav.selectedUnit;
@@ -298,91 +386,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               ),
               // مینی پلیر که قابلیت باز و بسته شدن دارد
               const ExpandableMiniPlayer(),
-            ],
-          ),
-        ),
-      );
-    } else if (selectedFinalTopicSearch != null) {
-      final String finalTopicId = selectedFinalTopicSearch.name;
-      String title =
-          '${widget.originalContent!.book.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.name.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.name.replaceAll('Page ', 'P ')}>${selectedFinalTopicSearch.name.substring(selectedFinalTopicSearch.name.indexOf(' ') + 1)}';
-      // استفاده از پروایدر به صورت family
-      // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
-      final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
-      final isManualFinalTopic =
-          (widget.originalContent!.book.name.contains('قالبهای موقعیتی')) &&
-          (widget.originalContent!.page.name == 'Day 00');
-      return PopScope(
-        canPop:
-            true, //ref.read(isPlayerExpandedProvider.notifier).state == false,
-        onPopInvokedWithResult: (didPop, result) {
-          if (didPop) {
-            ref.read(isPlayerExpandedProvider.notifier).state = false;
-            return;
-          }
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            title: Text(
-              title,
-              style: TextStyle(
-                // fontFamily: FontFamily.yekanBakhBold.asText,
-                fontSize: 16.0,
-                // color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(isDualPane ? Icons.view_stream : Icons.view_column),
-                onPressed: () =>
-                    ref.read(isDualPaneProvider.notifier).state = !isDualPane,
-                tooltip: 'تغییر چیدمان متن',
-              ),
-            ],
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: isManualFinalTopic
-                    ? _buildManualLayout(
-                        nav,
-                        isDualPane,
-                        selectedFinalTopicSearch.contentEnglish,
-                        selectedFinalTopicSearch.contentPersian,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : isDualPane
-                    ? _buildEnglishAndPersianLayout(
-                        widget.originalContent!.book.name.contains(
-                          'قالبهای موقعیتی',
-                        ),
-                        selectedFinalTopicSearch.contentEnglish,
-                        selectedFinalTopicSearch.contentPersian,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : widget.originalContent!.book.name.contains(
-                        'قالبهای موقعیتی',
-                      )
-                    ? _buildPersianLayout(
-                        selectedFinalTopicSearch.contentPersian,
-                        finalTopicId,
-                      )
-                    : (widget.searchText == null)
-                    ? _buildEnglishLayout(
-                        selectedFinalTopicSearch.contentEnglish,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : _buildEnglishLayoutForSearch(
-                        selectedFinalTopicSearch.contentEnglish,
-                        sentenceStates,
-                        finalTopicId,
-                      ),
-              ),
             ],
           ),
         ),

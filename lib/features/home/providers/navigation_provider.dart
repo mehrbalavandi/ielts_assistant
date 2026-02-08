@@ -208,7 +208,7 @@ class NavigationNotifier extends _$NavigationNotifier {
       updateAllContents(books, book, unit, topic, page, finalTopic);
       updateSearchListData();
     }
-    state = state.copyWith(isLoading: false);
+    state = state.copyWith(selectedFinalTopic: finalTopic, isLoading: false);
   }
 
   Future<void> updateTempelate(FinalTopic finalTopic) async {
