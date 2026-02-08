@@ -278,7 +278,7 @@ as List<Book>,
 /// @nodoc
 mixin _$Book {
 
- String get name; List<Unit> get units; List<OtherContent>? get otherContents;
+ String get name; List<Unit> get units;
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -291,16 +291,16 @@ $BookCopyWith<Book> get copyWith => _$BookCopyWithImpl<Book>(this as Book, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Book&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.units, units)&&const DeepCollectionEquality().equals(other.otherContents, otherContents));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Book&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.units, units));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(units),const DeepCollectionEquality().hash(otherContents));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(units));
 
 @override
 String toString() {
-  return 'Book(name: $name, units: $units, otherContents: $otherContents)';
+  return 'Book(name: $name, units: $units)';
 }
 
 
@@ -311,7 +311,7 @@ abstract mixin class $BookCopyWith<$Res>  {
   factory $BookCopyWith(Book value, $Res Function(Book) _then) = _$BookCopyWithImpl;
 @useResult
 $Res call({
- String name, List<Unit> units, List<OtherContent>? otherContents
+ String name, List<Unit> units
 });
 
 
@@ -328,12 +328,11 @@ class _$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? units = null,Object? otherContents = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? units = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,units: null == units ? _self.units : units // ignore: cast_nullable_to_non_nullable
-as List<Unit>,otherContents: freezed == otherContents ? _self.otherContents : otherContents // ignore: cast_nullable_to_non_nullable
-as List<OtherContent>?,
+as List<Unit>,
   ));
 }
 
@@ -415,10 +414,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Unit> units,  List<OtherContent>? otherContents)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Unit> units)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Book() when $default != null:
-return $default(_that.name,_that.units,_that.otherContents);case _:
+return $default(_that.name,_that.units);case _:
   return orElse();
 
 }
@@ -436,10 +435,10 @@ return $default(_that.name,_that.units,_that.otherContents);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Unit> units,  List<OtherContent>? otherContents)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Unit> units)  $default,) {final _that = this;
 switch (_that) {
 case _Book():
-return $default(_that.name,_that.units,_that.otherContents);}
+return $default(_that.name,_that.units);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -453,10 +452,10 @@ return $default(_that.name,_that.units,_that.otherContents);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Unit> units,  List<OtherContent>? otherContents)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Unit> units)?  $default,) {final _that = this;
 switch (_that) {
 case _Book() when $default != null:
-return $default(_that.name,_that.units,_that.otherContents);case _:
+return $default(_that.name,_that.units);case _:
   return null;
 
 }
@@ -468,7 +467,7 @@ return $default(_that.name,_that.units,_that.otherContents);case _:
 @JsonSerializable()
 
 class _Book implements Book {
-  const _Book({required this.name, required final  List<Unit> units, required final  List<OtherContent>? otherContents}): _units = units,_otherContents = otherContents;
+  const _Book({required this.name, required final  List<Unit> units}): _units = units;
   factory _Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 
 @override final  String name;
@@ -477,15 +476,6 @@ class _Book implements Book {
   if (_units is EqualUnmodifiableListView) return _units;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_units);
-}
-
- final  List<OtherContent>? _otherContents;
-@override List<OtherContent>? get otherContents {
-  final value = _otherContents;
-  if (value == null) return null;
-  if (_otherContents is EqualUnmodifiableListView) return _otherContents;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
 }
 
 
@@ -502,16 +492,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Book&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._units, _units)&&const DeepCollectionEquality().equals(other._otherContents, _otherContents));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Book&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._units, _units));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_units),const DeepCollectionEquality().hash(_otherContents));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_units));
 
 @override
 String toString() {
-  return 'Book(name: $name, units: $units, otherContents: $otherContents)';
+  return 'Book(name: $name, units: $units)';
 }
 
 
@@ -522,7 +512,7 @@ abstract mixin class _$BookCopyWith<$Res> implements $BookCopyWith<$Res> {
   factory _$BookCopyWith(_Book value, $Res Function(_Book) _then) = __$BookCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<Unit> units, List<OtherContent>? otherContents
+ String name, List<Unit> units
 });
 
 
@@ -539,12 +529,11 @@ class __$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? units = null,Object? otherContents = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? units = null,}) {
   return _then(_Book(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,units: null == units ? _self._units : units // ignore: cast_nullable_to_non_nullable
-as List<Unit>,otherContents: freezed == otherContents ? _self._otherContents : otherContents // ignore: cast_nullable_to_non_nullable
-as List<OtherContent>?,
+as List<Unit>,
   ));
 }
 
@@ -555,7 +544,7 @@ as List<OtherContent>?,
 /// @nodoc
 mixin _$Unit {
 
- String get name; List<Topic> get topics; List<OtherContent>? get otherContents;
+ String get name; List<Topic> get topics;
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -568,16 +557,16 @@ $UnitCopyWith<Unit> get copyWith => _$UnitCopyWithImpl<Unit>(this as Unit, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.topics, topics)&&const DeepCollectionEquality().equals(other.otherContents, otherContents));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.topics, topics));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(topics),const DeepCollectionEquality().hash(otherContents));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(topics));
 
 @override
 String toString() {
-  return 'Unit(name: $name, topics: $topics, otherContents: $otherContents)';
+  return 'Unit(name: $name, topics: $topics)';
 }
 
 
@@ -588,7 +577,7 @@ abstract mixin class $UnitCopyWith<$Res>  {
   factory $UnitCopyWith(Unit value, $Res Function(Unit) _then) = _$UnitCopyWithImpl;
 @useResult
 $Res call({
- String name, List<Topic> topics, List<OtherContent>? otherContents
+ String name, List<Topic> topics
 });
 
 
@@ -605,12 +594,11 @@ class _$UnitCopyWithImpl<$Res>
 
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? topics = null,Object? otherContents = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? topics = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,topics: null == topics ? _self.topics : topics // ignore: cast_nullable_to_non_nullable
-as List<Topic>,otherContents: freezed == otherContents ? _self.otherContents : otherContents // ignore: cast_nullable_to_non_nullable
-as List<OtherContent>?,
+as List<Topic>,
   ));
 }
 
@@ -692,10 +680,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<OtherContent>? otherContents)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Topic> topics)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Unit() when $default != null:
-return $default(_that.name,_that.topics,_that.otherContents);case _:
+return $default(_that.name,_that.topics);case _:
   return orElse();
 
 }
@@ -713,10 +701,10 @@ return $default(_that.name,_that.topics,_that.otherContents);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Topic> topics,  List<OtherContent>? otherContents)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Topic> topics)  $default,) {final _that = this;
 switch (_that) {
 case _Unit():
-return $default(_that.name,_that.topics,_that.otherContents);}
+return $default(_that.name,_that.topics);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -730,10 +718,10 @@ return $default(_that.name,_that.topics,_that.otherContents);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Topic> topics,  List<OtherContent>? otherContents)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Topic> topics)?  $default,) {final _that = this;
 switch (_that) {
 case _Unit() when $default != null:
-return $default(_that.name,_that.topics,_that.otherContents);case _:
+return $default(_that.name,_that.topics);case _:
   return null;
 
 }
@@ -745,7 +733,7 @@ return $default(_that.name,_that.topics,_that.otherContents);case _:
 @JsonSerializable()
 
 class _Unit implements Unit {
-  const _Unit({required this.name, required final  List<Topic> topics, required final  List<OtherContent>? otherContents}): _topics = topics,_otherContents = otherContents;
+  const _Unit({required this.name, required final  List<Topic> topics}): _topics = topics;
   factory _Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
 
 @override final  String name;
@@ -754,15 +742,6 @@ class _Unit implements Unit {
   if (_topics is EqualUnmodifiableListView) return _topics;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_topics);
-}
-
- final  List<OtherContent>? _otherContents;
-@override List<OtherContent>? get otherContents {
-  final value = _otherContents;
-  if (value == null) return null;
-  if (_otherContents is EqualUnmodifiableListView) return _otherContents;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
 }
 
 
@@ -779,16 +758,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._topics, _topics)&&const DeepCollectionEquality().equals(other._otherContents, _otherContents));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Unit&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._topics, _topics));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_topics),const DeepCollectionEquality().hash(_otherContents));
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_topics));
 
 @override
 String toString() {
-  return 'Unit(name: $name, topics: $topics, otherContents: $otherContents)';
+  return 'Unit(name: $name, topics: $topics)';
 }
 
 
@@ -799,7 +778,7 @@ abstract mixin class _$UnitCopyWith<$Res> implements $UnitCopyWith<$Res> {
   factory _$UnitCopyWith(_Unit value, $Res Function(_Unit) _then) = __$UnitCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<Topic> topics, List<OtherContent>? otherContents
+ String name, List<Topic> topics
 });
 
 
@@ -816,12 +795,11 @@ class __$UnitCopyWithImpl<$Res>
 
 /// Create a copy of Unit
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? topics = null,Object? otherContents = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? topics = null,}) {
   return _then(_Unit(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,topics: null == topics ? _self._topics : topics // ignore: cast_nullable_to_non_nullable
-as List<Topic>,otherContents: freezed == otherContents ? _self._otherContents : otherContents // ignore: cast_nullable_to_non_nullable
-as List<OtherContent>?,
+as List<Topic>,
   ));
 }
 

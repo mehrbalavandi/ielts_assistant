@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/data/content_service.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
@@ -20,9 +19,8 @@ sealed class NavigationState with _$NavigationState {
   const factory NavigationState({
     Book? selectedBook,
     Unit? selectedUnit,
-    OtherContent? selectedOtherContent,
+    // OtherContent? selectedOtherContent,
     Topic? selectedTopic,
-    // ListeningContent? selectedListeningContent,
     PageContent? selectedPage,
     FinalTopic? selectedFinalTopic,
     FinalTopic? selectedFinalTopicSearch,
@@ -33,13 +31,11 @@ sealed class NavigationState with _$NavigationState {
 @riverpod
 class NavigationNotifier extends _$NavigationNotifier {
   final _box = GetStorage();
-  final _contentService = ContentService();
 
   static const _kBook = 'last_book';
   static const _kUnit = 'last_unit';
-  static const _kOtherContent = 'last_other_content';
+  // static const _kOtherContent = 'last_other_content';
   static const _kTopic = 'last_topic';
-  // static const _kListeningContent = 'last_listening_content';
   static const _kPage = 'last_page';
   static const _kFinalTopic = 'last_final_topic';
 
@@ -49,9 +45,8 @@ class NavigationNotifier extends _$NavigationNotifier {
   void restoreLastState(List<Book> allBooks) {
     final lastBookName = _box.read(_kBook);
     final lastUnitName = _box.read(_kUnit);
-    final lastOtherName = _box.read(_kOtherContent);
+    // final lastOtherName = _box.read(_kOtherContent);
     final lastTopicName = _box.read(_kTopic);
-    // final lastListeningContent = _box.read(_kListeningContent);
     final lastPageName = _box.read(_kPage);
     // final lastFinalTopicName = _box.read(_kFinalTopic);
 
@@ -74,19 +69,7 @@ class NavigationNotifier extends _$NavigationNotifier {
               (t) => t.name == lastPageName,
             );
             state = state.copyWith(selectedPage: page);
-
-            // if (lastFinalTopicName != null) {
-            //   final finalTopic = page.finalTopics.firstWhere(
-            //     (t) => t.name == lastFinalTopicName,
-            //   );
-            //   state = state.copyWith(selectedFinalTopic: finalTopic);
-            // }
           }
-        } else if (lastOtherName != null) {
-          final other = unit.otherContents!.firstWhere(
-            (t) => t.name == lastOtherName,
-          );
-          state = state.copyWith(selectedOtherContent: other);
         }
       }
     } catch (_) {}
@@ -95,18 +78,16 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectBook(Book book) {
     state = state.copyWith(
       selectedBook: book,
-      selectedOtherContent: null,
+      // selectedOtherContent: null,
       selectedUnit: null,
-      // selectedListeningContent: null,
       selectedTopic: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kBook, book.name);
     _box.remove(_kUnit);
-    _box.remove(_kOtherContent);
+    // _box.remove(_kOtherContent);
     _box.remove(_kTopic);
-    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
     Future.delayed(Duration.zero).then((value) async {
@@ -125,16 +106,14 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectUnit(Unit unit) {
     state = state.copyWith(
       selectedUnit: unit,
-      selectedOtherContent: null,
+      // selectedOtherContent: null,
       selectedTopic: null,
-      // selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kUnit, unit.name);
-    _box.remove(_kOtherContent);
+    // _box.remove(_kOtherContent);
     _box.remove(_kTopic);
-    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
@@ -142,16 +121,14 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectOtherContent(OtherContent otherContent) {
     state = state.copyWith(
       selectedUnit: null,
-      selectedOtherContent: otherContent,
+      // selectedOtherContent: otherContent,
       selectedTopic: null,
-      // selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
-    _box.write(_kOtherContent, otherContent.name);
+    // _box.write(_kOtherContent, otherContent.name);
     _box.remove(_kUnit);
     _box.remove(_kTopic);
-    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
@@ -159,28 +136,13 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectTopic(Topic topic) {
     state = state.copyWith(
       selectedTopic: topic,
-      // selectedListeningContent: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kTopic, topic.name);
-    // _box.remove(_kListeningContent);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
   }
-
-  // void selectListeningContent(ListeningContent listeningContentc) {
-  //   state = state.copyWith(
-  //     selectedTopic: null,
-  //     selectedListeningContent: listeningContentc,
-  //     selectedPage: null,
-  //     selectedFinalTopic: null,
-  //   );
-  //   _box.write(_kListeningContent, listeningContentc.name);
-  //   _box.remove(_kTopic);
-  //   _box.remove(_kPage);
-  //   _box.remove(_kFinalTopic);
-  // }
 
   Future<void> selectPageAndFinalTopic(
     PageContent pageContent,
@@ -401,10 +363,12 @@ class NavigationNotifier extends _$NavigationNotifier {
     } else if (state.selectedTopic != null) {
       state = state.copyWith(selectedTopic: null);
       _box.remove(_kTopic);
-    } else if (state.selectedOtherContent != null) {
-      state = state.copyWith(selectedOtherContent: null);
-      _box.remove(_kOtherContent);
-    } else if (state.selectedUnit != null) {
+    }
+    // else if (state.selectedOtherContent != null) {
+    //   state = state.copyWith(selectedOtherContent: null);
+    //   _box.remove(_kOtherContent);
+    // }
+    else if (state.selectedUnit != null) {
       state = state.copyWith(selectedUnit: null);
       _box.remove(_kUnit);
     } else if (state.selectedBook != null) {

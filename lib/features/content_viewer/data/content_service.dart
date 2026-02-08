@@ -78,87 +78,14 @@ class ContentService {
                     })
                     .where((pt) => pt.pageContents.isNotEmpty)
                     .toList();
-                final otherContents = topicOrOtherEntities
-                    .whereType<Directory>()
-                    .where(
-                      (x) =>
-                          basename(x.path).startsWith('Day') ||
-                          basename(x.path).startsWith('01. ') ||
-                          basename(x.path).startsWith('02. ') ||
-                          basename(x.path).startsWith('03. ') ||
-                          basename(x.path).startsWith('04. ') ||
-                          basename(x.path).startsWith('05. ') ||
-                          basename(x.path).startsWith('06. '),
-                    )
-                    .map((otherDir) {
-                      final finalTopicEntities = otherDir.listSync()
-                        ..sort((a, b) => a.path.compareTo(b.path));
-                      final finalTopics = finalTopicEntities
-                          .whereType<Directory>()
-                          .map((finalTopicDir) {
-                            return CfPublic().parseFinalTopic(finalTopicDir);
-                          })
-                          .where(
-                            (x) =>
-                                x.contentEnglish.isNotEmpty ||
-                                x.contentPersian.isNotEmpty,
-                          )
-                          .toList();
-                      return OtherContent(
-                        realmId: otherDir.path,
-                        name: basename(otherDir.path),
-                        finalTopics: finalTopics,
-                      );
-                    })
-                    .toList();
-                return Unit(
-                  name: basename(unitDir.path),
-                  topics: mainTopics,
-                  otherContents: otherContents,
-                );
+                return Unit(name: basename(unitDir.path), topics: mainTopics);
               })
-              .where(
-                (l) =>
-                    l.topics.isNotEmpty ||
-                    (l.otherContents != null && l.otherContents!.isNotEmpty),
-              )
-              .toList();
-          final otherContents = unitOrOtherEntities
-              .whereType<Directory>()
-              .where((x) => basename(x.path).startsWith('Day'))
-              .map((otherDir) {
-                final finalTopicEntities = otherDir.listSync()
-                  ..sort((a, b) => a.path.compareTo(b.path));
-                final finalTopics = finalTopicEntities
-                    .whereType<Directory>()
-                    .map((finalTopicDir) {
-                      return CfPublic().parseFinalTopic(finalTopicDir);
-                    })
-                    .where(
-                      (x) =>
-                          x.contentEnglish.isNotEmpty ||
-                          x.contentPersian.isNotEmpty,
-                    )
-                    .toList();
-                return OtherContent(
-                  realmId: otherDir.path,
-                  name: basename(otherDir.path),
-                  finalTopics: finalTopics,
-                );
-              })
+              .where((l) => l.topics.isNotEmpty)
               .toList();
 
-          return Book(
-            name: basename(bookDir.path),
-            units: units,
-            otherContents: otherContents,
-          );
+          return Book(name: basename(bookDir.path), units: units);
         })
-        .where(
-          (s) =>
-              s.units.isNotEmpty ||
-              (s.otherContents != null && s.otherContents!.isNotEmpty),
-        )
+        .where((s) => s.units.isNotEmpty)
         .toList();
 
     return books;

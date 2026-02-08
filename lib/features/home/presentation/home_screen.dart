@@ -314,44 +314,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             .read(navigationProvider.notifier)
             .selectPageContent(nav.selectedTopic!.pageContents[index]),
       );
-    } else if (nav.selectedOtherContent != null) {
-      return _buildGrid(
-        title: 'موضوعات نهایی ${nav.selectedOtherContent!.name}',
-        items: nav.selectedOtherContent!.finalTopics
-            .map((e) => e.name)
-            .toList(),
-        icon: Icons.description_outlined,
-        onTap: (index) => ref
-            .read(navigationProvider.notifier)
-            .selectFinalTopic(nav.selectedOtherContent!.finalTopics[index]),
-      );
     }
 
     // ۲. نمایش لیست موضوعات (Topics)
     if (nav.selectedUnit != null) {
-      final topics = nav.selectedUnit!.topics;
-      final otherContents = nav.selectedUnit!.otherContents;
-      if (topics.isNotEmpty) {
-        return _buildGrid(
-          title: 'موضوعات واحد ${nav.selectedUnit!.name}',
-          items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
-          icon: Icons.description_outlined,
-          onTap: (index) => ref
-              .read(navigationProvider.notifier)
-              .selectTopic(nav.selectedUnit!.topics[index]),
-        );
-      } else {
-        return _buildGrid(
-          title: 'موضوعات واحد ${nav.selectedUnit!.name}',
-          items: nav.selectedUnit!.otherContents!.map((e) => e.name).toList(),
-          icon: Icons.description_outlined,
-          onTap: (index) {
-            ref
-                .read(navigationProvider.notifier)
-                .selectOtherContent(nav.selectedUnit!.otherContents![index]);
-          },
-        );
-      }
+      return _buildGrid(
+        title: 'موضوعات واحد ${nav.selectedUnit!.name}',
+        items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
+        icon: Icons.description_outlined,
+        onTap: (index) => ref
+            .read(navigationProvider.notifier)
+            .selectTopic(nav.selectedUnit!.topics[index]),
+      );
     }
 
     // ۳. نمایش لیست واحدها (Units)
