@@ -103,29 +103,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
           actions: [
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: IconButton(
-                onPressed: () async {
-                  if (await CfPublic().getExternalStoragePermissionStatus() ==
-                      true) {
-                    if (context.mounted) {
-                      CfPublic().showPopupAddTempelate(context, ref).then((
-                        finalTopic,
-                      ) {
-                        if (finalTopic != null) {
-                          ref
-                              .read(navigationProvider.notifier)
-                              .addTempelate(finalTopic);
-                        }
-                      });
-                    }
-                  }
-                },
-                icon: Icon(Icons.add),
-                tooltip: 'افزودن قالب جدید',
-              ),
-            ),
+            // Directionality(
+            //   textDirection: TextDirection.rtl,
+            //   child: IconButton(
+            //     onPressed: () async {},
+            //     icon: Icon(Icons.add),
+            //     tooltip: 'افزودن قالب جدید',
+            //   ),
+            // ),
             //! ویجت جستجو
             Directionality(
               textDirection: TextDirection.rtl,

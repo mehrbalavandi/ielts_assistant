@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,10 +8,11 @@ import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/sentence_provider.dart';
+import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_tempelate.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/view_tempelate.dart';
+import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/customer_search_delegate.dart';
-import 'package:ielts_assistant/shared/list_item_text_segment.dart';
 import 'package:ielts_assistant/shared/list_item_text_segmentSimple.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/utility_persian.dart';
@@ -114,12 +117,33 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   icon: Icon(Icons.search),
                 ),
               ),
-              IconButton(
-                icon: Icon(isDualPane ? Icons.view_stream : Icons.view_column),
-                onPressed: () =>
-                    ref.read(isDualPaneProvider.notifier).state = !isDualPane,
-                tooltip: 'تغییر چیدمان متن',
-              ),
+              if (!isManualFinalTopic)
+                IconButton(
+                  icon: Icon(
+                    isDualPane ? Icons.view_stream : Icons.view_column,
+                  ),
+                  onPressed: () =>
+                      ref.read(isDualPaneProvider.notifier).state = !isDualPane,
+                  tooltip: 'تغییر چیدمان متن',
+                ),
+              if (isManualFinalTopic)
+                IconButton(
+                  onPressed: () async {
+                    if (await CfPublic().getExternalStoragePermissionStatus() ==
+                        true) {
+                      if (context.mounted) {
+                        _showPopupAddTempelate(context, ref).then((finalTopic) {
+                          if (finalTopic != null) {
+                            ref
+                                .read(navigationProvider.notifier)
+                                .addTempelate(finalTopic);
+                          }
+                        });
+                      }
+                    }
+                  },
+                  icon: const Icon(Icons.add),
+                ),
             ],
           ),
           body: Column(
@@ -418,7 +442,12 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             style: e.style,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                _showPopup(context, ms.text, ms.translation!, ms.explanation!);
+                _showPopupInteracticeSegmentDetails(
+                  context,
+                  ms.text,
+                  ms.translation!,
+                  ms.explanation!,
+                );
               },
           );
         }).toList();
@@ -489,7 +518,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   style: e.style,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      _showPopup(
+                      _showPopupInteracticeSegmentDetails(
                         context,
                         subMs.text,
                         subMs.translation!,
@@ -781,61 +810,62 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     isPersianTextSegment: true,
                     number: index + 1,
                     spans: spanList,
-                    onTap: () {
-                      ViewTempelate(
-                        context,
-                        index,
-                        textSegmentsEnglish,
-                        textSegmentsPersian,
-                        // noteSpans,
-                        nav,
-                      );
-                    },
-                    onEdit: () {
-                      updateTempelate(
-                        context,
-                        index,
-                        textSegmentsEnglish,
-                        textSegmentsPersian,
-                        // noteSpans,
-                        nav,
-                      );
-                    },
-                    onDelete: () async {
-                      String q = 'آیا از حذف این قالب اطمینان دارید؟';
-                      bool? response = await CfPublic().showQuestionDialog(
-                        context,
-                        q,
-                      );
-                      if (response == null || response == false) {
-                        return;
-                      }
-                      final result = await CfPublic().deleteTempelate(
+                    onTap: () async {
+                      await _showPopupViewTempelate(
                         context,
                         ref,
                         index,
-                      );
-                      if (result != null && result == true) {
-                        if (nav.selectedFinalTopic != null) {
-                          ref
-                              .read(navigationProvider.notifier)
-                              .updateTempelate(nav.selectedFinalTopic!);
-                        } else if (widget.originalContent != null) {
-                          ref
-                              .read(navigationProvider.notifier)
-                              .updateTempelateForSearchResult(
-                                widget.originalContent!,
-                              );
+                        textSegmentsPersian[index],
+                      ).then((value) {
+                        if (value != null && value == true) {
+                          if (nav.selectedFinalTopic != null) {
+                            ref
+                                .read(navigationProvider.notifier)
+                                .updateTempelate(nav.selectedFinalTopic!);
+                          } else if (widget.originalContent != null) {
+                            ref
+                                .read(navigationProvider.notifier)
+                                .updateTempelateForSearchResult(
+                                  widget.originalContent!,
+                                );
+                          }
+                          _updateSearchListData();
                         }
-                        _updateSearchListData();
-                      }
+                      });
+                      ;
                     },
+                    onEdit: () async {
+                      await _showPopupEditTempelate(
+                        context,
+                        ref,
+                        index,
+                        textSegmentsPersian[index],
+                        // noteSpans[index].text!,
+                      ).then((value) {
+                        if (value != null && value == true) {
+                          if (nav.selectedFinalTopic != null) {
+                            ref
+                                .read(navigationProvider.notifier)
+                                .updateTempelate(nav.selectedFinalTopic!);
+                          } else if (widget.originalContent != null) {
+                            ref
+                                .read(navigationProvider.notifier)
+                                .updateTempelateForSearchResult(
+                                  widget.originalContent!,
+                                );
+                          }
+                          _updateSearchListData();
+                        }
+                      });
+                    },
+                    onDelete: () async {},
                   );
                 },
               ),
             ),
           ),
         ),
+        /*
         if (isDualPane)
           const Divider(height: 12.0, color: Colors.grey, thickness: 6.0),
         if (isDualPane)
@@ -893,7 +923,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       return formattedSpans;
                     }).toList();
                     final spanList = spans.expand((e) => e).toList();
-                    return ListItemTextSegment(
+                    return ListItemTextSegmentSimple(
                       ref: ref,
                       isPersianTextSegment: false,
                       number: index + 1,
@@ -912,33 +942,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           nav,
                         );
                       },
-                      onDelete: () async {
-                        final result = await CfPublic().deleteTempelate(
-                          context,
-                          ref,
-                          index,
-                        );
-                        if (result != null && result == true) {
-                          if (nav.selectedFinalTopic != null) {
-                            ref
-                                .read(navigationProvider.notifier)
-                                .updateTempelate(nav.selectedFinalTopic!);
-                          } else if (widget.originalContent != null) {
-                            ref
-                                .read(navigationProvider.notifier)
-                                .updateTempelateForSearchResult(
-                                  widget.originalContent!,
-                                );
-                          }
-                          _updateSearchListData();
-                        }
-                      },
+                      onDelete: () async {},
                     );
                   },
                 ),
               ),
             ),
           ),
+      */
       ],
     );
   }
@@ -951,72 +962,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         )
         .then((result) {
           ref.read(searchListProvider.notifier).state = result;
-        });
-  }
-
-  void ViewTempelate(
-    BuildContext context,
-    int index,
-    // List<TextSegmentEnglish> textSegmentsEnglish
-    List<TextSegmentEnglish> textSegmentsEnglish,
-    List<TextSegmentPersian> textSegmentsPersian,
-    // List<TextSpan> noteSpans,
-    NavigationState nav,
-  ) {
-    CfPublic()
-        .showPopupViewTempelate(
-          context,
-          ref,
-          index,
-          textSegmentsPersian[index],
-          // noteSpans[index].text!,
-        )
-        .then((value) {
-          if (value != null && value == true) {
-            if (nav.selectedFinalTopic != null) {
-              ref
-                  .read(navigationProvider.notifier)
-                  .updateTempelate(nav.selectedFinalTopic!);
-            } else if (widget.originalContent != null) {
-              ref
-                  .read(navigationProvider.notifier)
-                  .updateTempelateForSearchResult(widget.originalContent!);
-            }
-            _updateSearchListData();
-          }
-        });
-  }
-
-  void updateTempelate(
-    BuildContext context,
-    int index,
-    // List<TextSegmentEnglish> textSegmentsEnglish
-    List<TextSegmentEnglish> textSegmentsEnglish,
-    List<TextSegmentPersian> textSegmentsPersian,
-    // List<TextSpan> noteSpans,
-    NavigationState nav,
-  ) {
-    CfPublic()
-        .showPopupEditTempelate(
-          context,
-          ref,
-          index,
-          textSegmentsPersian[index],
-          // noteSpans[index].text!,
-        )
-        .then((value) {
-          if (value != null && value == true) {
-            if (nav.selectedFinalTopic != null) {
-              ref
-                  .read(navigationProvider.notifier)
-                  .updateTempelate(nav.selectedFinalTopic!);
-            } else if (widget.originalContent != null) {
-              ref
-                  .read(navigationProvider.notifier)
-                  .updateTempelateForSearchResult(widget.originalContent!);
-            }
-            _updateSearchListData();
-          }
         });
   }
 
@@ -1072,7 +1017,12 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             style: e.style,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                _showPopup(context, ms.text, ms.translation!, ms.explanation!);
+                _showPopupInteracticeSegmentDetails(
+                  context,
+                  ms.text,
+                  ms.translation!,
+                  ms.explanation!,
+                );
               },
           );
         }).toList();
@@ -1133,7 +1083,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   style: e.style,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      _showPopup(
+                      _showPopupInteracticeSegmentDetails(
                         context,
                         subMs.text,
                         subMs.translation!,
@@ -1291,7 +1241,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     return microSegments;
   }
 
-  void _showPopup(
+  void _showPopupInteracticeSegmentDetails(
     BuildContext context,
     String text,
     String translation,
@@ -1349,5 +1299,204 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         );
       },
     );
+  }
+
+  Future<FinalTopic?> _showPopupAddTempelate(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    final dialogResult = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: AddOrEditTempelate(
+            onSubmit: (textSegmentPersian) async {
+              final rootPath = ref.read(settingsProvider);
+              String newTemplateDirectory =
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
+              if (!Directory(newTemplateDirectory).existsSync()) {
+                Directory(newTemplateDirectory).createSync(recursive: true);
+              }
+              String allTextFileName = '$newTemplateDirectory/me.1.txt';
+              if (!File(allTextFileName).existsSync()) {
+                File(allTextFileName).createSync(recursive: true);
+              }
+              //! محتوای فارسی
+              String faFileName = '$newTemplateDirectory/me.3.translation.json';
+              if (!File(faFileName).existsSync()) {
+                File(faFileName).createSync(recursive: true);
+              }
+              FinalTopic? result = await CfPublic()
+                  .savePersianTextSegmentToExternalStorage(
+                    fileName: faFileName,
+                    textSement: textSegmentPersian,
+                  );
+
+              if (result != null) {
+                if (context.mounted) {
+                  Navigator.pop(context, result);
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pop(context, null);
+                }
+              }
+            },
+          ),
+        );
+      },
+    );
+    if (dialogResult != null) {
+      return dialogResult as FinalTopic;
+    } else {
+      return null;
+    }
+  }
+
+  Future<bool?> _showPopupViewTempelate(
+    BuildContext context,
+    WidgetRef ref,
+    int index,
+    TextSegmentPersian textSegmentPersian,
+  ) async {
+    ref.read(isEditModeProvider.notifier).state = false;
+    final dialogResult = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: ViewTempelateWidget(
+            onUpdate: (textSegmentPersian) async {
+              final rootPath = ref.read(settingsProvider);
+              String newTemplateDirectory =
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
+              if (!Directory(newTemplateDirectory).existsSync()) {
+                Directory(newTemplateDirectory).createSync(recursive: true);
+              }
+              String allTextFileName = '$newTemplateDirectory/me.1.txt';
+              if (!File(allTextFileName).existsSync()) {
+                File(allTextFileName).createSync(recursive: true);
+              }
+              //! محتوای فارسی
+              String faFileName = '$newTemplateDirectory/me.3.translation.json';
+              if (!File(faFileName).existsSync()) {
+                File(faFileName).createSync(recursive: true);
+              }
+              final result = await CfPublic()
+                  .updatePersianTextSegmentToExternalStorage(
+                    fileName: faFileName,
+                    index: index,
+                    textSegmentPersian: textSegmentPersian,
+                  );
+              if (result != null) {
+                if (context.mounted) {
+                  Navigator.pop(context, true);
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pop(context, false);
+                }
+              }
+            },
+            onDelete: () async {
+              String q = 'آیا از حذف این قالب اطمینان دارید؟';
+              bool? response = await CfPublic().showQuestionDialog(context, q);
+              if (response == null || response == false) {
+                return;
+              }
+              final rootPath = ref.read(settingsProvider);
+              String newTemplateDirectory =
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
+              if (!Directory(newTemplateDirectory).existsSync()) {
+                Directory(newTemplateDirectory).createSync(recursive: true);
+              }
+              String allTextFileName = '$newTemplateDirectory/me.1.txt';
+              if (!File(allTextFileName).existsSync()) {
+                File(allTextFileName).createSync(recursive: true);
+              }
+              //! محتوای فارسی
+              String faFileName = '$newTemplateDirectory/me.3.translation.json';
+              if (!File(faFileName).existsSync()) {
+                File(faFileName).createSync(recursive: true);
+              }
+              final result = await CfPublic().deleteTempelate(
+                faFileName,
+                index,
+              );
+              if (result != null) {
+                if (context.mounted) {
+                  Navigator.pop(context, true);
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pop(context, false);
+                }
+              }
+            },
+            persianTextSegment: textSegmentPersian,
+          ),
+        );
+      },
+    );
+    if (dialogResult != null) {
+      return dialogResult as bool;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool?> _showPopupEditTempelate(
+    BuildContext context,
+    WidgetRef ref,
+    int index,
+    TextSegmentPersian textSegmentPersian,
+  ) async {
+    final dialogResult = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: AddOrEditTempelate(
+            onSubmit: (textSegmentPersian) async {
+              final rootPath = ref.read(settingsProvider);
+              String newTemplateDirectory =
+                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
+              if (!Directory(newTemplateDirectory).existsSync()) {
+                Directory(newTemplateDirectory).createSync(recursive: true);
+              }
+              String allTextFileName = '$newTemplateDirectory/me.1.txt';
+              if (!File(allTextFileName).existsSync()) {
+                File(allTextFileName).createSync(recursive: true);
+              }
+              //! محتوای فارسی
+              String faFileName = '$newTemplateDirectory/me.3.translation.json';
+              if (!File(faFileName).existsSync()) {
+                File(faFileName).createSync(recursive: true);
+              }
+              final result = await CfPublic()
+                  .updatePersianTextSegmentToExternalStorage(
+                    fileName: faFileName,
+                    index: index,
+                    textSegmentPersian: textSegmentPersian,
+                  );
+              if (result != null) {
+                if (context.mounted) {
+                  Navigator.pop(context, true);
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pop(context, false);
+                }
+              }
+            },
+
+            persianTextSegment: textSegmentPersian,
+          ),
+        );
+      },
+    );
+    if (dialogResult != null) {
+      return dialogResult as bool;
+    } else {
+      return false;
+    }
   }
 }

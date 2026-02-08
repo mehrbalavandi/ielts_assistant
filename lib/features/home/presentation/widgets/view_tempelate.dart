@@ -7,23 +7,25 @@ import 'package:ielts_assistant/shared/my_text_form_field.dart';
 
 final isEditModeProvider = StateProvider<bool>((ref) => false);
 
-class ViewTempelate extends ConsumerStatefulWidget {
+class ViewTempelateWidget extends ConsumerStatefulWidget {
   TextSegmentPersian? persianTextSegment;
-  final void Function(TextSegmentPersian persianTextSegment)? onSubmit;
+  final void Function(TextSegmentPersian persianTextSegment)? onUpdate;
+  final void Function()? onDelete;
 
-  ViewTempelate({
+  ViewTempelateWidget({
     super.key,
     // this.initEnglishText,
     this.persianTextSegment,
     // this.initExplanations,
-    required this.onSubmit,
+    required this.onUpdate,
+    required this.onDelete,
   });
 
   @override
-  ConsumerState<ViewTempelate> createState() => _ViewTempelateState();
+  ConsumerState<ViewTempelateWidget> createState() => _ViewTempelateState();
 }
 
-class _ViewTempelateState extends ConsumerState<ViewTempelate> {
+class _ViewTempelateState extends ConsumerState<ViewTempelateWidget> {
   bool isDoing = false;
   //!
   //* انگلیسی
@@ -70,6 +72,7 @@ class _ViewTempelateState extends ConsumerState<ViewTempelate> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final isEditMode = ref.watch(isEditModeProvider);
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
@@ -262,7 +265,7 @@ class _ViewTempelateState extends ConsumerState<ViewTempelate> {
                                         explanation: txtExplanations.text,
                                       );
 
-                                  widget.onSubmit?.call(textSegmentPersian);
+                                  widget.onUpdate?.call(textSegmentPersian);
                                   //
                                   setState(() {
                                     isDoing = false;
@@ -306,6 +309,23 @@ class _ViewTempelateState extends ConsumerState<ViewTempelate> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        IconButton(
+                          onPressed: () async {
+                            if (isDoing) return;
+                            setState(() {
+                              isDoing = true;
+                            });
+                            widget.onDelete?.call();
+                            //
+                            setState(() {
+                              isDoing = false;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.delete_forever_outlined,
+                            color: colorScheme.error,
+                          ),
+                        ),
                         //* فارسی
                         Directionality(
                           textDirection: TextDirection.rtl,
@@ -360,28 +380,28 @@ class _ViewTempelateState extends ConsumerState<ViewTempelate> {
                           ),
 
                         const SizedBox(height: 8.0),
-                        Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              //* دکمه ویرایش
-                              IconButton(
-                                onPressed: () async {
-                                  if (isDoing) return;
-                                  setState(() {
-                                    isDoing = true;
-                                  });
-                                  ref.read(isEditModeProvider.notifier).state =
-                                      !isEditMode;
-                                  //
-                                  setState(() {
-                                    isDoing = false;
-                                  });
-                                },
-                                icon: Icon(Icons.edit_outlined),
+                        Align(
+                          alignment: AlignmentGeometry.centerRight,
+                          child: Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: IconButton(
+                              onPressed: () async {
+                                if (isDoing) return;
+                                setState(() {
+                                  isDoing = true;
+                                });
+                                ref.read(isEditModeProvider.notifier).state =
+                                    !isEditMode;
+                                //
+                                setState(() {
+                                  isDoing = false;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.edit_outlined,
+                                color: colorScheme.tertiary,
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ],

@@ -5,21 +5,10 @@ import 'package:ielts_assistant/shared/my_text_form_field.dart';
 
 class AddOrEditTempelate extends StatefulWidget {
   TextSegmentPersian? persianTextSegment;
-  // final String? initEnglishText;
-  // final String? initPersianText;
-  // final String? initExplanations;
-  final void Function(
-    // String allText,
-    // TextSegmentEnglish textSegmentEnglish,
-    TextSegmentPersian persianTextSegment,
-  )?
-  onSubmit;
-
+  final void Function(TextSegmentPersian persianTextSegment)? onSubmit;
   AddOrEditTempelate({
     super.key,
-    // this.initEnglishText,
     this.persianTextSegment,
-    // this.initExplanations,
     required this.onSubmit,
   });
 
@@ -227,73 +216,81 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        //* دکمه افزودن
-                        TextButton(
-                          onPressed: () async {
-                            if (isDoing) return;
-                            setState(() {
-                              isDoing = true;
-                            });
-                            if (txtPersian.text.trim() == '') {
-                              String message = 'متن فارسی نباید خالی باشد';
-                              FocusScope.of(
-                                context,
-                              ).requestFocus(englishFocusNode);
-                              setState(() {
-                                isDoing = false;
-                              });
-                              return;
-                            }
-                            if (txtEnglish.text.trim() == '') {
-                              String message = 'متن انگلیسی نباید خالی باشد';
-                              FocusScope.of(
-                                context,
-                              ).requestFocus(englishFocusNode);
-                              setState(() {
-                                isDoing = false;
-                              });
-                              return;
-                            }
-                            TextSegmentPersian textSegmentPersian =
-                                TextSegmentPersian(
-                                  text: txtPersian.text.trim(),
-                                  translation: txtEnglish.text,
-                                  explanation: txtExplanations.text,
-                                );
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              //* دکمه افزودن
+                              TextButton(
+                                onPressed: () async {
+                                  if (isDoing) return;
+                                  setState(() {
+                                    isDoing = true;
+                                  });
+                                  if (txtPersian.text.trim() == '') {
+                                    String message =
+                                        'متن فارسی نباید خالی باشد';
+                                    FocusScope.of(
+                                      context,
+                                    ).requestFocus(englishFocusNode);
+                                    setState(() {
+                                      isDoing = false;
+                                    });
+                                    return;
+                                  }
+                                  if (txtEnglish.text.trim() == '') {
+                                    String message =
+                                        'متن انگلیسی نباید خالی باشد';
+                                    FocusScope.of(
+                                      context,
+                                    ).requestFocus(englishFocusNode);
+                                    setState(() {
+                                      isDoing = false;
+                                    });
+                                    return;
+                                  }
+                                  TextSegmentPersian textSegmentPersian =
+                                      TextSegmentPersian(
+                                        text: txtPersian.text.trim(),
+                                        translation: txtEnglish.text,
+                                        explanation: txtExplanations.text,
+                                      );
 
-                            widget.onSubmit?.call(textSegmentPersian);
-                            //
-                            setState(() {
-                              isDoing = false;
-                            });
-                          },
-                          child: Text(
-                            (widget.persianTextSegment == null)
-                                ? 'افزودن'
-                                : 'ذخیره',
-                            style: TextStyle(
-                              fontFamily: FontFamily.yekanBakhBold.asText,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            if (isDoing) return;
-                            setState(() {
-                              isDoing = true;
-                            });
-                            Navigator.pop(context, false);
-                            if (mounted) {
-                              setState(() {
-                                isDoing = false;
-                              });
-                            }
-                          },
-                          child: Text(
-                            'لغو',
-                            style: TextStyle(fontFamily: 'YekanBakhBold'),
+                                  widget.onSubmit?.call(textSegmentPersian);
+                                  //
+                                  setState(() {
+                                    isDoing = false;
+                                  });
+                                },
+                                child: Text(
+                                  (widget.persianTextSegment == null)
+                                      ? 'افزودن'
+                                      : 'ذخیره',
+                                  style: TextStyle(
+                                    fontFamily: FontFamily.yekanBakhBold.asText,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  if (isDoing) return;
+                                  setState(() {
+                                    isDoing = true;
+                                  });
+                                  Navigator.pop(context, null);
+                                  if (mounted) {
+                                    setState(() {
+                                      isDoing = false;
+                                    });
+                                  }
+                                },
+                                child: Text(
+                                  'لغو',
+                                  style: TextStyle(fontFamily: 'YekanBakhBold'),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

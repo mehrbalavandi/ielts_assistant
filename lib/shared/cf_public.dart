@@ -797,167 +797,6 @@ class CfPublic {
     }
   }
 
-  Future<FinalTopic?> showPopupAddTempelate(
-    BuildContext context,
-    WidgetRef ref,
-  ) async {
-    final dialogResult = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: AddOrEditTempelate(
-            onSubmit: (textSegmentPersian) async {
-              final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
-              if (!Directory(newTemplateDirectory).existsSync()) {
-                Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
-              }
-              //! محتوای فارسی
-              String faFileName = '$newTemplateDirectory/me.3.translation.json';
-              if (!File(faFileName).existsSync()) {
-                File(faFileName).createSync(recursive: true);
-              }
-              FinalTopic? result1 =
-                  await savePersianTextSegmentToExternalStorage(
-                    fileName: faFileName,
-                    textSement: textSegmentPersian,
-                  );
-
-              if (result1 != null) {
-                if (context.mounted) {
-                  Navigator.pop(context, result1);
-                }
-              } else {
-                if (context.mounted) {
-                  Navigator.pop(context, null);
-                }
-              }
-            },
-          ),
-        );
-      },
-    );
-    if (dialogResult != null) {
-      return dialogResult as FinalTopic;
-    } else {
-      return null;
-    }
-  }
-
-  Future<bool?> showPopupViewTempelate(
-    BuildContext context,
-    WidgetRef ref,
-    int index,
-    TextSegmentPersian textSegmentPersian,
-  ) async {
-    ref.read(isEditModeProvider.notifier).state = false;
-    final dialogResult = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: ViewTempelate(
-            onSubmit: (textSegmentPersian) async {
-              final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
-              if (!Directory(newTemplateDirectory).existsSync()) {
-                Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
-              }
-              //! محتوای فارسی
-              String faFileName = '$newTemplateDirectory/me.3.translation.json';
-              if (!File(faFileName).existsSync()) {
-                File(faFileName).createSync(recursive: true);
-              }
-              final result1 = await updatePersianTextSegmentToExternalStorage(
-                fileName: faFileName,
-                index: index,
-                textSegmentPersian: textSegmentPersian,
-              );
-              if (result1 != null) {
-                if (context.mounted) {
-                  Navigator.pop(context, true);
-                }
-              } else {
-                if (context.mounted) {
-                  Navigator.pop(context, false);
-                }
-              }
-            },
-            persianTextSegment: textSegmentPersian,
-          ),
-        );
-      },
-    );
-    if (dialogResult != null) {
-      return dialogResult as bool;
-    } else {
-      return false;
-    }
-  }
-
-  Future<bool?> showPopupEditTempelate(
-    BuildContext context,
-    WidgetRef ref,
-    int index,
-    TextSegmentPersian textSegmentPersian,
-  ) async {
-    final dialogResult = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: AddOrEditTempelate(
-            onSubmit: (textSegmentPersian) async {
-              final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
-              if (!Directory(newTemplateDirectory).existsSync()) {
-                Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
-              }
-              //! محتوای فارسی
-              String faFileName = '$newTemplateDirectory/me.3.translation.json';
-              if (!File(faFileName).existsSync()) {
-                File(faFileName).createSync(recursive: true);
-              }
-              final result1 = await updatePersianTextSegmentToExternalStorage(
-                fileName: faFileName,
-                index: index,
-                textSegmentPersian: textSegmentPersian,
-              );
-              if (result1 != null) {
-                if (context.mounted) {
-                  Navigator.pop(context, true);
-                }
-              } else {
-                if (context.mounted) {
-                  Navigator.pop(context, false);
-                }
-              }
-            },
-            persianTextSegment: textSegmentPersian,
-          ),
-        );
-      },
-    );
-    if (dialogResult != null) {
-      return dialogResult as bool;
-    } else {
-      return false;
-    }
-  }
-
   Future<List<TextSegmentEnglish>?> deleteMainTextSegmentFromExternalStorage({
     required String fileName,
     required int index,
@@ -1021,31 +860,31 @@ class CfPublic {
     }
   }
 
-  Future<bool?>? deleteTempelate(
-    BuildContext context,
-    WidgetRef ref,
-    int index,
-  ) async {
-    final rootPath = ref.read(settingsProvider);
-    String newTemplateDirectory =
-        '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
-    if (!Directory(newTemplateDirectory).existsSync()) {
-      Directory(newTemplateDirectory).createSync(recursive: true);
-    }
-    //! محتوای فارسی
-    String faFileName = '$newTemplateDirectory/me.3.translation.json';
-    if (!File(faFileName).existsSync()) {
-      File(faFileName).createSync(recursive: true);
-    }
-    final result1 = await CfPublic()
-        .deletePersianTextSegmentFromExternalStorage(
-          fileName: faFileName,
-          index: index,
-        );
-    if (result1 != null) {
+  Future<bool?>? deleteTempelate(String fileName, int index) async {
+    final file = File(fileName);
+    var segments = <TextSegmentPersian>[];
+    final encoder = JsonEncoder.withIndent('  '); // دو فاصله برای هر سطح
+
+    try {
+      final content = await file.readAsString();
+      var existingData = jsonDecode(content);
+      if (existingData is! List) {
+        existingData = [existingData];
+      }
+      segments = existingData
+          .map((json) => TextSegmentPersian.fromJson(json))
+          .toList();
+      // segments.add(MainTextSegment(text: '\n\n', isInteractive: false));
+      segments.removeAt(index);
+      // تبدیل لیست به JSON با فرمت خوانا (pretty)
+      final jsonString = encoder.convert(
+        segments.map((s) => s.toJson()).toList(),
+      );
+      await file.writeAsString(jsonString, flush: true, encoding: utf8);
       return true;
-    } else {
-      return false;
+    } catch (e) {
+      debugPrint('⚠️ خطا در خواندن فایل: $e');
+      return null;
     }
   }
 
