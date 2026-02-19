@@ -3,11 +3,7 @@ import 'dart:io';
 
 // import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_tempelate.dart';
-import 'package:ielts_assistant/features/home/presentation/widgets/view_tempelate.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
-import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:path/path.dart';
 import 'package:path/path.dart' as p;
