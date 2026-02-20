@@ -79,7 +79,6 @@ sealed class FinalTopic with _$FinalTopic {
     required List<TextSegmentEnglish> contentEnglish,
     required List<TextSegmentPersian> contentPersian,
     required String notesFilePath,
-    // required List<String> audioFilePaths,
     String? audioFileName,
   }) = _FinalTopic;
 

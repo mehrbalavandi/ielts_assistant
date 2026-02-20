@@ -98,7 +98,7 @@ class ContentService {
         return await file.readAsString();
       }
     } catch (e) {
-      print("Error reading file at $path: $e");
+      debugPrint("Error reading file at $path: $e");
     }
     return null;
   }

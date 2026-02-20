@@ -42,14 +42,14 @@ class CfPublic {
         realmId: dir.path, // مسیر کامل پوشه به عنوان ID
         audioFileName: _findAudioFile(files),
         filePathEnglish: filePathEnglish,
+        filePathPersian: filePathPersian,
+        notesFilePath: filePathNote,
         contentEnglish: parseEnglishContent(
           File(filePathEnglish).readAsStringSync(),
         ),
-        filePathPersian: filePathPersian,
         contentPersian: parsePersianContent(
           File(filePathPersian).readAsStringSync(),
         ),
-        notesFilePath: filePathNote,
       );
     } catch (e) {
       return FinalTopic(

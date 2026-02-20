@@ -5,13 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/data/content_service.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/final_topic_detail_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
-import 'package:ielts_assistant/shared/customer_search_delegate.dart';
+import 'package:ielts_assistant/shared/final_topic_search_delegate.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -118,7 +117,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 onPressed: () async {
                   var result = await showSearch(
                     context: context,
-                    delegate: CustomerSearchDelegate(
+                    delegate: FinalTopicSearchDelegate(
                       ref: ref,
                       // data: ref.read(searchListProvider),
                     ),

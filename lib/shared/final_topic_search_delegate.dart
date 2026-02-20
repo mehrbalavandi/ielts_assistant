@@ -14,13 +14,13 @@ import 'package:ielts_assistant/shared/utility_persian.dart';
 
 // لیست نمونه مشتریان
 
-class CustomerSearchDelegate extends SearchDelegate<String> {
+class FinalTopicSearchDelegate extends SearchDelegate<String> {
   WidgetRef ref;
   // final Future<List<OriginalContent>> dataFuture;
   // final List<OriginalContent> data;
   List<OriginalContent>? _cachedData;
 
-  CustomerSearchDelegate({
+  FinalTopicSearchDelegate({
     required this.ref,
     // required this.dataFuture,
     // required this.data,

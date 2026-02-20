@@ -12,7 +12,7 @@ import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_t
 import 'package:ielts_assistant/features/home/presentation/widgets/view_tempelate.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
-import 'package:ielts_assistant/shared/customer_search_delegate.dart';
+import 'package:ielts_assistant/shared/final_topic_search_delegate.dart';
 import 'package:ielts_assistant/shared/list_item_text_segmentSimple.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/utility_persian.dart';
@@ -198,7 +198,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   onPressed: () async {
                     var result = await showSearch(
                       context: context,
-                      delegate: CustomerSearchDelegate(ref: ref),
+                      delegate: FinalTopicSearchDelegate(ref: ref),
                     );
                     if (result != null) {}
                   },
