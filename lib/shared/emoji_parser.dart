@@ -1,12 +1,20 @@
 import 'package:ielts_assistant/shared/models/content_models.dart';
 
+// final Map<String, String> emojiMap = {
+//   "💪": "isBold",
+//   "⬜️": "isBlank",
+//   "↪️": "isItalic",
+//   "📏": "isUnderLine",
+//   "🚫": "isLineThrough",
+//   "✨": "isHighlight",
+// };
 final Map<String, String> emojiMap = {
-  "💪": "isBold",
-  "⬜️": "isBlank",
-  "↪️": "isItalic",
-  "📏": "isUnderLine",
-  "🚫": "isLineThrough",
-  "✨": "isHighlight",
+  "{b}": "isBold",
+  "{i}": "isItalic",
+  "{u}": "isUnderLine",
+  "{s}": "isLineThrough",
+  "{h}": "isHighlight",
+  "{blk}": "isBlank",
 };
 
 class RawBlock {
