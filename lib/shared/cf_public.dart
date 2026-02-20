@@ -4,6 +4,7 @@ import 'dart:io';
 // import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
+import 'package:ielts_assistant/shared/emoji_parser.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:path/path.dart';
 import 'package:path/path.dart' as p;
@@ -64,17 +65,34 @@ class CfPublic {
     }
   }
 
-  List<TextSegmentEnglish> parseEnglishContent(String? raw) {
-    if (raw == null) {
+  List<TextSegmentEnglish> parseEnglishContent(String? rawEnglishJson) {
+    if (rawEnglishJson == null) {
       return <TextSegmentEnglish>[];
     }
     try {
-      final List<dynamic> jsonFormat = jsonDecode(raw);
-      return jsonFormat
+      final List<dynamic> jsonFormat = jsonDecode(rawEnglishJson);
+      List<TextSegmentEnglish> textSegmentsEnglish = jsonFormat
           .map(
             (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
           )
           .toList();
+      String raw = textSegmentsEnglish.map((e) => e.text).toList().join();
+      List<TextSegmentEnglish> extracted = jsonDecode(
+        rawEnglishJson,
+      ).map<TextSegmentEnglish>((e) => TextSegmentEnglish.fromJson(e)).toList();
+
+      List<RawBlock> blocks = splitRawText(raw);
+      List<TextSegmentEnglish> finalItems = buildStructuredItems(
+        blocks,
+        extracted,
+      );
+      return finalItems;
+
+      // return jsonFormat
+      //     .map(
+      //       (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
+      //     )
+      //     .toList();
     } catch (e) {
       return <TextSegmentEnglish>[];
     }

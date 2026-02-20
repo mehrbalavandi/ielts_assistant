@@ -148,19 +148,26 @@ sealed class FinalTopic with _$FinalTopic {
 //   Sentence({required this.text, required this.isSpecial});
 // }
 class TextSegmentEnglish {
-  final String text;
-  final String? originText;
-  final bool isInteractive;
-  final bool? isBlank;
-  final bool? hasSubItems;
-  final List<dynamic>? subItems;
-  final bool? isBold;
-  final bool? isAmberHighlighted;
-  final String? translation; // ترجمه فارسی
-  final String? explanation; // توضیحات تکمیلی
-  final String? cerfLevel; //
-  final String? pronounce;
-  final bool? isRtl;
+  String text;
+  String? originText;
+  bool isInteractive;
+
+  bool? isBold;
+  bool? isBlank;
+  bool? isItalic;
+  bool? isUnderLine;
+  bool? isLineThrough;
+  bool? isHighlight;
+
+  bool? hasSubItems;
+  List<dynamic>? subItems;
+  bool? isAmberHighlighted;
+  String? translation; // ترجمه فارسی
+  String? explanation; // توضیحات تکمیلی
+  String? cerfLevel; //
+  String? pronounce;
+  bool? isRtl;
+  // Map<String, dynamic>? extra;
 
   TextSegmentEnglish({
     required this.text,
@@ -169,6 +176,10 @@ class TextSegmentEnglish {
     this.hasSubItems,
     this.subItems,
     this.isBold,
+    this.isItalic,
+    this.isUnderLine,
+    this.isLineThrough,
+    this.isHighlight,
     this.originText,
     this.isAmberHighlighted,
     this.translation,
@@ -193,7 +204,8 @@ class TextSegmentEnglish {
       result['hasSubItems'] = hasSubItems;
     }
     if (subItems != null) {
-      result['subItems'] = subItems;
+      // result['subItems'] = subItems;
+      result['subItems'] = subItems!.map((e) => e.toJson()).toList();
     }
     if (isBold != null) {
       result['isBold'] = isBold;
@@ -226,9 +238,16 @@ class TextSegmentEnglish {
       isInteractive: json['isInteractive'] as bool,
       translation: json['translation'] as String?,
       explanation: json['explanation'] as String?,
+      pronounce: json['pronounce'] as String?,
+      cerfLevel: json['cerfLevel'] as String?,
       isBlank: json['isBlank'] as bool?,
       hasSubItems: json['hasSubItems'] as bool?,
-      subItems: json['subItems'] as List<dynamic>?,
+      // subItems: json['subItems'] as List<dynamic>?,
+      subItems: json["subItems"] == null
+          ? null
+          : (json["subItems"] as List)
+                .map((e) => TextSegmentEnglish.fromJson(e))
+                .toList(),
       isBold: json['isBold'] as bool?,
     );
   }

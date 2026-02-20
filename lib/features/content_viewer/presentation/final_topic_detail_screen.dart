@@ -483,7 +483,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           //   TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style),
           // ];
         } else {
-          final subItemsAsMainTextSegment = ms.subItems!.map((e) {
+          final subItemsAsTextSegmentEnglish = ms.subItems!.map((e) {
             return TextSegmentEnglish(
               text: e['text'] as String,
               isInteractive: e['isInteractive'] as bool,
@@ -499,7 +499,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             );
           }).toList();
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
-              .fillGapsInFullText(ms.text, subItemsAsMainTextSegment);
+              .fillGapsInFullText(ms.text, subItemsAsTextSegmentEnglish);
           final subSpans = subMicroSegments.asMap().entries.map((entry) {
             // final index = entry.key;
             final subMs = entry.value;
@@ -1042,7 +1042,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           );
           return formattedSpans;
         } else {
-          final subItemsAsMainTextSegment = ms.subItems!.map((e) {
+          final subItemsAsTextSegmentEnglish = ms.subItems!.map((e) {
             return TextSegmentEnglish(
               text: e['text'] as String,
               isInteractive: e['isInteractive'] as bool,
@@ -1061,7 +1061,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               .processSegmentsEnglish(
                 CfPublic().fillGapsInFullText(
                   ms.text,
-                  subItemsAsMainTextSegment,
+                  subItemsAsTextSegmentEnglish,
                 ),
                 widget.searchText!,
               );
