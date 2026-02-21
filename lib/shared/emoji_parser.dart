@@ -8,63 +8,73 @@ import 'package:ielts_assistant/shared/models/content_models.dart';
 //   "🚫": "isLineThrough",
 //   "✨": "isHighlight",
 // };
-final Map<String, String> emojiMap = {
+final Map<String, String> markerMap = {
   "{b}": "isBold",
+  "{/b}": "isBold",
   "{i}": "isItalic",
+  "{/i}": "isItalic",
   "{u}": "isUnderLine",
+  "{/u}": "isUnderLine",
   "{s}": "isLineThrough",
+  "{/s}": "isLineThrough",
   "{h}": "isHighlight",
+  "{/h}": "isHighlight",
   "{blk}": "isBlank",
+  "{/blk}": "isBlank",
 };
+final List<Map<String, String>> markers = [
+  {"start": "{b}", "end": "{/b}", "flag": "isBold"},
+  {"start": "{i}", "end": "{/i}", "flag": "isItalic"},
+  {"start": "{u}", "end": "{/u}", "flag": "isUnderLine"},
+  {"start": "{s}", "end": "{/s}", "flag": "isLineThrough"},
+  {"start": "{h}", "end": "{/h}", "flag": "isHighlight"},
+  {"start": "{blk}", "end": "{/blk}", "flag": "isBlank"},
+];
 
 class RawBlock {
-  String text;
-  String? flag; // null = normal text
-
+  final String text;
+  final String? flag;
   RawBlock(this.text, {this.flag});
 }
 
 List<RawBlock> splitRawText(String raw) {
   List<RawBlock> blocks = [];
 
-  // marker با و بدون FE0F
-  final marker = r'(💪|⬜️|⬜|↪️|↪|📏|🚫|✨)';
-  // الگوی درست: marker + متن + همان marker
-  // final pattern = RegExp('$marker(.+?)\\1', dotAll: true);
+  // ساخت الگوی regex از همه marker ها
+  final pattern = RegExp(
+    r'(\{b\}|\{i\}|\{u\}|\{s\}|\{h\}|\{blk\})(.+?)(\{\/b\}|\{\/i\}|\{\/u\}|\{\/s\}|\{\/h\}|\{\/blk\})',
+    dotAll: true,
+  );
 
-  final pattern = RegExp(r'\{(b|i|u|s|h|blk)\}(.+?)\{/\1\}', dotAll: true);
   int lastEnd = 0;
 
   for (final match in pattern.allMatches(raw)) {
     final start = match.start;
     final end = match.end;
 
-    // متن عادی قبل از بلاک
+    // بخش عادی قبل از بلاک
     if (start > lastEnd) {
       blocks.add(RawBlock(raw.substring(lastEnd, start)));
     }
 
-    final startMarker = match.group(1)!; // marker
-    final inner = match.group(2)!; // متن داخل marker
+    final startMarker = match.group(1)!; // {b}
+    final innerText = match.group(2)!; // داخل بلاک
+    final endMarker = match.group(3)!; // {/b}
 
-    final flag = emojiMap[startMarker]; // این‌بار قطعاً درست مقدار دارد
+    // پیدا کردن flag مربوطه
+    final flag = markerMap[startMarker];
 
-    blocks.add(RawBlock(inner, flag: flag));
+    blocks.add(RawBlock(innerText, flag: flag));
 
     lastEnd = end;
   }
 
-  // باقی‌مانده متن بدون استایل
+  // بخش پایانی متن
   if (lastEnd < raw.length) {
     blocks.add(RawBlock(raw.substring(lastEnd)));
   }
 
   return blocks;
-}
-
-/// تشخیص طول marker واقعی (برای حالات با FE0F یا بدون FE0F)
-int startMarkerExtraLength(String fullMatch, String inner) {
-  return fullMatch.length - inner.length - 1;
 }
 
 List<TextSegmentEnglish> buildStructuredItems(
@@ -75,15 +85,15 @@ List<TextSegmentEnglish> buildStructuredItems(
 
   for (var block in blocks) {
     if (block.flag == null) {
-      // normal text block
+      // متن عادی
       result.add(TextSegmentEnglish(text: block.text, isInteractive: false));
     } else {
-      // styled block
-      List<TextSegmentEnglish> innerItems = [];
+      // بلاک دارای استایل
+      List<TextSegmentEnglish> sub = [];
 
       for (var item in originalItems) {
         if (block.text.contains(item.text)) {
-          innerItems.add(applyFlag(item, block.flag!));
+          sub.add(applyFlag(item, block.flag!));
         }
       }
 
@@ -91,13 +101,13 @@ List<TextSegmentEnglish> buildStructuredItems(
         TextSegmentEnglish(
           text: block.text,
           isInteractive: false,
-          subItems: innerItems.isNotEmpty ? innerItems : null,
+          subItems: sub.isNotEmpty ? sub : null,
           isBold: block.flag == "isBold",
-          isBlank: block.flag == "isBlank",
           isItalic: block.flag == "isItalic",
           isUnderLine: block.flag == "isUnderLine",
           isLineThrough: block.flag == "isLineThrough",
           isHighlight: block.flag == "isHighlight",
+          isBlank: block.flag == "isBlank",
         ),
       );
     }
@@ -111,11 +121,11 @@ TextSegmentEnglish applyFlag(TextSegmentEnglish item, String flag) {
     text: item.text,
     isInteractive: item.isInteractive,
     isBold: flag == "isBold" ? true : item.isBold,
-    isBlank: flag == "isBlank" ? true : item.isBlank,
     isItalic: flag == "isItalic" ? true : item.isItalic,
     isUnderLine: flag == "isUnderLine" ? true : item.isUnderLine,
     isLineThrough: flag == "isLineThrough" ? true : item.isLineThrough,
     isHighlight: flag == "isHighlight" ? true : item.isHighlight,
+    isBlank: flag == "isBlank" ? true : item.isBlank,
 
     translation: item.translation,
     explanation: item.explanation,
