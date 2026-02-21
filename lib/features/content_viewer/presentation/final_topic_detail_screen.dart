@@ -157,6 +157,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       final selectedUnit = nav.selectedUnit;
       final selectedPage = nav.selectedPage;
       final textSegmentsEnglish = selectedFinalTopic.contentEnglish;
+      // var temp = textSegmentsEnglish[26];
       final textSegmentsPersian = selectedFinalTopic.contentPersian;
 
       final finalTopicId = selectedFinalTopic.name;
@@ -455,32 +456,32 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           );
         }).toList();
       } else {
-        if (ms.isBlank != null && ms.isBlank == true) {
-          if (blankStatus == SentenceStatus.hide) {
+        if (ms.hasSubItems == null) {
+          if (ms.isBlank != null && ms.isBlank == true) {
+            if (blankStatus == SentenceStatus.hide) {
+              return [
+                TextSpan(
+                  text: " ________ ", // نمایش جاخالی
+                  style: style,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => ref
+                        .read(sentenceProvider(finalTopicId).notifier)
+                        .toggleStatus(index),
+                ),
+              ];
+            }
+          } else if (ms.isLineThrough != null && ms.isLineThrough == true) {
             return [
               TextSpan(
-                text: " ________ ", // نمایش جاخالی
-                style: style,
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () => ref
-                      .read(sentenceProvider(finalTopicId).notifier)
-                      .toggleStatus(index),
+                text: ms.text,
+                style: style.copyWith(
+                  decoration: TextDecoration.lineThrough,
+                  decorationStyle: TextDecorationStyle.wavy,
+                  decorationColor: Colors.red,
+                ),
               ),
             ];
           }
-        } else if (ms.isLineThrough != null && ms.isLineThrough == true) {
-          return [
-            TextSpan(
-              text: ms.text,
-              style: style.copyWith(
-                decoration: TextDecoration.lineThrough,
-                decorationStyle: TextDecorationStyle.wavy,
-                decorationColor: Colors.red,
-              ),
-            ),
-          ];
-        }
-        if (ms.hasSubItems == null) {
           final formattedSpans = UtilityPersian().buildMixedTextSpans(
             ms.text.replaceAll('\\n', '\n'),
             persianStyle: style.copyWith(
@@ -846,7 +847,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           _updateSearchListData();
                         }
                       });
-                      ;
                     },
                     onEdit: () async {
                       await _showPopupEditTempelate(

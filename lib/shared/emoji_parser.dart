@@ -31,47 +31,86 @@ final List<Map<String, String>> markers = [
   {"start": "{blk}", "end": "{/blk}", "flag": "isBlank"},
 ];
 
-class RawBlock {
-  final String text;
-  final String? flag;
-  RawBlock(this.text, {this.flag});
+class PositionedItem {
+  final TextSegmentEnglish item;
+  final int start;
+  final int end; // exclusive
+  PositionedItem(this.item, this.start, this.end);
 }
 
-List<RawBlock> splitRawText(String raw) {
-  List<RawBlock> blocks = [];
+List<PositionedItem> buildPositionMap(List<TextSegmentEnglish> items) {
+  List<PositionedItem> out = [];
+  int cursor = 0;
 
-  // ساخت الگوی regex از همه marker ها
-  final pattern = RegExp(
-    r'(\{b\}|\{i\}|\{u\}|\{s\}|\{h\}|\{blk\})(.+?)(\{\/b\}|\{\/i\}|\{\/u\}|\{\/s\}|\{\/h\}|\{\/blk\})',
-    dotAll: true,
+  for (var it in items) {
+    int len = it.text.length;
+    out.add(PositionedItem(it, cursor, cursor + len));
+    cursor += len;
+  }
+
+  return out;
+}
+
+class RawBlock {
+  final int start;
+  final int end;
+  final String text;
+  final String? flag;
+
+  RawBlock({
+    required this.start,
+    required this.end,
+    required this.text,
+    this.flag,
+  });
+}
+
+List<RawBlock> splitRawText(String fullText) {
+  final List<RawBlock> blocks = [];
+
+  final markerPattern = RegExp(
+    r'(\{b\}|\{i\}|\{u\}|\{s\}|\{h\}|\{blk\})([\s\S]*?)(\{\/b\}|\{\/i\}|\{\/u\}|\{\/s\}|\{\/h\}|\{\/blk\})',
   );
 
   int lastEnd = 0;
 
-  for (final match in pattern.allMatches(raw)) {
+  final markerToFlag = {
+    "{b}": "isBold",
+    "{i}": "isItalic",
+    "{u}": "isUnderLine",
+    "{s}": "isLineThrough",
+    "{h}": "isHighlight",
+    "{blk}": "isBlank",
+  };
+  final ff = markerPattern.allMatches(fullText);
+  for (final match in markerPattern.allMatches(fullText)) {
+    final startMarker = match.group(1)!;
+    final innerText = match.group(2)!;
     final start = match.start;
     final end = match.end;
+    final flag = markerToFlag[startMarker];
 
-    // بخش عادی قبل از بلاک
+    // ۱) اگر قبل از بلوک marker متن عادی بود → به‌عنوان یک RawBlock مستقل
     if (start > lastEnd) {
-      blocks.add(RawBlock(raw.substring(lastEnd, start)));
+      final normalText = fullText.substring(lastEnd, start);
+      blocks.add(RawBlock(start: lastEnd, end: start, text: normalText));
     }
 
-    final startMarker = match.group(1)!; // {b}
-    final innerText = match.group(2)!; // داخل بلاک
-    final endMarker = match.group(3)!; // {/b}
-
-    // پیدا کردن flag مربوطه
-    final flag = markerMap[startMarker];
-
-    blocks.add(RawBlock(innerText, flag: flag));
+    // ۲) بلوک marker پیدا شده
+    blocks.add(RawBlock(start: start, end: end, text: innerText, flag: flag));
 
     lastEnd = end;
   }
 
-  // بخش پایانی متن
-  if (lastEnd < raw.length) {
-    blocks.add(RawBlock(raw.substring(lastEnd)));
+  // ۳) اگر بعد از آخرین بلوک marker متن باقی مانده بود
+  if (lastEnd < fullText.length) {
+    blocks.add(
+      RawBlock(
+        start: lastEnd,
+        end: fullText.length,
+        text: fullText.substring(lastEnd),
+      ),
+    );
   }
 
   return blocks;
@@ -79,41 +118,46 @@ List<RawBlock> splitRawText(String raw) {
 
 List<TextSegmentEnglish> buildStructuredItems(
   List<RawBlock> blocks,
-  List<TextSegmentEnglish> originalItems,
+  List<PositionedItem> positioned,
 ) {
-  List<TextSegmentEnglish> result = [];
+  List<TextSegmentEnglish> output = [];
 
   for (var block in blocks) {
-    if (block.flag == null) {
-      // متن عادی
-      result.add(TextSegmentEnglish(text: block.text, isInteractive: false));
-    } else {
-      // بلاک دارای استایل
-      List<TextSegmentEnglish> sub = [];
+    List<TextSegmentEnglish> subItems = [];
 
-      for (var item in originalItems) {
-        if (block.text.contains(item.text)) {
-          sub.add(applyFlag(item, block.flag!));
-        }
+    for (var p in positioned) {
+      bool inside = //(p.start >= block.start && p.end <= block.end);
+          (p.start >= block.start && p.start < block.end) ||
+          (p.end > block.start && p.end <= block.end) ||
+          (p.start <= block.start && p.end >= block.end);
+
+      if (inside) {
+        TextSegmentEnglish merged = p.item;
+
+        // اگر بلاک دارای marker باشد → استایل بلاک اعمال شود
+        if (block.flag != null) merged = applyFlag(merged, block.flag!);
+
+        subItems.add(merged);
       }
-
-      result.add(
-        TextSegmentEnglish(
-          text: block.text,
-          isInteractive: false,
-          subItems: sub.isNotEmpty ? sub : null,
-          isBold: block.flag == "isBold",
-          isItalic: block.flag == "isItalic",
-          isUnderLine: block.flag == "isUnderLine",
-          isLineThrough: block.flag == "isLineThrough",
-          isHighlight: block.flag == "isHighlight",
-          isBlank: block.flag == "isBlank",
-        ),
-      );
     }
+
+    output.add(
+      TextSegmentEnglish(
+        text: block.text,
+        isInteractive: false,
+        subItems: subItems.isEmpty ? null : subItems,
+        // استایل خود بلاک اگر marker دارد
+        isBold: block.flag == "isBold",
+        isItalic: block.flag == "isItalic",
+        isUnderLine: block.flag == "isUnderLine",
+        isLineThrough: block.flag == "isLineThrough",
+        isHighlight: block.flag == "isHighlight",
+        isBlank: block.flag == "isBlank",
+      ),
+    );
   }
 
-  return result;
+  return output;
 }
 
 TextSegmentEnglish applyFlag(TextSegmentEnglish item, String flag) {
@@ -130,6 +174,6 @@ TextSegmentEnglish applyFlag(TextSegmentEnglish item, String flag) {
     translation: item.translation,
     explanation: item.explanation,
     pronounce: item.pronounce,
-    cerfLevel: item.cerfLevel,
+    cerfLevel: item.cerfLevel, // translation, explanation, etc.
   );
 }

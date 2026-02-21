@@ -76,15 +76,15 @@ class CfPublic {
             (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
           )
           .toList();
-      String raw = textSegmentsEnglish.map((e) => e.text).toList().join();
+      String fullText = textSegmentsEnglish.map((e) => e.text).toList().join();
       List<TextSegmentEnglish> extracted = jsonDecode(
         rawEnglishJson,
       ).map<TextSegmentEnglish>((e) => TextSegmentEnglish.fromJson(e)).toList();
-
-      List<RawBlock> blocks = splitRawText(raw);
+      List<PositionedItem> positionMap = buildPositionMap(textSegmentsEnglish);
+      List<RawBlock> blocks = splitRawText(fullText);
       List<TextSegmentEnglish> finalItems = buildStructuredItems(
         blocks,
-        extracted,
+        positionMap,
       );
       return finalItems;
 
