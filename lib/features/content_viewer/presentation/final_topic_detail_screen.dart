@@ -455,7 +455,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           );
         }).toList();
       } else {
-        if (ms.isBlank != null) {
+        if (ms.isBlank != null && ms.isBlank == true) {
           if (blankStatus == SentenceStatus.hide) {
             return [
               TextSpan(
@@ -468,6 +468,17 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               ),
             ];
           }
+        } else if (ms.isLineThrough != null && ms.isLineThrough == true) {
+          return [
+            TextSpan(
+              text: ms.text,
+              style: style.copyWith(
+                decoration: TextDecoration.lineThrough,
+                decorationStyle: TextDecorationStyle.wavy,
+                decorationColor: Colors.red,
+              ),
+            ),
+          ];
         }
         if (ms.hasSubItems == null) {
           final formattedSpans = UtilityPersian().buildMixedTextSpans(
