@@ -82,7 +82,6 @@ List<RawBlock> splitRawText(String fullText) {
     "{h}": "isHighlight",
     "{blk}": "isBlank",
   };
-  final ff = markerPattern.allMatches(fullText);
   for (final match in markerPattern.allMatches(fullText)) {
     final startMarker = match.group(1)!;
     final innerText = match.group(2)!;
@@ -126,54 +125,106 @@ List<TextSegmentEnglish> buildStructuredItems(
     List<TextSegmentEnglish> subItems = [];
 
     for (var p in positioned) {
-      bool inside = //(p.start >= block.start && p.end <= block.end);
-          (p.start >= block.start && p.start < block.end) ||
-          (p.end > block.start && p.end <= block.end) ||
-          (p.start <= block.start && p.end >= block.end);
+      bool inside = (p.start >= block.start && p.end <= block.end);
+      // (p.start >= block.start && p.start < block.end) ||
+      // (p.end > block.start && p.end <= block.end) ||
+      // (p.start <= block.start && p.end >= block.end);
 
       if (inside) {
         TextSegmentEnglish merged = p.item;
-
         // اگر بلاک دارای marker باشد → استایل بلاک اعمال شود
         if (block.flag != null) merged = applyFlag(merged, block.flag!);
-
         subItems.add(merged);
       }
     }
-
-    output.add(
-      TextSegmentEnglish(
-        text: block.text,
-        isInteractive: false,
-        subItems: subItems.isEmpty ? null : subItems,
-        // استایل خود بلاک اگر marker دارد
-        isBold: block.flag == "isBold",
-        isItalic: block.flag == "isItalic",
-        isUnderLine: block.flag == "isUnderLine",
-        isLineThrough: block.flag == "isLineThrough",
-        isHighlight: block.flag == "isHighlight",
-        isBlank: block.flag == "isBlank",
-      ),
+    var blockSegment = TextSegmentEnglish(
+      text: block.text,
+      isInteractive: false,
+      // hasSubItems: subItems.isEmpty ? null : true,
+      // subItems: subItems.isEmpty ? null : subItems,
+      // استایل خود بلاک اگر marker دارد
+      /*
+      isBold: block.flag == 'isBold',
+      isItalic: block.flag == 'isItalic',
+      isUnderLine: block.flag == 'isUnderLine',
+      isLineThrough: block.flag == 'isLineThrough',
+      isHighlight: block.flag == 'isHighlight',
+      isBlank: block.flag == 'isBlank',
+      */
     );
+    if (subItems.isNotEmpty) {
+      blockSegment.hasSubItems = true;
+      blockSegment.subItems = subItems;
+    }
+    if (block.flag == 'isBold') {
+      blockSegment.isBold = true;
+    }
+    if (block.flag == 'isItalic') {
+      blockSegment.isItalic = true;
+    }
+    if (block.flag == 'isUnderLine') {
+      blockSegment.isUnderLine = true;
+    }
+    if (block.flag == 'isLineThrough') {
+      blockSegment.isLineThrough = true;
+    }
+    if (block.flag == 'isHighlight') {
+      blockSegment.isHighlight = true;
+    }
+    if (block.flag == 'isBlank') {
+      blockSegment.isBlank = true;
+    }
+    output.add(blockSegment);
   }
 
   return output;
 }
 
 TextSegmentEnglish applyFlag(TextSegmentEnglish item, String flag) {
-  return TextSegmentEnglish(
+  var subSegment = TextSegmentEnglish(
     text: item.text,
     isInteractive: item.isInteractive,
-    isBold: flag == "isBold" ? true : item.isBold,
-    isItalic: flag == "isItalic" ? true : item.isItalic,
-    isUnderLine: flag == "isUnderLine" ? true : item.isUnderLine,
-    isLineThrough: flag == "isLineThrough" ? true : item.isLineThrough,
-    isHighlight: flag == "isHighlight" ? true : item.isHighlight,
-    isBlank: flag == "isBlank" ? true : item.isBlank,
 
+    // isBold: flag == "isBold" ? true : item.isBold,
+    // isItalic: flag == "isItalic" ? true : item.isItalic,
+    // isUnderLine: flag == "isUnderLine" ? true : item.isUnderLine,
+    // isLineThrough: flag == "isLineThrough" ? true : item.isLineThrough,
+    // isHighlight: flag == "isHighlight" ? true : item.isHighlight,
+    // isBlank: flag == "isBlank" ? true : item.isBlank,
     translation: item.translation,
     explanation: item.explanation,
     pronounce: item.pronounce,
     cerfLevel: item.cerfLevel, // translation, explanation, etc.
   );
+  if (flag == 'isBold') {
+    subSegment.isBold = true;
+  } else if (item.isBold != null) {
+    subSegment.isBold = item.isBold;
+  }
+  if (flag == 'isItalic') {
+    subSegment.isItalic = true;
+  } else if (item.isItalic != null) {
+    subSegment.isItalic = item.isItalic;
+  }
+  if (flag == 'isUnderLine') {
+    subSegment.isUnderLine = true;
+  } else if (item.isUnderLine != null) {
+    subSegment.isUnderLine = item.isUnderLine;
+  }
+  if (flag == 'isLineThrough') {
+    subSegment.isLineThrough = true;
+  } else if (item.isLineThrough != null) {
+    subSegment.isLineThrough = item.isLineThrough;
+  }
+  if (flag == 'isHighlight') {
+    subSegment.isHighlight = true;
+  } else if (item.isHighlight != null) {
+    subSegment.isHighlight = item.isHighlight;
+  }
+  if (flag == 'isBlank') {
+    subSegment.isBlank = true;
+  } else if (item.isBlank != null) {
+    subSegment.isBlank = item.isBlank;
+  }
+  return subSegment;
 }

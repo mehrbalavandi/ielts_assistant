@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/gestures.dart';
@@ -405,6 +406,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
   ) {
     // int interactiveIndex = 0;
     // List<List<InlineSpan>>
+    debugPrint('تعداد: ${textSegmentsEnglish.length}');
     final spans = textSegmentsEnglish.asMap().entries.map((entry) {
       final index = entry.key;
       final ms = entry.value;
@@ -495,7 +497,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           //   TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style),
           // ];
         } else {
+          debugPrint(jsonEncode(ms));
           final subItemsAsTextSegmentEnglish = ms.subItems!.map((e) {
+            debugPrint('داخلی: ${jsonEncode(e)}');
             return TextSegmentEnglish(
               text: e['text'] as String,
               isInteractive: e['isInteractive'] as bool,
