@@ -385,7 +385,7 @@ class CfPublic {
                 subItems: segment.subItems,
                 translation: segment.translation,
                 explanation: segment.explanation,
-                isAmberHighlighted: true, // اعمال هایلایت
+                isSearchHighlighted: true, // اعمال هایلایت
               ),
             );
             segmentCurrentPosition = endInSegment;

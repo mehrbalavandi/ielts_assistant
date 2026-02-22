@@ -83,72 +83,75 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             return;
           }
         },
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            title: Text(
-              title,
-              style: TextStyle(
-                // fontFamily: FontFamily.yekanBakhBold.asText,
-                fontSize: 16.0,
-                // color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            actions: [
-              if (!isManualFinalTopic)
-                IconButton(
-                  icon: Icon(
-                    isDualPane ? Icons.view_stream : Icons.view_column,
-                  ),
-                  onPressed: () =>
-                      ref.read(isDualPaneProvider.notifier).state = !isDualPane,
-                  tooltip: 'تغییر چیدمان متن',
+        child: SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              title: Text(
+                title,
+                style: TextStyle(
+                  // fontFamily: FontFamily.yekanBakhBold.asText,
+                  fontSize: 16.0,
+                  // color: Theme.of(context).colorScheme.primary,
                 ),
-            ],
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: isManualFinalTopic
-                    ? _buildManualLayout(
-                        nav,
-                        isDualPane,
-                        selectedFinalTopicSearch.contentEnglish,
-                        selectedFinalTopicSearch.contentPersian,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : isDualPane
-                    ? _buildEnglishAndPersianLayout(
-                        widget.originalContent!.book.name.contains(
-                          'قالبهای موقعیتی',
-                        ),
-                        selectedFinalTopicSearch.contentEnglish,
-                        selectedFinalTopicSearch.contentPersian,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : widget.originalContent!.book.name.contains(
-                        'قالبهای موقعیتی',
-                      )
-                    ? _buildPersianLayout(
-                        selectedFinalTopicSearch.contentPersian,
-                        finalTopicId,
-                      )
-                    : (widget.searchText == null)
-                    ? _buildEnglishLayout(
-                        selectedFinalTopicSearch.contentEnglish,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : _buildEnglishLayoutForSearch(
-                        selectedFinalTopicSearch.contentEnglish,
-                        sentenceStates,
-                        finalTopicId,
-                      ),
               ),
-            ],
+              actions: [
+                if (!isManualFinalTopic)
+                  IconButton(
+                    icon: Icon(
+                      isDualPane ? Icons.view_stream : Icons.view_column,
+                    ),
+                    onPressed: () =>
+                        ref.read(isDualPaneProvider.notifier).state =
+                            !isDualPane,
+                    tooltip: 'تغییر چیدمان متن',
+                  ),
+              ],
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                  child: isManualFinalTopic
+                      ? _buildManualLayout(
+                          nav,
+                          isDualPane,
+                          selectedFinalTopicSearch.contentEnglish,
+                          selectedFinalTopicSearch.contentPersian,
+                          sentenceStates,
+                          finalTopicId,
+                        )
+                      : isDualPane
+                      ? _buildEnglishAndPersianLayout(
+                          widget.originalContent!.book.name.contains(
+                            'قالبهای موقعیتی',
+                          ),
+                          selectedFinalTopicSearch.contentEnglish,
+                          selectedFinalTopicSearch.contentPersian,
+                          sentenceStates,
+                          finalTopicId,
+                        )
+                      : widget.originalContent!.book.name.contains(
+                          'قالبهای موقعیتی',
+                        )
+                      ? _buildPersianLayout(
+                          selectedFinalTopicSearch.contentPersian,
+                          finalTopicId,
+                        )
+                      : (widget.searchText == null)
+                      ? _buildEnglishLayout(
+                          selectedFinalTopicSearch.contentEnglish,
+                          sentenceStates,
+                          finalTopicId,
+                        )
+                      : _buildEnglishLayoutForSearch(
+                          selectedFinalTopicSearch.contentEnglish,
+                          sentenceStates,
+                          finalTopicId,
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -180,166 +183,118 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             return;
           }
         },
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            title: Text(
-              title,
-              style: TextStyle(
-                // fontFamily: FontFamily.yekanBakhBold.asText,
-                fontSize: 16.0,
-                // color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            actions: [
-              //! ویجت جستجو
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: IconButton(
-                  onPressed: () async {
-                    var result = await showSearch(
-                      context: context,
-                      delegate: FinalTopicSearchDelegate(ref: ref),
-                    );
-                    if (result != null) {}
-                  },
-                  icon: Icon(Icons.search),
+        child: SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              title: Text(
+                title,
+                style: TextStyle(
+                  // fontFamily: FontFamily.yekanBakhBold.asText,
+                  fontSize: 16.0,
+                  // color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              if (!isManualFinalTopic)
-                IconButton(
-                  icon: Icon(
-                    isDualPane ? Icons.view_stream : Icons.view_column,
+              actions: [
+                //! ویجت جستجو
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: IconButton(
+                    onPressed: () async {
+                      var result = await showSearch(
+                        context: context,
+                        delegate: FinalTopicSearchDelegate(ref: ref),
+                      );
+                      if (result != null) {}
+                    },
+                    icon: Icon(Icons.search),
                   ),
-                  onPressed: () =>
-                      ref.read(isDualPaneProvider.notifier).state = !isDualPane,
-                  tooltip: 'تغییر چیدمان متن',
                 ),
-              if (isManualFinalTopic)
-                IconButton(
-                  onPressed: () async {
-                    if (await CfPublic().getExternalStoragePermissionStatus() ==
-                        true) {
-                      if (context.mounted) {
-                        _showPopupAddTempelate(context, ref).then((finalTopic) {
-                          if (finalTopic != null) {
-                            ref
-                                .read(navigationProvider.notifier)
-                                .addTempelate(finalTopic);
-                          }
-                        });
-                      }
-                    }
-                  },
-                  icon: const Icon(Icons.add),
-                ),
-            ],
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: isManualFinalTopic
-                    ? _buildManualLayout(
-                        nav,
-                        isDualPane,
-                        textSegmentsEnglish,
-                        textSegmentsPersian,
-                        // textSegmentsNote,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : isDualPane
-                    ? _buildEnglishAndPersianLayout(
-                        selectedBook.name.contains('قالبهای موقعیتی'),
-                        textSegmentsEnglish,
-                        textSegmentsPersian,
-                        sentenceStates,
-                        finalTopicId,
-                      )
-                    : selectedBook.name.contains('قالبهای موقعیتی')
-                    ? _buildPersianLayout(textSegmentsPersian, finalTopicId)
-                    : _buildEnglishLayout(
-                        textSegmentsEnglish,
-                        sentenceStates,
-                        finalTopicId,
-                      ),
-              ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20.0,
-                    right: 20.0,
-                    bottom: 8.0,
+                if (!isManualFinalTopic)
+                  IconButton(
+                    icon: Icon(
+                      isDualPane ? Icons.view_stream : Icons.view_column,
+                    ),
+                    onPressed: () =>
+                        ref.read(isDualPaneProvider.notifier).state =
+                            !isDualPane,
+                    tooltip: 'تغییر چیدمان متن',
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          final int idxFinalTopic = selectedPage.finalTopics
-                              .indexOf(selectedFinalTopic);
-                          final lastFinalTopicIndex =
-                              selectedPage.finalTopics.length - 1;
-                          if (idxFinalTopic < lastFinalTopicIndex) {
-                            await ref
-                                .read(navigationProvider.notifier)
-                                .selectFinalTopic(
-                                  selectedPage.finalTopics[idxFinalTopic + 1],
-                                );
-                            // final books = ref.read(allContentProvider).value;
-                            // if (books != null) {
-                            //   Future.microtask(() {
-                            //     ref
-                            //         .read(navigationProvider.notifier)
-                            //         .restoreLastState(books);
-                            //   });
-                            // }
-                          } else if (idxFinalTopic == lastFinalTopicIndex) {
-                            final int pageIndex = nav
-                                .selectedTopic!
-                                .pageContents
-                                .indexOf(selectedPage);
-                            final lastPageIndex =
-                                nav.selectedTopic!.pageContents.length - 1;
-                            if (pageIndex < lastPageIndex) {
-                              await ref
+                if (isManualFinalTopic)
+                  IconButton(
+                    onPressed: () async {
+                      if (await CfPublic()
+                              .getExternalStoragePermissionStatus() ==
+                          true) {
+                        if (context.mounted) {
+                          _showPopupAddTempelate(context, ref).then((
+                            finalTopic,
+                          ) {
+                            if (finalTopic != null) {
+                              ref
                                   .read(navigationProvider.notifier)
-                                  .selectPageAndFinalTopic(
-                                    nav.selectedTopic!.pageContents[pageIndex +
-                                        1],
-                                    nav
-                                        .selectedTopic!
-                                        .pageContents[pageIndex + 1]
-                                        .finalTopics
-                                        .first,
-                                  );
-                              // final books = ref.read(allContentProvider).value;
-                              // if (books != null) {
-                              //   Future.microtask(() {
-                              //     ref
-                              //         .read(navigationProvider.notifier)
-                              //         .restoreLastState(books);
-                              //   });
-                              // }
+                                  .addTempelate(finalTopic);
                             }
-                          }
-                        },
-                        icon: Icon(Icons.keyboard_arrow_right_outlined),
-                        label: const Text('بعدی'),
-                      ),
-                      Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: ElevatedButton.icon(
+                          });
+                        }
+                      }
+                    },
+                    icon: const Icon(Icons.add),
+                  ),
+              ],
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                  child: isManualFinalTopic
+                      ? _buildManualLayout(
+                          nav,
+                          isDualPane,
+                          textSegmentsEnglish,
+                          textSegmentsPersian,
+                          // textSegmentsNote,
+                          sentenceStates,
+                          finalTopicId,
+                        )
+                      : isDualPane
+                      ? _buildEnglishAndPersianLayout(
+                          selectedBook.name.contains('قالبهای موقعیتی'),
+                          textSegmentsEnglish,
+                          textSegmentsPersian,
+                          sentenceStates,
+                          finalTopicId,
+                        )
+                      : selectedBook.name.contains('قالبهای موقعیتی')
+                      ? _buildPersianLayout(textSegmentsPersian, finalTopicId)
+                      : _buildEnglishLayout(
+                          textSegmentsEnglish,
+                          sentenceStates,
+                          finalTopicId,
+                        ),
+                ),
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20.0,
+                      right: 20.0,
+                      bottom: 8.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton.icon(
                           onPressed: () async {
                             final int idxFinalTopic = selectedPage.finalTopics
                                 .indexOf(selectedFinalTopic);
-                            if (idxFinalTopic > 0) {
+                            final lastFinalTopicIndex =
+                                selectedPage.finalTopics.length - 1;
+                            if (idxFinalTopic < lastFinalTopicIndex) {
                               await ref
                                   .read(navigationProvider.notifier)
                                   .selectFinalTopic(
-                                    selectedPage.finalTopics[idxFinalTopic - 1],
+                                    selectedPage.finalTopics[idxFinalTopic + 1],
                                   );
                               // final books = ref.read(allContentProvider).value;
                               // if (books != null) {
@@ -349,23 +304,25 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                               //         .restoreLastState(books);
                               //   });
                               // }
-                            } else if (idxFinalTopic == 0) {
+                            } else if (idxFinalTopic == lastFinalTopicIndex) {
                               final int pageIndex = nav
                                   .selectedTopic!
                                   .pageContents
                                   .indexOf(selectedPage);
-                              if (pageIndex > 0) {
+                              final lastPageIndex =
+                                  nav.selectedTopic!.pageContents.length - 1;
+                              if (pageIndex < lastPageIndex) {
                                 await ref
                                     .read(navigationProvider.notifier)
                                     .selectPageAndFinalTopic(
                                       nav
                                           .selectedTopic!
-                                          .pageContents[pageIndex - 1],
+                                          .pageContents[pageIndex + 1],
                                       nav
                                           .selectedTopic!
-                                          .pageContents[pageIndex - 1]
+                                          .pageContents[pageIndex + 1]
                                           .finalTopics
-                                          .last,
+                                          .first,
                                     );
                                 // final books = ref.read(allContentProvider).value;
                                 // if (books != null) {
@@ -378,22 +335,80 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                               }
                             }
                           },
-                          icon: Icon(Icons.keyboard_arrow_left_outlined),
-                          label: const Text('قبلی'),
+                          icon: Icon(Icons.keyboard_arrow_right_outlined),
+                          label: const Text('بعدی'),
                         ),
-                      ),
-                    ],
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: ElevatedButton.icon(
+                            onPressed: () async {
+                              final int idxFinalTopic = selectedPage.finalTopics
+                                  .indexOf(selectedFinalTopic);
+                              if (idxFinalTopic > 0) {
+                                await ref
+                                    .read(navigationProvider.notifier)
+                                    .selectFinalTopic(
+                                      selectedPage.finalTopics[idxFinalTopic -
+                                          1],
+                                    );
+                                // final books = ref.read(allContentProvider).value;
+                                // if (books != null) {
+                                //   Future.microtask(() {
+                                //     ref
+                                //         .read(navigationProvider.notifier)
+                                //         .restoreLastState(books);
+                                //   });
+                                // }
+                              } else if (idxFinalTopic == 0) {
+                                final int pageIndex = nav
+                                    .selectedTopic!
+                                    .pageContents
+                                    .indexOf(selectedPage);
+                                if (pageIndex > 0) {
+                                  await ref
+                                      .read(navigationProvider.notifier)
+                                      .selectPageAndFinalTopic(
+                                        nav
+                                            .selectedTopic!
+                                            .pageContents[pageIndex - 1],
+                                        nav
+                                            .selectedTopic!
+                                            .pageContents[pageIndex - 1]
+                                            .finalTopics
+                                            .last,
+                                      );
+                                  // final books = ref.read(allContentProvider).value;
+                                  // if (books != null) {
+                                  //   Future.microtask(() {
+                                  //     ref
+                                  //         .read(navigationProvider.notifier)
+                                  //         .restoreLastState(books);
+                                  //   });
+                                  // }
+                                }
+                              }
+                            },
+                            icon: Icon(Icons.keyboard_arrow_left_outlined),
+                            label: const Text('قبلی'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // مینی پلیر که قابلیت باز و بسته شدن دارد
-              const ExpandableMiniPlayer(),
-            ],
+                // مینی پلیر که قابلیت باز و بسته شدن دارد
+                const ExpandableMiniPlayer(),
+              ],
+            ),
           ),
         ),
       );
     } else {
-      return const Scaffold(body: Center(child: Text('درسی انتخاب نشده است')));
+      return SafeArea(
+        child: const Scaffold(
+          body: Center(child: Text('درسی انتخاب نشده است')),
+        ),
+      );
     }
   }
 
@@ -408,7 +423,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       final index = entry.key;
       final ms = entry.value;
       final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
-      TextStyle style = TextStyle(
+      TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
             ? Theme.of(context).textTheme.titleLarge!.fontSize
             : Theme.of(context).textTheme.bodyLarge!.fontSize,
@@ -419,26 +434,42 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           context,
         ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
       );
-
+      if (ms.isLineThrough != null && ms.isLineThrough == true) {
+        msStyle = msStyle.copyWith(
+          decoration: TextDecoration.lineThrough,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (ms.isUnderLine != null && ms.isUnderLine == true) {
+        msStyle = msStyle.copyWith(
+          decoration: TextDecoration.underline,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (ms.isItalic != null && ms.isItalic == true) {
+        msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
+      }
       // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.isAmberHighlighted != null && ms.isAmberHighlighted == true) {
-        style = style.copyWith(backgroundColor: Colors.amber.shade100);
+      if (ms.isSearchHighlighted != null && ms.isSearchHighlighted == true) {
+        msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
       }
       if (ms.isInteractive) {
-        style = style.copyWith(color: Theme.of(context).colorScheme.error);
+        msStyle = msStyle.copyWith(color: Theme.of(context).colorScheme.error);
         debugPrint('تعاملی: ${ms.text}');
       } else if (ms.isBlank != null) {
-        style = style.copyWith(color: Colors.blueAccent);
+        msStyle = msStyle.copyWith(color: Colors.blueAccent);
       }
 
       if (ms.isInteractive) {
         final formattedSpans = UtilityPersian().buildMixedTextSpans(
           ms.text.replaceAll('\\n', '\n'),
-          persianStyle: style.copyWith(
+          persianStyle: msStyle.copyWith(
             fontFamily: FontFamily.yekanBakhRegular.asText,
             fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
           ),
-          normalStyle: style,
+          normalStyle: msStyle,
         );
         return formattedSpans.map((e) {
           return TextSpan(
@@ -463,7 +494,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               return [
                 TextSpan(
                   text: " ________ ", // نمایش جاخالی
-                  style: style,
+                  style: msStyle,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => ref
                         .read(sentenceProvider(finalTopicId).notifier)
@@ -475,7 +506,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             return [
               TextSpan(
                 text: ms.text,
-                style: style.copyWith(
+                style: msStyle.copyWith(
                   decoration: TextDecoration.lineThrough,
                   decorationStyle: TextDecorationStyle.wavy,
                   decorationColor: Colors.red,
@@ -485,34 +516,34 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           }
           final formattedSpans = UtilityPersian().buildMixedTextSpans(
             ms.text.replaceAll('\\n', '\n'),
-            persianStyle: style.copyWith(
+            persianStyle: msStyle.copyWith(
               fontFamily: FontFamily.yekanBakhRegular.asText,
               fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
             ),
-            normalStyle: style,
+            normalStyle: msStyle,
           );
           return formattedSpans;
           // return [
           //   TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style),
           // ];
         } else {
-          debugPrint(jsonEncode(ms));
-          final subItemsAsTextSegmentEnglish = ms.subItems!.map((e) {
-            debugPrint('داخلی: ${jsonEncode(e)}');
-            return TextSegmentEnglish(
-              text: e.text, //['text'] as String,
-              isInteractive: e.isInteractive, //['isInteractive'] as bool,
-              isBold: e.isBold, //['isBold'] as bool?,
-              isBlank: e.isBlank, //['isBlank'] as bool?,
-              translation: e.translation, //['translation'] as String?,
-              explanation: e.explanation, //['explanation'] as String?,
-              cerfLevel: e.cerfLevel, //['cerfLevel'] as String?,
-              pronounce: e.pronounce, //['pronounce'] as String?,
-              isRtl: e.isRtl, //['isRtl'] as bool?,
-            );
-          }).toList();
+          if (ms.isBlank != null && ms.isBlank == true) {
+            if (blankStatus == SentenceStatus.hide) {
+              return [
+                TextSpan(
+                  text: " ________ ", // نمایش جاخالی
+                  style: msStyle,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => ref
+                        .read(sentenceProvider(finalTopicId).notifier)
+                        .toggleStatus(index),
+                ),
+              ];
+            }
+          }
+          final subItems = ms.subItems!;
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
-              .fillGapsInFullText(ms.text, subItemsAsTextSegmentEnglish);
+              .fillGapsInFullText(ms.text, subItems);
           final subSpans = subMicroSegments.asMap().entries.map((entry) {
             // final index = entry.key;
             final subMs = entry.value;
@@ -520,11 +551,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             if (subMs.isInteractive) {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),
-                persianStyle: style.copyWith(
+                persianStyle: msStyle.copyWith(
                   fontFamily: FontFamily.yekanBakhRegular.asText,
                   fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+                  color: Theme.of(context).colorScheme.error,
                 ),
-                normalStyle: style,
+                normalStyle: msStyle.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                ),
               );
               return formattedSpans.map((e) {
                 return TextSpan(
@@ -544,11 +578,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             } else {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),
-                persianStyle: style.copyWith(
+                persianStyle: msStyle.copyWith(
                   fontFamily: FontFamily.yekanBakhRegular.asText,
                   fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
                 ),
-                normalStyle: style,
+                normalStyle: msStyle,
               );
               return formattedSpans;
             }
@@ -1006,7 +1040,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       );
 
       // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.isAmberHighlighted != null && ms.isAmberHighlighted == true) {
+      if (ms.isSearchHighlighted != null && ms.isSearchHighlighted == true) {
         style = style.copyWith(backgroundColor: Colors.amber.shade100);
       }
       if (ms.isInteractive) {
@@ -1221,7 +1255,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 subItems: segment.subItems,
                 translation: segment.translation,
                 explanation: segment.explanation,
-                isAmberHighlighted: true, // اعمال هایلایت
+                isSearchHighlighted: true, // اعمال هایلایت
               ),
             );
             segmentPos = endInSegment;

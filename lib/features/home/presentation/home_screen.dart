@@ -87,100 +87,102 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         if (didPop) return;
         ref.read(navigationProvider.notifier).goBack();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          title: Text(
-            'دستیار آیلتس',
-            style: TextStyle(
-              fontFamily: FontFamily.yekanBakhBold.asText,
-              fontSize: 20.0,
-              // color: Theme.of(context).colorScheme.primary,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            title: Text(
+              'دستیار آیلتس',
+              style: TextStyle(
+                fontFamily: FontFamily.yekanBakhBold.asText,
+                fontSize: 20.0,
+                // color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-          ),
-          actions: [
-            // Directionality(
-            //   textDirection: TextDirection.rtl,
-            //   child: IconButton(
-            //     onPressed: () async {},
-            //     icon: Icon(Icons.add),
-            //     tooltip: 'افزودن قالب جدید',
-            //   ),
-            // ),
-            //! ویجت جستجو
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: IconButton(
+            actions: [
+              // Directionality(
+              //   textDirection: TextDirection.rtl,
+              //   child: IconButton(
+              //     onPressed: () async {},
+              //     icon: Icon(Icons.add),
+              //     tooltip: 'افزودن قالب جدید',
+              //   ),
+              // ),
+              //! ویجت جستجو
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: IconButton(
+                  onPressed: () async {
+                    var result = await showSearch(
+                      context: context,
+                      delegate: FinalTopicSearchDelegate(
+                        ref: ref,
+                        // data: ref.read(searchListProvider),
+                      ),
+                    );
+                    if (result != null) {}
+                  },
+                  icon: Icon(Icons.search),
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.refresh),
                 onPressed: () async {
-                  var result = await showSearch(
-                    context: context,
-                    delegate: FinalTopicSearchDelegate(
-                      ref: ref,
-                      // data: ref.read(searchListProvider),
-                    ),
-                  );
-                  if (result != null) {}
-                },
-                icon: Icon(Icons.search),
-              ),
-            ),
-            IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () async {
-                // await _refreshContents();
-                ref.read(allContentProvider.notifier).refresh();
-              },
-              tooltip: 'تازه‌سازی',
-            ),
-            IconButton(
-              icon: Icon(Icons.folder),
-              onPressed: () async {
-                String? previousPath = ref.read(settingsProvider);
-                String? selectedDirectory = await ref
-                    .read(settingsProvider.notifier)
-                    .pickAndSaveDirectory(previousPath);
-                if (selectedDirectory != null) {
-                  await ref
-                      .read(settingsProvider.notifier)
-                      .updatePath(selectedDirectory);
-                  // await _refreshContents(root: selectedDirectory);
-
+                  // await _refreshContents();
                   ref.read(allContentProvider.notifier).refresh();
-                }
-              },
-              tooltip: 'انتخاب مسیر',
-            ),
-          ],
-        ),
-        // floatingActionButton: FloatingActionButton(
-        //   heroTag: 'addNewTempelate',
-        //   onPressed: () async {
-        //     if (await CfPublic().getExternalStoragePermissionStatus() == true) {
-        //       _showPopupAddNewTempelate();
-        //     }
-        //   },
-        //   child: Icon(Icons.add),
-        // ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        // drawer: const MainDrawer(),
-        body: Column(
-          children: [
-            _buildBreadcrumbs(nav, allContent),
-            Expanded(child: _buildMainContent(nav, allContent)),
-          ],
-        ),
-        bottomNavigationBar: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // ۲. اضافه کردن شرط نمایش مینی پلیر در صفحه اصلی
-            if (nav.selectedFinalTopic == null &&
-                audioState.currentPath != null)
-              ExpandableMiniPlayer(
-                onClose: () =>
-                    ref.read(audioPlayerProvider.notifier).stopAndClear(),
+                },
+                tooltip: 'تازه‌سازی',
               ),
-          ],
+              IconButton(
+                icon: Icon(Icons.folder),
+                onPressed: () async {
+                  String? previousPath = ref.read(settingsProvider);
+                  String? selectedDirectory = await ref
+                      .read(settingsProvider.notifier)
+                      .pickAndSaveDirectory(previousPath);
+                  if (selectedDirectory != null) {
+                    await ref
+                        .read(settingsProvider.notifier)
+                        .updatePath(selectedDirectory);
+                    // await _refreshContents(root: selectedDirectory);
+
+                    ref.read(allContentProvider.notifier).refresh();
+                  }
+                },
+                tooltip: 'انتخاب مسیر',
+              ),
+            ],
+          ),
+          // floatingActionButton: FloatingActionButton(
+          //   heroTag: 'addNewTempelate',
+          //   onPressed: () async {
+          //     if (await CfPublic().getExternalStoragePermissionStatus() == true) {
+          //       _showPopupAddNewTempelate();
+          //     }
+          //   },
+          //   child: Icon(Icons.add),
+          // ),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          // drawer: const MainDrawer(),
+          body: Column(
+            children: [
+              _buildBreadcrumbs(nav, allContent),
+              Expanded(child: _buildMainContent(nav, allContent)),
+            ],
+          ),
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // ۲. اضافه کردن شرط نمایش مینی پلیر در صفحه اصلی
+              if (nav.selectedFinalTopic == null &&
+                  audioState.currentPath != null)
+                ExpandableMiniPlayer(
+                  onClose: () =>
+                      ref.read(audioPlayerProvider.notifier).stopAndClear(),
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -161,7 +161,7 @@ class TextSegmentEnglish {
 
   bool? hasSubItems;
   List<TextSegmentEnglish>? subItems;
-  bool? isAmberHighlighted;
+  bool? isSearchHighlighted;
   String? translation; // ترجمه فارسی
   String? explanation; // توضیحات تکمیلی
   String? cerfLevel; //
@@ -181,7 +181,7 @@ class TextSegmentEnglish {
     this.isLineThrough,
     this.isHighlight,
     this.originText,
-    this.isAmberHighlighted,
+    this.isSearchHighlighted,
     this.translation,
     this.explanation,
     this.cerfLevel,
@@ -210,8 +210,8 @@ class TextSegmentEnglish {
     if (isBold != null) {
       result['isBold'] = isBold;
     }
-    if (isAmberHighlighted != null) {
-      result['isAmberHighlighted'] = isAmberHighlighted;
+    if (isSearchHighlighted != null) {
+      result['isAmberHighlighted'] = isSearchHighlighted;
     }
     if (translation != null) {
       result['translation'] = translation;
