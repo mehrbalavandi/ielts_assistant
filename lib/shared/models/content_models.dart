@@ -211,7 +211,7 @@ class TextSegmentEnglish {
       result['isBold'] = isBold;
     }
     if (isSearchHighlighted != null) {
-      result['isAmberHighlighted'] = isSearchHighlighted;
+      result['isSearchHighlighted'] = isSearchHighlighted;
     }
     if (translation != null) {
       result['translation'] = translation;
@@ -254,12 +254,12 @@ class TextSegmentEnglish {
 }
 
 class TextSegmentPersian {
-  final String text;
+  String text;
 
-  final String? translation; // ترجمه فارسی
-  final String? explanation; // توضیحات تکمیلی
-  final bool? isBold;
-  final bool? isAmberHighlighted;
+  String? translation; // ترجمه فارسی
+  String? explanation; // توضیحات تکمیلی
+  bool? isBold;
+  bool? isSearchHighlighted;
 
   TextSegmentPersian({
     required this.text,
@@ -267,7 +267,7 @@ class TextSegmentPersian {
     this.translation,
     this.explanation,
     this.isBold,
-    this.isAmberHighlighted,
+    this.isSearchHighlighted,
   });
 
   Map<String, dynamic> toJson() {
@@ -281,8 +281,8 @@ class TextSegmentPersian {
     if (explanation != null) {
       result['explanation'] = explanation;
     }
-    if (isAmberHighlighted != null) {
-      result['isAmberHighlighted'] = isAmberHighlighted;
+    if (isSearchHighlighted != null) {
+      result['isSearchHighlighted'] = isSearchHighlighted;
     }
     return result;
   }
@@ -304,7 +304,7 @@ class TextSegmentPersianTempelate {
   final String? translation; // ترجمه فارسی
   final String? explanation; // توضیحات تکمیلی
   final bool? isBold;
-  final bool? isAmberHighlighted;
+  final bool? isSearchHighlighted;
 
   TextSegmentPersianTempelate({
     required this.text,
@@ -312,7 +312,7 @@ class TextSegmentPersianTempelate {
     this.isBold,
     this.translation,
     this.explanation,
-    this.isAmberHighlighted,
+    this.isSearchHighlighted,
   });
 
   Map<String, dynamic> toJson() {
@@ -326,8 +326,8 @@ class TextSegmentPersianTempelate {
     if (explanation != null) {
       result['explanation'] = explanation;
     }
-    if (isAmberHighlighted != null) {
-      result['isAmberHighlighted'] = isAmberHighlighted;
+    if (isSearchHighlighted != null) {
+      result['isSearchHighlighted'] = isSearchHighlighted;
     }
     return result;
   }

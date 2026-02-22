@@ -65,7 +65,7 @@ class RawBlock {
   });
 }
 
-List<RawBlock> splitRawText(String fullText) {
+List<RawBlock> splitRawTextEnglish(String fullText) {
   final List<RawBlock> blocks = [];
 
   final markerPattern = RegExp(
@@ -115,7 +115,7 @@ List<RawBlock> splitRawText(String fullText) {
   return blocks;
 }
 
-List<TextSegmentEnglish> buildStructuredItems(
+List<TextSegmentEnglish> buildStructuredItemsEnglish(
   List<RawBlock> blocks,
   List<PositionedItem> positioned,
 ) {

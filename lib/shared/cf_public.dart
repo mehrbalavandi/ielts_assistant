@@ -77,22 +77,13 @@ class CfPublic {
           )
           .toList();
       String fullText = textSegmentsEnglish.map((e) => e.text).toList().join();
-      List<TextSegmentEnglish> extracted = jsonDecode(
-        rawEnglishJson,
-      ).map<TextSegmentEnglish>((e) => TextSegmentEnglish.fromJson(e)).toList();
       List<PositionedItem> positionMap = buildPositionMap(textSegmentsEnglish);
-      List<RawBlock> blocks = splitRawText(fullText);
-      List<TextSegmentEnglish> finalItems = buildStructuredItems(
+      List<RawBlock> blocks = splitRawTextEnglish(fullText);
+      List<TextSegmentEnglish> finalItems = buildStructuredItemsEnglish(
         blocks,
         positionMap,
       );
       return finalItems;
-
-      // return jsonFormat
-      //     .map(
-      //       (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
-      //     )
-      //     .toList();
     } catch (e) {
       return <TextSegmentEnglish>[];
     }
@@ -104,14 +95,21 @@ class CfPublic {
     }
     try {
       final List<dynamic> jsonFormat = jsonDecode(raw);
-      return jsonFormat
-          .map(
-            (json) => TextSegmentPersian.fromJson(json as Map<String, dynamic>),
-          )
-          .toList();
+      return jsonFormat.map((json) {
+        var output = TextSegmentPersian.fromJson(json as Map<String, dynamic>);
+        output.text = stripMarkers(output.text);
+        return output;
+      }).toList();
     } catch (e) {
       return <TextSegmentPersian>[];
     }
+  }
+
+  String stripMarkers(String text) {
+    final pattern = RegExp(
+      r'(\{b\}|\{i\}|\{u\}|\{s\}|\{h\}|\{blk\}|\{\/b\}|\{\/i\}|\{\/u\}|\{\/s\}|\{\/h\}|\{\/blk\})',
+    );
+    return text.replaceAll(pattern, "");
   }
 
   FileSystemEntity? _findJsonFileEnglish(List<FileSystemEntity> fileList) {
@@ -488,7 +486,7 @@ class CfPublic {
               TextSegmentPersian(
                 text: text,
                 isBold: segment.isBold,
-                isAmberHighlighted: true, // اعمال هایلایت
+                isSearchHighlighted: true, // اعمال هایلایت
               ),
             );
             segmentCurrentPosition = endInSegment;
@@ -581,7 +579,7 @@ class CfPublic {
               TextSegmentPersian(
                 text: text,
                 isBold: segment.isBold,
-                isAmberHighlighted: true, // اعمال هایلایت
+                isSearchHighlighted: true, // اعمال هایلایت
               ),
             );
             segmentCurrentPosition = endInSegment;

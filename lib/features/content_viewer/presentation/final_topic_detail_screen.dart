@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/gestures.dart';
@@ -503,16 +502,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               ];
             }
           } else if (ms.isLineThrough != null && ms.isLineThrough == true) {
-            return [
-              TextSpan(
-                text: ms.text,
-                style: msStyle.copyWith(
-                  decoration: TextDecoration.lineThrough,
-                  decorationStyle: TextDecorationStyle.wavy,
-                  decorationColor: Colors.red,
-                ),
-              ),
-            ];
+            return [TextSpan(text: ms.text, style: msStyle)];
           }
           final formattedSpans = UtilityPersian().buildMixedTextSpans(
             ms.text.replaceAll('\\n', '\n'),
@@ -655,7 +645,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
-    final List<TextSpan> spans = translationTextSegments.map((item) {
+    final List<TextSpan> translationSpans = translationTextSegments.map((item) {
       // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
       TextStyle style = TextStyle(
         fontSize: (item.isBold != null && item.isBold == true)
@@ -691,7 +681,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       textDirection: TextDirection.rtl,
                       child: RichText(
                         textAlign: TextAlign.right,
-                        text: TextSpan(children: spans),
+                        text: TextSpan(children: translationSpans),
                       ),
                     ),
                   ),
@@ -736,7 +726,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       textDirection: TextDirection.rtl,
                       child: RichText(
                         textAlign: TextAlign.right,
-                        text: TextSpan(children: spans),
+                        text: TextSpan(children: translationSpans),
                       ),
                     ),
                   ),
@@ -833,8 +823,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     );
 
                     // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-                    if (ms.isAmberHighlighted != null &&
-                        ms.isAmberHighlighted == true) {
+                    if (ms.isSearchHighlighted != null &&
+                        ms.isSearchHighlighted == true) {
                       style = style.copyWith(
                         backgroundColor: Colors.amber.shade100,
                       );
@@ -949,8 +939,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       );
 
                       // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-                      if (ms.isAmberHighlighted != null &&
-                          ms.isAmberHighlighted == true) {
+                      if (ms.isSearchHighlighted != null &&
+                          ms.isSearchHighlighted == true) {
                         style = style.copyWith(
                           backgroundColor: Colors.amber.shade100,
                         );
@@ -1027,7 +1017,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       // final index = entry.key;
       final ms = entry.value;
       // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
-      TextStyle style = TextStyle(
+      TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
             ? Theme.of(context).textTheme.titleLarge!.fontSize
             : Theme.of(context).textTheme.bodyLarge!.fontSize,
@@ -1038,25 +1028,41 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           context,
         ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
       );
-
+      if (ms.isLineThrough != null && ms.isLineThrough == true) {
+        msStyle = msStyle.copyWith(
+          decoration: TextDecoration.lineThrough,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (ms.isUnderLine != null && ms.isUnderLine == true) {
+        msStyle = msStyle.copyWith(
+          decoration: TextDecoration.underline,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (ms.isItalic != null && ms.isItalic == true) {
+        msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
+      }
       // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
       if (ms.isSearchHighlighted != null && ms.isSearchHighlighted == true) {
-        style = style.copyWith(backgroundColor: Colors.amber.shade100);
+        msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
       }
       if (ms.isInteractive) {
-        style = style.copyWith(color: Theme.of(context).colorScheme.error);
+        msStyle = msStyle.copyWith(color: Theme.of(context).colorScheme.error);
       } else if (ms.isBlank != null) {
-        style = style.copyWith(color: Colors.blueAccent);
+        msStyle = msStyle.copyWith(color: Colors.blueAccent);
       }
 
       if (ms.isInteractive) {
         final formattedSpans = UtilityPersian().buildMixedTextSpans(
           ms.text.replaceAll('\\n', '\n'),
-          persianStyle: style.copyWith(
+          persianStyle: msStyle.copyWith(
             fontFamily: FontFamily.yekanBakhRegular.asText,
             fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
           ),
-          normalStyle: style,
+          normalStyle: msStyle,
         );
         return formattedSpans.map((e) {
           return TextSpan(
@@ -1078,49 +1084,35 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         if (ms.hasSubItems == null) {
           final formattedSpans = UtilityPersian().buildMixedTextSpans(
             ms.text.replaceAll('\\n', '\n'),
-            persianStyle: style.copyWith(
+            persianStyle: msStyle.copyWith(
               fontFamily: FontFamily.yekanBakhRegular.asText,
               fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
             ),
-            normalStyle: style,
+            normalStyle: msStyle,
           );
           return formattedSpans;
         } else {
-          final subItemsAsTextSegmentEnglish = ms.subItems!.map((e) {
-            return TextSegmentEnglish(
-              text: e.text, //['text'] as String,
-              isInteractive: e.isInteractive, //['isInteractive'] as bool,
-              isBold: e.isBold, //['isBold'] as bool?,
-              isBlank: e.isBlank, //['isBlank'] as bool?,
-              translation: e.translation, //['translation'] as String?,
-              explanation: e.explanation, //['explanation'] as String?,
-              cerfLevel: e.cerfLevel, //['cerfLevel'] as String?,
-              pronounce: e.pronounce, //['pronounce'] as String?,
-              isRtl: e.isRtl, //['isRtl'] as bool?,
-            );
-          }).toList();
+          final subItems = ms.subItems!;
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
               .processSegmentsEnglish(
-                CfPublic().fillGapsInFullText(
-                  ms.text,
-                  subItemsAsTextSegmentEnglish,
-                ),
+                CfPublic().fillGapsInFullText(ms.text, subItems),
                 widget.searchText!,
               );
           final subSpans = subMicroSegments.asMap().entries.map((entry) {
             // final index = entry.key;
             final subMs = entry.value;
             // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
-            TextStyle subStyle = style;
-
             if (subMs.isInteractive) {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),
-                persianStyle: style.copyWith(
+                persianStyle: msStyle.copyWith(
                   fontFamily: FontFamily.yekanBakhRegular.asText,
                   fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+                  color: Theme.of(context).colorScheme.error,
                 ),
-                normalStyle: style,
+                normalStyle: msStyle.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                ),
               );
               return formattedSpans.map((e) {
                 return TextSpan(
@@ -1140,11 +1132,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             } else {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),
-                persianStyle: style.copyWith(
+                persianStyle: msStyle.copyWith(
                   fontFamily: FontFamily.yekanBakhRegular.asText,
                   fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
                 ),
-                normalStyle: style,
+                normalStyle: msStyle,
               );
               return formattedSpans;
             }
