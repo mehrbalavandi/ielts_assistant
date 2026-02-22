@@ -160,7 +160,7 @@ class TextSegmentEnglish {
   bool? isHighlight;
 
   bool? hasSubItems;
-  List<dynamic>? subItems;
+  List<TextSegmentEnglish>? subItems;
   bool? isAmberHighlighted;
   String? translation; // ترجمه فارسی
   String? explanation; // توضیحات تکمیلی

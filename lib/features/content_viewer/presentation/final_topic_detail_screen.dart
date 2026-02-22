@@ -404,9 +404,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
-    // int interactiveIndex = 0;
-    // List<List<InlineSpan>>
-    debugPrint('تعداد: ${textSegmentsEnglish.length}');
     final spans = textSegmentsEnglish.asMap().entries.map((entry) {
       final index = entry.key;
       final ms = entry.value;
@@ -429,6 +426,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       }
       if (ms.isInteractive) {
         style = style.copyWith(color: Theme.of(context).colorScheme.error);
+        debugPrint('تعاملی: ${ms.text}');
       } else if (ms.isBlank != null) {
         style = style.copyWith(color: Colors.blueAccent);
       }
@@ -459,6 +457,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         }).toList();
       } else {
         if (ms.hasSubItems == null) {
+          debugPrint('فاقد زیرمجموعه: ${ms.text}');
           if (ms.isBlank != null && ms.isBlank == true) {
             if (blankStatus == SentenceStatus.hide) {
               return [
@@ -501,17 +500,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           final subItemsAsTextSegmentEnglish = ms.subItems!.map((e) {
             debugPrint('داخلی: ${jsonEncode(e)}');
             return TextSegmentEnglish(
-              text: e['text'] as String,
-              isInteractive: e['isInteractive'] as bool,
-              isBold: e['isBold'] as bool?,
-              isBlank: e['isBlank'] as bool?,
-              hasSubItems: false,
-              subItems: null,
-              translation: e['translation'] as String?,
-              explanation: e['explanation'] as String?,
-              cerfLevel: e['cerfLevel'] as String?,
-              pronounce: e['pronounce'] as String?,
-              isRtl: e['isRtl'] as bool?,
+              text: e.text, //['text'] as String,
+              isInteractive: e.isInteractive, //['isInteractive'] as bool,
+              isBold: e.isBold, //['isBold'] as bool?,
+              isBlank: e.isBlank, //['isBlank'] as bool?,
+              translation: e.translation, //['translation'] as String?,
+              explanation: e.explanation, //['explanation'] as String?,
+              cerfLevel: e.cerfLevel, //['cerfLevel'] as String?,
+              pronounce: e.pronounce, //['pronounce'] as String?,
+              isRtl: e.isRtl, //['isRtl'] as bool?,
             );
           }).toList();
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
@@ -520,8 +517,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             // final index = entry.key;
             final subMs = entry.value;
             // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
-            TextStyle subStyle = style;
-
             if (subMs.isInteractive) {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),
@@ -1059,17 +1054,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         } else {
           final subItemsAsTextSegmentEnglish = ms.subItems!.map((e) {
             return TextSegmentEnglish(
-              text: e['text'] as String,
-              isInteractive: e['isInteractive'] as bool,
-              isBold: e['isBold'] as bool?,
-              isBlank: e['isBlank'] as bool?,
-              hasSubItems: false,
-              subItems: null,
-              translation: e['translation'] as String?,
-              explanation: e['explanation'] as String?,
-              cerfLevel: e['cerfLevel'] as String?,
-              pronounce: e['pronounce'] as String?,
-              isRtl: e['isRtl'] as bool?,
+              text: e.text, //['text'] as String,
+              isInteractive: e.isInteractive, //['isInteractive'] as bool,
+              isBold: e.isBold, //['isBold'] as bool?,
+              isBlank: e.isBlank, //['isBlank'] as bool?,
+              translation: e.translation, //['translation'] as String?,
+              explanation: e.explanation, //['explanation'] as String?,
+              cerfLevel: e.cerfLevel, //['cerfLevel'] as String?,
+              pronounce: e.pronounce, //['pronounce'] as String?,
+              isRtl: e.isRtl, //['isRtl'] as bool?,
             );
           }).toList();
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
