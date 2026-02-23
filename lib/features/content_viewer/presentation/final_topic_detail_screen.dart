@@ -686,8 +686,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
       TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
-            ? Theme.of(context).textTheme.titleLarge!.fontSize
-            : Theme.of(context).textTheme.bodyLarge!.fontSize,
+            ? Theme.of(context).textTheme.titleMedium!.fontSize
+            : Theme.of(context).textTheme.bodyMedium!.fontSize,
         fontWeight: (ms.isBold != null && ms.isBold == true)
             ? FontWeight.bold
             : FontWeight.normal,
