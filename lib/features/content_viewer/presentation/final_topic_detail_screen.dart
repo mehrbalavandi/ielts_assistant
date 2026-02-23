@@ -837,7 +837,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       ),
               )
             : Expanded(
-                child: SingleChildScrollView(
+                child: (widget.searchText == null)
+                    ? _buildPersianLayout(translationTextSegments, finalTopicId)
+                    : _buildPersianLayoutForSearch(
+                        translationTextSegments,
+                        finalTopicId,
+                      ),
+                /*
+                SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Align(
                     alignment: AlignmentGeometry.centerRight,
@@ -850,6 +857,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     ),
                   ),
                 ),
+                */
               ),
       ],
     );
