@@ -141,14 +141,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   String? selectedDirectory = await ref
                       .read(settingsProvider.notifier)
                       .pickAndSaveDirectory(previousPath);
-                  if (selectedDirectory != null) {
-                    await ref
-                        .read(settingsProvider.notifier)
-                        .updatePath(selectedDirectory);
-                    // await _refreshContents(root: selectedDirectory);
+                  // if (selectedDirectory != null) {
+                  //   await ref
+                  //       .read(settingsProvider.notifier)
+                  //       .updatePath(selectedDirectory);
+                  //   // await _refreshContents(root: selectedDirectory);
 
-                    ref.read(allContentProvider.notifier).refresh();
-                  }
+                  //   ref.read(allContentProvider.notifier).refresh();
+                  // }
                 },
                 tooltip: 'انتخاب مسیر',
               ),
