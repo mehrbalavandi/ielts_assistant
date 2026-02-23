@@ -133,10 +133,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       : widget.originalContent!.book.name.contains(
                           'قالبهای موقعیتی',
                         )
-                      ? _buildPersianLayout(
-                          selectedFinalTopicSearch.contentPersian,
-                          finalTopicId,
-                        )
+                      ? (widget.searchText == null)
+                            ? _buildPersianLayout(
+                                selectedFinalTopicSearch.contentPersian,
+                                finalTopicId,
+                              )
+                            : _buildPersianLayoutForSearch(
+                                selectedFinalTopicSearch.contentPersian,
+                                finalTopicId,
+                              )
                       : (widget.searchText == null)
                       ? _buildEnglishLayout(
                           selectedFinalTopicSearch.contentEnglish,
@@ -418,7 +423,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
-    final spans = textSegmentsEnglish.asMap().entries.map((entry) {
+    final spansEnglish = textSegmentsEnglish.asMap().entries.map((entry) {
       final index = entry.key;
       final ms = entry.value;
       final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
@@ -590,7 +595,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           textDirection: TextDirection.ltr,
           child: RichText(
             textAlign: TextAlign.left,
-            text: TextSpan(children: spans.expand((e) => e).toList()),
+            text: TextSpan(children: spansEnglish.expand((e) => e).toList()),
           ),
         ),
       ),
@@ -601,7 +606,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     List<TextSegmentPersian> translationTextSegments,
     String finalTopicId,
   ) {
-    final List<TextSpan> spans = translationTextSegments.map((item) {
+    final spans = translationTextSegments.map((item) {
       // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
       TextStyle style = TextStyle(
         fontSize: (item.isBold != null && item.isBold == true)
@@ -617,10 +622,39 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
         fontFamily: FontFamily.yekanBakhRegular.asText,
       );
-      return TextSpan(
-        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
-        style: style,
+      if (item.isLineThrough != null && item.isLineThrough == true) {
+        style = style.copyWith(
+          decoration: TextDecoration.lineThrough,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (item.isUnderLine != null && item.isUnderLine == true) {
+        style = style.copyWith(
+          decoration: TextDecoration.underline,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (item.isItalic != null && item.isItalic == true) {
+        style = style.copyWith(fontStyle: FontStyle.italic);
+      }
+      // return TextSpan(
+      //   text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
+      //   style: style,
+      // );
+      final formattedSpans = UtilityPersian().buildMixedTextSpans(
+        item.text.replaceAll('\\n', '\n'),
+        persianStyle: style.copyWith(
+          fontFamily: FontFamily.yekanBakhRegular.asText,
+          fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+          color: Theme.of(context).colorScheme.error,
+        ),
+        normalStyle: style.copyWith(color: Theme.of(context).colorScheme.error),
       );
+      return formattedSpans.map((e) {
+        return TextSpan(text: e.text, style: e.style);
+      }).toList();
     }).toList();
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -630,7 +664,84 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           textDirection: TextDirection.rtl,
           child: RichText(
             textAlign: TextAlign.right,
-            text: TextSpan(children: spans),
+            text: TextSpan(children: spans.expand((e) => e).toList()),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPersianLayoutForSearch(
+    List<TextSegmentPersian> textSegmentsTranslation,
+    String finalTopicId,
+  ) {
+    // int interactiveIndex = 0;
+    final microSegments = CfPublic().processSearchForPersianSegments(
+      textSegmentsTranslation,
+      widget.searchText!,
+    );
+    // List<List<InlineSpan>>
+    final spans = microSegments.asMap().entries.map((entry) {
+      // final index = entry.key;
+      final ms = entry.value;
+      // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+      TextStyle msStyle = TextStyle(
+        fontSize: (ms.isBold != null && ms.isBold == true)
+            ? Theme.of(context).textTheme.titleLarge!.fontSize
+            : Theme.of(context).textTheme.bodyLarge!.fontSize,
+        fontWeight: (ms.isBold != null && ms.isBold == true)
+            ? FontWeight.bold
+            : FontWeight.normal,
+        color: Theme.of(
+          context,
+        ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
+      );
+      if (ms.isLineThrough != null && ms.isLineThrough == true) {
+        msStyle = msStyle.copyWith(
+          decoration: TextDecoration.lineThrough,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (ms.isUnderLine != null && ms.isUnderLine == true) {
+        msStyle = msStyle.copyWith(
+          decoration: TextDecoration.underline,
+          decorationStyle: TextDecorationStyle.wavy,
+          decorationColor: Colors.red,
+        );
+      }
+      if (ms.isItalic != null && ms.isItalic == true) {
+        msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
+      }
+      // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
+      if (ms.isSearchHighlighted != null && ms.isSearchHighlighted == true) {
+        msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
+      }
+      final formattedSpans = UtilityPersian().buildMixedTextSpans(
+        ms.text.replaceAll('\\n', '\n'),
+        persianStyle: msStyle.copyWith(
+          fontFamily: FontFamily.yekanBakhRegular.asText,
+          fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+          color: Theme.of(context).colorScheme.error,
+        ),
+        normalStyle: msStyle.copyWith(
+          color: Theme.of(context).colorScheme.error,
+        ),
+      );
+      return formattedSpans.map((e) {
+        return TextSpan(text: e.text, style: e.style);
+      }).toList();
+    }).toList();
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Align(
+        alignment: AlignmentGeometry.centerLeft,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: RichText(
+            textAlign: TextAlign.left,
+            text: TextSpan(children: spans.expand((e) => e).toList()),
           ),
         ),
       ),
@@ -673,7 +784,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         // ردیف اول: متن اصلی
         isPersianFirst
             ? Expanded(
-                child: SingleChildScrollView(
+                child: (widget.searchText == null)
+                    ? _buildPersianLayout(translationTextSegments, finalTopicId)
+                    : _buildPersianLayoutForSearch(
+                        translationTextSegments,
+                        finalTopicId,
+                      ),
+                /*
+                SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Align(
                     alignment: AlignmentGeometry.centerRight,
@@ -686,6 +804,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     ),
                   ),
                 ),
+                */
               )
             : Expanded(
                 child: (widget.searchText == null)
@@ -1008,7 +1127,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     String finalTopicId,
   ) {
     // int interactiveIndex = 0;
-    final microSegments = CfPublic().processSegmentsEnglish(
+    final microSegments = CfPublic().processSearchForEnglishSegments(
       textSegmentsEnglish,
       widget.searchText!,
     );
@@ -1094,7 +1213,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         } else {
           final subItems = ms.subItems!;
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
-              .processSegmentsEnglish(
+              .processSearchForEnglishSegments(
                 CfPublic().fillGapsInFullText(ms.text, subItems),
                 widget.searchText!,
               );

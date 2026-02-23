@@ -294,7 +294,7 @@ class CfPublic {
     return result;
   }
 
-  List<TextSegmentEnglish> processSegmentsEnglish(
+  List<TextSegmentEnglish> processSearchForEnglishSegments(
     List<TextSegmentEnglish> segments,
     String searchQuery,
   ) {
@@ -415,7 +415,7 @@ class CfPublic {
     return microSegments;
   }
 
-  List<TextSegmentPersian> processSegmentsPersian(
+  List<TextSegmentPersian> processSearchForPersianSegments(
     List<TextSegmentPersian> segments,
     String searchQuery,
   ) {

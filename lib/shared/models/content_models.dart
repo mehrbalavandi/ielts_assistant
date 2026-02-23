@@ -258,7 +258,13 @@ class TextSegmentPersian {
 
   String? translation; // ترجمه فارسی
   String? explanation; // توضیحات تکمیلی
+
   bool? isBold;
+  bool? isItalic;
+  bool? isUnderLine;
+  bool? isLineThrough;
+  bool? isHighlight;
+
   bool? isSearchHighlighted;
 
   TextSegmentPersian({
@@ -267,22 +273,27 @@ class TextSegmentPersian {
     this.translation,
     this.explanation,
     this.isBold,
+    this.isItalic,
+    this.isUnderLine,
+    this.isLineThrough,
+    this.isHighlight,
     this.isSearchHighlighted,
   });
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> result = {'text': text};
+
     if (isBold != null) {
       result['isBold'] = isBold;
+    }
+    if (isSearchHighlighted != null) {
+      result['isSearchHighlighted'] = isSearchHighlighted;
     }
     if (translation != null) {
       result['translation'] = translation;
     }
     if (explanation != null) {
       result['explanation'] = explanation;
-    }
-    if (isSearchHighlighted != null) {
-      result['isSearchHighlighted'] = isSearchHighlighted;
     }
     return result;
   }
