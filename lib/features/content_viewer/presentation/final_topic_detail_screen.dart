@@ -14,6 +14,7 @@ import 'package:ielts_assistant/features/settings/providers/settings_provider.da
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/final_topic_search_delegate.dart';
 import 'package:ielts_assistant/shared/list_item_text_segmentSimple.dart';
+import 'package:ielts_assistant/shared/marker_parser.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:ielts_assistant/shared/utility_persian.dart';
 import '../../home/providers/navigation_provider.dart';
@@ -423,7 +424,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     Map<int, SentenceStatus> sentenceStates,
     String finalTopicId,
   ) {
-    final spansEnglish = textSegmentsEnglish.asMap().entries.map((entry) {
+    final spansEnglish0 = textSegmentsEnglish.asMap().entries.map((entry) {
       final index = entry.key;
       final ms = entry.value;
       if (ms.text.contains('cousin')) {
@@ -459,7 +460,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
       }
       // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.isSearchHighlighted != null && ms.isSearchHighlighted == true) {
+      if (ms.highlightColor != null) {
         msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
       }
       if (ms.isInteractive) {
@@ -494,8 +495,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           );
         }).toList();
       } else {
-        if (ms.subItems == null ||
-            (ms.subItems != null && ms.subItems!.isEmpty)) {
+        if (ms.children == null ||
+            (ms.children != null && ms.children!.isEmpty)) {
           debugPrint('فاقد زیرمجموعه: ${ms.text}');
           if (ms.isBlank != null && ms.isBlank == true) {
             if (blankStatus == SentenceStatus.hide) {
@@ -540,7 +541,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               ];
             }
           }
-          final subItems = ms.subItems!;
+          final subItems = ms.children!;
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
               .fillGapsInFullText(ms.text, subItems);
           final subSpans = subMicroSegments.asMap().entries.map((entry) {
@@ -590,19 +591,119 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         }
       }
     }).toList();
-
+    final spansEnglish = textSegmentsEnglish
+        .map((seg) => _recursiveBuild(context, seg))
+        .toList();
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Align(
         alignment: AlignmentGeometry.centerLeft,
         child: Directionality(
           textDirection: TextDirection.ltr,
-          child: RichText(
+          child: SelectableText.rich(
             textAlign: TextAlign.left,
-            text: TextSpan(children: spansEnglish.expand((e) => e).toList()),
+            TextSpan(children: spansEnglish),
           ),
         ),
       ),
+    );
+  }
+
+  // متد اصلی که هم فیلد children و هم مارکرهای داخل متن را هندل می‌کند
+  InlineSpan _recursiveBuild(BuildContext context, TextSegmentEnglish segment) {
+    // ... (بخش استایل‌ها بدون تغییر باقی می‌ماند) ...
+
+    // ۱. ایجاد Recognizer برای سگمنت فعلی اگر اینتراکتیو باشد
+    TapGestureRecognizer? currentRecognizer;
+    if (segment.isInteractive) {
+      currentRecognizer = TapGestureRecognizer()
+        ..onTap = () => _showDialog(context, segment);
+    }
+    TextStyle currentStyle = TextStyle(
+      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+          ? '.AppleSystemUIFont' // نام سیستمی در iOS
+          : 'sans-serif',
+      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
+      // fontSize: 18,
+
+      // ۱. برای حل فاصله زیاد خطوط:
+      height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
+      leadingDistribution: TextLeadingDistribution.even,
+
+      // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
+      textBaseline: TextBaseline.alphabetic,
+      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
+      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
+      decoration: TextDecoration.combine([
+        if (segment.isUnderline == true) TextDecoration.underline,
+        if (segment.isLineThrough == true) TextDecoration.lineThrough,
+      ]),
+      // مدیریت رنگ هایلایت و Blank
+      backgroundColor: segment.isBlank == true
+          ? Colors.grey[300]
+          : (segment.highlightColor != null
+                ? Color(
+                    int.parse(
+                      segment.highlightColor!.replaceFirst('#', '0xff'),
+                    ),
+                  )
+                : null),
+      color: segment.isBlank == true
+          ? Colors.transparent
+          : (segment.isInteractive ? Colors.blue[900] : Colors.black87),
+    );
+    // ۲. پاس دادن این Recognizer به پارسر مارکرها
+    // این کار باعث می‌شود کلمات داخل {b}...{/b} هم کلیک‌خور شوند
+    List<InlineSpan> contentSpans = MarkerParser.parseToSpans(
+      segment.text,
+      currentStyle,
+      widget.searchText ?? '',
+      segment,
+      currentRecognizer, // Recognizer به پارسر پاس داده شد
+    );
+
+    // ۳. پاس دادن Recognizer والد به فرزندان (Recursive)
+    if (segment.children != null && segment.children!.isNotEmpty) {
+      for (var child in segment.children!) {
+        // اگر فرزند خودش اینتراکتیو نیست، از رکاگنایزر والد استفاده کند
+        contentSpans.add(_recursiveBuild(context, child));
+        // نکته: در پیاده‌سازی دقیق‌تر، می‌توانید متد را طوری تغییر دهید که
+        // parentRecognizer را به عنوان آرگومان ورودی بگیرد.
+      }
+    }
+
+    return TextSpan(
+      children: contentSpans,
+      recognizer: currentRecognizer,
+      style: currentStyle,
+    );
+  }
+
+  void _showDialog(BuildContext context, TextSegmentEnglish data) {
+    // نمایش دیالوگ آموزشی (همان منطق قبلی)
+    // showModalBottomSheet(
+    //   context: context,
+    //   builder: (_) => Container(
+    //     padding: const EdgeInsets.all(20),
+    //     child: Column(
+    //       mainAxisSize: MainAxisSize.min,
+    //       children: [
+    //         Text(
+    //           data.text.replaceAll(RegExp(r'\{.*?\}'), ''),
+    //           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    //         ),
+    //         const Divider(),
+    //         Text("Translation: ${data.translation ?? '---'}"),
+    //         Text("Explanation: ${data.explanation ?? '---'}"),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    _showPopupInteracticeSegmentDetails(
+      context,
+      data.text.replaceAll(RegExp(r'\{.*?\}'), ''),
+      data.translation!,
+      data.explanation!,
     );
   }
 
@@ -719,7 +820,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
       }
       // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.isSearchHighlighted != null && ms.isSearchHighlighted == true) {
+      if (ms.highlightColor != null) {
         msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
       }
       final formattedSpans = UtilityPersian().buildMixedTextSpans(
@@ -952,8 +1053,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     );
 
                     // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-                    if (ms.isSearchHighlighted != null &&
-                        ms.isSearchHighlighted == true) {
+                    if (ms.highlightColor != null) {
                       style = style.copyWith(
                         backgroundColor: Colors.amber.shade100,
                       );
@@ -1175,7 +1275,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
       }
       // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.isSearchHighlighted != null && ms.isSearchHighlighted == true) {
+      if (ms.highlightColor != null) {
         msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
       }
       if (ms.isInteractive) {
@@ -1210,8 +1310,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         }).toList();
       } else {
         // return [TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style)];
-        if (ms.subItems == null ||
-            (ms.subItems != null && ms.subItems!.isEmpty)) {
+        if (ms.children == null ||
+            (ms.children != null && ms.children!.isEmpty)) {
           final formattedSpans = UtilityPersian().buildMixedTextSpans(
             ms.text.replaceAll('\\n', '\n'),
             persianStyle: msStyle.copyWith(
@@ -1222,7 +1322,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           );
           return formattedSpans;
         } else {
-          final subItems = ms.subItems!;
+          final subItems = ms.children!;
           final List<TextSegmentEnglish> subMicroSegments = CfPublic()
               .processSearchForEnglishSegments(
                 CfPublic().fillGapsInFullText(ms.text, subItems),
@@ -1345,11 +1445,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             microSegments.add(
               TextSegmentEnglish(
                 text: text,
-                originText: originText,
+                // originText: originText,
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                subItems: segment.subItems,
+                children: segment.children,
                 translation: segment.translation,
                 explanation: segment.explanation,
               ),
@@ -1368,14 +1468,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             microSegments.add(
               TextSegmentEnglish(
                 text: text,
-                originText: originText,
+                // originText: originText,
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                subItems: segment.subItems,
+                children: segment.children,
                 translation: segment.translation,
                 explanation: segment.explanation,
-                isSearchHighlighted: true, // اعمال هایلایت
+                highlightColor: 'yellow', // اعمال هایلایت
               ),
             );
             segmentPos = endInSegment;
@@ -1388,11 +1488,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         microSegments.add(
           TextSegmentEnglish(
             text: segmentText.substring(segmentPos),
-            originText: originText,
+            // originText: originText,
             isInteractive: segment.isInteractive,
             isBold: segment.isBold,
             isBlank: segment.isBlank,
-            subItems: segment.subItems,
+            children: segment.children,
             translation: segment.translation,
             explanation: segment.explanation,
           ),

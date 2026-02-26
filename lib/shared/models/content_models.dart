@@ -90,6 +90,7 @@ sealed class FinalTopic with _$FinalTopic {
   }
 }
 
+/*
 class TextSegmentEnglish {
   final String text;
   final String? originText;
@@ -277,6 +278,203 @@ class TextSegmentPersian {
       isBold: json['isBold'] as bool?,
       translation: json['translation'] as String?,
       explanation: json['explanation'] as String?,
+    );
+  }
+}
+*/
+
+class TextSegmentEnglish {
+  final String text;
+  final bool isInteractive;
+  final bool? isBold;
+  final bool? isItalic;
+  final bool? isUnderline;
+  final bool? isLineThrough;
+  final bool? isBlank;
+  final String? highlightColor; // کد رنگ به صورت هگز (مثلاً #FFFF00)
+
+  final String? translation;
+  final String? pronounce;
+  final String? explanation;
+  final String? cerfLevel;
+
+  // قابلیت تو در تو برای هندل کردن ساختارهای درختی
+  final List<TextSegmentEnglish>? children;
+
+  TextSegmentEnglish({
+    required this.text,
+    required this.isInteractive,
+    this.isBold,
+    this.isItalic,
+    this.isUnderline,
+    this.isLineThrough,
+    this.isBlank,
+    this.highlightColor,
+    this.translation,
+    this.pronounce,
+    this.explanation,
+    this.cerfLevel,
+    this.children,
+  });
+
+  // متد copyWith برای تغییرات در کپی شیء (بسیار کاربردی در عملیات جستجو)
+  TextSegmentEnglish copyWith({
+    String? text,
+    bool? isInteractive,
+    bool? isBold,
+    bool? isItalic,
+    bool? isUnderline,
+    bool? isLineThrough,
+    bool? isBlank,
+    String? highlightColor,
+    String? translation,
+    String? pronounce,
+    String? explanation,
+    String? cerfLevel,
+    List<TextSegmentEnglish>? children,
+  }) {
+    return TextSegmentEnglish(
+      text: text ?? this.text,
+      isInteractive: isInteractive ?? this.isInteractive,
+      isBold: isBold ?? this.isBold,
+      isItalic: isItalic ?? this.isItalic,
+      isUnderline: isUnderline ?? this.isUnderline,
+      isLineThrough: isLineThrough ?? this.isLineThrough,
+      isBlank: isBlank ?? this.isBlank,
+      highlightColor: highlightColor ?? this.highlightColor,
+      translation: translation ?? this.translation,
+      pronounce: pronounce ?? this.pronounce,
+      explanation: explanation ?? this.explanation,
+      cerfLevel: cerfLevel ?? this.cerfLevel,
+      children: children ?? this.children,
+    );
+  }
+
+  factory TextSegmentEnglish.fromJson(Map<String, dynamic> json) {
+    return TextSegmentEnglish(
+      text: json['text'] ?? "",
+      isInteractive: json['isInteractive'] ?? false,
+      isBold: json['isBold'],
+      isItalic: json['isItalic'],
+      isUnderline: json['isUnderline'],
+      isLineThrough: json['isLineThrough'],
+      isBlank: json['isBlank'],
+      highlightColor: json['highlightColor'],
+      translation: json['translation'],
+      pronounce: json['pronounce'],
+      explanation: json['explanation'],
+      cerfLevel: json['cerfLevel'],
+      children: json['children'] != null
+          ? (json['children'] as List)
+                .map((i) => TextSegmentEnglish.fromJson(i))
+                .toList()
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {
+      'text': text,
+      'isInteractive': isInteractive,
+    };
+    if (isBold != null) data['isBold'] = isBold;
+    if (isItalic != null) data['isItalic'] = isItalic;
+    if (isUnderline != null) data['isUnderline'] = isUnderline;
+    if (isLineThrough != null) data['isLineThrough'] = isLineThrough;
+    if (isBlank != null) data['isBlank'] = isBlank;
+    if (highlightColor != null) data['highlightColor'] = highlightColor;
+    if (translation != null) data['translation'] = translation;
+    if (pronounce != null) data['pronounce'] = pronounce;
+    if (explanation != null) data['explanation'] = explanation;
+    if (cerfLevel != null) data['cerfLevel'] = cerfLevel;
+    if (children != null) {
+      data['children'] = children!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class TextSegmentPersian {
+  final String text;
+  final String? translation; // ترجمه فارسی
+  final String? explanation; // توضیحات تکمیلی
+  final bool? isBold;
+  final bool? isItalic;
+  final bool? isUnderline;
+  final bool? isLineThrough;
+  final bool? isBlank;
+  final String? highlightColor; // کد رنگ به صورت هگز (مثلاً #FFFF00)
+
+  TextSegmentPersian({
+    required this.text,
+    this.translation,
+    this.explanation,
+    this.isBold,
+    this.isItalic,
+    this.isUnderline,
+    this.isLineThrough,
+    this.isBlank,
+    this.highlightColor,
+  });
+
+  factory TextSegmentPersian.fromJson(Map<String, dynamic> json) {
+    return TextSegmentPersian(
+      text: json['text'],
+      translation: json['translation'] as String?,
+      explanation: json['explanation'] as String?,
+      isBold: json['isBold'],
+      isItalic: json['isItalic'],
+      isUnderline: json['isUnderline'],
+      isLineThrough: json['isLineThrough'],
+      isBlank: json['isBlank'],
+      highlightColor: json['highlightColor'],
+    );
+  }
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> result = {'text': text};
+
+    if (translation != null) {
+      result['translation'] = translation;
+    }
+    if (explanation != null) {
+      result['explanation'] = explanation;
+    }
+    if (isBold != null) {
+      result['isBold'] = isBold;
+    }
+    if (isItalic != null) {
+      result['isItalic'] = isItalic;
+    }
+    if (isUnderline != null) {
+      result['isUnderline'] = isUnderline;
+    }
+    if (isLineThrough != null) {
+      result['isLineThrough'] = isLineThrough;
+    }
+    if (isBlank != null) {
+      result['isBlank'] = isBlank;
+    }
+    if (highlightColor != null) {
+      result['highlightColor'] = highlightColor;
+    }
+    return result;
+  }
+
+  TextSegmentPersian copyWith({
+    String? text,
+    bool? isBold,
+    bool? isItalic,
+    bool? isUnderline,
+    bool? isLineThrough,
+    bool? isBlank,
+  }) {
+    return TextSegmentPersian(
+      text: text ?? this.text,
+      isBold: isBold ?? this.isBold,
+      isItalic: isItalic ?? this.isItalic,
+      isUnderline: isUnderline ?? this.isUnderline,
+      isLineThrough: isLineThrough ?? this.isLineThrough,
+      isBlank: isBlank ?? this.isBlank,
     );
   }
 }

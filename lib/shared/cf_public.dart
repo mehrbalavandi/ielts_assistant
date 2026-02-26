@@ -76,6 +76,7 @@ class CfPublic {
             (json) => TextSegmentEnglish.fromJson(json as Map<String, dynamic>),
           )
           .toList();
+      return textSegmentsEnglish;
       String fullText = textSegmentsEnglish.map((e) => e.text).toList().join();
       List<PositionedItem> positionMap = buildPositionMap(textSegmentsEnglish);
       List<RawBlock> blocks = splitRawTextEnglish(fullText);
@@ -106,7 +107,7 @@ class CfPublic {
       final List<dynamic> jsonFormat = jsonDecode(raw);
       return jsonFormat.map((json) {
         var output = TextSegmentPersian.fromJson(json as Map<String, dynamic>);
-        output.text = stripMarkers(output.text);
+        output = output.copyWith(text: stripMarkers(output.text));
         return output;
       }).toList();
     } catch (e) {
@@ -358,11 +359,11 @@ class CfPublic {
             microSegments.add(
               TextSegmentEnglish(
                 text: text,
-                originText: originText,
+                // originText: originText,
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                subItems: segment.subItems,
+                children: segment.children,
                 translation: segment.translation,
                 explanation: segment.explanation,
               ),
@@ -383,14 +384,15 @@ class CfPublic {
             microSegments.add(
               TextSegmentEnglish(
                 text: text,
-                originText: originText,
+                // originText: originText,
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                subItems: segment.subItems,
+                children: segment.children,
                 translation: segment.translation,
                 explanation: segment.explanation,
-                isSearchHighlighted: true, // اعمال هایلایت
+                // isSearchHighlighted: true, // اعمال هایلایت
+                highlightColor: 'yellow',
               ),
             );
             segmentCurrentPosition = endInSegment;
@@ -404,11 +406,11 @@ class CfPublic {
         microSegments.add(
           TextSegmentEnglish(
             text: text,
-            originText: originText,
+            // originText: originText,
             isInteractive: segment.isInteractive,
             isBold: segment.isBold,
             isBlank: segment.isBlank,
-            subItems: segment.subItems,
+            children: segment.children,
             translation: segment.translation,
             explanation: segment.explanation,
           ),
@@ -492,7 +494,8 @@ class CfPublic {
               TextSegmentPersian(
                 text: text,
                 isBold: segment.isBold,
-                isSearchHighlighted: true, // اعمال هایلایت
+                // isSearchHighlighted: true, // اعمال هایلایت
+                highlightColor: 'yellow',
               ),
             );
             segmentCurrentPosition = endInSegment;
@@ -585,7 +588,8 @@ class CfPublic {
               TextSegmentPersian(
                 text: text,
                 isBold: segment.isBold,
-                isSearchHighlighted: true, // اعمال هایلایت
+                // isSearchHighlighted: true, // اعمال هایلایت
+                highlightColor: 'yellow',
               ),
             );
             segmentCurrentPosition = endInSegment;

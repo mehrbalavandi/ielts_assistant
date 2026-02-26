@@ -220,7 +220,7 @@ List<TextSegmentEnglish> buildStructuredItemsEnglish(
       */
     );
     if (subItems.isNotEmpty) {
-      blockSegment = blockSegment.copyWith(subItems: subItems);
+      blockSegment = blockSegment.copyWith(children: subItems);
     }
     if (block.flag == 'isBold') {
       blockSegment = blockSegment.copyWith(isBold: true);
@@ -234,8 +234,8 @@ List<TextSegmentEnglish> buildStructuredItemsEnglish(
     if (block.flag == 'isLineThrough') {
       blockSegment = blockSegment.copyWith(isLineThrough: true);
     }
-    if (block.flag == 'isHighlight') {
-      blockSegment = blockSegment.copyWith(isHighlight: true);
+    if (block.flag == 'highlightColor') {
+      blockSegment = blockSegment.copyWith(highlightColor: 'highlightColor');
     }
     if (block.flag == 'isBlank') {
       blockSegment = blockSegment.copyWith(isBlank: true);
@@ -419,10 +419,10 @@ TextSegmentEnglish applyFlag(TextSegmentEnglish item, String flag) {
   } else if (item.isLineThrough != null) {
     subSegment = subSegment.copyWith(isLineThrough: item.isLineThrough);
   }
-  if (flag == 'isHighlight') {
-    subSegment = subSegment.copyWith(isHighlight: true);
-  } else if (item.isHighlight != null) {
-    subSegment = subSegment.copyWith(isHighlight: item.isHighlight);
+  if (flag == 'highlightColor') {
+    subSegment = subSegment.copyWith(highlightColor: 'highlightColor');
+  } else if (item.highlightColor != null) {
+    subSegment = subSegment.copyWith(highlightColor: item.highlightColor);
   }
   if (flag == 'isBlank') {
     subSegment = subSegment.copyWith(isBlank: true);
