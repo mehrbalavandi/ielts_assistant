@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/shared/providers/storage_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -44,7 +45,10 @@ class SettingsNotifier extends _$SettingsNotifier {
                   );
 
               if (selectedDirectory != null) {
-                result = selectedDirectory;
+                await updatePath(selectedDirectory);
+                // await _refreshContents(root: selectedDirectory);
+
+                ref.read(allContentProvider.notifier).refresh();
               }
             } catch (exception) {
               String st = exception.toString();
@@ -64,6 +68,12 @@ class SettingsNotifier extends _$SettingsNotifier {
               );
 
           result = selectedDirectory;
+          if (selectedDirectory != null) {
+            await updatePath(selectedDirectory);
+            // await _refreshContents(root: selectedDirectory);
+
+            ref.read(allContentProvider.notifier).refresh();
+          }
         } catch (exception) {
           String st = exception.toString();
           debugPrint(st);

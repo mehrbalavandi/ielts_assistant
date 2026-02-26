@@ -624,7 +624,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             : Theme.of(
                 context,
               ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-        fontFamily: FontFamily.yekanBakhRegular.asText,
+        // fontFamily: FontFamily.yekanBakhRegular.asText,
       );
       if (item.isLineThrough != null && item.isLineThrough == true) {
         style = style.copyWith(
@@ -652,9 +652,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         persianStyle: style.copyWith(
           fontFamily: FontFamily.yekanBakhRegular.asText,
           fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-          color: Theme.of(context).colorScheme.error,
         ),
-        normalStyle: style.copyWith(color: Theme.of(context).colorScheme.error),
+        normalStyle: style,
       );
       return formattedSpans.map((e) {
         return TextSpan(text: e.text, style: e.style);
@@ -691,14 +690,16 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
       TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
-            ? Theme.of(context).textTheme.titleLarge!.fontSize
-            : Theme.of(context).textTheme.bodyLarge!.fontSize,
+            ? Theme.of(context).textTheme.titleMedium!.fontSize
+            : Theme.of(context).textTheme.bodyMedium!.fontSize,
         fontWeight: (ms.isBold != null && ms.isBold == true)
             ? FontWeight.bold
             : FontWeight.normal,
-        color: Theme.of(
-          context,
-        ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
+        color: (ms.isBold != null && ms.isBold == true)
+            ? Colors.deepOrange
+            : Theme.of(
+                context,
+              ).textTheme.bodySmall!.color, // // استایل شرطی isInteractive
       );
       if (ms.isLineThrough != null && ms.isLineThrough == true) {
         msStyle = msStyle.copyWith(
@@ -726,11 +727,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         persianStyle: msStyle.copyWith(
           fontFamily: FontFamily.yekanBakhRegular.asText,
           fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-          color: Theme.of(context).colorScheme.error,
         ),
-        normalStyle: msStyle.copyWith(
-          color: Theme.of(context).colorScheme.error,
-        ),
+        normalStyle: msStyle,
       );
       return formattedSpans.map((e) {
         return TextSpan(text: e.text, style: e.style);
@@ -742,9 +740,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       child: Align(
         alignment: AlignmentGeometry.centerLeft,
         child: Directionality(
-          textDirection: TextDirection.ltr,
+          textDirection: TextDirection.rtl,
           child: RichText(
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.right,
             text: TextSpan(children: spans.expand((e) => e).toList()),
           ),
         ),
