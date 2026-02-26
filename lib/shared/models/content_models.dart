@@ -85,99 +85,38 @@ sealed class FinalTopic with _$FinalTopic {
   factory FinalTopic.fromJson(Map<String, dynamic> json) =>
       _$FinalTopicFromJson(json);
 
-  // static FileSystemEntity? _findJsonFileEnglish(
-  //   List<FileSystemEntity> fileList,
-  // ) {
-  //   try {
-  //     // استفاده از firstWhere و مدیریت خطای StateError
-  //     return fileList.firstWhere((f) => f.path.endsWith('.english.json'));
-  //   } on StateError {
-  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
-  //     return null;
-  //   }
-  // }
-
-  // static FileSystemEntity? _findJsonFileTranslation(
-  //   List<FileSystemEntity> fileList,
-  // ) {
-  //   try {
-  //     // استفاده از firstWhere و مدیریت خطای StateError
-  //     return fileList.firstWhere((f) => f.path.endsWith('.translation.json'));
-  //   } on StateError {
-  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
-  //     return null;
-  //   }
-  // }
-
-  // static FileSystemEntity? _findJsonFileNote(List<FileSystemEntity> fileList) {
-  //   try {
-  //     // استفاده از firstWhere و مدیریت خطای StateError
-  //     return fileList.firstWhere((f) => f.path.endsWith('.notes.json'));
-  //   } on StateError {
-  //     // اگر هیچ فایلی با پسوند .json پیدا نشد
-  //     return null;
-  //   }
-  // }
-
-  // static String? _findAudioFile(List<FileSystemEntity> fileList) {
-  //   try {
-  //     FileSystemEntity? fileSystemEntity = fileList
-  //         .where((f) => f.path.endsWith('.sound.txt'))
-  //         .firstOrNull;
-  //     if (fileSystemEntity != null) {
-  //       String fileName = p
-  //           .basenameWithoutExtension(fileSystemEntity.path)
-  //           .replaceAll('.sound', '');
-  //       return fileName;
-  //     }
-  //   } on StateError {
-  //     return null;
-  //   }
-  //   return null;
-  // }
-
   factory FinalTopic.fromDirectory(Directory mainTopicDir) {
     return CfPublic().parseFinalTopic(mainTopicDir);
   }
 }
 
-// class Sentence {
-//   final String text;
-//   final bool isSpecial; // آیا جمله‌ای است که قابلیت تغییر رنگ دارد؟
-
-//   Sentence({required this.text, required this.isSpecial});
-// }
 class TextSegmentEnglish {
-  String text;
-  String? originText;
-  bool isInteractive;
+  final String text;
+  final String? originText;
+  final bool isInteractive;
 
-  bool? isBold;
-  bool? isBlank;
-  bool? isItalic;
-  bool? isUnderLine;
-  bool? isLineThrough;
-  bool? isHighlight;
+  final bool? isBold;
+  final bool? isBlank;
+  final bool? isItalic;
+  final bool? isUnderline;
+  final bool? isLineThrough;
+  final bool? isHighlight;
 
-  bool? hasSubItems;
-  List<TextSegmentEnglish>? subItems;
-  bool? isSearchHighlighted;
-  String? translation; // ترجمه فارسی
-  String? explanation; // توضیحات تکمیلی
-  String? cerfLevel; //
-  String? pronounce;
-  bool? isRtl;
-  // Map<String, dynamic>? extra;
+  final bool? isSearchHighlighted;
+  final String? translation; // ترجمه فارسی
+  final String? explanation; // توضیحات تکمیلی
+  final String? cerfLevel; //
+  final String? pronounce;
+  final bool? isRtl;
+  final List<TextSegmentEnglish>? subItems;
 
   TextSegmentEnglish({
     required this.text,
     required this.isInteractive,
     this.isBlank,
-    this.hasSubItems,
-    this.subItems,
     this.isBold,
     this.isItalic,
-    this.isUnderLine,
+    this.isUnderline,
     this.isLineThrough,
     this.isHighlight,
     this.originText,
@@ -187,7 +126,45 @@ class TextSegmentEnglish {
     this.cerfLevel,
     this.pronounce,
     this.isRtl,
+    this.subItems,
   });
+  TextSegmentEnglish copyWith({
+    String? text,
+    bool? isInteractive,
+    bool? isBlank,
+    bool? isBold,
+    bool? isItalic,
+    bool? isUnderline,
+    bool? isLineThrough,
+    bool? isHighlight,
+    String? originText,
+    bool? isSearchHighlighted,
+    String? translation,
+    String? explanation,
+    String? cerfLevel,
+    String? pronounce,
+    bool? isRtl,
+    List<TextSegmentEnglish>? subItems,
+  }) {
+    return TextSegmentEnglish(
+      text: text ?? this.text,
+      isInteractive: isInteractive ?? this.isInteractive,
+      isBlank: isBlank ?? this.isBlank,
+      isBold: isBold ?? this.isBold,
+      isItalic: isItalic ?? this.isItalic,
+      isUnderline: isUnderline ?? this.isUnderline,
+      isLineThrough: isLineThrough ?? this.isLineThrough,
+      isHighlight: isHighlight ?? this.isHighlight,
+      originText: originText ?? this.originText,
+      isSearchHighlighted: isSearchHighlighted ?? this.isSearchHighlighted,
+      translation: translation ?? this.translation,
+      explanation: explanation ?? this.explanation,
+      cerfLevel: cerfLevel ?? this.cerfLevel,
+      pronounce: pronounce ?? this.pronounce,
+      isRtl: isRtl ?? this.isRtl,
+      subItems: subItems ?? this.subItems,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> result = {
@@ -199,9 +176,6 @@ class TextSegmentEnglish {
     }
     if (isBlank != null) {
       result['isBlank'] = isBlank;
-    }
-    if (hasSubItems != null) {
-      result['hasSubItems'] = hasSubItems;
     }
     if (subItems != null) {
       // result['subItems'] = subItems;
@@ -241,7 +215,6 @@ class TextSegmentEnglish {
       pronounce: json['pronounce'] as String?,
       cerfLevel: json['cerfLevel'] as String?,
       isBlank: json['isBlank'] as bool?,
-      hasSubItems: json['hasSubItems'] as bool?,
       // subItems: json['subItems'] as List<dynamic>?,
       subItems: json["subItems"] == null
           ? null
@@ -261,7 +234,7 @@ class TextSegmentPersian {
 
   bool? isBold;
   bool? isItalic;
-  bool? isUnderLine;
+  bool? isUnderline;
   bool? isLineThrough;
   bool? isHighlight;
 
@@ -274,7 +247,7 @@ class TextSegmentPersian {
     this.explanation,
     this.isBold,
     this.isItalic,
-    this.isUnderLine,
+    this.isUnderline,
     this.isLineThrough,
     this.isHighlight,
     this.isSearchHighlighted,
@@ -308,51 +281,6 @@ class TextSegmentPersian {
   }
 }
 
-/*
-class TextSegmentPersianTempelate {
-  final String text;
-
-  final String? translation; // ترجمه فارسی
-  final String? explanation; // توضیحات تکمیلی
-  final bool? isBold;
-  final bool? isSearchHighlighted;
-
-  TextSegmentPersianTempelate({
-    required this.text,
-
-    this.isBold,
-    this.translation,
-    this.explanation,
-    this.isSearchHighlighted,
-  });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {'text': text};
-    if (isBold != null) {
-      result['isBold'] = isBold;
-    }
-    if (translation != null) {
-      result['translation'] = translation;
-    }
-    if (explanation != null) {
-      result['explanation'] = explanation;
-    }
-    if (isSearchHighlighted != null) {
-      result['isSearchHighlighted'] = isSearchHighlighted;
-    }
-    return result;
-  }
-
-  factory TextSegmentPersianTempelate.fromJson(Map<String, dynamic> json) {
-    return TextSegmentPersianTempelate(
-      text: json['text'] as String,
-      translation: json['translation'] as String?,
-      explanation: json['explanation'] as String?,
-      isBold: json['isBold'] as bool?,
-    );
-  }
-}
-*/
 class OriginalContent {
   final Book book;
   final Unit unit;

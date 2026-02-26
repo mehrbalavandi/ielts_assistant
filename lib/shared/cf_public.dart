@@ -83,7 +83,16 @@ class CfPublic {
         blocks,
         positionMap,
       );
+      // debugPrint(finalItems.map((e) => e.text).toList().join('##'));
+      // debugPrint(finalItems.map((e) => e.isInteractive).toList().join('~'));
       return finalItems;
+      /*
+      final structured = buildStructuredItemsEnglishNew(
+        fullText,
+        textSegmentsEnglish.where((x) => x.isInteractive == true).toList(),
+      );
+      return structured;
+      */
     } catch (e) {
       return <TextSegmentEnglish>[];
     }
@@ -353,7 +362,6 @@ class CfPublic {
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                hasSubItems: segment.hasSubItems,
                 subItems: segment.subItems,
                 translation: segment.translation,
                 explanation: segment.explanation,
@@ -379,7 +387,6 @@ class CfPublic {
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                hasSubItems: segment.hasSubItems,
                 subItems: segment.subItems,
                 translation: segment.translation,
                 explanation: segment.explanation,
@@ -401,7 +408,6 @@ class CfPublic {
             isInteractive: segment.isInteractive,
             isBold: segment.isBold,
             isBlank: segment.isBlank,
-            hasSubItems: segment.hasSubItems,
             subItems: segment.subItems,
             translation: segment.translation,
             explanation: segment.explanation,

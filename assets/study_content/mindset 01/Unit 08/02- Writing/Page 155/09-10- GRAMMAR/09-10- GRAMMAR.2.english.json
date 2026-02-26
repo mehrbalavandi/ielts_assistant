@@ -18,7 +18,7 @@
     "text": "have",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": true,
+    "isUnderline": true,
     "hasSubItems": true,
     "subItems": [
       {
@@ -38,7 +38,7 @@
     "text": "affected",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": true,
+    "isUnderline": true,
     "hasSubItems": true,
     "subItems": [
       {

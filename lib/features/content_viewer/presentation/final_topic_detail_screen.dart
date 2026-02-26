@@ -426,6 +426,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     final spansEnglish = textSegmentsEnglish.asMap().entries.map((entry) {
       final index = entry.key;
       final ms = entry.value;
+      if (ms.text.contains('cousin')) {
+        String texth = 'yes';
+      }
       final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
       TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
@@ -445,7 +448,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           decorationColor: Colors.red,
         );
       }
-      if (ms.isUnderLine != null && ms.isUnderLine == true) {
+      if (ms.isUnderline != null && ms.isUnderline == true) {
         msStyle = msStyle.copyWith(
           decoration: TextDecoration.underline,
           decorationStyle: TextDecorationStyle.wavy,
@@ -491,7 +494,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           );
         }).toList();
       } else {
-        if (ms.hasSubItems == null) {
+        if (ms.subItems == null ||
+            (ms.subItems != null && ms.subItems!.isEmpty)) {
           debugPrint('فاقد زیرمجموعه: ${ms.text}');
           if (ms.isBlank != null && ms.isBlank == true) {
             if (blankStatus == SentenceStatus.hide) {
@@ -629,7 +633,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           decorationColor: Colors.red,
         );
       }
-      if (item.isUnderLine != null && item.isUnderLine == true) {
+      if (item.isUnderline != null && item.isUnderline == true) {
         style = style.copyWith(
           decoration: TextDecoration.underline,
           decorationStyle: TextDecorationStyle.wavy,
@@ -703,7 +707,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           decorationColor: Colors.red,
         );
       }
-      if (ms.isUnderLine != null && ms.isUnderLine == true) {
+      if (ms.isUnderline != null && ms.isUnderline == true) {
         msStyle = msStyle.copyWith(
           decoration: TextDecoration.underline,
           decorationStyle: TextDecorationStyle.wavy,
@@ -1162,7 +1166,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           decorationColor: Colors.red,
         );
       }
-      if (ms.isUnderLine != null && ms.isUnderLine == true) {
+      if (ms.isUnderline != null && ms.isUnderline == true) {
         msStyle = msStyle.copyWith(
           decoration: TextDecoration.underline,
           decorationStyle: TextDecorationStyle.wavy,
@@ -1208,7 +1212,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         }).toList();
       } else {
         // return [TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style)];
-        if (ms.hasSubItems == null) {
+        if (ms.subItems == null ||
+            (ms.subItems != null && ms.subItems!.isEmpty)) {
           final formattedSpans = UtilityPersian().buildMixedTextSpans(
             ms.text.replaceAll('\\n', '\n'),
             persianStyle: msStyle.copyWith(
@@ -1346,7 +1351,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                hasSubItems: segment.hasSubItems,
                 subItems: segment.subItems,
                 translation: segment.translation,
                 explanation: segment.explanation,
@@ -1370,7 +1374,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 isInteractive: segment.isInteractive,
                 isBold: segment.isBold,
                 isBlank: segment.isBlank,
-                hasSubItems: segment.hasSubItems,
                 subItems: segment.subItems,
                 translation: segment.translation,
                 explanation: segment.explanation,
@@ -1391,7 +1394,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             isInteractive: segment.isInteractive,
             isBold: segment.isBold,
             isBlank: segment.isBlank,
-            hasSubItems: segment.hasSubItems,
             subItems: segment.subItems,
             translation: segment.translation,
             explanation: segment.explanation,

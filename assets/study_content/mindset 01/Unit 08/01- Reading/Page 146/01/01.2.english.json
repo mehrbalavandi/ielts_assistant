@@ -43,7 +43,7 @@
     "text": "predator",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "شکارچی",
     "explanation": "جانوری که جانوران دیگر را برای غذا شکار می‌کند."
   },
@@ -56,7 +56,7 @@
     "text": "prey",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "طعمۀ شکار",
     "explanation": "جانوری که توسط جانور دیگر شکار و خورده می‌شود."
   },
@@ -69,7 +69,7 @@
     "text": "group",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "گروه",
     "explanation": "تعدادی از افراد یا اشیاء که با هم در یک جا هستند."
   },
@@ -82,7 +82,7 @@
     "text": "pod",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "گروه پستانداران دریایی",
     "explanation": "واحد شمارش و نام دسته‌ای از نهنگ‌ها یا دلفین‌ها."
   },
@@ -95,7 +95,7 @@
     "text": "conservation",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "حفاظت",
     "explanation": "محافظت از محیط زیست، جانوران یا بناهای تاریخی."
   },
@@ -108,7 +108,7 @@
     "text": "protection",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "محافظت",
     "explanation": "عمل نگهداری از چیزی در برابر آسیب یا خطر."
   },
@@ -121,7 +121,7 @@
     "text": "survived",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "زنده ماندند",
     "explanation": "ادامه دادن به زندگی پس از یک شرایط سخت یا خطرناک."
   },
@@ -134,7 +134,7 @@
     "text": "died",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "مردند",
     "explanation": "توقف زندگی؛ نقطه مقابل زنده ماندن."
   },
@@ -147,7 +147,7 @@
     "text": "automatic",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "خودکار",
     "explanation": "کاری که بدون فکر کردن و به صورت ناخودآگاه انجام شود."
   },
@@ -160,7 +160,7 @@
     "text": "instinctive",
     "isInteractive": true,
     "isBold": false,
-    "isUnderLine": "true",
+    "isUnderline": "true",
     "translation": "غریزی",
     "explanation": "رفتاری که بر اساس غریزه است و آموختنی نیست."
   },

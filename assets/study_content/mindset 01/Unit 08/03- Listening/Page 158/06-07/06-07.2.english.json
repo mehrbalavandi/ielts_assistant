@@ -16,12 +16,12 @@
   {
     "text": "Country of ",
     "isInteractive": false,
-    "isUnderLine": true
+    "isUnderline": true
   },
   {
     "text": "origin",
     "isInteractive": true,
-    "isUnderLine": true,
+    "isUnderline": true,
     "translation": "مبدأ / اصالت",
     "explanation": "نقطه‌ای که چیزی از آنجا آغاز می‌شود یا پدید می‌آید.",
     "cerfLevel": "B2"
@@ -33,7 +33,7 @@
   {
     "text": "Habitat\n",
     "isInteractive": true,
-    "isUnderLine": true,
+    "isUnderline": true,
     "translation": "زیستگاه",
     "explanation": "محیط طبیعی که یک حیوان یا گیاه در آن زندگی می‌کند.",
     "cerfLevel": "B2"
@@ -69,7 +69,7 @@
   {
     "text": "Physical description\n",
     "isInteractive": false,
-    "isUnderLine": true
+    "isUnderline": true
   },
   {
     "text": "Has a ",
@@ -125,7 +125,7 @@
   {
     "text": "Diet\n",
     "isInteractive": true,
-    "isUnderLine": true,
+    "isUnderline": true,
     "translation": "رژیم غذایی",
     "explanation": "نوع غذایی که یک موجود به طور معمول مصرف می‌کند.",
     "cerfLevel": "B1"
@@ -172,7 +172,7 @@
   {
     "text": "Dangers for gorillas\n",
     "isInteractive": false,
-    "isUnderLine": true
+    "isUnderline": true
   },
   {
     "text": "People are ",
