@@ -633,14 +633,18 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     String finalTopicId = (selectedFinalTopicSearch != null)
         ? selectedFinalTopicSearch.name
         : selectedFinalTopic!.name;
+    final revealedBlankStates = ref.watch(revealedBlankProvider(finalTopicId));
+    final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
+    final bool isBlank =
+        (segment.isBlank == true || regExp.hasMatch(segment.text))
+        ? true
+        : false;
+
     String displayVisualText = segment.text;
     if (index != null) {
-      final revealedBlankStates = ref.watch(
-        revealedBlankProvider(finalTopicId),
-      );
       final blankStatus =
           revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (segment.isBlank == true) {
+      if (isBlank) {
         if (blankStatus == RevealedBlankStatus.hide) {
           displayVisualText = "________";
         }
@@ -681,18 +685,20 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         if (segment.isLineThrough == true) TextDecoration.lineThrough,
       ]),
       // مدیریت رنگ هایلایت و Blank
-      // backgroundColor: segment.isBlank == true
-      //     ? Colors.grey[300]
-      //     : (segment.highlightColor != null
-      //           ? Color(
-      //               int.parse(
-      //                 segment.highlightColor!.replaceFirst('#', '0xff'),
-      //               ),
-      //             )
-      //           : null),
+      backgroundColor: (isBlank == true)
+          ? Colors.grey[300]
+          : (segment.highlightColor != null
+                ? Color(
+                    int.parse(
+                      segment.highlightColor!.replaceFirst('#', '0xff'),
+                    ),
+                  )
+                : null),
       // backgroundColor: Theme.of(context).textTheme.bodySmall!.backgroundColor,
       color: segment.isInteractive
           ? Theme.of(context).colorScheme.error
+          : (isBlank == true)
+          ? Colors.blue[900]
           : Theme.of(context).textTheme.bodySmall!.color,
     );
     // ۲. پاس دادن این Recognizer به پارسر مارکرها
