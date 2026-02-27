@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/common/enums.dart';
 import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/providers/sentence_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/providers/revealed_blank_provider.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_tempelate.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/view_tempelate.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
@@ -70,7 +70,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           '${widget.originalContent!.book.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.name.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.name.replaceAll('Page ', 'P ')}>${selectedFinalTopicSearch.name.substring(selectedFinalTopicSearch.name.indexOf(' ') + 1)}';
       // استفاده از پروایدر به صورت family
       // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
-      final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
+      final revealedBlankStates = ref.watch(
+        revealedBlankProvider(finalTopicId),
+      );
       final isManualFinalTopic =
           (widget.originalContent!.book.name.contains('قالبهای موقعیتی')) &&
           (widget.originalContent!.page.name == 'Day 00');
@@ -118,7 +120,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           isDualPane,
                           selectedFinalTopicSearch.contentEnglish,
                           selectedFinalTopicSearch.contentPersian,
-                          sentenceStates,
+                          revealedBlankStates,
                           finalTopicId,
                         )
                       : isDualPane
@@ -128,7 +130,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           ),
                           selectedFinalTopicSearch.contentEnglish,
                           selectedFinalTopicSearch.contentPersian,
-                          sentenceStates,
+                          revealedBlankStates,
                           finalTopicId,
                         )
                       : widget.originalContent!.book.name.contains(
@@ -146,12 +148,12 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       : (widget.searchText == null)
                       ? _buildEnglishLayout(
                           selectedFinalTopicSearch.contentEnglish,
-                          sentenceStates,
+                          revealedBlankStates,
                           finalTopicId,
                         )
                       : _buildEnglishLayoutForSearch(
                           selectedFinalTopicSearch.contentEnglish,
-                          sentenceStates,
+                          revealedBlankStates,
                           finalTopicId,
                         ),
                 ),
@@ -174,7 +176,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           '${selectedBook!.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${selectedUnit!.name.replaceAll('Unit ', 'U ')}>${selectedPage!.name.replaceAll('Page ', 'P ')}>${selectedFinalTopic.name.substring(selectedFinalTopic.name.indexOf(' ') + 1)}';
       // استفاده از پروایدر به صورت family
       // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
-      final sentenceStates = ref.watch(sentenceProvider(finalTopicId));
+      final revealedBlankStates = ref.watch(
+        revealedBlankProvider(finalTopicId),
+      );
       final isManualFinalTopic =
           ((nav.selectedBook?.name != null) &&
               selectedBook.name.contains('قالبهای موقعیتی')) &&
@@ -259,7 +263,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           textSegmentsEnglish,
                           textSegmentsPersian,
                           // textSegmentsNote,
-                          sentenceStates,
+                          revealedBlankStates,
                           finalTopicId,
                         )
                       : isDualPane
@@ -267,14 +271,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           selectedBook.name.contains('قالبهای موقعیتی'),
                           textSegmentsEnglish,
                           textSegmentsPersian,
-                          sentenceStates,
+                          revealedBlankStates,
                           finalTopicId,
                         )
                       : selectedBook.name.contains('قالبهای موقعیتی')
                       ? _buildPersianLayout(textSegmentsPersian, finalTopicId)
                       : _buildEnglishLayout(
                           textSegmentsEnglish,
-                          sentenceStates,
+                          revealedBlankStates,
                           finalTopicId,
                         ),
                 ),
@@ -421,7 +425,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
 
   Widget _buildEnglishLayout(
     List<TextSegmentEnglish> textSegmentsEnglish,
-    Map<int, SentenceStatus> sentenceStates,
+    Map<int, RevealedBlankStatus> revealedBlankStates,
     String finalTopicId,
   ) {
     final spansEnglish0 = textSegmentsEnglish.asMap().entries.map((entry) {
@@ -430,7 +434,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       if (ms.text.contains('cousin')) {
         String texth = 'yes';
       }
-      final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+      final blankStatus =
+          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
       TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
             ? Theme.of(context).textTheme.titleLarge!.fontSize
@@ -499,14 +504,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             (ms.children != null && ms.children!.isEmpty)) {
           debugPrint('فاقد زیرمجموعه: ${ms.text}');
           if (ms.isBlank != null && ms.isBlank == true) {
-            if (blankStatus == SentenceStatus.hide) {
+            if (blankStatus == RevealedBlankStatus.hide) {
               return [
                 TextSpan(
                   text: " ________ ", // نمایش جاخالی
                   style: msStyle,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => ref
-                        .read(sentenceProvider(finalTopicId).notifier)
+                        .read(revealedBlankProvider(finalTopicId).notifier)
                         .toggleStatus(index),
                 ),
               ];
@@ -528,14 +533,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           // ];
         } else {
           if (ms.isBlank != null && ms.isBlank == true) {
-            if (blankStatus == SentenceStatus.hide) {
+            if (blankStatus == RevealedBlankStatus.hide) {
               return [
                 TextSpan(
                   text: " ________ ", // نمایش جاخالی
                   style: msStyle,
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => ref
-                        .read(sentenceProvider(finalTopicId).notifier)
+                        .read(revealedBlankProvider(finalTopicId).notifier)
                         .toggleStatus(index),
                 ),
               ];
@@ -547,7 +552,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           final subSpans = subMicroSegments.asMap().entries.map((entry) {
             // final index = entry.key;
             final subMs = entry.value;
-            // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+            // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
             if (subMs.isInteractive) {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),
@@ -591,9 +596,14 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         }
       }
     }).toList();
-    final spansEnglish = textSegmentsEnglish
-        .map((seg) => _recursiveBuild(context, seg))
-        .toList();
+    // final spansEnglish = textSegmentsEnglish.map((seg) {
+    //   return _recursiveBuild(context, seg);
+    // }).toList();
+    final spansEnglish = textSegmentsEnglish.asMap().entries.map((entry) {
+      final index = entry.key;
+      final ms = entry.value;
+      return _recursiveBuild(context, ms, index: index);
+    }).toList();
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Align(
@@ -610,14 +620,46 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
   }
 
   // متد اصلی که هم فیلد children و هم مارکرهای داخل متن را هندل می‌کند
-  InlineSpan _recursiveBuild(BuildContext context, TextSegmentEnglish segment) {
-    // ... (بخش استایل‌ها بدون تغییر باقی می‌ماند) ...
-
-    // ۱. ایجاد Recognizer برای سگمنت فعلی اگر اینتراکتیو باشد
+  InlineSpan _recursiveBuild(
+    BuildContext context,
+    TextSegmentEnglish segment, {
+    int? index,
+  }) {
     TapGestureRecognizer? currentRecognizer;
+    // ... (بخش استایل‌ها بدون تغییر باقی می‌ماند) ...
+    final nav = ref.watch(navigationProvider);
+    final selectedFinalTopic = nav.selectedFinalTopic;
+    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+    String finalTopicId = (selectedFinalTopicSearch != null)
+        ? selectedFinalTopicSearch.name
+        : selectedFinalTopic!.name;
+    String displayVisualText = segment.text;
+    if (index != null) {
+      final revealedBlankStates = ref.watch(
+        revealedBlankProvider(finalTopicId),
+      );
+      final blankStatus =
+          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
+      if (segment.isBlank == true) {
+        if (blankStatus == RevealedBlankStatus.hide) {
+          displayVisualText = "________";
+        }
+        // یا هر سمبل دیگری مثل " ( ? ) "
+        currentRecognizer = TapGestureRecognizer()
+          ..onTap = () {
+            ref
+                .read(revealedBlankProvider(finalTopicId).notifier)
+                .toggleStatus(index);
+          };
+      }
+    }
+    // ۱. ایجاد Recognizer برای سگمنت فعلی اگر اینتراکتیو باشد
+
     if (segment.isInteractive) {
       currentRecognizer = TapGestureRecognizer()
-        ..onTap = () => _showDialog(context, segment);
+        ..onTap = () {
+          _showDialog(context, segment);
+        };
     }
     TextStyle currentStyle = TextStyle(
       fontFamily: Theme.of(context).platform == TargetPlatform.iOS
@@ -639,23 +681,24 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         if (segment.isLineThrough == true) TextDecoration.lineThrough,
       ]),
       // مدیریت رنگ هایلایت و Blank
-      backgroundColor: segment.isBlank == true
-          ? Colors.grey[300]
-          : (segment.highlightColor != null
-                ? Color(
-                    int.parse(
-                      segment.highlightColor!.replaceFirst('#', '0xff'),
-                    ),
-                  )
-                : null),
-      color: segment.isBlank == true
-          ? Colors.transparent
-          : (segment.isInteractive ? Colors.blue[900] : Colors.black87),
+      // backgroundColor: segment.isBlank == true
+      //     ? Colors.grey[300]
+      //     : (segment.highlightColor != null
+      //           ? Color(
+      //               int.parse(
+      //                 segment.highlightColor!.replaceFirst('#', '0xff'),
+      //               ),
+      //             )
+      //           : null),
+      // backgroundColor: Theme.of(context).textTheme.bodySmall!.backgroundColor,
+      color: segment.isInteractive
+          ? Theme.of(context).colorScheme.error
+          : Theme.of(context).textTheme.bodySmall!.color,
     );
     // ۲. پاس دادن این Recognizer به پارسر مارکرها
     // این کار باعث می‌شود کلمات داخل {b}...{/b} هم کلیک‌خور شوند
     List<InlineSpan> contentSpans = MarkerParser.parseToSpans(
-      segment.text,
+      displayVisualText,
       currentStyle,
       widget.searchText ?? '',
       segment,
@@ -788,7 +831,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     final spans = microSegments.asMap().entries.map((entry) {
       // final index = entry.key;
       final ms = entry.value;
-      // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+      // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
       TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
             ? Theme.of(context).textTheme.titleMedium!.fontSize
@@ -856,7 +899,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     bool isPersianFirst,
     List<TextSegmentEnglish> textSegmentsEnglish,
     List<TextSegmentPersian> translationTextSegments,
-    Map<int, SentenceStatus> sentenceStates,
+    Map<int, RevealedBlankStatus> revealedBlankStates,
     String finalTopicId,
   ) {
     final List<TextSpan> translationSpans = translationTextSegments.map((item) {
@@ -913,12 +956,12 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 child: (widget.searchText == null)
                     ? _buildEnglishLayout(
                         textSegmentsEnglish,
-                        sentenceStates,
+                        revealedBlankStates,
                         finalTopicId,
                       )
                     : _buildEnglishLayoutForSearch(
                         textSegmentsEnglish,
-                        sentenceStates,
+                        revealedBlankStates,
                         finalTopicId,
                       ),
               ),
@@ -930,12 +973,12 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 child: (widget.searchText == null)
                     ? _buildEnglishLayout(
                         textSegmentsEnglish,
-                        sentenceStates,
+                        revealedBlankStates,
                         finalTopicId,
                       )
                     : _buildEnglishLayoutForSearch(
                         textSegmentsEnglish,
-                        sentenceStates,
+                        revealedBlankStates,
                         finalTopicId,
                       ),
               )
@@ -972,7 +1015,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     bool isDualPane,
     List<TextSegmentEnglish> textSegmentsEnglish,
     List<TextSegmentPersian> textSegmentsPersian,
-    Map<int, SentenceStatus> sentenceStates,
+    Map<int, RevealedBlankStatus> revealedBlankStates,
     String finalTopicId,
   ) {
     final List<TextSpan> faSpans = textSegmentsPersian.map((item) {
@@ -1039,7 +1082,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   final spans = microSegments.asMap().entries.map((entry) {
                     // final index = entry.key;
                     final ms = entry.value;
-                    // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+                    // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
                     TextStyle style = TextStyle(
                       fontSize: (ms.isBold != null && ms.isBold == true)
                           ? Theme.of(context).textTheme.titleLarge!.fontSize
@@ -1153,7 +1196,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     final spans = microSegments.asMap().entries.map((entry) {
                       // final index = entry.key;
                       final ms = entry.value;
-                      // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+                      // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
                       TextStyle style = TextStyle(
                         fontSize: (ms.isBold != null && ms.isBold == true)
                             ? Theme.of(context).textTheme.titleLarge!.fontSize
@@ -1233,7 +1276,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
 
   Widget _buildEnglishLayoutForSearch(
     List<TextSegmentEnglish> textSegmentsEnglish,
-    Map<int, SentenceStatus> sentenceStates,
+    Map<int, RevealedBlankStatus> revealedBlankStates,
     String finalTopicId,
   ) {
     // int interactiveIndex = 0;
@@ -1245,7 +1288,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     final spans = microSegments.asMap().entries.map((entry) {
       // final index = entry.key;
       final ms = entry.value;
-      // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+      // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
       TextStyle msStyle = TextStyle(
         fontSize: (ms.isBold != null && ms.isBold == true)
             ? Theme.of(context).textTheme.titleLarge!.fontSize
@@ -1331,7 +1374,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           final subSpans = subMicroSegments.asMap().entries.map((entry) {
             // final index = entry.key;
             final subMs = entry.value;
-            // final blankStatus = sentenceStates[index] ?? SentenceStatus.hide;
+            // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
             if (subMs.isInteractive) {
               final formattedSpans = UtilityPersian().buildMixedTextSpans(
                 subMs.text.replaceAll('\\n', '\n'),

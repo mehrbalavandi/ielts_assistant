@@ -1617,8 +1617,7 @@ as List<FinalTopic>,
 /// @nodoc
 mixin _$FinalTopic {
 
- String get name; String get realmId; String get filePathEnglish; String get filePathPersian; List<TextSegmentEnglish> get contentEnglish; List<TextSegmentPersian> get contentPersian; String get notesFilePath;// required List<String> audioFilePaths,
- String? get audioFileName;
+ String get name; String get realmId; String get filePathEnglish; String get filePathPersian; List<TextSegmentEnglish> get contentEnglish; List<TextSegmentPersian> get contentPersian; String get notesFilePath; String? get audioFileName;
 /// Create a copy of FinalTopic
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1835,7 +1834,6 @@ class _FinalTopic implements FinalTopic {
 }
 
 @override final  String notesFilePath;
-// required List<String> audioFilePaths,
 @override final  String? audioFileName;
 
 /// Create a copy of FinalTopic

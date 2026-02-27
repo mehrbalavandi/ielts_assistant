@@ -14,10 +14,11 @@ class MarkerParser {
       case 's':
         return currentStyle.copyWith(decoration: TextDecoration.lineThrough);
       case 'blk':
-        return currentStyle.copyWith(
-          color: Colors.transparent,
-          backgroundColor: Colors.grey[300],
-        );
+        // return currentStyle.copyWith(
+        //   color: Colors.transparent,
+        //   backgroundColor: Colors.grey[300],
+        // );
+        return currentStyle;
       case 'hclr':
         return currentStyle.copyWith(backgroundColor: Colors.yellowAccent);
       default:
