@@ -10,7 +10,7 @@ part of 'revealed_blank_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(RevealedBlankNotifier)
-const revealedBlankProvider = RevealedBlankNotifierFamily._();
+const revealedBlanksProvider = RevealedBlankNotifierFamily._();
 
 final class RevealedBlankNotifierProvider
     extends

@@ -51,7 +51,7 @@ class FinalTopicSearchDelegate extends SearchDelegate<String> {
     String lowerSearchText = query.toLowerCase();
     lowerSearchText = UtilityPersian().repairNumberAndChars(lowerSearchText);
     return _cachedData!.where((s) {
-      if (s.originalContent.contains(query)) {
+      if (s.originalContent.toLowerCase().contains(query)) {
         return true;
       }
       return false;

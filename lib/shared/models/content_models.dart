@@ -297,8 +297,6 @@ class TextSegmentEnglish {
   final String? pronounce;
   final String? explanation;
   final String? cerfLevel;
-
-  // قابلیت تو در تو برای هندل کردن ساختارهای درختی
   final List<TextSegmentEnglish>? children;
 
   TextSegmentEnglish({
@@ -316,7 +314,8 @@ class TextSegmentEnglish {
     this.cerfLevel,
     this.children,
   });
-
+  // متد کمکی برای حذف مارکرها از متن همین سگمنت
+  String get plainText => text.replaceAll(RegExp(r'\{.*?\}'), '');
   // متد copyWith برای تغییرات در کپی شیء (بسیار کاربردی در عملیات جستجو)
   TextSegmentEnglish copyWith({
     String? text,
@@ -416,7 +415,8 @@ class TextSegmentPersian {
     this.isBlank,
     this.highlightColor,
   });
-
+  // متد کمکی برای حذف مارکرها از متن همین سگمنت
+  String get plainText => text.replaceAll(RegExp(r'\{.*?\}'), '');
   factory TextSegmentPersian.fromJson(Map<String, dynamic> json) {
     return TextSegmentPersian(
       text: json['text'],
@@ -477,6 +477,13 @@ class TextSegmentPersian {
       isBlank: isBlank ?? this.isBlank,
     );
   }
+}
+
+// کلاس کمکی برای ذخیره بازه‌های پیدا شده در جستجو
+class SearchRange {
+  final int start;
+  final int end;
+  SearchRange(this.start, this.end);
 }
 
 class OriginalContent {

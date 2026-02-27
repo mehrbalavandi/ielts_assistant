@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
@@ -25,6 +27,8 @@ class MarkerParser {
         return currentStyle;
     }
   }
+
+  // متد اصلی پارسر با پشتیبانی از جستجوی سراسری
 
   static List<InlineSpan> parseToSpansEnglish(
     String text,
@@ -198,5 +202,168 @@ class MarkerParser {
     }
 
     return spans;
+  }
+
+  static List<InlineSpan> parseWithGlobalSearch({
+    required String textWithMarkers,
+    required TextStyle baseStyle,
+    required List<SearchRange> globalMatches,
+    required int segmentOffset,
+    GestureRecognizer? recognizer,
+  }) {
+    final regex = RegExp(r'\{(b|i|u|s|blk|hclr)\}(.*?)\{/\1\}', dotAll: true);
+    List<InlineSpan> spans = [];
+    int lastIndex = 0;
+    int currentLocalPlainOffset = 0;
+
+    // تابع داخلی برای اعمال هایلایت و نگاشت ایندکس
+    void processChunk(String plainText, TextStyle style) {
+      spans.addAll(
+        _applyGlobalHighlight(
+          plainText,
+          style,
+          globalMatches,
+          segmentOffset + currentLocalPlainOffset,
+          recognizer: recognizer,
+        ),
+      );
+      currentLocalPlainOffset += plainText.length;
+    }
+
+    final matches = regex.allMatches(textWithMarkers);
+    for (final match in matches) {
+      if (match.start > lastIndex) {
+        processChunk(
+          textWithMarkers.substring(lastIndex, match.start),
+          baseStyle,
+        );
+      }
+
+      String tag = match.group(1)!;
+      String content = match.group(2)!;
+      TextStyle innerStyle = applyMarkerStyle(tag, baseStyle);
+
+      processChunk(content, innerStyle);
+      lastIndex = match.end;
+    }
+
+    if (lastIndex < textWithMarkers.length) {
+      processChunk(textWithMarkers.substring(lastIndex), baseStyle);
+    }
+
+    return spans;
+  }
+
+  static List<InlineSpan> parseWithGlobalSearchPersian({
+    required String textWithMarkers,
+    required TextStyle baseStyle,
+    required List<SearchRange> globalMatches,
+    required int segmentOffset,
+  }) {
+    final regex = RegExp(r'\{(b|i|u|s|blk|hclr)\}(.*?)\{/\1\}', dotAll: true);
+    List<InlineSpan> spans = [];
+    int lastIndex = 0;
+    int currentLocalPlainOffset = 0;
+
+    // تابع داخلی برای اعمال هایلایت و نگاشت ایندکس
+    void processChunk(String plainText, TextStyle style) {
+      spans.addAll(
+        _applyGlobalHighlight(
+          plainText,
+          style,
+          globalMatches,
+          segmentOffset + currentLocalPlainOffset,
+        ),
+      );
+      currentLocalPlainOffset += plainText.length;
+    }
+
+    final matches = regex.allMatches(textWithMarkers);
+    for (final match in matches) {
+      if (match.start > lastIndex) {
+        processChunk(
+          textWithMarkers.substring(lastIndex, match.start),
+          baseStyle,
+        );
+      }
+
+      String tag = match.group(1)!;
+      String content = match.group(2)!;
+      TextStyle innerStyle = applyMarkerStyle(tag, baseStyle);
+
+      processChunk(content, innerStyle);
+      lastIndex = match.end;
+    }
+
+    if (lastIndex < textWithMarkers.length) {
+      processChunk(textWithMarkers.substring(lastIndex), baseStyle);
+    }
+
+    return spans;
+  }
+
+  static List<InlineSpan> _applyGlobalHighlight(
+    String text,
+    TextStyle style,
+    List<SearchRange> globalMatches,
+    int localStartInGlobal, {
+    GestureRecognizer? recognizer,
+  }) {
+    if (globalMatches.isEmpty) {
+      return [TextSpan(text: text, style: style, recognizer: recognizer)];
+    }
+
+    List<InlineSpan> spans = [];
+    int localEndInGlobal = localStartInGlobal + text.length;
+    int lastProcessedIndex = 0;
+
+    for (var match in globalMatches) {
+      int highlightStart = max(localStartInGlobal, match.start);
+      int highlightEnd = min(localEndInGlobal, match.end);
+
+      if (highlightStart < highlightEnd) {
+        // متن قبل از هایلایت
+        if (highlightStart > localStartInGlobal + lastProcessedIndex) {
+          spans.add(
+            TextSpan(
+              text: text.substring(
+                lastProcessedIndex,
+                highlightStart - localStartInGlobal,
+              ),
+              style: style,
+              recognizer: recognizer,
+            ),
+          );
+        }
+        // بخش هایلایت شده
+        spans.add(
+          TextSpan(
+            text: text.substring(
+              highlightStart - localStartInGlobal,
+              highlightEnd - localStartInGlobal,
+            ),
+            style: style.copyWith(
+              backgroundColor: Colors.yellowAccent,
+              color: Colors.black,
+            ),
+            recognizer: recognizer,
+          ),
+        );
+        lastProcessedIndex = highlightEnd - localStartInGlobal;
+      }
+    }
+
+    if (lastProcessedIndex < text.length) {
+      spans.add(
+        TextSpan(
+          text: text.substring(lastProcessedIndex),
+          style: style,
+          recognizer: recognizer,
+        ),
+      );
+    }
+    return spans.isEmpty
+        ? [TextSpan(text: text, style: style, recognizer: recognizer)]
+        : spans;
   }
 }
