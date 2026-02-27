@@ -833,21 +833,27 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         if (selectedFinalTopic != null) {
           if (blankStatus == RevealedBlankStatus.hide) {
             displayText = "________";
+            currentRecognizer = TapGestureRecognizer()
+              ..onTap = () {
+                ref
+                    .read(revealedBlanksProvider(finalTopicId).notifier)
+                    .toggleStatus(index);
+              };
+          } else {
+            if (segment.isInteractive) {
+              currentRecognizer = TapGestureRecognizer()
+                ..onTap = () {
+                  _showDialog(context, segment);
+                };
+            }
           }
-          currentRecognizer = TapGestureRecognizer()
-            ..onTap = () {
-              ref
-                  .read(revealedBlanksProvider(finalTopicId).notifier)
-                  .toggleStatus(index);
-            };
         }
+      } else if (segment.isInteractive) {
+        currentRecognizer = TapGestureRecognizer()
+          ..onTap = () {
+            _showDialog(context, segment);
+          };
       }
-    }
-    if (segment.isInteractive) {
-      currentRecognizer = TapGestureRecognizer()
-        ..onTap = () {
-          _showDialog(context, segment);
-        };
     }
     TextStyle currentStyle = TextStyle(
       fontFamily: Theme.of(context).platform == TargetPlatform.iOS
