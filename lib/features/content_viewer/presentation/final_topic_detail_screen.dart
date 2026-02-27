@@ -596,13 +596,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         }
       }
     }).toList();
-    // final spansEnglish = textSegmentsEnglish.map((seg) {
-    //   return _recursiveBuild(context, seg);
-    // }).toList();
+
     final spansEnglish = textSegmentsEnglish.asMap().entries.map((entry) {
       final index = entry.key;
       final ms = entry.value;
-      return _recursiveBuild(context, ms, index: index);
+      return _recursiveBuildEnglish(context, ms, index: index);
     }).toList();
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -619,8 +617,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     );
   }
 
-  // متد اصلی که هم فیلد children و هم مارکرهای داخل متن را هندل می‌کند
-  InlineSpan _recursiveBuild(
+  InlineSpan _recursiveBuildEnglish(
     BuildContext context,
     TextSegmentEnglish segment, {
     int? index,
@@ -635,7 +632,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         : selectedFinalTopic!.name;
     final revealedBlankStates = ref.watch(revealedBlankProvider(finalTopicId));
     final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
-    final bool isBlank =
+    final bool isBlankSegment =
         (segment.isBlank == true || regExp.hasMatch(segment.text))
         ? true
         : false;
@@ -644,7 +641,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     if (index != null) {
       final blankStatus =
           revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (isBlank) {
+      if (isBlankSegment) {
         if (blankStatus == RevealedBlankStatus.hide) {
           displayVisualText = "________";
         }
@@ -657,8 +654,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           };
       }
     }
-    // ۱. ایجاد Recognizer برای سگمنت فعلی اگر اینتراکتیو باشد
-
     if (segment.isInteractive) {
       currentRecognizer = TapGestureRecognizer()
         ..onTap = () {
@@ -667,11 +662,9 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     }
     TextStyle currentStyle = TextStyle(
       fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? '.AppleSystemUIFont' // نام سیستمی در iOS
+          ? '.AppleSystemUIFont'
           : 'sans-serif',
       fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
-      // fontSize: 18,
-
       // ۱. برای حل فاصله زیاد خطوط:
       height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
       leadingDistribution: TextLeadingDistribution.even,
@@ -684,8 +677,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         if (segment.isUnderline == true) TextDecoration.underline,
         if (segment.isLineThrough == true) TextDecoration.lineThrough,
       ]),
-      // مدیریت رنگ هایلایت و Blank
-      backgroundColor: (isBlank == true)
+      backgroundColor: (isBlankSegment == true)
           ? Colors.grey[300]
           : (segment.highlightColor != null
                 ? Color(
@@ -694,16 +686,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     ),
                   )
                 : null),
-      // backgroundColor: Theme.of(context).textTheme.bodySmall!.backgroundColor,
       color: segment.isInteractive
           ? Theme.of(context).colorScheme.error
-          : (isBlank == true)
+          : (isBlankSegment == true)
           ? Colors.blue[900]
           : Theme.of(context).textTheme.bodySmall!.color,
     );
     // ۲. پاس دادن این Recognizer به پارسر مارکرها
     // این کار باعث می‌شود کلمات داخل {b}...{/b} هم کلیک‌خور شوند
-    List<InlineSpan> contentSpans = MarkerParser.parseToSpans(
+    List<InlineSpan> contentSpans = MarkerParser.parseToSpansEnglish(
       displayVisualText,
       currentStyle,
       widget.searchText ?? '',
@@ -715,7 +706,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     if (segment.children != null && segment.children!.isNotEmpty) {
       for (var child in segment.children!) {
         // اگر فرزند خودش اینتراکتیو نیست، از رکاگنایزر والد استفاده کند
-        contentSpans.add(_recursiveBuild(context, child));
+        contentSpans.add(_recursiveBuildEnglish(context, child));
         // نکته: در پیاده‌سازی دقیق‌تر، می‌توانید متد را طوری تغییر دهید که
         // parentRecognizer را به عنوان آرگومان ورودی بگیرد.
       }
@@ -729,25 +720,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
   }
 
   void _showDialog(BuildContext context, TextSegmentEnglish data) {
-    // نمایش دیالوگ آموزشی (همان منطق قبلی)
-    // showModalBottomSheet(
-    //   context: context,
-    //   builder: (_) => Container(
-    //     padding: const EdgeInsets.all(20),
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       children: [
-    //         Text(
-    //           data.text.replaceAll(RegExp(r'\{.*?\}'), ''),
-    //           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    //         ),
-    //         const Divider(),
-    //         Text("Translation: ${data.translation ?? '---'}"),
-    //         Text("Explanation: ${data.explanation ?? '---'}"),
-    //       ],
-    //     ),
-    //   ),
-    // );
     _showPopupInteracticeSegmentDetails(
       context,
       data.text.replaceAll(RegExp(r'\{.*?\}'), ''),

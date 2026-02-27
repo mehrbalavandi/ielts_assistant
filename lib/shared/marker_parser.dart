@@ -26,7 +26,7 @@ class MarkerParser {
     }
   }
 
-  static List<InlineSpan> parseToSpans(
+  static List<InlineSpan> parseToSpansEnglish(
     String text,
     TextStyle incomingStyle,
     String searchQuery,
@@ -56,7 +56,7 @@ class MarkerParser {
       // بازگشت با حفظ Recognizer
       spans.add(
         TextSpan(
-          children: parseToSpans(
+          children: parseToSpansEnglish(
             content,
             innerStyle,
             searchQuery,
