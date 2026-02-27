@@ -77,16 +77,16 @@ class CfPublic {
           )
           .toList();
       return textSegmentsEnglish;
-      String fullText = textSegmentsEnglish.map((e) => e.text).toList().join();
-      List<PositionedItem> positionMap = buildPositionMap(textSegmentsEnglish);
-      List<RawBlock> blocks = splitRawTextEnglish(fullText);
-      List<TextSegmentEnglish> finalItems = buildStructuredItemsEnglish(
-        blocks,
-        positionMap,
-      );
-      // debugPrint(finalItems.map((e) => e.text).toList().join('##'));
-      // debugPrint(finalItems.map((e) => e.isInteractive).toList().join('~'));
-      return finalItems;
+      // String fullText = textSegmentsEnglish.map((e) => e.text).toList().join();
+      // List<PositionedItem> positionMap = buildPositionMap(textSegmentsEnglish);
+      // List<RawBlock> blocks = splitRawTextEnglish(fullText);
+      // List<TextSegmentEnglish> finalItems = buildStructuredItemsEnglish(
+      //   blocks,
+      //   positionMap,
+      // );
+      // // debugPrint(finalItems.map((e) => e.text).toList().join('##'));
+      // // debugPrint(finalItems.map((e) => e.isInteractive).toList().join('~'));
+      // return finalItems;
       /*
       final structured = buildStructuredItemsEnglishNew(
         fullText,
@@ -211,8 +211,9 @@ class CfPublic {
                     final finalTopics = page.finalTopics;
                     if (finalTopics.isNotEmpty) {
                       for (var finalTopic in finalTopics) {
+                        // String cleanText = rawText.replaceAll(RegExp(r'\{.*?\}'), '');
                         String content =
-                            '${finalTopic.contentEnglish.map((e) => e.text).toList().join()}\n${finalTopic.contentPersian.map((e) => e.text).toList().join()}';
+                            '${finalTopic.contentEnglish.map((e) => e.text.replaceAll(RegExp(r'\{.*?\}'), '')).toList().join()}\n${finalTopic.contentPersian.map((e) => e.text.replaceAll(RegExp(r'\{.*?\}'), '')).toList().join()}';
                         OriginalContent originalContent = OriginalContent(
                           book: book,
                           unit: unit,

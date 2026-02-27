@@ -44,7 +44,7 @@ class MarkerParser {
             text.substring(lastIndex, match.start),
             incomingStyle,
             searchQuery,
-            recognizer, // پاس دادن به هایلایتر
+            recognizer: recognizer, // پاس دادن به هایلایتر
           ),
         );
       }
@@ -76,7 +76,60 @@ class MarkerParser {
           text.substring(lastIndex),
           incomingStyle,
           searchQuery,
-          recognizer, // پاس دادن به هایلایتر
+          recognizer: recognizer, // پاس دادن به هایلایتر
+        ),
+      );
+    }
+
+    return spans;
+  }
+
+  static List<InlineSpan> parseToSpansPersian(
+    String text,
+    TextStyle incomingStyle,
+    String searchQuery,
+    TextSegmentPersian originalSegment,
+  ) {
+    final regex = RegExp(r'\{(b|i|u|s|blk|hclr)\}(.*?)\{/\1\}', dotAll: true);
+    List<InlineSpan> spans = [];
+    int lastIndex = 0;
+
+    for (final match in regex.allMatches(text)) {
+      if (match.start > lastIndex) {
+        spans.addAll(
+          _applySearchHighlight(
+            text.substring(lastIndex, match.start),
+            incomingStyle,
+            searchQuery,
+          ),
+        );
+      }
+
+      String tag = match.group(1)!;
+      String content = match.group(2)!;
+      TextStyle innerStyle = applyMarkerStyle(tag, incomingStyle);
+
+      // بازگشت با حفظ Recognizer
+      spans.add(
+        TextSpan(
+          children: parseToSpansPersian(
+            content,
+            innerStyle,
+            searchQuery,
+            originalSegment,
+          ),
+        ),
+      );
+
+      lastIndex = match.end;
+    }
+
+    if (lastIndex < text.length) {
+      spans.addAll(
+        _applySearchHighlight(
+          text.substring(lastIndex),
+          incomingStyle,
+          searchQuery,
         ),
       );
     }
@@ -87,9 +140,9 @@ class MarkerParser {
   static List<InlineSpan> _applySearchHighlight(
     String text,
     TextStyle style,
-    String query,
+    String query, {
     GestureRecognizer? recognizer,
-  ) {
+  }) {
     // ۱. اگر جستجو خالی است یا کلمه در متن نیست، کل متن را با استایل و رکاگنایزر برگردان
     if (query.isEmpty || !text.toLowerCase().contains(query.toLowerCase())) {
       return [
