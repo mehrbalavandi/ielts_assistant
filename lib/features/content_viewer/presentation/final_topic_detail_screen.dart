@@ -847,6 +847,13 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 };
             }
           }
+        } else {
+          if (segment.isInteractive) {
+            currentRecognizer = TapGestureRecognizer()
+              ..onTap = () {
+                _showDialog(context, segment);
+              };
+          }
         }
       } else if (segment.isInteractive) {
         currentRecognizer = TapGestureRecognizer()
