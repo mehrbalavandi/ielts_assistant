@@ -595,24 +595,127 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
               .allMatches(fullPlainText.toLowerCase())
               .map((m) => SearchRange(m.start, m.end))
               .toList();
-
+    //! new
+    final parsingState = ParsingState(); // یک بار در شروع ساخته می‌شود
+    //! end new
     int currentGlobalOffset = 0;
     List<InlineSpan> finalSpans = [];
-
     // ۳. رندر کردن تک‌تک سگمنت‌ها
     for (int index = 0; index < textSegmentsEnglish.length; index++) {
       final segment = textSegmentsEnglish[index];
-      finalSpans.add(
-        _buildRecursiveSpanEnglish(
-          context,
-          ref,
-          segment,
-          matches,
-          currentGlobalOffset,
-          index: index,
-        ),
+      //! old
+      // finalSpans.add(
+      //   _buildRecursiveSpanEnglish(
+      //     context,
+      //     ref,
+      //     segment,
+      //     matches,
+      //     currentGlobalOffset,
+      //     index: index,
+      //   ),
+      // );
+      // currentGlobalOffset += segment.plainText.length;
+      //! end old
+      //! new
+      TapGestureRecognizer? currentRecognizer;
+      final nav = ref.watch(navigationProvider);
+      final selectedFinalTopic = nav.selectedFinalTopic;
+      final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+      String finalTopicId = (selectedFinalTopicSearch != null)
+          ? selectedFinalTopicSearch.name
+          : selectedFinalTopic!.name;
+      final revealedBlankStates = ref.watch(
+        revealedBlanksProvider(finalTopicId),
       );
+      final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
+      final bool isBlankSegment =
+          (segment.isBlank == true || regExp.hasMatch(segment.text))
+          ? true
+          : false;
+      // مدیریت متن جاخالی
+      String displayText = segment.text;
+      final blankStatus =
+          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
+      if (isBlankSegment) {
+        if (selectedFinalTopic != null) {
+          if (blankStatus == RevealedBlankStatus.hide) {
+            displayText = "________";
+            currentRecognizer = TapGestureRecognizer()
+              ..onTap = () {
+                ref
+                    .read(revealedBlanksProvider(finalTopicId).notifier)
+                    .toggleStatus(index);
+              };
+          } else {
+            if (segment.isInteractive) {
+              currentRecognizer = TapGestureRecognizer()
+                ..onTap = () {
+                  _showDialog(context, segment);
+                };
+            }
+          }
+        } else {
+          if (segment.isInteractive) {
+            currentRecognizer = TapGestureRecognizer()
+              ..onTap = () {
+                _showDialog(context, segment);
+              };
+          }
+        }
+      } else if (segment.isInteractive) {
+        currentRecognizer = TapGestureRecognizer()
+          ..onTap = () {
+            _showDialog(context, segment);
+          };
+      }
+      TextStyle currentStyle = TextStyle(
+        fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+            ? '.AppleSystemUIFont'
+            : 'sans-serif',
+        fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
+        // ۱. برای حل فاصله زیاد خطوط:
+        height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
+        leadingDistribution: TextLeadingDistribution.even,
+
+        // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
+        textBaseline: TextBaseline.alphabetic,
+        fontWeight: segment.isBold == true
+            ? FontWeight.bold
+            : FontWeight.normal,
+        fontStyle: segment.isItalic == true
+            ? FontStyle.italic
+            : FontStyle.normal,
+        decoration: TextDecoration.combine([
+          if (segment.isUnderline == true) TextDecoration.underline,
+          if (segment.isLineThrough == true) TextDecoration.lineThrough,
+        ]),
+        backgroundColor: (isBlankSegment == true)
+            ? Colors.grey[300]
+            : (segment.highlightColor != null
+                  ? Color(
+                      int.parse(
+                        segment.highlightColor!.replaceFirst('#', '0xff'),
+                      ),
+                    )
+                  : null),
+        color: segment.isInteractive
+            ? Theme.of(context).colorScheme.error
+            : (isBlankSegment == true)
+            ? Colors.blue[900]
+            : Theme.of(context).textTheme.bodySmall!.color,
+      );
+      final spans = MarkerParser.parseLinear(
+        text: displayText,
+        baseStyle: currentStyle,
+        state: parsingState, // انتقال وضعیت به سگمنت فعلی
+        globalMatches: matches,
+        segmentOffset: currentGlobalOffset,
+        recognizer: currentRecognizer,
+      );
+
+      finalSpans.addAll(spans);
       currentGlobalOffset += segment.plainText.length;
+      //! end new
     }
 
     return SingleChildScrollView(
@@ -628,179 +731,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         ),
       ),
     );
-  }
-
-  InlineSpan _recursiveBuildEnglish(
-    BuildContext context,
-    TextSegmentEnglish segment, {
-    int? index,
-  }) {
-    TapGestureRecognizer? currentRecognizer;
-    // ... (بخش استایل‌ها بدون تغییر باقی می‌ماند) ...
-    final nav = ref.watch(navigationProvider);
-    final selectedFinalTopic = nav.selectedFinalTopic;
-    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
-    String finalTopicId = (selectedFinalTopicSearch != null)
-        ? selectedFinalTopicSearch.name
-        : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
-    final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
-    final bool isBlankSegment =
-        (segment.isBlank == true || regExp.hasMatch(segment.text))
-        ? true
-        : false;
-
-    String displayVisualText = segment.text;
-    if (index != null) {
-      final blankStatus =
-          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (isBlankSegment) {
-        if (blankStatus == RevealedBlankStatus.hide) {
-          displayVisualText = "________";
-        }
-        // یا هر سمبل دیگری مثل " ( ? ) "
-        currentRecognizer = TapGestureRecognizer()
-          ..onTap = () {
-            ref
-                .read(revealedBlanksProvider(finalTopicId).notifier)
-                .toggleStatus(index);
-          };
-      }
-    }
-    if (segment.isInteractive) {
-      currentRecognizer = TapGestureRecognizer()
-        ..onTap = () {
-          _showDialog(context, segment);
-        };
-    }
-    TextStyle currentStyle = TextStyle(
-      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? '.AppleSystemUIFont'
-          : 'sans-serif',
-      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
-      // ۱. برای حل فاصله زیاد خطوط:
-      height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
-      leadingDistribution: TextLeadingDistribution.even,
-
-      // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
-      textBaseline: TextBaseline.alphabetic,
-      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
-      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
-      decoration: TextDecoration.combine([
-        if (segment.isUnderline == true) TextDecoration.underline,
-        if (segment.isLineThrough == true) TextDecoration.lineThrough,
-      ]),
-      backgroundColor: (isBlankSegment == true)
-          ? Colors.grey[300]
-          : (segment.highlightColor != null
-                ? Color(
-                    int.parse(
-                      segment.highlightColor!.replaceFirst('#', '0xff'),
-                    ),
-                  )
-                : null),
-      color: segment.isInteractive
-          ? Theme.of(context).colorScheme.error
-          : (isBlankSegment == true)
-          ? Colors.blue[900]
-          : Theme.of(context).textTheme.bodySmall!.color,
-    );
-
-    List<InlineSpan> contentSpans = MarkerParser.parseToSpansEnglish(
-      displayVisualText,
-      currentStyle,
-      widget.searchText ?? '',
-      segment,
-      currentRecognizer, // Recognizer به پارسر پاس داده شد
-    );
-
-    // ۳. پاس دادن Recognizer والد به فرزندان (Recursive)
-    if (segment.children != null && segment.children!.isNotEmpty) {
-      for (var child in segment.children!) {
-        // اگر فرزند خودش اینتراکتیو نیست، از رکاگنایزر والد استفاده کند
-        contentSpans.add(_recursiveBuildEnglish(context, child));
-        // نکته: در پیاده‌سازی دقیق‌تر، می‌توانید متد را طوری تغییر دهید که
-        // parentRecognizer را به عنوان آرگومان ورودی بگیرد.
-      }
-    }
-
-    return TextSpan(
-      children: contentSpans,
-      recognizer: currentRecognizer,
-      style: currentStyle,
-    );
-  }
-
-  InlineSpan _recursiveBuildPersian(
-    BuildContext context,
-    TextSegmentPersian segment, {
-    int? index,
-  }) {
-    // ... (بخش استایل‌ها بدون تغییر باقی می‌ماند) ...
-    final nav = ref.watch(navigationProvider);
-    final selectedFinalTopic = nav.selectedFinalTopic;
-    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
-    String finalTopicId = (selectedFinalTopicSearch != null)
-        ? selectedFinalTopicSearch.name
-        : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
-    final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
-    final bool isBlankSegment =
-        (segment.isBlank == true || regExp.hasMatch(segment.text))
-        ? true
-        : false;
-
-    String displayVisualText = segment.text;
-    if (index != null) {
-      final blankStatus =
-          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (isBlankSegment) {
-        if (blankStatus == RevealedBlankStatus.hide) {
-          displayVisualText = "________";
-        }
-      }
-    }
-
-    TextStyle currentStyle = TextStyle(
-      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? '.AppleSystemUIFont'
-          : 'sans-serif',
-      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
-      // ۱. برای حل فاصله زیاد خطوط:
-      height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
-      leadingDistribution: TextLeadingDistribution.even,
-
-      // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
-      textBaseline: TextBaseline.alphabetic,
-      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
-      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
-      decoration: TextDecoration.combine([
-        if (segment.isUnderline == true) TextDecoration.underline,
-        if (segment.isLineThrough == true) TextDecoration.lineThrough,
-      ]),
-      backgroundColor: (isBlankSegment == true)
-          ? Colors.grey[300]
-          : (segment.highlightColor != null
-                ? Color(
-                    int.parse(
-                      segment.highlightColor!.replaceFirst('#', '0xff'),
-                    ),
-                  )
-                : null),
-      color: (isBlankSegment == true)
-          ? Colors.blue[900]
-          : Theme.of(context).textTheme.bodySmall!.color,
-    );
-    // ۲. پاس دادن این Recognizer به پارسر مارکرها
-    // این کار باعث می‌شود کلمات داخل {b}...{/b} هم کلیک‌خور شوند
-    List<InlineSpan> contentSpans = MarkerParser.parseToSpansPersian(
-      displayVisualText,
-      currentStyle,
-      widget.searchText ?? '',
-      segment,
-    );
-
-    return TextSpan(children: contentSpans, style: currentStyle);
   }
 
   InlineSpan _buildRecursiveSpanEnglish(
@@ -1115,82 +1045,6 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           child: SelectableText.rich(
             textAlign: TextAlign.right,
             TextSpan(children: finalSpans),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPersianLayoutForSearch0(
-    List<TextSegmentPersian> textSegmentsTranslation,
-    String finalTopicId,
-  ) {
-    // int interactiveIndex = 0;
-    final microSegments = CfPublic().processSearchForPersianSegments(
-      textSegmentsTranslation,
-      widget.searchText!,
-    );
-    // List<List<InlineSpan>>
-    final spans = microSegments.asMap().entries.map((entry) {
-      // final index = entry.key;
-      final ms = entry.value;
-      // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
-      TextStyle msStyle = TextStyle(
-        fontSize: (ms.isBold != null && ms.isBold == true)
-            ? Theme.of(context).textTheme.titleMedium!.fontSize
-            : Theme.of(context).textTheme.bodyMedium!.fontSize,
-        fontWeight: (ms.isBold != null && ms.isBold == true)
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: (ms.isBold != null && ms.isBold == true)
-            ? Colors.deepOrange
-            : Theme.of(
-                context,
-              ).textTheme.bodySmall!.color, // // استایل شرطی isInteractive
-      );
-      if (ms.isLineThrough != null && ms.isLineThrough == true) {
-        msStyle = msStyle.copyWith(
-          decoration: TextDecoration.lineThrough,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (ms.isUnderline != null && ms.isUnderline == true) {
-        msStyle = msStyle.copyWith(
-          decoration: TextDecoration.underline,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (ms.isItalic != null && ms.isItalic == true) {
-        msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
-      }
-      // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.highlightColor != null) {
-        msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
-      }
-      final formattedSpans = UtilityPersian().buildMixedTextSpans(
-        ms.text.replaceAll('\\n', '\n'),
-        persianStyle: msStyle.copyWith(
-          fontFamily: FontFamily.yekanBakhRegular.asText,
-          fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-        ),
-        normalStyle: msStyle,
-      );
-      return formattedSpans.map((e) {
-        return TextSpan(text: e.text, style: e.style);
-      }).toList();
-    }).toList();
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Align(
-        alignment: AlignmentGeometry.centerLeft,
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: RichText(
-            textAlign: TextAlign.right,
-            text: TextSpan(children: spans.expand((e) => e).toList()),
           ),
         ),
       ),
