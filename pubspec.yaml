@@ -53,6 +53,7 @@ dependencies:
   riverpod_annotation: ^3.0.3
   drift: ^2.30.0  
   flutter_launcher_icons: ^0.14.3
+  fl_chart: ^1.2.0
 
 dev_dependencies:
   flutter_test:
