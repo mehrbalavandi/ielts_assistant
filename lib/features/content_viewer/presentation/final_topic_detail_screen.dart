@@ -12,15 +12,14 @@ import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_t
 import 'package:ielts_assistant/features/home/presentation/widgets/view_tempelate.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
+import 'package:ielts_assistant/shared/marker_parser.dart';
 import 'package:ielts_assistant/shared/final_topic_search_delegate.dart';
 import 'package:ielts_assistant/shared/list_item_text_segmentSimple.dart';
-import 'package:ielts_assistant/shared/marker_parser.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
-import 'package:ielts_assistant/shared/utility_persian.dart';
 import '../../home/providers/navigation_provider.dart';
 
 // پرووایدر برای مدیریت حالت تک‌ستونه یا دو ستونه
-final isDualPaneProvider = StateProvider<bool>((ref) => false);
+final isHorizontalPaneProvider = StateProvider<bool>((ref) => true);
 // final isDualPaneProviderSearchResult = StateProvider<bool>((ref) => false);
 
 class FinalTopicDetailScreen extends ConsumerStatefulWidget {
@@ -60,22 +59,57 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDualPane = ref.watch(isDualPaneProvider);
+    final textStyle = TextStyle(
+      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+          ? '.AppleSystemUIFont'
+          : 'sans-serif',
+      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
+      height: 1.2,
+      leadingDistribution: TextLeadingDistribution.even,
+      textBaseline: TextBaseline.alphabetic,
+      fontWeight: FontWeight.normal,
+      fontStyle: FontStyle.normal,
+      // color: Theme.of(context).textTheme.bodySmall!.color,
+      fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+    );
+    final isHorizontalPane = ref.watch(isHorizontalPaneProvider);
     final nav = ref.watch(navigationProvider);
     final selectedFinalTopic = nav.selectedFinalTopic;
     final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
     if (selectedFinalTopicSearch != null) {
-      final String finalTopicId = selectedFinalTopicSearch.name;
-      String title =
-          '${widget.originalContent!.book.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${widget.originalContent!.unit.name.replaceAll('Unit ', 'U ')}>${widget.originalContent!.page.name.replaceAll('Page ', 'P ')}>${selectedFinalTopicSearch.name.substring(selectedFinalTopicSearch.name.indexOf(' ') + 1)}';
+      final List<String> labels = [];
+      if (widget.originalContent != null) {
+        labels.add(
+          widget.originalContent!.book.name.replaceAll('قالبهای AI', 'قالبها'),
+        );
+        var book = ref
+            .read(allContentProvider)
+            .value!
+            .where((x) => x.name == widget.originalContent!.book.name)
+            .first;
+        if (book.units.length == 1 && book.units.first.topics.length == 1) {
+        } else {
+          labels.add(
+            widget.originalContent!.unit.name.replaceAll('Unit ', 'U '),
+          );
+          labels.add(
+            widget.originalContent!.page.name.replaceAll('Page ', 'P '),
+          );
+        }
+        labels.add(
+          widget.originalContent!.finalTopic.name.substring(
+            selectedFinalTopicSearch.name.indexOf(' ') + 1,
+          ),
+        );
+      }
       // استفاده از پروایدر به صورت family
       // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
       final revealedBlankStates = ref.watch(
-        revealedBlanksProvider(finalTopicId),
+        revealedBlanksProvider(selectedFinalTopicSearch.name),
       );
       final isManualFinalTopic =
-          (widget.originalContent!.book.name.contains('قالبهای موقعیتی')) &&
-          (widget.originalContent!.page.name == 'Day 00');
+          // (widget.originalContent?.book.name.contains('قالبهای AI') ?? false) &&
+          (widget.originalContent?.book.name == 'قالبهای متفرقه');
       return PopScope(
         canPop:
             true, //ref.read(isPlayerExpandedProvider.notifier).state == false,
@@ -86,27 +120,24 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           }
         },
         child: SafeArea(
+          top: false,
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).colorScheme.primary,
               foregroundColor: Theme.of(context).colorScheme.onPrimary,
-              title: Text(
-                title,
-                style: TextStyle(
-                  // fontFamily: FontFamily.yekanBakhBold.asText,
-                  fontSize: 16.0,
-                  // color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+              title: CfPublic().buildTitle(
+                labels,
+                textStyle,
+              ), // Text(title, style: textStyle),
               actions: [
                 if (!isManualFinalTopic)
                   IconButton(
                     icon: Icon(
-                      isDualPane ? Icons.view_stream : Icons.view_column,
+                      isHorizontalPane ? Icons.view_stream : Icons.view_column,
                     ),
                     onPressed: () =>
-                        ref.read(isDualPaneProvider.notifier).state =
-                            !isDualPane,
+                        ref.read(isHorizontalPaneProvider.notifier).state =
+                            !isHorizontalPane,
                     tooltip: 'تغییر چیدمان متن',
                   ),
               ],
@@ -117,24 +148,32 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   child: isManualFinalTopic
                       ? _buildManualLayout(
                           nav,
-                          isDualPane,
+                          selectedFinalTopicSearch.contentPersian,
+                          selectedFinalTopicSearch.name,
+                        )
+                      : isHorizontalPane
+                      ? _buildHorizontalLayout(
+                          widget.originalContent?.book.name.contains(
+                                'قالبهای AI',
+                              ) ??
+                              false,
                           selectedFinalTopicSearch.contentEnglish,
                           selectedFinalTopicSearch.contentPersian,
                           revealedBlankStates,
-                          finalTopicId,
+                          selectedFinalTopicSearch.name,
                         )
-                      : isDualPane
-                      ? _buildDualPaneLayout(
+                      : _buildVerticalLayout(
                           widget.originalContent!.book.name.contains(
-                            'قالبهای موقعیتی',
+                            'قالبهای AI',
                           ),
                           selectedFinalTopicSearch.contentEnglish,
                           selectedFinalTopicSearch.contentPersian,
                           revealedBlankStates,
-                          finalTopicId,
-                        )
-                      : widget.originalContent!.book.name.contains(
-                          'قالبهای موقعیتی',
+                          selectedFinalTopicSearch.name,
+                        ),
+                  /*
+                      widget.originalContent!.book.name.contains(
+                          'قالبهای AI',
                         )
                       ? _buildPersianLayout(
                           selectedFinalTopicSearch.contentPersian,
@@ -144,6 +183,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           selectedFinalTopicSearch.contentEnglish,
                           finalTopicId,
                         ),
+                        */
                 ),
               ],
             ),
@@ -152,23 +192,37 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       );
     } else if (selectedFinalTopic != null) {
       final selectedBook = nav.selectedBook;
-      final selectedUnit = nav.selectedUnit;
       final selectedPage = nav.selectedPage;
       final textSegmentsEnglish = selectedFinalTopic.contentEnglish;
       // var temp = textSegmentsEnglish[26];
       final textSegmentsPersian = selectedFinalTopic.contentPersian;
 
-      final finalTopicId = selectedFinalTopic.name;
-      String title =
-          '${selectedBook!.name.replaceAll('قالبهای موقعیتی', 'قالبها')}>${selectedUnit!.name.replaceAll('Unit ', 'U ')}>${selectedPage!.name.replaceAll('Page ', 'P ')}>${selectedFinalTopic.name.substring(selectedFinalTopic.name.indexOf(' ') + 1)}';
+      // final finalTopicId = selectedFinalTopic.name;
+      final List<String> labels = [];
 
-      final revealedBlankStates = ref.watch(
-        revealedBlanksProvider(finalTopicId),
+      labels.add(nav.selectedBook!.name.replaceAll('قالبهای AI', 'قالبها'));
+      if (nav.selectedBook?.units.length == 1 &&
+          nav.selectedBook?.units.first.topics.length == 1) {
+        // labels.add('');
+      } else {
+        labels.add(nav.selectedUnit!.name.replaceAll('Unit ', 'U '));
+      }
+      if (nav.selectedBook?.units.length == 1 &&
+          nav.selectedBook?.units.first.topics.length == 1 &&
+          nav.selectedBook?.units.first.topics.first.pageContents.length == 1) {
+        // labels.add('');
+      } else {
+        labels.add(nav.selectedPage!.name.replaceAll('Page ', 'P '));
+      }
+      labels.add(
+        nav.selectedFinalTopic!.name.substring(
+          selectedFinalTopic.name.indexOf(' ') + 1,
+        ),
       );
-      final isManualFinalTopic =
-          ((nav.selectedBook?.name != null) &&
-              selectedBook.name.contains('قالبهای موقعیتی')) &&
-          (selectedPage.name == 'Day 00');
+      final revealedBlankStates = ref.watch(
+        revealedBlanksProvider(selectedFinalTopic.name),
+      );
+      final isManualFinalTopic = (selectedBook!.name == 'قالبهای متفرقه');
       return PopScope(
         canPop: true,
         onPopInvokedWithResult: (didPop, result) {
@@ -178,18 +232,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           }
         },
         child: SafeArea(
+          top: false,
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).colorScheme.primary,
               foregroundColor: Theme.of(context).colorScheme.onPrimary,
-              title: Text(
-                title,
-                style: TextStyle(
-                  // fontFamily: FontFamily.yekanBakhBold.asText,
-                  fontSize: 16.0,
-                  // color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+              title: CfPublic().buildTitle(
+                labels,
+                textStyle,
+              ), // Text(title, style: textStyle),
               actions: [
                 //! ویجت جستجو
                 Directionality(
@@ -208,11 +259,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                 if (!isManualFinalTopic)
                   IconButton(
                     icon: Icon(
-                      isDualPane ? Icons.view_stream : Icons.view_column,
+                      isHorizontalPane ? Icons.view_stream : Icons.view_column,
                     ),
                     onPressed: () =>
-                        ref.read(isDualPaneProvider.notifier).state =
-                            !isDualPane,
+                        ref.read(isHorizontalPaneProvider.notifier).state =
+                            !isHorizontalPane,
                     tooltip: 'تغییر چیدمان متن',
                   ),
                 if (isManualFinalTopic)
@@ -222,9 +273,11 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                               .getExternalStoragePermissionStatus() ==
                           true) {
                         if (context.mounted) {
-                          _showPopupAddTempelate(context, ref).then((
-                            finalTopic,
-                          ) {
+                          _showPopupAddTempelate(
+                            context,
+                            ref,
+                            selectedFinalTopic.name,
+                          ).then((finalTopic) {
                             if (finalTopic != null) {
                               ref
                                   .read(navigationProvider.notifier)
@@ -244,24 +297,28 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   child: isManualFinalTopic
                       ? _buildManualLayout(
                           nav,
-                          isDualPane,
-                          textSegmentsEnglish,
                           textSegmentsPersian,
-                          // textSegmentsNote,
-                          revealedBlankStates,
-                          finalTopicId,
+                          selectedFinalTopic.name,
                         )
-                      : isDualPane
-                      ? _buildDualPaneLayout(
-                          selectedBook.name.contains('قالبهای موقعیتی'),
+                      : isHorizontalPane
+                      ? _buildHorizontalLayout(
+                          selectedBook.name.contains('قالبهای AI'),
                           textSegmentsEnglish,
                           textSegmentsPersian,
                           revealedBlankStates,
-                          finalTopicId,
+                          selectedFinalTopic.name,
                         )
-                      : selectedBook.name.contains('قالبهای موقعیتی')
+                      : _buildVerticalLayout(
+                          selectedBook.name.contains('قالبهای AI'),
+                          textSegmentsEnglish,
+                          textSegmentsPersian,
+                          revealedBlankStates,
+                          selectedFinalTopic.name,
+                        ),
+                  /*selectedBook.name.contains('قالبهای AI')
                       ? _buildPersianLayout(textSegmentsPersian, finalTopicId)
                       : _buildEnglishLayout(textSegmentsEnglish, finalTopicId),
+                      */
                 ),
                 Directionality(
                   textDirection: TextDirection.rtl,
@@ -276,7 +333,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                       children: [
                         ElevatedButton.icon(
                           onPressed: () async {
-                            final int idxFinalTopic = selectedPage.finalTopics
+                            final int idxFinalTopic = selectedPage!.finalTopics
                                 .indexOf(selectedFinalTopic);
                             final lastFinalTopicIndex =
                                 selectedPage.finalTopics.length - 1;
@@ -332,7 +389,8 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                           textDirection: TextDirection.ltr,
                           child: ElevatedButton.icon(
                             onPressed: () async {
-                              final int idxFinalTopic = selectedPage.finalTopics
+                              final int idxFinalTopic = selectedPage!
+                                  .finalTopics
                                   .indexOf(selectedFinalTopic);
                               if (idxFinalTopic > 0) {
                                 await ref
@@ -402,212 +460,41 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     }
   }
 
-  // چیدمان تک ستونه (انگلیسی بالای فارسی)
-
   Widget _buildEnglishLayout(
-    List<TextSegmentEnglish> textSegmentsEnglish,
+    List<TextSegmentEnglish> segments,
     String finalTopicId,
   ) {
-    /*
-    final spansEnglish0 = textSegmentsEnglish.asMap().entries.map((entry) {
-      final index = entry.key;
-      final ms = entry.value;
-      if (ms.text.contains('cousin')) {
-        String texth = 'yes';
-      }
-      final blankStatus =
-          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      TextStyle msStyle = TextStyle(
-        fontSize: (ms.isBold != null && ms.isBold == true)
-            ? Theme.of(context).textTheme.titleLarge!.fontSize
-            : Theme.of(context).textTheme.bodyLarge!.fontSize,
-        fontWeight: (ms.isBold != null && ms.isBold == true)
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: Theme.of(
-          context,
-        ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-      );
-      if (ms.isLineThrough != null && ms.isLineThrough == true) {
-        msStyle = msStyle.copyWith(
-          decoration: TextDecoration.lineThrough,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (ms.isUnderline != null && ms.isUnderline == true) {
-        msStyle = msStyle.copyWith(
-          decoration: TextDecoration.underline,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (ms.isItalic != null && ms.isItalic == true) {
-        msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
-      }
-      // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.highlightColor != null) {
-        msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
-      }
-      if (ms.isInteractive) {
-        msStyle = msStyle.copyWith(color: Theme.of(context).colorScheme.error);
-        debugPrint('تعاملی: ${ms.text}');
-      } else if (ms.isBlank != null) {
-        msStyle = msStyle.copyWith(color: Colors.blueAccent);
-      }
-
-      if (ms.isInteractive) {
-        final formattedSpans = UtilityPersian().buildMixedTextSpans(
-          ms.text.replaceAll('\\n', '\n'),
-          persianStyle: msStyle.copyWith(
-            fontFamily: FontFamily.yekanBakhRegular.asText,
-            fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-          ),
-          normalStyle: msStyle,
-        );
-        return formattedSpans.map((e) {
-          return TextSpan(
-            text: e.text,
-            style: e.style,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                _showPopupInteracticeSegmentDetails(
-                  context,
-                  ms.text,
-                  ms.translation!,
-                  ms.explanation!,
-                );
-              },
-          );
-        }).toList();
-      } else {
-        if (ms.children == null ||
-            (ms.children != null && ms.children!.isEmpty)) {
-          debugPrint('فاقد زیرمجموعه: ${ms.text}');
-          if (ms.isBlank != null && ms.isBlank == true) {
-            if (blankStatus == RevealedBlankStatus.hide) {
-              return [
-                TextSpan(
-                  text: " ________ ", // نمایش جاخالی
-                  style: msStyle,
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => ref
-                        .read(revealedBlankProvider(finalTopicId).notifier)
-                        .toggleStatus(index),
-                ),
-              ];
-            }
-          } else if (ms.isLineThrough != null && ms.isLineThrough == true) {
-            return [TextSpan(text: ms.text, style: msStyle)];
-          }
-          final formattedSpans = UtilityPersian().buildMixedTextSpans(
-            ms.text.replaceAll('\\n', '\n'),
-            persianStyle: msStyle.copyWith(
-              fontFamily: FontFamily.yekanBakhRegular.asText,
-              fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-            ),
-            normalStyle: msStyle,
-          );
-          return formattedSpans;
-          // return [
-          //   TextSpan(text: ms.text.replaceAll('\\n', '\n'), style: style),
-          // ];
-        } else {
-          if (ms.isBlank != null && ms.isBlank == true) {
-            if (blankStatus == RevealedBlankStatus.hide) {
-              return [
-                TextSpan(
-                  text: " ________ ", // نمایش جاخالی
-                  style: msStyle,
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => ref
-                        .read(revealedBlankProvider(finalTopicId).notifier)
-                        .toggleStatus(index),
-                ),
-              ];
-            }
-          }
-          final subItems = ms.children!;
-          final List<TextSegmentEnglish> subMicroSegments = CfPublic()
-              .fillGapsInFullText(ms.text, subItems);
-          final subSpans = subMicroSegments.asMap().entries.map((entry) {
-            // final index = entry.key;
-            final subMs = entry.value;
-            // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
-            if (subMs.isInteractive) {
-              final formattedSpans = UtilityPersian().buildMixedTextSpans(
-                subMs.text.replaceAll('\\n', '\n'),
-                persianStyle: msStyle.copyWith(
-                  fontFamily: FontFamily.yekanBakhRegular.asText,
-                  fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-                  color: Theme.of(context).colorScheme.error,
-                ),
-                normalStyle: msStyle.copyWith(
-                  color: Theme.of(context).colorScheme.error,
-                ),
-              );
-              return formattedSpans.map((e) {
-                return TextSpan(
-                  text: e.text,
-                  style: e.style,
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      _showPopupInteracticeSegmentDetails(
-                        context,
-                        subMs.text,
-                        subMs.translation!,
-                        subMs.explanation!,
-                      );
-                    },
-                );
-              }).toList();
-            } else {
-              final formattedSpans = UtilityPersian().buildMixedTextSpans(
-                subMs.text.replaceAll('\\n', '\n'),
-                persianStyle: msStyle.copyWith(
-                  fontFamily: FontFamily.yekanBakhRegular.asText,
-                  fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-                ),
-                normalStyle: msStyle,
-              );
-              return formattedSpans;
-            }
-          }).toList();
-          return subSpans.expand((e) => e).toList();
-        }
-      }
-    }).toList();
-*/
-    // final spansEnglish = textSegmentsEnglish.asMap().entries.map((entry) {
-    //   final index = entry.key;
-    //   final segment = entry.value;
-    //   return _recursiveBuildEnglish(context, segment, index: index);
-    // }).toList();
-
     // ۱. استخراج متن کامل برای جستجو
-    String fullPlainText = textSegmentsEnglish.map((s) => s.plainText).join("");
+    String fullPlainText = segments.map((s) => s.plainText).join('');
     String searchQuery = widget.searchText ?? '';
     // ۲. پیدا کردن تمام ایندکس‌های جستجو در کل متن
-    final matches = searchQuery.isEmpty
+    final globalMatches = searchQuery.isEmpty
         ? <SearchRange>[]
         : searchQuery
-              .toLowerCase()
               .allMatches(fullPlainText.toLowerCase())
               .map((m) => SearchRange(m.start, m.end))
               .toList();
+    String fullText = segments.map((s) => s.text).join("");
+    final positioned = MarkerParser.getPositionMapEnglish(segments);
+    final blocks = MarkerParser.getRawBlocks(fullText);
+    final structured = MarkerParser.getStructuredItemsEnglish(
+      blocks,
+      positioned,
+    );
 
     int currentGlobalOffset = 0;
     List<InlineSpan> finalSpans = [];
 
     // ۳. رندر کردن تک‌تک سگمنت‌ها
-    for (int index = 0; index < textSegmentsEnglish.length; index++) {
-      final segment = textSegmentsEnglish[index];
+    for (int index = 0; index < structured.length; index++) {
+      final segment = structured[index];
+      debugPrint('currentGlobalOffset is: $currentGlobalOffset');
       finalSpans.add(
-        _buildRecursiveSpanEnglish(
+        _buildSpansEnglish(
           context,
           ref,
           segment,
-          matches,
+          globalMatches,
           currentGlobalOffset,
           index: index,
         ),
@@ -616,7 +503,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Align(
         alignment: AlignmentGeometry.centerLeft,
         child: Directionality(
@@ -625,1038 +512,32 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
             textAlign: TextAlign.left,
             TextSpan(children: finalSpans),
           ),
+          // child: RichText(
+          //   text: TextSpan(children: finalSpans),
+          //   textAlign: TextAlign.left,
+          // ),
         ),
       ),
     );
   }
 
-  InlineSpan _recursiveBuildEnglish(
-    BuildContext context,
-    TextSegmentEnglish segment, {
-    int? index,
-  }) {
-    TapGestureRecognizer? currentRecognizer;
-    // ... (بخش استایل‌ها بدون تغییر باقی می‌ماند) ...
-    final nav = ref.watch(navigationProvider);
-    final selectedFinalTopic = nav.selectedFinalTopic;
-    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
-    String finalTopicId = (selectedFinalTopicSearch != null)
-        ? selectedFinalTopicSearch.name
-        : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
-    final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
-    final bool isBlankSegment =
-        (segment.isBlank == true || regExp.hasMatch(segment.text))
-        ? true
-        : false;
-
-    String displayVisualText = segment.text;
-    if (index != null) {
-      final blankStatus =
-          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (isBlankSegment) {
-        if (blankStatus == RevealedBlankStatus.hide) {
-          displayVisualText = "________";
-        }
-        // یا هر سمبل دیگری مثل " ( ? ) "
-        currentRecognizer = TapGestureRecognizer()
-          ..onTap = () {
-            ref
-                .read(revealedBlanksProvider(finalTopicId).notifier)
-                .toggleStatus(index);
-          };
-      }
-    }
-    if (segment.isInteractive) {
-      currentRecognizer = TapGestureRecognizer()
-        ..onTap = () {
-          _showDialog(context, segment);
-        };
-    }
-    TextStyle currentStyle = TextStyle(
-      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? '.AppleSystemUIFont'
-          : 'sans-serif',
-      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
-      // ۱. برای حل فاصله زیاد خطوط:
-      height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
-      leadingDistribution: TextLeadingDistribution.even,
-
-      // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
-      textBaseline: TextBaseline.alphabetic,
-      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
-      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
-      decoration: TextDecoration.combine([
-        if (segment.isUnderline == true) TextDecoration.underline,
-        if (segment.isLineThrough == true) TextDecoration.lineThrough,
-      ]),
-      backgroundColor: (isBlankSegment == true)
-          ? Colors.grey[300]
-          : (segment.highlightColor != null
-                ? Color(
-                    int.parse(
-                      segment.highlightColor!.replaceFirst('#', '0xff'),
-                    ),
-                  )
-                : null),
-      color: segment.isInteractive
-          ? Theme.of(context).colorScheme.error
-          : (isBlankSegment == true)
-          ? Colors.blue[900]
-          : Theme.of(context).textTheme.bodySmall!.color,
-    );
-
-    List<InlineSpan> contentSpans = MarkerParser.parseToSpansEnglish(
-      displayVisualText,
-      currentStyle,
-      widget.searchText ?? '',
-      segment,
-      currentRecognizer, // Recognizer به پارسر پاس داده شد
-    );
-
-    // ۳. پاس دادن Recognizer والد به فرزندان (Recursive)
-    if (segment.children != null && segment.children!.isNotEmpty) {
-      for (var child in segment.children!) {
-        // اگر فرزند خودش اینتراکتیو نیست، از رکاگنایزر والد استفاده کند
-        contentSpans.add(_recursiveBuildEnglish(context, child));
-        // نکته: در پیاده‌سازی دقیق‌تر، می‌توانید متد را طوری تغییر دهید که
-        // parentRecognizer را به عنوان آرگومان ورودی بگیرد.
-      }
-    }
-
-    return TextSpan(
-      children: contentSpans,
-      recognizer: currentRecognizer,
-      style: currentStyle,
-    );
-  }
-
-  InlineSpan _recursiveBuildPersian(
-    BuildContext context,
-    TextSegmentPersian segment, {
-    int? index,
-  }) {
-    // ... (بخش استایل‌ها بدون تغییر باقی می‌ماند) ...
-    final nav = ref.watch(navigationProvider);
-    final selectedFinalTopic = nav.selectedFinalTopic;
-    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
-    String finalTopicId = (selectedFinalTopicSearch != null)
-        ? selectedFinalTopicSearch.name
-        : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
-    final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
-    final bool isBlankSegment =
-        (segment.isBlank == true || regExp.hasMatch(segment.text))
-        ? true
-        : false;
-
-    String displayVisualText = segment.text;
-    if (index != null) {
-      final blankStatus =
-          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (isBlankSegment) {
-        if (blankStatus == RevealedBlankStatus.hide) {
-          displayVisualText = "________";
-        }
-      }
-    }
-
-    TextStyle currentStyle = TextStyle(
-      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? '.AppleSystemUIFont'
-          : 'sans-serif',
-      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
-      // ۱. برای حل فاصله زیاد خطوط:
-      height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
-      leadingDistribution: TextLeadingDistribution.even,
-
-      // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
-      textBaseline: TextBaseline.alphabetic,
-      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
-      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
-      decoration: TextDecoration.combine([
-        if (segment.isUnderline == true) TextDecoration.underline,
-        if (segment.isLineThrough == true) TextDecoration.lineThrough,
-      ]),
-      backgroundColor: (isBlankSegment == true)
-          ? Colors.grey[300]
-          : (segment.highlightColor != null
-                ? Color(
-                    int.parse(
-                      segment.highlightColor!.replaceFirst('#', '0xff'),
-                    ),
-                  )
-                : null),
-      color: (isBlankSegment == true)
-          ? Colors.blue[900]
-          : Theme.of(context).textTheme.bodySmall!.color,
-    );
-    // ۲. پاس دادن این Recognizer به پارسر مارکرها
-    // این کار باعث می‌شود کلمات داخل {b}...{/b} هم کلیک‌خور شوند
-    List<InlineSpan> contentSpans = MarkerParser.parseToSpansPersian(
-      displayVisualText,
-      currentStyle,
-      widget.searchText ?? '',
-      segment,
-    );
-
-    return TextSpan(children: contentSpans, style: currentStyle);
-  }
-
-  InlineSpan _buildRecursiveSpanEnglish(
-    BuildContext context,
-    WidgetRef ref,
-    TextSegmentEnglish segment,
-    List<SearchRange> globalMatches,
-    int offset, {
-    int? index,
-  }) {
-    TapGestureRecognizer? currentRecognizer;
-    final nav = ref.watch(navigationProvider);
-    final selectedFinalTopic = nav.selectedFinalTopic;
-    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
-    String finalTopicId = (selectedFinalTopicSearch != null)
-        ? selectedFinalTopicSearch.name
-        : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
-    final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
-    final bool isBlankSegment =
-        (segment.isBlank == true || regExp.hasMatch(segment.text))
-        ? true
-        : false;
-    // مدیریت متن جاخالی
-    String displayText = segment.text;
-    if (index != null) {
-      final blankStatus =
-          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (isBlankSegment) {
-        if (selectedFinalTopic != null) {
-          if (blankStatus == RevealedBlankStatus.hide) {
-            displayText = "________";
-            currentRecognizer = TapGestureRecognizer()
-              ..onTap = () {
-                ref
-                    .read(revealedBlanksProvider(finalTopicId).notifier)
-                    .toggleStatus(index);
-              };
-          } else {
-            if (segment.isInteractive) {
-              currentRecognizer = TapGestureRecognizer()
-                ..onTap = () {
-                  _showDialog(context, segment);
-                };
-            }
-          }
-        } else {
-          if (segment.isInteractive) {
-            currentRecognizer = TapGestureRecognizer()
-              ..onTap = () {
-                _showDialog(context, segment);
-              };
-          }
-        }
-      } else if (segment.isInteractive) {
-        currentRecognizer = TapGestureRecognizer()
-          ..onTap = () {
-            _showDialog(context, segment);
-          };
-      }
-    }
-    TextStyle currentStyle = TextStyle(
-      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? '.AppleSystemUIFont'
-          : 'sans-serif',
-      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
-      // ۱. برای حل فاصله زیاد خطوط:
-      height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
-      leadingDistribution: TextLeadingDistribution.even,
-
-      // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
-      textBaseline: TextBaseline.alphabetic,
-      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
-      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
-      decoration: TextDecoration.combine([
-        if (segment.isUnderline == true) TextDecoration.underline,
-        if (segment.isLineThrough == true) TextDecoration.lineThrough,
-      ]),
-      backgroundColor: (isBlankSegment == true)
-          ? Colors.grey[300]
-          : (segment.highlightColor != null
-                ? Color(
-                    int.parse(
-                      segment.highlightColor!.replaceFirst('#', '0xff'),
-                    ),
-                  )
-                : null),
-      color: segment.isInteractive
-          ? Theme.of(context).colorScheme.error
-          : (isBlankSegment == true)
-          ? Colors.blue[900]
-          : Theme.of(context).textTheme.bodySmall!.color,
-    );
-
-    List<InlineSpan> childrenSpans = MarkerParser.parseWithGlobalSearch(
-      textWithMarkers: displayText,
-      baseStyle: currentStyle,
-      globalMatches: globalMatches,
-      segmentOffset: offset,
-      recognizer: currentRecognizer,
-    );
-
-    // مدیریت فرزندان (Recursive Children)
-    if (segment.children != null) {
-      for (var child in segment.children!) {
-        childrenSpans.add(
-          _buildRecursiveSpanEnglish(
-            context,
-            ref,
-            child,
-            globalMatches,
-            offset,
-          ),
-        );
-      }
-    }
-
-    return TextSpan(
-      children: childrenSpans,
-      style: currentStyle,
-      recognizer: currentRecognizer,
-    );
-  }
-
-  InlineSpan _buildRecursiveSpanPersian(
-    BuildContext context,
-    WidgetRef ref,
-    TextSegmentPersian segment,
-    List<SearchRange> globalMatches,
-    int offset, {
-    int? index,
-  }) {
-    final nav = ref.watch(navigationProvider);
-    final selectedFinalTopic = nav.selectedFinalTopic;
-    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
-    String finalTopicId = (selectedFinalTopicSearch != null)
-        ? selectedFinalTopicSearch.name
-        : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
-    final regExp = RegExp(r'^{blk}.*{/blk}$', dotAll: true);
-    final bool isBlankSegment =
-        (segment.isBlank == true || regExp.hasMatch(segment.text))
-        ? true
-        : false;
-    // مدیریت متن جاخالی
-    String displayText = segment.text;
-    if (index != null) {
-      final blankStatus =
-          revealedBlankStates[index] ?? RevealedBlankStatus.hide;
-      if (isBlankSegment) {
-        if (selectedFinalTopic != null) {
-          if (blankStatus == RevealedBlankStatus.hide) {
-            displayText = "________";
-          }
-        }
-      }
-    }
-    TextStyle currentStyle = TextStyle(
-      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
-          ? '.AppleSystemUIFont'
-          : 'sans-serif',
-      fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
-      // ۱. برای حل فاصله زیاد خطوط:
-      height: 1.2, // مقدار را دستی تنظیم کنید (مثلاً بین 1.0 تا 1.4)
-      leadingDistribution: TextLeadingDistribution.even,
-
-      // ۲. تراز کردن پایه حروف (مانند فارسی و انگلیسی در یک خط):
-      textBaseline: TextBaseline.alphabetic,
-      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
-      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
-      decoration: TextDecoration.combine([
-        if (segment.isUnderline == true) TextDecoration.underline,
-        if (segment.isLineThrough == true) TextDecoration.lineThrough,
-      ]),
-      backgroundColor: (isBlankSegment == true)
-          ? Colors.grey[300]
-          : (segment.highlightColor != null
-                ? Color(
-                    int.parse(
-                      segment.highlightColor!.replaceFirst('#', '0xff'),
-                    ),
-                  )
-                : null),
-      color: (isBlankSegment == true)
-          ? Colors.blue[900]
-          : Theme.of(context).textTheme.bodySmall!.color,
-    );
-
-    List<InlineSpan> childrenSpans = MarkerParser.parseWithGlobalSearch(
-      textWithMarkers: displayText,
-      baseStyle: currentStyle,
-      globalMatches: globalMatches,
-      segmentOffset: offset,
-    );
-
-    return TextSpan(children: childrenSpans, style: currentStyle);
-  }
-
   void _showDialog(BuildContext context, TextSegmentEnglish data) {
-    _showPopupInteracticeSegmentDetails(
+    _showPopupInteractiveSegmentDetails(
       context,
       data.text.replaceAll(RegExp(r'\{.*?\}'), ''),
       data.translation!,
       data.explanation!,
+      pronounce: data.pronounce,
     );
   }
 
-  Widget _buildPersianLayout(
-    List<TextSegmentPersian> translationTextSegments,
-    String finalTopicId,
-  ) {
-    /*
-    final spans = translationTextSegments.map((item) {
-      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
-      TextStyle style = TextStyle(
-        fontSize: (item.isBold != null && item.isBold == true)
-            ? Theme.of(context).textTheme.titleMedium!.fontSize
-            : Theme.of(context).textTheme.bodyMedium!.fontSize,
-        fontWeight: (item.isBold != null && item.isBold == true)
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: (item.isBold != null && item.isBold == true)
-            ? Colors.deepOrange
-            : Theme.of(
-                context,
-              ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-        // fontFamily: FontFamily.yekanBakhRegular.asText,
-      );
-      if (item.isLineThrough != null && item.isLineThrough == true) {
-        style = style.copyWith(
-          decoration: TextDecoration.lineThrough,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (item.isUnderline != null && item.isUnderline == true) {
-        style = style.copyWith(
-          decoration: TextDecoration.underline,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (item.isItalic != null && item.isItalic == true) {
-        style = style.copyWith(fontStyle: FontStyle.italic);
-      }
-      // return TextSpan(
-      //   text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
-      //   style: style,
-      // );
-      final formattedSpans = UtilityPersian().buildMixedTextSpans(
-        item.text.replaceAll('\\n', '\n'),
-        persianStyle: style.copyWith(
-          fontFamily: FontFamily.yekanBakhRegular.asText,
-          fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-        ),
-        normalStyle: style,
-      );
-      return formattedSpans.map((e) {
-        return TextSpan(text: e.text, style: e.style);
-      }).toList();
-    }).toList();
-*/
-    // final spansPersian = translationTextSegments.asMap().entries.map((entry) {
-    //   final index = entry.key;
-    //   final segment = entry.value;
-    //   return _recursiveBuildPersian(context, segment, index: index);
-    // }).toList();
-
-    // ۱. استخراج متن کامل برای جستجو
-    String fullPlainText = translationTextSegments
-        .map((s) => s.plainText)
-        .join("");
-    String searchQuery = widget.searchText ?? '';
-    // ۲. پیدا کردن تمام ایندکس‌های جستجو در کل متن
-    final matches = searchQuery.isEmpty
-        ? <SearchRange>[]
-        : searchQuery
-              .toLowerCase()
-              .allMatches(fullPlainText.toLowerCase())
-              .map((m) => SearchRange(m.start, m.end))
-              .toList();
-
-    int currentGlobalOffset = 0;
-    List<InlineSpan> finalSpans = [];
-
-    // ۳. رندر کردن تک‌تک سگمنت‌ها
-    for (int index = 0; index < translationTextSegments.length; index++) {
-      final segment = translationTextSegments[index];
-      finalSpans.add(
-        _buildRecursiveSpanPersian(
-          context,
-          ref,
-          segment,
-          matches,
-          currentGlobalOffset,
-          index: index,
-        ),
-      );
-      currentGlobalOffset += segment.plainText.length;
-    }
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Align(
-        alignment: AlignmentGeometry.centerRight,
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          // child: RichText(
-          //   textAlign: TextAlign.right,
-          //   text: TextSpan(children: spans.expand((e) => e).toList()),
-          // ),
-          child: SelectableText.rich(
-            textAlign: TextAlign.right,
-            TextSpan(children: finalSpans),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPersianLayoutForSearch0(
-    List<TextSegmentPersian> textSegmentsTranslation,
-    String finalTopicId,
-  ) {
-    // int interactiveIndex = 0;
-    final microSegments = CfPublic().processSearchForPersianSegments(
-      textSegmentsTranslation,
-      widget.searchText!,
-    );
-    // List<List<InlineSpan>>
-    final spans = microSegments.asMap().entries.map((entry) {
-      // final index = entry.key;
-      final ms = entry.value;
-      // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
-      TextStyle msStyle = TextStyle(
-        fontSize: (ms.isBold != null && ms.isBold == true)
-            ? Theme.of(context).textTheme.titleMedium!.fontSize
-            : Theme.of(context).textTheme.bodyMedium!.fontSize,
-        fontWeight: (ms.isBold != null && ms.isBold == true)
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: (ms.isBold != null && ms.isBold == true)
-            ? Colors.deepOrange
-            : Theme.of(
-                context,
-              ).textTheme.bodySmall!.color, // // استایل شرطی isInteractive
-      );
-      if (ms.isLineThrough != null && ms.isLineThrough == true) {
-        msStyle = msStyle.copyWith(
-          decoration: TextDecoration.lineThrough,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (ms.isUnderline != null && ms.isUnderline == true) {
-        msStyle = msStyle.copyWith(
-          decoration: TextDecoration.underline,
-          decorationStyle: TextDecorationStyle.wavy,
-          decorationColor: Colors.red,
-        );
-      }
-      if (ms.isItalic != null && ms.isItalic == true) {
-        msStyle = msStyle.copyWith(fontStyle: FontStyle.italic);
-      }
-      // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-      if (ms.highlightColor != null) {
-        msStyle = msStyle.copyWith(backgroundColor: Colors.amber.shade100);
-      }
-      final formattedSpans = UtilityPersian().buildMixedTextSpans(
-        ms.text.replaceAll('\\n', '\n'),
-        persianStyle: msStyle.copyWith(
-          fontFamily: FontFamily.yekanBakhRegular.asText,
-          fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-        ),
-        normalStyle: msStyle,
-      );
-      return formattedSpans.map((e) {
-        return TextSpan(text: e.text, style: e.style);
-      }).toList();
-    }).toList();
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Align(
-        alignment: AlignmentGeometry.centerLeft,
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: RichText(
-            textAlign: TextAlign.right,
-            text: TextSpan(children: spans.expand((e) => e).toList()),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // چیدمان دو ستونه (دو لیست اسکرول‌شونده مجزا)
-  Widget _buildDualPaneLayout(
-    bool isPersianFirst,
-    List<TextSegmentEnglish> textSegmentsEnglish,
-    List<TextSegmentPersian> translationTextSegments,
-    Map<int, RevealedBlankStatus> revealedBlankStates,
-    String finalTopicId,
-  ) {
-    final List<TextSpan> translationSpans = translationTextSegments.map((item) {
-      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
-      TextStyle style = TextStyle(
-        fontSize: (item.isBold != null && item.isBold == true)
-            ? Theme.of(context).textTheme.titleMedium!.fontSize
-            : Theme.of(context).textTheme.bodyMedium!.fontSize,
-        fontWeight: (item.isBold != null && item.isBold == true)
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: (item.isBold != null && item.isBold == true)
-            ? Colors.deepOrange
-            : Theme.of(
-                context,
-              ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-        fontFamily: FontFamily.yekanBakhRegular.asText,
-      );
-      return TextSpan(
-        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
-        style: style,
-      );
-    }).toList();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      // ✅ تغییر به Column برای نمایش بالا و پایین
-      children: [
-        // ردیف اول: متن اصلی
-        isPersianFirst
-            ? Expanded(
-                child: _buildPersianLayout(
-                  translationTextSegments,
-                  finalTopicId,
-                ),
-                /*
-                SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Align(
-                    alignment: AlignmentGeometry.centerRight,
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: RichText(
-                        textAlign: TextAlign.right,
-                        text: TextSpan(children: translationSpans),
-                      ),
-                    ),
-                  ),
-                ),
-                */
-              )
-            : Expanded(
-                child: _buildEnglishLayout(textSegmentsEnglish, finalTopicId),
-              ),
-        const Divider(height: 8.0),
-        // ردیف دوم: ترجمه
-        isPersianFirst
-            ? Expanded(
-                child: _buildEnglishLayout(textSegmentsEnglish, finalTopicId),
-              )
-            : Expanded(
-                child: _buildPersianLayout(
-                  translationTextSegments,
-                  finalTopicId,
-                ),
-              ),
-      ],
-    );
-  }
-
-  Widget _buildManualLayout(
-    NavigationState nav,
-    // AsyncValue allContent,
-    bool isDualPane,
-    List<TextSegmentEnglish> textSegmentsEnglish,
-    List<TextSegmentPersian> textSegmentsPersian,
-    Map<int, RevealedBlankStatus> revealedBlankStates,
-    String finalTopicId,
-  ) {
-    final List<TextSpan> faSpans = textSegmentsPersian.map((item) {
-      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
-      TextStyle style = TextStyle(
-        fontSize: (item.isBold != null && item.isBold == true)
-            ? Theme.of(context).textTheme.titleMedium!.fontSize
-            : Theme.of(context).textTheme.bodyMedium!.fontSize,
-        fontWeight: (item.isBold != null && item.isBold == true)
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: (item.isBold != null && item.isBold == true)
-            ? Colors.deepOrange
-            : Theme.of(
-                context,
-              ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-        fontFamily: FontFamily.yekanBakhRegular.asText,
-      );
-      return TextSpan(
-        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
-        style: style,
-      );
-    }).toList();
-
-    final List<TextSpan> enSpans = textSegmentsEnglish.map((item) {
-      // ساخت یک String برای نمایش، شامل isActive (اگر null نباشد)
-      TextStyle style = TextStyle(
-        fontSize: (item.isBold != null && item.isBold == true)
-            ? Theme.of(context).textTheme.titleMedium!.fontSize
-            : Theme.of(context).textTheme.bodyMedium!.fontSize,
-        fontWeight: (item.isBold != null && item.isBold == true)
-            ? FontWeight.bold
-            : FontWeight.normal,
-        color: (item.isBold != null && item.isBold == true)
-            ? Colors.deepOrange
-            : Theme.of(
-                context,
-              ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-      );
-      return TextSpan(
-        text: item.text.replaceAll('\\n', '\n'), // اعمال استایل بر اساس status
-        style: style,
-      );
-    }).toList();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      // ✅ تغییر به Column برای نمایش بالا و پایین
-      children: [
-        Expanded(
-          child: Align(
-            alignment: AlignmentGeometry.centerRight,
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: ListView.builder(
-                itemCount: faSpans.length,
-                itemBuilder: (context, index) {
-                  TextSegmentPersian textSegmentPersianTempelate =
-                      TextSegmentPersian(text: faSpans[index].text ?? '');
-                  final microSegments = CfPublic()
-                      .processSegmentsPersianTempelate([
-                        textSegmentPersianTempelate,
-                      ], widget.searchText ?? '');
-                  final spans = microSegments.asMap().entries.map((entry) {
-                    // final index = entry.key;
-                    final ms = entry.value;
-                    // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
-                    TextStyle style = TextStyle(
-                      fontSize: (ms.isBold != null && ms.isBold == true)
-                          ? Theme.of(context).textTheme.titleLarge!.fontSize
-                          : Theme.of(context).textTheme.bodyLarge!.fontSize,
-                      fontWeight: (ms.isBold != null && ms.isBold == true)
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: Theme.of(
-                        context,
-                      ).textTheme.bodySmall!.color, // استایل شرطی isInteractive
-                    );
-
-                    // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-                    if (ms.highlightColor != null) {
-                      style = style.copyWith(
-                        backgroundColor: Colors.amber.shade100,
-                      );
-                    }
-
-                    final formattedSpans = UtilityPersian().buildMixedTextSpans(
-                      ms.text.replaceAll('\\n', '\n'),
-                      persianStyle: style.copyWith(
-                        fontFamily: FontFamily.yekanBakhRegular.asText,
-                        fontSize: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium!.fontSize,
-                      ),
-                      normalStyle: style,
-                    );
-                    return formattedSpans;
-                  }).toList();
-                  final spanList = spans.expand((e) => e).toList();
-                  return ListItemTextSegmentSimple(
-                    ref: ref,
-                    isPersianTextSegment: true,
-                    number: index + 1,
-                    spans: spanList,
-                    onTap: () async {
-                      await _showPopupViewTempelate(
-                        context,
-                        ref,
-                        index,
-                        textSegmentsPersian[index],
-                      ).then((value) {
-                        if (value != null && value == true) {
-                          if (nav.selectedFinalTopic != null) {
-                            ref
-                                .read(navigationProvider.notifier)
-                                .updateTempelate(nav.selectedFinalTopic!);
-                          } else if (widget.originalContent != null) {
-                            ref
-                                .read(navigationProvider.notifier)
-                                .updateTempelateForSearchResult(
-                                  widget.originalContent!,
-                                );
-                          }
-                          _updateSearchListData();
-                        }
-                      });
-                    },
-                    onEdit: () async {
-                      await _showPopupEditTempelate(
-                        context,
-                        ref,
-                        index,
-                        textSegmentsPersian[index],
-                        // noteSpans[index].text!,
-                      ).then((value) {
-                        if (value != null && value == true) {
-                          if (nav.selectedFinalTopic != null) {
-                            ref
-                                .read(navigationProvider.notifier)
-                                .updateTempelate(nav.selectedFinalTopic!);
-                          } else if (widget.originalContent != null) {
-                            ref
-                                .read(navigationProvider.notifier)
-                                .updateTempelateForSearchResult(
-                                  widget.originalContent!,
-                                );
-                          }
-                          _updateSearchListData();
-                        }
-                      });
-                    },
-                    onDelete: () async {},
-                  );
-                },
-              ),
-            ),
-          ),
-        ),
-        /*
-        if (isDualPane)
-          const Divider(height: 12.0, color: Colors.grey, thickness: 6.0),
-        if (isDualPane)
-          Expanded(
-            child: Align(
-              alignment: AlignmentGeometry.centerRight,
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: ListView.builder(
-                  itemCount: enSpans.length,
-                  itemBuilder: (context, index) {
-                    TextSegmentEnglish textSegmentEnglish = TextSegmentEnglish(
-                      text: enSpans[index].text ?? '',
-                      isInteractive: false,
-                    );
-                    final microSegments = CfPublic().processSegmentsEnglish([
-                      textSegmentEnglish,
-                    ], widget.searchText ?? '');
-                    final spans = microSegments.asMap().entries.map((entry) {
-                      // final index = entry.key;
-                      final ms = entry.value;
-                      // final blankStatus = revealedBlankStates[index] ?? SentenceStatus.hide;
-                      TextStyle style = TextStyle(
-                        fontSize: (ms.isBold != null && ms.isBold == true)
-                            ? Theme.of(context).textTheme.titleLarge!.fontSize
-                            : Theme.of(context).textTheme.bodyLarge!.fontSize,
-                        fontWeight: (ms.isBold != null && ms.isBold == true)
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .color, // استایل شرطی isInteractive
-                      );
-
-                      // اعمال استایل جستجو (هایلایت پس‌زمینه زرد)
-                      if (ms.isSearchHighlighted != null &&
-                          ms.isSearchHighlighted == true) {
-                        style = style.copyWith(
-                          backgroundColor: Colors.amber.shade100,
-                        );
-                      }
-
-                      final formattedSpans = UtilityPersian()
-                          .buildMixedTextSpans(
-                            ms.text.replaceAll('\\n', '\n'),
-                            persianStyle: style.copyWith(
-                              fontFamily: FontFamily.yekanBakhRegular.asText,
-                              fontSize: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.fontSize,
-                            ),
-                            normalStyle: style,
-                          );
-                      return formattedSpans;
-                    }).toList();
-                    final spanList = spans.expand((e) => e).toList();
-                    return ListItemTextSegmentSimple(
-                      ref: ref,
-                      isPersianTextSegment: false,
-                      number: index + 1,
-                      spans: spanList,
-                      onTap: () {
-                        ref.read(isEditModeProvider.notifier).state = false;
-                      },
-                      onEdit: () {
-                        updateTempelate(
-                          context,
-                          index,
-
-                          textSegmentsEnglish,
-                          textSegmentsPersian,
-                          // noteSpans,
-                          nav,
-                        );
-                      },
-                      onDelete: () async {},
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
-      */
-      ],
-    );
-  }
-
-  void _updateSearchListData() {
-    CfPublic()
-        .getSearchListDataAsync(
-          ref.read(allContentProvider).value,
-          ref.read(navigationProvider),
-        )
-        .then((result) {
-          ref.read(searchListProvider.notifier).state = result;
-        });
-  }
-
-  List<TextSegmentEnglish> processSubSegments(
-    String fullText,
-    List<TextSegmentEnglish> segments,
-    List<String> searchQueries,
-  ) {
-    // ساخت متن کامل
-    final List<TextSegmentEnglish> microSegments = [];
-    int currentTextIndex = 0;
-
-    // 1️⃣ همه‌ی تطابق‌ها رو از تمام عبارت‌های جستجو پیدا می‌کنیم
-    final List<Match> allMatches = [];
-
-    for (final query in searchQueries) {
-      if (query.trim().isEmpty) continue;
-      final matches = RegExp(
-        RegExp.escape(query),
-        caseSensitive: false,
-      ).allMatches(fullText);
-      allMatches.addAll(matches);
-    }
-
-    // در صورتی که چند عبارت داریم، مرتبشون می‌کنیم بر اساس موقعیت در متن
-    allMatches.sort((a, b) => a.start.compareTo(b.start));
-
-    if (allMatches.isEmpty) {
-      // هیچ تطابقی وجود نداره، فقط استایل پایه رو اعمال کن
-      return segments;
-    }
-
-    // 2️⃣ حالا روی segmentها پیمایش می‌کنیم مثل قبل
-    for (final segment in segments) {
-      final segmentText = segment.text;
-      final originText = segment.isInteractive ? segmentText : null;
-      final segmentStart = currentTextIndex;
-      final segmentEnd = currentTextIndex + segmentText.length;
-
-      int segmentPos = 0;
-
-      for (final match in allMatches) {
-        final matchStart = match.start;
-        final matchEnd = match.end;
-
-        if (segmentStart < matchEnd && matchStart < segmentEnd) {
-          // 🔹 بخش قبل از هایلایت
-          final nonHighlightStart = segmentStart + segmentPos;
-          final nonHighlightEnd = matchStart.clamp(segmentStart, segmentEnd);
-
-          if (nonHighlightEnd > nonHighlightStart) {
-            final startInSegment = nonHighlightStart - segmentStart;
-            final endInSegment = nonHighlightEnd - segmentStart;
-            final text = segmentText.substring(startInSegment, endInSegment);
-            microSegments.add(
-              TextSegmentEnglish(
-                text: text,
-                // originText: originText,
-                isInteractive: segment.isInteractive,
-                isBold: segment.isBold,
-                isBlank: segment.isBlank,
-                children: segment.children,
-                translation: segment.translation,
-                explanation: segment.explanation,
-              ),
-            );
-            segmentPos = endInSegment;
-          }
-
-          // 🔹 بخش هایلایت‌شده
-          final highlightStart = matchStart.clamp(segmentStart, segmentEnd);
-          final highlightEnd = matchEnd.clamp(segmentStart, segmentEnd);
-
-          if (highlightEnd > highlightStart) {
-            final startInSegment = highlightStart - segmentStart;
-            final endInSegment = highlightEnd - segmentStart;
-            final text = segmentText.substring(startInSegment, endInSegment);
-            microSegments.add(
-              TextSegmentEnglish(
-                text: text,
-                // originText: originText,
-                isInteractive: segment.isInteractive,
-                isBold: segment.isBold,
-                isBlank: segment.isBlank,
-                children: segment.children,
-                translation: segment.translation,
-                explanation: segment.explanation,
-                highlightColor: 'yellow', // اعمال هایلایت
-              ),
-            );
-            segmentPos = endInSegment;
-          }
-        }
-      }
-
-      // 🔹 بخش باقیمانده بعد از آخرین تطابق
-      if (segmentPos < segmentText.length) {
-        microSegments.add(
-          TextSegmentEnglish(
-            text: segmentText.substring(segmentPos),
-            // originText: originText,
-            isInteractive: segment.isInteractive,
-            isBold: segment.isBold,
-            isBlank: segment.isBlank,
-            children: segment.children,
-            translation: segment.translation,
-            explanation: segment.explanation,
-          ),
-        );
-      }
-
-      currentTextIndex += segmentText.length;
-    }
-
-    return microSegments;
-  }
-
-  void _showPopupInteracticeSegmentDetails(
+  void _showPopupInteractiveSegmentDetails(
     BuildContext context,
     String text,
     String translation,
-    String explanation,
-  ) {
+    String explanation, {
+    String? pronounce,
+  }) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -1689,6 +570,25 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                   textDirection: TextDirection.rtl,
                 ),
                 Text(explanation, textDirection: TextDirection.rtl),
+                if (pronounce != null)
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 16.0),
+                        Text(
+                          'تلفظ:',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orangeAccent,
+                          ),
+                          textDirection: TextDirection.rtl,
+                        ),
+                        Text(pronounce, textDirection: TextDirection.rtl),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),
@@ -1711,9 +611,320 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     );
   }
 
+  Widget _buildPersianLayout(
+    List<TextSegmentPersian> segments,
+    String finalTopicId,
+  ) {
+    // ۱. استخراج متن کامل برای جستجو
+    String fullPlainText = segments.map((s) => s.plainText).join('');
+    String searchQuery = widget.searchText ?? '';
+    // ۲. پیدا کردن تمام ایندکس‌های جستجو در کل متن
+    final globalMatches = searchQuery.isEmpty
+        ? <SearchRange>[]
+        : searchQuery
+              .allMatches(fullPlainText.toLowerCase())
+              .map((m) => SearchRange(m.start, m.end))
+              .toList();
+
+    //! New codes
+    String fullText = segments.map((s) => s.text).join("");
+    final positioned = MarkerParser.getPositionMapPersian(segments);
+    final blocks = MarkerParser.getRawBlocks(fullText);
+    final structured = MarkerParser.getStructuredItemsPersian(
+      blocks,
+      positioned,
+    );
+
+    int currentGlobalOffset = 0;
+    List<InlineSpan> finalSpans = [];
+
+    for (int index = 0; index < structured.length; index++) {
+      final segment = structured[index];
+      finalSpans.add(
+        _buildSpansPersian(
+          context,
+          ref,
+          segment,
+          globalMatches,
+          currentGlobalOffset,
+          index: index,
+        ),
+      );
+      currentGlobalOffset += segment.plainText.length;
+    }
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Align(
+        alignment: AlignmentGeometry.centerRight,
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: RichText(
+            textAlign: TextAlign.right,
+            text: TextSpan(children: finalSpans),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // چیدمان دو ستونه (دو لیست اسکرول‌شونده مجزا)
+  Widget _buildHorizontalLayout(
+    bool isPersianFirst,
+    List<TextSegmentEnglish> textSegmentsEnglish,
+    List<TextSegmentPersian> translationTextSegments,
+    Map<int, RevealedBlankStatus> revealedBlankStates,
+    String finalTopicId,
+  ) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // ✅ تغییر به Column برای نمایش بالا و پایین
+        children: [
+          // ردیف اول: متن اصلی
+          isPersianFirst
+              ? SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: _buildPersianLayout(
+                    translationTextSegments,
+                    finalTopicId,
+                  ),
+                )
+              : SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: _buildEnglishLayout(textSegmentsEnglish, finalTopicId),
+                ),
+          const VerticalDivider(),
+          // ردیف دوم: ترجمه
+          isPersianFirst
+              ? SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: _buildEnglishLayout(textSegmentsEnglish, finalTopicId),
+                )
+              : SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: _buildPersianLayout(
+                    translationTextSegments,
+                    finalTopicId,
+                  ),
+                ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVerticalLayout(
+    bool isPersianFirst,
+    List<TextSegmentEnglish> textSegmentsEnglish,
+    List<TextSegmentPersian> translationTextSegments,
+    Map<int, RevealedBlankStatus> revealedBlankStates,
+    String finalTopicId,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // ✅ تغییر به Column برای نمایش بالا و پایین
+      children: [
+        // ردیف اول: متن اصلی
+        isPersianFirst
+            ? Expanded(
+                child: _buildPersianLayout(
+                  translationTextSegments,
+                  finalTopicId,
+                ),
+              )
+            : Expanded(
+                child: _buildEnglishLayout(textSegmentsEnglish, finalTopicId),
+              ),
+        const Divider(height: 8.0),
+        // ردیف دوم: ترجمه
+        isPersianFirst
+            ? Expanded(
+                child: _buildEnglishLayout(textSegmentsEnglish, finalTopicId),
+              )
+            : Expanded(
+                child: _buildPersianLayout(
+                  translationTextSegments,
+                  finalTopicId,
+                ),
+              ),
+      ],
+    );
+  }
+
+  Widget _buildManualLayout(
+    NavigationState nav,
+    List<TextSegmentPersian> segments,
+    String finalTopicId,
+  ) {
+    TextStyle textStyle = TextStyle(
+      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+          ? '.AppleSystemUIFont'
+          : 'sans-serif',
+      fontFamilyFallback: [FontFamily.zar.asText],
+      height: 1.2,
+      leadingDistribution: TextLeadingDistribution.even,
+      textBaseline: TextBaseline.alphabetic,
+      fontWeight: FontWeight.normal,
+      fontStyle: FontStyle.normal,
+
+      color: Theme.of(context).textTheme.bodySmall!.color,
+      fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+    );
+    List<ManualTemelateData> data = <ManualTemelateData>[];
+    String searchQuery = widget.searchText ?? '';
+
+    for (var segment in segments) {
+      final persianMatches = searchQuery.isEmpty
+          ? <SearchRange>[]
+          : searchQuery
+                .allMatches(segment.plainText.toLowerCase())
+                .map((m) => SearchRange(m.start, m.end))
+                .toList();
+      final englishMatches = (segment.translation != null)
+          ? searchQuery.isEmpty
+                ? <SearchRange>[]
+                : searchQuery
+                      .allMatches(segment.translation!.toLowerCase())
+                      .map((m) => SearchRange(m.start, m.end))
+                      .toList()
+          : <SearchRange>[];
+      List<InlineSpan> spansPersian = MarkerParser.parseWithGlobalSearch(
+        textWithMarkers: segment.plainText,
+        textStyle: textStyle,
+        globalMatches: persianMatches,
+        globalOffset: 0,
+      );
+      List<InlineSpan> spansEnglish = MarkerParser.parseWithGlobalSearch(
+        textWithMarkers: segment.translation ?? '',
+        textStyle: textStyle,
+        globalMatches: englishMatches,
+        globalOffset: 0,
+      );
+      data.add(
+        ManualTemelateData(
+          segment: segment,
+          spansPersian: spansPersian,
+          spansEnglish: spansEnglish,
+        ),
+      );
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // ✅ تغییر به Column برای نمایش بالا و پایین
+      children: [
+        Expanded(
+          child: Align(
+            alignment: AlignmentGeometry.centerRight,
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onLongPressStart: (details) {
+                      _showContextMenu(
+                        context,
+                        details.globalPosition,
+                        index,
+                        ref,
+                        data[index].segment,
+                        finalTopicId,
+                      );
+                    },
+                    child: ListItemTextSegmentSimple(
+                      ref: ref,
+                      number: index + 1,
+                      data: data[index], //spanList,
+                      onTap: () async {
+                        await _showPopupViewTempelate(
+                          context,
+                          ref,
+                          index,
+                          segments[index],
+                          finalTopicId,
+                        );
+                      },
+                      onLongPress: () {},
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showContextMenu(
+    BuildContext context,
+    Offset position,
+    int index,
+    WidgetRef ref,
+
+    TextSegmentPersian textSegmentPersian,
+    String finalTopicName,
+  ) async {
+    final result = await showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        position.dx,
+        position.dy,
+        position.dx,
+        position.dy,
+      ),
+      items: [
+        const PopupMenuItem(
+          value: 'edit',
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Row(children: [Text('ویرایش')]),
+          ),
+        ),
+        const PopupMenuItem(
+          value: 'delete',
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Row(children: [Text('حذف')]),
+          ),
+        ),
+      ],
+    );
+
+    if (result == 'edit') {
+      await _showPopupEditTempelate(
+        context,
+        ref,
+        index,
+        textSegmentPersian,
+        finalTopicName,
+      );
+    } else if (result == 'delete') {
+      String q = 'آیا از حذف این قالب اطمینان دارید؟';
+      bool? response = await CfPublic().showQuestionDialog(context, q);
+      if (response == null || response == false) {
+        return;
+      }
+      await _deleteTempelate(ref, finalTopicName, index);
+    }
+  }
+
+  void _updateSearchListData() {
+    CfPublic()
+        .getSearchListDataAsync(
+          ref.read(allContentProvider).value,
+          ref.read(navigationProvider),
+        )
+        .then((result) {
+          ref.read(searchListProvider.notifier).state = result;
+        });
+  }
+
   Future<FinalTopic?> _showPopupAddTempelate(
     BuildContext context,
     WidgetRef ref,
+    String finalTopicName,
   ) async {
     final dialogResult = await showDialog(
       context: context,
@@ -1721,15 +932,15 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         return Dialog(
           child: AddOrEditTempelate(
             onSubmit: (textSegmentPersian) async {
+              final nav = ref.watch(navigationProvider);
+              final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+
               final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
+              String newTemplateDirectory = (selectedFinalTopicSearch != null)
+                  ? '$rootPath/${widget.originalContent!.book.name}/${widget.originalContent!.unit.name}/${widget.originalContent!.topic.name}/${widget.originalContent!.page.name}/${widget.originalContent!.finalTopic.name}'
+                  : '$rootPath/${nav.selectedBook!.name}/${nav.selectedUnit!.name}/${nav.selectedTopic!.name}/${nav.selectedPage!.name}/$finalTopicName';
               if (!Directory(newTemplateDirectory).existsSync()) {
                 Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
               }
               //! محتوای فارسی
               String faFileName = '$newTemplateDirectory/me.3.translation.json';
@@ -1768,82 +979,13 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     WidgetRef ref,
     int index,
     TextSegmentPersian textSegmentPersian,
+    String finalTopicName,
   ) async {
-    ref.read(isEditModeProvider.notifier).state = false;
     final dialogResult = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          child: ViewTempelateWidget(
-            onUpdate: (textSegmentPersian) async {
-              final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
-              if (!Directory(newTemplateDirectory).existsSync()) {
-                Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
-              }
-              //! محتوای فارسی
-              String faFileName = '$newTemplateDirectory/me.3.translation.json';
-              if (!File(faFileName).existsSync()) {
-                File(faFileName).createSync(recursive: true);
-              }
-              final result = await CfPublic()
-                  .updatePersianTextSegmentToExternalStorage(
-                    fileName: faFileName,
-                    index: index,
-                    textSegmentPersian: textSegmentPersian,
-                  );
-              if (result != null) {
-                if (context.mounted) {
-                  Navigator.pop(context, true);
-                }
-              } else {
-                if (context.mounted) {
-                  Navigator.pop(context, false);
-                }
-              }
-            },
-            onDelete: () async {
-              String q = 'آیا از حذف این قالب اطمینان دارید؟';
-              bool? response = await CfPublic().showQuestionDialog(context, q);
-              if (response == null || response == false) {
-                return;
-              }
-              final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
-              if (!Directory(newTemplateDirectory).existsSync()) {
-                Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
-              }
-              //! محتوای فارسی
-              String faFileName = '$newTemplateDirectory/me.3.translation.json';
-              if (!File(faFileName).existsSync()) {
-                File(faFileName).createSync(recursive: true);
-              }
-              final result = await CfPublic().deleteTempelate(
-                faFileName,
-                index,
-              );
-              if (result != null) {
-                if (context.mounted) {
-                  Navigator.pop(context, true);
-                }
-              } else {
-                if (context.mounted) {
-                  Navigator.pop(context, false);
-                }
-              }
-            },
-            persianTextSegment: textSegmentPersian,
-          ),
+          child: ViewTempelateWidget(persianTextSegment: textSegmentPersian),
         );
       },
     );
@@ -1854,27 +996,29 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     }
   }
 
-  Future<bool?> _showPopupEditTempelate(
+  Future<void> _showPopupEditTempelate(
     BuildContext context,
     WidgetRef ref,
     int index,
     TextSegmentPersian textSegmentPersian,
+    String finalTopicName,
   ) async {
-    final dialogResult = await showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           child: AddOrEditTempelate(
+            persianTextSegment: textSegmentPersian,
             onSubmit: (textSegmentPersian) async {
+              final nav = ref.watch(navigationProvider);
+              final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+
               final rootPath = ref.read(settingsProvider);
-              String newTemplateDirectory =
-                  '$rootPath/قالبهای موقعیتی/Band 4–5/Days/Day 00/Content';
+              String newTemplateDirectory = (selectedFinalTopicSearch != null)
+                  ? '$rootPath/${widget.originalContent!.book.name}/${widget.originalContent!.unit.name}/${widget.originalContent!.topic.name}/${widget.originalContent!.page.name}/${widget.originalContent!.finalTopic.name}'
+                  : '$rootPath/${nav.selectedBook!.name}/${nav.selectedUnit!.name}/${nav.selectedTopic!.name}/${nav.selectedPage!.name}/$finalTopicName';
               if (!Directory(newTemplateDirectory).existsSync()) {
                 Directory(newTemplateDirectory).createSync(recursive: true);
-              }
-              String allTextFileName = '$newTemplateDirectory/me.1.txt';
-              if (!File(allTextFileName).existsSync()) {
-                File(allTextFileName).createSync(recursive: true);
               }
               //! محتوای فارسی
               String faFileName = '$newTemplateDirectory/me.3.translation.json';
@@ -1888,25 +1032,494 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
                     textSegmentPersian: textSegmentPersian,
                   );
               if (result != null) {
-                if (context.mounted) {
-                  Navigator.pop(context, true);
+                if (widget.originalContent != null) {
+                  ref
+                      .read(navigationProvider.notifier)
+                      .updateTempelateForSearchResult(widget.originalContent!);
                 }
-              } else {
-                if (context.mounted) {
-                  Navigator.pop(context, false);
+                if (nav.selectedFinalTopic != null) {
+                  ref
+                      .read(navigationProvider.notifier)
+                      .updateTempelate(nav.selectedFinalTopic!);
                 }
+                _updateSearchListData();
+              }
+              if (context.mounted) {
+                Navigator.pop(context);
               }
             },
-
-            persianTextSegment: textSegmentPersian,
           ),
         );
       },
     );
-    if (dialogResult != null) {
-      return dialogResult as bool;
-    } else {
-      return false;
+  }
+
+  Future<void> _deleteTempelate(
+    WidgetRef ref,
+    String finalTopicName,
+    int index,
+  ) async {
+    final nav = ref.watch(navigationProvider);
+    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+
+    final rootPath = ref.read(settingsProvider);
+    String newTemplateDirectory = (selectedFinalTopicSearch != null)
+        ? '$rootPath/${widget.originalContent!.book.name}/${widget.originalContent!.unit.name}/${widget.originalContent!.topic.name}/${widget.originalContent!.page.name}/${widget.originalContent!.finalTopic.name}'
+        : '$rootPath/${nav.selectedBook!.name}/${nav.selectedUnit!.name}/${nav.selectedTopic!.name}/${nav.selectedPage!.name}/$finalTopicName';
+    if (!Directory(newTemplateDirectory).existsSync()) {
+      Directory(newTemplateDirectory).createSync(recursive: true);
     }
+    String allTextFileName = '$newTemplateDirectory/me.1.txt';
+    if (!File(allTextFileName).existsSync()) {
+      File(allTextFileName).createSync(recursive: true);
+    }
+    //! محتوای فارسی
+    String faFileName = '$newTemplateDirectory/me.3.translation.json';
+    if (!File(faFileName).existsSync()) {
+      File(faFileName).createSync(recursive: true);
+    }
+    final result = await CfPublic().deleteTempelate(faFileName, index);
+    if (result != null) {
+      if (widget.originalContent != null) {
+        ref
+            .read(navigationProvider.notifier)
+            .updateTempelateForSearchResult(widget.originalContent!);
+      }
+      if (nav.selectedFinalTopic != null) {
+        ref
+            .read(navigationProvider.notifier)
+            .updateTempelate(nav.selectedFinalTopic!);
+      }
+      _updateSearchListData();
+    }
+  }
+
+  InlineSpan _buildSpansEnglish(
+    BuildContext context,
+    WidgetRef ref,
+    TextSegmentEnglish segment,
+    List<SearchRange> globalMatches,
+    int globalOffset, {
+    int? index,
+  }) {
+    final nav = ref.watch(navigationProvider);
+    final selectedFinalTopic = nav.selectedFinalTopic;
+    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+    String finalTopicId = (selectedFinalTopicSearch != null)
+        ? selectedFinalTopicSearch.name
+        : selectedFinalTopic!.name;
+    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
+
+    final blankStatus = revealedBlankStates[index] ?? RevealedBlankStatus.hide;
+    final bool isBlankSegment = (segment.isBlank == true) ? true : false;
+    // مدیریت متن جاخالی
+    TextStyle textStyle = TextStyle(
+      height: 1.2,
+      leadingDistribution: TextLeadingDistribution.even,
+      textBaseline: TextBaseline.alphabetic,
+      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
+      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
+      decoration: TextDecoration.combine([
+        if (segment.isUnderline == true) TextDecoration.underline,
+        if (segment.isLineThrough == true) TextDecoration.lineThrough,
+      ]),
+      backgroundColor: selectedFinalTopic != null
+          ? (isBlankSegment)
+                ? Colors.grey[300]
+                : (segment.highlightColor != null
+                      ? Color(
+                          int.parse(
+                            segment.highlightColor!.replaceFirst('#', '0xff'),
+                          ),
+                        )
+                      : null)
+          : null,
+      color: segment.isInteractive
+          ? Theme.of(context).colorScheme.error
+          : (isBlankSegment)
+          ? Colors.blue[900]
+          : Theme.of(context).textTheme.bodySmall!.color,
+      fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+    );
+    TapGestureRecognizer? currentRecognizer;
+    String displayText = segment.plainText;
+    List<InlineSpan> childrenSpans = <InlineSpan>[];
+    if (isBlankSegment) {
+      if (selectedFinalTopic != null) {
+        if (blankStatus == RevealedBlankStatus.hide) {
+          displayText = "________";
+          currentRecognizer = TapGestureRecognizer()
+            ..onTap = () {
+              ref
+                  .read(revealedBlanksProvider(finalTopicId).notifier)
+                  .toggleStatus(index!);
+            };
+          childrenSpans.addAll(
+            MarkerParser.parseWithGlobalSearch(
+              textWithMarkers: displayText,
+              textStyle: textStyle,
+              globalMatches: globalMatches,
+              globalOffset: globalOffset,
+              recognizer: currentRecognizer,
+            ),
+          );
+        } else {
+          if (segment.children != null) {
+            int childOffset = 0;
+            for (var child in segment.children!) {
+              TextStyle childTextStyle = textStyle;
+              if (child.isInteractive) {
+                childTextStyle = childTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                );
+              }
+              if (child.isBold ?? false) {
+                if (child.isInteractive) {
+                  childTextStyle = childTextStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  );
+                } else {
+                  childTextStyle = childTextStyle.copyWith(
+                    color: Colors.deepOrangeAccent,
+                  );
+                }
+                // childStyle = childStyle.copyWith(fontWeight: FontWeight.bold);
+              }
+              if (child.isItalic ?? false) {
+                childTextStyle = childTextStyle.copyWith(
+                  fontStyle: FontStyle.italic,
+                );
+              }
+              if (child.isUnderline ?? false) {
+                childTextStyle = childTextStyle.copyWith(
+                  decoration: TextDecoration.underline,
+                );
+              }
+              if (child.isLineThrough ?? false) {
+                childTextStyle = childTextStyle.copyWith(
+                  decoration: TextDecoration.lineThrough,
+                );
+              }
+              TapGestureRecognizer? innerRecognizer;
+              if (child.isInteractive) {
+                innerRecognizer = TapGestureRecognizer()
+                  ..onTap = () {
+                    _showDialog(context, child);
+                  };
+              }
+              childrenSpans.addAll(
+                MarkerParser.parseWithGlobalSearch(
+                  textWithMarkers: child.plainText,
+                  textStyle: childTextStyle,
+                  globalMatches: globalMatches,
+                  globalOffset: globalOffset + childOffset,
+                  recognizer: innerRecognizer,
+                ),
+              );
+              childOffset += child.plainText.length;
+            }
+          } else {
+            childrenSpans.addAll(
+              MarkerParser.parseWithGlobalSearch(
+                textWithMarkers: segment.plainText,
+                textStyle: textStyle,
+                globalMatches: globalMatches,
+                globalOffset: globalOffset,
+              ),
+            );
+          }
+        }
+      } else {
+        if (segment.children != null) {
+          int childOffset = 0;
+          for (var child in segment.children!) {
+            TapGestureRecognizer? innerRecognizer;
+            if (child.isInteractive) {
+              innerRecognizer = TapGestureRecognizer()
+                ..onTap = () {
+                  _showDialog(context, child);
+                };
+            }
+            childrenSpans.addAll(
+              MarkerParser.parseWithGlobalSearch(
+                textWithMarkers: child.plainText,
+                textStyle: child.isInteractive
+                    ? textStyle.copyWith(
+                        color: Theme.of(context).colorScheme.error,
+                      )
+                    : textStyle,
+                globalMatches: globalMatches,
+                globalOffset: globalOffset + childOffset,
+                recognizer: innerRecognizer,
+              ),
+            );
+            childOffset += child.plainText.length;
+          }
+        } else {
+          childrenSpans.addAll(
+            MarkerParser.parseWithGlobalSearch(
+              textWithMarkers: segment.plainText,
+              textStyle: textStyle,
+              globalMatches: globalMatches,
+              globalOffset: globalOffset,
+            ),
+          );
+        }
+      }
+    } else {
+      if (segment.children != null) {
+        int childOffset = 0;
+        for (var child in segment.children!) {
+          TextStyle childStyle = textStyle;
+          if (child.isInteractive) {
+            childStyle = childStyle.copyWith(
+              color: Theme.of(context).colorScheme.error,
+            );
+          }
+          if (child.isBold ?? false) {
+            if (child.isInteractive) {
+              childStyle = childStyle.copyWith(fontWeight: FontWeight.bold);
+            } else {
+              childStyle = childStyle.copyWith(color: Colors.deepOrangeAccent);
+            }
+            // childStyle = childStyle.copyWith(fontWeight: FontWeight.bold);
+          }
+          if (child.isItalic ?? false) {
+            childStyle = childStyle.copyWith(fontStyle: FontStyle.italic);
+          }
+          if (child.isUnderline ?? false) {
+            childStyle = childStyle.copyWith(
+              decoration: TextDecoration.underline,
+            );
+          }
+          if (child.isLineThrough ?? false) {
+            childStyle = childStyle.copyWith(
+              decoration: TextDecoration.lineThrough,
+            );
+          }
+          TapGestureRecognizer? innerRecognizer;
+          if (child.isInteractive) {
+            innerRecognizer = TapGestureRecognizer()
+              ..onTap = () {
+                _showDialog(context, child);
+              };
+          }
+          childrenSpans.addAll(
+            MarkerParser.parseWithGlobalSearch(
+              textWithMarkers: child.plainText,
+              textStyle: childStyle,
+              globalMatches: globalMatches,
+              globalOffset: globalOffset + childOffset,
+              recognizer: innerRecognizer,
+            ),
+          );
+          childOffset += child.plainText.length;
+        }
+      } else {
+        childrenSpans.addAll(
+          MarkerParser.parseWithGlobalSearch(
+            textWithMarkers: segment.plainText,
+            textStyle: textStyle,
+            globalMatches: globalMatches,
+            globalOffset: globalOffset,
+          ),
+        );
+      }
+    }
+
+    return TextSpan(
+      children: childrenSpans,
+      // style: currentStyle,
+      recognizer: currentRecognizer,
+    );
+  }
+
+  InlineSpan _buildSpansPersian(
+    BuildContext context,
+    WidgetRef ref,
+    TextSegmentPersian segment,
+    List<SearchRange> globalMatches,
+    int globalOffset, {
+    int? index,
+  }) {
+    final nav = ref.watch(navigationProvider);
+    final selectedFinalTopic = nav.selectedFinalTopic;
+    final selectedFinalTopicSearch = nav.selectedFinalTopicSearch;
+    String finalTopicId = (selectedFinalTopicSearch != null)
+        ? selectedFinalTopicSearch.name
+        : selectedFinalTopic!.name;
+    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
+
+    final blankStatus = revealedBlankStates[index] ?? RevealedBlankStatus.hide;
+    final bool isBlankSegment = (segment.isBlank == true) ? true : false;
+    // مدیریت متن جاخالی
+    TextStyle currentStyle = TextStyle(
+      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+          ? '.AppleSystemUIFont'
+          : 'sans-serif',
+      fontFamilyFallback: [FontFamily.zar.asText],
+      height: 1.2,
+      leadingDistribution: TextLeadingDistribution.even,
+      textBaseline: TextBaseline.alphabetic,
+      fontWeight: segment.isBold == true ? FontWeight.bold : FontWeight.normal,
+      fontStyle: segment.isItalic == true ? FontStyle.italic : FontStyle.normal,
+      decoration: TextDecoration.combine([
+        if (segment.isUnderline == true) TextDecoration.underline,
+        if (segment.isLineThrough == true) TextDecoration.lineThrough,
+      ]),
+      backgroundColor: selectedFinalTopic != null
+          ? (isBlankSegment)
+                ? Colors.grey[300]
+                : (segment.highlightColor != null
+                      ? Color(
+                          int.parse(
+                            segment.highlightColor!.replaceFirst('#', '0xff'),
+                          ),
+                        )
+                      : null)
+          : null,
+      color: (isBlankSegment)
+          ? Colors.blue[900]
+          : Theme.of(context).textTheme.bodySmall!.color,
+      fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+    );
+    TapGestureRecognizer? currentRecognizer;
+    String displayText = segment.plainText;
+    List<InlineSpan> childrenSpans = <InlineSpan>[];
+    if (isBlankSegment) {
+      if (selectedFinalTopic != null) {
+        if (blankStatus == RevealedBlankStatus.hide) {
+          displayText = "________";
+          currentRecognizer = TapGestureRecognizer()
+            ..onTap = () {
+              ref
+                  .read(revealedBlanksProvider(finalTopicId).notifier)
+                  .toggleStatus(index!);
+            };
+          childrenSpans.addAll(
+            MarkerParser.parseWithGlobalSearch(
+              textWithMarkers: displayText,
+              textStyle: currentStyle,
+              globalMatches: globalMatches,
+              globalOffset: globalOffset,
+              recognizer: currentRecognizer,
+            ),
+          );
+        } else {
+          if (segment.children != null) {
+            int childOffset = 0;
+            for (var child in segment.children!) {
+              TextStyle childStyle = currentStyle;
+              if (child.isBold ?? false) {
+                childStyle = childStyle.copyWith(fontWeight: FontWeight.bold);
+              }
+              if (child.isItalic ?? false) {
+                childStyle = childStyle.copyWith(fontStyle: FontStyle.italic);
+              }
+              if (child.isUnderline ?? false) {
+                childStyle = childStyle.copyWith(
+                  decoration: TextDecoration.underline,
+                );
+              }
+              if (child.isLineThrough ?? false) {
+                childStyle = childStyle.copyWith(
+                  decoration: TextDecoration.lineThrough,
+                );
+              }
+
+              childrenSpans.addAll(
+                MarkerParser.parseWithGlobalSearch(
+                  textWithMarkers: child.plainText,
+                  textStyle: childStyle,
+                  globalMatches: globalMatches,
+                  globalOffset: globalOffset + childOffset,
+                ),
+              );
+              childOffset += child.plainText.length;
+            }
+          } else {
+            childrenSpans.addAll(
+              MarkerParser.parseWithGlobalSearch(
+                textWithMarkers: segment.plainText,
+                textStyle: currentStyle,
+                globalMatches: globalMatches,
+                globalOffset: globalOffset,
+              ),
+            );
+          }
+        }
+      } else {
+        if (segment.children != null) {
+          int childOffset = 0;
+          for (var child in segment.children!) {
+            childrenSpans.addAll(
+              MarkerParser.parseWithGlobalSearch(
+                textWithMarkers: child.plainText,
+                textStyle: currentStyle,
+                globalMatches: globalMatches,
+                globalOffset: globalOffset + childOffset,
+              ),
+            );
+            childOffset += child.plainText.length;
+          }
+        } else {
+          childrenSpans.addAll(
+            MarkerParser.parseWithGlobalSearch(
+              textWithMarkers: segment.plainText,
+              textStyle: currentStyle,
+              globalMatches: globalMatches,
+              globalOffset: globalOffset,
+            ),
+          );
+        }
+      }
+    } else {
+      if (segment.children != null) {
+        int childOffset = 0;
+        for (var child in segment.children!) {
+          TextStyle childStyle = currentStyle;
+          if (child.isBold ?? false) {
+            childStyle = childStyle.copyWith(fontWeight: FontWeight.bold);
+          }
+          if (child.isItalic ?? false) {
+            childStyle = childStyle.copyWith(fontStyle: FontStyle.italic);
+          }
+          if (child.isUnderline ?? false) {
+            childStyle = childStyle.copyWith(
+              decoration: TextDecoration.underline,
+            );
+          }
+          if (child.isLineThrough ?? false) {
+            childStyle = childStyle.copyWith(
+              decoration: TextDecoration.lineThrough,
+            );
+          }
+          childrenSpans.addAll(
+            MarkerParser.parseWithGlobalSearch(
+              textWithMarkers: child.plainText,
+              textStyle: childStyle,
+              globalMatches: globalMatches,
+              globalOffset: globalOffset + childOffset,
+            ),
+          );
+          childOffset += child.plainText.length;
+        }
+      } else {
+        childrenSpans.addAll(
+          MarkerParser.parseWithGlobalSearch(
+            textWithMarkers: segment.plainText,
+            textStyle: currentStyle,
+            globalMatches: globalMatches,
+            globalOffset: globalOffset,
+          ),
+        );
+      }
+    }
+
+    return TextSpan(
+      children: childrenSpans,
+      // style: currentStyle,
+      recognizer: currentRecognizer,
+    );
   }
 }

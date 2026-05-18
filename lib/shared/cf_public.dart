@@ -4,7 +4,7 @@ import 'dart:io';
 // import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';
-import 'package:ielts_assistant/shared/emoji_parser.dart';
+import 'package:ielts_assistant/shared/marker_parser.dart';
 import 'package:ielts_assistant/shared/models/content_models.dart';
 import 'package:path/path.dart';
 import 'package:path/path.dart' as p;
@@ -38,6 +38,9 @@ class CfPublic {
     final filePathNote = fileEntityNote?.path ?? '';
     // debugPrint('مسیر: $filePathEnglish');
     try {
+      // if (filePathPersian.contains('میلاد حیدری')) {
+      //   String st = '';
+      // }
       return FinalTopic(
         name: basename(dir.path),
         realmId: dir.path, // مسیر کامل پوشه به عنوان ID
@@ -119,7 +122,7 @@ class CfPublic {
     final pattern = RegExp(
       r'(\{b\}|\{i\}|\{u\}|\{s\}|\{h\}|\{blk\}|\{\/b\}|\{\/i\}|\{\/u\}|\{\/s\}|\{\/h\}|\{\/blk\})',
     );
-    return text.replaceAll(pattern, "");
+    return text.replaceAll(pattern, '');
   }
 
   FileSystemEntity? _findJsonFileEnglish(List<FileSystemEntity> fileList) {
@@ -977,6 +980,29 @@ class CfPublic {
           },
         );
       },
+    );
+  }
+
+  Widget buildTitle(List<String> labels, TextStyle textStyle) {
+    if (labels.isEmpty) return const SizedBox.shrink();
+
+    return SizedBox(
+      height: 45,
+      width: double.infinity,
+      // color: Colors.blue.withOpacity(0.05),
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: labels.length,
+        separatorBuilder: (_, __) =>
+            const Icon(Icons.chevron_right, size: 18, color: Colors.grey),
+        itemBuilder: (_, i) => Center(
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Text(labels[i], style: textStyle),
+          ),
+        ),
+      ),
     );
   }
 }

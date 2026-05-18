@@ -51,7 +51,7 @@ class FinalTopicSearchDelegate extends SearchDelegate<String> {
     String lowerSearchText = query.toLowerCase();
     lowerSearchText = UtilityPersian().repairNumberAndChars(lowerSearchText);
     return _cachedData!.where((s) {
-      if (s.originalContent.toLowerCase().contains(query)) {
+      if (s.originalContent.toLowerCase().contains(lowerSearchText)) {
         return true;
       }
       return false;
@@ -153,7 +153,7 @@ class FinalTopicSearchDelegate extends SearchDelegate<String> {
           return const Center(child: Text('موردی یافت نشد'));
         }
 
-        return _buildComplexCustomerList(results);
+        return _buildSearchList(results);
       },
     );
   }
@@ -167,7 +167,7 @@ class FinalTopicSearchDelegate extends SearchDelegate<String> {
 
   // ----------------------------------------------------
 
-  Widget _buildComplexCustomerList(List<OriginalContent> originalContents) {
+  Widget _buildSearchList(List<OriginalContent> originalContents) {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: ListView.builder(
@@ -175,6 +175,7 @@ class FinalTopicSearchDelegate extends SearchDelegate<String> {
         itemBuilder: (context, index) {
           final originalContent = originalContents[index];
           return ListItemSearch(
+            ref: ref,
             originalContent: originalContent,
             onTap: () async {
               ref.read(isPlayerExpandedProvider.notifier).state = false;
@@ -190,13 +191,15 @@ class FinalTopicSearchDelegate extends SearchDelegate<String> {
                     originalContent.finalTopic,
                   );
 
-              Navigator.of(context)
+              await Navigator.of(context)
                   .push(
                     MaterialPageRoute(
-                      builder: (context) => FinalTopicDetailScreen(
-                        originalContent: originalContent,
-                        searchText: query,
-                      ),
+                      builder: (context) {
+                        return FinalTopicDetailScreen(
+                          originalContent: originalContent,
+                          searchText: query.toLowerCase(),
+                        );
+                      },
                     ),
                   )
                   .then((_) {

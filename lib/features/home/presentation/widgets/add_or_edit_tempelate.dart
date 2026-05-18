@@ -64,6 +64,19 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = TextStyle(
+      fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+          ? '.AppleSystemUIFont'
+          : 'sans-serif',
+      fontFamilyFallback: [FontFamily.zar.asText],
+      height: 1.2,
+      leadingDistribution: TextLeadingDistribution.even,
+      textBaseline: TextBaseline.alphabetic,
+      fontWeight: FontWeight.normal,
+      fontStyle: FontStyle.normal,
+      color: Theme.of(context).textTheme.bodyLarge!.color,
+      fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+    );
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
       child: GestureDetector(
@@ -84,14 +97,10 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: MyTextFormField(
+                      selectAllOnFocus: false,
                       onChanged: (value) {},
                       maxLines: null,
-                      style: TextStyle(
-                        fontFamily: FontFamily.yekanBakhRegular.asText,
-                        fontSize: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium!.fontSize,
-                      ),
+                      style: textStyle,
                       keyboardType: TextInputType.multiline,
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
@@ -106,9 +115,9 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                             Radius.circular(10.0),
                           ),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                        ),
+                        // contentPadding: const EdgeInsets.symmetric(
+                        //   horizontal: 8,
+                        // ),
                         // hintText: 'فارسی',
                         hintStyle: TextStyle(
                           fontFamily: 'Zar',
@@ -130,8 +139,13 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: MyTextFormField(
+                      selectAllOnFocus: false,
                       onChanged: (value) {},
-                      // style: TextStyle(fontFamily: 'YekanBakhRegular'),
+                      style: textStyle.copyWith(
+                        fontSize: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.fontSize,
+                      ),
                       keyboardType: TextInputType.multiline,
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
@@ -171,14 +185,10 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: MyTextFormField(
+                      selectAllOnFocus: false,
                       onChanged: (value) {},
                       maxLines: null,
-                      style: TextStyle(
-                        fontFamily: FontFamily.yekanBakhRegular.asText,
-                        fontSize: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium!.fontSize,
-                      ),
+                      style: textStyle,
                       keyboardType: TextInputType.multiline,
                       textAlign: TextAlign.start,
                       textAlignVertical: TextAlignVertical.center,
@@ -193,9 +203,9 @@ class _AddOrEditTempelateState extends State<AddOrEditTempelate> {
                             Radius.circular(10.0),
                           ),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                        ),
+                        // contentPadding: const EdgeInsets.symmetric(
+                        //   horizontal: 8,
+                        // ),
                         // hintText: 'فارسی',
                         hintStyle: TextStyle(
                           fontFamily: 'Zar',

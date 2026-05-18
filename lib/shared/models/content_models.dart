@@ -90,199 +90,6 @@ sealed class FinalTopic with _$FinalTopic {
   }
 }
 
-/*
-class TextSegmentEnglish {
-  final String text;
-  final String? originText;
-  final bool isInteractive;
-
-  final bool? isBold;
-  final bool? isBlank;
-  final bool? isItalic;
-  final bool? isUnderline;
-  final bool? isLineThrough;
-  final bool? isHighlight;
-
-  final bool? isSearchHighlighted;
-  final String? translation; // ترجمه فارسی
-  final String? explanation; // توضیحات تکمیلی
-  final String? cerfLevel; //
-  final String? pronounce;
-  final bool? isRtl;
-  final List<TextSegmentEnglish>? subItems;
-
-  TextSegmentEnglish({
-    required this.text,
-    required this.isInteractive,
-    this.isBlank,
-    this.isBold,
-    this.isItalic,
-    this.isUnderline,
-    this.isLineThrough,
-    this.isHighlight,
-    this.originText,
-    this.isSearchHighlighted,
-    this.translation,
-    this.explanation,
-    this.cerfLevel,
-    this.pronounce,
-    this.isRtl,
-    this.subItems,
-  });
-  TextSegmentEnglish copyWith({
-    String? text,
-    bool? isInteractive,
-    bool? isBlank,
-    bool? isBold,
-    bool? isItalic,
-    bool? isUnderline,
-    bool? isLineThrough,
-    bool? isHighlight,
-    String? originText,
-    bool? isSearchHighlighted,
-    String? translation,
-    String? explanation,
-    String? cerfLevel,
-    String? pronounce,
-    bool? isRtl,
-    List<TextSegmentEnglish>? subItems,
-  }) {
-    return TextSegmentEnglish(
-      text: text ?? this.text,
-      isInteractive: isInteractive ?? this.isInteractive,
-      isBlank: isBlank ?? this.isBlank,
-      isBold: isBold ?? this.isBold,
-      isItalic: isItalic ?? this.isItalic,
-      isUnderline: isUnderline ?? this.isUnderline,
-      isLineThrough: isLineThrough ?? this.isLineThrough,
-      isHighlight: isHighlight ?? this.isHighlight,
-      originText: originText ?? this.originText,
-      isSearchHighlighted: isSearchHighlighted ?? this.isSearchHighlighted,
-      translation: translation ?? this.translation,
-      explanation: explanation ?? this.explanation,
-      cerfLevel: cerfLevel ?? this.cerfLevel,
-      pronounce: pronounce ?? this.pronounce,
-      isRtl: isRtl ?? this.isRtl,
-      subItems: subItems ?? this.subItems,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {
-      'text': text,
-      'isInteractive': isInteractive,
-    };
-    if (originText != null) {
-      result['originText'] = originText;
-    }
-    if (isBlank != null) {
-      result['isBlank'] = isBlank;
-    }
-    if (subItems != null) {
-      // result['subItems'] = subItems;
-      result['subItems'] = subItems!.map((e) => e.toJson()).toList();
-    }
-    if (isBold != null) {
-      result['isBold'] = isBold;
-    }
-    if (isSearchHighlighted != null) {
-      result['isSearchHighlighted'] = isSearchHighlighted;
-    }
-    if (translation != null) {
-      result['translation'] = translation;
-    }
-    if (explanation != null) {
-      result['explanation'] = explanation;
-    }
-    if (cerfLevel != null) {
-      result['cerfLevel'] = cerfLevel;
-    }
-    if (pronounce != null) {
-      result['pronounce'] = pronounce;
-    }
-    if (isRtl != null) {
-      result['isRtl'] = isRtl;
-    }
-
-    return result;
-  }
-
-  factory TextSegmentEnglish.fromJson(Map<String, dynamic> json) {
-    return TextSegmentEnglish(
-      text: json['text'] as String,
-      isInteractive: json['isInteractive'] as bool,
-      translation: json['translation'] as String?,
-      explanation: json['explanation'] as String?,
-      pronounce: json['pronounce'] as String?,
-      cerfLevel: json['cerfLevel'] as String?,
-      isBlank: json['isBlank'] as bool?,
-      // subItems: json['subItems'] as List<dynamic>?,
-      subItems: json["subItems"] == null
-          ? null
-          : (json["subItems"] as List)
-                .map((e) => TextSegmentEnglish.fromJson(e))
-                .toList(),
-      isBold: json['isBold'] as bool?,
-    );
-  }
-}
-
-class TextSegmentPersian {
-  String text;
-
-  String? translation; // ترجمه فارسی
-  String? explanation; // توضیحات تکمیلی
-
-  bool? isBold;
-  bool? isItalic;
-  bool? isUnderline;
-  bool? isLineThrough;
-  bool? isHighlight;
-
-  bool? isSearchHighlighted;
-
-  TextSegmentPersian({
-    required this.text,
-
-    this.translation,
-    this.explanation,
-    this.isBold,
-    this.isItalic,
-    this.isUnderline,
-    this.isLineThrough,
-    this.isHighlight,
-    this.isSearchHighlighted,
-  });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {'text': text};
-
-    if (isBold != null) {
-      result['isBold'] = isBold;
-    }
-    if (isSearchHighlighted != null) {
-      result['isSearchHighlighted'] = isSearchHighlighted;
-    }
-    if (translation != null) {
-      result['translation'] = translation;
-    }
-    if (explanation != null) {
-      result['explanation'] = explanation;
-    }
-    return result;
-  }
-
-  factory TextSegmentPersian.fromJson(Map<String, dynamic> json) {
-    return TextSegmentPersian(
-      text: json['text'] as String,
-      isBold: json['isBold'] as bool?,
-      translation: json['translation'] as String?,
-      explanation: json['explanation'] as String?,
-    );
-  }
-}
-*/
-
 class TextSegmentEnglish {
   final String text;
   final bool isInteractive;
@@ -395,7 +202,7 @@ class TextSegmentEnglish {
 
 class TextSegmentPersian {
   final String text;
-  final String? translation; // ترجمه فارسی
+  final String? translation;
   final String? explanation; // توضیحات تکمیلی
   final bool? isBold;
   final bool? isItalic;
@@ -403,6 +210,7 @@ class TextSegmentPersian {
   final bool? isLineThrough;
   final bool? isBlank;
   final String? highlightColor; // کد رنگ به صورت هگز (مثلاً #FFFF00)
+  final List<TextSegmentPersian>? children;
 
   TextSegmentPersian({
     required this.text,
@@ -414,9 +222,35 @@ class TextSegmentPersian {
     this.isLineThrough,
     this.isBlank,
     this.highlightColor,
+    this.children,
   });
   // متد کمکی برای حذف مارکرها از متن همین سگمنت
   String get plainText => text.replaceAll(RegExp(r'\{.*?\}'), '');
+
+  TextSegmentPersian copyWith({
+    String? text,
+    bool? isBold,
+    bool? isItalic,
+    bool? isUnderline,
+    bool? isLineThrough,
+    bool? isBlank,
+    String? highlightColor,
+    List<TextSegmentPersian>? children,
+  }) {
+    return TextSegmentPersian(
+      text: text ?? this.text,
+      translation: translation,
+      explanation: explanation,
+      isBold: isBold ?? this.isBold,
+      isItalic: isItalic ?? this.isItalic,
+      isUnderline: isUnderline ?? this.isUnderline,
+      isLineThrough: isLineThrough ?? this.isLineThrough,
+      isBlank: isBlank ?? this.isBlank,
+      highlightColor: highlightColor ?? this.highlightColor,
+      children: children ?? this.children,
+    );
+  }
+
   factory TextSegmentPersian.fromJson(Map<String, dynamic> json) {
     return TextSegmentPersian(
       text: json['text'],
@@ -428,54 +262,45 @@ class TextSegmentPersian {
       isLineThrough: json['isLineThrough'],
       isBlank: json['isBlank'],
       highlightColor: json['highlightColor'],
+      children: json['children'] != null
+          ? (json['children'] as List)
+                .map((i) => TextSegmentPersian.fromJson(i))
+                .toList()
+          : null,
     );
   }
+
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {'text': text};
+    Map<String, dynamic> data = {'text': text};
 
     if (translation != null) {
-      result['translation'] = translation;
+      data['translation'] = translation;
     }
     if (explanation != null) {
-      result['explanation'] = explanation;
+      data['explanation'] = explanation;
     }
     if (isBold != null) {
-      result['isBold'] = isBold;
+      data['isBold'] = isBold;
     }
     if (isItalic != null) {
-      result['isItalic'] = isItalic;
+      data['isItalic'] = isItalic;
     }
     if (isUnderline != null) {
-      result['isUnderline'] = isUnderline;
+      data['isUnderline'] = isUnderline;
     }
     if (isLineThrough != null) {
-      result['isLineThrough'] = isLineThrough;
+      data['isLineThrough'] = isLineThrough;
     }
     if (isBlank != null) {
-      result['isBlank'] = isBlank;
+      data['isBlank'] = isBlank;
     }
     if (highlightColor != null) {
-      result['highlightColor'] = highlightColor;
+      data['highlightColor'] = highlightColor;
     }
-    return result;
-  }
-
-  TextSegmentPersian copyWith({
-    String? text,
-    bool? isBold,
-    bool? isItalic,
-    bool? isUnderline,
-    bool? isLineThrough,
-    bool? isBlank,
-  }) {
-    return TextSegmentPersian(
-      text: text ?? this.text,
-      isBold: isBold ?? this.isBold,
-      isItalic: isItalic ?? this.isItalic,
-      isUnderline: isUnderline ?? this.isUnderline,
-      isLineThrough: isLineThrough ?? this.isLineThrough,
-      isBlank: isBlank ?? this.isBlank,
-    );
+    if (children != null) {
+      data['children'] = children!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 

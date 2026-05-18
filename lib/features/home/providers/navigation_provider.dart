@@ -34,7 +34,6 @@ class NavigationNotifier extends _$NavigationNotifier {
 
   static const _kBook = 'last_book';
   static const _kUnit = 'last_unit';
-  // static const _kOtherContent = 'last_other_content';
   static const _kTopic = 'last_topic';
   static const _kPage = 'last_page';
   static const _kFinalTopic = 'last_final_topic';
@@ -76,23 +75,60 @@ class NavigationNotifier extends _$NavigationNotifier {
   }
 
   void selectBook(Book book) {
-    state = state.copyWith(
-      selectedBook: book,
-      // selectedOtherContent: null,
-      selectedUnit: null,
-      selectedTopic: null,
-      selectedPage: null,
-      selectedFinalTopic: null,
-    );
-    _box.write(_kBook, book.name);
-    _box.remove(_kUnit);
-    // _box.remove(_kOtherContent);
-    _box.remove(_kTopic);
-    _box.remove(_kPage);
-    _box.remove(_kFinalTopic);
-    Future.delayed(Duration.zero).then((value) async {
-      updateSearchListData();
-    });
+    bool mustBeUpdateSearchListData = state.selectedBook != book;
+    if (book.units.length == 1 &&
+        book.units.first.topics.length == 1 &&
+        book.units.first.topics.first.pageContents.length == 1) {
+      Unit unit = book.units.first;
+      Topic topic = unit.topics.first;
+      PageContent pageContent = topic.pageContents.first;
+      state = state.copyWith(
+        selectedBook: book,
+        selectedUnit: book.units.first,
+        selectedTopic: topic,
+        selectedPage: pageContent,
+        selectedFinalTopic: null,
+      );
+      _box.write(_kBook, book.name);
+      _box.write(_kUnit, unit.name);
+      _box.write(_kTopic, topic.name);
+      _box.write(_kPage, pageContent.name);
+      _box.remove(_kFinalTopic);
+    } else if (book.units.length == 1 && book.units.first.topics.length == 1) {
+      Unit unit = book.units.first;
+      Topic topic = unit.topics.first;
+      state = state.copyWith(
+        selectedBook: book,
+        selectedUnit: book.units.first,
+        selectedTopic: topic,
+        selectedPage: null,
+        selectedFinalTopic: null,
+      );
+      _box.write(_kBook, book.name);
+      _box.write(_kUnit, unit.name);
+      _box.write(_kTopic, topic.name);
+      _box.remove(_kPage);
+      _box.remove(_kFinalTopic);
+    } else {
+      state = state.copyWith(
+        selectedBook: book,
+        selectedUnit: null,
+        selectedTopic: null,
+        selectedPage: null,
+        selectedFinalTopic: null,
+      );
+      _box.write(_kBook, book.name);
+      _box.remove(_kUnit);
+      _box.remove(_kTopic);
+      _box.remove(_kPage);
+      _box.remove(_kFinalTopic);
+    }
+
+    if (mustBeUpdateSearchListData) {
+      Future.delayed(Duration.zero).then((value) async {
+        updateSearchListData();
+      });
+    }
   }
 
   void updateSearchListData() {
@@ -106,13 +142,11 @@ class NavigationNotifier extends _$NavigationNotifier {
   void selectUnit(Unit unit) {
     state = state.copyWith(
       selectedUnit: unit,
-      // selectedOtherContent: null,
       selectedTopic: null,
       selectedPage: null,
       selectedFinalTopic: null,
     );
     _box.write(_kUnit, unit.name);
-    // _box.remove(_kOtherContent);
     _box.remove(_kTopic);
     _box.remove(_kPage);
     _box.remove(_kFinalTopic);
@@ -160,9 +194,6 @@ class NavigationNotifier extends _$NavigationNotifier {
     state = state.copyWith(
       selectedPage: pageContent,
       selectedFinalTopic: finalTopic,
-      // currentTextSegmentsEnglish: CfPublic().parseEnglishContent(results[0]),
-      // currentTextSegmentsPersian: CfPublic().parsePersianContent(results[1]),
-      // currentNoteTextSegments: CfPublic().parsePersianContent(results[2]),
       isLoading: false,
     );
     _box.write(_kPage, pageContent.name);
@@ -197,13 +228,13 @@ class NavigationNotifier extends _$NavigationNotifier {
 
     final books = ref.read(allContentProvider).value;
     final book = books!.firstWhereOrNull(
-      (b) => b.name.contains('قالبهای موقعیتی'),
+      (b) => b.name.contains(state.selectedBook!.name),
     );
     if (book != null) {
-      final unit = book.units.firstWhere((u) => u.name.contains('Band 4–5'));
-      final topic = unit.topics.firstWhere((t) => t.name.contains('Days'));
+      final unit = book.units.firstWhere((u) => u.name.contains('unit'));
+      final topic = unit.topics.firstWhere((t) => t.name.contains('topic'));
       final page = topic.pageContents.firstWhere(
-        (t) => t.name.contains('Day 00'),
+        (t) => t.name.contains('منبع'),
       );
       updateAllContents(books, book, unit, topic, page, finalTopic);
       updateSearchListData();
@@ -296,9 +327,6 @@ class NavigationNotifier extends _$NavigationNotifier {
 
     final newBook = book.copyWith(units: newUnits);
     final newBooks = List<Book>.from(books)..[books.indexOf(book)] = newBook;
-    // final newBooks = List<Book>.from(books);
-    // int idx = books.indexOf(books.where((x) => x.name == newBook.name).first);
-    // newBooks[idx] = newBook;
     await ref.read(allContentProvider.notifier).updateBooks(newBooks);
 
     if (state.selectedFinalTopicSearch == null) {
@@ -360,17 +388,40 @@ class NavigationNotifier extends _$NavigationNotifier {
       state = state.copyWith(selectedFinalTopic: null);
       _box.remove(_kFinalTopic);
     } else if (state.selectedPage != null) {
-      state = state.copyWith(selectedPage: null);
-      _box.remove(_kPage);
+      if (state.selectedBook?.units.length == 1 &&
+          state.selectedBook?.units.first.topics.length == 1 &&
+          state.selectedBook?.units.first.topics.first.pageContents.length ==
+              1) {
+        state = state.copyWith(
+          selectedPage: null,
+          selectedTopic: null,
+          selectedUnit: null,
+          selectedBook: null,
+        );
+        _box.remove(_kPage);
+        _box.remove(_kTopic);
+        _box.remove(_kUnit);
+        _box.remove(_kBook);
+      } else {
+        state = state.copyWith(selectedPage: null);
+        _box.remove(_kPage);
+      }
     } else if (state.selectedTopic != null) {
-      state = state.copyWith(selectedTopic: null);
-      _box.remove(_kTopic);
-    }
-    // else if (state.selectedOtherContent != null) {
-    //   state = state.copyWith(selectedOtherContent: null);
-    //   _box.remove(_kOtherContent);
-    // }
-    else if (state.selectedUnit != null) {
+      if (state.selectedBook?.units.length == 1 &&
+          state.selectedBook?.units.first.topics.length == 1) {
+        state = state.copyWith(
+          selectedTopic: null,
+          selectedUnit: null,
+          selectedBook: null,
+        );
+        _box.remove(_kTopic);
+        _box.remove(_kUnit);
+        _box.remove(_kBook);
+      } else {
+        state = state.copyWith(selectedTopic: null);
+        _box.remove(_kTopic);
+      }
+    } else if (state.selectedUnit != null) {
       state = state.copyWith(selectedUnit: null);
       _box.remove(_kUnit);
     } else if (state.selectedBook != null) {

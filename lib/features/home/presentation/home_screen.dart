@@ -9,6 +9,7 @@ import 'package:ielts_assistant/features/home/providers/navigation_provider.dart
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/final_topic_search_delegate.dart';
+import 'package:ielts_assistant/shared/models/content_models.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -88,6 +89,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ref.read(navigationProvider.notifier).goBack();
       },
       child: SafeArea(
+        top: false,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -138,33 +140,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 icon: Icon(Icons.folder),
                 onPressed: () async {
                   String? previousPath = ref.read(settingsProvider);
-                  String? selectedDirectory = await ref
+                  await ref
                       .read(settingsProvider.notifier)
                       .pickAndSaveDirectory(previousPath);
-                  // if (selectedDirectory != null) {
-                  //   await ref
-                  //       .read(settingsProvider.notifier)
-                  //       .updatePath(selectedDirectory);
-                  //   // await _refreshContents(root: selectedDirectory);
-
-                  //   ref.read(allContentProvider.notifier).refresh();
-                  // }
                 },
                 tooltip: 'انتخاب مسیر',
               ),
             ],
           ),
-          // floatingActionButton: FloatingActionButton(
-          //   heroTag: 'addNewTempelate',
-          //   onPressed: () async {
-          //     if (await CfPublic().getExternalStoragePermissionStatus() == true) {
-          //       _showPopupAddNewTempelate();
-          //     }
-          //   },
-          //   child: Icon(Icons.add),
-          // ),
-          // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          // drawer: const MainDrawer(),
           body: Column(
             children: [
               _buildBreadcrumbs(nav, allContent),
@@ -190,10 +173,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildBreadcrumbs(NavigationState nav, AsyncValue allContent) {
     final List<String> labels = [];
-    if (nav.selectedBook != null) labels.add(nav.selectedBook!.name);
-    if (nav.selectedUnit != null) labels.add(nav.selectedUnit!.name);
-    if (nav.selectedTopic != null) labels.add(nav.selectedTopic!.name);
-    if (nav.selectedPage != null) labels.add(nav.selectedPage!.name);
+    if (nav.selectedBook != null) {
+      labels.add(nav.selectedBook!.name);
+    }
+    if (nav.selectedUnit != null) {
+      if (nav.selectedBook?.units.length == 1 &&
+          nav.selectedBook?.units.first.topics.length == 1) {
+        // labels.add('');
+      } else {
+        labels.add(nav.selectedUnit!.name);
+      }
+    }
+    if (nav.selectedTopic != null) {
+      if (nav.selectedBook?.units.length == 1 &&
+          nav.selectedBook?.units.first.topics.length == 1) {
+        // labels.add('');
+      } else {
+        labels.add(nav.selectedTopic!.name);
+      }
+    }
+    if (nav.selectedPage != null) {
+      if (nav.selectedBook?.units.length == 1 &&
+          nav.selectedBook?.units.first.topics.length == 1 &&
+          nav.selectedBook?.units.first.topics.first.pageContents.length == 1) {
+        // labels.add('');
+      } else {
+        labels.add(nav.selectedPage!.name);
+      }
+    }
     // if (nav.selectedFinalTopic != null) {
     //   labels.add(nav.selectedFinalTopic!.name);
     // }
@@ -213,42 +220,88 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         itemBuilder: (_, i) => Center(
           child: GestureDetector(
             onTap: () {
-              if (i == 0) {
-                if (labels.length > 1) {
-                  ref
-                      .read(navigationProvider.notifier)
-                      .selectBook(nav.selectedBook!);
+              if (nav.selectedBook?.units.length == 1 &&
+                  nav.selectedBook?.units.first.topics.length == 1 &&
+                  nav
+                          .selectedBook
+                          ?.units
+                          .first
+                          .topics
+                          .first
+                          .pageContents
+                          .length ==
+                      1) {
+                if (i == 0) {
+                  if (labels.length > 1) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .selectBook(nav.selectedBook!);
+                  }
                 }
-              } else if (i == 1) {
-                if (labels.length > 2) {
-                  ref
-                      .read(navigationProvider.notifier)
-                      .selectUnit(nav.selectedUnit!);
+              } else if (nav.selectedBook?.units.length == 1 &&
+                  nav.selectedBook?.units.first.topics.length == 1) {
+                if (i == 0) {
+                  if (labels.length > 1) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .selectBook(nav.selectedBook!);
+                  }
+                } else if (i == 1) {
+                  if (labels.length > 2) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .selectPageContent(nav.selectedPage!);
+                  }
                 }
-              } else if (i == 2) {
-                if (labels.length > 3) {
-                  ref
-                      .read(navigationProvider.notifier)
-                      .selectTopic(nav.selectedTopic!);
-                }
-              } else if (i == 3) {
-                if (labels.length > 4) {
-                  ref
-                      .read(navigationProvider.notifier)
-                      .selectPageContent(nav.selectedPage!);
+              } else {
+                if (i == 0) {
+                  if (labels.length > 1) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .selectBook(nav.selectedBook!);
+                  }
+                } else if (i == 1) {
+                  if (labels.length > 2) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .selectUnit(nav.selectedUnit!);
+                  }
+                } else if (i == 2) {
+                  if (labels.length > 3) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .selectTopic(nav.selectedTopic!);
+                  }
+                } else if (i == 3) {
+                  if (labels.length > 4) {
+                    ref
+                        .read(navigationProvider.notifier)
+                        .selectPageContent(nav.selectedPage!);
+                  }
                 }
               }
             },
-            child: Text(
-              labels[i],
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: i == labels.length - 1
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-                color: i == labels.length - 1
-                    ? Colors.blue[800]
-                    : Colors.black54,
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text(
+                labels[i],
+                style: TextStyle(
+                  fontFamily: Theme.of(context).platform == TargetPlatform.iOS
+                      ? '.AppleSystemUIFont'
+                      : 'sans-serif',
+                  fontFamilyFallback: [FontFamily.yekanBakhRegular.asText],
+                  height: 1.2,
+                  leadingDistribution: TextLeadingDistribution.even,
+                  textBaseline: TextBaseline.alphabetic,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 12,
+                  fontWeight: i == labels.length - 1
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                  color: i == labels.length - 1
+                      ? Colors.blue[800]
+                      : Colors.black54,
+                ),
               ),
             ),
           ),
@@ -258,77 +311,58 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget _buildMainContent(NavigationState nav, AsyncValue allContent) {
-    // ۱. نمایش محتوای نهایی (Topic)
-    // if (nav.selectedFinalTopic != null) {
-    //   return Center(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         const Icon(Icons.audiotrack, size: 64, color: Colors.blue),
-    //         const SizedBox(height: 16),
-    //         Text(
-    //           nav.selectedFinalTopic!.name,
-    //           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    //         ),
-    //         const Text('در حال پخش فایل صوتی...'),
-    //       ],
-    //     ),
-    //   );
-    // }
-
-    // ۱. نمایش صفحه (Topic)
-    if (nav.selectedPage != null) {
-      return _buildGrid(
-        title: 'موضوعات نهایی ${nav.selectedPage!.name}',
-        items: nav.selectedPage!.finalTopics.map((e) => e.name).toList(),
-        icon: Icons.description_outlined,
-        onTap: (index) => ref
-            .read(navigationProvider.notifier)
-            .selectFinalTopic(nav.selectedPage!.finalTopics[index]),
-      );
-    }
-
-    // ۱. نمایش موضوع (Topic)
-    if (nav.selectedTopic != null) {
-      return _buildGrid(
-        title: 'صفحات ${nav.selectedTopic!.name}',
-        items: nav.selectedTopic!.pageContents.map((e) => e.name).toList(),
-        icon: Icons.description_outlined,
-        onTap: (index) => ref
-            .read(navigationProvider.notifier)
-            .selectPageContent(nav.selectedTopic!.pageContents[index]),
-      );
-    }
-
-    // ۲. نمایش لیست موضوعات (Topics)
-    if (nav.selectedUnit != null) {
-      return _buildGrid(
-        title: 'موضوعات واحد ${nav.selectedUnit!.name}',
-        items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
-        icon: Icons.description_outlined,
-        onTap: (index) => ref
-            .read(navigationProvider.notifier)
-            .selectTopic(nav.selectedUnit!.topics[index]),
-      );
-    }
-
-    // ۳. نمایش لیست واحدها (Units)
-    if (nav.selectedBook != null) {
-      return _buildGrid(
-        title: 'واحدهای کتاب ${nav.selectedBook!.name}',
-        items: nav.selectedBook!.units.map((e) => e.name).toList(),
-        icon: Icons.folder_open_outlined,
-        onTap: (index) {
-          ref
-              .read(navigationProvider.notifier)
-              .selectUnit(nav.selectedBook!.units[index]);
-        },
-      );
-    }
-
     // ۴. نمایش لیست کتاب‌ها
     return allContent.when(
       data: (books) {
+        // ۱. نمایش صفحه (Topic)
+        if (nav.selectedPage != null) {
+          return _buildGrid(
+            title: 'موضوعات نهایی ${nav.selectedPage!.name}',
+            items: nav.selectedPage!.finalTopics.map((e) => e.name).toList(),
+            icon: Icons.description_outlined,
+            onTap: (index) => ref
+                .read(navigationProvider.notifier)
+                .selectFinalTopic(nav.selectedPage!.finalTopics[index]),
+          );
+        }
+
+        // ۱. نمایش موضوع (Topic)
+        if (nav.selectedTopic != null) {
+          return _buildGrid(
+            title: 'صفحات ${nav.selectedTopic!.name}',
+            items: nav.selectedTopic!.pageContents.map((e) => e.name).toList(),
+            icon: Icons.description_outlined,
+            onTap: (index) => ref
+                .read(navigationProvider.notifier)
+                .selectPageContent(nav.selectedTopic!.pageContents[index]),
+          );
+        }
+
+        // ۲. نمایش لیست موضوعات (Topics)
+        if (nav.selectedUnit != null) {
+          return _buildGrid(
+            title: 'موضوعات واحد ${nav.selectedUnit!.name}',
+            items: nav.selectedUnit!.topics.map((e) => e.name).toList(),
+            icon: Icons.description_outlined,
+            onTap: (index) => ref
+                .read(navigationProvider.notifier)
+                .selectTopic(nav.selectedUnit!.topics[index]),
+          );
+        }
+
+        // ۳. نمایش لیست واحدها (Units)
+        if (nav.selectedBook != null) {
+          return _buildGrid(
+            title: 'واحدهای کتاب ${nav.selectedBook!.name}',
+            items: nav.selectedBook!.units.map((e) => e.name).toList(),
+            icon: Icons.folder_open_outlined,
+            onTap: (index) {
+              ref
+                  .read(navigationProvider.notifier)
+                  .selectUnit(nav.selectedBook!.units[index]);
+            },
+          );
+        }
         if (books.isEmpty) {
           return const Center(
             child: Text('هیچ کتابی در پوشه مورد نظر پیدا نشد.'),
@@ -338,8 +372,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           title: 'کتاب‌های آموزشی',
           items: books.map((e) => e.name).cast<String>().toList(),
           icon: Icons.book_outlined,
-          onTap: (index) =>
-              ref.read(navigationProvider.notifier).selectBook(books[index]),
+          onTap: (index) {
+            ref.read(navigationProvider.notifier).selectBook(books[index]);
+            // if (books[index].units.length == 1 &&
+            //     books[index].units.first.topics.length == 1) {
+            //   Unit unit = books[index].units.first;
+            //   ref.read(navigationProvider.notifier).selectUnit(unit);
+
+            //   Topic topic = unit.topics.first;
+            //   ref.read(navigationProvider.notifier).selectTopic(topic);
+            // }
+          },
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -368,13 +411,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+        //   child: Text(
+        //     title,
+        //     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        //   ),
+        // ),
         Expanded(
           child: GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -407,14 +450,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     const SizedBox(height: 12),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        items[i],
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Text(
+                          items[i],
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily:
+                                Theme.of(context).platform == TargetPlatform.iOS
+                                ? '.AppleSystemUIFont'
+                                : 'sans-serif',
+                            fontFamilyFallback: [
+                              FontFamily.yekanBakhRegular.asText,
+                            ],
+                            height: 1.2,
+                            leadingDistribution: TextLeadingDistribution.even,
+                            textBaseline: TextBaseline.alphabetic,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -427,31 +484,4 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ],
     );
   }
-
-  // Future<void> _refreshContents({String? root}) async {
-  //   final rootPath = root ?? ref.read(settingsProvider) ?? '';
-  //   if (!Directory(rootPath).existsSync()) {
-  //     return;
-  //   }
-  //   final newBooks = await ContentService.scanRootFolder(
-  //     ref.read(settingsProvider)!,
-  //   );
-  //   await ref.read(allContentProvider.notifier).updateBooks(newBooks);
-  //   // Future.delayed(const Duration(seconds: 2)).then((onValue) {
-  //   final books = ref.read(allContentProvider).value;
-  //   if (books != null) {
-  //     ref.read(navigationProvider.notifier).restoreLastState(books);
-  //     Future.microtask(() {
-  //       ref.read(navigationProvider.notifier).restoreLastState(books);
-  //       CfPublic()
-  //           .getSearchListDataAsync(
-  //             ref.read(allContentProvider).value,
-  //             ref.read(navigationProvider),
-  //           )
-  //           .then((result) {
-  //             ref.read(searchListProvider.notifier).state = result;
-  //           });
-  //     });
-  //   }
-  // }
 }
