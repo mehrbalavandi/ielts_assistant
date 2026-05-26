@@ -9,7 +9,6 @@ import 'package:ielts_assistant/features/home/providers/navigation_provider.dart
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';
 import 'package:ielts_assistant/shared/final_topic_search_delegate.dart';
-import 'package:ielts_assistant/shared/models/content_models.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
