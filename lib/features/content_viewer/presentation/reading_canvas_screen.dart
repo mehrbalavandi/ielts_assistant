@@ -5,8 +5,7 @@ import 'package:ielts_assistant/shared/models/models.dart';
 class ReadingCanvasScreen extends StatelessWidget {
   final List<ParagraphData> documentParagraphs; // لیستی که از JSON پارس شده است
 
-  const ReadingCanvasScreen({Key? key, required this.documentParagraphs})
-    : super(key: key);
+  const ReadingCanvasScreen({super.key, required this.documentParagraphs});
 
   @override
   Widget build(BuildContext context) {
