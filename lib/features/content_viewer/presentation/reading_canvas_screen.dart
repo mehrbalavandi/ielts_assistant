@@ -39,83 +39,99 @@ class ReadingCanvasScreen extends StatelessWidget {
   }
 
   Widget _buildParagraph(ParagraphData para, BuildContext context) {
-    // ۱. اگر پاراگراف خالی است (یعنی Enter خالی در Word زده شده)
     if (para.spans.length == 1 && para.spans.first.content == "\n") {
-      return const SizedBox(height: 24); // فاصله عمودی
+      return const SizedBox(height: 24);
     }
 
-    // ۲. پردازش اسپن‌های پاراگراف (متن‌ها و جای‌خالی‌ها)
-    List<InlineSpan> inlineSpans = [];
+    List<Widget> blockElements = []; // برای نگه داشتن جدول‌ها و عکس‌های خطی
+    List<InlineSpan> inlineSpans = []; // برای نگه داشتن متن‌ها
 
     for (var span in para.spans) {
       if (span.type == "text") {
-        // تشخیص جای خالی (Cloze Test)
-        if (span.markers.contains("blank")) {
-          inlineSpans.add(
-            WidgetSpan(
-              alignment: PlaceholderAlignment.middle,
-              child: _buildBlankWidget(
-                span.content,
-              ), // ویجت کاستوم شما برای جای خالی
-            ),
-          );
-        } else {
-          // متن معمولی که ممکن است دارای کلمات تعاملی باشد
-          inlineSpans.addAll(
-            TextRenderEngine.buildInteractiveText(
-              span.content,
-              para.interactives,
-              context,
-            ),
-          );
+        inlineSpans.addAll(
+          TextRenderEngine.buildInteractiveText(
+            span.content,
+            para.interactives,
+            context,
+          ),
+        );
+      } else if (span.type == "table") {
+        // --- پردازش جدول ---
+        // ابتدا اگر متن‌هایی قبل از جدول در این پاراگراف بوده، آن‌ها را به بلاک‌ها اضافه می‌کنیم
+        if (inlineSpans.isNotEmpty) {
+          blockElements.add(_buildRichText(inlineSpans, para.direction));
+          inlineSpans = []; // ریست کردن برای متن‌های بعد از جدول
         }
+
+        // اضافه کردن جدول به بلاک‌ها
+        blockElements.add(_buildTable(span, context));
       }
-      // مدیریت عکس‌ها، جدول‌ها و غیره ...
     }
 
-    // ۳. رندر نهایی پاراگراف به همراه دکمه ترجمه کل پاراگراف
+    // اضافه کردن متن‌های باقی‌مانده (بعد از جدول یا اگر جدولی نبود)
+    if (inlineSpans.isNotEmpty) {
+      blockElements.add(_buildRichText(inlineSpans, para.direction));
+    }
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
         crossAxisAlignment: para.direction == "RTL"
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
-        children: [
-          RichText(
-            textDirection: para.direction == "RTL"
-                ? TextDirection.rtl
-                : TextDirection.ltr,
-            text: TextSpan(
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                height: 1.6,
-              ),
-              children: inlineSpans,
-            ),
-          ),
-
-          // دکمه کوچک برای نمایش ترجمه کل پاراگراف (در صورت وجود)
-          if (para.translationFa != null && para.translationFa!.isNotEmpty)
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.g_translate,
-                  color: Colors.grey,
-                  size: 20,
-                ),
-                onPressed: () {
-                  // نمایش ترجمه کل پاراگراف در یک SnackBar یا Dialog
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(para.translationFa!)));
-                },
-              ),
-            ),
-        ],
+        children: blockElements, // نمایش پشت سر هم متن‌ها و جدول‌ها
       ),
     );
+  }
+
+  // متد کمکی برای رندر متن
+  Widget _buildRichText(List<InlineSpan> spans, String direction) {
+    return RichText(
+      textDirection: direction == "RTL" ? TextDirection.rtl : TextDirection.ltr,
+      text: TextSpan(
+        style: const TextStyle(fontSize: 18, color: Colors.black, height: 1.6),
+        children: spans,
+      ),
+    );
+  }
+
+  // متد کمکی برای رندر جدول (فراخوانی بازگشتی)
+  Widget _buildTable(SpanData tableSpan, BuildContext context) {
+    List<Widget> rowWidgets = [];
+
+    for (var row in tableSpan.tableRows) {
+      List<Widget> cellWidgets = [];
+
+      for (var cell in row.cells) {
+        // محاسبه عرض سلول (استفاده از Expanded با ضریب فِلِکس یا کانتینر با عرض درصدی)
+        // از آنجا که عرض مجازی کانتینر اصلی را قبلاً 800 در نظر گرفتیم:
+        double cellWidth = cell.widthPercent != null
+            ? 800 * (cell.widthPercent! / 100)
+            : 0; // اگر درصد نداشت، می‌توانید از Expanded استفاده کنید
+
+        cellWidgets.add(
+          SizedBox(
+            width: cellWidth > 0 ? cellWidth : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: cell.paragraphs
+                  .map((p) => _buildParagraph(p, context))
+                  .toList(), // <--- فراخوانی بازگشتی!
+            ),
+          ),
+        );
+      }
+
+      rowWidgets.add(
+        Row(
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // سلول‌ها از بالا تراز شوند
+          children: cellWidgets,
+        ),
+      );
+    }
+
+    return Column(children: rowWidgets);
   }
 
   // ویجت جای خالی (Cloze Test)

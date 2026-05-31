@@ -1,0 +1,2064 @@
+[
+  {
+    "PageNumber": 1,
+    "Paragraphs": [
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "UNIT/01: URBAN AND RURAL LIFE\nREADING",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ],
+        "translationFa": "واحد/01: زندگی شهری و روستایی\nخوانش",
+        "translationAr": "الوحدة/01: الحياة الحضرية والريفية\nالقراءة",
+        "Interactives": [
+          {
+            "exactText": "URBAN",
+            "translationFa": "شهری",
+            "translationAr": "حَضري / مدني",
+            "pronounceFa": "اِربِن",
+            "pronounceAr": "أيربان",
+            "explanationFa": "واژه‌ای کلیدی در موضوعات مرتبط با شهرنشینی و جغرافیا در آیلتس که به مناطق شهري اشاره دارد.",
+            "explanationAr": "كلمة رئيسية في مواضيع آيلتس المتعلقة بالمدن والجغرافيا، تشير إلى المناطق الحضرية.",
+            "cefrLevel": "B1"
+          },
+          {
+            "exactText": "RURAL",
+            "translationFa": "روستایی",
+            "translationAr": "ريفي",
+            "pronounceFa": "رورِل",
+            "pronounceAr": "رورال",
+            "explanationFa": "صفت مهمی برای توصیف زندگی، مناطق یا جوامع روستایی که در بخش رایتینگ و ریدینگ آیلتس بسیار پرکاربرد است.",
+            "explanationAr": "صفة مهمة لوصف الحياة أو المناطق الريفية، وتستخدم بكثرة في قسمي الكتابة والقراءة في اختبار آيلتس.",
+            "cefrLevel": "B1"
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderStyle": "BorderValues { }",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+                        "translationFa": "در این واحد شما خواهید آموخت که چگونه",
+                        "translationAr": "في هذه الوحدة سوف تتعلم كيف",
+                        "Interactives": [
+                          {
+                            "exactText": "UNIT",
+                            "translationFa": "واحد (فصل آموزشی)",
+                            "translationAr": "وحدة (فصل دراسي)",
+                            "pronounceFa": "yoo-nit",
+                            "pronounceAr": "يونيت",
+                            "explanationFa": "در ساختار آزمون آیلتس و کتاب‌های آمادگی، برای اشاره به بخش‌ها یا فصل‌های کتاب از این واژه استفاده می‌شود.",
+                            "explanationAr": "في سياق كتب الآيلتس والمناهج التعليمية، تُستخدم هذه الكلمة للإشارة إلى الفصول أو الأجزاء الدراسية.",
+                            "cefrLevel": "B1"
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "• تعامل با تسک‌های تطابق عناوین\n• تشخیص ایده اصلی یک پاراگراف\n• درک مفهوم پیشوندها.",
+"translationAr": "• التعامل مع مهام مطابقة العناوين\n• تحديد الفكرة الرئيسية للفقرة\n• فهم معنى البادئات.",
+"Interactives": [
+  {
+    "exactText": "matching headings",
+    "translationFa": "تطابق عناوین",
+    "translationAr": "مطابقة العناوين",
+    "pronounceFa": "mæch-ing hed-ingz",
+    "pronounceAr": "ماتشينغ هيدينغز",
+    "explanationFa": "یکی از تسک‌های رایج و چالش‌برانگیز در بخش Reading آیلتس که در آن باید عنوان مناسب برای هر پاراگراف را از میان یک لیست انتخاب کنید. کلید موفقیت در آن، درک ایده اصلی (Main Idea) هر پاراگراف است.",
+    "explanationAr": "واحدة من المهام الشائعة والمهمة في قسم القراءة (Reading) في اختبار IELTS، حيث يُطلب منك اختيار العنوان المناسب لكل فقرة من قائمة خيارات. مفتاح الحل هو فهم الفكرة الرئيسية للفقرة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "identify",
+    "translationFa": "تشخیص دادن / شناسایی کردن",
+    "translationAr": "تحديد / التعرف على",
+    "pronounceFa": "ai-den-ti-fai",
+    "pronounceAr": "آيدنتيفاي",
+    "explanationFa": "واژه‌ای آکادمیک و بسیار پرکاربرد در سوالات آیلتس که به معنای یافتن یا تشخیص دادن یک ویژگی، ایده یا اطلاعات خاص در متن است.",
+    "explanationAr": "كلمة أكاديمية شائعة جداً في أسئلة الآيلتس، وتعني العثور على أو تمييز ميزة معينة، فكرة، أو معلومة محددة داخل النص.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "main idea",
+    "translationFa": "ایده اصلی",
+    "translationAr": "الفكرة الرئيسية",
+    "pronounceFa": "mein ai-di-ə",
+    "pronounceAr": "ماين آيديا",
+    "explanationFa": "مفهوم یا پیام مرکزی یک پاراگراف یا متن. در آیلتس، معمولاً با خواندن جمله اول و دوم (Topic Sentence) یا جمله آخر پاراگراف می‌توان به آن پی برد.",
+    "explanationAr": "المفهوم المركزي أو الرسالة الأساسية للفقرة أو النص. في اختبار الآيلتس، يمكن التعرف عليها عادةً من خلال قراءة الجملة الأولى والثانية أو الجملة الأخيرة من الفقرة.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "prefixes",
+    "translationFa": "پیشوندها",
+    "translationAr": "البادئات",
+    "pronounceFa": "priː-fiks-iz",
+    "pronounceAr": "بريفيكسيز",
+    "explanationFa": "حروفی که به ابتدای کلمات اضافه می‌شوند و معنی آن‌ها را تغییر می‌دهند (مانند un- یا multi-). یادگیری پیشوندها به افزایش دایره لغات (Vocabulary) و حدس زدن معنی کلمات جدید در ریدینگ آیلتس کمک شایانی می‌کند.",
+    "explanationAr": "أحرف تُضاف إلى بداية الكلمات لتغيير معناها (مثل un- أو multi-). تعلم البادئات يساعد بشكل كبير في توسيع الحصيلة اللغوية وتخمين معاني الكلمات الجديدة في قراءة الآيلتس.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 50.0
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p1_s1_img1.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 50.0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderStyle": "BorderValues { }",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "01",
+                            "Markers": [
+                              "b",
+                              "sz:13"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by ",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the, ",
+                            "Markers": [
+                              "b",
+                              "i"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "and others have no article. Do you know any other article rules for geographical features?",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "پاراگراف زیر را در مورد جزیره مایورکا بخوانید. با یک هم‌گروهی بحث کنید که چرا برخی از اسم‌هایی که زیر آنها خط کشیده شده است با the شروع می‌شوند و برخی دیگر هیچ آرتیکلی ندارند. آیا قانون دیگری برای آرتیکل‌ها در مورد ویژگی‌های جغرافیایی می‌دانید؟",
+"translationAr": "اقرأ الفقرة أدناه عن جزيرة مايوركا. ناقش مع زميلك سبب ورود بعض الأسماء التي تحتها خط مسبوقة بـ the، بينما لا تسبق أسماء أخرى بأي أداة. هل تعرف أي قواعد أخرى لأدوات التعريف والتنكير المتعلقة بالمعالم الجغرافية؟",
+"Interactives": [
+  {
+    "exactText": "geographical features",
+    "translationFa": "ویژگی‌های جغرافیایی",
+    "translationAr": "المعالم الجغرافية",
+    "pronounceFa": "jee-uh-graf-i-kuhl fee-cherz",
+    "pronounceAr": "جيوغرافيكال فيتشرز",
+    "explanationFa": "در بخش رایتینگ و اسپیکینگ آیلتس (به ویژه تسک 1 آایتلس آکادمیک برای توصیف نقشه‌ها)، شناخت و کاربرد صحیح آرتیکل‌ها برای عوارض و ویژگی‌های جغرافیایی (مانند دریاها، کوه‌ها و جزایر) برای کسب نمره بالا در معیار grammatical range and accuracy بسیار حیاتی است.",
+    "explanationAr": "في اختباري الكتابة والمحادثة في آيلتس (خاصة الجزء الأول الأكاديمي لوصف الخرائط)، يعد الفهم الدقيق لاستخدام أدوات التعريف مع المعالم الجغرافية (مثل البحار، الجبال، والجزر) أمراً ضرورياً لتحقيق درجة عالية في معيار التنوع والدقة القواعدية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "preceded by",
+    "translationFa": "مسبوق به / قبل از آن آمدن",
+    "translationAr": "مسبوقة بـ",
+    "pronounceFa": "pree-seed-id bai",
+    "pronounceAr": "بريسيديد باي",
+    "explanationFa": "یک عبارت ساختاری و کاربردی در متون آکادمیک آیلتس. استفاده از شکل مجهول این فعل (be preceded by) در توصیف فرآیندها (Process Diagrams) یا تحلیل داده‌های متوالی بسیار رایج است.",
+    "explanationAr": "تعبير تركيبي وأكاديمي شائع جداً في آيلتس. استخدام صيغة المبني للمجهول (be preceded by) يفيد كثيراً عند وصف العمليات وتتابع المراحل في الجزء الأول من اختبار الكتابة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "underlined nouns",
+    "translationFa": "اسم‌هایی که زیر آنها خط کشیده شده",
+    "translationAr": "الأسماء التي تحتها خط",
+    "pronounceFa": "un-der-laind naunz",
+    "pronounceAr": "أندرلاند ناونز",
+    "explanationFa": "کالوکیشن کاربردی در محیط‌های آموزشی و آزمونی. کلمه underline به عنوان فعل یا صفت مفعولی برای اشاره به کلمات کلیدی یا بخش‌های مهم متن به کار می‌رود که در پارت 3 اسپیکینگ یا بخش ریدینگ آیلتس شنیده می‌شود.",
+    "explanationAr": "متلازمة لفظية تستخدم بكثرة في السياقات التعليمية واختبارات القراءة. الكلمة underline تستخدم للإشارة إلى التركيز على الكلمات المفتاحية المهمة.",
+    "cefrLevel": "B1"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Mallorca, the biggest of the Balearic Islands, is situated in the Mediterranean Sea, some 300km from the Valencian coast of Spain, and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with the Spanish as a tourist destination, it annually welcomes people from all over Europe (particularly from the United Kingdom, France and Germany), who may head for Alcudia Beach, or go hiking in the Tramuntanas, a mountain range that runs from the northeast to the southwest of the island. The busy capital city, Palma de Mallorca, contrasts entirely with the traditional rural towns and villages in the heart of the island, such as Algaida or Binissalem.",
+                            "Markers": [
+                              "u"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "مایورکا، بزرگ‌ترین جزیره از جزایر بالئاریک، در دریای مدیترانه و در فاصله حدود 300 کیلومتری از سواحل والنسیای اسپانیا واقع شده است و ترکیبی هیجان‌انگیز از انرژی شهری، ماجراجویی روستایی و آرامش ساحلی است.\nاگرچه این جزیره به عنوان یک مقصد گردشگری در میان خود اسپانیایی‌ها محبوبیت چندانی ندارد، اما سالانه پذیرای مردمی از سراسر اروپا (به‌ویژه از بریتانیا، فرانسه و آلمان) است که ممکن است راهی ساحل آلکودیا شوند یا به پیاده‌روی و کوهنوردی در ترامونتانا بروند؛ رشته‌کوهی که از شمال شرقی تا جنوب غربی جزیره امتداد دارد.\nپالما د مایورکا، پایتخت شلوغ و پرجنب‌وجوش آن، تضاد کاملی با شهرها و روستاهای سنتی و روستایی در قلب جزیره، مانند آلگایدا یا بینیسالم دارد.",
+"translationAr": "تقع مايوركا، وهي أكبر جزر البليار، في البحر الأبيض المتوسط، على بعد حوالي 300 كم من ساحل فالنسيا في إسبانيا، وتتميز بمزيج مثير من الطاقة الحضرية والمغامرة الريفية والهدوء الساحلي.\nعلى الرغم من أنها لا تحظى بشعبية كبيرة لدى الإسبان كوجهة سياحية، إلا أنها تستقبل سنوياً زواراً من جميع أنحاء أوروبا (خاصة من المملكة المتحدة وفرنسا وألمانيا)، والذين قد يتوجهون إلى شاطئ ألكوديا، أو يذهبون لممارسة رياضة المشي لمسافات طويلة في ترامونتانا، وهي سلسلة جبلية تمتد من الشمال الشرقي إلى الجنوب الغربي من الجزيرة.\nوتتناقض العاصمة المزدحمة، بالما دي مايوركا، تماماً مع البلدات والقرى الريفية التقليدية في قلب الجزيرة، مثل ألغايدا أو بينيساليم.",
+"Interactives": [
+  {
+    "exactText": "situated in",
+    "translationFa": "واقع شده در",
+    "translationAr": "واقع في / يقع في",
+    "pronounceFa": "سیتچوئیتِد این",
+    "pronounceAr": "سيتشويتد إن",
+    "explanationFa": "یک ساختار مجهول رسمی و پرکاربرد در رایتینگ آیلتس (تسک 1 و 2) برای توصیف موقعیت جغرافیایی مکان‌ها به جای استفاده مکرر از located.",
+    "explanationAr": "صيغة مبنية للمجهول رسمية ومفيدة جداً في اختبار الكتابة لآيلتس لوصف الموقع الجغرافي كبديل ممتاز لكلمة located.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "an exciting mix of",
+    "translationFa": "ترکیبی هیجان‌انگیز از",
+    "translationAr": "مزيج مثير من",
+    "pronounceFa": "اَن ایکسایتینگ میکس آو",
+    "pronounceAr": "أن إكسايتينغ ميكس أوف",
+    "explanationFa": "عبارت یا کالوکیشن بسیار مناسب برای توصیف جاذبه‌ها، فرهنگ‌ها یا ویژگی‌های یک شهر یا کشور در اسپیکینگ آیلتس (پارت 1 و 2).",
+    "explanationAr": "متلازمة لفظية ممتازة لوصف الثقافات أو المدن في اختبار المحادثة لآيلتس، تضفي حيوية على الوصف.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "urban energy",
+    "translationFa": "پویایی و انرژی شهری",
+    "translationAr": "الطاقة الحضرية / حيوية المدينة",
+    "pronounceFa": "آربِن اِنِرجی",
+    "pronounceAr": "أيربان إنرجي",
+    "explanationFa": "کالوکیشن سطح بالا (Topic vocabulary) مرتبط با موضوع شهرنشینی و جغرافیا که نشان‌دهنده پویایی و شلوغی مثبت یک شهر است.",
+    "explanationAr": "متلازمة لفظية متقدمة تتعلق بالمدن والحياة الحضرية، ممتازة لإظهار تنوع المفردات في مواضيع السياحة والمدن.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "tourist destination",
+    "translationFa": "مقصد گردشگری",
+    "translationAr": "وجهة سياحية",
+    "pronounceFa": "توریست دِستینِیشن",
+    "pronounceAr": "توريست دِستينيشن",
+    "explanationFa": "یک واژه موضوعی کلیدی (Topic-specific vocabulary) برای موضوعات گردشگری و سفر در هر دو بخش رایتینگ و اسپیکینگ آیلتس.",
+    "explanationAr": "مفردة محورية متكررة جداً في مواضيع السفر والسياحة في آيلتس، وتعتبر بديل أكاديمي لـ tourist place.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "annually",
+    "translationFa": "سالانه / هر سال",
+    "translationAr": "سنوياً",
+    "pronounceFa": "اَنیووالی",
+    "pronounceAr": "أنيوالي",
+    "explanationFa": "قید آکادمیک بسیار مفید برای جایگزینی عبارت ساده every year در رایتینگ تسک 1 و 2.",
+    "explanationAr": "ظرف أكاديمي رسمي يستخدم كبديل ممتاز لعبارة every year في الكتابة الأكاديمية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "mountain range",
+    "translationFa": "رشته‌کوه",
+    "translationAr": "سلسلة جبلية",
+    "pronounceFa": "ماونتِن رِینج",
+    "pronounceAr": "ماونتن رينج",
+    "explanationFa": "کالوکیشن دقیق جغرافیایی. در آیلتس استفاده از لغات ترکیبی دقیق مثل رشته‌کوه به جای صرفاً mountains نمره بخش مفردات را افزایش می‌دهد.",
+    "explanationAr": "متلازمة جغرافية دقيقة. استخدام مصطلحات محددة مثل هذه يرفع نمرتك في معيار المفردات (Lexical Resource).",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "contrasts entirely with",
+    "translationFa": "تضاد کاملی دارد با / کاملاً متفاوت است از",
+    "translationAr": "يتناقض تماماً مع / يختلف كلياً عن",
+    "pronounceFa": "کِنترَستس اینتایرلی ویذ",
+    "pronounceAr": "كونتراستس إنتايرلي وذ",
+    "explanationFa": "ساختار ترکیبی فوق‌العاده قوی برای بیان تضاد و مقایسه در رایتینگ آیلتس (به ویژه تسک 1 در مقایسه نمودارها یا نقشه‌ها).",
+    "explanationAr": "تركيب لغوي قوي جداً للمقارنة وإظهار التناقض، مفيد للغاية في الكتابة الأكاديمية لوصف التباين بين شيئين.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "in the heart of",
+    "translationFa": "در قلبِ / در مرکزِ",
+    "translationAr": "في قلب / في وسط",
+    "pronounceFa": "این ذَ هارت آو",
+    "pronounceAr": "إن ذا هارت أوف",
+    "explanationFa": "یک اصطلاح (Idiomatic expression) رایج و طبیعی برای توصیف موقعیت‌های مرکزی که در اسپیکینگ نمره بالایی دارد.",
+    "explanationAr": "تعبير مجازي طبيعي وشائع يُستخدم لوصف المواقع المركزية، ممتاز لرفع نمرة التحدث (Speaking).",
+    "cefrLevel": "B2"
+  }
+]                        
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 54.65
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p1_s1_img2.jpeg",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.09
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "02",
+                            "Markers": [
+                              "b",
+                              "sz:13"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "بخش شمال غربی اسکاتلند که به ارتفاعات شهرت دارد، یکی از خیره‌کننده‌ترین مناطق در بریتانیا است.\nاین منطقه که با کوه‌های ناهموار و دریاچه‌های عمیق احاطه شده است، سالانه هزاران گردشگر را به خود جذب می‌کند.\nبرای یک مسافر، پیاده‌روی در این کوه‌ها تجربه بی‌نظیری از مواجهه با حیات وحش دست‌نخورده را رقم می‌زند.",
+"translationAr": "تعد المنطقة الشمالية الغربية من اسكتلندا، والمعروفة باسم المرتفعات، واحدة من أكثر المناطق روعة في المملكة المتحدة.\nتتميز هذه المنطقة بالجبال الوعرة والبحيرات العميقة، وتجذب آلاف السياح سنوياً.\nبالنسبة للمسافر، فإن المشي لمسافات طويلة في هذه الجبال يوفر تجربة فريدة لمواجهة الحياة البرية البكر.",
+"Interactives": [
+  {
+    "exactText": "the Highlands",
+    "translationFa": "ارتفاعات (منطقه‌ای کوهستانی در اسکاتلند)",
+    "translationAr": "المرتفعات",
+    "pronounceFa": "the High-landz",
+    "pronounceAr": "ذا هايلاندز",
+    "explanationFa": "نکته آیلتس: برای نام‌های جغرافیایی که به صورت جمع هستند (مثل زنجیره کوه‌ها یا مناطق خاص مانند Highlands) حتماً باید از حرف تعریف معین 'the' استفاده شود.",
+    "explanationAr": "ملاحظة آيلتس: بالنسبة للأسماء الجغرافية التي تأتي بصيغة الجمع (مثل سلاسل الجبال أو مناطق معينة كـ Highlands)، يجب دائماً استخدام أداة التعريف 'the'.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "the United Kingdom",
+    "translationFa": "بریتانیا (پادشاهی متحده)",
+    "translationAr": "المملكة المتحدة",
+    "pronounceFa": "the You-night-ed King-dom",
+    "pronounceAr": "ذا يونايتد كينغدوم",
+    "explanationFa": "نکته آیلتس: کشورهایی که در نام خود کلماتی مثل Kingdom، Republic یا States دارند، برخلاف بیشتر کشورها حتماً نیازمند 'the' هستند.",
+    "explanationAr": "ملاحظة آيلتس: الدول التي تحتوي أسماؤها على كلمات مثل Kingdom أو Republic أو States تحتاج دائماً إلى 'the'، على عكس معظم الدول الأخرى.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "rugged mountains",
+    "translationFa": "کوه‌های ناهموار / صخره‌ای",
+    "translationAr": "الجبال الوعرة",
+    "pronounceFa": "rug-id moun-tinz",
+    "pronounceAr": "راغيد ماونتينز",
+    "explanationFa": "یک کالوکیشن (تلازم کلماتی) بسیار عالی برای توصیف طبیعت و جغرافیا در بخش Speaking و Writing آیلتس. توجه کنید که برای اسامی جمع عام در حالت کلی از حرف تعریف استفاده نمی‌شود.",
+    "explanationAr": "متلازمة لفظية ممتازة لوصف الطبيعة والجغرافيا في قسمي المحادثة والكتابة في آيلتس. لاحظ أن الأسماء الجمع العامة لا تأخذ أداة تعريف في الحالة العامة.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "a traveler",
+    "translationFa": "یک مسافر (به صورت عام)",
+    "translationAr": "مسافر (بشكل عام)",
+    "pronounceFa": "a trav-el-er",
+    "pronounceAr": "أ ترافيلير",
+    "explanationFa": "استفاده از حرف تعریف نامعین 'a' برای اشاره به یک فرد یا شیء به عنوان نماینده‌ای از یک گروه کل در ساختارهای تعمیمی آزمون آیلتس.",
+    "explanationAr": "استخدام أداة التنكير 'a' للإشارة إلى شخص أو شيء كممثل لمجموعة كاملة في جمل التعميم باختبار آيلتس.",
+    "cefrLevel": "B1"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 54.65
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.09
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "MATCHING HEADINGS",
+                            "Markers": [
+                              "b",
+                              "fn:Verdana",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "تطابق عناوین",
+"translationAr": "مطابقة العناوين",
+"Interactives": [
+  {
+    "exactText": "MATCHING HEADINGS",
+    "translationFa": "تطابق عناوین",
+    "translationAr": "مطابقة العناوين",
+    "pronounceFa": "mæʧɪŋ hedɪŋz",
+    "pronounceAr": "ماتشينغ هيدينغز",
+    "explanationFa": "یکی از انواع سوالات مهم در بخش ریدینگ آیلتس که در آن باید عنوان مناسب برای هر پاراگراف متن را از میان یک لیست انتخاب کنید. این سوالات مهارت درک ایده اصلی (Skimming) را می‌سنجند.",
+    "explanationAr": "أحد أنواع الأسئلة المهمة في قسم القراءة باختبار آيلتس، حيث يجب عليك اختيار العنوان المناسب لكل فقرة من قائمة الخيارات. يقيس هذا السؤال مهارة فهم الفكرة العامة (Skimming).",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 54.65
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.09
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "03",
+                            "Markers": [
+                              "b",
+                              "sz:13"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
+                            "Markers": [
+                              "b",
+                              "fn:Verdana",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 54.65
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.09
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The World’s Most\nunusual Towns and\nCities",
+                            "Markers": [
+                              "b",
+                              "fn:*Times New Roman-Bold-7729-Iden",
+                              "sz:27"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "به این عنوان نگاه کنید و با یک هم‌گروهی درباره آنچه که انتظار دارید در متن بخوانید، بحث کنید.",
+"translationAr": "انظر إلى هذا العنوان وناقش مع زميلك ما تتوقع قراءته في النص.",
+"Interactives": [
+  {
+    "exactText": "expect to",
+    "translationFa": "انتظار داشتن برای",
+    "translationAr": "يتوقع أن",
+    "pronounceFa": "ɪkˈspekt tuː",
+    "pronounceAr": "إكسبكت تو",
+    "explanationFa": "یک ساختار گرامری پرکاربرد برای بیان پیش‌بینی‌ها که در بخش اسپیکینگ و رایتینگ آیلتس بسیار مفید است.",
+    "explanationAr": "تركيب قواعدي شائع للتعبير عن التوقعات، وهو مفيد جداً في قسمي التحدث والكتابة في اختبار الآيلتس.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "passage",
+    "translationFa": "متن (معمولاً طولانی یا آکادمیک)",
+    "translationAr": "النص / القطعة القرائية",
+    "pronounceFa": "ˈpæs.ɪdʒ",
+    "pronounceAr": "باسيج",
+    "explanationFa": "واژه استاندارد آزمون آیلتس برای اشاره به متن‌های بخش ریدینگ (Reading Passages).",
+    "explanationAr": "المصطلح القياسي المستخدم في اختبار الآيلتس للإشارة إلى نصوص قسم القراءة.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 54.65
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "◎ ",
+                            "Markers": [
+                              "i",
+                              "fn:Segoe UI Emoji",
+                              "sz:7"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                            "Markers": [
+                              "i",
+                              "c:050605",
+                              "fn:Verdana",
+                              "sz:9"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "topic sentence.",
+                            "Markers": [
+                              "i",
+                              "c:050605",
+                              "fn:Verdana",
+                              "sz:7"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "این نوع تمرین از شما می‌خواهد عنوانی را انتخاب کنید که کل پاراگراف را به درستی خلاصه‌سازی کند.\nاغلب، امکان یافتن جمله‌ای در پاراگراف وجود دارد که ایده اصلی را منتقل می‌کند - این جمله به عنوان جمله موضوعی شناخته می‌شود.",
+"translationAr": "يتطلب منك هذا النوع من المهام اختيار عنوان يلخص الفقرة بأكملها بشكل صحيح.\nغالباً، يكون من الممكن العثور على جملة واحدة في الفقرة تعبر عن الفكرة الرئيسية - وتعرف هذه بالجملة الافتتاحية.",
+"Interactives": [
+  {
+    "exactText": "summarises",
+    "translationFa": "خلاصه‌سازی می‌کند",
+    "translationAr": "يلخص",
+    "pronounceFa": "samaraizes",
+    "pronounceAr": "سامارايزيز",
+    "explanationFa": "در ریدینگ آیلتس، توانایی شناسایی خلاصه یک متن بسیار حیاتی است. این فعل بریتانیایی (با پسوند ses) برای بیان فشرده‌سازی مفاهیم به کار می‌رود.",
+    "explanationAr": "في اختبار القراءة لآيلتس، تعد القدرة على تحديد ملخص النص أمراً حيوياً. يستخدم هذا الفعل البريطاني (بلاحقة ses) للتعبير عن تكثيف المفاهيم.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "conveys",
+    "translationFa": "منتقل می‌کند",
+    "translationAr": "تعبر عن / تنقل",
+    "pronounceFa": "kanveiz",
+    "pronounceAr": "كانفيز",
+    "explanationFa": "یک واژه آکادمیک بسیار کاربردی در آیلتس (به ویژه رایتینگ تاسک 2) به معنای رساندن، بیان کردن یا منتقل کردن یک مفهوم، احساس یا ایده.",
+    "explanationAr": "كلمة أكاديمية مفيدة جداً في آيلتس (خاصة في الكتابة المهمة 2) وتعني إيصال أو التعبير عن أو نقل مفهوم أو شعور أو فكرة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "topic sentence",
+    "translationFa": "جمله موضوعی",
+    "translationAr": "الجملة الافتتاحية / الجملة الرئيسية",
+    "pronounceFa": "topik sentans",
+    "pronounceAr": "توبيك سينتانس",
+    "explanationFa": "اصطلاحی کلیدی در ساختار پاراگراف‌نویسی رایتینگ آیلتس. جمله‌ای است که ایده اصلی یک پاراگراف را مطرح می‌کند و معمولاً در ابتدای آن می‌آید.",
+    "explanationAr": "مصطلح رئيسي في بنية كتابة الفقرات في آيلتس. وهي الجملة التي تطرح الفكرة الرئيسية للفقرة وتأتي عادة في بدايتها.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "textbox",
+                            "Markers": [],
+                            "InnerSpans": [
+                              {
+                                "Type": "text",
+                                "Content": "@",
+                                "Markers": [
+                                  "fn:Gadugi",
+                                  "sz:15"
+                                ],
+                                "InnerSpans": [],
+                                "TableRows": []
+                              }
+                            ],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
+                            "Markers": [
+                              "c:050505",
+                              "sz:9"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "@ جمله موضوعی (تاپیک سنتنس) اغلب در ابتدای پاراگراف یافت می‌شود، اما می‌تواند در وسط یا حتی در انتهای آن نیز ظاهر شود. گاهی اوقات ممکن است یک پاراگراف اصلاً یک جمله موضوعی واحد و واضح نداشته باشد و ایده اصلی آن تنها با خواندن کامل پاراگراف قابل درک باشد.",
+"translationAr": "@ غالباً ما توجد الجملة المحورية في بداية الفقرة، ولكن يمكن أن تظهر في المنتصف، أو حتى في النهاية. في بعض الأحيان، قد لا تحتوي الفقرة على جملة محورية واحدة واضحة على الإطلاق، ولا يمكن فهم الفكرة الرئيسية إلا من خلال قراءة الفقرة كاملة.",
+"Interactives": [
+  {
+    "exactText": "topic sentence",
+    "translationFa": "جمله موضوعی",
+    "translationAr": "الجملة المحورية / جملة الموضوع",
+    "pronounceFa": "taapik sentens",
+    "pronounceAr": "توبيك سينتنس",
+    "explanationFa": "جمله‌ای که ایده اصلی یک پاراگراف را بیان می‌کند و ساختار رایتینگ شما را برای ممتحن آیلتس شفاف می‌سازد.",
+    "explanationAr": "الجملة التي تعبر عن الفكرة الرئيسية للفقرة، وهي أساسية لـ IELTS Writing لضمان وضوح الأفكار.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "frequently",
+    "translationFa": "اغلب / به دفعات",
+    "translationAr": "غالباً / تكراراً",
+    "pronounceFa": "frikwentli",
+    "pronounceAr": "فريكوانتلي",
+    "explanationFa": "قید آکادمیک و جایگزینی عالی برای often جهت افزایش نمره واژگان (Lexical Resource) در آیلتس.",
+    "explanationAr": "ظرف أكاديمي بديل ممتاز لـ often لرفع درجة المفردات (Lexical Resource) في اختبار الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "appear",
+    "translationFa": "ظاهر شدن / آمدن",
+    "translationAr": "تظهر",
+    "pronounceFa": "أپیر",
+    "pronounceAr": "أبير",
+    "explanationFa": "فعل رسمی که در بخش‌های ریدینگ و رایتینگ آیلتس برای توصیف حضور یا پیدایش یک پدیده کاربرد دارد.",
+    "explanationAr": "فعل رسمي مستخدم في أقراء وكتابة الآيلتس لوصف ظهور أو تواجد شيء ما.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "main idea",
+    "translationFa": "ایده اصلی / مفهوم محوری",
+    "translationAr": "الفكرة الرئيسية",
+    "pronounceFa": "مین اایدیا",
+    "pronounceAr": "ماين أيديا",
+    "explanationFa": "مفهوم کلیدی در سوالات ریدینگ آیلتس (مانند Matching Headings) که باید بتوانید آن را در پاراگراف تشخیص دهید.",
+    "explanationAr": "مفهوم أساسي في أسئلة القراءة (مثل Matching Headings) حيث يجب عليك تحديد الفكرة العامة للفقرة.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "in full",
+    "translationFa": "به طور کامل / کامل",
+    "translationAr": "كاملةً / بالكامل",
+    "pronounceFa": "ین فول",
+    "pronounceAr": "إن فول",
+    "explanationFa": "یک عبارت حرفه‌ای (Collocation) به معنای کاملاً، که ساختار جملات شما را نیتیو‌تر نشان می‌دهد.",
+    "explanationAr": "تعبير متلازم (Collocation) يعني بالكامل، يضفي طابعاً طبيعياً (Native) على أسلوبك في الكتابة.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 39.09
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 2,
+    "Paragraphs": [
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderStyle": "BorderValues { }",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "04",
+                            "Markers": [
+                              "b",
+                              "sz:13"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the first sentence of a paragraph about the city of Auroville, India. It is the topic sentence. Which of the three options seems to be the most likely heading? Why?",
+                            "Markers": [
+                              "b",
+                              "c:070606"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "جمله اول یک پاراگراف در مورد شهر اورویل، هند را بخوانید. این جمله، جمله موضوعی (تاپیک سنتنس) است. کدام یک از سه گزینه به نظر می‌رسد محتمل‌ترین عنوان باشد؟ چرا؟",
+"translationAr": "اقرأ الجملة الأولى من فقرة عن مدينة أوروفيل، الهند. إنها الجملة الافتتاحية (الموضوعية). أي من الخيارات الثلاثة يبدو أنه العنوان الأكثر احتمالاً؟ ولماذا؟",
+"Interactives": [
+  {
+    "exactText": "topic sentence",
+    "translationFa": "جمله موضوعی",
+    "translationAr": "الجملة الافتتاحية",
+    "pronounceFa": "taapik sentens",
+    "pronounceAr": "tūbik sintins",
+    "explanationFa": "در رایتینگ آیلتس، این جمله ایده اصلی و مرکزی یک پاراگراف را بیان می‌کند و معمولاً اولین جمله است.",
+    "explanationAr": "في كتابة الآيلتس، تعبر هذه الجملة عن الفكرة الرئيسية للفقرة، وغالباً ما تكون الجملة الأولى.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "likely heading",
+    "translationFa": "عنوان محتمل",
+    "translationAr": "عنوان محتمل",
+    "pronounceFa": "laykli heding",
+    "pronounceAr": "laikli hiding",
+    "explanationFa": "اشاره به بخش Heading Matching در آزمون ریدینگ آیلتس دارد که باید مناسب‌ترین عنوان را برای پاراگراف انتخاب کنید.",
+    "explanationAr": "تشير إلى قسم مطابقة العناوين في اختبار القراءة للآيلتس، حيث يجب اختيار العنوان الأنسب للفقرة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "options",
+    "translationFa": "گزینه‌ها",
+    "translationAr": "خيارات",
+    "pronounceFa": "apshanz",
+    "pronounceAr": "obshanz",
+    "explanationFa": "در سؤالات چندگزینه‌ای (Multiple Choice) آیلتس بسیار کاربرد دارد و به گزینه‌های انتخابی اشاره می‌کند.",
+    "explanationAr": "تُستخدم بكثرة في أسئلة الاختيار من متعدد في الآيلتس، وتشير إلى البدائل المتاحة للاختيار.",
+    "cefrLevel": "B1"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
+                            "Markers": [
+                              "c:000307",
+                              "bg:0099CC",
+                              "fn:Tahoma",
+                              "sz:9"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "در دنیای امروز که پر از درگیری، طمع و تلاش‌های مداوم برای کسب قدرت است، آروویل",
+"translationAr": "في عالم اليوم المليء بالصراعات والجشع والصراعات المستمرة من أجل السلطة، أوروفيل",
+"Interactives": [
+  {
+    "exactText": "conflict",
+    "translationFa": "درگیری / مناقشه",
+    "translationAr": "صراع / نزاع",
+    "pronounceFa": "/kɒnflɪkt/",
+    "pronounceAr": "/kɒnflɪkt/",
+    "explanationFa": "یک واژه آکادمیک کلیدی برای بخش رایتینگ و اسپیکینگ آیلتس در موضوعات اجتماعی و بین‌المللی.",
+    "explanationAr": "مفردة أكاديمية رئيسية لقسمي الكتابة والمحادثة في آيلتس عند مناقشة القضايا الاجتماعية والدولية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "greed",
+    "translationFa": "طمع / حرص",
+    "translationAr": "جشع / طمع",
+    "pronounceFa": "/ɡriːd/",
+    "pronounceAr": "/ɡriːd/",
+    "explanationFa": "اسم توصیفی مناسب برای موضوعات مربوط به مادی‌گرایی، اقتصاد و روانشناسی در آزمون آیلتس.",
+    "explanationAr": "اسم وصفي مناسب لمواضيع المادية والاقتصاد وعلم النفس في اختبار آيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "constant struggles for power",
+    "translationFa": "تلاش‌های مداوم برای کسب قدرت",
+    "translationAr": "الصراعات المستمرة من أجل السلطة",
+    "pronounceFa": "/ˈkɒnstənt ˈstrʌɡəlz fɔː ˈpaʊə/",
+    "pronounceAr": "/ˈkɒnstənt ˈstrʌɡəlz fɔː ˈpaʊə/",
+    "explanationFa": "یک عبارت ترکیبی (Collocation) بسیار سطح بالا و نمره‌آور برای موضوعات سیاسی، تاریخ و جامعه‌شناسی.",
+    "explanationAr": "تعبير تركيبي (Collocation) عالي المستوى ومميز للمواضيع السياسية والتاريخية والاجتماعية.",
+    "cefrLevel": "C1"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be ",
+                            "Markers": [
+                              "b",
+                              "c:000307",
+                              "bg:0099CC",
+                              "fn:Tahoma",
+                              "sz:9"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "projected across all humanity.",
+                            "Markers": [
+                              "b",
+                              "c:000207",
+                              "bg:0099CC",
+                              "fn:Tahoma",
+                              "sz:9"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "- که به آن «شهر سپیده‌دم» نیز می‌گویند - در وب‌سایت خود ادعا می‌کند که برای ایجاد مظهر نهایی اتحاد، صلح و هماهنگی برنامه‌ریزی و ساخته شده است تا بتوان آن را به کل بشریت تعمیم داد.",
+"translationAr": "- المعروفة أيضاً باسم «مدينة الفجر» - تدعي على موقعها الإلكتروني أنها خُططت وبُنيت لتكون النموذج الأمثل للوحدة والسلام والانسجام الذي يمكن تعميمه على البشرية جمعاء.",
+"Interactives": [
+  {
+    "exactText": "claims",
+    "translationFa": "ادعا می‌کند",
+    "translationAr": "تدعي",
+    "pronounceFa": "kleymz",
+    "pronounceAr": "kleymz",
+    "explanationFa": "فعل مهم در رایتینگ آیلتس (Task 2) برای ارجاع به نظرات دیگران بدون تایید قطعی آن‌ها.",
+    "explanationAr": "فعل مهم في كتابة الأيلتس (مهمة 2) للإشارة إلى آراء الآخرين دون تأكيدها بشكل قاطع.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "ultimate",
+    "translationFa": "نهایی / غایی / مظهر",
+    "translationAr": "الأمثل / الأسمى",
+    "pronounceFa": "al-ti-mat",
+    "pronounceAr": "al-ti-mat",
+    "explanationFa": "صفتی عالی برای توصیف بهترین یا مهم‌ترین حالت یک چیز در موضوعات انتزاعی آیلتس.",
+    "explanationAr": "صفة ممتازة لوصف الحالة الأفضل أو الأهم لشيء ما في مواضيع الأيلتس التجريدية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "harmony",
+    "translationFa": "هماهنگی / هم‌زیستی مسالمت‌آمیز",
+    "translationAr": "الانسجام / التناغم",
+    "pronounceFa": "haa-muh-ni",
+    "pronounceAr": "haa-muh-ni",
+    "explanationFa": "واژه‌ای آکادمیک و ارزشمند برای موضوعات مربوط به جامعه، فرهنگ و روابط انسانی.",
+    "explanationAr": "كلمة أكاديمية وقيمة للمواضيع المتعلقة بالمجتمع، الثقافة، والعلاقات الإنسانية.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "projected",
+    "translationFa": "تعمیم دادن / به تصویر کشیدن",
+    "translationAr": "تعميمه / إسقاطه",
+    "pronounceFa": "pruh-jek-tid",
+    "pronounceAr": "pruh-jek-tid",
+    "explanationFa": "در این بافت به معنای انتقال و گسترش دادن یک ایده یا الگو به سطحی وسیع‌تر است.",
+    "explanationAr": "تأتي هنا بمعنى نقل ونشر فكرة أو نموذج ليغطي نطاقاً أوسع.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "humanity",
+    "translationFa": "بشریت / جامعه انسانی",
+    "translationAr": "البشرية / الإنسانية",
+    "pronounceFa": "hyoo-man-uh-ti",
+    "pronounceAr": "hyoo-man-uh-ti",
+    "explanationFa": "کلمه‌ای سطح بالا و مناسب برای جایگزینی عبارات تکراری مثل 'people' در موضوعات جهانی.",
+    "explanationAr": "كلمة راقية ومناسبة لاستبدال العبارات المكررة مثل 'people' في المواضيع العالمية.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 69.24
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.51
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p2_s1_img3.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.24
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.51
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A The reason why attempts to create the perfect city always fail\nB An urban ideal designed for an imperfect world\n",
+                            "Markers": [
+                              "c:110E0D",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "C A conflict between reality and imitation",
+                            "Markers": [
+                              "c:120F0E",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "A دلیل اینکه چرا تلاش‌ها برای ساختن یک شهر بی‌نقص همیشه با شکست مواجه می‌شوند\nB یک ایده آل شهری طراحی‌شده برای یک جهان ناقص\nC یک تضاد میان واقعیت و تقلید",
+"translationAr": "A السبب في أن محاولات إنشاء المدينة المثالية تبوء دائماً بالفشل\nB نموذج حضري مثالي مصمم لعالم غير مثالي\nC صراع بين الواقع والتقليد",
+"Interactives": [
+  {
+    "exactText": "attempts to create",
+    "translationFa": "تلاش‌ها برای ساختن",
+    "translationAr": "محاولات إنشاء",
+    "pronounceFa": "اتمتس تو کریت",
+    "pronounceAr": "أتمبتس تو كرييت",
+    "explanationFa": "ترکیب اسمی کاربردی در رایتینگ آیلتس (Task 2) برای صحبت در مورد اقدامات و راهکارها.",
+    "explanationAr": "تركيب اسمي مفيد في كتابة آيلتس (التاسك 2) للتحدث عن الإجراءات والحلول.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "fail",
+    "translationFa": "با شکست مواجه شدن",
+    "translationAr": "تبوء بالفشل",
+    "pronounceFa": "فیل",
+    "pronounceAr": "فيل",
+    "explanationFa": "فعل کلیدی در موضوعات اجتماعی و مدیریتی آیلتس برای توصیف عدم موفقیت پروژه‌ها یا سیاست‌ها.",
+    "explanationAr": "فعل أساسي في مواضيع آيلتس الاجتماعية والإدارية لوصف عدم نجاح المشاريع أو السياسات.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "urban ideal",
+    "translationFa": "ایده آل شهری",
+    "translationAr": "نموذج حضري مثالي",
+    "pronounceFa": "اربن ایدیل",
+    "pronounceAr": "أيربان آيديال",
+    "explanationFa": "کالوکیشن بسیار قوی و آکادمیک برای موضوعات شهرسازی (Urbanization) در آزمون آیلتس.",
+    "explanationAr": "متلازمة لفظية قوية وأكاديمية لمواضيع التخطيط العمراني في اختبار الآيلتس.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "imperfect world",
+    "translationFa": "جهان ناقص",
+    "translationAr": "عالم غير مثالي",
+    "pronounceFa": "امپرفکت ورد",
+    "pronounceAr": "إمبيرفيكت ويرلد",
+    "explanationFa": "عبارت توصیفی پیشرفته مناسب برای بخش‌های تحلیلی و فلسفی در رایتینگ و ریدینگ آیلتس.",
+    "explanationAr": "عبارة وصفية متقدمة مناسبة للأقسام التحليلية والفلسفية في القراءة والكتابة في الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "conflict",
+    "translationFa": "تضاد / کشمکش",
+    "translationAr": "صراع / تناقض",
+    "pronounceFa": "کانفلیکت",
+    "pronounceAr": "كونفليكت",
+    "explanationFa": "واژه آکادمیک کلیدی برای بیان اختلافات، تضادها و چالش‌ها در بحث‌های تحلیلی آیلتس.",
+    "explanationAr": "كلمة أكاديمية رئيسية للتعبير عن الخلافات والتناقضات والتحديات في مناقشات الآيلتس التحليلية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "imitation",
+    "translationFa": "تقلید",
+    "translationAr": "التقليد / المحاكاة",
+    "pronounceFa": "امیتیشن",
+    "pronounceAr": "إميتيشـن",
+    "explanationFa": "اسم آکادمیک مفيد در موضوعات هنر، معماری، فرهنگ و روانشناسی در آزمون آیلتس.",
+    "explanationAr": "اسم أكاديمي مفيد في مواضيع الفن، الهندسة المعمارية، الثقافة وعلم النفس في اختبار الآيلتس.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 69.24
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.51
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "05",
+                            "Markers": [
+                              "b",
+                              "sz:13"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the full paragraph and check your answer.",
+                            "Markers": [
+                              "b",
+                              "c:110E0D",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "متن کامل پاراگراف را بخوانید و پاسخ خود را بررسی کنید.",
+"translationAr": "اقرأ الفقرة كاملة وتحقق من إجابتك.",
+"Interactives": [
+  {
+    "exactText": "full paragraph",
+    "translationFa": "متن کامل پاراگراف",
+    "translationAr": "الفقرة كاملة",
+    "pronounceFa": "فول پَرَگراف",
+    "pronounceAr": "فول باراغراف",
+    "explanationFa": "در آزمون آیلتس (به‌ویژه بخش Reading)، خواندن کامل یک پاراگراف برای درک ایده اصلی (Main Idea) و پاسخ به سوالات Matching Headings ضروری است.",
+    "explanationAr": "في اختبار آيلتس (خاصة قسم القراءة)، قراءة الفقرة كاملة ضرورية لفهم الفكرة الرئيسية والإجابة على أسئلة مطابقة العناوين.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "check your answer",
+    "translationFa": "پاسخ خود را بررسی کنید",
+    "translationAr": "تحقق من إجابتك",
+    "pronounceFa": "چک یوآر آنسِر",
+    "pronounceAr": "تشيك يور آنسر",
+    "explanationFa": "یک مهارت حیاتی در مدیریت زمان آیلتس؛ اختصاص دادن چند دقیقه پایانی آزمون برای بررسی املا (Spelling) و گرامر پاسخ‌ها.",
+    "explanationAr": "مهارة حيوية في إدارة وقت الآيلتس؛ تخصيص الدقائق الأخيرة من الاختبار للتحقق من الإملاء والقواعد.",
+    "cefrLevel": "B1"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
+                            "Markers": [
+                              "c:110E0D",
+                              "bg:0099CC",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "در دنیای امروز که پر از درگیری، طمع و تلاش‌های مداوم برای کسب قدرت است، اورویل",
+"translationAr": "في عالم اليوم المليء بالصراعات والجشع والصراعات المستمرة من أجل السلطة، أوروفيل",
+"Interactives": [
+  {
+    "exactText": "conflict",
+    "translationFa": "درگیری",
+    "translationAr": "صراعات",
+    "pronounceFa": "kon-flikt",
+    "pronounceAr": "كونفليكت",
+    "explanationFa": "تضاد یا جنگ؛ واژه‌ای کاربردی در رایتینگ آیلتس برای توصیف چالش‌های اجتماعی و جهانی.",
+    "explanationAr": "خلاف أو نزاع؛ كلمة مفيدة في كتابة الآيلتس لوصف التحديات الاجتماعية والعالمية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "greed",
+    "translationFa": "طمع",
+    "translationAr": "الجشع",
+    "pronounceFa": "greed",
+    "pronounceAr": "غريد",
+    "explanationFa": "میل شدید به مادیات؛ مناسب برای موضوعات اخلاقی، اقتصادی و مصرف‌گرایی در آیلتس.",
+    "explanationAr": "رغبة شديدة في المواد؛ مناسبة لمواضيع الأخلاق والاقتصاد والاستهلاك في الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "constant struggles",
+    "translationFa": "تلاش‌های مداوم / کشمکش‌های پی‌درپی",
+    "translationAr": "الصراعات المستمرة",
+    "pronounceFa": "kon-stent stra-gəlz",
+    "pronounceAr": "كونستانت ستراغلز",
+    "explanationFa": "یک کالوکیشن قوی به معنای چالش‌ها و تلاش‌های بی‌وقفه برای رسیدن به یک هدف یا بقا.",
+    "explanationAr": "متلازمة لفظية قوية تعني التحديات والجهود المستمرة لتحقيق هدف ما أو البقاء.",
+    "cefrLevel": "C1"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be projected across all humanity. It has no government, no one owns any property, and money rarely, if ever, changes hands. There is no leader and rules do not exist. While most experiments at creating the perfect city do not meet with success, the majority of Auroville's residents believe their city to be an exception. Although its critics point to the fact that levels of crime",
+                            "Markers": [
+                              "c:110E0D",
+                              "bg:0099CC",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "ـ که به عنوان «شهر سپیده‌دم» نیز شناخته می‌شود ـ در وب‌سایت خود ادعا می‌کند که برای ایجاد مظهر غایی وحدت، صلح و هماهنگی برنامه‌ریزی و ساخته شده است تا بتوان آن را به کل بشریت تعمیم داد.\nاین شهر هیچ دولتی ندارد، هیچ‌کس مالک هیچ ملکی نیست و پول به‌ندرت، اگر اصلاً اتفاق بیفتد، دست‌به‌دست می‌شود.\nهیچ رهبری وجود ندارد و قوانینی وضع نشده است.\nاگرچه بیشتر تلاش‌های تجربی برای ایجاد یک شهر بی‌نقص با موفقیت روبرو نمی‌شوند، اکثریت ساکنان اوروویل بر این باورند که شهر آن‌ها یک استثنا است.\nهرچند منتقدان آن به این واقعیت اشاره می‌کنند که میزان جرم و جنایت",
+"translationAr": "- المعروفة أيضاً باسم \"مدينة الفجر\" - تدعي على موقعها الإلكتروني أنها خُططت وبُنيت لخلق النموذج الأسمى للوحدة والسلام والانسجام الذي يمكن تعميمه على البشرية جمعاء.\nلا يوجد بها حكومة، ولا أحد يملك أي عقار، والمال نادراً ما يتداول، إن حدث ذلك أصلاً.\nلا يوجد قائد ولا توجد قوانين.\nوفي حين أن معظم التجارب لإنشاء المدينة الفاضلة لا تكلل بالنجاح، فإن غالبية سكان أوروفيل يعتقدون أن مدينتهم تشكل استثناءً.\nرغم أن نقادها يشيرون إلى حقيقة أن مستويات الجريمة",
+"Interactives": [
+  {
+    "exactText": "ultimate model",
+    "translationFa": "مظهر غایی / الگوی نهایی",
+    "translationAr": "النموذج الأسمى / المثال النهائي",
+    "pronounceFa": "al-ti-mat mo-dal",
+    "pronounceAr": "ألْتيميت مۆديل",
+    "explanationFa": "ترکیب فوق‌العاده برای رایتینگ آیلتس جهت توصیف بهترین یا بالاترین سطح از یک ساختار یا ایده.",
+    "explanationAr": "تعبير ممتاز للكتابة في الآيلتس لوصف أفضل أو أعلى مستوى من الهيكل أو الفكرة.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "harmony",
+    "translationFa": "هماهنگی / هم‌زیستی مسالمت‌آمیز",
+    "translationAr": "الانسجام / التناغم",
+    "pronounceFa": "haar-ma-nee",
+    "pronounceAr": "هارموني",
+    "explanationFa": "واژه‌ای آکادمیک و کلیدی در موضوعات جامعه‌شناسی و محیط زیست در آیلتس.",
+    "explanationAr": "كلمة أكاديمية رئيسية لمواضيع علم الاجتماع والبيئة في اختبار الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "projected across",
+    "translationFa": "تعمیم دادن به / منعکس کردن بر",
+    "translationAr": "تعميمه على / إسقاطه على",
+    "pronounceFa": "pra-jek-tid a-kros",
+    "pronounceAr": "بروجيكتِد أكروس",
+    "explanationFa": "فعل عبارتی آکادمیک به معنای انتقال یا گسترش یک ایده یا مفهوم به یک سطح وسیع‌تر.",
+    "explanationAr": "فعل أكاديمي يعني نقل أو توسيع فكرة أو مفهوم ليشمل نطاقاً أوسع.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "property",
+    "translationFa": "ملک / دارایی",
+    "translationAr": "عقار / ممتلكات",
+    "pronounceFa": "pra-par-tee",
+    "pronounceAr": "بروبَرتي",
+    "explanationFa": "واژه رسمی و کاربردی در موضوعات ثروت، مسکن و اقتصاد در آزمون آیلتس.",
+    "explanationAr": "كلمة رسمية ومفيدة لمواضيع الثروة، الإسكان، والاقتصاد في الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "changes hands",
+    "translationFa": "دست‌به‌دست شدن (پول یا کالا)",
+    "translationAr": "يتداول / ينتقل من يد ليد",
+    "pronounceFa": "chein-jiz handz",
+    "pronounceAr": "تشينجِز هاندز",
+    "explanationFa": "اصطلاحی پیشرفته (Idiom) بسیار مناسب برای اسپیکینگ جهت توصیف معاملات مالی و تجاری.",
+    "explanationAr": "تعبير اصطلاحي متقدم ممتاز للمحادثة بوصف المعاملات المالية والتجارية.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "experiments",
+    "translationFa": "تلاش‌های تجربی / آزمایش‌ها",
+    "translationAr": "التجارب",
+    "pronounceFa": "ik-spe-ri-ments",
+    "pronounceAr": "إكسبيريمِنتس",
+    "explanationFa": "کلمه کلیدی آکادمیک که در بخش ریدینگ و رایتینگ آیلتس (موضوعات علمی و اجتماعی) فراوان دیده می‌شود.",
+    "explanationAr": "كلمة أكاديمية رئيسية تتكرر بكثرة في أقراء القراءة والكتابة للآيلتس (المواضيع العلمية والاجتماعية).",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "exception",
+    "translationFa": "استثنا",
+    "translationAr": "استثناء",
+    "pronounceFa": "ik-sep-shn",
+    "pronounceAr": "إكسبشن",
+    "explanationFa": "واژه‌ای ضروری برای ساختارهای مقایسه‌ای و تحلیل داده‌ها در آیلتس.",
+    "explanationAr": "كلمة ضرورية للتراكيب المقارنة وتحليل البيانات في الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "critics",
+    "translationFa": "منتقدان",
+    "translationAr": "النقاد / المعارضون",
+    "pronounceFa": "kri-tiks",
+    "pronounceAr": "كريتيكس",
+    "explanationFa": "واژه‌ای کلیدی برای بیان دیدگاه‌های مخالف در رایتینگ تسک 2 (بحث و تبادل نظر).",
+    "explanationAr": "كلمة رئيسية للتعبير عن الآراء المعارضة في كتابة المهمة الثانية (المناقشة وطرح الآراء).",
+    "cefrLevel": "B2"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "have been creeping up for some years now, its citizens choose to remain there, still believing in its utopian dream, still following its path towards a better world.",
+                            "Markers": [
+                              "c:110E0D",
+                              "bg:0099CC",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "برای چندین سال است که این روند به آرامی در حال افزایش بوده است، با این حال شهروندانش ترجیح می‌دهند در آنجا بمانند، چرا که هنوز به رویای آرمان‌شهری آن باور دارند و همچنان مسیر آن را به سوی جهانی بهتر دنبال می‌کنند.",
+"translationAr": "لقد كانت هذه الوتيرة تتصاعد تدريجيًا منذ عدة سنوات، ومع ذلك يختار مواطنوها البقاء هناك، لا يزالون يؤمنون بحلمها المدني المثالي، ولا يزالون يتبعون مسارها نحو عالم أفضل.",
+"Interactives": [
+  {
+    "exactText": "creeping up",
+    "translationFa": "به آرامی افزایش یافتن (خزیدن به بالا)",
+    "translationAr": "التصاعد تدريجيًا (الارتفاع ببطء)",
+    "pronounceFa": "kree-ping ap",
+    "pronounceAr": "كريبينغ أب",
+    "explanationFa": "این اصطلاح برای توصیف افزایش تدریجی، آرام و گاهی نامحسوس مقادیر، قیمت‌ها یا نرخ‌ها به کار می‌رود و در بخش رایتینگ آیلتس (توصیف نمودارها) بسیار کاربردی است.",
+    "explanationAr": "يُستخدم هذا التعبير لوصف الزيادة التدريجية والبطيئة في القيم أو الأسعار، وهو مفيد جدًا في قسم الكتابة (IELTS Writing) لوصف الرسوم البيانية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "utopian dream",
+    "translationFa": "رویای آرمان‌شهری (مدینه فاضله)",
+    "translationAr": "حلم مدني مثالي (يوتوبيا)",
+    "pronounceFa": "yoo-toh-pee-uhn dreem",
+    "pronounceAr": "يوتوبيان دريم",
+    "explanationFa": "ترکیبی عالی برای توصیف ایده‌ها یا نقشه‌هایی که بیش از حد کامل و ایده‌آل هستند اما در واقعیت غیرممکن به نظر می‌رسند. برای موضوعات اجتماعی و فلسفی در آیلتس سطح بالا محسوب می‌شود.",
+    "explanationAr": "تعبير ممتاز لوصف الأفكار أو الخطط المثالية للغاية التي قد يصعب تحقيقها في الواقع. ممتاز لمواضيع المجتمع والفلسفة في اختبار الآيلتس.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "path towards a better world",
+    "translationFa": "مسیر به سوی جهانی بهتر",
+    "translationAr": "مسار نحو عالم أفضل",
+    "pronounceFa": "paath tuh-wawdz uh be-tuh wuhld",
+    "pronounceAr": "باث تووردز أ بيتار وورلد",
+    "explanationFa": "یک عبارت بلاغی و کالوکیشن قوی برای صحبت درباره توسعه پایدار، پیشرفت جوامع و اهداف بلندمدت انسانی در رایتینگ تسک 2 و اسپیکینگ.",
+    "explanationAr": "عبارة بلاغية قوية ومتلازمة لفظية ممتازة للتحدث عن التنمية المستدامة، تقدم المجتمعات والأهداف البشرية طويلة المدى في قسمي الكتابة والمحادثة.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 69.24
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "TIP 05",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "نکته 05",
+"translationAr": "النصيحة 05",
+"Interactives": []                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The heading you want will probably not use the same words as those which appear in the paragraph, but will paraphrase the ideas.",
+                            "Markers": [
+                              "c:0E0D0F",
+                              "sz:9"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "عنوان انتخابی شما احتمالاً از همان کلماتی که در پاراگراف آمده است استفاده نخواهد کرد، بلکه ایده‌ها را به زبان دیگری بازگو (نقل قول مستقیم/پارافریز) می‌کند.",
+"translationAr": "من المحتمل أن العنوان الذي تريده لن يستخدم نفس الكلمات التي تظهر في الفقرة، ولكنه سيعيد صياغة الأفكار.",
+"Interactives": [
+  {
+    "exactText": "heading",
+    "translationFa": "عنوان",
+    "translationAr": "عنوان",
+    "pronounceFa": "heding",
+    "pronounceAr": "hidinji",
+    "explanationFa": "در ریدینگ آیلتس، پیدا کردن heading مناسب برای پاراگراف‌ها یکی از تسک‌های رایج (Matching Headings) است که نیاز به درک ایده اصلی دارد.",
+    "explanationAr": "في قراءة آيلتس، يعد العثور على heading مناسب للفقرات إحدى المهام الشائعة التي تتطلب فهم الفكرة الرئيسية.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "paraphrase",
+    "translationFa": "نقل قول غیرمستقیم کردن / به زبان دیگر بیان کردن",
+    "translationAr": "يعيد صياغة",
+    "pronounceFa": "părăfreyz",
+    "pronounceAr": "بارافريز",
+    "explanationFa": "مهارت بازنویسی متن با کلمات جدید بدون تغییر معنا؛ این کلیدی‌ترین مهارت برای موفقیت در هر 4 بخش آزمون آیلتس است.",
+    "explanationAr": "مهارة إعادة كتابة النص بكلمات جديدة دون تغيير المعنى؛ وهي مهارة أساسية للنجاح في جميع أقسام اختبار آيلتس الـ 4.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.51
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "06",
+                            "Markers": [
+                              "b",
+                              "sz:13"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read this opening sentence about Longyearbyen. Which heading seems to fit this sentence best?",
+                            "Markers": [
+                              "b",
+                              "c:060403"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "این جمله آغازین درباره لانگیربین را بخوانید. به نظر شما کدام عنوان برای این جمله مناسب‌تر است؟",
+"translationAr": "اقرأ هذه الجملة الافتتاحية عن لونغياربين. أي عنوان يبدو أنه يناسب هذه الجملة بشكل أفضل؟",
+"Interactives": [
+  {
+    "exactText": "opening sentence",
+    "translationFa": "جمله آغازین",
+    "translationAr": "الجملة الافتتاحية",
+    "pronounceFa": "oh-pning sen-tens",
+    "pronounceAr": "أوبنينغ سينتينس",
+    "explanationFa": "در رایتینگ آیلتس، جمله آغازین یا 'Hook' نقش بسیار مهمی در جذب مخاطب و معرفی موضوع پاراگراف دارد.",
+    "explanationAr": "في كتابة الآيلتس، الجملة الافتتاحية تلعب دوراً هاماً في جذب القارئ وتقديم موضوع الفقرة.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "heading",
+    "translationFa": "عنوان",
+    "translationAr": "عنوان اصلی / رأس",
+    "pronounceFa": "hed-ing",
+    "pronounceAr": "هيدينغ",
+    "explanationFa": "یکی از انواع سوالات کلیدی در بخش ریدینگ آیلتس، Matching Headings (تطابق عناوین با پاراگراف‌ها) است که مهارت درک ایده اصلی را می‌سنجد.",
+    "explanationAr": "أحد أنواع الأسئلة الرئيسية في قسم القراءة باختبار الآيلتس هو مطابقة العناوين، والذي يقيس مهارة فهم الفكرة العامة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "fit",
+    "translationFa": "مناسب بودن / جور بودن",
+    "translationAr": "يناسب / يلائم",
+    "pronounceFa": "fit",
+    "pronounceAr": "فيت",
+    "explanationFa": "در آزمون آیلتس، پیدا کردن گزینه‌ای که بهترین تطابق (fit) را با متن داشته باشد، نیازمند شناسایی کلمات مترادف و پارافریزهاست.",
+    "explanationAr": "في اختبار الآيلتس، العثور على الخيار الذي يناسب النص بشكل أفضل يتطلب تحديد الكلمات المترادفة وإعادة الصياغة.",
+    "cefrLevel": "B1"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Longyearbyen, Norway, holds the record for being the furthest north city in the world, boasting the world's most northerly school, airport and university.",
+                            "Markers": [
+                              "bg:0099CC",
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "لانگیربین، نروژ، رکورد شمالی‌ترین شهر جهان را در اختیار دارد و از شمالی‌ترین مدرسه، فرودگاه و دانشگاه جهان بهره می‌برد.",
+"translationAr": "تحمل لونغياربين، النرويج، الرقم القياسي لكونها المدينة الأكثر شمالاً في العالم، وتضم المدرسة والمطار والجامعة الأكثر شمالاً في العالم.",
+"Interactives": [
+  {
+    "exactText": "holds the record",
+    "translationFa": "رکورد را در اختیار دارد",
+    "translationAr": "تحمل الرقم القياسي",
+    "pronounceFa": "hōldz dhe rek-awd",
+    "pronounceAr": "huldz dhi ri-kurd",
+    "explanationFa": "یک عبارت کاربردی در رایتینگ و اسپیکینگ آیلتس برای توصیف آمار و ارقام بی‌نظیر.",
+    "explanationAr": "تعبير شائع في آيلتس لوصف الأرقام القياسية أو الإحصائيات الفريدة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "boasting",
+    "translationFa": "بهره می‌برد (دارا بودن ویژگی برجسته‌ای که به آن افتخار شود)",
+    "translationAr": "تضم / تفتخر بوجود",
+    "pronounceFa": "bō-sting",
+    "pronounceAr": "bust-ing",
+    "explanationFa": "در متون آکادمیک و توصیفی آیلتس به جای have برای اشاره به داشتن ویژگی‌های متمایز و ارزشمند استفاده می‌شود.",
+    "explanationAr": "تُستخدم في الكتابة الأكاديمية بدلاً من 'have' للإشارة إلى امتلاك ميزة فريدة أو قيمة.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "northerly",
+    "translationFa": "شمالی",
+    "translationAr": "شمالي",
+    "pronounceFa": "naw-dhuh-lee",
+    "pronounceAr": "nor-dhar-li",
+    "explanationFa": "صفت پیشرفته برای جهت جغرافیایی شمال، مناسب برای بخش جغرافیا و توصیف مکان‌ها در آیلتس.",
+    "explanationAr": "صفة متقدمة للاتجاه الجغرافي الشمالي، مفيدة لوصف المواقع في اختبار آيلتس.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A An unwelcoming place to die",
+                            "Markers": [
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+                        "translationFa": "مکانی ناخوشایند برای مردن",
+                        "translationAr": "مكان غير ترحيبي للموت",
+                        "Interactives": [
+                          {
+                            "exactText": "unwelcoming",
+                            "translationFa": "ناخوشایند (غیر صمیمی)",
+                            "translationAr": "غير ترحيبي (عدائي)",
+                            "pronounceFa": "an-wel-kuh-ming",
+                            "pronounceAr": "an-wel-ka-ming",
+                            "explanationFa": "این صفت برای توصیف مکان‌ها یا رفتارهایی به کار می‌رود که حس صمیمیت و راحتی به فرد نمی‌دهند. در رایتینگ آیلتس برای توصیف فضاها یا محیط‌های سرد و بی‌روح کاربرد دارد.",
+                            "explanationAr": "تُستخدم هذه الصفة لوصف الأماكن أو السلوكيات التي لا توحي بالراحة أو الود. مفيدة في اختبار آيلتس لوصف الأجواء الباردة أو غير المضيافة.",
+                            "cefrLevel": "B2"
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B A city at the top of the world",
+                            "Markers": [
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "B شهری در بام جهان",
+"translationAr": "B مدينة في قمة العالم",
+"Interactives": [
+  {
+    "exactText": "at the top of the world",
+    "translationFa": "در بام جهان (در بالاترین نقطه زمین)",
+    "translationAr": "في قمة العالم (في أعلى نقطة)",
+    "pronounceFa": "æt ðə tɒp əv ðə wɜːld",
+    "pronounceAr": "أت ذا توب أوف ذا وورلد",
+    "explanationFa": "یک اصطلاح تصویری و پیشرفته (C1) که در رایتینگ و اسپیکینگ آیلتس برای توصیف موقعیت‌های جغرافیایی بسیار مرتفع یا حس غرور و موفقیت زیاد استفاده می‌شود.",
+    "explanationAr": "تعبير مجازي متقدم (C1) يُستخدم في اختبار آيلتس لوصف المواقع الجغرافية الشاهقة أو للتعبير عن الشعور بالفخر والنجاح الشديد.",
+    "cefrLevel": "C1"
+  }
+]                                                
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C An unusual approach to regulation",
+                            "Markers": [
+                              "sz:10"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "ج. رویکردی غیرعادی در زمینه مقررات‌گذاری",
+"translationAr": "ج. نهج غير مألوف في التنظيم",
+"Interactives": [
+  {
+    "exactText": "unusual approach",
+    "translationFa": "رویکرد غیرعادی",
+    "translationAr": "نهج غير مألوف",
+    "pronounceFa": "an-yoo-zhoo-al uh-prowch",
+    "pronounceAr": "أن يوجوال أبروتش",
+    "explanationFa": "ترکیب صفت و اسم کاربردی در رایتینگ آیلتس برای توصیف روش‌های نوین، غیرسنتی یا خلاقانه در حل مسائل.",
+    "explanationAr": "تركيبة ممتازة لكتابة الآيلتس لوصف أساليب مبتكرة أو غير تقليدية لحل المشكلات.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "regulation",
+    "translationFa": "مقررات‌گذاری (تنظیم قوانین)",
+    "translationAr": "التنظيم (وضع القوانين)",
+    "pronounceFa": "reg-yuh-lay-shuhn",
+    "pronounceAr": "ريغ يولاي شن",
+    "explanationFa": "یک واژه رسمی و آکادمیک، بسیار رایج در موضوعات مربوط به دولت، محیط زیست و کسب‌وکار در آیلتس.",
+    "explanationAr": "كلمة رسمية وأكاديمية شائعة جداً في مواضيع الآيلتس المتعلقة بالحكومة، البيئة، والأعمال.",
+    "cefrLevel": "B2"
+  }
+]                        
+                      }
+                    ],
+                    "WidthPercent": 69.24
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "TIP 06",
+                            "Markers": [
+                              "b"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+"translationFa": "نکته 06",
+"translationAr": "النصيحة 06",
+"Interactives": [
+  {
+    "exactText": "TIP",
+    "translationFa": "نکته (توصیه کاربردی)",
+    "translationAr": "نصيحة / فكرة مفيدة",
+    "pronounceFa": "tip",
+    "pronounceAr": "tip",
+    "explanationFa": "در آزمون آیلتس، این واژه معمولاً به توصیه‌های کلیدی و استراتژی‌های کوچک اما سرنوشت‌ساز برای کسب نمره بهتر اشاره دارد.",
+    "explanationAr": "في سياق الآيلتس، تُشير هذه الكلمة إلى النصائح الاستراتيجية القصيرة التي تساعد في تحسين الأداء وتجنب الأخطاء الشائعة.",
+    "cefrLevel": "B1"
+  }
+]                        
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Be careful: sometimes the first sentence of a paragraph seems to fit entirely with one particular heading. However, don't be caught out - you still need to check by reading the whole paragraph.",
+                            "Markers": [
+                              "c:0E0D0F",
+                              "sz:9"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
+                        "translationFa": "مراقب باشید: گاهی اوقات به نظر می‌رسد جمله اول یک پاراگراف کاملاً با یک عنوان خاص همخوانی دارد. با این حال، فریب نخورید - شما هنوز هم باید با خواندن کل پاراگراف، صحت آن را بررسی کنید.",
+                        "translationAr": "كن حذرًا: في بعض الأحيان يبدو أن الجملة الأولى من الفقرة تتطابق تمامًا مع عنوان معين. ومع ذلك، لا تدع ذلك يخدعك - فلا تزال بحاجة إلى التحقق من خلال قراءة الفقرة بأكملها.",
+                        "Interactives": [
+                          {
+                            "exactText": "Be careful",
+                            "translationFa": "مراقب باشید",
+                            "translationAr": "كن حذرًا",
+                            "pronounceFa": "بی کِئفول",
+                            "pronounceAr": "بي كيرفول",
+                            "explanationFa": "عبارتی برای جلب توجه مخاطب و هشدار دادن در مورد یک خطای رایج، بسیار کاربردی در بخش Listening و Reading آیلتس.",
+                            "explanationAr": "عبارة لجذب انتباه المستمع والتحذير من خطأ شائع، مفيدة جدًا في قسمي الاستماع والقراءة في آيلتس.",
+                            "cefrLevel": "B1"
+                          },
+                          {
+                            "exactText": "particular heading",
+                            "translationFa": "عنوان خاص",
+                            "translationAr": "عنوان معين",
+                            "pronounceFa": "پَتیکیولَ هِدینگ",
+                            "pronounceAr": "باتيكيولار هيدينغ",
+                            "explanationFa": "یک کالوکیشن بسیار رایج در سوالات Heading Matching در آزمون ریدینگ آیلتس.",
+                            "explanationAr": "متلازمة لفظية شائعة جدًا في أسئلة مطابقة العناوين (Heading Matching) في اختبار القراءة (Reading) في آيلتس.",
+                            "cefrLevel": "B2"
+                          },
+                          {
+                            "exactText": "caught out",
+                            "translationFa": "فریب خوردن / دچار اشتباه شدن",
+                            "translationAr": "يقع في الفخ / يُخدع",
+                            "pronounceFa": "کوت آوت",
+                            "pronounceAr": "كوت آوت",
+                            "explanationFa": "یک Phrasal Verb به معنای غافلگیر شدن یا گرفتار یک تله یا اشتباه پنهان شدن؛ در ساختارهای آکادمیک آیلتس برای توصیف چالش‌ها استفاده می‌شود.",
+                            "explanationAr": "فعل مركب يعني الوقوع في خطأ بسبب الغفلة أو مواجهة تلميح مخادع؛ يُستخدم لوصف التحديات في سياق آيلتس الأكاديمي.",
+                            "cefrLevel": "C1"
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.51
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  }
+]
