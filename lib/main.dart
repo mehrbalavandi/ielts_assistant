@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/home/presentation/home_screen.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
         //rtl
       ),
-      home: HomeScreen(),
+      home: ReadingCanvasScreen(documentParagraphs: []),
     );
   }
 }

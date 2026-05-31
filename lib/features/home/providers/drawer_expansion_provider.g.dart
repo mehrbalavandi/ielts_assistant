@@ -10,11 +10,11 @@ part of 'drawer_expansion_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(DrawerExpansion)
-const drawerExpansionProvider = DrawerExpansionProvider._();
+final drawerExpansionProvider = DrawerExpansionProvider._();
 
 final class DrawerExpansionProvider
     extends $NotifierProvider<DrawerExpansion, Map<String, String?>> {
-  const DrawerExpansionProvider._()
+  DrawerExpansionProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$DrawerExpansion extends $Notifier<Map<String, String?>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<Map<String, String?>, Map<String, String?>>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$DrawerExpansion extends $Notifier<Map<String, String?>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

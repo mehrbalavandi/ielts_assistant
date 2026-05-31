@@ -39,8 +39,8 @@ class SettingsNotifier extends _$SettingsNotifier {
                   await Directory(previousPath).exists()) {
                 existPreviousPath = true;
               }
-              final String? selectedDirectory = await FilePicker.platform
-                  .getDirectoryPath(
+              final String? selectedDirectory =
+                  await FilePicker.getDirectoryPath(
                     initialDirectory: existPreviousPath ? previousPath : null,
                   );
 
@@ -62,10 +62,9 @@ class SettingsNotifier extends _$SettingsNotifier {
           if (previousPath != null && await Directory(previousPath).exists()) {
             existPreviousPath = true;
           }
-          final String? selectedDirectory = await FilePicker.platform
-              .getDirectoryPath(
-                initialDirectory: existPreviousPath ? previousPath : null,
-              );
+          final String? selectedDirectory = await FilePicker.getDirectoryPath(
+            initialDirectory: existPreviousPath ? previousPath : null,
+          );
 
           result = selectedDirectory;
           if (selectedDirectory != null) {

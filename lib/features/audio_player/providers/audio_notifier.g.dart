@@ -10,10 +10,10 @@ part of 'audio_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(Player)
-const playerProvider = PlayerProvider._();
+final playerProvider = PlayerProvider._();
 
 final class PlayerProvider extends $NotifierProvider<Player, PlayerState> {
-  const PlayerProvider._()
+  PlayerProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,7 +47,6 @@ abstract class _$Player extends $Notifier<PlayerState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<PlayerState, PlayerState>;
     final element =
         ref.element
@@ -57,6 +56,6 @@ abstract class _$Player extends $Notifier<PlayerState> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

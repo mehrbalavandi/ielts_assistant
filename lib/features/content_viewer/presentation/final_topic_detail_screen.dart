@@ -105,7 +105,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
       // استفاده از پروایدر به صورت family
       // دقت کنید که topicId را داخل پرانتز جلوی پروایدر می‌نویسیم
       final revealedBlankStates = ref.watch(
-        revealedBlanksProvider(selectedFinalTopicSearch.name),
+        revealedBlankProvider(selectedFinalTopicSearch.name),
       );
       final isManualFinalTopic =
           // (widget.originalContent?.book.name.contains('قالبهای AI') ?? false) &&
@@ -220,7 +220,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
         ),
       );
       final revealedBlankStates = ref.watch(
-        revealedBlanksProvider(selectedFinalTopic.name),
+        revealedBlankProvider(selectedFinalTopic.name),
       );
       final isManualFinalTopic = (selectedBook!.name == 'قالبهای متفرقه');
       return PopScope(
@@ -1108,7 +1108,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     String finalTopicId = (selectedFinalTopicSearch != null)
         ? selectedFinalTopicSearch.name
         : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
+    final revealedBlankStates = ref.watch(revealedBlankProvider(finalTopicId));
 
     final blankStatus = revealedBlankStates[index] ?? RevealedBlankStatus.hide;
     final bool isBlankSegment = (segment.isBlank == true) ? true : false;
@@ -1151,7 +1151,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           currentRecognizer = TapGestureRecognizer()
             ..onTap = () {
               ref
-                  .read(revealedBlanksProvider(finalTopicId).notifier)
+                  .read(revealedBlankProvider(finalTopicId).notifier)
                   .toggleStatus(index!);
             };
           childrenSpans.addAll(
@@ -1348,7 +1348,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
     String finalTopicId = (selectedFinalTopicSearch != null)
         ? selectedFinalTopicSearch.name
         : selectedFinalTopic!.name;
-    final revealedBlankStates = ref.watch(revealedBlanksProvider(finalTopicId));
+    final revealedBlankStates = ref.watch(revealedBlankProvider(finalTopicId));
 
     final blankStatus = revealedBlankStates[index] ?? RevealedBlankStatus.hide;
     final bool isBlankSegment = (segment.isBlank == true) ? true : false;
@@ -1393,7 +1393,7 @@ class _TopicDetailScreenState extends ConsumerState<FinalTopicDetailScreen> {
           currentRecognizer = TapGestureRecognizer()
             ..onTap = () {
               ref
-                  .read(revealedBlanksProvider(finalTopicId).notifier)
+                  .read(revealedBlankProvider(finalTopicId).notifier)
                   .toggleStatus(index!);
             };
           childrenSpans.addAll(

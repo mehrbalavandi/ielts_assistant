@@ -14,8 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$NavigationState {
 
- Book? get selectedBook; Unit? get selectedUnit;// OtherContent? selectedOtherContent,
- Topic? get selectedTopic; PageContent? get selectedPage; FinalTopic? get selectedFinalTopic; FinalTopic? get selectedFinalTopicSearch; bool get isLoading;
+ Book? get selectedBook; Unit? get selectedUnit; Topic? get selectedTopic; PageContent? get selectedPage; FinalTopic? get selectedFinalTopic; FinalTopic? get selectedFinalTopicSearch; bool get isLoading;
 /// Create a copy of NavigationState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -284,7 +283,6 @@ class _NavigationState implements NavigationState {
 
 @override final  Book? selectedBook;
 @override final  Unit? selectedUnit;
-// OtherContent? selectedOtherContent,
 @override final  Topic? selectedTopic;
 @override final  PageContent? selectedPage;
 @override final  FinalTopic? selectedFinalTopic;

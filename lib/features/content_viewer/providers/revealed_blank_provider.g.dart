@@ -10,7 +10,7 @@ part of 'revealed_blank_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(RevealedBlankNotifier)
-const revealedBlanksProvider = RevealedBlankNotifierFamily._();
+final revealedBlankProvider = RevealedBlankNotifierFamily._();
 
 final class RevealedBlankNotifierProvider
     extends
@@ -18,7 +18,7 @@ final class RevealedBlankNotifierProvider
           RevealedBlankNotifier,
           Map<int, RevealedBlankStatus>
         > {
-  const RevealedBlankNotifierProvider._({
+  RevealedBlankNotifierProvider._({
     required RevealedBlankNotifierFamily super.from,
     required String super.argument,
   }) : super(
@@ -76,7 +76,7 @@ final class RevealedBlankNotifierFamily extends $Family
           Map<int, RevealedBlankStatus>,
           String
         > {
-  const RevealedBlankNotifierFamily._()
+  RevealedBlankNotifierFamily._()
     : super(
         retry: null,
         name: r'revealedBlankProvider',
@@ -101,7 +101,6 @@ abstract class _$RevealedBlankNotifier
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(_$args);
     final ref =
         this.ref
             as $Ref<
@@ -119,6 +118,6 @@ abstract class _$RevealedBlankNotifier
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

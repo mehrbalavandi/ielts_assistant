@@ -10,11 +10,11 @@ part of 'content_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AllContent)
-const allContentProvider = AllContentProvider._();
+final allContentProvider = AllContentProvider._();
 
 final class AllContentProvider
     extends $AsyncNotifierProvider<AllContent, List<Book>> {
-  const AllContentProvider._()
+  AllContentProvider._()
     : super(
         from: null,
         argument: null,
@@ -40,7 +40,6 @@ abstract class _$AllContent extends $AsyncNotifier<List<Book>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<List<Book>>, List<Book>>;
     final element =
         ref.element
@@ -50,6 +49,6 @@ abstract class _$AllContent extends $AsyncNotifier<List<Book>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
