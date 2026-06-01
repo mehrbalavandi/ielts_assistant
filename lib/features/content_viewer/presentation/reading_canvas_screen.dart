@@ -65,9 +65,6 @@ class ReadingCanvasScreen extends StatelessWidget {
 
     for (var span in para.spans) {
       if (span.type == "text") {
-        debugPrint(
-          "Processing text span: ${span.content.replaceAll('\n', '+')}",
-        );
         // اعمال استایل‌ها و لغات تعاملی
         inlineSpans.addAll(
           _buildStyledInteractiveText(
@@ -152,10 +149,11 @@ class ReadingCanvasScreen extends StatelessWidget {
     String direction,
     TextAlign textAlign,
   ) {
-    return RichText(
+    // تغییر ۳: استفاده از Text.rich به جای RichText
+    return Text.rich(
+      TextSpan(children: spans),
       textAlign: textAlign,
       textDirection: direction == "RTL" ? TextDirection.rtl : TextDirection.ltr,
-      text: TextSpan(children: spans),
     );
   }
 
@@ -190,7 +188,7 @@ class ReadingCanvasScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTable(
+  Widget _buildTable0(
     SpanData tableSpan,
     double canvasWidth,
     BuildContext context,
@@ -232,6 +230,61 @@ class ReadingCanvasScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(children: rowWidgets),
+    );
+  }
+
+  Widget _buildTable(
+    SpanData tableSpan,
+    double canvasWidth,
+    BuildContext context,
+  ) {
+    List<Widget> rowWidgets = [];
+
+    for (var row in tableSpan.tableRows) {
+      List<Widget> cellWidgets = [];
+
+      for (var cell in row.cells) {
+        // تبدیل درصد به یک عدد صحیح برای استفاده در flex
+        // مثلاً 39.09 درصد تبدیل می‌شود به 3909
+        int flexValue = 1; // مقدار پیش‌فرض برای جلوگیری از خطا
+        if (cell.widthPercent != null && cell.widthPercent! > 0) {
+          flexValue = (cell.widthPercent! * 100).toInt();
+        }
+
+        cellWidgets.add(
+          Expanded(
+            flex: flexValue,
+            child: Padding(
+              // اضافه کردن پدینگ افقی برای جلوگیری از چسبیدن متن‌ها به هم یا به عکس
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: Column(
+                mainAxisSize:
+                    MainAxisSize.min, // جلوگیری از اشغال فضای عمودی نامحدود
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: cell.paragraphs
+                    .map((p) => _buildParagraph(p, canvasWidth, context))
+                    .toList(),
+              ),
+            ),
+          ),
+        );
+      }
+
+      rowWidgets.add(
+        IntrinsicHeight(
+          // هم‌تراز کردن ارتفاع تمام سلول‌های این سطر
+          child: Row(
+            crossAxisAlignment:
+                CrossAxisAlignment.start, // چیدمان از بالای سلول
+            children: cellWidgets,
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
     );
   }
 }
