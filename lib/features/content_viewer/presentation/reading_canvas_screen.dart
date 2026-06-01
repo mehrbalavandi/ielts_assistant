@@ -3,32 +3,40 @@ import 'package:ielts_assistant/features/content_viewer/presentation/text_render
 import 'package:ielts_assistant/shared/models/models.dart';
 
 class ReadingCanvasScreen extends StatelessWidget {
-  final List<ParagraphData> documentParagraphs; // لیستی که از JSON پارس شده است
+  final List<ParagraphData> documentParagraphs;
 
-  const ReadingCanvasScreen({super.key, required this.documentParagraphs});
+  const ReadingCanvasScreen({Key? key, required this.documentParagraphs})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // ۱. محاسبه دینامیک عرض بوم بر اساس دستگاه کاربر
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // اگر تبلت بود عرض را روی 650 قفل کن، اگر موبایل بود کل عرض صفحه (با کمی پدینگ) را بگیر
+    double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
+
     return Scaffold(
-      backgroundColor: Colors.grey[200], // رنگ پس‌زمینه بیرون از کاغذ
-      body: InteractiveViewer(
-        minScale: 1.0,
-        maxScale: 7.5,
-        boundaryMargin: const EdgeInsets.all(
-          40,
-        ), // اجازه اسکرول به بیرون از کادر
-        child: Center(
-          child: FittedBox(
-            fit: BoxFit.contain,
+      backgroundColor: Colors.grey[100], // رنگ پس‌زمینه پشت کاغذ
+      body: SafeArea(
+        child: InteractiveViewer(
+          minScale: 1.0,
+          maxScale: 4.0,
+          child: Center(
             child: Container(
-              width: 1200, // عرض مجازی ثابت برای تبلت و موبایل
-              color: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 80),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: documentParagraphs
-                    .map((para) => _buildParagraph(para, context))
-                    .toList(),
+              width: canvasWidth,
+              color: Colors.white, // خود برگه کاغذ
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+              // استفاده از ListView یا SingleChildScrollView برای اسکرول عمودی روان
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: documentParagraphs
+                      .map(
+                        (para) => _buildParagraph(para, canvasWidth, context),
+                      )
+                      .toList(),
+                ),
               ),
             ),
           ),
@@ -37,76 +45,162 @@ class ReadingCanvasScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildParagraph(ParagraphData para, BuildContext context) {
+  Widget _buildParagraph(
+    ParagraphData para,
+    double canvasWidth,
+    BuildContext context,
+  ) {
+    // مدیریت پاراگراف‌های خالی (Enterها)
     if (para.spans.length == 1 && para.spans.first.content == "\n") {
-      return const SizedBox(height: 24);
+      return const SizedBox(height: 16);
     }
 
-    List<Widget> blockElements = []; // برای نگه داشتن جدول‌ها و عکس‌های خطی
-    List<InlineSpan> inlineSpans = []; // برای نگه داشتن متن‌ها
+    List<Widget> blockElements = [];
+    List<InlineSpan> inlineSpans = [];
+
+    // تعیین تراز متن بر اساس خروجی پارسر C#
+    TextAlign textAlign = TextAlign.left;
+    if (para.alignment == "C") textAlign = TextAlign.center;
+    if (para.alignment == "R") textAlign = TextAlign.right;
+    if (para.alignment == "J") textAlign = TextAlign.justify;
 
     for (var span in para.spans) {
       if (span.type == "text") {
+        // اعمال استایل‌ها و لغات تعاملی
         inlineSpans.addAll(
-          TextRenderEngine.buildInteractiveText(
+          _buildStyledInteractiveText(
             span.content,
+            span.markers,
             para.interactives,
             context,
           ),
         );
-      } else if (span.type == "table") {
-        // --- پردازش جدول ---
-        // ابتدا اگر متن‌هایی قبل از جدول در این پاراگراف بوده، آن‌ها را به بلاک‌ها اضافه می‌کنیم
+      } else if (span.type == "image") {
+        // ابتدا متن‌های قبل از عکس را رندر کن
         if (inlineSpans.isNotEmpty) {
-          blockElements.add(_buildRichText(inlineSpans, para.direction));
-          inlineSpans = []; // ریست کردن برای متن‌های بعد از جدول
+          blockElements.add(
+            _buildRichText(inlineSpans, para.direction, textAlign),
+          );
+          inlineSpans = [];
         }
-
-        // اضافه کردن جدول به بلاک‌ها
-        blockElements.add(_buildTable(span, context));
+        // رندر کردن عکس از آدرس متغیر شما
+        blockElements.add(_buildLocalImage(span.content));
+      } else if (span.type == "table") {
+        if (inlineSpans.isNotEmpty) {
+          blockElements.add(
+            _buildRichText(inlineSpans, para.direction, textAlign),
+          );
+          inlineSpans = [];
+        }
+        // پاس دادن عرض دینامیک به جدول
+        blockElements.add(_buildTable(span, canvasWidth, context));
       }
     }
 
-    // اضافه کردن متن‌های باقی‌مانده (بعد از جدول یا اگر جدولی نبود)
     if (inlineSpans.isNotEmpty) {
-      blockElements.add(_buildRichText(inlineSpans, para.direction));
+      blockElements.add(_buildRichText(inlineSpans, para.direction, textAlign));
     }
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: Column(
         crossAxisAlignment: para.direction == "RTL"
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
-        children: blockElements, // نمایش پشت سر هم متن‌ها و جدول‌ها
+        children: blockElements,
       ),
     );
   }
 
-  // متد کمکی برای رندر متن
-  Widget _buildRichText(List<InlineSpan> spans, String direction) {
+  // متد جدید: ترکیب استایل‌های لایه Word (Bold/Italic) با کلمات تعاملی AI
+  List<InlineSpan> _buildStyledInteractiveText(
+    String content,
+    List<String> markers,
+    List<InteractiveWord> interactives,
+    BuildContext context,
+  ) {
+    // تعیین استایل پایه این اسپن بر اساس مارکرهای استخراج شده از ورد
+    TextStyle baseStyle = TextStyle(
+      fontSize: 17,
+      color: Colors.black87,
+      height: 1.5,
+      fontWeight: markers.contains("b") ? FontWeight.bold : FontWeight.normal,
+      fontStyle: markers.contains("i") ? FontStyle.italic : FontStyle.normal,
+      decoration: markers.contains("u")
+          ? TextDecoration.underline
+          : TextDecoration.none,
+    );
+
+    // حالا کلمات تعاملی را در این اسپن با حفظ استایل پایه پیدا می‌کنیم
+    // (می‌توانید متد TextRenderEngine را به‌روز کنید تا TextStyle پایه را هم ورودی بگیرد)
+    return TextRenderEngine.buildInteractiveText(
+      content,
+      interactives,
+      context,
+      baseStyle,
+    );
+  }
+
+  Widget _buildRichText(
+    List<InlineSpan> spans,
+    String direction,
+    TextAlign textAlign,
+  ) {
     return RichText(
+      textAlign: textAlign,
       textDirection: direction == "RTL" ? TextDirection.rtl : TextDirection.ltr,
-      text: TextSpan(
-        style: const TextStyle(fontSize: 18, color: Colors.black, height: 1.6),
-        children: spans,
+      text: TextSpan(children: spans),
+    );
+  }
+
+  // ویجت نمایش عکس‌های محلی از آدرسی که گفتید
+  Widget _buildLocalImage(String imageName) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(6),
+        child: Image.asset(
+          'assets/data/images/$imageName',
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            // در صورتی که عکس پیدا نشد، یک آیکون خطا نشان بده تا برنامه کرش نکند
+            return Container(
+              padding: const EdgeInsets.all(16),
+              color: Colors.grey[200],
+              child: Row(
+                children: [
+                  const Icon(Icons.broken_image, color: Colors.red),
+                  const SizedBox(width: 8),
+                  Text(
+                    "Image not found: $imageName",
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 
-  // متد کمکی برای رندر جدول (فراخوانی بازگشتی)
-  Widget _buildTable(SpanData tableSpan, BuildContext context) {
+  Widget _buildTable(
+    SpanData tableSpan,
+    double canvasWidth,
+    BuildContext context,
+  ) {
     List<Widget> rowWidgets = [];
 
     for (var row in tableSpan.tableRows) {
       List<Widget> cellWidgets = [];
 
       for (var cell in row.cells) {
-        // محاسبه عرض سلول (استفاده از Expanded با ضریب فِلِکس یا کانتینر با عرض درصدی)
-        // از آنجا که عرض مجازی کانتینر اصلی را قبلاً 800 در نظر گرفتیم:
+        // محاسبه عرض سلول بر اساس درصد واقعی از عرض دینامیک بوم (منهای پدینگ‌های حاشیه)
+        double availableWidth =
+            canvasWidth - 32; // کسر پدینگ‌های چپ و راست کانتینر اصلی
         double cellWidth = cell.widthPercent != null
-            ? 800 * (cell.widthPercent! / 100)
-            : 0; // اگر درصد نداشت، می‌توانید از Expanded استفاده کنید
+            ? availableWidth * (cell.widthPercent! / 100)
+            : 0;
 
         cellWidgets.add(
           SizedBox(
@@ -114,8 +208,8 @@ class ReadingCanvasScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: cell.paragraphs
-                  .map((p) => _buildParagraph(p, context))
-                  .toList(), // <--- فراخوانی بازگشتی!
+                  .map((p) => _buildParagraph(p, canvasWidth, context))
+                  .toList(),
             ),
           ),
         );
@@ -123,35 +217,15 @@ class ReadingCanvasScreen extends StatelessWidget {
 
       rowWidgets.add(
         Row(
-          crossAxisAlignment:
-              CrossAxisAlignment.start, // سلول‌ها از بالا تراز شوند
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: cellWidgets,
         ),
       );
     }
 
-    return Column(children: rowWidgets);
-  }
-
-  // ویجت جای خالی (Cloze Test)
-  Widget _buildBlankWidget(String hiddenAnswer) {
-    return GestureDetector(
-      onTap: () {
-        // تغییر استیت با Riverpod برای نمایش جواب
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.grey.shade400),
-        ),
-        child: const Text(
-          "     ",
-          style: TextStyle(letterSpacing: 2),
-        ), // یا نمایش hiddenAnswer اگر استیت true است
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(children: rowWidgets),
     );
   }
 }

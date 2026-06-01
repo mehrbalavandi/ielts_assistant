@@ -9,6 +9,7 @@ class TextRenderEngine {
     String content,
     List<InteractiveWord> interactives,
     BuildContext context, // برای نمایش Modal
+    TextStyle baseStyle, // <--- ورودی جدید
   ) {
     if (interactives.isEmpty || content.isEmpty) {
       return [TextSpan(text: content)];
@@ -38,23 +39,28 @@ class TextRenderEngine {
       if (bestIndex != -1 && matchedWord != null) {
         // ۱. اضافه کردن متن معمولی قبل از کلمه تعاملی
         if (bestIndex > 0) {
-          spans.add(TextSpan(text: remainingText.substring(0, bestIndex)));
+          spans.add(
+            TextSpan(
+              text: remainingText.substring(0, bestIndex),
+              style: baseStyle,
+            ),
+          );
         }
 
         // ۲. اضافه کردن کلمه تعاملی با استایل خاص و قابلیت کلیک
+        // هنگام ساختن TextSpan برای خود کلمه تعاملی، استایل پایه را با استایل تعاملی ترکیب کنید (merge):
         spans.add(
           TextSpan(
             text: matchedWord.exactText,
-            style: const TextStyle(
-              color: Colors.blue, // رنگ کلمات تعاملی
-              decoration: TextDecoration.underline,
-              decorationStyle: TextDecorationStyle
-                  .dotted, // زیرخط نقطه‌چین برای کلمات آموزشی
+            style: baseStyle.merge(
+              const TextStyle(
+                color: Colors.blue,
+                decoration: TextDecoration.underline,
+                decorationStyle: TextDecorationStyle.dotted,
+              ),
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                _showWordModal(context, matchedWord!);
-              },
+              ..onTap = () => _showWordModal(context, matchedWord!),
           ),
         );
 
