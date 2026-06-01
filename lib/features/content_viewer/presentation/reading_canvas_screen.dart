@@ -84,7 +84,11 @@ class ReadingCanvasScreen extends StatelessWidget {
           inlineSpans = [];
         }
         // رندر کردن عکس از آدرس متغیر شما
-        blockElements.add(_buildLocalImage(span.content));
+        // استفاده از span.url به عنوان نام عکس. اگر null بود برای اطمینان span.content را می‌خوانیم
+        String imagePath = span.url ?? span.content;
+        if (imagePath.isNotEmpty) {
+          blockElements.add(_buildLocalImage(imagePath));
+        }
       } else if (span.type == "table") {
         if (inlineSpans.isNotEmpty) {
           blockElements.add(

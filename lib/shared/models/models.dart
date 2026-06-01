@@ -118,12 +118,14 @@ class TableCellData {
 class SpanData {
   final String type;
   final String content;
+  final String? url; // <--- فیلد جدید
   final List<String> markers;
   final List<TableRowData> tableRows; // اضافه شدن فیلد سطرهای جدول
 
   SpanData({
     required this.type,
     this.content = '',
+    this.url,
     required this.markers,
     this.tableRows = const [],
   });
@@ -133,6 +135,7 @@ class SpanData {
     return SpanData(
       type: json['Type'] ?? 'text',
       content: json['Content'] ?? '',
+      url: json['Url'], // <--- خواندن از مپ
       markers: List<String>.from(json['Markers'] ?? []),
       tableRows: rowsList.map((e) => TableRowData.fromJson(e)).toList(),
     );
