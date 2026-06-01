@@ -5,8 +5,7 @@ import 'package:ielts_assistant/shared/models/models.dart';
 class ReadingCanvasScreen extends StatelessWidget {
   final List<ParagraphData> documentParagraphs;
 
-  const ReadingCanvasScreen({Key? key, required this.documentParagraphs})
-    : super(key: key);
+  const ReadingCanvasScreen({super.key, required this.documentParagraphs});
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +65,9 @@ class ReadingCanvasScreen extends StatelessWidget {
 
     for (var span in para.spans) {
       if (span.type == "text") {
+        debugPrint(
+          "Processing text span: ${span.content.replaceAll('\n', '+')}",
+        );
         // اعمال استایل‌ها و لغات تعاملی
         inlineSpans.addAll(
           _buildStyledInteractiveText(
