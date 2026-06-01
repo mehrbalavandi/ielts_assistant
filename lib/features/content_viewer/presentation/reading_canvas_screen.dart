@@ -188,51 +188,6 @@ class ReadingCanvasScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTable0(
-    SpanData tableSpan,
-    double canvasWidth,
-    BuildContext context,
-  ) {
-    List<Widget> rowWidgets = [];
-
-    for (var row in tableSpan.tableRows) {
-      List<Widget> cellWidgets = [];
-
-      for (var cell in row.cells) {
-        // محاسبه عرض سلول بر اساس درصد واقعی از عرض دینامیک بوم (منهای پدینگ‌های حاشیه)
-        double availableWidth =
-            canvasWidth - 32; // کسر پدینگ‌های چپ و راست کانتینر اصلی
-        double cellWidth = cell.widthPercent != null
-            ? availableWidth * (cell.widthPercent! / 100)
-            : 0;
-
-        cellWidgets.add(
-          SizedBox(
-            width: cellWidth > 0 ? cellWidth : null,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: cell.paragraphs
-                  .map((p) => _buildParagraph(p, canvasWidth, context))
-                  .toList(),
-            ),
-          ),
-        );
-      }
-
-      rowWidgets.add(
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: cellWidgets,
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(children: rowWidgets),
-    );
-  }
-
   Widget _buildTable(
     SpanData tableSpan,
     double canvasWidth,
