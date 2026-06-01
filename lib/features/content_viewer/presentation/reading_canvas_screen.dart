@@ -13,7 +13,7 @@ class ReadingCanvasScreen extends StatelessWidget {
       backgroundColor: Colors.grey[200], // رنگ پس‌زمینه بیرون از کاغذ
       body: InteractiveViewer(
         minScale: 1.0,
-        maxScale: 3.5,
+        maxScale: 7.5,
         boundaryMargin: const EdgeInsets.all(
           40,
         ), // اجازه اسکرول به بیرون از کادر
@@ -21,7 +21,7 @@ class ReadingCanvasScreen extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.contain,
             child: Container(
-              width: 800, // عرض مجازی ثابت برای تبلت و موبایل
+              width: 1200, // عرض مجازی ثابت برای تبلت و موبایل
               color: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 80),
               child: Column(
