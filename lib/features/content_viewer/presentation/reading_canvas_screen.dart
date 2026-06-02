@@ -243,13 +243,20 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           fontSize = parsedSize / 2;
         }
       } else if (marker.startsWith("fn:")) {
-        // استخراج نام فونت (مثلاً از fn:Verdana رشته Verdana را می‌گیریم)
         fontFamily = marker.substring(3);
 
-        // نکته: گاهی اوقات ورد نام فونت‌های تم را با ستاره یا پسوند می‌آورد
-        // (مثل *Times New Roman-Bold-7729-Iden). این خط آن را تمیز می‌کند:
+        // تمیز کردن نام فونت
         if (fontFamily.contains("*") || fontFamily.contains("-")) {
           fontFamily = fontFamily.replaceAll("*", "").split("-").first;
+        }
+
+        // --- نگاشت فونت‌های تم ورد به فونت‌های واقعی فلاتر ---
+        if (fontFamily.toLowerCase().contains("major")) {
+          // فونت برای Headings
+          fontFamily = "Times New Roman";
+        } else if (fontFamily.toLowerCase().contains("minor")) {
+          // فونت برای Body Text (مثل Calibri)
+          fontFamily = "Roboto"; // یا هر فونتی که برای متن اصلی دارید
         }
       }
     }
