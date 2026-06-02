@@ -991,7 +991,7 @@
                             "Content": "The World’s Most\nunusual Towns and\nCities",
                             "Markers": [
                               "b",
-                              "fn:*Times New Roman-Bold-7729-Iden",
+                              "fn:Times New Roman",
                               "sz:54"
                             ],
                             "InnerSpans": [],
@@ -2440,7 +2440,7 @@
                             "Markers": [
                               "b",
                               "c:0E0E0D",
-                              "fn:*Calibri-7392-Identity-H"
+                              "fn:Calibri"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2511,7 +2511,7 @@
                             "Markers": [
                               "b",
                               "c:0E0E0E",
-                              "fn:*Calibri-7392-Identity-H"
+                              "fn:Calibri"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2527,7 +2527,7 @@
                             "Markers": [
                               "b",
                               "c:0E0E0E",
-                              "fn:*Calibri-7392-Identity-H"
+                              "fn:Calibri"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2912,7 +2912,7 @@
                             "Type": "text",
                             "Content": "In fact the only fence permitted in the town was built by the local authority, interestingly, with the aim of keeping humans out of the park, rather than containing the animals inside.",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
+                              "fn:Arial",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -2927,7 +2927,7 @@
                             "Type": "text",
                             "Content": "Consequently, it is not unusual to see giraffes or elephants causing traffic jams, for example, and even predator attacks on humans are unnervingly common - a lion was recently said to have mauled and eaten an escaping burglar. Yet even after this, while some residents then called for all lions to be rounded up and shot, others suggested that",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
+                              "fn:Arial",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -2942,7 +2942,7 @@
                             "Type": "text",
                             "Content": "they be allowed to walk the thoroughfares as a type of crime control, after an increase in the number of burglaries. Everywhere in Marloth Park, a wary",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
+                              "fn:Arial",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -2957,7 +2957,7 @@
                             "Type": "text",
                             "Content": "understanding exists between man and beast.",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
+                              "fn:Arial",
                               "sz:20"
                             ],
                             "InnerSpans": [],
