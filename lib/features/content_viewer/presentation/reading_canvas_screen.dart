@@ -191,7 +191,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   }
 
   // متد جدید: ترکیب استایل‌های لایه Word (Bold/Italic) با کلمات تعاملی AI
-  List<InlineSpan> _buildStyledInteractiveText(
+  List<InlineSpan> _buildStyledInteractiveText0(
     String content,
     List<String> markers,
     List<InteractiveWord> interactives,
@@ -211,6 +211,63 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
     // حالا کلمات تعاملی را در این اسپن با حفظ استایل پایه پیدا می‌کنیم
     // (می‌توانید متد TextRenderEngine را به‌روز کنید تا TextStyle پایه را هم ورودی بگیرد)
+    return TextRenderEngine.buildInteractiveText(
+      content,
+      interactives,
+      context,
+      baseStyle,
+    );
+  }
+
+  // متد آپدیت‌شده: پشتیبانی از سایز و نام فونت استخراج شده از Word
+  List<InlineSpan> _buildStyledInteractiveText(
+    String content,
+    List<String> markers,
+    List<InteractiveWord> interactives,
+    BuildContext context,
+  ) {
+    // مقادیر پیش‌فرض برای زمانی که ورد فونت یا سایزی مشخص نکرده است
+    double fontSize = 17.0;
+    String? fontFamily;
+
+    // پیمایش مارکرها برای پیدا کردن سایز (sz) و فونت (fn)
+    for (var marker in markers) {
+      if (marker.startsWith("sz:")) {
+        // استخراج عدد سایز (مثلاً از sz:36 عدد 36 را می‌گیریم)
+        String sizeStr = marker.substring(3);
+        double? parsedSize = double.tryParse(sizeStr);
+        if (parsedSize != null) {
+          // چون اعداد ورد نیم‌پوینت هستند، تقسیم بر ۲ می‌کنیم
+          // ضمناً می‌توانید یک ضریب (Scale Factor) هم اضافه کنید
+          // مثلاً اگر در موبایل فونت‌ها خیلی ریز شدند، آن را کمی بزرگتر کنید
+          fontSize = parsedSize / 2;
+        }
+      } else if (marker.startsWith("fn:")) {
+        // استخراج نام فونت (مثلاً از fn:Verdana رشته Verdana را می‌گیریم)
+        fontFamily = marker.substring(3);
+
+        // نکته: گاهی اوقات ورد نام فونت‌های تم را با ستاره یا پسوند می‌آورد
+        // (مثل *Times New Roman-Bold-7729-Iden). این خط آن را تمیز می‌کند:
+        if (fontFamily.contains("*") || fontFamily.contains("-")) {
+          fontFamily = fontFamily.replaceAll("*", "").split("-").first;
+        }
+      }
+    }
+
+    // ساخت استایل پایه با فونت و سایزِ دینامیک
+    TextStyle baseStyle = TextStyle(
+      fontSize: fontSize,
+      fontFamily: fontFamily,
+      color: Colors.black87,
+      height: 1.5,
+      fontWeight: markers.contains("b") ? FontWeight.bold : FontWeight.normal,
+      fontStyle: markers.contains("i") ? FontStyle.italic : FontStyle.normal,
+      decoration: markers.contains("u")
+          ? TextDecoration.underline
+          : TextDecoration.none,
+    );
+
+    // ارسال استایل آماده شده به موتور رندر متن‌های تعاملی
     return TextRenderEngine.buildInteractiveText(
       content,
       interactives,
