@@ -2,39 +2,114 @@ import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/text_render_engine.dart';
 import 'package:ielts_assistant/shared/models/models.dart';
 
-class ReadingCanvasScreen extends StatelessWidget {
+class ReadingCanvasScreen extends StatefulWidget {
   final List<ParagraphData> documentParagraphs;
 
   const ReadingCanvasScreen({super.key, required this.documentParagraphs});
 
   @override
-  Widget build(BuildContext context) {
-    // ۱. محاسبه دینامیک عرض بوم بر اساس دستگاه کاربر
-    double screenWidth = MediaQuery.of(context).size.width;
+  State<ReadingCanvasScreen> createState() => _ReadingCanvasScreenState();
+}
 
-    // اگر تبلت بود عرض را روی 650 قفل کن، اگر موبایل بود کل عرض صفحه (با کمی پدینگ) را بگیر
+class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
+  final TransformationController _transformationController =
+      TransformationController();
+  bool _isZoomed = false;
+  int _pointerCount = 0; // شمارنده انگشت‌های روی صفحه
+
+  @override
+  void initState() {
+    super.initState();
+    _transformationController.addListener(_handleTransformationChanged);
+  }
+
+  void _handleTransformationChanged() {
+    final scale = _transformationController.value.getMaxScaleOnAxis();
+    // اگر کاربر کاملاً از زوم خارج شد و هیچ انگشتی هم روی صفحه نیست، اسکرول عادی را برگردان
+    if (scale <= 1.01 && _isZoomed && _pointerCount == 0) {
+      setState(() {
+        _isZoomed = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _transformationController.removeListener(_handleTransformationChanged);
+    _transformationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], // رنگ پس‌زمینه پشت کاغذ
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
-        child: InteractiveViewer(
-          minScale: 1.0,
-          maxScale: 4.0,
-          child: Center(
-            child: Container(
-              width: canvasWidth,
-              color: Colors.white, // خود برگه کاغذ
-              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-              // استفاده از ListView یا SingleChildScrollView برای اسکرول عمودی روان
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: documentParagraphs
-                      .map(
-                        (para) => _buildParagraph(para, canvasWidth, context),
-                      )
-                      .toList(),
+        // استفاده از Listener برای شکار لمس‌ها قبل از رسیدن به اسکرول‌ویو
+        child: Listener(
+          onPointerDown: (PointerDownEvent event) {
+            _pointerCount++;
+            // به محض گذاشتن انگشت دوم، اسکرول را قفل و زوم را آماده کن
+            if (_pointerCount >= 2 && !_isZoomed) {
+              setState(() {
+                _isZoomed = true;
+              });
+            }
+          },
+          onPointerUp: (PointerUpEvent event) {
+            _pointerCount = (_pointerCount - 1).clamp(0, 10);
+            if (_pointerCount == 0) {
+              final scale = _transformationController.value.getMaxScaleOnAxis();
+              // اگر انگشت‌ها برداشته شد و زوم نبودیم، وضعیت را ریست کن
+              if (scale <= 1.01 && _isZoomed) {
+                setState(() {
+                  _isZoomed = false;
+                });
+              }
+            }
+          },
+          onPointerCancel: (PointerCancelEvent event) {
+            _pointerCount = (_pointerCount - 1).clamp(0, 10);
+            if (_pointerCount == 0) {
+              final scale = _transformationController.value.getMaxScaleOnAxis();
+              if (scale <= 1.01 && _isZoomed) {
+                setState(() {
+                  _isZoomed = false;
+                });
+              }
+            }
+          },
+          child: InteractiveViewer(
+            transformationController: _transformationController,
+            minScale: 1.0,
+            maxScale: 4.0,
+            panEnabled: _isZoomed, // در حالت زوم اجازه حرکت ۴ جهته می‌دهد
+            scaleEnabled: true,
+            constrained: true,
+            child: SingleChildScrollView(
+              // مدیریت هوشمند و آنی فیزیک اسکرول
+              physics: _isZoomed
+                  ? const NeverScrollableScrollPhysics()
+                  : const BouncingScrollPhysics(), // اسکرول بسیار روان و نیتیو
+              child: Center(
+                child: Container(
+                  width: canvasWidth,
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24,
+                    horizontal: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: widget.documentParagraphs
+                        .map(
+                          (para) => _buildParagraph(para, canvasWidth, context),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
             ),
@@ -124,7 +199,7 @@ class ReadingCanvasScreen extends StatelessWidget {
   ) {
     // تعیین استایل پایه این اسپن بر اساس مارکرهای استخراج شده از ورد
     TextStyle baseStyle = TextStyle(
-      fontSize: 17,
+      fontSize: 12,
       color: Colors.black87,
       height: 1.5,
       fontWeight: markers.contains("b") ? FontWeight.bold : FontWeight.normal,
