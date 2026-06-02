@@ -5,6 +5,13 @@ enum FontFamily {
   yekanBakhExtraBold,
   yekanBakhLight,
   yekanBakhRegular,
+  arial,
+  calibri,
+  gadugi,
+  segoe,
+  tahoma,
+  timesNewRoman,
+  verdana,
 }
 
 extension FontFamilyX on FontFamily {
@@ -15,6 +22,13 @@ extension FontFamilyX on FontFamily {
     FontFamily.yekanBakhExtraBold => 'YekanBakhExtraBold',
     FontFamily.yekanBakhLight => 'YekanBakhLight',
     FontFamily.yekanBakhRegular => 'YekanBakhRegular',
+    FontFamily.arial => 'Arial',
+    FontFamily.calibri => 'Calibri',
+    FontFamily.gadugi => 'Gadugi',
+    FontFamily.segoe => 'Segoe',
+    FontFamily.tahoma => 'Tahoma',
+    FontFamily.timesNewRoman => 'TimesNewRoman',
+    FontFamily.verdana => 'Verdana',
   };
   static FontFamily parse(String s) => FontFamily.values.firstWhere(
     (e) => e.asText.toLowerCase() == s.toLowerCase(),
