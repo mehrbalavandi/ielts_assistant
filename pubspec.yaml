@@ -121,9 +121,29 @@ flutter:
     fonts:
       - asset: fonts/YekanBakhLight.ttf
 
-  - family: YekanBakhRegular
+  - family: Arial
     fonts:
-      - asset: fonts/YekanBakhRegular.ttf  
+      - asset: fonts/Arial.ttf
+
+  - family: Gadugi
+    fonts:
+      - asset: fonts/gadugi-normal.ttf  
+
+  - family: Segoe
+    fonts:
+      - asset: fonts/Segoe UI Emoji.ttf  
+
+  - family: Tahoma
+    fonts:
+      - asset: fonts/Tahoma.ttf  
+
+  - family: TimesNewRoman
+    fonts:
+      - asset: fonts/TimesNewRoman.ttf  
+
+  - family: Verdana
+    fonts:
+      - asset: fonts/Verdana.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
