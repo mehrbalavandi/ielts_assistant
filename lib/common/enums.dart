@@ -27,7 +27,7 @@ extension FontFamilyX on FontFamily {
     FontFamily.gadugi => 'Gadugi',
     FontFamily.segoe => 'Segoe',
     FontFamily.tahoma => 'Tahoma',
-    FontFamily.timesNewRoman => 'TimesNewRoman',
+    FontFamily.timesNewRoman => 'Times New Roman',
     FontFamily.verdana => 'Verdana',
   };
   static FontFamily parse(String s) => FontFamily.values.firstWhere(
