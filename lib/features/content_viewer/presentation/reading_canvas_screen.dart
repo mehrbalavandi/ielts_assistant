@@ -227,7 +227,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     BuildContext context,
   ) {
     // مقادیر پیش‌فرض برای زمانی که ورد فونت یا سایزی مشخص نکرده است
-    double fontSize = 17.0;
+    double fontSize = 13.0;
     String? fontFamily;
 
     // پیمایش مارکرها برای پیدا کردن سایز (sz) و فونت (fn)
