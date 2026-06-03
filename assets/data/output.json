@@ -1,0 +1,4586 @@
+[
+  {
+    "PageNumber": 1,
+    "Paragraphs": [
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "UNIT/01: URBAN AND RURAL LIFE\nREADING",
+            "Markers": [
+              "b",
+              "fn:Times New Roman",
+              "sz:28"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 55.49
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p1_s1_img1.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 44.51
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "01",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the, ",
+                            "Markers": [
+                              "b",
+                              "i",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "and others have no article. Do you know any other article rules for geographical features?",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Mallorca,",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " the biggest of ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the Balearic Islands,",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " is situated in ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the Mediterranean",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Sea,",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " some 300km from ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the Valencian coast",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " of ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Spain,",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the Spanish",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " as a tourist destination, it annually welcomes people from all over ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Europe",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " (particularly from ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the United Kingdom, France",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " and ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Germany),",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " who may head for ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Alcudia Beach,",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " or go hiking in ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the Tramuntanas,",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " a mountain range that runs from ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the northeast",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " to ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the southwest",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " of the island. The busy capital city, ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Palma de Mallorca,",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Algaida",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " or ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Binissalem.",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 54.61
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p1_s1_img2.jpeg",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.13
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "02",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 54.61
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.13
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "MATCHING HEADINGS",
+                            "Markers": [
+                              "b",
+                              "fn:Verdana",
+                              "sz:36"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 54.61
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.13
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "03",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 54.61
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.13
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The World’s\nMost unusual\nTowns and Cities",
+                            "Markers": [
+                              "b",
+                              "fn:Times New Roman",
+                              "sz:54"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 54.61
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "◎ ",
+                            "Markers": [
+                              "fn:Segoe UI Emoji",
+                              "sz:15"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                            "Markers": [
+                              "c:050605",
+                              "fn:Calibri",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "topic sentence.",
+                            "Markers": [
+                              "i",
+                              "c:050605",
+                              "fn:Verdana",
+                              "sz:15"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
+                            "Markers": [
+                              "c:050505",
+                              "fn:Calibri",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.13
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 2,
+    "Paragraphs": [
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "04",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the first sentence of a paragraph about the city of Auroville, India. It is the topic sentence. Which of the three options seems to be the most likely heading? Why?",
+                            "Markers": [
+                              "b",
+                              "c:070606",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
+                            "Markers": [
+                              "c:000307",
+                              "fn:Tahoma",
+                              "sz:19"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be ",
+                            "Markers": [
+                              "c:000307",
+                              "fn:Tahoma",
+                              "sz:19"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "projected across all humanity.",
+                            "Markers": [
+                              "c:000207",
+                              "fn:Tahoma",
+                              "sz:19"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.3
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.44
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p2_s1_img3.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.3
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.44
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A The reason why attempts to create the perfect city always fail\nB An urban ideal designed for an imperfect world\n",
+                            "Markers": [
+                              "c:110E0D",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "C A conflict between reality and imitation",
+                            "Markers": [
+                              "c:120F0E",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.3
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.44
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "05",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the full paragraph and check your answer.",
+                            "Markers": [
+                              "b",
+                              "c:110E0D",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
+                            "Markers": [
+                              "c:110E0D",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be projected across all humanity. It has no government, no one owns any property, and money rarely, if ever, changes hands. There is no leader and rules do not exist. While most experiments at creating the perfect city do not meet with success, the majority of Auroville's residents believe their city to be an exception. Although its critics point to the fact that levels of crime",
+                            "Markers": [
+                              "c:110E0D",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "have been creeping up for some years now, its citizens choose to remain there, still believing in its utopian dream, still following its path towards a better world.",
+                            "Markers": [
+                              "c:110E0D",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.3
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "TIP 05",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The heading you want will probably not use the same words as those which appear in the paragraph, but will paraphrase the ideas.",
+                            "Markers": [
+                              "c:0E0D0F",
+                              "fn:Calibri",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.44
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "06",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read this opening sentence about Longyearbyen. Which heading seems to fit this sentence best?",
+                            "Markers": [
+                              "b",
+                              "c:060403",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Longyearbyen, Norway, holds the record for being the furthest north city in the world, boasting the world's most northerly school, airport and university.",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A An unwelcoming place to die",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B A city at the top of the world",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C An unusual approach to regulation",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.3
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "TIP 06",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Be careful: sometimes the first sentence of a paragraph seems to fit entirely with one particular heading. However, don't be caught out - you still need to check by reading the whole paragraph.",
+                            "Markers": [
+                              "c:0E0D0F",
+                              "fn:Calibri",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 24.44
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 3,
+    "Paragraphs": [
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "07",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Now read the full paragraph and think about the overall message of the paragraph. Which heading now best fits the paragraph?",
+                            "Markers": [
+                              "b",
+                              "c:11100E",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Longyearbyen, Spitsbergen, in the Svalbard Archipelago of Norway, holds the record for being the furthest north city in the world, boasting the world's most northerly school, airport and university. But what really sets it apart is that it can also lay claim to some of the world's strangest rules. In Longyearbyen, for example, it has been forbidden to die since 1950, the year in which scientists discovered that bodies simply cannot decompose there - the cold is too extreme. To this day, anyone found ill or dying is not given the chance to pass away, and is instead immediately taken by airplane or ship to another part of Norway so that they can die and be buried safely. But it doesn't end there. Aside from prohibiting death, there are more peculiar rules and freedoms in Longyearbyen. Residents are permitted to openly walk the streets with high-powered guns (there are 3,000 polar bears living locally). At the same time, no one is allowed to own any cats, which are forbidden because they are a danger to the bird population.",
+                            "Markers": [
+                              "c:000306",
+                              "fn:Verdana",
+                              "sz:19"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 52.15
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p3_s1_img4.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 41.59
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "08",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Underline the main topic sentence in the paragraph.",
+                            "Markers": [
+                              "b",
+                              "c:0E0E0D",
+                              "fn:*Calibri-7392-Identity-H"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 52.15
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 41.59
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "09",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the first sentence of the next paragraph about Marloth Park in South Africa.",
+                            "Markers": [
+                              "b",
+                              "c:0E0E0E",
+                              "fn:*Calibri-7392-Identity-H"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Find words or phrases that correspond to the underlined words in the headings A-C below.",
+                            "Markers": [
+                              "b",
+                              "c:0E0E0E",
+                              "fn:*Calibri-7392-Identity-H"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Despite the fact the town of Marloth Park is close to the Kruger National Park, one of the largest game reserves in Africa, and despite the constant threat of visits from wild animals such as lions and hippopotamuses, its anxious residents are not allowed to build fences around their houses to keep out their neighbours.",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A An unusual approach to ",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "regulation",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B Dealing with the occasional ",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "dangers of the wild",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C Where ",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "humans and animals",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " cautiously ",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "co-exist",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 52.15
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 41.59
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "10",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Now focus on the adverbs and adjectives in the headings. Which heading is no longer a possible answer?",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A An ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "unusual",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " approach to regulation",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B Dealing with the ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "occasional",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " dangers of the wild",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C Where humans and animals ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "cautiously",
+                            "Markers": [
+                              "u",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " co-exist",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 52.15
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "TIP 10",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Pay particular attention to adjectives and adverbs in headings and texts, as they may help you to eliminate an incorrect heading immediately.",
+                            "Markers": [
+                              "c:101011",
+                              "fn:Calibri",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 41.59
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 4,
+    "Paragraphs": [
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "11",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the rest of the paragraph and decide on your answer.",
+                            "Markers": [
+                              "b",
+                              "fn:Verdana",
+                              "sz:19"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "In fact the only fence permitted in the town was built by the local authority, interestingly, with the aim of keeping humans out of the park, rather than containing the animals inside.",
+                            "Markers": [
+                              "fn:*Arial-8104-Identity-H",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Consequently, it is not unusual to see giraffes or elephants causing traffic jams, for example, and even predator attacks on humans are unnervingly common - a lion was recently said to have mauled and eaten an escaping burglar. Yet even after this, while some residents then called for all lions to be rounded up and shot, others suggested that",
+                            "Markers": [
+                              "fn:*Arial-8104-Identity-H",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "they be allowed to walk the thoroughfares as a type of crime control, after an increase in the number of burglaries. Everywhere in Marloth Park, a wary",
+                            "Markers": [
+                              "fn:*Arial-8104-Identity-H",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "understanding exists between man and beast.",
+                            "Markers": [
+                              "fn:*Arial-8104-Identity-H",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 51.59
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p4_s1_img5.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 42.15
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "12",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Identify the main topic sentence in the paragraph.",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 51.59
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 42.15
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "13",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Some paragraphs have no clear topic sentence. Read this paragraph and make notes about its main idea.",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 51.59
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 42.15
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The real Hallstat is in Austria and is proud to be a traditional UNESCO* World Heritage Site. The Chinese Hallstat is a carbon copy, built in Guangdong province, China, by a millionaire who sponsored the construction of the imitation town. It cost approximately $940 million to build, and",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "looks exactly like the real Hallstat, all the way down to its wooden houses, its narrow streets, and its funicular railway. When the residents of Austria's Hallstat (including the mayor) were invited to visit it, they expressed pride that their town was considered so improbably beautiful that it had been reproduced in its entirety, but they still had cause for complaint. Originally, the Chinese company had promised to meet",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "with the Austrian residents to confirm that they were happy for their homes to be copied; instead, they simply sent their employees to Austria to fake photos, and they returned home to China without speaking to a single resident of the original Hallstat.",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "* United Nations Educational, Scientific and Cultural Organization",
+                            "Markers": [
+                              "i",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 51.59
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p4_s1_img6.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 42.15
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "14",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Use your notes to help you choose the correct heading.",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " A conflict between reality and imitation",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " The importance of official recognition",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " The result of encouraging wider investment",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 51.59
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 42.15
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "15",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Identify the prefixes in the underlined words. Then work out a general meaning for each.",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "c:040304",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An ",
+                            "Markers": [
+                              "c:040304",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "unusual",
+                            "Markers": [
+                              "u",
+                              "c:040304",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " approach to regulation",
+                            "Markers": [
+                              "c:040304",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B",
+                            "Markers": [
+                              "b",
+                              "c:040404",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An urban ideal designed for an ",
+                            "Markers": [
+                              "c:040404",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "imperfect",
+                            "Markers": [
+                              "u",
+                              "c:040404",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " world",
+                            "Markers": [
+                              "c:040404",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C",
+                            "Markers": [
+                              "b",
+                              "c:040404",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " Where humans and animals cautiously ",
+                            "Markers": [
+                              "c:040404",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "co-exist",
+                            "Markers": [
+                              "u",
+                              "c:040404",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 68.31
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 25.42
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 5,
+    "Paragraphs": [
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "16",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "With a partner, think of some words that begin with the prefixes in the box. Then discuss what the general meaning of each prefix is.",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "17",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " Using the correct prefixes from the box above, change the words in CAPITALS into the correct forms.",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "The tourist brochure for Marloth Park ensures that visitors ",
+                            "Markers": [
+                              "fn:Tahoma",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "are WARN about",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " the wild animals they may encounter walking the streets.",
+                            "Markers": [
+                              "fn:Tahoma",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "One thing you can always be sure of in Longyearbyen - the cemeteries will never be POPULATE.",
+                            "Markers": [
+                              "fn:Tahoma",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "The residents of Hallstat believed that they would be consulted by the company building a copy of their town - but it turns out they were INFORM.",
+                            "Markers": [
+                              "fn:Tahoma",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "D ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Auroville was founded according to a(n) GOVERN system of rules and beliefs.",
+                            "Markers": [
+                              "fn:Tahoma",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "EXAM SKILLS",
+                            "Markers": [
+                              "b",
+                              "c:090506",
+                              "fn:Verdana",
+                              "sz:37"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "18",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Read the passage and answer questions 1-6.",
+                            "Markers": [
+                              "b",
+                              "c:070505",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The Reading passage hos six paragraphs, A-F. Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+                            "Markers": [
+                              "i",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Paragraph ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Paragraph ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "B",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Paragraph ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "C",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Paragraph ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "D",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Paragraph ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "E",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Paragraph ",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "F",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "List of headings",
+                            "Markers": [
+                              "b",
+                              "c:060404",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The benefits of collaboration",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A forerunner of the modern metropolis",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A period of intense activity and plans completed",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A clear contrast between then and now",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The rise and mysterious decline of Cahokia",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "An archaeological theory to explain Cahokia's development",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The light and dark of archaeological finds",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A city completely unlike any of its contemporaries",
+                            "Markers": [
+                              "fn:Verdana",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 60.55
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.45
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "CAHOKIA - ANCESTOR OF TODAY'S CAPITAL CITIES",
+            "Markers": [
+              "b",
+              "c:040203",
+              "fn:Calibri",
+              "sz:33"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "c:291714",
+                              "fn:Tahoma",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A thousand years ago the Mississippians, a diverse group of Native Americans who lived in the area which is today known as the south-eastern United States, took a small village on the Mississippi River and turned it into one of the world's first great urban centres. Cahokia, as it has been called by archaeologists, became as large as London was in the 11th century, and some would argue that it was just as forward-looking and prosperous as its European equivalents. Sophisticated, cosmopolitan and ahead of its time, Cahokia was at the heart of ancient society in North America; an ancestor of today's capital cities.",
+                            "Markers": [
+                              "c:291714",
+                              "fn:Tahoma",
+                              "sz:18"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 60.55
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p5_s1_img7.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 39.45
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Alignment": "J",
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "     ",
+            "Markers": [
+              "b",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Alignment": "J",
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Alignment": "J",
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Alignment": "J",
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Alignment": "J",
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Alignment": "J",
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 6,
+    "Paragraphs": [
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "WRITING",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "IN THIS UNIT YOU WILL LEARN HOW TO",
+            "Markers": [
+              "b",
+              "c:100300",
+              "fn:Verdana",
+              "sz:23"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "identify the main features of a line graph",
+            "Markers": [
+              "b",
+              "c:120100",
+              "fn:Verdana",
+              "sz:19"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "achieve a high score for Task Achievement",
+            "Markers": [
+              "b",
+              "c:120300",
+              "fn:Verdana",
+              "sz:19"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "describe and compare using adjectives and adverbs.",
+            "Markers": [
+              "b",
+              "c:110100",
+              "fn:Verdana",
+              "sz:19"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderStyle": "BorderValues { }",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "01",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:26"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Using the verb ",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "to grow ",
+                            "Markers": [
+                              "b",
+                              "i",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "and the adverb ",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "rapidly, ",
+                            "Markers": [
+                              "b",
+                              "i",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "complete the sentences to describe the information in the graphs. Focus on the correct verb. tense in each case, bearing in mind the time phrases you are given and the dates in the graph.",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "1 ",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Since five years ago, {i}sales have grown rapidly{/i} to 90,000.",
+                            "Markers": [
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "2 ",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Between {blk}1980 and 1990 sales grew rapidly{/blk} to 90,000.",
+                            "Markers": [
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "3 ",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "From 2020 to 2030 {blk}sales will / are predicted to / are expected to grow rapidly{/blk} to 90,000.",
+                            "Markers": [
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "4 ",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "By the year 2000, {blk}sales had grown rapidly{/blk} to 90,000",
+                            "Markers": [
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "5 ",
+                            "Markers": [
+                              "b",
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "By the year 2020, {blk}sales will have grown rapidly{/blk} to 90,000.",
+                            "Markers": [
+                              "c:0D0706",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 73.76
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "images/p7_s1_img8.png",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 26.24
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "image",
+            "Markers": [],
+            "Url": "images/p7_s1_img9.png",
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "02",
+            "Markers": [
+              "b",
+              "fn:Calibri",
+              "sz:26"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " ",
+            "Markers": [
+              "b",
+              "fn:Calibri",
+              "sz:21"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "With a partner, make correct sentences using a verb from column 1, an adverb from column 2 and a time phrase.",
+            "Markers": [
+              "b",
+              "c:101312",
+              "fn:Calibri",
+              "sz:21"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "Example:",
+            "Markers": [
+              "c:131615",
+              "fn:Calibri",
+              "sz:21"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "Student A: ",
+            "Markers": [
+              "b",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "increase, slowly, by the year 2000",
+            "Markers": [
+              "i",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "Student B: ",
+            "Markers": [
+              "b",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "By the year 2000, it had increased slowly to 90%.",
+            "Markers": [
+              "i",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderColor": "FFC000",
+            "BorderStyle": "BorderValues { }",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Alignment": "J",
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Verb",
+                            "Markers": [
+                              "b",
+                              "c:111313",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 29.49
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Alignment": "J",
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Adverb",
+                            "Markers": [
+                              "b",
+                              "c:111313",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 29.57
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Alignment": "J",
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Time phrase",
+                            "Markers": [
+                              "b",
+                              "c:111313",
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 40.93
+                  }
+                ]
+              },
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Increase",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "decrease",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "fall",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "rise",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "climb",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "drop",
+                            "Markers": [
+                              "fn:Calibri",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 29.49
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "dramatically",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "slowly",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "sharply",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "consistently",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "gradually",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "steadily",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 29.57
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "by the year 2000",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "from 1995 to 2000",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "for the next ten years",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "between 2010 and now",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "by the year 2030",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "since 2016",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 40.93
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  }
+]
