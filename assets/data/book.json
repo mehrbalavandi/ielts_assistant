@@ -3,13 +3,14 @@
     "PageNumber": 1,
     "Paragraphs": [
       {
+        "Direction": "LTR",
         "Spans": [
           {
             "Type": "text",
             "Content": "UNIT/01: URBAN AND RURAL LIFE\nREADING",
             "Markers": [
               "b",
-              "fn:Calibri",
+              "fn:Times New Roman",
               "sz:28"
             ],
             "InnerSpans": [],
@@ -57,7 +58,6 @@
           {
             "Type": "table",
             "Markers": [],
-            "BorderStyle": "BorderValues { }",
             "InnerSpans": [],
             "TableRows": [
               {
@@ -202,7 +202,6 @@
           {
             "Type": "table",
             "Markers": [],
-            "BorderStyle": "BorderValues { }",
             "InnerSpans": [],
             "TableRows": [
               {
@@ -327,7 +326,8 @@
                             "Type": "text",
                             "Content": " the biggest of ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -345,7 +345,8 @@
                             "Type": "text",
                             "Content": " is situated in ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -363,7 +364,8 @@
                             "Type": "text",
                             "Content": " ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -400,7 +402,8 @@
                             "Type": "text",
                             "Content": " of ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -418,7 +421,8 @@
                             "Type": "text",
                             "Content": " and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -436,7 +440,8 @@
                             "Type": "text",
                             "Content": " as a tourist destination, it annually welcomes people from all over ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -454,7 +459,8 @@
                             "Type": "text",
                             "Content": " (particularly from ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -472,7 +478,8 @@
                             "Type": "text",
                             "Content": " and ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -490,7 +497,8 @@
                             "Type": "text",
                             "Content": " who may head for ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -508,7 +516,8 @@
                             "Type": "text",
                             "Content": " or go hiking in ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -526,7 +535,8 @@
                             "Type": "text",
                             "Content": " a mountain range that runs from ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -544,7 +554,8 @@
                             "Type": "text",
                             "Content": " to ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -562,7 +573,8 @@
                             "Type": "text",
                             "Content": " of the island. The busy capital city, ",
                             "Markers": [
-                              "fn:Calibri"],
+                              "fn:Calibri"
+                            ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -712,7 +724,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.65
+                    "WidthPercent": 54.61
                   },
                   {
                     "Paragraphs": [
@@ -728,10 +740,33 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.09
+                    "WidthPercent": 39.13
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
               {
                 "Cells": [
                   {
@@ -827,7 +862,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.65
+                    "WidthPercent": 54.61
                   },
                   {
                     "Paragraphs": [
@@ -844,10 +879,33 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.09
+                    "WidthPercent": 39.13
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
               {
                 "Cells": [
                   {
@@ -899,7 +957,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.65
+                    "WidthPercent": 54.61
                   },
                   {
                     "Paragraphs": [
@@ -916,10 +974,33 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.09
+                    "WidthPercent": 39.13
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
               {
                 "Cells": [
                   {
@@ -996,7 +1077,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.65
+                    "WidthPercent": 54.61
                   },
                   {
                     "Paragraphs": [
@@ -1013,10 +1094,33 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.09
+                    "WidthPercent": 39.13
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
               {
                 "Cells": [
                   {
@@ -1042,11 +1146,11 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "The World’s Most\nunusual Towns and\nCities",
+                            "Content": "The World’s Most unusual Towns and Cities",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
-                              "sz:54"
+                              "fn:Times New Roman",
+                              "sz:44"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1078,7 +1182,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.65
+                    "WidthPercent": 41.11
                   },
                   {
                     "Paragraphs": [
@@ -1158,23 +1262,6 @@
                         "Direction": "LTR",
                         "Spans": [
                           {
-                            "Type": "textbox",
-                            "Markers": [],
-                            "InnerSpans": [
-                              {
-                                "Type": "text",
-                                "Content": "@",
-                                "Markers": [
-                                  "fn:Gadugi",
-                                  "sz:30"
-                                ],
-                                "InnerSpans": [],
-                                "TableRows": []
-                              }
-                            ],
-                            "TableRows": []
-                          },
-                          {
                             "Type": "text",
                             "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
                             "Markers": [
@@ -1242,7 +1329,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.09
+                    "WidthPercent": 52.63
                   }
                 ]
               }

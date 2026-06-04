@@ -3,33 +3,6 @@
     "PageNumber": 1,
     "Paragraphs": [
       {
-        "Direction": "LTR",
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "UNIT/01: URBAN AND RURAL LIFE\nREADING",
-            "Markers": [
-              "b",
-              "fn:Times New Roman",
-              "sz:28"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
         "Spans": [
           {
             "Type": "table",
@@ -40,6 +13,22 @@
                 "Cells": [
                   {
                     "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "UNIT/01: URBAN AND RURAL LIFE\nREADING",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:28"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
                       {
                         "Direction": "LTR",
                         "Spans": [
@@ -94,17 +83,7 @@
         ]
       },
       {
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
+        "Direction": "LTR",
         "Spans": [
           {
             "Type": "text",
@@ -133,18 +112,6 @@
                             "Type": "text",
                             "Content": "01",
                             "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:26"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
                               "fn:Calibri"
                             ],
                             "InnerSpans": [],
@@ -192,336 +159,6 @@
                             "TableRows": []
                           }
                         ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "Mallorca,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " the biggest of ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Balearic Islands,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " is situated in ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Mediterranean",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Sea,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " some 300km from ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Valencian coast",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " of ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Spain,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Spanish",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " as a tourist destination, it annually welcomes people from all over ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Europe",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " (particularly from ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the United Kingdom, France",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " and ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Germany),",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " who may head for ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Alcudia Beach,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " or go hiking in ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Tramuntanas,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " a mountain range that runs from ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the northeast",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " to ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the southwest",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " of the island. The busy capital city, ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Palma de Mallorca,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Algaida",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " or ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Binissalem.",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
                       }
                     ],
                     "WidthPercent": 54.61
@@ -561,6 +198,337 @@
         ]
       },
       {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "Mallorca,",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " the biggest of ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the Balearic Islands,",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " is situated in ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the Mediterranean",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Sea,",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " some 300km from ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the Valencian coast",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " of ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Spain,",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the Spanish",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " as a tourist destination, it annually welcomes people from all over ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Europe",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " (particularly from ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the United Kingdom, France",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " and ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Germany),",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " who may head for ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Alcudia Beach,",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " or go hiking in ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the Tramuntanas,",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " a mountain range that runs from ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the northeast",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " to ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "the southwest",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " of the island. The busy capital city, ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Palma de Mallorca,",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Algaida",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " or ",
+            "Markers": [
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Binissalem.",
+            "Markers": [
+              "u",
+              "fn:Calibri"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
         "Spans": [
           {
             "Type": "table",
@@ -578,18 +546,6 @@
                             "Type": "text",
                             "Content": "02",
                             "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:26"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
                               "fn:Calibri"
                             ],
                             "InnerSpans": [],
@@ -687,11 +643,77 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "MATCHING HEADINGS",
+                            "Content": "[MATCHING HEADINGS]",
                             "Markers": [
                               "b",
                               "fn:Verdana",
                               "sz:36"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 93.74
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "03",
+                            "Markers": [
+                              "fn:Calibri"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 6.26
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -748,79 +770,6 @@
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "03",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:26"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 6.26
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 54.61
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 39.13
-                  }
-                ]
-              },
-              {
-                "Cells": [
-                  {
-                    "Paragraphs": [
-                      {
                         "Spans": [
                           {
                             "Type": "text",
@@ -844,8 +793,8 @@
                             "Content": "The World’s\nMost unusual\nTowns and Cities",
                             "Markers": [
                               "b",
-                              "fn:Times New Roman",
-                              "sz:54"
+                              "fn:Verdana",
+                              "sz:38"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -853,7 +802,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.61
+                    "WidthPercent": 41.11
                   },
                   {
                     "Paragraphs": [
@@ -912,7 +861,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.13
+                    "WidthPercent": 52.63
                   }
                 ]
               }
@@ -960,21 +909,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.88
                   },
                   {
                     "Paragraphs": [
@@ -1054,7 +993,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 24.44
+                    "WidthPercent": 25.82
                   }
                 ]
               },
@@ -1074,7 +1013,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.88
                   },
                   {
                     "Paragraphs": [
@@ -1108,7 +1047,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 24.44
+                    "WidthPercent": 25.82
                   }
                 ]
               },
@@ -1128,7 +1067,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.88
                   },
                   {
                     "Paragraphs": [
@@ -1177,7 +1116,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 24.44
+                    "WidthPercent": 25.82
                   }
                 ]
               },
@@ -1198,21 +1137,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.88
                   },
                   {
                     "Paragraphs": [
@@ -1330,7 +1259,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 24.44
+                    "WidthPercent": 25.82
                   }
                 ]
               },
@@ -1343,7 +1272,7 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "06",
+                            "Content": "06",
                             "Markers": [
                               "b",
                               "fn:Calibri",
@@ -1355,7 +1284,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.88
                   },
                   {
                     "Paragraphs": [
@@ -1496,7 +1425,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 24.44
+                    "WidthPercent": 25.82
                   }
                 ]
               }
@@ -1544,21 +1473,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.76
                   },
                   {
                     "Paragraphs": [
@@ -1595,7 +1514,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 52.15
+                    "WidthPercent": 53.65
                   },
                   {
                     "Paragraphs": [
@@ -1632,21 +1551,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.76
                   },
                   {
                     "Paragraphs": [
@@ -1667,7 +1576,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 52.15
+                    "WidthPercent": 53.65
                   },
                   {
                     "Paragraphs": [
@@ -1705,21 +1614,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.76
                   },
                   {
                     "Paragraphs": [
@@ -1870,7 +1769,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 52.15
+                    "WidthPercent": 53.65
                   },
                   {
                     "Paragraphs": [
@@ -1908,21 +1807,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.76
                   },
                   {
                     "Paragraphs": [
@@ -2038,7 +1927,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 52.15
+                    "WidthPercent": 53.65
                   },
                   {
                     "Paragraphs": [
@@ -2122,21 +2011,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.65
                   },
                   {
                     "Paragraphs": [
@@ -2217,7 +2096,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 51.59
+                    "WidthPercent": 53.21
                   },
                   {
                     "Paragraphs": [
@@ -2254,21 +2133,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.65
                   },
                   {
                     "Paragraphs": [
@@ -2288,7 +2157,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 51.59
+                    "WidthPercent": 53.21
                   },
                   {
                     "Paragraphs": [
@@ -2326,21 +2195,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.65
                   },
                   {
                     "Paragraphs": [
@@ -2360,7 +2219,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 51.59
+                    "WidthPercent": 53.21
                   },
                   {
                     "Paragraphs": [
@@ -2398,7 +2257,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.65
                   },
                   {
                     "Paragraphs": [
@@ -2464,7 +2323,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 51.59
+                    "WidthPercent": 53.21
                   },
                   {
                     "Paragraphs": [
@@ -2502,21 +2361,11 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 4.65
                   },
                   {
                     "Paragraphs": [
@@ -2605,7 +2454,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 51.59
+                    "WidthPercent": 53.21
                   },
                   {
                     "Paragraphs": [
@@ -2673,16 +2522,6 @@
                               "b",
                               "fn:Calibri",
                               "sz:26"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2908,7 +2747,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": " ",
                             "Markers": [
                               "b",
                               "fn:Calibri",
@@ -2971,7 +2810,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Using the correct prefixes from the box above, change the words in CAPITALS into the correct forms.",
+                            "Content": " Using the correct prefixes from the box above, change the words in CAPITALS into the correct forms.",
                             "Markers": [
                               "b",
                               "fn:Calibri"
@@ -3144,7 +2983,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": " ",
                             "Markers": [
                               "b",
                               "fn:Calibri",
@@ -3350,7 +3189,7 @@
                             "Type": "text",
                             "Content": "The benefits of collaboration",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3365,7 +3204,7 @@
                             "Type": "text",
                             "Content": "A forerunner of the modern metropolis",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3380,7 +3219,7 @@
                             "Type": "text",
                             "Content": "A period of intense activity and plans completed",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3395,7 +3234,7 @@
                             "Type": "text",
                             "Content": "A clear contrast between then and now",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3410,7 +3249,7 @@
                             "Type": "text",
                             "Content": "The rise and mysterious decline of Cahokia",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3425,7 +3264,7 @@
                             "Type": "text",
                             "Content": "An archaeological theory to explain Cahokia's development",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3440,7 +3279,7 @@
                             "Type": "text",
                             "Content": "The light and dark of archaeological finds",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3455,7 +3294,7 @@
                             "Type": "text",
                             "Content": "A city completely unlike any of its contemporaries",
                             "Markers": [
-                              "fn:Verdana",
+                              "fn:Calibri",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3735,7 +3574,7 @@
             "Markers": [
               "b",
               "c:120100",
-              "fn:Verdana",
+              "fn:Calibri",
               "sz:19"
             ],
             "InnerSpans": [],
@@ -3752,7 +3591,7 @@
             "Markers": [
               "b",
               "c:120300",
-              "fn:Verdana",
+              "fn:Calibri",
               "sz:19"
             ],
             "InnerSpans": [],
@@ -3769,7 +3608,7 @@
             "Markers": [
               "b",
               "c:110100",
-              "fn:Verdana",
+              "fn:Calibri",
               "sz:19"
             ],
             "InnerSpans": [],
@@ -3827,7 +3666,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": " ",
                             "Markers": [
                               "b",
                               "fn:Calibri",
@@ -4117,7 +3956,7 @@
           },
           {
             "Type": "text",
-            "Content": " ",
+            "Content": " ",
             "Markers": [
               "b",
               "fn:Calibri",
