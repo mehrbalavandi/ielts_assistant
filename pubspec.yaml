@@ -145,7 +145,7 @@ flutter:
     fonts:
       - asset: fonts/Verdana.ttf
 
-  - family: SourceSans3
+  - family: Source Sans 3
     fonts:
       - asset: fonts/SourceSans3-Light.ttf
         weight: 300

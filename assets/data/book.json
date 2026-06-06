@@ -179,7 +179,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p8_s1_img10.png",
+                            "Url": "p8_s1_img10.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -714,7 +714,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p8_s1_img11.jpeg",
+                            "Url": "p8_s1_img11.jpeg",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1033,7 +1033,6 @@
                         ]
                       }
                     ],
-                    "FillColor": "FFFFFF",
                     "WidthPercent": 54.61,
                     "IsHeaderCell": false
                   },

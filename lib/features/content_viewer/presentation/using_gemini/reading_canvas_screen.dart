@@ -43,8 +43,9 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   Color? _hexToColor(String? hexString) {
     if (hexString == null ||
         hexString.isEmpty ||
-        hexString.toLowerCase() == 'auto')
+        hexString.toLowerCase() == 'auto') {
       return null;
+    }
     final buffer = StringBuffer();
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
     buffer.write(hexString.replaceFirst('#', ''));
