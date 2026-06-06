@@ -149,6 +149,7 @@ class SpanData {
 
   // فیلدهای استایل متن و جدول
   final String? fillColor;
+  final String? textColor;
   final String? borderColor;
   final String? borderStyle;
   final String? tableStyleId;
@@ -163,6 +164,7 @@ class SpanData {
     required this.markers,
     this.tableRows = const [],
     this.fillColor,
+    this.textColor,
     this.borderColor,
     this.borderStyle,
     this.tableStyleId,
@@ -180,6 +182,7 @@ class SpanData {
       markers: List<String>.from(json['Markers'] ?? []),
       tableRows: rowsList.map((e) => TableRowData.fromJson(e)).toList(),
       fillColor: json['FillColor'],
+      textColor: json['TextColor'],
       borderColor: json['BorderColor'],
       borderStyle: json['BorderStyle'],
       tableStyleId: json['TableStyleId'],

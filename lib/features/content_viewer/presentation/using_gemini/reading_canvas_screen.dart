@@ -215,9 +215,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       if (marker.startsWith("sz:")) {
         String sizeStr = marker.substring(3);
         double? parsedSize = double.tryParse(sizeStr);
-        if (parsedSize != null) {
-          fontSize = parsedSize / 2;
-        }
+        if (parsedSize != null) fontSize = parsedSize / 2;
       } else if (marker.startsWith("fn:")) {
         fontFamily = marker.substring(3);
         if (fontFamily.contains("*") || fontFamily.contains("-")) {
@@ -231,13 +229,18 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       }
     }
 
-    // استایل پایه با پشتیبانی از رنگ پس‌زمینه اختصاصی کلمه
+    // تبدیل رنگ متن استخراج شده از ورد به رنگ فلاتر
+    Color? customTextColor = _hexToColor(span.textColor);
+
+    // استایل پایه با پشتیبانی از رنگ متن و پس‌زمینه اختصاصی
     TextStyle baseStyle = TextStyle(
       fontSize: fontSize,
       fontFamily: fontFamily,
-      color: Colors.black87,
+      color:
+          customTextColor ??
+          Colors.black87, // <--- اعمال رنگ متن اختصاصی در صورت وجود
       height: 1.5,
-      backgroundColor: _hexToColor(span.fillColor), // <--- اعمال Shading کلمه
+      backgroundColor: _hexToColor(span.fillColor),
       fontWeight: span.markers.contains("b")
           ? FontWeight.bold
           : FontWeight.normal,

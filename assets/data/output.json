@@ -23,9 +23,8 @@
                             "Type": "text",
                             "Content": "UNIT/01: URBAN AND RURAL LIFE",
                             "Markers": [
-                              "b",
                               "fn:Source Sans 3 ExtraBold",
-                              "sz:32"
+                              "sz:28"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -35,7 +34,7 @@
                             "Content": "\n",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:28"
                             ],
                             "InnerSpans": [],
@@ -45,11 +44,10 @@
                             "Type": "text",
                             "Content": "READING",
                             "Markers": [
-                              "b",
-                              "c:FFFFFF",
                               "fn:Source Sans 3 Black",
-                              "sz:88"
+                              "sz:28"
                             ],
+                            "TextColor": "FFFFFF",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -60,10 +58,9 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
+                            "Content": "IN THIS unIT YOU WILL\nLEARN HOW TO",
                             "Markers": [
-                              "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Bold"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -77,8 +74,7 @@
                             "Type": "text",
                             "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
                             "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -118,8 +114,10 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "\n",
-            "Markers": [],
+            "Content": "Lead-in",
+            "Markers": [
+              "fn:Source Sans 3 Bold"
+            ],
             "InnerSpans": [],
             "TableRows": []
           }
@@ -146,38 +144,16 @@
                             "Type": "text",
                             "Content": "01 ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by ",
+                            "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
                             "Markers": [
-                              "b",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the, ",
-                            "Markers": [
-                              "b",
-                              "i",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "and others have no article. Do you know any other article rules for geographical features?",
-                            "Markers": [
-                              "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3 Medium"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -189,76 +165,57 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "Mallorca,",
+                            "Content": "Mallorca",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " the biggest of ",
+                            "Content": ", the biggest of ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "the Balearic Islands,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " is situated in ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Mediterranean",
+                            "Content": "the Balearic Islands",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": ", is situated in ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Sea,",
+                            "Content": "the Mediterranean Sea",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " some 300km from ",
+                            "Content": ", some 300km from ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -268,7 +225,7 @@
                             "Content": "the Valencian coast",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -277,26 +234,26 @@
                             "Type": "text",
                             "Content": " of ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Spain,",
+                            "Content": "Spain",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
+                            "Content": ", and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -306,7 +263,7 @@
                             "Content": "the Spanish",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -315,7 +272,7 @@
                             "Type": "text",
                             "Content": " as a tourist destination, it annually welcomes people from all over ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -325,7 +282,7 @@
                             "Content": "Europe",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -334,7 +291,7 @@
                             "Type": "text",
                             "Content": " (particularly from ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -344,7 +301,7 @@
                             "Content": "the United Kingdom, France",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -353,64 +310,45 @@
                             "Type": "text",
                             "Content": " and ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Germany),",
+                            "Content": "Germany",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " who may head for ",
+                            "Content": "), who may head for ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Alcudia Beach,",
-                            "Markers": [
-                              "u",
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " or go hiking in ",
-                            "Markers": [
-                              "fn:Calibri"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Tramuntanas,",
+                            "Content": "Alcudia Beach",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " a mountain range that runs from ",
+                            "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -420,7 +358,7 @@
                             "Content": "the northeast",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -429,7 +367,7 @@
                             "Type": "text",
                             "Content": " to ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -439,7 +377,7 @@
                             "Content": "the southwest",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -448,26 +386,26 @@
                             "Type": "text",
                             "Content": " of the island. The busy capital city, ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Palma de Mallorca,",
+                            "Content": "Palma de Mallorca",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
+                            "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -477,7 +415,7 @@
                             "Content": "Algaida",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -486,17 +424,26 @@
                             "Type": "text",
                             "Content": " or ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Binissalem.",
+                            "Content": "Binissalem",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": ".",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -575,7 +522,7 @@
                             "Type": "text",
                             "Content": "02 ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -584,8 +531,7 @@
                             "Type": "text",
                             "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
                             "Markers": [
-                              "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3 Medium"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -670,9 +616,7 @@
                             "Type": "text",
                             "Content": "[MATCHING HEADINGS]",
                             "Markers": [
-                              "b",
-                              "fn:Verdana",
-                              "sz:36"
+                              "fn:Source Sans 3 SemiBold"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -721,7 +665,7 @@
                             "Type": "text",
                             "Content": "03",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -741,9 +685,8 @@
                             "Type": "text",
                             "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
                             "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:21"
+                              "fn:Source Sans 3 Medium",
+                              "sz:36"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -828,9 +771,7 @@
                             "Type": "text",
                             "Content": "The World’s\nMost unusual\nTowns and Cities",
                             "Markers": [
-                              "b",
-                              "fn:Verdana",
-                              "sz:38"
+                              "fn:Source Sans 3 ExtraBold"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -848,11 +789,21 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "◎ ",
+                            "Content": "◎",
                             "Markers": [
-                              "fn:Segoe UI Emoji",
-                              "sz:15"
+                              "fn:Cambria Math"
                             ],
+                            "TextColor": "050505",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Segoe UI Emoji"
+                            ],
+                            "TextColor": "050505",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -860,22 +811,30 @@
                             "Type": "text",
                             "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
                             "Markers": [
-                              "c:050605",
-                              "fn:Calibri",
-                              "sz:18"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "050505",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "topic sentence.",
+                            "Content": "topic sentence",
                             "Markers": [
                               "i",
-                              "c:050605",
-                              "fn:Verdana",
-                              "sz:15"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "050505",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": ".",
+                            "Markers": [
+                              "fn:Source Sans 3"
+                            ],
+                            "TextColor": "050505",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -888,10 +847,9 @@
                             "Type": "text",
                             "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
                             "Markers": [
-                              "c:050505",
-                              "fn:Calibri",
-                              "sz:18"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "050505",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -945,7 +903,7 @@
                             "Content": "04",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -967,9 +925,9 @@
                             "Content": "Read the first sentence of a paragraph about the city of Auroville, India. It is the topic sentence. Which of the three options seems to be the most likely heading? Why?",
                             "Markers": [
                               "b",
-                              "c:070606",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "070606",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -983,10 +941,10 @@
                             "Type": "text",
                             "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
                             "Markers": [
-                              "c:000307",
                               "fn:Tahoma",
                               "sz:19"
                             ],
+                            "TextColor": "000307",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1000,10 +958,10 @@
                             "Type": "text",
                             "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be ",
                             "Markers": [
-                              "c:000307",
                               "fn:Tahoma",
                               "sz:19"
                             ],
+                            "TextColor": "000307",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -1011,10 +969,10 @@
                             "Type": "text",
                             "Content": "projected across all humanity.",
                             "Markers": [
-                              "c:000207",
                               "fn:Tahoma",
                               "sz:19"
                             ],
+                            "TextColor": "000207",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1130,10 +1088,10 @@
                             "Type": "text",
                             "Content": "A The reason why attempts to create the perfect city always fail\nB An urban ideal designed for an imperfect world\n",
                             "Markers": [
-                              "c:110E0D",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -1141,10 +1099,10 @@
                             "Type": "text",
                             "Content": "C A conflict between reality and imitation",
                             "Markers": [
-                              "c:120F0E",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "120F0E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1187,7 +1145,7 @@
                             "Content": "05",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -1209,10 +1167,10 @@
                             "Content": "Read the full paragraph and check your answer.",
                             "Markers": [
                               "b",
-                              "c:110E0D",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1226,10 +1184,10 @@
                             "Type": "text",
                             "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
                             "Markers": [
-                              "c:110E0D",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1243,10 +1201,10 @@
                             "Type": "text",
                             "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be projected across all humanity. It has no government, no one owns any property, and money rarely, if ever, changes hands. There is no leader and rules do not exist. While most experiments at creating the perfect city do not meet with success, the majority of Auroville's residents believe their city to be an exception. Although its critics point to the fact that levels of crime",
                             "Markers": [
-                              "c:110E0D",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1260,10 +1218,10 @@
                             "Type": "text",
                             "Content": "have been creeping up for some years now, its citizens choose to remain there, still believing in its utopian dream, still following its path towards a better world.",
                             "Markers": [
-                              "c:110E0D",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1283,7 +1241,7 @@
                             "Content": "TIP 05",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1297,10 +1255,10 @@
                             "Type": "text",
                             "Content": "The heading you want will probably not use the same words as those which appear in the paragraph, but will paraphrase the ideas.",
                             "Markers": [
-                              "c:0E0D0F",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:18"
                             ],
+                            "TextColor": "0E0D0F",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1337,7 +1295,7 @@
                             "Content": "06",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -1359,9 +1317,9 @@
                             "Content": "Read this opening sentence about Longyearbyen. Which heading seems to fit this sentence best?",
                             "Markers": [
                               "b",
-                              "c:060403",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "060403",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1387,7 +1345,7 @@
                             "Type": "text",
                             "Content": "Longyearbyen, Norway, holds the record for being the furthest north city in the world, boasting the world's most northerly school, airport and university.",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1414,7 +1372,7 @@
                             "Type": "text",
                             "Content": "A An unwelcoming place to die",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1429,7 +1387,7 @@
                             "Type": "text",
                             "Content": "B A city at the top of the world",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1444,7 +1402,7 @@
                             "Type": "text",
                             "Content": "C An unusual approach to regulation",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1466,7 +1424,7 @@
                             "Content": "TIP 06",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1480,10 +1438,10 @@
                             "Type": "text",
                             "Content": "Be careful: sometimes the first sentence of a paragraph seems to fit entirely with one particular heading. However, don't be caught out - you still need to check by reading the whole paragraph.",
                             "Markers": [
-                              "c:0E0D0F",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:18"
                             ],
+                            "TextColor": "0E0D0F",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1537,7 +1495,7 @@
                             "Content": "07",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -1559,9 +1517,9 @@
                             "Content": "Now read the full paragraph and think about the overall message of the paragraph. Which heading now best fits the paragraph?",
                             "Markers": [
                               "b",
-                              "c:11100E",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "11100E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1574,10 +1532,10 @@
                             "Type": "text",
                             "Content": "Longyearbyen, Spitsbergen, in the Svalbard Archipelago of Norway, holds the record for being the furthest north city in the world, boasting the world's most northerly school, airport and university. But what really sets it apart is that it can also lay claim to some of the world's strangest rules. In Longyearbyen, for example, it has been forbidden to die since 1950, the year in which scientists discovered that bodies simply cannot decompose there - the cold is too extreme. To this day, anyone found ill or dying is not given the chance to pass away, and is instead immediately taken by airplane or ship to another part of Norway so that they can die and be buried safely. But it doesn't end there. Aside from prohibiting death, there are more peculiar rules and freedoms in Longyearbyen. Residents are permitted to openly walk the streets with high-powered guns (there are 3,000 polar bears living locally). At the same time, no one is allowed to own any cats, which are forbidden because they are a danger to the bird population.",
                             "Markers": [
-                              "c:000306",
                               "fn:Verdana",
                               "sz:19"
                             ],
+                            "TextColor": "000306",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1619,7 +1577,7 @@
                             "Content": "08",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -1641,9 +1599,9 @@
                             "Content": "Underline the main topic sentence in the paragraph.",
                             "Markers": [
                               "b",
-                              "c:0E0E0D",
                               "fn:*Calibri-7392-Identity-H"
                             ],
+                            "TextColor": "0E0E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1686,7 +1644,7 @@
                             "Content": "09",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -1708,9 +1666,9 @@
                             "Content": "Read the first sentence of the next paragraph about Marloth Park in South Africa.",
                             "Markers": [
                               "b",
-                              "c:0E0E0E",
                               "fn:*Calibri-7392-Identity-H"
                             ],
+                            "TextColor": "0E0E0E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1724,9 +1682,9 @@
                             "Content": "Find words or phrases that correspond to the underlined words in the headings A-C below.",
                             "Markers": [
                               "b",
-                              "c:0E0E0E",
                               "fn:*Calibri-7392-Identity-H"
                             ],
+                            "TextColor": "0E0E0E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1740,7 +1698,7 @@
                             "Type": "text",
                             "Content": "Despite the fact the town of Marloth Park is close to the Kruger National Park, one of the largest game reserves in Africa, and despite the constant threat of visits from wild animals such as lions and hippopotamuses, its anxious residents are not allowed to build fences around their houses to keep out their neighbours.",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1755,7 +1713,7 @@
                             "Type": "text",
                             "Content": "A An unusual approach to ",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1766,7 +1724,7 @@
                             "Content": "regulation",
                             "Markers": [
                               "u",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1781,7 +1739,7 @@
                             "Type": "text",
                             "Content": "B Dealing with the occasional ",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1792,7 +1750,7 @@
                             "Content": "dangers of the wild",
                             "Markers": [
                               "u",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1807,7 +1765,7 @@
                             "Type": "text",
                             "Content": "C Where ",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1818,7 +1776,7 @@
                             "Content": "humans and animals",
                             "Markers": [
                               "u",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1828,7 +1786,7 @@
                             "Type": "text",
                             "Content": " cautiously ",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1839,7 +1797,7 @@
                             "Content": "co-exist",
                             "Markers": [
                               "u",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -1884,7 +1842,7 @@
                             "Content": "10",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -1906,7 +1864,7 @@
                             "Content": "Now focus on the adverbs and adjectives in the headings. Which heading is no longer a possible answer?",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1919,7 +1877,7 @@
                             "Type": "text",
                             "Content": "A An ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1929,7 +1887,7 @@
                             "Content": "unusual",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1938,7 +1896,7 @@
                             "Type": "text",
                             "Content": " approach to regulation",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1951,7 +1909,7 @@
                             "Type": "text",
                             "Content": "B Dealing with the ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1961,7 +1919,7 @@
                             "Content": "occasional",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1970,7 +1928,7 @@
                             "Type": "text",
                             "Content": " dangers of the wild",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1983,7 +1941,7 @@
                             "Type": "text",
                             "Content": "C Where humans and animals ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1993,7 +1951,7 @@
                             "Content": "cautiously",
                             "Markers": [
                               "u",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2002,7 +1960,7 @@
                             "Type": "text",
                             "Content": " co-exist",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2023,7 +1981,7 @@
                             "Content": "TIP 10",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2037,10 +1995,10 @@
                             "Type": "text",
                             "Content": "Pay particular attention to adjectives and adverbs in headings and texts, as they may help you to eliminate an incorrect heading immediately.",
                             "Markers": [
-                              "c:101011",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:18"
                             ],
+                            "TextColor": "101011",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2094,7 +2052,7 @@
                             "Content": "11",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -2224,7 +2182,7 @@
                             "Content": "12",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -2246,7 +2204,7 @@
                             "Content": "Identify the main topic sentence in the paragraph.",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2290,7 +2248,7 @@
                             "Content": "13",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -2312,7 +2270,7 @@
                             "Content": "Some paragraphs have no clear topic sentence. Read this paragraph and make notes about its main idea.",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2373,7 +2331,7 @@
                             "Type": "text",
                             "Content": "The real Hallstat is in Austria and is proud to be a traditional UNESCO* World Heritage Site. The Chinese Hallstat is a carbon copy, built in Guangdong province, China, by a millionaire who sponsored the construction of the imitation town. It cost approximately $940 million to build, and",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -2388,7 +2346,7 @@
                             "Type": "text",
                             "Content": "looks exactly like the real Hallstat, all the way down to its wooden houses, its narrow streets, and its funicular railway. When the residents of Austria's Hallstat (including the mayor) were invited to visit it, they expressed pride that their town was considered so improbably beautiful that it had been reproduced in its entirety, but they still had cause for complaint. Originally, the Chinese company had promised to meet",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -2403,7 +2361,7 @@
                             "Type": "text",
                             "Content": "with the Austrian residents to confirm that they were happy for their homes to be copied; instead, they simply sent their employees to Austria to fake photos, and they returned home to China without speaking to a single resident of the original Hallstat.",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -2419,7 +2377,7 @@
                             "Content": "* United Nations Educational, Scientific and Cultural Organization",
                             "Markers": [
                               "i",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -2464,7 +2422,7 @@
                             "Content": "14",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -2486,7 +2444,7 @@
                             "Content": "Use your notes to help you choose the correct heading.",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2500,7 +2458,7 @@
                             "Content": "A",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2509,7 +2467,7 @@
                             "Type": "text",
                             "Content": " A conflict between reality and imitation",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2523,7 +2481,7 @@
                             "Content": "B",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2532,7 +2490,7 @@
                             "Type": "text",
                             "Content": " The importance of official recognition",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2546,7 +2504,7 @@
                             "Content": "C",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2555,7 +2513,7 @@
                             "Type": "text",
                             "Content": " The result of encouraging wider investment",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2634,7 +2592,7 @@
                             "Content": "15",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -2655,7 +2613,7 @@
                             "Type": "text",
                             "Content": "Identify the prefixes in the underlined words. Then work out a general meaning for each.",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2670,9 +2628,9 @@
                             "Content": "A",
                             "Markers": [
                               "b",
-                              "c:040304",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2680,9 +2638,9 @@
                             "Type": "text",
                             "Content": " An ",
                             "Markers": [
-                              "c:040304",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2691,9 +2649,9 @@
                             "Content": "unusual",
                             "Markers": [
                               "u",
-                              "c:040304",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2701,9 +2659,9 @@
                             "Type": "text",
                             "Content": " approach to regulation",
                             "Markers": [
-                              "c:040304",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2717,9 +2675,9 @@
                             "Content": "B",
                             "Markers": [
                               "b",
-                              "c:040404",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2727,9 +2685,9 @@
                             "Type": "text",
                             "Content": " An urban ideal designed for an ",
                             "Markers": [
-                              "c:040404",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2738,9 +2696,9 @@
                             "Content": "imperfect",
                             "Markers": [
                               "u",
-                              "c:040404",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2748,9 +2706,9 @@
                             "Type": "text",
                             "Content": " world",
                             "Markers": [
-                              "c:040404",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2764,9 +2722,9 @@
                             "Content": "C",
                             "Markers": [
                               "b",
-                              "c:040404",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2774,9 +2732,9 @@
                             "Type": "text",
                             "Content": " Where humans and animals cautiously ",
                             "Markers": [
-                              "c:040404",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2785,9 +2743,9 @@
                             "Content": "co-exist",
                             "Markers": [
                               "u",
-                              "c:040404",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2859,7 +2817,7 @@
                             "Content": "16",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -2870,7 +2828,7 @@
                             "Content": " ",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -2881,10 +2839,10 @@
                             "Content": "With a partner, think of some words that begin with the prefixes in the box. Then discuss what the general meaning of each prefix is.",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2922,7 +2880,7 @@
                             "Content": "17",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -2933,7 +2891,7 @@
                             "Content": " Using the correct prefixes from the box above, change the words in CAPITALS into the correct forms.",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2947,7 +2905,7 @@
                             "Content": "A ",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -2967,7 +2925,7 @@
                             "Type": "text",
                             "Content": "are WARN about",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2991,7 +2949,7 @@
                             "Content": "B ",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3016,7 +2974,7 @@
                             "Content": "C ",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3041,7 +2999,7 @@
                             "Content": "D ",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3078,10 +3036,10 @@
                             "Content": "EXAM SKILLS",
                             "Markers": [
                               "b",
-                              "c:090506",
                               "fn:Verdana",
                               "sz:37"
                             ],
+                            "TextColor": "090506",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3095,7 +3053,7 @@
                             "Content": "18",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -3106,7 +3064,7 @@
                             "Content": " ",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3117,10 +3075,10 @@
                             "Content": "Read the passage and answer questions 1-6.",
                             "Markers": [
                               "b",
-                              "c:070505",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "070505",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3134,7 +3092,7 @@
                             "Content": "The Reading passage hos six paragraphs, A-F. Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
                             "Markers": [
                               "i",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3148,7 +3106,7 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3158,7 +3116,7 @@
                             "Content": "A",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3172,7 +3130,7 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3182,7 +3140,7 @@
                             "Content": "B",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3196,7 +3154,7 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3206,7 +3164,7 @@
                             "Content": "C",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3220,7 +3178,7 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3230,7 +3188,7 @@
                             "Content": "D",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3244,7 +3202,7 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3254,7 +3212,7 @@
                             "Content": "E",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3268,7 +3226,7 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3278,7 +3236,7 @@
                             "Content": "F",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3293,10 +3251,10 @@
                             "Content": "List of headings",
                             "Markers": [
                               "b",
-                              "c:060404",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "060404",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3481,10 +3439,10 @@
             "Content": "CAHOKIA - ANCESTOR OF TODAY'S CAPITAL CITIES",
             "Markers": [
               "b",
-              "c:040203",
-              "fn:Calibri",
+              "fn:Source Sans 3",
               "sz:33"
             ],
+            "TextColor": "040203",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -3512,10 +3470,10 @@
                             "Content": "A",
                             "Markers": [
                               "b",
-                              "c:291714",
                               "fn:Tahoma",
                               "sz:18"
                             ],
+                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3528,10 +3486,9 @@
                             "Type": "text",
                             "Content": "A thousand years ago the Mississippians, a diverse group of Native Americans who lived in the area which is today known as the south-eastern United States, took a small village on the Mississippi River and turned it into one of the world's first great urban centres. Cahokia, as it has been called by archaeologists, became as large as London was in the 11th century, and some would argue that it was just as forward-looking and prosperous as its European equivalents. Sophisticated, cosmopolitan and ahead of its time, Cahokia was at the heart of ancient society in North America; an ancestor of today's capital cities.",
                             "Markers": [
-                              "c:291714",
-                              "fn:Tahoma",
-                              "sz:18"
+                              "fn:Source Sans 3"
                             ],
+                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3573,7 +3530,7 @@
             "Content": "     ",
             "Markers": [
               "b",
-              "fn:Calibri"
+              "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
@@ -3668,7 +3625,7 @@
             "Type": "text",
             "Content": "WRITING",
             "Markers": [
-              "fn:Calibri"
+              "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
@@ -3683,10 +3640,10 @@
             "Content": "IN THIS UNIT YOU WILL LEARN HOW TO",
             "Markers": [
               "b",
-              "c:100300",
               "fn:Verdana",
               "sz:23"
             ],
+            "TextColor": "100300",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -3700,10 +3657,10 @@
             "Content": "identify the main features of a line graph",
             "Markers": [
               "b",
-              "c:120100",
               "fn:Calibri",
               "sz:19"
             ],
+            "TextColor": "120100",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -3717,10 +3674,10 @@
             "Content": "achieve a high score for Task Achievement",
             "Markers": [
               "b",
-              "c:120300",
               "fn:Calibri",
               "sz:19"
             ],
+            "TextColor": "120300",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -3734,10 +3691,10 @@
             "Content": "describe and compare using adjectives and adverbs.",
             "Markers": [
               "b",
-              "c:110100",
               "fn:Calibri",
               "sz:19"
             ],
+            "TextColor": "110100",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -3788,7 +3745,7 @@
                             "Content": "01",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:26"
                             ],
                             "InnerSpans": [],
@@ -3799,7 +3756,7 @@
                             "Content": " ",
                             "Markers": [
                               "b",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
                             "InnerSpans": [],
@@ -3810,10 +3767,10 @@
                             "Content": "Using the verb ",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3823,10 +3780,10 @@
                             "Markers": [
                               "b",
                               "i",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3835,10 +3792,10 @@
                             "Content": "and the adverb ",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3848,10 +3805,10 @@
                             "Markers": [
                               "b",
                               "i",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3860,10 +3817,10 @@
                             "Content": "complete the sentences to describe the information in the graphs. Focus on the correct verb. tense in each case, bearing in mind the time phrases you are given and the dates in the graph.",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3889,10 +3846,10 @@
                             "Content": "1 ",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3900,10 +3857,10 @@
                             "Type": "text",
                             "Content": "Since five years ago, {i}sales have grown rapidly{/i} to 90,000.",
                             "Markers": [
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3917,10 +3874,10 @@
                             "Content": "2 ",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3928,10 +3885,10 @@
                             "Type": "text",
                             "Content": "Between {blk}1980 and 1990 sales grew rapidly{/blk} to 90,000.",
                             "Markers": [
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3945,10 +3902,10 @@
                             "Content": "3 ",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3956,10 +3913,10 @@
                             "Type": "text",
                             "Content": "From 2020 to 2030 {blk}sales will / are predicted to / are expected to grow rapidly{/blk} to 90,000.",
                             "Markers": [
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3973,10 +3930,10 @@
                             "Content": "4 ",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3984,10 +3941,10 @@
                             "Type": "text",
                             "Content": "By the year 2000, {blk}sales had grown rapidly{/blk} to 90,000",
                             "Markers": [
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4001,10 +3958,10 @@
                             "Content": "5 ",
                             "Markers": [
                               "b",
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:20"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4012,10 +3969,10 @@
                             "Type": "text",
                             "Content": "By the year 2020, {blk}sales will have grown rapidly{/blk} to 90,000.",
                             "Markers": [
-                              "c:0D0706",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4080,7 +4037,7 @@
             "Content": "02",
             "Markers": [
               "b",
-              "fn:Calibri",
+              "fn:Source Sans 3",
               "sz:26"
             ],
             "InnerSpans": [],
@@ -4091,7 +4048,7 @@
             "Content": " ",
             "Markers": [
               "b",
-              "fn:Calibri",
+              "fn:Source Sans 3",
               "sz:21"
             ],
             "InnerSpans": [],
@@ -4102,10 +4059,10 @@
             "Content": "With a partner, make correct sentences using a verb from column 1, an adverb from column 2 and a time phrase.",
             "Markers": [
               "b",
-              "c:101312",
-              "fn:Calibri",
+              "fn:Source Sans 3",
               "sz:21"
             ],
+            "TextColor": "101312",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -4118,10 +4075,10 @@
             "Type": "text",
             "Content": "Example:",
             "Markers": [
-              "c:131615",
-              "fn:Calibri",
+              "fn:Source Sans 3",
               "sz:21"
             ],
+            "TextColor": "131615",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -4135,7 +4092,7 @@
             "Content": "Student A: ",
             "Markers": [
               "b",
-              "fn:Calibri"
+              "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
@@ -4145,7 +4102,7 @@
             "Content": "increase, slowly, by the year 2000",
             "Markers": [
               "i",
-              "fn:Calibri"
+              "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
@@ -4160,7 +4117,7 @@
             "Content": "Student B: ",
             "Markers": [
               "b",
-              "fn:Calibri"
+              "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
@@ -4170,7 +4127,7 @@
             "Content": "By the year 2000, it had increased slowly to 90%.",
             "Markers": [
               "i",
-              "fn:Calibri"
+              "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
@@ -4201,10 +4158,10 @@
                             "Content": "Verb",
                             "Markers": [
                               "b",
-                              "c:111313",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "111313",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4225,10 +4182,10 @@
                             "Content": "Adverb",
                             "Markers": [
                               "b",
-                              "c:111313",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "111313",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4249,10 +4206,10 @@
                             "Content": "Time phrase",
                             "Markers": [
                               "b",
-                              "c:111313",
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
+                            "TextColor": "111313",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4276,7 +4233,7 @@
                             "Type": "text",
                             "Content": "Increase",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -4291,7 +4248,7 @@
                             "Type": "text",
                             "Content": "decrease",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -4306,7 +4263,7 @@
                             "Type": "text",
                             "Content": "fall",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -4321,7 +4278,7 @@
                             "Type": "text",
                             "Content": "rise",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -4336,7 +4293,7 @@
                             "Type": "text",
                             "Content": "climb",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -4351,7 +4308,7 @@
                             "Type": "text",
                             "Content": "drop",
                             "Markers": [
-                              "fn:Calibri",
+                              "fn:Source Sans 3",
                               "sz:21"
                             ],
                             "InnerSpans": [],
@@ -4372,7 +4329,7 @@
                             "Type": "text",
                             "Content": "dramatically",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4386,7 +4343,7 @@
                             "Type": "text",
                             "Content": "slowly",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4400,7 +4357,7 @@
                             "Type": "text",
                             "Content": "sharply",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4414,7 +4371,7 @@
                             "Type": "text",
                             "Content": "consistently",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4428,7 +4385,7 @@
                             "Type": "text",
                             "Content": "gradually",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4442,7 +4399,7 @@
                             "Type": "text",
                             "Content": "steadily",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4462,7 +4419,7 @@
                             "Type": "text",
                             "Content": "by the year 2000",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4476,7 +4433,7 @@
                             "Type": "text",
                             "Content": "from 1995 to 2000",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4490,7 +4447,7 @@
                             "Type": "text",
                             "Content": "for the next ten years",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4504,7 +4461,7 @@
                             "Type": "text",
                             "Content": "between 2010 and now",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4518,7 +4475,7 @@
                             "Type": "text",
                             "Content": "by the year 2030",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -4532,7 +4489,7 @@
                             "Type": "text",
                             "Content": "since 2016",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
