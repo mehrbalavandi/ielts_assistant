@@ -118,6 +118,23 @@ class AppTextStyles {
     fontSize: 44,
     height: 1,
   );
+
+  /// متن معرفی اهداف یونیت
+  static const TextStyle learningObjectivesTitle = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w700, // Bold
+    fontSize: 11,
+    letterSpacing: .8,
+    height: 1.2,
+  );
+
+  /// آیتم‌های لیست اهداف یونیت
+  static const TextStyle learningObjectiveItem = TextStyle(
+    fontFamily: _fontFamily,
+    fontWeight: FontWeight.w400, // Regular
+    fontSize: 10.5,
+    height: 1.35,
+  );
 }
 /*
 Column(
