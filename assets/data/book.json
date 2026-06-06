@@ -3,20 +3,57 @@
     "PageNumber": 1,
     "Paragraphs": [
       {
-        "Direction": "LTR",
         "Spans": [
           {
-            "Type": "text",
-            "Content": "UNIT/01: URBAN AND RURAL LIFE\nREADING",
-            "Markers": [
-              "b",
-              "fn:Times New Roman",
-              "sz:28"
-            ],
+            "Type": "table",
+            "Markers": [],
+            "TableStyleId": "StartSectionTableReading",
+            "TableStyleName": "StartSectionTableReading",
             "InnerSpans": [],
-            "TableRows": []
-          }
-        ],
+            "TableRows": [
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "UNIT/01: URBAN AND RURAL LIFE",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 ExtraBold",
+                              "sz:32"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "\n",
+                            "Markers": [
+                              "b",
+                              "fn:Calibri",
+                              "sz:28"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "READING",
+                            "Markers": [
+                              "b",
+                              "c:FFFFFF",
+                              "fn:Source Sans 3 Black",
+                              "sz:88"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ],
         "translationFa": "واحد/01: زندگی شهری و روستایی\nخوانش",
         "translationAr": "الوحدة/01: الحياة الحضرية والريفية\nالقراءة",
         "Interactives": [
@@ -41,29 +78,7 @@
             "cefrLevel": "B1"
           }
         ]
-      },
-      {
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
-          {
-            "Type": "table",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": [
-              {
-                "Cells": [
-                  {
-                    "Paragraphs": [
+                      },
                       {
                         "Direction": "LTR",
                         "Spans": [
@@ -72,7 +87,7 @@
                             "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
                             "Markers": [
                               "b",
-                              "fn:Calibri"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -94,12 +109,14 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
                             "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
                             "Markers": [
-                              "fn:Calibri"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -151,23 +168,26 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 55.49
+                    "WidthPercent": 57.51,
+                    "IsHeaderCell": true
                   },
                   {
                     "Paragraphs": [
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p1_s1_img1.png",
+                            "Url": "images/p8_s1_img10.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 44.51
+                    "WidthPercent": 42.49,
+                    "IsHeaderCell": false
                   }
                 ]
               }
@@ -176,17 +196,7 @@
         ]
       },
       {
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
+        "Direction": "LTR",
         "Spans": [
           {
             "Type": "text",
@@ -202,9 +212,12 @@
           {
             "Type": "table",
             "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
             "InnerSpans": [],
             "TableRows": [
               {
+                "IsHeader": false,
                 "Cells": [
                   {
                     "Paragraphs": [
@@ -213,35 +226,13 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "01",
+                            "Content": "01 ",
                             "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:26"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
                               "fn:Calibri"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 6.26
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
+                          },
                           {
                             "Type": "text",
                             "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by ",
@@ -711,20 +702,10 @@
                             "cefrLevel": "B2"
                           }
                         ]
-                      },
-                      {
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
                       }
                     ],
-                    "WidthPercent": 54.61
+                    "WidthPercent": 62.65,
+                    "IsHeaderCell": true
                   },
                   {
                     "Paragraphs": [
@@ -733,14 +714,15 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p1_s1_img2.jpeg",
+                            "Url": "images/p8_s1_img11.jpeg",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 39.13
+                    "WidthPercent": 37.35,
+                    "IsHeaderCell": false
                   }
                 ]
               }
@@ -761,13 +743,28 @@
         ]
       },
       {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
         "Spans": [
           {
             "Type": "table",
             "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
             "InnerSpans": [],
             "TableRows": [
               {
+                "IsHeader": false,
                 "Cells": [
                   {
                     "Paragraphs": [
@@ -776,35 +773,13 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "02",
+                            "Content": "02 ",
                             "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:26"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
                               "fn:Calibri"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 6.26
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
+                          },
                           {
                             "Type": "text",
                             "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
@@ -862,7 +837,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.61
+                    "WidthPercent": 80.3,
+                    "IsHeaderCell": true
                   },
                   {
                     "Paragraphs": [
@@ -879,7 +855,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.13
+                    "WidthPercent": 19.7,
+                    "IsHeaderCell": false
                   }
                 ]
               }
@@ -904,9 +881,12 @@
           {
             "Type": "table",
             "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
             "InnerSpans": [],
             "TableRows": [
               {
+                "IsHeader": false,
                 "Cells": [
                   {
                     "Paragraphs": [
@@ -922,7 +902,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 6.26,
+                    "IsHeaderCell": true
                   },
                   {
                     "Paragraphs": [
@@ -931,7 +912,7 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "MATCHING HEADINGS",
+                            "Content": "[MATCHING HEADINGS]",
                             "Markers": [
                               "b",
                               "fn:Verdana",
@@ -957,24 +938,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.61
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 39.13
+                    "WidthPercent": 93.74,
+                    "IsHeaderCell": false
                   }
                 ]
               }
@@ -999,31 +964,21 @@
           {
             "Type": "table",
             "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
             "InnerSpans": [],
             "TableRows": [
               {
+                "IsHeader": false,
                 "Cells": [
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
                             "Content": "03",
                             "Markers": [
-                              "b",
-                              "fn:Calibri",
-                              "sz:26"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [
-                              "b",
                               "fn:Calibri"
                             ],
                             "InnerSpans": [],
@@ -1032,7 +987,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 6.26,
+                    "IsHeaderCell": true
                   },
                   {
                     "Paragraphs": [
@@ -1077,7 +1033,9 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.61
+                    "FillColor": "FFFFFF",
+                    "WidthPercent": 54.61,
+                    "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
@@ -1094,7 +1052,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.13
+                    "WidthPercent": 39.13,
+                    "IsHeaderCell": false
                   }
                 ]
               }
@@ -1119,9 +1078,12 @@
           {
             "Type": "table",
             "Markers": [],
+            "TableStyleId": "StartSectionTableReading",
+            "TableStyleName": "StartSectionTableReading",
             "InnerSpans": [],
             "TableRows": [
               {
+                "IsHeader": false,
                 "Cells": [
                   {
                     "Paragraphs": [
@@ -1137,7 +1099,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 6.26
+                    "WidthPercent": 6.26,
+                    "IsHeaderCell": true
                   },
                   {
                     "Paragraphs": [
@@ -1146,11 +1109,11 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "The World’s Most unusual Towns and Cities",
+                            "Content": "The World’s\nMost unusual\nTowns and Cities",
                             "Markers": [
                               "b",
-                              "fn:Times New Roman",
-                              "sz:44"
+                              "fn:Verdana",
+                              "sz:38"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1182,7 +1145,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 41.11
+                    "WidthPercent": 41.11,
+                    "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
@@ -1329,7 +1293,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 52.63
+                    "WidthPercent": 52.63,
+                    "IsHeaderCell": false
                   }
                 ]
               }
