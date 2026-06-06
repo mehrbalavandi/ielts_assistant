@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ielts_assistant/shared/models/models.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class TextRenderEngine {
   /// این متد یک متن ساده را می‌گیرد، در آن به دنبال کلمات تعاملی می‌گردد

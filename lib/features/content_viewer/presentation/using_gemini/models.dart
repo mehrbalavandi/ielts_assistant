@@ -34,11 +34,13 @@ class InteractiveWord {
   }
 }
 
-// ۲. مدل پاراگراف (غنی شده با هوش مصنوعی)
+// ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
 class ParagraphData {
   final List<SpanData> spans;
   final String direction;
   final String alignment;
+  final String? fillColor; // <--- فیلد جدید: پس‌زمینه کل پاراگراف
+
   // --- فیلدهای اضافه شده توسط AI ---
   final String? translationFa;
   final String? translationAr;
@@ -48,6 +50,7 @@ class ParagraphData {
     required this.spans,
     this.direction = "LTR",
     this.alignment = "L",
+    this.fillColor,
     this.translationFa,
     this.translationAr,
     required this.interactives,
@@ -60,6 +63,7 @@ class ParagraphData {
     return ParagraphData(
       direction: json['Direction'] ?? 'LTR',
       alignment: json['Alignment'] ?? 'L',
+      fillColor: json['FillColor'],
       translationFa: json['translationFa'],
       translationAr: json['translationAr'],
       interactives: interactivesList
@@ -70,7 +74,7 @@ class ParagraphData {
   }
 }
 
-// ۱. مدل صفحه
+// ۳. مدل صفحه
 class PageData {
   final int pageNumber;
   final List<ParagraphData> paragraphs;
@@ -86,14 +90,17 @@ class PageData {
   }
 }
 
-// ۲. مدل‌های مربوط به جدول
+// ۴. مدل‌های مربوط به جدول (با پشتیبانی کامل از هدر و ادغام)
 class TableRowData {
+  final bool isHeader; // <--- فیلد جدید
   final List<TableCellData> cells;
-  TableRowData({required this.cells});
+
+  TableRowData({required this.cells, this.isHeader = false});
 
   factory TableRowData.fromJson(Map<String, dynamic> json) {
     var cellsList = json['Cells'] as List? ?? [];
     return TableRowData(
+      isHeader: json['IsHeader'] ?? false,
       cells: cellsList.map((e) => TableCellData.fromJson(e)).toList(),
     );
   }
@@ -101,26 +108,53 @@ class TableRowData {
 
 class TableCellData {
   final double? widthPercent;
-  final List<ParagraphData> paragraphs; // پاراگراف‌های تودرتو داخل سلول
+  final List<ParagraphData> paragraphs;
+  final String? fillColor; // <--- رنگ اختصاصی سلول
+  final String? vAlign; // <--- تراز عمودی
+  final int? colSpan; // <--- ادغام ستون
+  final String? rowMerge; // <--- وضعیت ادغام سطر
+  final bool isHeaderCell; // <--- هدر بودن سلول
 
-  TableCellData({this.widthPercent, required this.paragraphs});
+  TableCellData({
+    this.widthPercent,
+    required this.paragraphs,
+    this.fillColor,
+    this.vAlign,
+    this.colSpan,
+    this.rowMerge,
+    this.isHeaderCell = false,
+  });
 
   factory TableCellData.fromJson(Map<String, dynamic> json) {
     var parasList = json['Paragraphs'] as List? ?? [];
     return TableCellData(
       widthPercent: json['WidthPercent']?.toDouble(),
+      fillColor: json['FillColor'],
+      vAlign: json['VAlign'],
+      colSpan: json['ColSpan'],
+      rowMerge: json['RowMerge'],
+      isHeaderCell: json['IsHeaderCell'] ?? false,
       paragraphs: parasList.map((e) => ParagraphData.fromJson(e)).toList(),
     );
   }
 }
 
-// ۳. به‌روزرسانی اسپن برای پشتیبانی از TableRows
+// ۵. مدل اسپن
 class SpanData {
   final String type;
   final String content;
-  final String? url; // <--- فیلد جدید
+  final String? url;
   final List<String> markers;
-  final List<TableRowData> tableRows; // اضافه شدن فیلد سطرهای جدول
+  final List<TableRowData> tableRows;
+
+  // فیلدهای استایل متن و جدول
+  final String? fillColor;
+  final String? borderColor;
+  final String? borderStyle;
+  final String? tableStyleId;
+  final String? tableStyleName;
+  final String? tableAlignment;
+  final String? hasBorders;
 
   SpanData({
     required this.type,
@@ -128,6 +162,13 @@ class SpanData {
     this.url,
     required this.markers,
     this.tableRows = const [],
+    this.fillColor,
+    this.borderColor,
+    this.borderStyle,
+    this.tableStyleId,
+    this.tableStyleName,
+    this.tableAlignment,
+    this.hasBorders,
   });
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
@@ -135,9 +176,16 @@ class SpanData {
     return SpanData(
       type: json['Type'] ?? 'text',
       content: json['Content'] ?? '',
-      url: json['Url'], // <--- خواندن از مپ
+      url: json['Url'],
       markers: List<String>.from(json['Markers'] ?? []),
       tableRows: rowsList.map((e) => TableRowData.fromJson(e)).toList(),
+      fillColor: json['FillColor'],
+      borderColor: json['BorderColor'],
+      borderStyle: json['BorderStyle'],
+      tableStyleId: json['TableStyleId'],
+      tableStyleName: json['TableStyleName'],
+      tableAlignment: json['TableAlignment'],
+      hasBorders: json['HasBorders'],
     );
   }
 }

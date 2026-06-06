@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:ielts_assistant/shared/models/models.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class DocumentLoader {
   static Future<List<ParagraphData>> loadBookFromJson() async {

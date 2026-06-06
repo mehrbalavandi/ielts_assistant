@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ielts_assistant/shared/models/models.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class SearchEngine {
   /// این متد متن‌های یک پاراگراف را می‌خواند، عبارت جستجو شده را حتی اگر

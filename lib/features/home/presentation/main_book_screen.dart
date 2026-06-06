@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/document_loader.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/reading_canvas_screen.dart';
-import 'package:ielts_assistant/shared/models/models.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/document_loader.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/reading_canvas_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class MainBookScreen extends StatelessWidget {
   const MainBookScreen({super.key});

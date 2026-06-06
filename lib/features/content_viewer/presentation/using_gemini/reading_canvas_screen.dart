@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/text_render_engine.dart';
-import 'package:ielts_assistant/shared/models/models.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class ReadingCanvasScreen extends StatefulWidget {
   final List<ParagraphData> documentParagraphs;
@@ -15,7 +15,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   final TransformationController _transformationController =
       TransformationController();
   bool _isZoomed = false;
-  int _pointerCount = 0; // شمارنده انگشت‌های روی صفحه
+  int _pointerCount = 0;
 
   @override
   void initState() {
@@ -25,7 +25,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
   void _handleTransformationChanged() {
     final scale = _transformationController.value.getMaxScaleOnAxis();
-    // اگر کاربر کاملاً از زوم خارج شد و هیچ انگشتی هم روی صفحه نیست، اسکرول عادی را برگردان
     if (scale <= 1.01 && _isZoomed && _pointerCount == 0) {
       setState(() {
         _isZoomed = false;
@@ -40,6 +39,22 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     super.dispose();
   }
 
+  // متد کمکی: تبدیل کدهای Hex ورد به Color فلاتر
+  Color? _hexToColor(String? hexString) {
+    if (hexString == null ||
+        hexString.isEmpty ||
+        hexString.toLowerCase() == 'auto')
+      return null;
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    try {
+      return Color(int.parse(buffer.toString(), radix: 16));
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -48,11 +63,9 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
-        // استفاده از Listener برای شکار لمس‌ها قبل از رسیدن به اسکرول‌ویو
         child: Listener(
           onPointerDown: (PointerDownEvent event) {
             _pointerCount++;
-            // به محض گذاشتن انگشت دوم، اسکرول را قفل و زوم را آماده کن
             if (_pointerCount >= 2 && !_isZoomed) {
               setState(() {
                 _isZoomed = true;
@@ -63,7 +76,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
             _pointerCount = (_pointerCount - 1).clamp(0, 10);
             if (_pointerCount == 0) {
               final scale = _transformationController.value.getMaxScaleOnAxis();
-              // اگر انگشت‌ها برداشته شد و زوم نبودیم، وضعیت را ریست کن
               if (scale <= 1.01 && _isZoomed) {
                 setState(() {
                   _isZoomed = false;
@@ -86,14 +98,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
             transformationController: _transformationController,
             minScale: 1.0,
             maxScale: 4.0,
-            panEnabled: _isZoomed, // در حالت زوم اجازه حرکت ۴ جهته می‌دهد
+            panEnabled: _isZoomed,
             scaleEnabled: true,
             constrained: true,
             child: SingleChildScrollView(
-              // مدیریت هوشمند و آنی فیزیک اسکرول
               physics: _isZoomed
                   ? const NeverScrollableScrollPhysics()
-                  : const BouncingScrollPhysics(), // اسکرول بسیار روان و نیتیو
+                  : const BouncingScrollPhysics(),
               child: Center(
                 child: Container(
                   width: canvasWidth,
@@ -124,7 +135,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     double canvasWidth,
     BuildContext context,
   ) {
-    // مدیریت پاراگراف‌های خالی (Enterها)
     if (para.spans.length == 1 && para.spans.first.content == "\n") {
       return const SizedBox(height: 16);
     }
@@ -132,7 +142,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     List<Widget> blockElements = [];
     List<InlineSpan> inlineSpans = [];
 
-    // تعیین تراز متن بر اساس خروجی پارسر C#
     TextAlign textAlign = TextAlign.left;
     if (para.alignment == "C") textAlign = TextAlign.center;
     if (para.alignment == "R") textAlign = TextAlign.right;
@@ -140,25 +149,16 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
     for (var span in para.spans) {
       if (span.type == "text") {
-        // اعمال استایل‌ها و لغات تعاملی
         inlineSpans.addAll(
-          _buildStyledInteractiveText(
-            span.content,
-            span.markers,
-            para.interactives,
-            context,
-          ),
+          _buildStyledInteractiveText(span, para.interactives, context),
         );
       } else if (span.type == "image") {
-        // ابتدا متن‌های قبل از عکس را رندر کن
         if (inlineSpans.isNotEmpty) {
           blockElements.add(
             _buildRichText(inlineSpans, para.direction, textAlign),
           );
           inlineSpans = [];
         }
-        // رندر کردن عکس از آدرس متغیر شما
-        // استفاده از span.url به عنوان نام عکس. اگر null بود برای اطمینان span.content را می‌خوانیم
         String imagePath = span.url ?? span.content;
         if (imagePath.isNotEmpty) {
           blockElements.add(_buildLocalImage(imagePath));
@@ -170,7 +170,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           );
           inlineSpans = [];
         }
-        // پاس دادن عرض دینامیک به جدول
         blockElements.add(_buildTable(span, canvasWidth, context));
       }
     }
@@ -179,104 +178,78 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       blockElements.add(_buildRichText(inlineSpans, para.direction, textAlign));
     }
 
+    Widget paragraphContent = Column(
+      crossAxisAlignment: para.direction == "RTL"
+          ? CrossAxisAlignment.end
+          : CrossAxisAlignment.start,
+      children: blockElements,
+    );
+
+    // اعمال رنگ پس‌زمینه (Shading) برای کل پاراگراف
+    if (para.fillColor != null && para.fillColor!.isNotEmpty) {
+      paragraphContent = Container(
+        width: double.infinity,
+        color: _hexToColor(para.fillColor),
+        padding: const EdgeInsets.all(6.0),
+        child: paragraphContent,
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: Column(
-        crossAxisAlignment: para.direction == "RTL"
-            ? CrossAxisAlignment.end
-            : CrossAxisAlignment.start,
-        children: blockElements,
-      ),
+      child: paragraphContent,
     );
   }
 
-  // متد جدید: ترکیب استایل‌های لایه Word (Bold/Italic) با کلمات تعاملی AI
-  List<InlineSpan> _buildStyledInteractiveText0(
-    String content,
-    List<String> markers,
-    List<InteractiveWord> interactives,
-    BuildContext context,
-  ) {
-    // تعیین استایل پایه این اسپن بر اساس مارکرهای استخراج شده از ورد
-    TextStyle baseStyle = TextStyle(
-      fontSize: 12,
-      color: Colors.black87,
-      height: 1.5,
-      fontWeight: markers.contains("b") ? FontWeight.bold : FontWeight.normal,
-      fontStyle: markers.contains("i") ? FontStyle.italic : FontStyle.normal,
-      decoration: markers.contains("u")
-          ? TextDecoration.underline
-          : TextDecoration.none,
-    );
-
-    // حالا کلمات تعاملی را در این اسپن با حفظ استایل پایه پیدا می‌کنیم
-    // (می‌توانید متد TextRenderEngine را به‌روز کنید تا TextStyle پایه را هم ورودی بگیرد)
-    return TextRenderEngine.buildInteractiveText(
-      content,
-      interactives,
-      context,
-      baseStyle,
-    );
-  }
-
-  // متد آپدیت‌شده: پشتیبانی از سایز و نام فونت استخراج شده از Word
+  // متد آپدیت‌شده: دریافت مستقیم شیء SpanData برای پشتیبانی از FillColor کلمات
   List<InlineSpan> _buildStyledInteractiveText(
-    String content,
-    List<String> markers,
+    SpanData span,
     List<InteractiveWord> interactives,
     BuildContext context,
   ) {
-    // مقادیر پیش‌فرض برای زمانی که ورد فونت یا سایزی مشخص نکرده است
     double fontSize = 13.0;
     String? fontFamily;
 
-    // پیمایش مارکرها برای پیدا کردن سایز (sz) و فونت (fn)
-    for (var marker in markers) {
+    for (var marker in span.markers) {
       if (marker.startsWith("sz:")) {
-        // استخراج عدد سایز (مثلاً از sz:36 عدد 36 را می‌گیریم)
         String sizeStr = marker.substring(3);
         double? parsedSize = double.tryParse(sizeStr);
         if (parsedSize != null) {
-          // چون اعداد ورد نیم‌پوینت هستند، تقسیم بر ۲ می‌کنیم
-          // ضمناً می‌توانید یک ضریب (Scale Factor) هم اضافه کنید
-          // مثلاً اگر در موبایل فونت‌ها خیلی ریز شدند، آن را کمی بزرگتر کنید
           fontSize = parsedSize / 2;
         }
       } else if (marker.startsWith("fn:")) {
         fontFamily = marker.substring(3);
-
-        // تمیز کردن نام فونت
         if (fontFamily.contains("*") || fontFamily.contains("-")) {
           fontFamily = fontFamily.replaceAll("*", "").split("-").first;
         }
-
-        // --- نگاشت فونت‌های تم ورد به فونت‌های واقعی فلاتر ---
         if (fontFamily.toLowerCase().contains("major")) {
-          // فونت برای Headings
           fontFamily = "Times New Roman";
         } else if (fontFamily.toLowerCase().contains("minor")) {
-          // فونت برای Body Text (مثل Calibri)
-          fontFamily = "Roboto"; // یا هر فونتی که برای متن اصلی دارید
+          fontFamily = "Roboto";
         }
       }
     }
 
-    // ساخت استایل پایه با فونت و سایزِ دینامیک
+    // استایل پایه با پشتیبانی از رنگ پس‌زمینه اختصاصی کلمه
     TextStyle baseStyle = TextStyle(
       fontSize: fontSize,
       fontFamily: fontFamily,
       color: Colors.black87,
       height: 1.5,
-      fontWeight: markers.contains("b") ? FontWeight.bold : FontWeight.normal,
-      fontStyle: markers.contains("i") ? FontStyle.italic : FontStyle.normal,
-      decoration: markers.contains("u")
+      backgroundColor: _hexToColor(span.fillColor), // <--- اعمال Shading کلمه
+      fontWeight: span.markers.contains("b")
+          ? FontWeight.bold
+          : FontWeight.normal,
+      fontStyle: span.markers.contains("i")
+          ? FontStyle.italic
+          : FontStyle.normal,
+      decoration: span.markers.contains("u")
           ? TextDecoration.underline
           : TextDecoration.none,
     );
 
-    // ارسال استایل آماده شده به موتور رندر متن‌های تعاملی
     return TextRenderEngine.buildInteractiveText(
-      content,
+      span.content,
       interactives,
       context,
       baseStyle,
@@ -288,7 +261,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     String direction,
     TextAlign textAlign,
   ) {
-    // تغییر ۳: استفاده از Text.rich به جای RichText
     return Text.rich(
       TextSpan(children: spans),
       textAlign: textAlign,
@@ -296,7 +268,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
-  // ویجت نمایش عکس‌های محلی از آدرسی که گفتید
   Widget _buildLocalImage(String imageName) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -306,7 +277,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           'assets/data/images/$imageName',
           fit: BoxFit.contain,
           errorBuilder: (context, error, stackTrace) {
-            // در صورتی که عکس پیدا نشد، یک آیکون خطا نشان بده تا برنامه کرش نکند
             return Container(
               padding: const EdgeInsets.all(16),
               color: Colors.grey[200],
@@ -327,6 +297,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
+  // متد جدول: بازنویسی شده با پشتیبانی کامل از حاشیه‌ها، سلول‌های ادغام شده، هدر و Shading
   Widget _buildTable(
     SpanData tableSpan,
     double canvasWidth,
@@ -334,26 +305,65 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   ) {
     List<Widget> rowWidgets = [];
 
+    Color? tableBgColor = _hexToColor(tableSpan.fillColor);
+    bool hasBorders = tableSpan.hasBorders?.toLowerCase() == "true";
+
     for (var row in tableSpan.tableRows) {
       List<Widget> cellWidgets = [];
 
       for (var cell in row.cells) {
-        // تبدیل درصد به یک عدد صحیح برای استفاده در flex
-        // مثلاً 39.09 درصد تبدیل می‌شود به 3909
-        int flexValue = 1; // مقدار پیش‌فرض برای جلوگیری از خطا
+        // سلول‌هایی که بخشی از ادغام عمودی (rowMerge) هستند و در زیر قرار دارند پنهان می‌شوند
+        if (cell.rowMerge == "continue") {
+          continue;
+        }
+
+        int flexValue = 1;
         if (cell.widthPercent != null && cell.widthPercent! > 0) {
           flexValue = (cell.widthPercent! * 100).toInt();
         }
 
+        // اگر سلول ادغام ستونی (colSpan) دارد، پارسر C# عرض آن را متناسب محاسبه کرده،
+        // اما اگر لازم بود می‌توان flex را بر اساس colSpan هم ضریب داد.
+
+        // تعیین رنگ نهایی سلول: اولویت با رنگ سلول، بعد رنگ هدر، بعد رنگ جدول
+        Color? cellBgColor = _hexToColor(cell.fillColor) ?? tableBgColor;
+        if (cell.isHeaderCell && cellBgColor == null) {
+          cellBgColor =
+              Colors.grey.shade200; // رنگ استاندارد هدرها در صورت نبود رنگ دستی
+        }
+
+        // تعیین تراز عمودی متن در سلول
+        MainAxisAlignment vAlign = MainAxisAlignment.start;
+        if (cell.vAlign == "center") vAlign = MainAxisAlignment.center;
+        if (cell.vAlign == "bottom") vAlign = MainAxisAlignment.end;
+
         cellWidgets.add(
           Expanded(
             flex: flexValue,
-            child: Padding(
-              // اضافه کردن پدینگ افقی برای جلوگیری از چسبیدن متن‌ها به هم یا به عکس
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: cellBgColor,
+                // ترفند رندر دقیق حاشیه: ترسیم خط راست و پایین برای هر سلول
+                border: hasBorders
+                    ? Border(
+                        right: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 0.5,
+                        ),
+                        bottom: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 0.5,
+                        ),
+                      )
+                    : null,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6.0,
+                vertical: 8.0,
+              ),
               child: Column(
-                mainAxisSize:
-                    MainAxisSize.min, // جلوگیری از اشغال فضای عمودی نامحدود
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: vAlign,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: cell.paragraphs
                     .map((p) => _buildParagraph(p, canvasWidth, context))
@@ -366,10 +376,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
       rowWidgets.add(
         IntrinsicHeight(
-          // هم‌تراز کردن ارتفاع تمام سلول‌های این سطر
           child: Row(
-            crossAxisAlignment:
-                CrossAxisAlignment.start, // چیدمان از بالای سلول
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: cellWidgets,
           ),
         ),
@@ -377,8 +385,19 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Container(
+        decoration: BoxDecoration(
+          // تکمیل حاشیه کل جدول: ترسیم خط بالا و چپ در لایه بیرونی
+          border: hasBorders
+              ? Border(
+                  top: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                  left: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                )
+              : null,
+        ),
+        child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
+      ),
     );
   }
 }
