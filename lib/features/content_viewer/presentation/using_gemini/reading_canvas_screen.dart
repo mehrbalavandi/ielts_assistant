@@ -137,7 +137,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     BuildContext context,
   ) {
     if (para.spans.length == 1 && para.spans.first.content == "\n") {
-      return const SizedBox(height: 16);
+      return const SizedBox(height: 8.0);
     }
 
     List<Widget> blockElements = [];

@@ -117,11 +117,14 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "LEAD-IN",
+            "Content": "Lead-in",
             "Markers": [
               "fn:Source Sans 3 Bold",
               "sz:22"
             ],
+            "BorderColor": "000000",
+            "BorderStyle": "BorderValues { }",
+            "HasBorders": "true",
             "InnerSpans": [],
             "TableRows": []
           }
