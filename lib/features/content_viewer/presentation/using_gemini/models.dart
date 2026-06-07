@@ -39,9 +39,13 @@ class ParagraphData {
   final List<SpanData> spans;
   final String direction;
   final String alignment;
-  final String? fillColor; // <--- فیلد جدید: پس‌زمینه کل پاراگراف
+  final String? fillColor;
 
-  // --- فیلدهای اضافه شده توسط AI ---
+  // --- فیلدهای حاشیه ---
+  final String? hasBorders;
+  final String? borderColor;
+  final String? borderStyle;
+
   final String? translationFa;
   final String? translationAr;
   final List<InteractiveWord> interactives;
@@ -51,6 +55,9 @@ class ParagraphData {
     this.direction = "LTR",
     this.alignment = "L",
     this.fillColor,
+    this.hasBorders,
+    this.borderColor,
+    this.borderStyle,
     this.translationFa,
     this.translationAr,
     required this.interactives,
@@ -64,6 +71,9 @@ class ParagraphData {
       direction: json['Direction'] ?? 'LTR',
       alignment: json['Alignment'] ?? 'L',
       fillColor: json['FillColor'],
+      hasBorders: json['HasBorders'], // <--- استخراج از JSON
+      borderColor: json['BorderColor'],
+      borderStyle: json['BorderStyle'],
       translationFa: json['translationFa'],
       translationAr: json['translationAr'],
       interactives: interactivesList

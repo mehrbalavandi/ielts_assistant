@@ -186,12 +186,25 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       children: blockElements,
     );
 
-    // اعمال رنگ پس‌زمینه (Shading) برای کل پاراگراف
-    if (para.fillColor != null && para.fillColor!.isNotEmpty) {
+    // اعمال رنگ پس‌زمینه (Shading) و حاشیه (Border) برای کل پاراگراف
+    bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
+    bool hasBorder = para.hasBorders == "true";
+
+    if (hasBgColor || hasBorder) {
       paragraphContent = Container(
         width: double.infinity,
-        color: _hexToColor(para.fillColor),
-        padding: const EdgeInsets.all(6.0),
+        decoration: BoxDecoration(
+          color: _hexToColor(para.fillColor), // اعمال پس زمینه
+          border: hasBorder
+              ? Border.all(
+                  // اگر رنگ حاشیه null بود، رنگ طوسی تیره در نظر گرفته می‌شود
+                  color: _hexToColor(para.borderColor) ?? Colors.grey.shade600,
+                  width: 1.5,
+                )
+              : null,
+          borderRadius: hasBorder ? BorderRadius.circular(6) : null,
+        ),
+        padding: const EdgeInsets.all(10.0),
         child: paragraphContent,
       );
     }
@@ -229,18 +242,16 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       }
     }
 
-    // تبدیل رنگ متن استخراج شده از ورد به رنگ فلاتر
     Color? customTextColor = _hexToColor(span.textColor);
+    bool isInlineBorder = span.hasBorders == "true";
 
-    // استایل پایه با پشتیبانی از رنگ متن و پس‌زمینه اختصاصی
     TextStyle baseStyle = TextStyle(
       fontSize: fontSize,
       fontFamily: fontFamily,
-      color:
-          customTextColor ??
-          Colors.black87, // <--- اعمال رنگ متن اختصاصی در صورت وجود
+      color: customTextColor ?? Colors.black87,
       height: 1.5,
-      backgroundColor: _hexToColor(span.fillColor),
+      // اگر کلمه حاشیه داشته باشد، رنگ پس‌زمینه را به جای متن، به Container می‌دهیم
+      backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
       fontWeight: span.markers.contains("b")
           ? FontWeight.bold
           : FontWeight.normal,
@@ -252,12 +263,36 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           : TextDecoration.none,
     );
 
-    return TextRenderEngine.buildInteractiveText(
+    List<InlineSpan> interactiveSpans = TextRenderEngine.buildInteractiveText(
       span.content,
       interactives,
       context,
       baseStyle,
     );
+
+    // اگر این تکه‌متن، حاشیه کاراکتری (Character Border) داشته باشد
+    if (isInlineBorder) {
+      return [
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+            margin: const EdgeInsets.symmetric(horizontal: 2.0),
+            decoration: BoxDecoration(
+              color: _hexToColor(span.fillColor), // اعمال Shading در اینجا
+              border: Border.all(
+                color: _hexToColor(span.borderColor) ?? Colors.grey.shade600,
+                width: 1.2,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text.rich(TextSpan(children: interactiveSpans)),
+          ),
+        ),
+      ];
+    }
+
+    return interactiveSpans;
   }
 
   Widget _buildRichText(

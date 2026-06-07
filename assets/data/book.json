@@ -24,7 +24,7 @@
                             "Content": "UNIT/01: URBAN AND RURAL LIFE",
                             "Markers": [
                               "fn:Source Sans 3 ExtraBold",
-                              "sz:28"
+                              "sz:32"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -45,7 +45,7 @@
                             "Content": "READING",
                             "Markers": [
                               "fn:Source Sans 3 Black",
-                              "sz:28"
+                              "sz:88"
                             ],
                             "TextColor": "FFFFFF",
                             "InnerSpans": [],
@@ -58,9 +58,10 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "IN THIS unIT YOU WILL\nLEARN HOW TO",
+                            "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
                             "Markers": [
-                              "fn:Source Sans 3 Bold"
+                              "fn:Source Sans 3 Bold",
+                              "sz:22"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -74,7 +75,8 @@
                             "Type": "text",
                             "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -82,6 +84,7 @@
                         ]
                       }
                     ],
+                    "FillColor": "FFFF00",
                     "WidthPercent": 57.51,
                     "IsHeaderCell": true
                   },
@@ -99,6 +102,7 @@
                         ]
                       }
                     ],
+                    "FillColor": "FFFF00",
                     "WidthPercent": 42.49,
                     "IsHeaderCell": false
                   }
@@ -113,9 +117,10 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "Lead-in",
+            "Content": "LEAD-IN",
             "Markers": [
-              "fn:Source Sans 3 Bold"
+              "fn:Source Sans 3 Bold",
+              "sz:22"
             ],
             "InnerSpans": [],
             "TableRows": []
@@ -141,7 +146,20 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "01 ",
+                            "Content": "01",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:24"
+                            ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
                             "Markers": [
                               "fn:Source Sans 3"
                             ],
@@ -152,7 +170,8 @@
                             "Type": "text",
                             "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
                             "Markers": [
-                              "fn:Source Sans 3 Medium"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -167,7 +186,8 @@
                             "Content": "Mallorca",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -176,7 +196,8 @@
                             "Type": "text",
                             "Content": ", the biggest of ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -186,7 +207,8 @@
                             "Content": "the Balearic Islands",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -195,7 +217,8 @@
                             "Type": "text",
                             "Content": ", is situated in ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -205,7 +228,8 @@
                             "Content": "the Mediterranean Sea",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -214,7 +238,8 @@
                             "Type": "text",
                             "Content": ", some 300km from ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -224,7 +249,8 @@
                             "Content": "the Valencian coast",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -233,7 +259,8 @@
                             "Type": "text",
                             "Content": " of ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -243,7 +270,8 @@
                             "Content": "Spain",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -252,7 +280,8 @@
                             "Type": "text",
                             "Content": ", and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -262,7 +291,8 @@
                             "Content": "the Spanish",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -271,7 +301,8 @@
                             "Type": "text",
                             "Content": " as a tourist destination, it annually welcomes people from all over ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -281,7 +312,8 @@
                             "Content": "Europe",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -290,7 +322,8 @@
                             "Type": "text",
                             "Content": " (particularly from ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -300,7 +333,8 @@
                             "Content": "the United Kingdom, France",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -309,7 +343,8 @@
                             "Type": "text",
                             "Content": " and ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -319,7 +354,8 @@
                             "Content": "Germany",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -328,7 +364,8 @@
                             "Type": "text",
                             "Content": "), who may head for ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -338,7 +375,8 @@
                             "Content": "Alcudia Beach",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -347,7 +385,8 @@
                             "Type": "text",
                             "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -357,7 +396,8 @@
                             "Content": "the northeast",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -366,7 +406,8 @@
                             "Type": "text",
                             "Content": " to ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -376,7 +417,8 @@
                             "Content": "the southwest",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -385,7 +427,8 @@
                             "Type": "text",
                             "Content": " of the island. The busy capital city, ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -395,7 +438,8 @@
                             "Content": "Palma de Mallorca",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -404,7 +448,8 @@
                             "Type": "text",
                             "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -414,7 +459,8 @@
                             "Content": "Algaida",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -423,7 +469,8 @@
                             "Type": "text",
                             "Content": " or ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -433,7 +480,8 @@
                             "Content": "Binissalem",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -442,7 +490,8 @@
                             "Type": "text",
                             "Content": ".",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -519,7 +568,20 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "02 ",
+                            "Content": "02",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:24"
+                            ],
+                            "BorderColor": "BF1191",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
                             "Markers": [
                               "fn:Source Sans 3"
                             ],
@@ -530,7 +592,8 @@
                             "Type": "text",
                             "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
                             "Markers": [
-                              "fn:Source Sans 3 Medium"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -615,7 +678,8 @@
                             "Type": "text",
                             "Content": "[MATCHING HEADINGS]",
                             "Markers": [
-                              "fn:Source Sans 3 SemiBold"
+                              "fn:Source Sans 3 SemiBold",
+                              "sz:22"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -685,7 +749,7 @@
                             "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
                             "Markers": [
                               "fn:Source Sans 3 Medium",
-                              "sz:36"
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -737,8 +801,8 @@
           {
             "Type": "table",
             "Markers": [],
-            "TableStyleId": "StartSectionTableReading",
-            "TableStyleName": "StartSectionTableReading",
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
             "InnerSpans": [],
             "TableRows": [
               {
@@ -770,7 +834,8 @@
                             "Type": "text",
                             "Content": "The World’s\nMost unusual\nTowns and Cities",
                             "Markers": [
-                              "fn:Source Sans 3 ExtraBold"
+                              "fn:Source Sans 3 ExtraBold",
+                              "sz:32"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -790,7 +855,8 @@
                             "Type": "text",
                             "Content": "◎",
                             "Markers": [
-                              "fn:Cambria Math"
+                              "fn:Cambria Math",
+                              "sz:20"
                             ],
                             "TextColor": "050505",
                             "InnerSpans": [],
@@ -800,7 +866,8 @@
                             "Type": "text",
                             "Content": " ",
                             "Markers": [
-                              "fn:Segoe UI Emoji"
+                              "fn:Segoe UI Emoji",
+                              "sz:20"
                             ],
                             "TextColor": "050505",
                             "InnerSpans": [],
@@ -810,7 +877,8 @@
                             "Type": "text",
                             "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:20"
                             ],
                             "TextColor": "050505",
                             "InnerSpans": [],
@@ -821,7 +889,8 @@
                             "Content": "topic sentence",
                             "Markers": [
                               "i",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:20"
                             ],
                             "TextColor": "050505",
                             "InnerSpans": [],
@@ -831,7 +900,8 @@
                             "Type": "text",
                             "Content": ".",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:20"
                             ],
                             "TextColor": "050505",
                             "InnerSpans": [],
@@ -846,7 +916,8 @@
                             "Type": "text",
                             "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:20"
                             ],
                             "TextColor": "050505",
                             "InnerSpans": [],
