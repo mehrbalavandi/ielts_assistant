@@ -1,3 +1,4 @@
+import 'package:float_column/float_column.dart';
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
@@ -140,50 +141,76 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       return const SizedBox(height: 8.0);
     }
 
-    List<Widget> blockElements = [];
-    List<InlineSpan> inlineSpans = [];
+    // در FloatColumn تمامی عناصر (چه عکس، چه متن، چه جدول) به عنوان Object شناخته می‌شوند
+    List<Object> blockElements = [];
+    List<InlineSpan> currentInlineSpans = [];
 
     TextAlign textAlign = TextAlign.left;
     if (para.alignment == "C") textAlign = TextAlign.center;
     if (para.alignment == "R") textAlign = TextAlign.right;
     if (para.alignment == "J") textAlign = TextAlign.justify;
 
+    // متد کمکی برای پوش کردن متن‌های جمع‌آوری شده به داخل FloatColumn
+    void flushText() {
+      if (currentInlineSpans.isNotEmpty) {
+        blockElements.add(
+          WrappableText(
+            text: TextSpan(children: List.from(currentInlineSpans)),
+            textAlign: textAlign,
+            textDirection: para.direction == "RTL"
+                ? TextDirection.rtl
+                : TextDirection.ltr,
+          ),
+        );
+        currentInlineSpans.clear();
+      }
+    }
+
     for (var span in para.spans) {
       if (span.type == "text") {
-        inlineSpans.addAll(
+        currentInlineSpans.addAll(
           _buildStyledInteractiveText(span, para.interactives, context),
         );
       } else if (span.type == "image") {
-        if (inlineSpans.isNotEmpty) {
-          blockElements.add(
-            _buildRichText(inlineSpans, para.direction, textAlign),
-          );
-          inlineSpans = [];
-        }
+        flushText(); // ابتدا هر متنی که قبل از عکس بوده را چاپ می‌کنیم
+
         String imagePath = span.url ?? span.content;
         if (imagePath.isNotEmpty) {
-          blockElements.add(_buildLocalImage(imagePath));
+          // بررسی موقعیت شناور شدن عکس
+          FCFloat floatAlign = FCFloat.none;
+          if (span.floatPosition == 'left') floatAlign = FCFloat.left;
+          if (span.floatPosition == 'right') floatAlign = FCFloat.right;
+
+          blockElements.add(
+            Floatable(
+              float: floatAlign,
+              // اگر عکس شناور نیست، باید فضای دو طرفش پاک (Clear) شود
+              clear: floatAlign == FCFloat.none ? FCClear.both : FCClear.none,
+              // تنظیم فاصله هوشمند: اگر عکس چپ است، سمت راستش فاصله می‌دهیم و بالعکس
+              padding: floatAlign == FCFloat.left
+                  ? const EdgeInsets.only(right: 12.0, bottom: 8.0)
+                  : floatAlign == FCFloat.right
+                  ? const EdgeInsets.only(left: 12.0, bottom: 8.0)
+                  : const EdgeInsets.symmetric(vertical: 8.0),
+              child: _buildLocalImage(imagePath),
+            ),
+          );
         }
       } else if (span.type == "table") {
-        if (inlineSpans.isNotEmpty) {
-          blockElements.add(
-            _buildRichText(inlineSpans, para.direction, textAlign),
-          );
-          inlineSpans = [];
-        }
+        flushText();
+        // جداول به صورت یک ویجت ساده (غیرشناور) در صف قرار می‌گیرند
         blockElements.add(_buildTable(span, canvasWidth, context));
       }
     }
 
-    if (inlineSpans.isNotEmpty) {
-      blockElements.add(_buildRichText(inlineSpans, para.direction, textAlign));
-    }
+    flushText(); // چاپ کردن متن‌های باقی‌مانده در انتهای پاراگراف
 
-    Widget paragraphContent = Column(
-      crossAxisAlignment: para.direction == "RTL"
-          ? CrossAxisAlignment.end
-          : CrossAxisAlignment.start,
-      children: blockElements,
+    // جایگزینی Column قبلی با FloatColumn جادویی درون Directionality!
+    Widget paragraphContent = Directionality(
+      textDirection: para.direction == "RTL"
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+      child: FloatColumn(children: blockElements),
     );
 
     // اعمال رنگ پس‌زمینه (Shading) و حاشیه (Border) برای کل پاراگراف
@@ -194,10 +221,9 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       paragraphContent = Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: _hexToColor(para.fillColor), // اعمال پس زمینه
+          color: _hexToColor(para.fillColor),
           border: hasBorder
               ? Border.all(
-                  // اگر رنگ حاشیه null بود، رنگ طوسی تیره در نظر گرفته می‌شود
                   color: _hexToColor(para.borderColor) ?? Colors.grey.shade600,
                   width: 1.5,
                 )
@@ -317,9 +343,12 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                 children: [
                   const Icon(Icons.broken_image, color: Colors.red),
                   const SizedBox(width: 8),
-                  Text(
-                    "Image not found: $imageName",
-                    style: const TextStyle(fontSize: 12),
+                  Expanded(
+                    child: Text(
+                      "Image not found: $imageName",
+                      style: const TextStyle(fontSize: 12),
+                      softWrap: true,
+                    ),
                   ),
                 ],
               ),
@@ -408,11 +437,10 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       }
 
       rowWidgets.add(
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: cellWidgets,
-          ),
+        Row(
+          // تغییر stretch به start تا هر سلول به اندازه متن خودش باز شود
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: cellWidgets,
         ),
       );
     }

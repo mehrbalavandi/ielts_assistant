@@ -55,6 +55,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.3
   fl_chart: ^1.2.0
   shimmer: ^3.0.0
+  float_column: ^4.0.3
 
 dev_dependencies:
   flutter_test:

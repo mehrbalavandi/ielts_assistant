@@ -166,6 +166,7 @@ class SpanData {
   final String? tableStyleName;
   final String? tableAlignment;
   final String? hasBorders;
+  final String? floatPosition;
 
   SpanData({
     required this.type,
@@ -181,6 +182,7 @@ class SpanData {
     this.tableStyleName,
     this.tableAlignment,
     this.hasBorders,
+    this.floatPosition,
   });
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
