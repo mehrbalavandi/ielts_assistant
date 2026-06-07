@@ -178,8 +178,12 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         if (imagePath.isNotEmpty) {
           // بررسی موقعیت شناور شدن عکس
           FCFloat floatAlign = FCFloat.none;
-          if (span.floatPosition == 'left') floatAlign = FCFloat.left;
-          if (span.floatPosition == 'right') floatAlign = FCFloat.right;
+          if (span.floatPosition == 'left') {
+            floatAlign = FCFloat.left;
+          }
+          if (span.floatPosition == 'right') {
+            floatAlign = FCFloat.right;
+          }
 
           blockElements.add(
             Floatable(
