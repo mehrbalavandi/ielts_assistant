@@ -93,7 +93,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p9_s1_img10.png",
+                            "Url": "images/p1_s1_img1.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -107,18 +107,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       },
@@ -628,7 +616,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p9_s1_img11.jpeg",
+                            "Url": "images/p1_s1_img2.jpeg",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -701,12 +689,49 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "[MATCHING HEADINGS]",
+            "Content": "          ",
+            "Markers": [
+              "b",
+              "bg:FFFF00",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "FillColor": "FFFF00",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "[",
             "Markers": [
               "b",
               "fn:Source Sans 3 SemiBold",
-              "sz:22"
+              "sz:32"
             ],
+            "TextColor": "FFFF00",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "MATCHING HEADINGS",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "]",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "TextColor": "FFFF00",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -988,7 +1013,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p10_s1_img12.png",
+                            "Url": "images/p2_s1_img3.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -1512,7 +1537,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p11_s1_img13.png",
+                            "Url": "images/p3_s1_img4.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -2118,7 +2143,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p12_s1_img14.png",
+                            "Url": "images/p4_s1_img5.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -2359,7 +2384,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p12_s1_img15.png",
+                            "Url": "images/p4_s1_img6.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -3469,7 +3494,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p14_s1_img16.png",
+                            "Url": "images/p6_s1_img7.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -3954,7 +3979,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p16_s1_img17.png",
+                            "Url": "images/p8_s1_img8.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -3989,7 +4014,7 @@
           {
             "Type": "image",
             "Markers": [],
-            "Url": "images/p16_s1_img18.png",
+            "Url": "images/p8_s1_img9.png",
             "FloatPosition": "none",
             "InnerSpans": [],
             "TableRows": []

@@ -93,7 +93,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p9_s1_img10.png",
+                            "Url": "images/p1_s1_img1.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -107,18 +107,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       },
@@ -628,7 +616,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p9_s1_img11.jpeg",
+                            "Url": "images/p1_s1_img2.jpeg",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -701,12 +689,49 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "[MATCHING HEADINGS]",
+            "Content": "          ",
+            "Markers": [
+              "b",
+              "bg:FFFF00",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "FillColor": "FFFF00",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "[",
             "Markers": [
               "b",
               "fn:Source Sans 3 SemiBold",
-              "sz:22"
+              "sz:32"
             ],
+            "TextColor": "FFFF00",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "MATCHING HEADINGS",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "]",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "TextColor": "FFFF00",
             "InnerSpans": [],
             "TableRows": []
           }
