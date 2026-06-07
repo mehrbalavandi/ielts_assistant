@@ -230,15 +230,9 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         double? parsedSize = double.tryParse(sizeStr);
         if (parsedSize != null) fontSize = parsedSize / 2;
       } else if (marker.startsWith("fn:")) {
-        fontFamily = marker.substring(3);
-        if (fontFamily.contains("*") || fontFamily.contains("-")) {
-          fontFamily = fontFamily.replaceAll("*", "").split("-").first;
-        }
-        if (fontFamily.toLowerCase().contains("major")) {
-          fontFamily = "Times New Roman";
-        } else if (fontFamily.toLowerCase().contains("minor")) {
-          fontFamily = "Roboto";
-        }
+        // تغییرات این بخش: ارسال نام خام به متد مپینگ
+        String rawFont = marker.substring(3);
+        fontFamily = _mapFontFamily(rawFont);
       }
     }
 
@@ -438,5 +432,35 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
       ),
     );
+  }
+
+  // متد کمکی: مپ کردن نام فونت استخراج شده از ورد به نام فونت‌های موجود در pubspec.yaml
+  String _mapFontFamily(String rawFontName) {
+    // حذف فاصله‌ها و کاراکترهای اضافی و تبدیل به حروف کوچک برای مقایسه راحت‌تر
+    String normalized = rawFontName
+        .toLowerCase()
+        .replaceAll("-", "")
+        .replaceAll(" ", "");
+
+    if (normalized.contains("sourcesans")) return "Source Sans 3";
+    if (normalized.contains("times") || normalized.contains("major"))
+      return "Times New Roman";
+    if (normalized.contains("arial")) return "Arial";
+    if (normalized.contains("tahoma")) return "Tahoma";
+    if (normalized.contains("verdana")) return "Verdana";
+    if (normalized.contains("gadugi")) return "Gadugi";
+    if (normalized.contains("emoji")) return "Segoe UI Emoji";
+
+    // فونت‌های فارسی
+    if (normalized.contains("zar")) return "Zar";
+    if (normalized.contains("titr")) return "Titr";
+    if (normalized.contains("yekan")) {
+      if (normalized.contains("light")) return "YekanBakhLight";
+      if (normalized.contains("extra")) return "YekanBakhExtraBold";
+      return "YekanBakhBold"; // فال‌بک برای یکان
+    }
+
+    // فال‌بک پیش‌فرض در صورت عدم تشخیص فونت
+    return "Source Sans 3";
   }
 }

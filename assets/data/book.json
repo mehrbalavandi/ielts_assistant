@@ -23,6 +23,7 @@
                             "Type": "text",
                             "Content": "UNIT/01: URBAN AND RURAL LIFE",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 ExtraBold",
                               "sz:32"
                             ],
@@ -44,6 +45,7 @@
                             "Type": "text",
                             "Content": "READING",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Black",
                               "sz:88"
                             ],
@@ -60,7 +62,8 @@
                             "Type": "text",
                             "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
                             "Markers": [
-                              "fn:Source Sans 3 Bold",
+                              "b",
+                              "fn:Source Sans 3",
                               "sz:22"
                             ],
                             "InnerSpans": [],
@@ -86,7 +89,7 @@
                     ],
                     "FillColor": "FFFF00",
                     "WidthPercent": 57.51,
-                    "IsHeaderCell": true
+                    "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
@@ -102,7 +105,6 @@
                         ]
                       }
                     ],
-                    "FillColor": "FFFF00",
                     "WidthPercent": 42.49,
                     "IsHeaderCell": false
                   }
@@ -119,9 +121,12 @@
             "Type": "text",
             "Content": "Lead-in",
             "Markers": [
-              "fn:Source Sans 3 Bold",
+              "b",
+              "bg:FFFF00",
+              "fn:Source Sans 3",
               "sz:22"
             ],
+            "FillColor": "FFFF00",
             "BorderColor": "000000",
             "BorderStyle": "BorderValues { }",
             "HasBorders": "true",
@@ -151,6 +156,7 @@
                             "Type": "text",
                             "Content": "01",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3",
                               "sz:24"
                             ],
@@ -173,6 +179,7 @@
                             "Type": "text",
                             "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
@@ -503,7 +510,7 @@
                       }
                     ],
                     "WidthPercent": 62.65,
-                    "IsHeaderCell": true
+                    "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
@@ -573,6 +580,7 @@
                             "Type": "text",
                             "Content": "02",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3",
                               "sz:24"
                             ],
@@ -595,6 +603,7 @@
                             "Type": "text",
                             "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
@@ -605,7 +614,7 @@
                       }
                     ],
                     "WidthPercent": 80.3,
-                    "IsHeaderCell": true
+                    "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
@@ -653,7 +662,7 @@
             "InnerSpans": [],
             "TableRows": [
               {
-                "IsHeader": false,
+                "IsHeader": true,
                 "Cells": [
                   {
                     "Paragraphs": [
@@ -681,6 +690,7 @@
                             "Type": "text",
                             "Content": "[MATCHING HEADINGS]",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 SemiBold",
                               "sz:22"
                             ],
@@ -691,7 +701,7 @@
                       }
                     ],
                     "WidthPercent": 93.74,
-                    "IsHeaderCell": false
+                    "IsHeaderCell": true
                   }
                 ]
               }
@@ -740,7 +750,7 @@
                       }
                     ],
                     "WidthPercent": 6.26,
-                    "IsHeaderCell": true
+                    "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
@@ -751,6 +761,7 @@
                             "Type": "text",
                             "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
@@ -826,7 +837,7 @@
                       }
                     ],
                     "WidthPercent": 6.26,
-                    "IsHeaderCell": true
+                    "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
@@ -837,6 +848,7 @@
                             "Type": "text",
                             "Content": "The World’s\nMost unusual\nTowns and Cities",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 ExtraBold",
                               "sz:32"
                             ],

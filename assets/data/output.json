@@ -23,6 +23,7 @@
                             "Type": "text",
                             "Content": "UNIT/01: URBAN AND RURAL LIFE",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 ExtraBold",
                               "sz:32"
                             ],
@@ -44,6 +45,7 @@
                             "Type": "text",
                             "Content": "READING",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Black",
                               "sz:88"
                             ],
@@ -60,7 +62,8 @@
                             "Type": "text",
                             "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
                             "Markers": [
-                              "fn:Source Sans 3 Bold",
+                              "b",
+                              "fn:Source Sans 3",
                               "sz:22"
                             ],
                             "InnerSpans": [],
@@ -95,7 +98,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p1_s1_img1.png",
+                            "Url": "p1_s1_img1.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -153,6 +156,7 @@
                             "Type": "text",
                             "Content": "01",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3",
                               "sz:24"
                             ],
@@ -175,6 +179,7 @@
                             "Type": "text",
                             "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
@@ -514,7 +519,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p1_s1_img2.jpeg",
+                            "Url": "p1_s1_img2.jpeg",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -575,6 +580,7 @@
                             "Type": "text",
                             "Content": "02",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3",
                               "sz:24"
                             ],
@@ -597,6 +603,7 @@
                             "Type": "text",
                             "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
@@ -683,6 +690,7 @@
                             "Type": "text",
                             "Content": "[MATCHING HEADINGS]",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 SemiBold",
                               "sz:22"
                             ],
@@ -753,6 +761,7 @@
                             "Type": "text",
                             "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
@@ -839,6 +848,7 @@
                             "Type": "text",
                             "Content": "The World’s\nMost unusual\nTowns and Cities",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3 ExtraBold",
                               "sz:32"
                             ],
@@ -1104,7 +1114,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p2_s1_img3.png",
+                            "Url": "p2_s1_img3.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1627,7 +1637,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p3_s1_img4.png",
+                            "Url": "p3_s1_img4.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2232,7 +2242,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p4_s1_img5.png",
+                            "Url": "p4_s1_img5.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2472,7 +2482,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p4_s1_img6.png",
+                            "Url": "p4_s1_img6.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3581,7 +3591,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p6_s1_img7.png",
+                            "Url": "p6_s1_img7.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4065,7 +4075,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p8_s1_img8.png",
+                            "Url": "p8_s1_img8.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4099,7 +4109,7 @@
           {
             "Type": "image",
             "Markers": [],
-            "Url": "images/p8_s1_img9.png",
+            "Url": "p8_s1_img9.png",
             "InnerSpans": [],
             "TableRows": []
           }
