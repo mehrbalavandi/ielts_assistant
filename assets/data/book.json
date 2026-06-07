@@ -93,7 +93,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p1_s1_img1.png",
+                            "Url": "p1_s1_img1.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -616,7 +616,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p1_s1_img2.jpeg",
+                            "Url": "p1_s1_img2.jpeg",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
