@@ -7,8 +7,8 @@
           {
             "Type": "table",
             "Markers": [],
-            "TableStyleId": "StartSectionTableReading",
-            "TableStyleName": "StartSectionTableReading",
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
             "InnerSpans": [],
             "TableRows": [
               {
@@ -88,7 +88,6 @@
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "image",

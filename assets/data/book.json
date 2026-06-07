@@ -7,8 +7,8 @@
           {
             "Type": "table",
             "Markers": [],
-            "TableStyleId": "StartSectionTableReading",
-            "TableStyleName": "StartSectionTableReading",
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
             "InnerSpans": [],
             "TableRows": [
               {
@@ -88,12 +88,11 @@
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p1_s1_img1.png",
+                            "Url": "p1_s1_img1.png",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -461,7 +460,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p1_s1_img2.jpeg",
+                            "Url": "p1_s1_img2.jpeg",
                             "InnerSpans": [],
                             "TableRows": []
                           }
