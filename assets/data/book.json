@@ -8,7 +8,7 @@
           {
             "Type": "image",
             "Markers": [],
-            "Url": "p21_s1_img21.png",
+            "Url": "p1_s1_img1.png",
             "FloatPosition": "right",
             "InnerSpans": [],
             "TableRows": []
@@ -74,6 +74,14 @@
       {
         "Direction": "LTR",
         "Spans": [
+          {
+            "Type": "image",
+            "Markers": [],
+            "Url": "p1_s1_img2.jpeg",
+            "FloatPosition": "right",
+            "InnerSpans": [],
+            "TableRows": []
+          },
           {
             "Type": "text",
             "Content": "01",
@@ -535,14 +543,6 @@
             ],
             "InnerSpans": [],
             "TableRows": []
-          },
-          {
-            "Type": "image",
-            "Markers": [],
-            "Url": "p21_s1_img22.jpeg",
-            "FloatPosition": "none",
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       },
@@ -642,7 +642,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p21_s1_img23.png",
+                            "Url": "p1_s1_img3.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -1064,7 +1064,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p22_s1_img24.jpeg",
+                            "Url": "p1_s1_img4.jpeg",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []

@@ -8,7 +8,7 @@
           {
             "Type": "image",
             "Markers": [],
-            "Url": "images/p21_s1_img21.png",
+            "Url": "images/p1_s1_img1.png",
             "FloatPosition": "right",
             "InnerSpans": [],
             "TableRows": []
@@ -74,6 +74,14 @@
       {
         "Direction": "LTR",
         "Spans": [
+          {
+            "Type": "image",
+            "Markers": [],
+            "Url": "images/p1_s1_img2.jpeg",
+            "FloatPosition": "right",
+            "InnerSpans": [],
+            "TableRows": []
+          },
           {
             "Type": "text",
             "Content": "01",
@@ -535,14 +543,6 @@
             ],
             "InnerSpans": [],
             "TableRows": []
-          },
-          {
-            "Type": "image",
-            "Markers": [],
-            "Url": "images/p21_s1_img22.jpeg",
-            "FloatPosition": "none",
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       },
@@ -642,7 +642,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p21_s1_img23.png",
+                            "Url": "images/p1_s1_img3.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -1064,7 +1064,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p22_s1_img24.jpeg",
+                            "Url": "images/p1_s1_img4.jpeg",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -1660,7 +1660,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p23_s1_img25.png",
+                            "Url": "images/p3_s1_img5.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -2184,7 +2184,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p24_s1_img26.png",
+                            "Url": "images/p4_s1_img6.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -2790,7 +2790,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p25_s1_img27.png",
+                            "Url": "images/p5_s1_img7.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -3031,7 +3031,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p25_s1_img28.png",
+                            "Url": "images/p5_s1_img8.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4141,7 +4141,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p27_s1_img29.png",
+                            "Url": "images/p7_s1_img9.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4626,7 +4626,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p29_s1_img30.png",
+                            "Url": "images/p9_s1_img10.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4661,7 +4661,7 @@
           {
             "Type": "image",
             "Markers": [],
-            "Url": "images/p29_s1_img31.png",
+            "Url": "images/p9_s1_img11.png",
             "FloatPosition": "none",
             "InnerSpans": [],
             "TableRows": []
