@@ -3,550 +3,6 @@
     "PageNumber": 1,
     "Paragraphs": [
       {
-        "Direction": "LTR",
-        "Spans": [
-          {
-            "Type": "image",
-            "Markers": [],
-            "Url": "p1_s1_img1.png",
-            "FloatPosition": "right",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "UNIT/01: URBAN AND RURAL LIFE",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3 ExtraBold",
-              "sz:32"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3",
-              "sz:28"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "IN THIS unIT YOU WILL\nLEARN HOW TO",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "Spans": [
-          {
-            "Type": "image",
-            "Markers": [],
-            "Url": "p1_s1_img2.jpeg",
-            "FloatPosition": "right",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "01",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3",
-              "sz:24"
-            ],
-            "BorderColor": "FFFF00",
-            "BorderStyle": "BorderValues { }",
-            "HasBorders": "true",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3 Medium",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "Mallorca",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ",",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the biggest of",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the Balearic Islands",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ", is situated in",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the Mediterranean Sea",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ", some 300km from",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the Valencian coast",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " of ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Spain",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ", and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the Spanish",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " as a tourist destination, it annually welcomes people from all over ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Europe",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " (particularly from ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the United Kingdom, France",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " and ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Germany",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "), who may head for",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Alcudia Beach",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ", or go hiking in",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the Tramuntanas, a mountain range that runs from",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the northeast",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " to ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "the southwest",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " of the island. The busy capital city,",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Palma de Mallorca",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Algaida",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " or ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Binissalem",
-            "Markers": [
-              "u",
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ".",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
         "Spans": [
           {
             "Type": "table",
@@ -573,18 +29,12 @@
                             ],
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3",
-                              "sz:28"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
                           {
                             "Type": "text",
                             "Content": "READING",
@@ -607,7 +57,7 @@
                             "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
+                              "fn:Source Sans 3 Bold",
                               "sz:22"
                             ],
                             "InnerSpans": [],
@@ -632,17 +82,18 @@
                       }
                     ],
                     "FillColor": "FFFF00",
-                    "WidthPercent": 57.51,
+                    "WidthPercent": 53.82,
                     "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p1_s1_img3.png",
+                            "Url": "p9_s1_img10.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -650,12 +101,24 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 42.49,
+                    "WidthPercent": 46.18,
                     "IsHeaderCell": false
                   }
                 ]
               }
             ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
           }
         ]
       },
@@ -749,10 +212,38 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", the biggest of ",
+                            "Content": ",",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the biggest of",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -770,10 +261,19 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", is situated in ",
+                            "Content": ", is situated in",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -791,10 +291,19 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", some 300km from ",
+                            "Content": ", some 300km from",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -846,8 +355,7 @@
                             "Content": "the Spanish",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3",
-                              "sz:21"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -917,10 +425,19 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "), who may head for ",
+                            "Content": "), who may head for",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -938,10 +455,38 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
+                            "Content": ", or go hiking in",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "the Tramuntanas, a mountain range that runs from",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -980,10 +525,19 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " of the island. The busy capital city, ",
+                            "Content": " of the island. The busy capital city,",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1001,10 +555,19 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
+                            "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1054,17 +617,18 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 62.65,
+                    "WidthPercent": 54.03,
                     "IsHeaderCell": false
                   },
                   {
                     "Paragraphs": [
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p1_s1_img4.jpeg",
+                            "Url": "p9_s1_img11.jpeg",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -1072,7 +636,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 37.35,
+                    "WidthPercent": 45.97,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1098,91 +662,37 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "\n",
-            "Markers": [],
+            "Content": "02",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3",
+              "sz:24"
+            ],
+            "BorderColor": "FFFF00",
+            "BorderStyle": "BorderValues { }",
+            "HasBorders": "true",
             "InnerSpans": [],
             "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
+          },
           {
-            "Type": "table",
-            "Markers": [],
-            "TableStyleId": "DottedTable",
-            "TableStyleName": "DottedTable",
+            "Type": "text",
+            "Content": " ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
             "InnerSpans": [],
-            "TableRows": [
-              {
-                "IsHeader": false,
-                "Cells": [
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "02",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3",
-                              "sz:24"
-                            ],
-                            "BorderColor": "BF1191",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3 Medium",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 80.3,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 19.7,
-                    "IsHeaderCell": false
-                  }
-                ]
-              }
-            ]
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 Medium",
+              "sz:21"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
           }
         ]
       },
@@ -1191,67 +701,14 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "\n",
-            "Markers": [],
+            "Content": "[MATCHING HEADINGS]",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 SemiBold",
+              "sz:22"
+            ],
             "InnerSpans": [],
             "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
-          {
-            "Type": "table",
-            "Markers": [],
-            "TableStyleId": "DottedTable",
-            "TableStyleName": "DottedTable",
-            "InnerSpans": [],
-            "TableRows": [
-              {
-                "IsHeader": true,
-                "Cells": [
-                  {
-                    "Paragraphs": [
-                      {
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 6.26,
-                    "IsHeaderCell": true
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "[MATCHING HEADINGS]",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3 SemiBold",
-                              "sz:22"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 93.74,
-                    "IsHeaderCell": true
-                  }
-                ]
-              }
-            ]
           }
         ]
       },
@@ -1260,87 +717,28 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "\n",
-            "Markers": [],
+            "Content": "03",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3",
+              "sz:24"
+            ],
+            "BorderColor": "FFFF00",
+            "BorderStyle": "BorderValues { }",
+            "HasBorders": "true",
             "InnerSpans": [],
             "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
+          },
           {
-            "Type": "table",
-            "Markers": [],
-            "TableStyleId": "DottedTable",
-            "TableStyleName": "DottedTable",
+            "Type": "text",
+            "Content": " Look at this title and discuss with a partner what you might expect to read in the passage.",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 Medium",
+              "sz:21"
+            ],
             "InnerSpans": [],
-            "TableRows": [
-              {
-                "IsHeader": false,
-                "Cells": [
-                  {
-                    "Paragraphs": [
-                      {
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "03",
-                            "Markers": [
-                              "fn:Source Sans 3"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 6.26,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3 Medium",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 54.61,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 39.13,
-                    "IsHeaderCell": false
-                  }
-                ]
-              }
-            ]
+            "TableRows": []
           }
         ]
       },
@@ -1349,159 +747,89 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "\n",
-            "Markers": [],
+            "Content": "The World’s\nMost unusual\nTowns and Cities",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 ExtraBold",
+              "sz:32"
+            ],
             "InnerSpans": [],
             "TableRows": []
           }
         ]
       },
       {
+        "Direction": "LTR",
         "Spans": [
           {
-            "Type": "table",
-            "Markers": [],
-            "TableStyleId": "DottedTable",
-            "TableStyleName": "DottedTable",
+            "Type": "text",
+            "Content": "◎",
+            "Markers": [
+              "fn:Cambria Math",
+              "sz:20"
+            ],
+            "TextColor": "050505",
             "InnerSpans": [],
-            "TableRows": [
-              {
-                "IsHeader": false,
-                "Cells": [
-                  {
-                    "Paragraphs": [
-                      {
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 6.26,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "The World’s\nMost unusual\nTowns and Cities",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3 ExtraBold",
-                              "sz:32"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 41.11,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "◎",
-                            "Markers": [
-                              "fn:Cambria Math",
-                              "sz:20"
-                            ],
-                            "TextColor": "050505",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Segoe UI Emoji",
-                              "sz:20"
-                            ],
-                            "TextColor": "050505",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:20"
-                            ],
-                            "TextColor": "050505",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "topic sentence",
-                            "Markers": [
-                              "i",
-                              "fn:Source Sans 3",
-                              "sz:20"
-                            ],
-                            "TextColor": "050505",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": ".",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:20"
-                            ],
-                            "TextColor": "050505",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:20"
-                            ],
-                            "TextColor": "050505",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 52.63,
-                    "IsHeaderCell": false
-                  }
-                ]
-              }
-            ]
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": " ",
+            "Markers": [
+              "fn:Segoe UI Emoji",
+              "sz:20"
+            ],
+            "TextColor": "050505",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+            "Markers": [
+              "fn:Source Sans 3",
+              "sz:20"
+            ],
+            "TextColor": "050505",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "topic sentence",
+            "Markers": [
+              "i",
+              "fn:Source Sans 3",
+              "sz:20"
+            ],
+            "TextColor": "050505",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": ".",
+            "Markers": [
+              "fn:Source Sans 3",
+              "sz:20"
+            ],
+            "TextColor": "050505",
+            "InnerSpans": [],
+            "TableRows": []
           }
         ]
       },
       {
+        "Direction": "LTR",
         "Spans": [
           {
             "Type": "text",
-            "Content": "\n",
-            "Markers": [],
+            "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
+            "Markers": [
+              "fn:Source Sans 3",
+              "sz:20"
+            ],
+            "TextColor": "050505",
             "InnerSpans": [],
             "TableRows": []
           }
