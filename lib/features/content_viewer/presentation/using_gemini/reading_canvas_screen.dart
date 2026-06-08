@@ -19,10 +19,29 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   final TransformationController _transformationController =
       TransformationController();
 
-  // 🌟 تمام متغیرهای اضافی، _isZoomed و Listener ها حذف شدند!
+  // متغیر وضعیت برای مدیریت هوشمند فیزیک حرکتی
+  bool _isZoomed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _transformationController.addListener(_handleTransformationChanged);
+  }
+
+  void _handleTransformationChanged() {
+    final scale = _transformationController.value.getMaxScaleOnAxis();
+    // اگر زوم بیشتر از حد معمولی شد، وضعیت تغییر می‌کند
+    bool zoomed = scale > 1.01;
+    if (zoomed != _isZoomed) {
+      setState(() {
+        _isZoomed = zoomed;
+      });
+    }
+  }
 
   @override
   void dispose() {
+    _transformationController.removeListener(_handleTransformationChanged);
     _transformationController.dispose();
     _audioPlayer.dispose();
     super.dispose();
@@ -36,43 +55,50 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
-        // 🌟 ویجت SingleChildScrollView کلاً حذف شد
+        // 🌟 ۱. InteractiveViewer حالا والد اصلی است و کل صفحه را مدیریت می‌کند
         child: InteractiveViewer(
           transformationController: _transformationController,
           minScale: 1.0,
           maxScale: 4.0,
 
-          // 🌟 این ویژگی حیاتی است: اجازه می‌دهد محتوای داخل به صورت عمودی تا بی‌نهایت ادامه یابد
-          constrained: false,
+          // 🌟 ۲. شاه‌کلید سرعت: جابجایی دو بعدی فقط و فقط زمانی فعال می‌شود که زوم شده باشیم.
+          // در حالت عادی (Scale = 1) این ویژگی غیرفعال است تا حرکت انگشت مستقیماً به اسکرولرِ فرزند برسد.
+          panEnabled: _isZoomed,
+          scaleEnabled: true, // زوم دو انگشتی همیشه بیدار و آماده به کار است
 
-          // حاشیه صفر باعث می‌شود در حالت عادی صفحه به چپ و راست لقی نداشته باشد
-          boundaryMargin: EdgeInsets.zero,
+          child: SingleChildScrollView(
+            // 🌟 ۳. سوئیچ فیزیک هوشمند:
+            // در حالت عادی اسکرول نیتیو و روان فعال است. در حالت زوم، اسکرولر داخلی قفل می‌شود
+            // تا با حرکت پانِ InteractiveViewer تداخل پیدا نکند.
+            physics: _isZoomed
+                ? const NeverScrollableScrollPhysics()
+                : const BouncingScrollPhysics(),
 
-          child: Container(
-            // 🌟 تنظیم عرض کانتینرِ والد دقیقا برابر با عرض صفحه
-            // این کار باعث می‌شود در حالت زوم ۱۰۰٪، صفحه به صورت افقی قفل شود و فقط عمودی اسکرول شود
-            width: screenWidth,
-            color: Colors.grey[100],
-            child: Center(
-              child: Container(
-                width: canvasWidth,
-                color: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: widget.documentParagraphs
-                      .map(
-                        (para) => _buildParagraph(
-                          para,
-                          canvasWidth,
-                          screenWidth,
-                          context,
-                        ),
-                      )
-                      .toList(),
+            child: Container(
+              width:
+                  screenWidth, // فیکس کردن عرض کانتینر برای جلوگیری از لقی افقی در حالت عادی
+              color: Colors.grey[100],
+              child: Center(
+                child: Container(
+                  width: canvasWidth,
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24,
+                    horizontal: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: widget.documentParagraphs
+                        .map(
+                          (para) => _buildParagraph(
+                            para,
+                            canvasWidth,
+                            screenWidth,
+                            context,
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
             ),
@@ -81,7 +107,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       ),
     );
   }
-  // --- متدهای کمکی و ساخت پاراگراف (بدون تغییر ساختاری نسبت به کد قبلی شما) ---
+
+  // ... (بقیه متدهای کمکی شما مثل _buildParagraph و غیره بدون تغییر باقی می‌مانند)
 
   String _mapFontFamily(String rawFontName) {
     String normalized = rawFontName
