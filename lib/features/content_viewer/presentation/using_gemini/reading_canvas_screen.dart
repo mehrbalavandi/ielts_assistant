@@ -19,10 +19,28 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   final TransformationController _transformationController =
       TransformationController();
 
-  // 🌟 تمام متغیرهای اضافی، _isZoomed و Listener ها حذف شدند!
+  bool _isZoomed = false;
+  int _pointerCount = 0; // 🌟 ثبت دقیق و آنی تعداد انگشتان روی صفحه
+
+  @override
+  void initState() {
+    super.initState();
+    _transformationController.addListener(_handleTransformationChanged);
+  }
+
+  void _handleTransformationChanged() {
+    final scale = _transformationController.value.getMaxScaleOnAxis();
+    bool zoomed = scale > 1.02;
+    if (zoomed != _isZoomed) {
+      setState(() {
+        _isZoomed = zoomed;
+      });
+    }
+  }
 
   @override
   void dispose() {
+    _transformationController.removeListener(_handleTransformationChanged);
     _transformationController.dispose();
     _audioPlayer.dispose();
     super.dispose();
@@ -33,46 +51,72 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
 
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: SafeArea(
-        // 🌟 ویجت SingleChildScrollView کلاً حذف شد
-        child: InteractiveViewer(
-          transformationController: _transformationController,
-          minScale: 1.0,
-          maxScale: 4.0,
+    // 🌟 شاه‌کلید حل مشکل: تشخیص دقیق تعداد انگشت‌ها قبل از پردازش فلاتر
+    return Listener(
+      onPointerDown: (event) {
+        _pointerCount++;
+        // به محض اینکه انگشت دوم نشست، وضعیت فیزیک را به روز می‌کنیم
+        if (_pointerCount >= 2) {
+          setState(() {});
+        }
+      },
+      onPointerUp: (event) {
+        _pointerCount = Matrix4.identity() == _transformationController.value
+            ? 0
+            : _pointerCount - 1;
+        if (_pointerCount < 0) _pointerCount = 0;
+        setState(() {});
+      },
+      onPointerCancel: (event) {
+        _pointerCount = 0;
+        setState(() {});
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        body: SafeArea(
+          child: InteractiveViewer(
+            transformationController: _transformationController,
+            minScale: 1.0,
+            maxScale: 4.0,
+            // پان (جابجایی) دو بعدی فقط زمانی فعال باشد که واقعاً زوم کرده‌ایم
+            panEnabled: _isZoomed,
+            scaleEnabled: true,
+            // این ویژگی کمک می‌کند زوم روی نقطه فشرده شده متمرکز شود
+            clipBehavior: Clip.none,
 
-          // 🌟 این ویژگی حیاتی است: اجازه می‌دهد محتوای داخل به صورت عمودی تا بی‌نهایت ادامه یابد
-          constrained: false,
+            child: SingleChildScrollView(
+              // 🌟 منطق هوشمند جدید برای فیزیک اسکرول:
+              // اگر ۲ انگشت روی صفحه باشد (قصد زوم)، اسکرول را کاملاً قفل کن تا زوم خراب نشود.
+              // اگر زوم شده باشیم (_isZoomed)، باز هم اسکرول عادی را قفل کن چون InteractiveViewer زوم را جابجا می‌کند.
+              physics: (_pointerCount >= 2 || _isZoomed)
+                  ? const NeverScrollableScrollPhysics()
+                  : const BouncingScrollPhysics(),
 
-          // حاشیه صفر باعث می‌شود در حالت عادی صفحه به چپ و راست لقی نداشته باشد
-          boundaryMargin: EdgeInsets.zero,
-
-          child: Container(
-            // 🌟 تنظیم عرض کانتینرِ والد دقیقا برابر با عرض صفحه
-            // این کار باعث می‌شود در حالت زوم ۱۰۰٪، صفحه به صورت افقی قفل شود و فقط عمودی اسکرول شود
-            width: screenWidth,
-            color: Colors.grey[100],
-            child: Center(
               child: Container(
-                width: canvasWidth,
-                color: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: widget.documentParagraphs
-                      .map(
-                        (para) => _buildParagraph(
-                          para,
-                          canvasWidth,
-                          screenWidth,
-                          context,
-                        ),
-                      )
-                      .toList(),
+                width: screenWidth,
+                color: Colors.grey[100],
+                child: Center(
+                  child: Container(
+                    width: canvasWidth,
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 24,
+                      horizontal: 16,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: widget.documentParagraphs
+                          .map(
+                            (para) => _buildParagraph(
+                              para,
+                              canvasWidth,
+                              screenWidth,
+                              context,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -81,7 +125,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       ),
     );
   }
-  // --- متدهای کمکی و ساخت پاراگراف (بدون تغییر ساختاری نسبت به کد قبلی شما) ---
 
   String _mapFontFamily(String rawFontName) {
     String normalized = rawFontName
