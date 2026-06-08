@@ -18,29 +18,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   final TransformationController _transformationController =
       TransformationController();
-  bool _isZoomed = false;
-  int _pointerCount = 0; // 🌟 ثبت دقیق و آنی تعداد انگشتان روی صفحه
 
-  @override
-  void initState() {
-    super.initState();
-    _transformationController.addListener(_handleTransformationChanged);
-  }
-
-  void _handleTransformationChanged() {
-    final scale = _transformationController.value.getMaxScaleOnAxis();
-    bool zoomed = scale > 1.02;
-    if (zoomed != _isZoomed) {
-      setState(() {
-        _isZoomed = zoomed;
-      });
-    }
-  }
+  // 🌟 تمام متغیرهای اضافی، _isZoomed و Listener ها حذف شدند!
 
   @override
   void dispose() {
-    _transformationController.removeListener(_handleTransformationChanged);
     _transformationController.dispose();
+    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -49,64 +33,46 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
 
-    // 🌟 شاه‌کلید حل مشکل: اگر کاربر بیش از یک انگشت روی صفحه گذاشته یا کلاً زوم است،
-    // اسکرول بومی را موقتاً مسدود کن تا زوم به راحتی عمل کند.
-    final bool disableScroll = _pointerCount > 1 || _isZoomed;
-
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
-        // 🌟 استفاده از Listener برای شنود آنی و بدون تاخیر تعداد انگشت‌ها
-        child: Listener(
-          onPointerDown: (event) {
-            setState(() {
-              _pointerCount++;
-            });
-          },
-          onPointerUp: (event) {
-            setState(() {
-              _pointerCount = (_pointerCount - 1).clamp(0, 10);
-            });
-          },
-          onPointerCancel: (event) {
-            setState(() {
-              _pointerCount = (_pointerCount - 1).clamp(0, 10);
-            });
-          },
-          child: InteractiveViewer(
-            transformationController: _transformationController,
-            minScale: 1.0,
-            maxScale: 4.0,
-            panEnabled:
-                _isZoomed, // جابجایی دو بعدی بوم فقط در حالت زوم فعال باشد
-            scaleEnabled: true, // زوم همیشه مجاز است
-            constrained: true, // حفظ ساختار عمودی
-            child: SingleChildScrollView(
-              // مدیریت هوشمند فیزیک اسکرول
-              physics: disableScroll
-                  ? const NeverScrollableScrollPhysics()
-                  : const BouncingScrollPhysics(),
-              child: Center(
-                child: Container(
-                  width: canvasWidth,
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 24,
-                    horizontal: 16,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: widget.documentParagraphs
-                        .map(
-                          (para) => _buildParagraph(
-                            para,
-                            canvasWidth,
-                            screenWidth,
-                            context,
-                          ),
-                        )
-                        .toList(),
-                  ),
+        // 🌟 ویجت SingleChildScrollView کلاً حذف شد
+        child: InteractiveViewer(
+          transformationController: _transformationController,
+          minScale: 1.0,
+          maxScale: 4.0,
+
+          // 🌟 این ویژگی حیاتی است: اجازه می‌دهد محتوای داخل به صورت عمودی تا بی‌نهایت ادامه یابد
+          constrained: false,
+
+          // حاشیه صفر باعث می‌شود در حالت عادی صفحه به چپ و راست لقی نداشته باشد
+          boundaryMargin: EdgeInsets.zero,
+
+          child: Container(
+            // 🌟 تنظیم عرض کانتینرِ والد دقیقا برابر با عرض صفحه
+            // این کار باعث می‌شود در حالت زوم ۱۰۰٪، صفحه به صورت افقی قفل شود و فقط عمودی اسکرول شود
+            width: screenWidth,
+            color: Colors.grey[100],
+            child: Center(
+              child: Container(
+                width: canvasWidth,
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 16,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: widget.documentParagraphs
+                      .map(
+                        (para) => _buildParagraph(
+                          para,
+                          canvasWidth,
+                          screenWidth,
+                          context,
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ),
@@ -115,8 +81,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       ),
     );
   }
+  // --- متدهای کمکی و ساخت پاراگراف (بدون تغییر ساختاری نسبت به کد قبلی شما) ---
 
-  // متد کمکی: مپ کردن نام فونت استخراج شده از ورد به فونت‌های فلاتر
   String _mapFontFamily(String rawFontName) {
     String normalized = rawFontName
         .toLowerCase()
@@ -142,13 +108,11 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     return "Source Sans 3";
   }
 
-  // متد کمکی: تبدیل کدهای Hex ورد به Color
   Color? _hexToColor(String? hexString) {
     if (hexString == null ||
         hexString.isEmpty ||
-        hexString.toLowerCase() == 'auto') {
+        hexString.toLowerCase() == 'auto')
       return null;
-    }
     final buffer = StringBuffer();
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
     buffer.write(hexString.replaceFirst('#', ''));
@@ -200,7 +164,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         );
       } else if (span.type == "image") {
         flushText();
-
         String imagePath = span.url ?? span.content;
         if (imagePath.isNotEmpty) {
           FCFloat floatAlign = FCFloat.none;
@@ -218,7 +181,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                   ? const EdgeInsets.only(right: 16.0, bottom: 8.0, top: 4.0)
                   : floatAlign == FCFloat.right
                   ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
-                  // ۲. اگر داخل سلول تصویری بود، فاصله صفر شود
                   : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 16.0),
               child: floatAlign == FCFloat.none
                   ? Center(
@@ -275,7 +237,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     }
 
     return Padding(
-      // ۲. اگر پاراگراف داخل جدول بود (یا سلول عکس بود)، فاصله پایینی حذف شود
       padding: EdgeInsets.only(
         bottom: isImageCell ? 0.0 : (isInsideTableCell ? 0.0 : 8.0),
       ),
@@ -297,7 +258,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         double? parsedSize = double.tryParse(sizeStr);
         if (parsedSize != null) fontSize = parsedSize / 2;
       } else if (marker.startsWith("fn:")) {
-        // مپینگ هوشمند نام فونت‌ها اعمال شد
         fontFamily = _mapFontFamily(marker.substring(3));
       }
     }
@@ -306,7 +266,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
 
     if (isAudioLink) {
-      customTextColor = Colors.blue; // می‌توانید رنگ دلخواه بدهید
+      customTextColor = Colors.blue;
     }
     bool isInlineBorder = span.hasBorders == "true";
 
@@ -329,7 +289,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
     List<InlineSpan> interactiveSpans = [];
 
-    // اگر متن ما لینک صوتی است، آن را قابل کلیک می‌کنیم
     if (isAudioLink) {
       interactiveSpans.add(
         TextSpan(
@@ -337,10 +296,10 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           style: baseStyle,
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
-              // استخراج نام فایل (مثلا track_01.mp3) از audio:track_01.mp3
               String fileName = span.url!.replaceFirst("audio:", "");
               try {
-                // فرض بر این است که فایل‌های صوتی در پوشه assets/data/audio قرار دارند
+                // اطمینان از متوقف شدن صدای قبلی قبل از پخش صدای جدید
+                await _audioPlayer.stop();
                 await _audioPlayer.setAsset('assets/data/audio/$fileName');
                 _audioPlayer.play();
               } catch (e) {
@@ -350,7 +309,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         ),
       );
     } else {
-      // در غیر این صورت، آن را به موتور بررسی کلمات تعاملی می‌فرستیم
       interactiveSpans = TextRenderEngine.buildInteractiveText(
         span.content,
         interactives,
@@ -383,7 +341,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     return interactiveSpans;
   }
 
-  // متد رندر عکس با پشتیبانی از حالت موبایل
   Widget _buildLocalImage(
     String imageName, {
     bool isMobile = false,
@@ -391,15 +348,12 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     bool isImageCell = false,
   }) {
     return Padding(
-      // ۱. حذف پدینگ اضافی خود عکس
       padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
       child: ClipRRect(
-        // ۲. حذف گردی گوشه‌ها برای اینکه درز سفید بین باکس رنگی و عکس ایجاد نشود
         borderRadius: BorderRadius.circular(isImageCell ? 0 : 6),
         child: Image.asset(
           'assets/data/images/$imageName',
           fit: BoxFit.contain,
-          // ۳. اگر عکس داخل جدول بود، اجازه می‌دهیم ۱۰۰٪ عرض را پر کند
           width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
           errorBuilder: (context, error, stackTrace) {
             return Container(
@@ -425,7 +379,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
-  // متد جدول: مشکل IntrinsicHeight و RenderFlex برطرف شد
   Widget _buildTable(
     SpanData tableSpan,
     double canvasWidth,
@@ -458,7 +411,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         if (cell.vAlign == "center") vAlign = MainAxisAlignment.center;
         if (cell.vAlign == "bottom") vAlign = MainAxisAlignment.end;
 
-        // تشخیص اینکه آیا این سلول فقط مخصوص عکس است
         bool isImageCell =
             cell.paragraphs.length == 1 &&
             cell.paragraphs.first.spans.any((s) => s.type == "image");
@@ -473,14 +425,12 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                   )
                 : null,
           ),
-          // ۱. حذف پدینگ کانتینرِ سلول در تمام حالت‌ها تا تصویر تمام فضا را بگیرد
           padding: EdgeInsets.all(isImageCell ? 0.0 : 12.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: vAlign,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: cell.paragraphs
-                // ۲. ارسال فلگ به متد سازنده پاراگراف برای حذف سایر فواصل
                 .map(
                   (p) => _buildParagraph(
                     p,
@@ -502,17 +452,12 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         );
       }
 
-      // ۴. چیدمان نهایی سطرها بر اساس اندازه صفحه نمایش
       if (isLargeScreen) {
-        // ایجاد فاصله (Gutter) افقی بین ستون‌ها برای دسکتاپ
         List<Widget> spacedRowChildren = [];
         for (int i = 0; i < cellWidgets.length; i++) {
           spacedRowChildren.add(cellWidgets[i]);
-          // افزودن فضای خالی بین ستون‌ها (به جز بعد از ستون آخر)
           if (i != cellWidgets.length - 1) {
-            spacedRowChildren.add(
-              const SizedBox(width: 24.0),
-            ); // فاصله ۲۴ پیکسلی شیک
+            spacedRowChildren.add(const SizedBox(width: 24.0));
           }
         }
 
@@ -523,14 +468,10 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           ),
         );
       } else {
-        // مدیریت فاصله در ستون‌های عمودی (موبایل)
         List<Widget> spacedColChildren = [];
         for (int i = 0; i < cellWidgets.length; i++) {
           spacedColChildren.add(cellWidgets[i]);
-          // افزودن فضای خالی بین سطرها (به جز بعد از سطر آخر)
           if (i != cellWidgets.length - 1) {
-            // از نظر UX اتصال بدون درز در موبایل زیباتر است.
-            // اگر خواستید تصویر و متن از هم فاصله بگیرند، عدد 0.0 را به 8.0 یا 12.0 تغییر دهید.
             spacedColChildren.add(const SizedBox(height: 0.0));
           }
         }
