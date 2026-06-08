@@ -88,7 +88,6 @@
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "image",
@@ -119,8 +118,7 @@
             "Markers": [
               "b",
               "bg:FFFF00",
-              "fn:Source Sans 3",
-              "sz:22"
+              "fn:Source Sans 3"
             ],
             "FillColor": "FFFF00",
             "BorderColor": "000000",
@@ -146,17 +144,14 @@
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
                             "Content": "01",
                             "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:24"
+                              "b",
+                              "fn:Source Sans 3"
                             ],
-                            "Url": "audio:MindsetIELTS_L3_01.mp3",
-                            "TextColor": "0563C1",
                             "BorderColor": "FFFF00",
                             "BorderStyle": "BorderValues { }",
                             "HasBorders": "true",
@@ -201,38 +196,10 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ",",
+                            "Content": ", the biggest of ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the biggest of",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -250,19 +217,10 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", is situated in",
+                            "Content": ", is situated in ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -280,19 +238,10 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", some 300km from",
+                            "Content": ", some 300km from ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -344,7 +293,8 @@
                             "Content": "the Spanish",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -414,19 +364,10 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "), who may head for",
+                            "Content": "), who may head for ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -444,38 +385,10 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", or go hiking in",
+                            "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "the Tramuntanas, a mountain range that runs from",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -514,19 +427,10 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " of the island. The busy capital city,",
+                            "Content": " of the island. The busy capital city, ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -544,19 +448,10 @@
                           },
                           {
                             "Type": "text",
-                            "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as",
+                            "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -612,7 +507,6 @@
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "image",
@@ -635,7 +529,6 @@
         ]
       },
       {
-        "Direction": "LTR",
         "Spans": [
           {
             "Type": "text",
@@ -647,11 +540,10 @@
         ]
       },
       {
-        "Direction": "LTR",
         "Spans": [
           {
             "Type": "text",
-            "Content": "02",
+            "Content": "02 ",
             "Markers": [
               "b",
               "fn:Source Sans 3",
@@ -660,15 +552,6 @@
             "BorderColor": "FFFF00",
             "BorderStyle": "BorderValues { }",
             "HasBorders": "true",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Source Sans 3"
-            ],
             "InnerSpans": [],
             "TableRows": []
           },
@@ -690,25 +573,13 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "          ",
+            "Content": "[[[[[[[[[[",
             "Markers": [
-              "b",
               "bg:FFFF00",
-              "fn:Source Sans 3 SemiBold",
+              "fn:Source Sans 3",
               "sz:32"
             ],
             "FillColor": "FFFF00",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "[",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3 SemiBold",
-              "sz:32"
-            ],
             "TextColor": "FFFF00",
             "InnerSpans": [],
             "TableRows": []
@@ -728,8 +599,7 @@
             "Type": "text",
             "Content": "]",
             "Markers": [
-              "b",
-              "fn:Source Sans 3 SemiBold",
+              "fn:Source Sans 3",
               "sz:32"
             ],
             "TextColor": "FFFF00",
@@ -743,7 +613,7 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "03",
+            "Content": "03 ",
             "Markers": [
               "b",
               "fn:Source Sans 3",
@@ -757,7 +627,7 @@
           },
           {
             "Type": "text",
-            "Content": " Look at this title and discuss with a partner what you might expect to read in the passage.",
+            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
             "Markers": [
               "b",
               "fn:Source Sans 3 Medium",
@@ -769,18 +639,119 @@
         ]
       },
       {
-        "Direction": "LTR",
         "Spans": [
           {
-            "Type": "text",
-            "Content": "The World’s\nMost unusual\nTowns and Cities",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3 ExtraBold",
-              "sz:32"
-            ],
+            "Type": "table",
+            "Markers": [],
+            "TableStyleId": "TableGrid",
+            "TableStyleName": "Table Grid",
             "InnerSpans": [],
-            "TableRows": []
+            "TableRows": [
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The World’s\nMost unusual\nTowns and Cities",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 ExtraBold",
+                              "sz:32"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 50.0,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "◎",
+                            "Markers": [
+                              "fn:Cambria Math",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "fn:Segoe UI Emoji",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "topic sentence",
+                            "Markers": [
+                              "i",
+                              "fn:Source Sans 3",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": ".",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 50.0,
+                    "IsHeaderCell": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -789,73 +760,8 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "◎",
-            "Markers": [
-              "fn:Cambria Math",
-              "sz:20"
-            ],
-            "TextColor": "050505",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": " ",
-            "Markers": [
-              "fn:Segoe UI Emoji",
-              "sz:20"
-            ],
-            "TextColor": "050505",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:20"
-            ],
-            "TextColor": "050505",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "topic sentence",
-            "Markers": [
-              "i",
-              "fn:Source Sans 3",
-              "sz:20"
-            ],
-            "TextColor": "050505",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": ".",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:20"
-            ],
-            "TextColor": "050505",
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:20"
-            ],
-            "TextColor": "050505",
+            "Content": "\n",
+            "Markers": [],
             "InnerSpans": [],
             "TableRows": []
           }
@@ -881,15 +787,12 @@
                   {
                     "Paragraphs": [
                       {
-                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
                             "Content": "04",
                             "Markers": [
-                              "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -910,7 +813,8 @@
                             "Content": "Read the first sentence of a paragraph about the city of Auroville, India. It is the topic sentence. Which of the three options seems to be the most likely heading? Why?",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "070606",
                             "InnerSpans": [],
@@ -926,8 +830,8 @@
                             "Type": "text",
                             "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
                             "Markers": [
-                              "fn:Tahoma",
-                              "sz:19"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "000307",
                             "InnerSpans": [],
@@ -943,8 +847,8 @@
                             "Type": "text",
                             "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be ",
                             "Markers": [
-                              "fn:Tahoma",
-                              "sz:19"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "000307",
                             "InnerSpans": [],
@@ -954,8 +858,8 @@
                             "Type": "text",
                             "Content": "projected across all humanity.",
                             "Markers": [
-                              "fn:Tahoma",
-                              "sz:19"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "000207",
                             "InnerSpans": [],
@@ -3475,10 +3379,8 @@
                             "Type": "text",
                             "Content": "A thousand years ago the Mississippians, a diverse group of Native Americans who lived in the area which is today known as the south-eastern United States, took a small village on the Mississippi River and turned it into one of the world's first great urban centres. Cahokia, as it has been called by archaeologists, became as large as London was in the 11th century, and some would argue that it was just as forward-looking and prosperous as its European equivalents. Sophisticated, cosmopolitan and ahead of its time, Cahokia was at the heart of ancient society in North America; an ancestor of today's capital cities.",
                             "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:20"
+                              "fn:Source Sans 3"
                             ],
-                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4501,6 +4403,17 @@
       },
       {
         "Direction": "LTR",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
         "Spans": [
           {
             "Type": "text",
