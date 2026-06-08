@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
+import 'package:just_audio/just_audio.dart';
 
 class ReadingCanvasScreen extends StatefulWidget {
   final List<ParagraphData> documentParagraphs;
@@ -13,10 +15,11 @@ class ReadingCanvasScreen extends StatefulWidget {
 }
 
 class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
   final TransformationController _transformationController =
       TransformationController();
   bool _isZoomed = false;
-  int _pointerCount = 0;
+  int _pointerCount = 0; // 🌟 ثبت دقیق و آنی تعداد انگشتان روی صفحه
 
   @override
   void initState() {
@@ -26,9 +29,10 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
   void _handleTransformationChanged() {
     final scale = _transformationController.value.getMaxScaleOnAxis();
-    if (scale <= 1.01 && _isZoomed && _pointerCount == 0) {
+    bool zoomed = scale > 1.02;
+    if (zoomed != _isZoomed) {
       setState(() {
-        _isZoomed = false;
+        _isZoomed = zoomed;
       });
     }
   }
@@ -38,6 +42,78 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     _transformationController.removeListener(_handleTransformationChanged);
     _transformationController.dispose();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
+
+    // 🌟 شاه‌کلید حل مشکل: اگر کاربر بیش از یک انگشت روی صفحه گذاشته یا کلاً زوم است،
+    // اسکرول بومی را موقتاً مسدود کن تا زوم به راحتی عمل کند.
+    final bool disableScroll = _pointerCount > 1 || _isZoomed;
+
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      body: SafeArea(
+        // 🌟 استفاده از Listener برای شنود آنی و بدون تاخیر تعداد انگشت‌ها
+        child: Listener(
+          onPointerDown: (event) {
+            setState(() {
+              _pointerCount++;
+            });
+          },
+          onPointerUp: (event) {
+            setState(() {
+              _pointerCount = (_pointerCount - 1).clamp(0, 10);
+            });
+          },
+          onPointerCancel: (event) {
+            setState(() {
+              _pointerCount = (_pointerCount - 1).clamp(0, 10);
+            });
+          },
+          child: InteractiveViewer(
+            transformationController: _transformationController,
+            minScale: 1.0,
+            maxScale: 4.0,
+            panEnabled:
+                _isZoomed, // جابجایی دو بعدی بوم فقط در حالت زوم فعال باشد
+            scaleEnabled: true, // زوم همیشه مجاز است
+            constrained: true, // حفظ ساختار عمودی
+            child: SingleChildScrollView(
+              // مدیریت هوشمند فیزیک اسکرول
+              physics: disableScroll
+                  ? const NeverScrollableScrollPhysics()
+                  : const BouncingScrollPhysics(),
+              child: Center(
+                child: Container(
+                  width: canvasWidth,
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24,
+                    horizontal: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: widget.documentParagraphs
+                        .map(
+                          (para) => _buildParagraph(
+                            para,
+                            canvasWidth,
+                            screenWidth,
+                            context,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   // متد کمکی: مپ کردن نام فونت استخراج شده از ورد به فونت‌های فلاتر
@@ -81,81 +157,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     } catch (e) {
       return null;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
-
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: SafeArea(
-        child: Listener(
-          onPointerDown: (PointerDownEvent event) {
-            _pointerCount++;
-            if (_pointerCount >= 2 && !_isZoomed) {
-              setState(() => _isZoomed = true);
-            }
-          },
-          onPointerUp: (PointerUpEvent event) {
-            _pointerCount = (_pointerCount - 1).clamp(0, 10);
-            if (_pointerCount == 0) {
-              if (_transformationController.value.getMaxScaleOnAxis() <= 1.01 &&
-                  _isZoomed) {
-                setState(() => _isZoomed = false);
-              }
-            }
-          },
-          onPointerCancel: (PointerCancelEvent event) {
-            _pointerCount = (_pointerCount - 1).clamp(0, 10);
-            if (_pointerCount == 0) {
-              if (_transformationController.value.getMaxScaleOnAxis() <= 1.01 &&
-                  _isZoomed) {
-                setState(() => _isZoomed = false);
-              }
-            }
-          },
-          child: InteractiveViewer(
-            transformationController: _transformationController,
-            minScale: 1.0,
-            maxScale: 4.0,
-            panEnabled: _isZoomed,
-            scaleEnabled: true,
-            constrained: true,
-            child: SingleChildScrollView(
-              physics: _isZoomed
-                  ? const NeverScrollableScrollPhysics()
-                  : const BouncingScrollPhysics(),
-              child: Center(
-                child: Container(
-                  width: canvasWidth,
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 24,
-                    horizontal: 16,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    // ارسال screenWidth برای محاسبات واکنش‌گرا
-                    children: widget.documentParagraphs
-                        .map(
-                          (para) => _buildParagraph(
-                            para,
-                            canvasWidth,
-                            screenWidth,
-                            context,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _buildParagraph(
@@ -302,6 +303,11 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     }
 
     Color? customTextColor = _hexToColor(span.textColor);
+    bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
+
+    if (isAudioLink) {
+      customTextColor = Colors.blue; // می‌توانید رنگ دلخواه بدهید
+    }
     bool isInlineBorder = span.hasBorders == "true";
 
     TextStyle baseStyle = TextStyle(
@@ -316,17 +322,42 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       fontStyle: span.markers.contains("i")
           ? FontStyle.italic
           : FontStyle.normal,
-      decoration: span.markers.contains("u")
+      decoration: (span.markers.contains("u") || isAudioLink)
           ? TextDecoration.underline
           : TextDecoration.none,
     );
 
-    List<InlineSpan> interactiveSpans = TextRenderEngine.buildInteractiveText(
-      span.content,
-      interactives,
-      context,
-      baseStyle,
-    );
+    List<InlineSpan> interactiveSpans = [];
+
+    // اگر متن ما لینک صوتی است، آن را قابل کلیک می‌کنیم
+    if (isAudioLink) {
+      interactiveSpans.add(
+        TextSpan(
+          text: span.content,
+          style: baseStyle,
+          recognizer: TapGestureRecognizer()
+            ..onTap = () async {
+              // استخراج نام فایل (مثلا track_01.mp3) از audio:track_01.mp3
+              String fileName = span.url!.replaceFirst("audio:", "");
+              try {
+                // فرض بر این است که فایل‌های صوتی در پوشه assets/data/audio قرار دارند
+                await _audioPlayer.setAsset('assets/data/audio/$fileName');
+                _audioPlayer.play();
+              } catch (e) {
+                debugPrint("Error playing audio: $e");
+              }
+            },
+        ),
+      );
+    } else {
+      // در غیر این صورت، آن را به موتور بررسی کلمات تعاملی می‌فرستیم
+      interactiveSpans = TextRenderEngine.buildInteractiveText(
+        span.content,
+        interactives,
+        context,
+        baseStyle,
+      );
+    }
 
     if (isInlineBorder) {
       return [

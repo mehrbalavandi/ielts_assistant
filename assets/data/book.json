@@ -152,10 +152,11 @@
                             "Type": "text",
                             "Content": "01",
                             "Markers": [
-                              "b",
                               "fn:Source Sans 3",
                               "sz:24"
                             ],
+                            "Url": "audio:MindsetIELTS_L3_01.mp3",
+                            "TextColor": "0563C1",
                             "BorderColor": "FFFF00",
                             "BorderStyle": "BorderValues { }",
                             "HasBorders": "true",
