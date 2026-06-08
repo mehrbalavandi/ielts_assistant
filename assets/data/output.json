@@ -689,17 +689,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Segoe UI Emoji",
-                              "sz:20"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                            "Content": " This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:20"
@@ -792,15 +782,19 @@
                             "Type": "text",
                             "Content": "04",
                             "Markers": [
+                              "b",
                               "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.88,
+                    "WidthPercent": 4.92,
                     "IsHeaderCell": false
                   },
                   {
@@ -868,7 +862,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 69.3,
+                    "WidthPercent": 69.27,
                     "IsHeaderCell": false
                   },
                   {
@@ -885,7 +879,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 25.82,
+                    "WidthPercent": 25.81,
                     "IsHeaderCell": false
                   }
                 ]
@@ -907,7 +901,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 4.88,
+                    "WidthPercent": 4.92,
                     "IsHeaderCell": false
                   },
                   {
@@ -926,7 +920,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 69.3,
+                    "WidthPercent": 69.27,
                     "IsHeaderCell": false
                   },
                   {
@@ -944,7 +938,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 25.82,
+                    "WidthPercent": 25.81,
                     "IsHeaderCell": false
                   }
                 ]
@@ -966,7 +960,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 4.88,
+                    "WidthPercent": 4.92,
                     "IsHeaderCell": false
                   },
                   {
@@ -999,7 +993,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 69.3,
+                    "WidthPercent": 69.27,
                     "IsHeaderCell": false
                   },
                   {
@@ -1017,7 +1011,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 25.82,
+                    "WidthPercent": 25.81,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1035,16 +1029,18 @@
                             "Content": "05",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.88,
+                    "WidthPercent": 4.92,
                     "IsHeaderCell": false
                   },
                   {
@@ -1057,10 +1053,9 @@
                             "Content": "Read the full paragraph and check your answer.",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
+                              "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1118,7 +1113,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 69.3,
+                    "WidthPercent": 69.27,
                     "IsHeaderCell": false
                   },
                   {
@@ -1131,7 +1126,8 @@
                             "Content": "TIP 05",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 SemiBold",
+                              "sz:22"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1146,7 +1142,7 @@
                             "Content": "The heading you want will probably not use the same words as those which appear in the paragraph, but will paraphrase the ideas.",
                             "Markers": [
                               "fn:Source Sans 3",
-                              "sz:18"
+                              "sz:20"
                             ],
                             "TextColor": "0E0D0F",
                             "InnerSpans": [],
@@ -1167,7 +1163,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 25.82,
+                    "WidthPercent": 25.81,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1188,13 +1184,16 @@
                               "fn:Source Sans 3",
                               "sz:26"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.88,
+                    "WidthPercent": 4.92,
                     "IsHeaderCell": false
                   },
                   {
@@ -1207,7 +1206,8 @@
                             "Content": "Read this opening sentence about Longyearbyen. Which heading seems to fit this sentence best?",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "060403",
                             "InnerSpans": [],
@@ -1260,7 +1260,18 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "A An unwelcoming place to die",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An unwelcoming place to die",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1275,7 +1286,18 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "B A city at the top of the world",
+                            "Content": "B",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " A city at the top of the world",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1290,7 +1312,18 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "C An unusual approach to regulation",
+                            "Content": "C",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An unusual approach to regulation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1301,7 +1334,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 69.3,
+                    "WidthPercent": 69.27,
                     "IsHeaderCell": false
                   },
                   {
@@ -1314,7 +1347,8 @@
                             "Content": "TIP 06",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 SemiBold",
+                              "sz:22"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1329,7 +1363,7 @@
                             "Content": "Be careful: sometimes the first sentence of a paragraph seems to fit entirely with one particular heading. However, don't be caught out - you still need to check by reading the whole paragraph.",
                             "Markers": [
                               "fn:Source Sans 3",
-                              "sz:18"
+                              "sz:20"
                             ],
                             "TextColor": "0E0D0F",
                             "InnerSpans": [],
@@ -1338,7 +1372,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 25.82,
+                    "WidthPercent": 25.81,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1385,16 +1419,18 @@
                             "Content": "07",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.58,
+                    "WidthPercent": 4.7,
                     "IsHeaderCell": false
                   },
                   {
@@ -1407,7 +1443,8 @@
                             "Content": "Now read the full paragraph and think about the overall message of the paragraph. Which heading now best fits the paragraph?",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "11100E",
                             "InnerSpans": [],
@@ -1422,8 +1459,8 @@
                             "Type": "text",
                             "Content": "Longyearbyen, Spitsbergen, in the Svalbard Archipelago of Norway, holds the record for being the furthest north city in the world, boasting the world's most northerly school, airport and university. But what really sets it apart is that it can also lay claim to some of the world's strangest rules. In Longyearbyen, for example, it has been forbidden to die since 1950, the year in which scientists discovered that bodies simply cannot decompose there - the cold is too extreme. To this day, anyone found ill or dying is not given the chance to pass away, and is instead immediately taken by airplane or ship to another part of Norway so that they can die and be buried safely. But it doesn't end there. Aside from prohibiting death, there are more peculiar rules and freedoms in Longyearbyen. Residents are permitted to openly walk the streets with high-powered guns (there are 3,000 polar bears living locally). At the same time, no one is allowed to own any cats, which are forbidden because they are a danger to the bird population.",
                             "Markers": [
-                              "fn:Verdana",
-                              "sz:19"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "000306",
                             "InnerSpans": [],
@@ -1432,7 +1469,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 55.72,
+                    "WidthPercent": 55.59,
                     "IsHeaderCell": false
                   },
                   {
@@ -1468,16 +1505,18 @@
                             "Content": "08",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.58,
+                    "WidthPercent": 4.7,
                     "IsHeaderCell": false
                   },
                   {
@@ -1490,7 +1529,8 @@
                             "Content": "Underline the main topic sentence in the paragraph.",
                             "Markers": [
                               "b",
-                              "fn:*Calibri-7392-Identity-H"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "0E0E0D",
                             "InnerSpans": [],
@@ -1499,7 +1539,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 55.72,
+                    "WidthPercent": 55.59,
                     "IsHeaderCell": false
                   },
                   {
@@ -1521,7 +1561,31 @@
                     "IsHeaderCell": false
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "\n",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
+            "InnerSpans": [],
+            "TableRows": [
               {
                 "IsHeader": false,
                 "Cells": [
@@ -1535,16 +1599,18 @@
                             "Content": "09",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.58,
+                    "WidthPercent": 4.7,
                     "IsHeaderCell": false
                   },
                   {
@@ -1557,7 +1623,8 @@
                             "Content": "Read the first sentence of the next paragraph about Marloth Park in South Africa.",
                             "Markers": [
                               "b",
-                              "fn:*Calibri-7392-Identity-H"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "0E0E0E",
                             "InnerSpans": [],
@@ -1573,7 +1640,8 @@
                             "Content": "Find words or phrases that correspond to the underlined words in the headings A-C below.",
                             "Markers": [
                               "b",
-                              "fn:*Calibri-7392-Identity-H"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "0E0E0E",
                             "InnerSpans": [],
@@ -1602,7 +1670,18 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "A An unusual approach to ",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An unusual approach to ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1628,7 +1707,18 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "B Dealing with the occasional ",
+                            "Content": "B",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " Dealing with the occasional ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1654,7 +1744,18 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "C Where ",
+                            "Content": "C",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " Where ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1697,25 +1798,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 55.72,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 39.71,
+                    "WidthPercent": 65.67,
+                    "ColSpan": 2,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1733,16 +1817,18 @@
                             "Content": "10",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.58,
+                    "WidthPercent": 4.7,
                     "IsHeaderCell": false
                   },
                   {
@@ -1755,7 +1841,8 @@
                             "Content": "Now focus on the adverbs and adjectives in the headings. Which heading is no longer a possible answer?",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1763,12 +1850,25 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "A An ",
+                            "Content": "A",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An ",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1778,7 +1878,8 @@
                             "Content": "unusual",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1787,7 +1888,8 @@
                             "Type": "text",
                             "Content": " approach to regulation",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1795,12 +1897,25 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "B Dealing with the ",
+                            "Content": "B",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " Dealing with the ",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1810,7 +1925,8 @@
                             "Content": "occasional",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1819,7 +1935,8 @@
                             "Type": "text",
                             "Content": " dangers of the wild",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1830,9 +1947,21 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "C Where humans and animals ",
+                            "Content": "C",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " Where humans and animals ",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1842,7 +1971,8 @@
                             "Content": "cautiously",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1851,7 +1981,8 @@
                             "Type": "text",
                             "Content": " co-exist",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1859,7 +1990,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 55.72,
+                    "WidthPercent": 65.67,
                     "IsHeaderCell": false
                   },
                   {
@@ -1872,7 +2003,8 @@
                             "Content": "TIP 10",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 SemiBold",
+                              "sz:22"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1887,7 +2019,7 @@
                             "Content": "Pay particular attention to adjectives and adverbs in headings and texts, as they may help you to eliminate an incorrect heading immediately.",
                             "Markers": [
                               "fn:Source Sans 3",
-                              "sz:18"
+                              "sz:20"
                             ],
                             "TextColor": "101011",
                             "InnerSpans": [],
@@ -1896,7 +2028,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.71,
+                    "WidthPercent": 29.63,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1943,16 +2075,18 @@
                             "Content": "11",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.65,
+                    "WidthPercent": 4.91,
                     "IsHeaderCell": false
                   },
                   {
@@ -1965,8 +2099,8 @@
                             "Content": "Read the rest of the paragraph and decide on your answer.",
                             "Markers": [
                               "b",
-                              "fn:Verdana",
-                              "sz:19"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1981,8 +2115,8 @@
                             "Type": "text",
                             "Content": "In fact the only fence permitted in the town was built by the local authority, interestingly, with the aim of keeping humans out of the park, rather than containing the animals inside.",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -1997,8 +2131,8 @@
                             "Type": "text",
                             "Content": "Consequently, it is not unusual to see giraffes or elephants causing traffic jams, for example, and even predator attacks on humans are unnervingly common - a lion was recently said to have mauled and eaten an escaping burglar. Yet even after this, while some residents then called for all lions to be rounded up and shot, others suggested that",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2013,8 +2147,8 @@
                             "Type": "text",
                             "Content": "they be allowed to walk the thoroughfares as a type of crime control, after an increase in the number of burglaries. Everywhere in Marloth Park, a wary",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2029,8 +2163,8 @@
                             "Type": "text",
                             "Content": "understanding exists between man and beast.",
                             "Markers": [
-                              "fn:*Arial-8104-Identity-H",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2038,7 +2172,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.21,
+                    "WidthPercent": 53.06,
                     "IsHeaderCell": false
                   },
                   {
@@ -2056,7 +2190,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 42.15,
+                    "WidthPercent": 42.03,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2074,16 +2208,18 @@
                             "Content": "12",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.65,
+                    "WidthPercent": 4.91,
                     "IsHeaderCell": false
                   },
                   {
@@ -2096,7 +2232,8 @@
                             "Content": "Identify the main topic sentence in the paragraph.",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2104,7 +2241,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.21,
+                    "WidthPercent": 53.06,
                     "IsHeaderCell": false
                   },
                   {
@@ -2122,7 +2259,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 42.15,
+                    "WidthPercent": 42.03,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2140,16 +2277,18 @@
                             "Content": "13",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.65,
+                    "WidthPercent": 4.91,
                     "IsHeaderCell": false
                   },
                   {
@@ -2162,7 +2301,8 @@
                             "Content": "Some paragraphs have no clear topic sentence. Read this paragraph and make notes about its main idea.",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2170,7 +2310,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.21,
+                    "WidthPercent": 53.06,
                     "IsHeaderCell": false
                   },
                   {
@@ -2188,7 +2328,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 42.15,
+                    "WidthPercent": 42.03,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2211,7 +2351,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 4.65,
+                    "WidthPercent": 4.91,
                     "IsHeaderCell": false
                   },
                   {
@@ -2278,7 +2418,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.21,
+                    "WidthPercent": 53.06,
                     "IsHeaderCell": false
                   },
                   {
@@ -2297,7 +2437,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 42.15,
+                    "WidthPercent": 42.03,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2315,16 +2455,18 @@
                             "Content": "14",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
                       }
                     ],
-                    "WidthPercent": 4.65,
+                    "WidthPercent": 4.91,
                     "IsHeaderCell": false
                   },
                   {
@@ -2337,7 +2479,8 @@
                             "Content": "Use your notes to help you choose the correct heading.",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2345,13 +2488,15 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
                             "Content": "A",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2360,7 +2505,8 @@
                             "Type": "text",
                             "Content": " A conflict between reality and imitation",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2368,13 +2514,15 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
                             "Content": "B",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2383,7 +2531,8 @@
                             "Type": "text",
                             "Content": " The importance of official recognition",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2397,7 +2546,8 @@
                             "Content": "C",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2406,7 +2556,8 @@
                             "Type": "text",
                             "Content": " The result of encouraging wider investment",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2414,7 +2565,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.21,
+                    "WidthPercent": 53.06,
                     "IsHeaderCell": false
                   },
                   {
@@ -2432,7 +2583,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 42.15,
+                    "WidthPercent": 42.03,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2442,22 +2593,20 @@
         ]
       },
       {
+        "Direction": "LTR",
         "Spans": [
           {
             "Type": "text",
-            "Content": "\n",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "\n",
-            "Markers": [],
+            "Content": "PREFIXES",
+            "Markers": [
+              "b",
+              "bg:92D050",
+              "fn:Source Sans 3"
+            ],
+            "FillColor": "92D050",
+            "BorderColor": "000000",
+            "BorderStyle": "BorderValues { }",
+            "HasBorders": "true",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -2485,9 +2634,11 @@
                             "Content": "15",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2506,7 +2657,9 @@
                             "Type": "text",
                             "Content": "Identify the prefixes in the underlined words. Then work out a general meaning for each.",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "b",
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2521,7 +2674,8 @@
                             "Content": "A",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040304",
                             "InnerSpans": [],
@@ -2531,7 +2685,8 @@
                             "Type": "text",
                             "Content": " An ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040304",
                             "InnerSpans": [],
@@ -2542,7 +2697,8 @@
                             "Content": "unusual",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040304",
                             "InnerSpans": [],
@@ -2552,7 +2708,8 @@
                             "Type": "text",
                             "Content": " approach to regulation",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040304",
                             "InnerSpans": [],
@@ -2568,7 +2725,8 @@
                             "Content": "B",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040404",
                             "InnerSpans": [],
@@ -2578,7 +2736,8 @@
                             "Type": "text",
                             "Content": " An urban ideal designed for an ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040404",
                             "InnerSpans": [],
@@ -2589,7 +2748,8 @@
                             "Content": "imperfect",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040404",
                             "InnerSpans": [],
@@ -2599,7 +2759,8 @@
                             "Type": "text",
                             "Content": " world",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040404",
                             "InnerSpans": [],
@@ -2615,7 +2776,8 @@
                             "Content": "C",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040404",
                             "InnerSpans": [],
@@ -2625,7 +2787,8 @@
                             "Type": "text",
                             "Content": " Where humans and animals cautiously ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040404",
                             "InnerSpans": [],
@@ -2636,7 +2799,8 @@
                             "Content": "co-exist",
                             "Markers": [
                               "u",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "TextColor": "040404",
                             "InnerSpans": [],
@@ -2645,25 +2809,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 68.31,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "\n",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 25.42,
+                    "WidthPercent": 93.74,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2711,8 +2857,11 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:26"
+                              "sz:20"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2732,8 +2881,8 @@
                             "Content": "With a partner, think of some words that begin with the prefixes in the box. Then discuss what the general meaning of each prefix is.",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:20"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "0D0706",
                             "InnerSpans": [],
@@ -2773,18 +2922,31 @@
                             "Content": "17",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:26"
+                              "fn:Source Sans 3"
+                            ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " ",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": " Using the correct prefixes from the box above, change the words in CAPITALS into the correct forms.",
+                            "Content": "Using the correct prefixes from the box above, change the words in CAPITALS into the correct forms.",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2792,6 +2954,7 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
@@ -2799,36 +2962,17 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:20"
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "The tourist brochure for Marloth Park ensures that visitors ",
+                            "Content": "The tourist brochure for Marloth Park ensures that visitors are WARN about the wild animals they may encounter walking the streets.",
                             "Markers": [
-                              "fn:Tahoma",
-                              "sz:18"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "are WARN about",
-                            "Markers": [
-                              "fn:Source Sans 3"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " the wild animals they may encounter walking the streets.",
-                            "Markers": [
-                              "fn:Tahoma",
-                              "sz:18"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2836,6 +2980,7 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
@@ -2843,7 +2988,7 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:20"
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2852,8 +2997,8 @@
                             "Type": "text",
                             "Content": "One thing you can always be sure of in Longyearbyen - the cemeteries will never be POPULATE.",
                             "Markers": [
-                              "fn:Tahoma",
-                              "sz:18"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2861,6 +3006,7 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
@@ -2868,7 +3014,7 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:20"
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2877,8 +3023,8 @@
                             "Type": "text",
                             "Content": "The residents of Hallstat believed that they would be consulted by the company building a copy of their town - but it turns out they were INFORM.",
                             "Markers": [
-                              "fn:Tahoma",
-                              "sz:18"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2886,6 +3032,7 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "Spans": [
                           {
                             "Type": "text",
@@ -2893,7 +3040,7 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:20"
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2902,8 +3049,8 @@
                             "Type": "text",
                             "Content": "Auroville was founded according to a(n) GOVERN system of rules and beliefs.",
                             "Markers": [
-                              "fn:Tahoma",
-                              "sz:18"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2926,13 +3073,38 @@
                         "Spans": [
                           {
                             "Type": "text",
+                            "Content": "[[[[[[[[[[",
+                            "Markers": [
+                              "bg:99CC00",
+                              "fn:Source Sans 3",
+                              "sz:32"
+                            ],
+                            "FillColor": "99CC00",
+                            "TextColor": "99CC00",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
                             "Content": "EXAM SKILLS",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 SemiBold",
+                              "sz:32"
+                            ],
+                            "TextColor": "090506",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "]",
                             "Markers": [
                               "b",
                               "fn:Verdana",
                               "sz:37"
                             ],
-                            "TextColor": "090506",
+                            "TextColor": "99CC00",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2947,8 +3119,11 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:26"
+                              "sz:20"
                             ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2968,8 +3143,8 @@
                             "Content": "Read the passage and answer questions 1-6.",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:20"
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
                             ],
                             "TextColor": "070505",
                             "InnerSpans": [],
@@ -2985,7 +3160,8 @@
                             "Content": "The Reading passage hos six paragraphs, A-F. Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
                             "Markers": [
                               "i",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -2999,7 +3175,8 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3009,7 +3186,8 @@
                             "Content": "A",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3023,7 +3201,8 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3033,7 +3212,8 @@
                             "Content": "B",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3047,7 +3227,8 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3057,7 +3238,8 @@
                             "Content": "C",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3071,7 +3253,8 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3081,7 +3264,8 @@
                             "Content": "D",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3095,7 +3279,8 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3105,7 +3290,8 @@
                             "Content": "E",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3119,7 +3305,8 @@
                             "Type": "text",
                             "Content": "Paragraph ",
                             "Markers": [
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3129,7 +3316,8 @@
                             "Content": "F",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3144,7 +3332,7 @@
                             "Content": "List of headings",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
+                              "fn:Source Sans 3 Medium",
                               "sz:20"
                             ],
                             "TextColor": "060404",
@@ -3160,8 +3348,8 @@
                             "Type": "text",
                             "Content": "The benefits of collaboration",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3175,8 +3363,8 @@
                             "Type": "text",
                             "Content": "A forerunner of the modern metropolis",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3190,8 +3378,8 @@
                             "Type": "text",
                             "Content": "A period of intense activity and plans completed",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3205,8 +3393,8 @@
                             "Type": "text",
                             "Content": "A clear contrast between then and now",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3220,8 +3408,8 @@
                             "Type": "text",
                             "Content": "The rise and mysterious decline of Cahokia",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3235,8 +3423,8 @@
                             "Type": "text",
                             "Content": "An archaeological theory to explain Cahokia's development",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3250,8 +3438,8 @@
                             "Type": "text",
                             "Content": "The light and dark of archaeological finds",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
@@ -3265,8 +3453,8 @@
                             "Type": "text",
                             "Content": "A city completely unlike any of its contemporaries",
                             "Markers": [
-                              "fn:Calibri",
-                              "sz:20"
+                              "fn:Source Sans 3",
+                              "sz:21"
                             ],
                             "InnerSpans": [],
                             "TableRows": []
