@@ -46,6 +46,10 @@ class ParagraphData {
   final String? borderColor;
   final String? borderStyle;
 
+  // 🌟 فیلدهای جدید برای استخراج فاصله‌های واقعی از ورد
+  final double spaceBefore;
+  final double spaceAfter;
+
   final String? translationFa;
   final String? translationAr;
   final List<InteractiveWord> interactives;
@@ -58,6 +62,8 @@ class ParagraphData {
     this.hasBorders,
     this.borderColor,
     this.borderStyle,
+    this.spaceBefore = 0.0, // مقدار پیش‌فرض
+    this.spaceAfter = 0.0, // مقدار پیش‌فرض
     this.translationFa,
     this.translationAr,
     required this.interactives,
@@ -71,9 +77,12 @@ class ParagraphData {
       direction: json['Direction'] ?? 'LTR',
       alignment: json['Alignment'] ?? 'L',
       fillColor: json['FillColor'],
-      hasBorders: json['HasBorders'], // <--- استخراج از JSON
+      hasBorders: json['HasBorders'],
       borderColor: json['BorderColor'],
       borderStyle: json['BorderStyle'],
+      // 🌟 دریافت مقادیر فواصل به صورت ایمن
+      spaceBefore: (json['SpaceBefore'] as num?)?.toDouble() ?? 0.0,
+      spaceAfter: (json['SpaceAfter'] as num?)?.toDouble() ?? 0.0,
       translationFa: json['translationFa'],
       translationAr: json['translationAr'],
       interactives: interactivesList
@@ -102,7 +111,7 @@ class PageData {
 
 // ۴. مدل‌های مربوط به جدول (با پشتیبانی کامل از هدر و ادغام)
 class TableRowData {
-  final bool isHeader; // <--- فیلد جدید
+  final bool isHeader;
   final List<TableCellData> cells;
 
   TableRowData({required this.cells, this.isHeader = false});
@@ -119,11 +128,11 @@ class TableRowData {
 class TableCellData {
   final double? widthPercent;
   final List<ParagraphData> paragraphs;
-  final String? fillColor; // <--- رنگ اختصاصی سلول
-  final String? vAlign; // <--- تراز عمودی
-  final int? colSpan; // <--- ادغام ستون
-  final String? rowMerge; // <--- وضعیت ادغام سطر
-  final bool isHeaderCell; // <--- هدر بودن سلول
+  final String? fillColor;
+  final String? vAlign;
+  final int? colSpan;
+  final String? rowMerge;
+  final bool isHeaderCell;
 
   TableCellData({
     this.widthPercent,

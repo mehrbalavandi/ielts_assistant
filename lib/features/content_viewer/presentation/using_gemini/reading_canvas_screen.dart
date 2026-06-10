@@ -20,7 +20,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       TransformationController();
 
   bool _isZoomed = false;
-  int _pointerCount = 0; // 🌟 ثبت دقیق و آنی تعداد انگشتان روی صفحه
+  int _pointerCount = 0;
 
   @override
   void initState() {
@@ -51,11 +51,9 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
 
-    // 🌟 شاه‌کلید حل مشکل: تشخیص دقیق تعداد انگشت‌ها قبل از پردازش فلاتر
     return Listener(
       onPointerDown: (event) {
         _pointerCount++;
-        // به محض اینکه انگشت دوم نشست، وضعیت فیزیک را به روز می‌کنیم
         if (_pointerCount >= 2) {
           setState(() {});
         }
@@ -78,20 +76,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
             transformationController: _transformationController,
             minScale: 1.0,
             maxScale: 4.0,
-            // پان (جابجایی) دو بعدی فقط زمانی فعال باشد که واقعاً زوم کرده‌ایم
             panEnabled: _isZoomed,
             scaleEnabled: true,
-            // این ویژگی کمک می‌کند زوم روی نقطه فشرده شده متمرکز شود
             clipBehavior: Clip.none,
-
             child: SingleChildScrollView(
-              // 🌟 منطق هوشمند جدید برای فیزیک اسکرول:
-              // اگر ۲ انگشت روی صفحه باشد (قصد زوم)، اسکرول را کاملاً قفل کن تا زوم خراب نشود.
-              // اگر زوم شده باشیم (_isZoomed)، باز هم اسکرول عادی را قفل کن چون InteractiveViewer زوم را جابجا می‌کند.
               physics: (_pointerCount >= 2 || _isZoomed)
                   ? const NeverScrollableScrollPhysics()
                   : const BouncingScrollPhysics(),
-
               child: Container(
                 width: screenWidth,
                 color: Colors.grey[100],
@@ -105,16 +96,29 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: widget.documentParagraphs
-                          .map(
-                            (para) => _buildParagraph(
-                              para,
-                              canvasWidth,
-                              screenWidth,
-                              context,
-                            ),
-                          )
-                          .toList(),
+                      // 🌟 اصلاح اول: ارسال پاراگراف‌های همسایه (قبل و بعد) برای مدیریت هوشمند Shading متوالی
+                      children: List.generate(
+                        widget.documentParagraphs.length,
+                        (index) {
+                          final para = widget.documentParagraphs[index];
+                          final prevPara = index > 0
+                              ? widget.documentParagraphs[index - 1]
+                              : null;
+                          final nextPara =
+                              index < widget.documentParagraphs.length - 1
+                              ? widget.documentParagraphs[index + 1]
+                              : null;
+
+                          return _buildParagraph(
+                            para,
+                            canvasWidth,
+                            screenWidth,
+                            context,
+                            prevPara: prevPara,
+                            nextPara: nextPara,
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -173,9 +177,11 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     BuildContext context, {
     bool isImageCell = false,
     bool isInsideTableCell = false,
+    ParagraphData? prevPara, // 🌟 اضافه شدن همسایه قبلی
+    ParagraphData? nextPara, // 🌟 اضافه شدن همسایه بعدی
   }) {
     if (para.spans.length == 1 && para.spans.first.content == "\n") {
-      return SizedBox(height: isImageCell ? 0 : 8.0);
+      return const SizedBox(height: 0.0);
     }
 
     List<Object> blockElements = [];
@@ -224,7 +230,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                   ? const EdgeInsets.only(right: 16.0, bottom: 8.0, top: 4.0)
                   : floatAlign == FCFloat.right
                   ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
-                  : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 16.0),
+                  : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 8.0),
               child: floatAlign == FCFloat.none
                   ? Center(
                       child: _buildLocalImage(
@@ -261,27 +267,80 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
     bool hasBorder = para.hasBorders == "true";
 
+    // 🌟 منطق هوشمند ادغام پدینگ‌ها و فواصل متوالی برای Shading یکپارچه
+    double internalTopPadding = 10.0;
+    double internalBottomPadding = 10.0;
+    double externalTopMargin = 0.0;
+    double externalBottomMargin = 0.0;
+
+    bool sameColorBefore =
+        prevPara != null && prevPara.fillColor == para.fillColor && hasBgColor;
+    bool sameColorAfter =
+        nextPara != null && nextPara.fillColor == para.fillColor && hasBgColor;
+
+    if (hasBgColor) {
+      // اگر بک‌گراند داریم، فواصل را می‌آوریم داخل باکس تا فضا رنگی بماند
+      internalTopPadding += isImageCell ? 0.0 : para.spaceBefore;
+      internalBottomPadding += isImageCell ? 0.0 : para.spaceAfter;
+    } else {
+      // اگر بک‌گراند نداریم، فواصل خارج از باکس به عنوان مارجین اعمال می‌شوند
+      externalTopMargin = isImageCell ? 0.0 : para.spaceBefore;
+      externalBottomMargin = isImageCell ? 0.0 : para.spaceAfter;
+    }
+
     if (hasBgColor || hasBorder) {
+      Color borderColor = _hexToColor(para.borderColor) ?? Colors.grey.shade600;
+      double borderWidth = 1.5;
+
       paragraphContent = Container(
         width: double.infinity,
         decoration: BoxDecoration(
           color: _hexToColor(para.fillColor),
+          // ادغام هوشمند بوردرها در صورت یکسان بودن shading همسایه‌ها
           border: hasBorder
-              ? Border.all(
-                  color: _hexToColor(para.borderColor) ?? Colors.grey.shade600,
-                  width: 1.5,
+              ? Border(
+                  left: BorderSide(color: borderColor, width: borderWidth),
+                  right: BorderSide(color: borderColor, width: borderWidth),
+                  top: sameColorBefore
+                      ? BorderSide.none
+                      : BorderSide(color: borderColor, width: borderWidth),
+                  bottom: sameColorAfter
+                      ? BorderSide.none
+                      : BorderSide(color: borderColor, width: borderWidth),
                 )
               : null,
-          borderRadius: hasBorder ? BorderRadius.circular(6) : null,
+          // ادغام هوشمند انحنای گوشه‌ها (فقط بالا و پایین کل بلاک یکپارچه منحنی شود)
+          borderRadius: hasBorder
+              ? BorderRadius.only(
+                  topLeft: sameColorBefore
+                      ? Radius.zero
+                      : const Radius.circular(6),
+                  topRight: sameColorBefore
+                      ? Radius.zero
+                      : const Radius.circular(6),
+                  bottomLeft: sameColorAfter
+                      ? Radius.zero
+                      : const Radius.circular(6),
+                  bottomRight: sameColorAfter
+                      ? Radius.zero
+                      : const Radius.circular(6),
+                )
+              : null,
         ),
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(
+          left: 10.0,
+          right: 10.0,
+          top: internalTopPadding,
+          bottom: internalBottomPadding,
+        ),
         child: paragraphContent,
       );
     }
 
     return Padding(
       padding: EdgeInsets.only(
-        bottom: isImageCell ? 0.0 : (isInsideTableCell ? 0.0 : 8.0),
+        top: externalTopMargin,
+        bottom: externalBottomMargin,
       ),
       child: paragraphContent,
     );
@@ -341,7 +400,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
             ..onTap = () async {
               String fileName = span.url!.replaceFirst("audio:", "");
               try {
-                // اطمینان از متوقف شدن صدای قبلی قبل از پخش صدای جدید
                 await _audioPlayer.stop();
                 await _audioPlayer.setAsset('assets/data/audio/$fileName');
                 _audioPlayer.play();
@@ -468,23 +526,33 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                   )
                 : null,
           ),
-          padding: EdgeInsets.all(isImageCell ? 0.0 : 12.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: isImageCell ? 0.0 : 12.0,
+            vertical: isImageCell ? 0.0 : 4.0,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: vAlign,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: cell.paragraphs
-                .map(
-                  (p) => _buildParagraph(
-                    p,
-                    canvasWidth,
-                    screenWidth,
-                    context,
-                    isImageCell: isImageCell,
-                    isInsideTableCell: true,
-                  ),
-                )
-                .toList(),
+            // 🌟 اصلاح دوم: پیاده‌سازی منطق همسایگی در پاراگراف‌های متوالی داخل سلول‌های جدول
+            children: List.generate(cell.paragraphs.length, (pIndex) {
+              final p = cell.paragraphs[pIndex];
+              final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
+              final pNext = pIndex < cell.paragraphs.length - 1
+                  ? cell.paragraphs[pIndex + 1]
+                  : null;
+
+              return _buildParagraph(
+                p,
+                canvasWidth,
+                screenWidth,
+                context,
+                isImageCell: isImageCell,
+                isInsideTableCell: true,
+                prevPara: pPrev,
+                nextPara: pNext,
+              );
+            }),
           ),
         );
 
@@ -531,19 +599,16 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       }
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: hasBorders
-              ? Border(
-                  top: BorderSide(color: Colors.grey.shade400, width: 0.5),
-                  left: BorderSide(color: Colors.grey.shade400, width: 0.5),
-                )
-              : null,
-        ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
+    return Container(
+      decoration: BoxDecoration(
+        border: hasBorders
+            ? Border(
+                top: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                left: BorderSide(color: Colors.grey.shade400, width: 0.5),
+              )
+            : null,
       ),
+      child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
     );
   }
 }

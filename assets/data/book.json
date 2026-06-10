@@ -854,6 +854,723 @@
                         "Direction": "LTR",
                         "FillColor": "0099CC",
                         "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "000307",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "FillColor": "0099CC",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be ",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "000307",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "projected across all humanity.",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "000207",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.27,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 25.81,
+                    "IsHeaderCell": false
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 4.92,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 12.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "p2_s1_img3.png",
+                            "FloatPosition": "none",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.27,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 25.81,
+                    "IsHeaderCell": false
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 4.92,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 5.15,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "110E0D",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " The reason why attempts to create the perfect city always fail\n",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "110E0D",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "B",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "110E0D",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An urban ideal designed for an imperfect world\n",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "110E0D",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "C",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "120F0E",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " A conflict between reality and imitation",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "120F0E",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.27,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 25.81,
+                    "IsHeaderCell": false
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "05",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
+                            ],
+                            "BorderColor": "A8D08D",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 4.92,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the full paragraph and check your answer.",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "FillColor": "0099CC",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "110E0D",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "FillColor": "0099CC",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 5.15,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be projected across all humanity. It has no government, no one owns any property, and money rarely, if ever, changes hands. There is no leader and rules do not exist. While most experiments at creating the perfect city do not meet with success, the majority of Auroville's residents believe their city to be an exception. Although its critics point to the fact that levels of crime",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "110E0D",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "FillColor": "0099CC",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 5.15,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "have been creeping up for some years now, its citizens choose to remain there, still believing in its utopian dream, still following its path towards a better world.",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "110E0D",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.27,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "TIP 05",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 SemiBold",
+                              "sz:22"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "The heading you want will probably not use the same words as those which appear in the paragraph, but will paraphrase the ideas.",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:20"
+                            ],
+                            "TextColor": "0E0D0F",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 25.81,
+                    "IsHeaderCell": false
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "06",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:26"
+                            ],
+                            "BorderColor": "A8D08D",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 4.92,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read this opening sentence about Longyearbyen. Which heading seems to fit this sentence best?",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
+                            ],
+                            "TextColor": "060403",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "FillColor": "0099CC",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Longyearbyen, Norway, holds the record for being the furthest north city in the world, boasting the world's most northerly school, airport and university.",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 1.4,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "A",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An unwelcoming place to die",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 1.4,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "B",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " A city at the top of the world",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 1.4,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "C",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": " An unusual approach to regulation",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 69.27,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "TIP 06",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 SemiBold",
+                              "sz:22"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Be careful: sometimes the first sentence of a paragraph seems to fit entirely with one particular heading. However, don't be caught out - you still need to check by reading the whole paragraph.",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:20"
+                            ],
+                            "TextColor": "0E0D0F",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 25.81,
+                    "IsHeaderCell": false
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 2,
+    "Paragraphs": [
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "04",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
+                            ],
+                            "BorderColor": "A8D08D",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 4.92,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Read the first sentence of a paragraph about the city of Auroville, India. It is the topic sentence. Which of the three options seems to be the most likely heading? Why?",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
+                            ],
+                            "TextColor": "070606",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "FillColor": "0099CC",
+                        "SpaceAfter": 8.0,
                         "SpaceBefore": 12.15,
                         "Spans": [
                           {

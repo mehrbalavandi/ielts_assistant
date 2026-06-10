@@ -854,7 +854,7 @@
                         "Direction": "LTR",
                         "FillColor": "0099CC",
                         "SpaceAfter": 8.0,
-                        "SpaceBefore": 12.15,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -1168,7 +1168,7 @@
                         "Direction": "LTR",
                         "FillColor": "0099CC",
                         "SpaceAfter": 8.0,
-                        "SpaceBefore": 5.15,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -1336,23 +1336,9 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
                         "FillColor": "0099CC",
                         "SpaceAfter": 8.0,
-                        "SpaceBefore": 1.4,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -1361,20 +1347,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 1.4,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2898,7 +2870,7 @@
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.85,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -2916,7 +2888,7 @@
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 8.0,
-                        "SpaceBefore": 6.1,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -4781,20 +4753,6 @@
                         ]
                       },
                       {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -5035,7 +4993,7 @@
       },
       {
         "Direction": "LTR",
-        "SpaceAfter": 8.0,
+        "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
           {
@@ -5079,8 +5037,8 @@
       },
       {
         "Direction": "LTR",
-        "SpaceAfter": 8.0,
-        "SpaceBefore": 8.3,
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
         "Spans": [
           {
             "Type": "text",
@@ -5097,7 +5055,7 @@
       },
       {
         "Direction": "LTR",
-        "SpaceAfter": 8.0,
+        "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
           {
@@ -5124,7 +5082,7 @@
       },
       {
         "Direction": "LTR",
-        "SpaceAfter": 8.0,
+        "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
           {
@@ -5578,8 +5536,7 @@
         ]
       },
       {
-        "Direction": "LTR",
-        "SpaceAfter": 8.0,
+        "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
           {
@@ -5596,6 +5553,260 @@
   {
     "PageNumber": 7,
     "Paragraphs": [
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "[[[[[[[[[[",
+            "Markers": [
+              "bg:FFCC66",
+              "fn:Source Sans 3",
+              "sz:32"
+            ],
+            "FillColor": "FFCC66",
+            "TextColor": "FFCC66",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "TASK 1 - TASK ACHIEVEMENT",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "]",
+            "Markers": [
+              "fn:Source Sans 3",
+              "sz:32"
+            ],
+            "TextColor": "FFCC66",
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 6.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "◎",
+                            "Markers": [
+                              "fn:Cambria Math",
+                              "sz:20"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "Task Achievement (TA) is the mark you get for how well you answer the question. There are a number of common mistakes that prevent candidates from getting a high score in TA. These are:",
+                            "Markers": [
+                              "fn:Source Sans 3"
+                            ],
+                            "TextColor": "1A150E",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 5.4,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "not including an overview statement",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "1F1D12",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "misreporting data",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "222013",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "not highlighting key information or trends",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "201D12",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "not including enough or any data",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "211F13",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "speculating or giving an opinion about why changes have occurred",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "1E1A12",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "using an inappropriate tone",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "211E12",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "writing fewer than 150 words",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "201F13",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "not including a final summary or concluding paragraph, or producing one which doesn't summarise the main features.",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:18"
+                            ],
+                            "TextColor": "1E1A11",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "FillColor": "FFFFCC",
+                    "WidthPercent": 100.0,
+                    "IsHeaderCell": false
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
       {
         "Direction": "LTR",
         "SpaceAfter": 8.0,
