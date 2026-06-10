@@ -179,7 +179,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     ParagraphData? prevPara,
     ParagraphData? nextPara,
   }) {
-    // 🌟 اصلاح شرط مچاله کردن: فقط در صورتی که پاراگراف متنی ("text") واقعاً خالی باشد
     if (para.spans.isEmpty ||
         (para.spans.length == 1 &&
             para.spans.first.type == "text" &&
@@ -213,7 +212,14 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     for (var span in para.spans) {
       if (span.type == "text") {
         currentInlineSpans.addAll(
-          _buildStyledInteractiveText(span, para.interactives, context),
+          // 🌟 پاس دادن پارامترهای جدید به متد سازنده متن
+          _buildStyledInteractiveText(
+            span,
+            para.interactives,
+            context,
+            isInsideTableCell: isInsideTableCell,
+            para: para,
+          ),
         );
       } else if (span.type == "image") {
         flushText();
@@ -334,12 +340,15 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                 )
               : null,
         ),
-        padding: EdgeInsets.only(
-          left: isInsideTableCell ? 2.0 : 10.0,
-          right: isInsideTableCell ? 2.0 : 10.0,
-          top: internalTopPadding,
-          bottom: internalBottomPadding,
-        ),
+        // 🌟 حذف پدینگ کادر اگر در داخل جدول هستیم تا کادرها بدون فاصله رندر شوند
+        padding: (isInsideTableCell && hasBorder)
+            ? EdgeInsets.zero
+            : EdgeInsets.only(
+                left: isInsideTableCell ? 2.0 : 10.0,
+                right: isInsideTableCell ? 2.0 : 10.0,
+                top: internalTopPadding,
+                bottom: internalBottomPadding,
+              ),
         child: paragraphContent,
       );
     }
@@ -356,8 +365,11 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   List<InlineSpan> _buildStyledInteractiveText(
     SpanData span,
     List<InteractiveWord> interactives,
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    bool isInsideTableCell = false, // 🌟 دریافت وضعیت جدول
+    required ParagraphData
+    para, // 🌟 دریافت اطلاعات پاراگراف برای بررسی پس‌زمینه
+  }) {
     double fontSize = 14.0;
     String? fontFamily;
 
@@ -371,20 +383,38 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       }
     }
 
+    // 🌟 استخراج پس‌زمینه موثر (آیا خود کلمه بک‌گراند دارد یا کل پاراگراف؟)
+    Color? effectiveBgColor =
+        _hexToColor(span.fillColor) ?? _hexToColor(para.fillColor);
+
+    // 🌟 موتور تشخیص تضاد رنگ (Contrast Engine)
+    Color interactiveColor = Colors.blue;
+    if (effectiveBgColor != null) {
+      // بررسی درخشندگی رنگ پس‌زمینه بین 0 (سیاه مطلق) تا 1 (سفید مطلق)
+      if (effectiveBgColor.computeLuminance() < 0.4) {
+        interactiveColor =
+            Colors.lightBlueAccent; // آبی روشن برای پس‌زمینه‌های تیره
+      } else {
+        interactiveColor = Colors
+            .blue
+            .shade900; // آبی تیره برای پس‌زمینه‌های روشن (مثل زرد یا خاکستری)
+      }
+    }
+
     Color? customTextColor = _hexToColor(span.textColor);
     bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
 
     if (isAudioLink) {
-      customTextColor = Colors.blue;
+      customTextColor = interactiveColor; // اعمال رنگ هوشمند روی لینک‌های صوتی
     }
+
     bool isInlineBorder = span.hasBorders == "true";
 
     TextStyle baseStyle = TextStyle(
       fontSize: fontSize,
       fontFamily: fontFamily,
       color: customTextColor ?? Colors.black87,
-      height:
-          1.3, // 🌟 اصلاح: کاهش از 1.5 به 1.3 جهت شبیه‌سازی دقیق Line Spacing استاندارد (1.15) مایکروسافت ورد
+      height: 1.3,
       backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
       fontWeight: span.markers.contains("b")
           ? FontWeight.bold
@@ -423,6 +453,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         interactives,
         context,
         baseStyle,
+        interactiveColor: interactiveColor, // 🌟 ارسال رنگ هوشمند به موتور رندر
       );
     }
 
@@ -431,8 +462,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-            margin: const EdgeInsets.symmetric(horizontal: 2.0),
+            // 🌟 حذف پدینگ و مارجین برای متن‌های حاشیه‌دار داخل سلول‌های جدول
+            padding: isInsideTableCell
+                ? EdgeInsets.zero
+                : const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+            margin: isInsideTableCell
+                ? EdgeInsets.zero
+                : const EdgeInsets.symmetric(horizontal: 2.0),
             decoration: BoxDecoration(
               color: _hexToColor(span.fillColor),
               border: Border.all(

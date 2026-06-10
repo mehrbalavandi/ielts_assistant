@@ -3,23 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class TextRenderEngine {
-  /// این متد یک متن ساده را می‌گیرد، در آن به دنبال کلمات تعاملی می‌گردد
-  /// و لیستی از TextSpan ها را برمی‌گرداند.
   static List<InlineSpan> buildInteractiveText(
     String content,
     List<InteractiveWord> interactives,
-    BuildContext context, // برای نمایش Modal
-    TextStyle baseStyle, // <--- ورودی جدید
-  ) {
+    BuildContext context,
+    TextStyle baseStyle, {
+    Color interactiveColor =
+        Colors.blue, // 🌟 اضافه شدن متغیر رنگ برای تضاد هوشمند
+  }) {
     if (interactives.isEmpty || content.isEmpty) {
-      // تغییر ۱: اعمال baseStyle در حالتی که کلمه تعاملی نداریم
       return [TextSpan(text: content, style: baseStyle)];
     }
 
     List<InlineSpan> spans = [];
     String remainingText = content;
 
-    // مرتب‌سازی کلمات تعاملی بر اساس طول
     interactives.sort(
       (a, b) => b.exactText.length.compareTo(a.exactText.length),
     );
@@ -41,7 +39,7 @@ class TextRenderEngine {
           spans.add(
             TextSpan(
               text: remainingText.substring(0, bestIndex),
-              style: baseStyle, // اینجا درست بود
+              style: baseStyle,
             ),
           );
         }
@@ -50,8 +48,9 @@ class TextRenderEngine {
           TextSpan(
             text: matchedWord.exactText,
             style: baseStyle.merge(
-              const TextStyle(
-                color: Colors.blue,
+              TextStyle(
+                // 🌟 کلمه const حذف شد تا بتوانیم رنگ داینامیک بدهیم
+                color: interactiveColor,
                 decoration: TextDecoration.underline,
                 decorationStyle: TextDecorationStyle.dotted,
               ),
@@ -65,7 +64,6 @@ class TextRenderEngine {
           bestIndex + matchedWord.exactText.length,
         );
       } else {
-        // تغییر ۲: اعمال baseStyle به باقی‌مانده متن (دقیقاً جایی که قطع می‌شد)
         spans.add(TextSpan(text: remainingText, style: baseStyle));
         break;
       }
@@ -73,7 +71,6 @@ class TextRenderEngine {
     return spans;
   }
 
-  // نمایش مدال کاستوم هنگام کلیک روی کلمه
   static void _showWordModal(BuildContext context, InteractiveWord word) {
     showModalBottomSheet(
       context: context,
