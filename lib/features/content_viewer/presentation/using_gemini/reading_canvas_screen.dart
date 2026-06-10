@@ -179,8 +179,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     ParagraphData? prevPara,
     ParagraphData? nextPara,
   }) {
-    if (para.spans.length == 1 && para.spans.first.content == "\n") {
-      return const SizedBox(height: 0.0);
+    // 🌟 اصلاح شرط مچاله کردن: فقط در صورتی که پاراگراف متنی ("text") واقعاً خالی باشد
+    if (para.spans.isEmpty ||
+        (para.spans.length == 1 &&
+            para.spans.first.type == "text" &&
+            (para.spans.first.content == "\n" ||
+                para.spans.first.content.trim().isEmpty))) {
+      return const SizedBox.shrink();
     }
 
     List<Object> blockElements = [];
@@ -266,7 +271,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
     bool hasBorder = para.hasBorders == "true";
 
-    // 🌟 اصلاح منطق فواصل: کاهش پدینگ پایه باکس به ۶ پیکسل و صفر کردن آن در صورت متوالی بودن هم‌رنگ‌ها
     double defaultBoxPadding = 6.0;
     double internalTopPadding = 0.0;
     double internalBottomPadding = 0.0;
@@ -282,7 +286,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     double spaceAfter = isImageCell ? 0.0 : para.spaceAfter;
 
     if (hasBgColor) {
-      // اگر پاراگراف قبلی هم‌رنگ باشد، پدینگ لبه باکس حذف می‌شود تا فقط گپ واقعی پاراگراف (spaceBefore) لحاظ شود
       internalTopPadding = sameColorBefore
           ? spaceBefore
           : (defaultBoxPadding + spaceBefore);
@@ -290,7 +293,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           ? spaceAfter
           : (defaultBoxPadding + spaceAfter);
     } else {
-      // در حالت معمولی فواصل مستقیماً مارجین خارجی داکیومنت هستند
       externalTopMargin = spaceBefore;
       externalBottomMargin = spaceAfter;
     }
@@ -522,6 +524,15 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
             cell.paragraphs.length == 1 &&
             cell.paragraphs.first.spans.any((s) => s.type == "image");
 
+        // 🌟 اصلاح شرط تشخیص سلول خالی: فقط در صورتی سلول خالی است که تمام پاراگراف‌های آن متنی و پوچ باشند
+        bool isEmptyCell = cell.paragraphs.every(
+          (p) =>
+              p.spans.isEmpty ||
+              (p.spans.length == 1 &&
+                  p.spans.first.type == "text" &&
+                  p.spans.first.content.trim().isEmpty),
+        );
+
         Widget cellContent = Container(
           decoration: BoxDecoration(
             color: cellBgColor,
@@ -533,8 +544,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                 : null,
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: isImageCell ? 0.0 : 12.0,
-            vertical: isImageCell ? 0.0 : 4.0,
+            horizontal: (isImageCell || isEmptyCell) ? 0.0 : 12.0,
+            vertical: (isImageCell || isEmptyCell) ? 0.0 : 4.0,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
