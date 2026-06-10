@@ -96,7 +96,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      // 🌟 اصلاح اول: ارسال پاراگراف‌های همسایه (قبل و بعد) برای مدیریت هوشمند Shading متوالی
                       children: List.generate(
                         widget.documentParagraphs.length,
                         (index) {
@@ -177,8 +176,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     BuildContext context, {
     bool isImageCell = false,
     bool isInsideTableCell = false,
-    ParagraphData? prevPara, // 🌟 اضافه شدن همسایه قبلی
-    ParagraphData? nextPara, // 🌟 اضافه شدن همسایه بعدی
+    ParagraphData? prevPara,
+    ParagraphData? nextPara,
   }) {
     if (para.spans.length == 1 && para.spans.first.content == "\n") {
       return const SizedBox(height: 0.0);
@@ -267,9 +266,10 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
     bool hasBorder = para.hasBorders == "true";
 
-    // 🌟 منطق هوشمند ادغام پدینگ‌ها و فواصل متوالی برای Shading یکپارچه
-    double internalTopPadding = 10.0;
-    double internalBottomPadding = 10.0;
+    // 🌟 اصلاح منطق فواصل: کاهش پدینگ پایه باکس به ۶ پیکسل و صفر کردن آن در صورت متوالی بودن هم‌رنگ‌ها
+    double defaultBoxPadding = 6.0;
+    double internalTopPadding = 0.0;
+    double internalBottomPadding = 0.0;
     double externalTopMargin = 0.0;
     double externalBottomMargin = 0.0;
 
@@ -278,14 +278,21 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     bool sameColorAfter =
         nextPara != null && nextPara.fillColor == para.fillColor && hasBgColor;
 
+    double spaceBefore = isImageCell ? 0.0 : para.spaceBefore;
+    double spaceAfter = isImageCell ? 0.0 : para.spaceAfter;
+
     if (hasBgColor) {
-      // اگر بک‌گراند داریم، فواصل را می‌آوریم داخل باکس تا فضا رنگی بماند
-      internalTopPadding += isImageCell ? 0.0 : para.spaceBefore;
-      internalBottomPadding += isImageCell ? 0.0 : para.spaceAfter;
+      // اگر پاراگراف قبلی هم‌رنگ باشد، پدینگ لبه باکس حذف می‌شود تا فقط گپ واقعی پاراگراف (spaceBefore) لحاظ شود
+      internalTopPadding = sameColorBefore
+          ? spaceBefore
+          : (defaultBoxPadding + spaceBefore);
+      internalBottomPadding = sameColorAfter
+          ? spaceAfter
+          : (defaultBoxPadding + spaceAfter);
     } else {
-      // اگر بک‌گراند نداریم، فواصل خارج از باکس به عنوان مارجین اعمال می‌شوند
-      externalTopMargin = isImageCell ? 0.0 : para.spaceBefore;
-      externalBottomMargin = isImageCell ? 0.0 : para.spaceAfter;
+      // در حالت معمولی فواصل مستقیماً مارجین خارجی داکیومنت هستند
+      externalTopMargin = spaceBefore;
+      externalBottomMargin = spaceAfter;
     }
 
     if (hasBgColor || hasBorder) {
@@ -296,7 +303,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           color: _hexToColor(para.fillColor),
-          // ادغام هوشمند بوردرها در صورت یکسان بودن shading همسایه‌ها
           border: hasBorder
               ? Border(
                   left: BorderSide(color: borderColor, width: borderWidth),
@@ -309,7 +315,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                       : BorderSide(color: borderColor, width: borderWidth),
                 )
               : null,
-          // ادغام هوشمند انحنای گوشه‌ها (فقط بالا و پایین کل بلاک یکپارچه منحنی شود)
           borderRadius: hasBorder
               ? BorderRadius.only(
                   topLeft: sameColorBefore
@@ -376,7 +381,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       fontSize: fontSize,
       fontFamily: fontFamily,
       color: customTextColor ?? Colors.black87,
-      height: 1.5,
+      height:
+          1.3, // 🌟 اصلاح: کاهش از 1.5 به 1.3 جهت شبیه‌سازی دقیق Line Spacing استاندارد (1.15) مایکروسافت ورد
       backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
       fontWeight: span.markers.contains("b")
           ? FontWeight.bold
@@ -534,7 +540,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: vAlign,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            // 🌟 اصلاح دوم: پیاده‌سازی منطق همسایگی در پاراگراف‌های متوالی داخل سلول‌های جدول
             children: List.generate(cell.paragraphs.length, (pIndex) {
               final p = cell.paragraphs[pIndex];
               final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;

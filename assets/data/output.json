@@ -625,7 +625,7 @@
       },
       {
         "Direction": "LTR",
-        "SpaceAfter": 8.0,
+        "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
           {
@@ -950,7 +950,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 12.0,
+                        "SpaceAfter": 8.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
