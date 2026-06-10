@@ -335,8 +335,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
               : null,
         ),
         padding: EdgeInsets.only(
-          left: 10.0,
-          right: 10.0,
+          left: isInsideTableCell ? 2.0 : 10.0,
+          right: isInsideTableCell ? 2.0 : 10.0,
           top: internalTopPadding,
           bottom: internalBottomPadding,
         ),
@@ -544,7 +544,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                 : null,
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: (isImageCell || isEmptyCell) ? 0.0 : 12.0,
+            horizontal: (isImageCell || isEmptyCell) ? 0.0 : 4.0,
             vertical: (isImageCell || isEmptyCell) ? 0.0 : 4.0,
           ),
           child: Column(

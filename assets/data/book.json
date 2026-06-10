@@ -160,7 +160,8 @@
                   {
                     "Paragraphs": [
                       {
-                        "SpaceAfter": 0.0,
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -175,16 +176,19 @@
                             "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "fn:Source Sans 3"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 5.06,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
                           {
                             "Type": "text",
                             "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
@@ -521,7 +525,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.59,
+                    "WidthPercent": 53.05,
                     "IsHeaderCell": false
                   },
                   {
@@ -541,43 +545,66 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 46.41,
+                    "WidthPercent": 41.88,
+                    "IsHeaderCell": false
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "02",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
+                            ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 5.06,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 53.05,
+                    "ColSpan": 2,
                     "IsHeaderCell": false
                   }
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "02 ",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3",
-              "sz:24"
-            ],
-            "BorderColor": "FFFF00",
-            "BorderStyle": "BorderValues { }",
-            "HasBorders": "true",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3 Medium",
-              "sz:21"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       },
@@ -624,32 +651,83 @@
         ]
       },
       {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "03",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
+                            ],
+                            "BorderColor": "FFFF00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 5.06,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 8.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3 Medium",
+                              "sz:21"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 94.94,
+                    "IsHeaderCell": false
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         "Direction": "LTR",
         "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
           {
             "Type": "text",
-            "Content": "03 ",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3",
-              "sz:24"
-            ],
-            "BorderColor": "FFFF00",
-            "BorderStyle": "BorderValues { }",
-            "HasBorders": "true",
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3 Medium",
-              "sz:21"
-            ],
+            "Content": "",
+            "Markers": [],
             "InnerSpans": [],
             "TableRows": []
           }
