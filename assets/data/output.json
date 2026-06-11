@@ -1139,45 +1139,7 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "TextColor": "110E0D",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "FillColor": "0099CC",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 5.15,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be projected across all humanity. It has no government, no one owns any property, and money rarely, if ever, changes hands. There is no leader and rules do not exist. While most experiments at creating the perfect city do not meet with success, the majority of Auroville's residents believe their city to be an exception. Although its critics point to the fact that levels of crime",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "TextColor": "110E0D",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "FillColor": "0099CC",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 5.15,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "have been creeping up for some years now, its citizens choose to remain there, still believing in its utopian dream, still following its path towards a better world.",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be projected across all humanity. It has no government, no one owns any property, and money rarely, if ever, changes hands. There is no leader and rules do not exist. While most experiments at creating the perfect city do not meet with success, the majority of Auroville's residents believe their city to be an exception. Although its critics point to the fact that levels of crime have been creeping up for some years now, its citizens choose to remain there, still believing in its utopian dream, still following its path towards a better world.",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
