@@ -52,7 +52,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     double canvasWidth = screenWidth > 800 ? 760.0 : screenWidth - 32;
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Colors.grey.shade100, // رنگ پس‌زمینه بیرونی
       body: SafeArea(
         child: Listener(
           onPointerDown: (event) {
@@ -181,6 +181,46 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         ],
       ),
     );
+  }
+
+  String _mapFontFamily(String rawFontName) {
+    String normalized = rawFontName
+        .toLowerCase()
+        .replaceAll("-", "")
+        .replaceAll(" ", "");
+
+    if (normalized.contains("sourcesans")) return "Source Sans 3";
+    if (normalized.contains("times") || normalized.contains("major"))
+      return "Times New Roman";
+    if (normalized.contains("arial")) return "Arial";
+    if (normalized.contains("tahoma")) return "Tahoma";
+    if (normalized.contains("verdana")) return "Verdana";
+    if (normalized.contains("gadugi")) return "Gadugi";
+    if (normalized.contains("emoji")) return "Segoe UI Emoji";
+
+    if (normalized.contains("zar")) return "Zar";
+    if (normalized.contains("titr")) return "Titr";
+    if (normalized.contains("yekan")) {
+      if (normalized.contains("light")) return "YekanBakhLight";
+      if (normalized.contains("extra")) return "YekanBakhExtraBold";
+      return "YekanBakhBold";
+    }
+    return "Source Sans 3";
+  }
+
+  Color? _hexToColor(String? hexString) {
+    if (hexString == null ||
+        hexString.isEmpty ||
+        hexString.toLowerCase() == 'auto')
+      return null;
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    try {
+      return Color(int.parse(buffer.toString(), radix: 16));
+    } catch (e) {
+      return null;
+    }
   }
 
   Widget _buildParagraph(
@@ -382,8 +422,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     bool isLargeScreen = screenWidth >= 600;
 
-    String styleId = tableSpan.tableStyleId ?? "";
-    bool isTableGrid = styleId == "TableGrid";
+    // 🌟 اصلاح ۱: شرط ضدگلوله! (حذف تمام فاصله‌ها و تبدیل به حروف کوچک برای شناسایی قطعی)
+    String styleId = (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
+        .toLowerCase()
+        .replaceAll(" ", "")
+        .replaceAll("_", "");
+
+    bool isTableGrid = styleId.contains("tablegrid");
 
     List<Widget> rowWidgets = [];
     Color? tableBgColor = _hexToColor(tableSpan.fillColor);
@@ -392,9 +437,14 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     Color borderColor = Colors.grey.shade400;
     double borderWidth = 0.5;
 
+    // 🌟 اصلاح ۲: اعمال دقیق رنگ‌ها
     if (isTableGrid) {
-      borderColor = _hexToColor(tableSpan.borderColor) ?? Colors.black;
-      borderWidth = 1.0;
+      // اولویت اول: خواندن رنگی که شما به صورت دستی در ورد تنظیم کردید.
+      // اولویت دوم (اگر رنگی ست نشده بود): مشکی استاندارد جدول‌های گرید.
+      borderColor = _hexToColor(tableSpan.borderColor) ?? Colors.black87;
+
+      // نکته: چون ضخامت را از JSON نداریم، یک ضخامت استاندارد و توپر برای آن در نظر می‌گیریم.
+      borderWidth = 1.2;
     } else {
       borderColor = _hexToColor(tableSpan.borderColor) ?? Colors.grey.shade400;
       borderWidth = 0.5;
@@ -530,10 +580,12 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
     if (isTableGrid && isLargeScreen && totalWidthPercent < 0.95) {
       Alignment tableAlignment = Alignment.centerLeft;
-      if (tableSpan.tableAlignment?.toLowerCase() == "center")
+      if (tableSpan.tableAlignment?.toLowerCase() == "center") {
         tableAlignment = Alignment.center;
-      if (tableSpan.tableAlignment?.toLowerCase() == "right")
+      }
+      if (tableSpan.tableAlignment?.toLowerCase() == "right") {
         tableAlignment = Alignment.centerRight;
+      }
 
       return Align(
         alignment: tableAlignment,
@@ -667,40 +719,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     }
 
     return interactiveSpans;
-  }
-
-  Color? _hexToColor(String? hexStr) {
-    if (hexStr == null || hexStr.isEmpty || hexStr.toLowerCase() == "auto")
-      return null;
-    String cleanHex = hexStr.replaceAll('#', '').trim();
-    if (cleanHex.length == 6) cleanHex = "FF$cleanHex";
-    int? colorVal = int.tryParse(cleanHex, radix: 16);
-    return colorVal != null ? Color(colorVal) : null;
-  }
-
-  String _mapFontFamily(String rawFontName) {
-    String normalized = rawFontName
-        .toLowerCase()
-        .replaceAll("-", "")
-        .replaceAll(" ", "");
-
-    if (normalized.contains("sourcesans")) return "Source Sans 3";
-    if (normalized.contains("times") || normalized.contains("major"))
-      return "Times New Roman";
-    if (normalized.contains("arial")) return "Arial";
-    if (normalized.contains("tahoma")) return "Tahoma";
-    if (normalized.contains("verdana")) return "Verdana";
-    if (normalized.contains("gadugi")) return "Gadugi";
-    if (normalized.contains("emoji")) return "Segoe UI Emoji";
-
-    if (normalized.contains("zar")) return "Zar";
-    if (normalized.contains("titr")) return "Titr";
-    if (normalized.contains("yekan")) {
-      if (normalized.contains("light")) return "YekanBakhLight";
-      if (normalized.contains("extra")) return "YekanBakhExtraBold";
-      return "YekanBakhBold";
-    }
-    return "Source Sans 3";
   }
 
   Widget _buildLocalImage(

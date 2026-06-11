@@ -6640,6 +6640,8 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderColor": "FFC000",
+            "BorderWidth": 0.5,
             "TableStyleId": "TableGrid",
             "TableStyleName": "Table Grid",
             "HasBorders": "true",
