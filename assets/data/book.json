@@ -3247,7 +3247,7 @@
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
+                        "SpaceBefore": 12.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -4793,12 +4793,19 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 71.48,
+                    "WidthPercent": 19.99,
+                    "ColSpan": 5,
                     "IsHeaderCell": false
-                  },
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
                   {
                     "Paragraphs": [
                       {
+                        "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -4813,7 +4820,91 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 28.52,
+                    "WidthPercent": 19.99,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "p9_s1_img2.png",
+                            "FloatPosition": "none",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 19.99,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "p9_s1_img3.png",
+                            "FloatPosition": "none",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 20.0,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "p9_s1_img4.png",
+                            "FloatPosition": "none",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 20.0,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "image",
+                            "Markers": [],
+                            "Url": "p9_s1_img5.png",
+                            "FloatPosition": "none",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 20.0,
                     "IsHeaderCell": false
                   }
                 ]
@@ -4823,6 +4914,7 @@
         ]
       },
       {
+        "Direction": "LTR",
         "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
@@ -4830,21 +4922,6 @@
             "Type": "text",
             "Content": "",
             "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "SpaceAfter": 8.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "image",
-            "Markers": [],
-            "Url": "p9_s1_img2.png",
-            "FloatPosition": "none",
             "InnerSpans": [],
             "TableRows": []
           }
