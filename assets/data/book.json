@@ -2878,19 +2878,6 @@
             ]
           }
         ]
-      },
-      {
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
       }
     ]
   },
@@ -2927,25 +2914,27 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:20"
+                              "sz:33"
                             ],
                             "BorderColor": "A8D08D",
                             "BorderStyle": "BorderValues { }",
                             "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3",
-                              "sz:20"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 5.06,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
                           {
                             "Type": "text",
                             "Content": "With a partner, think of some words that begin with the prefixes in the box. Then discuss what the general meaning of each prefix is.",
@@ -2967,27 +2956,31 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "",
-                            "Markers": [],
+                            "Content": "post-   for-/fore-   sub-   multi-   anti-   mis-   non-   pre-   over-   under-",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:20"
+                            ],
+                            "TextColor": "1C1A1C",
+                            "BorderColor": "99CC00",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
                         ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
+                      }
+                    ],
+                    "WidthPercent": 94.94,
+                    "IsHeaderCell": false
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
@@ -3005,17 +2998,20 @@
                             "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 5.06,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
                           {
                             "Type": "text",
                             "Content": "Using the correct prefixes from the box above, change the words in CAPITALS into the correct forms.",
@@ -3140,55 +3136,84 @@
                             "TableRows": []
                           }
                         ]
-                      },
+                      }
+                    ],
+                    "WidthPercent": 94.94,
+                    "IsHeaderCell": false
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 12.0,
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "[[[[[[[[[[",
+            "Markers": [
+              "bg:99CC00",
+              "fn:Source Sans 3",
+              "sz:32"
+            ],
+            "FillColor": "99CC00",
+            "TextColor": "99CC00",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "EXAM SKILLS",
+            "Markers": [
+              "b",
+              "fn:Source Sans 3 SemiBold",
+              "sz:32"
+            ],
+            "TextColor": "090506",
+            "InnerSpans": [],
+            "TableRows": []
+          },
+          {
+            "Type": "text",
+            "Content": "]",
+            "Markers": [
+              "b",
+              "fn:Verdana",
+              "sz:37"
+            ],
+            "TextColor": "99CC00",
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderWidth": 0.5,
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
+            "InnerSpans": [],
+            "TableRows": [
+              {
+                "IsHeader": false,
+                "Cells": [
+                  {
+                    "Paragraphs": [
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 12.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "[[[[[[[[[[",
-                            "Markers": [
-                              "bg:99CC00",
-                              "fn:Source Sans 3",
-                              "sz:32"
-                            ],
-                            "FillColor": "99CC00",
-                            "TextColor": "99CC00",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "EXAM SKILLS",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3 SemiBold",
-                              "sz:32"
-                            ],
-                            "TextColor": "090506",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "]",
-                            "Markers": [
-                              "b",
-                              "fn:Verdana",
-                              "sz:37"
-                            ],
-                            "TextColor": "99CC00",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 12.0,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -3196,25 +3221,27 @@
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
-                              "sz:20"
+                              "sz:33"
                             ],
                             "BorderColor": "A8D08D",
                             "BorderStyle": "BorderValues { }",
                             "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3",
-                              "sz:20"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 5.06,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 12.0,
+                        "Spans": [
                           {
                             "Type": "text",
                             "Content": "Read the passage and answer questions 1-6.",
@@ -3635,22 +3662,9 @@
                             "TableRows": []
                           }
                         ]
-                      },
-                      {
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
                       }
                     ],
-                    "WidthPercent": 100.0,
+                    "WidthPercent": 94.94,
                     "IsHeaderCell": false
                   }
                 ]
@@ -3739,7 +3753,30 @@
                     "IsHeaderCell": false
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "PageNumber": 6,
+    "Paragraphs": [
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderWidth": 0.5,
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
+            "InnerSpans": [],
+            "TableRows": [
               {
                 "IsHeader": false,
                 "Cells": [
@@ -4121,7 +4158,7 @@
     ]
   },
   {
-    "PageNumber": 6,
+    "PageNumber": 7,
     "Paragraphs": [
       {
         "SpaceAfter": 0.0,
@@ -4275,26 +4312,27 @@
                             "Content": "01",
                             "Markers": [
                               "b",
-                              "fn:Source Sans 3",
-                              "sz:20"
+                              "fn:Source Sans 3"
                             ],
                             "BorderColor": "FFCC66",
                             "BorderStyle": "BorderValues { }",
                             "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": " ",
-                            "Markers": [
-                              "b",
-                              "fn:Source Sans 3",
-                              "sz:20"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 4.78,
+                    "IsHeaderCell": false
+                  },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
                           {
                             "Type": "text",
                             "Content": "Using the verb ",
@@ -4360,6 +4398,7 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -4541,12 +4580,43 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 50.0,
-                    "ColSpan": 2,
+                    "WidthPercent": 95.22,
                     "IsHeaderCell": false
                   }
                 ]
-              },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "",
+            "Markers": [],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": [
+          {
+            "Type": "table",
+            "Markers": [],
+            "BorderWidth": 0.5,
+            "TableStyleId": "DottedTable",
+            "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
+            "InnerSpans": [],
+            "TableRows": [
               {
                 "IsHeader": false,
                 "Cells": [
@@ -4560,7 +4630,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p8_s1_img1.png",
+                            "Url": "p7_s1_img1.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4606,7 +4676,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p8_s1_img2.png",
+                            "Url": "p7_s1_img2.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4627,7 +4697,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p8_s1_img3.png",
+                            "Url": "p7_s1_img3.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4653,7 +4723,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p8_s1_img4.png",
+                            "Url": "p7_s1_img4.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4674,7 +4744,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p8_s1_img5.png",
+                            "Url": "p7_s1_img5.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4767,6 +4837,78 @@
                             "TableRows": []
                           }
                         ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Example:",
+                            "Markers": [
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "TextColor": "131615",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Student A: ",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "increase, slowly, by the year 2000",
+                            "Markers": [
+                              "i",
+                              "fn:Source Sans 3"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Student B: ",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "By the year 2000, it had increased slowly to 90%.",
+                            "Markers": [
+                              "i",
+                              "fn:Source Sans 3"
+                            ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
                       }
                     ],
                     "WidthPercent": 94.94,
@@ -4785,66 +4927,8 @@
         "Spans": [
           {
             "Type": "text",
-            "Content": "Example:",
-            "Markers": [
-              "fn:Source Sans 3",
-              "sz:21"
-            ],
-            "TextColor": "131615",
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "Student A: ",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "increase, slowly, by the year 2000",
-            "Markers": [
-              "i",
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "Student B: ",
-            "Markers": [
-              "b",
-              "fn:Source Sans 3"
-            ],
-            "InnerSpans": [],
-            "TableRows": []
-          },
-          {
-            "Type": "text",
-            "Content": "By the year 2000, it had increased slowly to 90%.",
-            "Markers": [
-              "i",
-              "fn:Source Sans 3"
-            ],
+            "Content": "",
+            "Markers": [],
             "InnerSpans": [],
             "TableRows": []
           }
@@ -5280,24 +5364,11 @@
             ]
           }
         ]
-      },
-      {
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
       }
     ]
   },
   {
-    "PageNumber": 7,
+    "PageNumber": 8,
     "Paragraphs": [
       {
         "Direction": "LTR",
