@@ -9,8 +9,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -20,7 +23,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -38,7 +41,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -57,7 +60,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -75,7 +78,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -102,10 +105,9 @@
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
-                            "Type": "image",
+                            "Type": "text",
+                            "Content": "",
                             "Markers": [],
-                            "Url": "images/p9_s1_img10.png",
-                            "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -150,8 +152,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -161,7 +166,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -204,7 +209,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -535,10 +540,9 @@
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
-                            "Type": "image",
+                            "Type": "text",
+                            "Content": "",
                             "Markers": [],
-                            "Url": "images/p9_s1_img11.jpeg",
-                            "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -657,8 +661,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -693,7 +700,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -740,8 +747,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -751,7 +761,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -775,7 +785,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -823,7 +833,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -874,8 +884,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -885,7 +898,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -911,7 +924,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -931,7 +944,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -950,7 +963,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1028,72 +1041,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "image",
-                            "Markers": [],
-                            "Url": "images/p10_s1_img12.png",
-                            "FloatPosition": "none",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 69.27,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 25.81,
-                    "IsHeaderCell": false
-                  }
-                ]
-              },
-              {
-                "IsHeader": false,
-                "Cells": [
-                  {
-                    "Paragraphs": [
-                      {
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 4.92,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1175,7 +1123,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1200,7 +1148,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1226,7 +1174,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1245,7 +1193,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1264,7 +1212,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 5.15,
                         "Spans": [
                           {
@@ -1283,7 +1231,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 5.15,
                         "Spans": [
                           {
@@ -1307,7 +1255,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1325,7 +1273,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1343,7 +1291,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1368,7 +1316,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1395,7 +1343,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1415,7 +1363,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1432,7 +1380,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 1.4,
                         "Spans": [
                           {
@@ -1460,7 +1408,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 1.4,
                         "Spans": [
                           {
@@ -1488,7 +1436,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 1.4,
                         "Spans": [
                           {
@@ -1522,7 +1470,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1540,7 +1488,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1591,8 +1539,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -1602,7 +1553,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1628,7 +1579,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1646,9 +1597,8 @@
                         ]
                       },
                       {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 5.45,
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -1664,27 +1614,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.89,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "image",
-                            "Markers": [],
-                            "Url": "images/p11_s1_img13.png",
-                            "FloatPosition": "none",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 40.33,
+                    "WidthPercent": 95.22,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1696,7 +1626,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1722,7 +1652,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1740,27 +1670,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 54.89,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 40.33,
+                    "WidthPercent": 95.22,
                     "IsHeaderCell": false
                   }
                 ]
@@ -1789,8 +1699,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -1800,7 +1713,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1826,7 +1739,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1845,7 +1758,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1865,7 +1778,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1882,7 +1795,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1921,7 +1834,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1960,7 +1873,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2032,7 +1945,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2058,7 +1971,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2076,7 +1989,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2125,7 +2038,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2228,7 +2141,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2246,7 +2159,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2297,8 +2210,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -2308,7 +2224,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2334,7 +2250,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2353,7 +2269,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2371,7 +2287,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2389,7 +2305,7 @@
                       {
                         "Direction": "LTR",
                         "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2405,9 +2321,7 @@
                         ]
                       },
                       {
-                        "Direction": "LTR",
-                        "FillColor": "0099CC",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2423,27 +2337,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.06,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "image",
-                            "Markers": [],
-                            "Url": "images/p12_s1_img14.png",
-                            "FloatPosition": "none",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 42.03,
+                    "WidthPercent": 95.09,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2455,7 +2349,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2481,7 +2375,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2498,27 +2392,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.06,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 42.03,
+                    "WidthPercent": 95.09,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2530,7 +2404,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2556,7 +2430,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2573,27 +2447,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.06,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 42.03,
+                    "WidthPercent": 95.09,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2605,7 +2459,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2625,7 +2479,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2642,7 +2496,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2659,7 +2513,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2676,7 +2530,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2693,28 +2547,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.06,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "image",
-                            "Markers": [],
-                            "Url": "images/p12_s1_img15.png",
-                            "FloatPosition": "none",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 42.03,
+                    "WidthPercent": 95.09,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2726,7 +2559,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2752,7 +2585,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2770,7 +2603,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2798,7 +2631,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2825,6 +2658,7 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -2852,27 +2686,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.06,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 42.03,
+                    "WidthPercent": 95.09,
                     "IsHeaderCell": false
                   }
                 ]
@@ -2910,8 +2724,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -2921,7 +2738,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2947,7 +2764,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2965,7 +2782,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3018,7 +2835,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.8,
                         "Spans": [
                           {
@@ -3071,7 +2888,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3146,8 +2963,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -3157,7 +2977,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3201,7 +3021,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3215,7 +3035,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3229,7 +3049,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3270,7 +3090,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3298,7 +3118,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3326,7 +3146,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3354,7 +3174,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3382,7 +3202,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 12.0,
                         "Spans": [
                           {
@@ -3426,7 +3246,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3470,7 +3290,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3488,7 +3308,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3527,7 +3347,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3566,7 +3386,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3605,7 +3425,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3644,7 +3464,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3683,7 +3503,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3722,7 +3542,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 7.65,
                         "Spans": [
                           {
@@ -3876,26 +3696,6 @@
                         ]
                       },
                       {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 60.55,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -3909,7 +3709,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 39.45,
+                    "WidthPercent": 100.0,
                     "IsHeaderCell": false
                   }
                 ]
@@ -3944,8 +3744,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -3955,7 +3758,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3974,7 +3777,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4021,8 +3824,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -4032,7 +3838,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4051,7 +3857,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 6.85,
                         "Spans": [
                           {
@@ -4069,7 +3875,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.1,
                         "Spans": [
                           {
@@ -4127,7 +3933,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4146,7 +3952,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.1,
                         "Spans": [
                           {
@@ -4163,7 +3969,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.1,
                         "Spans": [
                           {
@@ -4210,8 +4016,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -4221,7 +4030,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4241,7 +4050,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4329,7 +4138,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4354,7 +4163,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4374,7 +4183,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4436,7 +4245,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4461,7 +4270,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4481,7 +4290,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4518,7 +4327,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4539,7 +4348,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4573,8 +4382,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -4584,7 +4396,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4602,7 +4414,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4621,7 +4433,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4638,8 +4450,7 @@
                         ]
                       },
                       {
-                        "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4656,27 +4467,7 @@
                       }
                     ],
                     "FillColor": "FFCC66",
-                    "WidthPercent": 58.71,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "image",
-                            "Markers": [],
-                            "Url": "images/p16_s1_img16.emf",
-                            "FloatPosition": "none",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 41.29,
+                    "WidthPercent": 100.0,
                     "IsHeaderCell": false
                   }
                 ]
@@ -4714,8 +4505,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -4725,7 +4519,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5011,7 +4805,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "images/p16_s1_img17.png",
+                            "Url": "images/p9_s1_img1.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -5049,7 +4843,7 @@
           {
             "Type": "image",
             "Markers": [],
-            "Url": "images/p16_s1_img18.png",
+            "Url": "images/p9_s1_img2.png",
             "FloatPosition": "none",
             "InnerSpans": [],
             "TableRows": []
@@ -5063,8 +4857,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -5099,7 +4896,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5207,9 +5004,10 @@
             "Markers": [],
             "BorderColor": "FFC000",
             "BorderWidth": 0.5,
-            "TableStyleId": "TableGrid",
-            "TableStyleName": "Table Grid",
+            "TableStyleId": "BorderedTable",
+            "TableStyleName": "BorderedTable",
             "HasBorders": "true",
+            "TableWidthPercent": 66.58119658119658,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -5220,7 +5018,7 @@
                       {
                         "Alignment": "J",
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5246,7 +5044,7 @@
                       {
                         "Alignment": "J",
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5272,7 +5070,7 @@
                       {
                         "Alignment": "J",
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5302,7 +5100,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5319,7 +5117,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5336,7 +5134,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5353,7 +5151,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5370,7 +5168,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5387,7 +5185,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5410,7 +5208,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5427,7 +5225,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5444,7 +5242,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5461,7 +5259,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5478,7 +5276,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5495,7 +5293,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5518,7 +5316,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5535,7 +5333,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5552,7 +5350,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5569,7 +5367,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5586,7 +5384,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5603,7 +5401,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -5695,8 +5493,11 @@
           {
             "Type": "table",
             "Markers": [],
+            "BorderWidth": 0.5,
             "TableStyleId": "DottedTable",
             "TableStyleName": "DottedTable",
+            "HasBorders": "true",
+            "TableWidthPercent": 100.0,
             "InnerSpans": [],
             "TableRows": [
               {
@@ -5877,7 +5678,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 8.0,
+                        "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {

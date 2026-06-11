@@ -176,6 +176,8 @@ class SpanData {
   final String? tableAlignment;
   final String? hasBorders;
   final String? floatPosition;
+  final double? tableWidthPercent;
+  final double? borderWidth;
 
   SpanData({
     required this.type,
@@ -192,6 +194,8 @@ class SpanData {
     this.tableAlignment,
     this.hasBorders,
     this.floatPosition,
+    this.tableWidthPercent,
+    this.borderWidth,
   });
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
@@ -210,6 +214,8 @@ class SpanData {
       tableStyleName: json['TableStyleName'],
       tableAlignment: json['TableAlignment'],
       hasBorders: json['HasBorders'],
+      tableWidthPercent: (json['TableWidthPercent'] as num?)?.toDouble(),
+      borderWidth: (json['BorderWidth'] as num?)?.toDouble(),
     );
   }
 }

@@ -414,129 +414,94 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
+  // 🌟 تغییر ورودی متد: اضافه شدن canvasWidth برای حل خطای اول و سوم
   Widget _buildTable(
     SpanData tableSpan,
     double canvasWidth,
     BuildContext context,
   ) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    bool isLargeScreen = screenWidth >= 600;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final bool isLargeScreen = screenWidth > 600;
 
-    // 🌟 اصلاح ۱: شرط ضدگلوله! (حذف تمام فاصله‌ها و تبدیل به حروف کوچک برای شناسایی قطعی)
-    String styleId = (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
-        .toLowerCase()
-        .replaceAll(" ", "")
-        .replaceAll("_", "");
+    final String rawStyle =
+        (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .replaceAll("_", "");
 
-    bool isTableGrid = styleId.contains("tablegrid");
+    final bool isDottedTable = rawStyle.contains("dottedtable");
+    final bool isTableGrid = rawStyle.contains("tablegrid");
+    final bool isBorderedTable = rawStyle.contains("borderedtable");
+
+    // 🌟 جلوگیری قطعی از رندر شدن Border برای استایل‌های Dotted و Grid
+    final bool hideBorders = isDottedTable || isTableGrid;
+
+    double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
+    Color borderColor =
+        _hexToColor(tableSpan.borderColor) ??
+        (isBorderedTable ? Colors.black : Colors.grey.shade400);
+
+    // تولید کادرهای سلول و جدول برای BorderedTable بدون ایجاد خطوط دوتایی ضخیم
+    BoxBorder? cellBorder;
+    BoxBorder? tableBorder;
+
+    if (!hideBorders && (isBorderedTable || tableSpan.hasBorders == "true")) {
+      cellBorder = Border(
+        right: BorderSide(color: borderColor, width: borderWidth),
+        bottom: BorderSide(color: borderColor, width: borderWidth),
+      );
+      tableBorder = Border(
+        top: BorderSide(color: borderColor, width: borderWidth),
+        left: BorderSide(color: borderColor, width: borderWidth),
+      );
+    }
 
     List<Widget> rowWidgets = [];
-    Color? tableBgColor = _hexToColor(tableSpan.fillColor);
-    bool hasBorders = tableSpan.hasBorders?.toLowerCase() == "true";
-
-    Color borderColor = Colors.grey.shade400;
-    double borderWidth = 0.5;
-
-    // 🌟 اصلاح ۲: اعمال دقیق رنگ‌ها
-    if (isTableGrid) {
-      // اولویت اول: خواندن رنگی که شما به صورت دستی در ورد تنظیم کردید.
-      // اولویت دوم (اگر رنگی ست نشده بود): مشکی استاندارد جدول‌های گرید.
-      borderColor = _hexToColor(tableSpan.borderColor) ?? Colors.black87;
-
-      // نکته: چون ضخامت را از JSON نداریم، یک ضخامت استاندارد و توپر برای آن در نظر می‌گیریم.
-      borderWidth = 1.2;
-    } else {
-      borderColor = _hexToColor(tableSpan.borderColor) ?? Colors.grey.shade400;
-      borderWidth = 0.5;
-    }
-
-    double totalWidthPercent = 1.0;
-    if (tableSpan.tableRows.isNotEmpty &&
-        tableSpan.tableRows.first.cells.isNotEmpty) {
-      double sum = 0.0;
-      for (var cell in tableSpan.tableRows.first.cells) {
-        sum += cell.widthPercent ?? 0.0;
-      }
-      if (sum > 0.05 && sum <= 1.0) {
-        totalWidthPercent = sum;
-      }
-    }
 
     for (var row in tableSpan.tableRows) {
       List<Widget> cellWidgets = [];
 
       for (var cell in row.cells) {
-        if (cell.rowMerge == "continue") continue;
+        List<Widget> cellParagraphs = [];
 
-        int flexValue = 1;
-        if (cell.widthPercent != null && cell.widthPercent! > 0) {
-          flexValue = (cell.widthPercent! * 100).toInt();
+        for (var p in cell.paragraphs) {
+          cellParagraphs.add(
+            _buildParagraph(p, canvasWidth, screenWidth, context),
+          );
         }
 
-        Color? cellBgColor = _hexToColor(cell.fillColor) ?? tableBgColor;
-        if (cell.isHeaderCell && cellBgColor == null) {
-          cellBgColor = Colors.grey.shade200;
-        }
-
-        MainAxisAlignment vAlign = MainAxisAlignment.start;
-        if (cell.vAlign == "center") vAlign = MainAxisAlignment.center;
-        if (cell.vAlign == "bottom") vAlign = MainAxisAlignment.end;
-
-        bool isImageCell =
-            cell.paragraphs.length == 1 &&
-            cell.paragraphs.first.spans.any((s) => s.type == "image");
-
-        bool isEmptyCell = cell.paragraphs.every(
-          (p) =>
-              p.spans.isEmpty ||
-              (p.spans.length == 1 &&
-                  p.spans.first.type == "text" &&
-                  p.spans.first.content.trim().isEmpty),
-        );
+        double? currentCellWidth = cell.widthPercent;
 
         Widget cellContent = Container(
+          padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            color: cellBgColor,
-            border: hasBorders
-                ? Border(
-                    right: BorderSide(color: borderColor, width: borderWidth),
-                    bottom: BorderSide(color: borderColor, width: borderWidth),
-                  )
-                : null,
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: (isImageCell || isEmptyCell) ? 0.0 : 6.0,
-            vertical: (isImageCell || isEmptyCell) ? 0.0 : 6.0,
+            color: _hexToColor(cell.fillColor),
+            border: cellBorder, // 🌟 اعمال حاشیه فقط اگر hideBorders نبود
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: vAlign,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: List.generate(cell.paragraphs.length, (pIndex) {
-              final p = cell.paragraphs[pIndex];
-              final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
-              final pNext = pIndex < cell.paragraphs.length - 1
-                  ? cell.paragraphs[pIndex + 1]
-                  : null;
-
-              return _buildParagraph(
-                p,
-                canvasWidth,
-                screenWidth,
-                context,
-                isImageCell: isImageCell,
-                isInsideTableCell: true,
-                prevPara: pPrev,
-                nextPara: pNext,
-              );
-            }),
+            children: cellParagraphs,
           ),
         );
 
-        cellWidgets.add(Expanded(flex: flexValue, child: cellContent));
+        if (isLargeScreen || isBorderedTable) {
+          if (currentCellWidth != null && currentCellWidth > 0) {
+            cellWidgets.add(
+              Expanded(
+                flex: (currentCellWidth * 100).toInt(),
+                child: cellContent,
+              ),
+            );
+          } else {
+            cellWidgets.add(Expanded(child: cellContent));
+          }
+        } else {
+          cellWidgets.add(cellContent);
+        }
       }
 
-      if (isTableGrid || isLargeScreen) {
+      if (isLargeScreen || isBorderedTable) {
         rowWidgets.add(
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -544,65 +509,56 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           ),
         );
       } else {
-        List<Widget> spacedColChildren = [];
-        for (int i = 0; i < cellWidgets.length; i++) {
-          Widget currentCell = cellWidgets[i];
-
-          if (currentCell is Expanded) {
-            currentCell = currentCell.child;
-          } else if (currentCell is Flexible) {
-            currentCell = currentCell.child;
-          }
-
-          spacedColChildren.add(currentCell);
-        }
-
         rowWidgets.add(
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: spacedColChildren,
+            children: cellWidgets,
           ),
         );
       }
     }
 
-    Widget tableContent = Container(
+    Widget tableContainer = Container(
+      margin: const EdgeInsets.symmetric(vertical: 12.0),
       decoration: BoxDecoration(
-        border: hasBorders
-            ? Border(
-                top: BorderSide(color: borderColor, width: borderWidth),
-                left: BorderSide(color: borderColor, width: borderWidth),
-              )
-            : null,
+        color: _hexToColor(tableSpan.fillColor),
+        border:
+            tableBorder, // 🌟 اعمال حاشیه دورِ جدول فقط اگر hideBorders نبود
       ),
-      child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: rowWidgets,
+      ),
     );
 
-    if (isTableGrid && isLargeScreen && totalWidthPercent < 0.95) {
-      Alignment tableAlignment = Alignment.centerLeft;
-      if (tableSpan.tableAlignment?.toLowerCase() == "center") {
-        tableAlignment = Alignment.center;
-      }
-      if (tableSpan.tableAlignment?.toLowerCase() == "right") {
-        tableAlignment = Alignment.centerRight;
-      }
+    if (isBorderedTable && tableSpan.tableWidthPercent != null) {
+      double docPct = tableSpan.tableWidthPercent!;
 
-      return Align(
-        alignment: tableAlignment,
-        child: FractionallySizedBox(
-          widthFactor: totalWidthPercent,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: tableContent,
+      if (isLargeScreen) {
+        Alignment tableAlign = Alignment.centerLeft;
+        if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
+        if (tableSpan.tableAlignment == "right")
+          tableAlign = Alignment.centerRight;
+
+        return Align(
+          alignment: tableAlign,
+          child: SizedBox(
+            width: canvasWidth * (docPct / 100),
+            child: tableContainer,
           ),
-        ),
-      );
+        );
+      } else {
+        if (docPct < 40) {
+          return Align(
+            alignment: Alignment.center,
+            child: SizedBox(width: canvasWidth * 0.6, child: tableContainer),
+          );
+        }
+        return tableContainer;
+      }
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: tableContent,
-    );
+    return tableContainer;
   }
 
   List<InlineSpan> _buildStyledInteractiveText(
