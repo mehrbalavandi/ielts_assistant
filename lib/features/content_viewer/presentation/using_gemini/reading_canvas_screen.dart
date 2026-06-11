@@ -624,7 +624,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     if (isAudioLink) {
       interactiveSpans.add(
         TextSpan(
-          text: span.content,
+          text: '${span.content}  ▶', // ⏸ ▶
           style: baseStyle,
           recognizer: TapGestureRecognizer()
             ..onTap = () async {

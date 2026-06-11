@@ -560,6 +560,7 @@
                   {
                     "Paragraphs": [
                       {
+                        "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -573,6 +574,24 @@
                             "BorderColor": "FFFF00",
                             "BorderStyle": "BorderValues { }",
                             "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "25",
+                            "Markers": [
+                              "b",
+                              "fn:Source Sans 3"
+                            ],
+                            "Url": "audio:MindsetIELTS_L3_01.mp3",
+                            "TextColor": "0563C1",
                             "InnerSpans": [],
                             "TableRows": []
                           }
