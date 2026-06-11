@@ -10,7 +10,8 @@ class MainBookScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("IELTS Assistant")),
-      body: FutureBuilder<List<ParagraphData>>(
+      // 🌟 تغییر: تغییر تایپ جنریک FutureBuilder از List<ParagraphData> به List<PageData>
+      body: FutureBuilder<List<PageData>>(
         future: DocumentLoader.loadBookFromJson(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -21,8 +22,8 @@ class MainBookScreen extends StatelessWidget {
             return const Center(child: Text("داده‌ای یافت نشد."));
           }
 
-          // اگر داده‌ها موفقیت‌آمیز لود شدند، بوم نقاشی را صدا بزن
-          return ReadingCanvasScreen(documentParagraphs: snapshot.data!);
+          // 🌟 تغییر: صدا زدن بوم نقاشی با پارامتر جدید documentPages
+          return ReadingCanvasScreen(documentPages: snapshot.data!);
         },
       ),
     );

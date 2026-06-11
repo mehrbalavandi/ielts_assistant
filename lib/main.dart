@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/home/presentation/home_screen.dart';
-import 'package:ielts_assistant/features/home/presentation/main_book_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/main_book_screen.dart';
 
 // ایمپورت مدل‌ها و سرویس‌ها
 // ویجت پلیر کوچک

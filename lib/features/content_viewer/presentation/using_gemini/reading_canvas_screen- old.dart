@@ -6,9 +6,9 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 import 'package:just_audio/just_audio.dart';
 
 class ReadingCanvasScreen extends StatefulWidget {
-  final List<PageData> documentPages;
+  final List<ParagraphData> documentParagraphs;
 
-  const ReadingCanvasScreen({super.key, required this.documentPages});
+  const ReadingCanvasScreen({super.key, required this.documentParagraphs});
 
   @override
   State<ReadingCanvasScreen> createState() => _ReadingCanvasScreenState();
@@ -49,100 +49,77 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double canvasWidth = screenWidth > 800 ? 760.0 : screenWidth - 32;
+    double canvasWidth = screenWidth > 650 ? 650 : screenWidth;
 
-    return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      body: SafeArea(
-        child: Listener(
-          onPointerDown: (event) {
-            _pointerCount++;
-            if (_pointerCount >= 2) {
-              setState(() {});
-            }
-          },
-          onPointerUp: (event) {
-            _pointerCount =
-                Matrix4.identity() == _transformationController.value
-                ? 0
-                : _pointerCount - 1;
-            if (_pointerCount < 0) _pointerCount = 0;
-            setState(() {});
-          },
-          onPointerCancel: (event) {
-            _pointerCount = 0;
-            setState(() {});
-          },
+    return Listener(
+      onPointerDown: (event) {
+        _pointerCount++;
+        if (_pointerCount >= 2) {
+          setState(() {});
+        }
+      },
+      onPointerUp: (event) {
+        _pointerCount = Matrix4.identity() == _transformationController.value
+            ? 0
+            : _pointerCount - 1;
+        if (_pointerCount < 0) _pointerCount = 0;
+        setState(() {});
+      },
+      onPointerCancel: (event) {
+        _pointerCount = 0;
+        setState(() {});
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        body: SafeArea(
           child: InteractiveViewer(
             transformationController: _transformationController,
-            scaleEnabled: true,
-            panEnabled: _isZoomed || _pointerCount > 1,
             minScale: 1.0,
-            maxScale: 3.0,
-            child: Center(
-              child: SizedBox(
-                width: canvasWidth,
-                child: ListView.builder(
-                  physics: (_pointerCount >= 2 || _isZoomed)
-                      ? const NeverScrollableScrollPhysics()
-                      : const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
-                    horizontal: 8.0,
-                  ),
-                  itemCount: widget.documentPages.length,
-                  itemBuilder: (context, pageIndex) {
-                    final page = widget.documentPages[pageIndex];
-
-                    return Column(
+            maxScale: 4.0,
+            panEnabled: _isZoomed,
+            scaleEnabled: true,
+            clipBehavior: Clip.none,
+            child: SingleChildScrollView(
+              physics: (_pointerCount >= 2 || _isZoomed)
+                  ? const NeverScrollableScrollPhysics()
+                  : const BouncingScrollPhysics(),
+              child: Container(
+                width: screenWidth,
+                color: Colors.grey[100],
+                child: Center(
+                  child: Container(
+                    width: canvasWidth,
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 24,
+                      horizontal: 16,
+                    ),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        // هدر تفکیک‌کننده و شماره صفحه
-                        _buildPageDivider(page.pageNumber),
+                      children: List.generate(
+                        widget.documentParagraphs.length,
+                        (index) {
+                          final para = widget.documentParagraphs[index];
+                          final prevPara = index > 0
+                              ? widget.documentParagraphs[index - 1]
+                              : null;
+                          final nextPara =
+                              index < widget.documentParagraphs.length - 1
+                              ? widget.documentParagraphs[index + 1]
+                              : null;
 
-                        // بدنه فیزیکی صفحه کاغذ
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 24.0),
-                          padding: const EdgeInsets.all(24.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.04),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: List.generate(page.paragraphs.length, (
-                              pIndex,
-                            ) {
-                              final p = page.paragraphs[pIndex];
-                              final pPrev = pIndex > 0
-                                  ? page.paragraphs[pIndex - 1]
-                                  : null;
-                              final pNext = pIndex < page.paragraphs.length - 1
-                                  ? page.paragraphs[pIndex + 1]
-                                  : null;
-
-                              return _buildParagraph(
-                                p,
-                                canvasWidth,
-                                screenWidth,
-                                context,
-                                isInsideTableCell: false,
-                                prevPara: pPrev,
-                                nextPara: pNext,
-                              );
-                            }),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                          return _buildParagraph(
+                            para,
+                            canvasWidth,
+                            screenWidth,
+                            context,
+                            prevPara: prevPara,
+                            nextPara: nextPara,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -152,35 +129,44 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
-  Widget _buildPageDivider(int pageNumber) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Row(
-        children: [
-          Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1.2)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                "PAGE $pageNumber",
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade700,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ),
-          ),
-          Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1.2)),
-        ],
-      ),
-    );
+  String _mapFontFamily(String rawFontName) {
+    String normalized = rawFontName
+        .toLowerCase()
+        .replaceAll("-", "")
+        .replaceAll(" ", "");
+
+    if (normalized.contains("sourcesans")) return "Source Sans 3";
+    if (normalized.contains("times") || normalized.contains("major"))
+      return "Times New Roman";
+    if (normalized.contains("arial")) return "Arial";
+    if (normalized.contains("tahoma")) return "Tahoma";
+    if (normalized.contains("verdana")) return "Verdana";
+    if (normalized.contains("gadugi")) return "Gadugi";
+    if (normalized.contains("emoji")) return "Segoe UI Emoji";
+
+    if (normalized.contains("zar")) return "Zar";
+    if (normalized.contains("titr")) return "Titr";
+    if (normalized.contains("yekan")) {
+      if (normalized.contains("light")) return "YekanBakhLight";
+      if (normalized.contains("extra")) return "YekanBakhExtraBold";
+      return "YekanBakhBold";
+    }
+    return "Source Sans 3";
+  }
+
+  Color? _hexToColor(String? hexString) {
+    if (hexString == null ||
+        hexString.isEmpty ||
+        hexString.toLowerCase() == 'auto')
+      return null;
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    try {
+      return Color(int.parse(buffer.toString(), radix: 16));
+    } catch (e) {
+      return null;
+    }
   }
 
   Widget _buildParagraph(
@@ -226,6 +212,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     for (var span in para.spans) {
       if (span.type == "text") {
         currentInlineSpans.addAll(
+          // 🌟 پاس دادن پارامترهای جدید به متد سازنده متن
           _buildStyledInteractiveText(
             span,
             para.interactives,
@@ -353,6 +340,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                 )
               : null,
         ),
+        // 🌟 حذف پدینگ کادر اگر در داخل جدول هستیم تا کادرها بدون فاصله رندر شوند
         padding: (isInsideTableCell && hasBorder)
             ? EdgeInsets.zero
             : EdgeInsets.only(
@@ -374,191 +362,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
-  Widget _buildTable(
-    SpanData tableSpan,
-    double canvasWidth,
-    BuildContext context,
-  ) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    bool isLargeScreen = screenWidth >= 600;
-
-    String styleId = tableSpan.tableStyleId ?? "";
-    bool isTableGrid = styleId == "TableGrid";
-
-    List<Widget> rowWidgets = [];
-    Color? tableBgColor = _hexToColor(tableSpan.fillColor);
-    bool hasBorders = tableSpan.hasBorders?.toLowerCase() == "true";
-
-    Color borderColor = Colors.grey.shade400;
-    double borderWidth = 0.5;
-
-    if (isTableGrid) {
-      borderColor = _hexToColor(tableSpan.borderColor) ?? Colors.black;
-      borderWidth = 1.0;
-    } else {
-      borderColor = _hexToColor(tableSpan.borderColor) ?? Colors.grey.shade400;
-      borderWidth = 0.5;
-    }
-
-    double totalWidthPercent = 1.0;
-    if (tableSpan.tableRows.isNotEmpty &&
-        tableSpan.tableRows.first.cells.isNotEmpty) {
-      double sum = 0.0;
-      for (var cell in tableSpan.tableRows.first.cells) {
-        sum += cell.widthPercent ?? 0.0;
-      }
-      if (sum > 0.05 && sum <= 1.0) {
-        totalWidthPercent = sum;
-      }
-    }
-
-    for (var row in tableSpan.tableRows) {
-      List<Widget> cellWidgets = [];
-
-      for (var cell in row.cells) {
-        if (cell.rowMerge == "continue") continue;
-
-        int flexValue = 1;
-        if (cell.widthPercent != null && cell.widthPercent! > 0) {
-          flexValue = (cell.widthPercent! * 100).toInt();
-        }
-
-        Color? cellBgColor = _hexToColor(cell.fillColor) ?? tableBgColor;
-        if (cell.isHeaderCell && cellBgColor == null) {
-          cellBgColor = Colors.grey.shade200;
-        }
-
-        MainAxisAlignment vAlign = MainAxisAlignment.start;
-        if (cell.vAlign == "center") vAlign = MainAxisAlignment.center;
-        if (cell.vAlign == "bottom") vAlign = MainAxisAlignment.end;
-
-        bool isImageCell =
-            cell.paragraphs.length == 1 &&
-            cell.paragraphs.first.spans.any((s) => s.type == "image");
-
-        bool isEmptyCell = cell.paragraphs.every(
-          (p) =>
-              p.spans.isEmpty ||
-              (p.spans.length == 1 &&
-                  p.spans.first.type == "text" &&
-                  p.spans.first.content.trim().isEmpty),
-        );
-
-        Widget cellContent = Container(
-          decoration: BoxDecoration(
-            color: cellBgColor,
-            border: hasBorders
-                ? Border(
-                    right: BorderSide(color: borderColor, width: borderWidth),
-                    bottom: BorderSide(color: borderColor, width: borderWidth),
-                  )
-                : null,
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: (isImageCell || isEmptyCell) ? 0.0 : 6.0,
-            vertical: (isImageCell || isEmptyCell) ? 0.0 : 6.0,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: vAlign,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: List.generate(cell.paragraphs.length, (pIndex) {
-              final p = cell.paragraphs[pIndex];
-              final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
-              final pNext = pIndex < cell.paragraphs.length - 1
-                  ? cell.paragraphs[pIndex + 1]
-                  : null;
-
-              return _buildParagraph(
-                p,
-                canvasWidth,
-                screenWidth,
-                context,
-                isImageCell: isImageCell,
-                isInsideTableCell: true,
-                prevPara: pPrev,
-                nextPara: pNext,
-              );
-            }),
-          ),
-        );
-
-        cellWidgets.add(Expanded(flex: flexValue, child: cellContent));
-      }
-
-      if (isTableGrid || isLargeScreen) {
-        rowWidgets.add(
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: cellWidgets,
-          ),
-        );
-      } else {
-        List<Widget> spacedColChildren = [];
-        for (int i = 0; i < cellWidgets.length; i++) {
-          Widget currentCell = cellWidgets[i];
-
-          if (currentCell is Expanded) {
-            currentCell = currentCell.child;
-          } else if (currentCell is Flexible) {
-            currentCell = currentCell.child;
-          }
-
-          spacedColChildren.add(currentCell);
-        }
-
-        rowWidgets.add(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: spacedColChildren,
-          ),
-        );
-      }
-    }
-
-    Widget tableContent = Container(
-      decoration: BoxDecoration(
-        border: hasBorders
-            ? Border(
-                top: BorderSide(color: borderColor, width: borderWidth),
-                left: BorderSide(color: borderColor, width: borderWidth),
-              )
-            : null,
-      ),
-      child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
-    );
-
-    if (isTableGrid && isLargeScreen && totalWidthPercent < 0.95) {
-      Alignment tableAlignment = Alignment.centerLeft;
-      if (tableSpan.tableAlignment?.toLowerCase() == "center")
-        tableAlignment = Alignment.center;
-      if (tableSpan.tableAlignment?.toLowerCase() == "right")
-        tableAlignment = Alignment.centerRight;
-
-      return Align(
-        alignment: tableAlignment,
-        child: FractionallySizedBox(
-          widthFactor: totalWidthPercent,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: tableContent,
-          ),
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: tableContent,
-    );
-  }
-
   List<InlineSpan> _buildStyledInteractiveText(
     SpanData span,
     List<InteractiveWord> interactives,
     BuildContext context, {
-    bool isInsideTableCell = false,
-    required ParagraphData para,
+    bool isInsideTableCell = false, // 🌟 دریافت وضعیت جدول
+    required ParagraphData
+    para, // 🌟 دریافت اطلاعات پاراگراف برای بررسی پس‌زمینه
   }) {
     double fontSize = 14.0;
     String? fontFamily;
@@ -573,15 +383,21 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       }
     }
 
+    // 🌟 استخراج پس‌زمینه موثر (آیا خود کلمه بک‌گراند دارد یا کل پاراگراف؟)
     Color? effectiveBgColor =
         _hexToColor(span.fillColor) ?? _hexToColor(para.fillColor);
 
+    // 🌟 موتور تشخیص تضاد رنگ (Contrast Engine)
     Color interactiveColor = Colors.blue;
     if (effectiveBgColor != null) {
+      // بررسی درخشندگی رنگ پس‌زمینه بین 0 (سیاه مطلق) تا 1 (سفید مطلق)
       if (effectiveBgColor.computeLuminance() < 0.4) {
-        interactiveColor = Colors.lightBlueAccent;
+        interactiveColor =
+            Colors.lightBlueAccent; // آبی روشن برای پس‌زمینه‌های تیره
       } else {
-        interactiveColor = Colors.blue.shade900;
+        interactiveColor = Colors
+            .blue
+            .shade900; // آبی تیره برای پس‌زمینه‌های روشن (مثل زرد یا خاکستری)
       }
     }
 
@@ -589,7 +405,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
 
     if (isAudioLink) {
-      customTextColor = interactiveColor;
+      customTextColor = interactiveColor; // اعمال رنگ هوشمند روی لینک‌های صوتی
     }
 
     bool isInlineBorder = span.hasBorders == "true";
@@ -637,7 +453,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         interactives,
         context,
         baseStyle,
-        interactiveColor: interactiveColor,
+        interactiveColor: interactiveColor, // 🌟 ارسال رنگ هوشمند به موتور رندر
       );
     }
 
@@ -646,6 +462,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
           child: Container(
+            // 🌟 حذف پدینگ و مارجین برای متن‌های حاشیه‌دار داخل سلول‌های جدول
             padding: isInsideTableCell
                 ? EdgeInsets.zero
                 : const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
@@ -669,45 +486,11 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     return interactiveSpans;
   }
 
-  Color? _hexToColor(String? hexStr) {
-    if (hexStr == null || hexStr.isEmpty || hexStr.toLowerCase() == "auto")
-      return null;
-    String cleanHex = hexStr.replaceAll('#', '').trim();
-    if (cleanHex.length == 6) cleanHex = "FF$cleanHex";
-    int? colorVal = int.tryParse(cleanHex, radix: 16);
-    return colorVal != null ? Color(colorVal) : null;
-  }
-
-  String _mapFontFamily(String rawFontName) {
-    String normalized = rawFontName
-        .toLowerCase()
-        .replaceAll("-", "")
-        .replaceAll(" ", "");
-
-    if (normalized.contains("sourcesans")) return "Source Sans 3";
-    if (normalized.contains("times") || normalized.contains("major"))
-      return "Times New Roman";
-    if (normalized.contains("arial")) return "Arial";
-    if (normalized.contains("tahoma")) return "Tahoma";
-    if (normalized.contains("verdana")) return "Verdana";
-    if (normalized.contains("gadugi")) return "Gadugi";
-    if (normalized.contains("emoji")) return "Segoe UI Emoji";
-
-    if (normalized.contains("zar")) return "Zar";
-    if (normalized.contains("titr")) return "Titr";
-    if (normalized.contains("yekan")) {
-      if (normalized.contains("light")) return "YekanBakhLight";
-      if (normalized.contains("extra")) return "YekanBakhExtraBold";
-      return "YekanBakhBold";
-    }
-    return "Source Sans 3";
-  }
-
   Widget _buildLocalImage(
     String imageName, {
-    required bool isMobile,
+    bool isMobile = false,
     required double screenWidth,
-    required bool isImageCell,
+    bool isImageCell = false,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
@@ -738,6 +521,146 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildTable(
+    SpanData tableSpan,
+    double canvasWidth,
+    BuildContext context,
+  ) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isLargeScreen = screenWidth >= 600;
+
+    List<Widget> rowWidgets = [];
+    Color? tableBgColor = _hexToColor(tableSpan.fillColor);
+    bool hasBorders = tableSpan.hasBorders?.toLowerCase() == "true";
+
+    for (var row in tableSpan.tableRows) {
+      List<Widget> cellWidgets = [];
+
+      for (var cell in row.cells) {
+        if (cell.rowMerge == "continue") continue;
+
+        int flexValue = 1;
+        if (cell.widthPercent != null && cell.widthPercent! > 0) {
+          flexValue = (cell.widthPercent! * 100).toInt();
+        }
+
+        Color? cellBgColor = _hexToColor(cell.fillColor) ?? tableBgColor;
+        if (cell.isHeaderCell && cellBgColor == null) {
+          cellBgColor = Colors.grey.shade200;
+        }
+
+        MainAxisAlignment vAlign = MainAxisAlignment.start;
+        if (cell.vAlign == "center") vAlign = MainAxisAlignment.center;
+        if (cell.vAlign == "bottom") vAlign = MainAxisAlignment.end;
+
+        bool isImageCell =
+            cell.paragraphs.length == 1 &&
+            cell.paragraphs.first.spans.any((s) => s.type == "image");
+
+        // 🌟 اصلاح شرط تشخیص سلول خالی: فقط در صورتی سلول خالی است که تمام پاراگراف‌های آن متنی و پوچ باشند
+        bool isEmptyCell = cell.paragraphs.every(
+          (p) =>
+              p.spans.isEmpty ||
+              (p.spans.length == 1 &&
+                  p.spans.first.type == "text" &&
+                  p.spans.first.content.trim().isEmpty),
+        );
+
+        Widget cellContent = Container(
+          decoration: BoxDecoration(
+            color: cellBgColor,
+            border: hasBorders
+                ? Border(
+                    right: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                    bottom: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                  )
+                : null,
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: (isImageCell || isEmptyCell) ? 0.0 : 4.0,
+            vertical: (isImageCell || isEmptyCell) ? 0.0 : 4.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: vAlign,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: List.generate(cell.paragraphs.length, (pIndex) {
+              final p = cell.paragraphs[pIndex];
+              final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
+              final pNext = pIndex < cell.paragraphs.length - 1
+                  ? cell.paragraphs[pIndex + 1]
+                  : null;
+
+              return _buildParagraph(
+                p,
+                canvasWidth,
+                screenWidth,
+                context,
+                isImageCell: isImageCell,
+                isInsideTableCell: true,
+                prevPara: pPrev,
+                nextPara: pNext,
+              );
+            }),
+          ),
+        );
+
+        cellWidgets.add(
+          isLargeScreen
+              ? Expanded(flex: flexValue, child: cellContent)
+              : SizedBox(width: double.infinity, child: cellContent),
+        );
+      }
+
+      if (isLargeScreen) {
+        List<Widget> spacedRowChildren = [];
+        for (int i = 0; i < cellWidgets.length; i++) {
+          spacedRowChildren.add(cellWidgets[i]);
+          if (i != cellWidgets.length - 1) {
+            spacedRowChildren.add(const SizedBox(width: 24.0));
+          }
+        }
+
+        rowWidgets.add(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: spacedRowChildren,
+          ),
+        );
+      } else {
+        List<Widget> spacedColChildren = [];
+        for (int i = 0; i < cellWidgets.length; i++) {
+          spacedColChildren.add(cellWidgets[i]);
+          if (i != cellWidgets.length - 1) {
+            spacedColChildren.add(const SizedBox(height: 0.0));
+          }
+        }
+
+        rowWidgets.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 0.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: spacedColChildren,
+            ),
+          ),
+        );
+      }
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        border: hasBorders
+            ? Border(
+                top: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                left: BorderSide(color: Colors.grey.shade400, width: 0.5),
+              )
+            : null,
+      ),
+      child: Column(mainAxisSize: MainAxisSize.min, children: rowWidgets),
     );
   }
 }

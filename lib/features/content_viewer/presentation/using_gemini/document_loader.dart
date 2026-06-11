@@ -3,21 +3,22 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class DocumentLoader {
-  static Future<List<ParagraphData>> loadBookFromJson() async {
+  // 🌟 اصلاح خروجی متد به List<PageData> جهت پشتیبانی از شماره صفحات جداگانه
+  static Future<List<PageData>> loadBookFromJson() async {
     // خواندن فایل متنی از Assets
     String jsonString = await rootBundle.loadString('assets/data/book.json');
 
     // تبدیل به لیست داینامیک
     List<dynamic> jsonList = jsonDecode(jsonString);
 
-    List<ParagraphData> allParagraphs = [];
+    List<PageData> allPages = [];
 
-    // پیمایش صفحات و استخراج پاراگراف‌ها
+    // پیمایش صفحات و مپ کردن مستقیم به مدل PageData
     for (var pageJson in jsonList) {
       PageData page = PageData.fromJson(pageJson);
-      allParagraphs.addAll(page.paragraphs);
+      allPages.add(page);
     }
 
-    return allParagraphs;
+    return allPages;
   }
 }
