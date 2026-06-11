@@ -2177,59 +2177,7 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "In fact the only fence permitted in the town was built by the local authority, interestingly, with the aim of keeping humans out of the park, rather than containing the animals inside.",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "FillColor": "0099CC",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "Consequently, it is not unusual to see giraffes or elephants causing traffic jams, for example, and even predator attacks on humans are unnervingly common - a lion was recently said to have mauled and eaten an escaping burglar. Yet even after this, while some residents then called for all lions to be rounded up and shot, others suggested that",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "FillColor": "0099CC",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "they be allowed to walk the thoroughfares as a type of crime control, after an increase in the number of burglaries. Everywhere in Marloth Park, a wary",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "understanding exists between man and beast.",
+                            "Content": "In fact the only fence permitted in the town was built by the local authority, interestingly, with the aim of keeping humans out of the park, rather than containing the animals inside. Consequently, it is not unusual to see giraffes or elephants causing traffic jams, for example, and even predator attacks on humans are unnervingly common - a lion was recently said to have mauled and eaten an escaping burglar. Yet even after this, while some residents then called for all lions to be rounded up and shot, others suggested that they be allowed to walk the thoroughfares as a type of crime control, after an increase in the number of burglaries. Everywhere in Marloth Park, a wary understanding exists between man and beast.",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2348,46 +2296,16 @@
                             "TableRows": []
                           }
                         ]
-                      }
-                    ],
-                    "WidthPercent": 95.09,
-                    "IsHeaderCell": false
-                  }
-                ]
-              },
-              {
-                "IsHeader": false,
-                "Cells": [
-                  {
-                    "Paragraphs": [
+                      },
                       {
                         "Direction": "LTR",
+                        "FillColor": "0099CC",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 4.91,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "The real Hallstat is in Austria and is proud to be a traditional UNESCO* World Heritage Site. The Chinese Hallstat is a carbon copy, built in Guangdong province, China, by a millionaire who sponsored the construction of the imitation town. It cost approximately $940 million to build, and",
+                            "Content": "The real Hallstat is in Austria and is proud to be a traditional UNESCO* World Heritage Site. The Chinese Hallstat is a carbon copy, built in Guangdong province, China, by a millionaire who sponsored the construction of the imitation town. It cost approximately $940 million to build, and looks exactly like the real Hallstat, all the way down to its wooden houses, its narrow streets, and its funicular railway. When the residents of Austria's Hallstat (including the mayor) were invited to visit it, they expressed pride that their town was considered so improbably beautiful that it had been reproduced in its entirety, but they still had cause for complaint. Originally, the Chinese company had promised to meet with the Austrian residents to confirm that they were happy for their homes to be copied; instead, they simply sent their employees to Austria to fake photos, and they returned home to China without speaking to a single resident of the original Hallstat.",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2399,40 +2317,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "looks exactly like the real Hallstat, all the way down to its wooden houses, its narrow streets, and its funicular railway. When the residents of Austria's Hallstat (including the mayor) were invited to visit it, they expressed pride that their town was considered so improbably beautiful that it had been reproduced in its entirety, but they still had cause for complaint. Originally, the Chinese company had promised to meet",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "with the Austrian residents to confirm that they were happy for their homes to be copied; instead, they simply sent their employees to Austria to fake photos, and they returned home to China without speaking to a single resident of the original Hallstat.",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
+                        "FillColor": "0099CC",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
