@@ -1,4 +1,3 @@
-// 🔊 🎧 ▶ ▶️
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
@@ -50,15 +49,12 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    // تنظیم عرض بوم برای دسکتاپ و موبایل
     double canvasWidth = screenWidth > 800 ? 760.0 : screenWidth - 24;
 
     return Scaffold(
-      backgroundColor:
-          Colors.grey.shade200, // رنگ تیره تر برای تمایز بهتر برگه‌ها
+      backgroundColor: Colors.grey.shade200,
       body: SafeArea(
         child: Listener(
-          // 🌟 مدیریت هوشمند لمس جهت جلوگیری از تداخل زوم و اسکرول
           onPointerDown: (event) {
             _pointerCount++;
             if (_pointerCount >= 2) setState(() {});
@@ -85,7 +81,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
               child: SizedBox(
                 width: canvasWidth,
                 child: ListView.builder(
-                  // 🌟 قفل شدن اسکرول فقط در زمان زوم دو انگشتی
                   physics: (_pointerCount >= 2 || _isZoomed)
                       ? const NeverScrollableScrollPhysics()
                       : const BouncingScrollPhysics(),
@@ -99,12 +94,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      // ارتفاع محدود نمی‌شود و بر اساس محتوا به صورت طبیعی رشد می‌کند
                       children: [
-                        // هدر تفکیک‌کننده صفحات
                         _buildPageDivider(page.pageNumber),
-
-                        // بدنه فیزیکی برگه کاغذ
                         Container(
                           margin: const EdgeInsets.only(bottom: 32.0),
                           padding: const EdgeInsets.all(24.0),
@@ -419,7 +410,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
-  // 🌟 انجین قدرتمند جداول (بدون از دست رفتن هیچ کدام از استایل‌ها)
   Widget _buildTable(
     SpanData tableSpan,
     double canvasWidth,
@@ -438,7 +428,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     final bool isTableGrid = rawStyle.contains("tablegrid");
     final bool isBorderedTable = rawStyle.contains("borderedtable");
 
-    // قطعیت در حذف بوردر برای جداول Dotted و Grid
     final bool hideBorders = isDottedTable || isTableGrid;
 
     double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
@@ -464,6 +453,32 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
     for (var row in tableSpan.tableRows) {
       List<Widget> cellWidgets = [];
+
+      // 🌟 سیستم تشخیص هوشمند ردیف‌های کاملاً تصویری
+      bool hasAnyImage = false;
+      bool hasAnyText = false;
+
+      for (var cell in row.cells) {
+        bool isImg =
+            cell.paragraphs.length == 1 &&
+            cell.paragraphs.first.spans.any((s) => s.type == "image");
+        bool isEmpty = cell.paragraphs.every(
+          (p) =>
+              p.spans.isEmpty ||
+              (p.spans.length == 1 &&
+                  p.spans.first.type == "text" &&
+                  p.spans.first.content.trim().isEmpty),
+        );
+
+        if (isImg) {
+          hasAnyImage = true;
+        } else if (!isEmpty) {
+          hasAnyText = true;
+        }
+      }
+
+      // 🌟 اگر ردیف فقط شامل عکس (و سلول‌های خالی) باشد، آن را افقی نگه می‌داریم
+      bool isImageRow = hasAnyImage && !hasAnyText;
 
       for (var cell in row.cells) {
         List<Widget> cellParagraphs = [];
@@ -508,7 +523,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           ),
         );
 
-        if (isLargeScreen || isBorderedTable) {
+        // 🌟 اعمال رفتار یکپارچه برای صفحه‌های بزرگ، جداول اصلی و ردیف‌های تصویری
+        if (isLargeScreen || isBorderedTable || isImageRow) {
           if (currentCellWidth != null && currentCellWidth > 0) {
             cellWidgets.add(
               Expanded(
@@ -524,7 +540,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         }
       }
 
-      if (isLargeScreen || isBorderedTable) {
+      // 🌟 چیدمان افقی تضمینی برای ردیف‌های تصویری حتی در موبایل
+      if (isLargeScreen || isBorderedTable || isImageRow) {
         rowWidgets.add(
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -636,8 +653,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       fontStyle: span.markers.contains("i")
           ? FontStyle.italic
           : FontStyle.normal,
-      decoration:
-          (span.markers.contains("u")) //|| isAudioLink
+      decoration: (span.markers.contains("u") || isAudioLink)
           ? TextDecoration.underline
           : TextDecoration.none,
     );
@@ -647,7 +663,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     if (isAudioLink) {
       interactiveSpans.add(
         TextSpan(
-          text: '${span.content} 🔊', //🔊 🎧 ▶ ▶️
+          text: span.content,
           style: baseStyle,
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
@@ -713,6 +729,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         child: Image.asset(
           'assets/data/images/$imageName',
           fit: BoxFit.contain,
+          // عکس‌های خارج از جدول در موبایل ۸۵٪ پهنا می‌گیرند، اما عکس‌های درون جدول اندازه خودشان را حفظ می‌کنند
           width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
           errorBuilder: (context, error, stackTrace) {
             return Container(

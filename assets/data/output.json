@@ -165,7 +165,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 5.06,
+                    "WidthPercent": 5.02,
                     "IsHeaderCell": false
                   },
                   {
@@ -188,7 +188,6 @@
                         ]
                       },
                       {
-                        "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -510,26 +509,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.05,
-                    "IsHeaderCell": false
-                  },
-                  {
-                    "Paragraphs": [
-                      {
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
-                      }
-                    ],
-                    "WidthPercent": 41.88,
+                    "WidthPercent": 94.98,
                     "IsHeaderCell": false
                   }
                 ]
@@ -578,7 +558,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 5.06,
+                    "WidthPercent": 5.02,
                     "IsHeaderCell": false
                   },
                   {
@@ -601,8 +581,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 53.05,
-                    "ColSpan": 2,
+                    "WidthPercent": 94.98,
                     "IsHeaderCell": false
                   }
                 ]
@@ -4562,8 +4541,8 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 19.99,
-                    "ColSpan": 5,
+                    "WidthPercent": 50.0,
+                    "ColSpan": 2,
                     "IsHeaderCell": false
                   }
                 ]
@@ -4589,9 +4568,34 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 19.99,
+                    "WidthPercent": 50.0,
                     "IsHeaderCell": false
                   },
+                  {
+                    "Paragraphs": [
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "",
+                            "Markers": [],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      }
+                    ],
+                    "WidthPercent": 50.0,
+                    "IsHeaderCell": false
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
                   {
                     "Paragraphs": [
                       {
@@ -4610,7 +4614,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 19.99,
+                    "WidthPercent": 50.0,
                     "IsHeaderCell": false
                   },
                   {
@@ -4631,9 +4635,14 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 20.0,
+                    "WidthPercent": 50.0,
                     "IsHeaderCell": false
-                  },
+                  }
+                ]
+              },
+              {
+                "IsHeader": false,
+                "Cells": [
                   {
                     "Paragraphs": [
                       {
@@ -4652,7 +4661,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 20.0,
+                    "WidthPercent": 50.0,
                     "IsHeaderCell": false
                   },
                   {
@@ -4673,7 +4682,7 @@
                         ]
                       }
                     ],
-                    "WidthPercent": 20.0,
+                    "WidthPercent": 50.0,
                     "IsHeaderCell": false
                   }
                 ]
