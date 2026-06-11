@@ -1,3 +1,4 @@
+// 🔊 🎧 ▶ ▶️
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
@@ -49,17 +50,18 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double canvasWidth = screenWidth > 800 ? 760.0 : screenWidth - 32;
+    // تنظیم عرض بوم برای دسکتاپ و موبایل
+    double canvasWidth = screenWidth > 800 ? 760.0 : screenWidth - 24;
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade100, // رنگ پس‌زمینه بیرونی
+      backgroundColor:
+          Colors.grey.shade200, // رنگ تیره تر برای تمایز بهتر برگه‌ها
       body: SafeArea(
         child: Listener(
+          // 🌟 مدیریت هوشمند لمس جهت جلوگیری از تداخل زوم و اسکرول
           onPointerDown: (event) {
             _pointerCount++;
-            if (_pointerCount >= 2) {
-              setState(() {});
-            }
+            if (_pointerCount >= 2) setState(() {});
           },
           onPointerUp: (event) {
             _pointerCount =
@@ -78,16 +80,17 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
             scaleEnabled: true,
             panEnabled: _isZoomed || _pointerCount > 1,
             minScale: 1.0,
-            maxScale: 3.0,
+            maxScale: 3.5,
             child: Center(
               child: SizedBox(
                 width: canvasWidth,
                 child: ListView.builder(
+                  // 🌟 قفل شدن اسکرول فقط در زمان زوم دو انگشتی
                   physics: (_pointerCount >= 2 || _isZoomed)
                       ? const NeverScrollableScrollPhysics()
                       : const BouncingScrollPhysics(),
                   padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
+                    vertical: 24.0,
                     horizontal: 8.0,
                   ),
                   itemCount: widget.documentPages.length,
@@ -96,21 +99,22 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                      // ارتفاع محدود نمی‌شود و بر اساس محتوا به صورت طبیعی رشد می‌کند
                       children: [
-                        // هدر تفکیک‌کننده و شماره صفحه
+                        // هدر تفکیک‌کننده صفحات
                         _buildPageDivider(page.pageNumber),
 
-                        // بدنه فیزیکی صفحه کاغذ
+                        // بدنه فیزیکی برگه کاغذ
                         Container(
-                          margin: const EdgeInsets.only(bottom: 24.0),
+                          margin: const EdgeInsets.only(bottom: 32.0),
                           padding: const EdgeInsets.all(24.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.04),
-                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.08),
+                                blurRadius: 12,
                                 offset: const Offset(0, 4),
                               ),
                             ],
@@ -154,16 +158,17 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
 
   Widget _buildPageDivider(int pageNumber) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.only(bottom: 16.0),
       child: Row(
         children: [
-          Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1.2)),
+          Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade300),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -171,13 +176,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade700,
-                  letterSpacing: 1.0,
+                  color: Colors.grey.shade600,
+                  letterSpacing: 1.2,
                 ),
               ),
             ),
           ),
-          Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1.2)),
+          Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
         ],
       ),
     );
@@ -314,7 +319,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         }
       } else if (span.type == "table") {
         flushText();
-        blockElements.add(_buildTable(span, canvasWidth, context));
+        blockElements.add(_buildTable(span, canvasWidth, screenWidth, context));
       }
     }
 
@@ -414,13 +419,13 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     );
   }
 
-  // 🌟 تغییر ورودی متد: اضافه شدن canvasWidth برای حل خطای اول و سوم
+  // 🌟 انجین قدرتمند جداول (بدون از دست رفتن هیچ کدام از استایل‌ها)
   Widget _buildTable(
     SpanData tableSpan,
     double canvasWidth,
+    double screenWidth,
     BuildContext context,
   ) {
-    final double screenWidth = MediaQuery.of(context).size.width;
     final bool isLargeScreen = screenWidth > 600;
 
     final String rawStyle =
@@ -433,7 +438,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     final bool isTableGrid = rawStyle.contains("tablegrid");
     final bool isBorderedTable = rawStyle.contains("borderedtable");
 
-    // 🌟 جلوگیری قطعی از رندر شدن Border برای استایل‌های Dotted و Grid
+    // قطعیت در حذف بوردر برای جداول Dotted و Grid
     final bool hideBorders = isDottedTable || isTableGrid;
 
     double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
@@ -441,7 +446,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
         _hexToColor(tableSpan.borderColor) ??
         (isBorderedTable ? Colors.black : Colors.grey.shade400);
 
-    // تولید کادرهای سلول و جدول برای BorderedTable بدون ایجاد خطوط دوتایی ضخیم
     BoxBorder? cellBorder;
     BoxBorder? tableBorder;
 
@@ -464,9 +468,28 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       for (var cell in row.cells) {
         List<Widget> cellParagraphs = [];
 
-        for (var p in cell.paragraphs) {
+        bool isImageCell =
+            cell.paragraphs.length == 1 &&
+            cell.paragraphs.first.spans.any((s) => s.type == "image");
+
+        for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
+          final p = cell.paragraphs[pIndex];
+          final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
+          final pNext = pIndex < cell.paragraphs.length - 1
+              ? cell.paragraphs[pIndex + 1]
+              : null;
+
           cellParagraphs.add(
-            _buildParagraph(p, canvasWidth, screenWidth, context),
+            _buildParagraph(
+              p,
+              canvasWidth,
+              screenWidth,
+              context,
+              isImageCell: isImageCell,
+              isInsideTableCell: true,
+              prevPara: pPrev,
+              nextPara: pNext,
+            ),
           );
         }
 
@@ -476,7 +499,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             color: _hexToColor(cell.fillColor),
-            border: cellBorder, // 🌟 اعمال حاشیه فقط اگر hideBorders نبود
+            border: cellBorder,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -522,8 +545,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       margin: const EdgeInsets.symmetric(vertical: 12.0),
       decoration: BoxDecoration(
         color: _hexToColor(tableSpan.fillColor),
-        border:
-            tableBorder, // 🌟 اعمال حاشیه دورِ جدول فقط اگر hideBorders نبود
+        border: tableBorder,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -614,7 +636,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       fontStyle: span.markers.contains("i")
           ? FontStyle.italic
           : FontStyle.normal,
-      decoration: (span.markers.contains("u") || isAudioLink)
+      decoration:
+          (span.markers.contains("u")) //|| isAudioLink
           ? TextDecoration.underline
           : TextDecoration.none,
     );
@@ -624,7 +647,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     if (isAudioLink) {
       interactiveSpans.add(
         TextSpan(
-          text: '${span.content}  ▶', // ⏸ ▶
+          text: '${span.content} 🔊', //🔊 🎧 ▶ ▶️
           style: baseStyle,
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
