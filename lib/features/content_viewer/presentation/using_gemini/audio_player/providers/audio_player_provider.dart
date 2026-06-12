@@ -88,16 +88,26 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     });
     _player.processingStateStream.listen((status) {
       if (status == ProcessingState.completed) {
-        // ۱. موقعیت را به ابتدای فایل برمی‌گردانیم (بدون reset کردن currentTopic)
         _player.seek(Duration.zero);
         if (!state.isRepeatEnabled) {
           _player.pause();
         }
         state = state.copyWith(position: Duration.zero);
+        // 🌟 ریست کردن گرافیک نوار پیشرفت هنگام اتمام فایل
+        if (state.currentPath != null) {
+          _box.write('pos_${state.currentPath}', 0);
+        }
       }
     });
+
     _durSub = _player.durationStream.listen((dur) {
-      if (ref.mounted) state = state.copyWith(duration: dur ?? Duration.zero);
+      if (ref.mounted) {
+        state = state.copyWith(duration: dur ?? Duration.zero);
+        // 🌟 ذخیره مدت زمان کل فایل برای محاسبه درصد پیشرفت در UI
+        if (state.currentPath != null && dur != null) {
+          _box.write('dur_${state.currentPath}', dur.inMilliseconds);
+        }
+      }
     });
 
     // لغو کردن تمام استریم‌ها و آزاد کردن حافظه موقع نابودی پرووایدر

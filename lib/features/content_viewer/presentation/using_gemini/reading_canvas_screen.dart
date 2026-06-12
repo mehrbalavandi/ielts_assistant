@@ -2,6 +2,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 import 'package:just_audio/just_audio.dart';
@@ -676,21 +677,21 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     List<InlineSpan> interactiveSpans = [];
 
     if (isAudioLink) {
+      String fileName = span.url!.replaceFirst("audio:", "");
+
       interactiveSpans.add(
-        TextSpan(
-          text: span.content,
-          style: baseStyle,
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              String fileName = span.url!.replaceFirst("audio:", "");
-              // 🌟 ارسال دستور پخش به ریورپاد
-              ref
-                  .read(audioPlayerProvider.notifier)
-                  .playFile('assets/data/audio/$fileName');
-            },
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: InlineAudioLink(
+            fileName: fileName,
+            text: span.content,
+            baseColor:
+                interactiveColor, // رنگی که هوشمندانه بر اساس بک‌گراند تعیین کرده بودید
+          ),
         ),
       );
     } else {
+      // ... ادامه کدهای قبلی برای کلمات تعاملی (InteractiveText) ... else {
       interactiveSpans = TextRenderEngine.buildInteractiveText(
         span.content,
         interactives,
@@ -762,6 +763,108 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+// 🌟 ویجت هوشمند برای لینک‌های صوتی با قابلیت نمایش پیشرفت
+class InlineAudioLink extends ConsumerWidget {
+  final String fileName;
+  final String text;
+  final Color baseColor;
+
+  const InlineAudioLink({
+    super.key,
+    required this.fileName,
+    required this.text,
+    required this.baseColor,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // گوش دادن به استیت پلیر ریورپاد
+    final audioState = ref.watch(audioPlayerProvider);
+    final fullPath = 'assets/data/audio/$fileName';
+
+    // خواندن داده‌های آفلاین از حافظه (بدون نیاز به ایمپورت اضافه، GetStorage به صورت سینگلتون کار میکند)
+    // نکته: اگر در این فایل GetStorage ایمپورت نشده، پکیج آن را در بالای صفحه اضافه کنید:
+    // import 'package:get_storage/get_storage.dart';
+    final box = GetStorage();
+
+    // بررسی وضعیت
+    bool isCurrent = audioState.currentPath == fullPath;
+    bool isPlaying = isCurrent && audioState.isPlaying;
+
+    // استخراج میلی‌ثانیه‌ها (یا از پلیر زنده یا از حافظه)
+    int currentPosMs = isCurrent
+        ? audioState.position.inMilliseconds
+        : (box.read('pos_$fullPath') ?? 0);
+    int currentDurMs = isCurrent && audioState.duration.inMilliseconds > 0
+        ? audioState.duration.inMilliseconds
+        : (box.read('dur_$fullPath') ?? 0);
+
+    // محاسبه درصد پیشرفت (عددی بین 0.0 تا 1.0)
+    double progress = currentDurMs > 0
+        ? (currentPosMs / currentDurMs).clamp(0.0, 1.0)
+        : 0.0;
+
+    return GestureDetector(
+      onTap: () {
+        if (isPlaying) {
+          ref.read(audioPlayerProvider.notifier).pause();
+        } else {
+          ref.read(audioPlayerProvider.notifier).playFile(fullPath);
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        decoration: BoxDecoration(
+          color: baseColor.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: baseColor.withOpacity(0.3)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 22,
+              height: 22,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    value: progress, // اگر 0 باشد، دایره خالی می‌ماند
+                    strokeWidth: 2.5,
+                    backgroundColor: baseColor.withOpacity(0.2),
+                    valueColor: AlwaysStoppedAnimation<Color>(baseColor),
+                  ),
+                  Icon(
+                    isPlaying
+                        ? Icons.pause_rounded
+                        : (progress > 0 && progress < 1
+                              ? Icons.play_arrow_rounded
+                              : Icons.play_arrow_rounded),
+                    size: 16,
+                    color: baseColor,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              text,
+              style: TextStyle(
+                color: baseColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ],
         ),
       ),
     );
