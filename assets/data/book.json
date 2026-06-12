@@ -282,9 +282,10 @@
                     "Paragraphs": [
                       {
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
+                        "SpaceBefore": 12.0,
                         "Spans": [
                           {
+                            "Direction": "LTR",
                             "Type": "text",
                             "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
                             "Markers": [
@@ -807,48 +808,38 @@
                             "TableRows": []
                           }
                         ],
-                        "translationFa": "بخش شمال غربی اسکاتلند که به ارتفاعات شهرت دارد، یکی از خیره‌کننده‌ترین مناطق در بریتانیا است.\nاین منطقه که با کوه‌های ناهموار و دریاچه‌های عمیق احاطه شده است، سالانه هزاران گردشگر را به خود جذب می‌کند.\nبرای یک مسافر، پیاده‌روی در این کوه‌ها تجربه بی‌نظیری از مواجهه با حیات وحش دست‌نخورده را رقم می‌زند.",
-                        "translationAr": "تعد المنطقة الشمالية الغربية من اسكتلندا، والمعروفة باسم المرتفعات، واحدة من أكثر المناطق روعة في المملكة المتحدة.\nتتميز هذه المنطقة بالجبال الوعرة والبحيرات العميقة، وتجذب آلاف السياح سنوياً.\nبالنسبة للمسافر، فإن المشي لمسافات طويلة في هذه الجبال يوفر تجربة فريدة لمواجهة الحياة البرية البكر.",
+                        "translationFa": "یک منطقه جغرافیایی در کشور خود را در نظر بگیرید و یک پاراگراف کوتاه مانند پاراگراف بالا بنویسید، و به استفاده صحیح از حروف تعریف توجه ویژه‌ای داشته باشید. پاراگراف خود را با یک هم‌کلاسی عوض کنید و در صورت نیاز کار یکدیگر را اصلاح کنید.",
+                        "translationAr": "فكر في منطقة جغرافية في بلدك واكتب فقرة قصيرة مثل الفقرة أعلاه، مع إعطاء اهتمام خاص للاستخدام الصحيح لأدوات التعريف والتنكير. تبادل فقرتك مع زميل وصححا عمل بعضكما البعض عند الضرورة.",
                         "Interactives": [
                           {
-                            "exactText": "the Highlands",
-                            "translationFa": "ارتفاعات (منطقه‌ای کوهستانی در اسکاتلند)",
-                            "translationAr": "المرتفعات",
-                            "pronounceFa": "the High-landz",
-                            "pronounceAr": "ذا هايلاندز",
-                            "explanationFa": "نکته آیلتس: برای نام‌های جغرافیایی که به صورت جمع هستند (مثل زنجیره کوه‌ها یا مناطق خاص مانند Highlands) حتماً باید از حرف تعریف معین 'the' استفاده شود.",
-                            "explanationAr": "ملاحظة آيلتس: بالنسبة للأسماء الجغرافية التي تأتي بصيغة الجمع (مثل سلاسل الجبال أو مناطق معينة كـ Highlands)، يجب دائماً استخدام أداة التعريف 'the'.",
+                            "exactText": "geographical area",
+                            "translationFa": "منطقه جغرافیایی",
+                            "translationAr": "منطقة جغرافية",
+                            "pronounceFa": "ji-og-raf-i-k'l eeh-ree-uh",
+                            "pronounceAr": "ji-og-raf-i-k'l eeh-ree-uh",
+                            "explanationFa": "یک کالوکیشن رسمی و آکادمیک، بسیار مناسب برای توصیف مکان‌ها در تسک 2 رایتینگ و پارت 2 اسپیکینگ آیلتس.",
+                            "explanationAr": "متلازمة لفظية رسمية وأكاديمية، مناسبة جداً لوصف الأماكن في المهمة 2 من الكتابة والجزء 2 من المحادثة في آيلتس.",
                             "cefrLevel": "B2"
                           },
                           {
-                            "exactText": "the United Kingdom",
-                            "translationFa": "بریتانیا (پادشاهی متحده)",
-                            "translationAr": "المملكة المتحدة",
-                            "pronounceFa": "the You-night-ed King-dom",
-                            "pronounceAr": "ذا يونايتد كينغدوم",
-                            "explanationFa": "نکته آیلتس: کشورهایی که در نام خود کلماتی مثل Kingdom، Republic یا States دارند، برخلاف بیشتر کشورها حتماً نیازمند 'the' هستند.",
-                            "explanationAr": "ملاحظة آيلتس: الدول التي تحتوي أسماؤها على كلمات مثل Kingdom أو Republic أو States تحتاج دائماً إلى 'the'، على عكس معظم الدول الأخرى.",
-                            "cefrLevel": "B1"
+                            "exactText": "paying special attention",
+                            "translationFa": "توجه ویژه داشتن / دقت فراوان کردن",
+                            "translationAr": "إعطاء اهتمام خاص / التركيز الشديد",
+                            "pronounceFa": "pei-ing spesh-l uh-ten-shn",
+                            "pronounceAr": "pei-ing spesh-l uh-ten-shn",
+                            "explanationFa": "ساختار پیشرفته برای تأکید بر یک موضوع خاص؛ استفاده از این دست کالوکیشن‌ها نمره بخش Lexical Resource شما را افزایش می‌دهد.",
+                            "explanationAr": "تركيبة متقدمة للتركيز على موضوع معين؛ استخدام مثل هذه المتلازمات يرفع درجتك في معيار الثروة اللغوية (Lexical Resource).",
+                            "cefrLevel": "B2"
                           },
                           {
-                            "exactText": "rugged mountains",
-                            "translationFa": "کوه‌های ناهموار / صخره‌ای",
-                            "translationAr": "الجبال الوعرة",
-                            "pronounceFa": "rug-id moun-tinz",
-                            "pronounceAr": "راغيد ماونتينز",
-                            "explanationFa": "یک کالوکیشن (تلازم کلماتی) بسیار عالی برای توصیف طبیعت و جغرافیا در بخش Speaking و Writing آیلتس. توجه کنید که برای اسامی جمع عام در حالت کلی از حرف تعریف استفاده نمی‌شود.",
-                            "explanationAr": "متلازمة لفظية ممتازة لوصف الطبيعة والجغرافيا في قسمي المحادثة والكتابة في آيلتس. لاحظ أن الأسماء الجمع العامة لا تأخذ أداة تعريف في الحالة العامة.",
-                            "cefrLevel": "C1"
-                          },
-                          {
-                            "exactText": "a traveler",
-                            "translationFa": "یک مسافر (به صورت عام)",
-                            "translationAr": "مسافر (بشكل عام)",
-                            "pronounceFa": "a trav-el-er",
-                            "pronounceAr": "أ ترافيلير",
-                            "explanationFa": "استفاده از حرف تعریف نامعین 'a' برای اشاره به یک فرد یا شیء به عنوان نماینده‌ای از یک گروه کل در ساختارهای تعمیمی آزمون آیلتس.",
-                            "explanationAr": "استخدام أداة التنكير 'a' للإشارة إلى شخص أو شيء كممثل لمجموعة كاملة في جمل التعميم باختبار آيلتس.",
-                            "cefrLevel": "B1"
+                            "exactText": "swap",
+                            "translationFa": "عوض کردن / تبادل کردن",
+                            "translationAr": "تبادل / تبديل",
+                            "pronounceFa": "swop",
+                            "pronounceAr": "swop",
+                            "explanationFa": "فعلی کاربردی برای توصیف فرآیندها، تعاملات یا جابجایی دو چیز با یکدیگر در آزمون آیلتس.",
+                            "explanationAr": "فعل عملي لوصف العمليات، التفاعلات، أو استبدال شيئين ببعضهما البعض في اختبار آيلتس.",
+                            "cefrLevel": "B2"
                           }
                         ]
                       }
@@ -1324,7 +1315,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1723,7 +1714,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1969,7 +1960,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2075,7 +2066,7 @@
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 1.4,
+                        "SpaceBefore": 8.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -2362,7 +2353,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2707,7 +2698,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2833,7 +2824,7 @@
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
+                        "SpaceBefore": 12.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -3090,7 +3081,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3552,7 +3543,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3772,7 +3763,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4007,7 +3998,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4276,7 +4267,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4609,7 +4600,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4686,7 +4677,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4916,8 +4907,8 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 12.0,
+                        "SpaceAfter": 12.0,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -4935,7 +4926,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -6007,7 +5998,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {

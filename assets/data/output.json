@@ -171,7 +171,8 @@
                   {
                     "Paragraphs": [
                       {
-                        "SpaceAfter": 0.0,
+                        "Direction": "LTR",
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -902,7 +903,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1115,7 +1116,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1246,7 +1247,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1284,7 +1285,7 @@
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 1.4,
+                        "SpaceBefore": 8.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -1482,7 +1483,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1661,7 +1662,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -1699,7 +1700,7 @@
                       {
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
+                        "SpaceBefore": 12.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -1874,7 +1875,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2153,7 +2154,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2281,7 +2282,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2373,7 +2374,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2552,7 +2553,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2779,7 +2780,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -2856,7 +2857,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -3086,8 +3087,8 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 12.0,
+                        "SpaceAfter": 12.0,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
@@ -3105,7 +3106,7 @@
                       },
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
@@ -4177,7 +4178,7 @@
                     "Paragraphs": [
                       {
                         "Direction": "LTR",
-                        "SpaceAfter": 0.0,
+                        "SpaceAfter": 12.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
