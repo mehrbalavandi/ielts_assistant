@@ -1,3 +1,4 @@
+// 🔊 🎧 ▶ ▶️
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
@@ -653,7 +654,8 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
       fontStyle: span.markers.contains("i")
           ? FontStyle.italic
           : FontStyle.normal,
-      decoration: (span.markers.contains("u") || isAudioLink)
+      decoration:
+          (span.markers.contains("u")) // || isAudioLink)
           ? TextDecoration.underline
           : TextDecoration.none,
     );
@@ -663,7 +665,7 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     if (isAudioLink) {
       interactiveSpans.add(
         TextSpan(
-          text: span.content,
+          text: '${span.content} 🔊', //🔊 🎧 ▶ ▶️
           style: baseStyle,
           recognizer: TapGestureRecognizer()
             ..onTap = () async {

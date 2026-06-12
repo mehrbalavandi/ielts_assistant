@@ -281,8 +281,8 @@
                   {
                     "Paragraphs": [
                       {
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 12.0,
+                        "SpaceAfter": 12.0,
+                        "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Direction": "LTR",
