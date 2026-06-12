@@ -50,7 +50,7 @@ class TelegramAudioPlayer extends ConsumerWidget {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.description_rounded, color: Colors.grey),
+              icon: const Icon(Icons.description_rounded),
               tooltip: "مشاهده متن صوتی",
               onPressed: () {
                 // باز کردن صفحه متن صوتی به صورت تمام صفحه و مودال
