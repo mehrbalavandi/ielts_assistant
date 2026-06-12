@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_script_viewer_sheet.dart';
 
 class TelegramAudioPlayer extends ConsumerWidget {
   const TelegramAudioPlayer({super.key});
@@ -117,13 +118,33 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            state.currentPath?.split('/').last ?? '',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.description_rounded,
+                  color: Colors.white,
+                ),
+                tooltip: "مشاهده متن صوتی",
+                onPressed: () {
+                  // باز کردن صفحه متن صوتی به صورت تمام صفحه و مودال
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true, // برای اینکه بتواند تمام صفحه شود
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => const AudioscriptViewerSheet(),
+                  );
+                },
+              ),
+              Text(
+                state.currentPath?.split('/').last ?? '',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
 
@@ -199,8 +220,9 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
                         label: "B",
                         isActive: state.pointB != null,
                         onTap: () {
-                          if (state.pointA != null)
+                          if (state.pointA != null) {
                             ref.read(audioPlayerProvider.notifier).setPointB();
+                          }
                         },
                       ),
                       if (state.pointA != null)
