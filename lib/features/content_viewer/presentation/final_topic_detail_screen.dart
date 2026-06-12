@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/common/enums.dart';
-import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/presentation/widgets/expandable_mini_player.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/revealed_blank_provider.dart';
 import 'package:ielts_assistant/features/home/presentation/widgets/add_or_edit_tempelate.dart';

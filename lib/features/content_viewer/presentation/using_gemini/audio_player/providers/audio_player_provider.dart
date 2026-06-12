@@ -111,7 +111,7 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     return AudioPlayerState();
   }
 
-  Future<void> playFile(String path) async {
+  Future<void> playFileOldMethod(String path) async {
     try {
       // اگر همین فایل در حال پخش است، فقط ادامه بده
       if (state.currentPath == path && _player.duration != null) {
@@ -129,6 +129,42 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
         position: Duration(milliseconds: lastPosMs),
       );
       await _player.setFilePath(path);
+      await _player.seek(Duration(milliseconds: lastPosMs));
+      _player.play();
+    } catch (e) {
+      if (e is PlayerInterruptedException) {
+        debugPrint("بارگذاری قبلی متوقف شد تا فایل جدید لود شود.");
+      } else {
+        debugPrint("خطا در پخش فایل: $e");
+      }
+    }
+  }
+
+  Future<void> playFile(String path) async {
+    try {
+      // اگر همین فایل در حال پخش است، فقط ادامه بده
+      if (state.currentPath == path && _player.duration != null) {
+        _player.play();
+        return;
+      }
+      await _player.stop();
+
+      final lastPosMs = _box.read('pos_$path') ?? 0;
+
+      state = state.copyWith(
+        currentPath: path,
+        pointA: () => null,
+        pointB: () => null,
+        position: Duration(milliseconds: lastPosMs),
+      );
+
+      // 🌟 ترفند مهم: تشخیص خودکار فایل‌های Asset از فایل‌های حافظه
+      if (path.startsWith('assets/')) {
+        await _player.setAsset(path);
+      } else {
+        await _player.setFilePath(path);
+      }
+
       await _player.seek(Duration(milliseconds: lastPosMs));
       _player.play();
     } catch (e) {

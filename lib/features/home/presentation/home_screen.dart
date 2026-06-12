@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/common/enums.dart';
-import 'package:ielts_assistant/features/audio_player/presentation/widgets/expandable_mini_player.dart';
-import 'package:ielts_assistant/features/audio_player/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/presentation/widgets/expandable_mini_player.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/final_topic_detail_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/home/providers/navigation_provider.dart';

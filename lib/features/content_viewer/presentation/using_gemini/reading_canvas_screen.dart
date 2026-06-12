@@ -5,20 +5,24 @@ import 'package:float_column/float_column.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
+// آدرس دقیق زیر را بر اساس محل ذخیره فایل بالا اصلاح کنید:
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
 
-class ReadingCanvasScreen extends StatefulWidget {
+class ReadingCanvasScreen extends ConsumerStatefulWidget {
   final List<PageData> documentPages;
-
   const ReadingCanvasScreen({super.key, required this.documentPages});
 
   @override
-  State<ReadingCanvasScreen> createState() => _ReadingCanvasScreenState();
+  ConsumerState<ReadingCanvasScreen> createState() =>
+      _ReadingCanvasScreenState();
 }
 
-class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final TransformationController _transformationController =
       TransformationController();
+  // ... بقیه کدهای مربوط به زوم ...
 
   bool _isZoomed = false;
   int _pointerCount = 0;
@@ -43,7 +47,6 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
   void dispose() {
     _transformationController.removeListener(_handleTransformationChanged);
     _transformationController.dispose();
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -55,94 +58,104 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       body: SafeArea(
-        child: Listener(
-          onPointerDown: (event) {
-            _pointerCount++;
-            if (_pointerCount >= 2) setState(() {});
-          },
-          onPointerUp: (event) {
-            _pointerCount =
-                Matrix4.identity() == _transformationController.value
-                ? 0
-                : _pointerCount - 1;
-            if (_pointerCount < 0) _pointerCount = 0;
-            setState(() {});
-          },
-          onPointerCancel: (event) {
-            _pointerCount = 0;
-            setState(() {});
-          },
-          child: InteractiveViewer(
-            transformationController: _transformationController,
-            scaleEnabled: true,
-            panEnabled: _isZoomed || _pointerCount > 1,
-            minScale: 1.0,
-            maxScale: 3.5,
-            child: Center(
-              child: SizedBox(
-                width: canvasWidth,
-                child: ListView.builder(
-                  physics: (_pointerCount >= 2 || _isZoomed)
-                      ? const NeverScrollableScrollPhysics()
-                      : const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 24.0,
-                    horizontal: 8.0,
-                  ),
-                  itemCount: widget.documentPages.length,
-                  itemBuilder: (context, pageIndex) {
-                    final page = widget.documentPages[pageIndex];
+        child: Column(
+          children: [
+            const TelegramAudioPlayer(),
+            Expanded(
+              child: Listener(
+                onPointerDown: (event) {
+                  _pointerCount++;
+                  if (_pointerCount >= 2) setState(() {});
+                },
+                onPointerUp: (event) {
+                  _pointerCount =
+                      Matrix4.identity() == _transformationController.value
+                      ? 0
+                      : _pointerCount - 1;
+                  if (_pointerCount < 0) _pointerCount = 0;
+                  setState(() {});
+                },
+                onPointerCancel: (event) {
+                  _pointerCount = 0;
+                  setState(() {});
+                },
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+                  scaleEnabled: true,
+                  panEnabled: _isZoomed || _pointerCount > 1,
+                  minScale: 1.0,
+                  maxScale: 3.5,
+                  child: Center(
+                    child: SizedBox(
+                      width: canvasWidth,
+                      child: ListView.builder(
+                        physics: (_pointerCount >= 2 || _isZoomed)
+                            ? const NeverScrollableScrollPhysics()
+                            : const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24.0,
+                          horizontal: 8.0,
+                        ),
+                        itemCount: widget.documentPages.length,
+                        itemBuilder: (context, pageIndex) {
+                          final page = widget.documentPages[pageIndex];
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        _buildPageDivider(page.pageNumber),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 32.0),
-                          padding: const EdgeInsets.all(24.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.08),
-                                blurRadius: 12,
-                                offset: const Offset(0, 4),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _buildPageDivider(page.pageNumber),
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 32.0),
+                                padding: const EdgeInsets.all(24.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.08),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: List.generate(
+                                    page.paragraphs.length,
+                                    (pIndex) {
+                                      final p = page.paragraphs[pIndex];
+                                      final pPrev = pIndex > 0
+                                          ? page.paragraphs[pIndex - 1]
+                                          : null;
+                                      final pNext =
+                                          pIndex < page.paragraphs.length - 1
+                                          ? page.paragraphs[pIndex + 1]
+                                          : null;
+
+                                      return _buildParagraph(
+                                        p,
+                                        canvasWidth,
+                                        screenWidth,
+                                        context,
+                                        isInsideTableCell: false,
+                                        prevPara: pPrev,
+                                        nextPara: pNext,
+                                      );
+                                    },
+                                  ),
+                                ),
                               ),
                             ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: List.generate(page.paragraphs.length, (
-                              pIndex,
-                            ) {
-                              final p = page.paragraphs[pIndex];
-                              final pPrev = pIndex > 0
-                                  ? page.paragraphs[pIndex - 1]
-                                  : null;
-                              final pNext = pIndex < page.paragraphs.length - 1
-                                  ? page.paragraphs[pIndex + 1]
-                                  : null;
-
-                              return _buildParagraph(
-                                p,
-                                canvasWidth,
-                                screenWidth,
-                                context,
-                                isInsideTableCell: false,
-                                prevPara: pPrev,
-                                nextPara: pNext,
-                              );
-                            }),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -665,18 +678,15 @@ class _ReadingCanvasScreenState extends State<ReadingCanvasScreen> {
     if (isAudioLink) {
       interactiveSpans.add(
         TextSpan(
-          text: '${span.content}', //🔊 🎧 ▶ ▶️
+          text: span.content,
           style: baseStyle,
           recognizer: TapGestureRecognizer()
-            ..onTap = () async {
+            ..onTap = () {
               String fileName = span.url!.replaceFirst("audio:", "");
-              try {
-                await _audioPlayer.stop();
-                await _audioPlayer.setAsset('assets/data/audio/$fileName');
-                _audioPlayer.play();
-              } catch (e) {
-                debugPrint("Error playing audio: $e");
-              }
+              // 🌟 ارسال دستور پخش به ریورپاد
+              ref
+                  .read(audioPlayerProvider.notifier)
+                  .playFile('assets/data/audio/$fileName');
             },
         ),
       );
