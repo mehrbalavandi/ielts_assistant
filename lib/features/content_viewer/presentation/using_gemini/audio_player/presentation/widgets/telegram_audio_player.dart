@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_script_viewer_sheet.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class TelegramAudioPlayer extends ConsumerWidget {
-  const TelegramAudioPlayer({super.key});
+  final List<PageData> documentPages;
+
+  const TelegramAudioPlayer({super.key, required this.documentPages});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,6 +47,20 @@ class TelegramAudioPlayer extends ConsumerWidget {
               onPressed: () {
                 final notifier = ref.read(audioPlayerProvider.notifier);
                 audioState.isPlaying ? notifier.pause() : notifier.resume();
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.description_rounded, color: Colors.grey),
+              tooltip: "مشاهده متن صوتی",
+              onPressed: () {
+                // باز کردن صفحه متن صوتی به صورت تمام صفحه و مودال
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true, // برای اینکه بتواند تمام صفحه شود
+                  backgroundColor: Colors.transparent,
+                  builder: (context) =>
+                      AudioscriptViewerSheet(documentPages: documentPages),
+                );
               },
             ),
             const SizedBox(width: 12),
@@ -118,33 +135,13 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.description_rounded,
-                  color: Colors.white,
-                ),
-                tooltip: "مشاهده متن صوتی",
-                onPressed: () {
-                  // باز کردن صفحه متن صوتی به صورت تمام صفحه و مودال
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true, // برای اینکه بتواند تمام صفحه شود
-                    backgroundColor: Colors.transparent,
-                    builder: (context) => const AudioscriptViewerSheet(),
-                  );
-                },
-              ),
-              Text(
-                state.currentPath?.split('/').last ?? '',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+          Text(
+            state.currentPath?.split('/').last ?? '',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           const SizedBox(height: 16),
 

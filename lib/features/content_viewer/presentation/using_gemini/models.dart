@@ -35,6 +35,7 @@ class InteractiveWord {
 }
 
 // ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
+// ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
 class ParagraphData {
   final List<SpanData> spans;
   final String direction;
@@ -46,9 +47,12 @@ class ParagraphData {
   final String? borderColor;
   final String? borderStyle;
 
-  // 🌟 فیلدهای جدید برای استخراج فاصله‌های واقعی از ورد
   final double spaceBefore;
   final double spaceAfter;
+
+  // 🌟 فیلدهای جدید اضافه شده برای استخراج زمان‌بندی فایل صوتی
+  final int? startMs;
+  final int? endMs;
 
   final String? translationFa;
   final String? translationAr;
@@ -62,8 +66,10 @@ class ParagraphData {
     this.hasBorders,
     this.borderColor,
     this.borderStyle,
-    this.spaceBefore = 0.0, // مقدار پیش‌فرض
-    this.spaceAfter = 0.0, // مقدار پیش‌فرض
+    this.spaceBefore = 0.0,
+    this.spaceAfter = 0.0,
+    this.startMs, // 🌟 اضافه شد
+    this.endMs, // 🌟 اضافه شد
     this.translationFa,
     this.translationAr,
     required this.interactives,
@@ -80,9 +86,10 @@ class ParagraphData {
       hasBorders: json['HasBorders'],
       borderColor: json['BorderColor'],
       borderStyle: json['BorderStyle'],
-      // 🌟 دریافت مقادیر فواصل به صورت ایمن
       spaceBefore: (json['SpaceBefore'] as num?)?.toDouble() ?? 0.0,
       spaceAfter: (json['SpaceAfter'] as num?)?.toDouble() ?? 0.0,
+      startMs: json['StartMs'] as int?, // 🌟 مپ کردن از JSON
+      endMs: json['EndMs'] as int?, // 🌟 مپ کردن از JSON
       translationFa: json['translationFa'],
       translationAr: json['translationAr'],
       interactives: interactivesList

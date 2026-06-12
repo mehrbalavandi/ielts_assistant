@@ -1,11 +1,9 @@
 // 🔊 🎧 ▶ ▶️
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
 // آدرس دقیق زیر را بر اساس محل ذخیره فایل بالا اصلاح کنید:
@@ -61,7 +59,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const TelegramAudioPlayer(),
+            TelegramAudioPlayer(documentPages: widget.documentPages),
             Expanded(
               child: Listener(
                 onPointerDown: (event) {
