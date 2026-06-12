@@ -783,6 +783,18 @@
                             "TextColor": "0563C1",
                             "InnerSpans": [],
                             "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "🔊",
+                            "Markers": [
+                              "b",
+                              "fn:Segoe UI Emoji"
+                            ],
+                            "Url": "audio:MindsetIELTS_L3_01.mp3",
+                            "TextColor": "0563C1",
+                            "InnerSpans": [],
+                            "TableRows": []
                           }
                         ]
                       }

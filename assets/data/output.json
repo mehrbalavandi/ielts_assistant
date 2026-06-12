@@ -521,6 +521,7 @@
                   {
                     "Paragraphs": [
                       {
+                        "Alignment": "J",
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
@@ -541,15 +542,29 @@
                         ]
                       },
                       {
+                        "Alignment": "J",
+                        "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "25",
+                            "Content": "25 ",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3"
+                            ],
+                            "Url": "audio:MindsetIELTS_L3_01.mp3",
+                            "TextColor": "0563C1",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          },
+                          {
+                            "Type": "text",
+                            "Content": "🔊",
+                            "Markers": [
+                              "b",
+                              "fn:Segoe UI Emoji"
                             ],
                             "Url": "audio:MindsetIELTS_L3_01.mp3",
                             "TextColor": "0563C1",
@@ -560,6 +575,7 @@
                       }
                     ],
                     "WidthPercent": 5.02,
+                    "VAlign": "tableverticalalignmentvalues { }",
                     "IsHeaderCell": false
                   },
                   {
