@@ -6096,7 +6096,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Since five years ago, {i}sales have grown rapidly{/i} to 90,000.",
+                            "Content": "Since five years ago, sales have grown rapidly to 90,000.",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
