@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
+/*کدهای قبلی
 class DocumentLoader {
   // 🌟 اصلاح خروجی متد به List<PageData> جهت پشتیبانی از شماره صفحات جداگانه
   static Future<List<PageData>> loadBookFromJson() async {
@@ -19,6 +20,21 @@ class DocumentLoader {
       allPages.add(page);
     }
 
+    return allPages;
+  }
+}
+*/
+class DocumentLoader {
+  // 🌟 دریافت مسیر داینامیک برای لود کردن کتاب‌های مختلف
+  static Future<List<PageData>> loadBookFromJson(String jsonAssetPath) async {
+    String jsonString = await rootBundle.loadString(jsonAssetPath);
+    List<dynamic> jsonList = jsonDecode(jsonString);
+
+    List<PageData> allPages = [];
+    for (var pageJson in jsonList) {
+      PageData page = PageData.fromJson(pageJson);
+      allPages.add(page);
+    }
     return allPages;
   }
 }

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/library_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,15 +22,26 @@ class ReadingCanvasScreen extends ConsumerStatefulWidget {
 class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final TransformationController _transformationController =
       TransformationController();
-  // ... بقیه کدهای مربوط به زوم ...
 
   bool _isZoomed = false;
   int _pointerCount = 0;
-
+  late ScrollController _scrollController;
   @override
   void initState() {
     super.initState();
     _transformationController.addListener(_handleTransformationChanged);
+
+    // 🌟 ۱. لود کردن مقدار اسکرولِ ذخیره شده از حافظه
+    final initialOffset = ref.read(libraryProvider).lastScrollOffset;
+
+    _scrollController = ScrollController(initialScrollOffset: initialOffset);
+
+    // 🌟 ۲. گوش دادن به اسکرول برای ذخیره‌ی لحظه‌ای
+    _scrollController.addListener(() {
+      ref
+          .read(libraryProvider.notifier)
+          .saveScrollOffset(_scrollController.offset);
+    });
   }
 
   void _handleTransformationChanged() {
@@ -44,6 +56,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _transformationController.removeListener(_handleTransformationChanged);
     _transformationController.dispose();
     super.dispose();
@@ -88,6 +101,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                     child: SizedBox(
                       width: canvasWidth,
                       child: ListView.builder(
+                        controller: _scrollController,
                         physics: (_pointerCount >= 2 || _isZoomed)
                             ? const NeverScrollableScrollPhysics()
                             : const BouncingScrollPhysics(),
