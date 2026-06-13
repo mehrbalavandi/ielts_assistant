@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/reading_canvas_screen.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 
@@ -226,6 +227,32 @@ class _AudioscriptViewerSheetState
           ),
         ],
       ),
+    );
+  }
+  // در فایل AudioscriptViewerSheet.dart
+
+  Widget buildScriptList(List<ParagraphData> paragraphs) {
+    return ListView.builder(
+      itemCount: paragraphs.length,
+      itemBuilder: (context, index) {
+        final para = paragraphs[index];
+
+        // ساخت ویجت محتوای اصلی (متن انگلیسی)
+        Widget content = Text(
+          para.spans.map((s) => s.content).join(" "),
+          style: const TextStyle(fontSize: 16),
+        );
+
+        // 🌟 استفاده از همان Wrapper هوشمند برای فعال‌سازی ترجمه
+        return TranslatableContentWrapper(
+          translationFa: para.translationFa,
+          translationAr: para.translationAr,
+          originalContent: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: content,
+          ),
+        );
+      },
     );
   }
 }
