@@ -329,11 +329,22 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
     flushText();
 
-    Widget paragraphContent = Directionality(
-      textDirection: para.direction == "RTL"
-          ? TextDirection.rtl
-          : TextDirection.ltr,
-      child: FloatColumn(children: blockElements),
+    // قبل از تغییر:
+    // Widget paragraphContent = Directionality(
+    //   textDirection: para.direction == "RTL" ? TextDirection.rtl : TextDirection.ltr,
+    //   child: FloatColumn(children: blockElements),
+    // );
+
+    // 🌟 بعد از تغییر (تزریق سیستم ترجمه):
+    Widget paragraphContent = TranslatableContentWrapper(
+      translationFa: para.translationFa,
+      translationAr: para.translationAr,
+      originalContent: Directionality(
+        textDirection: para.direction == "RTL"
+            ? TextDirection.rtl
+            : TextDirection.ltr,
+        child: FloatColumn(children: blockElements),
+      ),
     );
 
     bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
@@ -865,6 +876,123 @@ class InlineAudioLink extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// 🌟 ویجت هوشمند برای مدیریت نمایش ترجمه هر پاراگراف
+class TranslatableContentWrapper extends StatefulWidget {
+  final Widget originalContent;
+  final String? translationFa;
+  final String? translationAr;
+
+  const TranslatableContentWrapper({
+    super.key,
+    required this.originalContent,
+    this.translationFa,
+    this.translationAr,
+  });
+
+  @override
+  State<TranslatableContentWrapper> createState() =>
+      _TranslatableContentWrapperState();
+}
+
+class _TranslatableContentWrapperState
+    extends State<TranslatableContentWrapper> {
+  bool _showTranslation = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // بررسی اینکه آیا این پاراگراف اصلاً ترجمه‌ای در دیتابیس دارد یا خیر
+    bool hasTranslation =
+        (widget.translationFa != null && widget.translationFa!.isNotEmpty) ||
+        (widget.translationAr != null && widget.translationAr!.isNotEmpty);
+
+    // اگر ترجمه نداشت، فقط همان متن اصلی (انگلیسی) را برگردان و دکمه‌ای نشان نده
+    if (!hasTranslation) return widget.originalContent;
+
+    // ترجیح با ترجمه فارسی است، در غیر این صورت عربی (قابل تنظیم بر اساس تنظیمات اپلیکیشن شما)
+    String finalTranslation = (widget.translationFa?.isNotEmpty ?? false)
+        ? widget.translationFa!
+        : widget.translationAr!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        widget.originalContent,
+
+        // 🌟 دکمه ظریف ترجمه
+        Align(
+          alignment: Alignment.centerRight,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _showTranslation = !_showTranslation;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    _showTranslation ? "مخفی کردن" : "ترجمه",
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey.shade400,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Icon(
+                    _showTranslation
+                        ? Icons.expand_less_rounded
+                        : Icons.g_translate_rounded,
+                    size: 16,
+                    color: Colors.blueGrey.shade400,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        // 🌟 باکس نمایش ترجمه با انیمیشن باز و بسته شدن نرم
+        AnimatedCrossFade(
+          firstChild: const SizedBox(width: double.infinity, height: 0),
+          secondChild: Container(
+            margin: const EdgeInsets.only(top: 4, bottom: 8),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.05), // پس‌زمینه بسیار ملایم
+              border: const Border(
+                right: BorderSide(
+                  color: Colors.blueAccent,
+                  width: 3,
+                ), // خط نشانگر ترجمه
+              ),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Text(
+              finalTranslation,
+              textAlign: TextAlign.right,
+              textDirection: TextDirection.rtl,
+              style: const TextStyle(
+                fontFamily: 'YekanBakh', // یا هر فونت فارسی که در پروژه دارید
+                fontSize: 14,
+                height: 1.6,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+          crossFadeState: _showTranslation
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
+          duration: const Duration(milliseconds: 300),
+          sizeCurve: Curves.easeInOutCubic,
+        ),
+      ],
     );
   }
 }
