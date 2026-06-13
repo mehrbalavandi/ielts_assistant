@@ -268,7 +268,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " of ",
+                            "Content": "of ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -310,7 +310,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " as a tourist destination, it annually welcomes people from all over ",
+                            "Content": "as a tourist destination, it annually welcomes people from all over ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -331,7 +331,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " (particularly from ",
+                            "Content": "(particularly from ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -352,7 +352,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " and ",
+                            "Content": "and ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -415,7 +415,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " to ",
+                            "Content": "to ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -436,7 +436,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " of the island. The busy capital city, ",
+                            "Content": "of the island. The busy capital city, ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -478,7 +478,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " or ",
+                            "Content": "or ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -549,22 +549,10 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "25 ",
+                            "Content": "25",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3"
-                            ],
-                            "Url": "audio:MindsetIELTS_L3_01.mp3",
-                            "TextColor": "0563C1",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "🔊",
-                            "Markers": [
-                              "b",
-                              "fn:Segoe UI Emoji"
                             ],
                             "Url": "audio:MindsetIELTS_L3_01.mp3",
                             "TextColor": "0563C1",
@@ -722,20 +710,6 @@
         ]
       },
       {
-        "Direction": "LTR",
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
         "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
@@ -795,7 +769,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:20"
@@ -850,20 +824,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "SpaceAfter": 8.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       }
@@ -1035,7 +995,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " The reason why attempts to create the perfect city always fail\n",
+                            "Content": "The reason why attempts to create the perfect city always fail\n",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1058,7 +1018,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " An urban ideal designed for an imperfect world\n",
+                            "Content": "An urban ideal designed for an imperfect world\n",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1081,7 +1041,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " A conflict between reality and imitation",
+                            "Content": "A conflict between reality and imitation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1316,7 +1276,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " An unwelcoming place to die",
+                            "Content": "An unwelcoming place to die",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1344,7 +1304,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " A city at the top of the world",
+                            "Content": "A city at the top of the world",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1372,7 +1332,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " An unusual approach to regulation",
+                            "Content": "An unusual approach to regulation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1431,19 +1391,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       }
@@ -1604,19 +1551,6 @@
         "SpaceBefore": 0.0,
         "Spans": [
           {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
             "Type": "table",
             "Markers": [],
             "BorderWidth": 0.5,
@@ -1731,7 +1665,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " An unusual approach to ",
+                            "Content": "An unusual approach to ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1770,7 +1704,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Dealing with the occasional ",
+                            "Content": "Dealing with the occasional ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1809,7 +1743,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Where ",
+                            "Content": "Where ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1830,7 +1764,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " cautiously ",
+                            "Content": "cautiously ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1925,7 +1859,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " An ",
+                            "Content": "An ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1946,7 +1880,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " approach to regulation",
+                            "Content": "approach to regulation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1974,7 +1908,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Dealing with the ",
+                            "Content": "Dealing with the ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1995,7 +1929,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " dangers of the wild",
+                            "Content": "dangers of the wild",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2022,7 +1956,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Where humans and animals ",
+                            "Content": "Where humans and animals ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2043,7 +1977,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " co-exist",
+                            "Content": "co-exist",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2102,19 +2036,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       }
@@ -2424,7 +2345,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " A conflict between reality and imitation",
+                            "Content": "A conflict between reality and imitation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2452,7 +2373,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " The importance of official recognition",
+                            "Content": "The importance of official recognition",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2480,7 +2401,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " The result of encouraging wider investment",
+                            "Content": "The result of encouraging wider investment",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2604,7 +2525,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " An ",
+                            "Content": "An ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2627,7 +2548,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " approach to regulation",
+                            "Content": "approach to regulation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2657,7 +2578,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " An urban ideal designed for an ",
+                            "Content": "An urban ideal designed for an ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2680,7 +2601,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " world",
+                            "Content": "world",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2710,7 +2631,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Where humans and animals cautiously ",
+                            "Content": "Where humans and animals cautiously ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3156,7 +3077,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Paragraph ",
+                            "Content": "Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3195,7 +3116,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Paragraph ",
+                            "Content": "Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3234,7 +3155,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Paragraph ",
+                            "Content": "Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3273,7 +3194,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Paragraph ",
+                            "Content": "Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3312,7 +3233,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Paragraph ",
+                            "Content": "Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3351,7 +3272,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " Paragraph ",
+                            "Content": "Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3712,7 +3633,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " the Mississippi River at some point began to relocate to Cahokia. These researchers have been unable to find more than a handful of other examples of such relocation of tribes, but they do know that something about Cahokia attracted thousands of people to this regional centre. And that, they postulated, ",
+                            "Content": "the Mississippi River at some point began to relocate to Cahokia. These researchers have been unable to find more than a handful of other examples of such relocation of tribes, but they do know that something about Cahokia attracted thousands of people to this regional centre. And that, they postulated, ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:20"
@@ -4280,7 +4201,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": "",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
@@ -4303,7 +4224,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "\n",
+                            "Content": "",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
@@ -4327,7 +4248,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": "",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
@@ -4362,7 +4283,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": "",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
@@ -4420,7 +4341,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": " ",
+                            "Content": "",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
@@ -4450,20 +4371,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       },
@@ -4626,20 +4533,6 @@
         ]
       },
       {
-        "Direction": "LTR",
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
-          }
-        ]
-      },
-      {
         "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
@@ -4781,20 +4674,6 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "Direction": "LTR",
-        "SpaceAfter": 0.0,
-        "SpaceBefore": 0.0,
-        "Spans": [
-          {
-            "Type": "text",
-            "Content": "",
-            "Markers": [],
-            "InnerSpans": [],
-            "TableRows": []
           }
         ]
       },
@@ -5495,11 +5374,35 @@
         "Direction": "LTR",
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
+        "StartMs": 0,
+        "EndMs": 5000,
+        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "",
-            "Markers": [],
+            "Content": "Hello and welcome to the IELTS preparation course.",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 5000,
+        "EndMs": 10000,
+        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "Let's begin the test. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
             "InnerSpans": [],
             "TableRows": []
           }

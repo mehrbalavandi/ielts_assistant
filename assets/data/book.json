@@ -7299,15 +7299,65 @@
         "Direction": "LTR",
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
+        "StartMs": 0,
+        "EndMs": 5000,
+        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "",
-            "Markers": [],
+            "Content": "Hello and welcome to the IELTS preparation course.",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
             "InnerSpans": [],
             "TableRows": []
           }
-        ]
+        ],"translationFa": "سلام و به دوره آمادگی آیلتس خوش آمدید.",
+"translationAr": "مرحباً بكم في دورة التحضير لاختبار آيلتس.",
+"Interactives": [
+  {
+    "exactText": "preparation course",
+    "translationFa": "دوره آمادگی",
+    "translationAr": "دورة تحضيرية",
+    "pronounceFa": "prepereyshan koos",
+    "pronounceAr": "prepereyshan kaws",
+    "explanationFa": "این کالوکیشن آکادمیک برای اشاره به دوره‌های آموزشی آمادگی آزمون به کار می‌رود و در موضوعات مرتبط با آموزش در آیلتس کاربرد دارد.",
+    "explanationAr": "هذا التلازم اللفظي الأكاديمي يُستخدم للإشارة إلى الدورات التعليمية المخصصة للاستعداد للاختبار، وهو مفيد في المواضيع المتعلقة بالتعليم في الآيلتس.",
+    "cefrLevel": "B2"
+  }
+]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 5000,
+        "EndMs": 10000,
+        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "Let's begin the test. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ],"translationFa": "بیایید آزمون را شروع کنیم.",
+"translationAr": "دعنا نبدأ الاختبار.",
+"Interactives": [
+  {
+    "exactText": "begin",
+    "translationFa": "شروع کردن",
+    "translationAr": "بدء",
+    "pronounceFa": "bigin",
+    "pronounceAr": "bigin",
+    "explanationFa": "در آزمون آیلتس پیشنهاد می‌شود به جای استفاده از این واژه عمومی، از افعال سطح بالاتر و آکادمیک مانند commence یا initiate استفاده کنید.",
+    "explanationAr": "في اختبار آيلتس، يُنصح باستخدام أفعال أكاديمية وعالية المستوى مثل commence أو initiate بدلاً من هذه الكلمة العامة.",
+    "cefrLevel": "B1"
+  }
+]
       }
     ]
   }
