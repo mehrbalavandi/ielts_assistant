@@ -36,6 +36,7 @@ class InteractiveWord {
 
 // ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
 // ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
+// ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
 class ParagraphData {
   final List<SpanData> spans;
   final String direction;
@@ -50,9 +51,10 @@ class ParagraphData {
   final double spaceBefore;
   final double spaceAfter;
 
-  // 🌟 فیلدهای جدید اضافه شده برای استخراج زمان‌بندی فایل صوتی
+  // 🌟 فیلدهای زمان‌بندی صوتی و نام فایل (Karaoke)
   final int? startMs;
   final int? endMs;
+  final String? audioTrackName; // 🌟 این خط باعث رفع خطای شما می‌شود
 
   final String? translationFa;
   final String? translationAr;
@@ -68,8 +70,9 @@ class ParagraphData {
     this.borderStyle,
     this.spaceBefore = 0.0,
     this.spaceAfter = 0.0,
-    this.startMs, // 🌟 اضافه شد
-    this.endMs, // 🌟 اضافه شد
+    this.startMs,
+    this.endMs,
+    this.audioTrackName, // 🌟 اضافه شد
     this.translationFa,
     this.translationAr,
     required this.interactives,
@@ -88,8 +91,9 @@ class ParagraphData {
       borderStyle: json['BorderStyle'],
       spaceBefore: (json['SpaceBefore'] as num?)?.toDouble() ?? 0.0,
       spaceAfter: (json['SpaceAfter'] as num?)?.toDouble() ?? 0.0,
-      startMs: json['StartMs'] as int?, // 🌟 مپ کردن از JSON
-      endMs: json['EndMs'] as int?, // 🌟 مپ کردن از JSON
+      startMs: json['StartMs'] as int?,
+      endMs: json['EndMs'] as int?,
+      audioTrackName: json['AudioTrackName'] as String?, // 🌟 مپ کردن از JSON
       translationFa: json['translationFa'],
       translationAr: json['translationAr'],
       interactives: interactivesList

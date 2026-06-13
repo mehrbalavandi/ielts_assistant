@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_script_viewer_sheet.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/reading_canvas_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class TelegramAudioPlayer extends ConsumerWidget {
   final List<PageData> documentPages;
@@ -356,6 +358,254 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
             fontSize: 12,
           ),
         ),
+      ),
+    );
+  }
+}
+
+// 🌟 مدل کمکی برای اتصال پاراگراف‌ها به سیستم اسکرول پلیر
+class AudioSegment {
+  final int startMs;
+  final int endMs;
+  final ParagraphData paragraph;
+
+  AudioSegment({
+    required this.startMs,
+    required this.endMs,
+    required this.paragraph,
+  });
+}
+
+class AudioscriptViewerSheet extends ConsumerStatefulWidget {
+  final List<PageData> documentPages;
+
+  const AudioscriptViewerSheet({super.key, required this.documentPages});
+
+  @override
+  ConsumerState<AudioscriptViewerSheet> createState() =>
+      _AudioscriptViewerSheetState();
+}
+
+class _AudioscriptViewerSheetState
+    extends ConsumerState<AudioscriptViewerSheet> {
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  int _lastActiveIndex = -1;
+
+  @override
+  Widget build(BuildContext context) {
+    // گرفتن اطلاعات فایل در حال پخش از Riverpod
+    final audioState = ref.watch(audioPlayerProvider);
+    final int currentPosMs = audioState.position.inMilliseconds;
+    final currentFileName = audioState.currentPath?.split('/').last ?? '';
+
+    // 🌟 استخراج داینامیک و هوشمند پاراگراف‌های زمان‌دار فقط برای فایل صوتی در حال پخش
+    List<AudioSegment> currentSegments = [];
+    for (var page in widget.documentPages) {
+      for (var para in page.paragraphs) {
+        if (para.startMs != null &&
+            para.endMs != null &&
+            para.audioTrackName == currentFileName) {
+          currentSegments.add(
+            AudioSegment(
+              startMs: para.startMs!,
+              endMs: para.endMs!,
+              paragraph: para,
+            ),
+          );
+        }
+      }
+    }
+
+    // پیدا کردن ایندکس خطی که باید روشن (Highlight) شود
+    int activeIndex = currentSegments.indexWhere(
+      (seg) => currentPosMs >= seg.startMs && currentPosMs <= seg.endMs,
+    );
+
+    // اسکرول نرم به خط فعال
+    if (activeIndex != -1 && activeIndex != _lastActiveIndex) {
+      _lastActiveIndex = activeIndex;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_itemScrollController.isAttached) {
+          _itemScrollController.scrollTo(
+            index: activeIndex,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOutCubic,
+            alignment: 0.3,
+          );
+        }
+      });
+    }
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.85,
+      decoration: const BoxDecoration(
+        color: Color(0xFF1E222D), // تم تاریک و جذاب
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 12),
+          Container(
+            width: 40,
+            height: 4.5,
+            decoration: BoxDecoration(
+              color: Colors.white24,
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Audioscript (متن صوتی)",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close_rounded, color: Colors.white70),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          ),
+          const Divider(color: Colors.white10, height: 20),
+
+          // 🌟 راهنمای ظریف برای کاربر جهت استفاده از Long Press
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.lightbulb_outline_rounded,
+                  color: Colors.orangeAccent,
+                  size: 14,
+                ),
+                SizedBox(width: 4),
+                Text(
+                  "برای مشاهده ترجمه، روی متن لمس طولانی (Long Press) کنید",
+                  style: TextStyle(color: Colors.white54, fontSize: 11),
+                ),
+              ],
+            ),
+          ),
+
+          Expanded(
+            child: currentSegments.isEmpty
+                ? const Center(
+                    child: Text(
+                      "هیچ متن صوتی همگام‌سازی شده‌ای برای این بخش یافت نشد.",
+                      style: TextStyle(color: Colors.white54),
+                    ),
+                  )
+                : ScrollablePositionedList.builder(
+                    itemCount: currentSegments.length,
+                    itemScrollController: _itemScrollController,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 4,
+                    ),
+                    itemBuilder: (context, index) {
+                      final segment = currentSegments[index];
+                      final bool isActive = index == activeIndex;
+
+                      String fullContent = segment.paragraph.spans
+                          .map((s) => s.content)
+                          .join();
+
+                      // 🌟 ۱. ساخت بلوک متن انگلیسی
+                      Widget englishContent = AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: isActive
+                              ? Colors.orangeAccent.withOpacity(0.15)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isActive
+                                ? Colors.orangeAccent.withOpacity(0.4)
+                                : Colors.transparent,
+                            width: 1,
+                          ),
+                        ),
+                        child: Text.rich(
+                          TextSpan(
+                            children: TextRenderEngine.buildInteractiveText(
+                              fullContent,
+                              segment.paragraph.interactives,
+                              context,
+                              TextStyle(
+                                color: isActive
+                                    ? Colors.orangeAccent
+                                    : Colors.white70,
+                                fontSize: isActive ? 17 : 15,
+                                fontWeight: isActive
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                height: 1.6,
+                              ),
+                              interactiveColor: isActive
+                                  ? Colors.yellowAccent
+                                  : Colors.cyanAccent,
+                            ),
+                          ),
+                          textAlign: segment.paragraph.direction == "RTL"
+                              ? TextAlign.right
+                              : TextAlign.left,
+                        ),
+                      );
+
+                      // 🌟 ۲. تزریق هوشمند ترجمه با پشتیبانی از Long Press
+                      return TranslatableContentWrapper(
+                        originalContent: englishContent,
+                        translationFa: segment.paragraph.translationFa,
+                        translationAr: segment.paragraph.translationAr,
+                        isDarkMode:
+                            true, // تنظیم تضاد رنگی متناسب با تم تاریک مودال
+                      );
+                    },
+                  ),
+          ),
+
+          // دکمه‌های کنترلِ پخش در پایین مودال
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: const Color(0xFF161922),
+            child: SafeArea(
+              top: false,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      audioState.isPlaying
+                          ? Icons.pause_circle_filled_rounded
+                          : Icons.play_circle_filled_rounded,
+                    ),
+                    iconSize: 48,
+                    color: Colors.orangeAccent,
+                    onPressed: () {
+                      if (audioState.isPlaying) {
+                        ref.read(audioPlayerProvider.notifier).pause();
+                      } else {
+                        ref.read(audioPlayerProvider.notifier).resume();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
