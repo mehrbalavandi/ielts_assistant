@@ -26,12 +26,12 @@ final List<BookModel> availableBooks = [
     jsonAssetPath: 'assets/data/mindset_l3.json',
     coverImage: 'assets/images/cover_l3.png',
   ),
-  BookModel(
-    id: 'mindset_lvl2',
-    title: 'Mindset for IELTS - Level 2',
-    jsonAssetPath: 'assets/data/mindset_l2.json',
-    coverImage: 'assets/images/cover_l2.png',
-  ),
+  // BookModel(
+  //   id: 'mindset_lvl2',
+  //   title: 'Mindset for IELTS - Level 2',
+  //   jsonAssetPath: 'assets/data/mindset_l2.json',
+  //   coverImage: 'assets/images/cover_l2.png',
+  // ),
 ];
 
 @riverpod
