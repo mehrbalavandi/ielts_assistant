@@ -61,11 +61,9 @@ class ActiveBook extends _$ActiveBook {
   }
 }
 
-// 🌟 مدل مدیریت نشست جستجو (نگهداری نتایج و ایندکس فعلی)
 class SearchSession {
   final String query;
-  final List<dynamic>
-  results; // داینامیک گذاشته شده تا خطای import ندهد (همان SearchResult است)
+  final List<dynamic> results; // لیست نتایج (از نوع SearchResult)
   final int currentIndex;
 
   SearchSession({
@@ -83,5 +81,5 @@ class SearchSession {
   }
 }
 
-// پرووایدر سراسری برای جستجوی فعال
+// پرووایدر مدیریت نشست جستجوی فعال در اپلیکیشن
 final activeSearchProvider = StateProvider<SearchSession?>((ref) => null);

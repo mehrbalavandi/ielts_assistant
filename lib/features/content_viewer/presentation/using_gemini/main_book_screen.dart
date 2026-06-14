@@ -31,6 +31,7 @@ class MainBookScreen extends ConsumerWidget {
                 delegate: BookSearchDelegate(ref),
               );
               if (session != null && context.mounted) {
+                // اگر کاربر کتاب دیگری را انتخاب کرده بود، سوییچ کن
                 final targetBookId =
                     (session.results.first as SearchResult).bookId;
                 if (activeBook.id != targetBookId) {
@@ -41,7 +42,7 @@ class MainBookScreen extends ConsumerWidget {
                       .read(activeBookProvider.notifier)
                       .setActiveBook(targetBook);
                 }
-                Future.delayed(const Duration(milliseconds: 300), () {
+                Future.delayed(const Duration(milliseconds: 200), () {
                   ref.read(activeSearchProvider.notifier).state = session;
                 });
               }
@@ -50,8 +51,7 @@ class MainBookScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.library_books_rounded),
             onPressed: () {
-              ref.read(activeSearchProvider.notifier).state =
-                  null; // پاک کردن جستجو
+              ref.read(activeSearchProvider.notifier).state = null;
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LibraryScreen()),
@@ -61,11 +61,11 @@ class MainBookScreen extends ConsumerWidget {
         ],
       ),
 
-      // 🌟 نوار ناوبری جستجو (Next / Previous)
+      // 🌟 نوار حرفه‌ای ناوبری بین نتایج جستجو در پایین صفحه
       bottomNavigationBar: searchSession != null
           ? Container(
               color: Colors.indigo.shade50,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: SafeArea(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,21 +104,21 @@ class MainBookScreen extends ConsumerWidget {
                                     )
                               : null,
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 12),
                         Text(
                           "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.indigo,
+                            fontSize: 14,
                           ),
                         ),
                       ],
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: Colors.red),
+                      icon: const Icon(Icons.close, color: Colors.redAccent),
                       onPressed: () =>
-                          ref.read(activeSearchProvider.notifier).state =
-                              null, // بستن نوار جستجو
+                          ref.read(activeSearchProvider.notifier).state = null,
                     ),
                   ],
                 ),

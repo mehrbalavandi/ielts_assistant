@@ -83,9 +83,8 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
                   ),
                 ],
               ),
-              isThreeLine: true,
               onTap: () {
-                // 🌟 تمام نتایج مربوط به این کتاب خاص را فیلتر کرده و ارسال می‌کنیم
+                // فیلتر کردن تمام نتایج همین کتاب برای استفاده در دکمه‌های بعدی/قبلی
                 final bookResults = results
                     .where((r) => r.bookId == result.bookId)
                     .toList();

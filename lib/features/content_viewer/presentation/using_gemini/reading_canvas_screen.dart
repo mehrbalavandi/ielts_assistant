@@ -21,20 +21,6 @@ class ReadingCanvasScreen extends ConsumerStatefulWidget {
       _ReadingCanvasScreenState();
 }
 
-// 🌟 ساختار یکپارچه آیتم‌های بوم نقاشی برای دقت میلی‌متری اسکرول
-class CanvasItem {
-  final int pageNumber;
-  final int? paraIndex;
-  final ParagraphData? paragraph;
-  final bool isDivider;
-  CanvasItem({
-    required this.pageNumber,
-    this.paraIndex,
-    this.paragraph,
-    this.isDivider = false,
-  });
-}
-
 class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final TransformationController _transformationController =
       TransformationController();
@@ -43,32 +29,17 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
 
+  // 🌟 کلیدِ طلایی برای اسکرول دقیق به داخل پاراگراف
+  final GlobalKey _targetParaKey = GlobalKey();
+
   bool _isZoomed = false;
   int _pointerCount = 0;
-
-  // 🌟 لیست یکپارچه
-  List<CanvasItem> _flatItems = [];
 
   @override
   void initState() {
     super.initState();
     _transformationController.addListener(_handleTransformationChanged);
 
-    // ساخت لیست یکپارچه: ابتدا شماره صفحه، سپس پاراگراف‌های آن
-    for (var page in widget.documentPages) {
-      _flatItems.add(CanvasItem(pageNumber: page.pageNumber, isDivider: true));
-      for (int i = 0; i < page.paragraphs.length; i++) {
-        _flatItems.add(
-          CanvasItem(
-            pageNumber: page.pageNumber,
-            paraIndex: i,
-            paragraph: page.paragraphs[i],
-          ),
-        );
-      }
-    }
-
-    // 🌟 ذخیره دقیق ایندکس پاراگرافی که در حال مطالعه بودید!
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
@@ -77,8 +48,9 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             .map((p) => p.index)
             .reduce(math.min);
         final currentBook = ref.read(activeBookProvider);
-        if (currentBook != null)
-          _box.write('scroll_flat_${currentBook.id}', minIndex);
+        if (currentBook != null) {
+          _box.write('scroll_page_${currentBook.id}', minIndex);
+        }
       }
     });
   }
@@ -90,39 +62,53 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   }
 
   @override
+  void dispose() {
+    _transformationController.removeListener(_handleTransformationChanged);
+    _transformationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double canvasWidth = MediaQuery.of(context).size.width > 800
         ? 760.0
         : MediaQuery.of(context).size.width - 24;
     final currentBook = ref.read(activeBookProvider);
     final int initialIndex =
-        _box.read('scroll_flat_${currentBook?.id ?? "default"}') ?? 0;
+        _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
 
-    // 🌟 گوش دادن به نوار جستجو و پرش به آیتم
-    ref.listen<SearchSession?>(activeSearchProvider, (previous, next) {
+    // 🌟 سیستم هوشمند اسکرول ترکیبی (پرش به صفحه -> اسکرول دقیق به کلمه)
+    ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
         final target = next.results[next.currentIndex] as SearchResult;
-        // پیدا کردن پاراگراف در لیست فلت
-        int targetIndex = _flatItems.indexWhere(
-          (item) =>
-              !item.isDivider &&
-              item.pageNumber == target.pageNumber &&
-              item.paraIndex == target.paraIndex,
+        int pageIndex = widget.documentPages.indexWhere(
+          (p) => p.pageNumber == target.pageNumber,
         );
-        if (targetIndex != -1 && _itemScrollController.isAttached) {
-          _itemScrollController.scrollTo(
-            index: targetIndex,
-            duration: const Duration(milliseconds: 700),
-            curve: Curves.easeInOutCubic,
-            alignment: 0.1,
-          );
+
+        if (pageIndex != -1 && _itemScrollController.isAttached) {
+          // ۱. ابتدا سریعاً به صفحه می‌پریم تا ویجت‌هایش ساخته شوند
+          _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
+
+          // ۲. یک فریم صبر می‌کنیم تا فلاتر کلید (_targetParaKey) را در درخت ثبت کند
+          await Future.delayed(const Duration(milliseconds: 100));
+
+          // ۳. به صورت میلی‌متری تا خود پاراگراف هدف پایین می‌رویم
+          if (_targetParaKey.currentContext != null) {
+            Scrollable.ensureVisible(
+              _targetParaKey.currentContext!,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeInOutCubic,
+              alignment:
+                  0.3, // کلمه را در یک‌سوم بالایی صفحه تنظیم می‌کند تا چشم راحت ببیند
+            );
+          }
         }
       }
     });
 
     final searchSession = ref.watch(activeSearchProvider);
     final activeTarget =
-        searchSession != null && searchSession.results.isNotEmpty
+        (searchSession != null && searchSession.results.isNotEmpty)
         ? searchSession.results[searchSession.currentIndex] as SearchResult
         : null;
 
@@ -131,7 +117,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // TelegramAudioPlayer(documentPages: widget.documentPages), // (اگر فعال بود بازش کنید)
+            TelegramAudioPlayer(documentPages: widget.documentPages),
+
             Expanded(
               child: Listener(
                 onPointerDown: (event) => setState(() => _pointerCount++),
@@ -147,99 +134,84 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                     child: SizedBox(
                       width: canvasWidth,
                       child: ScrollablePositionedList.builder(
-                        itemCount: _flatItems.length,
+                        itemCount: widget.documentPages.length,
                         itemScrollController: _itemScrollController,
                         itemPositionsListener: _itemPositionsListener,
-                        initialScrollIndex: initialIndex < _flatItems.length
+                        initialScrollIndex:
+                            initialIndex < widget.documentPages.length
                             ? initialIndex
-                            : 0, // 🌟 بازگشت دقیق!
+                            : 0,
                         physics: (_pointerCount >= 2 || _isZoomed)
                             ? const NeverScrollableScrollPhysics()
                             : const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 24.0,
-                          horizontal: 8.0,
-                        ),
-                        itemBuilder: (context, index) {
-                          final item = _flatItems[index];
+                        padding: const EdgeInsets.symmetric(vertical: 24.0),
+                        itemBuilder: (context, pageIndex) {
+                          final page = widget.documentPages[pageIndex];
+                          List<Widget> paragraphWidgets = [];
 
-                          // 🌟 بازگشت شماره صفحات!
-                          if (item.isDivider)
-                            return _buildPageDivider(item.pageNumber);
+                          for (
+                            int pIndex = 0;
+                            pIndex < page.paragraphs.length;
+                            pIndex++
+                          ) {
+                            var para = page.paragraphs[pIndex];
 
-                          final para = item.paragraph!;
-                          bool isTarget =
-                              activeTarget != null &&
-                              activeTarget.pageNumber == item.pageNumber &&
-                              activeTarget.paraIndex == item.paraIndex;
+                            // تشخیص دقیق اینکه آیا این همان پاراگرافِ جستجوشده است
+                            bool isTargetParagraph =
+                                activeTarget != null &&
+                                activeTarget.pageNumber == page.pageNumber &&
+                                activeTarget.paraIndex == pIndex;
 
-                          // 🌟 پاس دادن کوئری جستجو به متد ساخت پاراگراف برای زرد شدن کلمات
-                          Widget paragraphContent = _buildParagraph(
-                            para,
-                            canvasWidth,
-                            MediaQuery.of(context).size.width,
-                            context,
-                            highlightQuery: isTarget
-                                ? searchSession?.query
-                                : null, // 🌟
-                          );
-
-                          // 🌟 کادر دور پاراگرافِ پیدا شده
-                          if (isTarget) {
-                            paragraphContent = Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.yellow.withOpacity(0.1),
-                                    border: Border.all(
-                                      color: Colors.orangeAccent,
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  padding: const EdgeInsets.all(4),
-                                  child: paragraphContent,
-                                ),
-                                Positioned(
-                                  top: -12,
-                                  right: 12,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 2,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.orangeAccent,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: const Text(
-                                      "نتیجه جستجو",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            Widget paragraphContent = _buildParagraph(
+                              para,
+                              canvasWidth,
+                              MediaQuery.of(context).size.width,
+                              context,
+                              // 🌟 رفع قطعی خطای Null با عملگر ?.
+                              highlightQuery: isTargetParagraph
+                                  ? searchSession?.query
+                                  : null,
                             );
+
+                            // تخصیص کلید برای پرش، فقط به پاراگرافِ هدف
+                            if (isTargetParagraph) {
+                              paragraphContent = Container(
+                                key: _targetParaKey,
+                                child: paragraphContent,
+                              );
+                            }
+
+                            paragraphWidgets.add(paragraphContent);
                           }
 
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 12.0),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _buildPageDivider(page.pageNumber),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  bottom: 24.0,
+                                  left: 8.0,
+                                  right: 8.0,
                                 ),
-                              ],
-                            ),
-                            child: paragraphContent,
+                                padding: const EdgeInsets.all(32.0),
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 10,
+                                      offset: Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: paragraphWidgets,
+                                ),
+                              ),
+                            ],
                           );
                         },
                       ),
@@ -253,635 +225,705 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ),
     );
   }
+}
 
-  Widget _buildPageDivider(int pageNumber) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Row(
-        children: [
-          Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                "PAGE $pageNumber",
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade600,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ),
-          ),
-          Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
-        ],
+// 🌟 ۱. متدهای نقشه بیتی (Boolean Map) دقیقاً طبق معماری خودتان
+List<bool> _buildBooleanHighlightMap(String fullText, String query) {
+  String normText = fullText
+      .toLowerCase()
+      .replaceAll('ي', 'ی')
+      .replaceAll('ك', 'ک')
+      .replaceAll('ة', 'ه')
+      .replaceAll('أ', 'ا')
+      .replaceAll('إ', 'ا')
+      .replaceAll('ؤ', 'و')
+      .replaceAll('\u200c', ' ');
+  String normQuery = query
+      .toLowerCase()
+      .replaceAll('ي', 'ی')
+      .replaceAll('ك', 'ک')
+      .replaceAll('ة', 'ه')
+      .replaceAll('أ', 'ا')
+      .replaceAll('إ', 'ا')
+      .replaceAll('ؤ', 'و')
+      .replaceAll('\u200c', ' ');
+
+  List<bool> map = List.filled(fullText.length, false);
+  if (normQuery.isEmpty) return map;
+
+  int matchIndex = normText.indexOf(normQuery);
+  while (matchIndex != -1) {
+    for (int i = 0; i < normQuery.length; i++) {
+      if (matchIndex + i < map.length) map[matchIndex + i] = true;
+    }
+    matchIndex = normText.indexOf(normQuery, matchIndex + normQuery.length);
+  }
+  return map;
+}
+
+List<InlineSpan> _applyBooleanMapToText(
+  String content,
+  List<bool> localMap,
+  TextStyle baseStyle,
+) {
+  List<InlineSpan> spans = [];
+  if (content.isEmpty) return spans;
+
+  bool isHighlighting = localMap[0];
+  String chunk = "";
+
+  for (int i = 0; i < content.length; i++) {
+    if (localMap[i] == isHighlighting) {
+      chunk += content[i];
+    } else {
+      spans.add(
+        TextSpan(
+          text: chunk,
+          style: isHighlighting
+              ? baseStyle.copyWith(
+                  backgroundColor: Colors.yellowAccent.withOpacity(0.7),
+                  color: Colors.black,
+                )
+              : baseStyle,
+        ),
+      );
+      chunk = content[i];
+      isHighlighting = localMap[i];
+    }
+  }
+  if (chunk.isNotEmpty) {
+    spans.add(
+      TextSpan(
+        text: chunk,
+        style: isHighlighting
+            ? baseStyle.copyWith(
+                backgroundColor: Colors.yellowAccent.withOpacity(0.7),
+                color: Colors.black,
+              )
+            : baseStyle,
       ),
     );
   }
+  return spans;
+}
 
-  String _mapFontFamily(String rawFontName) {
-    String normalized = rawFontName
-        .toLowerCase()
-        .replaceAll("-", "")
-        .replaceAll(" ", "");
-
-    if (normalized.contains("sourcesans")) return "Source Sans 3";
-    if (normalized.contains("times") || normalized.contains("major"))
-      return "Times New Roman";
-    if (normalized.contains("arial")) return "Arial";
-    if (normalized.contains("tahoma")) return "Tahoma";
-    if (normalized.contains("verdana")) return "Verdana";
-    if (normalized.contains("gadugi")) return "Gadugi";
-    if (normalized.contains("emoji")) return "Segoe UI Emoji";
-
-    if (normalized.contains("zar")) return "Zar";
-    if (normalized.contains("titr")) return "Titr";
-    if (normalized.contains("yekan")) {
-      if (normalized.contains("light")) return "YekanBakhLight";
-      if (normalized.contains("extra")) return "YekanBakhExtraBold";
-      return "YekanBakhBold";
-    }
-    return "Source Sans 3";
-  }
-
-  Color? _hexToColor(String? hexString) {
-    if (hexString == null ||
-        hexString.isEmpty ||
-        hexString.toLowerCase() == 'auto')
-      return null;
-    final buffer = StringBuffer();
-    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
-    buffer.write(hexString.replaceFirst('#', ''));
-    try {
-      return Color(int.parse(buffer.toString(), radix: 16));
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Widget _buildParagraph(
-    ParagraphData para,
-    double canvasWidth,
-    double screenWidth,
-    BuildContext context, {
-    bool isImageCell = false,
-    bool isInsideTableCell = false,
-    ParagraphData? prevPara,
-    ParagraphData? nextPara,
-    String? highlightQuery, // 🌟 این خط را اضافه کنید
-  }) {
-    if (para.spans.isEmpty ||
-        (para.spans.length == 1 &&
-            para.spans.first.type == "text" &&
-            (para.spans.first.content == "\n" ||
-                para.spans.first.content.trim().isEmpty))) {
-      return const SizedBox.shrink();
-    }
-
-    List<Object> blockElements = [];
-    List<InlineSpan> currentInlineSpans = [];
-
-    TextAlign textAlign = TextAlign.left;
-    if (para.alignment == "C") textAlign = TextAlign.center;
-    if (para.alignment == "R") textAlign = TextAlign.right;
-    if (para.alignment == "J") textAlign = TextAlign.justify;
-
-    void flushText() {
-      if (currentInlineSpans.isNotEmpty) {
-        blockElements.add(
-          WrappableText(
-            text: TextSpan(children: List.from(currentInlineSpans)),
-            textAlign: textAlign,
+Widget _buildPageDivider(int pageNumber) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 16.0, left: 8.0, right: 8.0),
+    child: Row(
+      children: [
+        Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              "PAGE $pageNumber",
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade600,
+                letterSpacing: 1.2,
+              ),
+            ),
           ),
+        ),
+        Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
+      ],
+    ),
+  );
+}
+
+String _mapFontFamily(String rawFontName) {
+  String normalized = rawFontName
+      .toLowerCase()
+      .replaceAll("-", "")
+      .replaceAll(" ", "");
+
+  if (normalized.contains("sourcesans")) return "Source Sans 3";
+  if (normalized.contains("times") || normalized.contains("major"))
+    return "Times New Roman";
+  if (normalized.contains("arial")) return "Arial";
+  if (normalized.contains("tahoma")) return "Tahoma";
+  if (normalized.contains("verdana")) return "Verdana";
+  if (normalized.contains("gadugi")) return "Gadugi";
+  if (normalized.contains("emoji")) return "Segoe UI Emoji";
+
+  if (normalized.contains("zar")) return "Zar";
+  if (normalized.contains("titr")) return "Titr";
+  if (normalized.contains("yekan")) {
+    if (normalized.contains("light")) return "YekanBakhLight";
+    if (normalized.contains("extra")) return "YekanBakhExtraBold";
+    return "YekanBakhBold";
+  }
+  return "Source Sans 3";
+}
+
+Color? _hexToColor(String? hexString) {
+  if (hexString == null ||
+      hexString.isEmpty ||
+      hexString.toLowerCase() == 'auto')
+    return null;
+  final buffer = StringBuffer();
+  if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+  buffer.write(hexString.replaceFirst('#', ''));
+  try {
+    return Color(int.parse(buffer.toString(), radix: 16));
+  } catch (e) {
+    return null;
+  }
+}
+
+Widget _buildParagraph(
+  ParagraphData para,
+  double canvasWidth,
+  double screenWidth,
+  BuildContext context, {
+  bool isImageCell = false,
+  bool isInsideTableCell = false,
+  ParagraphData? prevPara,
+  ParagraphData? nextPara,
+  String? highlightQuery, // 🌟
+}) {
+  if (para.spans.isEmpty ||
+      (para.spans.length == 1 &&
+          para.spans.first.type == "text" &&
+          (para.spans.first.content == "\n" ||
+              para.spans.first.content.trim().isEmpty))) {
+    return const SizedBox.shrink();
+  }
+
+  List<Object> blockElements = [];
+  List<InlineSpan> currentInlineSpans = [];
+
+  TextAlign textAlign = TextAlign.left;
+  if (para.alignment == "C") textAlign = TextAlign.center;
+  if (para.alignment == "R") textAlign = TextAlign.right;
+  if (para.alignment == "J") textAlign = TextAlign.justify;
+
+  void flushText() {
+    if (currentInlineSpans.isNotEmpty) {
+      blockElements.add(
+        WrappableText(
+          text: TextSpan(children: List.from(currentInlineSpans)),
+          textAlign: textAlign,
+        ),
+      );
+      currentInlineSpans.clear();
+    }
+  }
+
+  bool isLargeScreen = screenWidth >= 600;
+
+  // 🌟 ۲. تزریق منطق نقشه بیتی دقیقاً قبل از خواندن اسپن‌ها
+  List<bool>? highlightMap;
+  if (highlightQuery != null && highlightQuery.isNotEmpty) {
+    String fullText = para.spans
+        .where((s) => s.type == "text")
+        .map((s) => s.content ?? '')
+        .join();
+    highlightMap = _buildBooleanHighlightMap(fullText, highlightQuery);
+  }
+  int textGlobalOffset = 0;
+
+  for (var span in para.spans) {
+    if (span.type == "text") {
+      String content = span.content ?? '';
+      List<bool>? localMap;
+
+      // جدا کردن برش (Slice) نقشه بیتی فقط برای همین اسپن خاص
+      if (highlightMap != null &&
+          content.isNotEmpty &&
+          textGlobalOffset + content.length <= highlightMap.length) {
+        localMap = highlightMap.sublist(
+          textGlobalOffset,
+          textGlobalOffset + content.length,
         );
-        currentInlineSpans.clear();
       }
-    }
 
-    bool isLargeScreen = screenWidth >= 600;
+      currentInlineSpans.addAll(
+        _buildStyledInteractiveText(
+          span,
+          para.interactives,
+          context,
+          isInsideTableCell: isInsideTableCell,
+          para: para,
+          localHighlightMap: localMap, // 🌟 پاس دادن نقشه برش‌خورده
+        ),
+      );
 
-    for (var span in para.spans) {
-      if (span.type == "text") {
-        currentInlineSpans.addAll(
-          _buildStyledInteractiveText(
-            span,
-            para.interactives,
-            context,
-            isInsideTableCell: isInsideTableCell,
-            para: para,
-            highlightQuery: highlightQuery,
-          ),
-        ); // 🌟
-      } else if (span.type == "image") {
-        flushText();
-        String imagePath = span.url ?? span.content;
-        if (imagePath.isNotEmpty) {
-          FCFloat floatAlign = FCFloat.none;
+      textGlobalOffset += content.length;
+    } else if (span.type == "image") {
+      flushText();
+      String imagePath = span.url ?? span.content;
+      if (imagePath.isNotEmpty) {
+        FCFloat floatAlign = FCFloat.none;
+        if (isLargeScreen) {
+          if (span.floatPosition == 'left') floatAlign = FCFloat.left;
+          if (span.floatPosition == 'right') floatAlign = FCFloat.right;
+        }
 
-          if (isLargeScreen) {
-            if (span.floatPosition == 'left') floatAlign = FCFloat.left;
-            if (span.floatPosition == 'right') floatAlign = FCFloat.right;
-          }
-
-          blockElements.add(
-            Floatable(
-              float: floatAlign,
-              clear: floatAlign == FCFloat.none ? FCClear.both : FCClear.none,
-              padding: floatAlign == FCFloat.left
-                  ? const EdgeInsets.only(right: 16.0, bottom: 8.0, top: 4.0)
-                  : floatAlign == FCFloat.right
-                  ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
-                  : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 8.0),
-              child: floatAlign == FCFloat.none
-                  ? Center(
-                      child: _buildLocalImage(
-                        imagePath,
-                        isMobile: !isLargeScreen,
-                        screenWidth: screenWidth,
-                        isImageCell: isImageCell,
-                      ),
-                    )
-                  : _buildLocalImage(
+        blockElements.add(
+          Floatable(
+            float: floatAlign,
+            clear: floatAlign == FCFloat.none ? FCClear.both : FCClear.none,
+            padding: floatAlign == FCFloat.left
+                ? const EdgeInsets.only(right: 16.0, bottom: 8.0, top: 4.0)
+                : floatAlign == FCFloat.right
+                ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
+                : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 8.0),
+            child: floatAlign == FCFloat.none
+                ? Center(
+                    child: _buildLocalImage(
                       imagePath,
-                      isMobile: false,
+                      isMobile: !isLargeScreen,
                       screenWidth: screenWidth,
                       isImageCell: isImageCell,
                     ),
-            ),
-          );
-        }
-      } else if (span.type == "table") {
-        flushText();
-        blockElements.add(_buildTable(span, canvasWidth, screenWidth, context));
+                  )
+                : _buildLocalImage(
+                    imagePath,
+                    isMobile: false,
+                    screenWidth: screenWidth,
+                    isImageCell: isImageCell,
+                  ),
+          ),
+        );
       }
+    } else if (span.type == "table") {
+      flushText();
+      blockElements.add(_buildTable(span, canvasWidth, screenWidth, context));
     }
+  }
 
-    flushText();
+  flushText();
 
-    // قبل از تغییر:
-    // Widget paragraphContent = Directionality(
-    //   textDirection: para.direction == "RTL" ? TextDirection.rtl : TextDirection.ltr,
-    //   child: FloatColumn(children: blockElements),
-    // );
+  Widget paragraphContent = TranslatableContentWrapper(
+    translationFa: para.translationFa,
+    translationAr: para.translationAr,
+    originalContent: Directionality(
+      textDirection: para.direction == "RTL"
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+      child: FloatColumn(children: blockElements),
+    ),
+  );
 
-    // 🌟 بعد از تغییر (تزریق سیستم ترجمه):
-    Widget paragraphContent = TranslatableContentWrapper(
-      translationFa: para.translationFa,
-      translationAr: para.translationAr,
-      originalContent: Directionality(
-        textDirection: para.direction == "RTL"
-            ? TextDirection.rtl
-            : TextDirection.ltr,
-        child: FloatColumn(children: blockElements),
+  bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
+  bool hasBorder = para.hasBorders == "true";
+
+  double defaultBoxPadding = 6.0;
+  double internalTopPadding = 0.0;
+  double internalBottomPadding = 0.0;
+  double externalTopMargin = 0.0;
+  double externalBottomMargin = 0.0;
+
+  bool sameColorBefore =
+      prevPara != null && prevPara.fillColor == para.fillColor && hasBgColor;
+  bool sameColorAfter =
+      nextPara != null && nextPara.fillColor == para.fillColor && hasBgColor;
+
+  double spaceBefore = isImageCell ? 0.0 : para.spaceBefore;
+  double spaceAfter = isImageCell ? 0.0 : para.spaceAfter;
+
+  if (hasBgColor) {
+    internalTopPadding = sameColorBefore
+        ? spaceBefore
+        : (defaultBoxPadding + spaceBefore);
+    internalBottomPadding = sameColorAfter
+        ? spaceAfter
+        : (defaultBoxPadding + spaceAfter);
+  } else {
+    externalTopMargin = spaceBefore;
+    externalBottomMargin = spaceAfter;
+  }
+
+  if (hasBgColor || hasBorder) {
+    Color borderColor = _hexToColor(para.borderColor) ?? Colors.grey.shade600;
+    double borderWidth = 1.5;
+
+    paragraphContent = Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: _hexToColor(para.fillColor),
+        border: hasBorder
+            ? Border(
+                left: BorderSide(color: borderColor, width: borderWidth),
+                right: BorderSide(color: borderColor, width: borderWidth),
+                top: sameColorBefore
+                    ? BorderSide.none
+                    : BorderSide(color: borderColor, width: borderWidth),
+                bottom: sameColorAfter
+                    ? BorderSide.none
+                    : BorderSide(color: borderColor, width: borderWidth),
+              )
+            : null,
+        borderRadius: hasBorder
+            ? BorderRadius.only(
+                topLeft: sameColorBefore
+                    ? Radius.zero
+                    : const Radius.circular(6),
+                topRight: sameColorBefore
+                    ? Radius.zero
+                    : const Radius.circular(6),
+                bottomLeft: sameColorAfter
+                    ? Radius.zero
+                    : const Radius.circular(6),
+                bottomRight: sameColorAfter
+                    ? Radius.zero
+                    : const Radius.circular(6),
+              )
+            : null,
       ),
-    );
-
-    bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
-    bool hasBorder = para.hasBorders == "true";
-
-    double defaultBoxPadding = 6.0;
-    double internalTopPadding = 0.0;
-    double internalBottomPadding = 0.0;
-    double externalTopMargin = 0.0;
-    double externalBottomMargin = 0.0;
-
-    bool sameColorBefore =
-        prevPara != null && prevPara.fillColor == para.fillColor && hasBgColor;
-    bool sameColorAfter =
-        nextPara != null && nextPara.fillColor == para.fillColor && hasBgColor;
-
-    double spaceBefore = isImageCell ? 0.0 : para.spaceBefore;
-    double spaceAfter = isImageCell ? 0.0 : para.spaceAfter;
-
-    if (hasBgColor) {
-      internalTopPadding = sameColorBefore
-          ? spaceBefore
-          : (defaultBoxPadding + spaceBefore);
-      internalBottomPadding = sameColorAfter
-          ? spaceAfter
-          : (defaultBoxPadding + spaceAfter);
-    } else {
-      externalTopMargin = spaceBefore;
-      externalBottomMargin = spaceAfter;
-    }
-
-    if (hasBgColor || hasBorder) {
-      Color borderColor = _hexToColor(para.borderColor) ?? Colors.grey.shade600;
-      double borderWidth = 1.5;
-
-      paragraphContent = Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: _hexToColor(para.fillColor),
-          border: hasBorder
-              ? Border(
-                  left: BorderSide(color: borderColor, width: borderWidth),
-                  right: BorderSide(color: borderColor, width: borderWidth),
-                  top: sameColorBefore
-                      ? BorderSide.none
-                      : BorderSide(color: borderColor, width: borderWidth),
-                  bottom: sameColorAfter
-                      ? BorderSide.none
-                      : BorderSide(color: borderColor, width: borderWidth),
-                )
-              : null,
-          borderRadius: hasBorder
-              ? BorderRadius.only(
-                  topLeft: sameColorBefore
-                      ? Radius.zero
-                      : const Radius.circular(6),
-                  topRight: sameColorBefore
-                      ? Radius.zero
-                      : const Radius.circular(6),
-                  bottomLeft: sameColorAfter
-                      ? Radius.zero
-                      : const Radius.circular(6),
-                  bottomRight: sameColorAfter
-                      ? Radius.zero
-                      : const Radius.circular(6),
-                )
-              : null,
-        ),
-        padding: (isInsideTableCell && hasBorder)
-            ? EdgeInsets.zero
-            : EdgeInsets.only(
-                left: isInsideTableCell ? 2.0 : 10.0,
-                right: isInsideTableCell ? 2.0 : 10.0,
-                top: internalTopPadding,
-                bottom: internalBottomPadding,
-              ),
-        child: paragraphContent,
-      );
-    }
-
-    return Padding(
-      padding: EdgeInsets.only(
-        top: externalTopMargin,
-        bottom: externalBottomMargin,
-      ),
+      padding: (isInsideTableCell && hasBorder)
+          ? EdgeInsets.zero
+          : EdgeInsets.only(
+              left: isInsideTableCell ? 2.0 : 10.0,
+              right: isInsideTableCell ? 2.0 : 10.0,
+              top: internalTopPadding,
+              bottom: internalBottomPadding,
+            ),
       child: paragraphContent,
     );
   }
 
-  Widget _buildTable(
-    SpanData tableSpan,
-    double canvasWidth,
-    double screenWidth,
-    BuildContext context,
-  ) {
-    final bool isLargeScreen = screenWidth > 600;
+  return Padding(
+    padding: EdgeInsets.only(
+      top: externalTopMargin,
+      bottom: externalBottomMargin,
+    ),
+    child: paragraphContent,
+  );
+}
 
-    final String rawStyle =
-        (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
-            .toLowerCase()
-            .replaceAll(" ", "")
-            .replaceAll("_", "");
+Widget _buildTable(
+  SpanData tableSpan,
+  double canvasWidth,
+  double screenWidth,
+  BuildContext context,
+) {
+  final bool isLargeScreen = screenWidth > 600;
 
-    final bool isDottedTable = rawStyle.contains("dottedtable");
-    final bool isTableGrid = rawStyle.contains("tablegrid");
-    final bool isBorderedTable = rawStyle.contains("borderedtable");
+  final String rawStyle =
+      (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
+          .toLowerCase()
+          .replaceAll(" ", "")
+          .replaceAll("_", "");
+  final bool isDottedTable = rawStyle.contains("dottedtable");
+  final bool isTableGrid = rawStyle.contains("tablegrid");
+  final bool isBorderedTable = rawStyle.contains("borderedtable");
+  final bool hideBorders = isDottedTable || isTableGrid;
 
-    final bool hideBorders = isDottedTable || isTableGrid;
+  double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
+  Color borderColor =
+      _hexToColor(tableSpan.borderColor) ??
+      (isBorderedTable ? Colors.black : Colors.grey.shade400);
 
-    double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
-    Color borderColor =
-        _hexToColor(tableSpan.borderColor) ??
-        (isBorderedTable ? Colors.black : Colors.grey.shade400);
+  BoxBorder? cellBorder;
+  BoxBorder? tableBorder;
 
-    BoxBorder? cellBorder;
-    BoxBorder? tableBorder;
-
-    if (!hideBorders && (isBorderedTable || tableSpan.hasBorders == "true")) {
-      cellBorder = Border(
-        right: BorderSide(color: borderColor, width: borderWidth),
-        bottom: BorderSide(color: borderColor, width: borderWidth),
-      );
-      tableBorder = Border(
-        top: BorderSide(color: borderColor, width: borderWidth),
-        left: BorderSide(color: borderColor, width: borderWidth),
-      );
-    }
-
-    List<Widget> rowWidgets = [];
-
-    for (var row in tableSpan.tableRows) {
-      List<Widget> cellWidgets = [];
-
-      // 🌟 سیستم تشخیص هوشمند ردیف‌های کاملاً تصویری
-      bool hasAnyImage = false;
-      bool hasAnyText = false;
-
-      for (var cell in row.cells) {
-        bool isImg =
-            cell.paragraphs.length == 1 &&
-            cell.paragraphs.first.spans.any((s) => s.type == "image");
-        bool isEmpty = cell.paragraphs.every(
-          (p) =>
-              p.spans.isEmpty ||
-              (p.spans.length == 1 &&
-                  p.spans.first.type == "text" &&
-                  p.spans.first.content.trim().isEmpty),
-        );
-
-        if (isImg) {
-          hasAnyImage = true;
-        } else if (!isEmpty) {
-          hasAnyText = true;
-        }
-      }
-
-      // 🌟 اگر ردیف فقط شامل عکس (و سلول‌های خالی) باشد، آن را افقی نگه می‌داریم
-      bool isImageRow = hasAnyImage && !hasAnyText;
-
-      for (var cell in row.cells) {
-        List<Widget> cellParagraphs = [];
-
-        bool isImageCell =
-            cell.paragraphs.length == 1 &&
-            cell.paragraphs.first.spans.any((s) => s.type == "image");
-
-        for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
-          final p = cell.paragraphs[pIndex];
-          final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
-          final pNext = pIndex < cell.paragraphs.length - 1
-              ? cell.paragraphs[pIndex + 1]
-              : null;
-
-          cellParagraphs.add(
-            _buildParagraph(
-              p,
-              canvasWidth,
-              screenWidth,
-              context,
-              isImageCell: isImageCell,
-              isInsideTableCell: true,
-              prevPara: pPrev,
-              nextPara: pNext,
-            ),
-          );
-        }
-
-        double? currentCellWidth = cell.widthPercent;
-
-        Widget cellContent = Container(
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: _hexToColor(cell.fillColor),
-            border: cellBorder,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: cellParagraphs,
-          ),
-        );
-
-        // 🌟 اعمال رفتار یکپارچه برای صفحه‌های بزرگ، جداول اصلی و ردیف‌های تصویری
-        if (isLargeScreen || isBorderedTable || isImageRow) {
-          if (currentCellWidth != null && currentCellWidth > 0) {
-            cellWidgets.add(
-              Expanded(
-                flex: (currentCellWidth * 100).toInt(),
-                child: cellContent,
-              ),
-            );
-          } else {
-            cellWidgets.add(Expanded(child: cellContent));
-          }
-        } else {
-          cellWidgets.add(cellContent);
-        }
-      }
-
-      // 🌟 چیدمان افقی تضمینی برای ردیف‌های تصویری حتی در موبایل
-      if (isLargeScreen || isBorderedTable || isImageRow) {
-        rowWidgets.add(
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: cellWidgets,
-          ),
-        );
-      } else {
-        rowWidgets.add(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: cellWidgets,
-          ),
-        );
-      }
-    }
-
-    Widget tableContainer = Container(
-      margin: const EdgeInsets.symmetric(vertical: 12.0),
-      decoration: BoxDecoration(
-        color: _hexToColor(tableSpan.fillColor),
-        border: tableBorder,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: rowWidgets,
-      ),
+  if (!hideBorders && (isBorderedTable || tableSpan.hasBorders == "true")) {
+    cellBorder = Border(
+      right: BorderSide(color: borderColor, width: borderWidth),
+      bottom: BorderSide(color: borderColor, width: borderWidth),
     );
-
-    if (isBorderedTable && tableSpan.tableWidthPercent != null) {
-      double docPct = tableSpan.tableWidthPercent!;
-
-      if (isLargeScreen) {
-        Alignment tableAlign = Alignment.centerLeft;
-        if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
-        if (tableSpan.tableAlignment == "right")
-          tableAlign = Alignment.centerRight;
-
-        return Align(
-          alignment: tableAlign,
-          child: SizedBox(
-            width: canvasWidth * (docPct / 100),
-            child: tableContainer,
-          ),
-        );
-      } else {
-        if (docPct < 40) {
-          return Align(
-            alignment: Alignment.center,
-            child: SizedBox(width: canvasWidth * 0.6, child: tableContainer),
-          );
-        }
-        return tableContainer;
-      }
-    }
-
-    return tableContainer;
+    tableBorder = Border(
+      top: BorderSide(color: borderColor, width: borderWidth),
+      left: BorderSide(color: borderColor, width: borderWidth),
+    );
   }
 
-  List<InlineSpan> _buildStyledInteractiveText(
-    SpanData span,
-    List<InteractiveWord> interactives,
-    BuildContext context, {
-    bool isInsideTableCell = false,
-    required ParagraphData para,
-    String? highlightQuery, // 🌟
-  }) {
-    double fontSize = 14.0;
-    String? fontFamily;
+  List<Widget> rowWidgets = [];
 
-    for (var marker in span.markers) {
-      if (marker.startsWith("sz:")) {
-        String sizeStr = marker.substring(3);
-        double? parsedSize = double.tryParse(sizeStr);
-        if (parsedSize != null) fontSize = parsedSize / 2;
-      } else if (marker.startsWith("fn:")) {
-        fontFamily = _mapFontFamily(marker.substring(3));
-      }
+  for (var row in tableSpan.tableRows) {
+    List<Widget> cellWidgets = [];
+    bool hasAnyImage = false;
+    bool hasAnyText = false;
+
+    for (var cell in row.cells) {
+      bool isImg =
+          cell.paragraphs.length == 1 &&
+          cell.paragraphs.first.spans.any((s) => s.type == "image");
+      bool isEmpty = cell.paragraphs.every(
+        (p) =>
+            p.spans.isEmpty ||
+            (p.spans.length == 1 &&
+                p.spans.first.type == "text" &&
+                p.spans.first.content.trim().isEmpty),
+      );
+      if (isImg)
+        hasAnyImage = true;
+      else if (!isEmpty)
+        hasAnyText = true;
     }
 
-    Color? effectiveBgColor =
-        _hexToColor(span.fillColor) ?? _hexToColor(para.fillColor);
+    bool isImageRow = hasAnyImage && !hasAnyText;
 
-    Color interactiveColor = Colors.blue;
-    if (effectiveBgColor != null) {
-      if (effectiveBgColor.computeLuminance() < 0.4) {
-        interactiveColor = Colors.lightBlueAccent;
-      } else {
-        interactiveColor = Colors.blue.shade900;
-      }
-    }
+    for (var cell in row.cells) {
+      List<Widget> cellParagraphs = [];
+      bool isImageCell =
+          cell.paragraphs.length == 1 &&
+          cell.paragraphs.first.spans.any((s) => s.type == "image");
 
-    Color? customTextColor = _hexToColor(span.textColor);
-    bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
+      for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
+        final p = cell.paragraphs[pIndex];
+        final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
+        final pNext = pIndex < cell.paragraphs.length - 1
+            ? cell.paragraphs[pIndex + 1]
+            : null;
 
-    if (isAudioLink) {
-      customTextColor = interactiveColor;
-    }
-
-    bool isInlineBorder = span.hasBorders == "true";
-
-    TextStyle baseStyle = TextStyle(
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      color: customTextColor ?? Colors.black87,
-      height: 1.3,
-      backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
-      fontWeight: span.markers.contains("b")
-          ? FontWeight.bold
-          : FontWeight.normal,
-      fontStyle: span.markers.contains("i")
-          ? FontStyle.italic
-          : FontStyle.normal,
-      decoration:
-          (span.markers.contains("u")) // || isAudioLink)
-          ? TextDecoration.underline
-          : TextDecoration.none,
-    );
-
-    List<InlineSpan> interactiveSpans = [];
-
-    if (isAudioLink) {
-      String fileName = span.url!.replaceFirst("audio:", "");
-
-      interactiveSpans.add(
-        WidgetSpan(
-          alignment: PlaceholderAlignment.middle,
-          child: InlineAudioLink(
-            fileName: fileName,
-            text: span.content,
-            baseColor:
-                interactiveColor, // رنگی که هوشمندانه بر اساس بک‌گراند تعیین کرده بودید
+        cellParagraphs.add(
+          _buildParagraph(
+            p,
+            canvasWidth,
+            screenWidth,
+            context,
+            isImageCell: isImageCell,
+            isInsideTableCell: true,
+            prevPara: pPrev,
+            nextPara: pNext,
           ),
+        );
+      }
+
+      double? currentCellWidth = cell.widthPercent;
+      Widget cellContent = Container(
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: _hexToColor(cell.fillColor),
+          border: cellBorder,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: cellParagraphs,
+        ),
+      );
+
+      if (isLargeScreen || isBorderedTable || isImageRow) {
+        if (currentCellWidth != null && currentCellWidth > 0)
+          cellWidgets.add(
+            Expanded(
+              flex: (currentCellWidth * 100).toInt(),
+              child: cellContent,
+            ),
+          );
+        else
+          cellWidgets.add(Expanded(child: cellContent));
+      } else {
+        cellWidgets.add(cellContent);
+      }
+    }
+
+    if (isLargeScreen || isBorderedTable || isImageRow) {
+      rowWidgets.add(
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: cellWidgets,
         ),
       );
     } else {
-      // ... ادامه کدهای قبلی برای کلمات تعاملی (InteractiveText) ... else {
-      interactiveSpans = TextRenderEngine.buildInteractiveText(
-        span.content,
-        interactives,
-        context,
-        baseStyle,
-        interactiveColor: interactiveColor,
-        highlightQuery: highlightQuery, // 🌟
+      rowWidgets.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: cellWidgets,
+        ),
       );
     }
-
-    if (isInlineBorder) {
-      return [
-        WidgetSpan(
-          alignment: PlaceholderAlignment.middle,
-          child: Container(
-            padding: isInsideTableCell
-                ? EdgeInsets.zero
-                : const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-            margin: isInsideTableCell
-                ? EdgeInsets.zero
-                : const EdgeInsets.symmetric(horizontal: 2.0),
-            decoration: BoxDecoration(
-              color: _hexToColor(span.fillColor),
-              border: Border.all(
-                color: _hexToColor(span.borderColor) ?? Colors.grey.shade600,
-                width: 1.2,
-              ),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text.rich(TextSpan(children: interactiveSpans)),
-          ),
-        ),
-      ];
-    }
-
-    return interactiveSpans;
   }
 
-  Widget _buildLocalImage(
-    String imageName, {
-    required bool isMobile,
-    required double screenWidth,
-    required bool isImageCell,
-  }) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(isImageCell ? 0 : 6),
-        child: Image.asset(
-          'assets/data/images/$imageName',
-          fit: BoxFit.contain,
-          // عکس‌های خارج از جدول در موبایل ۸۵٪ پهنا می‌گیرند، اما عکس‌های درون جدول اندازه خودشان را حفظ می‌کنند
-          width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.grey[200],
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.broken_image, color: Colors.red),
-                  const SizedBox(width: 8),
-                  Flexible(
-                    child: Text(
-                      "Image not found: $imageName",
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+  Widget tableContainer = Container(
+    margin: const EdgeInsets.symmetric(vertical: 12.0),
+    decoration: BoxDecoration(
+      color: _hexToColor(tableSpan.fillColor),
+      border: tableBorder,
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: rowWidgets,
+    ),
+  );
+
+  if (isBorderedTable && tableSpan.tableWidthPercent != null) {
+    double docPct = tableSpan.tableWidthPercent!;
+    if (isLargeScreen) {
+      Alignment tableAlign = Alignment.centerLeft;
+      if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
+      if (tableSpan.tableAlignment == "right")
+        tableAlign = Alignment.centerRight;
+      return Align(
+        alignment: tableAlign,
+        child: SizedBox(
+          width: canvasWidth * (docPct / 100),
+          child: tableContainer,
+        ),
+      );
+    } else {
+      if (docPct < 40)
+        return Align(
+          alignment: Alignment.center,
+          child: SizedBox(width: canvasWidth * 0.6, child: tableContainer),
+        );
+      return tableContainer;
+    }
+  }
+
+  return tableContainer;
+}
+
+List<InlineSpan> _buildStyledInteractiveText(
+  SpanData span,
+  List<InteractiveWord> interactives,
+  BuildContext context, {
+  bool isInsideTableCell = false,
+  required ParagraphData para,
+  List<bool>? localHighlightMap, // 🌟 ۳. دریافت نقشه بیتی
+}) {
+  double fontSize = 14.0;
+  String? fontFamily;
+
+  for (var marker in span.markers) {
+    if (marker.startsWith("sz:")) {
+      double? parsedSize = double.tryParse(marker.substring(3));
+      if (parsedSize != null) fontSize = parsedSize / 2;
+    } else if (marker.startsWith("fn:")) {
+      fontFamily = _mapFontFamily(marker.substring(3));
+    }
+  }
+
+  Color? effectiveBgColor =
+      _hexToColor(span.fillColor) ?? _hexToColor(para.fillColor);
+  Color interactiveColor = Colors.blue;
+  if (effectiveBgColor != null) {
+    interactiveColor = effectiveBgColor.computeLuminance() < 0.4
+        ? Colors.lightBlueAccent
+        : Colors.blue.shade900;
+  }
+
+  Color? customTextColor = _hexToColor(span.textColor);
+  bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
+  if (isAudioLink) customTextColor = interactiveColor;
+  bool isInlineBorder = span.hasBorders == "true";
+
+  TextStyle baseStyle = TextStyle(
+    fontSize: fontSize,
+    fontFamily: fontFamily,
+    color: customTextColor ?? Colors.black87,
+    height: 1.3,
+    backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
+    fontWeight: span.markers.contains("b")
+        ? FontWeight.bold
+        : FontWeight.normal,
+    fontStyle: span.markers.contains("i") ? FontStyle.italic : FontStyle.normal,
+    decoration: (span.markers.contains("u"))
+        ? TextDecoration.underline
+        : TextDecoration.none,
+  );
+
+  List<InlineSpan> interactiveSpans = [];
+
+  if (isAudioLink) {
+    interactiveSpans.add(
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: InlineAudioLink(
+          fileName: span.url!.replaceFirst("audio:", ""),
+          text: span.content,
+          baseColor: interactiveColor,
         ),
       ),
     );
+  } else if (localHighlightMap != null) {
+    // 🌟 ۴. اعمال مستقیم رنگ زرد بر اساس نقشه بیتی
+    interactiveSpans = _applyBooleanMapToText(
+      span.content,
+      localHighlightMap,
+      baseStyle,
+    );
+  } else {
+    // حالت عادی رندر کلمات دیکشنری
+    interactiveSpans = TextRenderEngine.buildInteractiveText(
+      span.content,
+      interactives,
+      context,
+      baseStyle,
+      interactiveColor: interactiveColor,
+    );
   }
+
+  if (isInlineBorder) {
+    return [
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: Container(
+          padding: isInsideTableCell
+              ? EdgeInsets.zero
+              : const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+          margin: isInsideTableCell
+              ? EdgeInsets.zero
+              : const EdgeInsets.symmetric(horizontal: 2.0),
+          decoration: BoxDecoration(
+            color: _hexToColor(span.fillColor),
+            border: Border.all(
+              color: _hexToColor(span.borderColor) ?? Colors.grey.shade600,
+              width: 1.2,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text.rich(TextSpan(children: interactiveSpans)),
+        ),
+      ),
+    ];
+  }
+
+  return interactiveSpans;
 }
 
-// 🌟 ویجت هوشمند برای لینک‌های صوتی با قابلیت نمایش پیشرفت
+Widget _buildLocalImage(
+  String imageName, {
+  required bool isMobile,
+  required double screenWidth,
+  required bool isImageCell,
+}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(isImageCell ? 0 : 6),
+      child: Image.asset(
+        'assets/data/images/$imageName',
+        fit: BoxFit.contain,
+        width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
+        errorBuilder: (context, error, stackTrace) => Container(
+          padding: const EdgeInsets.all(16),
+          color: Colors.grey[200],
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.broken_image, color: Colors.red),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  "Image not found: $imageName",
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 class InlineAudioLink extends ConsumerWidget {
   final String fileName;
   final String text;
   final Color baseColor;
-
   const InlineAudioLink({
     super.key,
     required this.fileName,
@@ -891,39 +933,29 @@ class InlineAudioLink extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // گوش دادن به استیت پلیر ریورپاد
     final audioState = ref.watch(audioPlayerProvider);
     final fullPath = 'assets/data/audio/$fileName';
-
-    // خواندن داده‌های آفلاین از حافظه (بدون نیاز به ایمپورت اضافه، GetStorage به صورت سینگلتون کار میکند)
-    // نکته: اگر در این فایل GetStorage ایمپورت نشده، پکیج آن را در بالای صفحه اضافه کنید:
-    // import 'package:get_storage/get_storage.dart';
     final box = GetStorage();
 
-    // بررسی وضعیت
     bool isCurrent = audioState.currentPath == fullPath;
     bool isPlaying = isCurrent && audioState.isPlaying;
 
-    // استخراج میلی‌ثانیه‌ها (یا از پلیر زنده یا از حافظه)
     int currentPosMs = isCurrent
         ? audioState.position.inMilliseconds
         : (box.read('pos_$fullPath') ?? 0);
     int currentDurMs = isCurrent && audioState.duration.inMilliseconds > 0
         ? audioState.duration.inMilliseconds
         : (box.read('dur_$fullPath') ?? 0);
-
-    // محاسبه درصد پیشرفت (عددی بین 0.0 تا 1.0)
     double progress = currentDurMs > 0
         ? (currentPosMs / currentDurMs).clamp(0.0, 1.0)
         : 0.0;
 
     return GestureDetector(
       onTap: () {
-        if (isPlaying) {
+        if (isPlaying)
           ref.read(audioPlayerProvider.notifier).pause();
-        } else {
+        else
           ref.read(audioPlayerProvider.notifier).playFile(fullPath);
-        }
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
@@ -944,17 +976,13 @@ class InlineAudioLink extends ConsumerWidget {
                 alignment: Alignment.center,
                 children: [
                   CircularProgressIndicator(
-                    value: progress, // اگر 0 باشد، دایره خالی می‌ماند
+                    value: progress,
                     strokeWidth: 2.5,
                     backgroundColor: baseColor.withOpacity(0.2),
                     valueColor: AlwaysStoppedAnimation<Color>(baseColor),
                   ),
                   Icon(
-                    isPlaying
-                        ? Icons.pause_rounded
-                        : (progress > 0 && progress < 1
-                              ? Icons.play_arrow_rounded
-                              : Icons.play_arrow_rounded),
+                    isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
                     size: 16,
                     color: baseColor,
                   ),
@@ -978,19 +1006,17 @@ class InlineAudioLink extends ConsumerWidget {
   }
 }
 
-// 🌟 ویجت هوشمند و نامرئی برای مدیریت ترجمه با لمس طولانی (Long Press)
 class TranslatableContentWrapper extends StatefulWidget {
   final Widget originalContent;
   final String? translationFa;
   final String? translationAr;
-  final bool isDarkMode; // 🌟 برای تنظیم تضاد رنگی در مودال‌های تاریک
-
+  final bool isDarkMode;
   const TranslatableContentWrapper({
     super.key,
     required this.originalContent,
     this.translationFa,
     this.translationAr,
-    this.isDarkMode = false, // پیش‌فرض برای صفحات اصلی کتاب (روشن)
+    this.isDarkMode = false,
   });
 
   @override
@@ -1007,14 +1033,11 @@ class _TranslatableContentWrapperState
     bool hasTranslation =
         (widget.translationFa != null && widget.translationFa!.isNotEmpty) ||
         (widget.translationAr != null && widget.translationAr!.isNotEmpty);
-
     if (!hasTranslation) return widget.originalContent;
 
     String finalTranslation = (widget.translationFa?.isNotEmpty ?? false)
         ? widget.translationFa!
         : widget.translationAr!;
-
-    // 🌟 تنظیم هوشمندِ تضاد رنگ‌ها بر اساس محیط (تاریک/روشن)
     Color bgColor = widget.isDarkMode
         ? Colors.white.withOpacity(0.08)
         : Colors.blue.withOpacity(0.05);
@@ -1026,19 +1049,12 @@ class _TranslatableContentWrapperState
         : Colors.black87;
 
     return GestureDetector(
-      behavior:
-          HitTestBehavior.opaque, // تا فضای خالی پاراگراف هم قابل لمس باشد
-      // 🌟 اجرای انیمیشن با لمس طولانی
-      onLongPress: () {
-        setState(() {
-          _showTranslation = !_showTranslation;
-        });
-      },
+      behavior: HitTestBehavior.opaque,
+      onLongPress: () => setState(() => _showTranslation = !_showTranslation),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           widget.originalContent,
-
           AnimatedCrossFade(
             firstChild: const SizedBox(width: double.infinity, height: 0),
             secondChild: Container(
@@ -1054,7 +1070,7 @@ class _TranslatableContentWrapperState
                 textAlign: TextAlign.right,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(
-                  fontFamily: 'YekanBakh', // فونت فارسی پروژه
+                  fontFamily: 'YekanBakh',
                   fontSize: 14,
                   height: 1.6,
                   color: textColor,
