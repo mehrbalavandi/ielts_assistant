@@ -21,10 +21,10 @@ class BookModel {
 // دیتابیس فرضی کتاب‌های شما
 final List<BookModel> availableBooks = [
   BookModel(
-    id: 'mindset_lvl1',
-    title: 'Mindset for IELTS - Level 1',
-    jsonAssetPath: 'assets/data/mindset_l1.json',
-    coverImage: 'assets/images/cover_l1.png',
+    id: 'mindset_lvl3',
+    title: 'Mindset for IELTS - Level 3',
+    jsonAssetPath: 'assets/data/mindset_l3.json',
+    coverImage: 'assets/images/cover_l3.png',
   ),
   BookModel(
     id: 'mindset_lvl2',

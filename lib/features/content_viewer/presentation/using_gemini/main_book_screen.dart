@@ -28,8 +28,8 @@ class MainBookScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () async {
-              // باز کردن صفحه جستجو و منتظر ماندن برای انتخاب کاربر
-              final SearchResult? result = await showSearch(
+              // 🌟 اضافه شدن <SearchResult?> در اینجا:
+              final SearchResult? result = await showSearch<SearchResult?>(
                 context: context,
                 delegate: BookSearchDelegate(ref),
               );
@@ -44,11 +44,6 @@ class MainBookScreen extends ConsumerWidget {
                       .read(activeBookProvider.notifier)
                       .setActiveBook(targetBook);
                 }
-
-                // 🌟 نکته برای هدایت به صفحه:
-                // چون رندر بوم نقاشی فعلی بر اساس اسکرول پیکسلی است،
-                // برای پریدن به پاراگراف مورد نظر در جستجو، در آینده می‌توانیم
-                // از پکیج scrollable_positioned_list برای بدنه ریدینگ هم استفاده کنیم.
               }
             },
           ),
