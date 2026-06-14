@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/library_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,28 +22,35 @@ class ReadingCanvasScreen extends ConsumerStatefulWidget {
 class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final TransformationController _transformationController =
       TransformationController();
+  late ScrollController _scrollController;
+  final _box = GetStorage();
 
   bool _isZoomed = false;
   int _pointerCount = 0;
-  late ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
     _transformationController.addListener(_handleTransformationChanged);
 
-    // 🌟 ۱. لود کردن مقدار اسکرولِ ذخیره شده از حافظه
-    final initialOffset = ref.read(libraryProvider).lastScrollOffset;
+    // 🌟 خواندن آفست ذخیره شده برای کتاب فعلی (اگر وجود نداشت 0.0 برمی‌گرداند)
+    final currentBook = ref.read(activeBookProvider);
+    final String scrollKey = 'scroll_offset_${currentBook?.id ?? "default"}';
+    final double initialOffset = _box.read(scrollKey) ?? 0.0;
 
+    // 🌟 راه‌اندازی ScrollController با موقعیت دقیق ذخیره‌شده
     _scrollController = ScrollController(initialScrollOffset: initialOffset);
-
-    // 🌟 ۲. گوش دادن به اسکرول برای ذخیره‌ی لحظه‌ای
-    _scrollController.addListener(() {
-      ref
-          .read(libraryProvider.notifier)
-          .saveScrollOffset(_scrollController.offset);
-    });
   }
 
+  @override
+  void dispose() {
+    _transformationController.removeListener(_handleTransformationChanged);
+    _transformationController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  // ...
   void _handleTransformationChanged() {
     final scale = _transformationController.value.getMaxScaleOnAxis();
     bool zoomed = scale > 1.02;
@@ -52,14 +59,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         _isZoomed = zoomed;
       });
     }
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    _transformationController.removeListener(_handleTransformationChanged);
-    _transformationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -100,68 +99,81 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                   child: Center(
                     child: SizedBox(
                       width: canvasWidth,
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        physics: (_pointerCount >= 2 || _isZoomed)
-                            ? const NeverScrollableScrollPhysics()
-                            : const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 24.0,
-                          horizontal: 8.0,
-                        ),
-                        itemCount: widget.documentPages.length,
-                        itemBuilder: (context, pageIndex) {
-                          final page = widget.documentPages[pageIndex];
+                      child: NotificationListener<ScrollEndNotification>(
+                        onNotification: (scrollEnd) {
+                          final currentBook = ref.read(activeBookProvider);
+                          if (currentBook != null &&
+                              _scrollController.hasClients) {
+                            _box.write(
+                              'scroll_offset_${currentBook.id}',
+                              _scrollController.offset,
+                            );
+                          }
+                          return false; // اجازه می‌دهد رویداد به ویجت‌های بالاتر هم برسد
+                        },
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          physics: (_pointerCount >= 2 || _isZoomed)
+                              ? const NeverScrollableScrollPhysics()
+                              : const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 24.0,
+                            horizontal: 8.0,
+                          ),
+                          itemCount: widget.documentPages.length,
+                          itemBuilder: (context, pageIndex) {
+                            final page = widget.documentPages[pageIndex];
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _buildPageDivider(page.pageNumber),
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 32.0),
-                                padding: const EdgeInsets.all(24.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.08),
-                                      blurRadius: 12,
-                                      offset: const Offset(0, 4),
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                _buildPageDivider(page.pageNumber),
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 32.0),
+                                  padding: const EdgeInsets.all(24.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.08),
+                                        blurRadius: 12,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: List.generate(
+                                      page.paragraphs.length,
+                                      (pIndex) {
+                                        final p = page.paragraphs[pIndex];
+                                        final pPrev = pIndex > 0
+                                            ? page.paragraphs[pIndex - 1]
+                                            : null;
+                                        final pNext =
+                                            pIndex < page.paragraphs.length - 1
+                                            ? page.paragraphs[pIndex + 1]
+                                            : null;
+
+                                        return _buildParagraph(
+                                          p,
+                                          canvasWidth,
+                                          screenWidth,
+                                          context,
+                                          isInsideTableCell: false,
+                                          prevPara: pPrev,
+                                          nextPara: pNext,
+                                        );
+                                      },
                                     ),
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: List.generate(
-                                    page.paragraphs.length,
-                                    (pIndex) {
-                                      final p = page.paragraphs[pIndex];
-                                      final pPrev = pIndex > 0
-                                          ? page.paragraphs[pIndex - 1]
-                                          : null;
-                                      final pNext =
-                                          pIndex < page.paragraphs.length - 1
-                                          ? page.paragraphs[pIndex + 1]
-                                          : null;
-
-                                      return _buildParagraph(
-                                        p,
-                                        canvasWidth,
-                                        screenWidth,
-                                        context,
-                                        isInsideTableCell: false,
-                                        prevPara: pPrev,
-                                        nextPara: pNext,
-                                      );
-                                    },
                                   ),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
