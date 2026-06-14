@@ -5151,7 +5151,20 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "متن را بخوانید و به سوالات 1 تا 6 پاسخ دهید.",
+"translationAr": "اقرأ النص وأجب عن الأسئلة 1-6.",
+"Interactives": [
+  {
+    "exactText": "passage",
+    "translationFa": "متن (قطعه متن)",
+    "translationAr": "النص القرائي",
+    "pronounceFa": "پَسیدج",
+    "pronounceAr": "باسيدج",
+    "explanationFa": "به یک بخش یا قطعه بلند از یک متن نوشتاری گفته می‌شود که در بخش ریدینگ آیلتس ساختار اصلی سوالات را تشکیل می‌دهد.",
+    "explanationAr": "يشير إلى جزء أو قطعة من نص مكتوب، وهو يمثل البنية الأساسية للأسئلة في قسم القراءة باختبار الآيلتس.",
+    "cefrLevel": "B2"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -5169,7 +5182,40 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "متن درک مطلب دارای 6 پاراگراف، A-F است. عنوان صحیح برای هر پاراگراف را از لیست عناوین زیر انتخاب کنید. شماره صحیح، i-viii را بنویسید.",
+"translationAr": "يحتوي نص القراءة على 6 فقرات، A-F. اختر العنوان الصحيح لكل فقرة من قائمة العناوين أدناه. اكتب الرقم الصحيح، i-viii.",
+"Interactives": [
+  {
+    "exactText": "Reading passage",
+    "translationFa": "متن درک مطلب",
+    "translationAr": "نص القراءة",
+    "pronounceFa": "reeding pasij",
+    "pronounceAr": "reeding pasij",
+    "explanationFa": "به متن‌های بلند و ساختارمند در بخش ریدینگ آیلتس گفته می‌شود که معمولاً از کتاب‌ها، مجلات یا روزنامه‌های آکادمیک انتخاب می‌شوند.",
+    "explanationAr": "يشير إلى النصوص الطويلة والمنظمة في قسم القراءة باختبار الآيلتس، والتي تُؤخذ عادةً من الكتب أو المجلات الأكاديمية.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "heading",
+    "translationFa": "عنوان",
+    "translationAr": "عنوان رئيسي",
+    "pronounceFa": "heding",
+    "pronounceAr": "heding",
+    "explanationFa": "عبارت یا جمله کوتاهی که ایده اصلی یک پاراگراف را بیان می‌کند. در سوالات List of Headings باید بتوانید پیام اصلی هر پاراگراف را با یکی از این عناوین مطابقت دهید.",
+    "explanationAr": "عبارة أو جملة قصيرة تعبر عن الفكرة الرئيسية للفقرة. في أسئلة مطابقة العناوين، يجب عليك ربط الفكرة الأساسية لكل فقرة بالعنوان المناسب لها.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "paragraph",
+    "translationFa": "بند",
+    "translationAr": "فقرة",
+    "pronounceFa": "paragraaf",
+    "pronounceAr": "paragraaf",
+    "explanationFa": "بخش مؤلفی از یک متن که بر روی یک ایده یا موضوع مشخص تمرکز دارد. شناسایی جمله موضوعی (Topic Sentence) در هر پاراگراف کلید موفقیت در آیلتس است.",
+    "explanationAr": "جزء مستقل من النص يركز على فكرة أو موضوع معين. تحديد الجملة المفتاحية في كل فقرة هو سر النجاح في اختبار الآيلتس.",
+    "cefrLevel": "B1"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -5208,7 +5254,20 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "1 پاراگراف الف",
+"translationAr": "1 الفقرة أ",
+"Interactives": [
+  {
+    "exactText": "Paragraph",
+    "translationFa": "پاراگراف",
+    "translationAr": "فقرة",
+    "pronounceFa": "paerəgraaf",
+    "pronounceAr": "baerəgraaf",
+    "explanationFa": "بخش کوچکی از یک متن نوشتاری که بر یک موضوع یا ایده خاص تمرکز دارد. ساختاردهی صحیح پاراگراف‌ها در رایتینگ آیلتس برای کسب نمره بالا در معیار Coherence and Cohesion بسیار حیاتی است.",
+    "explanationAr": "جزء من نص مكتوب يتعامل مع فكرة رئيسية واحدة. تنظيم الفقرات بشكل صحيح ضروري جداً في اختبار كتابة الآيلتس لتحقيق درجة عالية في معيار التماسك والترابط.",
+    "cefrLevel": "B1"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -5247,7 +5306,9 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "2 پاراگراف ب",
+"translationAr": "2 الفقرة ب",
+"Interactives": []
                       },
                       {
                         "Direction": "LTR",
@@ -5286,7 +5347,9 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "پاراگراف 3، بخش سی",
+"translationAr": "الفقرة 3، القسم سي",
+"Interactives": []
                       },
                       {
                         "Direction": "LTR",
@@ -5325,7 +5388,9 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "4 پاراگراف دی",
+"translationAr": "4 الفقرة د",
+"Interactives": []
                       },
                       {
                         "Direction": "LTR",
@@ -5364,7 +5429,9 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "5 پاراگراف E",
+"translationAr": "5 فقرات E",
+"Interactives": []
                       },
                       {
                         "Direction": "LTR",
@@ -5403,7 +5470,9 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "6 پاراگراف F",
+"translationAr": "6 الفقرة F",
+"Interactives": []
                       },
                       {
                         "Direction": "LTR",
@@ -5422,7 +5491,20 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "لیست عناوین",
+"translationAr": "قائمة العناوين",
+"Interactives": [
+  {
+    "exactText": "headings",
+    "translationFa": "عناوین",
+    "translationAr": "العناوين",
+    "pronounceFa": "hedingz",
+    "pronounceAr": "hedingz",
+    "explanationFa": "عناوین یا تیترهایی که در بخش Reading آیلتس برای مشخص کردن موضوع اصلی هر پاراگراف یا بخش از متن انتخاب می‌شوند.",
+    "explanationAr": "العناوين المستخدمة في قسم القراءة في الآيلتس لتحديد الفكرة الرئيسية لكل فقرة أو قسم من النص.",
+    "cefrLevel": "B2"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -5439,7 +5521,30 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "مزایای همکاری",
+"translationAr": "فوائد التعاون",
+"Interactives": [
+  {
+    "exactText": "collaboration",
+    "translationFa": "همکاری",
+    "translationAr": "التعاون",
+    "pronounceFa": "kəlabəreyshən",
+    "pronounceAr": "kəlabəreyshən",
+    "explanationFa": "یک واژه آکادمیک بسیار کلیدی و ارزشمند برای موضوعات کار گروهی، آموزش و محیط‌های کاری در رایتینگ و اسپیکینگ آیلتس.",
+    "explanationAr": "مصطلح أكاديمي رئيسي وقيم جداً لمواضيع العمل الجماعي، التعليم، وبيئات العمل في كتابة ومحادثة الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "benefits",
+    "translationFa": "مزایا",
+    "translationAr": "فوائد",
+    "pronounceFa": "benefits",
+    "pronounceAr": "benefits",
+    "explanationFa": "واژه‌ای اساسی و پرکاربرد که برای پارافریز کردن کلماتی مثل advantages یا merits در مقالات رایتینگ آیلتس (Task 2) استفاده می‌شود.",
+    "explanationAr": "كلمة أساسية وشائعة الاستخدام تُستعمل لإعادة صياغة كلمات مثل advantages أو merits في مقالات كتابة الآيلتس (Task 2).",
+    "cefrLevel": "B1"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -5456,7 +5561,30 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "پیش‌درآمدی بر کلان‌شهر مدرن",
+"translationAr": "سلف للمدينة الكبرى الحديثة",
+"Interactives": [
+  {
+    "exactText": "forerunner",
+    "translationFa": "پیش‌درآمد / نیاکان",
+    "translationAr": "سلف / طليعة",
+    "pronounceFa": "faw-run-uh",
+    "pronounceAr": "faw-run-ah",
+    "explanationFa": "یک واژه آکادمیک و سطح بالا به معنای چیزی که قبل از چیز دیگری می‌آید و نشانه یا زمینه‌ساز آن است. کاربرد عالی در رایتینگ آیلتس برای توصیف تاریخچه یا سیر تکاملی پدیده‌ها.",
+    "explanationAr": "كلمة أكاديمية متقدمة تعني شيئاً يسبق شيئاً آخر ويكون بمثابة تمهيد أو إشارة له. مفيدة جداً في كتابة الآيلتس لوصف التطور التاريخي للموضوعات.",
+    "cefrLevel": "C2"
+  },
+  {
+    "exactText": "metropolis",
+    "translationFa": "کلان‌شهر",
+    "translationAr": "مدينة كبرى / حاضرة",
+    "pronounceFa": "muh-trop-uh-lis",
+    "pronounceAr": "muh-trop-uh-lis",
+    "explanationFa": "یک واژه سطح بالا و رسمی به معنای شهر بزرگ، پرجمعیت و مرکز اصلی فعالیت‌های اقتصادی و فرهنگی. جایگزینی ایده‌آل برای واژه‌های تکراری مانند 'big city' در تاپیک‌های شهرنشینی (Urbanization) در آزمون آیلتس.",
+    "explanationAr": "مصطلح رسمي متقدم يعني مدينة ضخمة ومزدحمة تمثل مركزاً رئيسياً للأنشطة. بديل مثالي لكلمة 'big city' في مواضيع التمدن والسكن في الآيلتس.",
+    "cefrLevel": "C1"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -5473,7 +5601,30 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "یک دوره فعالیت فشرده و برنامه‌های تکمیل‌شده",
+"translationAr": "فترة من النشاط المكثف والخطط المكتملة",
+"Interactives": [
+  {
+    "exactText": "intense",
+    "translationFa": "شدید و فشرده",
+    "translationAr": "مكثف وشدید",
+    "pronounceFa": "in-tens",
+    "pronounceAr": "intens",
+    "explanationFa": "این صفت برای توصیف میزان بالا و جدی بودن یک فعالیت، روند یا احساس در رایتینگ و اسپیکینگ آیلتس بسیار کلیدی است.",
+    "explanationAr": "تُستخدم هذه الصفة لوصف درجة عالية وجادة من النشاط أو الشعور، وهي مفيدة جداً في قسمي الكتابة والمحادثة في اختبار الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "period",
+    "translationFa": "دوره، بازه زمانی",
+    "translationAr": "فترة زمنية",
+    "pronounceFa": "peer-ee-uhd",
+    "pronounceAr": "peereead",
+    "explanationFa": "واژه‌ای آکادمیک و ضروری برای اشاره به یک مدت زمان مشخص که در توصیف روندها و تغییرات زمان در رایتینگ تسک 1 آکادمیک آیلتس پرکاربرد است.",
+    "explanationAr": "كلمة أكاديمية أساسية للإشارة إلى مدة زمنية محددة، وتُستخدم بكثرة لوصف التغيرات عبر الزمن في القسم الأول من رایتینگ الآيلتس الأكاديمي.",
+    "cefrLevel": "B1"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -5490,7 +5641,20 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "یک تضاد آشکار بین گذشته و حال",
+"translationAr": "تباين واضح بين الماضي والحاضر",
+"Interactives": [
+  {
+    "exactText": "clear contrast",
+    "translationFa": "تضاد آشکار",
+    "translationAr": "تباين واضح",
+    "pronounceFa": "kliuh kontraast",
+    "pronounceAr": "kliuh kontraast",
+    "explanationFa": "یک ترکیب واژگانی (کالوکیشن) آکادمیک و بسیار کاربردی برای بخش رایتینگ آیلتس (به‌ویژه تسک 1) جهت توصیف و مقایسه تفاوت‌های بارز میان داده‌ها یا دوره‌های زمانی.",
+    "explanationAr": "متلازمة لفظية أكاديمية ومفيدة جداً لقسم الكتابة في اختبار الآيلتس (خاصة المهمة 1) لوصف ومقارنة الاختلافات البارزة بين البيانات أو الفترات الزمنية.",
+    "cefrLevel": "B2"
+  }
+]
                       },
                       {
                         "Direction": "LTR",

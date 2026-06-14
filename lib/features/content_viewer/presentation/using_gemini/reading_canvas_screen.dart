@@ -29,7 +29,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
 
-  // 🌟 کلیدِ طلایی برای اسکرول دقیق به داخل پاراگراف
+  // 🌟 کلید اختصاصی برای پیدا کردن دقیق پاراگراف هدف در صفحه
   final GlobalKey _targetParaKey = GlobalKey();
 
   bool _isZoomed = false;
@@ -48,17 +48,33 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             .map((p) => p.index)
             .reduce(math.min);
         final currentBook = ref.read(activeBookProvider);
-        if (currentBook != null) {
+        if (currentBook != null)
           _box.write('scroll_page_${currentBook.id}', minIndex);
-        }
       }
+    });
+
+    // 🌟 اجرای اسکرولِ دقیق بعد از رندر شدن فریم اول (برای وقتی که تازه از جستجو وارد می‌شویم)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _ensureTargetVisible();
     });
   }
 
   void _handleTransformationChanged() {
-    setState(() {
-      _isZoomed = _transformationController.value.getMaxScaleOnAxis() > 1.05;
-    });
+    setState(
+      () => _isZoomed =
+          _transformationController.value.getMaxScaleOnAxis() > 1.05,
+    );
+  }
+
+  void _ensureTargetVisible() {
+    if (_targetParaKey.currentContext != null) {
+      Scrollable.ensureVisible(
+        _targetParaKey.currentContext!,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOutCubic,
+        alignment: 0.3, // پاراگراف را در بخش بالایی دید کاربر قرار می‌دهد
+      );
+    }
   }
 
   @override
@@ -74,43 +90,43 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         ? 760.0
         : MediaQuery.of(context).size.width - 24;
     final currentBook = ref.read(activeBookProvider);
-    final int initialIndex =
-        _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
-
-    // 🌟 سیستم هوشمند اسکرول ترکیبی (پرش به صفحه -> اسکرول دقیق به کلمه)
-    ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
-      if (next != null && next.results.isNotEmpty) {
-        final target = next.results[next.currentIndex] as SearchResult;
-        int pageIndex = widget.documentPages.indexWhere(
-          (p) => p.pageNumber == target.pageNumber,
-        );
-
-        if (pageIndex != -1 && _itemScrollController.isAttached) {
-          // ۱. ابتدا سریعاً به صفحه می‌پریم تا ویجت‌هایش ساخته شوند
-          _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
-
-          // ۲. یک فریم صبر می‌کنیم تا فلاتر کلید (_targetParaKey) را در درخت ثبت کند
-          await Future.delayed(const Duration(milliseconds: 100));
-
-          // ۳. به صورت میلی‌متری تا خود پاراگراف هدف پایین می‌رویم
-          if (_targetParaKey.currentContext != null) {
-            Scrollable.ensureVisible(
-              _targetParaKey.currentContext!,
-              duration: const Duration(milliseconds: 600),
-              curve: Curves.easeInOutCubic,
-              alignment:
-                  0.3, // کلمه را در یک‌سوم بالایی صفحه تنظیم می‌کند تا چشم راحت ببیند
-            );
-          }
-        }
-      }
-    });
-
     final searchSession = ref.watch(activeSearchProvider);
+
+    // 🌟 تعیین هوشمند صفحه‌ی پیش‌فرض (یا آخرین مطالعه، یا صفحه‌ی یافت‌شده در جستجو)
+    int initialIndex =
+        _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
     final activeTarget =
         (searchSession != null && searchSession.results.isNotEmpty)
         ? searchSession.results[searchSession.currentIndex] as SearchResult
         : null;
+
+    if (activeTarget != null) {
+      int pIndex = widget.documentPages.indexWhere(
+        (p) => p.pageNumber == activeTarget.pageNumber,
+      );
+      if (pIndex != -1) initialIndex = pIndex;
+    }
+
+    // 🌟 ناوبری بین نتایج جستجو وقتی کاربر دکمه‌های بعدی/قبلی را می‌زند
+    ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
+      if (next != null &&
+          previous?.currentIndex != next.currentIndex &&
+          next.results.isNotEmpty) {
+        final target = next.results[next.currentIndex] as SearchResult;
+        int pageIndex = widget.documentPages.indexWhere(
+          (p) => p.pageNumber == target.pageNumber,
+        );
+        if (pageIndex != -1 && _itemScrollController.isAttached) {
+          _itemScrollController.scrollTo(
+            index: pageIndex,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOut,
+          );
+          await Future.delayed(const Duration(milliseconds: 450));
+          _ensureTargetVisible();
+        }
+      }
+    });
 
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
@@ -137,6 +153,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                         itemCount: widget.documentPages.length,
                         itemScrollController: _itemScrollController,
                         itemPositionsListener: _itemPositionsListener,
+                        // تضمین می‌کنیم که ایندکس خارج از محدوده نباشد
                         initialScrollIndex:
                             initialIndex < widget.documentPages.length
                             ? initialIndex
@@ -156,7 +173,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                           ) {
                             var para = page.paragraphs[pIndex];
 
-                            // تشخیص دقیق اینکه آیا این همان پاراگرافِ جستجوشده است
                             bool isTargetParagraph =
                                 activeTarget != null &&
                                 activeTarget.pageNumber == page.pageNumber &&
@@ -167,16 +183,19 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                               canvasWidth,
                               MediaQuery.of(context).size.width,
                               context,
-                              // 🌟 رفع قطعی خطای Null با عملگر ?.
                               highlightQuery: isTargetParagraph
                                   ? searchSession?.query
-                                  : null,
+                                  : null, // 🌟 ارسال کوئری
                             );
 
-                            // تخصیص کلید برای پرش، فقط به پاراگرافِ هدف
+                            // تخصیص کلید برای پرش و کادر زرد ملایم برای پاراگراف پیدا شده
                             if (isTargetParagraph) {
                               paragraphContent = Container(
                                 key: _targetParaKey,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow.withOpacity(0.15),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
                                 child: paragraphContent,
                               );
                             }
@@ -227,86 +246,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   }
 }
 
-// 🌟 ۱. متدهای نقشه بیتی (Boolean Map) دقیقاً طبق معماری خودتان
-List<bool> _buildBooleanHighlightMap(String fullText, String query) {
-  String normText = fullText
-      .toLowerCase()
-      .replaceAll('ي', 'ی')
-      .replaceAll('ك', 'ک')
-      .replaceAll('ة', 'ه')
-      .replaceAll('أ', 'ا')
-      .replaceAll('إ', 'ا')
-      .replaceAll('ؤ', 'و')
-      .replaceAll('\u200c', ' ');
-  String normQuery = query
-      .toLowerCase()
-      .replaceAll('ي', 'ی')
-      .replaceAll('ك', 'ک')
-      .replaceAll('ة', 'ه')
-      .replaceAll('أ', 'ا')
-      .replaceAll('إ', 'ا')
-      .replaceAll('ؤ', 'و')
-      .replaceAll('\u200c', ' ');
-
-  List<bool> map = List.filled(fullText.length, false);
-  if (normQuery.isEmpty) return map;
-
-  int matchIndex = normText.indexOf(normQuery);
-  while (matchIndex != -1) {
-    for (int i = 0; i < normQuery.length; i++) {
-      if (matchIndex + i < map.length) map[matchIndex + i] = true;
-    }
-    matchIndex = normText.indexOf(normQuery, matchIndex + normQuery.length);
-  }
-  return map;
-}
-
-List<InlineSpan> _applyBooleanMapToText(
-  String content,
-  List<bool> localMap,
-  TextStyle baseStyle,
-) {
-  List<InlineSpan> spans = [];
-  if (content.isEmpty) return spans;
-
-  bool isHighlighting = localMap[0];
-  String chunk = "";
-
-  for (int i = 0; i < content.length; i++) {
-    if (localMap[i] == isHighlighting) {
-      chunk += content[i];
-    } else {
-      spans.add(
-        TextSpan(
-          text: chunk,
-          style: isHighlighting
-              ? baseStyle.copyWith(
-                  backgroundColor: Colors.yellowAccent.withOpacity(0.7),
-                  color: Colors.black,
-                )
-              : baseStyle,
-        ),
-      );
-      chunk = content[i];
-      isHighlighting = localMap[i];
-    }
-  }
-  if (chunk.isNotEmpty) {
-    spans.add(
-      TextSpan(
-        text: chunk,
-        style: isHighlighting
-            ? baseStyle.copyWith(
-                backgroundColor: Colors.yellowAccent.withOpacity(0.7),
-                color: Colors.black,
-              )
-            : baseStyle,
-      ),
-    );
-  }
-  return spans;
-}
-
 Widget _buildPageDivider(int pageNumber) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 16.0, left: 8.0, right: 8.0),
@@ -344,7 +283,6 @@ String _mapFontFamily(String rawFontName) {
       .toLowerCase()
       .replaceAll("-", "")
       .replaceAll(" ", "");
-
   if (normalized.contains("sourcesans")) return "Source Sans 3";
   if (normalized.contains("times") || normalized.contains("major"))
     return "Times New Roman";
@@ -353,7 +291,6 @@ String _mapFontFamily(String rawFontName) {
   if (normalized.contains("verdana")) return "Verdana";
   if (normalized.contains("gadugi")) return "Gadugi";
   if (normalized.contains("emoji")) return "Segoe UI Emoji";
-
   if (normalized.contains("zar")) return "Zar";
   if (normalized.contains("titr")) return "Titr";
   if (normalized.contains("yekan")) {
@@ -388,7 +325,7 @@ Widget _buildParagraph(
   bool isInsideTableCell = false,
   ParagraphData? prevPara,
   ParagraphData? nextPara,
-  String? highlightQuery, // 🌟
+  String? highlightQuery, // 🌟 دریافت مستقیم عبارت جستجو
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
@@ -420,32 +357,8 @@ Widget _buildParagraph(
 
   bool isLargeScreen = screenWidth >= 600;
 
-  // 🌟 ۲. تزریق منطق نقشه بیتی دقیقاً قبل از خواندن اسپن‌ها
-  List<bool>? highlightMap;
-  if (highlightQuery != null && highlightQuery.isNotEmpty) {
-    String fullText = para.spans
-        .where((s) => s.type == "text")
-        .map((s) => s.content ?? '')
-        .join();
-    highlightMap = _buildBooleanHighlightMap(fullText, highlightQuery);
-  }
-  int textGlobalOffset = 0;
-
   for (var span in para.spans) {
     if (span.type == "text") {
-      String content = span.content ?? '';
-      List<bool>? localMap;
-
-      // جدا کردن برش (Slice) نقشه بیتی فقط برای همین اسپن خاص
-      if (highlightMap != null &&
-          content.isNotEmpty &&
-          textGlobalOffset + content.length <= highlightMap.length) {
-        localMap = highlightMap.sublist(
-          textGlobalOffset,
-          textGlobalOffset + content.length,
-        );
-      }
-
       currentInlineSpans.addAll(
         _buildStyledInteractiveText(
           span,
@@ -453,11 +366,9 @@ Widget _buildParagraph(
           context,
           isInsideTableCell: isInsideTableCell,
           para: para,
-          localHighlightMap: localMap, // 🌟 پاس دادن نقشه برش‌خورده
+          highlightQuery: highlightQuery,
         ),
       );
-
-      textGlobalOffset += content.length;
     } else if (span.type == "image") {
       flushText();
       String imagePath = span.url ?? span.content;
@@ -516,18 +427,15 @@ Widget _buildParagraph(
 
   bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
   bool hasBorder = para.hasBorders == "true";
-
   double defaultBoxPadding = 6.0;
-  double internalTopPadding = 0.0;
-  double internalBottomPadding = 0.0;
-  double externalTopMargin = 0.0;
-  double externalBottomMargin = 0.0;
-
+  double internalTopPadding = 0.0,
+      internalBottomPadding = 0.0,
+      externalTopMargin = 0.0,
+      externalBottomMargin = 0.0;
   bool sameColorBefore =
       prevPara != null && prevPara.fillColor == para.fillColor && hasBgColor;
   bool sameColorAfter =
       nextPara != null && nextPara.fillColor == para.fillColor && hasBgColor;
-
   double spaceBefore = isImageCell ? 0.0 : para.spaceBefore;
   double spaceAfter = isImageCell ? 0.0 : para.spaceAfter;
 
@@ -608,16 +516,14 @@ Widget _buildTable(
   BuildContext context,
 ) {
   final bool isLargeScreen = screenWidth > 600;
-
   final String rawStyle =
       (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
           .toLowerCase()
           .replaceAll(" ", "")
           .replaceAll("_", "");
-  final bool isDottedTable = rawStyle.contains("dottedtable");
-  final bool isTableGrid = rawStyle.contains("tablegrid");
   final bool isBorderedTable = rawStyle.contains("borderedtable");
-  final bool hideBorders = isDottedTable || isTableGrid;
+  final bool hideBorders =
+      rawStyle.contains("dottedtable") || rawStyle.contains("tablegrid");
 
   double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
   Color borderColor =
@@ -642,8 +548,7 @@ Widget _buildTable(
 
   for (var row in tableSpan.tableRows) {
     List<Widget> cellWidgets = [];
-    bool hasAnyImage = false;
-    bool hasAnyText = false;
+    bool hasAnyImage = false, hasAnyText = false;
 
     for (var cell in row.cells) {
       bool isImg =
@@ -671,27 +576,22 @@ Widget _buildTable(
           cell.paragraphs.first.spans.any((s) => s.type == "image");
 
       for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
-        final p = cell.paragraphs[pIndex];
-        final pPrev = pIndex > 0 ? cell.paragraphs[pIndex - 1] : null;
-        final pNext = pIndex < cell.paragraphs.length - 1
-            ? cell.paragraphs[pIndex + 1]
-            : null;
-
         cellParagraphs.add(
           _buildParagraph(
-            p,
+            cell.paragraphs[pIndex],
             canvasWidth,
             screenWidth,
             context,
             isImageCell: isImageCell,
             isInsideTableCell: true,
-            prevPara: pPrev,
-            nextPara: pNext,
+            prevPara: pIndex > 0 ? cell.paragraphs[pIndex - 1] : null,
+            nextPara: pIndex < cell.paragraphs.length - 1
+                ? cell.paragraphs[pIndex + 1]
+                : null,
           ),
         );
       }
 
-      double? currentCellWidth = cell.widthPercent;
       Widget cellContent = Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -706,10 +606,10 @@ Widget _buildTable(
       );
 
       if (isLargeScreen || isBorderedTable || isImageRow) {
-        if (currentCellWidth != null && currentCellWidth > 0)
+        if (cell.widthPercent != null && cell.widthPercent! > 0)
           cellWidgets.add(
             Expanded(
-              flex: (currentCellWidth * 100).toInt(),
+              flex: (cell.widthPercent! * 100).toInt(),
               child: cellContent,
             ),
           );
@@ -720,21 +620,20 @@ Widget _buildTable(
       }
     }
 
-    if (isLargeScreen || isBorderedTable || isImageRow) {
+    if (isLargeScreen || isBorderedTable || isImageRow)
       rowWidgets.add(
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: cellWidgets,
         ),
       );
-    } else {
+    else
       rowWidgets.add(
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: cellWidgets,
         ),
       );
-    }
   }
 
   Widget tableContainer = Container(
@@ -750,7 +649,6 @@ Widget _buildTable(
   );
 
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
-    double docPct = tableSpan.tableWidthPercent!;
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
       if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
@@ -759,12 +657,12 @@ Widget _buildTable(
       return Align(
         alignment: tableAlign,
         child: SizedBox(
-          width: canvasWidth * (docPct / 100),
+          width: canvasWidth * (tableSpan.tableWidthPercent! / 100),
           child: tableContainer,
         ),
       );
     } else {
-      if (docPct < 40)
+      if (tableSpan.tableWidthPercent! < 40)
         return Align(
           alignment: Alignment.center,
           child: SizedBox(width: canvasWidth * 0.6, child: tableContainer),
@@ -782,7 +680,7 @@ List<InlineSpan> _buildStyledInteractiveText(
   BuildContext context, {
   bool isInsideTableCell = false,
   required ParagraphData para,
-  List<bool>? localHighlightMap, // 🌟 ۳. دریافت نقشه بیتی
+  String? highlightQuery, // 🌟 دریافت مستقیم از متد بالا
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -791,9 +689,8 @@ List<InlineSpan> _buildStyledInteractiveText(
     if (marker.startsWith("sz:")) {
       double? parsedSize = double.tryParse(marker.substring(3));
       if (parsedSize != null) fontSize = parsedSize / 2;
-    } else if (marker.startsWith("fn:")) {
+    } else if (marker.startsWith("fn:"))
       fontFamily = _mapFontFamily(marker.substring(3));
-    }
   }
 
   Color? effectiveBgColor =
@@ -833,26 +730,20 @@ List<InlineSpan> _buildStyledInteractiveText(
         alignment: PlaceholderAlignment.middle,
         child: InlineAudioLink(
           fileName: span.url!.replaceFirst("audio:", ""),
-          text: span.content,
+          text: span.content ?? '',
           baseColor: interactiveColor,
         ),
       ),
     );
-  } else if (localHighlightMap != null) {
-    // 🌟 ۴. اعمال مستقیم رنگ زرد بر اساس نقشه بیتی
-    interactiveSpans = _applyBooleanMapToText(
-      span.content,
-      localHighlightMap,
-      baseStyle,
-    );
   } else {
-    // حالت عادی رندر کلمات دیکشنری
+    // 🌟 ارتباط مستقیم با موتور ادغام‌شده‌ی جدید!
     interactiveSpans = TextRenderEngine.buildInteractiveText(
-      span.content,
+      span.content ?? '',
       interactives,
       context,
       baseStyle,
       interactiveColor: interactiveColor,
+      searchQuery: highlightQuery, // این پارامتر جادو را رقم می‌زند
     );
   }
 
@@ -936,7 +827,6 @@ class InlineAudioLink extends ConsumerWidget {
     final audioState = ref.watch(audioPlayerProvider);
     final fullPath = 'assets/data/audio/$fileName';
     final box = GetStorage();
-
     bool isCurrent = audioState.currentPath == fullPath;
     bool isPlaying = isCurrent && audioState.isPlaying;
 
