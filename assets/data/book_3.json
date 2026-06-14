@@ -4550,7 +4550,40 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "با یک هم‌تیمی، به کلماتی فکر کنید که با پیشوندهای داخل کادر شروع می‌شوند. سپس درباره معنای کلی هر پیشوند بحث کنید.",
+"translationAr": "مع زميل، فكر في بعض الكلمات التي تبدأ بالبادئات الموجودة في المربع. ثم ناقش المعنى العام لكل بادئة.",
+"Interactives": [
+  {
+    "exactText": "prefixes",
+    "translationFa": "پیشوندها",
+    "translationAr": "البادئات",
+    "pronounceFa": "پریفیکسِز",
+    "pronounceAr": "بريفيكسيز",
+    "explanationFa": "حروفی که به ابتدای کلمه اضافه شده و معنای آن را تغییر می‌دهند؛ شناخت آن‌ها به درک سریع واژگان در ریدینگ آیلتس کمک می‌کند.",
+    "explanationAr": "أحرف تضاف إلى بداية الكلمة لتغيير معناها؛ وتساعد معرفتها في الفهم السريع للمفردات في قسم القراءة باختبار الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "discuss",
+    "translationFa": "بحث و تبادل نظر کردن",
+    "translationAr": "مناقشة / التباحث",
+    "pronounceFa": "دیسکاس",
+    "pronounceAr": "ديسكاس",
+    "explanationFa": "فعلی کلیدی برای توصیف فرآیند تبادل آرا که در صورت سوالات رایتینگ تسک 2 آیلتس (Discuss both views) بسیار کاربرد دارد.",
+    "explanationAr": "فعل رئيسي لوصف عملية تبادل الآراء، ويكثر استخدامه في أسئلة الكتابة للمهمة الثانية في الآيلتس (Discuss both views).",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "general meaning",
+    "translationFa": "معنای کلی",
+    "translationAr": "المعنى العام",
+    "pronounceFa": "جنرال مینیگ",
+    "pronounceAr": "جينرال مينينغ",
+    "explanationFa": "یک ترکیب اسمی (کالوکیشن) کاربردی برای اشاره به مفهوم کلی یک واژه یا متن بدون وارد شدن به جزئیات.",
+    "explanationAr": "متلازمة لفظية عملية للإشارة إلى المفهوم الشامل للكلمة أو النص دون الدخول في التفاصيل الدقيقة.",
+    "cefrLevel": "B1"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -4571,7 +4604,110 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "پس از   پیش/قبل از   زیر/فرعی   چند/متعدد   ضد/مخالف   اشتباه/نادرست   غیر/نا   پیش/قبل   بیش از حد   کمتر از حد",
+"translationAr": "بعد   قبل/أمام   تحت/فرعي   متعدد   ضد/مضاد   خطأ/بشكل خاطئ   غير/لا   قبل   أكثر من اللازم   أقل من اللازم",
+"Interactives": [
+  {
+    "exactText": "post-",
+    "translationFa": "پس از / بعد از",
+    "translationAr": "بعد / تلو",
+    "pronounceFa": "pohst",
+    "pronounceAr": "pohst",
+    "explanationFa": "پیشوندی به معنای 'بعد از'. در واژگان آکادمیک مانند postgraduate کاربرد فراوان دارد.",
+    "explanationAr": "بادئة تعني 'بعد'. تُستخدم في الكلمات الأكاديمية مثل postgraduate.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "for-/fore-",
+    "translationFa": "پیش / قبل / جلو",
+    "translationAr": "قبل / أمام",
+    "pronounceFa": "faw / faw",
+    "pronounceAr": "faw / faw",
+    "explanationFa": "پیشوندی به معنای 'قبل' یا 'جلو'. برای درک کلمات کلیدی آیلتس مثل forecast مفید است.",
+    "explanationAr": "بادئة تعني 'قبل' أو 'أمام'. مفيدة لفهم كلمات آيلتس الرئيسية مثل forecast.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "sub-",
+    "translationFa": "زیر / فرعی / مادون",
+    "translationAr": "تحت / فرعي",
+    "pronounceFa": "sab",
+    "pronounceAr": "sab",
+    "explanationFa": "به معنای 'زیر' یا 'کمتر'. در واژگان ساختاری آزمون آیلتس مانند subcategory کاربرد دارد.",
+    "explanationAr": "تعني 'تحت' أو 'أقل'. تُستخدم في الكلمات الهيكلية لآيلتس مثل subcategory.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "multi-",
+    "translationFa": "چند / متعدد",
+    "translationAr": "متعدد",
+    "pronounceFa": "malti",
+    "pronounceAr": "malti",
+    "explanationFa": "پیشوندی به معنای 'چندین'. برای توصیف موضوعات پیچیده اجتماعی مانند multicultural استفاده می‌شود.",
+    "explanationAr": "بادئة تعني 'متعدد'. تُستخدم لوصف المواضيع الاجتماعية المعقدة مثل multicultural.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "anti-",
+    "translationFa": "ضد / مخالف",
+    "translationAr": "ضد / مضاد",
+    "pronounceFa": "anti",
+    "pronounceAr": "anti",
+    "explanationFa": "به معنای 'مخالف' یا 'ضد'. در متون علمی و آکادمیک آیلتس مانند antisocial رایج است.",
+    "explanationAr": "تعني 'مخالف' أو 'ضد'. شائعة في نصوص آيلتس العلمية والأكاديمية مثل antisocial.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "mis-",
+    "translationFa": "اشتباه / نادرست",
+    "translationAr": "خطأ / بشكل خاطئ",
+    "pronounceFa": "mis",
+    "pronounceAr": "mis",
+    "explanationFa": "نشان‌دهنده انجام نادرست کار است؛ مانند misunderstand یا misinterpret در بخش ریدینگ آیلتس.",
+    "explanationAr": "تدل على فعل الشيء بشكل خاطئ؛ مثل misunderstand أو misinterpret في قسم القراءة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "non-",
+    "translationFa": "غیر / نا / بی",
+    "translationAr": "غير / لا",
+    "pronounceFa": "non",
+    "pronounceAr": "non",
+    "explanationFa": "پیشوند منفی‌کننده برای اسم و صفت، مانند non-profit که در موضوعات عمومی رایتینگ تکرار می‌شود.",
+    "explanationAr": "بادئة نفي للأسماء والصفات، مثل non-profit التي تتكرر في مواضيع الكتابة العامة.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "pre-",
+    "translationFa": "پیش / قبل از",
+    "translationAr": "قبل / مسبق",
+    "pronounceFa": "pri",
+    "pronounceAr": "pri",
+    "explanationFa": "به معنای 'پیش از'. برای واژگان سطح بالای آیلتس چون prerequisite یا premature حیاتی است.",
+    "explanationAr": "تعني 'قبل'. حيوية لكلمات آيلتس عالية المستوى مثل prerequisite أو premature.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "over-",
+    "translationFa": "بیش از حد / افراط",
+    "translationAr": "أكثر من اللازم / إفراط",
+    "pronounceFa": "ohva",
+    "pronounceAr": "ohva",
+    "explanationFa": "به معنی 'بیش از اندازه'. در رایتینگ آیلتس برای توصیف مشکلاتی مثل overpopulation بسیار کاربردی است.",
+    "explanationAr": "تعني 'أكثر من اللازم'. مفيدة جداً في كتابة آيلتس لوصف مشكلات مثل overpopulation.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "under-",
+    "translationFa": "کمتر از حد / تحت / دون",
+    "translationAr": "أقل من اللازم / تحت",
+    "pronounceFa": "anda",
+    "pronounceAr": "anda",
+    "explanationFa": "به معنی 'کمتر از حد معمول'. کلماتی مانند underestimate یا underprivileged نمره‌آور هستند.",
+    "explanationAr": "تعني 'أقل من المعتاد'. كلمات مثل underestimate أو underprivileged ترفع من درجة الاختبار.",
+    "cefrLevel": "C1"
+  }
+]
                       }
                     ],
                     "WidthPercent": 94.94,
@@ -4626,7 +4762,30 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "با استفاده از پیشوندهای صحیح از کادر بالا، کلماتی را که با حروف بزرگ نوشته شده‌اند به شکل‌های صحیح تغییر دهید.",
+"translationAr": "باستخدام البوادئ الصحيحة من المربع أعلاه، قم بتغيير الكلمات المكتوبة بأحرف كبيرة إلى الأشكال الصحيحة.",
+"Interactives": [
+  {
+    "exactText": "prefixes",
+    "translationFa": "پیشوندها",
+    "translationAr": "البوادئ",
+    "pronounceFa": "priifiksiz",
+    "pronounceAr": "priifiksiz",
+    "explanationFa": "حروفی که به ابتدای کلمات اضافه می‌شوند تا معنای آن‌ها را تغییر دهند. تسلط بر پیشوندهای منفی‌ساز و تغییردهنده معنا برای بخش Word Formation در آزمون آیلتس بسیار حائز اهمیت است.",
+    "explanationAr": "أحرف تضاف إلى بداية الكلمات لتغيير معناها. إتقان البوادئ مهم جداً لقسم اشتقاق الكلمات وتكوينها في اختبار الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "CAPITALS",
+    "translationFa": "حروف بزرگ",
+    "translationAr": "الحروف الكبيرة",
+    "pronounceFa": "kaapitəlz",
+    "pronounceAr": "kaapitəlz",
+    "explanationFa": "اشاره به حروف بزرگ انگلیسی دارد. رعایت قوانین حروف بزرگ (Capitalization) در بخش‌های Listening و Writing آیلتس برای جلوگیری از کسر نمره‌های بی‌مورد الزامی است.",
+    "explanationAr": "تشير إلى الحروف الكبيرة. الالتزام بقواعد كتابة الحروف الكبيرة في قسمي الاستماع والكتابة في الآيلتس ضروري لتجنب خسارة الدرجات مجاناً.",
+    "cefrLevel": "B1"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -4654,7 +4813,40 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "دفترچه راهنمای گردشگری پارک مارلوث تضمین می‌کند که به بازدیدکنندگان در مورد حیوانات وحشی که ممکن است هنگام قدم زدن در خیابان‌ها با آن‌ها مواجه شوند، هشدار داده می‌شود.",
+"translationAr": "يضمن الكتيب السياحي لمتنزه مارلوث تحذير الزوار من الحيوانات البرية التي قد يصادفونها أثناء السير في الشوارع.",
+"Interactives": [
+  {
+    "exactText": "brochure",
+    "translationFa": "دفترچه راهنما",
+    "translationAr": "كتيب سياحي",
+    "pronounceFa": "broushah",
+    "pronounceAr": "broushah",
+    "explanationFa": "واژه‌ای کاربردی برای موضوعات گردشگری و سفر، مناسب برای بخش لیسنینگ و ریدینگ آیلتس.",
+    "explanationAr": "كلمة مفيدة لمواضيع السياحة والسفر، مناسبة لقسم الاستماع والقراءة في الآيلتس.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "ensures",
+    "translationFa": "تضمین می‌کند",
+    "translationAr": "يضمن",
+    "pronounceFa": "inshooaz",
+    "pronounceAr": "inshooaz",
+    "explanationFa": "فعل آکادمیک سطح بالا برای بیان اطمینان از وقوع یک امر؛ بسیار مفید برای رایتینگ آیلتس.",
+    "explanationAr": "فعل أكاديمي عالي المستوى للتعبير عن ضمان حدوث شيء؛ مفيد جداً لكتابة الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "encounter",
+    "translationFa": "مواجه شدن با",
+    "translationAr": "يصادف",
+    "pronounceFa": "inkauntah",
+    "pronounceAr": "inkauntah",
+    "explanationFa": "فعلی رسمی و آکادمیک به معنی روبرو شدن با شرایط یا حیوانات به صورت غیرمنتظره.",
+    "explanationAr": "فعل رسمي وأكاديمي يعني مواجهة ظروف أو حيوانات بشكل غير متوقع.",
+    "cefrLevel": "B2"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -4682,7 +4874,40 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "ب - یک چیز هست که همیشه می‌توانید در لونگیربین از آن مطمئن باشید - قبرستان‌ها هرگز پر از جمعیت نخواهند شد.",
+"translationAr": "ب - هناك شيء واحد يمكنك دائماً التأكد منه في لونغياربين - المقابر لن تكون مأهولة بالسكان أبداً.",
+"Interactives": [
+  {
+    "exactText": "be sure of",
+    "translationFa": "مطمئن بودن از",
+    "translationAr": "التأكد من",
+    "pronounceFa": "bi shoor ov",
+    "pronounceAr": "bi shoor ov",
+    "explanationFa": "یک عبارت و کالوکیشن کاربردی برای بیان قطعیّت که استفاده از آن در بخش اسپیکینگ آیلتس نمره ساختارهای طبیعی شما را افزایش می‌دهد.",
+    "explanationAr": "تعبير ومتلازمة لفظية مفيدة للتعبير عن اليقين، تساعد في تحسين درجة الطلاقة والعفوية في قسم المحادثة.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "cemeteries",
+    "translationFa": "قبرستان‌ها",
+    "translationAr": "المقابر",
+    "pronounceFa": "semetriz",
+    "pronounceAr": "semetriz",
+    "explanationFa": "واژه‌ای رسمی و آکادمیک به معنای گورستان. این کلمه جایگزین پیشرفته‌تری برای graveyard است و در ریدینگ یا موضوعات توصیفی آیلتس کاربرد دارد.",
+    "explanationAr": "كلمة رسمية وأكاديمية تعني المقابر، وهي بديل متقدم لكلمة graveyard وتتكرر في نصوص القراءة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "populate",
+    "translationFa": "پر از جمعیت کردن",
+    "translationAr": "يأهل بالسكان",
+    "pronounceFa": "popyuleit",
+    "pronounceAr": "pobyuleit",
+    "explanationFa": "فعلی رسمی و آکادمیک که در مباحث مرتبط با دموگرافی (جمعیت‌شناسی)، جغرافیا و شهرسازی در رایتینگ تسک 2 آیلتس بسیار ارزشمند است.",
+    "explanationAr": "فعل رسمي وأكاديمي يستخدم في المواضيع المتعلقة بالديموغرافيا والجغرافيا والتخطيط العمراني في مقال الآيلتس.",
+    "cefrLevel": "B2"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -4710,7 +4935,40 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "ساکنان هال‌اشتات باور داشتند که شرکتی که در حال ساختن کپی از شهرشان است با آن‌ها مشورت خواهد کرد - اما بعداً معلوم شد که فقط به آن‌ها اطلاع‌رسانی شده بود.",
+"translationAr": "اعتقد سكان هالستات أن الشركة التي تبني نسخة من بلدتهم ستستشيرهم - ولكن تبين لاحقاً أنه تم إبلاغهم فقط.",
+"Interactives": [
+  {
+    "exactText": "residents",
+    "translationFa": "ساکنان / مقیمان",
+    "translationAr": "سكان / مقيمون",
+    "pronounceFa": "rezidents",
+    "pronounceAr": "ريزيدنتس",
+    "explanationFa": "واژه‌ای رسمی و آکادمیک به معنای افرادی که در یک مکان خاص زندگی می‌کنند؛ جایگزینی بسیار مناسب برای کلمه general و تکراری people در رایتینگ آیلتس.",
+    "explanationAr": "كلمة رسمية وأكاديمية تعني الأشخاص الذين يعيشون في مكان معين؛ بديل ممتاز لكلمة people لتجنب التكرار في كتابة الآيلتس.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "consulted",
+    "translationFa": "مورد مشورت قرار گرفتن / نظرخواهی شدن",
+    "translationAr": "تمت استشارتهم / أخذ رأيهم",
+    "pronounceFa": "kansaltid",
+    "pronounceAr": "كانسالتد",
+    "explanationFa": "فعل رسمی به معنای تبادل نظر یا درخواست مشاوره از کسی پیش از تصمیم‌گیری نهایی؛ از لغات کلیدی و کاربردی در ریدینگ‌های آکادمیک آیلتس.",
+    "explanationAr": "فعل رسمي يعني مناقشة شخص ما أو طلب رأيه قبل اتخاذ قرار؛ من الكلمات المفتاحية المهمة في نصوص القراءة الأكاديمية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "it turns out",
+    "translationFa": "مشخص شدن / معلوم شدن (برخلاف انتظار)",
+    "translationAr": "تبين أن / اتضح أن",
+    "pronounceFa": "it ternz aut",
+    "pronounceAr": "إت تيرنز آوت",
+    "explanationFa": "یک اصطلاح فعلی (Phrasal Verb) کاربردی برای بیان حقایقی که در نهایت آشکار می‌شوند و معمولاً برعکس تصور اولیه هستند؛ بسیار مفید برای بخش اسپیکینگ آیلتس.",
+    "explanationAr": "تعبير فعلي شائع يُستخدم لمعرفة حقيقة أمر ما في النهاية وخاصة إذا كان غير متوقع؛ مفيد جداً لقسم المحادثة في الآيلتس.",
+    "cefrLevel": "B2"
+  }
+]
                       },
                       {
                         "Direction": "LTR",
@@ -4738,7 +4996,30 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ]
+                        ],"translationFa": "دی اوروویل بر اساس یک سیستم حاکمیتی از قوانین و باورها پایه‌گذاری شد.",
+"translationAr": "تأسست دي أوروفيل وفقًا لنظام حاکم من القواعد والمعتقدات.",
+"Interactives": [
+  {
+    "exactText": "founded",
+    "translationFa": "پایه‌گذاری شد",
+    "translationAr": "تأسست",
+    "pronounceFa": "fawnded",
+    "pronounceAr": "fawnded",
+    "explanationFa": "فعل گذشته از root کلمه found به معنای تأسیس کردن یا بنیان‌گذاری؛ بسیار پرکاربرد در ریدینگ‌های آکادمیک آیلتس.",
+    "explanationAr": "الفعل الماضي من الجذر found بمعنى تأسيس أو إنشاء؛ شائع جداً في نصوص القراءة الأكاديمية لاختبار آيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "govern",
+    "translationFa": "حاکم / اداره کردن",
+    "translationAr": "يحكم / يدير",
+    "pronounceFa": "gavan",
+    "pronounceAr": "gavan",
+    "explanationFa": "ریشه فعلی به معنای کنترل و هدایت کردن؛ در این ساختار گرامری باید به صفت (governing) تبدیل شود تا سیستم را توصیف کند.",
+    "explanationAr": "جذر فعلي بمعنى السيطرة والتوجيه؛ في هذا السياق النحوي يجب تحويله إلى صفة (governing) لوصف النظام.",
+    "cefrLevel": "B2"
+  }
+]
                       }
                     ],
                     "WidthPercent": 94.94,
@@ -4792,7 +5073,20 @@
             "InnerSpans": [],
             "TableRows": []
           }
-        ]
+        ],"translationFa": "مهارت‌های آزمون",
+"translationAr": "مهارات الاختبار",
+"Interactives": [
+  {
+    "exactText": "exam skills",
+    "translationFa": "مهارت‌های آزمون",
+    "translationAr": "مهارات الاختبار",
+    "pronounceFa": "igzam skilz",
+    "pronounceAr": "igzam skilz",
+    "explanationFa": "راهبردها و توانایی‌های خاصی که داوطلبان برای مدیریت زمان و پاسخگویی صحیح به سوالات در آزمون آیلتس نیاز دارند.",
+    "explanationAr": "الاستراتيجيات والقدرات الخاصة التي يحتاجها المتقدمون للاختبار لإدارة الوقت والإجابة بشكل صحيح على الأسئلة في اختبار الآيلتس.",
+    "cefrLevel": "B1"
+  }
+]
       },
       {
         "SpaceAfter": 0.0,
