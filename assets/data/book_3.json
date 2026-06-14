@@ -1374,7 +1374,7 @@
                         "Spans": [
                           {
                             "Type": "text",
-                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville",
+                            "Content": "In today's world of conflict, greed and constant struggles for power, Auroville - aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be projected across all humanity.",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1383,125 +1383,60 @@
                             "InnerSpans": [],
                             "TableRows": []
                           }
-                        ],
-                        "translationFa": "در دنیای امروز که پر از درگیری، طمع و تلاش‌های مداوم برای کسب قدرت است، آروویل",
-                        "translationAr": "في عالم اليوم المليء بالصراعات والجشع والصراعات المستمرة من أجل السلطة، أوروفيل",
-                        "Interactives": [
-                          {
-                            "exactText": "conflict",
-                            "translationFa": "درگیری / مناقشه",
-                            "translationAr": "صراع / نزاع",
-                            "pronounceFa": "/kɒnflɪkt/",
-                            "pronounceAr": "/kɒnflɪkt/",
-                            "explanationFa": "یک واژه آکادمیک کلیدی برای بخش رایتینگ و اسپیکینگ آیلتس در موضوعات اجتماعی و بین‌المللی.",
-                            "explanationAr": "مفردة أكاديمية رئيسية لقسمي الكتابة والمحادثة في آيلتس عند مناقشة القضايا الاجتماعية والدولية.",
-                            "cefrLevel": "B2"
-                          },
-                          {
-                            "exactText": "greed",
-                            "translationFa": "طمع / حرص",
-                            "translationAr": "جشع / طمع",
-                            "pronounceFa": "/ɡriːd/",
-                            "pronounceAr": "/ɡriːd/",
-                            "explanationFa": "اسم توصیفی مناسب برای موضوعات مربوط به مادی‌گرایی، اقتصاد و روانشناسی در آزمون آیلتس.",
-                            "explanationAr": "اسم وصفي مناسب لمواضيع المادية والاقتصاد وعلم النفس في اختبار آيلتس.",
-                            "cefrLevel": "B2"
-                          },
-                          {
-                            "exactText": "constant struggles for power",
-                            "translationFa": "تلاش‌های مداوم برای کسب قدرت",
-                            "translationAr": "الصراعات المستمرة من أجل السلطة",
-                            "pronounceFa": "/ˈkɒnstənt ˈstrʌɡəlz fɔː ˈpaʊə/",
-                            "pronounceAr": "/ˈkɒnstənt ˈstrʌɡəlz fɔː ˈpaʊə/",
-                            "explanationFa": "یک عبارت ترکیبی (Collocation) بسیار سطح بالا و نمره‌آور برای موضوعات سیاسی، تاریخ و جامعه‌شناسی.",
-                            "explanationAr": "تعبير تركيبي (Collocation) عالي المستوى ومميز للمواضيع السياسية والتاريخية والاجتماعية.",
-                            "cefrLevel": "C1"
-                          }
-                        ]
-                      },
-                      {
-                        "Direction": "LTR",
-                        "FillColor": "0099CC",
-                        "SpaceAfter": 0.0,
-                        "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "- aka 'the City of Dawn' - claims on its website that it was planned and built to create the ultimate model of unity, peace and harmony that can be ",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "TextColor": "000307",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          },
-                          {
-                            "Type": "text",
-                            "Content": "projected across all humanity.",
-                            "Markers": [
-                              "fn:Source Sans 3",
-                              "sz:21"
-                            ],
-                            "TextColor": "000207",
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ],
-                        "translationFa": "- که به آن «شهر سپیده‌دم» نیز می‌گویند - در وب‌سایت خود ادعا می‌کند که برای ایجاد مظهر نهایی اتحاد، صلح و هماهنگی برنامه‌ریزی و ساخته شده است تا بتوان آن را به کل بشریت تعمیم داد.",
-                        "translationAr": "- المعروفة أيضاً باسم «مدينة الفجر» - تدعي على موقعها الإلكتروني أنها خُططت وبُنيت لتكون النموذج الأمثل للوحدة والسلام والانسجام الذي يمكن تعميمه على البشرية جمعاء.",
-                        "Interactives": [
-                          {
-                            "exactText": "claims",
-                            "translationFa": "ادعا می‌کند",
-                            "translationAr": "تدعي",
-                            "pronounceFa": "kleymz",
-                            "pronounceAr": "kleymz",
-                            "explanationFa": "فعل مهم در رایتینگ آیلتس (Task 2) برای ارجاع به نظرات دیگران بدون تایید قطعی آن‌ها.",
-                            "explanationAr": "فعل مهم في كتابة الأيلتس (مهمة 2) للإشارة إلى آراء الآخرين دون تأكيدها بشكل قاطع.",
-                            "cefrLevel": "B1"
-                          },
-                          {
-                            "exactText": "ultimate",
-                            "translationFa": "نهایی / غایی / مظهر",
-                            "translationAr": "الأمثل / الأسمى",
-                            "pronounceFa": "al-ti-mat",
-                            "pronounceAr": "al-ti-mat",
-                            "explanationFa": "صفتی عالی برای توصیف بهترین یا مهم‌ترین حالت یک چیز در موضوعات انتزاعی آیلتس.",
-                            "explanationAr": "صفة ممتازة لوصف الحالة الأفضل أو الأهم لشيء ما في مواضيع الأيلتس التجريدية.",
-                            "cefrLevel": "B2"
-                          },
-                          {
-                            "exactText": "harmony",
-                            "translationFa": "هماهنگی / هم‌زیستی مسالمت‌آمیز",
-                            "translationAr": "الانسجام / التناغم",
-                            "pronounceFa": "haa-muh-ni",
-                            "pronounceAr": "haa-muh-ni",
-                            "explanationFa": "واژه‌ای آکادمیک و ارزشمند برای موضوعات مربوط به جامعه، فرهنگ و روابط انسانی.",
-                            "explanationAr": "كلمة أكاديمية وقيمة للمواضيع المتعلقة بالمجتمع، الثقافة، والعلاقات الإنسانية.",
-                            "cefrLevel": "C1"
-                          },
-                          {
-                            "exactText": "projected",
-                            "translationFa": "تعمیم دادن / به تصویر کشیدن",
-                            "translationAr": "تعميمه / إسقاطه",
-                            "pronounceFa": "pruh-jek-tid",
-                            "pronounceAr": "pruh-jek-tid",
-                            "explanationFa": "در این بافت به معنای انتقال و گسترش دادن یک ایده یا الگو به سطحی وسیع‌تر است.",
-                            "explanationAr": "تأتي هنا بمعنى نقل ونشر فكرة أو نموذج ليغطي نطاقاً أوسع.",
-                            "cefrLevel": "C1"
-                          },
-                          {
-                            "exactText": "humanity",
-                            "translationFa": "بشریت / جامعه انسانی",
-                            "translationAr": "البشرية / الإنسانية",
-                            "pronounceFa": "hyoo-man-uh-ti",
-                            "pronounceAr": "hyoo-man-uh-ti",
-                            "explanationFa": "کلمه‌ای سطح بالا و مناسب برای جایگزینی عبارات تکراری مثل 'people' در موضوعات جهانی.",
-                            "explanationAr": "كلمة راقية ومناسبة لاستبدال العبارات المكررة مثل 'people' في المواضيع العالمية.",
-                            "cefrLevel": "B2"
-                          }
-                        ]
+                        ],"translationFa": "در دنیای امروزِ مملو از مناقشه، طمع و تلاش‌های مداوم برای کسب قدرت، اوروویل - معروف به «شهر سپیده‌دم» - در وب‌سایت خود ادعا می‌کند که برنامه‌ریزی و ساخته شده است تا الگوی غایی از اتحاد، صلح و هماهنگی را ایجاد کند که بتواند به کل بشریت تعمیم یابد.",
+"translationAr": "في عالم اليوم المليء بالصراعات والجشع والصراعات المستمرة من أجل السلطة، تدعي أوروفيل - المعروفة باسم \"مدينة الفجر\" - على موقعها الإلكتروني أنه تم التخطيط لها وبناؤها لإنشاء النموذج الأمثل للوحدة والسلام والوئام الذي يمكن تعميمه على البشرية جمعاء.",
+"Interactives": [
+  {
+    "exactText": "conflict",
+    "translationFa": "مناقشه / درگیری",
+    "translationAr": "صراع / نزاع",
+    "pronounceFa": "konflikt",
+    "pronounceAr": "konflikt",
+    "explanationFa": "واژه‌ای کلیدی و آکادمیک در رایتینگ آیلتس برای توصیف اختلافات بین‌المللی یا اجتماعی.",
+    "explanationAr": "كلمة رئيسية وأكاديمية في كتابة الآيلتس لوصف الخلافات الدولية أو الاجتماعية.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "constant struggles",
+    "translationFa": "تلاش‌های مداوم / کشمکش‌های پیوسته",
+    "translationAr": "صراعات مستمرة / كفاح مستمر",
+    "pronounceFa": "konstənt stragəlz",
+    "pronounceAr": "konstant stragalz",
+    "explanationFa": "یک کالوکیشن نمره‌آور (Collocation) برای توصیف چالش‌های مداوم در جامعه یا تاریخ.",
+    "explanationAr": "متلازمة لفظية ممتازة لرفع الدرجة لوصف التحديات المستمرة في المجتمع أو التاريخ.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "ultimate",
+    "translationFa": "غایی / نهایی / تکامل‌یافته‌ترین",
+    "translationAr": "الأمثل / الأسمى / النهائي",
+    "pronounceFa": "altimət",
+    "pronounceAr": "altimat",
+    "explanationFa": "صفت آکادمیک عالی برای جایگزینی با کلمات ساده‌ای مثل best یا final جهت افزایش نمره واژگان.",
+    "explanationAr": "صفة أكاديمية ممتازة لاستبدال الكلمات البسيطة مثل best أو final لرفع درجة المفردات.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "harmony",
+    "translationFa": "هماهنگی / همزیستی مسالمت‌آمیز",
+    "translationAr": "وئام / انسجام",
+    "pronounceFa": "haaməni",
+    "pronounceAr": "haamoni",
+    "explanationFa": "لغتی با سطح بالا، بسیار مناسب برای موضوعات اجتماعی، فرهنگی و صلح در آزمون آیلتس.",
+    "explanationAr": "كلمة رفيعة المستوى، مناسبة جداً لمواضيع المجتمع والثقافة والسلام في اختبار الآيلتس.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "projected",
+    "translationFa": "تعمیم داده شده / منعکس شده",
+    "translationAr": "يتم تعميمه / إسقاطه",
+    "pronounceFa": "prədzektid",
+    "pronounceAr": "projektid",
+    "explanationFa": "فعل مجهول آکادمیک؛ در این بافت به معنای گسترش دادن یا نمایش دادن یک الگو به کل جهان است.",
+    "explanationAr": "فعل مبني للمجهول أكاديمي؛ في هذا السياق يعني نشر أو عكس نموذج معين على العالم أجمع.",
+    "cefrLevel": "C1"
+  }
+]
                       }
                     ],
                     "WidthPercent": 69.27,
