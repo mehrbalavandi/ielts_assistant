@@ -6,7 +6,7 @@ class DocumentLoader {
   // 🌟 اصلاح خروجی متد به List<PageData> جهت پشتیبانی از شماره صفحات جداگانه
   static Future<List<PageData>> loadBookFromJson() async {
     // خواندن فایل متنی از Assets
-    String jsonString = await rootBundle.loadString('assets/data/book.json');
+    String jsonString = await rootBundle.loadString('assets/data/book_3.json');
 
     // تبدیل به لیست داینامیک
     List<dynamic> jsonList = jsonDecode(jsonString);
