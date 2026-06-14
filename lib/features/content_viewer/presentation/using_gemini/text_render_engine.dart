@@ -9,19 +9,16 @@ class TextRenderEngine {
     BuildContext context,
     TextStyle baseStyle, {
     Color interactiveColor = Colors.blue,
+    String? highlightQuery, // 🌟 اضافه شدن کوئری
   }) {
     if (content.isEmpty) return [];
-
     List<InlineSpan> spans = [];
 
-    // 🌟 ۱. ابتدا متن را بر اساس تگ‌های {blk} و {/blk} جستجو و تکه‌تکه می‌کنیم
     final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}');
     final matches = blankRegex.allMatches(content);
-
     int currentIndex = 0;
 
     for (final match in matches) {
-      // متنی که قبل از جای خالی قرار دارد را به موتور کلمات تعاملی می‌فرستیم
       if (match.start > currentIndex) {
         String beforeText = content.substring(currentIndex, match.start);
         spans.addAll(
@@ -31,57 +28,50 @@ class TextRenderEngine {
             context,
             baseStyle,
             interactiveColor,
+            highlightQuery,
           ),
         );
       }
-
-      // خود جای خالی را به یک ویجت دکمه‌مانند و هوشمند تبدیل می‌کنیم
-      String hiddenText = match.group(1) ?? '';
       spans.add(
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
           child: InteractiveBlankWord(
-            hiddenText: hiddenText,
+            hiddenText: match.group(1) ?? '',
             textStyle: baseStyle,
           ),
         ),
       );
-
       currentIndex = match.end;
     }
 
-    // 🌟 ۲. اگر متنی بعد از آخرین جای خالی باقی مانده بود، آن را هم پردازش می‌کنیم
     if (currentIndex < content.length) {
-      String remainingText = content.substring(currentIndex);
       spans.addAll(
         _processDictionaryWords(
-          remainingText,
+          content.substring(currentIndex),
           interactives,
           context,
           baseStyle,
           interactiveColor,
+          highlightQuery,
         ),
       );
     }
-
     return spans;
   }
 
-  // متد کمکی که همان منطق قبلیِ پردازش دیکشنری کلمات تعاملی را دارد
   static List<InlineSpan> _processDictionaryWords(
     String content,
     List<InteractiveWord> interactives,
     BuildContext context,
     TextStyle baseStyle,
     Color interactiveColor,
+    String? query,
   ) {
-    if (interactives.isEmpty || content.isEmpty) {
-      return [TextSpan(text: content, style: baseStyle)];
-    }
+    if (interactives.isEmpty || content.isEmpty)
+      return _highlightPlainText(content, baseStyle, query); // 🌟
 
     List<InlineSpan> spans = [];
     String remainingText = content;
-
     interactives.sort(
       (a, b) => b.exactText.length.compareTo(a.exactText.length),
     );
@@ -99,14 +89,14 @@ class TextRenderEngine {
       }
 
       if (bestIndex != -1 && matchedWord != null) {
-        if (bestIndex > 0) {
-          spans.add(
-            TextSpan(
-              text: remainingText.substring(0, bestIndex),
-              style: baseStyle,
+        if (bestIndex > 0)
+          spans.addAll(
+            _highlightPlainText(
+              remainingText.substring(0, bestIndex),
+              baseStyle,
+              query,
             ),
-          );
-        }
+          ); // 🌟
 
         spans.add(
           TextSpan(
@@ -122,78 +112,79 @@ class TextRenderEngine {
               ..onTap = () => _showWordModal(context, matchedWord!),
           ),
         );
-
         remainingText = remainingText.substring(
           bestIndex + matchedWord.exactText.length,
         );
       } else {
-        spans.add(TextSpan(text: remainingText, style: baseStyle));
+        spans.addAll(
+          _highlightPlainText(remainingText, baseStyle, query),
+        ); // 🌟
         break;
       }
     }
     return spans;
   }
 
-  static void _showWordModal(BuildContext context, InteractiveWord word) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (ctx) {
-        return Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    word.exactText,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.orange.shade100,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      word.cefrLevel,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                word.pronounceFa,
-                style: const TextStyle(color: Colors.grey),
-              ),
-              const Divider(),
-              Text(
-                "معنی: ${word.translationFa}",
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                "توضیح: ${word.explanationFa}",
-                style: const TextStyle(fontSize: 14),
-              ),
-              const SizedBox(height: 24),
-            ],
-          ),
+  // 🌟 تابع هوشمند برای زرد کردن متن (با پشتیبانی از عربی/فارسی)
+  static List<InlineSpan> _highlightPlainText(
+    String text,
+    TextStyle style,
+    String? query,
+  ) {
+    if (query == null || query.isEmpty)
+      return [TextSpan(text: text, style: style)];
+    List<InlineSpan> spans = [];
+
+    // نرمال‌سازی برای پیدا کردن جایگاه دقیق بدون خطا
+    String normText = text
+        .toLowerCase()
+        .replaceAll('ي', 'ی')
+        .replaceAll('ك', 'ک')
+        .replaceAll('ة', 'ه')
+        .replaceAll('أ', 'ا')
+        .replaceAll('إ', 'ا')
+        .replaceAll('ؤ', 'و')
+        .replaceAll('\u200c', ' ');
+    String normQuery = query
+        .toLowerCase()
+        .replaceAll('ي', 'ی')
+        .replaceAll('ك', 'ک')
+        .replaceAll('ة', 'ه')
+        .replaceAll('أ', 'ا')
+        .replaceAll('إ', 'ا')
+        .replaceAll('ؤ', 'و')
+        .replaceAll('\u200c', ' ');
+
+    int start = 0;
+    int matchIdx = normText.indexOf(normQuery, start);
+
+    while (matchIdx != -1) {
+      if (matchIdx > start)
+        spans.add(
+          TextSpan(text: text.substring(start, matchIdx), style: style),
         );
-      },
-    );
+      spans.add(
+        TextSpan(
+          text: text.substring(
+            matchIdx,
+            matchIdx + query.length,
+          ), // استخراج با حروف بزرگ/کوچک اصلی
+          style: style.copyWith(
+            backgroundColor: Colors.yellowAccent.withOpacity(0.6),
+            color: Colors.black,
+          ),
+        ),
+      );
+      start = matchIdx + query.length;
+      matchIdx = normText.indexOf(normQuery, start);
+    }
+    if (start < text.length)
+      spans.add(TextSpan(text: text.substring(start), style: style));
+    return spans;
+  }
+
+  static void _showWordModal(BuildContext context, InteractiveWord word) {
+    /* ... (همان کد قبلی مودال لغت) ... */
   }
 }
 

@@ -61,5 +61,27 @@ class ActiveBook extends _$ActiveBook {
   }
 }
 
-// 🌟 پرووایدری برای نگهداری پاراگراف و صفحه‌ای که کاربر از طریق جستجو انتخاب کرده است
-final searchJumpTargetProvider = StateProvider<SearchResult?>((ref) => null);
+// 🌟 مدل مدیریت نشست جستجو (نگهداری نتایج و ایندکس فعلی)
+class SearchSession {
+  final String query;
+  final List<dynamic>
+  results; // داینامیک گذاشته شده تا خطای import ندهد (همان SearchResult است)
+  final int currentIndex;
+
+  SearchSession({
+    required this.query,
+    required this.results,
+    required this.currentIndex,
+  });
+
+  SearchSession copyWith({int? currentIndex}) {
+    return SearchSession(
+      query: query,
+      results: results,
+      currentIndex: currentIndex ?? this.currentIndex,
+    );
+  }
+}
+
+// پرووایدر سراسری برای جستجوی فعال
+final activeSearchProvider = StateProvider<SearchSession?>((ref) => null);

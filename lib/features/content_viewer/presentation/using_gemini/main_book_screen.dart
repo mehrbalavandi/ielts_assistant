@@ -13,49 +13,45 @@ class MainBookScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // گرفتن اطلاعات کتابی که در حال حاضر انتخاب شده است
     final activeBook = ref.watch(activeBookProvider);
+    final searchSession = ref.watch(activeSearchProvider);
 
-    if (activeBook == null) {
+    if (activeBook == null)
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(activeBook.title, style: const TextStyle(fontSize: 16)),
         actions: [
-          // 🌟 دکمه جستجوی سراسری
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () async {
-              final SearchResult? result = await showSearch<SearchResult?>(
+              final SearchSession? session = await showSearch<SearchSession?>(
                 context: context,
                 delegate: BookSearchDelegate(ref),
               );
-
-              if (result != null && context.mounted) {
-                // اگر کتاب متفاوت بود، کتاب جدید را لود کن
-                if (activeBook.id != result.bookId) {
+              if (session != null && context.mounted) {
+                final targetBookId =
+                    (session.results.first as SearchResult).bookId;
+                if (activeBook.id != targetBookId) {
                   final targetBook = availableBooks.firstWhere(
-                    (b) => b.id == result.bookId,
+                    (b) => b.id == targetBookId,
                   );
                   ref
                       .read(activeBookProvider.notifier)
                       .setActiveBook(targetBook);
                 }
-
-                // 🌟 با یک تأخیر بسیار کوتاه (برای اطمینان از رندر شدن بوم نقاشی)، دستور پرش را صادر می‌کنیم
                 Future.delayed(const Duration(milliseconds: 300), () {
-                  ref.read(searchJumpTargetProvider.notifier).state = result;
+                  ref.read(activeSearchProvider.notifier).state = session;
                 });
               }
             },
           ),
-          // 🌟 دکمه بازگشت به کتابخانه
           IconButton(
             icon: const Icon(Icons.library_books_rounded),
-            tooltip: 'کتابخانه',
             onPressed: () {
+              ref.read(activeSearchProvider.notifier).state =
+                  null; // پاک کردن جستجو
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LibraryScreen()),
@@ -64,19 +60,79 @@ class MainBookScreen extends ConsumerWidget {
           ),
         ],
       ),
-      // لود کردن کتاب بر اساس مسیر داینامیک
+
+      // 🌟 نوار ناوبری جستجو (Next / Previous)
+      bottomNavigationBar: searchSession != null
+          ? Container(
+              color: Colors.indigo.shade50,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.indigo,
+                          ),
+                          onPressed:
+                              searchSession.currentIndex <
+                                  searchSession.results.length - 1
+                              ? () =>
+                                    ref
+                                        .read(activeSearchProvider.notifier)
+                                        .state = searchSession.copyWith(
+                                      currentIndex:
+                                          searchSession.currentIndex + 1,
+                                    )
+                              : null,
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.keyboard_arrow_up,
+                            color: Colors.indigo,
+                          ),
+                          onPressed: searchSession.currentIndex > 0
+                              ? () =>
+                                    ref
+                                        .read(activeSearchProvider.notifier)
+                                        .state = searchSession.copyWith(
+                                      currentIndex:
+                                          searchSession.currentIndex - 1,
+                                    )
+                              : null,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.indigo,
+                          ),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close, color: Colors.red),
+                      onPressed: () =>
+                          ref.read(activeSearchProvider.notifier).state =
+                              null, // بستن نوار جستجو
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : null,
+
       body: FutureBuilder<List<PageData>>(
         future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.waiting)
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("خطا در بارگذاری: ${snapshot.error}"));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty)
             return const Center(child: Text("داده‌ای یافت نشد."));
-          }
-
-          // پاس دادن صفحات کتاب به بوم نقاشی
           return ReadingCanvasScreen(documentPages: snapshot.data!);
         },
       ),
