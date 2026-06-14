@@ -11,6 +11,7 @@ class SearchResult {
   final int pageNumber;
   final ParagraphData paragraph;
   final String matchedExcerpt;
+  final String query; // 🌟
 
   SearchResult({
     required this.bookId,
@@ -18,6 +19,7 @@ class SearchResult {
     required this.pageNumber,
     required this.paragraph,
     required this.matchedExcerpt,
+    required this.query,
   });
 }
 
@@ -106,6 +108,7 @@ List<SearchResult> _searchInIsolate(SearchRequest request) {
               pageNumber: page.pageNumber,
               paragraph: para,
               matchedExcerpt: excerpt,
+              query: request.query,
             ),
           );
         }

@@ -28,14 +28,13 @@ class MainBookScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () async {
-              // 🌟 اضافه شدن <SearchResult?> در اینجا:
               final SearchResult? result = await showSearch<SearchResult?>(
                 context: context,
                 delegate: BookSearchDelegate(ref),
               );
 
               if (result != null && context.mounted) {
-                // اگر کاربر کتاب دیگری را در جستجو انتخاب کرده بود، پرووایدر را آپدیت می‌کنیم
+                // اگر کتاب متفاوت بود، کتاب جدید را لود کن
                 if (activeBook.id != result.bookId) {
                   final targetBook = availableBooks.firstWhere(
                     (b) => b.id == result.bookId,
@@ -44,6 +43,11 @@ class MainBookScreen extends ConsumerWidget {
                       .read(activeBookProvider.notifier)
                       .setActiveBook(targetBook);
                 }
+
+                // 🌟 با یک تأخیر بسیار کوتاه (برای اطمینان از رندر شدن بوم نقاشی)، دستور پرش را صادر می‌کنیم
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  ref.read(searchJumpTargetProvider.notifier).state = result;
+                });
               }
             },
           ),

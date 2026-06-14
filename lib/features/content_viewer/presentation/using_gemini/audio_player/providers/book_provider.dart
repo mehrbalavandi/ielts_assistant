@@ -1,4 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/cross_book_search_engine.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'book_provider.g.dart';
@@ -58,3 +60,6 @@ class ActiveBook extends _$ActiveBook {
     state = book;
   }
 }
+
+// 🌟 پرووایدری برای نگهداری پاراگراف و صفحه‌ای که کاربر از طریق جستجو انتخاب کرده است
+final searchJumpTargetProvider = StateProvider<SearchResult?>((ref) => null);
