@@ -12,7 +12,6 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 import 'dart:math' as math;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-// کلاس کمکی برای هماهنگ نگه داشتن نقشه متن‌های جداول
 class MapOffset {
   int value = 0;
 }
@@ -66,12 +65,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     );
   }
 
+  // 🌟 تابع هوشمند اسکرول (بدون پرش‌های سرگیجه‌آور)
   void _ensureTargetVisible() {
     if (_targetParaKey.currentContext != null) {
       Scrollable.ensureVisible(
         _targetParaKey.currentContext!,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOutCubic,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
+        // با حذف alignment، فلاتر فقط زمانی اسکرول می‌کند که کلمه بیرون از صفحه باشد!
       );
     }
   }
@@ -105,7 +106,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       if (pIndex != -1) initialIndex = pIndex;
     }
 
-    // 🌟 رفع مشکل پرش‌های سرگیجه‌آور اسکرول با بررسی دیده شدن صفحه
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
         if (previous?.query != next.query ||
@@ -121,14 +121,15 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
               (pos) => pos.index == pageIndex,
             );
 
+            // اگر صفحه کلاً در دیدرس نیست، اول در یک صدم ثانیه و بدون انیمیشن به آن پرش کن تا سرگیجه ایجاد نشود
             if (!isPageVisible) {
-              _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
+              _itemScrollController.jumpTo(index: pageIndex);
               await Future.delayed(
                 const Duration(milliseconds: 100),
-              ); // فرصت برای رندر فلاتر
-            } else {
-              await Future.delayed(const Duration(milliseconds: 50));
+              ); // فرصت برای چیده شدن ویجت‌ها
             }
+
+            // سپس با کمترین میزان حرکت ممکن، کلمه را در صفحه مشخص کن
             _ensureTargetVisible();
           }
         }
@@ -183,7 +184,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                 activeTarget.pageNumber == page.pageNumber &&
                                 activeTarget.paraIndex == pIndex;
 
-                            // ایجاد نقشه یکپارچه برای کل پاراگراف و جدول‌های درون آن
                             List<int>? rootHighlightMap;
                             if (searchSession?.query != null &&
                                 searchSession!.query.isNotEmpty) {
@@ -258,7 +258,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   }
 }
 
-// 🌟 نقشه‌ساز کلمات جستجوشده در پاراگراف
 String _normalizeText(String text) {
   return text
       .toLowerCase()
@@ -387,7 +386,7 @@ Widget _buildParagraph(
   ParagraphData? nextPara,
   List<int>? rootHighlightMap,
   MapOffset? mapOffset,
-  int? activeOccurrence, // 🌟 نقشه‌های لیزری متن
+  int? activeOccurrence,
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
@@ -396,7 +395,7 @@ Widget _buildParagraph(
               para.spans.first.content.trim().isEmpty)))
     return const SizedBox.shrink();
 
-  if (mapOffset == null) mapOffset = MapOffset(); // پشتیبان ایمنی
+  if (mapOffset == null) mapOffset = MapOffset();
 
   List<Object> blockElements = [];
   List<InlineSpan> currentInlineSpans = [];
@@ -965,6 +964,7 @@ class InlineAudioLink extends ConsumerWidget {
   }
 }
 
+// 🌟 بازگشت به حالت لمس طولانی به طور قطعی
 class TranslatableContentWrapper extends StatefulWidget {
   final Widget originalContent;
   final String? translationFa;
@@ -1008,7 +1008,7 @@ class _TranslatableContentWrapperState
       behavior: HitTestBehavior.opaque,
       onLongPress: () => setState(
         () => _showTranslation = !_showTranslation,
-      ), // 🌟 بازگشت قطعی به لمس طولانی
+      ), // 🌟 اینجا لمس طولانی تنظیم شده است
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

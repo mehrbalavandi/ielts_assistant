@@ -9,8 +9,8 @@ class TextRenderEngine {
     BuildContext context,
     TextStyle baseStyle, {
     Color interactiveColor = Colors.blue,
-    List<int>? localHighlightMap, // نقشه دقیق جایگاه کلمات جستجوشده
-    int? activeOccurrence, // شماره نتیجه‌ای که کاربر الان روی آن است
+    List<int>? localHighlightMap,
+    int? activeOccurrence,
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -93,6 +93,7 @@ class TextRenderEngine {
       }
 
       if (bestIndex != -1 && matchedWord != null) {
+        // ۱. پردازش متن‌های معمولی قبل از کلمه تعاملی
         if (bestIndex > 0)
           spans.addAll(
             _applyMapToText(
@@ -103,39 +104,43 @@ class TextRenderEngine {
             ),
           );
 
-        bool isSearched = false;
-        bool isActiveMatch = false;
+        List<int>? wordMap;
         if (localMap != null) {
-          var wordMap = localMap.sublist(
+          wordMap = localMap.sublist(
             bestIndex,
             bestIndex + matchedWord.exactText.length,
           );
-          if (wordMap.any((val) => val != -1)) isSearched = true;
-          if (activeOcc != null && wordMap.any((val) => val == activeOcc))
-            isActiveMatch = true;
         }
 
-        TextStyle intStyle = baseStyle.copyWith(
+        TextStyle interactiveBaseStyle = baseStyle.copyWith(
           color: interactiveColor,
           decoration: TextDecoration.underline,
           decorationStyle: TextDecorationStyle.dotted,
         );
-        if (isSearched)
-          intStyle = intStyle.copyWith(
-            backgroundColor: isActiveMatch
-                ? Colors.orangeAccent
-                : Colors.yellowAccent.withOpacity(0.6),
-            color: isActiveMatch ? Colors.white : Colors.black,
-          );
 
-        spans.add(
-          TextSpan(
-            text: matchedWord.exactText,
-            style: intStyle,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => _showWordModal(context, matchedWord!),
-          ),
-        );
+        // 🌟 ۲. راه حل قطعی: بررسی اینکه آیا کلمه تعاملی شامل بخش جستجوشده هست یا خیر؟
+        if (wordMap == null || wordMap.every((v) => v == -1)) {
+          // اگر جستجویی داخل این کلمه نبود، کل کلمه را یکپارچه اضافه کن
+          spans.add(
+            TextSpan(
+              text: matchedWord.exactText,
+              style: interactiveBaseStyle,
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => _showWordModal(context, matchedWord!),
+            ),
+          );
+        } else {
+          // اگر بخشی از جستجو وارد این کلمه شده، کلمه را با دقت میلی‌متری برش بزن اما کلیک را حفظ کن
+          spans.addAll(
+            _sliceInteractiveWord(
+              matchedWord,
+              wordMap,
+              interactiveBaseStyle,
+              activeOcc,
+              context,
+            ),
+          );
+        }
 
         remainingText = remainingText.substring(
           bestIndex + matchedWord.exactText.length,
@@ -149,6 +154,78 @@ class TextRenderEngine {
       }
     }
     return spans;
+  }
+
+  // 🌟 متد جدید و هوشمند برای تکه‌تکه کردن کلمه تعاملی (بدون از دست دادن خاصیت کلیک)
+  static List<InlineSpan> _sliceInteractiveWord(
+    InteractiveWord word,
+    List<int> wordMap,
+    TextStyle baseStyle,
+    int? activeOcc,
+    BuildContext context,
+  ) {
+    List<InlineSpan> spans = [];
+    int currentState = wordMap[0];
+    String chunk = "";
+    String content = word.exactText;
+
+    for (int i = 0; i < content.length; i++) {
+      if (wordMap[i] == currentState) {
+        chunk += content[i];
+      } else {
+        spans.add(
+          _createInteractiveTextSpan(
+            chunk,
+            currentState,
+            activeOcc,
+            baseStyle,
+            word,
+            context,
+          ),
+        );
+        chunk = content[i];
+        currentState = wordMap[i];
+      }
+    }
+    if (chunk.isNotEmpty)
+      spans.add(
+        _createInteractiveTextSpan(
+          chunk,
+          currentState,
+          activeOcc,
+          baseStyle,
+          word,
+          context,
+        ),
+      );
+    return spans;
+  }
+
+  // 🌟 سازنده قطعات تعاملی با پشتیبانی از رنگ‌های جستجو
+  static TextSpan _createInteractiveTextSpan(
+    String text,
+    int state,
+    int? activeOcc,
+    TextStyle baseStyle,
+    InteractiveWord word,
+    BuildContext context,
+  ) {
+    TextStyle finalStyle = baseStyle;
+    if (state != -1) {
+      bool isActive = state == activeOcc;
+      finalStyle = baseStyle.copyWith(
+        backgroundColor: isActive
+            ? Colors.orangeAccent
+            : Colors.yellowAccent.withOpacity(0.6),
+        color: isActive ? Colors.white : Colors.black,
+      );
+    }
+    return TextSpan(
+      text: text,
+      style: finalStyle,
+      recognizer: TapGestureRecognizer()
+        ..onTap = () => _showWordModal(context, word),
+    );
   }
 
   static List<InlineSpan> _applyMapToText(
