@@ -17,7 +17,7 @@ class MainBookScreen extends ConsumerWidget {
     final searchSession = ref.watch(activeSearchProvider);
 
     if (activeBook == null)
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));//
 
     return Scaffold(
       appBar: AppBar(
