@@ -12,6 +12,11 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 import 'dart:math' as math;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+// کلاس کمکی برای هماهنگ نگه داشتن نقشه متن‌های جداول
+class MapOffset {
+  int value = 0;
+}
+
 class ReadingCanvasScreen extends ConsumerStatefulWidget {
   final List<PageData> documentPages;
   const ReadingCanvasScreen({super.key, required this.documentPages});
@@ -28,7 +33,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
-
   final GlobalKey _targetParaKey = GlobalKey();
 
   bool _isZoomed = false;
@@ -66,9 +70,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     if (_targetParaKey.currentContext != null) {
       Scrollable.ensureVisible(
         _targetParaKey.currentContext!,
-        duration: const Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOutCubic,
-        alignment: 0.3,
       );
     }
   }
@@ -102,22 +105,32 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       if (pIndex != -1) initialIndex = pIndex;
     }
 
+    // 🌟 رفع مشکل پرش‌های سرگیجه‌آور اسکرول با بررسی دیده شدن صفحه
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
-      if (next != null &&
-          previous?.currentIndex != next.currentIndex &&
-          next.results.isNotEmpty) {
-        final target = next.results[next.currentIndex] as SearchResult;
-        int pageIndex = widget.documentPages.indexWhere(
-          (p) => p.pageNumber == target.pageNumber,
-        );
-        if (pageIndex != -1 && _itemScrollController.isAttached) {
-          _itemScrollController.scrollTo(
-            index: pageIndex,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOut,
+      if (next != null && next.results.isNotEmpty) {
+        if (previous?.query != next.query ||
+            previous?.currentIndex != next.currentIndex) {
+          final target = next.results[next.currentIndex] as SearchResult;
+          int pageIndex = widget.documentPages.indexWhere(
+            (p) => p.pageNumber == target.pageNumber,
           );
-          await Future.delayed(const Duration(milliseconds: 450));
-          _ensureTargetVisible();
+
+          if (pageIndex != -1 && _itemScrollController.isAttached) {
+            final visiblePositions = _itemPositionsListener.itemPositions.value;
+            bool isPageVisible = visiblePositions.any(
+              (pos) => pos.index == pageIndex,
+            );
+
+            if (!isPageVisible) {
+              _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
+              await Future.delayed(
+                const Duration(milliseconds: 100),
+              ); // فرصت برای رندر فلاتر
+            } else {
+              await Future.delayed(const Duration(milliseconds: 50));
+            }
+            _ensureTargetVisible();
+          }
         }
       }
     });
@@ -170,34 +183,35 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                 activeTarget.pageNumber == page.pageNumber &&
                                 activeTarget.paraIndex == pIndex;
 
-                            // 🌟 ساخت شمارنده اختصاصی برای اعمال استایل‌های نارنجی و زرد
-                            SearchMatchCounter? counter;
+                            // ایجاد نقشه یکپارچه برای کل پاراگراف و جدول‌های درون آن
+                            List<int>? rootHighlightMap;
                             if (searchSession?.query != null &&
-                                searchSession!.query.trim().isNotEmpty) {
-                              counter = SearchMatchCounter(
-                                activeTargetIndex: isTargetParagraph
-                                    ? activeTarget.occurrenceIndex
-                                    : null,
+                                searchSession!.query.isNotEmpty) {
+                              String fullText = _extractFullText(para);
+                              rootHighlightMap = _buildOccurrenceMap(
+                                fullText,
+                                searchSession!.query,
                               );
                             }
+                            MapOffset offset = MapOffset();
 
                             Widget paragraphContent = _buildParagraph(
                               para,
                               canvasWidth,
                               MediaQuery.of(context).size.width,
                               context,
-                              searchQuery: searchSession?.query,
-                              matchCounter: counter,
+                              rootHighlightMap: rootHighlightMap,
+                              mapOffset: offset,
+                              activeOccurrence: isTargetParagraph
+                                  ? activeTarget.occurrenceIndex
+                                  : null,
                             );
 
-                            // تخصیص کلید بدون تغییر ظاهر (کادر زرد مزاحم حذف شد)
-                            if (isTargetParagraph) {
+                            if (isTargetParagraph)
                               paragraphContent = Container(
                                 key: _targetParaKey,
                                 child: paragraphContent,
                               );
-                            }
-
                             paragraphWidgets.add(paragraphContent);
                           }
 
@@ -242,6 +256,54 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ),
     );
   }
+}
+
+// 🌟 نقشه‌ساز کلمات جستجوشده در پاراگراف
+String _normalizeText(String text) {
+  return text
+      .toLowerCase()
+      .replaceAll('ي', 'ی')
+      .replaceAll('ك', 'ک')
+      .replaceAll('ة', 'ه')
+      .replaceAll('أ', 'ا')
+      .replaceAll('إ', 'ا')
+      .replaceAll('ؤ', 'و')
+      .replaceAll('\u200c', ' ');
+}
+
+String _extractFullText(ParagraphData para) {
+  StringBuffer sb = StringBuffer();
+  for (var span in para.spans) {
+    if (span.type == "text" && span.content != null)
+      sb.write(span.content);
+    else if (span.type == "table" && span.tableRows != null) {
+      for (var row in span.tableRows!) {
+        for (var cell in row.cells) {
+          for (var cellPara in cell.paragraphs)
+            sb.write(_extractFullText(cellPara));
+        }
+      }
+    }
+  }
+  return sb.toString();
+}
+
+List<int> _buildOccurrenceMap(String fullText, String query) {
+  String nText = _normalizeText(fullText);
+  String nQuery = _normalizeText(query);
+  List<int> map = List.filled(fullText.length, -1);
+  if (nQuery.isEmpty) return map;
+
+  int matchIndex = nText.indexOf(nQuery);
+  int occ = 0;
+  while (matchIndex != -1) {
+    for (int i = 0; i < nQuery.length; i++) {
+      if (matchIndex + i < map.length) map[matchIndex + i] = occ;
+    }
+    occ++;
+    matchIndex = nText.indexOf(nQuery, matchIndex + nQuery.length);
+  }
+  return map;
 }
 
 Widget _buildPageDivider(int pageNumber) {
@@ -323,8 +385,9 @@ Widget _buildParagraph(
   bool isInsideTableCell = false,
   ParagraphData? prevPara,
   ParagraphData? nextPara,
-  String? searchQuery,
-  SearchMatchCounter? matchCounter, // 🌟 هدایت شمارنده به سمت جدول‌ها
+  List<int>? rootHighlightMap,
+  MapOffset? mapOffset,
+  int? activeOccurrence, // 🌟 نقشه‌های لیزری متن
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
@@ -332,6 +395,8 @@ Widget _buildParagraph(
           (para.spans.first.content == "\n" ||
               para.spans.first.content.trim().isEmpty)))
     return const SizedBox.shrink();
+
+  if (mapOffset == null) mapOffset = MapOffset(); // پشتیبان ایمنی
 
   List<Object> blockElements = [];
   List<InlineSpan> currentInlineSpans = [];
@@ -356,6 +421,16 @@ Widget _buildParagraph(
 
   for (var span in para.spans) {
     if (span.type == "text") {
+      String content = span.content ?? '';
+      List<int>? localMap;
+      if (rootHighlightMap != null &&
+          content.isNotEmpty &&
+          mapOffset.value + content.length <= rootHighlightMap.length) {
+        localMap = rootHighlightMap.sublist(
+          mapOffset.value,
+          mapOffset.value + content.length,
+        );
+      }
       currentInlineSpans.addAll(
         _buildStyledInteractiveText(
           span,
@@ -363,10 +438,11 @@ Widget _buildParagraph(
           context,
           isInsideTableCell: isInsideTableCell,
           para: para,
-          searchQuery: searchQuery,
-          matchCounter: matchCounter,
+          localMap: localMap,
+          activeOccurrence: activeOccurrence,
         ),
       );
+      mapOffset.value += content.length;
     } else if (span.type == "image") {
       flushText();
       String imagePath = span.url ?? span.content;
@@ -411,10 +487,11 @@ Widget _buildParagraph(
           canvasWidth,
           screenWidth,
           context,
-          searchQuery,
-          matchCounter,
+          rootHighlightMap,
+          mapOffset,
+          activeOccurrence,
         ),
-      ); // 🌟 ارسال جستجو به داخل جدول
+      );
     }
   }
 
@@ -517,8 +594,9 @@ Widget _buildTable(
   double canvasWidth,
   double screenWidth,
   BuildContext context,
-  String? searchQuery,
-  SearchMatchCounter? matchCounter,
+  List<int>? rootMap,
+  MapOffset? mapOffset,
+  int? activeOcc,
 ) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -587,8 +665,9 @@ Widget _buildTable(
             nextPara: pIndex < cell.paragraphs.length - 1
                 ? cell.paragraphs[pIndex + 1]
                 : null,
-            searchQuery: searchQuery,
-            matchCounter: matchCounter,
+            rootHighlightMap: rootMap,
+            mapOffset: mapOffset,
+            activeOccurrence: activeOcc,
           ),
         );
       }
@@ -675,8 +754,8 @@ List<InlineSpan> _buildStyledInteractiveText(
   BuildContext context, {
   bool isInsideTableCell = false,
   required ParagraphData para,
-  String? searchQuery,
-  SearchMatchCounter? matchCounter,
+  List<int>? localMap,
+  int? activeOccurrence,
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -735,8 +814,8 @@ List<InlineSpan> _buildStyledInteractiveText(
       context,
       baseStyle,
       interactiveColor: interactiveColor,
-      searchQuery: searchQuery,
-      matchCounter: matchCounter,
+      localHighlightMap: localMap,
+      activeOccurrence: activeOccurrence,
     );
   }
 
@@ -927,9 +1006,9 @@ class _TranslatableContentWrapperState
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => setState(
+      onLongPress: () => setState(
         () => _showTranslation = !_showTranslation,
-      ), // 🌟 رفع باگ: با لمس ساده باز می‌شود تا با کلیک‌ها تداخل نداشته باشد
+      ), // 🌟 بازگشت قطعی به لمس طولانی
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

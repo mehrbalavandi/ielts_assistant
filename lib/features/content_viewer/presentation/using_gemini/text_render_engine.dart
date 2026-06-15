@@ -2,13 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
-// 🌟 کلاس شمارنده برای ایجاد استایل Chrome-like (نارنجی برای هدف، زرد برای بقیه)
-class SearchMatchCounter {
-  int current = 0;
-  final int? activeTargetIndex;
-  SearchMatchCounter({this.activeTargetIndex});
-}
-
 class TextRenderEngine {
   static List<InlineSpan> buildInteractiveText(
     String content,
@@ -16,8 +9,8 @@ class TextRenderEngine {
     BuildContext context,
     TextStyle baseStyle, {
     Color interactiveColor = Colors.blue,
-    String? searchQuery,
-    SearchMatchCounter? matchCounter,
+    List<int>? localHighlightMap, // نقشه دقیق جایگاه کلمات جستجوشده
+    int? activeOccurrence, // شماره نتیجه‌ای که کاربر الان روی آن است
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -28,16 +21,16 @@ class TextRenderEngine {
 
     for (final match in matches) {
       if (match.start > currentIndex) {
-        String beforeText = content.substring(currentIndex, match.start);
+        var slice = localHighlightMap?.sublist(currentIndex, match.start);
         spans.addAll(
           _processDictionaryWords(
-            beforeText,
+            content.substring(currentIndex, match.start),
             interactives,
             context,
             baseStyle,
             interactiveColor,
-            searchQuery,
-            matchCounter,
+            slice,
+            activeOccurrence,
           ),
         );
       }
@@ -54,6 +47,7 @@ class TextRenderEngine {
     }
 
     if (currentIndex < content.length) {
+      var slice = localHighlightMap?.sublist(currentIndex);
       spans.addAll(
         _processDictionaryWords(
           content.substring(currentIndex),
@@ -61,8 +55,8 @@ class TextRenderEngine {
           context,
           baseStyle,
           interactiveColor,
-          searchQuery,
-          matchCounter,
+          slice,
+          activeOccurrence,
         ),
       );
     }
@@ -75,12 +69,11 @@ class TextRenderEngine {
     BuildContext context,
     TextStyle baseStyle,
     Color interactiveColor,
-    String? searchQuery,
-    SearchMatchCounter? matchCounter,
+    List<int>? localMap,
+    int? activeOcc,
   ) {
-    if (interactives.isEmpty || content.isEmpty) {
-      return _highlightSearch(content, baseStyle, searchQuery, matchCounter);
-    }
+    if (interactives.isEmpty || content.isEmpty)
+      return _applyMapToText(content, baseStyle, localMap, activeOcc);
 
     List<InlineSpan> spans = [];
     String remainingText = content;
@@ -91,7 +84,6 @@ class TextRenderEngine {
     while (remainingText.isNotEmpty) {
       int bestIndex = -1;
       InteractiveWord? matchedWord;
-
       for (var word in interactives) {
         int index = remainingText.indexOf(word.exactText);
         if (index != -1 && (bestIndex == -1 || index < bestIndex)) {
@@ -103,31 +95,24 @@ class TextRenderEngine {
       if (bestIndex != -1 && matchedWord != null) {
         if (bestIndex > 0)
           spans.addAll(
-            _highlightSearch(
+            _applyMapToText(
               remainingText.substring(0, bestIndex),
               baseStyle,
-              searchQuery,
-              matchCounter,
+              localMap?.sublist(0, bestIndex),
+              activeOcc,
             ),
           );
 
-        // 🌟 همگام‌سازی استایل کلمات تعاملی با سیستم جستجو
         bool isSearched = false;
         bool isActiveMatch = false;
-        if (searchQuery != null && searchQuery.trim().isNotEmpty) {
-          String nWord = _normalizeText(matchedWord.exactText);
-          String nQuery = _normalizeText(searchQuery);
-          int wordMatchIdx = nWord.indexOf(nQuery);
-          while (wordMatchIdx != -1) {
-            isSearched = true;
-            if (matchCounter != null) {
-              if (matchCounter.activeTargetIndex != null &&
-                  matchCounter.current == matchCounter.activeTargetIndex)
-                isActiveMatch = true;
-              matchCounter.current++;
-            }
-            wordMatchIdx = nWord.indexOf(nQuery, wordMatchIdx + nQuery.length);
-          }
+        if (localMap != null) {
+          var wordMap = localMap.sublist(
+            bestIndex,
+            bestIndex + matchedWord.exactText.length,
+          );
+          if (wordMap.any((val) => val != -1)) isSearched = true;
+          if (activeOcc != null && wordMap.any((val) => val == activeOcc))
+            isActiveMatch = true;
         }
 
         TextStyle intStyle = baseStyle.copyWith(
@@ -135,16 +120,14 @@ class TextRenderEngine {
           decoration: TextDecoration.underline,
           decorationStyle: TextDecorationStyle.dotted,
         );
-        if (isSearched) {
+        if (isSearched)
           intStyle = intStyle.copyWith(
             backgroundColor: isActiveMatch
                 ? Colors.orangeAccent
                 : Colors.yellowAccent.withOpacity(0.6),
             color: isActiveMatch ? Colors.white : Colors.black,
           );
-        }
 
-        // 🌟 اختصاص دقیق Recognizer برای باز شدن مودال
         spans.add(
           TextSpan(
             text: matchedWord.exactText,
@@ -157,9 +140,10 @@ class TextRenderEngine {
         remainingText = remainingText.substring(
           bestIndex + matchedWord.exactText.length,
         );
+        localMap = localMap?.sublist(bestIndex + matchedWord.exactText.length);
       } else {
         spans.addAll(
-          _highlightSearch(remainingText, baseStyle, searchQuery, matchCounter),
+          _applyMapToText(remainingText, baseStyle, localMap, activeOcc),
         );
         break;
       }
@@ -167,65 +151,50 @@ class TextRenderEngine {
     return spans;
   }
 
-  static List<InlineSpan> _highlightSearch(
-    String text,
+  static List<InlineSpan> _applyMapToText(
+    String content,
     TextStyle baseStyle,
-    String? query,
-    SearchMatchCounter? matchCounter,
+    List<int>? localMap,
+    int? activeOcc,
   ) {
-    if (query == null || query.trim().isEmpty)
-      return [TextSpan(text: text, style: baseStyle)];
-    String nText = _normalizeText(text);
-    String nQuery = _normalizeText(query);
-    if (!nText.contains(nQuery))
-      return [TextSpan(text: text, style: baseStyle)];
+    if (localMap == null || localMap.every((v) => v == -1))
+      return [TextSpan(text: content, style: baseStyle)];
 
     List<InlineSpan> spans = [];
-    int start = 0;
-    int matchIdx = nText.indexOf(nQuery, start);
+    int currentState = localMap[0];
+    String chunk = "";
 
-    while (matchIdx != -1) {
-      if (matchIdx > start)
-        spans.add(
-          TextSpan(text: text.substring(start, matchIdx), style: baseStyle),
-        );
-
-      // 🌟 جادوی نارنجی شدن کلمه هدف!
-      bool isActive =
-          matchCounter != null &&
-          matchCounter.activeTargetIndex != null &&
-          matchCounter.current == matchCounter.activeTargetIndex;
-      Color bgColor = isActive
-          ? Colors.orangeAccent
-          : Colors.yellowAccent.withOpacity(0.6);
-      Color textColor = isActive ? Colors.white : Colors.black;
-
-      spans.add(
-        TextSpan(
-          text: text.substring(matchIdx, matchIdx + query.length),
-          style: baseStyle.copyWith(backgroundColor: bgColor, color: textColor),
-        ),
-      );
-
-      if (matchCounter != null) matchCounter.current++;
-      start = matchIdx + query.length;
-      matchIdx = nText.indexOf(nQuery, start);
+    for (int i = 0; i < content.length; i++) {
+      if (localMap[i] == currentState) {
+        chunk += content[i];
+      } else {
+        spans.add(_createTextSpan(chunk, currentState, activeOcc, baseStyle));
+        chunk = content[i];
+        currentState = localMap[i];
+      }
     }
-    if (start < text.length)
-      spans.add(TextSpan(text: text.substring(start), style: baseStyle));
+    if (chunk.isNotEmpty)
+      spans.add(_createTextSpan(chunk, currentState, activeOcc, baseStyle));
     return spans;
   }
 
-  static String _normalizeText(String text) {
-    return text
-        .toLowerCase()
-        .replaceAll('ي', 'ی')
-        .replaceAll('ك', 'ک')
-        .replaceAll('ة', 'ه')
-        .replaceAll('أ', 'ا')
-        .replaceAll('إ', 'ا')
-        .replaceAll('ؤ', 'و')
-        .replaceAll('\u200c', ' ');
+  static TextSpan _createTextSpan(
+    String text,
+    int state,
+    int? activeOcc,
+    TextStyle baseStyle,
+  ) {
+    if (state == -1) return TextSpan(text: text, style: baseStyle);
+    bool isActive = state == activeOcc;
+    return TextSpan(
+      text: text,
+      style: baseStyle.copyWith(
+        backgroundColor: isActive
+            ? Colors.orangeAccent
+            : Colors.yellowAccent.withOpacity(0.6),
+        color: isActive ? Colors.white : Colors.black,
+      ),
+    );
   }
 
   static void _showWordModal(BuildContext context, InteractiveWord word) {
