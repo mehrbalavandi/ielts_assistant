@@ -8,7 +8,8 @@ class SearchResult {
   final String bookId;
   final String bookTitle;
   final int pageNumber;
-  final int paraIndex; // 🌟 ایندکس دقیق پاراگراف اضافه شد
+  final int paraIndex;
+  final int occurrenceIndex; // 🌟 نگهداری شماره تکرار در یک پاراگراف
   final ParagraphData paragraph;
   final String matchedExcerpt;
   final String query;
@@ -17,7 +18,8 @@ class SearchResult {
     required this.bookId,
     required this.bookTitle,
     required this.pageNumber,
-    required this.paraIndex, // 🌟
+    required this.paraIndex,
+    required this.occurrenceIndex,
     required this.paragraph,
     required this.matchedExcerpt,
     required this.query,
@@ -75,8 +77,11 @@ List<SearchResult> _searchInIsolate(SearchRequest request) {
         String rawText = _extractFullText(para);
         String normalizedText = _normalizeText(rawText);
 
-        if (normalizedText.contains(lowerQuery)) {
-          int matchIndex = normalizedText.indexOf(lowerQuery);
+        int occurrence = 0; // شمارنده تکرارها در این پاراگراف
+        int matchIndex = normalizedText.indexOf(lowerQuery);
+
+        // 🌟 حلقه while برای استخراج تمامیِ موارد یافت‌شده (حتی داخل یک جدول)
+        while (matchIndex != -1) {
           int startIdx = (matchIndex - 30).clamp(0, rawText.length);
           int endIdx = (matchIndex + lowerQuery.length + 30).clamp(
             0,
@@ -90,11 +95,18 @@ List<SearchResult> _searchInIsolate(SearchRequest request) {
               bookId: bookId,
               bookTitle: bookTitle,
               pageNumber: page.pageNumber,
-              paraIndex: pIndex, // 🌟 ذخیره جایگاه دقیق
+              paraIndex: pIndex,
+              occurrenceIndex: occurrence, // ذخیره شماره این کلمه
               paragraph: para,
               matchedExcerpt: excerpt,
               query: request.query,
             ),
+          );
+
+          occurrence++;
+          matchIndex = normalizedText.indexOf(
+            lowerQuery,
+            matchIndex + lowerQuery.length,
           );
         }
       }
@@ -113,7 +125,6 @@ String _extractFullText(ParagraphData para) {
         for (var cell in row.cells) {
           for (var cellPara in cell.paragraphs) {
             sb.write(_extractFullText(cellPara));
-            sb.write(" ");
           }
         }
       }

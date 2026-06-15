@@ -29,7 +29,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
 
-  // 🌟 کلید اختصاصی برای پیدا کردن دقیق پاراگراف هدف در صفحه
   final GlobalKey _targetParaKey = GlobalKey();
 
   bool _isZoomed = false;
@@ -53,10 +52,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       }
     });
 
-    // 🌟 اجرای اسکرولِ دقیق بعد از رندر شدن فریم اول (برای وقتی که تازه از جستجو وارد می‌شویم)
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _ensureTargetVisible();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => _ensureTargetVisible());
   }
 
   void _handleTransformationChanged() {
@@ -72,7 +68,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         _targetParaKey.currentContext!,
         duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOutCubic,
-        alignment: 0.3, // پاراگراف را در بخش بالایی دید کاربر قرار می‌دهد
+        alignment: 0.3,
       );
     }
   }
@@ -92,7 +88,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     final currentBook = ref.read(activeBookProvider);
     final searchSession = ref.watch(activeSearchProvider);
 
-    // 🌟 تعیین هوشمند صفحه‌ی پیش‌فرض (یا آخرین مطالعه، یا صفحه‌ی یافت‌شده در جستجو)
     int initialIndex =
         _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
     final activeTarget =
@@ -107,7 +102,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       if (pIndex != -1) initialIndex = pIndex;
     }
 
-    // 🌟 ناوبری بین نتایج جستجو وقتی کاربر دکمه‌های بعدی/قبلی را می‌زند
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null &&
           previous?.currentIndex != next.currentIndex &&
@@ -153,7 +147,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                         itemCount: widget.documentPages.length,
                         itemScrollController: _itemScrollController,
                         itemPositionsListener: _itemPositionsListener,
-                        // تضمین می‌کنیم که ایندکس خارج از محدوده نباشد
                         initialScrollIndex:
                             initialIndex < widget.documentPages.length
                             ? initialIndex
@@ -172,30 +165,35 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                             pIndex++
                           ) {
                             var para = page.paragraphs[pIndex];
-
                             bool isTargetParagraph =
                                 activeTarget != null &&
                                 activeTarget.pageNumber == page.pageNumber &&
                                 activeTarget.paraIndex == pIndex;
+
+                            // 🌟 ساخت شمارنده اختصاصی برای اعمال استایل‌های نارنجی و زرد
+                            SearchMatchCounter? counter;
+                            if (searchSession?.query != null &&
+                                searchSession!.query.trim().isNotEmpty) {
+                              counter = SearchMatchCounter(
+                                activeTargetIndex: isTargetParagraph
+                                    ? activeTarget.occurrenceIndex
+                                    : null,
+                              );
+                            }
 
                             Widget paragraphContent = _buildParagraph(
                               para,
                               canvasWidth,
                               MediaQuery.of(context).size.width,
                               context,
-                              highlightQuery: isTargetParagraph
-                                  ? searchSession?.query
-                                  : null, // 🌟 ارسال کوئری
+                              searchQuery: searchSession?.query,
+                              matchCounter: counter,
                             );
 
-                            // تخصیص کلید برای پرش و کادر زرد ملایم برای پاراگراف پیدا شده
+                            // تخصیص کلید بدون تغییر ظاهر (کادر زرد مزاحم حذف شد)
                             if (isTargetParagraph) {
                               paragraphContent = Container(
                                 key: _targetParaKey,
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow.withOpacity(0.15),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
                                 child: paragraphContent,
                               );
                             }
@@ -325,19 +323,18 @@ Widget _buildParagraph(
   bool isInsideTableCell = false,
   ParagraphData? prevPara,
   ParagraphData? nextPara,
-  String? highlightQuery, // 🌟 دریافت مستقیم عبارت جستجو
+  String? searchQuery,
+  SearchMatchCounter? matchCounter, // 🌟 هدایت شمارنده به سمت جدول‌ها
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
           para.spans.first.type == "text" &&
           (para.spans.first.content == "\n" ||
-              para.spans.first.content.trim().isEmpty))) {
+              para.spans.first.content.trim().isEmpty)))
     return const SizedBox.shrink();
-  }
 
   List<Object> blockElements = [];
   List<InlineSpan> currentInlineSpans = [];
-
   TextAlign textAlign = TextAlign.left;
   if (para.alignment == "C") textAlign = TextAlign.center;
   if (para.alignment == "R") textAlign = TextAlign.right;
@@ -366,7 +363,8 @@ Widget _buildParagraph(
           context,
           isInsideTableCell: isInsideTableCell,
           para: para,
-          highlightQuery: highlightQuery,
+          searchQuery: searchQuery,
+          matchCounter: matchCounter,
         ),
       );
     } else if (span.type == "image") {
@@ -378,7 +376,6 @@ Widget _buildParagraph(
           if (span.floatPosition == 'left') floatAlign = FCFloat.left;
           if (span.floatPosition == 'right') floatAlign = FCFloat.right;
         }
-
         blockElements.add(
           Floatable(
             float: floatAlign,
@@ -408,7 +405,16 @@ Widget _buildParagraph(
       }
     } else if (span.type == "table") {
       flushText();
-      blockElements.add(_buildTable(span, canvasWidth, screenWidth, context));
+      blockElements.add(
+        _buildTable(
+          span,
+          canvasWidth,
+          screenWidth,
+          context,
+          searchQuery,
+          matchCounter,
+        ),
+      ); // 🌟 ارسال جستجو به داخل جدول
     }
   }
 
@@ -424,11 +430,10 @@ Widget _buildParagraph(
       child: FloatColumn(children: blockElements),
     ),
   );
-
   bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
   bool hasBorder = para.hasBorders == "true";
-  double defaultBoxPadding = 6.0;
-  double internalTopPadding = 0.0,
+  double defaultBoxPadding = 6.0,
+      internalTopPadding = 0.0,
       internalBottomPadding = 0.0,
       externalTopMargin = 0.0,
       externalBottomMargin = 0.0;
@@ -454,7 +459,6 @@ Widget _buildParagraph(
   if (hasBgColor || hasBorder) {
     Color borderColor = _hexToColor(para.borderColor) ?? Colors.grey.shade600;
     double borderWidth = 1.5;
-
     paragraphContent = Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -499,7 +503,6 @@ Widget _buildParagraph(
       child: paragraphContent,
     );
   }
-
   return Padding(
     padding: EdgeInsets.only(
       top: externalTopMargin,
@@ -514,6 +517,8 @@ Widget _buildTable(
   double canvasWidth,
   double screenWidth,
   BuildContext context,
+  String? searchQuery,
+  SearchMatchCounter? matchCounter,
 ) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -524,7 +529,6 @@ Widget _buildTable(
   final bool isBorderedTable = rawStyle.contains("borderedtable");
   final bool hideBorders =
       rawStyle.contains("dottedtable") || rawStyle.contains("tablegrid");
-
   double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
   Color borderColor =
       _hexToColor(tableSpan.borderColor) ??
@@ -532,7 +536,6 @@ Widget _buildTable(
 
   BoxBorder? cellBorder;
   BoxBorder? tableBorder;
-
   if (!hideBorders && (isBorderedTable || tableSpan.hasBorders == "true")) {
     cellBorder = Border(
       right: BorderSide(color: borderColor, width: borderWidth),
@@ -545,11 +548,9 @@ Widget _buildTable(
   }
 
   List<Widget> rowWidgets = [];
-
   for (var row in tableSpan.tableRows) {
     List<Widget> cellWidgets = [];
     bool hasAnyImage = false, hasAnyText = false;
-
     for (var cell in row.cells) {
       bool isImg =
           cell.paragraphs.length == 1 &&
@@ -566,7 +567,6 @@ Widget _buildTable(
       else if (!isEmpty)
         hasAnyText = true;
     }
-
     bool isImageRow = hasAnyImage && !hasAnyText;
 
     for (var cell in row.cells) {
@@ -574,7 +574,6 @@ Widget _buildTable(
       bool isImageCell =
           cell.paragraphs.length == 1 &&
           cell.paragraphs.first.spans.any((s) => s.type == "image");
-
       for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
         cellParagraphs.add(
           _buildParagraph(
@@ -588,10 +587,11 @@ Widget _buildTable(
             nextPara: pIndex < cell.paragraphs.length - 1
                 ? cell.paragraphs[pIndex + 1]
                 : null,
+            searchQuery: searchQuery,
+            matchCounter: matchCounter,
           ),
         );
       }
-
       Widget cellContent = Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -604,7 +604,6 @@ Widget _buildTable(
           children: cellParagraphs,
         ),
       );
-
       if (isLargeScreen || isBorderedTable || isImageRow) {
         if (cell.widthPercent != null && cell.widthPercent! > 0)
           cellWidgets.add(
@@ -619,7 +618,6 @@ Widget _buildTable(
         cellWidgets.add(cellContent);
       }
     }
-
     if (isLargeScreen || isBorderedTable || isImageRow)
       rowWidgets.add(
         Row(
@@ -635,7 +633,6 @@ Widget _buildTable(
         ),
       );
   }
-
   Widget tableContainer = Container(
     margin: const EdgeInsets.symmetric(vertical: 12.0),
     decoration: BoxDecoration(
@@ -647,7 +644,6 @@ Widget _buildTable(
       children: rowWidgets,
     ),
   );
-
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
@@ -670,7 +666,6 @@ Widget _buildTable(
       return tableContainer;
     }
   }
-
   return tableContainer;
 }
 
@@ -680,11 +675,11 @@ List<InlineSpan> _buildStyledInteractiveText(
   BuildContext context, {
   bool isInsideTableCell = false,
   required ParagraphData para,
-  String? highlightQuery, // 🌟 دریافت مستقیم از متد بالا
+  String? searchQuery,
+  SearchMatchCounter? matchCounter,
 }) {
   double fontSize = 14.0;
   String? fontFamily;
-
   for (var marker in span.markers) {
     if (marker.startsWith("sz:")) {
       double? parsedSize = double.tryParse(marker.substring(3));
@@ -701,7 +696,6 @@ List<InlineSpan> _buildStyledInteractiveText(
         ? Colors.lightBlueAccent
         : Colors.blue.shade900;
   }
-
   Color? customTextColor = _hexToColor(span.textColor);
   bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
   if (isAudioLink) customTextColor = interactiveColor;
@@ -723,7 +717,6 @@ List<InlineSpan> _buildStyledInteractiveText(
   );
 
   List<InlineSpan> interactiveSpans = [];
-
   if (isAudioLink) {
     interactiveSpans.add(
       WidgetSpan(
@@ -736,14 +729,14 @@ List<InlineSpan> _buildStyledInteractiveText(
       ),
     );
   } else {
-    // 🌟 ارتباط مستقیم با موتور ادغام‌شده‌ی جدید!
     interactiveSpans = TextRenderEngine.buildInteractiveText(
       span.content ?? '',
       interactives,
       context,
       baseStyle,
       interactiveColor: interactiveColor,
-      searchQuery: highlightQuery, // این پارامتر جادو را رقم می‌زند
+      searchQuery: searchQuery,
+      matchCounter: matchCounter,
     );
   }
 
@@ -771,7 +764,6 @@ List<InlineSpan> _buildStyledInteractiveText(
       ),
     ];
   }
-
   return interactiveSpans;
 }
 
@@ -821,7 +813,6 @@ class InlineAudioLink extends ConsumerWidget {
     required this.text,
     required this.baseColor,
   });
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final audioState = ref.watch(audioPlayerProvider);
@@ -829,7 +820,6 @@ class InlineAudioLink extends ConsumerWidget {
     final box = GetStorage();
     bool isCurrent = audioState.currentPath == fullPath;
     bool isPlaying = isCurrent && audioState.isPlaying;
-
     int currentPosMs = isCurrent
         ? audioState.position.inMilliseconds
         : (box.read('pos_$fullPath') ?? 0);
@@ -908,7 +898,6 @@ class TranslatableContentWrapper extends StatefulWidget {
     this.translationAr,
     this.isDarkMode = false,
   });
-
   @override
   State<TranslatableContentWrapper> createState() =>
       _TranslatableContentWrapperState();
@@ -917,14 +906,12 @@ class TranslatableContentWrapper extends StatefulWidget {
 class _TranslatableContentWrapperState
     extends State<TranslatableContentWrapper> {
   bool _showTranslation = false;
-
   @override
   Widget build(BuildContext context) {
     bool hasTranslation =
         (widget.translationFa != null && widget.translationFa!.isNotEmpty) ||
         (widget.translationAr != null && widget.translationAr!.isNotEmpty);
     if (!hasTranslation) return widget.originalContent;
-
     String finalTranslation = (widget.translationFa?.isNotEmpty ?? false)
         ? widget.translationFa!
         : widget.translationAr!;
@@ -940,7 +927,9 @@ class _TranslatableContentWrapperState
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onLongPress: () => setState(() => _showTranslation = !_showTranslation),
+      onTap: () => setState(
+        () => _showTranslation = !_showTranslation,
+      ), // 🌟 رفع باگ: با لمس ساده باز می‌شود تا با کلیک‌ها تداخل نداشته باشد
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

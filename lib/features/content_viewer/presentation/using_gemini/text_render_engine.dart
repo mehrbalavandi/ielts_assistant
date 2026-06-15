@@ -2,6 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
+// 🌟 کلاس شمارنده برای ایجاد استایل Chrome-like (نارنجی برای هدف، زرد برای بقیه)
+class SearchMatchCounter {
+  int current = 0;
+  final int? activeTargetIndex;
+  SearchMatchCounter({this.activeTargetIndex});
+}
+
 class TextRenderEngine {
   static List<InlineSpan> buildInteractiveText(
     String content,
@@ -9,13 +16,12 @@ class TextRenderEngine {
     BuildContext context,
     TextStyle baseStyle, {
     Color interactiveColor = Colors.blue,
-    String? searchQuery, // 🌟 اضافه شدن کوئری جستجو به هسته اصلی
+    String? searchQuery,
+    SearchMatchCounter? matchCounter,
   }) {
     if (content.isEmpty) return [];
-
     List<InlineSpan> spans = [];
 
-    // ۱. پردازش جاهای خالی {blk}
     final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}');
     final matches = blankRegex.allMatches(content);
     int currentIndex = 0;
@@ -31,16 +37,15 @@ class TextRenderEngine {
             baseStyle,
             interactiveColor,
             searchQuery,
+            matchCounter,
           ),
         );
       }
-
-      String hiddenText = match.group(1) ?? '';
       spans.add(
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
           child: InteractiveBlankWord(
-            hiddenText: hiddenText,
+            hiddenText: match.group(1) ?? '',
             textStyle: baseStyle,
           ),
         ),
@@ -49,23 +54,21 @@ class TextRenderEngine {
     }
 
     if (currentIndex < content.length) {
-      String remainingText = content.substring(currentIndex);
       spans.addAll(
         _processDictionaryWords(
-          remainingText,
+          content.substring(currentIndex),
           interactives,
           context,
           baseStyle,
           interactiveColor,
           searchQuery,
+          matchCounter,
         ),
       );
     }
-
     return spans;
   }
 
-  // ۲. پردازش همزمان لغات تعاملی + هایلایت جستجو
   static List<InlineSpan> _processDictionaryWords(
     String content,
     List<InteractiveWord> interactives,
@@ -73,10 +76,10 @@ class TextRenderEngine {
     TextStyle baseStyle,
     Color interactiveColor,
     String? searchQuery,
+    SearchMatchCounter? matchCounter,
   ) {
-    // اگر کلمه تعاملی در این بخش نیست، فقط متن ساده را برای جستجو چک کن
     if (interactives.isEmpty || content.isEmpty) {
-      return _highlightSearch(content, baseStyle, searchQuery);
+      return _highlightSearch(content, baseStyle, searchQuery, matchCounter);
     }
 
     List<InlineSpan> spans = [];
@@ -98,23 +101,33 @@ class TextRenderEngine {
       }
 
       if (bestIndex != -1 && matchedWord != null) {
-        if (bestIndex > 0) {
-          // متن قبل از کلمه تعاملی را برای جستجو چک کن
+        if (bestIndex > 0)
           spans.addAll(
             _highlightSearch(
               remainingText.substring(0, bestIndex),
               baseStyle,
               searchQuery,
+              matchCounter,
             ),
           );
-        }
 
-        // 🌟 بررسی هوشمند: آیا خود کلمه‌ی تعاملی هم جزو عبارت جستجوشده است؟
+        // 🌟 همگام‌سازی استایل کلمات تعاملی با سیستم جستجو
         bool isSearched = false;
+        bool isActiveMatch = false;
         if (searchQuery != null && searchQuery.trim().isNotEmpty) {
           String nWord = _normalizeText(matchedWord.exactText);
           String nQuery = _normalizeText(searchQuery);
-          if (nWord.contains(nQuery)) isSearched = true;
+          int wordMatchIdx = nWord.indexOf(nQuery);
+          while (wordMatchIdx != -1) {
+            isSearched = true;
+            if (matchCounter != null) {
+              if (matchCounter.activeTargetIndex != null &&
+                  matchCounter.current == matchCounter.activeTargetIndex)
+                isActiveMatch = true;
+              matchCounter.current++;
+            }
+            wordMatchIdx = nWord.indexOf(nQuery, wordMatchIdx + nQuery.length);
+          }
         }
 
         TextStyle intStyle = baseStyle.copyWith(
@@ -122,14 +135,16 @@ class TextRenderEngine {
           decoration: TextDecoration.underline,
           decorationStyle: TextDecorationStyle.dotted,
         );
-
-        // اگر کلمه هم تعاملی بود هم جستجوشده، پس‌زمینه آن را زرد کن
         if (isSearched) {
           intStyle = intStyle.copyWith(
-            backgroundColor: Colors.yellowAccent.withOpacity(0.6),
+            backgroundColor: isActiveMatch
+                ? Colors.orangeAccent
+                : Colors.yellowAccent.withOpacity(0.6),
+            color: isActiveMatch ? Colors.white : Colors.black,
           );
         }
 
+        // 🌟 اختصاص دقیق Recognizer برای باز شدن مودال
         spans.add(
           TextSpan(
             text: matchedWord.exactText,
@@ -143,23 +158,23 @@ class TextRenderEngine {
           bestIndex + matchedWord.exactText.length,
         );
       } else {
-        // پایان کلمات تعاملی، چک کردن بقیه متن برای جستجو
-        spans.addAll(_highlightSearch(remainingText, baseStyle, searchQuery));
+        spans.addAll(
+          _highlightSearch(remainingText, baseStyle, searchQuery, matchCounter),
+        );
         break;
       }
     }
     return spans;
   }
 
-  // ۳. تابع لیزری برای هایلایت زرد کلمات (با پشتیبانی کامل عربی/فارسی)
   static List<InlineSpan> _highlightSearch(
     String text,
     TextStyle baseStyle,
     String? query,
+    SearchMatchCounter? matchCounter,
   ) {
     if (query == null || query.trim().isEmpty)
       return [TextSpan(text: text, style: baseStyle)];
-
     String nText = _normalizeText(text);
     String nQuery = _normalizeText(query);
     if (!nText.contains(nQuery))
@@ -170,27 +185,34 @@ class TextRenderEngine {
     int matchIdx = nText.indexOf(nQuery, start);
 
     while (matchIdx != -1) {
-      if (matchIdx > start) {
+      if (matchIdx > start)
         spans.add(
           TextSpan(text: text.substring(start, matchIdx), style: baseStyle),
         );
-      }
-      // تکه کلمه پیدا شده را زرد کن
+
+      // 🌟 جادوی نارنجی شدن کلمه هدف!
+      bool isActive =
+          matchCounter != null &&
+          matchCounter.activeTargetIndex != null &&
+          matchCounter.current == matchCounter.activeTargetIndex;
+      Color bgColor = isActive
+          ? Colors.orangeAccent
+          : Colors.yellowAccent.withOpacity(0.6);
+      Color textColor = isActive ? Colors.white : Colors.black;
+
       spans.add(
         TextSpan(
           text: text.substring(matchIdx, matchIdx + query.length),
-          style: baseStyle.copyWith(
-            backgroundColor: Colors.yellowAccent.withOpacity(0.6),
-            color: Colors.black,
-          ),
+          style: baseStyle.copyWith(backgroundColor: bgColor, color: textColor),
         ),
       );
+
+      if (matchCounter != null) matchCounter.current++;
       start = matchIdx + query.length;
       matchIdx = nText.indexOf(nQuery, start);
     }
-    if (start < text.length) {
+    if (start < text.length)
       spans.add(TextSpan(text: text.substring(start), style: baseStyle));
-    }
     return spans;
   }
 
@@ -269,9 +291,6 @@ class TextRenderEngine {
   }
 }
 
-// ============================================================================
-// ویجت هوشمند جای خالی (Cloze Test Blank)
-// ============================================================================
 class InteractiveBlankWord extends StatefulWidget {
   final String hiddenText;
   final TextStyle textStyle;
@@ -280,14 +299,12 @@ class InteractiveBlankWord extends StatefulWidget {
     required this.hiddenText,
     required this.textStyle,
   });
-
   @override
   State<InteractiveBlankWord> createState() => _InteractiveBlankWordState();
 }
 
 class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
   bool _isRevealed = false;
-
   @override
   Widget build(BuildContext context) {
     bool isDarkTheme =
@@ -295,7 +312,6 @@ class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
     Color hiddenBg = isDarkTheme ? Colors.white24 : Colors.black12;
     Color hiddenBorder = isDarkTheme ? Colors.white54 : Colors.black38;
     Color hiddenText = isDarkTheme ? Colors.white70 : Colors.black54;
-
     Color revealedBg = isDarkTheme
         ? Colors.tealAccent.withOpacity(0.2)
         : Colors.teal.withOpacity(0.1);
