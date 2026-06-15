@@ -4,12 +4,40 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
+// 🌟 کلاس کمکی برای حذف تگ‌های blk از جستجو بدون به هم ریختن ایندکس‌ها
+class TextSearchMapper {
+  final String rawText;
+  late final String cleanText;
+  late final List<int> cleanToRaw;
+
+  TextSearchMapper(this.rawText) {
+    StringBuffer clean = StringBuffer();
+    cleanToRaw = [];
+    int rawIdx = 0;
+
+    while (rawIdx < rawText.length) {
+      if (rawText.startsWith('{blk}', rawIdx)) {
+        rawIdx += 5;
+        continue;
+      }
+      if (rawText.startsWith('{/blk}', rawIdx)) {
+        rawIdx += 6;
+        continue;
+      }
+      clean.write(rawText[rawIdx]);
+      cleanToRaw.add(rawIdx);
+      rawIdx++;
+    }
+    cleanText = clean.toString();
+  }
+}
+
 class SearchResult {
   final String bookId;
   final String bookTitle;
   final int pageNumber;
   final int paraIndex;
-  final int occurrenceIndex; // 🌟 نگهداری شماره تکرار در یک پاراگراف
+  final int occurrenceIndex;
   final ParagraphData paragraph;
   final String matchedExcerpt;
   final String query;
@@ -75,20 +103,26 @@ List<SearchResult> _searchInIsolate(SearchRequest request) {
       for (int pIndex = 0; pIndex < page.paragraphs.length; pIndex++) {
         var para = page.paragraphs[pIndex];
         String rawText = _extractFullText(para);
-        String normalizedText = _normalizeText(rawText);
 
-        int occurrence = 0; // شمارنده تکرارها در این پاراگراف
+        // 🌟 استفاده از Mapper برای نادیده گرفتن جای خالی‌ها در جستجو
+        TextSearchMapper mapper = TextSearchMapper(rawText);
+        String normalizedText = _normalizeText(mapper.cleanText);
+
+        int occurrence = 0;
         int matchIndex = normalizedText.indexOf(lowerQuery);
 
-        // 🌟 حلقه while برای استخراج تمامیِ موارد یافت‌شده (حتی داخل یک جدول)
         while (matchIndex != -1) {
-          int startIdx = (matchIndex - 30).clamp(0, rawText.length);
-          int endIdx = (matchIndex + lowerQuery.length + 30).clamp(
+          // استخراج Excerpt از متن تمیز (بدون تگ blk)
+          int cleanStartIdx = (matchIndex - 30).clamp(
             0,
-            rawText.length,
+            mapper.cleanText.length,
+          );
+          int cleanEndIdx = (matchIndex + lowerQuery.length + 30).clamp(
+            0,
+            mapper.cleanText.length,
           );
           String excerpt =
-              "... ${rawText.substring(startIdx, endIdx).trim()} ...";
+              "... ${mapper.cleanText.substring(cleanStartIdx, cleanEndIdx).trim()} ...";
 
           results.add(
             SearchResult(
@@ -96,7 +130,7 @@ List<SearchResult> _searchInIsolate(SearchRequest request) {
               bookTitle: bookTitle,
               pageNumber: page.pageNumber,
               paraIndex: pIndex,
-              occurrenceIndex: occurrence, // ذخیره شماره این کلمه
+              occurrenceIndex: occurrence,
               paragraph: para,
               matchedExcerpt: excerpt,
               query: request.query,

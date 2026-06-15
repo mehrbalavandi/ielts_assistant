@@ -34,13 +34,13 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ItemPositionsListener.create();
   final GlobalKey _targetParaKey = GlobalKey();
 
-  bool _isZoomed = false;
+  // 🌟 متغیر کنترل حالت زوم دستی
+  bool _isZoomModeActive = false;
 
   @override
   void initState() {
     super.initState();
-    _transformationController.addListener(_handleTransformationChanged);
-
+    // 🌟 گوش‌دادن به زوم خودکار حذف شد تا کنترل فقط دست دکمه باشد
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
@@ -57,29 +57,19 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _ensureTargetVisible());
   }
 
-  void _handleTransformationChanged() {
-    // 🌟 بهینه‌سازی شدید: فقط زمانی آپدیت کن که وضعیت زوم تغییر کرده باشد
-    bool isNowZoomed =
-        _transformationController.value.getMaxScaleOnAxis() > 1.05;
-    if (_isZoomed != isNowZoomed) {
-      setState(() => _isZoomed = isNowZoomed);
-    }
-  }
-
   void _ensureTargetVisible() {
     if (_targetParaKey.currentContext != null) {
       Scrollable.ensureVisible(
         _targetParaKey.currentContext!,
-        duration: const Duration(milliseconds: 500), // انیمیشن ملایم‌تر
+        duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOutCubic,
-        alignment: 0.25, // تنظیم کلمه دقیقاً در یک‌چهارم بالایی صفحه
+        alignment: 0.25,
       );
     }
   }
 
   @override
   void dispose() {
-    _transformationController.removeListener(_handleTransformationChanged);
     _transformationController.dispose();
     super.dispose();
   }
@@ -108,7 +98,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
-        // 🌟 حساسیت به تغییر کوئری، تغییر ایندکس و تریگر اجباری
         if (previous?.query != next.query ||
             previous?.currentIndex != next.currentIndex ||
             previous?.jumpTrigger != next.jumpTrigger) {
@@ -124,13 +113,9 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             );
 
             if (!isPageVisible) {
-              // 🌟 پرش آنی (بدون انیمیشن طولانی) به صفحه برای جلوگیری از سرگیجه کاربر
               _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
-              await Future.delayed(
-                const Duration(milliseconds: 100),
-              ); // فرصت برای رندر فریم
+              await Future.delayed(const Duration(milliseconds: 100));
             }
-            // 🌟 اسکرول نرم و میلی‌متری تا خود کلمه در صفحه
             _ensureTargetVisible();
           }
         }
@@ -139,18 +124,36 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
+
+      // 🌟 اضافه شدن دکمه شناور برای فعال/غیرفعال‌سازی زوم
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _isZoomModeActive = !_isZoomModeActive;
+            if (!_isZoomModeActive) {
+              // بازگرداندن زوم به حالت پیش‌فرض وقتی خاموش می‌شود
+              _transformationController.value = Matrix4.identity();
+            }
+          });
+        },
+        backgroundColor: _isZoomModeActive ? Colors.orange : Colors.indigo,
+        elevation: 4,
+        child: Icon(
+          _isZoomModeActive ? Icons.pan_tool : Icons.zoom_in,
+          color: Colors.white,
+        ),
+      ),
+
       body: SafeArea(
         child: Column(
           children: [
             TelegramAudioPlayer(documentPages: widget.documentPages),
 
             Expanded(
-              // 🌟 حذف Listener سنگین و متکی شدن کامل به InteractiveViewer
               child: InteractiveViewer(
                 transformationController: _transformationController,
-                scaleEnabled: true,
-                panEnabled:
-                    _isZoomed, // 🌟 اگر زوم شد اسکرول قطع می‌شود تا کاربر جابجا شود
+                scaleEnabled: _isZoomModeActive, // 🌟 کنترل با دکمه
+                panEnabled: _isZoomModeActive, // 🌟 کنترل با دکمه
                 minScale: 1.0,
                 maxScale: 3.5,
                 child: Center(
@@ -164,10 +167,13 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                           initialIndex < widget.documentPages.length
                           ? initialIndex
                           : 0,
-                      // 🌟 فیزیک ساده و قدرتمند
-                      physics: _isZoomed
+                      // 🌟 ۱. اضافه شدن حافظه کش برای رندر کردن آیتم‌های بیرون کادر و جلوگیری از پرش
+                      minCacheExtent: MediaQuery.of(context).size.height * 1.5,
+
+                      // 🌟 ۲. استفاده از فیزیک پرسرعتی که ساختیم
+                      physics: _isZoomModeActive
                           ? const NeverScrollableScrollPhysics()
-                          : const BouncingScrollPhysics(),
+                          : const FastScrollPhysics(),
                       padding: const EdgeInsets.symmetric(vertical: 24.0),
                       itemBuilder: (context, pageIndex) {
                         final page = widget.documentPages[pageIndex];
@@ -215,33 +221,36 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                           paragraphWidgets.add(paragraphContent);
                         }
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            _buildPageDivider(page.pageNumber),
-                            Container(
-                              margin: const EdgeInsets.only(
-                                bottom: 24.0,
-                                left: 8.0,
-                                right: 8.0,
+                        return RepaintBoundary(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _buildPageDivider(page.pageNumber),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  bottom: 24.0,
+                                  left: 8.0,
+                                  right: 8.0,
+                                ),
+                                padding: const EdgeInsets.all(32.0),
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 10,
+                                      offset: Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: paragraphWidgets,
+                                ),
                               ),
-                              padding: const EdgeInsets.all(32.0),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 10,
-                                    offset: Offset(0, 5),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: paragraphWidgets,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       },
                     ),
@@ -253,6 +262,34 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         ),
       ),
     );
+  }
+}
+
+// 🌟 اضافه شدن TextSearchMapper به این فایل برای هماهنگی با جستجو
+class TextSearchMapper {
+  final String rawText;
+  late final String cleanText;
+  late final List<int> cleanToRaw;
+
+  TextSearchMapper(this.rawText) {
+    StringBuffer clean = StringBuffer();
+    cleanToRaw = [];
+    int rawIdx = 0;
+
+    while (rawIdx < rawText.length) {
+      if (rawText.startsWith('{blk}', rawIdx)) {
+        rawIdx += 5;
+        continue;
+      }
+      if (rawText.startsWith('{/blk}', rawIdx)) {
+        rawIdx += 6;
+        continue;
+      }
+      clean.write(rawText[rawIdx]);
+      cleanToRaw.add(rawIdx);
+      rawIdx++;
+    }
+    cleanText = clean.toString();
   }
 }
 
@@ -285,8 +322,10 @@ String _extractFullText(ParagraphData para) {
   return sb.toString();
 }
 
+// 🌟 هوشمندتر شدن این متد برای نقشه کردن درست ایندکس‌ها با وجود {blk}
 List<int> _buildOccurrenceMap(String fullText, String query) {
-  String nText = _normalizeText(fullText);
+  TextSearchMapper mapper = TextSearchMapper(fullText);
+  String nText = _normalizeText(mapper.cleanText);
   String nQuery = _normalizeText(query);
   List<int> map = List.filled(fullText.length, -1);
   if (nQuery.isEmpty) return map;
@@ -295,7 +334,10 @@ List<int> _buildOccurrenceMap(String fullText, String query) {
   int occ = 0;
   while (matchIndex != -1) {
     for (int i = 0; i < nQuery.length; i++) {
-      if (matchIndex + i < map.length) map[matchIndex + i] = occ;
+      if (matchIndex + i < mapper.cleanToRaw.length) {
+        int rawIndex = mapper.cleanToRaw[matchIndex + i];
+        map[rawIndex] = occ;
+      }
     }
     occ++;
     matchIndex = nText.indexOf(nQuery, matchIndex + nQuery.length);
@@ -962,7 +1004,6 @@ class InlineAudioLink extends ConsumerWidget {
   }
 }
 
-// 🌟 بازگشت به حالت لمس طولانی به طور قطعی
 class TranslatableContentWrapper extends StatefulWidget {
   final Widget originalContent;
   final String? translationFa;
@@ -1004,9 +1045,7 @@ class _TranslatableContentWrapperState
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onLongPress: () => setState(
-        () => _showTranslation = !_showTranslation,
-      ), // 🌟 اینجا لمس طولانی تنظیم شده است
+      onLongPress: () => setState(() => _showTranslation = !_showTranslation),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1042,5 +1081,31 @@ class _TranslatableContentWrapperState
         ],
       ),
     );
+  }
+}
+
+// 🌟 کلاس سفارشی برای افزایش سرعت و روان شدن اسکرول
+class FastScrollPhysics extends BouncingScrollPhysics {
+  const FastScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
+
+  @override
+  FastScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return FastScrollPhysics(parent: buildParent(ancestor));
+  }
+
+  @override
+  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+    // ضریب ۱.۵ برای افزایش حساسیت جابجایی با حرکت انگشت
+    // (اگر حس کردید خیلی سریع است، می‌توانید این عدد را به ۱.۲ کاهش دهید)
+    return super.applyPhysicsToUserOffset(position, offset * 1.5);
+  }
+
+  @override
+  Simulation? createBallisticSimulation(
+    ScrollMetrics position,
+    double velocity,
+  ) {
+    // ضریب ۱.۵ برای افزایش میزان پیمایش بعد از رها کردن انگشت (Momentum)
+    return super.createBallisticSimulation(position, velocity * 1.0);
   }
 }

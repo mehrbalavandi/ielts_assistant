@@ -34,12 +34,32 @@ class TextRenderEngine {
           ),
         );
       }
+
+      // 🌟 محاسبه اینکه آیا این جای خالی شامل کلمه جستجو شده هست یا نه
+      int startOfHidden = match.start + 5; // عبور از {blk}
+      int endOfHidden = match.end - 6; // قبل از {/blk}
+      bool isHighlighted = false;
+      bool isActiveHighlight = false;
+
+      if (localHighlightMap != null) {
+        for (int i = startOfHidden; i < endOfHidden; i++) {
+          if (i < localHighlightMap.length && localHighlightMap[i] != -1) {
+            isHighlighted = true;
+            if (localHighlightMap[i] == activeOccurrence) {
+              isActiveHighlight = true;
+            }
+          }
+        }
+      }
+
       spans.add(
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
           child: InteractiveBlankWord(
             hiddenText: match.group(1) ?? '',
             textStyle: baseStyle,
+            isSearchHit: isHighlighted,
+            isActiveSearch: isActiveHighlight,
           ),
         ),
       );
@@ -93,7 +113,6 @@ class TextRenderEngine {
       }
 
       if (bestIndex != -1 && matchedWord != null) {
-        // ۱. پردازش متن‌های معمولی قبل از کلمه تعاملی
         if (bestIndex > 0)
           spans.addAll(
             _applyMapToText(
@@ -118,9 +137,7 @@ class TextRenderEngine {
           decorationStyle: TextDecorationStyle.dotted,
         );
 
-        // 🌟 ۲. راه حل قطعی: بررسی اینکه آیا کلمه تعاملی شامل بخش جستجوشده هست یا خیر؟
         if (wordMap == null || wordMap.every((v) => v == -1)) {
-          // اگر جستجویی داخل این کلمه نبود، کل کلمه را یکپارچه اضافه کن
           spans.add(
             TextSpan(
               text: matchedWord.exactText,
@@ -130,7 +147,6 @@ class TextRenderEngine {
             ),
           );
         } else {
-          // اگر بخشی از جستجو وارد این کلمه شده، کلمه را با دقت میلی‌متری برش بزن اما کلیک را حفظ کن
           spans.addAll(
             _sliceInteractiveWord(
               matchedWord,
@@ -156,7 +172,6 @@ class TextRenderEngine {
     return spans;
   }
 
-  // 🌟 متد جدید و هوشمند برای تکه‌تکه کردن کلمه تعاملی (بدون از دست دادن خاصیت کلیک)
   static List<InlineSpan> _sliceInteractiveWord(
     InteractiveWord word,
     List<int> wordMap,
@@ -201,7 +216,6 @@ class TextRenderEngine {
     return spans;
   }
 
-  // 🌟 سازنده قطعات تعاملی با پشتیبانی از رنگ‌های جستجو
   static TextSpan _createInteractiveTextSpan(
     String text,
     int state,
@@ -340,10 +354,16 @@ class TextRenderEngine {
 class InteractiveBlankWord extends StatefulWidget {
   final String hiddenText;
   final TextStyle textStyle;
+  // 🌟 اضافه شدن متغیرهای کنترل هایلایت جستجو
+  final bool isSearchHit;
+  final bool isActiveSearch;
+
   const InteractiveBlankWord({
     super.key,
     required this.hiddenText,
     required this.textStyle,
+    this.isSearchHit = false,
+    this.isActiveSearch = false,
   });
   @override
   State<InteractiveBlankWord> createState() => _InteractiveBlankWordState();
@@ -351,18 +371,51 @@ class InteractiveBlankWord extends StatefulWidget {
 
 class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
   bool _isRevealed = false;
+
   @override
   Widget build(BuildContext context) {
     bool isDarkTheme =
         (widget.textStyle.color?.computeLuminance() ?? 0.0) > 0.5;
-    Color hiddenBg = isDarkTheme ? Colors.white24 : Colors.black12;
-    Color hiddenBorder = isDarkTheme ? Colors.white54 : Colors.black38;
-    Color hiddenText = isDarkTheme ? Colors.white70 : Colors.black54;
-    Color revealedBg = isDarkTheme
-        ? Colors.tealAccent.withOpacity(0.2)
-        : Colors.teal.withOpacity(0.1);
-    Color revealedBorder = isDarkTheme ? Colors.tealAccent : Colors.teal;
-    Color revealedText = isDarkTheme ? Colors.tealAccent : Colors.teal.shade800;
+
+    // 🌟 اعمال رنگ‌بندی جستجو برای حالت مخفی
+    Color hiddenBg = widget.isActiveSearch
+        ? Colors.orangeAccent
+        : (widget.isSearchHit
+              ? Colors.yellowAccent.withOpacity(0.6)
+              : (isDarkTheme ? Colors.white24 : Colors.black12));
+
+    Color hiddenBorder = widget.isActiveSearch
+        ? Colors.deepOrange
+        : (widget.isSearchHit
+              ? Colors.orange
+              : (isDarkTheme ? Colors.white54 : Colors.black38));
+
+    Color hiddenText = widget.isActiveSearch
+        ? Colors.white
+        : (widget.isSearchHit
+              ? Colors.black
+              : (isDarkTheme ? Colors.white70 : Colors.black54));
+
+    // 🌟 اعمال رنگ‌بندی جستجو برای حالت نمایش داده شده
+    Color revealedBg = widget.isActiveSearch
+        ? Colors.orangeAccent
+        : (widget.isSearchHit
+              ? Colors.yellowAccent.withOpacity(0.8)
+              : (isDarkTheme
+                    ? Colors.tealAccent.withOpacity(0.2)
+                    : Colors.teal.withOpacity(0.1)));
+
+    Color revealedBorder = widget.isActiveSearch
+        ? Colors.deepOrange
+        : (widget.isSearchHit
+              ? Colors.orange
+              : (isDarkTheme ? Colors.tealAccent : Colors.teal));
+
+    Color revealedText = widget.isActiveSearch
+        ? Colors.white
+        : (widget.isSearchHit
+              ? Colors.black
+              : (isDarkTheme ? Colors.tealAccent : Colors.teal.shade800));
 
     return GestureDetector(
       onTap: () => setState(() => _isRevealed = !_isRevealed),
