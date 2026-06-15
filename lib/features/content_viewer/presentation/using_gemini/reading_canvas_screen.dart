@@ -34,13 +34,11 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ItemPositionsListener.create();
   final GlobalKey _targetParaKey = GlobalKey();
 
-  // 🌟 متغیر کنترل حالت زوم دستی
   bool _isZoomModeActive = false;
 
   @override
   void initState() {
     super.initState();
-    // 🌟 گوش‌دادن به زوم خودکار حذف شد تا کنترل فقط دست دکمه باشد
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
@@ -125,13 +123,11 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
 
-      // 🌟 اضافه شدن دکمه شناور برای فعال/غیرفعال‌سازی زوم
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
             _isZoomModeActive = !_isZoomModeActive;
             if (!_isZoomModeActive) {
-              // بازگرداندن زوم به حالت پیش‌فرض وقتی خاموش می‌شود
               _transformationController.value = Matrix4.identity();
             }
           });
@@ -152,8 +148,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             Expanded(
               child: InteractiveViewer(
                 transformationController: _transformationController,
-                scaleEnabled: _isZoomModeActive, // 🌟 کنترل با دکمه
-                panEnabled: _isZoomModeActive, // 🌟 کنترل با دکمه
+                scaleEnabled: _isZoomModeActive,
+                panEnabled: _isZoomModeActive,
                 minScale: 1.0,
                 maxScale: 3.5,
                 child: Center(
@@ -167,90 +163,24 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                           initialIndex < widget.documentPages.length
                           ? initialIndex
                           : 0,
-                      // 🌟 ۱. اضافه شدن حافظه کش برای رندر کردن آیتم‌های بیرون کادر و جلوگیری از پرش
-                      minCacheExtent: MediaQuery.of(context).size.height * 1.5,
-
-                      // 🌟 ۲. استفاده از فیزیک پرسرعتی که ساختیم
                       physics: _isZoomModeActive
                           ? const NeverScrollableScrollPhysics()
-                          : const FastScrollPhysics(),
+                          : const BouncingScrollPhysics(),
                       padding: const EdgeInsets.symmetric(vertical: 24.0),
                       itemBuilder: (context, pageIndex) {
                         final page = widget.documentPages[pageIndex];
-                        List<Widget> paragraphWidgets = [];
+                        bool hasTarget =
+                            activeTarget != null &&
+                            activeTarget.pageNumber == page.pageNumber;
 
-                        for (
-                          int pIndex = 0;
-                          pIndex < page.paragraphs.length;
-                          pIndex++
-                        ) {
-                          var para = page.paragraphs[pIndex];
-                          bool isTargetParagraph =
-                              activeTarget != null &&
-                              activeTarget.pageNumber == page.pageNumber &&
-                              activeTarget.paraIndex == pIndex;
-
-                          List<int>? rootHighlightMap;
-                          if (searchSession?.query != null &&
-                              searchSession!.query.isNotEmpty) {
-                            String fullText = _extractFullText(para);
-                            rootHighlightMap = _buildOccurrenceMap(
-                              fullText,
-                              searchSession.query,
-                            );
-                          }
-                          MapOffset offset = MapOffset();
-
-                          Widget paragraphContent = _buildParagraph(
-                            para,
-                            canvasWidth,
-                            MediaQuery.of(context).size.width,
-                            context,
-                            rootHighlightMap: rootHighlightMap,
-                            mapOffset: offset,
-                            activeOccurrence: isTargetParagraph
-                                ? activeTarget.occurrenceIndex
-                                : null,
-                          );
-
-                          if (isTargetParagraph)
-                            paragraphContent = Container(
-                              key: _targetParaKey,
-                              child: paragraphContent,
-                            );
-                          paragraphWidgets.add(paragraphContent);
-                        }
-
-                        return RepaintBoundary(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _buildPageDivider(page.pageNumber),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  bottom: 24.0,
-                                  left: 8.0,
-                                  right: 8.0,
-                                ),
-                                padding: const EdgeInsets.all(32.0),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 10,
-                                      offset: Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: paragraphWidgets,
-                                ),
-                              ),
-                            ],
-                          ),
+                        // 🌟 تفکیک بیلد صفحه به یک ویجت کَش‌شونده مستقل برای جلوگیری از پرش
+                        return BookPageWidget(
+                          page: page,
+                          activeTarget: activeTarget,
+                          searchSession: searchSession,
+                          canvasWidth: canvasWidth,
+                          screenWidth: MediaQuery.of(context).size.width,
+                          targetKey: hasTarget ? _targetParaKey : null,
                         );
                       },
                     ),
@@ -265,7 +195,106 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   }
 }
 
-// 🌟 اضافه شدن TextSearchMapper به این فایل برای هماهنگی با جستجو
+// 🌟 ویجت جدید برای نگهداری صفحات در حافظه و رفع مشکل پرش لیست
+class BookPageWidget extends StatefulWidget {
+  final PageData page;
+  final SearchResult? activeTarget;
+  final SearchSession? searchSession;
+  final double canvasWidth;
+  final double screenWidth;
+  final GlobalKey? targetKey;
+
+  const BookPageWidget({
+    super.key,
+    required this.page,
+    this.activeTarget,
+    this.searchSession,
+    required this.canvasWidth,
+    required this.screenWidth,
+    this.targetKey,
+  });
+
+  @override
+  State<BookPageWidget> createState() => _BookPageWidgetState();
+}
+
+class _BookPageWidgetState extends State<BookPageWidget>
+    with AutomaticKeepAliveClientMixin {
+  // 🌟 این خط به لیست می‌گوید این آیتم را از بین نبر تا پرش ایجاد نشود
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    List<Widget> paragraphWidgets = [];
+
+    for (int pIndex = 0; pIndex < widget.page.paragraphs.length; pIndex++) {
+      var para = widget.page.paragraphs[pIndex];
+      bool isTargetParagraph =
+          widget.activeTarget != null &&
+          widget.activeTarget!.pageNumber == widget.page.pageNumber &&
+          widget.activeTarget!.paraIndex == pIndex;
+
+      List<int>? rootHighlightMap;
+      if (widget.searchSession?.query != null &&
+          widget.searchSession!.query.isNotEmpty) {
+        String fullText = _extractFullText(para);
+        rootHighlightMap = _buildOccurrenceMap(
+          fullText,
+          widget.searchSession!.query,
+        );
+      }
+      MapOffset offset = MapOffset();
+
+      Widget paragraphContent = _buildParagraph(
+        para,
+        widget.canvasWidth,
+        widget.screenWidth,
+        context,
+        rootHighlightMap: rootHighlightMap,
+        mapOffset: offset,
+        activeOccurrence: isTargetParagraph
+            ? widget.activeTarget!.occurrenceIndex
+            : null,
+      );
+
+      if (isTargetParagraph && widget.targetKey != null) {
+        paragraphContent = Container(
+          key: widget.targetKey,
+          child: paragraphContent,
+        );
+      }
+      paragraphWidgets.add(paragraphContent);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildPageDivider(widget.page.pageNumber),
+        Container(
+          margin: const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
+          padding: const EdgeInsets.all(32.0),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: paragraphWidgets,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class TextSearchMapper {
   final String rawText;
   late final String cleanText;
@@ -322,7 +351,6 @@ String _extractFullText(ParagraphData para) {
   return sb.toString();
 }
 
-// 🌟 هوشمندتر شدن این متد برای نقشه کردن درست ایندکس‌ها با وجود {blk}
 List<int> _buildOccurrenceMap(String fullText, String query) {
   TextSearchMapper mapper = TextSearchMapper(fullText);
   String nText = _normalizeText(mapper.cleanText);
@@ -1081,31 +1109,5 @@ class _TranslatableContentWrapperState
         ],
       ),
     );
-  }
-}
-
-// 🌟 کلاس سفارشی برای افزایش سرعت و روان شدن اسکرول
-class FastScrollPhysics extends BouncingScrollPhysics {
-  const FastScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
-
-  @override
-  FastScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return FastScrollPhysics(parent: buildParent(ancestor));
-  }
-
-  @override
-  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-    // ضریب ۱.۵ برای افزایش حساسیت جابجایی با حرکت انگشت
-    // (اگر حس کردید خیلی سریع است، می‌توانید این عدد را به ۱.۲ کاهش دهید)
-    return super.applyPhysicsToUserOffset(position, offset * 1.5);
-  }
-
-  @override
-  Simulation? createBallisticSimulation(
-    ScrollMetrics position,
-    double velocity,
-  ) {
-    // ضریب ۱.۵ برای افزایش میزان پیمایش بعد از رها کردن انگشت (Momentum)
-    return super.createBallisticSimulation(position, velocity * 1.0);
   }
 }

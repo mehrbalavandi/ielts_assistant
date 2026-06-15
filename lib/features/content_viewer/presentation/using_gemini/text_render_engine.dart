@@ -35,13 +35,18 @@ class TextRenderEngine {
         );
       }
 
-      // 🌟 محاسبه اینکه آیا این جای خالی شامل کلمه جستجو شده هست یا نه
       int startOfHidden = match.start + 5; // عبور از {blk}
       int endOfHidden = match.end - 6; // قبل از {/blk}
       bool isHighlighted = false;
       bool isActiveHighlight = false;
+      List<int>? blankMap;
 
       if (localHighlightMap != null) {
+        if (startOfHidden < localHighlightMap.length &&
+            endOfHidden <= localHighlightMap.length) {
+          blankMap = localHighlightMap.sublist(startOfHidden, endOfHidden);
+        }
+
         for (int i = startOfHidden; i < endOfHidden; i++) {
           if (i < localHighlightMap.length && localHighlightMap[i] != -1) {
             isHighlighted = true;
@@ -60,6 +65,8 @@ class TextRenderEngine {
             textStyle: baseStyle,
             isSearchHit: isHighlighted,
             isActiveSearch: isActiveHighlight,
+            blankMap: blankMap, // 🌟 ارسال نقشه برش‌خورده به جای‌خالی
+            activeOcc: activeOccurrence, // 🌟 ارسال ایندکس فعال
           ),
         ),
       );
@@ -242,6 +249,7 @@ class TextRenderEngine {
     );
   }
 
+  // 🌟 متدی که حالا علاوه بر بیرون کلاس، داخل جای‌خالی هم برای هایلایت‌های داخلی استفاده می‌شود
   static List<InlineSpan> _applyMapToText(
     String content,
     TextStyle baseStyle,
@@ -354,9 +362,10 @@ class TextRenderEngine {
 class InteractiveBlankWord extends StatefulWidget {
   final String hiddenText;
   final TextStyle textStyle;
-  // 🌟 اضافه شدن متغیرهای کنترل هایلایت جستجو
   final bool isSearchHit;
   final bool isActiveSearch;
+  final List<int>? blankMap; // 🌟
+  final int? activeOcc; // 🌟
 
   const InteractiveBlankWord({
     super.key,
@@ -364,6 +373,8 @@ class InteractiveBlankWord extends StatefulWidget {
     required this.textStyle,
     this.isSearchHit = false,
     this.isActiveSearch = false,
+    this.blankMap,
+    this.activeOcc,
   });
   @override
   State<InteractiveBlankWord> createState() => _InteractiveBlankWordState();
@@ -377,7 +388,7 @@ class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
     bool isDarkTheme =
         (widget.textStyle.color?.computeLuminance() ?? 0.0) > 0.5;
 
-    // 🌟 اعمال رنگ‌بندی جستجو برای حالت مخفی
+    // 🌟 اعمال استایل جستجو فقط وقتی که علامت سؤال (مخفی) است
     Color hiddenBg = widget.isActiveSearch
         ? Colors.orangeAccent
         : (widget.isSearchHit
@@ -396,26 +407,35 @@ class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
               ? Colors.black
               : (isDarkTheme ? Colors.white70 : Colors.black54));
 
-    // 🌟 اعمال رنگ‌بندی جستجو برای حالت نمایش داده شده
-    Color revealedBg = widget.isActiveSearch
-        ? Colors.orangeAccent
-        : (widget.isSearchHit
-              ? Colors.yellowAccent.withOpacity(0.8)
-              : (isDarkTheme
-                    ? Colors.tealAccent.withOpacity(0.2)
-                    : Colors.teal.withOpacity(0.1)));
+    // 🌟 در حالت باز شده، باکس پس‌زمینه رنگ عادی و تمیز خودش رو می‌گیره
+    Color revealedBg = isDarkTheme
+        ? Colors.tealAccent.withOpacity(0.2)
+        : Colors.teal.withOpacity(0.1);
+    Color revealedBorder = isDarkTheme ? Colors.tealAccent : Colors.teal;
+    Color revealedText = isDarkTheme ? Colors.tealAccent : Colors.teal.shade800;
 
-    Color revealedBorder = widget.isActiveSearch
-        ? Colors.deepOrange
-        : (widget.isSearchHit
-              ? Colors.orange
-              : (isDarkTheme ? Colors.tealAccent : Colors.teal));
-
-    Color revealedText = widget.isActiveSearch
-        ? Colors.white
-        : (widget.isSearchHit
-              ? Colors.black
-              : (isDarkTheme ? Colors.tealAccent : Colors.teal.shade800));
+    Widget content;
+    if (!_isRevealed) {
+      content = Text(
+        "?",
+        style: widget.textStyle.copyWith(
+          color: hiddenText,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    } else {
+      // 🌟 اینجا جادوی اصلی اتفاق میوفته: اعمال هایلایت نقطه‌ای دقیقاً روی حروفی که باید در متن پیدا شوند
+      List<InlineSpan> revealedSpans = TextRenderEngine._applyMapToText(
+        widget.hiddenText,
+        widget.textStyle.copyWith(
+          color: revealedText,
+          fontWeight: FontWeight.bold,
+        ),
+        widget.blankMap,
+        widget.activeOcc,
+      );
+      content = Text.rich(TextSpan(children: revealedSpans));
+    }
 
     return GestureDetector(
       onTap: () => setState(() => _isRevealed = !_isRevealed),
@@ -435,13 +455,7 @@ class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
             width: 1,
           ),
         ),
-        child: Text(
-          _isRevealed ? widget.hiddenText : "?",
-          style: widget.textStyle.copyWith(
-            color: _isRevealed ? revealedText : hiddenText,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: content,
       ),
     );
   }
