@@ -61,25 +61,29 @@ class ActiveBook extends _$ActiveBook {
   }
 }
 
+// 🌟 کلاس مدیریت نشست جستجو (اضافه شدن jumpTrigger برای اجبار به اسکرول)
 class SearchSession {
   final String query;
-  final List<dynamic> results; // لیست نتایج (از نوع SearchResult)
+  final List<dynamic> results; // از نوع SearchResult
   final int currentIndex;
+  final int jumpTrigger; // 🌟 متغیر جدید برای اجبار به پرش
 
   SearchSession({
     required this.query,
     required this.results,
     required this.currentIndex,
+    this.jumpTrigger = 0,
   });
 
-  SearchSession copyWith({int? currentIndex}) {
+  SearchSession copyWith({int? currentIndex, int? jumpTrigger}) {
     return SearchSession(
       query: query,
       results: results,
       currentIndex: currentIndex ?? this.currentIndex,
+      jumpTrigger: jumpTrigger ?? this.jumpTrigger,
     );
   }
 }
 
-// پرووایدر مدیریت نشست جستجوی فعال در اپلیکیشن
+// پرووایدر سراسری
 final activeSearchProvider = StateProvider<SearchSession?>((ref) => null);

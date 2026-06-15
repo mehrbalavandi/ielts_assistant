@@ -17,7 +17,7 @@ class MainBookScreen extends ConsumerWidget {
     final searchSession = ref.watch(activeSearchProvider);
 
     if (activeBook == null)
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));//
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
 
     return Scaffold(
       appBar: AppBar(
@@ -26,12 +26,14 @@ class MainBookScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () async {
+              // 🌟 حفظ عبارت جستجوی قبلی با ارسال پارامتر query
               final SearchSession? session = await showSearch<SearchSession?>(
                 context: context,
                 delegate: BookSearchDelegate(ref),
+                query: searchSession?.query ?? '', // 🌟 جادوی حفظ کلمه
               );
+
               if (session != null && context.mounted) {
-                // اگر کاربر کتاب دیگری را انتخاب کرده بود، سوییچ کن
                 final targetBookId =
                     (session.results.first as SearchResult).bookId;
                 if (activeBook.id != targetBookId) {
@@ -61,7 +63,6 @@ class MainBookScreen extends ConsumerWidget {
         ],
       ),
 
-      // 🌟 نوار حرفه‌ای ناوبری بین نتایج جستجو در پایین صفحه
       bottomNavigationBar: searchSession != null
           ? Container(
               color: Colors.indigo.shade50,
@@ -72,37 +73,47 @@ class MainBookScreen extends ConsumerWidget {
                   children: [
                     Row(
                       children: [
+                        // 🌟 دکمه بعدی (با قابلیت چرخش و تریگر همیشگی)
                         IconButton(
                           icon: const Icon(
                             Icons.keyboard_arrow_down,
                             color: Colors.indigo,
                           ),
-                          onPressed:
-                              searchSession.currentIndex <
-                                  searchSession.results.length - 1
-                              ? () =>
-                                    ref
-                                        .read(activeSearchProvider.notifier)
-                                        .state = searchSession.copyWith(
-                                      currentIndex:
-                                          searchSession.currentIndex + 1,
-                                    )
-                              : null,
+                          onPressed: () {
+                            int nextIdx =
+                                (searchSession.currentIndex + 1) %
+                                searchSession.results.length;
+                            ref
+                                .read(activeSearchProvider.notifier)
+                                .state = searchSession.copyWith(
+                              currentIndex: nextIdx,
+                              jumpTrigger:
+                                  searchSession.jumpTrigger +
+                                  1, // اجبار به اسکرول مجدد
+                            );
+                          },
                         ),
+                        // 🌟 دکمه قبلی (با قابلیت چرخش و تریگر همیشگی)
                         IconButton(
                           icon: const Icon(
                             Icons.keyboard_arrow_up,
                             color: Colors.indigo,
                           ),
-                          onPressed: searchSession.currentIndex > 0
-                              ? () =>
-                                    ref
-                                        .read(activeSearchProvider.notifier)
-                                        .state = searchSession.copyWith(
-                                      currentIndex:
-                                          searchSession.currentIndex - 1,
-                                    )
-                              : null,
+                          onPressed: () {
+                            int prevIdx =
+                                (searchSession.currentIndex -
+                                    1 +
+                                    searchSession.results.length) %
+                                searchSession.results.length;
+                            ref
+                                .read(activeSearchProvider.notifier)
+                                .state = searchSession.copyWith(
+                              currentIndex: prevIdx,
+                              jumpTrigger:
+                                  searchSession.jumpTrigger +
+                                  1, // اجبار به اسکرول مجدد
+                            );
+                          },
                         ),
                         const SizedBox(width: 12),
                         Text(

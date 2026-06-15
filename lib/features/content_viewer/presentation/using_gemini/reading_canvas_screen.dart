@@ -35,7 +35,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final GlobalKey _targetParaKey = GlobalKey();
 
   bool _isZoomed = false;
-  int _pointerCount = 0;
 
   @override
   void initState() {
@@ -59,20 +58,21 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   }
 
   void _handleTransformationChanged() {
-    setState(
-      () => _isZoomed =
-          _transformationController.value.getMaxScaleOnAxis() > 1.05,
-    );
+    // 🌟 بهینه‌سازی شدید: فقط زمانی آپدیت کن که وضعیت زوم تغییر کرده باشد
+    bool isNowZoomed =
+        _transformationController.value.getMaxScaleOnAxis() > 1.05;
+    if (_isZoomed != isNowZoomed) {
+      setState(() => _isZoomed = isNowZoomed);
+    }
   }
 
-  // 🌟 تابع هوشمند اسکرول (بدون پرش‌های سرگیجه‌آور)
   void _ensureTargetVisible() {
     if (_targetParaKey.currentContext != null) {
       Scrollable.ensureVisible(
         _targetParaKey.currentContext!,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOutCubic,
-        // با حذف alignment، فلاتر فقط زمانی اسکرول می‌کند که کلمه بیرون از صفحه باشد!
+        duration: const Duration(milliseconds: 500), // انیمیشن ملایم‌تر
+        curve: Curves.easeInOutCubic,
+        alignment: 0.25, // تنظیم کلمه دقیقاً در یک‌چهارم بالایی صفحه
       );
     }
   }
@@ -108,8 +108,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
+        // 🌟 حساسیت به تغییر کوئری، تغییر ایندکس و تریگر اجباری
         if (previous?.query != next.query ||
-            previous?.currentIndex != next.currentIndex) {
+            previous?.currentIndex != next.currentIndex ||
+            previous?.jumpTrigger != next.jumpTrigger) {
           final target = next.results[next.currentIndex] as SearchResult;
           int pageIndex = widget.documentPages.indexWhere(
             (p) => p.pageNumber == target.pageNumber,
@@ -121,15 +123,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
               (pos) => pos.index == pageIndex,
             );
 
-            // اگر صفحه کلاً در دیدرس نیست، اول در یک صدم ثانیه و بدون انیمیشن به آن پرش کن تا سرگیجه ایجاد نشود
             if (!isPageVisible) {
-              _itemScrollController.jumpTo(index: pageIndex);
+              // 🌟 پرش آنی (بدون انیمیشن طولانی) به صفحه برای جلوگیری از سرگیجه کاربر
+              _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
               await Future.delayed(
                 const Duration(milliseconds: 100),
-              ); // فرصت برای چیده شدن ویجت‌ها
+              ); // فرصت برای رندر فریم
             }
-
-            // سپس با کمترین میزان حرکت ممکن، کلمه را در صفحه مشخص کن
+            // 🌟 اسکرول نرم و میلی‌متری تا خود کلمه در صفحه
             _ensureTargetVisible();
           }
         }
@@ -144,108 +145,105 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             TelegramAudioPlayer(documentPages: widget.documentPages),
 
             Expanded(
-              child: Listener(
-                onPointerDown: (event) => setState(() => _pointerCount++),
-                onPointerUp: (event) => setState(() => _pointerCount--),
-                onPointerCancel: (event) => setState(() => _pointerCount = 0),
-                child: InteractiveViewer(
-                  transformationController: _transformationController,
-                  scaleEnabled: true,
-                  panEnabled: _isZoomed || _pointerCount > 1,
-                  minScale: 1.0,
-                  maxScale: 3.5,
-                  child: Center(
-                    child: SizedBox(
-                      width: canvasWidth,
-                      child: ScrollablePositionedList.builder(
-                        itemCount: widget.documentPages.length,
-                        itemScrollController: _itemScrollController,
-                        itemPositionsListener: _itemPositionsListener,
-                        initialScrollIndex:
-                            initialIndex < widget.documentPages.length
-                            ? initialIndex
-                            : 0,
-                        physics: (_pointerCount >= 2 || _isZoomed)
-                            ? const NeverScrollableScrollPhysics()
-                            : const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(vertical: 24.0),
-                        itemBuilder: (context, pageIndex) {
-                          final page = widget.documentPages[pageIndex];
-                          List<Widget> paragraphWidgets = [];
+              // 🌟 حذف Listener سنگین و متکی شدن کامل به InteractiveViewer
+              child: InteractiveViewer(
+                transformationController: _transformationController,
+                scaleEnabled: true,
+                panEnabled:
+                    _isZoomed, // 🌟 اگر زوم شد اسکرول قطع می‌شود تا کاربر جابجا شود
+                minScale: 1.0,
+                maxScale: 3.5,
+                child: Center(
+                  child: SizedBox(
+                    width: canvasWidth,
+                    child: ScrollablePositionedList.builder(
+                      itemCount: widget.documentPages.length,
+                      itemScrollController: _itemScrollController,
+                      itemPositionsListener: _itemPositionsListener,
+                      initialScrollIndex:
+                          initialIndex < widget.documentPages.length
+                          ? initialIndex
+                          : 0,
+                      // 🌟 فیزیک ساده و قدرتمند
+                      physics: _isZoomed
+                          ? const NeverScrollableScrollPhysics()
+                          : const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      itemBuilder: (context, pageIndex) {
+                        final page = widget.documentPages[pageIndex];
+                        List<Widget> paragraphWidgets = [];
 
-                          for (
-                            int pIndex = 0;
-                            pIndex < page.paragraphs.length;
-                            pIndex++
-                          ) {
-                            var para = page.paragraphs[pIndex];
-                            bool isTargetParagraph =
-                                activeTarget != null &&
-                                activeTarget.pageNumber == page.pageNumber &&
-                                activeTarget.paraIndex == pIndex;
+                        for (
+                          int pIndex = 0;
+                          pIndex < page.paragraphs.length;
+                          pIndex++
+                        ) {
+                          var para = page.paragraphs[pIndex];
+                          bool isTargetParagraph =
+                              activeTarget != null &&
+                              activeTarget.pageNumber == page.pageNumber &&
+                              activeTarget.paraIndex == pIndex;
 
-                            List<int>? rootHighlightMap;
-                            if (searchSession?.query != null &&
-                                searchSession!.query.isNotEmpty) {
-                              String fullText = _extractFullText(para);
-                              rootHighlightMap = _buildOccurrenceMap(
-                                fullText,
-                                searchSession!.query,
-                              );
-                            }
-                            MapOffset offset = MapOffset();
-
-                            Widget paragraphContent = _buildParagraph(
-                              para,
-                              canvasWidth,
-                              MediaQuery.of(context).size.width,
-                              context,
-                              rootHighlightMap: rootHighlightMap,
-                              mapOffset: offset,
-                              activeOccurrence: isTargetParagraph
-                                  ? activeTarget.occurrenceIndex
-                                  : null,
+                          List<int>? rootHighlightMap;
+                          if (searchSession?.query != null &&
+                              searchSession!.query.isNotEmpty) {
+                            String fullText = _extractFullText(para);
+                            rootHighlightMap = _buildOccurrenceMap(
+                              fullText,
+                              searchSession.query,
                             );
-
-                            if (isTargetParagraph)
-                              paragraphContent = Container(
-                                key: _targetParaKey,
-                                child: paragraphContent,
-                              );
-                            paragraphWidgets.add(paragraphContent);
                           }
+                          MapOffset offset = MapOffset();
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _buildPageDivider(page.pageNumber),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  bottom: 24.0,
-                                  left: 8.0,
-                                  right: 8.0,
-                                ),
-                                padding: const EdgeInsets.all(32.0),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 10,
-                                      offset: Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: paragraphWidgets,
-                                ),
-                              ),
-                            ],
+                          Widget paragraphContent = _buildParagraph(
+                            para,
+                            canvasWidth,
+                            MediaQuery.of(context).size.width,
+                            context,
+                            rootHighlightMap: rootHighlightMap,
+                            mapOffset: offset,
+                            activeOccurrence: isTargetParagraph
+                                ? activeTarget.occurrenceIndex
+                                : null,
                           );
-                        },
-                      ),
+
+                          if (isTargetParagraph)
+                            paragraphContent = Container(
+                              key: _targetParaKey,
+                              child: paragraphContent,
+                            );
+                          paragraphWidgets.add(paragraphContent);
+                        }
+
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _buildPageDivider(page.pageNumber),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                bottom: 24.0,
+                                left: 8.0,
+                                right: 8.0,
+                              ),
+                              padding: const EdgeInsets.all(32.0),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 10,
+                                    offset: Offset(0, 5),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: paragraphWidgets,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),
