@@ -42,13 +42,17 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
-        int minIndex = positions
+        // 🌟 پیدا کردن بالاترین آیتمی که هم‌اکنون در کادر در حال نمایش است
+        final topItem = positions
             .where((p) => p.itemTrailingEdge > 0)
-            .map((p) => p.index)
-            .reduce(math.min);
+            .reduce((min, p) => p.index < min.index ? p : min);
+
         final currentBook = ref.read(activeBookProvider);
-        if (currentBook != null)
-          _box.write('scroll_page_${currentBook.id}', minIndex);
+        if (currentBook != null) {
+          _box.write('scroll_page_${currentBook.id}', topItem.index);
+          // 🌟 ذخیره نقطه دقیق (Offset) آیتم برای بازگشت به همان مکان
+          _box.write('scroll_align_${currentBook.id}', topItem.itemLeadingEdge);
+        }
       }
     });
 
@@ -82,6 +86,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
     int initialIndex =
         _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
+    // 🌟 فراخوانی نقطه دقیق (Offset) ذخیره شده
+    double initialAlignment =
+        _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
+
     final activeTarget =
         (searchSession != null && searchSession.results.isNotEmpty)
         ? searchSession.results[searchSession.currentIndex] as SearchResult
@@ -91,7 +99,11 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       int pIndex = widget.documentPages.indexWhere(
         (p) => p.pageNumber == activeTarget.pageNumber,
       );
-      if (pIndex != -1) initialIndex = pIndex;
+      if (pIndex != -1) {
+        initialIndex = pIndex;
+        // 🌟 در هنگام جستجو، می‌خواهیم نتیجه مستقیماً از ابتدای کادر نشان داده شود
+        initialAlignment = 0.0;
+      }
     }
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
@@ -163,6 +175,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                           initialIndex < widget.documentPages.length
                           ? initialIndex
                           : 0,
+                      initialAlignment:
+                          initialAlignment, // 🌟 اضافه شدن تراز دقیق (Alignment) برای بازگشت به جای قبلی
                       physics: _isZoomModeActive
                           ? const NeverScrollableScrollPhysics()
                           : const BouncingScrollPhysics(),
@@ -173,7 +187,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                             activeTarget != null &&
                             activeTarget.pageNumber == page.pageNumber;
 
-                        // 🌟 تفکیک بیلد صفحه به یک ویجت کَش‌شونده مستقل برای جلوگیری از پرش
                         return BookPageWidget(
                           page: page,
                           activeTarget: activeTarget,
@@ -195,7 +208,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   }
 }
 
-// 🌟 ویجت جدید برای نگهداری صفحات در حافظه و رفع مشکل پرش لیست
 class BookPageWidget extends StatefulWidget {
   final PageData page;
   final SearchResult? activeTarget;
@@ -220,7 +232,6 @@ class BookPageWidget extends StatefulWidget {
 
 class _BookPageWidgetState extends State<BookPageWidget>
     with AutomaticKeepAliveClientMixin {
-  // 🌟 این خط به لیست می‌گوید این آیتم را از بین نبر تا پرش ایجاد نشود
   @override
   bool get wantKeepAlive => true;
 
