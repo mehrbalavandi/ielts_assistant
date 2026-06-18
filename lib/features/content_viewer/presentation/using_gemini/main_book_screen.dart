@@ -26,23 +26,29 @@ class MainBookScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () async {
-              // 🌟 حفظ عبارت جستجوی قبلی با ارسال پارامتر query
               final SearchSession? session = await showSearch<SearchSession?>(
                 context: context,
                 delegate: BookSearchDelegate(ref),
-                query: searchSession?.query ?? '', // 🌟 جادوی حفظ کلمه
+                query: searchSession?.query ?? '',
               );
 
               if (session != null && context.mounted) {
                 final targetBookId =
                     (session.results.first as SearchResult).bookId;
                 if (activeBook.id != targetBookId) {
-                  final targetBook = availableBooks.firstWhere(
-                    (b) => b.id == targetBookId,
-                  );
-                  ref
-                      .read(activeBookProvider.notifier)
-                      .setActiveBook(targetBook);
+                  // 🌟 اصلاح شد: گرفتن لیست کتاب‌ها از پرووایدرِ API
+                  final availableBooks =
+                      ref.read(availableBooksProvider).value ?? [];
+
+                  // اگر کتاب پیدا شد، سوییچ کن
+                  if (availableBooks.any((b) => b.id == targetBookId)) {
+                    final targetBook = availableBooks.firstWhere(
+                      (b) => b.id == targetBookId,
+                    );
+
+                    // 🌟 اصلاح شد: تغییر مستقیم وضعیت پرووایدر با دات استیت (.state)
+                    ref.read(activeBookProvider.notifier).state = targetBook;
+                  }
                 }
                 Future.delayed(const Duration(milliseconds: 200), () {
                   ref.read(activeSearchProvider.notifier).state = session;

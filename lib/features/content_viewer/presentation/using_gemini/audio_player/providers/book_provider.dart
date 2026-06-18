@@ -1,65 +1,73 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/cross_book_search_engine.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'book_provider.g.dart';
+// part 'book_provider.g.dart';
 
 // مدل ساده برای کتاب‌ها
 class BookModel {
   final String id;
   final String title;
-  final String jsonAssetPath;
-  final String coverImage;
+  final String remoteJsonUrl;
+  final String remoteCoverUrl;
+  final String? localJsonPath;
+  final String? localCoverPath;
+
+  // 🌟 این خط اضافه شد تا خطای jsonAssetPath برطرف شود (پل ارتباطی موقت)
+  String get jsonAssetPath => localJsonPath ?? 'assets/data/$id.json';
 
   BookModel({
     required this.id,
     required this.title,
-    required this.jsonAssetPath,
-    required this.coverImage,
+    required this.remoteJsonUrl,
+    required this.remoteCoverUrl,
+    this.localJsonPath,
+    this.localCoverPath,
   });
+
+  factory BookModel.fromJson(Map<String, dynamic> json) {
+    return BookModel(
+      id: json['id'] ?? '',
+      title: json['title'] ?? 'بدون عنوان',
+      remoteJsonUrl: json['jsonUrl'] ?? '',
+      remoteCoverUrl: json['coverUrl'] ?? '',
+      localJsonPath: json['localJsonPath'],
+      localCoverPath: json['localCoverPath'],
+    );
+  }
 }
 
-// دیتابیس فرضی کتاب‌های شما
-final List<BookModel> availableBooks = [
-  BookModel(
-    id: 'mindset_lvl3',
-    title: 'Mindset for IELTS - Level 3',
-    jsonAssetPath: 'assets/data/mindset_l3.json',
-    coverImage: 'assets/images/cover_l3.png',
-  ),
-  // BookModel(
-  //   id: 'mindset_lvl2',
-  //   title: 'Mindset for IELTS - Level 2',
-  //   jsonAssetPath: 'assets/data/mindset_l2.json',
-  //   coverImage: 'assets/images/cover_l2.png',
-  // ),
-];
+// 🌟 پرووایدر دریافت لیست کتاب‌ها از سرور
+final availableBooksProvider = FutureProvider<List<BookModel>>((ref) async {
+  final baseUrl = ref.watch(baseUrlProvider);
 
-@riverpod
-class ActiveBook extends _$ActiveBook {
-  final _box = GetStorage();
+  // اگر آدرس سرور تنظیم نشده بود، لیست خالی برگردان
+  if (baseUrl == null || baseUrl.trim().isEmpty) return [];
 
-  @override
-  BookModel? build() {
-    // هنگام بالا آمدن اپلیکیشن، آخرین آیدی کتاب را می‌خواند
-    final lastBookId = _box.read('last_opened_book_id');
+  final dio = ref.watch(dioProvider);
 
-    if (lastBookId != null) {
-      try {
-        return availableBooks.firstWhere((book) => book.id == lastBookId);
-      } catch (e) {
-        return null;
-      }
+  try {
+    // فرض بر این است که API شما در مسیر /api/books قرار دارد
+    final response = await dio.get('/api/books');
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = response.data;
+      return data.map((json) => BookModel.fromJson(json)).toList();
+    } else {
+      throw Exception('خطا در دریافت اطلاعات از سرور');
     }
-    return null; // اگر کاربری تازه وارد باشد
+  } catch (e) {
+    throw Exception('خطای ارتباط با سرور: $e');
   }
+});
 
-  void setActiveBook(BookModel book) {
-    _box.write('last_opened_book_id', book.id);
-    state = book;
-  }
-}
+// پرووایدر مدیریت کتاب فعال (همان کدهای قبلی خودتان)
+final activeBookProvider = StateProvider<BookModel?>((ref) {
+  // فعلاً ساده‌سازی شده تا زمانی که دانلود منجر به ذخیره آفلاین شود
+  return null;
+});
 
 // 🌟 کلاس مدیریت نشست جستجو (اضافه شدن jumpTrigger برای اجبار به اسکرول)
 class SearchSession {

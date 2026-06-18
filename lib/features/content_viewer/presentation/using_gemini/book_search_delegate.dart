@@ -41,13 +41,18 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   }
 
   Widget _buildSearchResults() {
+    // 🌟 اصلاح شد: خواندن لیست کتاب‌ها از حافظه Riverpod
+    final availableBooks = ref.read(availableBooksProvider).value ?? [];
     return FutureBuilder<List<SearchResult>>(
+      // 🌟 پاس دادن لیست جدید به موتور جستجو
       future: CrossBookSearchEngine.searchAllBooks(query, availableBooks),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting)
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
-        if (!snapshot.hasData || snapshot.data!.isEmpty)
+        }
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text('نتیجه‌ای یافت نشد.'));
+        }
 
         final results = snapshot.data!;
         return ListView.builder(
