@@ -1,11 +1,24 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 class DocumentLoader {
-  // 🌟 دریافت مسیر فایل به عنوان پارامتر ورودی
-  static Future<List<PageData>> loadBookFromJson(String assetPath) async {
-    String jsonString = await rootBundle.loadString(assetPath);
+  static Future<List<PageData>> loadBookFromJson(String path) async {
+    String jsonString;
+
+    // 🌟 بررسی هوشمند: آیا فایل در assets است یا در پوشه دانلودهای گوشی (Local Storage)؟
+    if (path.startsWith('assets/')) {
+      jsonString = await rootBundle.loadString(path);
+    } else {
+      final file = File(path);
+      if (await file.exists()) {
+        jsonString = await file.readAsString();
+      } else {
+        throw Exception("فایل در حافظه گوشی یافت نشد: $path");
+      }
+    }
+
     List<dynamic> jsonList = jsonDecode(jsonString);
     List<PageData> allPages = [];
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/cross_book_search_engine.dart';
 
 class BookSearchDelegate extends SearchDelegate<SearchSession?> {
@@ -42,7 +42,7 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
 
   Widget _buildSearchResults() {
     // 🌟 اصلاح شد: خواندن لیست کتاب‌ها از حافظه Riverpod
-    final availableBooks = ref.read(availableBooksProvider).value ?? [];
+    final availableBooks = ref.read(booksProvider);
     return FutureBuilder<List<SearchResult>>(
       // 🌟 پاس دادن لیست جدید به موتور جستجو
       future: CrossBookSearchEngine.searchAllBooks(query, availableBooks),

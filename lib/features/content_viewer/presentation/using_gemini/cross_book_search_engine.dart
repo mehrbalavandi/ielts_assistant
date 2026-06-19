@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 
 // 🌟 کلاس کمکی برای حذف تگ‌های blk از جستجو بدون به هم ریختن ایندکس‌ها

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -24,9 +25,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _saveSettings() {
     final url = _urlController.text.trim();
     if (url.isNotEmpty) {
-      _box.write('base_url', url);
-      // 🌟 با این کار، کل اپلیکیشن متوجه تغییر آدرس می‌شود و مسیردهی‌ها آپدیت می‌شوند
-      ref.read(baseUrlProvider.notifier).state = url;
+      // ۱. ذخیره مستقیم در سیستم آفلاین
+      StorageService.saveBaseUrl(url);
+
+      // ۲. 🌟 دستور به Riverpod برای بازسازی کلاینت شبکه با آدرس جدید
+      ref.invalidate(dioProvider);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('آدرس سرور با موفقیت ذخیره شد')),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('لطفاً آدرس سرور را وارد کنید')),

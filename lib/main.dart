@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/library_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/main_book_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/settings_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/login_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/auth_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init(); // مقداردهی اولیه حافظه
+  await GetStorage.init();
 
-  // اجرای اپلیکیشن با پوشش Riverpod
   runApp(const ProviderScope(child: MyApp()));
 }
 
-// 🌟 تغییر از StatelessWidget به ConsumerWidget برای دسترسی به Riverpod
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 🌟 بررسی وضعیت تنظیمات سرور
-    final baseUrl = ref.watch(baseUrlProvider);
+    // 🌟 گوش دادن زنده به وضعیت احراز هویت
+    final authState = ref.watch(authProvider);
 
     Widget initialScreen;
-    if (baseUrl == null || baseUrl.isEmpty) {
-      initialScreen =
-          const SettingsScreen(); // هدایت به تنظیمات در صورت خالی بودن
-    } else {
-      final activeBook = ref.watch(activeBookProvider);
-      initialScreen = activeBook != null
-          ? const MainBookScreen()
-          : const LibraryScreen();
+    switch (authState) {
+      case AuthState.initial:
+        initialScreen = const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+        break;
+      case AuthState.unauthenticated:
+        initialScreen = const LoginScreen(); // کاربر توکن ندارد
+        break;
+      case AuthState.authenticated:
+        initialScreen = const LibraryScreen(); // 🌟 ورود خودکار به کتاب‌ها!
+        break;
     }
 
     return MaterialApp(
-      title: 'Course Navigator',
+      title: 'IELTS Assistant',
       supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
       locale: const Locale("en", "US"),
       debugShowCheckedModeBanner: false,

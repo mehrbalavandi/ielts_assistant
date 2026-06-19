@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
 import 'dart:math' as math;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';

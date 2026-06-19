@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/providers/content_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/settings_provider.dart';
 import 'package:ielts_assistant/shared/cf_public.dart';

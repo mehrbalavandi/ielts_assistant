@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/document_loader.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/reading_canvas_screen.dart';
@@ -37,8 +37,7 @@ class MainBookScreen extends ConsumerWidget {
                     (session.results.first as SearchResult).bookId;
                 if (activeBook.id != targetBookId) {
                   // 🌟 اصلاح شد: گرفتن لیست کتاب‌ها از پرووایدرِ API
-                  final availableBooks =
-                      ref.read(availableBooksProvider).value ?? [];
+                  final availableBooks = ref.read(booksProvider);
 
                   // اگر کتاب پیدا شد، سوییچ کن
                   if (availableBooks.any((b) => b.id == targetBookId)) {
