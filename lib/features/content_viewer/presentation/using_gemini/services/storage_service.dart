@@ -10,8 +10,10 @@ class StorageService {
 
   // --- مدیریت توکن ---
   static String? getToken() => _box.read(_tokenKey);
-  static Future<void> saveToken(String token) async =>
-      await _box.write(_tokenKey, token);
+  static Future<void> saveToken(String token) async {
+    await _box.write(_tokenKey, token);
+  }
+
   static Future<void> removeToken() async => await _box.remove(_tokenKey);
 
   // --- مدیریت آدرس سرور ---

@@ -18,7 +18,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void initState() {
     super.initState();
     _urlController.text =
-        StorageService.getBaseUrl() ?? 'https://my-laravel-backend.com';
+        StorageService.getBaseUrl() ?? 'https://10.110.198.220';
   }
 
   void _doLogin() async {
@@ -26,7 +26,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     await StorageService.saveBaseUrl(_urlController.text.trim());
 
     // شبیه‌سازی ورود
-    await ref.read(authProvider.notifier).login("user", "pass");
+    await ref.read(authProvider.notifier).login("mehr@test.com", "1");
     // (هدایت به صورت خودکار توسط main.dart انجام می‌شود)
   }
 
