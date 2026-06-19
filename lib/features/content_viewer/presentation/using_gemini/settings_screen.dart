@@ -18,7 +18,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void initState() {
     super.initState();
     // لود کردن آدرس قبلی در صورت وجود
-    _urlController.text = _box.read('base_url') ?? '';
+    _urlController.text = _box.read('base_url') ?? 'http://10.110.198.220:8000';
   }
 
   void _saveSettings() {
@@ -59,7 +59,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               controller: _urlController,
               keyboardType: TextInputType.url,
               decoration: InputDecoration(
-                hintText: "مثال: https://api.yourdomain.com",
+                hintText: "مثال: http://10.110.198.220:8000",
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

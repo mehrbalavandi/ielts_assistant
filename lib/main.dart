@@ -3,14 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/providers/book_provider.dart';
-
-// ایمپورت‌های مربوط به صفحه‌ها و پرووایدر
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/main_book_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/library_screen.dart';
-import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/main_book_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/settings_screen.dart';
 
 Future<void> main() async {
-  // این خط برای اطمینان از مقداردهی اولیه فلاتر قبل از استفاده از get_storage است
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init(); // مقداردهی اولیه حافظه
 
@@ -21,10 +18,6 @@ Future<void> main() async {
 // 🌟 تغییر از StatelessWidget به ConsumerWidget برای دسترسی به Riverpod
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
-
-  @override
-  // 🌟 اضافه شدن WidgetRef ref به ورودی‌های متد build
-  // در متد build فایل main.dart کلاس MyApp:
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 🌟 بررسی وضعیت تنظیمات سرور
@@ -42,7 +35,14 @@ class MyApp extends ConsumerWidget {
     }
 
     return MaterialApp(
-      // ... سایر تنظیمات قبلی
+      title: 'Course Navigator',
+      supportedLocales: const [Locale("fa", "IR"), Locale("en", "US")],
+      locale: const Locale("en", "US"),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
+      ),
       home: initialScreen,
     );
   }

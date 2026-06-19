@@ -50,7 +50,7 @@ final availableBooksProvider = FutureProvider<List<BookModel>>((ref) async {
 
   try {
     // فرض بر این است که API شما در مسیر /api/books قرار دارد
-    final response = await dio.get('/api/books');
+    final response = await dio.get('$baseUrl/api/books');
 
     if (response.statusCode == 200) {
       final List<dynamic> data = response.data;
