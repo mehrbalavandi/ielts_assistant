@@ -32,7 +32,7 @@ class LibraryScreen extends ConsumerWidget {
       drawer: const AppDrawer(),
 
       body: books.isEmpty
-          ? const Center(child: Text("درحال همگام‌سازی یا لیست خالی است..."))
+          ? const Center(child: Text("در حال همگام‌سازی یا لیست خالی است..."))
           : GridView.builder(
               padding: const EdgeInsets.all(16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
