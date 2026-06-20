@@ -4,7 +4,7 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 
 // پرووایدر کلاینت Dio
 final dioProvider = Provider<Dio>((ref) {
-  final baseUrl = StorageService.getBaseUrl() ?? 'https://api.yourdomain.com';
+  final baseUrl = StorageService.getBaseUrl() ?? 'http://10.110.198.220:8000';
 
   final dio = Dio(
     BaseOptions(
