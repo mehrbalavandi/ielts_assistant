@@ -5,6 +5,8 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/login_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/auth_provider.dart';
 
+import 'features/content_viewer/presentation/using_gemini/services/storage_service.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -19,7 +21,6 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 🌟 گوش دادن زنده به وضعیت احراز هویت
     final authState = ref.watch(authProvider);
-
     Widget initialScreen;
     switch (authState) {
       case AuthState.initial:

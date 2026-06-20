@@ -9,7 +9,6 @@ enum AuthState { initial, authenticated, unauthenticated }
 class AuthNotifier extends Notifier<AuthState> {
   @override
   AuthState build() {
-    StorageService.removeToken();
     // 🌟 مرحله ۱: بررسی فوری استوریج در لحظه تولد کلاس
     final token = StorageService.getToken();
     if (token != null && token.isNotEmpty) {

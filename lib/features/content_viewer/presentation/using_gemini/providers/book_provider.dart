@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
@@ -91,11 +92,17 @@ class BooksNotifier extends Notifier<List<BookModel>> {
   Future<void> fetchMyBooks() async {
     try {
       final dio = ref.read(dioProvider);
-      // فرض بر این است که API شما اطلاعات کاربر و کتاب‌هایش را برمی‌گرداند
+
+      // 🌟 ۱. آدرس API واقعی خودتان را در اینجا قرار دهید
+      // مثال: '/api/v1/books' یا هر آدرسی که در لاراول ساخته‌اید
       final response = await dio.get('/api/my-books');
 
       if (response.statusCode == 200) {
+        // 🌟 ۲. استخراج دیتا (بسیار مهم)
+        // اگر API شما در لاراول دیتا را داخل کلید 'data' می‌پیچد (که خیلی رایج است)،
+        // باید خط زیر را به این شکل بنویسید: final List<dynamic> data = response.data['data'];
         final List<dynamic> data = response.data;
+
         List<BookModel> freshBooks = data
             .map((json) => BookModel.fromJson(json))
             .toList();
@@ -121,7 +128,8 @@ class BooksNotifier extends Notifier<List<BookModel>> {
         );
       }
     } catch (e) {
-      // اگر اینترنت قطع باشد، هیچ اتفاقی نمی‌افتد و کاربر با همان دیتای آفلاین (state فعلی) کار می‌کند
+      // 🌟 ۳. این خط به شما می‌گوید دقیقاً چرا لیست خالی مانده است!
+      debugPrint("❌ خطای دریافت لیست کتاب‌ها از سرور: $e");
     }
   }
 
