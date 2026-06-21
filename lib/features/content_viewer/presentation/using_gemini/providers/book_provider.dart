@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
@@ -14,7 +15,9 @@ class BookModel {
   final String? localJsonPath;
   final String? localCoverPath;
 
-  // فیلدهای وضعیت دانلود (ذخیره نمی‌شوند، فقط در رم هستند)
+  // 🌟 فیلد جدید برای تشخیص مالکیت کتاب
+  final bool isPurchased;
+
   final bool isDownloading;
   final double downloadProgress;
 
@@ -31,6 +34,7 @@ class BookModel {
     this.localCoverPath,
     this.isDownloading = false,
     this.downloadProgress = 0.0,
+    this.isPurchased = false, // پیش‌فرض: کاربر فقط به نمونه دسترسی دارد
   });
 
   BookModel copyWith({
@@ -38,6 +42,7 @@ class BookModel {
     String? localCoverPath,
     bool? isDownloading,
     double? downloadProgress,
+    bool? isPurchased,
   }) {
     return BookModel(
       id: id,
@@ -48,16 +53,20 @@ class BookModel {
       localCoverPath: localCoverPath ?? this.localCoverPath,
       isDownloading: isDownloading ?? this.isDownloading,
       downloadProgress: downloadProgress ?? this.downloadProgress,
+      isPurchased: isPurchased ?? this.isPurchased,
     );
   }
 
   factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
-    id: json['id'] ?? '',
+    id: json['id']?.toString() ?? '',
     title: json['title'] ?? 'بدون عنوان',
     remoteJsonUrl: json['jsonUrl'] ?? '',
     remoteCoverUrl: json['coverUrl'] ?? '',
     localJsonPath: json['localJsonPath'],
     localCoverPath: json['localCoverPath'],
+    isPurchased:
+        json['isPurchased'] == true ||
+        json['is_purchased'] == true, // 🌟 دریافت وضعیت خرید از API
   );
 
   Map<String, dynamic> toJson() => {
@@ -67,14 +76,13 @@ class BookModel {
     'coverUrl': remoteCoverUrl,
     'localJsonPath': localJsonPath,
     'localCoverPath': localCoverPath,
+    'is_purchased': isPurchased,
   };
 }
 
-// 🌟 کلاس مدیریت کتاب‌ها به صورت Offline-First
 class BooksNotifier extends Notifier<List<BookModel>> {
   @override
   List<BookModel> build() {
-    // 🌟 مرحله ۳ (گام ۲): بارگذاری فوری اطلاعات از Storage در میلی‌ثانیه
     final offlineData = StorageService.getOfflineBooks();
     List<BookModel> initialBooks = [];
     if (offlineData != null) {
@@ -83,31 +91,33 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           .toList();
     }
 
-    // 🌟 مرحله ۳ (گام ۳): همگام‌سازی پس‌زمینه بدون مسدود کردن UI
-    Future.microtask(() => fetchMyBooks());
-
+    Future.microtask(() => fetchBooks());
     return initialBooks;
   }
 
-  Future<void> fetchMyBooks() async {
+  // 🌟 تغییر نام به fetchBooks چون حالا ویترین عمومی است
+  Future<void> fetchBooks() async {
     try {
       final dio = ref.read(dioProvider);
-
-      // 🌟 ۱. آدرس API واقعی خودتان را در اینجا قرار دهید
-      // مثال: '/api/v1/books' یا هر آدرسی که در لاراول ساخته‌اید
-      final response = await dio.get('/api/my-books');
+      final response = await dio.get('/api/books');
 
       if (response.statusCode == 200) {
-        // 🌟 ۲. استخراج دیتا (بسیار مهم)
-        // اگر API شما در لاراول دیتا را داخل کلید 'data' می‌پیچد (که خیلی رایج است)،
-        // باید خط زیر را به این شکل بنویسید: final List<dynamic> data = response.data['data'];
-        final List<dynamic> data = response.data;
+        final rawData = response.data;
+        List<dynamic> dataList = [];
 
-        List<BookModel> freshBooks = data
+        // 🌟 بررسی هوشمند ساختار داده دریافتی از سرور لاراول
+        if (rawData is Map<String, dynamic> && rawData.containsKey('data')) {
+          // حالت Pagination یا Resource Wrapper لاراول
+          dataList = rawData['data'];
+        } else if (rawData is List) {
+          // حالت آرایه مستقیم
+          dataList = rawData;
+        }
+
+        List<BookModel> freshBooks = dataList
             .map((json) => BookModel.fromJson(json))
             .toList();
 
-        // حفظ وضعیت فایل‌های دانلود شده‌ی قبلی
         List<BookModel> mergedBooks = freshBooks.map((freshBook) {
           final existingBook = state
               .where((b) => b.id == freshBook.id)
@@ -122,31 +132,28 @@ class BooksNotifier extends Notifier<List<BookModel>> {
         }).toList();
 
         state = mergedBooks;
-        // ذخیره نامحسوس در گوشی برای دفعات بعد
         StorageService.saveOfflineBooks(
           mergedBooks.map((b) => b.toJson()).toList(),
         );
       }
     } catch (e) {
-      // 🌟 ۳. این خط به شما می‌گوید دقیقاً چرا لیست خالی مانده است!
-      debugPrint("❌ خطای دریافت لیست کتاب‌ها از سرور: $e");
+      // استفاده از داده‌های آفلاین در صورت قطعی اینترنت
+      debugPrint("Fetch Books Error: $e");
     }
   }
 
-  // 🌟 مرحله ۴: جریان دانلود و مصرف فایل
   Future<void> downloadBook(BookModel book) async {
-    // تغییر UI به حالت "در حال دانلود"
     _updateBook(book.id, isDownloading: true, downloadProgress: 0.0);
 
     try {
       final dio = ref.read(dioProvider);
       final dir = await getApplicationDocumentsDirectory();
 
-      // تعیین مسیرهای ذخیره‌سازی فیزیکی
       final jsonSavePath = '${dir.path}/${book.id}_content.json';
       final coverSavePath = '${dir.path}/${book.id}_cover.png';
 
-      // 🌟 دانلود فایل JSON با Dio
+      // 🌟 سرور شما باید بر اساس توکن ارسالی، خودش تشخیص دهد که آیا فایل کامل را
+      // ارسال کند یا فایل نسخه نمونه (Sample) را. فلاتر فقط لینک را فراخوانی می‌کند.
       await dio.download(
         book.remoteJsonUrl,
         jsonSavePath,
@@ -161,20 +168,14 @@ class BooksNotifier extends Notifier<List<BookModel>> {
         },
       );
 
-      // (در صورت نیاز می‌توانید اینجا فایل کاور را هم دانلود کنید)
-
-      // پایان دانلود، ذخیره مسیرها در حافظه
-      final updatedBook = _updateBook(
+      _updateBook(
         book.id,
         localJsonPath: jsonSavePath,
         localCoverPath: coverSavePath,
         isDownloading: false,
       );
-
-      // آپدیت کردن استوریج برای لودهای بعدی
       StorageService.saveOfflineBooks(state.map((b) => b.toJson()).toList());
     } catch (e) {
-      // در صورت خطا، دانلود را لغو می‌کنیم
       _updateBook(book.id, isDownloading: false, downloadProgress: 0.0);
     }
   }
@@ -206,7 +207,6 @@ class BooksNotifier extends Notifier<List<BookModel>> {
 final booksProvider = NotifierProvider<BooksNotifier, List<BookModel>>(
   () => BooksNotifier(),
 );
-
 final activeBookProvider = StateProvider<BookModel?>((ref) => null);
 
 class SearchSession {
