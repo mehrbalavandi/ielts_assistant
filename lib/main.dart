@@ -16,7 +16,7 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  await StorageService.removeToken();
+  // await StorageService.removeToken();
   runApp(const ProviderScope(child: MyApp()));
 }
 

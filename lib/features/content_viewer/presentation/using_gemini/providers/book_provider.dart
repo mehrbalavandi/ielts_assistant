@@ -99,7 +99,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
   Future<void> fetchBooks() async {
     try {
       final dio = ref.read(dioProvider);
-      final response = await dio.get('/api/books');
+      final response = await dio.get('/api/my-books');
 
       if (response.statusCode == 200) {
         final rawData = response.data;

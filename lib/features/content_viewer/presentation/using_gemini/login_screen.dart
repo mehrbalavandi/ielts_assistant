@@ -19,7 +19,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void initState() {
     super.initState();
     _urlController.text =
-        StorageService.getBaseUrl() ?? 'https://my-laravel-backend.com';
+        StorageService.getBaseUrl() ?? 'https://10.110.198.220';
   }
 
   void _doLogin() async {
@@ -30,7 +30,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     ref.invalidate(dioProvider);
 
     // اجرای عملیات لاگین
-    bool success = await ref.read(authProvider.notifier).login("user", "pass");
+    bool success = await ref
+        .read(authProvider.notifier)
+        .login('mehr@test.com', '1');
 
     if (mounted) {
       setState(() => _isLoading = false);
