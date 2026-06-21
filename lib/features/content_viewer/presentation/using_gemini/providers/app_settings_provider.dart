@@ -14,18 +14,18 @@ final dioProvider = Provider<Dio>((ref) {
     ),
   );
 
-  // 🌟 مرحله ۳ (گام ۴): نگهبان دیو (Interceptor) برای تزریق خودکار توکن
+  // 🌟 نگهبان دیو (Interceptor) فقط برای تزریق ایمن توکن
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) {
+        // اضافه کردن توکن (در صورت وجود و لاگین بودن کاربر)
         final token = StorageService.getToken();
-        if (token != null) {
+        if (token != null && token.isNotEmpty) {
           options.headers['Authorization'] = 'Bearer $token';
         }
         return handler.next(options);
       },
       onError: (DioException e, handler) {
-        // اینجا می‌توانید هندلینگ خطای 401 (توکن منقضی شده) را مدیریت کنید
         return handler.next(e);
       },
     ),

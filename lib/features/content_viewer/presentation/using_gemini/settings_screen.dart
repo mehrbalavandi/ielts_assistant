@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/app_settings_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -18,17 +18,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    // لود کردن آدرس قبلی در صورت وجود
+    // لود کردن آدرس قبلی
     _urlController.text = _box.read('base_url') ?? 'http://10.110.198.220:8000';
   }
 
   void _saveSettings() {
     final url = _urlController.text.trim();
     if (url.isNotEmpty) {
-      // ۱. ذخیره مستقیم در سیستم آفلاین
       StorageService.saveBaseUrl(url);
-
-      // ۲. 🌟 دستور به Riverpod برای بازسازی کلاینت شبکه با آدرس جدید
       ref.invalidate(dioProvider);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -57,6 +54,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               color: Colors.indigo,
             ),
             const SizedBox(height: 24),
+
             const Text(
               "آدرس سرور مرکزی",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -76,6 +74,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               textDirection: TextDirection.ltr,
             ),
             const SizedBox(height: 24),
+
             ElevatedButton(
               onPressed: _saveSettings,
               style: ElevatedButton.styleFrom(
@@ -84,7 +83,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text("ذخیره و ورود", style: TextStyle(fontSize: 16)),
+              child: const Text(
+                "ذخیره تنظیمات",
+                style: TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),

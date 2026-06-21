@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/app_settings_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
 
@@ -13,35 +13,46 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController _urlController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
     _urlController.text =
-        StorageService.getBaseUrl() ?? 'https://10.110.198.220';
+        StorageService.getBaseUrl() ?? 'http://10.110.198.220:8000';
   }
 
   void _doLogin() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    final url = _urlController.text.trim();
+
+    if (email.isEmpty || password.isEmpty || url.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("لطفاً تمام فیلدها را پر کنید.")),
+      );
+      return;
+    }
+
     setState(() => _isLoading = true);
 
-    // ذخیره آدرس جدید و بازسازی کلاینت شبکه
-    await StorageService.saveBaseUrl(_urlController.text.trim());
+    await StorageService.saveBaseUrl(url);
     ref.invalidate(dioProvider);
 
-    // اجرای عملیات لاگین
-    bool success = await ref
-        .read(authProvider.notifier)
-        .login('mehr@test.com', '1');
+    // 🌟 درخواست لاگین: رمز و ایمیل فقط به سرور ارسال شده و هرگز در گوشی ذخیره نمی‌شوند
+    bool success = await ref.read(authProvider.notifier).login(email, password);
 
     if (mounted) {
       setState(() => _isLoading = false);
       if (success) {
-        // 🌟 پس از ورود موفق، صفحه لاگین را می‌بندیم تا ویترین نمایان شود
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("خطا در ورود. لطفاً دوباره تلاش کنید.")),
+          const SnackBar(
+            content: Text("خطا در ورود. ایمیل یا رمز عبور اشتباه است."),
+          ),
         );
       }
     }
@@ -52,7 +63,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text("ورود به حساب کاربری")),
       body: Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -64,6 +75,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 color: Colors.indigo,
               ),
               const SizedBox(height: 24),
+
               TextField(
                 controller: _urlController,
                 decoration: const InputDecoration(
@@ -72,7 +84,30 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 textDirection: TextDirection.ltr,
               ),
+              const SizedBox(height: 16),
+
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: "نام کاربری (ایمیل)",
+                  border: OutlineInputBorder(),
+                ),
+                textDirection: TextDirection.ltr,
+              ),
+              const SizedBox(height: 16),
+
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: "رمز عبور",
+                  border: OutlineInputBorder(),
+                ),
+                textDirection: TextDirection.ltr,
+              ),
               const SizedBox(height: 24),
+
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),

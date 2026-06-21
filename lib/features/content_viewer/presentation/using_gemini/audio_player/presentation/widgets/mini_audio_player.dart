@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/audio_notifier.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/audio_notifier.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MiniAudioPlayer extends ConsumerWidget {

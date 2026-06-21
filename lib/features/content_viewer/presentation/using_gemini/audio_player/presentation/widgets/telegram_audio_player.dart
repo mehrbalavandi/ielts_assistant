@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';

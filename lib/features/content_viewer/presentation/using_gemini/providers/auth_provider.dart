@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/app_settings_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
 
 enum AuthState { initial, authenticated, unauthenticated }

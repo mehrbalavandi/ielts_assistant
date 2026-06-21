@@ -27,128 +27,155 @@ class LibraryScreen extends ConsumerWidget {
             icon: const Icon(Icons.refresh),
             onPressed: () => ref.read(booksProvider.notifier).fetchBooks(),
           ),
-          // 🌟 نمایش هوشمند دکمه ورود یا خروج
           if (authState == AuthState.unauthenticated)
             IconButton(
               icon: const Icon(Icons.login),
               tooltip: "ورود / ثبت‌نام",
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const LoginScreen()),
-                );
-              },
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const LoginScreen()),
+              ),
             )
           else
             IconButton(
               icon: const Icon(Icons.logout),
               tooltip: "خروج از حساب",
-              onPressed: () {
-                ref.read(authProvider.notifier).logout();
-              },
+              onPressed: () => ref.read(authProvider.notifier).logout(),
             ),
         ],
       ),
       drawer: const AppDrawer(),
 
-      body: books.isEmpty
-          ? const Center(child: Text("درحال همگام‌سازی یا لیست خالی است..."))
-          : GridView.builder(
-              padding: const EdgeInsets.all(16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.55,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-              ),
-              itemCount: books.length,
-              itemBuilder: (context, index) {
-                final book = books[index];
-
-                return Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+      body: Column(
+        children: [
+          // 🌟 نوار هشدار وضعیت مهمان / آفلاین
+          if (authState == AuthState.unauthenticated)
+            Container(
+              width: double.infinity,
+              color: Colors.orange.shade100,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: const Row(
+                children: [
+                  Icon(Icons.info_outline, color: Colors.deepOrange, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "شما در حالت مهمان/آفلاین هستید. برای بروزرسانی لیست و دسترسی به کتاب‌های خریداری شده، وارد حساب خود شوید.",
+                      style: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: Stack(
-                          fit: StackFit.expand,
+                ],
+              ),
+            ),
+
+          Expanded(
+            child: books.isEmpty
+                ? const Center(
+                    child: Text("درحال همگام‌سازی یا لیست خالی است..."),
+                  )
+                : GridView.builder(
+                    padding: const EdgeInsets.all(16),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.55,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                        ),
+                    itemCount: books.length,
+                    itemBuilder: (context, index) {
+                      final book = books[index];
+
+                      return Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.blueGrey.shade100,
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(12),
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.menu_book_rounded,
-                                size: 50,
-                                color: Colors.blueGrey,
-                              ),
-                            ),
-                            // 🌟 برچسب VIP برای کتاب‌های خریداری شده
-                            if (book.isPurchased)
-                              Positioned(
-                                top: 8,
-                                right: 8,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Text(
-                                    "خریداری شده",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
+                            Expanded(
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.blueGrey.shade100,
+                                      borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(12),
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.menu_book_rounded,
+                                      size: 50,
+                                      color: Colors.blueGrey,
                                     ),
                                   ),
-                                ),
+                                  if (book.isPurchased)
+                                    Positioned(
+                                      top: 8,
+                                      right: 8,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                        child: const Text(
+                                          "خریداری شده",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
                               ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                book.title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6.0,
+                                vertical: 4.0,
+                              ),
+                              child: _buildActionSection(
+                                context,
+                                ref,
+                                book,
+                                authState,
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          book.title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-
-                      // بخش دکمه‌های عملیاتی (نسخه نمونه یا کامل)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0,
-                          vertical: 4.0,
-                        ),
-                        child: _buildActionSection(
-                          context,
-                          ref,
-                          book,
-                          authState,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                );
-              },
-            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -158,7 +185,6 @@ class LibraryScreen extends ConsumerWidget {
     BookModel book,
     AuthState authState,
   ) {
-    // در حین دانلود
     if (book.isDownloading) {
       return Column(
         children: [
@@ -175,7 +201,6 @@ class LibraryScreen extends ConsumerWidget {
       );
     }
 
-    // 🌟 حالت اول: کتاب خریداری شده است (دسترسی کامل)
     if (book.isPurchased) {
       if (book.isDownloaded) {
         return ElevatedButton.icon(
@@ -201,7 +226,6 @@ class LibraryScreen extends ConsumerWidget {
       );
     }
 
-    // 🌟 حالت دوم: کاربر مهمان است یا کتاب را نخریده (نسخه نمونه)
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -256,7 +280,6 @@ class LibraryScreen extends ConsumerWidget {
                 MaterialPageRoute(builder: (_) => const LoginScreen()),
               );
             } else {
-              // 🌟 اینجا کاربر را به درگاه پرداخت یا صفحه جزئیات خرید هدایت کنید
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("در حال انتقال به صفحه خرید...")),
               );

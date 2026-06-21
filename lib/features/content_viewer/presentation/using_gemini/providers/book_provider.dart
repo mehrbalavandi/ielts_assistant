@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/app_settings_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/app_settings_provider.dart';
 
 class BookModel {
   final String id;
@@ -99,7 +99,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
   Future<void> fetchBooks() async {
     try {
       final dio = ref.read(dioProvider);
-      final response = await dio.get('/api/my-books');
+      final response = await dio.get('/api/books');
 
       if (response.statusCode == 200) {
         final rawData = response.data;

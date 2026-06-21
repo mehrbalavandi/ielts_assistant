@@ -7,7 +7,7 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
 import 'dart:math' as math;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
