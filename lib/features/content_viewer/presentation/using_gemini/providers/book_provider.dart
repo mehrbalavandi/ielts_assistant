@@ -15,10 +15,10 @@ class BookModel {
   // --- 🌐 اطلاعات سرور (Remote) ---
   final String? sampleFilePath;
   final int sampleVersion;
-  final List<String> sampleAudioFiles; // 🌟 جدید
-  final int sampleAudioVersion; // 🌟 جدید
-  final List<String> sampleImages; // 🌟 جدید
-  final int sampleImagesVersion; // 🌟 جدید
+  final List<String> sampleAudioFiles;
+  final int sampleAudioVersion;
+  final List<String> sampleImages;
+  final int sampleImagesVersion;
 
   final String? jsonFile;
   final int jsonVersion;
@@ -30,8 +30,8 @@ class BookModel {
   // --- 📱 اطلاعات محلی (Local) ---
   final String? localSamplePath;
   final int localSampleVersion;
-  final int localSampleAudioVersion; // 🌟 جدید
-  final int localSampleImagesVersion; // 🌟 جدید
+  final int localSampleAudioVersion;
+  final int localSampleImagesVersion;
 
   final String? localJsonPath;
   final int localJsonVersion;
@@ -43,13 +43,12 @@ class BookModel {
   final bool isDownloading;
   final double downloadProgress;
 
-  // 🌟 هوش تشخیص آپدیت و دانلود (تفکیک نمونه و اصلی)
+  // 🌟 هوش تشخیص آپدیت و دانلود (دقیقاً مطابق سناریوی شما)
   bool get isSampleDownloaded =>
       localSamplePath != null && File(localSamplePath!).existsSync();
   bool get isJsonDownloaded =>
       localJsonPath != null && File(localJsonPath!).existsSync();
 
-  // بررسی آپدیت‌های نسخه نمونه
   bool get hasSampleJsonUpdate =>
       isSampleDownloaded && (localSampleVersion < sampleVersion);
   bool get hasSampleAudioUpdate => localSampleAudioVersion < sampleAudioVersion;
@@ -58,7 +57,6 @@ class BookModel {
   bool get hasAnySampleUpdate =>
       hasSampleJsonUpdate || hasSampleAudioUpdate || hasSampleImagesUpdate;
 
-  // بررسی آپدیت‌های نسخه اصلی
   bool get hasJsonUpdate =>
       isJsonDownloaded && (localJsonVersion < jsonVersion);
   bool get hasAudioUpdate => localAudioVersion < audioVersion;
@@ -66,7 +64,6 @@ class BookModel {
   bool get hasAnyMainUpdate =>
       hasJsonUpdate || hasAudioUpdate || hasImagesUpdate;
 
-  // مسیردهی هوشمند (اگر نسخه اصلی بود آن را بده، وگرنه نسخه نمونه را بده)
   String get activeJsonPath =>
       localJsonPath ?? localSamplePath ?? 'assets/data/$id.json';
   String get jsonAssetPath => activeJsonPath;
@@ -251,15 +248,12 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           final existingBook = state
               .where((b) => b.id == freshBook.id)
               .firstOrNull;
-
           if (existingBook != null) {
-            // حفظ تمامی نسخه‌های محلی برای نمونه و اصلی
             return freshBook.copyWith(
               localSamplePath: existingBook.localSamplePath,
               localSampleVersion: existingBook.localSampleVersion,
               localSampleAudioVersion: existingBook.localSampleAudioVersion,
               localSampleImagesVersion: existingBook.localSampleImagesVersion,
-
               localJsonPath: existingBook.localJsonPath,
               localJsonVersion: existingBook.localJsonVersion,
               localAudioVersion: existingBook.localAudioVersion,
@@ -279,7 +273,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     }
   }
 
-  // 🌟 دانلود منیجر ارتقا یافته با پشتیبانی از فایل‌های نمونه
+  // 🌟 دانلود منیجر موازی (Parallel Batch Downloader)
   Future<void> downloadBookContent(
     BookModel book, {
     bool isSample = false,
@@ -296,123 +290,117 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       }
 
       int totalFiles = 0;
-      int downloadedFiles = 0;
+      int downloadedCount = 0;
+
+      void onFileDownloaded() {
+        downloadedCount++;
+        if (totalFiles > 0) {
+          _updateBook(
+            book.id,
+            isDownloading: true,
+            downloadProgress: downloadedCount / totalFiles,
+          );
+        }
+      }
 
       if (isSample) {
-        // --- 1️⃣ جریان دانلود نسخه نمونه (Sample) ---
+        // --- مدیریت نسخه نمونه ---
         totalFiles =
-            1 + book.sampleAudioFiles.length + book.sampleImages.length;
+            (book.sampleFilePath != null &&
+                    (!book.isSampleDownloaded || book.hasSampleJsonUpdate)
+                ? 1
+                : 0) +
+            (book.hasSampleAudioUpdate ? book.sampleAudioFiles.length : 0) +
+            (book.hasSampleImagesUpdate ? book.sampleImages.length : 0);
 
-        // الف) دانلود فایل متنی JSON نمونه
+        if (totalFiles == 0) {
+          _updateBook(book.id, isDownloading: false);
+          return;
+        }
+
         String? newSamplePath = book.localSamplePath;
-        int newSampleVer = book.localSampleVersion;
-
         if (book.sampleFilePath != null &&
             (!book.isSampleDownloaded || book.hasSampleJsonUpdate)) {
           newSamplePath = '${bookFolder.path}/sample.json';
           await _downloadSingleFile(dio, book.sampleFilePath!, newSamplePath);
-          newSampleVer = book.sampleVersion;
+          onFileDownloaded();
         }
-        downloadedFiles++;
-        _updateProgress(book.id, downloadedFiles, totalFiles);
 
-        // ب) دانلود فایل‌های صوتی نمونه
-        int newSampleAudioVer = book.localSampleAudioVersion;
         if (book.hasSampleAudioUpdate) {
-          for (String audioUrl in book.sampleAudioFiles) {
-            final fileName = audioUrl.split('/').last;
-            await _downloadSingleFile(
-              dio,
-              audioUrl,
-              '${bookFolder.path}/$fileName',
-            );
-            downloadedFiles++;
-            _updateProgress(book.id, downloadedFiles, totalFiles);
-          }
-          newSampleAudioVer = book.sampleAudioVersion;
-        } else {
-          downloadedFiles += book.sampleAudioFiles.length; // از قبل دانلود شده
+          await _downloadFilesConcurrently(
+            dio,
+            book.sampleAudioFiles,
+            bookFolder.path,
+            onFileDownloaded,
+          );
         }
 
-        // ج) دانلود تصاویر نمونه
-        int newSampleImagesVer = book.localSampleImagesVersion;
         if (book.hasSampleImagesUpdate) {
-          for (String imageUrl in book.sampleImages) {
-            final fileName = imageUrl.split('/').last;
-            await _downloadSingleFile(
-              dio,
-              imageUrl,
-              '${bookFolder.path}/$fileName',
-            );
-            downloadedFiles++;
-            _updateProgress(book.id, downloadedFiles, totalFiles);
-          }
-          newSampleImagesVer = book.sampleImagesVersion;
+          await _downloadFilesConcurrently(
+            dio,
+            book.sampleImages,
+            bookFolder.path,
+            onFileDownloaded,
+          );
         }
 
         _updateBook(
           book.id,
           localSamplePath: newSamplePath,
-          localSampleVersion: newSampleVer,
-          localSampleAudioVersion: newSampleAudioVer,
-          localSampleImagesVersion: newSampleImagesVer,
+          localSampleVersion: book.sampleVersion,
+          localSampleAudioVersion: book.sampleAudioVersion,
+          localSampleImagesVersion: book.sampleImagesVersion,
           isDownloading: false,
         );
       } else {
-        // --- 2️⃣ جریان دانلود نسخه کامل (Main) ---
-        totalFiles = 1 + book.audioFiles.length + book.images.length;
+        // --- مدیریت نسخه اصلی ---
+        totalFiles =
+            (book.jsonFile != null &&
+                    (!book.isJsonDownloaded || book.hasJsonUpdate)
+                ? 1
+                : 0) +
+            (book.hasAudioUpdate ? book.audioFiles.length : 0) +
+            (book.hasImagesUpdate ? book.images.length : 0);
 
-        // الف) دانلود فایل JSON اصلی
+        if (totalFiles == 0) {
+          _updateBook(book.id, isDownloading: false);
+          return;
+        }
+
         String? newJsonPath = book.localJsonPath;
-        int newJsonVer = book.localJsonVersion;
-
         if (book.jsonFile != null &&
             (!book.isJsonDownloaded || book.hasJsonUpdate)) {
           newJsonPath = '${bookFolder.path}/main_content.json';
           await _downloadSingleFile(dio, book.jsonFile!, newJsonPath);
-          newJsonVer = book.jsonVersion;
+          onFileDownloaded();
         }
-        downloadedFiles++;
-        _updateProgress(book.id, downloadedFiles, totalFiles);
 
-        // ب) دانلود فایل‌های صوتی اصلی
-        int newAudioVer = book.localAudioVersion;
         if (book.hasAudioUpdate) {
-          for (String audioUrl in book.audioFiles) {
-            final fileName = audioUrl.split('/').last;
-            await _downloadSingleFile(
-              dio,
-              audioUrl,
-              '${bookFolder.path}/$fileName',
-            );
-            downloadedFiles++;
-            _updateProgress(book.id, downloadedFiles, totalFiles);
-          }
-          newAudioVer = book.audioVersion;
+          // 🌟 دانلود موازی تمام فایل‌های صوتی
+          await _downloadFilesConcurrently(
+            dio,
+            book.audioFiles,
+            bookFolder.path,
+            onFileDownloaded,
+          );
         }
 
-        // ج) دانلود تصاویر اصلی
-        int newImagesVer = book.localImagesVersion;
         if (book.hasImagesUpdate) {
-          for (String imageUrl in book.images) {
-            final fileName = imageUrl.split('/').last;
-            await _downloadSingleFile(
-              dio,
-              imageUrl,
-              '${bookFolder.path}/$fileName',
-            );
-            downloadedFiles++;
-            _updateProgress(book.id, downloadedFiles, totalFiles);
-          }
-          newImagesVer = book.imagesVersion;
+          // 🌟 دانلود موازی تمام تصاویر
+          await _downloadFilesConcurrently(
+            dio,
+            book.images,
+            bookFolder.path,
+            onFileDownloaded,
+          );
         }
 
         _updateBook(
           book.id,
           localJsonPath: newJsonPath,
-          localJsonVersion: newJsonVer,
-          localAudioVersion: newAudioVer,
-          localImagesVersion: newImagesVer,
+          localJsonVersion: book.jsonVersion,
+          localAudioVersion: book.audioVersion,
+          localImagesVersion: book.imagesVersion,
           isDownloading: false,
         );
       }
@@ -424,25 +412,37 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     }
   }
 
-  // متد کمکی برای دانلود یک فایل تکی
+  // 🌟 متد جادویی برای دانلود موازی (۵ فایل همزمان برای جلوگیری از مسدود شدن سوکت)
+  Future<void> _downloadFilesConcurrently(
+    Dio dio,
+    List<String> urls,
+    String folderPath,
+    VoidCallback onDownloaded,
+  ) async {
+    const int batchSize = 5;
+    for (int i = 0; i < urls.length; i += batchSize) {
+      final batch = urls.sublist(
+        i,
+        i + batchSize > urls.length ? urls.length : i + batchSize,
+      );
+
+      List<Future<void>> futures = batch.map((url) async {
+        final fileName = url.split('/').last;
+        await _downloadSingleFile(dio, url, '$folderPath/$fileName');
+        onDownloaded();
+      }).toList();
+
+      await Future.wait(
+        futures,
+      ); // صبر می‌کند تا این ۵ فایل تمام شوند سپس سراغ ۵ تای بعدی می‌رود
+    }
+  }
+
   Future<void> _downloadSingleFile(Dio dio, String url, String savePath) async {
     try {
       await dio.download(url, savePath);
     } catch (e) {
       debugPrint("Failed to download $url: $e");
-      // در یک سناریوی واقعی، می‌توانید فایل‌های خطا خورده را به یک لیست اضافه کنید
-      // تا کاربر بداند کدام بخش‌ها دانلود نشده‌اند.
-    }
-  }
-
-  // متد کمکی برای محاسبه درصد کلی پیشرفت بر اساس تعداد فایل‌ها
-  void _updateProgress(String bookId, int downloaded, int total) {
-    if (total > 0) {
-      _updateBook(
-        bookId,
-        isDownloading: true,
-        downloadProgress: downloaded / total,
-      );
     }
   }
 
