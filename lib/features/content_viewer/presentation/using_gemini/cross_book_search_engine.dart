@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/book_provider.dart';
@@ -74,8 +75,18 @@ class CrossBookSearchEngine {
     for (var book in availableBooks) {
       if (!_jsonCache.containsKey(book.id)) {
         try {
-          _jsonCache[book.id] = await rootBundle.loadString(book.jsonAssetPath);
+          // 🌟 خواندن مستقیم از حافظه دستگاه
+          final file = File(book.activeJsonPath);
+          if (await file.exists()) {
+            _jsonCache[book.id] = await file.readAsString();
+          } else {
+            // اگر فایل محلی پیدا نشد (فال‌بک موقت به assets)
+            _jsonCache[book.id] = await rootBundle.loadString(
+              book.jsonAssetPath,
+            );
+          }
         } catch (e) {
+          debugPrint("خطا در لود دیتای جستجو برای کتاب ${book.id}: $e");
           continue;
         }
       }

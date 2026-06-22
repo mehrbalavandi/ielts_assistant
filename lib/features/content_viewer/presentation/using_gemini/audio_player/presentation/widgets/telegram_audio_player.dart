@@ -396,6 +396,7 @@ class _AudioscriptViewerSheetState
     // گرفتن اطلاعات فایل در حال پخش از Riverpod
     final audioState = ref.watch(audioPlayerProvider);
     final int currentPosMs = audioState.position.inMilliseconds;
+    final String fullPath = audioState.currentPath ?? '';
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
 
     // 🌟 استخراج داینامیک و هوشمند پاراگراف‌های زمان‌دار فقط برای فایل صوتی در حال پخش

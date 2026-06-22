@@ -51,7 +51,10 @@ class BookModel {
 
   bool get hasSampleJsonUpdate =>
       isSampleDownloaded && (localSampleVersion < sampleVersion);
-  bool get hasSampleAudioUpdate => localSampleAudioVersion < sampleAudioVersion;
+  bool get hasSampleAudioUpdate {
+    return localSampleAudioVersion < sampleAudioVersion;
+  }
+
   bool get hasSampleImagesUpdate =>
       localSampleImagesVersion < sampleImagesVersion;
   bool get hasAnySampleUpdate =>
@@ -351,7 +354,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
 
         // --- دانلود صوت نمونه ---
         int newSampleAudioVer = book.localSampleAudioVersion;
-        if (book.hasSampleAudioUpdate) {
+        if (book.hasSampleAudioUpdate || true) {
           bool allSuccess = await _downloadFilesConcurrently(
             dio,
             book.id,
@@ -364,7 +367,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
 
         // --- دانلود تصویر نمونه ---
         int newSampleImagesVer = book.localSampleImagesVersion;
-        if (book.hasSampleImagesUpdate) {
+        if (book.hasSampleImagesUpdate || true) {
           bool allSuccess = await _downloadFilesConcurrently(
             dio,
             book.id,
@@ -422,7 +425,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             dio,
             book.id,
             book.audioFiles,
-            bookFolder.path,
+            '${bookFolder.path}/audios',
             onFileDownloaded,
           );
           if (allSuccess) newAudioVer = book.audioVersion;
@@ -434,7 +437,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             dio,
             book.id,
             book.images,
-            bookFolder.path,
+            '${bookFolder.path}/images',
             onFileDownloaded,
           );
           if (allSuccess) newImagesVer = book.imagesVersion;

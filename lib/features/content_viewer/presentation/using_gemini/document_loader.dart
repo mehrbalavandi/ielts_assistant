@@ -5,9 +5,9 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 
 class DocumentLoader {
   static Future<List<PageData>> loadBookFromJson(String path) async {
-    String jsonString;
+    String jsonString = '';
 
-    // 🌟 بررسی هوشمند: آیا فایل در assets است یا در پوشه دانلودهای گوشی (Local Storage)؟
+    // 🌟 بررسی هوشمند: فایل در حافظه گوشی است یا دارایی برنامه (assets)؟
     if (path.startsWith('assets/')) {
       jsonString = await rootBundle.loadString(path);
     } else {

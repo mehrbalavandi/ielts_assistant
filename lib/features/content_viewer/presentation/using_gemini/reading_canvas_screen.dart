@@ -1,4 +1,6 @@
 // 🔊 🎧 ▶ ▶️
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
@@ -208,7 +210,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   }
 }
 
-class BookPageWidget extends StatefulWidget {
+class BookPageWidget extends ConsumerStatefulWidget {
   final PageData page;
   final SearchResult? activeTarget;
   final SearchSession? searchSession;
@@ -227,10 +229,10 @@ class BookPageWidget extends StatefulWidget {
   });
 
   @override
-  State<BookPageWidget> createState() => _BookPageWidgetState();
+  ConsumerState<BookPageWidget> createState() => _BookPageWidgetState();
 }
 
-class _BookPageWidgetState extends State<BookPageWidget>
+class _BookPageWidgetState extends ConsumerState<BookPageWidget>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -239,7 +241,7 @@ class _BookPageWidgetState extends State<BookPageWidget>
   Widget build(BuildContext context) {
     super.build(context);
     List<Widget> paragraphWidgets = [];
-
+    final currentBook = ref.read(activeBookProvider);
     for (int pIndex = 0; pIndex < widget.page.paragraphs.length; pIndex++) {
       var para = widget.page.paragraphs[pIndex];
       bool isTargetParagraph =
@@ -263,6 +265,7 @@ class _BookPageWidgetState extends State<BookPageWidget>
         widget.canvasWidth,
         widget.screenWidth,
         context,
+        activeBook: currentBook,
         rootHighlightMap: rootHighlightMap,
         mapOffset: offset,
         activeOccurrence: isTargetParagraph
@@ -466,6 +469,7 @@ Widget _buildParagraph(
   List<int>? rootHighlightMap,
   MapOffset? mapOffset,
   int? activeOccurrence,
+  required BookModel? activeBook,
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
@@ -546,6 +550,7 @@ Widget _buildParagraph(
                       isMobile: !isLargeScreen,
                       screenWidth: screenWidth,
                       isImageCell: isImageCell,
+                      activeBook: activeBook,
                     ),
                   )
                 : _buildLocalImage(
@@ -553,6 +558,7 @@ Widget _buildParagraph(
                     isMobile: false,
                     screenWidth: screenWidth,
                     isImageCell: isImageCell,
+                    activeBook: activeBook,
                   ),
           ),
         );
@@ -568,6 +574,7 @@ Widget _buildParagraph(
           rootHighlightMap,
           mapOffset,
           activeOccurrence,
+          activeBook,
         ),
       );
     }
@@ -675,6 +682,7 @@ Widget _buildTable(
   List<int>? rootMap,
   MapOffset? mapOffset,
   int? activeOcc,
+  BookModel? activeBook,
 ) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -746,6 +754,7 @@ Widget _buildTable(
             rootHighlightMap: rootMap,
             mapOffset: mapOffset,
             activeOccurrence: activeOcc,
+            activeBook: activeBook,
           ),
         );
       }
@@ -929,33 +938,83 @@ Widget _buildLocalImage(
   required bool isMobile,
   required double screenWidth,
   required bool isImageCell,
+  required BookModel? activeBook, // 🌟 اضافه شد
 }) {
+  String fallbackPath = 'assets/data/images/$imageName';
+  File? localFile;
+
+  // 🌟 هوشمندی: خواندن از فایل آفلاین
+  if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
+    final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
+    final possibleFile = File('$bookFolderPath/$imageName');
+
+    if (possibleFile.existsSync()) {
+      localFile = possibleFile;
+    }
+  }
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(isImageCell ? 0 : 6),
-      child: Image.asset(
-        'assets/data/images/$imageName',
-        fit: BoxFit.contain,
-        width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
-        errorBuilder: (context, error, stackTrace) => Container(
-          padding: const EdgeInsets.all(16),
-          color: Colors.grey[200],
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.broken_image, color: Colors.red),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Text(
-                  "Image not found: $imageName",
-                  style: const TextStyle(fontSize: 12),
-                ),
-              ),
-            ],
+      child: localFile != null
+          ? Image.file(
+              localFile,
+              fit: BoxFit.contain,
+              width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
+              errorBuilder: (context, error, stackTrace) =>
+                  _errorImage(imageName),
+            )
+          : Image.asset(
+              fallbackPath,
+              fit: BoxFit.contain,
+              width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
+              errorBuilder: (context, error, stackTrace) =>
+                  _errorImage(imageName),
+            ),
+    ),
+  );
+}
+// متد کمکی برای جلوگیری از تکرار کد خطا
+
+Widget _errorImage(String imageName) {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    color: Colors.grey[200],
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(Icons.broken_image, color: Colors.red),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            "Image not found: $imageName",
+            style: const TextStyle(fontSize: 12),
           ),
         ),
-      ),
+      ],
+    ),
+  );
+}
+
+Widget Function(BuildContext, Object, StackTrace?) _errorBuilder(
+  String imageName,
+) {
+  return (context, error, stackTrace) => Container(
+    padding: const EdgeInsets.all(16),
+    color: Colors.grey[200],
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(Icons.broken_image, color: Colors.red),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            "Image not found: $imageName",
+            style: const TextStyle(fontSize: 12),
+          ),
+        ),
+      ],
     ),
   );
 }
@@ -964,35 +1023,55 @@ class InlineAudioLink extends ConsumerWidget {
   final String fileName;
   final String text;
   final Color baseColor;
+
   const InlineAudioLink({
     super.key,
     required this.fileName,
     required this.text,
     required this.baseColor,
   });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final audioState = ref.watch(audioPlayerProvider);
-    final fullPath = 'assets/data/audio/$fileName';
+    final activeBook = ref.watch(activeBookProvider);
     final box = GetStorage();
-    bool isCurrent = audioState.currentPath == fullPath;
+
+    // 🌟 پیدا کردن مسیر فیزیکی روی گوشی برای پاس دادن به پلیر
+    String targetPath = 'assets/data/audio/$fileName';
+    if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
+      final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
+      final localAudioFile = File('$bookFolderPath/$fileName');
+      if (localAudioFile.existsSync()) {
+        targetPath = localAudioFile.path;
+      }
+    }
+
+    bool isCurrent = audioState.currentPath == targetPath;
     bool isPlaying = isCurrent && audioState.isPlaying;
+
+    // 🌟 ذخیره و خواندن موقعیت زمان صرفاً بر اساس نام فایل (که همیشه ثابت است)
+    final storageKey = 'pos_${activeBook?.id}_$fileName';
+    final durKey = 'dur_${activeBook?.id}_$fileName';
+
     int currentPosMs = isCurrent
         ? audioState.position.inMilliseconds
-        : (box.read('pos_$fullPath') ?? 0);
+        : (box.read(storageKey) ?? 0);
     int currentDurMs = isCurrent && audioState.duration.inMilliseconds > 0
         ? audioState.duration.inMilliseconds
-        : (box.read('dur_$fullPath') ?? 0);
+        : (box.read(durKey) ?? 0);
     double progress = currentDurMs > 0
         ? (currentPosMs / currentDurMs).clamp(0.0, 1.0)
         : 0.0;
 
     return GestureDetector(
       onTap: () {
-        if (isPlaying)
+        if (isPlaying) {
           ref.read(audioPlayerProvider.notifier).pause();
-        else
-          ref.read(audioPlayerProvider.notifier).playFile(fullPath);
+        } else {
+          // ارسال آدرس فیزیکی به پلیر
+          ref.read(audioPlayerProvider.notifier).playFile(targetPath);
+        }
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
