@@ -48,7 +48,7 @@ abstract class _$AudioPlayerNotifier extends $Notifier<AudioPlayerState> {
   AudioPlayerState build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AudioPlayerState, AudioPlayerState>;
     final element =
         ref.element
@@ -58,6 +58,6 @@ abstract class _$AudioPlayerNotifier extends $Notifier<AudioPlayerState> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

@@ -46,7 +46,7 @@ abstract class _$Player extends $Notifier<PlayerState> {
   PlayerState build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<PlayerState, PlayerState>;
     final element =
         ref.element
@@ -56,6 +56,6 @@ abstract class _$Player extends $Notifier<PlayerState> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

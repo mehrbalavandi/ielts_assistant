@@ -100,7 +100,7 @@ abstract class _$RevealedBlankNotifier
   Map<int, RevealedBlankStatus> build(String finalTopicId);
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref
             as $Ref<
@@ -118,6 +118,6 @@ abstract class _$RevealedBlankNotifier
               Object?,
               Object?
             >;
-    element.handleCreate(ref, () => build(_$args));
+    return element.handleCreate(ref, () => build(_$args));
   }
 }

@@ -90,85 +90,107 @@ class LibraryScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final book = books[index];
 
-                      return Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.blueGrey.shade100,
-                                      borderRadius: const BorderRadius.vertical(
-                                        top: Radius.circular(12),
-                                      ),
-                                    ),
-                                    child: const Icon(
-                                      Icons.menu_book_rounded,
-                                      size: 50,
-                                      color: Colors.blueGrey,
-                                    ),
+                      // 🌟 بررسی اینکه آیا کاربر اصلاً شرایط رفتن به بوم نقاشی را دارد یا خیر
+                      bool canOpenCanvas =
+                          (book.isPurchased && book.isJsonDownloaded) ||
+                          (!book.isPurchased && book.isSampleDownloaded);
+
+                      return GestureDetector(
+                        onTap: canOpenCanvas
+                            ? () {
+                                // 🌟 انتقال به صفحه مطالعه با ضربه روی هر جای کارت (در صورت آماده بودن فایل)
+                                ref.read(activeBookProvider.notifier).state =
+                                    book;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MainBookScreen(),
                                   ),
-                                  if (book.isPurchased)
-                                    Positioned(
-                                      top: 8,
-                                      right: 8,
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius: BorderRadius.circular(
-                                            8,
+                                );
+                              }
+                            : null,
+                        child: Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.blueGrey.shade100,
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                              top: Radius.circular(12),
+                                            ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.menu_book_rounded,
+                                        size: 50,
+                                        color: Colors.blueGrey,
+                                      ),
+                                    ),
+                                    if (book.isPurchased)
+                                      Positioned(
+                                        top: 8,
+                                        right: 8,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                            vertical: 4,
                                           ),
-                                        ),
-                                        child: const Text(
-                                          "خریداری شده",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                          ),
+                                          child: const Text(
+                                            "خریداری شده",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                book.title,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                                  ],
                                 ),
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6.0,
-                                vertical: 4.0,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  book.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                              child: _buildActionSection(
-                                context,
-                                ref,
-                                book,
-                                authState,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0,
+                                  vertical: 4.0,
+                                ),
+                                child: _buildActionSection(
+                                  context,
+                                  ref,
+                                  book,
+                                  authState,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
