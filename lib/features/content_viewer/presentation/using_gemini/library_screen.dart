@@ -185,6 +185,7 @@ class LibraryScreen extends ConsumerWidget {
     BookModel book,
     AuthState authState,
   ) {
+    // --- ۱. حالت در حال دانلود ---
     if (book.isDownloading) {
       return Column(
         children: [
@@ -201,36 +202,76 @@ class LibraryScreen extends ConsumerWidget {
       );
     }
 
+    // --- ۲. حالت کتاب خریداری شده (نسخه اصلی) ---
     if (book.isPurchased) {
-      if (book.isDownloaded) {
-        return ElevatedButton.icon(
-          icon: const Icon(Icons.check_circle, color: Colors.green, size: 16),
-          label: const Text("مطالعه کامل", style: TextStyle(fontSize: 11)),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black87,
-          ),
-          onPressed: () {
-            ref.read(activeBookProvider.notifier).state = book;
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MainBookScreen()),
-            );
-          },
+      if (book.isJsonDownloaded) {
+        // 🌟 تغییر از isDownloaded به isJsonDownloaded
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ElevatedButton.icon(
+              icon: const Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 14,
+              ),
+              label: const Text("مطالعه کامل", style: TextStyle(fontSize: 11)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black87,
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+              ),
+              onPressed: () {
+                ref.read(activeBookProvider.notifier).state = book;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainBookScreen(),
+                  ),
+                );
+              },
+            ),
+            // نمایش دکمه آپدیت فقط در صورت وجود نسخه جدید برای فایل‌های اصلی
+            if (book
+                .hasAnyMainUpdate) // 🌟 تغییر از hasAnyUpdate به hasAnyMainUpdate
+              ElevatedButton.icon(
+                icon: const Icon(Icons.sync, size: 14),
+                label: const Text(
+                  "به‌روزرسانی محتوا",
+                  style: TextStyle(fontSize: 11),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade50,
+                  foregroundColor: Colors.blue.shade900,
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                ),
+                onPressed: () => ref
+                    .read(booksProvider.notifier)
+                    .downloadBookContent(
+                      book,
+                      isSample: false,
+                    ), // 🌟 استفاده از متد جدید
+              ),
+          ],
         );
       }
       return ElevatedButton.icon(
-        icon: const Icon(Icons.cloud_download, size: 16),
+        icon: const Icon(Icons.cloud_download, size: 14),
         label: const Text("دانلود کامل", style: TextStyle(fontSize: 11)),
-        onPressed: () => ref.read(booksProvider.notifier).downloadBook(book),
+        onPressed: () => ref
+            .read(booksProvider.notifier)
+            .downloadBookContent(book, isSample: false),
       );
     }
 
+    // --- ۳. حالت مهمان / نسخه نمونه ---
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (book.isDownloaded)
+        if (book.isSampleDownloaded) ...[
+          // 🌟 تغییر از isDownloaded به isSampleDownloaded
           OutlinedButton(
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -247,14 +288,28 @@ class LibraryScreen extends ConsumerWidget {
               "مطالعه نمونه",
               style: TextStyle(fontSize: 11, color: Colors.indigo),
             ),
-          )
-        else
+          ),
+          // نمایش آپدیت برای نسخه نمونه
+          if (book.hasAnySampleUpdate) // 🌟 تشخیص آپدیت برای فایل‌های نمونه
+            OutlinedButton.icon(
+              icon: const Icon(Icons.sync, size: 12),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                foregroundColor: Colors.orange,
+              ),
+              onPressed: () => ref
+                  .read(booksProvider.notifier)
+                  .downloadBookContent(book, isSample: true),
+              label: const Text("آپدیت نمونه", style: TextStyle(fontSize: 11)),
+            ),
+        ] else
           OutlinedButton(
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 2),
             ),
-            onPressed: () =>
-                ref.read(booksProvider.notifier).downloadBook(book),
+            onPressed: () => ref
+                .read(booksProvider.notifier)
+                .downloadBookContent(book, isSample: true),
             child: const Text("دریافت نمونه", style: TextStyle(fontSize: 11)),
           ),
 
