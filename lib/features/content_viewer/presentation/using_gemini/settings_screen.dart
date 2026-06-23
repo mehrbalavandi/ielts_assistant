@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/library_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/main_book_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/app_settings_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -34,6 +37,23 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('لطفاً آدرس سرور را وارد کنید')),
+      );
+    }
+    final activeBook = ref.watch(activeBookProvider);
+
+    if (activeBook != null) {
+      // اگر کتاب فعال وجود دارد، به صفحه اصلی کتاب برو
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const MainBookScreen()),
+        (route) => false,
+      );
+    } else {
+      // اگر کتاب فعال وجود ندارد، به صفحه ویترین برو
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const LibraryScreen()),
+        (route) => false,
       );
     }
   }
