@@ -1,4 +1,6 @@
 // 🔊 🎧 ▶ ▶️
+// ignore_for_file: unused_import
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -23,8 +25,9 @@ class ReadingCanvasScreen extends ConsumerStatefulWidget {
   const ReadingCanvasScreen({super.key, required this.documentPages});
 
   @override
-  ConsumerState<ReadingCanvasScreen> createState() =>
-      _ReadingCanvasScreenState();
+  ConsumerState<ReadingCanvasScreen> createState() {
+    return _ReadingCanvasScreenState();
+  }
 }
 
 class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
