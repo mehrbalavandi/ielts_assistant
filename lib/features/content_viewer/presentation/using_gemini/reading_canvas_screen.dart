@@ -39,7 +39,15 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ItemPositionsListener.create();
   final GlobalKey _targetParaKey = GlobalKey();
 
-  bool _isZoomModeActive = false;
+  // ── وضعیت زوم ────────────────────────────────────────────────────────────
+  //   scale == 1.0 → scroll روی کل محتوا (IV passive است)
+  //   scale >  1.0 → IV فقط pan در ناحیه زوم را کنترل می‌کند
+  double _currentScale = 1.0;
+  bool get _isZoomed => _currentScale > 1.02;
+
+  // تعداد انگشتان روی صفحه — فقط برای بلاک‌کردن scroll در لحظه ۲+ انگشت
+  // Listener قبل از gesture arena فعال می‌شود، پس بلاک‌کردن فوری است
+  int _pointerCount = 0;
 
   @override
   void initState() {
@@ -140,22 +148,19 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _isZoomModeActive = !_isZoomModeActive;
-            if (!_isZoomModeActive) {
-              _transformationController.value = Matrix4.identity();
-            }
-          });
-        },
-        backgroundColor: _isZoomModeActive ? Colors.orange : Colors.indigo,
-        elevation: 4,
-        child: Icon(
-          _isZoomModeActive ? Icons.pan_tool : Icons.zoom_in,
-          color: Colors.white,
-        ),
-      ),
+      // دکمه ریست زوم — فقط وقتی کاربر زوم کرده نمایش داده می‌شود
+      floatingActionButton: _isZoomed
+          ? FloatingActionButton.small(
+              onPressed: () => setState(() {
+                _transformationController.value = Matrix4.identity();
+                _currentScale = 1.0;
+              }),
+              backgroundColor: Colors.orange,
+              elevation: 4,
+              tooltip: 'بازگشت به اندازه اصلی',
+              child: const Icon(Icons.zoom_out_map, color: Colors.white),
+            )
+          : null,
 
       body: SafeArea(
         child: Column(
@@ -163,44 +168,93 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             TelegramAudioPlayer(documentPages: widget.documentPages),
 
             Expanded(
-              child: InteractiveViewer(
-                transformationController: _transformationController,
-                scaleEnabled: _isZoomModeActive,
-                panEnabled: _isZoomModeActive,
-                minScale: 1.0,
-                maxScale: 3.5,
-                child: Center(
-                  child: SizedBox(
-                    width: canvasWidth,
-                    child: ScrollablePositionedList.builder(
-                      itemCount: widget.documentPages.length,
-                      itemScrollController: _itemScrollController,
-                      itemPositionsListener: _itemPositionsListener,
-                      initialScrollIndex:
-                          initialIndex < widget.documentPages.length
-                          ? initialIndex
-                          : 0,
-                      initialAlignment:
-                          initialAlignment, // 🌟 اضافه شدن تراز دقیق (Alignment) برای بازگشت به جای قبلی
-                      physics: _isZoomModeActive
-                          ? const NeverScrollableScrollPhysics()
-                          : const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(vertical: 24.0),
-                      itemBuilder: (context, pageIndex) {
-                        final page = widget.documentPages[pageIndex];
-                        bool hasTarget =
-                            activeTarget != null &&
-                            activeTarget.pageNumber == page.pageNumber;
+              // ── Listener: بلاک‌کردن فوری scroll هنگام ۲+ انگشت ──────────
+              // Listener قبل از gesture arena کار می‌کند:
+              //   انگشت اول → فقط شمارش، physics تغییر نمی‌کند
+              //   انگشت دوم → فوری physics = NeverScrollable → IV زوم می‌کند
+              child: Listener(
+                onPointerDown: (e) {
+                  _pointerCount++;
+                  // فقط وقتی انگشت دوم می‌آید rebuild لازم است
+                  if (_pointerCount == 2) setState(() {});
+                },
+                onPointerUp: (e) {
+                  final prev = _pointerCount;
+                  _pointerCount = (_pointerCount - 1).clamp(0, 10);
+                  // فقط وقتی از multi-touch به single-touch می‌رویم rebuild لازم است
+                  if (prev >= 2 && _pointerCount < 2) setState(() {});
+                },
+                onPointerCancel: (e) {
+                  final prev = _pointerCount;
+                  _pointerCount = (_pointerCount - 1).clamp(0, 10);
+                  if (prev >= 2 && _pointerCount < 2) setState(() {});
+                },
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
 
-                        return BookPageWidget(
-                          page: page,
-                          activeTarget: activeTarget,
-                          searchSession: searchSession,
-                          canvasWidth: canvasWidth,
-                          screenWidth: MediaQuery.of(context).size.width,
-                          targetKey: hasTarget ? _targetParaKey : null,
-                        );
-                      },
+                  // pan فقط وقتی zoom فعال است → رقابت با scroll نیست
+                  panEnabled: _isZoomed,
+                  // scale همیشه فعال است
+                  scaleEnabled: true,
+                  minScale: 1.0,
+                  maxScale: 3.5,
+                  clipBehavior: Clip.hardEdge,
+
+                  onInteractionUpdate: (_) {
+                    final s = _transformationController.value
+                        .getMaxScaleOnAxis();
+                    if ((s - _currentScale).abs() > 0.01) {
+                      setState(() => _currentScale = s);
+                    }
+                  },
+
+                  onInteractionEnd: (_) {
+                    final s = _transformationController.value
+                        .getMaxScaleOnAxis();
+                    if (s <= 1.02) {
+                      _transformationController.value = Matrix4.identity();
+                      if (_isZoomed) setState(() => _currentScale = 1.0);
+                    }
+                  },
+
+                  child: Center(
+                    child: SizedBox(
+                      width: canvasWidth,
+                      child: ScrollablePositionedList.builder(
+                        itemCount: widget.documentPages.length,
+                        itemScrollController: _itemScrollController,
+                        itemPositionsListener: _itemPositionsListener,
+                        initialScrollIndex:
+                            initialIndex < widget.documentPages.length
+                            ? initialIndex
+                            : 0,
+                        initialAlignment: initialAlignment,
+
+                        // ── physics ──────────────────────────────────────────
+                        // شرط جدید: _pointerCount >= 2 هم scroll را بلاک می‌کند
+                        // این یعنی به‌محض لمس انگشت دوم، scroll فوری متوقف می‌شود
+                        // و IV می‌تواند pinch را بدون رقابت بگیرد
+                        physics: (_isZoomed || _pointerCount >= 2)
+                            ? const NeverScrollableScrollPhysics()
+                            : const ClampingScrollPhysics(),
+
+                        padding: const EdgeInsets.symmetric(vertical: 24.0),
+                        itemBuilder: (context, pageIndex) {
+                          final page = widget.documentPages[pageIndex];
+                          bool hasTarget =
+                              activeTarget != null &&
+                              activeTarget.pageNumber == page.pageNumber;
+
+                          return BookPageWidget(
+                            page: page,
+                            activeTarget: activeTarget,
+                            searchSession: searchSession,
+                            canvasWidth: canvasWidth,
+                            screenWidth: MediaQuery.of(context).size.width,
+                            targetKey: hasTarget ? _targetParaKey : null,
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
