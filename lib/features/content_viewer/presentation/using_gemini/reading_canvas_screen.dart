@@ -198,10 +198,12 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                 child: InteractiveViewer(
                   transformationController: _transformationController,
 
-                  // ── کلید اصلی ─────────────────────────────────────────────
-                  // panEnabled: false → IV هرگز با scroll رقابت نمی‌کند
-                  // وقتی زوم شده، کاربر با ۱ انگشت از طریق scroll حرکت می‌کند
-                  panEnabled: false,
+                  // ── منطق pan ──────────────────────────────────────────────
+                  // زوم نشده: panEnabled:false → IV هرگز با scroll رقابت نمی‌کند
+                  // زوم شده:  panEnabled:true  → فقط افق pan می‌کند (PanAxis.horizontal)
+                  //           scroll عمودی کاملاً دست‌نخورده باقی می‌ماند
+                  panEnabled: _isZoomed,
+                  panAxis: PanAxis.horizontal,
                   // scale همیشه فعال — pinch را در هر لحظه تشخیص می‌دهد
                   scaleEnabled: true,
                   minScale: 1.0,
@@ -239,8 +241,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                               ? initialIndex
                               : 0,
                           initialAlignment: initialAlignment,
-                          // ClampingScrollPhysics همیشه — حتی وقتی زوم شده
-                          // زیرا panEnabled: false است و IV pan نمی‌کند
+                          // ClampingScrollPhysics هنگام ۱ انگشت — حتی وقتی زوم شده
+                          // scroll عمودی کار می‌کند؛ pan افقی توسط IV کنترل می‌شود
                           // بنابراین scroll تنها راه حرکت در محتوای زوم‌شده است
                           physics: _isPinching
                               ? const NeverScrollableScrollPhysics()

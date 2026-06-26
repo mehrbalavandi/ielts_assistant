@@ -189,6 +189,7 @@
                         ]
                       },
                       {
+                        "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
                         "Spans": [
@@ -508,6 +509,26 @@
                             "TableRows": []
                           }
                         ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "No article used for: individual islands: e.g. Mal/orca names of most countries: e.g. Spain, France, Germany, China names of beaches: Alcudia Beach names of cities/towns/regions: Palma de Mallorca, Algaida, Binissalem names of mountains: Mount Everest, Mont Blanc Use 'the' for: groups of islands: the Balearic Islands coastal areas: the Valencian Coast oceans and seas: the Mediterranean Sea, the Persian Gulf nationalities: the Spanish, the Oman is, the Chinese countries which are Republics, Kingdoms or Unions: the Republic of China, the United Kingdom (the UK), the United States of America (the USA) mountain ranges: the Tramuntanas, the Himalayas geographical areas: the northeast, the southwest Other geographical features: lakes: no article, usually begins with the word Lake (Lake Windermere) rivers: definite article before name of river. Capitalise the word 'river' or it can be omitted (the Thames, the River Thames).",
+                            "Markers": [
+                              "blank",
+                              "fn:Source Sans 3"
+                            ],
+                            "BorderColor": "ED7D31",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
                       }
                     ],
                     "WidthPercent": 94.98,
@@ -694,6 +715,27 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
+                            "InnerSpans": [],
+                            "TableRows": []
+                          }
+                        ]
+                      },
+                      {
+                        "Direction": "LTR",
+                        "SpaceAfter": 0.0,
+                        "SpaceBefore": 0.0,
+                        "Spans": [
+                          {
+                            "Type": "text",
+                            "Content": "Students' own answers",
+                            "Markers": [
+                              "blank",
+                              "fn:Source Sans 3",
+                              "sz:21"
+                            ],
+                            "BorderColor": "ED7D31",
+                            "BorderStyle": "BorderValues { }",
+                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4371,7 +4413,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p7_s1_img1.png",
+                            "Url": "p8_s1_img1.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4417,7 +4459,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p7_s1_img2.png",
+                            "Url": "p8_s1_img2.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4438,7 +4480,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p7_s1_img3.png",
+                            "Url": "p8_s1_img3.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4464,7 +4506,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p7_s1_img4.png",
+                            "Url": "p8_s1_img4.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -4485,7 +4527,7 @@
                           {
                             "Type": "image",
                             "Markers": [],
-                            "Url": "p7_s1_img5.png",
+                            "Url": "p8_s1_img5.png",
                             "FloatPosition": "none",
                             "InnerSpans": [],
                             "TableRows": []
@@ -5344,13 +5386,10 @@
         "Direction": "LTR",
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
-        "StartMs": 0,
-        "EndMs": 5000,
-        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "Hello and welcome to the IELTS preparation course.",
+            "Content": "Guide: Ladies and gentlemen, welcome to the Museum of London Life. [00:00:06.438]My name's Peter, and I'll be your guide, taking you through your exciting visit, which lasts for approximately ninety minutes, and traces the history of this vast and ever-changing city. [00:00:18.172]But before we eventually arrive back here in the present, we begin our walk in ancient London, where we're going to take a look at life from the point of view of prehistoric men, women and children, looking at how they lived thousands of years ago, when all this around us was fields. [00:00:37.160]At this point, London was little more than a few settlements dotted about here and there. [00:00:43.861]Certainly nothing like the metropolis you see surrounding you today. [00:00:47.823]So, from there, the walk allows you to see the city grow as you progress through the exhibits and take in the fascinating pieces of history that have been found and donated to the museum over the years - including maps, photos, images and thousands of other objects  there. [00:01:06.661]And finally, when we leave the part of the exhibition called 'Contemporary London', we'll move away from our present, here in the 21st century, and head off into",
             "Markers": [
               "fn:Source Sans 3"
             ],
@@ -5363,13 +5402,10 @@
         "Direction": "LTR",
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
-        "StartMs": 5000,
-        "EndMs": 10000,
-        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "Let's begin the test. ",
+            "Content": "the 22nd. ",
             "Markers": [
               "fn:Source Sans 3"
             ],
