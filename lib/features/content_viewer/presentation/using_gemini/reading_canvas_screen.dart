@@ -39,19 +39,27 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ItemPositionsListener.create();
   final GlobalKey _targetParaKey = GlobalKey();
 
-  // ── وضعیت زوم ────────────────────────────────────────────────────────────
-  //   scale == 1.0 → scroll روی کل محتوا (IV passive است)
-  //   scale >  1.0 → IV فقط pan در ناحیه زوم را کنترل می‌کند
-  double _currentScale = 1.0;
-  bool get _isZoomed => _currentScale > 1.02;
-
-  // تعداد انگشتان روی صفحه — فقط برای بلاک‌کردن scroll در لحظه ۲+ انگشت
-  // Listener قبل از gesture arena فعال می‌شود، پس بلاک‌کردن فوری است
+  // ── وضعیت zoom و شمارش انگشتان ─────────────────────────────────────────
   int _pointerCount = 0;
+  double _currentScale = 1.0;
+
+  bool get _isZoomed => _currentScale > 1.02;
+  bool get _isPinching => _pointerCount >= 2;
+
+  // وقتی transform تغییر می‌کند — فقط اگر در حال pinch باشیم setState می‌زنیم
+  // این جلوگیری می‌کند از setState غیرضروری در حین اسکرول معمولی
+  void _onTransformChanged() {
+    if (!_isPinching) return;
+    final s = _transformationController.value.getMaxScaleOnAxis();
+    if ((s - _currentScale).abs() > 0.005) {
+      setState(() => _currentScale = s);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    _transformationController.addListener(_onTransformChanged);
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
@@ -85,6 +93,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
   @override
   void dispose() {
+    _transformationController.removeListener(_onTransformChanged);
     _transformationController.dispose();
     super.dispose();
   }
@@ -148,7 +157,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
 
-      // دکمه ریست زوم — فقط وقتی کاربر زوم کرده نمایش داده می‌شود
+      // دکمه ریست زوم — فقط وقتی زوم فعال است ظاهر می‌شود
       floatingActionButton: _isZoomed
           ? FloatingActionButton.small(
               onPressed: () => setState(() {
@@ -168,46 +177,39 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             TelegramAudioPlayer(documentPages: widget.documentPages),
 
             Expanded(
-              // ── Listener: بلاک‌کردن فوری scroll هنگام ۲+ انگشت ──────────
-              // Listener قبل از gesture arena کار می‌کند:
-              //   انگشت اول → فقط شمارش، physics تغییر نمی‌کند
-              //   انگشت دوم → فوری physics = NeverScrollable → IV زوم می‌کند
+              // ── Listener: شمارش انگشتان (قبل از gesture arena) ─────────────
               child: Listener(
                 onPointerDown: (e) {
                   _pointerCount++;
-                  // فقط وقتی انگشت دوم می‌آید rebuild لازم است
+                  // فقط در لحظه لمس انگشت دوم rebuild لازم است
                   if (_pointerCount == 2) setState(() {});
                 },
                 onPointerUp: (e) {
                   final prev = _pointerCount;
                   _pointerCount = (_pointerCount - 1).clamp(0, 10);
-                  // فقط وقتی از multi-touch به single-touch می‌رویم rebuild لازم است
-                  if (prev >= 2 && _pointerCount < 2) setState(() {});
+                  if (prev == 2)
+                    setState(() {}); // rebuild فقط هنگام خروج از pinch
                 },
                 onPointerCancel: (e) {
                   final prev = _pointerCount;
                   _pointerCount = (_pointerCount - 1).clamp(0, 10);
-                  if (prev >= 2 && _pointerCount < 2) setState(() {});
+                  if (prev == 2) setState(() {});
                 },
                 child: InteractiveViewer(
                   transformationController: _transformationController,
 
-                  // pan فقط وقتی zoom فعال است → رقابت با scroll نیست
-                  panEnabled: _isZoomed,
-                  // scale همیشه فعال است
+                  // ── کلید اصلی ─────────────────────────────────────────────
+                  // panEnabled: false → IV هرگز با scroll رقابت نمی‌کند
+                  // وقتی زوم شده، کاربر با ۱ انگشت از طریق scroll حرکت می‌کند
+                  panEnabled: false,
+                  // scale همیشه فعال — pinch را در هر لحظه تشخیص می‌دهد
                   scaleEnabled: true,
                   minScale: 1.0,
                   maxScale: 3.5,
                   clipBehavior: Clip.hardEdge,
 
-                  onInteractionUpdate: (_) {
-                    final s = _transformationController.value
-                        .getMaxScaleOnAxis();
-                    if ((s - _currentScale).abs() > 0.01) {
-                      setState(() => _currentScale = s);
-                    }
-                  },
-
+                  // وقتی کاربر انگشتان را برمی‌دارد:
+                  // اگر scale ≈ 1 بود → ریست کامل transform
                   onInteractionEnd: (_) {
                     final s = _transformationController.value
                         .getMaxScaleOnAxis();
@@ -220,40 +222,46 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                   child: Center(
                     child: SizedBox(
                       width: canvasWidth,
-                      child: ScrollablePositionedList.builder(
-                        itemCount: widget.documentPages.length,
-                        itemScrollController: _itemScrollController,
-                        itemPositionsListener: _itemPositionsListener,
-                        initialScrollIndex:
-                            initialIndex < widget.documentPages.length
-                            ? initialIndex
-                            : 0,
-                        initialAlignment: initialAlignment,
+                      child: AbsorbPointer(
+                        // ── AbsorbPointer: حل اصلی تداخل gesture ─────────────
+                        // فقط هنگام pinch (2+ انگشت) scroll را کاملاً بلاک می‌کند:
+                        //   VerticalDragGestureRecognizer اصلاً وارد gesture arena نمی‌شود
+                        //   → ScaleGestureRecognizer (IV) بدون رقیب زوم را می‌گیرد
+                        // هنگام 1 انگشت (حتی زوم‌شده): AbsorbPointer غیرفعال است
+                        //   → scroll با ClampingScrollPhysics روان و سریع کار می‌کند
+                        absorbing: _isPinching,
+                        child: ScrollablePositionedList.builder(
+                          itemCount: widget.documentPages.length,
+                          itemScrollController: _itemScrollController,
+                          itemPositionsListener: _itemPositionsListener,
+                          initialScrollIndex:
+                              initialIndex < widget.documentPages.length
+                              ? initialIndex
+                              : 0,
+                          initialAlignment: initialAlignment,
+                          // ClampingScrollPhysics همیشه — حتی وقتی زوم شده
+                          // زیرا panEnabled: false است و IV pan نمی‌کند
+                          // بنابراین scroll تنها راه حرکت در محتوای زوم‌شده است
+                          physics: _isPinching
+                              ? const NeverScrollableScrollPhysics()
+                              : const ClampingScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(vertical: 24.0),
+                          itemBuilder: (context, pageIndex) {
+                            final page = widget.documentPages[pageIndex];
+                            bool hasTarget =
+                                activeTarget != null &&
+                                activeTarget.pageNumber == page.pageNumber;
 
-                        // ── physics ──────────────────────────────────────────
-                        // شرط جدید: _pointerCount >= 2 هم scroll را بلاک می‌کند
-                        // این یعنی به‌محض لمس انگشت دوم، scroll فوری متوقف می‌شود
-                        // و IV می‌تواند pinch را بدون رقابت بگیرد
-                        physics: (_isZoomed || _pointerCount >= 2)
-                            ? const NeverScrollableScrollPhysics()
-                            : const ClampingScrollPhysics(),
-
-                        padding: const EdgeInsets.symmetric(vertical: 24.0),
-                        itemBuilder: (context, pageIndex) {
-                          final page = widget.documentPages[pageIndex];
-                          bool hasTarget =
-                              activeTarget != null &&
-                              activeTarget.pageNumber == page.pageNumber;
-
-                          return BookPageWidget(
-                            page: page,
-                            activeTarget: activeTarget,
-                            searchSession: searchSession,
-                            canvasWidth: canvasWidth,
-                            screenWidth: MediaQuery.of(context).size.width,
-                            targetKey: hasTarget ? _targetParaKey : null,
-                          );
-                        },
+                            return BookPageWidget(
+                              page: page,
+                              activeTarget: activeTarget,
+                              searchSession: searchSession,
+                              canvasWidth: canvasWidth,
+                              screenWidth: MediaQuery.of(context).size.width,
+                              targetKey: hasTarget ? _targetParaKey : null,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
