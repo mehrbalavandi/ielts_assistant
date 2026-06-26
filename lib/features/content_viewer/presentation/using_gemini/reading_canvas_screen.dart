@@ -20,14 +20,28 @@ class MapOffset {
   int value = 0;
 }
 
+// class ReadingCanvasScreen extends ConsumerStatefulWidget {
+//   final List<PageData> documentPages;
+//   const ReadingCanvasScreen({super.key, required this.documentPages});
+
+//   @override
+//   ConsumerState<ReadingCanvasScreen> createState() {
+//     return _ReadingCanvasScreenState();
+//   }
+// }
 class ReadingCanvasScreen extends ConsumerStatefulWidget {
   final List<PageData> documentPages;
-  const ReadingCanvasScreen({super.key, required this.documentPages});
+  final List<ParagraphData> audioScripts; // 🌟 اضافه شد
+
+  const ReadingCanvasScreen({
+    super.key,
+    required this.documentPages,
+    required this.audioScripts, // 🌟 اضافه شد
+  });
 
   @override
-  ConsumerState<ReadingCanvasScreen> createState() {
-    return _ReadingCanvasScreenState();
-  }
+  ConsumerState<ReadingCanvasScreen> createState() =>
+      _ReadingCanvasScreenState();
 }
 
 class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
@@ -174,7 +188,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            TelegramAudioPlayer(documentPages: widget.documentPages),
+            TelegramAudioPlayer(audioScripts: widget.audioScripts),
 
             Expanded(
               // ── Listener: شمارش انگشتان (قبل از gesture arena) ─────────────

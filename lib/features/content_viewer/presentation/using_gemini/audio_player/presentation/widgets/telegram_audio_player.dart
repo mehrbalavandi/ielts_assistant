@@ -7,9 +7,10 @@ import 'package:ielts_assistant/features/content_viewer/presentation/using_gemin
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class TelegramAudioPlayer extends ConsumerWidget {
-  final List<PageData> documentPages;
+  // final List<PageData> documentPages;
+  final List<ParagraphData> audioScripts; // 🌟 به جای documentPages
 
-  const TelegramAudioPlayer({super.key, required this.documentPages});
+  const TelegramAudioPlayer({super.key, required this.audioScripts});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,7 +59,7 @@ class TelegramAudioPlayer extends ConsumerWidget {
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
                   builder: (context) =>
-                      AudioscriptViewerSheet(documentPages: documentPages),
+                      AudioscriptViewerSheet(audioScripts: audioScripts),
                 );
               },
             ),
@@ -366,9 +367,9 @@ class AudioSegment {
 }
 
 class AudioscriptViewerSheet extends ConsumerStatefulWidget {
-  final List<PageData> documentPages;
+  final List<ParagraphData> audioScripts; // 🌟 جایگزین شد
 
-  const AudioscriptViewerSheet({super.key, required this.documentPages});
+  const AudioscriptViewerSheet({super.key, required this.audioScripts});
 
   @override
   ConsumerState<AudioscriptViewerSheet> createState() =>
@@ -387,19 +388,18 @@ class _AudioscriptViewerSheetState
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
 
     List<AudioSegment> currentSegments = [];
-    for (var page in widget.documentPages) {
-      for (var para in page.paragraphs) {
-        if (para.startMs != null &&
-            para.endMs != null &&
-            para.audioTrackName == currentFileName) {
-          currentSegments.add(
-            AudioSegment(
-              startMs: para.startMs!,
-              endMs: para.endMs!,
-              paragraph: para,
-            ),
-          );
-        }
+
+    for (var para in widget.audioScripts) {
+      if (para.startMs != null &&
+          para.endMs != null &&
+          para.audioTrackName == currentFileName) {
+        currentSegments.add(
+          AudioSegment(
+            startMs: para.startMs!,
+            endMs: para.endMs!,
+            paragraph: para,
+          ),
+        );
       }
     }
 

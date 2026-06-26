@@ -143,16 +143,34 @@ class MainBookScreen extends ConsumerWidget {
             )
           : null,
 
-      body: FutureBuilder<List<PageData>>(
+      // body: FutureBuilder<List<PageData>>(
+      //   future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return const Center(child: CircularProgressIndicator());
+      //     }
+      //     if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      //       return const Center(child: Text("داده‌ای یافت نشد."));
+      //     }
+      //     return ReadingCanvasScreen(documentPages: snapshot.data!);
+      //   },
+      // ),
+      body: FutureBuilder<BookContent>(
+        // 🌟 نوع خروجی تغییر کرد
         future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.pages.isEmpty) {
             return const Center(child: Text("داده‌ای یافت نشد."));
           }
-          return ReadingCanvasScreen(documentPages: snapshot.data!);
+
+          // 🌟 ارسال صفحات و اسکریپت‌ها به صورت مجزا به بوم نقاشی
+          return ReadingCanvasScreen(
+            documentPages: snapshot.data!.pages,
+            audioScripts: snapshot.data!.audioScripts,
+          );
         },
       ),
     );
