@@ -14,10 +14,8 @@ class ExpandableMiniPlayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final audioState = ref.watch(audioPlayerProvider);
-
     final isExpanded = ref.watch(isPlayerExpandedProvider);
 
-    // اگر فایلی انتخاب نشده باشد، پلیر را کلاً نشان نده
     if (audioState.currentPath == null) return const SizedBox.shrink();
 
     return GestureDetector(
@@ -30,11 +28,10 @@ class ExpandableMiniPlayer extends ConsumerWidget {
         decoration: BoxDecoration(
           color: Colors.blueGrey[900],
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 15)],
+          boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 15)],
         ),
         child: SingleChildScrollView(
-          // برای جلوگیری از خطای Overflow هنگام انیمیشن
-          // physics: const NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: isExpanded
               ? _buildFullView(audioState, ref)
               : _buildMiniView(audioState, ref),
@@ -43,7 +40,6 @@ class ExpandableMiniPlayer extends ConsumerWidget {
     );
   }
 
-  // حالت کوچک شده
   Widget _buildMiniView(AudioPlayerState state, WidgetRef ref) {
     return Container(
       height: 60,
@@ -78,14 +74,13 @@ class ExpandableMiniPlayer extends ConsumerWidget {
           if (onClose != null)
             IconButton(
               icon: const Icon(Icons.close, color: Colors.white54),
-              onPressed: onClose, // استفاده از پارامتر onClose
+              onPressed: onClose,
             ),
         ],
       ),
     );
   }
 
-  // حالت باز شده (کامل)
   Widget _buildFullView(AudioPlayerState state, WidgetRef ref) {
     final totalMs = state.duration.inMilliseconds.toDouble();
     return Column(
@@ -102,7 +97,6 @@ class ExpandableMiniPlayer extends ConsumerWidget {
           ),
         ),
 
-        // اسلایدر واقعی
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: LayoutBuilder(
@@ -110,7 +104,6 @@ class ExpandableMiniPlayer extends ConsumerWidget {
               return Stack(
                 alignment: Alignment.center,
                 children: [
-                  // نشانگر خط عمودی برای نقطه A
                   if (state.pointA != null && totalMs > 0)
                     Positioned(
                       left:
@@ -121,7 +114,6 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                       bottom: 10,
                       child: Container(width: 2, color: Colors.orange),
                     ),
-                  // نشانگر خط عمودی برای نقطه B
                   if (state.pointB != null && totalMs > 0)
                     Positioned(
                       left:
@@ -132,11 +124,10 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                       bottom: 10,
                       child: Container(width: 2, color: Colors.redAccent),
                     ),
-                  // خودِ اسلایدر
                   Slider(
                     value: state.position.inMilliseconds.toDouble().clamp(
                       0,
-                      totalMs,
+                      totalMs > 0 ? totalMs : 1.0,
                     ),
                     max: totalMs > 0 ? totalMs : 1.0,
                     onChanged: (v) => ref
@@ -149,7 +140,7 @@ class ExpandableMiniPlayer extends ConsumerWidget {
               );
             },
           ),
-        ), // زمان‌سنج
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
@@ -159,35 +150,26 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                 _formatDuration(state.position),
                 style: const TextStyle(color: Colors.white70, fontSize: 12),
               ),
-              SizedBox(width: 16.0),
+              const SizedBox(width: 16.0),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // دکمه نقطه A
                     _buildSmallCircleButton(
                       label: "A",
                       isActive: state.pointA != null,
-                      isDisabled:
-                          false, // همیشه فعال باشد تا کاربر بتواند پاک کند
                       onTap: () =>
                           ref.read(audioPlayerProvider.notifier).setPointA(),
                     ),
-                    SizedBox(width: 12.0),
-
-                    // دکمه نقطه B
+                    const SizedBox(width: 12.0),
                     _buildSmallCircleButton(
                       label: "B",
                       isActive: state.pointB != null,
-                      isDisabled: false, // همیشه فعال باشد
                       onTap: () {
-                        if (state.pointA != null) {
+                        if (state.pointA != null)
                           ref.read(audioPlayerProvider.notifier).setPointB();
-                        }
                       },
                     ),
-
-                    // دکمه پاک کردن (کوچک و بدون پس‌زمینه)
                     if (state.pointA != null)
                       IconButton(
                         icon: const Icon(
@@ -197,15 +179,13 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                         ),
                         onPressed: () =>
                             ref.read(audioPlayerProvider.notifier).clearAB(),
-                        tooltip: 'پاک کردن نقاط',
                       ),
                   ],
                 ),
               ),
-              // منوی سرعت (که حالا با دکمه‌ها هماهنگ‌تر است)
               PopupMenuButton<double>(
                 initialValue: state.speed,
-                offset: const Offset(0, -200), // باز شدن منو به سمت بالا
+                offset: const Offset(0, -200),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -246,7 +226,6 @@ class ExpandableMiniPlayer extends ConsumerWidget {
           ),
         ),
 
-        // دکمه‌های کنترلی
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -289,13 +268,11 @@ class ExpandableMiniPlayer extends ConsumerWidget {
   Widget _buildSmallCircleButton({
     required String label,
     required bool isActive,
-    required bool isDisabled,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        // استفاده از انیمیشن برای تغییر رنگ نرم‌تر
         duration: const Duration(milliseconds: 200),
         width: 32,
         height: 32,

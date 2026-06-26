@@ -779,7 +779,7 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "Url": "audio:MindsetIELTS_L3_01.mp3",
+                            "Url": "audio:MindsetIELTS_L3_02.mp3",
                             "TextColor": "0563C1",
                             "InnerSpans": [],
                             "TableRows": []
@@ -9056,31 +9056,17 @@
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
         "StartMs": 0,
-        "EndMs": 5000,
-        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
+        "EndMs": 6296,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "Hello and welcome to the IELTS preparation course.",
+            "Content": "Guide: Ladies and gentlemen, welcome to the Museum of London Life. ",
             "Markers": [
               "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
-          }
-        ],
-        "translationFa": "سلام و به دوره آمادگی آیلتس خوش آمدید.",
-        "translationAr": "مرحباً بكم في دورة التحضير لاختبار آيلتس.",
-        "Interactives": [
-          {
-            "exactText": "preparation course",
-            "translationFa": "دوره آمادگی",
-            "translationAr": "دورة تحضيرية",
-            "pronounceFa": "prepereyshan koos",
-            "pronounceAr": "prepereyshan kaws",
-            "explanationFa": "این کالوکیشن آکادمیک برای اشاره به دوره‌های آموزشی آمادگی آزمون به کار می‌رود و در موضوعات مرتبط با آموزش در آیلتس کاربرد دارد.",
-            "explanationAr": "هذا التلازم اللفظي الأكاديمي يُستخدم للإشارة إلى الدورات التعليمية المخصصة للاستعداد للاختبار، وهو مفيد في المواضيع المتعلقة بالتعليم في الآيلتس.",
-            "cefrLevel": "B2"
           }
         ]
       },
@@ -9088,32 +9074,94 @@
         "Direction": "LTR",
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
-        "StartMs": 5000,
-        "EndMs": 10000,
-        "AudioTrackName": "MindsetIELTS_L3_01.mp3",
+        "StartMs": 6296,
+        "EndMs": 17778,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "Let's begin the test. ",
+            "Content": "My name's Peter, and I'll be your guide, taking you through your exciting visit, which lasts for approximately ninety minutes, and traces the history of this vast and ever-changing city. ",
             "Markers": [
               "fn:Source Sans 3"
             ],
             "InnerSpans": [],
             "TableRows": []
           }
-        ],
-        "translationFa": "بیایید آزمون را شروع کنیم.",
-        "translationAr": "دعنا نبدأ الاختبار.",
-        "Interactives": [
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 17778,
+        "EndMs": 37499,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
           {
-            "exactText": "begin",
-            "translationFa": "شروع کردن",
-            "translationAr": "بدء",
-            "pronounceFa": "bigin",
-            "pronounceAr": "bigin",
-            "explanationFa": "در آزمون آیلتس پیشنهاد می‌شود به جای استفاده از این واژه عمومی، از افعال سطح بالاتر و آکادمیک مانند commence یا initiate استفاده کنید.",
-            "explanationAr": "في اختبار آيلتس، يُنصح باستخدام أفعال أكاديمية وعالية المستوى مثل commence أو initiate بدلاً من هذه الكلمة العامة.",
-            "cefrLevel": "B1"
+            "Type": "text",
+            "Content": "But before we eventually arrive back here in the present, we begin our walk in ancient London, where we're going to take a look at life from the point of view of prehistoric men, women and children, looking at how they lived thousands of years ago, when all this around us was fields. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 37499,
+        "EndMs": 48338,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "At this point, London was little more than a few settlements dotted about here and there. Certainly nothing like the metropolis you see surrounding you today. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 48338,
+        "EndMs": 67131,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "So, from there, the walk allows you to see the city grow as you progress through the exhibits and take in the fascinating pieces of history that have been found and donated to the museum over the years - including maps, photos, images and thousands of other objects  there. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 67131,
+        "EndMs": 9999999,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "And finally, when we leave the part of the exhibition called 'Contemporary London', we'll move away from our present, here in the 21st century, and head off into the 22nd. . ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
           }
         ]
       }

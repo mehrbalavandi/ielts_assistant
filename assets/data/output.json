@@ -52,7 +52,6 @@
                               "fn:Source Sans 3 Black",
                               "sz:88"
                             ],
-                            "TextColor": "FFFFFF",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -116,10 +115,6 @@
               "bg:FFFF00",
               "fn:Source Sans 3"
             ],
-            "FillColor": "FFFF00",
-            "BorderColor": "000000",
-            "BorderStyle": "BorderValues { }",
-            "HasBorders": "true",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -156,9 +151,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "FFFF00",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -269,7 +261,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "of ",
+                            "Content": " of ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -311,7 +303,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "as a tourist destination, it annually welcomes people from all over ",
+                            "Content": " as a tourist destination, it annually welcomes people from all over ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -332,7 +324,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "(particularly from ",
+                            "Content": " (particularly from ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -353,7 +345,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "and ",
+                            "Content": " and ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -416,7 +408,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "to ",
+                            "Content": " to ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -437,7 +429,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "of the island. The busy capital city, ",
+                            "Content": " of the island. The busy capital city, ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -479,7 +471,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "or ",
+                            "Content": " or ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -522,9 +514,6 @@
                               "blank",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "ED7D31",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -554,9 +543,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "FFFF00",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -576,7 +562,6 @@
                               "fn:Source Sans 3"
                             ],
                             "Url": "audio:MindsetIELTS_L3_01.mp3",
-                            "TextColor": "0563C1",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -629,8 +614,6 @@
               "fn:Source Sans 3",
               "sz:32"
             ],
-            "FillColor": "FFFF00",
-            "TextColor": "FFFF00",
             "InnerSpans": [],
             "TableRows": []
           },
@@ -652,7 +635,6 @@
               "fn:Source Sans 3",
               "sz:32"
             ],
-            "TextColor": "FFFF00",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -688,9 +670,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "FFFF00",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -733,9 +712,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "BorderColor": "ED7D31",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -750,6 +726,12 @@
             ]
           }
         ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
       },
       {
         "SpaceAfter": 0.0,
@@ -811,7 +793,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                            "Content": " This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:20"
@@ -868,6 +850,12 @@
             ]
           }
         ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
       }
     ]
   },
@@ -905,9 +893,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -932,7 +917,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "070606",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -951,7 +935,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -972,15 +955,7 @@
                       {
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
+                        "Spans": []
                       }
                     ],
                     "WidthPercent": 4.92,
@@ -1001,18 +976,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "The reason why attempts to create the perfect city always fail\n",
+                            "Content": " The reason why attempts to create the perfect city always fail\n",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -1024,18 +997,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "An urban ideal designed for an imperfect world\n",
+                            "Content": " An urban ideal designed for an imperfect world\n",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -1047,18 +1018,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "120F0E",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "A conflict between reality and imitation",
+                            "Content": " A conflict between reality and imitation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "120F0E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1088,9 +1057,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1133,7 +1099,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "110E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1175,7 +1140,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "0E0D0F",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1185,15 +1149,7 @@
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
+                        "Spans": []
                       }
                     ],
                     "WidthPercent": 25.81,
@@ -1219,9 +1175,6 @@
                               "fn:Source Sans 3",
                               "sz:26"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1246,7 +1199,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "060403",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1288,7 +1240,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "An unwelcoming place to die",
+                            "Content": " An unwelcoming place to die",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1316,7 +1268,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "A city at the top of the world",
+                            "Content": " A city at the top of the world",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1344,7 +1296,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "An unusual approach to regulation",
+                            "Content": " An unusual approach to regulation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1390,7 +1342,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "0E0D0F",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1405,6 +1356,11 @@
             ]
           }
         ]
+      },
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
       }
     ]
   },
@@ -1442,9 +1398,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1469,7 +1422,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "11100E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1486,7 +1438,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "000306",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1515,9 +1466,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1542,7 +1490,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0E0E0D",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1557,6 +1504,11 @@
             ]
           }
         ]
+      },
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
       },
       {
         "SpaceAfter": 0.0,
@@ -1589,9 +1541,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1616,7 +1565,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0E0E0E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1635,7 +1583,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0E0E0E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1677,7 +1624,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "An unusual approach to ",
+                            "Content": " An unusual approach to ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1716,7 +1663,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Dealing with the occasional ",
+                            "Content": " Dealing with the occasional ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1755,7 +1702,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Where ",
+                            "Content": " Where ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1776,7 +1723,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "cautiously ",
+                            "Content": " cautiously ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1821,9 +1768,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -1871,7 +1815,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "An ",
+                            "Content": " An ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1892,7 +1836,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "approach to regulation",
+                            "Content": " approach to regulation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1920,7 +1864,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Dealing with the ",
+                            "Content": " Dealing with the ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1941,7 +1885,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "dangers of the wild",
+                            "Content": " dangers of the wild",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1968,7 +1912,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Where humans and animals ",
+                            "Content": " Where humans and animals ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -1989,7 +1933,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "co-exist",
+                            "Content": " co-exist",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2035,7 +1979,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "101011",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2050,6 +1993,11 @@
             ]
           }
         ]
+      },
+      {
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
       }
     ]
   },
@@ -2087,9 +2035,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2160,9 +2105,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2215,9 +2157,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2307,9 +2246,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2357,7 +2293,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "A conflict between reality and imitation",
+                            "Content": " A conflict between reality and imitation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2385,7 +2321,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "The importance of official recognition",
+                            "Content": " The importance of official recognition",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2413,7 +2349,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "The result of encouraging wider investment",
+                            "Content": " The result of encouraging wider investment",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -2446,10 +2382,6 @@
               "bg:92D050",
               "fn:Source Sans 3"
             ],
-            "FillColor": "92D050",
-            "BorderColor": "000000",
-            "BorderStyle": "BorderValues { }",
-            "HasBorders": "true",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -2486,9 +2418,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2531,18 +2460,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "An ",
+                            "Content": " An ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2554,18 +2481,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "approach to regulation",
+                            "Content": " approach to regulation",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040304",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2584,18 +2509,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "An urban ideal designed for an ",
+                            "Content": " An urban ideal designed for an ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2607,18 +2530,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "world",
+                            "Content": " world",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2637,18 +2558,16 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "Where humans and animals cautiously ",
+                            "Content": " Where humans and animals cautiously ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -2660,7 +2579,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "040404",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2713,9 +2631,6 @@
                               "fn:Source Sans 3",
                               "sz:33"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2740,7 +2655,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2758,10 +2672,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "1C1A1C",
-                            "BorderColor": "99CC00",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2790,9 +2700,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -2957,8 +2864,6 @@
               "fn:Source Sans 3",
               "sz:32"
             ],
-            "FillColor": "99CC00",
-            "TextColor": "99CC00",
             "InnerSpans": [],
             "TableRows": []
           },
@@ -2970,7 +2875,6 @@
               "fn:Source Sans 3 SemiBold",
               "sz:32"
             ],
-            "TextColor": "090506",
             "InnerSpans": [],
             "TableRows": []
           },
@@ -2982,7 +2886,6 @@
               "fn:Verdana",
               "sz:37"
             ],
-            "TextColor": "99CC00",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -3020,9 +2923,6 @@
                               "fn:Source Sans 3",
                               "sz:33"
                             ],
-                            "BorderColor": "A8D08D",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3047,7 +2947,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "070505",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3089,7 +2988,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Paragraph ",
+                            "Content": " Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3128,7 +3027,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Paragraph ",
+                            "Content": " Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3167,7 +3066,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Paragraph ",
+                            "Content": " Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3206,7 +3105,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Paragraph ",
+                            "Content": " Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3245,7 +3144,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Paragraph ",
+                            "Content": " Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3284,7 +3183,7 @@
                           },
                           {
                             "Type": "text",
-                            "Content": "Paragraph ",
+                            "Content": " Paragraph ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:21"
@@ -3318,7 +3217,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "060404",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3483,7 +3381,6 @@
               "fn:Source Sans 3",
               "sz:33"
             ],
-            "TextColor": "040203",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -3521,7 +3418,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3592,7 +3488,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3610,7 +3505,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "2F3A2C",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3628,7 +3522,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "2F3A2C",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3639,18 +3532,16 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "2E392B",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "the Mississippi River at some point began to relocate to Cahokia. These researchers have been unable to find more than a handful of other examples of such relocation of tribes, but they do know that something about Cahokia attracted thousands of people to this regional centre. And that, they postulated, ",
+                            "Content": " the Mississippi River at some point began to relocate to Cahokia. These researchers have been unable to find more than a handful of other examples of such relocation of tribes, but they do know that something about Cahokia attracted thousands of people to this regional centre. And that, they postulated, ",
                             "Markers": [
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "2F3A2C",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3661,7 +3552,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "2E392B",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3692,7 +3582,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3757,7 +3646,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3775,7 +3663,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "424045",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3786,7 +3673,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "404146",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3797,7 +3683,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "6B5F78",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3808,7 +3693,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "404146",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -3819,7 +3703,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "424045",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3850,7 +3733,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3868,7 +3750,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "424045",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3886,7 +3767,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "424045",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3917,7 +3797,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "291714",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -3935,7 +3814,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "424045",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4007,7 +3885,6 @@
                               "fn:Source Sans 3 Black",
                               "sz:88"
                             ],
-                            "TextColor": "FFFFFF",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4071,10 +3948,6 @@
               "bg:FFCC66",
               "fn:Source Sans 3"
             ],
-            "FillColor": "FFCC66",
-            "BorderColor": "000000",
-            "BorderStyle": "BorderValues { }",
-            "HasBorders": "true",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -4111,9 +3984,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "FFCC66",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4138,7 +4008,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4151,7 +4020,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4163,7 +4031,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4176,7 +4043,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4188,7 +4054,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4207,19 +4072,17 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "",
+                            "Content": " ",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4230,19 +4093,17 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "",
+                            "Content": "\n",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4254,19 +4115,17 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "",
+                            "Content": " ",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4277,7 +4136,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4289,19 +4147,17 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "",
+                            "Content": " ",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4312,7 +4168,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4324,7 +4179,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4335,7 +4189,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4347,19 +4200,17 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
                           {
                             "Type": "text",
-                            "Content": "",
+                            "Content": " ",
                             "Markers": [
                               "b",
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           },
@@ -4370,7 +4221,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "0D0706",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4385,6 +4235,12 @@
             ]
           }
         ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
       },
       {
         "SpaceAfter": 0.0,
@@ -4430,15 +4286,7 @@
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
+                        "Spans": []
                       }
                     ],
                     "WidthPercent": 50.0,
@@ -4545,6 +4393,12 @@
         ]
       },
       {
+        "Direction": "LTR",
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
+      },
+      {
         "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
@@ -4574,9 +4428,6 @@
                               "b",
                               "fn:Source Sans 3"
                             ],
-                            "BorderColor": "FFCC66",
-                            "BorderStyle": "BorderValues { }",
-                            "HasBorders": "true",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4601,7 +4452,6 @@
                               "fn:Source Sans 3 Medium",
                               "sz:21"
                             ],
-                            "TextColor": "101312",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4619,7 +4469,6 @@
                               "fn:Source Sans 3",
                               "sz:21"
                             ],
-                            "TextColor": "131615",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4690,6 +4539,12 @@
         ]
       },
       {
+        "Direction": "LTR",
+        "SpaceAfter": 0.0,
+        "SpaceBefore": 0.0,
+        "Spans": []
+      },
+      {
         "SpaceAfter": 0.0,
         "SpaceBefore": 0.0,
         "Spans": [
@@ -4723,7 +4578,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "111313",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4749,7 +4603,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "111313",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -4775,7 +4628,6 @@
                               "fn:Source Sans 3",
                               "sz:20"
                             ],
-                            "TextColor": "111313",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5138,8 +4990,6 @@
               "fn:Source Sans 3",
               "sz:32"
             ],
-            "FillColor": "FFCC66",
-            "TextColor": "FFCC66",
             "InnerSpans": [],
             "TableRows": []
           },
@@ -5161,7 +5011,6 @@
               "fn:Source Sans 3",
               "sz:32"
             ],
-            "TextColor": "FFCC66",
             "InnerSpans": [],
             "TableRows": []
           }
@@ -5207,7 +5056,6 @@
                             "Markers": [
                               "fn:Source Sans 3"
                             ],
-                            "TextColor": "1A150E",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5225,7 +5073,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "1F1D12",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5243,7 +5090,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "222013",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5261,7 +5107,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "201D12",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5279,7 +5124,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "211F13",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5297,7 +5141,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "1E1A12",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5315,7 +5158,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "211E12",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5333,7 +5175,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "201F13",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5351,7 +5192,6 @@
                               "fn:Source Sans 3",
                               "sz:18"
                             ],
-                            "TextColor": "1E1A11",
                             "InnerSpans": [],
                             "TableRows": []
                           }
@@ -5361,15 +5201,7 @@
                         "Direction": "LTR",
                         "SpaceAfter": 0.0,
                         "SpaceBefore": 0.0,
-                        "Spans": [
-                          {
-                            "Type": "text",
-                            "Content": "",
-                            "Markers": [],
-                            "InnerSpans": [],
-                            "TableRows": []
-                          }
-                        ]
+                        "Spans": []
                       }
                     ],
                     "FillColor": "FFFFCC",
@@ -5386,10 +5218,19 @@
         "Direction": "LTR",
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
+        "Spans": []
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 0,
+        "EndMs": 6296,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "Guide: Ladies and gentlemen, welcome to the Museum of London Life. [00:00:06.438]My name's Peter, and I'll be your guide, taking you through your exciting visit, which lasts for approximately ninety minutes, and traces the history of this vast and ever-changing city. [00:00:18.172]But before we eventually arrive back here in the present, we begin our walk in ancient London, where we're going to take a look at life from the point of view of prehistoric men, women and children, looking at how they lived thousands of years ago, when all this around us was fields. [00:00:37.160]At this point, London was little more than a few settlements dotted about here and there. [00:00:43.861]Certainly nothing like the metropolis you see surrounding you today. [00:00:47.823]So, from there, the walk allows you to see the city grow as you progress through the exhibits and take in the fascinating pieces of history that have been found and donated to the museum over the years - including maps, photos, images and thousands of other objects  there. [00:01:06.661]And finally, when we leave the part of the exhibition called 'Contemporary London', we'll move away from our present, here in the 21st century, and head off into",
+            "Content": "Guide: Ladies and gentlemen, welcome to the Museum of London Life. ",
             "Markers": [
               "fn:Source Sans 3"
             ],
@@ -5402,10 +5243,89 @@
         "Direction": "LTR",
         "SpaceAfter": 8.0,
         "SpaceBefore": 0.0,
+        "StartMs": 6296,
+        "EndMs": 17778,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
         "Spans": [
           {
             "Type": "text",
-            "Content": "the 22nd. ",
+            "Content": "My name's Peter, and I'll be your guide, taking you through your exciting visit, which lasts for approximately ninety minutes, and traces the history of this vast and ever-changing city. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 17778,
+        "EndMs": 37499,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "But before we eventually arrive back here in the present, we begin our walk in ancient London, where we're going to take a look at life from the point of view of prehistoric men, women and children, looking at how they lived thousands of years ago, when all this around us was fields. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 37499,
+        "EndMs": 48338,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "At this point, London was little more than a few settlements dotted about here and there. Certainly nothing like the metropolis you see surrounding you today. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 48338,
+        "EndMs": 67131,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "So, from there, the walk allows you to see the city grow as you progress through the exhibits and take in the fascinating pieces of history that have been found and donated to the museum over the years - including maps, photos, images and thousands of other objects  there. ",
+            "Markers": [
+              "fn:Source Sans 3"
+            ],
+            "InnerSpans": [],
+            "TableRows": []
+          }
+        ]
+      },
+      {
+        "Direction": "LTR",
+        "SpaceAfter": 8.0,
+        "SpaceBefore": 0.0,
+        "StartMs": 67131,
+        "EndMs": 9999999,
+        "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+        "Spans": [
+          {
+            "Type": "text",
+            "Content": "And finally, when we leave the part of the exhibition called 'Contemporary London', we'll move away from our present, here in the 21st century, and head off into the 22nd. . ",
             "Markers": [
               "fn:Source Sans 3"
             ],

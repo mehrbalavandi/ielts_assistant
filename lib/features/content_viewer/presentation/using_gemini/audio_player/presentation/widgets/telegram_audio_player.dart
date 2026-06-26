@@ -19,7 +19,6 @@ class TelegramAudioPlayer extends ConsumerWidget {
     if (audioState.currentPath == null) return const SizedBox.shrink();
 
     return GestureDetector(
-      // با کلیک روی نوار، مودال تمام‌صفحه از پایین باز می‌شود
       onTap: () => _showFullPlayerModal(context, ref),
       child: Container(
         height: 56,
@@ -36,7 +35,6 @@ class TelegramAudioPlayer extends ConsumerWidget {
         ),
         child: Row(
           children: [
-            // دکمه پخش/توقف روی نوار
             IconButton(
               padding: EdgeInsets.zero,
               icon: Icon(
@@ -55,10 +53,9 @@ class TelegramAudioPlayer extends ConsumerWidget {
               icon: const Icon(Icons.description_rounded),
               tooltip: "مشاهده متن صوتی",
               onPressed: () {
-                // باز کردن صفحه متن صوتی به صورت تمام صفحه و مودال
                 showModalBottomSheet(
                   context: context,
-                  isScrollControlled: true, // برای اینکه بتواند تمام صفحه شود
+                  isScrollControlled: true,
                   backgroundColor: Colors.transparent,
                   builder: (context) =>
                       AudioscriptViewerSheet(documentPages: documentPages),
@@ -87,7 +84,6 @@ class TelegramAudioPlayer extends ConsumerWidget {
                 ],
               ),
             ),
-            // دکمه ضربدر برای بستن کامل پلیر
             IconButton(
               icon: const Icon(Icons.close, color: Colors.grey),
               onPressed: () =>
@@ -102,14 +98,13 @@ class TelegramAudioPlayer extends ConsumerWidget {
   void _showFullPlayerModal(BuildContext context, WidgetRef ref) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // اجازه می‌دهد ارتفاع را دستی تنظیم کنیم
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => const _FullPlayerBottomSheet(),
     );
   }
 }
 
-// 🌟 مودالی که از پایین باز می‌شود (حاوی کدهای اورجینال A-B Repeat شما)
 class _FullPlayerBottomSheet extends ConsumerWidget {
   const _FullPlayerBottomSheet();
 
@@ -121,13 +116,12 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
     return Container(
       height: 280,
       decoration: BoxDecoration(
-        color: Colors.blueGrey[900], // تم تاریکی که خودتان طراحی کرده بودید
+        color: Colors.blueGrey[900],
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         children: [
           const SizedBox(height: 12),
-          // دستگیره (Handle) بالای مودال
           Container(
             width: 40,
             height: 5,
@@ -147,7 +141,6 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
 
-          // اسلایدر و نشانگرهای A-B
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: LayoutBuilder(
@@ -178,7 +171,7 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
                     Slider(
                       value: state.position.inMilliseconds.toDouble().clamp(
                         0,
-                        totalMs,
+                        totalMs > 0 ? totalMs : 1.0,
                       ),
                       max: totalMs > 0 ? totalMs : 1.0,
                       onChanged: (v) => ref
@@ -193,7 +186,6 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
             ),
           ),
 
-          // زمان‌سنج، کنترل سرعت و دکمه‌های A-B
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
@@ -219,9 +211,8 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
                         label: "B",
                         isActive: state.pointB != null,
                         onTap: () {
-                          if (state.pointA != null) {
+                          if (state.pointA != null)
                             ref.read(audioPlayerProvider.notifier).setPointB();
-                          }
                         },
                       ),
                       if (state.pointA != null)
@@ -281,7 +272,6 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
             ),
           ),
 
-          // دکمه‌های کنترلی اصلی
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -363,7 +353,6 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
   }
 }
 
-// 🌟 مدل کمکی برای اتصال پاراگراف‌ها به سیستم اسکرول پلیر
 class AudioSegment {
   final int startMs;
   final int endMs;
@@ -393,13 +382,10 @@ class _AudioscriptViewerSheetState
 
   @override
   Widget build(BuildContext context) {
-    // گرفتن اطلاعات فایل در حال پخش از Riverpod
     final audioState = ref.watch(audioPlayerProvider);
     final int currentPosMs = audioState.position.inMilliseconds;
-    final String fullPath = audioState.currentPath ?? '';
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
 
-    // 🌟 استخراج داینامیک و هوشمند پاراگراف‌های زمان‌دار فقط برای فایل صوتی در حال پخش
     List<AudioSegment> currentSegments = [];
     for (var page in widget.documentPages) {
       for (var para in page.paragraphs) {
@@ -417,12 +403,11 @@ class _AudioscriptViewerSheetState
       }
     }
 
-    // پیدا کردن ایندکس خطی که باید روشن (Highlight) شود
+    // 🌟 مهم: استفاده از < به جای <= تا جملاتِ به هم چسبیده، با هم هایلایت نشوند
     int activeIndex = currentSegments.indexWhere(
-      (seg) => currentPosMs >= seg.startMs && currentPosMs <= seg.endMs,
+      (seg) => currentPosMs >= seg.startMs && currentPosMs < seg.endMs,
     );
 
-    // اسکرول نرم به خط فعال
     if (activeIndex != -1 && activeIndex != _lastActiveIndex) {
       _lastActiveIndex = activeIndex;
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -440,7 +425,7 @@ class _AudioscriptViewerSheetState
     return Container(
       height: MediaQuery.of(context).size.height * 0.85,
       decoration: const BoxDecoration(
-        color: Color(0xFF1E222D), // تم تاریک و جذاب
+        color: Color(0xFF1E222D),
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
@@ -478,7 +463,6 @@ class _AudioscriptViewerSheetState
           ),
           const Divider(color: Colors.white10, height: 20),
 
-          // 🌟 راهنمای ظریف برای کاربر جهت استفاده از Long Press
           const Padding(
             padding: EdgeInsets.only(bottom: 8.0),
             child: Row(
@@ -521,7 +505,6 @@ class _AudioscriptViewerSheetState
                           .map((s) => s.content)
                           .join();
 
-                      // 🌟 ۱. ساخت بلوک متن انگلیسی
                       Widget englishContent = AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         margin: const EdgeInsets.symmetric(vertical: 4),
@@ -565,19 +548,16 @@ class _AudioscriptViewerSheetState
                         ),
                       );
 
-                      // 🌟 ۲. تزریق هوشمند ترجمه با پشتیبانی از Long Press
                       return TranslatableContentWrapper(
                         originalContent: englishContent,
                         translationFa: segment.paragraph.translationFa,
                         translationAr: segment.paragraph.translationAr,
-                        isDarkMode:
-                            true, // تنظیم تضاد رنگی متناسب با تم تاریک مودال
+                        isDarkMode: true,
                       );
                     },
                   ),
           ),
 
-          // دکمه‌های کنترلِ پخش در پایین مودال
           Container(
             padding: const EdgeInsets.all(16),
             color: const Color(0xFF161922),
