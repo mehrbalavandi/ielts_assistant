@@ -1068,8 +1068,945 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}No article used for:\nindividual islands: e.g. \nMallorca\nnames of most countries: e.g. \nSpain, France, Germany, China\nnames of beaches: \nAlcudia Beach\nnames of cities/towns/regions: \nPalma de Mallorca, Algaida,\nBinissalem\nnames of mountains: \nMount Everest, Mont Blanc\nUse 'the' for:\ngroups of islands: \nthe Balearic Islands\ncoastal areas: \nthe Valencian Coast\noceans and seas: \nthe Mediterranean Sea, the Persian Gulf\nnationalities: \nthe Spanish, the Omanis, the Chinese\ncountries which are Republics, Kingdoms or Unions: \nthe Republic of China, the United Kingdom (the UK), the United States of America (the USA)\nmountain ranges: \nthe Tramuntanas, the Himalayas\ngeographical areas: \nthe northeast, the southwest\nOther geographical features:\nlakes: no article, usually begins with the word Lake \n(Lake Windermere) \nrivers: definite article before name of river.Capitalise the word 'river' or it can be omitted \n(the Thames, the River Thames).{/blk}",
+                              "Content": "No article used for:",
                               "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "individual islands: e.g. ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Mallorca",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "names of most countries: e.g. ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Spain, France, Germany, China",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "names of beaches: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Alcudia Beach",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "names of cities/towns/regions: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Palma de Mallorca, Algaida,",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Binissalem",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "names of mountains: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Mount Everest, Mont Blanc",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Use 'the' for:",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "groups of islands: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the Balearic Islands",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "coastal areas: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the Valencian Coast",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "oceans and seas: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the Mediterranean Sea, the Persian Gulf",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "nationalities: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the Spanish, the Omanis, the Chinese",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "countries which are Republics, Kingdoms or Unions: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the Republic of China, the United Kingdom (the UK), the United States of America (the USA)",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "mountain ranges: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the Tramuntanas, the Himalayas",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "geographical areas: ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the northeast, the southwest",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Other geographical features:",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "lakes: no article, usually begins with the word Lake ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "(Lake Windermere) ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "rivers: definite article before name of river.Capitalise the word 'river' or it can be omitted ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "(the Thames, the River Thames).",
+                              "Markers": [
+                                "i",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -1460,7 +2397,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Students' own answers{/blk}",
+                              "Content": "Students' own answers",
                               "Markers": [
                                 "i",
                                 "fn:Source Sans 3",
@@ -2117,7 +3054,118 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Heading B seems to fit best, as it contains paraphrases of the sentence: designed= planned and built\nan imperfect world= today's world of conflict, greed and constant struggles for power\nan urban ideal= the ultimate model of unity, peace and harmony Heading A: There is nothing in the sentence that matches 'always fail'.\nHeading C: The sentence talks about 'peace and harmony', which contradicts the idea of 'conflict' in the heading.{/blk}",
+                              "Content": "Heading B seems to fit best, as it contains paraphrases of the sentence: designed= planned and built",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "an imperfect world= today's world of conflict, greed and constant struggles for power",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "an urban ideal= the ultimate model of unity, peace and harmony Heading A: There is nothing in the sentence that matches 'always fail'.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Heading C: The sentence talks about 'peace and harmony', which contradicts the idea of 'conflict' in the heading.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -2254,7 +3302,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Heading B is correct.{/blk}",
+                              "Content": "Heading B is correct.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -2745,7 +3793,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}At this point, the best heading appears to be B: A city at the top of the world{/blk}",
+                              "Content": "At this point, the best heading appears to be B: A city at the top of the world",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -3058,7 +4106,44 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}The best heading is C: An unusual approach to regulation, because the paragraph talks about other examples of rules and laws that could be seen as unusual. It is not A -An unwelcoming place to die\n- because the text tells us that it is forbidden to die there.{/blk}",
+                              "Content": "The best heading is C: An unusual approach to regulation, because the paragraph talks about other examples of rules and laws that could be seen as unusual. It is not A -An unwelcoming place to die",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "- because the text tells us that it is forbidden to die there.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -3195,7 +4280,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}But what really sets it apart is that it can also lay claim to some of the world's strangest rules.{/blk}",
+                              "Content": "But what really sets it apart is that it can also lay claim to some of the world's strangest rules.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -3539,9 +4624,31 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}regulation= \nnot allowed to build fences around their houses{/blk}",
+                              "Content": "regulation= ",
                               "Markers": [
                                 "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "not allowed to build fences around their houses",
+                              "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -3660,9 +4767,31 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}dangers ofthe wild= \nthe constant threat of visits from wild animals{/blk}",
+                              "Content": "dangers ofthe wild= ",
                               "Markers": [
                                 "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the constant threat of visits from wild animals",
+                              "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -3826,9 +4955,76 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}humans and animals= \nlions and hippopotamuses [and] anxious residents; \nco-exist= \nresidents are not allowed to ... keep out their neighbours{/blk}",
+                              "Content": "humans and animals= ",
                               "Markers": [
                                 "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "lions and hippopotamuses [and] anxious residents; ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "co-exist= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "residents are not allowed to ... keep out their neighbours",
+                              "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -4069,7 +5265,52 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}An \nunusual\n approach to regulation - still possible as a correct answer, and you would need to read more of the paragraph to be sure.{/blk}",
+                              "Content": "An ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "unusual",
+                              "Markers": [
+                                "u",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " approach to regulation - still possible as a correct answer, and you would need to read more of the paragraph to be sure.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -4211,7 +5452,52 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Dealing with the \noccasional \ndangers of the wild - no longer possible as it contradicts 'the constant threat'.{/blk}",
+                              "Content": "Dealing with the ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "occasional ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "dangers of the wild - no longer possible as it contradicts 'the constant threat'.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -4353,7 +5639,52 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Where humans and animals \ncautiously \nco-exist - most likely to be correct as it paraphrases the sentence.{/blk}",
+                              "Content": "Where humans and animals ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "cautiously ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "co-exist - most likely to be correct as it paraphrases the sentence.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -4667,7 +5998,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Heading C is correct.{/blk}",
+                              "Content": "Heading C is correct.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -4804,7 +6135,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Everywhere in Marloth Park, a wary understanding exists between man and beast.{/blk}",
+                              "Content": "Everywhere in Marloth Park, a wary understanding exists between man and beast.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -5016,7 +6347,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Students' own notes{/blk}",
+                              "Content": "Students' own notes",
                               "Markers": [
                                 "i",
                                 "fn:Source Sans 3",
@@ -5334,7 +6665,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}Heading A -A conflict between reality and imitation - is correct.{/blk}",
+                              "Content": "Heading A -A conflict between reality and imitation - is correct.",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -5837,9 +7168,76 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}un-\n= not/opposite; \nim-\n= not; co-= together{/blk}",
+                              "Content": "un-",
                               "Markers": [
                                 "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "= not/opposite; ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "im-",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "= not; co-= together",
+                              "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -6053,9 +7451,526 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}post-= \nafter, behind - postgraduate, post-mortem, postpone\nfor-/fore-\n= before - forecast, forward, forehead\nsub-= \nunder, below - submarine, subway, subtitle\nmulti-= \nmany, much - multinational, multiply, multicultural \nanti-= \nagainst, opposite - antivirus, antiseptic, antiperspirant \nmis-= \nwrong, bad, badly - misunderstand, misjudge, misspell \nnon-\n= not - non-profit, non-fiction, nonsense\npre-= \nbefore - preview, prepay, prejudge\nover-= \nabove, too much - overload, overtake, oversleep\nunder-= \nbelow, not enough - underwater, underwear, underage{/blk}",
+                              "Content": "post-= ",
                               "Markers": [
                                 "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "after, behind - postgraduate, post-mortem, postpone",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "for-/fore-",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "= before - forecast, forward, forehead",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "sub-= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "under, below - submarine, subway, subtitle",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "multi-= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "many, much - multinational, multiply, multicultural ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "anti-= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "against, opposite - antivirus, antiseptic, antiperspirant ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "mis-= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "wrong, bad, badly - misunderstand, misjudge, misspell ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "non-",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "= not - non-profit, non-fiction, nonsense",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "pre-= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "before - preview, prepay, prejudge",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "over-= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "above, too much - overload, overtake, oversleep",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": null,
+                          "Direction": "LTR",
+                          "FillColor": null,
+                          "HasBorders": null,
+                          "BorderColor": null,
+                          "BorderStyle": null,
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "StartMs": null,
+                          "EndMs": null,
+                          "AudioTrackName": null,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "under-= ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": null,
+                              "FloatPosition": null,
+                              "FillColor": null,
+                              "TextColor": null,
+                              "BorderColor": null,
+                              "BorderStyle": null,
+                              "BorderWidth": null,
+                              "TableStyleId": null,
+                              "TableStyleName": null,
+                              "TableAlignment": null,
+                              "HasBorders": null,
+                              "TableWidthPercent": null,
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "below, not enough - underwater, underwear, underage",
+                              "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -6251,7 +8166,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}forewarned / pre-warned{/blk}",
+                              "Content": "forewarned / pre-warned",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -6348,7 +8263,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}overpopulated{/blk}",
+                              "Content": "overpopulated",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -6445,7 +8360,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}misinformed{/blk}",
+                              "Content": "misinformed",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -6542,7 +8457,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}anti-government(al){/blk}",
+                              "Content": "anti-government(al)",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -6904,8 +8819,9 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk}ii{/blk}",
+                              "Content": "ii",
                               "Markers": [
+                                "blank",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -7009,8 +8925,9 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk}vi{/blk}",
+                              "Content": "vi",
                               "Markers": [
+                                "blank",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -7114,8 +9031,9 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk}iii{/blk}",
+                              "Content": "iii",
                               "Markers": [
+                                "blank",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -7219,8 +9137,9 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk}v{/blk}",
+                              "Content": "v",
                               "Markers": [
+                                "blank",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -7324,8 +9243,9 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk}viii{/blk}",
+                              "Content": "viii",
                               "Markers": [
+                                "blank",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
@@ -7429,8 +9349,9 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk}vii{/blk}",
+                              "Content": "vii",
                               "Markers": [
+                                "blank",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],

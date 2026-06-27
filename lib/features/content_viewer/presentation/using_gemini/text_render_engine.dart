@@ -15,7 +15,7 @@ class TextRenderEngine {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
 
-    final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}');
+    final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
     final matches = blankRegex.allMatches(content);
     int currentIndex = 0;
 
