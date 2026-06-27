@@ -3,887 +3,1865 @@
     {
       "PageNumber": 1,
       "Paragraphs": [
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "UNIT/01: URBAN AND RURAL LIFE",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 ExtraBold",
-                                "sz:32"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "واحد 1: زندگی شهری و روستایی",
-                          "translationAr": "الوحدة 1: الحياة الحضرية والريفية"
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "READING",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Black",
-                                "sz:88"
-                              ],
-                              "TextColor": "FFFFFF",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "مهارت خواندن",
-                          "translationAr": "القراءة"
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Bold",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "در این واحد شما\nیاد خواهید گرفت که چگونه",
-                          "translationAr": "في هذه الوحدة سوف\nتتعلم كيفية"
-                        },
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "• با تسک‌های مطابقت دادن عناوین برخورد کنید\n• ایده اصلی یک پاراگراف را شناسایی کنید\n• معنای پیشوندها را درک کنید.",
-                          "translationAr": "• تتعامل مع مهام مطابقة العناوين\n• تحدد الفكرة الرئيسية للفقرة\n• تفهم معنى البادئات."
-                        }
-                      ],
-                      "FillColor": "FFFF00",
-                      "WidthPercent": 100.0,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "Direction": "LTR",
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 12.0,
-          "Spans": [
-            {
-              "Type": "text",
-              "Content": "Lead-in",
-              "Markers": ["b", "bg:FFFF00", "fn:Source Sans 3"],
-              "FillColor": "FFFF00",
-              "BorderColor": "000000",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
-              "InnerSpans": [],
-              "TableRows": []
-            }
-          ],
-          "translationFa": "مقدمه و آماده‌سازی",
-          "translationAr": "المقدمة"
-        },
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "01",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "01",
-                          "translationAr": "01"
-                        }
-                      ],
-                      "WidthPercent": 5.02,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 12.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Medium",
-                                "sz:21"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "پاراگراف زیر را درباره جزیره مایورکا بخوانید. با یک هم‌گروهی بحث کنید که چرا قبل از برخی از اسامی خط‌کشیده‌شده حرف تعریف the آمده است و برخی دیگر هیچ حرف تعریفی ندارند. آیا قانون دیگری برای حروف تعریف در مورد عارضه‌های جغرافیایی می‌دانید؟",
-                          "translationAr": "اقرأ الفقرة أدناه عن جزيرة مايوركا. ناقش مع زميلك سبب سبوق بعض الأسماء التي تحتها خط بأداة التعريف the، بينما لا تحتوي أسماء أخرى على أي أداة. هل تعرف أي قواعد أخرى لأدوات التعريف الخاصة بالمعالم الجغرافية؟"
-                        },
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Mallorca",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", the biggest of ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Balearic Islands",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", is situated in ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Mediterranean Sea",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", some 300km from ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Valencian coast",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "of ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Spain",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Spanish",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "as a tourist destination, it annually welcomes people from all over ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Europe",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "(particularly from ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the United Kingdom, France",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "and ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Germany",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "), who may head for ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Alcudia Beach",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the northeast",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "to ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the southwest",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "of the island. The busy capital city, ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Palma de Mallorca",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Algaida",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "or ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Binissalem",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ".",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "مایورکا، بزرگ‌ترین جزیره از جزایر بالئاریک، در دریای مدیترانه و در فاصله حدود 300 کیلومتری از سواحل والنسیا در اسپانیا واقع شده است و ترکیبی هیجان‌انگیز از انرژی شهری، ماجراجویی روستایی و آرامش ساحلی است. اگرچه این جزیره در میان اسپانیایی‌ها به عنوان یک مقصد گردشگری چندان محبوب نیست، اما سالانه پذیرای مردمی از سراسر اروپا است (به‌ویژه از بریتانیا، فرانسه و آلمان) که ممکن است به سمت ساحل آلکودیا بروند یا در ترامونتانا پیاده‌روی کنند، رشته‌کوهی که از شمال شرقی تا جنوب غربی جزیره امتداد دارد. پایتخت شلوغ آن، پالما د مایورکا، تضاد کاملی با شهرها و روستاهای سنتی و روستایی در قلب جزیره، مانند آلگایدا یا بینیسالم دارد.",
-                          "translationAr": "تقع مايوركا، أكبر جزر الباليار، في البحر الأبيض المتوسط، على بعد حوالي 300 كم من ساحل فالنسيا في إسبانيا، وهي مزيج مثير من الطاقة الحضرية والمغامرة الريفية والهدوء الساحلي. على الرغم من أنها ليست شائعة لدى الإسبان كوجهة سياحية، إلا أنها ترحب سنويًا بالناس من جميع أنحاء أوروبا (خاصة من المملكة المتحدة وفرنسا وألمانيا)، الذين قد يتوجهون إلى شاطئ ألكوديا، أو يذهبون لممارسة رياضة المشي لمسافات طويلة في ترامونتانا، وهي سلسلة جبال تمتد من الشمال الشرقي إلى الجنوب الغربي من الجزيرة. وتتناقض العاصمة المزدحمة، بالما دي مايوركا، تمامًا مع المدن والقرى الريفية التقليدية في قلب الجزيرة، مثل ألغايدا أو بينيساليم."
-                        }
-                      ],
-                      "WidthPercent": 94.98,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                },
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "02",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "02",
-                          "translationAr": "02"
-                        },
-                        {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "25",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "Url": "audio:MindsetIELTS_L3_01.mp3",
-                              "TextColor": "0563C1",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "25",
-                          "translationAr": "25"
-                        }
-                      ],
-                      "WidthPercent": 5.02,
-                      "VAlign": "tableverticalalignmentvalues { }",
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Medium",
-                                "sz:21"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "به یک منطقه جغرافیایی در کشور خود فکر کنید و یک پاراگراف کوتاه مانند پاراگراف بالا بنویسید و توجه ویژه‌ای به استفاده صحیح از حروف تعریف داشته باشید. پاراگراف خود را با یک هم‌گروهی عوض کنید و در صورت نیاز، کارهای یکدیگر را اصلاح کنید.",
-                          "translationAr": "فكر في منطقة جغرافية في بلدك واكتب فقرة قصيرة مثل الفقرة أعلاه، مع إعطاء اهتمام خاص للاستخدام الصحيح لأدوات التعريف. تبادل فقرتك مع زميلك وقوما بتصحيح عمل بعضكما البعض عند الضرورة."
-                        }
-                      ],
-                      "WidthPercent": 94.98,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "Direction": "LTR",
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 12.0,
-          "Spans": [
-            {
-              "Type": "text",
-              "Content": "[[[[[[[[[[",
-              "Markers": ["bg:FFFF00", "fn:Source Sans 3", "sz:32"],
-              "FillColor": "FFFF00",
-              "TextColor": "FFFF00",
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "MATCHING HEADINGS",
-              "Markers": ["b", "fn:Source Sans 3 SemiBold", "sz:32"],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "]",
-              "Markers": ["fn:Source Sans 3", "sz:32"],
-              "TextColor": "FFFF00",
-              "InnerSpans": [],
-              "TableRows": []
-            }
-          ],
-          "translationFa": "[[[[[[[[[[تطبیق دادن عناوین]",
-          "translationAr": "[[[[[[[[[[مطابقة العناوين]"
-        },
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "03",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "03",
-                          "translationAr": "03"
-                        }
-                      ],
-                      "WidthPercent": 5.06,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Medium",
-                                "sz:21"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "به این عنوان نگاه کنید و با یک هم‌گروهی بحث کنید که انتظار دارید چه چیزی در متن بخوانید.",
-                          "translationAr": "انظر إلى هذا العنوان وناقش مع زميلك ما تتوقع قراءته في النص."
-                        }
-                      ],
-                      "WidthPercent": 94.94,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "The World’s\nMost unusual\nTowns and Cities",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 ExtraBold",
-                                "sz:32"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "جهان\nغیرعادی‌ترین\nشهرک‌ها و شهرها",
-                          "translationAr": "العالم\nأكثر غرابة\nالبلدات والمدن"
-                        }
-                      ],
-                      "WidthPercent": 50.01,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "◎",
-                              "Markers": ["fn:Cambria Math", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
-                              "Markers": ["fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "topic sentence",
-                              "Markers": ["i", "fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ".",
-                              "Markers": ["fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "◎ این نوع تسک از شما می‌خواهد عنوانی را انتخاب کنید که کل پاراگراف را به درستی خلاصه کند. اغلب، یافتن یک جمله در پاراگراف که ایده اصلی را منتقل کند امکان‌پذیر است - این جمله به عنوان جمله موضوعی شناخته می‌شود.",
-                          "translationAr": "◎ يتطلب هذا النوع من المهام منك اختيار عنوان يلخص الفقرة بأكملها بشكل صحيح. غالبًا ما يكون من الممكن العثور على جملة واحدة في الفقرة تعبر عن الفكرة الرئيسية - وهذا ما يعرف بالجملة المفتاحية."
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
-                              "Markers": ["fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "جمله موضوعی را می‌توان تکراراً در ابتدای پاراگراف یافت، اما می‌تواند در وسط یا حتی در انتهای آن نیز ظاهر شود. گاهی اوقات ممکن است یک پاراگراف اصلاً یک جمله موضوعی واحد و واضح نداشته باشد و ایده اصلی را تنها بتوان با خواندن کامل پاراگراف درک کرد.",
-                          "translationAr": "يمكن العثور على الجملة المفتاحية في كثير من الأحيان في بداية الفقرة، ولكنها يمكن أن تظهر في المنتصف، أو حتى في النهاية. في بعض الأحيان قد لا تحتوي الفقرة على جملة مفتاحية واحدة واضحة على الإطلاق، ولا يمكن فهم الفكرة الرئيسية إلا من خلال قراءة الفقرة بالكامل."
-                        }
-                      ],
-                      "WidthPercent": 49.99,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "deal with",
-          "translationFa": "مواجه شدن و حل کردن",
-          "translationAr": "التعامل مع / معالجة",
-          "pronounceFa": "دیل ویذ",
-          "pronounceAr": "ديل ويذ",
-          "explanationFa": "یک Phrasal Verb بسیار کاربردی در آیلتس برای صحبت درباره مدیریت مشکلات یا وظایف. هم‌معنی کلماتی مثل handle یا tackle.",
-          "explanationAr": "فعل مركب مفيد جداً في الآيلتس للتحدث عن إدارة المشاكل أو المهام. مرادف لـ handle أو tackle.",
-          "cefrLevel": "B1"
-        },
-        {
-          "exactText": "identify",
-          "translationFa": "تشخیص دادن / شناسایی کردن",
-          "translationAr": "تحديد / التعرف على",
-          "pronounceFa": "آیدِنتیفای",
-          "pronounceAr": "آيدنتيفاي",
-          "explanationFa": "فعلی آکادمیک و کلیدی در بخش ریدینگ و لیسنینگ آیلتس به معنای تشخیص دادن فاکتورها یا ایده‌های خاص.",
-          "explanationAr": "فعل أكاديمي رئيسي في قسم القراءة والاستماع في الآيلتس، يعني التعرف على عوامل أو أفكار معينة.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "prefixes",
-          "translationFa": "پیشوندها",
-          "translationAr": "البوادئ / السوابق",
-          "pronounceFa": "پریفیکسِز",
-          "pronounceAr": "بريفيكسز",
-          "explanationFa": "دانش ساختار کلمات (مورفولوژی) برای درک متون آکادمیک ریدینگ آیلتس بدون نیاز به دیکشنری بسیار حیاتی است.",
-          "explanationAr": "معرفة بنية الكلمات (علم الصرف) أمر حيوي لفهم النصوص الأكاديمية في قراءة الآيلتس دون الحاجة إلى قاموس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "geographical features",
-          "translationFa": "عوارض جغرافیایی / پدیده‌های طبیعی",
-          "translationAr": "المعالم الجغرافية",
-          "pronounceFa": "جیاگرَفیکَل فیچِرز",
-          "pronounceAr": "جيوجرافيكال فيتشرز",
-          "explanationFa": "یک کالوکیشن موضوعی عالی برای تسک‌های رایتینگ ادکادمیک و اسپیکینگ زمانی که درباره طبیعت یا جغرافیا صحبت می‌کنید.",
-          "explanationAr": "متلازمة لفظية موضوعية ممتازة لمهام الكتابة الأكاديمية والمحادثة عند الحديث عن الطبيعة أو الجغرافيا.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "situated",
-          "translationFa": "واقع شده",
-          "translationAr": "واقع / يقع في",
-          "pronounceFa": "سیچوئِیتِد",
-          "pronounceAr": "سيتشويتد",
-          "explanationFa": "کلمه‌ای رسمی و جایگزینی آکادمیک برای located. بسیار پرکاربرد در توصیف نقشه‌ها در رایتینگ تسک 1 آیلتس.",
-          "explanationAr": "كلمة رسمية وبديل أكاديمي لـ located. تستخدم بكثرة في وصف الخرائط في المهمة الأولى من الكتابة للآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "urban energy",
-          "translationFa": "پویایی و انرژی شهری",
-          "translationAr": "الطاقة الحضرية / حيوية المدينة",
-          "pronounceFa": "اِربَن اِنِرجی",
-          "pronounceAr": "إيربان إنرجي",
-          "explanationFa": "یک ترکیب کنایی و سطح بالا مناسب برای اسپیکینگ و رایتینگ آیلتس جهت توصیف جذابیت‌های زندگی در شهرهای بزرگ.",
-          "explanationAr": "تركيب مجازي راقٍ مناسب للمحادثة والكتابة في الآيلتس لوصف جاذبية الحياة في المدن الكبرى.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "rural adventure",
-          "translationFa": "ماجراجویی روستایی / طبیعت‌گردی",
-          "translationAr": "المغامرة الريفية",
-          "pronounceFa": "رورَل اَدوِنچِر",
-          "pronounceAr": "رورال أدفتشر",
-          "explanationFa": "کالوکیشن موضوعی برای توصیف فعالیت‌های گردشگری در مناطق خارج از شهر و بافت‌های روستایی.",
-          "explanationAr": "متلازمة لفظية موضوعية لوصف الأنشطة السياحية في المناطق الخارجة عن المدينة والبيئات الريفية.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "tourist destination",
-          "translationFa": "مقصد گردشگری / قطب توریستی",
-          "translationAr": "وجهة سياحية",
-          "pronounceFa": "توریست دِستینِیشَن",
-          "pronounceAr": "توريست دستينيشن",
-          "explanationFa": "کالوکیشن استاندارد و نمره آور در موضوعات Travel and Tourism که از تاپیک‌های پرتکرار آیلتس است.",
-          "explanationAr": "متلازمة لفظية قياسية تساعد في رفع الدرجة في مواضيع السفر والسياحة، وهي من المواضيع المتكررة في الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "annually",
-          "translationFa": "سالانه / هر سال",
-          "translationAr": "سنوياً",
-          "pronounceFa": "اَنیوُلی",
-          "pronounceAr": "أنيوالي",
-          "explanationFa": "قید رسمی و آکادمیک که جایگزین بسیار خوبی برای every year در رایتینگ تسک 1 و 2 آیلتس است.",
-          "explanationAr": "ظرف رسمي وأكاديمي يعتبر بديلاً ممتازاً لـ every year في المهمتين الأولى والثانية من كتابة الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "mountain range",
-          "translationFa": "رشته‌کوه",
-          "translationAr": "سلسلة جبال",
-          "pronounceFa": "ماونتِن رِینج",
-          "pronounceAr": "ماونتن رينج",
-          "explanationFa": "واژه تخصصی جغرافیایی که برای توصیف عوارض طبیعی در بخش اسپیکینگ (توصیف مکان‌ها) امتیازآور است.",
-          "explanationAr": "مفردة جغرافية متخصصة تساعد في كسب درجات عند توصیف المعالم الطبيعية في قسم المحادثة.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "contrasts entirely with",
-          "translationFa": "تضاد کاملی دارد با / کاملاً متمایز است از",
-          "translationAr": "يتناقض تماماً مع",
-          "pronounceFa": "کنتراستس اِنتایِرلی ویذ",
-          "pronounceAr": "كونتراستس إنتايرلي ويذ",
-          "explanationFa": "ساختار پیشرفته برای بیان تضاد شدید بین دو فاکتور؛ ابزاری عالی برای بخش مقایسه‌ها در رایتینگ تسک 2.",
-          "explanationAr": "تركيب متقدم للتعبير عن التناقض الشديد بين عاملين؛ أداة ممتازة لفقرات المقارنة في المهمة الثانية من الكتابة.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "unusual",
-          "translationFa": "غیرعادی / منحصربه‌فرد",
-          "translationAr": "غير عادي / غريب",
-          "pronounceFa": "اَن‌یوژوآل",
-          "pronounceAr": "أن‌يوجوال",
-          "explanationFa": "صفتی پرکاربرد برای جایگزینی کلمات ساده‌ای مثل strange؛ مفید برای توصیف پدیده‌ها یا تجربیات خاص.",
-          "explanationAr": "صفة شائعة للاستخدام بدلاً من الكلمات البسيطة مثل strange؛ مفيدة لوصف الظواهر أو التجارب الخاصة.",
-          "cefrLevel": "B1"
-        },
-        {
-          "exactText": "summarises",
-          "translationFa": "خلاصه می‌کند",
-          "translationAr": "يلخص",
-          "pronounceFa": "سَمِرایزِز",
-          "pronounceAr": "سمرايزز",
-          "explanationFa": "یک فعل آکادمیک کلیدی. مهارت خلاصه نویسی (Summarising) از معیارهای اصلی ارزیابی در رایتینگ آیلتس است.",
-          "explanationAr": "فعل أكاديمي رئيسي. مهارة التلخيص تعد من المعايير الأساسية للتقييم في كتابة الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "conveys",
-          "translationFa": "منتقل می‌کند / می‌رساند",
-          "translationAr": "ينقل / يعبر عن",
-          "pronounceFa": "کَنوِیز",
-          "pronounceAr": "كنفيز",
-          "explanationFa": "فعلی در سطح واژگان آکادمیک پیشرفته (C1)؛ کاربردی برای توضیح اینکه یک متن یا جمله چه مفهوم یا احساسی را منتقل می‌کند.",
-          "explanationAr": "فعل من مستوى المفردات الأكاديمية المتقدمة (C1)؛ مفيد لشرح المفهوم أو الشعور الذي ينقله النص أو الجملة.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "topic sentence",
-          "translationFa": "جمله موضوعی (جمله‌ای که ایده اصلی پاراگراف را می‌گوید)",
-          "translationAr": "الجملة الافتتاحية / الجملة الموضوعية",
-          "pronounceFa": "تاپیک سِنتِنس",
-          "pronounceAr": "توبيك سنتنس",
-          "explanationFa": "اصطلاحی کلیدی در ریدینگ و رایتینگ آیلتس. نوشتن یک topic sentence واضح، نمره بخش Coherence را افزایش می‌دهد.",
-          "explanationAr": "مصطلح رئيسي في قراءة وكتابة الآيلتس. كتابة جملة موضوعية واضحة ترفع درجة التماسك والترابط (Coherence).",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "frequently",
-          "translationFa": "در بسیاری از موارد / به کرات",
-          "translationAr": "غالباً / في كثير من الأحيان",
-          "pronounceFa": "فریکوِنتلی",
-          "pronounceAr": "فريكوانتلي",
-          "explanationFa": "قیدی رسمی و آکادمیک که جایگزین بسیار مناسبی برای کلمه often در نگارش و گفتار آیلتس محسوب می‌شود.",
-          "explanationAr": "ظرف رسمي وأكاديمي يعتبر بديلاً مناسباً جداً لكلمة often في الكتابة والمحادثة في الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "in full",
-          "translationFa": "به طور کامل / از ابتدا تا انتها",
-          "translationAr": "بالكامل / بشكل وافٍ",
-          "pronounceFa": "این فول",
-          "pronounceAr": "إن فول",
-          "explanationFa": "یک عبارت حرف‌اضافه‌ای (Prepositional Phrase) پیشرفته به معنی thoroughly یا completely که ساختار کلام را بومی‌تر می‌کند.",
-          "explanationAr": "عبارة شبه جملة متقدمة تعني thoroughly أو completely، وتجعل أسلوب الكلام أكثر طبيعية كأهل اللغة.",
-          "cefrLevel": "C1"
-        }
-      ]
+  {
+    "Alignment": null,
+    "Direction": null,
+    "FillColor": null,
+    "HasBorders": null,
+    "BorderColor": null,
+    "BorderStyle": null,
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "StartMs": null,
+    "EndMs": null,
+    "AudioTrackName": null,
+    "Spans": [
+      {
+        "Type": "table",
+        "Content": null,
+        "Markers": [],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "TableAlignment": null,
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "UNIT/01: URBAN AND RURAL LIFE",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 ExtraBold",
+                          "sz:32"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "بخش 1: زندگی شهری و روستایی",
+                    "translationAr": "الوحدة 1: الحياة الحضرية والريفية"
+                  },
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "READING",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Black",
+                          "sz:88"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "مهارت خواندن",
+                    "translationAr": "القراءة"
+                  },
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Bold",
+                          "sz:22"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "در این بخش شما\nیاد خواهید گرفت که چگونه",
+                    "translationAr": "في هذه الوحدة سوف\nتتعلم كيفية"
+                  },
+                  {
+                    "Alignment": null,
+                    "Direction": null,
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "• با تکالیف وصل کردن عناوین مواجه شوید\n• ایده اصلی یک پاراگراف را تشخیص دهید\n• مفهوم پیشوندها را درک کنید.",
+                    "translationAr": "• تتعامل مع مهام مطابقة العناوين\n• تحدد الفكرة الرئيسية للفقرة\n• تفهم معاني البوادئ."
+                  }
+                ],
+                "FillColor": "FFFF00",
+                "WidthPercent": 100.0,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Alignment": null,
+    "Direction": "LTR",
+    "FillColor": null,
+    "HasBorders": null,
+    "BorderColor": null,
+    "BorderStyle": null,
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 12.0,
+    "StartMs": null,
+    "EndMs": null,
+    "AudioTrackName": null,
+    "Spans": [
+      {
+        "Type": "text",
+        "Content": "Lead-in",
+        "Markers": [
+          "b",
+          "bg:FFFF00",
+          "fn:Source Sans 3"
+        ],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": null,
+        "TableStyleId": null,
+        "TableStyleName": null,
+        "TableAlignment": null,
+        "HasBorders": null,
+        "TableWidthPercent": null,
+        "InnerSpans": [],
+        "TableRows": []
+      }
+    ],
+    "translationFa": "مقدمه ورود به بحث",
+    "translationAr": "التمهيد"
+  },
+  {
+    "Alignment": null,
+    "Direction": null,
+    "FillColor": null,
+    "HasBorders": null,
+    "BorderColor": null,
+    "BorderStyle": null,
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "StartMs": null,
+    "EndMs": null,
+    "AudioTrackName": null,
+    "Spans": [
+      {
+        "Type": "table",
+        "Content": null,
+        "Markers": [],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "TableAlignment": null,
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "01",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "01",
+                    "translationAr": "01"
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 3.93,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 12.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Medium",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "پاراگراف زیر را درباره جزیره مایورکا بخوانید. با یک هم‌گروهی بحث کنید که چرا قبل از برخی از اسم‌های خط‌کشیده‌شده حرف تعریف قرار گرفته است و برخی دیگر هیچ حرف تعریفی ندارند. آیا قانون دیگری برای حروف تعریف در مورد عوارض جغرافیایی می‌دانید؟",
+                    "translationAr": "اقرأ الفقرة أدناه عن جزيرة مايوركا. ناقش مع زميلك سبب سبوق بعض الأسماء التي تحتها خط بـ أداة التعريف، بينما لا تحتوي الأسماء الأخرى على أي أداة. هل تعرف أي قواعد أخرى لأدوات التعريف الخاصة بالمعالم الجغرافية؟"
+                  },
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Mallorca",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", the biggest of ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Balearic Islands",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", is situated in ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Mediterranean Sea",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", some 300km from ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Valencian coast",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " of ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Spain",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Spanish",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " as a tourist destination, it annually welcomes people from all over ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Europe",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " (particularly from ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the United Kingdom, France",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " and ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Germany",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "), who may head for ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Alcudia Beach",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the northeast",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " to ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the southwest",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " of the island. The busy capital city, ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Palma de Mallorca",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Algaida",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " or ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Binissalem",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ".",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "مایورکا، بزرگ‌ترین جزیره از جزایر بالئاریک، در دریای مدیترانه و در فاصله حدود 300 کیلومتری از سواحل والنسیا در اسپانیا واقع شده است و ترکیبی هیجان‌انگیز از انرژی شهری، ماجراجویی روستایی و آرامش ساحلی است. اگرچه این جزیره به عنوان یک مقصد گردشگری در میان مردم اسپانیا محبوب نیست، اما سالانه پذیرای مردم از سراسر اروپا (به‌ویژه بریتانیا، فرانسه و آلمان) است که ممکن است به سمت ساحل آلکودیا بروند یا در ترامونتانا پیاده‌روی کنند؛ رشته‌کوهی که از شمال شرقی تا جنوب غربی جزیره امتداد دارد. پایتخت شلوغ آن، پالما د مایورکا، کاملاً با شهرها و روستاهای سنتی و روستایی در قلب جزیره، مانند آلگایدا یا بنیسالم تضاد دارد.",
+                    "translationAr": "تقع مايوركا، وهي أكبر جزر البليار، في البحر الأبيض المتوسط، على بعد حوالي 300 كم من ساحل فالنسيا في إسبانيا، وهي مزيج مثير من الطاقة الحضرية والمغامرة الريفية والهدوء الساحلي. على الرغم من أنها ليست شائعة لدى الإسبان كوجهة سياحية، إلا أنها ترحب سنويًا بالناس من جميع أنحاء أوروبا (خاصة من المملكة المتحدة وفرنسا وألمانيا)، الذين قد يتوجهون إلى شاطئ ألكوديا، أو يذهبون للمشي لمسافات طويلة في ترامونتانا، وهي سلسلة جبال تمتد من الشمال الشرقي إلى الجنوب الغربي من الجزيرة. عاصمتها المزدحمة، بالما دي مايوركا، تتناقض تمامًا مع البلدات والقرى الريفية التقليدية في قلب الجزيرة، مثل الغايدا أو بني سالم."
+                  },
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "{blk}No article used for:\nindividual islands: e.g. \nMallorca\nnames of most countries: e.g. \nSpain, France, Germany, China\nnames of beaches: \nAlcudia Beach\nnames of cities/towns/regions: \nPalma de Mallorca, Algaida,\nBinissalem\nnames of mountains: \nMount Everest, Mont Blanc\nUse 'the' for:\ngroups of islands: \nthe Balearic Islands\ncoastal areas: \nthe Valencian Coast\noceans and seas: \nthe Mediterranean Sea, the Persian Gulf\nnationalities: \nthe Spanish, the Omanis, the Chinese\ncountries which are Republics, Kingdoms or Unions: \nthe Republic of China, the United Kingdom (the UK), the United States of America (the USA)\nmountain ranges: \nthe Tramuntanas, the Himalayas\ngeographical areas: \nthe northeast, the southwest\nOther geographical features:\nlakes: no article, usually begins with the word Lake \n(Lake Windermere) \nrivers: definite article before name of river.Capitalise the word 'river' or it can be omitted \n(the Thames, the River Thames).{/blk}",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "{blk}عدم استفاده از حرف تعریف برای:\nجزایر انفرادی: به عنوان مثال \nمایورکا\nنام بیشتر کشورها: به عنوان مثال \nاسپانیا، فرانسه، آلمان، چین\nنام سواحل: \nساحل آلکودیا\nنام شهرها/شهرک‌ها/مناطق: \nپالما د مایورکا، آلگایدا،\nبنیسالم\nنام کوه‌ها: \nکوه اورست، مون بلان\nاستفاده از حرف تعریف برای:\nگروه جزایر: \nجزایر بالئاریک\nمناطق ساحلی: \nساحل والنسیا\nاقیانوس‌ها و دریاها: \nدریای مدیترانه، خلیج فارس\nملیت‌ها: \nمردم اسپانیا، مردم عمان، مردم چین\nکشورهایی که جمهوری، پادشاهی یا اتحادیه هستند: \nجمهوری چین، بریتانیا، ایالات متحده آمریکا\nرشته‌کوه‌ها: \nترامونتانا، هیمالیا\nمناطق جغرافیایی: \nشمال شرقی، جنوب غربی\nسایر عوارض جغرافیایی:\nدریاچه‌ها: بدون حرف تعریف، معمولاً با کلمه دریاچه شروع می‌شود \n(دریاچه ویندرمر) \nرودخانه‌ها: حرف تعریف معین قبل از نام رودخانه. بزرگ نوشتن کلمه رودخانه یا می‌توان آن را حذف کرد \n(تیمز، رودخانه تیمز).{/blk}",
+                    "translationAr": "{blk}لا تُستخدم أداة التعريف مع:\nالجزر الفردية: مثل \nمايوركا\nأسماء معظم الدول: مثل \nإسبانيا، فرنسا، ألمانيا، الصين\nأسماء الشواطئ: \nشاطئ ألكوديا\nأسماء المدن/البلدات/المناطق: \nبالما دي مايوركا، الغايدا،\nبني سالم\nأسماء الجبال: \nجبل إيفرست، مون بلان\nاستخدم أداة التعريف مع:\nمجموعات الجزر: \nجزر البليار\nالمناطق الساحلية: \nساحل فالنسيا\nالمحيطات والبحار: \nالبحر الأبيض المتوسط، الخليج العربي\nالجنسيات: \nالإسبان، العمانيون، الصينيون\nالدول التي تكون جمهوريات أو ممالك أو اتحادات: \nجمهورية الصين، المملكة المتحدة، الولايات المتحدة الأمريكية\nسلاسل الجبال: \nترامونتانا، جبال الهيمالايا\nالمناطق الجغرافية: \nالشمال الشرقي، الجنوب الغربي\nالمعالم الجغرافية الأخرى:\nالبحيرات: لا توجد أداة تعريف، وعادة ما تبدأ بكلمة بحيرة \n(بحيرة ويندرمير) \nالأنهار: أداة تعريف محددة قبل اسم النهر. يُكتب الحرف الأول من كلمة نهر كبيرًا أو يمكن حذفها \n(التايمز، نهر التايمز).{/blk}"
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 96.07,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              }
+            ]
+          },
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": "J",
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "02",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "02",
+                    "translationAr": "02"
+                  },
+                  {
+                    "Alignment": "J",
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "25",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "Url": "audio:MindsetIELTS_L3_02.mp3",
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "25",
+                    "translationAr": "25"
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 3.93,
+                "VAlign": "tableverticalalignmentvalues { }",
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": null,
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Medium",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "به یک منطقه جغرافیایی در کشور خود فکر کنید و یک پاراگراف کوتاه مانند پاراگراف بالا بنویسید و به استفاده صحیح از حروف تعریف توجه ویژه‌ای داشته باشید. پاراگراف خود را با یک هم‌گروهی تعویض کنید و در صورت نیاز کار یکدیگر را اصلاح کنید.",
+                    "translationAr": "فكر في منطقة جغرافية في بلدك واكتب فقرة قصيرة مثل تلك المذكورة أعلاه، مع إيلاء اهتمام خاص للاستخدام الصحيح لأدوات التعريف. تبادل فقرتك مع زميلك وصححا عمل بعضكما البعض عند الضرورة."
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 96.07,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Alignment": null,
+    "Direction": "LTR",
+    "FillColor": null,
+    "HasBorders": null,
+    "BorderColor": null,
+    "BorderStyle": null,
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 12.0,
+    "StartMs": null,
+    "EndMs": null,
+    "AudioTrackName": null,
+    "Spans": [
+      {
+        "Type": "text",
+        "Content": "[[[[[[[[[[",
+        "Markers": [
+          "bg:FFFF00",
+          "fn:Source Sans 3",
+          "sz:32"
+        ],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": null,
+        "TableStyleId": null,
+        "TableStyleName": null,
+        "TableAlignment": null,
+        "HasBorders": null,
+        "TableWidthPercent": null,
+        "InnerSpans": [],
+        "TableRows": []
+      },
+      {
+        "Type": "text",
+        "Content": "MATCHING HEADINGS",
+        "Markers": [
+          "b",
+          "fn:Source Sans 3 SemiBold",
+          "sz:32"
+        ],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": null,
+        "TableStyleId": null,
+        "TableStyleName": null,
+        "TableAlignment": null,
+        "HasBorders": null,
+        "TableWidthPercent": null,
+        "InnerSpans": [],
+        "TableRows": []
+      },
+      {
+        "Type": "text",
+        "Content": "]",
+        "Markers": [
+          "fn:Source Sans 3",
+          "sz:32"
+        ],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": null,
+        "TableStyleId": null,
+        "TableStyleName": null,
+        "TableAlignment": null,
+        "HasBorders": null,
+        "TableWidthPercent": null,
+        "InnerSpans": [],
+        "TableRows": []
+      }
+    ],
+    "translationFa": "[[[[[[[[[[وصل کردن عناوین]",
+    "translationAr": "[[[[[[[[[[مطابقة العناوين]"
+  },
+  {
+    "Alignment": null,
+    "Direction": null,
+    "FillColor": null,
+    "HasBorders": null,
+    "BorderColor": null,
+    "BorderStyle": null,
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "StartMs": null,
+    "EndMs": null,
+    "AudioTrackName": null,
+    "Spans": [
+      {
+        "Type": "table",
+        "Content": null,
+        "Markers": [],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "TableAlignment": null,
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": null,
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "03",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "03",
+                    "translationAr": "03"
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 3.93,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Medium",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "به این عنوان نگاه کنید و با یک هم‌گروهی درباره آنچه انتظار دارید در متن بخوانید، بحث کنید.",
+                    "translationAr": "انظر إلى هذا العنوان وناقش مع زميلك ما قد تتوقع قراءته في النص."
+                  },
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "{blk}Students' own answers{/blk}",
+                        "Markers": [
+                          "i",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "{blk}پاسخ‌های خود دانش‌آموزان{/blk}",
+                    "translationAr": "{blk}إجابات الطلاب الخاصة{/blk}"
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 96.07,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Alignment": null,
+    "Direction": "LTR",
+    "FillColor": null,
+    "HasBorders": null,
+    "BorderColor": null,
+    "BorderStyle": null,
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "StartMs": null,
+    "EndMs": null,
+    "AudioTrackName": null,
+    "Spans": []
+  },
+  {
+    "Alignment": null,
+    "Direction": null,
+    "FillColor": null,
+    "HasBorders": null,
+    "BorderColor": null,
+    "BorderStyle": null,
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "StartMs": null,
+    "EndMs": null,
+    "AudioTrackName": null,
+    "Spans": [
+      {
+        "Type": "table",
+        "Content": null,
+        "Markers": [],
+        "Url": null,
+        "FloatPosition": null,
+        "FillColor": null,
+        "TextColor": null,
+        "BorderColor": null,
+        "BorderStyle": null,
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "TableAlignment": null,
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "The World’s\nMost unusual\nTowns and Cities",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 ExtraBold",
+                          "sz:32"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "غیرعادی‌ترین\nشهرک‌ها و شهرهای\nجهان",
+                    "translationAr": "أكثر البلدات والمدن\nغرابة في\nالعالم"
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 39.38,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "◎",
+                        "Markers": [
+                          "fn:Cambria Math",
+                          "sz:20"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": " This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "topic sentence",
+                        "Markers": [
+                          "i",
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ".",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "◎ این نوع تکلیف از شما می‌خواهد عنوانی را انتخاب کنید که کل پاراگراف را به درستی خلاصه کند. اغلب، یافتن یک جمله در یک پاراگراف که ایده اصلی را منتقل کند ممکن است؛ این جمله به عنوان جمله موضوعی شناخته می‌شود.",
+                    "translationAr": "◎ يتطلب منك هذا النوع من المهام اختيار عنوان يلخص الفقرة بأكملها بشكل صحيح. غالبًا ما يكون من الممكن العثور على جملة واحدة في الفقرة تعبر عن الفكرة الرئيسية؛ وهذا ما يُعرف بالجملة الافتتاحية."
+                  },
+                  {
+                    "Alignment": null,
+                    "Direction": "LTR",
+                    "FillColor": null,
+                    "HasBorders": null,
+                    "BorderColor": null,
+                    "BorderStyle": null,
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "StartMs": null,
+                    "EndMs": null,
+                    "AudioTrackName": null,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "Url": null,
+                        "FloatPosition": null,
+                        "FillColor": null,
+                        "TextColor": null,
+                        "BorderColor": null,
+                        "BorderStyle": null,
+                        "BorderWidth": null,
+                        "TableStyleId": null,
+                        "TableStyleName": null,
+                        "TableAlignment": null,
+                        "HasBorders": null,
+                        "TableWidthPercent": null,
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ],
+                    "translationFa": "جمله موضوعی اغلب می‌تواند در ابتدای پاراگراف یافت شود، اما می‌تواند در وسط یا حتی در پایان نیز ظاهر شود. گاهی اوقات ممکن است یک پاراگراف اصلاً یک جمله موضوعی واحد و واضح نداشته باشد و ایده اصلی تنها با خواندن کامل پاراگراف قابل درک باشد.",
+                    "translationAr": "يمكن العثور على الجملة الافتتاحية بشكل متكرر في بداية الفقرة، ولكن يمكن أن تظهر في المنتصف، أو حتى في النهاية. في بعض الأحيان قد لا تحتوي الفقرة على جملة افتتاحية واحدة واضحة على الإطلاق، ولا يمكن فهم الفكرة الرئيسية إلا من خلال قراءة الفقرة كاملة."
+                  }
+                ],
+                "FillColor": null,
+                "WidthPercent": 60.62,
+                "VAlign": null,
+                "ColSpan": null,
+                "RowMerge": null,
+                "IsHeaderCell": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+],
+"Interactives": 
+[
+  {
+    "exactText": "urban",
+    "translationFa": "شهری",
+    "translationAr": "حضري / مدني",
+    "pronounceFa": "eobun",
+    "pronounceAr": "3urban",
+    "explanationFa": "واژه‌ای کلیدی در آیلتس برای توصیف شهرها و زیرساخت‌های شهری (موضوع شهرنشینی).",
+    "explanationAr": "كلمة رئيسية في آيلتس لوصف المدن والبنية التحتية الحضرية (موضوع التمدد الحضري).",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "rural",
+    "translationFa": "روستایی",
+    "translationAr": "ريفي",
+    "pronounceFa": "rooral",
+    "pronounceAr": "rooral",
+    "explanationFa": "متضاد کلمه urban؛ در رایتینگ آیلتس برای مقایسه زندگی شهری و روستایی بسیار کاربرد دارد.",
+    "explanationAr": "عكس كلمة urban؛ تستخدم بكثرة في كتابة آيلتس للمقارنة بين الحياة في المدينة والريف.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "situated",
+    "translationFa": "واقع شده",
+    "translationAr": "واقع / يقع",
+    "pronounceFa": "sichueytid",
+    "pronounceAr": "sichueytid",
+    "explanationFa": "رسمی‌تر از کلمه located؛ بسیار مفید برای توصیف مکان‌ها در تسک 1 رایتینگ آیلتس (نقشه‌ها).",
+    "explanationAr": "أكثر رسمية من كلمة located؛ مفيدة جدًا لوصف المواقع في المهمة الأولى من كتابة آيلتس (الخرائط).",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "destination",
+    "translationFa": "مقصد",
+    "translationAr": "وجهة",
+    "pronounceFa": "destineyshan",
+    "pronounceAr": "destineyshan",
+    "explanationFa": "واژه‌ای آکادمیک برای موضوعات مرتبط با گردشگری و سفر در آزمون آیلتس.",
+    "explanationAr": "كلمة أكاديمية للمواضيع المتعلقة بالسياحة والسفر في اختبار آيلتس.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "contrasts",
+    "translationFa": "تضاد دارد",
+    "translationAr": "يتناقض / يتباين",
+    "pronounceFa": "kantraasts",
+    "pronounceAr": "kantraasts",
+    "explanationFa": "فعل آکادمیک عالی برای نشان دادن تفاوت‌های ساختاری عمیق در رایتینگ و اسپیکینگ آیلتس.",
+    "explanationAr": "فعل أكاديمي ممتاز لإظهار الاختلافات الهيكلية العميقة في كتابة ومحادثة آيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "summarises",
+    "translationFa": "خلاصه می‌کند",
+    "translationAr": "يلخص",
+    "pronounceFa": "samarayziz",
+    "pronounceAr": "samarayziz",
+    "explanationFa": "با املای بریتانیایی (s)؛ مهارتی حیاتی برای پاسخگویی به سوالات بخش Matching Headings در ریدینگ.",
+    "explanationAr": "بالإملاء البريطاني (s)؛ مهارة حيوية للإجابة على أسئلة مطابقة العناوين في القراءة.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "conveys",
+    "translationFa": "منتقل می‌کند",
+    "translationAr": "ينقل / يوصل",
+    "pronounceFa": "kanveyz",
+    "pronounceAr": "kanveyz",
+    "explanationFa": "فعل آکادمیک سطح بالا به عنوان جایگزین express؛ برای بیان نحوه انتقال ایده یا پیام نویسنده در متن.",
+    "explanationAr": "فعل أكاديمي رفيع المستوى كبديل لـ express؛ للتعبير عن كيفية نقل الفكرة أو الرسالة في النص.",
+    "cefrLevel": "C1"
+  }
+]
     },
     {
       "PageNumber": 2,
