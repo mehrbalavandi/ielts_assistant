@@ -360,14 +360,39 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
   @override
   bool get wantKeepAlive => true;
 
+  // ── کش ویجت‌های پاراگراف ──────────────────────────────────────────────────
+  //
+  // مشکل: هر setState در ReadingCanvasScreen (تغییر _pointerCount، zoom، ...)
+  //        باعث می‌شود build() همه BookPageWidgetهای visible دوباره اجرا شوند.
+  //        بدون کش: هر build() → حلقه کامل پاراگراف‌ها + _buildOccurrenceMap → jank
+  //        با کش:    هر build() → null check + return cached → ~0ms
+  //
+  // AutomaticKeepAliveClientMixin مانع rebuild هنگام off-screen می‌شود.
+  // این کش مانع rebuild هنگام parent-setState می‌شود.
+  // ترکیب هر دو: build() فقط یک بار واقعی اجرا می‌شود.
+  List<Widget>? _cachedWidgets;
+
   @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    List<Widget> paragraphWidgets = [];
+  void didUpdateWidget(BookPageWidget old) {
+    super.didUpdateWidget(old);
+    // کش را فقط هنگام تغییر واقعی داده‌های مؤثر باطل کن.
+    // تغییر _pointerCount، zoom، یا هر state دیگری در والد:
+    //   → didUpdateWidget صدا می‌شود ولی شرط‌های زیر false هستند → کش معتبر می‌ماند
+    if (old.searchSession?.query != widget.searchSession?.query ||
+        old.activeTarget != widget.activeTarget ||
+        old.canvasWidth != widget.canvasWidth ||
+        old.screenWidth != widget.screenWidth ||
+        old.targetKey != widget.targetKey) {
+      _cachedWidgets = null;
+    }
+  }
+
+  List<Widget> _buildParaWidgets(BuildContext context) {
+    final List<Widget> result = [];
     final currentBook = ref.read(activeBookProvider);
     for (int pIndex = 0; pIndex < widget.page.paragraphs.length; pIndex++) {
       var para = widget.page.paragraphs[pIndex];
-      bool isTargetParagraph =
+      final isTarget =
           widget.activeTarget != null &&
           widget.activeTarget!.pageNumber == widget.page.pageNumber &&
           widget.activeTarget!.paraIndex == pIndex;
@@ -375,37 +400,39 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
       List<int>? rootHighlightMap;
       if (widget.searchSession?.query != null &&
           widget.searchSession!.query.isNotEmpty) {
-        String fullText = _extractFullText(para);
         rootHighlightMap = _buildOccurrenceMap(
-          fullText,
+          _extractFullText(para),
           widget.searchSession!.query,
         );
       }
-      MapOffset offset = MapOffset();
 
-      Widget paragraphContent = _buildParagraph(
+      Widget w = _buildParagraph(
         para,
         widget.canvasWidth,
         widget.screenWidth,
         context,
         activeBook: currentBook,
-        pageInteractives:
-            widget.page.interactives, // 🌟 پاس دادن لیست از سطح صفحه
+        pageInteractives: widget.page.interactives,
         rootHighlightMap: rootHighlightMap,
-        mapOffset: offset,
-        activeOccurrence: isTargetParagraph
+        mapOffset: MapOffset(),
+        activeOccurrence: isTarget
             ? widget.activeTarget!.occurrenceIndex
             : null,
       );
 
-      if (isTargetParagraph && widget.targetKey != null) {
-        paragraphContent = Container(
-          key: widget.targetKey,
-          child: paragraphContent,
-        );
+      if (isTarget && widget.targetKey != null) {
+        w = Container(key: widget.targetKey, child: w);
       }
-      paragraphWidgets.add(paragraphContent);
+      result.add(w);
     }
+    return result;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    // ??=  →  فقط اولین بار یا پس از باطل‌شدن کش، محاسبه می‌کند
+    _cachedWidgets ??= _buildParaWidgets(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -426,7 +453,7 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: paragraphWidgets,
+            children: _cachedWidgets!,
           ),
         ),
       ],
