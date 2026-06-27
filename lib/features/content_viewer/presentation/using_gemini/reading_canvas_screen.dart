@@ -20,28 +20,19 @@ class MapOffset {
   int value = 0;
 }
 
-// class ReadingCanvasScreen extends ConsumerStatefulWidget {
-//   final List<PageData> documentPages;
-//   const ReadingCanvasScreen({super.key, required this.documentPages});
-
-//   @override
-//   ConsumerState<ReadingCanvasScreen> createState() {
-//     return _ReadingCanvasScreenState();
-//   }
-// }
 class ReadingCanvasScreen extends ConsumerStatefulWidget {
   final List<PageData> documentPages;
   final List<ParagraphData> audioScripts; // 🌟 اضافه شد
-
   const ReadingCanvasScreen({
     super.key,
     required this.documentPages,
-    required this.audioScripts, // 🌟 اضافه شد
+    required this.audioScripts,
   });
 
   @override
-  ConsumerState<ReadingCanvasScreen> createState() =>
-      _ReadingCanvasScreenState();
+  ConsumerState<ReadingCanvasScreen> createState() {
+    return _ReadingCanvasScreenState();
+  }
 }
 
 class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
@@ -60,6 +51,15 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   bool get _isZoomed => _currentScale > 1.02;
   bool get _isPinching => _pointerCount >= 2;
 
+  // ── رفع پرش اولیه اسکرول ────────────────────────────────────────────────
+  // ScrollablePositionedList از دو ListView داخلی استفاده می‌کند.
+  // اولین scroll از initialScrollIndex، یک transition بین این دو فعال می‌کند → پرش.
+  // راه‌حل: صفحه را نامرئی نگه‌داریم، jumpTo را در پس‌زمینه اجرا کنیم
+  // (transition بی‌صدا انجام شود)، سپس صفحه را نشان دهیم.
+  bool _isReady = false;
+  int _savedIndex = 0;
+  double _savedAlignment = 0.0;
+
   // وقتی transform تغییر می‌کند — فقط اگر در حال pinch باشیم setState می‌زنیم
   // این جلوگیری می‌کند از setState غیرضروری در حین اسکرول معمولی
   void _onTransformChanged() {
@@ -74,6 +74,13 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   void initState() {
     super.initState();
     _transformationController.addListener(_onTransformChanged);
+
+    // خواندن موقعیت ذخیره‌شده هنگام init (قبل از اولین build)
+    final currentBook = ref.read(activeBookProvider);
+    _savedIndex = _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
+    _savedAlignment =
+        _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
+
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
@@ -91,7 +98,34 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _ensureTargetVisible());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+
+      // ── مرحله ۱: پرش بی‌صدا به موقعیت ذخیره‌شده ─────────────────────────
+      // چون opacity=0 است کاربر هیچ‌چیز نمی‌بیند.
+      // این jumpTo باعث می‌شود dual-list transition پیش از تعامل کاربر اتفاق بیفتد.
+      if (_itemScrollController.isAttached && _savedIndex > 0) {
+        final safeIndex = _savedIndex < widget.documentPages.length
+            ? _savedIndex
+            : 0;
+        _itemScrollController.jumpTo(
+          index: safeIndex,
+          alignment: _savedAlignment,
+        );
+      }
+
+      // ── مرحله ۲: صبر برای تکمیل transition (۲ فریم کافی است) ──────────
+      await Future.delayed(const Duration(milliseconds: 80));
+      if (!mounted) return;
+
+      // ── مرحله ۳: نمایش صفحه — کاربر اکنون صفحه درست را می‌بیند ─────────
+      setState(() => _isReady = true);
+
+      // ── مرحله ۴: در صورت وجود search target، به آن اسکرول کن ─────────────
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _ensureTargetVisible(),
+      );
+    });
   }
 
   void _ensureTargetVisible() {
@@ -239,44 +273,52 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                     child: SizedBox(
                       width: canvasWidth,
                       child: AbsorbPointer(
-                        // ── AbsorbPointer: حل اصلی تداخل gesture ─────────────
-                        // فقط هنگام pinch (2+ انگشت) scroll را کاملاً بلاک می‌کند:
-                        //   VerticalDragGestureRecognizer اصلاً وارد gesture arena نمی‌شود
-                        //   → ScaleGestureRecognizer (IV) بدون رقیب زوم را می‌گیرد
-                        // هنگام 1 انگشت (حتی زوم‌شده): AbsorbPointer غیرفعال است
-                        //   → scroll با ClampingScrollPhysics روان و سریع کار می‌کند
                         absorbing: _isPinching,
-                        child: ScrollablePositionedList.builder(
-                          itemCount: widget.documentPages.length,
-                          itemScrollController: _itemScrollController,
-                          itemPositionsListener: _itemPositionsListener,
-                          initialScrollIndex:
-                              initialIndex < widget.documentPages.length
-                              ? initialIndex
-                              : 0,
-                          initialAlignment: initialAlignment,
-                          // ClampingScrollPhysics هنگام ۱ انگشت — حتی وقتی زوم شده
-                          // scroll عمودی کار می‌کند؛ pan افقی توسط IV کنترل می‌شود
-                          // بنابراین scroll تنها راه حرکت در محتوای زوم‌شده است
-                          physics: _isPinching
-                              ? const NeverScrollableScrollPhysics()
-                              : const ClampingScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(vertical: 24.0),
-                          itemBuilder: (context, pageIndex) {
-                            final page = widget.documentPages[pageIndex];
-                            bool hasTarget =
-                                activeTarget != null &&
-                                activeTarget.pageNumber == page.pageNumber;
+                        child: Opacity(
+                          // ── نامرئی تا زمانی که jumpTo تکمیل شود ────────────
+                          opacity: _isReady ? 1.0 : 0.0,
+                          child: ScrollablePositionedList.builder(
+                            itemCount: widget.documentPages.length,
+                            itemScrollController: _itemScrollController,
+                            itemPositionsListener: _itemPositionsListener,
 
-                            return BookPageWidget(
-                              page: page,
-                              activeTarget: activeTarget,
-                              searchSession: searchSession,
-                              canvasWidth: canvasWidth,
-                              screenWidth: MediaQuery.of(context).size.width,
-                              targetKey: hasTarget ? _targetParaKey : null,
-                            );
-                          },
+                            // ── کلید رفع پرش اولیه ───────────────────────────
+                            // همیشه از index 0 شروع کن؛ jumpTo در initState
+                            // موقعیت را بی‌صدا (opacity=0) تنظیم می‌کند.
+                            initialScrollIndex: 0,
+                            initialAlignment: 0,
+
+                            // ── pre-build آیتم‌ها قبل از ورود به viewport ────
+                            // ۳ برابر ارتفاع صفحه → lazy-build jump حذف می‌شود
+                            minCacheExtent:
+                                MediaQuery.of(context).size.height * 3,
+
+                            physics: _isPinching
+                                ? const NeverScrollableScrollPhysics()
+                                : const ClampingScrollPhysics(),
+                            padding: const EdgeInsets.symmetric(vertical: 24.0),
+                            itemBuilder: (context, pageIndex) {
+                              final page = widget.documentPages[pageIndex];
+                              bool hasTarget =
+                                  activeTarget != null &&
+                                  activeTarget.pageNumber == page.pageNumber;
+
+                              // RepaintBoundary: هر صفحه مستقل repaint می‌شود
+                              // → تغییر یک صفحه باعث repaint صفحات دیگر نمی‌شود
+                              return RepaintBoundary(
+                                child: BookPageWidget(
+                                  page: page,
+                                  activeTarget: activeTarget,
+                                  searchSession: searchSession,
+                                  canvasWidth: canvasWidth,
+                                  screenWidth: MediaQuery.of(
+                                    context,
+                                  ).size.width,
+                                  targetKey: hasTarget ? _targetParaKey : null,
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
