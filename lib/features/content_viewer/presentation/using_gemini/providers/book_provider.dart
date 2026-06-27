@@ -401,6 +401,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           return;
         }
 
+        // --- دانلود JSON ---
         String? newJsonPath = book.localJsonPath;
         int newJsonVer = book.localJsonVersion;
         if (book.jsonFile != null &&
@@ -419,25 +420,27 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           }
         }
 
+        // --- دانلود صوت ---
         int newAudioVer = book.localAudioVersion;
         if (book.hasAudioUpdate) {
           bool allSuccess = await _downloadFilesConcurrently(
             dio,
             book.id,
             book.audioFiles,
-            '${bookFolder.path}/audios',
+            bookFolder.path,
             onFileDownloaded,
           );
           if (allSuccess) newAudioVer = book.audioVersion;
         }
 
+        // --- دانلود تصویر ---
         int newImagesVer = book.localImagesVersion;
         if (book.hasImagesUpdate) {
           bool allSuccess = await _downloadFilesConcurrently(
             dio,
             book.id,
             book.images,
-            '${bookFolder.path}/images',
+            bookFolder.path,
             onFileDownloaded,
           );
           if (allSuccess) newImagesVer = book.imagesVersion;

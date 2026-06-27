@@ -16,8 +16,9 @@ class MainBookScreen extends ConsumerWidget {
     final activeBook = ref.watch(activeBookProvider);
     final searchSession = ref.watch(activeSearchProvider);
 
-    if (activeBook == null)
+    if (activeBook == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -145,10 +146,12 @@ class MainBookScreen extends ConsumerWidget {
       body: FutureBuilder<List<PageData>>(
         future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          if (!snapshot.hasData || snapshot.data!.isEmpty)
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("داده‌ای یافت نشد."));
+          }
           return ReadingCanvasScreen(documentPages: snapshot.data!);
         },
       ),
