@@ -3,1117 +3,937 @@
     {
       "PageNumber": 1,
       "Paragraphs": [
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "UNIT/01: URBAN AND RURAL LIFE",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 ExtraBold",
-                                "sz:32"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "واحد 1: زندگی شهری و روستایی",
-                          "translationAr": "الوحدة 1: الحياة الحضرية والريفية",
-                          "Interactives": [
-                            {
-                              "exactText": "URBAN",
-                              "translationFa": "شهری",
-                              "translationAr": "حضري / مدني",
-                              "pronounceFa": "ööbən",
-                              "pronounceAr": "أيربان",
-                              "explanationFa": "واژه‌ای آکادمیک و بسیار کاربردی در رایتینگ و اسپیکینگ آیلتس برای توصیف ویژگی‌ها، فضاها و مسائل مربوط به شهرها.",
-                              "explanationAr": "كلمة أكاديمية ومهمة جداً في اختبار آيلتس لوصف الميزات والمساحات والقضايا المتعلقة بالمدن.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "RURAL",
-                              "translationFa": "روستایی",
-                              "translationAr": "ريفي",
-                              "pronounceFa": "روورَل",
-                              "pronounceAr": "رورال",
-                              "explanationFa": "متضاد کلمه urban؛ اصطلاحی کلیدی در موضوعات مرتبط با جغرافیا، سبک زندگی و دموگرافی در آزمون آیلتس.",
-                              "explanationAr": "عكس كلمة urban؛ مصطلح أساسي في المواضيع المتعلقة بالجغرافيا، نمط الحياة، والديموغرافيا في اختبار آيلتس.",
-                              "cefrLevel": "B1"
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "READING",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Black",
-                                "sz:88"
-                              ],
-                              "TextColor": "FFFFFF",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "خوانش / مهارت خواندن",
-                          "translationAr": "القراءة / مهارة القراءة",
-                          "Interactives": [
-                            {
-                              "exactText": "Reading",
-                              "translationFa": "خوانش (یکی از چهار مهارت اصلی آیلتس)",
-                              "translationAr": "القراءة (إحدى المهارات الأساسية في اختبار الآيلتس)",
-                              "pronounceFa": "riːdɪŋ",
-                              "pronounceAr": "رييدينغ",
-                              "explanationFa": "یکی از چهار مهارت اصلی در آزمون آیلتس (Academic/General) که توانایی شما را در درک متون پیچیده، استدلال‌ها و جزئیات ارزیابی می‌کند.",
-                              "explanationAr": "إحدى المهارات الأربعة الرئيسية في اختبار الآيلتس، وتقيس مهارة استيعاب النصوص الأكاديمية أو العامة وتحليل الأفكار.",
-                              "cefrLevel": "B1"
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Bold",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "در این واحد شما خواهید آموخت که چگونه",
-                          "translationAr": "في هذه الوحدة سوف تتعلم كيف",
-                          "Interactives": [
-                            {
-                              "exactText": "UNIT",
-                              "translationFa": "واحد (فصل آموزشی)",
-                              "translationAr": "وحدة (فصل دراسي)",
-                              "pronounceFa": "yoo-nit",
-                              "pronounceAr": "يونيت",
-                              "explanationFa": "در ساختار آزمون آیلتس و کتاب‌های آمادگی، برای اشاره به بخش‌ها یا فصل‌های کتاب از این واژه استفاده می‌شود.",
-                              "explanationAr": "في سياق كتب الآيلتس والمناهج التعليمية، تُستخدم هذه الكلمة للإشارة إلى الفصول أو الأجزاء الدراسية.",
-                              "cefrLevel": "B1"
-                            }
-                          ]
-                        },
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "• تعامل با تسک‌های تطابق عناوین\n• تشخیص ایده اصلی یک پاراگراف\n• درک مفهوم پیشوندها.",
-                          "translationAr": "• التعامل مع مهام مطابقة العناوين\n• تحديد الفكرة الرئيسية للفقرة\n• فهم معنى البادئات.",
-                          "Interactives": [
-                            {
-                              "exactText": "matching headings",
-                              "translationFa": "تطابق عناوین",
-                              "translationAr": "مطابقة العناوين",
-                              "pronounceFa": "mæch-ing hed-ingz",
-                              "pronounceAr": "ماتشينغ هيدينغز",
-                              "explanationFa": "یکی از تسک‌های رایج و چالش‌برانگیز در بخش Reading آیلتس که در آن باید عنوان مناسب برای هر پاراگراف را از میان یک لیست انتخاب کنید. کلید موفقیت در آن، درک ایده اصلی (Main Idea) هر پاراگراف است.",
-                              "explanationAr": "واحدة من المهام الشائعة والمهمة في قسم القراءة (Reading) في اختبار IELTS، حيث يُطلب منك اختيار العنوان المناسب لكل فقرة من قائمة خيارات. مفتاح الحل هو فهم الفكرة الرئيسية للفقرة.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "identify",
-                              "translationFa": "تشخیص دادن / شناسایی کردن",
-                              "translationAr": "تحديد / التعرف على",
-                              "pronounceFa": "ai-den-ti-fai",
-                              "pronounceAr": "آيدنتيفاي",
-                              "explanationFa": "واژه‌ای آکادمیک و بسیار پرکاربرد در سوالات آیلتس که به معنای یافتن یا تشخیص دادن یک ویژگی، ایده یا اطلاعات خاص در متن است.",
-                              "explanationAr": "كلمة أكاديمية شائعة جداً في أسئلة الآيلتس، وتعني العثور على أو تمييز ميزة معينة، فكرة، أو معلومة محددة داخل النص.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "main idea",
-                              "translationFa": "ایده اصلی",
-                              "translationAr": "الفكرة الرئيسية",
-                              "pronounceFa": "mein ai-di-ə",
-                              "pronounceAr": "ماين آيديا",
-                              "explanationFa": "مفهوم یا پیام مرکزی یک پاراگراف یا متن. در آیلتس، معمولاً با خواندن جمله اول و دوم (Topic Sentence) یا جمله آخر پاراگراف می‌توان به آن پی برد.",
-                              "explanationAr": "المفهوم المركزي أو الرسالة الأساسية للفقرة أو النص. في اختبار الآيلتس، يمكن التعرف عليها عادةً من خلال قراءة الجملة الأولى والثانية أو الجملة الأخيرة من الفقرة.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "prefixes",
-                              "translationFa": "پیشوندها",
-                              "translationAr": "البادئات",
-                              "pronounceFa": "priː-fiks-iz",
-                              "pronounceAr": "بريفيكسيز",
-                              "explanationFa": "حروفی که به ابتدای کلمات اضافه می‌شوند و معنی آن‌ها را تغییر می‌دهند (مانند un- یا multi-). یادگیری پیشوندها به افزایش دایره لغات (Vocabulary) و حدس زدن معنی کلمات جدید در ریدینگ آیلتس کمک شایانی می‌کند.",
-                              "explanationAr": "أحرف تُضاف إلى بداية الكلمات لتغيير معناها (مثل un- أو multi-). تعلم البادئات يساعد بشكل كبير في توسيع الحصيلة اللغوية وتخمين معاني الكلمات الجديدة في قراءة الآيلتس.",
-                              "cefrLevel": "B2"
-                            }
-                          ]
-                        }
-                      ],
-                      "FillColor": "FFFF00",
-                      "WidthPercent": 100.0,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "Direction": "LTR",
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 12.0,
-          "Spans": [
-            {
-              "Type": "text",
-              "Content": "Lead-in",
-              "Markers": ["b", "bg:FFFF00", "fn:Source Sans 3"],
-              "FillColor": "FFFF00",
-              "BorderColor": "000000",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
-              "InnerSpans": [],
-              "TableRows": []
-            }
-          ],
-          "translationFa": "مقدمه",
-          "translationAr": "مقدمة",
-          "Interactives": [
-            {
-              "exactText": "Lead-in",
-              "translationFa": "بخش مقدماتی (شروع‌کننده بحث)",
-              "translationAr": "القسم التمهيدي (مقدمة النقاش)",
-              "pronounceFa": "leed-in",
-              "pronounceAr": "leed-in",
-              "explanationFa": "در آزمون آیلتس، این اصطلاح به فعالیت‌ها یا سوالات ابتدایی اشاره دارد که برای گرم کردن ذهن متقاضی و آماده‌سازی او برای ورود به موضوع اصلی بخش اسپیکینگ یا رایتینگ استفاده می‌شود.",
-              "explanationAr": "في اختبار الآيلتس، يشير هذا المصطلح إلى الأنشطة أو الأسئلة التمهيدية التي تهدف إلى تهيئة المتقدم واختبار خلفيته قبل الدخول في الموضوع الرئيسي للمحادثة أو الكتابة.",
-              "cefrLevel": "B2"
-            }
-          ]
-        },
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "01",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 5.02,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "SpaceAfter": 12.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Direction": "LTR",
-                              "Type": "text",
-                              "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Medium",
-                                "sz:21"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "پاراگراف زیر را در مورد جزیره مایورکا بخوانید. با یک هم‌گروهی بحث کنید که چرا برخی از اسم‌هایی که زیر آنها خط کشیده شده است با the شروع می‌شوند و برخی دیگر هیچ آرتیکلی ندارند. آیا قانون دیگری برای آرتیکل‌ها در مورد ویژگی‌های جغرافیایی می‌دانید؟",
-                          "translationAr": "اقرأ الفقرة أدناه عن جزيرة مايوركا. ناقش مع زميلك سبب ورود بعض الأسماء التي تحتها خط مسبوقة بـ the، بينما لا تسبق أسماء أخرى بأي أداة. هل تعرف أي قواعد أخرى لأدوات التعريف والتنكير المتعلقة بالمعالم الجغرافية؟",
-                          "Interactives": [
-                            {
-                              "exactText": "geographical features",
-                              "translationFa": "ویژگی‌های جغرافیایی",
-                              "translationAr": "المعالم الجغرافية",
-                              "pronounceFa": "jee-uh-graf-i-kuhl fee-cherz",
-                              "pronounceAr": "جيوغرافيكال فيتشرز",
-                              "explanationFa": "در بخش رایتینگ و اسپیکینگ آیلتس (به ویژه تسک 1 آایتلس آکادمیک برای توصیف نقشه‌ها)، شناخت و کاربرد صحیح آرتیکل‌ها برای عوارض و ویژگی‌های جغرافیایی (مانند دریاها، کوه‌ها و جزایر) برای کسب نمره بالا در معیار grammatical range and accuracy بسیار حیاتی است.",
-                              "explanationAr": "في اختباري الكتابة والمحادثة في آيلتس (خاصة الجزء الأول الأكاديمي لوصف الخرائط)، يعد الفهم الدقيق لاستخدام أدوات التعريف مع المعالم الجغرافية (مثل البحار، الجبال، والجزر) أمراً ضرورياً لتحقيق درجة عالية في معيار التنوع والدقة القواعدية.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "preceded by",
-                              "translationFa": "مسبوق به / قبل از آن آمدن",
-                              "translationAr": "مسبوقة بـ",
-                              "pronounceFa": "pree-seed-id bai",
-                              "pronounceAr": "بريسيديد باي",
-                              "explanationFa": "یک عبارت ساختاری و کاربردی در متون آکادمیک آیلتس. استفاده از شکل مجهول این فعل (be preceded by) در توصیف فرآیندها (Process Diagrams) یا تحلیل داده‌های متوالی بسیار رایج است.",
-                              "explanationAr": "تعبير تركيبي وأكاديمي شائع جداً في آيلتس. استخدام صيغة المبني للمجهول (be preceded by) يفيد كثيراً عند وصف العمليات وتتابع المراحل في الجزء الأول من اختبار الكتابة.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "underlined nouns",
-                              "translationFa": "اسم‌هایی که زیر آنها خط کشیده شده",
-                              "translationAr": "الأسماء التي تحتها خط",
-                              "pronounceFa": "un-der-laind naunz",
-                              "pronounceAr": "أندرلاند ناونز",
-                              "explanationFa": "کالوکیشن کاربردی در محیط‌های آموزشی و آزمونی. کلمه underline به عنوان فعل یا صفت مفعولی برای اشاره به کلمات کلیدی یا بخش‌های مهم متن به کار می‌رود که در پارت 3 اسپیکینگ یا بخش ریدینگ آیلتس شنیده می‌شود.",
-                              "explanationAr": "متلازمة لفظية تستخدم بكثرة في السياقات التعليمية واختبارات القراءة. الكلمة underline تستخدم للإشارة إلى التركيز على الكلمات المفتاحية المهمة.",
-                              "cefrLevel": "B1"
-                            }
-                          ]
-                        },
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Mallorca",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", the biggest of ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Balearic Islands",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", is situated in ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Mediterranean Sea",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", some 300km from ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Valencian coast",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " of ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Spain",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the Spanish",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " as a tourist destination, it annually welcomes people from all over ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Europe",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " (particularly from ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the United Kingdom, France",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " and ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Germany",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "), who may head for ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Alcudia Beach",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the northeast",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " to ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "the southwest",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " of the island. The busy capital city, ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Palma de Mallorca",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Algaida",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " or ",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Binissalem",
-                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ".",
-                              "Markers": ["fn:Source Sans 3", "sz:21"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "مایورکا، بزرگ‌ترین جزیره از مجمع‌الجزایر بالئار، در دریای مدیترانه و در فاصله حدود 300 کیلومتری از سواحل والنسیا در اسپانیا واقع شده است و ترکیبی هیجان‌انگیز از پویایی شهری، ماجراجویی روستایی و آرامش ساحلی است.\nاگرچه این جزیره به عنوان یک مقصد گردشگری در میان خود اسپانیایی‌ها چندان محبوب نیست، اما سالانه پذیرای مردمی از سراسر اروپا (به‌ویژه از بریتانیا، فرانسه و آلمان) است؛ مسافرانی که ممکن است راهی ساحل آلکودیا شوند یا به پیاده‌روی و کوهنوردی در ترامونتانا بروند، رشته‌کوهی که از شمال شرقی تا جنوب غربی جزیره امتداد دارد.\nپالما د مایورکا، پایتخت شلوغ و پرجنب‌وجوش آن، تضاد کاملی با شهرها و روستاهای سنتی و روستایی در قلب جزیره، مانند آلگایدا یا بینیسالم دارد.",
-                          "translationAr": "تقع مايوركا، أكبر جزر البليار، في البحر الأبيض المتوسط، على بعد حوالي 300 كيلومتر من ساحل فالنسيا في إسبانيا، وتتميز بمزيج مثير من الحيوية الحضرية، والمغامرة الريفية، والهدوء الساحلي.\nوعلى الرغم من أنها ليست شائعة لدى الإسبان كوجهة سياحية، إلا أنها تستقبل سنوياً زواراً من جميع أنحاء أوروبا (خاصة من المملكة المتحدة وفرنسا وألمانيا)، والذين قد يتوجهون إلى شاطئ ألكوديا، أو يمارسون رياضة المشي لمسافات طويلة في ترامونتانا، وهي سلسلة جبال تمتد من الشمال الشرقي إلى الجنوب الغربي من الجزيرة.\nوتتناقض العاصمة المزدحمة، بالما دي مايوركا، تماماً مع البلدات والقرى الريفية التقليدية في قلب الجزيرة، مثل ألغايدا أو بينيساليم.",
-                          "Interactives": [
-                            {
-                              "exactText": "situated",
-                              "translationFa": "واقع شده",
-                              "translationAr": "واقعة / تقع",
-                              "pronounceFa": "سیتچوئِیتِید",
-                              "pronounceAr": "سيتشوايتيد",
-                              "explanationFa": "یک فعل مجهول یا صفت رسمی که در رایتینگ آیلتس (به‌ویژه تسک 1 مپ) برای توصیف مکان‌ها بسیار کاربرد دارد.",
-                              "explanationAr": "فعل مبني للمجهول أو صفة رسمية تُستخدم بكثرة في كتابة الآيلتس (خاصة الخرائط) لوصف المواقع الجغرافية.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "urban energy",
-                              "translationFa": "پویایی شهری (انرژی و جنب‌وجوش شهری)",
-                              "translationAr": "الحيوية الحضرية / طاقة المدينة",
-                              "pronounceFa": "اِربِن اِنِرجی",
-                              "pronounceAr": "أربان إنرجي",
-                              "explanationFa": "یک کالوکیشن عالی برای توصیف فضاهای مدرن و شهرهای بزرگ در اسپیکینگ و رایتینگ موضوعی آیلتس.",
-                              "explanationAr": "متلازمة لفظية ممتازة لوصف الأجواء الحديثة والمدن الكبرى في موضوعات الكتابة والمحادثة في الآيلتس.",
-                              "cefrLevel": "C1"
-                            },
-                            {
-                              "exactText": "tourist destination",
-                              "translationFa": "مقصد گردشگری",
-                              "translationAr": "وجهة سياحية",
-                              "pronounceFa": "تورِست دِستینِیشن",
-                              "pronounceAr": "توريست ديستينيشن",
-                              "explanationFa": "کالوکیشن پرکاربرد و ضروری برای موضوعات مرتبط با Travel و Tourism در آیلتس.",
-                              "explanationAr": "متلازمة لفظية شائعة وضرورية للموضوعات المتعلقة بالسفر والسياحة في اختبار الآيلتس.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "annually",
-                              "translationFa": "سالانه",
-                              "translationAr": "سنوياً",
-                              "pronounceFa": "اَنیوُلی",
-                              "pronounceAr": "أنيوالي",
-                              "explanationFa": "قید آکادمیک و جایگزینی مناسب برای 'every year' جهت ارتقای نمره LR در رایتینگ آیلتس.",
-                              "explanationAr": "ظرف أكاديمي يعتبر بديلاً ممتازاً لـ 'every year' لرفع درجة المعجم (LR) في الكتابة.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "mountain range",
-                              "translationFa": "رشته‌کوه",
-                              "translationAr": "سلسلة جبال",
-                              "pronounceFa": "ماونتِن رِینج",
-                              "pronounceAr": "ماونتن رينج",
-                              "explanationFa": "واژه موضوعی (Topic-specific) دقیق برای توصیف جغرافیا و طبیعت در بخش اسپیکینگ.",
-                              "explanationAr": "مفردة دقيقة متخصصة بالموضوع (Topic-specific) لوصف الجغرافيا والطبيعة في المحادثة.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "contrasts entirely with",
-                              "translationFa": "تضاد کاملی دارد با",
-                              "translationAr": "يتناقض تماماً مع",
-                              "pronounceFa": "کِنترَستس اِنتایِرلی وِذ",
-                              "pronounceAr": "كونتراستس إنتايرلي ويذ",
-                              "explanationFa": "ساختار پیشرفته برای بیان تضاد و مقایسه (Comparison and Contrast) که نمره گرامر و واژگان را در رایتینگ افزایش می‌دهد.",
-                              "explanationAr": "تركيب متقدم للتعبير عن المقارنة والتناقض، مما يرفع درجة القواعد والمفردات في الكتابة.",
-                              "cefrLevel": "C1"
-                            },
-                            {
-                              "exactText": "traditional rural towns",
-                              "translationFa": "شهرهای سنتی و روستایی",
-                              "translationAr": "البلدات الريفية التقليدية",
-                              "pronounceFa": "ترَدیشنِل روُرِل تاونز",
-                              "pronounceAr": "تراديشنال رورال تاونز",
-                              "explanationFa": "ترکیب صفت و اسم مناسب برای توصیف بافت‌های غیرشهری و سنتی در لیسنینگ و رایتینگ.",
-                              "explanationAr": "تركيب من صفات واسم مناسب لوصف البيئات غير الحضرية والتقليدية في الاستماع والكتابة.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "in the heart of",
-                              "translationFa": "در قلبِ (در مرکزِ)",
-                              "translationAr": "في قلب / في وسط",
-                              "pronounceFa": "این ذَ هارت آو",
-                              "pronounceAr": "إن ذا هارت أوف",
-                              "explanationFa": "اصطلاحی پرکاربرد و طبیعی (Idiomatic) برای اشاره به مرکز یک منطقه جغرافیایی.",
-                              "explanationAr": "تعبير اصطلاحي شائع وطبيعي للإشارة إلى مركز أو وسط منطقة جغرافية معينة.",
-                              "cefrLevel": "B2"
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 94.98,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                },
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "02",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "25",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "Url": "audio:MindsetIELTS_L3_02.mp3",
-                              "TextColor": "0563C1",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 5.02,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Medium",
-                                "sz:21"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "یک منطقه جغرافیایی در کشور خود را در نظر بگیرید و یک پاراگراف کوتاه مانند پاراگراف بالا بنویسید، و به استفاده صحیح از حروف تعریف توجه ویژه‌ای داشته باشید. پاراگراف خود را با یک هم‌کلاسی عوض کنید و در صورت نیاز کار یکدیگر را اصلاح کنید.",
-                          "translationAr": "فكر في منطقة جغرافية في بلدك واكتب فقرة قصيرة مثل الفقرة أعلاه، مع إعطاء اهتمام خاص للاستخدام الصحيح لأدوات التعريف والتنكير. تبادل فقرتك مع زميل وصححا عمل بعضكما البعض عند الضرورة.",
-                          "Interactives": [
-                            {
-                              "exactText": "geographical area",
-                              "translationFa": "منطقه جغرافیایی",
-                              "translationAr": "منطقة جغرافية",
-                              "pronounceFa": "ji-og-raf-i-k'l eeh-ree-uh",
-                              "pronounceAr": "ji-og-raf-i-k'l eeh-ree-uh",
-                              "explanationFa": "یک کالوکیشن رسمی و آکادمیک، بسیار مناسب برای توصیف مکان‌ها در تسک 2 رایتینگ و پارت 2 اسپیکینگ آیلتس.",
-                              "explanationAr": "متلازمة لفظية رسمية وأكاديمية، مناسبة جداً لوصف الأماكن في المهمة 2 من الكتابة والجزء 2 من المحادثة في آيلتس.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "paying special attention",
-                              "translationFa": "توجه ویژه داشتن / دقت فراوان کردن",
-                              "translationAr": "إعطاء اهتمام خاص / التركيز الشديد",
-                              "pronounceFa": "pei-ing spesh-l uh-ten-shn",
-                              "pronounceAr": "pei-ing spesh-l uh-ten-shn",
-                              "explanationFa": "ساختار پیشرفته برای تأکید بر یک موضوع خاص؛ استفاده از این دست کالوکیشن‌ها نمره بخش Lexical Resource شما را افزایش می‌دهد.",
-                              "explanationAr": "تركيبة متقدمة للتركيز على موضوع معين؛ استخدام مثل هذه المتلازمات يرفع درجتك في معيار الثروة اللغوية (Lexical Resource).",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "swap",
-                              "translationFa": "عوض کردن / تبادل کردن",
-                              "translationAr": "تبادل / تبديل",
-                              "pronounceFa": "swop",
-                              "pronounceAr": "swop",
-                              "explanationFa": "فعلی کاربردی برای توصیف فرآیندها، تعاملات یا جابجایی دو چیز با یکدیگر در آزمون آیلتس.",
-                              "explanationAr": "فعل عملي لوصف العمليات، التفاعلات، أو استبدال شيئين ببعضهما البعض في اختبار آيلتس.",
-                              "cefrLevel": "B2"
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 94.98,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "Direction": "LTR",
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 12.0,
-          "Spans": [
-            {
-              "Type": "text",
-              "Content": "[[[[[[[[[[",
-              "Markers": ["bg:FFFF00", "fn:Source Sans 3", "sz:32"],
-              "FillColor": "FFFF00",
-              "TextColor": "FFFF00",
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "MATCHING HEADINGS",
-              "Markers": ["b", "fn:Source Sans 3 SemiBold", "sz:32"],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "]",
-              "Markers": ["fn:Source Sans 3", "sz:32"],
-              "TextColor": "FFFF00",
-              "InnerSpans": [],
-              "TableRows": []
-            }
-          ],
-          "translationFa": "تطابق عناوین",
-          "translationAr": "مطابقة العناوين",
-          "Interactives": [
-            {
-              "exactText": "matching headings",
-              "translationFa": "تطابق عناوین (پیدا کردن عنوان مناسب برای هر بخش)",
-              "translationAr": "مطابقة العناوين (اختيار العنوان المناسب لكل قسم)",
-              "pronounceFa": "mæchɪŋ hedɪŋz",
-              "pronounceAr": "ماتشينغ هيدينغز",
-              "explanationFa": "یکی از انواع سوالات مهم در بخش ریدینگ آیلتس که در آن باید عنوان یا ایده اصلی مناسب برای هر پاراگراف را از میان یک لیست انتخاب کنید.",
-              "explanationAr": "أحد أنواع الأسئلة المهمة في قسم القراءة في آيلتس، حيث يجب عليك اختيار العنوان المناسب أو الفكرة الرئيسية لكل فقرة من قائمة الخيارات المتاحة.",
-              "cefrLevel": "B2"
-            }
-          ]
-        },
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "03",
-                              "Markers": ["b", "fn:Source Sans 3"],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 5.06,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 Medium",
-                                "sz:21"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "به این عنوان نگاه کنید و با یک هم‌گروهی درباره آنچه انتظار دارید در متن بخوانید، بحث کنید.",
-                          "translationAr": "انظر إلى هذا العنوان وناقش مع زميلك ما تتوقع قراءته في النص.",
-                          "Interactives": [
-                            {
-                              "exactText": "expect to read",
-                              "translationFa": "انتظار دارید بخوانید",
-                              "translationAr": "تتوقع قراءته",
-                              "pronounceFa": "ik-spekt too reed",
-                              "pronounceAr": "ik-spekt too reed",
-                              "explanationFa": "یک ساختار گرامری پرکاربرد در بخش‌های ریدینگ و اسپیکینگ آیلتس (expect + to-infinitive) برای بیان پیش‌بینی یا انتظار.",
-                              "explanationAr": "تركيب قواعدي شائع في أقسام القراءة والمحادثة في الآيلتس (expect + to-infinitive) للتعبير عن التوقع.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "passage",
-                              "translationFa": "متن (متن ریدینگ)",
-                              "translationAr": "النص (القطعة)",
-                              "pronounceFa": "pa-sij",
-                              "pronounceAr": "pa-sij",
-                              "explanationFa": "واژه استاندارد و رسمی در آزمون آیلتس که برای اشاره به متن‌های طولانی بخش Reading استفاده می‌شود.",
-                              "explanationAr": "الكلمة الرسمية المستخدمة في اختبار الآيلتس للإشارة إلى النصوص الطويلة في قسم القراءة (Reading).",
-                              "cefrLevel": "B2"
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 94.94,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "Direction": "LTR",
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "text",
-              "Content": "",
-              "Markers": [],
-              "InnerSpans": [],
-              "TableRows": []
-            }
-          ]
-        },
-        {
-          "SpaceAfter": 0.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "table",
-              "Markers": [],
-              "BorderWidth": 0.5,
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
-              "HasBorders": "true",
-              "TableWidthPercent": 100.0,
-              "InnerSpans": [],
-              "TableRows": [
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "The World’s\nMost unusual\nTowns and Cities",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 ExtraBold",
-                                "sz:32"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "عجیب‌ترین شهرها و\nشهرک‌های\nجهان",
-                          "translationAr": "أغرب البلدات و\nالمدن في\nالعالم",
-                          "Interactives": [
-                            {
-                              "exactText": "unusual",
-                              "translationFa": "عجیب / غیرعادی",
-                              "translationAr": "غريب / غير مألوف",
-                              "pronounceFa": "an-yoo-zhoo-uhl",
-                              "pronounceAr": "an-yu-zhu-al",
-                              "explanationFa": "این واژه برای توصیف چیزهایی به کار می‌رود که به دلیل تفاوت با موارد معمولی، جالب یا عجیب هستند. در رایتینگ آیلتس (تسک 2) برای جایگزینی کلمه تکراری 'strange' یا 'different' بسیار کاربردی است.",
-                              "explanationAr": "تُستخدم هذه الكلمة لوصف الأشياء الغريبة أو المألوفة التي تثير الاهتمام بسبب اختلافها عن المعتاد. مفيدة جداً في اختبار الكتابة لآيلتس لتجنب تكرار كلمات مثل 'strange'.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "Towns and Cities",
-                              "translationFa": "شهرک‌ها و شهرها",
-                              "translationAr": "البلدات والمدن",
-                              "pronounceFa": "townz uhnd si-teez",
-                              "pronounceAr": "tawnz and si-tiz",
-                              "explanationFa": "یک کالوکیشن (ترکیب کلمات) رایج در موضوعات شهری (Urbanization) در آزمون آیلتس. 'Town' معمولاً کوچک‌تر از 'City' است. استفاده از این دو در کنار هم به تنوع واژگانی شما در رایتینگ و اسپیکینگ کمک می‌کند.",
-                              "explanationAr": "متلازمة لفظية (Collocation) شائعة جداً عند الحديث عن المواضيع الحضرية في آيلتس. 'Town' تشير إلى بلدة صغيرة بينما 'City' تعني مدينة كبيرة.",
-                              "cefrLevel": "B1"
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 50.01,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "◎",
-                              "Markers": ["fn:Cambria Math", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
-                              "Markers": ["fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "topic sentence",
-                              "Markers": ["i", "fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ".",
-                              "Markers": ["fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "این نوع تمرین از شما می‌خواهد عنوانی را انتخاب کنید که کل پاراگراف را به درستی خلاصه‌سازی کند.\nاغلب، امکان یافتن جمله‌ای در پاراگراف وجود دارد که ایده اصلی را منتقل می‌کند - این جمله به عنوان جمله موضوعی شناخته می‌شود.",
-                          "translationAr": "يتطلب منك هذا النوع من المهام اختيار عنوان يلخص الفقرة بأكملها بشكل صحيح.\nغالباً، يكون من الممكن العثور على جملة واحدة في الفقرة تعبر عن الفكرة الرئيسية - وتعرف هذه بالجملة الافتتاحية.",
-                          "Interactives": [
-                            {
-                              "exactText": "summarises",
-                              "translationFa": "خلاصه‌سازی می‌کند",
-                              "translationAr": "يلخص",
-                              "pronounceFa": "samaraizes",
-                              "pronounceAr": "سامارايزيز",
-                              "explanationFa": "در ریدینگ آیلتس، توانایی شناسایی خلاصه یک متن بسیار حیاتی است. این فعل بریتانیایی (با پسوند ses) برای بیان فشرده‌سازی مفاهیم به کار می‌رود.",
-                              "explanationAr": "في اختبار القراءة لآيلتس، تعد القدرة على تحديد ملخص النص أمراً حيوياً. يستخدم هذا الفعل البريطاني (بلاحقة ses) للتعبير عن تكثيف المفاهيم.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "conveys",
-                              "translationFa": "منتقل می‌کند",
-                              "translationAr": "تعبر عن / تنقل",
-                              "pronounceFa": "kanveiz",
-                              "pronounceAr": "كانفيز",
-                              "explanationFa": "یک واژه آکادمیک بسیار کاربردی در آیلتس (به ویژه رایتینگ تاسک 2) به معنای رساندن، بیان کردن یا منتقل کردن یک مفهوم، احساس یا ایده.",
-                              "explanationAr": "كلمة أكاديمية مفيدة جداً في آيلتس (خاصة في الكتابة المهمة 2) وتعني إيصال أو التعبير عن أو نقل مفهوم أو شعور أو فكرة.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "topic sentence",
-                              "translationFa": "جمله موضوعی",
-                              "translationAr": "الجملة الافتتاحية / الجملة الرئيسية",
-                              "pronounceFa": "topik sentans",
-                              "pronounceAr": "توبيك سينتانس",
-                              "explanationFa": "اصطلاحی کلیدی در ساختار پاراگراف‌نویسی رایتینگ آیلتس. جمله‌ای است که ایده اصلی یک پاراگراف را مطرح می‌کند و معمولاً در ابتدای آن می‌آید.",
-                              "explanationAr": "مصطلح رئيسي في بنية كتابة الفقرات في آيلتس. وهي الجملة التي تطرح الفكرة الرئيسية للفقرة وتأتي عادة في بدايتها.",
-                              "cefrLevel": "B2"
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
-                              "Markers": ["fn:Source Sans 3", "sz:20"],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ],
-                          "translationFa": "@ جمله موضوعی (تاپیک سنتنس) اغلب در ابتدای پاراگراف یافت می‌شود، اما می‌تواند در وسط یا حتی در انتهای آن نیز ظاهر شود. گاهی اوقات ممکن است یک پاراگراف اصلاً یک جمله موضوعی واحد و واضح نداشته باشد و ایده اصلی آن تنها با خواندن کامل پاراگراف قابل درک باشد.",
-                          "translationAr": "@ غالباً ما توجد الجملة المحورية في بداية الفقرة، ولكن يمكن أن تظهر في المنتصف، أو حتى في النهاية. في بعض الأحيان، قد لا تحتوي الفقرة على جملة محورية واحدة واضحة على الإطلاق، ولا يمكن فهم الفكرة الرئيسية إلا من خلال قراءة الفقرة كاملة.",
-                          "Interactives": [
-                            {
-                              "exactText": "topic sentence",
-                              "translationFa": "جمله موضوعی",
-                              "translationAr": "الجملة المحورية / جملة الموضوع",
-                              "pronounceFa": "taapik sentens",
-                              "pronounceAr": "توبيك سينتنس",
-                              "explanationFa": "جمله‌ای که ایده اصلی یک پاراگراف را بیان می‌کند و ساختار رایتینگ شما را برای ممتحن آیلتس شفاف می‌سازد.",
-                              "explanationAr": "الجملة التي تعبر عن الفكرة الرئيسية للفقرة، وهي أساسية لـ IELTS Writing لضمان وضوح الأفكار.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "frequently",
-                              "translationFa": "اغلب / به دفعات",
-                              "translationAr": "غالباً / تكراراً",
-                              "pronounceFa": "frikwentli",
-                              "pronounceAr": "فريكوانتلي",
-                              "explanationFa": "قید آکادمیک و جایگزینی عالی برای often جهت افزایش نمره واژگان (Lexical Resource) در آیلتس.",
-                              "explanationAr": "ظرف أكاديمي بديل ممتاز لـ often لرفع درجة المفردات (Lexical Resource) في اختبار الآيلتس.",
-                              "cefrLevel": "B2"
-                            },
-                            {
-                              "exactText": "appear",
-                              "translationFa": "ظاهر شدن / آمدن",
-                              "translationAr": "تظهر",
-                              "pronounceFa": "أپیر",
-                              "pronounceAr": "أبير",
-                              "explanationFa": "فعل رسمی که در بخش‌های ریدینگ و رایتینگ آیلتس برای توصیف حضور یا پیدایش یک پدیده کاربرد دارد.",
-                              "explanationAr": "فعل رسمي مستخدم في أقراء وكتابة الآيلتس لوصف ظهور أو تواجد شيء ما.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "main idea",
-                              "translationFa": "ایده اصلی / مفهوم محوری",
-                              "translationAr": "الفكرة الرئيسية",
-                              "pronounceFa": "مین اایدیا",
-                              "pronounceAr": "ماين أيديا",
-                              "explanationFa": "مفهوم کلیدی در سوالات ریدینگ آیلتس (مانند Matching Headings) که باید بتوانید آن را در پاراگراف تشخیص دهید.",
-                              "explanationAr": "مفهوم أساسي في أسئلة القراءة (مثل Matching Headings) حيث يجب عليك تحديد الفكرة العامة للفقرة.",
-                              "cefrLevel": "B1"
-                            },
-                            {
-                              "exactText": "in full",
-                              "translationFa": "به طور کامل / کامل",
-                              "translationAr": "كاملةً / بالكامل",
-                              "pronounceFa": "ین فول",
-                              "pronounceAr": "إن فول",
-                              "explanationFa": "یک عبارت حرفه‌ای (Collocation) به معنای کاملاً، که ساختار جملات شما را نیتیو‌تر نشان می‌دهد.",
-                              "explanationAr": "تعبير متلازم (Collocation) يعني بالكامل، يضفي طابعاً طبيعياً (Native) على أسلوبك في الكتابة.",
-                              "cefrLevel": "B2"
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 49.99,
-                      "IsHeaderCell": false
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "Direction": "LTR",
-          "SpaceAfter": 8.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "text",
-              "Content": "",
-              "Markers": [],
-              "InnerSpans": [],
-              "TableRows": []
-            }
-          ]
-        }
-      ]
+  {
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "Spans": [
+      {
+        "Type": "table",
+        "Markers": [],
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "UNIT/01: URBAN AND RURAL LIFE",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 ExtraBold",
+                          "sz:32"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  },
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "READING",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Black",
+                          "sz:88"
+                        ],
+                        "TextColor": "FFFFFF",
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  },
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Bold",
+                          "sz:22"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  },
+                  {
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "• deal with matching headings tasks\n• identify the main idea of a paragraph\n• understand the meaning of prefixes.",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "FillColor": "FFFF00",
+                "WidthPercent": 100.0,
+                "IsHeaderCell": false,
+                "translationFa": "واحد/01: زندگی شهری و روستایی\nریدینگ (مهارت خواندن)\nدر این واحد شما\nیاد خواهید گرفت که چگونه\n• با تسک‌های تطابق عناوین برخورد کنید\n• ایده اصلی یک پاراگراف را شناسایی کنید\n• مفهوم پیشوندها را درک کنید.",
+                "translationAr": "الوحدة/01: الحياة الحضرية والريفية\nالقراءة\nفي هذه الوحدة سوف\nتتعلم كيف\n• تتعامل مع مهام مطابقة العناوين\n• تحدد الفكرة الرئيسية للفقرة\n• تفهم معنى البوادئ."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Direction": "LTR",
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 12.0,
+    "Spans": [
+      {
+        "Type": "text",
+        "Content": "Lead-in",
+        "Markers": [
+          "b",
+          "bg:FFFF00",
+          "fn:Source Sans 3"
+        ],
+        "FillColor": "FFFF00",
+        "BorderColor": "000000",
+        "BorderStyle": "BorderValues { }",
+        "HasBorders": "true",
+        "InnerSpans": [],
+        "TableRows": []
+      }
+    ],
+    "translationFa": "مقدمه پیش‌درآمد",
+    "translationAr": "مقدمة تمهيدية"
+  },
+  {
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "Spans": [
+      {
+        "Type": "table",
+        "Markers": [],
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "01",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "BorderColor": "FFFF00",
+                        "BorderStyle": "BorderValues { }",
+                        "HasBorders": "true",
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 5.02,
+                "IsHeaderCell": false,
+                "translationFa": "01",
+                "translationAr": "01"
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 12.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Read the paragraph below about the island of Mallorca. With a partner, discuss why some of the underlined nouns are preceded by the, and others have no article. Do you know any other article rules for geographical features?",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Medium",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  },
+                  {
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Mallorca",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", the biggest of ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Balearic Islands",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", is situated in ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Mediterranean Sea",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", some 300km from ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Valencian coast",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "of ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Spain",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", and is an exciting mix of urban energy, rural adventure and coastal calm. Although it isn't popular with ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the Spanish",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "as a tourist destination, it annually welcomes people from all over ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Europe",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "(particularly from ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the United Kingdom, France",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "and ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Germany",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "), who may head for ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Alcudia Beach",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", or go hiking in the Tramuntanas, a mountain range that runs from ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the northeast",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "to ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "the southwest",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "of the island. The busy capital city, ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Palma de Mallorca",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ", contrasts entirely with the traditional rural towns and villages in the heart of the island, such as ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Algaida",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "or ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "Binissalem",
+                        "Markers": [
+                          "u",
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ".",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 94.98,
+                "IsHeaderCell": false,
+                "translationFa": "پاراگراف زیر را درباره جزیره مایورکا بخوانید. با یک هم‌گروهی بحث کنید که چرا قبل از برخی از اسامی خط‌کشیده شده حرف تعریف the می‌آید و برخی دیگر هیچ حرف تعریفی ندارند. آیا قانون دیگری برای حروف تعریف در ویژگی‌های جغرافیایی می‌دانید؟\nمایورکا، بزرگ‌ترین جزیره از جزایر بالئاری، در دریای مدیترانه، در فاصله حدود 300 کیلومتری از سواحل والنسیای اسپانیا واقع شده است و ترکیبی هیجان‌انگیز از انرژی شهری، ماجراجویی روستایی و آرامش ساحلی است. اگرچه این جزیره به عنوان یک مقصد گردشگری در میان مردم اسپانیا محبوب نیست، اما سالانه پذیرای افرادی از سراسر اروپا (به‌ویژه از بریتانیا، فرانسه و آلمان) است که ممکن است به سمت ساحل آلکودیا بروند یا در ترامونتانا، رشته‌کوهی که از شمال شرقی تا جنوب غربی جزیره امتداد دارد، کوهنوردی کنند. پایتخت شلوغ آن، پالما د مایورکا، کاملاً با شهرها و روستاهای سنتی و روستایی در قلب جزیره، مانند آلگایدا یا بینیسالم، تضاد دارد.\nعدم استفاده از حرف تعریف برای: جزایر منفرد: مانند مایورکا؛ نام بیشتر کشورها: مانند اسپانیا، فرانسه، آلمان، چین؛ نام سواحل: ساحل آلکودیا؛ نام شهرها/شهرک‌ها/مناطق: پالما د مایورکا، آلگایدا، بینیسالم؛ نام کوه‌ها: کوه اورست، مون بلان. استفاده از 'the' برای: گروه‌های جزایر: جزایر بالئاری؛ مناطق ساحلی: ساحل والنسیا؛ اقیانوس‌ها و دریاها: دریای مدیترانه، خلیج فارس؛ ملیت‌ها: اسپانیایی‌ها، عمانی‌ها، چینی‌ها؛ کشورهایی که جمهوری، پادشاهی یا اتحادیه هستند: جمهوری چین، بریتانیا، ایالات متحده آمریکا؛ رشته‌کوه‌ها: ترامونتانا، هیمالیا؛ مناطق جغرافیایی: شمال شرقی، جنوب غربی. سایر ویژگی‌های جغرافیایی: دریاچه‌ها: بدون حرف تعریف، معمولاً با واژه دریاچه شروع می‌شود (دریاچه ویندرمر)؛ رودخانه‌ها: حرف تعریف معین قبل از نام رودخانه قرار می‌گیرد. واژه رودخانه را با حروف بزرگ بنویسید یا می‌توان آن را حذف کرد (تیمز، رودخانه تیمز).",
+                "translationAr": "اقرأ الفقرة أدناه عن جزيرة مايوركا. مع زميل لك، ناقش لماذا تسبق بعض الأسماء التي تحتها خط أداة التعريف the بينما لا توجد أداة مع أسماء أخرى. هل تعرف أي قواعد أخرى لأدوات التعريف للميزات الجغرافية؟\nتقع مايوركا، وهي أكبر جزر البليار، في البحر الأبيض المتوسط، على بعد حوالي 300 كم من ساحل فالنسيا في إسبانيا، وهي مزيج مثير من الطاقة الحضرية والمغامرة الريفية والهدوء الساحلي. على الرغم من أنها ليست شائعة لدى الإسبان كوجهة سياحية، إلا أنها تستقبل سنوياً أشخاصاً من جميع أنحاء أوروبا (خاصة من المملكة المتحدة وفرنسا وألمانيا)، والذين قد يتوجهون إلى شاطئ ألكوديا، أو يذهبون لممارسة رياضة المشي لمسافات طويلة في ترامونتانا، وهي سلسلة جبال تمتد من الشمال الشرقي إلى الجنوب الغربي من الجزيرة. وتتناقض العاصمة المزدحمة، بالما دي مايوركا، تماماً مع البلدات والقرى الريفية التقليدية في قلب الجزيرة، مثل ألغايدا أو بينيساليم.\nلا تستخدم أداة التعريف مع: الجزر الفردية: مثل مايوركا؛ أسماء معظم الدول: مثل إسبانيا، فرنسا، ألمانيا، الصين؛ أسماء الشواطئ: شاطئ ألكوديا؛ أسماء المدن/البلدات/المناطق: بالما دي مايوركا، ألغايدا، بينيساليم؛ أسماء الجبال: جبل إيفرست، مون بلان. استخدم 'the' مع: مجموعات الجزر: جزر البليار؛ المناطق الساحلية: ساحل فالنسيا؛ المحيطات والبحار: البحر الأبيض المتوسط، الخليج العربي؛ الجنسيات: الإسبان، العمانيون، الصينيون؛ الدول التي تكون جمهوريات أو ممالك أو اتحادات: جمهورية الصين، المملكة المتحدة، الولايات المتحدة الأمريكية؛ سلاسل الجبال: ترامونتانا، جبال الهيمالايا؛ المناطق الجغرافية: الشمال الشرقي، الجنوب الغربي. ميزات جغرافية أخرى: البحيرات: بدون أداة تعريف، تبدأ عادة بكلمة بحيرة (بحيرة ويندرمير)؛ الأنهار: أداة التعريف قبل اسم النهر. اكتب كلمة 'نهر' بحرف كبير أو يمكن حذفها (التايمز، نهر التايمز)."
+              }
+            ]
+          },
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Alignment": "J",
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "02",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "BorderColor": "FFFF00",
+                        "BorderStyle": "BorderValues { }",
+                        "HasBorders": "true",
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  },
+                  {
+                    "Alignment": "J",
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "25",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "Url": "audio:MindsetIELTS_L3_02.mp3",
+                        "TextColor": "0563C1",
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 5.02,
+                "VAlign": "tableverticalalignmentvalues { }",
+                "IsHeaderCell": false,
+                "translationFa": "02\n25",
+                "translationAr": "02\n25"
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Think of a geographical area in your country and write a short paragraph like the one above, paying special attention to the correct use of articles. Swap your paragraph with a partner and correct each other's work where necessary.",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Medium",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 94.98,
+                "IsHeaderCell": false,
+                "translationFa": "به یک منطقه جغرافیایی در کشور خود فکر کنید و یک پاراگراف کوتاه مانند پاراگراف بالا بنویسید و به استفاده صحیح از آرتیکل‌ها توجه ویژه‌ای داشته باشید. پاراگراف خود را با یک هم‌کلاسی جابجا کنید و در صورت نیاز کار یکدیگر را تصحیح کنید.",
+                "translationAr": "فكر في منطقة جغرافية في بلدك واكتب فقرة قصيرة مثل تلك الموضحة أعلاه، مع إيلاء اهتمام خاص للاستخدام الصحيح لأدوات التعريف. تبادل فقرتك مع زميلك وصححا عمل بعضكما البعض عند الضرورة."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Direction": "LTR",
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 12.0,
+    "Spans": [
+      {
+        "Type": "text",
+        "Content": "[[[[[[[[[[",
+        "Markers": [
+          "bg:FFFF00",
+          "fn:Source Sans 3",
+          "sz:32"
+        ],
+        "FillColor": "FFFF00",
+        "TextColor": "FFFF00",
+        "InnerSpans": [],
+        "TableRows": []
+      },
+      {
+        "Type": "text",
+        "Content": "MATCHING HEADINGS",
+        "Markers": [
+          "b",
+          "fn:Source Sans 3 SemiBold",
+          "sz:32"
+        ],
+        "InnerSpans": [],
+        "TableRows": []
+      },
+      {
+        "Type": "text",
+        "Content": "]",
+        "Markers": [
+          "fn:Source Sans 3",
+          "sz:32"
+        ],
+        "TextColor": "FFFF00",
+        "InnerSpans": [],
+        "TableRows": []
+      }
+    ],
+    "translationFa": "[[[[[[[[[[تطابق عناوین]",
+    "translationAr": "[[[[[[[[[[مطابقة العناوين]"
+  },
+  {
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "Spans": [
+      {
+        "Type": "table",
+        "Markers": [],
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "03",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3"
+                        ],
+                        "BorderColor": "FFFF00",
+                        "BorderStyle": "BorderValues { }",
+                        "HasBorders": "true",
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 5.06,
+                "IsHeaderCell": false,
+                "translationFa": "03",
+                "translationAr": "03"
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "Look at this title and discuss with a partner what you might expect to read in the passage.",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 Medium",
+                          "sz:21"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 94.94,
+                "IsHeaderCell": false,
+                "translationFa": "به این عنوان نگاه کنید و با یک هم‌گروهی در مورد آنچه انتظار دارید در متن بخوانید بحث کنید.\nپاسخ‌های خود دانش‌آموزان",
+                "translationAr": "انظر إلى هذا العنوان وناقش مع زميلك ما تتوقع قراءته في النص.\nإجابات الطلاب الخاصة"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "SpaceAfter": 0.0,
+    "SpaceBefore": 0.0,
+    "Spans": [
+      {
+        "Type": "table",
+        "Markers": [],
+        "BorderWidth": 0.5,
+        "TableStyleId": "DottedTable",
+        "TableStyleName": "DottedTable",
+        "HasBorders": "true",
+        "TableWidthPercent": 100.0,
+        "InnerSpans": [],
+        "TableRows": [
+          {
+            "IsHeader": false,
+            "Cells": [
+              {
+                "Paragraphs": [
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "The World’s\nMost unusual\nTowns and Cities",
+                        "Markers": [
+                          "b",
+                          "fn:Source Sans 3 ExtraBold",
+                          "sz:32"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 50.01,
+                "IsHeaderCell": false,
+                "translationFa": "جهان\nغیرعادی‌ترین\nشهرک‌ها و شهرها",
+                "translationAr": "في العالم\nالأكثر غرابة\nالبلدات والمدن"
+              },
+              {
+                "Paragraphs": [
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "◎",
+                        "Markers": [
+                          "fn:Cambria Math",
+                          "sz:20"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": "topic sentence",
+                        "Markers": [
+                          "i",
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      },
+                      {
+                        "Type": "text",
+                        "Content": ".",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  },
+                  {
+                    "Direction": "LTR",
+                    "SpaceAfter": 0.0,
+                    "SpaceBefore": 0.0,
+                    "Spans": [
+                      {
+                        "Type": "text",
+                        "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
+                        "Markers": [
+                          "fn:Source Sans 3",
+                          "sz:20"
+                        ],
+                        "InnerSpans": [],
+                        "TableRows": []
+                      }
+                    ]
+                  }
+                ],
+                "WidthPercent": 49.99,
+                "IsHeaderCell": false,
+                "translationFa": "◎ این نوع تسک از شما می‌خواهد عنوانی را انتخاب کنید که کل پاراگراف را به درستی خلاصه کند. اغلب، یافتن یک جمله در پاراگراف که ایده اصلی را منتقل کند امکان‌پذیر است - این جمله به عنوان جمله موضوعی شناخته می‌شود.\nجمله موضوعی را می‌توان تکراراً در ابتدای پاراگراف یافت، اما می‌تواند در وسط یا حتی در انتهای آن نیز ظاهر شود. گاهی اوقات ممکن است یک پاراگراف اصلاً یک جمله موضوعی واحد و واضح نداشته باشد و ایده اصلی را تنها با خواندن کامل پاراگراف می‌توان درک کرد.",
+                "translationAr": "◎ يتطلب منك هذا النوع من المهام اختيار عنوان يلخص الفقرة بأكملها بشكل صحيح. غالباً، يكون من الممكن العثور على جملة واحدة في الفقرة تنقل الفكرة الرئيسية - وهذا ما يعرف بالجملة المفتاحية.\nيمكن العثور على الجملة المفتاحية بشكل متكرر في بداية الفقرة، ولكن يمكن أن تظهر في المنتصف، أو حتى في النهاية. في بعض الأحيان قد لا تحتوي الفقرة على جملة مفتاحية واحدة واضحة على الإطلاق، ولا يمكن فهم الفكرة الرئيسية إلا من خلال قراءة الفقرة بالكامل."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+],
+"Interactives": 
+[
+  {
+    "exactText": "urban",
+    "translationFa": "شهری",
+    "translationAr": "حضري",
+    "pronounceFa": "ˈɜːbən",
+    "pronounceAr": "أيربان",
+    "explanationFa": "صفت مربوط به شهرها؛ پرکاربرد در موضوعات توسعه، جامعه‌شناسی و جغرافیا در آزمون آیلتس.",
+    "explanationAr": "صفة تتعلق بالمدن؛ تستخدم بكثرة في مواضيع التطوير وعلم الاجتماع والجغرافيا في الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "rural",
+    "translationFa": "روستایی",
+    "translationAr": "ريفي",
+    "pronounceFa": "ˈrʊərəl",
+    "pronounceAr": "رورال",
+    "explanationFa": "صفت مربوط به روستا و طبیعت؛ متضاد کلمه urban و بسیار کلیدی برای موضوعات تغییرات دموگرافیک در آیلتس.",
+    "explanationAr": "صفة تتعلق بالقرية والطبيعة؛ عكس كلمة urban ومهمة جداً لمواضيع التغيرات الديموغرافية في الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "situated",
+    "translationFa": "واقع شده",
+    "translationAr": "واقع / يقع",
+    "pronounceFa": "ˈsɪtʃueɪtɪd",
+    "pronounceAr": "سيتشويتد",
+    "explanationFa": "کلمه‌ای رسمی برای بیان موقعیت مکانی؛ بسیار مفید برای تسک 1 آکادمیک جهت توصیف نقشه‌ها و مکان‌ها.",
+    "explanationAr": "كلمة رسمية للتعبير عن الموقع الجغرافي؛ مفيدة جداً للمهمة 1 الأكاديمية لوصف الخرائط والمواقع.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "mountain range",
+    "translationFa": "رشته‌کوه",
+    "translationAr": "سلسلة جبال",
+    "pronounceFa": "ˈmaʊntɪn reɪndʒ",
+    "pronounceAr": "ماونتن رينج",
+    "explanationFa": "یک کالوکیشن پرکاربرد برای توصیف جغرافیا و ساختارهای طبیعی در بخش ریدینگ و اسپیکینگ آیلتس.",
+    "explanationAr": "متلازمة لفظية شائعة لوصف الجغرافيا والتضاريس الطبيعية في أقسام القراءة والمحادثة في الآيلتس.",
+    "cefrLevel": "B1"
+  },
+  {
+    "exactText": "contrasts entirely",
+    "translationFa": "کاملاً تضاد دارد",
+    "translationAr": "يتناقض تماماً",
+    "pronounceFa": "kənˈtrɑːsts ɪnˈtaɪəli",
+    "pronounceAr": "كونتراستس إنتايرلي",
+    "explanationFa": "یک ترکیب قوی (Collocation) برای مقایسه و بیان تفاوت‌های شدید؛ ابزاری عالی برای کسب نمره‌ بالا در واژگان رایتینگ.",
+    "explanationAr": "تركيب لفظي قوي (Collocation) للمقارنة والتعبير عن الاختلافات الشديدة؛ أداة ممتازة لرفع درجة المفردات في الكتابة.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "summarises",
+    "translationFa": "خلاصه می‌کند",
+    "translationAr": "يلخص",
+    "pronounceFa": "ˈsʌməraɪzɪz",
+    "pronounceAr": "سامرايزيز",
+    "explanationFa": "فعلی آکادمیک؛ کلید فهم ساختار سوالات Matching Headings و کارآمد برای بخش پارافریز رایتینگ آیلتس.",
+    "explanationAr": "فعل أكاديمي؛ مفتاح لفهم هيكلية أسئلة مطابقة العناوين ومفيد لقسم إعادة الصياغة في كتابة الآيلتس.",
+    "cefrLevel": "B2"
+  },
+  {
+    "exactText": "conveys",
+    "translationFa": "منتقل می‌کند",
+    "translationAr": "ينقل / يوصل",
+    "pronounceFa": "kənˈveɪz",
+    "pronounceAr": "كونفيز",
+    "explanationFa": "فعلی پیشرفته به معنای رساندن معنا، پیام یا ایده اصلی؛ بسیار ارزشمند برای بخش واژگان آکادمیک رایتینگ.",
+    "explanationAr": "فعل متقدم بمعنى إيصال معنى أو رسالة أو فكرة رئيسية؛ قيم جداً لقسم المفردات الأكاديمية في الكتابة.",
+    "cefrLevel": "C1"
+  },
+  {
+    "exactText": "topic sentence",
+    "translationFa": "جمله موضوعی",
+    "translationAr": "الجملة المفتاحية",
+    "pronounceFa": "ˈtɒpɪk ˈsentəns",
+    "pronounceAr": "توبيك سينتنس",
+    "explanationFa": "یک اصطلاح ساختاری در مهارت رایتینگ و ریدینگ؛ جمله‌ای که ایده اصلی یک پاراگراف را در خود جای داده است.",
+    "explanationAr": "مصطلح هيكلي في مهارات الكتابة والقراءة؛ الجملة التي تحتوي على الفكرة الرئيسية للفقرة.",
+    "cefrLevel": "B2"
+  }
+]
     },
     {
       "PageNumber": 2,

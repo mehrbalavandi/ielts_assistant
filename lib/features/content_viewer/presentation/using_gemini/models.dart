@@ -108,14 +108,23 @@ class ParagraphData {
 class PageData {
   final int pageNumber;
   final List<ParagraphData> paragraphs;
+  final List<InteractiveWord> interactives;
 
-  PageData({required this.pageNumber, required this.paragraphs});
+  PageData({
+    required this.pageNumber,
+    required this.paragraphs,
+    required this.interactives,
+  });
 
   factory PageData.fromJson(Map<String, dynamic> json) {
+    var interactivesList = json['Interactives'] as List? ?? [];
     var parasList = json['Paragraphs'] as List? ?? [];
     return PageData(
       pageNumber: json['PageNumber'] ?? 1,
       paragraphs: parasList.map((e) => ParagraphData.fromJson(e)).toList(),
+      interactives: interactivesList
+          .map((e) => InteractiveWord.fromJson(e))
+          .toList(),
     );
   }
 }

@@ -389,6 +389,8 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         widget.screenWidth,
         context,
         activeBook: currentBook,
+        pageInteractives:
+            widget.page.interactives, // 🌟 پاس دادن لیست از سطح صفحه
         rootHighlightMap: rootHighlightMap,
         mapOffset: offset,
         activeOccurrence: isTargetParagraph
@@ -593,6 +595,7 @@ Widget _buildParagraph(
   MapOffset? mapOffset,
   int? activeOccurrence,
   required BookModel? activeBook,
+  required List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید اضافه شد
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
@@ -639,7 +642,7 @@ Widget _buildParagraph(
       currentInlineSpans.addAll(
         _buildStyledInteractiveText(
           span,
-          para.interactives,
+          pageInteractives, // 🌟 استفاده از اینتراکتیوهای سطح صفحه
           context,
           isInsideTableCell: isInsideTableCell,
           para: para,
@@ -698,6 +701,7 @@ Widget _buildParagraph(
           mapOffset,
           activeOccurrence,
           activeBook,
+          pageInteractives, // 🌟 پاس دادن به درون جدول‌ها
         ),
       );
     }
@@ -806,6 +810,7 @@ Widget _buildTable(
   MapOffset? mapOffset,
   int? activeOcc,
   BookModel? activeBook,
+  List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید دریافت شد
 ) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -878,6 +883,8 @@ Widget _buildTable(
             mapOffset: mapOffset,
             activeOccurrence: activeOcc,
             activeBook: activeBook,
+            pageInteractives:
+                pageInteractives, // 🌟 پاس دادن به پاراگراف‌های داخل سلول
           ),
         );
       }
