@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+lib/features/content_viewer/presentation/using_gemini - Shortcut.lnk
+assets/data/~$ndset-Level-3.docx
