@@ -523,9 +523,6 @@
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
-                              "BorderColor": "ED7D31",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -734,9 +731,6 @@
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
-                              "BorderColor": "ED7D31",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
                               "InnerSpans": [],
                               "TableRows": []
                             }
