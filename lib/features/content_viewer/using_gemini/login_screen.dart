@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/app_settings_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/auth_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/services/storage_service.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -47,6 +48,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (mounted) {
       setState(() => _isLoading = false);
       if (success) {
+        ref.read(booksProvider.notifier).fetchBooks();
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

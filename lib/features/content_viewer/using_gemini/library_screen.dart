@@ -26,22 +26,14 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
 
   Future<void> _openLastBook() async {
     final lastBookId = StorageService.getLastBookId();
-
     if (lastBookId == null) return;
-
     // کمی صبر می‌کنیم تا fetchBooks انجام شود
     await Future.delayed(const Duration(milliseconds: 500));
-
     if (!mounted) return;
-
     final books = ref.read(booksProvider);
-
     final book = books.where((e) => e.id == lastBookId).firstOrNull;
-
     if (book == null) return;
-
     ref.read(activeBookProvider.notifier).state = book;
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const MainBookScreen()),
