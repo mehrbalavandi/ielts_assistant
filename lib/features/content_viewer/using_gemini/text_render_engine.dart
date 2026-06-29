@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart'; // برای دسترسی به TranslatableContentWrapper
 
 class TextRenderEngine {
   static List<InlineSpan> buildInteractiveText(
@@ -11,6 +12,8 @@ class TextRenderEngine {
     Color interactiveColor = Colors.blue,
     List<int>? localHighlightMap,
     int? activeOccurrence,
+    String? translationFa, // 🌟 اضافه شد
+    String? translationAr, // 🌟 اضافه شد
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -63,10 +66,11 @@ class TextRenderEngine {
           child: InteractiveBlankWord(
             hiddenText: match.group(1) ?? '',
             textStyle: baseStyle,
-            // isSearchHit: isHighlighted,
-            // isActiveSearch: isActiveHighlight,
-            blankMap: blankMap, // 🌟 ارسال نقشه برش‌خورده به جای‌خالی
-            activeOcc: activeOccurrence, // 🌟 ارسال ایندکس فعال
+            interactives: interactives, // ارسال لیست کلمات تعاملی
+            blankMap: blankMap, // ارسال مپ هایلایت جستجو
+            activeOcc: activeOccurrence,
+            translationFa: translationFa, // ارسال ترجمه فارسی پاراگراف
+            translationAr: translationAr, // ارسال ترجمه عربی پاراگراف
           ),
         ),
       );
@@ -468,23 +472,25 @@ class InteractiveBlankWord extends StatelessWidget {
   final TextStyle textStyle;
   final List<int>? blankMap;
   final int? activeOcc;
-  // در صورت نیاز به پشتیبانی از دیکشنری در متن مخفی، لیست تعاملی‌ها را هم پاس بدهید
-  // final List<InteractiveWord> interactives;
+  final List<InteractiveWord>
+  interactives; // 🌟 ۱. لیست کلمات تعاملی برای دیکشنری
+  final String? translationFa; // 🌟 ۲. ترجمه فارسی برای لمس طولانی
+  final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
 
   const InteractiveBlankWord({
     super.key,
     required this.hiddenText,
     required this.textStyle,
+    required this.interactives,
     this.blankMap,
     this.activeOcc,
-    // required this.interactives,
+    this.translationFa,
+    this.translationAr,
   });
 
   @override
   Widget build(BuildContext context) {
     final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-
-    // تشخیص اینکه آیا نتیجه جستجو داخل این بلاک مخفی قرار دارد یا خیر
     final bool hasSearchResult =
         blankMap != null && blankMap!.isNotEmpty && activeOcc != null;
 
@@ -494,8 +500,6 @@ class InteractiveBlankWord extends StatelessWidget {
     final Color iconColor = isDarkTheme
         ? Colors.grey.shade300
         : Colors.grey.shade700;
-
-    // اگر نتیجه جستجو اینجاست، رنگ دکمه متمایز می‌شود تا کاربر را راهنمایی کند
     final Color borderColor = hasSearchResult
         ? Colors.orangeAccent
         : Colors.transparent;
@@ -515,7 +519,6 @@ class InteractiveBlankWord extends StatelessWidget {
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
               Icons.visibility_rounded,
@@ -524,9 +527,9 @@ class InteractiveBlankWord extends StatelessWidget {
             ),
             const SizedBox(width: 6),
             Text(
-              "مشاهده",
+              "مشاهده متن",
               style: textStyle.copyWith(
-                fontSize: 12, // کمی کوچکتر از متن اصلی
+                fontSize: 12,
                 color: hasSearchResult ? Colors.orangeAccent : iconColor,
                 fontWeight: FontWeight.w600,
               ),
@@ -540,27 +543,28 @@ class InteractiveBlankWord extends StatelessWidget {
   void _showHiddenTextModal(BuildContext context, bool isDarkTheme) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // برای متون خیلی طولانی
+      isScrollControlled: true,
       backgroundColor: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
-        // 🌟 اعمال دقیق هایلایت‌های موتور جستجو روی متن هنگام رندر در مودال
-        // اگر متد _applyMapToText شما در TextRenderEngine پرایوت است، آن را public (بدون آندرلاین) کنید
-        List<InlineSpan> revealedSpans = TextRenderEngine.applyMapToText(
+        // 🌟 قابلیت اول: رندر کردن متن مخفی با ساختار تعاملی موتور رندر شما (دیکشنری + هایلایت جستجو)
+        // چون متن داخل مودال فاقد تگ {blk} است، مستقیماً کلمات تعاملی آن پردازش و بازگردانده می‌شود.
+        List<InlineSpan> revealedSpans = TextRenderEngine.buildInteractiveText(
           hiddenText,
+          interactives,
+          context,
           textStyle.copyWith(
             color: isDarkTheme ? Colors.white : Colors.black87,
             fontSize: textStyle.fontSize ?? 16.0,
-            height: 1.6, // بهبود خوانایی متون طولانی
+            height: 1.6,
           ),
-          blankMap,
-          activeOcc,
+          localHighlightMap: blankMap,
+          activeOccurrence: activeOcc,
+          translationFa: translationFa, // 🌟 پاس دادن به کامپوننت مادر
+          translationAr: translationAr,
         );
-
-        // نکته: اگر متن مخفی خودش شامل کلمات دیکشنری است، به جای applyMapToText
-        // باید آن را از متد buildInteractiveText عبور دهید.
 
         return DraggableScrollableSheet(
           initialChildSize: 0.4,
@@ -588,10 +592,16 @@ class InteractiveBlankWord extends StatelessWidget {
                     child: SingleChildScrollView(
                       controller: scrollController,
                       physics: const BouncingScrollPhysics(),
-                      child: Text.rich(
-                        TextSpan(children: revealedSpans),
-                        textAlign:
-                            TextAlign.justify, // ظاهر بهتر برای پاراگراف‌ها
+
+                      // 🌟 قابلیت دوم: استفاده از Wrapper اختصاصی شما برای فعال‌سازی لمس طولانی و نمایش ترجمه پاراگراف
+                      child: TranslatableContentWrapper(
+                        originalContent: Text.rich(
+                          TextSpan(children: revealedSpans),
+                          textAlign: TextAlign.justify,
+                        ),
+                        translationFa: translationFa,
+                        translationAr: translationAr,
+                        isDarkMode: isDarkTheme,
                       ),
                     ),
                   ),

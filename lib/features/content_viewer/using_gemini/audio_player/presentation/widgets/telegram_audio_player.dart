@@ -591,6 +591,10 @@ class _AudioscriptViewerSheetState
                               interactiveColor: isActive
                                   ? Colors.yellowAccent
                                   : Colors.cyanAccent,
+                              translationFa: segment
+                                  .paragraph
+                                  .translationFa, // 🌟 پاس دادن به کامپوننت مادر
+                              translationAr: segment.paragraph.translationAr,
                             ),
                           ),
                           textAlign: segment.paragraph.direction == "RTL"

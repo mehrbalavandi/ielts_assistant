@@ -1060,6 +1060,8 @@ List<InlineSpan> _buildStyledInteractiveText(
       interactiveColor: interactiveColor,
       localHighlightMap: localMap,
       activeOccurrence: activeOccurrence,
+      translationFa: para.translationFa, // 🌟 پاس دادن به کامپوننت مادر
+      translationAr: para.translationAr,
     );
   }
 
