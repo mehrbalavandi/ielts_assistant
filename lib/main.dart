@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/library_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/login_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/auth_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/providers/book_provider.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/services/storage_service.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/library_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/login_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/auth_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/library_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/main_book_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/settings_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/library_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/main_book_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/settings_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
