@@ -19,9 +19,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _openLastBook();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _openLastBook();
+    // });
   }
 
   Future<void> _openLastBook() async {

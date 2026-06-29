@@ -9,22 +9,35 @@ class StorageService {
   static const String _baseUrlKey = 'base_url';
 
   // --- مدیریت توکن ---
-  static String? getToken() => _box.read(_tokenKey);
+  static String? getToken() {
+    return _box.read(_tokenKey);
+  }
+
   static Future<void> saveToken(String token) async {
     await _box.write(_tokenKey, token);
   }
 
-  static Future<void> removeToken() async => await _box.remove(_tokenKey);
+  static Future<void> removeToken() async {
+    await _box.remove(_tokenKey);
+  }
 
   // --- مدیریت آدرس سرور ---
-  static String? getBaseUrl() => _box.read(_baseUrlKey);
-  static Future<void> saveBaseUrl(String url) async =>
-      await _box.write(_baseUrlKey, url);
+  static String? getBaseUrl() {
+    return _box.read(_baseUrlKey);
+  }
+
+  static Future<void> saveBaseUrl(String url) async {
+    await _box.write(_baseUrlKey, url);
+  }
 
   // --- مدیریت کتاب‌های آفلاین ---
-  static List<dynamic>? getOfflineBooks() => _box.read(_booksKey);
-  static Future<void> saveOfflineBooks(List<dynamic> booksJson) async =>
-      await _box.write(_booksKey, booksJson);
+  static List<dynamic>? getOfflineBooks() {
+    return _box.read(_booksKey);
+  }
+
+  static Future<void> saveOfflineBooks(List<dynamic> booksJson) async {
+    await _box.write(_booksKey, booksJson);
+  }
 
   static void saveLastBookId(String bookId) {
     _box.write('lastBookId', bookId);

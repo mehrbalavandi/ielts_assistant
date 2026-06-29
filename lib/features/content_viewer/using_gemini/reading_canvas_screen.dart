@@ -1046,14 +1046,14 @@ List<InlineSpan> _buildStyledInteractiveText(
         alignment: PlaceholderAlignment.middle,
         child: InlineAudioLink(
           fileName: span.url!.replaceFirst("audio:", ""),
-          text: span.content ?? '',
+          text: span.content,
           baseColor: interactiveColor,
         ),
       ),
     );
   } else {
     interactiveSpans = TextRenderEngine.buildInteractiveText(
-      span.content ?? '',
+      span.content,
       interactives,
       context,
       baseStyle,
@@ -1154,28 +1154,6 @@ Widget _errorImage(String imageName) {
   );
 }
 
-Widget Function(BuildContext, Object, StackTrace?) _errorBuilder(
-  String imageName,
-) {
-  return (context, error, stackTrace) => Container(
-    padding: const EdgeInsets.all(16),
-    color: Colors.grey[200],
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(Icons.broken_image, color: Colors.red),
-        const SizedBox(width: 8),
-        Flexible(
-          child: Text(
-            "Image not found: $imageName",
-            style: const TextStyle(fontSize: 12),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
 class InlineAudioLink extends ConsumerWidget {
   final String fileName;
   final String text;
@@ -1231,7 +1209,7 @@ class InlineAudioLink extends ConsumerWidget {
         }
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+        margin: const EdgeInsets.only(left: 4.0, top: 6.0),
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         decoration: BoxDecoration(
           color: baseColor.withOpacity(0.08),
