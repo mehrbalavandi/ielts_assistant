@@ -63,8 +63,8 @@ class TextRenderEngine {
           child: InteractiveBlankWord(
             hiddenText: match.group(1) ?? '',
             textStyle: baseStyle,
-            isSearchHit: isHighlighted,
-            isActiveSearch: isActiveHighlight,
+            // isSearchHit: isHighlighted,
+            // isActiveSearch: isActiveHighlight,
             blankMap: blankMap, // 🌟 ارسال نقشه برش‌خورده به جای‌خالی
             activeOcc: activeOccurrence, // 🌟 ارسال ایندکس فعال
           ),
@@ -100,7 +100,7 @@ class TextRenderEngine {
     int? activeOcc,
   ) {
     if (interactives.isEmpty || content.isEmpty)
-      return _applyMapToText(content, baseStyle, localMap, activeOcc);
+      return applyMapToText(content, baseStyle, localMap, activeOcc);
 
     List<InlineSpan> spans = [];
     String remainingText = content;
@@ -122,7 +122,7 @@ class TextRenderEngine {
       if (bestIndex != -1 && matchedWord != null) {
         if (bestIndex > 0)
           spans.addAll(
-            _applyMapToText(
+            applyMapToText(
               remainingText.substring(0, bestIndex),
               baseStyle,
               localMap?.sublist(0, bestIndex),
@@ -171,7 +171,7 @@ class TextRenderEngine {
         localMap = localMap?.sublist(bestIndex + matchedWord.exactText.length);
       } else {
         spans.addAll(
-          _applyMapToText(remainingText, baseStyle, localMap, activeOcc),
+          applyMapToText(remainingText, baseStyle, localMap, activeOcc),
         );
         break;
       }
@@ -250,7 +250,7 @@ class TextRenderEngine {
   }
 
   // 🌟 متدی که حالا علاوه بر بیرون کلاس، داخل جای‌خالی هم برای هایلایت‌های داخلی استفاده می‌شود
-  static List<InlineSpan> _applyMapToText(
+  static List<InlineSpan> applyMapToText(
     String content,
     TextStyle baseStyle,
     List<int>? localMap,
@@ -358,7 +358,7 @@ class TextRenderEngine {
     );
   }
 }
-
+/*
 class InteractiveBlankWord extends StatefulWidget {
   final String hiddenText;
   final TextStyle textStyle;
@@ -457,6 +457,150 @@ class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
         ),
         child: content,
       ),
+    );
+  }
+}
+*/
+// ایمپورت‌های مربوط به TextRenderEngine و مدل‌ها را اینجا قرار دهید
+
+class InteractiveBlankWord extends StatelessWidget {
+  final String hiddenText;
+  final TextStyle textStyle;
+  final List<int>? blankMap;
+  final int? activeOcc;
+  // در صورت نیاز به پشتیبانی از دیکشنری در متن مخفی، لیست تعاملی‌ها را هم پاس بدهید
+  // final List<InteractiveWord> interactives;
+
+  const InteractiveBlankWord({
+    super.key,
+    required this.hiddenText,
+    required this.textStyle,
+    this.blankMap,
+    this.activeOcc,
+    // required this.interactives,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
+    // تشخیص اینکه آیا نتیجه جستجو داخل این بلاک مخفی قرار دارد یا خیر
+    final bool hasSearchResult =
+        blankMap != null && blankMap!.isNotEmpty && activeOcc != null;
+
+    final Color buttonColor = isDarkTheme
+        ? Colors.grey.shade800
+        : Colors.grey.shade200;
+    final Color iconColor = isDarkTheme
+        ? Colors.grey.shade300
+        : Colors.grey.shade700;
+
+    // اگر نتیجه جستجو اینجاست، رنگ دکمه متمایز می‌شود تا کاربر را راهنمایی کند
+    final Color borderColor = hasSearchResult
+        ? Colors.orangeAccent
+        : Colors.transparent;
+
+    return GestureDetector(
+      onTap: () => _showHiddenTextModal(context, isDarkTheme),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+        decoration: BoxDecoration(
+          color: buttonColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: borderColor,
+            width: hasSearchResult ? 2.0 : 0.0,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.visibility_rounded,
+              size: 16,
+              color: hasSearchResult ? Colors.orangeAccent : iconColor,
+            ),
+            const SizedBox(width: 6),
+            Text(
+              "مشاهده",
+              style: textStyle.copyWith(
+                fontSize: 12, // کمی کوچکتر از متن اصلی
+                color: hasSearchResult ? Colors.orangeAccent : iconColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showHiddenTextModal(BuildContext context, bool isDarkTheme) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // برای متون خیلی طولانی
+      backgroundColor: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        // 🌟 اعمال دقیق هایلایت‌های موتور جستجو روی متن هنگام رندر در مودال
+        // اگر متد _applyMapToText شما در TextRenderEngine پرایوت است، آن را public (بدون آندرلاین) کنید
+        List<InlineSpan> revealedSpans = TextRenderEngine.applyMapToText(
+          hiddenText,
+          textStyle.copyWith(
+            color: isDarkTheme ? Colors.white : Colors.black87,
+            fontSize: textStyle.fontSize ?? 16.0,
+            height: 1.6, // بهبود خوانایی متون طولانی
+          ),
+          blankMap,
+          activeOcc,
+        );
+
+        // نکته: اگر متن مخفی خودش شامل کلمات دیکشنری است، به جای applyMapToText
+        // باید آن را از متد buildInteractiveText عبور دهید.
+
+        return DraggableScrollableSheet(
+          initialChildSize: 0.4,
+          minChildSize: 0.2,
+          maxChildSize: 0.8,
+          expand: false,
+          builder: (context, scrollController) {
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 5,
+                      margin: const EdgeInsets.only(bottom: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      child: Text.rich(
+                        TextSpan(children: revealedSpans),
+                        textAlign:
+                            TextAlign.justify, // ظاهر بهتر برای پاراگراف‌ها
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
