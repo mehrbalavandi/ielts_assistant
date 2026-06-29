@@ -4,7 +4,6 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/b
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
-import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/book_search_delegate.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/library_screen.dart';
 
@@ -59,11 +58,11 @@ class MainBookScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.library_books_rounded),
             onPressed: () {
-              ref.read(activeSearchProvider.notifier).state = null;
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LibraryScreen()),
-              );
+              // ref.read(activeSearchProvider.notifier).state = null;
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const LibraryScreen()),
+              // );
             },
           ),
         ],
@@ -142,19 +141,6 @@ class MainBookScreen extends ConsumerWidget {
               ),
             )
           : null,
-
-      // body: FutureBuilder<List<PageData>>(
-      //   future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return const Center(child: CircularProgressIndicator());
-      //     }
-      //     if (!snapshot.hasData || snapshot.data!.isEmpty) {
-      //       return const Center(child: Text("داده‌ای یافت نشد."));
-      //     }
-      //     return ReadingCanvasScreen(documentPages: snapshot.data!);
-      //   },
-      // ),
       body: FutureBuilder<BookContent>(
         // 🌟 نوع خروجی تغییر کرد
         future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath),

@@ -25,4 +25,16 @@ class StorageService {
   static List<dynamic>? getOfflineBooks() => _box.read(_booksKey);
   static Future<void> saveOfflineBooks(List<dynamic> booksJson) async =>
       await _box.write(_booksKey, booksJson);
+
+  static void saveLastBookId(String bookId) {
+    _box.write('lastBookId', bookId);
+  }
+
+  static String? getLastBookId() {
+    return _box.read('lastBookId');
+  }
+
+  static void clearLastBookId() {
+    _box.remove('lastBookId');
+  }
 }

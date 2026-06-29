@@ -5,12 +5,51 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/main_book_s
 import 'package:ielts_assistant/features/content_viewer/using_gemini/app_drawer.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/services/storage_service.dart';
 
-class LibraryScreen extends ConsumerWidget {
+class LibraryScreen extends ConsumerStatefulWidget {
   const LibraryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LibraryScreen> createState() => _LibraryScreenState();
+}
+
+class _LibraryScreenState extends ConsumerState<LibraryScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _openLastBook();
+    });
+  }
+
+  Future<void> _openLastBook() async {
+    final lastBookId = StorageService.getLastBookId();
+
+    if (lastBookId == null) return;
+
+    // کمی صبر می‌کنیم تا fetchBooks انجام شود
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    if (!mounted) return;
+
+    final books = ref.read(booksProvider);
+
+    final book = books.where((e) => e.id == lastBookId).firstOrNull;
+
+    if (book == null) return;
+
+    ref.read(activeBookProvider.notifier).state = book;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const MainBookScreen()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final books = ref.watch(booksProvider);
     final authState = ref.watch(authProvider);
 
@@ -98,14 +137,15 @@ class LibraryScreen extends ConsumerWidget {
                       return GestureDetector(
                         onTap: canOpenCanvas
                             ? () {
+                                StorageService.saveLastBookId(book.id);
                                 // 🌟 انتقال به صفحه مطالعه با ضربه روی هر جای کارت (در صورت آماده بودن فایل)
                                 ref.read(activeBookProvider.notifier).state =
                                     book;
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MainBookScreen(),
+                                    builder: (_) => const MainBookScreen(),
                                   ),
                                 );
                               }
@@ -246,11 +286,12 @@ class LibraryScreen extends ConsumerWidget {
               ),
               onPressed: () {
                 ref.read(activeBookProvider.notifier).state = book;
-                Navigator.push(
+
+                StorageService.saveLastBookId(book.id);
+
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const MainBookScreen(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const MainBookScreen()),
                 );
               },
             ),
