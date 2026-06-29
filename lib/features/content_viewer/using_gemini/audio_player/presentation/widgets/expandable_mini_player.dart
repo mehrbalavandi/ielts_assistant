@@ -210,14 +210,14 @@ class ExpandableMiniPlayer extends ConsumerWidget {
                   const PopupMenuItem(value: 1.5, child: Text('1.5x')),
                 ],
               ),
-              IconButton(
-                icon: Icon(
-                  state.isRepeatEnabled ? Icons.repeat_one : Icons.repeat,
-                  color: state.isRepeatEnabled ? Colors.blue : Colors.white,
-                ),
-                onPressed: () =>
-                    ref.read(audioPlayerProvider.notifier).toggleRepeat(),
-              ),
+              // IconButton(
+              //   icon: Icon(
+              //     state.isRepeatEnabled ? Icons.repeat_one : Icons.repeat,
+              //     color: state.isRepeatEnabled ? Colors.blue : Colors.white,
+              //   ),
+              //   onPressed: () =>
+              //       ref.read(audioPlayerProvider.notifier).toggleRepeat(),
+              // ),
               Text(
                 _formatDuration(state.duration),
                 style: const TextStyle(color: Colors.white70, fontSize: 12),

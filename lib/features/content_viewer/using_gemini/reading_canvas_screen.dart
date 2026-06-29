@@ -1208,7 +1208,9 @@ class InlineAudioLink extends ConsumerWidget {
         } else {
           // 🌟 اینجا برای اینکه دکمه‌های بعدی/قبلی درست کار کنند، ما یک پلی‌لیست پویا
           // از تمام فایل‌های صوتی ممکن می‌سازیم (در صورت نیاز می‌توانید پلی‌لیست رو پیچیده‌تر کنید)
-          ref.read(audioPlayerProvider.notifier).playFile(targetPath);
+          ref
+              .read(audioPlayerProvider.notifier)
+              .playFile(targetPath, newPlaylist: [targetPath]);
         }
       },
       child: Container(

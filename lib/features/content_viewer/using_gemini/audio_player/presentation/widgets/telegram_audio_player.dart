@@ -114,8 +114,31 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
     final state = ref.watch(audioPlayerProvider);
     final totalMs = state.duration.inMilliseconds.toDouble();
 
+    // 🌟 منطق نمایش آیکون و رنگ برای دکمه رفتار پایان فایل
+    IconData modeIcon;
+    Color modeColor;
+    String modeTooltip;
+
+    switch (state.playbackMode) {
+      case PlaybackMode.autoAdvance:
+        modeIcon = Icons.playlist_play_rounded; // یا Icons.repeat
+        modeColor = Colors.blueAccent;
+        modeTooltip = "پخش پیوسته";
+        break;
+      case PlaybackMode.repeatOne:
+        modeIcon = Icons.repeat_one_rounded;
+        modeColor = Colors.orangeAccent;
+        modeTooltip = "تکرار فایل فعلی";
+        break;
+      case PlaybackMode.stop:
+        modeIcon = Icons.stop_circle_outlined;
+        modeColor = Colors.white54;
+        modeTooltip = "توقف پس از پایان";
+        break;
+    }
+
     return Container(
-      height: 280,
+      height: 300, // 🌟 کمی ارتفاع بیشتر برای جا شدن دکمه‌ها
       decoration: BoxDecoration(
         color: Colors.blueGrey[900],
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
@@ -257,14 +280,16 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
                     const PopupMenuItem(value: 1.5, child: Text('1.5x')),
                   ],
                 ),
+
+                // 🌟 دکمه تغییر حالت با طراحی جدید
                 IconButton(
-                  icon: Icon(
-                    state.isRepeatEnabled ? Icons.repeat_one : Icons.repeat,
-                    color: state.isRepeatEnabled ? Colors.blue : Colors.white,
-                  ),
-                  onPressed: () =>
-                      ref.read(audioPlayerProvider.notifier).toggleRepeat(),
+                  icon: Icon(modeIcon, color: modeColor),
+                  tooltip: modeTooltip,
+                  onPressed: () => ref
+                      .read(audioPlayerProvider.notifier)
+                      .togglePlaybackMode(),
                 ),
+
                 Text(
                   _formatDuration(state.duration),
                   style: const TextStyle(color: Colors.white70, fontSize: 12),
@@ -276,16 +301,29 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // 🌟 دکمه قبلی
+              IconButton(
+                icon: const Icon(
+                  Icons.skip_previous_rounded,
+                  color: Colors.white,
+                  size: 36,
+                ),
+                onPressed: () =>
+                    ref.read(audioPlayerProvider.notifier).playPrevious(),
+              ),
+              const SizedBox(width: 8),
+
               IconButton(
                 icon: const Icon(
                   Icons.replay_10,
                   color: Colors.white,
-                  size: 30,
+                  size: 28,
                 ),
                 onPressed: () =>
                     ref.read(audioPlayerProvider.notifier).skip10Sec(false),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 8),
+
               IconButton(
                 icon: Icon(
                   state.isPlaying
@@ -298,15 +336,28 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
                     ? ref.read(audioPlayerProvider.notifier).pause()
                     : ref.read(audioPlayerProvider.notifier).resume(),
               ),
-              const SizedBox(width: 20),
+
+              const SizedBox(width: 8),
               IconButton(
                 icon: const Icon(
                   Icons.forward_10,
                   color: Colors.white,
-                  size: 30,
+                  size: 28,
                 ),
                 onPressed: () =>
                     ref.read(audioPlayerProvider.notifier).skip10Sec(true),
+              ),
+
+              const SizedBox(width: 8),
+              // 🌟 دکمه بعدی
+              IconButton(
+                icon: const Icon(
+                  Icons.skip_next_rounded,
+                  color: Colors.white,
+                  size: 36,
+                ),
+                onPressed: () =>
+                    ref.read(audioPlayerProvider.notifier).playNext(),
               ),
             ],
           ),
