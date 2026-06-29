@@ -5748,5 +5748,120 @@
       ]
     }
   ],
-  "AudioScripts": []
+  "AudioScripts": [
+    {
+      "Direction": "LTR",
+      "SpaceAfter": 8.0,
+      "SpaceBefore": 0.0,
+      "StartMs": 0,
+      "EndMs": 6296,
+      "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+      "Spans": [
+        {
+          "Type": "text",
+          "Content": "Guide: Ladies and gentlemen, welcome to the Museum of London Life. ",
+          "Markers": [
+            "fn:Source Sans 3"
+          ],
+          "InnerSpans": [],
+          "TableRows": []
+        }
+      ]
+    },
+    {
+      "Direction": "LTR",
+      "SpaceAfter": 8.0,
+      "SpaceBefore": 0.0,
+      "StartMs": 6296,
+      "EndMs": 17778,
+      "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+      "Spans": [
+        {
+          "Type": "text",
+          "Content": "My name's Peter, and I'll be your guide, taking you through your exciting visit, which lasts for approximately ninety minutes, and traces the history of this vast and ever-changing city. ",
+          "Markers": [
+            "fn:Source Sans 3"
+          ],
+          "InnerSpans": [],
+          "TableRows": []
+        }
+      ]
+    },
+    {
+      "Direction": "LTR",
+      "SpaceAfter": 8.0,
+      "SpaceBefore": 0.0,
+      "StartMs": 17778,
+      "EndMs": 37499,
+      "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+      "Spans": [
+        {
+          "Type": "text",
+          "Content": "But before we eventually arrive back here in the present, we begin our walk in ancient London, where we're going to take a look at life from the point of view of prehistoric men, women and children, looking at how they lived thousands of years ago, when all this around us was fields. ",
+          "Markers": [
+            "fn:Source Sans 3"
+          ],
+          "InnerSpans": [],
+          "TableRows": []
+        }
+      ]
+    },
+    {
+      "Direction": "LTR",
+      "SpaceAfter": 8.0,
+      "SpaceBefore": 0.0,
+      "StartMs": 37499,
+      "EndMs": 48338,
+      "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+      "Spans": [
+        {
+          "Type": "text",
+          "Content": "At this point, London was little more than a few settlements dotted about here and there. Certainly nothing like the metropolis you see surrounding you today. ",
+          "Markers": [
+            "fn:Source Sans 3"
+          ],
+          "InnerSpans": [],
+          "TableRows": []
+        }
+      ]
+    },
+    {
+      "Direction": "LTR",
+      "SpaceAfter": 8.0,
+      "SpaceBefore": 0.0,
+      "StartMs": 48338,
+      "EndMs": 67131,
+      "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+      "Spans": [
+        {
+          "Type": "text",
+          "Content": "So, from there, the walk allows you to see the city grow as you progress through the exhibits and take in the fascinating pieces of history that have been found and donated to the museum over the years - including maps, photos, images and thousands of other objects  there. ",
+          "Markers": [
+            "fn:Source Sans 3"
+          ],
+          "InnerSpans": [],
+          "TableRows": []
+        }
+      ]
+    },
+    {
+      "Direction": "LTR",
+      "SpaceAfter": 8.0,
+      "SpaceBefore": 0.0,
+      "StartMs": 67131,
+      "EndMs": 9999999,
+      "AudioTrackName": "MindsetIELTS_L3_02.mp3",
+      "Spans": [
+        {
+          "Type": "text",
+          "Content": "And finally, when we leave the part of the exhibition called 'Contemporary London', we'll move away from our present, here in the 21st century, and head off into the 22nd. . ",
+          "Markers": [
+            "fn:Source Sans 3"
+          ],
+          "InnerSpans": [],
+          "TableRows": []
+        }
+      ]
+    }
+  ]
 }
