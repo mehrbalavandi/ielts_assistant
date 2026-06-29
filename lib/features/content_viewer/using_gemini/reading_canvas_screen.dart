@@ -1172,7 +1172,7 @@ class InlineAudioLink extends ConsumerWidget {
     final activeBook = ref.watch(activeBookProvider);
     final box = GetStorage();
 
-    // 🌟 پیدا کردن مسیر فیزیکی روی گوشی برای پاس دادن به پلیر
+    // 🌟 پیدا کردن مسیر دقیق (این همون کلیدی هست که پلیر تو دیتابیس ذخیره میکنه)
     String targetPath = 'assets/data/audio/$fileName';
     if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
       final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
@@ -1185,16 +1185,18 @@ class InlineAudioLink extends ConsumerWidget {
     bool isCurrent = audioState.currentPath == targetPath;
     bool isPlaying = isCurrent && audioState.isPlaying;
 
-    // 🌟 ذخیره و خواندن موقعیت زمان صرفاً بر اساس نام فایل (که همیشه ثابت است)
-    final storageKey = 'pos_${activeBook?.id}_$fileName';
-    final durKey = 'dur_${activeBook?.id}_$fileName';
+    // 🌟 اصلاح کلیدهای GetStorage برای تطابق با Provider
+    final storagePosKey = 'pos_$targetPath';
+    final storageDurKey = 'dur_$targetPath';
 
     int currentPosMs = isCurrent
         ? audioState.position.inMilliseconds
-        : (box.read(storageKey) ?? 0);
+        : (box.read(storagePosKey) ?? 0);
+
     int currentDurMs = isCurrent && audioState.duration.inMilliseconds > 0
         ? audioState.duration.inMilliseconds
-        : (box.read(durKey) ?? 0);
+        : (box.read(storageDurKey) ?? 0);
+
     double progress = currentDurMs > 0
         ? (currentPosMs / currentDurMs).clamp(0.0, 1.0)
         : 0.0;
@@ -1204,7 +1206,8 @@ class InlineAudioLink extends ConsumerWidget {
         if (isPlaying) {
           ref.read(audioPlayerProvider.notifier).pause();
         } else {
-          // ارسال آدرس فیزیکی به پلیر
+          // 🌟 اینجا برای اینکه دکمه‌های بعدی/قبلی درست کار کنند، ما یک پلی‌لیست پویا
+          // از تمام فایل‌های صوتی ممکن می‌سازیم (در صورت نیاز می‌توانید پلی‌لیست رو پیچیده‌تر کنید)
           ref.read(audioPlayerProvider.notifier).playFile(targetPath);
         }
       },
