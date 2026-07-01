@@ -938,7 +938,7 @@ Widget _buildTable(
         ),
       );
 
-      if (isLargeScreen || isBorderedTable || isImageRow) {
+      if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
         if (cell.widthPercent != null && cell.widthPercent! > 0)
           cellWidgets.add(
             Expanded(
@@ -953,7 +953,7 @@ Widget _buildTable(
       }
     }
 
-    if (isLargeScreen || isBorderedTable || isImageRow)
+    if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable)
       rowWidgets.add(
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1079,6 +1079,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       activeOccurrence: activeOccurrence,
       translationFa: para.translationFa, // 🌟 پاس دادن به کامپوننت مادر
       translationAr: para.translationAr,
+      innerSpans: span.innerSpans,
     );
   }
 

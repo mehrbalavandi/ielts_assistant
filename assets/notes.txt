@@ -1,3 +1,8 @@
 Unit 1: 
+pdf:
 Answer key: 186
 Audio Scripts: 208
+
+word:
+Answer key: 191(184)
+Audio Scripts: 214(207)

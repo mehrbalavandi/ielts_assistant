@@ -185,6 +185,7 @@ class SpanData {
   final String? url;
   final List<String> markers;
   final List<TableRowData> tableRows;
+  final List<SpanData> innerSpans; // 🌟 اضافه شد برای استایل‌های داخل جای‌خالی
 
   // فیلدهای استایل متن و جدول
   final String? fillColor;
@@ -205,6 +206,7 @@ class SpanData {
     this.url,
     required this.markers,
     this.tableRows = const [],
+    this.innerSpans = const [], // 🌟 مقدار اولیه
     this.fillColor,
     this.textColor,
     this.borderColor,
@@ -220,12 +222,16 @@ class SpanData {
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
     var rowsList = json['TableRows'] as List? ?? [];
+    var innerList = json['InnerSpans'] as List? ?? []; // 🌟 استخراج از JSON
     return SpanData(
       type: json['Type'] ?? 'text',
       content: json['Content'] ?? '',
       url: json['Url'],
       markers: List<String>.from(json['Markers'] ?? []),
       tableRows: rowsList.map((e) => TableRowData.fromJson(e)).toList(),
+      innerSpans: innerList
+          .map((e) => SpanData.fromJson(e))
+          .toList(), // 🌟 مپ کردن
       fillColor: json['FillColor'],
       textColor: json['TextColor'],
       borderColor: json['BorderColor'],

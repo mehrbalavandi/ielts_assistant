@@ -14,6 +14,7 @@ class TextRenderEngine {
     int? activeOccurrence,
     String? translationFa, // 🌟 اضافه شد
     String? translationAr, // 🌟 اضافه شد
+    List<SpanData>? innerSpans,
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -38,25 +39,15 @@ class TextRenderEngine {
         );
       }
 
+      // 🌟 بازگشت به منطق دقیق خودتان برای جلوگیری از شیفت شدن هایلایت‌ها
       int startOfHidden = match.start + 5; // عبور از {blk}
       int endOfHidden = match.end - 6; // قبل از {/blk}
-      bool isHighlighted = false;
-      bool isActiveHighlight = false;
-      List<int>? blankMap;
+      List<int>? blankMapSlice;
 
       if (localHighlightMap != null) {
         if (startOfHidden < localHighlightMap.length &&
             endOfHidden <= localHighlightMap.length) {
-          blankMap = localHighlightMap.sublist(startOfHidden, endOfHidden);
-        }
-
-        for (int i = startOfHidden; i < endOfHidden; i++) {
-          if (i < localHighlightMap.length && localHighlightMap[i] != -1) {
-            isHighlighted = true;
-            if (localHighlightMap[i] == activeOccurrence) {
-              isActiveHighlight = true;
-            }
-          }
+          blankMapSlice = localHighlightMap.sublist(startOfHidden, endOfHidden);
         }
       }
 
@@ -66,17 +57,17 @@ class TextRenderEngine {
           child: InteractiveBlankWord(
             hiddenText: match.group(1) ?? '',
             textStyle: baseStyle,
-            interactives: interactives, // ارسال لیست کلمات تعاملی
-            blankMap: blankMap, // ارسال مپ هایلایت جستجو
+            interactives: interactives,
+            blankMap: blankMapSlice, // 🌟 ارسال برش دقیق به دکمه
             activeOcc: activeOccurrence,
-            translationFa: translationFa, // ارسال ترجمه فارسی پاراگراف
-            translationAr: translationAr, // ارسال ترجمه عربی پاراگراف
+            translationFa: translationFa,
+            translationAr: translationAr,
+            innerSpans: innerSpans,
           ),
         ),
       );
       currentIndex = match.end;
     }
-
     if (currentIndex < content.length) {
       var slice = localHighlightMap?.sublist(currentIndex);
       spans.addAll(
@@ -92,6 +83,46 @@ class TextRenderEngine {
       );
     }
     return spans;
+  }
+
+  static TextStyle applySpanStyle(TextStyle base, SpanData span, bool isDark) {
+    double fontSize = base.fontSize ?? 16.0;
+
+    // 🌟 اصلاح شد: وضعیت استایل‌ها کاملاً بر اساس مارکرهای خود اسپن تعیین می‌شود نه ارث‌بری کورکورانه از والد تگ‌شده
+    bool isBold = span.markers.contains("b");
+    bool isItalic = span.markers.contains("i");
+    bool isUnderline = span.markers.contains("u");
+    Color color = isDark ? Colors.white : Colors.black87;
+
+    for (var marker in span.markers) {
+      if (marker.startsWith("sz:")) {
+        double? s = double.tryParse(marker.substring(3));
+        if (s != null) fontSize = s / 2;
+      }
+    }
+
+    if (span.textColor != null &&
+        span.textColor!.isNotEmpty &&
+        span.textColor != "auto") {
+      final buffer = StringBuffer();
+      if (span.textColor!.length == 6 || span.textColor!.length == 7)
+        buffer.write('ff');
+      buffer.write(span.textColor!.replaceFirst('#', ''));
+      try {
+        color = Color(int.parse(buffer.toString(), radix: 16));
+      } catch (_) {}
+    } else {
+      // بازگشت به رنگ پیش‌فرض پوسته در صورت نداشتن رنگ اختصاصی
+      color = isDark ? Colors.white : Colors.black87;
+    }
+
+    return base.copyWith(
+      fontSize: fontSize,
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
+      decoration: isUnderline ? TextDecoration.underline : TextDecoration.none,
+      color: color,
+    );
   }
 
   static List<InlineSpan> _processDictionaryWords(
@@ -365,110 +396,6 @@ class TextRenderEngine {
     );
   }
 }
-/*
-class InteractiveBlankWord extends StatefulWidget {
-  final String hiddenText;
-  final TextStyle textStyle;
-  final bool isSearchHit;
-  final bool isActiveSearch;
-  final List<int>? blankMap; // 🌟
-  final int? activeOcc; // 🌟
-
-  const InteractiveBlankWord({
-    super.key,
-    required this.hiddenText,
-    required this.textStyle,
-    this.isSearchHit = false,
-    this.isActiveSearch = false,
-    this.blankMap,
-    this.activeOcc,
-  });
-  @override
-  State<InteractiveBlankWord> createState() => _InteractiveBlankWordState();
-}
-
-class _InteractiveBlankWordState extends State<InteractiveBlankWord> {
-  bool _isRevealed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    bool isDarkTheme =
-        (widget.textStyle.color?.computeLuminance() ?? 0.0) > 0.5;
-
-    // 🌟 اعمال استایل جستجو فقط وقتی که علامت سؤال (مخفی) است
-    Color hiddenBg = widget.isActiveSearch
-        ? Colors.orangeAccent
-        : (widget.isSearchHit
-              ? Colors.yellowAccent.withOpacity(0.6)
-              : (isDarkTheme ? Colors.white24 : Colors.black12));
-
-    Color hiddenBorder = widget.isActiveSearch
-        ? Colors.deepOrange
-        : (widget.isSearchHit
-              ? Colors.orange
-              : (isDarkTheme ? Colors.white54 : Colors.black38));
-
-    Color hiddenText = widget.isActiveSearch
-        ? Colors.white
-        : (widget.isSearchHit
-              ? Colors.black
-              : (isDarkTheme ? Colors.white70 : Colors.black54));
-
-    // 🌟 در حالت باز شده، باکس پس‌زمینه رنگ عادی و تمیز خودش رو می‌گیره
-    Color revealedBg = isDarkTheme
-        ? Colors.tealAccent.withOpacity(0.2)
-        : Colors.teal.withOpacity(0.1);
-    Color revealedBorder = isDarkTheme ? Colors.tealAccent : Colors.teal;
-    Color revealedText = isDarkTheme ? Colors.tealAccent : Colors.teal.shade800;
-
-    Widget content;
-    if (!_isRevealed) {
-      content = Text(
-        "?",
-        style: widget.textStyle.copyWith(
-          color: hiddenText,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-    } else {
-      // 🌟 اینجا جادوی اصلی اتفاق میوفته: اعمال هایلایت نقطه‌ای دقیقاً روی حروفی که باید در متن پیدا شوند
-      List<InlineSpan> revealedSpans = TextRenderEngine._applyMapToText(
-        widget.hiddenText,
-        widget.textStyle.copyWith(
-          color: revealedText,
-          fontWeight: FontWeight.bold,
-        ),
-        widget.blankMap,
-        widget.activeOcc,
-      );
-      content = Text.rich(TextSpan(children: revealedSpans));
-    }
-
-    return GestureDetector(
-      onTap: () => setState(() => _isRevealed = !_isRevealed),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeOutCubic,
-        padding: EdgeInsets.symmetric(
-          horizontal: _isRevealed ? 6.0 : 20.0,
-          vertical: 2.0,
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 4.0),
-        decoration: BoxDecoration(
-          color: _isRevealed ? revealedBg : hiddenBg,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(
-            color: _isRevealed ? revealedBorder : hiddenBorder,
-            width: 1,
-          ),
-        ),
-        child: content,
-      ),
-    );
-  }
-}
-*/
-// ایمپورت‌های مربوط به TextRenderEngine و مدل‌ها را اینجا قرار دهید
 
 class InteractiveBlankWord extends StatelessWidget {
   final String hiddenText;
@@ -479,6 +406,7 @@ class InteractiveBlankWord extends StatelessWidget {
   interactives; // 🌟 ۱. لیست کلمات تعاملی برای دیکشنری
   final String? translationFa; // 🌟 ۲. ترجمه فارسی برای لمس طولانی
   final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
+  final List<SpanData>? innerSpans;
 
   const InteractiveBlankWord({
     super.key,
@@ -489,13 +417,15 @@ class InteractiveBlankWord extends StatelessWidget {
     this.activeOcc,
     this.translationFa,
     this.translationAr,
+    this.innerSpans,
   });
 
   @override
   Widget build(BuildContext context) {
     final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    // 🌟 رفع مشکل جستجو: فقط دکمه‌ای نارنجی می‌شود که ایندکس جستجوی فعال را درون خود داشته باشد
     final bool hasSearchResult =
-        blankMap != null && blankMap!.isNotEmpty && activeOcc != null;
+        blankMap != null && activeOcc != null && blankMap!.contains(activeOcc!);
 
     final Color buttonColor = isDarkTheme
         ? Colors.grey.shade800
@@ -554,21 +484,44 @@ class InteractiveBlankWord extends StatelessWidget {
       builder: (context) {
         // 🌟 قابلیت اول: رندر کردن متن مخفی با ساختار تعاملی موتور رندر شما (دیکشنری + هایلایت جستجو)
         // چون متن داخل مودال فاقد تگ {blk} است، مستقیماً کلمات تعاملی آن پردازش و بازگردانده می‌شود.
-        List<InlineSpan> revealedSpans = TextRenderEngine.buildInteractiveText(
-          hiddenText,
-          interactives,
-          context,
-          textStyle.copyWith(
-            color: isDarkTheme ? Colors.white : Colors.black87,
-            fontSize: textStyle.fontSize ?? 16.0,
-            height: 1.6,
-          ),
-          localHighlightMap: blankMap,
-          activeOccurrence: activeOcc,
-          translationFa: translationFa, // 🌟 پاس دادن به کامپوننت مادر
-          translationAr: translationAr,
-        );
+        List<InlineSpan> revealedSpans = [];
 
+        // 🌟 رندر کردن درخت استایل‌ها (جادوی رفع مشکل اینجاست)
+        if (innerSpans != null && innerSpans!.isNotEmpty) {
+          for (var span in innerSpans!) {
+            TextStyle spanStyle = TextRenderEngine.applySpanStyle(
+              textStyle,
+              span,
+              isDarkTheme,
+            );
+            revealedSpans.addAll(
+              TextRenderEngine.buildInteractiveText(
+                span.content,
+                interactives,
+                context,
+                spanStyle,
+                localHighlightMap: blankMap,
+                activeOccurrence: activeOcc,
+              ),
+            );
+          }
+        } else {
+          // 🌟 فال‌بک برای متون ساده یا JSONهای قدیمی
+          revealedSpans = TextRenderEngine.buildInteractiveText(
+            hiddenText,
+            interactives,
+            context,
+            textStyle.copyWith(
+              color: isDarkTheme ? Colors.white : Colors.black87,
+              fontSize: textStyle.fontSize ?? 16.0,
+              height: 1.6,
+            ),
+            localHighlightMap: blankMap,
+            activeOccurrence: activeOcc,
+            translationFa: translationFa,
+            translationAr: translationAr,
+          );
+        }
         return DraggableScrollableSheet(
           initialChildSize: 0.4,
           minChildSize: 0.2,
