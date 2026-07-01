@@ -728,7 +728,8 @@ Widget _buildParagraph(
           mapOffset,
           activeOccurrence,
           activeBook,
-          pageInteractives, // 🌟 پاس دادن به درون جدول‌ها
+          pageInteractives,
+          isNestedTable: isInsideTableCell,
         ),
       );
     }
@@ -837,8 +838,9 @@ Widget _buildTable(
   MapOffset? mapOffset,
   int? activeOcc,
   BookModel? activeBook,
-  List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید دریافت شد
-) {
+  List<InteractiveWord> pageInteractives, {
+  bool isNestedTable = false, // 🌟 پارامتر جدید برای تشخیص جداول تودرتو
+}) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
       (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
@@ -870,10 +872,12 @@ Widget _buildTable(
   for (var row in tableSpan.tableRows) {
     List<Widget> cellWidgets = [];
     bool hasAnyImage = false, hasAnyText = false;
+
     for (var cell in row.cells) {
-      bool isImg =
-          cell.paragraphs.length == 1 &&
-          cell.paragraphs.first.spans.any((s) => s.type == "image");
+      // 🌟 اصلاح شرط: بررسی وجود عکس حتی اگر کپشن هم وجود داشته باشد
+      bool isImg = cell.paragraphs.any(
+        (p) => p.spans.any((s) => s.type == "image"),
+      );
       bool isEmpty = cell.paragraphs.every(
         (p) =>
             p.spans.isEmpty ||
@@ -890,9 +894,12 @@ Widget _buildTable(
 
     for (var cell in row.cells) {
       List<Widget> cellParagraphs = [];
-      bool isImageCell =
-          cell.paragraphs.length == 1 &&
-          cell.paragraphs.first.spans.any((s) => s.type == "image");
+
+      // 🌟 اصلاح شرط: اگر سلول دارای عکس است، این متغیر را true می‌کنیم تا پدینگ اضافی نگیرد
+      bool isImageCell = cell.paragraphs.any(
+        (p) => p.spans.any((s) => s.type == "image"),
+      );
+
       for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
         cellParagraphs.add(
           _buildParagraph(
@@ -910,13 +917,16 @@ Widget _buildTable(
             mapOffset: mapOffset,
             activeOccurrence: activeOcc,
             activeBook: activeBook,
-            pageInteractives:
-                pageInteractives, // 🌟 پاس دادن به پاراگراف‌های داخل سلول
+            pageInteractives: pageInteractives,
           ),
         );
       }
+
+      // 🌟 کاهش پدینگ داخلی سلول در صورت وجود عکس
       Widget cellContent = Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: isImageCell
+            ? const EdgeInsets.all(2.0)
+            : const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: _hexToColor(cell.fillColor),
           border: cellBorder,
@@ -927,6 +937,7 @@ Widget _buildTable(
           children: cellParagraphs,
         ),
       );
+
       if (isLargeScreen || isBorderedTable || isImageRow) {
         if (cell.widthPercent != null && cell.widthPercent! > 0)
           cellWidgets.add(
@@ -941,6 +952,7 @@ Widget _buildTable(
         cellWidgets.add(cellContent);
       }
     }
+
     if (isLargeScreen || isBorderedTable || isImageRow)
       rowWidgets.add(
         Row(
@@ -956,8 +968,12 @@ Widget _buildTable(
         ),
       );
   }
+
   Widget tableContainer = Container(
-    margin: const EdgeInsets.symmetric(vertical: 12.0),
+    // 🌟 جادوی اصلی: اگر جدول تودرتو است، مارجین عمودی ۱۲ پیکسلی حذف شده و به ۲ پیکسل کاهش می‌یابد
+    margin: isNestedTable
+        ? const EdgeInsets.only(top: 2.0)
+        : const EdgeInsets.symmetric(vertical: 12.0),
     decoration: BoxDecoration(
       color: _hexToColor(tableSpan.fillColor),
       border: tableBorder,
@@ -967,6 +983,7 @@ Widget _buildTable(
       children: rowWidgets,
     ),
   );
+
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
