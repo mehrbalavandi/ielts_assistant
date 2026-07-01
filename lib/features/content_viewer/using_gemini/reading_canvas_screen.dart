@@ -1325,7 +1325,7 @@ class _TranslatableContentWrapperState
       behavior: HitTestBehavior.opaque,
       onLongPress: () => setState(() => _showTranslation = !_showTranslation),
       child: Directionality(
-        textDirection: TextDirection.rtl,
+        textDirection: TextDirection.ltr,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
