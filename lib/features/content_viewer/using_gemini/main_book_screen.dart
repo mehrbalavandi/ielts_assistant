@@ -5,7 +5,6 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_
 import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/book_search_delegate.dart';
-import 'package:ielts_assistant/features/content_viewer/using_gemini/library_screen.dart';
 
 class MainBookScreen extends ConsumerWidget {
   const MainBookScreen({super.key});

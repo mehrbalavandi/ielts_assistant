@@ -1,5 +1,5 @@
 // 🔊 🎧 ▶ ▶️
-// ignore_for_file: unused_import
+// ignore_for_file: unused_local_variable, unused_import
 
 import 'dart:io';
 
@@ -440,7 +440,7 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         _buildPageDivider(widget.page.pageNumber),
         Container(
           margin: const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
-          padding: const EdgeInsets.all(32.0),
+          padding: const EdgeInsets.all(12.0),
           decoration: const BoxDecoration(
             color: Colors.white,
             boxShadow: [
