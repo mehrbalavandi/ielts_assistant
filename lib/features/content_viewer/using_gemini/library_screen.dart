@@ -281,7 +281,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
 
                 StorageService.saveLastBookId(book.id);
 
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const MainBookScreen()),
                 );

@@ -309,53 +309,56 @@ class TextRenderEngine {
       builder: (ctx) {
         return Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    word.exactText,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      word.exactText,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        word.cefrLevel,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.orange.shade100,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      word.cefrLevel,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                word.pronounceFa,
-                style: const TextStyle(color: Colors.grey),
-              ),
-              const Divider(),
-              Text(
-                "معنی: ${word.translationFa}",
-                style: const TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                "توضیح: ${word.explanationFa}",
-                style: const TextStyle(fontSize: 14),
-              ),
-              const SizedBox(height: 24),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  word.pronounceFa,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+                const Divider(),
+                Text(
+                  "معنی: ${word.translationFa}",
+                  style: const TextStyle(fontSize: 16),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "توضیح: ${word.explanationFa}",
+                  style: const TextStyle(fontSize: 14),
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         );
       },
@@ -574,38 +577,41 @@ class InteractiveBlankWord extends StatelessWidget {
           builder: (context, scrollController) {
             return Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      width: 40,
-                      height: 5,
-                      margin: const EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      controller: scrollController,
-                      physics: const BouncingScrollPhysics(),
-
-                      // 🌟 قابلیت دوم: استفاده از Wrapper اختصاصی شما برای فعال‌سازی لمس طولانی و نمایش ترجمه پاراگراف
-                      child: TranslatableContentWrapper(
-                        originalContent: Text.rich(
-                          TextSpan(children: revealedSpans),
-                          textAlign: TextAlign.justify,
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 5,
+                        margin: const EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        translationFa: translationFa,
-                        translationAr: translationAr,
-                        isDarkMode: isDarkTheme,
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: SingleChildScrollView(
+                        controller: scrollController,
+                        physics: const BouncingScrollPhysics(),
+
+                        // 🌟 قابلیت دوم: استفاده از Wrapper اختصاصی شما برای فعال‌سازی لمس طولانی و نمایش ترجمه پاراگراف
+                        child: TranslatableContentWrapper(
+                          originalContent: Text.rich(
+                            TextSpan(children: revealedSpans),
+                            textAlign: TextAlign.justify,
+                          ),
+                          translationFa: translationFa,
+                          translationAr: translationAr,
+                          isDarkMode: isDarkTheme,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

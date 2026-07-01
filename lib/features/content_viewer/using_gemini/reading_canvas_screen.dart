@@ -1306,39 +1306,44 @@ class _TranslatableContentWrapperState
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onLongPress: () => setState(() => _showTranslation = !_showTranslation),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          widget.originalContent,
-          AnimatedCrossFade(
-            firstChild: const SizedBox(width: double.infinity, height: 0),
-            secondChild: Container(
-              margin: const EdgeInsets.only(top: 6, bottom: 6),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: bgColor,
-                border: Border(right: BorderSide(color: borderColor, width: 3)),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                finalTranslation,
-                textAlign: TextAlign.right,
-                textDirection: TextDirection.rtl,
-                style: TextStyle(
-                  fontFamily: 'YekanBakh',
-                  fontSize: 14,
-                  height: 1.6,
-                  color: textColor,
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            widget.originalContent,
+            AnimatedCrossFade(
+              firstChild: const SizedBox(width: double.infinity, height: 0),
+              secondChild: Container(
+                margin: const EdgeInsets.only(top: 6, bottom: 6),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  border: Border(
+                    right: BorderSide(color: borderColor, width: 3),
+                  ),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  finalTranslation,
+                  textAlign: TextAlign.right,
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(
+                    fontFamily: 'YekanBakh',
+                    fontSize: 14,
+                    height: 1.6,
+                    color: textColor,
+                  ),
                 ),
               ),
+              crossFadeState: _showTranslation
+                  ? CrossFadeState.showSecond
+                  : CrossFadeState.showFirst,
+              duration: const Duration(milliseconds: 300),
+              sizeCurve: Curves.easeInOutCubic,
             ),
-            crossFadeState: _showTranslation
-                ? CrossFadeState.showSecond
-                : CrossFadeState.showFirst,
-            duration: const Duration(milliseconds: 300),
-            sizeCurve: Curves.easeInOutCubic,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
