@@ -72,70 +72,74 @@ class MainBookScreen extends ConsumerWidget {
               color: Colors.indigo.shade50,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: SafeArea(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        // 🌟 دکمه بعدی (با قابلیت چرخش و تریگر همیشگی)
-                        IconButton(
-                          icon: const Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.indigo,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          // 🌟 دکمه بعدی (با قابلیت چرخش و تریگر همیشگی)
+                          IconButton(
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down,
+                              color: Colors.indigo,
+                            ),
+                            onPressed: () {
+                              int nextIdx =
+                                  (searchSession.currentIndex + 1) %
+                                  searchSession.results.length;
+                              ref
+                                  .read(activeSearchProvider.notifier)
+                                  .state = searchSession.copyWith(
+                                currentIndex: nextIdx,
+                                jumpTrigger:
+                                    searchSession.jumpTrigger +
+                                    1, // اجبار به اسکرول مجدد
+                              );
+                            },
                           ),
-                          onPressed: () {
-                            int nextIdx =
-                                (searchSession.currentIndex + 1) %
-                                searchSession.results.length;
-                            ref
-                                .read(activeSearchProvider.notifier)
-                                .state = searchSession.copyWith(
-                              currentIndex: nextIdx,
-                              jumpTrigger:
-                                  searchSession.jumpTrigger +
-                                  1, // اجبار به اسکرول مجدد
-                            );
-                          },
-                        ),
-                        // 🌟 دکمه قبلی (با قابلیت چرخش و تریگر همیشگی)
-                        IconButton(
-                          icon: const Icon(
-                            Icons.keyboard_arrow_up,
-                            color: Colors.indigo,
+                          // 🌟 دکمه قبلی (با قابلیت چرخش و تریگر همیشگی)
+                          IconButton(
+                            icon: const Icon(
+                              Icons.keyboard_arrow_up,
+                              color: Colors.indigo,
+                            ),
+                            onPressed: () {
+                              int prevIdx =
+                                  (searchSession.currentIndex -
+                                      1 +
+                                      searchSession.results.length) %
+                                  searchSession.results.length;
+                              ref
+                                  .read(activeSearchProvider.notifier)
+                                  .state = searchSession.copyWith(
+                                currentIndex: prevIdx,
+                                jumpTrigger:
+                                    searchSession.jumpTrigger +
+                                    1, // اجبار به اسکرول مجدد
+                              );
+                            },
                           ),
-                          onPressed: () {
-                            int prevIdx =
-                                (searchSession.currentIndex -
-                                    1 +
-                                    searchSession.results.length) %
-                                searchSession.results.length;
-                            ref
-                                .read(activeSearchProvider.notifier)
-                                .state = searchSession.copyWith(
-                              currentIndex: prevIdx,
-                              jumpTrigger:
-                                  searchSession.jumpTrigger +
-                                  1, // اجبار به اسکرول مجدد
-                            );
-                          },
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.indigo,
-                            fontSize: 14,
+                          const SizedBox(width: 12),
+                          Text(
+                            "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.indigo,
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close, color: Colors.redAccent),
-                      onPressed: () =>
-                          ref.read(activeSearchProvider.notifier).state = null,
-                    ),
-                  ],
+                        ],
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close, color: Colors.redAccent),
+                        onPressed: () =>
+                            ref.read(activeSearchProvider.notifier).state =
+                                null,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )

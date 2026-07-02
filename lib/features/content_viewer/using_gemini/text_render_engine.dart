@@ -15,6 +15,7 @@ class TextRenderEngine {
     String? translationFa, // 🌟 اضافه شد
     String? translationAr, // 🌟 اضافه شد
     List<SpanData>? innerSpans,
+    GlobalKey? exactMatchKey, // 🌟 اضافه شد
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -50,7 +51,10 @@ class TextRenderEngine {
           blankMapSlice = localHighlightMap.sublist(startOfHidden, endOfHidden);
         }
       }
-
+      bool isThisTheTarget =
+          blankMapSlice != null &&
+          activeOccurrence != null &&
+          blankMapSlice.contains(activeOccurrence);
       spans.add(
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
@@ -63,6 +67,9 @@ class TextRenderEngine {
             translationFa: translationFa,
             translationAr: translationAr,
             innerSpans: innerSpans,
+            exactMatchKey: isThisTheTarget
+                ? exactMatchKey
+                : null, // 🌟 اتصال کلید فقط به همین هدف!
           ),
         ),
       );
@@ -407,6 +414,7 @@ class InteractiveBlankWord extends StatelessWidget {
   final String? translationFa; // 🌟 ۲. ترجمه فارسی برای لمس طولانی
   final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
   final List<SpanData>? innerSpans;
+  final GlobalKey? exactMatchKey; // 🌟 فیلد جدید
 
   const InteractiveBlankWord({
     super.key,
@@ -418,6 +426,7 @@ class InteractiveBlankWord extends StatelessWidget {
     this.translationFa,
     this.translationAr,
     this.innerSpans,
+    this.exactMatchKey, // 🌟 دریافت فیلد
   });
 
   @override
@@ -486,26 +495,45 @@ class InteractiveBlankWord extends StatelessWidget {
         // چون متن داخل مودال فاقد تگ {blk} است، مستقیماً کلمات تعاملی آن پردازش و بازگردانده می‌شود.
         List<InlineSpan> revealedSpans = [];
 
-        // 🌟 رندر کردن درخت استایل‌ها (جادوی رفع مشکل اینجاست)
+        // 🌟 رندر کردن درخت استایل‌ها (همراه با برش‌زنیِ نقطه‌ایِ نقشه جستجو)
         if (innerSpans != null && innerSpans!.isNotEmpty) {
+          int innerOffset = 0; // 🌟 شمارنده برای ردیابی موقعیت در نقشه اصلی
+
           for (var span in innerSpans!) {
             TextStyle spanStyle = TextRenderEngine.applySpanStyle(
               textStyle,
               span,
               isDarkTheme,
             );
+
+            // 🌟 برش زدن دقیق نقشه جستجو به اندازه طول همین تکه از متن
+            List<int>? spanMapSlice;
+            if (blankMap != null) {
+              int spanLen = span.content.length;
+              if (innerOffset + spanLen <= blankMap!.length) {
+                spanMapSlice = blankMap!.sublist(
+                  innerOffset,
+                  innerOffset + spanLen,
+                );
+              }
+            }
+
             revealedSpans.addAll(
               TextRenderEngine.buildInteractiveText(
                 span.content,
                 interactives,
                 context,
                 spanStyle,
-                localHighlightMap: blankMap,
+                localHighlightMap:
+                    spanMapSlice, // 🌟 ارسال برش اختصاصی به جای کل نقشه
                 activeOccurrence: activeOcc,
               ),
             );
+
+            innerOffset += span.content.length; // 🌟 حرکت به جلو در نقشه
           }
         } else {
+          // 🌟 فال‌بک برای متون ساده یا JSONهای قدیمی
           // 🌟 فال‌بک برای متون ساده یا JSONهای قدیمی
           revealedSpans = TextRenderEngine.buildInteractiveText(
             hiddenText,

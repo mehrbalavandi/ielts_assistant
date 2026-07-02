@@ -128,15 +128,43 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     });
   }
 
+  // 🌟 جایگزینِ کلید قدیمی: سیستم دو-کلیده برای اسکرول نقطه‌ای
+  final GlobalKey _fallbackParaKey = GlobalKey();
+  final GlobalKey _exactMatchKey = GlobalKey();
+
+  // 🌟 متد اسکرول را کاملاً با این کد هوشمند جایگزین کنید:
   void _ensureTargetVisible() {
-    if (_targetParaKey.currentContext != null) {
-      Scrollable.ensureVisible(
-        _targetParaKey.currentContext!,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOutCubic,
-        alignment: 0.25,
-      );
+    int attempts = 0;
+
+    void tryScroll() {
+      // اولویت اول: پیدا کردن خود کادر جای‌خالی. اولویت دوم: پاراگراف مادر
+      final targetContext =
+          _exactMatchKey.currentContext ?? _fallbackParaKey.currentContext;
+
+      if (targetContext != null) {
+        try {
+          Scrollable.ensureVisible(
+            targetContext,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOutCubic,
+            alignment: 0.15, // جلوگیری از مخفی شدن زیر نوار بالا
+          );
+        } catch (e) {
+          debugPrint("خطا در اسکرول: $e");
+        }
+      } else {
+        attempts++;
+        if (attempts < 15) {
+          // 🌟 در صورت پیدا نشدن، ۵۰ میلی‌ثانیه دیگر صبر می‌کند (تا سقف ۰.۷ ثانیه)
+          Future.delayed(const Duration(milliseconds: 50), tryScroll);
+        }
+      }
     }
+
+    // همیشه در فریم بعدی استارت می‌زنیم تا چرخه‌ی فعلیِ چیدمان تمام شود
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      tryScroll();
+    });
   }
 
   @override
@@ -193,9 +221,11 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             );
 
             if (!isPageVisible) {
+              // فقط به صفحه پرش می‌کنیم
               _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
-              await Future.delayed(const Duration(milliseconds: 100));
             }
+
+            // 🌟 موتور هوشمند جستجو خودش منتظر می‌ماند تا آیتم لود شود و سپس اسکرول دقیق می‌کند
             _ensureTargetVisible();
           }
         }
@@ -314,7 +344,12 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                   screenWidth: MediaQuery.of(
                                     context,
                                   ).size.width,
-                                  targetKey: hasTarget ? _targetParaKey : null,
+                                  targetKey: hasTarget
+                                      ? _fallbackParaKey
+                                      : null,
+                                  exactMatchKey: hasTarget
+                                      ? _exactMatchKey
+                                      : null, // 🌟 پاس دادن کلید دقیق نقطه‌ای
                                 ),
                               );
                             },
@@ -340,6 +375,7 @@ class BookPageWidget extends ConsumerStatefulWidget {
   final double canvasWidth;
   final double screenWidth;
   final GlobalKey? targetKey;
+  final GlobalKey? exactMatchKey; // 🌟 اضافه شد
 
   const BookPageWidget({
     super.key,
@@ -349,6 +385,7 @@ class BookPageWidget extends ConsumerStatefulWidget {
     required this.canvasWidth,
     required this.screenWidth,
     this.targetKey,
+    this.exactMatchKey, // 🌟 اضافه شد
   });
 
   @override
@@ -375,14 +412,14 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
   @override
   void didUpdateWidget(BookPageWidget old) {
     super.didUpdateWidget(old);
-    // کش را فقط هنگام تغییر واقعی داده‌های مؤثر باطل کن.
-    // تغییر _pointerCount، zoom، یا هر state دیگری در والد:
-    //   → didUpdateWidget صدا می‌شود ولی شرط‌های زیر false هستند → کش معتبر می‌ماند
+    // 🌟 شرط تغییر currentIndex اضافه شد تا کش فوراً باطل شود و کلید (_targetParaKey) به پاراگراف جدید منتقل شود
     if (old.searchSession?.query != widget.searchSession?.query ||
+        old.searchSession?.currentIndex != widget.searchSession?.currentIndex ||
         old.activeTarget != widget.activeTarget ||
         old.canvasWidth != widget.canvasWidth ||
         old.screenWidth != widget.screenWidth ||
-        old.targetKey != widget.targetKey) {
+        old.targetKey != widget.targetKey ||
+        old.exactMatchKey != widget.exactMatchKey) {
       _cachedWidgets = null;
     }
   }
@@ -418,6 +455,9 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         activeOccurrence: isTarget
             ? widget.activeTarget!.occurrenceIndex
             : null,
+        exactMatchKey: isTarget
+            ? widget.exactMatchKey
+            : null, // 🌟 انتقال به درون پاراگراف
       );
 
       if (isTarget && widget.targetKey != null) {
@@ -623,6 +663,7 @@ Widget _buildParagraph(
   int? activeOccurrence,
   required BookModel? activeBook,
   required List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید اضافه شد
+  GlobalKey? exactMatchKey, // 🌟 اضافه شد
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
@@ -675,6 +716,7 @@ Widget _buildParagraph(
           para: para,
           localMap: localMap,
           activeOccurrence: activeOccurrence,
+          exactMatchKey: exactMatchKey, // 🌟 انتقال به انجین متن
         ),
       );
       mapOffset.value += content.length;
@@ -730,6 +772,7 @@ Widget _buildParagraph(
           activeBook,
           pageInteractives,
           isNestedTable: isInsideTableCell,
+          exactMatchKey: exactMatchKey, // 🌟 انتقال به جدول
         ),
       );
     }
@@ -840,6 +883,7 @@ Widget _buildTable(
   BookModel? activeBook,
   List<InteractiveWord> pageInteractives, {
   bool isNestedTable = false, // 🌟 پارامتر جدید برای تشخیص جداول تودرتو
+  GlobalKey? exactMatchKey, // 🌟 اضافه شد
 }) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -918,6 +962,7 @@ Widget _buildTable(
             activeOccurrence: activeOcc,
             activeBook: activeBook,
             pageInteractives: pageInteractives,
+            exactMatchKey: exactMatchKey,
           ),
         );
       }
@@ -1017,6 +1062,7 @@ List<InlineSpan> _buildStyledInteractiveText(
   required ParagraphData para,
   List<int>? localMap,
   int? activeOccurrence,
+  GlobalKey? exactMatchKey, // 🌟 اضافه شد
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -1080,6 +1126,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       translationFa: para.translationFa, // 🌟 پاس دادن به کامپوننت مادر
       translationAr: para.translationAr,
       innerSpans: span.innerSpans,
+      exactMatchKey: exactMatchKey,
     );
   }
 
