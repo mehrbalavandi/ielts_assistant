@@ -152,6 +152,44 @@ class TableRowData {
   }
 }
 
+class BorderDetail {
+  final double? width;
+  final String? color;
+  final String? val;
+
+  BorderDetail({this.width, this.color, this.val});
+
+  factory BorderDetail.fromJson(Map<String, dynamic> json) {
+    return BorderDetail(
+      width: json['Width']?.toDouble(),
+      color: json['Color'],
+      val: json['Val'],
+    );
+  }
+}
+
+class CellBorders {
+  final BorderDetail? top;
+  final BorderDetail? bottom;
+  final BorderDetail? left;
+  final BorderDetail? right;
+
+  CellBorders({this.top, this.bottom, this.left, this.right});
+
+  factory CellBorders.fromJson(Map<String, dynamic> json) {
+    return CellBorders(
+      top: json['Top'] != null ? BorderDetail.fromJson(json['Top']) : null,
+      bottom: json['Bottom'] != null
+          ? BorderDetail.fromJson(json['Bottom'])
+          : null,
+      left: json['Left'] != null ? BorderDetail.fromJson(json['Left']) : null,
+      right: json['Right'] != null
+          ? BorderDetail.fromJson(json['Right'])
+          : null,
+    );
+  }
+}
+
 class TableCellData {
   final double? widthPercent;
   final List<ParagraphData> paragraphs;
@@ -160,6 +198,7 @@ class TableCellData {
   final int? colSpan;
   final String? rowMerge;
   final bool isHeaderCell;
+  final CellBorders? borders;
 
   TableCellData({
     this.widthPercent,
@@ -169,6 +208,7 @@ class TableCellData {
     this.colSpan,
     this.rowMerge,
     this.isHeaderCell = false,
+    this.borders, // پیش‌فرض خالی
   });
 
   factory TableCellData.fromJson(Map<String, dynamic> json) {
@@ -181,6 +221,9 @@ class TableCellData {
       rowMerge: json['RowMerge'],
       isHeaderCell: json['IsHeaderCell'] ?? false,
       paragraphs: parasList.map((e) => ParagraphData.fromJson(e)).toList(),
+      borders: json['Borders'] != null
+          ? CellBorders.fromJson(json['Borders'])
+          : null,
     );
   }
 }

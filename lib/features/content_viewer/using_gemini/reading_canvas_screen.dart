@@ -418,8 +418,9 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                 onPointerUp: (e) {
                   final prev = _pointerCount;
                   _pointerCount = (_pointerCount - 1).clamp(0, 10);
-                  if (prev == 2)
+                  if (prev == 2) {
                     setState(() {}); // rebuild فقط هنگام خروج از pinch
+                  }
                 },
                 onPointerCancel: (e) {
                   final prev = _pointerCount;
@@ -696,13 +697,14 @@ String _normalizeText(String text) {
 String _extractFullText(ParagraphData para) {
   StringBuffer sb = StringBuffer();
   for (var span in para.spans) {
-    if (span.type == "text" && span.content != null)
+    if (span.type == "text" && span.content != null) {
       sb.write(span.content);
-    else if (span.type == "table" && span.tableRows != null) {
+    } else if (span.type == "table" && span.tableRows != null) {
       for (var row in span.tableRows!) {
         for (var cell in row.cells) {
-          for (var cellPara in cell.paragraphs)
+          for (var cellPara in cell.paragraphs) {
             sb.write(_extractFullText(cellPara));
+          }
         }
       }
     }
@@ -770,8 +772,9 @@ String _mapFontFamily(String rawFontName) {
       .replaceAll("-", "")
       .replaceAll(" ", "");
   if (normalized.contains("sourcesans")) return "Source Sans 3";
-  if (normalized.contains("times") || normalized.contains("major"))
+  if (normalized.contains("times") || normalized.contains("major")) {
     return "Times New Roman";
+  }
   if (normalized.contains("arial")) return "Arial";
   if (normalized.contains("tahoma")) return "Tahoma";
   if (normalized.contains("verdana")) return "Verdana";
@@ -790,8 +793,9 @@ String _mapFontFamily(String rawFontName) {
 Color? _hexToColor(String? hexString) {
   if (hexString == null ||
       hexString.isEmpty ||
-      hexString.toLowerCase() == 'auto')
+      hexString.toLowerCase() == 'auto') {
     return null;
+  }
   final buffer = StringBuffer();
   if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
   buffer.write(hexString.replaceFirst('#', ''));
@@ -822,8 +826,9 @@ Widget _buildParagraph(
       (para.spans.length == 1 &&
           para.spans.first.type == "text" &&
           (para.spans.first.content == "\n" ||
-              para.spans.first.content.trim().isEmpty)))
+              para.spans.first.content.trim().isEmpty))) {
     return const SizedBox.shrink();
+  }
 
   if (mapOffset == null) mapOffset = MapOffset();
 
@@ -1039,30 +1044,43 @@ Widget _buildTable(
   GlobalKey? exactMatchKey, // 🌟 اضافه شد
 }) {
   final bool isLargeScreen = screenWidth > 600;
+
   final String rawStyle =
       (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
           .toLowerCase()
           .replaceAll(" ", "")
           .replaceAll("_", "");
-  final bool isBorderedTable = rawStyle.contains("borderedtable");
-  final bool hideBorders =
-      rawStyle.contains("dottedtable") || rawStyle.contains("tablegrid");
-  double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
-  Color borderColor =
-      _hexToColor(tableSpan.borderColor) ??
-      (isBorderedTable ? Colors.black : Colors.grey.shade400);
 
-  BoxBorder? cellBorder;
-  BoxBorder? tableBorder;
-  if (!hideBorders && (isBorderedTable || tableSpan.hasBorders == "true")) {
-    cellBorder = Border(
-      right: BorderSide(color: borderColor, width: borderWidth),
-      bottom: BorderSide(color: borderColor, width: borderWidth),
-    );
-    tableBorder = Border(
-      top: BorderSide(color: borderColor, width: borderWidth),
-      left: BorderSide(color: borderColor, width: borderWidth),
-    );
+  // 🌟 این متغیر همچنان حفظ شد، اما صرفاً برای مدیریت Layout و عرض ستون‌ها در سایزهای مختلف
+  final bool isBorderedTable = rawStyle.contains("borderedtable");
+
+  final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
+  // 🌟 متد محلی جدید برای ساخت خطوط مرزیِ اختصاصی هر جهت (بالا، پایین، چپ، راست)
+  BorderSide buildBorderSide(BorderDetail? detail) {
+    if (detail == null || detail.val == 'none' || detail.val == 'nil') {
+      return BorderSide.none;
+    }
+
+    // رنگ پیش‌فرض در صورت نبود رنگ (با توجه به تم تاریک/روشن)
+    Color borderColor = isDarkTheme ? Colors.grey.shade400 : Colors.black87;
+    if (detail.color != null &&
+        detail.color!.isNotEmpty &&
+        detail.color != "auto") {
+      final buffer = StringBuffer();
+      if (detail.color!.length == 6 || detail.color!.length == 7)
+        buffer.write('ff');
+      buffer.write(detail.color!.replaceFirst('#', ''));
+      try {
+        borderColor = Color(int.parse(buffer.toString(), radix: 16));
+      } catch (_) {}
+    }
+
+    // کنترل ضخامت (حداقل 0.5 برای دیده شدن در موبایل)
+    double bWidth = detail.width ?? 1.0;
+    if (bWidth < 0.5) bWidth = 0.5;
+
+    return BorderSide(color: borderColor, width: bWidth);
   }
 
   List<Widget> rowWidgets = [];
@@ -1071,7 +1089,6 @@ Widget _buildTable(
     bool hasAnyImage = false, hasAnyText = false;
 
     for (var cell in row.cells) {
-      // 🌟 اصلاح شرط: بررسی وجود عکس حتی اگر کپشن هم وجود داشته باشد
       bool isImg = cell.paragraphs.any(
         (p) => p.spans.any((s) => s.type == "image"),
       );
@@ -1092,7 +1109,6 @@ Widget _buildTable(
     for (var cell in row.cells) {
       List<Widget> cellParagraphs = [];
 
-      // 🌟 اصلاح شرط: اگر سلول دارای عکس است، این متغیر را true می‌کنیم تا پدینگ اضافی نگیرد
       bool isImageCell = cell.paragraphs.any(
         (p) => p.spans.any((s) => s.type == "image"),
       );
@@ -1120,14 +1136,23 @@ Widget _buildTable(
         );
       }
 
-      // 🌟 کاهش پدینگ داخلی سلول در صورت وجود عکس
+      // 🌟 جادوی جدید: ساخت کادر دور سلول دقیقاً بر اساس مشخصات استخراج شده از JSON
+      final cellBorder = cell.borders != null
+          ? Border(
+              top: buildBorderSide(cell.borders!.top),
+              bottom: buildBorderSide(cell.borders!.bottom),
+              left: buildBorderSide(cell.borders!.left),
+              right: buildBorderSide(cell.borders!.right),
+            )
+          : null;
+
       Widget cellContent = Container(
         padding: isImageCell
             ? const EdgeInsets.all(2.0)
             : const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: _hexToColor(cell.fillColor),
-          border: cellBorder,
+          border: cellBorder, // 🌟 اعمال مرزهای دقیق و مستقل
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1168,13 +1193,12 @@ Widget _buildTable(
   }
 
   Widget tableContainer = Container(
-    // 🌟 جادوی اصلی: اگر جدول تودرتو است، مارجین عمودی ۱۲ پیکسلی حذف شده و به ۲ پیکسل کاهش می‌یابد
     margin: isNestedTable
         ? const EdgeInsets.only(top: 2.0)
         : const EdgeInsets.symmetric(vertical: 12.0),
     decoration: BoxDecoration(
       color: _hexToColor(tableSpan.fillColor),
-      border: tableBorder,
+      // 🌟 Border کلی جدول حذف شد، چون خطوط اختصاصی سلول‌ها (در بالا) خودشان مرزهای بیرونی را هم شکل می‌دهند.
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
