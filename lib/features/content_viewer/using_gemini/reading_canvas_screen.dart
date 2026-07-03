@@ -1040,48 +1040,31 @@ Widget _buildTable(
   int? activeOcc,
   BookModel? activeBook,
   List<InteractiveWord> pageInteractives, {
-  bool isNestedTable = false, // 🌟 پارامتر جدید برای تشخیص جداول تودرتو
-  GlobalKey? exactMatchKey, // 🌟 اضافه شد
+  bool isNestedTable = false,
+  GlobalKey? exactMatchKey,
 }) {
   final bool isLargeScreen = screenWidth > 600;
-
   final String rawStyle =
       (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
           .toLowerCase()
           .replaceAll(" ", "")
           .replaceAll("_", "");
-
-  // 🌟 این متغیر همچنان حفظ شد، اما صرفاً برای مدیریت Layout و عرض ستون‌ها در سایزهای مختلف
   final bool isBorderedTable = rawStyle.contains("borderedtable");
+  final bool hideBorders =
+      rawStyle.contains("dottedtable") || rawStyle.contains("tablegrid");
 
-  final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+  double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
+  Color borderColor =
+      _hexToColor(tableSpan.borderColor) ??
+      (isBorderedTable ? Colors.black : Colors.grey.shade400);
 
-  // 🌟 متد محلی جدید برای ساخت خطوط مرزیِ اختصاصی هر جهت (بالا، پایین، چپ، راست)
-  BorderSide buildBorderSide(BorderDetail? detail) {
-    if (detail == null || detail.val == 'none' || detail.val == 'nil') {
-      return BorderSide.none;
-    }
-
-    // رنگ پیش‌فرض در صورت نبود رنگ (با توجه به تم تاریک/روشن)
-    Color borderColor = isDarkTheme ? Colors.grey.shade400 : Colors.black87;
-    if (detail.color != null &&
-        detail.color!.isNotEmpty &&
-        detail.color != "auto") {
-      final buffer = StringBuffer();
-      if (detail.color!.length == 6 || detail.color!.length == 7)
-        buffer.write('ff');
-      buffer.write(detail.color!.replaceFirst('#', ''));
-      try {
-        borderColor = Color(int.parse(buffer.toString(), radix: 16));
-      } catch (_) {}
-    }
-
-    // کنترل ضخامت (حداقل 0.5 برای دیده شدن در موبایل)
-    double bWidth = detail.width ?? 1.0;
-    if (bWidth < 0.5) bWidth = 0.5;
-
-    return BorderSide(color: borderColor, width: bWidth);
-  }
+  // 🌟 ساخت خط مرزی یکپارچه
+  final BorderSide activeSide = BorderSide(
+    color: borderColor,
+    width: borderWidth,
+  );
+  final bool showBorders =
+      !hideBorders && (isBorderedTable || tableSpan.hasBorders == "true");
 
   List<Widget> rowWidgets = [];
   for (var row in tableSpan.tableRows) {
@@ -1106,7 +1089,11 @@ Widget _buildTable(
     }
     bool isImageRow = hasAnyImage && !hasAnyText;
 
-    for (var cell in row.cells) {
+    // نقشه عرض ستون‌ها برای موتور Table
+    Map<int, TableColumnWidth> columnWidths = {};
+
+    for (int i = 0; i < row.cells.length; i++) {
+      var cell = row.cells[i];
       List<Widget> cellParagraphs = [];
 
       bool isImageCell = cell.paragraphs.any(
@@ -1136,23 +1123,13 @@ Widget _buildTable(
         );
       }
 
-      // 🌟 جادوی جدید: ساخت کادر دور سلول دقیقاً بر اساس مشخصات استخراج شده از JSON
-      final cellBorder = cell.borders != null
-          ? Border(
-              top: buildBorderSide(cell.borders!.top),
-              bottom: buildBorderSide(cell.borders!.bottom),
-              left: buildBorderSide(cell.borders!.left),
-              right: buildBorderSide(cell.borders!.right),
-            )
-          : null;
-
       Widget cellContent = Container(
         padding: isImageCell
             ? const EdgeInsets.all(2.0)
             : const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: _hexToColor(cell.fillColor),
-          border: cellBorder, // 🌟 اعمال مرزهای دقیق و مستقل
+          // 🎯 مهم: بوردرهای کانتینر حذف شدند تا ناترازی ایجاد نکنند!
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1161,35 +1138,41 @@ Widget _buildTable(
         ),
       );
 
-      if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
-        if (cell.widthPercent != null && cell.widthPercent! > 0)
-          cellWidgets.add(
-            Expanded(
-              flex: (cell.widthPercent! * 100).toInt(),
-              child: cellContent,
-            ),
-          );
-        else
-          cellWidgets.add(Expanded(child: cellContent));
+      cellWidgets.add(cellContent);
+
+      if (cell.widthPercent != null && cell.widthPercent! > 0) {
+        columnWidths[i] = FlexColumnWidth(cell.widthPercent!);
       } else {
-        cellWidgets.add(cellContent);
+        columnWidths[i] = const FlexColumnWidth(1);
       }
     }
 
-    if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable)
+    if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
+      // 🌟 جادوی رفع ناترازی: هر ردیف یک Table مستقل است که خطوط داخلی و پایین خود را به صورت یکپارچه رسم می‌کند
       rowWidgets.add(
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: cellWidgets,
+        Table(
+          columnWidths: columnWidths,
+          defaultVerticalAlignment:
+              TableCellVerticalAlignment.top, // ارتفاع طبیعی و بدون کرش
+          border: showBorders
+              ? TableBorder(
+                  bottom: activeSide, // خط پایین کاملاً صاف برای کل ردیف
+                  right: activeSide, // خط راست ردیف
+                  verticalInside:
+                      activeSide, // خطوط جداکننده ستون‌ها (کاملاً صاف)
+                )
+              : const TableBorder.symmetric(),
+          children: [TableRow(children: cellWidgets)],
         ),
       );
-    else
+    } else {
       rowWidgets.add(
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: cellWidgets,
         ),
       );
+    }
   }
 
   Widget tableContainer = Container(
@@ -1198,7 +1181,8 @@ Widget _buildTable(
         : const EdgeInsets.symmetric(vertical: 12.0),
     decoration: BoxDecoration(
       color: _hexToColor(tableSpan.fillColor),
-      // 🌟 Border کلی جدول حذف شد، چون خطوط اختصاصی سلول‌ها (در بالا) خودشان مرزهای بیرونی را هم شکل می‌دهند.
+      // 🌟 تکمیل کادر: خطوط بالا و چپ به کل ظرفِ جدول داده می‌شود تا شبکه کامل شود
+      border: showBorders ? Border(top: activeSide, left: activeSide) : null,
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
