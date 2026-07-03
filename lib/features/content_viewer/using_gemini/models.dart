@@ -119,12 +119,19 @@ class PageData {
   factory PageData.fromJson(Map<String, dynamic> json) {
     var interactivesList = json['Interactives'] as List? ?? [];
     var parasList = json['Paragraphs'] as List? ?? [];
+
+    // 🌟 رفع مشکل کندی اسکرول: قبلاً این لیست هر بار که یک تکه از متن
+    // در حال رندر شدن بود (داخل TextRenderEngine) از نو مرتب می‌شد.
+    // چون این لیست هیچ‌وقت در طول عمر صفحه تغییر نمی‌کند، همینجا و فقط
+    // یک‌بار (در لحظه لود JSON) مرتب‌سازی می‌شود.
+    final parsedInteractives =
+        interactivesList.map((e) => InteractiveWord.fromJson(e)).toList()
+          ..sort((a, b) => b.exactText.length.compareTo(a.exactText.length));
+
     return PageData(
       pageNumber: json['PageNumber'] ?? 1,
       paragraphs: parasList.map((e) => ParagraphData.fromJson(e)).toList(),
-      interactives: interactivesList
-          .map((e) => InteractiveWord.fromJson(e))
-          .toList(),
+      interactives: parsedInteractives,
     );
   }
 }

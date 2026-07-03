@@ -1,6 +1,7 @@
 // 🔊 🎧 ▶ ▶️
 // ignore_for_file: unused_local_variable, unused_import
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -60,6 +61,23 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   int _savedIndex = 0;
   double _savedAlignment = 0.0;
 
+  // 🌟 دیبانس‌کردن ذخیره‌سازی موقعیت اسکرول: قبلاً روی هر فریمِ اسکرول
+  // (ده‌ها بار در ثانیه) مستقیم روی دیسک نوشته می‌شد که یکی از عوامل
+  // اصلی ناروان بودن اسکرول (به‌خصوص اسکرول اول) بود.
+  Timer? _scrollPersistDebounce;
+
+  // 🌟 رفع مشکل اسکرول نادقیق جستجو: این دو فیلد مطمئن می‌شوند که
+  // Scrollable.ensureVisible فقط زمانی اجرا می‌شود که widget tree واقعاً
+  // با هدف جدید (occurrence جدید) rebuild شده باشد، نه یک context قدیمی
+  // و باقی‌مانده از هدف قبلی.
+  String? _lastBuiltTargetSignature;
+  int _scrollRequestId = 0;
+
+  String? _signatureFor(SearchResult? r) {
+    if (r == null) return null;
+    return '${r.pageNumber}:${r.paraIndex}:${r.occurrenceIndex}';
+  }
+
   // وقتی transform تغییر می‌کند — فقط اگر در حال pinch باشیم setState می‌زنیم
   // این جلوگیری می‌کند از setState غیرضروری در حین اسکرول معمولی
   void _onTransformChanged() {
@@ -82,20 +100,29 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
 
     _itemPositionsListener.itemPositions.addListener(() {
+      // 🌟 این listener روی هر فریمِ اسکرول فراخوانی می‌شود. نوشتن مستقیم
+      // روی GetStorage در همین لحظه یعنی ده‌ها بار در ثانیه I/O روی دیسک،
+      // که خودش باعث افت فریم (jank) در طول اسکرول می‌شود. به‌جای آن،
+      // فقط آخرین موقعیت را نگه می‌داریم و ۲۵۰ میلی‌ثانیه بعد از توقف
+      // اسکرول، یک‌بار می‌نویسیم.
       final positions = _itemPositionsListener.itemPositions.value;
-      if (positions.isNotEmpty) {
-        // 🌟 پیدا کردن بالاترین آیتمی که هم‌اکنون در کادر در حال نمایش است
-        final topItem = positions
-            .where((p) => p.itemTrailingEdge > 0)
-            .reduce((min, p) => p.index < min.index ? p : min);
+      if (positions.isEmpty) return;
 
+      // 🌟 پیدا کردن بالاترین آیتمی که هم‌اکنون در کادر در حال نمایش است
+      final topItem = positions
+          .where((p) => p.itemTrailingEdge > 0)
+          .reduce((min, p) => p.index < min.index ? p : min);
+
+      _scrollPersistDebounce?.cancel();
+      _scrollPersistDebounce = Timer(const Duration(milliseconds: 250), () {
+        if (!mounted) return;
         final currentBook = ref.read(activeBookProvider);
         if (currentBook != null) {
           _box.write('scroll_page_${currentBook.id}', topItem.index);
           // 🌟 ذخیره نقطه دقیق (Offset) آیتم برای بازگشت به همان مکان
           _box.write('scroll_align_${currentBook.id}', topItem.itemLeadingEdge);
         }
-      }
+      });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -123,7 +150,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
       // ── مرحله ۴: در صورت وجود search target، به آن اسکرول کن ─────────────
       WidgetsBinding.instance.addPostFrameCallback(
-        (_) => _ensureTargetVisible(),
+        (_) =>
+            _ensureTargetVisible(expectedSignature: _lastBuiltTargetSignature),
       );
     });
   }
@@ -132,14 +160,39 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final GlobalKey _fallbackParaKey = GlobalKey();
   final GlobalKey _exactMatchKey = GlobalKey();
 
-  // 🌟 متد اسکرول را کاملاً با این کد هوشمند جایگزین کنید:
-  void _ensureTargetVisible() {
+  // 🌟 متد اسکرول دقیق به هدف جستجو.
+  //
+  // مشکل قبلی: _exactMatchKey و _fallbackParaKey دو GlobalKey سراسری‌اند که
+  // در هر build به پاراگراف/کلمه‌ی هدفِ *جدید* منتقل می‌شوند. اما وقتی این
+  // متد از داخل ref.listen صدا زده می‌شود (دکمه‌ی بعدی/قبلی)، ممکن است هنوز
+  // یک فریم طول بکشد تا build() با activeTarget تازه اجرا شود. اگر در همان
+  // لحظه currentContext غیر-null باشد (چون هنوز به هدفِ *قبلی* وصل است)،
+  // کد قدیم به اشتباه همان‌جا (هدف قبلی) را معتبر می‌دانست و اسکرول را آنجا
+  // متوقف می‌کرد → دقیقاً همان «رفتن به جای دیگری، قبل یا بعد از هدف واقعی».
+  //
+  // راه‌حل: هر بار که این متد صدا زده می‌شود، «امضای» هدف مورد انتظار
+  // (expectedSignature) را می‌گیریم و currentContext را فقط زمانی معتبر
+  // می‌دانیم که _lastBuiltTargetSignature (که در build() به‌روزرسانی می‌شود)
+  // دقیقاً با همان امضا یکی باشد. همچنین با _scrollRequestId، اگر کاربر
+  // سریع چند بار روی بعدی/قبلی بزند، تلاش‌های قدیمی‌تر بی‌صدا لغو می‌شوند
+  // تا انیمیشنِ یک هدفِ منسوخ، جای هدف تازه را نگیرد.
+  void _ensureTargetVisible({String? expectedSignature}) {
+    final int myRequestId = ++_scrollRequestId;
     int attempts = 0;
 
     void tryScroll() {
-      // اولویت اول: پیدا کردن خود کادر جای‌خالی. اولویت دوم: پاراگراف مادر
-      final targetContext =
-          _exactMatchKey.currentContext ?? _fallbackParaKey.currentContext;
+      if (myRequestId != _scrollRequestId)
+        return; // یک درخواست جدیدتر جایگزین این شد
+
+      final bool targetIsBuilt =
+          expectedSignature == null ||
+          expectedSignature == _lastBuiltTargetSignature;
+
+      // اولویت اول: پیدا کردن خود کادر جای‌خالی/کلمه‌ی دقیق.
+      // اولویت دوم: پاراگراف مادر (فقط اگر کلمه‌ی دقیق قابل‌کلید نبود)
+      final targetContext = targetIsBuilt
+          ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
+          : null; // هنوز widget tree با هدف جدید rebuild نشده → صبر کن
 
       if (targetContext != null) {
         try {
@@ -154,21 +207,26 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         }
       } else {
         attempts++;
-        if (attempts < 15) {
-          // 🌟 در صورت پیدا نشدن، ۵۰ میلی‌ثانیه دیگر صبر می‌کند (تا سقف ۰.۷ ثانیه)
-          Future.delayed(const Duration(milliseconds: 50), tryScroll);
+        if (attempts < 20) {
+          // 🌟 در صورت پیدا نشدن، ۵۰ میلی‌ثانیه دیگر صبر می‌کند (تا سقف ۱ ثانیه)
+          Future.delayed(const Duration(milliseconds: 50), () {
+            if (myRequestId != _scrollRequestId) return;
+            tryScroll();
+          });
         }
       }
     }
 
     // همیشه در فریم بعدی استارت می‌زنیم تا چرخه‌ی فعلیِ چیدمان تمام شود
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (myRequestId != _scrollRequestId) return;
       tryScroll();
     });
   }
 
   @override
   void dispose() {
+    _scrollPersistDebounce?.cancel();
     _transformationController.removeListener(_onTransformChanged);
     _transformationController.dispose();
     super.dispose();
@@ -204,12 +262,19 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       }
     }
 
+    // 🌟 این خط، «امضای» هدفی را که همین build با آن _exactMatchKey/
+    // _fallbackParaKey را به پاراگراف/کلمه‌ی درست وصل کرده ثبت می‌کند.
+    // _ensureTargetVisible از روی همین امضا تشخیص می‌دهد که آیا واقعاً به
+    // build تازه رسیده‌ایم یا هنوز context قدیمی در دست است.
+    _lastBuiltTargetSignature = _signatureFor(activeTarget);
+
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
         if (previous?.query != next.query ||
             previous?.currentIndex != next.currentIndex ||
             previous?.jumpTrigger != next.jumpTrigger) {
           final target = next.results[next.currentIndex] as SearchResult;
+          final targetSignature = _signatureFor(target);
           int pageIndex = widget.documentPages.indexWhere(
             (p) => p.pageNumber == target.pageNumber,
           );
@@ -225,8 +290,9 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
               _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
             }
 
-            // 🌟 موتور هوشمند جستجو خودش منتظر می‌ماند تا آیتم لود شود و سپس اسکرول دقیق می‌کند
-            _ensureTargetVisible();
+            // 🌟 موتور هوشمند جستجو خودش منتظر می‌ماند تا آیتم لود شود
+            // *و* build با هدف تازه انجام شود، سپس اسکرول دقیق می‌کند
+            _ensureTargetVisible(expectedSignature: targetSignature);
           }
         }
       }

@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart'; // برای دسترسی به TranslatableContentWrapper
 
+// 🌟 رفع مشکل اسکرول نادقیق جستجو:
+// یک GlobalKey فقط می‌تواند به یک ویجت وصل باشد. چون یک "occurrence" واحد
+// گاهی (در مرز یک کلمه دیکشنری) به چند تکه‌ی InlineSpan شکسته می‌شود،
+// این کلاس مطمئن می‌شود کلید دقیق فقط یک‌بار مصرف می‌شود و به اولین
+// تکه‌ای که واقعاً همان occurrence فعال است متصل می‌گردد.
+class _KeyClaim {
+  bool used = false;
+}
+
 class TextRenderEngine {
   static List<InlineSpan> buildInteractiveText(
     String content,
@@ -19,6 +28,8 @@ class TextRenderEngine {
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
+    // 🌟 یک‌بار مصرف بودن کلید دقیق را برای کل این فراخوانی تضمین می‌کند
+    final _KeyClaim keyClaim = _KeyClaim();
 
     final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
     final matches = blankRegex.allMatches(content);
@@ -36,6 +47,8 @@ class TextRenderEngine {
             interactiveColor,
             slice,
             activeOccurrence,
+            exactMatchKey: exactMatchKey,
+            keyClaim: keyClaim,
           ),
         );
       }
@@ -55,6 +68,10 @@ class TextRenderEngine {
           blankMapSlice != null &&
           activeOccurrence != null &&
           blankMapSlice.contains(activeOccurrence);
+      // 🌟 حتی اگر isThisTheTarget باشد، فقط وقتی کلید را واقعاً بده که
+      // قبلاً توسط تکه‌ی دیگری (قبل از این جای‌خالی) مصرف نشده باشد
+      final bool claimBlankKey = isThisTheTarget && !keyClaim.used;
+      if (claimBlankKey) keyClaim.used = true;
       spans.add(
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
@@ -67,7 +84,7 @@ class TextRenderEngine {
             translationFa: translationFa,
             translationAr: translationAr,
             innerSpans: innerSpans,
-            exactMatchKey: isThisTheTarget
+            exactMatchKey: claimBlankKey
                 ? exactMatchKey
                 : null, // 🌟 اتصال کلید فقط به همین هدف!
           ),
@@ -86,6 +103,8 @@ class TextRenderEngine {
           interactiveColor,
           slice,
           activeOccurrence,
+          exactMatchKey: exactMatchKey,
+          keyClaim: keyClaim,
         ),
       );
     }
@@ -139,16 +158,25 @@ class TextRenderEngine {
     TextStyle baseStyle,
     Color interactiveColor,
     List<int>? localMap,
-    int? activeOcc,
-  ) {
+    int? activeOcc, {
+    GlobalKey? exactMatchKey,
+    _KeyClaim? keyClaim,
+  }) {
     if (interactives.isEmpty || content.isEmpty)
-      return applyMapToText(content, baseStyle, localMap, activeOcc);
+      return applyMapToText(
+        content,
+        baseStyle,
+        localMap,
+        activeOcc,
+        exactMatchKey: exactMatchKey,
+        keyClaim: keyClaim,
+      );
 
     List<InlineSpan> spans = [];
     String remainingText = content;
-    interactives.sort(
-      (a, b) => b.exactText.length.compareTo(a.exactText.length),
-    );
+    // 🌟 رفع مشکل کندی اسکرول: این لیست حالا یک‌بار برای همیشه در
+    // PageData.fromJson مرتب شده و دیگر لازم نیست هر بار دوباره مرتب شود
+    // (این مرتب‌سازی مکرر روی هزاران کلمه، دلیل اصلی کندی اسکرول اول بود).
 
     while (remainingText.isNotEmpty) {
       int bestIndex = -1;
@@ -169,6 +197,8 @@ class TextRenderEngine {
               baseStyle,
               localMap?.sublist(0, bestIndex),
               activeOcc,
+              exactMatchKey: exactMatchKey,
+              keyClaim: keyClaim,
             ),
           );
 
@@ -203,6 +233,8 @@ class TextRenderEngine {
               interactiveBaseStyle,
               activeOcc,
               context,
+              exactMatchKey: exactMatchKey,
+              keyClaim: keyClaim,
             ),
           );
         }
@@ -213,7 +245,14 @@ class TextRenderEngine {
         localMap = localMap?.sublist(bestIndex + matchedWord.exactText.length);
       } else {
         spans.addAll(
-          applyMapToText(remainingText, baseStyle, localMap, activeOcc),
+          applyMapToText(
+            remainingText,
+            baseStyle,
+            localMap,
+            activeOcc,
+            exactMatchKey: exactMatchKey,
+            keyClaim: keyClaim,
+          ),
         );
         break;
       }
@@ -226,8 +265,10 @@ class TextRenderEngine {
     List<int> wordMap,
     TextStyle baseStyle,
     int? activeOcc,
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    GlobalKey? exactMatchKey,
+    _KeyClaim? keyClaim,
+  }) {
     List<InlineSpan> spans = [];
     int currentState = wordMap[0];
     String chunk = "";
@@ -245,6 +286,8 @@ class TextRenderEngine {
             baseStyle,
             word,
             context,
+            exactMatchKey: exactMatchKey,
+            keyClaim: keyClaim,
           ),
         );
         chunk = content[i];
@@ -260,22 +303,32 @@ class TextRenderEngine {
           baseStyle,
           word,
           context,
+          exactMatchKey: exactMatchKey,
+          keyClaim: keyClaim,
         ),
       );
     return spans;
   }
 
-  static TextSpan _createInteractiveTextSpan(
+  // 🌟 رفع مشکل اسکرول نادقیق: قبلاً همیشه TextSpan برمی‌گرداند و راهی
+  // برای «چسباندن» GlobalKey به دقیقاً همان کلمه‌ی هدف وجود نداشت (چون
+  // TextSpan یک Element/RenderObject مستقل ندارد). حالا وقتی این تکه
+  // دقیقاً occurrence فعالِ جستجو باشد، آن را در یک WidgetSpan کوچک
+  // (با همان استایل) می‌پیچیم تا GlobalKey بتواند به آن وصل شود.
+  static InlineSpan _createInteractiveTextSpan(
     String text,
     int state,
     int? activeOcc,
     TextStyle baseStyle,
     InteractiveWord word,
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    GlobalKey? exactMatchKey,
+    _KeyClaim? keyClaim,
+  }) {
     TextStyle finalStyle = baseStyle;
+    bool isActive = false;
     if (state != -1) {
-      bool isActive = state == activeOcc;
+      isActive = state == activeOcc;
       finalStyle = baseStyle.copyWith(
         backgroundColor: isActive
             ? Colors.orangeAccent
@@ -283,6 +336,25 @@ class TextRenderEngine {
         color: isActive ? Colors.white : Colors.black,
       );
     }
+
+    if (isActive &&
+        exactMatchKey != null &&
+        keyClaim != null &&
+        !keyClaim.used) {
+      keyClaim.used = true;
+      return WidgetSpan(
+        alignment: PlaceholderAlignment.baseline,
+        baseline: TextBaseline.alphabetic,
+        child: KeyedSubtree(
+          key: exactMatchKey,
+          child: GestureDetector(
+            onTap: () => _showWordModal(context, word),
+            child: Text(text, style: finalStyle),
+          ),
+        ),
+      );
+    }
+
     return TextSpan(
       text: text,
       style: finalStyle,
@@ -296,8 +368,10 @@ class TextRenderEngine {
     String content,
     TextStyle baseStyle,
     List<int>? localMap,
-    int? activeOcc,
-  ) {
+    int? activeOcc, {
+    GlobalKey? exactMatchKey,
+    _KeyClaim? keyClaim,
+  }) {
     if (localMap == null || localMap.every((v) => v == -1))
       return [TextSpan(text: content, style: baseStyle)];
 
@@ -309,33 +383,71 @@ class TextRenderEngine {
       if (localMap[i] == currentState) {
         chunk += content[i];
       } else {
-        spans.add(_createTextSpan(chunk, currentState, activeOcc, baseStyle));
+        spans.add(
+          _createTextSpan(
+            chunk,
+            currentState,
+            activeOcc,
+            baseStyle,
+            exactMatchKey: exactMatchKey,
+            keyClaim: keyClaim,
+          ),
+        );
         chunk = content[i];
         currentState = localMap[i];
       }
     }
     if (chunk.isNotEmpty)
-      spans.add(_createTextSpan(chunk, currentState, activeOcc, baseStyle));
+      spans.add(
+        _createTextSpan(
+          chunk,
+          currentState,
+          activeOcc,
+          baseStyle,
+          exactMatchKey: exactMatchKey,
+          keyClaim: keyClaim,
+        ),
+      );
     return spans;
   }
 
-  static TextSpan _createTextSpan(
+  // 🌟 رفع مشکل اسکرول نادقیق: مشابه _createInteractiveTextSpan، اگر این
+  // تکه دقیقاً همان occurrence فعالِ جستجو باشد، به‌جای TextSpan ساده،
+  // در یک WidgetSpan کوچک پیچیده می‌شود تا بشود GlobalKey دقیق را به آن
+  // وصل کرد و اسکرول را دقیقاً روی همین کلمه متوقف کرد (نه ابتدای پاراگراف).
+  static InlineSpan _createTextSpan(
     String text,
     int state,
     int? activeOcc,
-    TextStyle baseStyle,
-  ) {
+    TextStyle baseStyle, {
+    GlobalKey? exactMatchKey,
+    _KeyClaim? keyClaim,
+  }) {
     if (state == -1) return TextSpan(text: text, style: baseStyle);
     bool isActive = state == activeOcc;
-    return TextSpan(
-      text: text,
-      style: baseStyle.copyWith(
-        backgroundColor: isActive
-            ? Colors.orangeAccent
-            : Colors.yellowAccent.withOpacity(0.6),
-        color: isActive ? Colors.white : Colors.black,
-      ),
+    final TextStyle finalStyle = baseStyle.copyWith(
+      backgroundColor: isActive
+          ? Colors.orangeAccent
+          : Colors.yellowAccent.withOpacity(0.6),
+      color: isActive ? Colors.white : Colors.black,
     );
+
+    if (isActive &&
+        exactMatchKey != null &&
+        keyClaim != null &&
+        !keyClaim.used) {
+      keyClaim.used = true;
+      return WidgetSpan(
+        alignment: PlaceholderAlignment.baseline,
+        baseline: TextBaseline.alphabetic,
+        child: KeyedSubtree(
+          key: exactMatchKey,
+          child: Text(text, style: finalStyle),
+        ),
+      );
+    }
+
+    return TextSpan(text: text, style: finalStyle);
   }
 
   static void _showWordModal(BuildContext context, InteractiveWord word) {
