@@ -160,6 +160,79 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   final GlobalKey _fallbackParaKey = GlobalKey();
   final GlobalKey _exactMatchKey = GlobalKey();
 
+  // 🌟 اسکرول دستی و دقیق.
+  //
+  // چرا به‌جای Scrollable.ensureVisible؟ آن متد برای محاسبه‌ی افست به
+  // RenderAbstractViewport.getOffsetToReveal تکیه می‌کند که مسیر رندر بین
+  // هدف و viewport را طی می‌کند. چون هدف اینجا داخل WrappableText/FloatColumn
+  // (از پکیج float_column، که چیدمان سفارشی خودش را دارد) قرار گرفته، این
+  // مسیر همیشه به‌درستی طی نمی‌شود و افست غلط محاسبه می‌شود؛ نتیجه‌اش دقیقاً
+  // همان «رفتن به جای دیگری، قبل یا بعد از هدف واقعی» است.
+  // اینجا به‌جایش مستقیماً از getTransformTo (یک متد پایه‌ی هر RenderObject،
+  // که hit-testing/تپ‌کردن هم به آن متکی است و می‌دانیم درست کار می‌کند)
+  // برای پیدا کردن موقعیت واقعیِ هدف نسبت به viewport استفاده می‌کنیم و
+  // offset را خودمان حساب می‌کنیم.
+  bool _scrollToRenderContext(
+    BuildContext targetContext, {
+    required String tag,
+  }) {
+    final RenderObject? targetRO = targetContext.findRenderObject();
+    if (targetRO == null || !targetRO.attached) {
+      debugPrint('🔍[$tag] RenderObject هدف هنوز attach نشده');
+      return false;
+    }
+    if (targetRO is! RenderBox || !targetRO.hasSize) {
+      debugPrint('🔍[$tag] RenderObject هدف هنوز layout نشده (hasSize=false)');
+      return false;
+    }
+
+    final ScrollableState? scrollable = Scrollable.maybeOf(targetContext);
+    if (scrollable == null) {
+      debugPrint('🔍[$tag] هیچ Scrollable والدی پیدا نشد');
+      return false;
+    }
+
+    final RenderObject? viewportRO = scrollable.context.findRenderObject();
+    if (viewportRO == null || viewportRO is! RenderBox || !viewportRO.hasSize) {
+      debugPrint('🔍[$tag] RenderBox ویوپورت اسکرول هنوز آماده نیست');
+      return false;
+    }
+
+    final Matrix4 transform = targetRO.getTransformTo(viewportRO);
+    final Offset targetTopLeft = MatrixUtils.transformPoint(
+      transform,
+      Offset.zero,
+    );
+
+    const double alignment = 0.15; // جلوگیری از مخفی شدن زیر نوار بالا
+    final double desiredTopOffset = viewportRO.size.height * alignment;
+    final double delta = targetTopLeft.dy - desiredTopOffset;
+
+    final double targetPixels = (scrollable.position.pixels + delta).clamp(
+      scrollable.position.minScrollExtent,
+      scrollable.position.maxScrollExtent,
+    );
+
+    debugPrint(
+      '🔍[$tag] pixels=${scrollable.position.pixels.toStringAsFixed(1)} '
+      'targetTop=${targetTopLeft.dy.toStringAsFixed(1)} '
+      'delta=${delta.toStringAsFixed(1)} '
+      'هدف نهایی=${targetPixels.toStringAsFixed(1)}',
+    );
+
+    // 🌟 اگر فاصله خیلی ناچیز است، انیمیت نکن (از لرزش/چشمک جلوگیری می‌کند)
+    if ((targetPixels - scrollable.position.pixels).abs() < 1.0) {
+      return true;
+    }
+
+    scrollable.position.animateTo(
+      targetPixels,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOutCubic,
+    );
+    return true;
+  }
+
   // 🌟 متد اسکرول دقیق به هدف جستجو.
   //
   // مشکل قبلی: _exactMatchKey و _fallbackParaKey دو GlobalKey سراسری‌اند که
@@ -179,14 +252,24 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   void _ensureTargetVisible({String? expectedSignature}) {
     final int myRequestId = ++_scrollRequestId;
     int attempts = 0;
+    debugPrint('🔍 شروع اسکرول به هدف، امضای موردانتظار=$expectedSignature');
 
     void tryScroll() {
-      if (myRequestId != _scrollRequestId)
-        return; // یک درخواست جدیدتر جایگزین این شد
+      if (myRequestId != _scrollRequestId) {
+        debugPrint('🔍 درخواست #$myRequestId توسط درخواست جدیدتر لغو شد');
+        return;
+      }
 
       final bool targetIsBuilt =
           expectedSignature == null ||
           expectedSignature == _lastBuiltTargetSignature;
+
+      if (!targetIsBuilt) {
+        debugPrint(
+          '🔍 امضا هنوز مطابقت ندارد: موردانتظار=$expectedSignature، '
+          'فعلی=$_lastBuiltTargetSignature',
+        );
+      }
 
       // اولویت اول: پیدا کردن خود کادر جای‌خالی/کلمه‌ی دقیق.
       // اولویت دوم: پاراگراف مادر (فقط اگر کلمه‌ی دقیق قابل‌کلید نبود)
@@ -194,18 +277,20 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
           ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
           : null; // هنوز widget tree با هدف جدید rebuild نشده → صبر کن
 
+      final String whichKey = targetIsBuilt
+          ? (_exactMatchKey.currentContext != null ? 'exact' : 'fallback')
+          : 'none';
+
+      bool handled = false;
       if (targetContext != null) {
         try {
-          Scrollable.ensureVisible(
-            targetContext,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOutCubic,
-            alignment: 0.15, // جلوگیری از مخفی شدن زیر نوار بالا
-          );
+          handled = _scrollToRenderContext(targetContext, tag: whichKey);
         } catch (e) {
           debugPrint("خطا در اسکرول: $e");
         }
-      } else {
+      }
+
+      if (!handled) {
         attempts++;
         if (attempts < 20) {
           // 🌟 در صورت پیدا نشدن، ۵۰ میلی‌ثانیه دیگر صبر می‌کند (تا سقف ۱ ثانیه)
@@ -213,6 +298,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             if (myRequestId != _scrollRequestId) return;
             tryScroll();
           });
+        } else {
+          debugPrint('🔍 تلاش‌ها تمام شد؛ هدف پیدا/آماده نشد');
         }
       }
     }
