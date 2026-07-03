@@ -7908,11 +7908,7 @@
             {
               "Type": "text",
               "Content": "DESCRIBING CHANGES WITH ADJECTIVES AND ADVERBS",
-              "Markers": [
-                "b",
-                "bg:F26D13",
-                "fn:Source Sans 3"
-              ],
+              "Markers": ["b", "bg:F26D13", "fn:Source Sans 3"],
               "FillColor": "F26D13",
               "BorderColor": "000000",
               "BorderStyle": "BorderValues { }",
@@ -7920,7 +7916,9 @@
               "InnerSpans": [],
               "TableRows": []
             }
-          ]
+          ],
+          "translationFa": "توصیف تغییرات با استفاده از صفت‌ها و قیدها",
+          "translationAr": "وصف التغييرات باستخدام الصفات والظروف"
         },
         {
           "SpaceAfter": 0.0,
@@ -7948,17 +7946,16 @@
                             {
                               "Type": "text",
                               "Content": "07",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3"
-                              ],
+                              "Markers": ["b", "fn:Source Sans 3"],
                               "BorderColor": "D0872E",
                               "BorderStyle": "BorderValues { }",
                               "HasBorders": "true",
                               "InnerSpans": [],
                               "TableRows": []
                             }
-                          ]
+                          ],
+                          "translationFa": "07",
+                          "translationAr": "07"
                         }
                       ],
                       "WidthPercent": 3.9,
@@ -7983,7 +7980,9 @@
                               "InnerSpans": [],
                               "TableRows": []
                             }
-                          ]
+                          ],
+                          "translationFa": "به این یادداشت‌ها که داوطلب دیگری برای این نمودار خطی نوشته است نگاه کنید، که به او کمک کرد تا توصیف مؤثرتری بنویسد. جملات را با صفت‌های داخل کادر کامل کنید.",
+                          "translationAr": "انظر إلى هذه الملاحظات التي سجلها مرشح آخر لهذا الرسم البياني الخطي، والتي ساعدته في كتابة وصف أكثر فعالية. أكمل الجمل باستخدام الصفات الموجودة في المربع."
                         },
                         {
                           "SpaceAfter": 0.0,
@@ -8021,11 +8020,35 @@
                                               "InnerSpans": [],
                                               "TableRows": []
                                             }
-                                          ]
+                                          ],
+                                          "translationFa": "مداوم     بالاترین     به طور مشترک پایین‌ترین     پایین‌ترین     قابل توجه     کلی     پایدار",
+                                          "translationAr": "ثابت     الأعلى     الأدنى المشترك     الأدنى     ملحوظ     إجمالي     مستقر"
                                         }
                                       ],
                                       "WidthPercent": 100.0,
-                                      "IsHeaderCell": false
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.5,
+                                          "Color": "FFD966",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.5,
+                                          "Color": "FFD966",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.5,
+                                          "Color": "FFD966",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.5,
+                                          "Color": "FFD966",
+                                          "Val": "single"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -8041,25 +8064,20 @@
                             {
                               "Type": "text",
                               "Content": "Rising cost of living",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "InnerSpans": [],
                               "TableRows": []
                             },
                             {
                               "Type": "text",
                               "Content": ": the (1) point of any reason in any year (85,000 in 2000); the only one to decrease (to 80,000 in 2010)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "InnerSpans": [],
                               "TableRows": []
                             }
-                          ]
+                          ],
+                          "translationFa": "افزایش هزینه زندگی: نقطه (1) در میان تمام دلایل در هر سالی (85,000 در سال 2000)؛ تنها موردی که کاهش یافت (به 80,000 در سال 2010)",
+                          "translationAr": "ارتفاع تكاليف المعيشة: النقطة (1) لأي سبب في أي عام (85,000 في عام 2000)؛ والوحيد الذي انخفض (إلى 80,000 في عام 2010)"
                         },
                         {
                           "Direction": "LTR",
@@ -8069,25 +8087,20 @@
                             {
                               "Type": "text",
                               "Content": "Traffic",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "InnerSpans": [],
                               "TableRows": []
                             },
                             {
                               "Type": "text",
                               "Content": ": greatest (2) rise (40,000); most (3) rise between 2000 and 2010 (25,000)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "InnerSpans": [],
                               "TableRows": []
                             }
-                          ]
+                          ],
+                          "translationFa": "ترافیک: بزرگ‌ترین افزایش (2) (40,000)؛ بارزترین افزایش (3) بین سال‌های 2000 و 2010 (25,000)",
+                          "translationAr": "حركة المرور: أكبر ارتفاع (2) (40,000)؛ الارتفاع الأكثر (3) بين عامي 2000 و2010 (25,000)"
                         },
                         {
                           "Direction": "LTR",
@@ -8097,14 +8110,13 @@
                             {
                               "Type": "text",
                               "Content": "Lifestyle: Most (4) and (5) increase (only 20,000); remained the (6) of all three reasons",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "InnerSpans": [],
                               "TableRows": []
                             }
-                          ]
+                          ],
+                          "translationFa": "سبک زندگی: بیشترین افزایش (4) و (5) (فقط 20,000)؛ به عنوان (6)‌ترین مورد در میان هر سه دلیل باقی ماند",
+                          "translationAr": "نمط الحياة: الارتفاع الأكثر (4) و(5) (20,000 فقط)؛ وظل هو (6) بين الأسباب الثلاثة كلها"
                         },
                         {
                           "Direction": "LTR",
@@ -8114,14 +8126,13 @@
                             {
                               "Type": "text",
                               "Content": "Traffic and Lifestyle: (7) in the first year presented (20,000 in 1990)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "InnerSpans": [],
                               "TableRows": []
                             }
-                          ]
+                          ],
+                          "translationFa": "ترافیک و سبک زندگی: (7) در اولین سال ارائه شده (20,000 در سال 1990)",
+                          "translationAr": "حركة المرور ونمط الحياة: (7) في السنة الأولى المعروضة (20,000 في عام 1990)"
                         }
                       ],
                       "WidthPercent": 96.1,
@@ -8160,10 +8171,7 @@
                             {
                               "Type": "text",
                               "Content": "08",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3"
-                              ],
+                              "Markers": ["b", "fn:Source Sans 3"],
                               "BorderColor": "D0872E",
                               "BorderStyle": "BorderValues { }",
                               "HasBorders": "true",
@@ -8310,7 +8318,24 @@
                                         }
                                       ],
                                       "WidthPercent": 22.72,
-                                      "IsHeaderCell": false
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        }
+                                      }
                                     },
                                     {
                                       "Paragraphs": [
@@ -8370,7 +8395,19 @@
                                         }
                                       ],
                                       "WidthPercent": 26.99,
-                                      "IsHeaderCell": false
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        }
+                                      }
                                     },
                                     {
                                       "Paragraphs": [
@@ -8430,7 +8467,19 @@
                                         }
                                       ],
                                       "WidthPercent": 26.99,
-                                      "IsHeaderCell": false
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        }
+                                      }
                                     },
                                     {
                                       "Paragraphs": [
@@ -8490,7 +8539,24 @@
                                         }
                                       ],
                                       "WidthPercent": 23.31,
-                                      "IsHeaderCell": false
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.5,
+                                          "Color": "FFC000",
+                                          "Val": "single"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -8530,10 +8596,7 @@
                             {
                               "Type": "text",
                               "Content": "This kind of task requires you to report the data objectively. Avoid using adverbs which give your subjective interpretation or opinion of the data, e.g. worryingly.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:20"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:20"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8577,10 +8640,7 @@
                             {
                               "Type": "text",
                               "Content": "09",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3"
-                              ],
+                              "Markers": ["b", "fn:Source Sans 3"],
                               "BorderColor": "D0872E",
                               "BorderStyle": "BorderValues { }",
                               "HasBorders": "true",
@@ -8622,10 +8682,7 @@
                             {
                               "Type": "text",
                               "Content": "Example: steadily= ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8633,11 +8690,7 @@
                             {
                               "Type": "text",
                               "Content": "the line went up or down at a constant rate without many fluctuations",
-                              "Markers": [
-                                "i",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["i", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8681,10 +8734,7 @@
                             {
                               "Type": "text",
                               "Content": "10",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3"
-                              ],
+                              "Markers": ["b", "fn:Source Sans 3"],
                               "BorderColor": "D0872E",
                               "BorderStyle": "BorderValues { }",
                               "HasBorders": "true",
@@ -8726,11 +8776,7 @@
                             {
                               "Type": "text",
                               "Content": "1 ",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["b", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8738,10 +8784,7 @@
                             {
                               "Type": "text",
                               "Content": "The category of 'Lifestyle' ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8749,11 +8792,7 @@
                             {
                               "Type": "text",
                               "Content": "increased the most consistently",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8761,10 +8800,7 @@
                             {
                               "Type": "text",
                               "Content": " ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8772,11 +8808,7 @@
                             {
                               "Type": "text",
                               "Content": "and stably.",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8784,10 +8816,7 @@
                             {
                               "Type": "text",
                               "Content": " (adjective+ noun)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8802,11 +8831,7 @@
                             {
                               "Type": "text",
                               "Content": "The most consistent and stable increase was seen in the category of 'Lifestyle'.",
-                              "Markers": [
-                                "i",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["i", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8821,11 +8846,7 @@
                             {
                               "Type": "text",
                               "Content": "2 ",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["b", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8833,10 +8854,7 @@
                             {
                               "Type": "text",
                               "Content": "Traffic ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8844,11 +8862,7 @@
                             {
                               "Type": "text",
                               "Content": "rose steadily",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8856,10 +8870,7 @@
                             {
                               "Type": "text",
                               "Content": " as a reason for moving to the countryside between 1990 and 2000 ... (adjective+ noun)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8874,10 +8885,7 @@
                             {
                               "Type": "text",
                               "Content": "... but then ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8885,11 +8893,7 @@
                             {
                               "Type": "text",
                               "Content": "there was a marked increase",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8897,10 +8901,7 @@
                             {
                               "Type": "text",
                               "Content": " between 2000 and 2010. (verb+ adverb)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8915,11 +8916,7 @@
                             {
                               "Type": "text",
                               "Content": "3 ",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["b", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8927,10 +8924,7 @@
                             {
                               "Type": "text",
                               "Content": "The number of people moving to the countryside for lifestyle reasons ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8938,11 +8932,7 @@
                             {
                               "Type": "text",
                               "Content": "grew",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8950,10 +8940,7 @@
                             {
                               "Type": "text",
                               "Content": " ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8961,11 +8948,7 @@
                             {
                               "Type": "text",
                               "Content": "consistently",
-                              "Markers": [
-                                "u",
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["u", "fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -8973,10 +8956,7 @@
                             {
                               "Type": "text",
                               "Content": " across the whole period shown in the graph. (adjective+ noun)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:21"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:21"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -9015,10 +8995,7 @@
                             {
                               "Type": "text",
                               "Content": "If your answer includes a range of structures, you can improve your score in another category, Grammatical Range and Accuracy (GRA), so vary your combinations (verb + adverb, adjective + noun). When using an adjective + noun combination, we can use the structure There is/are or verbs like see or experience. For example: The figures saw a sudden fall in 2010.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:20"
-                              ],
+                              "Markers": ["fn:Source Sans 3", "sz:20"],
                               "TextColor": "101312",
                               "InnerSpans": [],
                               "TableRows": []
@@ -9034,6 +9011,58 @@
               ]
             }
           ]
+        }
+      ],
+      "Interactives": [
+        {
+          "exactText": "consistent",
+          "translationFa": "مداوم / یکنواخت",
+          "translationAr": "ثابت / متسق",
+          "pronounceFa": "kensistent",
+          "pronounceAr": "kensistent",
+          "explanationFa": "واژه‌ای بسیار کلیدی و آکادمیک برای توصیف روندهایی که بدون تغییرات ناگهانی و به صورت هماهنگ پیش می‌روند؛ مناسب برای رایتینگ تسک 1 آیلتس.",
+          "explanationAr": "كلمة أكاديمية رئيسية لوصف الاتجاهات التي تسير بشكل منتظم دون تغيرات مفاجئة، مفيدة جداً للمهمة الأولى في كتابة الآيلتس.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "notable",
+          "translationFa": "قابل توجه / بارز",
+          "translationAr": "ملحوظ / لافت للانتباه",
+          "pronounceFa": "noutabl",
+          "pronounceAr": "noutabl",
+          "explanationFa": "صفتی عالی در سطح C1 برای برجسته کردن تغییرات یا نقاط عطف مهم در نمودارها، جهت افزایش نمره معیار Lexical Resource.",
+          "explanationAr": "صفة ممتازة من المستوى C1 لتسليط الضوء على التغييرات أو النقاط البارزة في الرسوم البيانية لرفع درجة معيار الثروة اللفظية.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "stable",
+          "translationFa": "پایدار / بدون تغییر",
+          "translationAr": "مستقر / ثابت",
+          "pronounceFa": "steybl",
+          "pronounceAr": "steybl",
+          "explanationFa": "واژه‌ای پرکاربرد برای توصیف وضعیت داده‌هایی که برای مدتی دچار نوسان نشده و ثابت مانده‌اند.",
+          "explanationAr": "كلمة شائعة الاستخدام لوصف حالة البيانات التي لم تشهد تقلبات لفترة من الوقت وظلت ثابتة.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "joint-lowest",
+          "translationFa": "به طور مشترک پایین‌ترین",
+          "translationAr": "الأدنى مشتركاً",
+          "pronounceFa": "joynt louist",
+          "pronounceAr": "joynt louist",
+          "explanationFa": "یک صفت ترکیبی پیشرفته و دقیق برای مقایسه داده‌ها، زمانی که دو یا چند آیتم کمترین مقدار مشابهی را ثبت کرده باشند.",
+          "explanationAr": "صفة مركبة متقدمة ودقيقة لمقارنة البيانات عندما يسجل عنصران أو أكثر نفس القيمة الأدنى.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "line graph",
+          "translationFa": "نمودار خطی",
+          "translationAr": "رسم بياني خطي",
+          "pronounceFa": "layn graaf",
+          "pronounceAr": "layn graaf",
+          "explanationFa": "یکی از انواع اصلی نمودارهای ارائه شده در دفترچه آزمون آیلتس آکادمیک (تسک 1) که معمولاً روند تغییرات را در طول زمان نشان می‌دهد.",
+          "explanationAr": "أحد الأنواع الرئيسية للرسوم البيانية التي تأتي في امتحان الآيلتس الأكاديمي (المهمة الأولى)، وغالباً ما يوضح اتجاه التغير بمرور الوقت.",
+          "cefrLevel": "B1"
         }
       ]
     }
