@@ -92,7 +92,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   @override
   void initState() {
     super.initState();
-    debugPrint('🔍[lifecycle] ReadingCanvasScreen initState (ساخته شد)');
     _transformationController.addListener(_onTransformChanged);
 
     // خواندن موقعیت ذخیره‌شده هنگام init (قبل از اولین build)
@@ -187,17 +186,12 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   // تبدیل می‌کنیم، و کار نهایی اسکرول را کاملاً به خودِ پکیج
   // (ItemScrollController.scrollTo) می‌سپاریم — همان API که خودِ پکیج
   // برای اسکرول دقیق و انیمیت‌شده به یک آیتم طراحی کرده.
-  bool _scrollToRenderContext(
-    BuildContext targetContext,
-    int pageIndex, {
-    required String tag,
-  }) {
+  bool _scrollToRenderContext(BuildContext targetContext, int pageIndex) {
     final RenderObject? targetRO = targetContext.findRenderObject();
     if (targetRO == null ||
         targetRO is! RenderBox ||
         !targetRO.attached ||
         !targetRO.hasSize) {
-      debugPrint('🔍[$tag] هدف هنوز layout نشده (hasSize/attached=false)');
       return false;
     }
 
@@ -207,18 +201,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         pageRO is! RenderBox ||
         !pageRO.attached ||
         !pageRO.hasSize) {
-      debugPrint('🔍[$tag] لنگرِ صفحه هنوز آماده نیست');
       return false;
     }
 
     final ScrollableState? scrollable = Scrollable.maybeOf(targetContext);
-    if (scrollable == null) {
-      debugPrint('🔍[$tag] Scrollable پیدا نشد');
-      return false;
-    }
+    if (scrollable == null) return false;
+
     final RenderObject? viewportRO = scrollable.context.findRenderObject();
     if (viewportRO == null || viewportRO is! RenderBox || !viewportRO.hasSize) {
-      debugPrint('🔍[$tag] viewport آماده نیست');
       return false;
     }
 
@@ -238,12 +228,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     final double alignment =
         desiredAlignment - (offsetWithinPage / viewportHeight);
 
-    debugPrint(
-      '🔍[$tag] offsetWithinPage=${offsetWithinPage.toStringAsFixed(1)} '
-      'viewportH=${viewportHeight.toStringAsFixed(1)} '
-      'alignment=${alignment.toStringAsFixed(3)}',
-    );
-
     try {
       _itemScrollController.scrollTo(
         index: pageIndex,
@@ -251,8 +235,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOutCubic,
       );
-    } catch (e, st) {
-      debugPrint('🔍[$tag] خطا در scrollTo: $e\n$st');
+    } catch (e) {
       return false;
     }
     return true;
@@ -277,28 +260,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   void _ensureTargetVisible({String? expectedSignature}) {
     final int myRequestId = ++_scrollRequestId;
     int attempts = 0;
-    debugPrint('🔍 شروع اسکرول به هدف، امضای موردانتظار=$expectedSignature');
 
     void tryScroll() {
-      if (!mounted) {
-        debugPrint('🔍 state دیگر mounted نیست، متوقف شد');
-        return;
-      }
-      if (myRequestId != _scrollRequestId) {
-        debugPrint('🔍 درخواست #$myRequestId توسط درخواست جدیدتر لغو شد');
-        return;
-      }
+      if (!mounted) return;
+      if (myRequestId != _scrollRequestId) return;
 
       final bool targetIsBuilt =
           expectedSignature == null ||
           expectedSignature == _lastBuiltTargetSignature;
-
-      if (!targetIsBuilt) {
-        debugPrint(
-          '🔍 امضا هنوز مطابقت ندارد: موردانتظار=$expectedSignature، '
-          'فعلی=$_lastBuiltTargetSignature',
-        );
-      }
 
       // اولویت اول: پیدا کردن خود کادر جای‌خالی/کلمه‌ی دقیق.
       // اولویت دوم: پاراگراف مادر (فقط اگر کلمه‌ی دقیق قابل‌کلید نبود)
@@ -306,17 +275,12 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
           ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
           : null; // هنوز widget tree با هدف جدید rebuild نشده → صبر کن
 
-      final String whichKey = targetIsBuilt
-          ? (_exactMatchKey.currentContext != null ? 'exact' : 'fallback')
-          : 'none';
-
       bool handled = false;
       if (targetContext != null && _lastBuiltTargetPageIndex != null) {
         try {
           handled = _scrollToRenderContext(
             targetContext,
             _lastBuiltTargetPageIndex!,
-            tag: whichKey,
           );
         } catch (e) {
           debugPrint("خطا در اسکرول: $e");
@@ -331,8 +295,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             if (myRequestId != _scrollRequestId) return;
             tryScroll();
           });
-        } else {
-          debugPrint('🔍 تلاش‌ها تمام شد؛ هدف پیدا/آماده نشد');
         }
       }
     }
@@ -346,7 +308,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
   @override
   void dispose() {
-    debugPrint('🔍[lifecycle] ReadingCanvasScreen dispose (نابود شد)');
     _scrollPersistDebounce?.cancel();
     _transformationController.removeListener(_onTransformChanged);
     _transformationController.dispose();
@@ -408,39 +369,24 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             (p) => p.pageNumber == target.pageNumber,
           );
 
-          debugPrint(
-            '🔍[jump] هدف صفحه=${target.pageNumber} → pageIndex=$pageIndex',
-          );
-
           if (pageIndex != -1 && _itemScrollController.isAttached) {
             final visiblePositions = _itemPositionsListener.itemPositions.value;
             bool isPageVisible = visiblePositions.any(
               (pos) => pos.index == pageIndex,
-            );
-            debugPrint(
-              '🔍[jump] indexهای فعلاً قابل‌مشاهده='
-              '${visiblePositions.map((p) => p.index).toList()} '
-              'isPageVisible=$isPageVisible',
             );
 
             if (!isPageVisible) {
               // فقط به صفحه پرش می‌کنیم
               try {
                 _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
-                debugPrint('🔍[jump] jumpTo($pageIndex) با موفقیت صدا زده شد');
-              } catch (e, st) {
-                debugPrint('🔍[jump] خطا در jumpTo($pageIndex): $e\n$st');
+              } catch (e) {
+                debugPrint("خطا در jumpTo: $e");
               }
             }
 
             // 🌟 موتور هوشمند جستجو خودش منتظر می‌ماند تا آیتم لود شود
             // *و* build با هدف تازه انجام شود، سپس اسکرول دقیق می‌کند
             _ensureTargetVisible(expectedSignature: targetSignature);
-          } else {
-            debugPrint(
-              '🔍[jump] رد شد: pageIndex=$pageIndex, '
-              'isAttached=${_itemScrollController.isAttached}',
-            );
           }
         }
       }
@@ -670,6 +616,8 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         context,
         activeBook: currentBook,
         pageInteractives: widget.page.interactives,
+        interactivesPattern: widget.page.interactivesPattern, // 🌟 اضافه شد
+        interactivesByText: widget.page.interactivesByText, // 🌟 اضافه شد
         rootHighlightMap: rootHighlightMap,
         mapOffset: MapOffset(),
         activeOccurrence: isTarget
@@ -888,6 +836,8 @@ Widget _buildParagraph(
   int? activeOccurrence,
   required BookModel? activeBook,
   required List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید اضافه شد
+  RegExp? interactivesPattern, // 🌟 اضافه شد
+  Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
   GlobalKey? exactMatchKey, // 🌟 اضافه شد
 }) {
   if (para.spans.isEmpty ||
@@ -943,6 +893,8 @@ Widget _buildParagraph(
           localMap: localMap,
           activeOccurrence: activeOccurrence,
           exactMatchKey: exactMatchKey, // 🌟 انتقال به انجین متن
+          interactivesPattern: interactivesPattern, // 🌟 اضافه شد
+          interactivesByText: interactivesByText, // 🌟 اضافه شد
         ),
       );
       mapOffset.value += content.length;
@@ -999,6 +951,8 @@ Widget _buildParagraph(
           pageInteractives,
           isNestedTable: isInsideTableCell,
           exactMatchKey: exactMatchKey, // 🌟 انتقال به جدول
+          interactivesPattern: interactivesPattern, // 🌟 اضافه شد
+          interactivesByText: interactivesByText, // 🌟 اضافه شد
         ),
       );
     }
@@ -1110,6 +1064,8 @@ Widget _buildTable(
   List<InteractiveWord> pageInteractives, {
   bool isNestedTable = false,
   GlobalKey? exactMatchKey,
+  RegExp? interactivesPattern, // 🌟 اضافه شد
+  Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
 }) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -1187,6 +1143,8 @@ Widget _buildTable(
             activeBook: activeBook,
             pageInteractives: pageInteractives,
             exactMatchKey: exactMatchKey,
+            interactivesPattern: interactivesPattern, // 🌟 اضافه شد
+            interactivesByText: interactivesByText, // 🌟 اضافه شد
           ),
         );
       }
@@ -1292,6 +1250,8 @@ List<InlineSpan> _buildStyledInteractiveText(
   List<int>? localMap,
   int? activeOccurrence,
   GlobalKey? exactMatchKey, // 🌟 اضافه شد
+  RegExp? interactivesPattern, // 🌟 اضافه شد
+  Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -1356,6 +1316,8 @@ List<InlineSpan> _buildStyledInteractiveText(
       translationAr: para.translationAr,
       innerSpans: span.innerSpans,
       exactMatchKey: exactMatchKey,
+      interactivesPattern: interactivesPattern, // 🌟 اضافه شد
+      interactivesByText: interactivesByText, // 🌟 اضافه شد
     );
   }
 

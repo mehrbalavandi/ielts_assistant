@@ -110,10 +110,25 @@ class PageData {
   final List<ParagraphData> paragraphs;
   final List<InteractiveWord> interactives;
 
+  // 🌟 رفع مشکل کندی اسکرول (بخش دوم):
+  // موتور رندر متن، برای پیدا کردن کلمات دیکشنری داخل هر تکه از متن، قبلاً
+  // به ازای هر موقعیت در متن، تک‌تک تمام کلمات این لیست را با
+  // `String.indexOf` چک می‌کرد — یعنی برای صفحه‌ای با صدها کلمه‌ی دیکشنری
+  // و پاراگراف‌های طولانی، این کار به‌شدت کند بود (O(تعداد کلمات × طول متن)
+  // و حتی بدتر، چون به ازای هر match باز هم از اول روی کل لیست می‌گشت).
+  // چون این لیست در طول عمر صفحه ثابت است، همینجا یک‌بار یک RegExp
+  // ترکیبی (تمام کلمات را با | به هم وصل می‌کند) و یک Map برای پیدا کردن
+  // سریع InteractiveWord از روی متنِ match‌شده می‌سازیم. حالا موتور رندر
+  // فقط یک‌بار با این RegExp روی متن می‌گردد (خطی/O(n)) به‌جای اسکن مکرر.
+  final RegExp? interactivesPattern;
+  final Map<String, InteractiveWord> interactivesByText;
+
   PageData({
     required this.pageNumber,
     required this.paragraphs,
     required this.interactives,
+    this.interactivesPattern,
+    this.interactivesByText = const {},
   });
 
   factory PageData.fromJson(Map<String, dynamic> json) {
@@ -128,10 +143,32 @@ class PageData {
         interactivesList.map((e) => InteractiveWord.fromJson(e)).toList()
           ..sort((a, b) => b.exactText.length.compareTo(a.exactText.length));
 
+    // فقط کلمات غیرخالی وارد pattern می‌شوند (یک الگوی خالی هر جایی را
+    // match می‌کند و باعث حلقه‌ی نادرست می‌شود)
+    final nonEmptyWords = parsedInteractives
+        .where((w) => w.exactText.isNotEmpty)
+        .toList();
+
+    RegExp? pattern;
+    if (nonEmptyWords.isNotEmpty) {
+      // چون از قبل بر اساس طول نزولی مرتب شده‌اند، در تساویِ موقعیت شروع،
+      // اولین موردی که در | می‌آید (یعنی طولانی‌ترین) برنده می‌شود — دقیقاً
+      // همان رفتار قبلی (leftmost, و در تساوی طولانی‌ترین کلمه).
+      pattern = RegExp(
+        nonEmptyWords.map((w) => RegExp.escape(w.exactText)).join('|'),
+      );
+    }
+
+    final byText = <String, InteractiveWord>{
+      for (final w in nonEmptyWords) w.exactText: w,
+    };
+
     return PageData(
       pageNumber: json['PageNumber'] ?? 1,
       paragraphs: parasList.map((e) => ParagraphData.fromJson(e)).toList(),
       interactives: parsedInteractives,
+      interactivesPattern: pattern,
+      interactivesByText: byText,
     );
   }
 }

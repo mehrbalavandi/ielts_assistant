@@ -25,6 +25,8 @@ class TextRenderEngine {
     String? translationAr, // 🌟 اضافه شد
     List<SpanData>? innerSpans,
     GlobalKey? exactMatchKey, // 🌟 اضافه شد
+    RegExp? interactivesPattern, // 🌟 اضافه شد: جستجوی سریع کلمات دیکشنری
+    Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -49,6 +51,8 @@ class TextRenderEngine {
             activeOccurrence,
             exactMatchKey: exactMatchKey,
             keyClaim: keyClaim,
+            pattern: interactivesPattern,
+            byText: interactivesByText,
           ),
         );
       }
@@ -105,6 +109,8 @@ class TextRenderEngine {
           activeOccurrence,
           exactMatchKey: exactMatchKey,
           keyClaim: keyClaim,
+          pattern: interactivesPattern,
+          byText: interactivesByText,
         ),
       );
     }
@@ -161,8 +167,41 @@ class TextRenderEngine {
     int? activeOcc, {
     GlobalKey? exactMatchKey,
     _KeyClaim? keyClaim,
+    RegExp? pattern,
+    Map<String, InteractiveWord>? byText,
   }) {
-    if (interactives.isEmpty || content.isEmpty)
+    if (interactives.isEmpty || content.isEmpty) {
+      return applyMapToText(
+        content,
+        baseStyle,
+        localMap,
+        activeOcc,
+        exactMatchKey: exactMatchKey,
+        keyClaim: keyClaim,
+      );
+    }
+
+    // 🌟 رفع مشکل کندی اسکرول (مسیر سریع): یک عبور خطی با RegExp ترکیبی
+    // (که در PageData.fromJson یک‌بار برای کل صفحه ساخته شده) به‌جای اسکن
+    // مکرر تمام کلمات دیکشنری به ازای هر موقعیت از متن. این دقیقاً همان
+    // معنای «leftmost match، در تساوی طولانی‌ترین کلمه» را حفظ می‌کند،
+    // چون کلمات از قبل نزولی بر اساس طول در pattern چیده شده‌اند.
+    if (pattern != null && byText != null && byText.isNotEmpty) {
+      return _processDictionaryWordsFast(
+        content,
+        pattern,
+        byText,
+        context,
+        baseStyle,
+        interactiveColor,
+        localMap,
+        activeOcc,
+        exactMatchKey: exactMatchKey,
+        keyClaim: keyClaim,
+      );
+    }
+
+    if (interactives.isEmpty)
       return applyMapToText(
         content,
         baseStyle,
@@ -172,11 +211,11 @@ class TextRenderEngine {
         keyClaim: keyClaim,
       );
 
+    // ── مسیر قدیمی: فقط وقتی pattern/byText از بیرون پاس داده نشده باشد ──
+    // (fallback ایمنی؛ در استفاده‌ی عادی از داخل ReadingCanvasScreen هیچ‌وقت
+    // به اینجا نمی‌رسیم چون همیشه pattern پاس داده می‌شود)
     List<InlineSpan> spans = [];
     String remainingText = content;
-    // 🌟 رفع مشکل کندی اسکرول: این لیست حالا یک‌بار برای همیشه در
-    // PageData.fromJson مرتب شده و دیگر لازم نیست هر بار دوباره مرتب شود
-    // (این مرتب‌سازی مکرر روی هزاران کلمه، دلیل اصلی کندی اسکرول اول بود).
 
     while (remainingText.isNotEmpty) {
       int bestIndex = -1;
@@ -257,6 +296,97 @@ class TextRenderEngine {
         break;
       }
     }
+    return spans;
+  }
+
+  // 🌟 نسخه‌ی سریع: یک عبور خطی روی متن با RegExp ترکیبی (pattern) که
+  // همه‌ی کلمات دیکشنری صفحه را یک‌جا شامل می‌شود، به‌جای اسکن مکرر تمام
+  // کلمات به ازای هر موقعیت. با اینکه content به ازای هر بخش از پاراگراف
+  // (بین جای‌خالی‌ها) دوباره صدا زده می‌شود، هر بار فقط یک عبور خطی روی
+  // همان بخش کوچک انجام می‌شود؛ کار سنگین (ساخت pattern) فقط یک‌بار در
+  // PageData.fromJson انجام شده.
+  static List<InlineSpan> _processDictionaryWordsFast(
+    String content,
+    RegExp pattern,
+    Map<String, InteractiveWord> byText,
+    BuildContext context,
+    TextStyle baseStyle,
+    Color interactiveColor,
+    List<int>? localMap,
+    int? activeOcc, {
+    GlobalKey? exactMatchKey,
+    _KeyClaim? keyClaim,
+  }) {
+    List<InlineSpan> spans = [];
+    int currentIndex = 0;
+
+    for (final match in pattern.allMatches(content)) {
+      final InteractiveWord? matchedWord = byText[match.group(0)];
+      if (matchedWord == null) continue; // احتیاطی؛ نباید پیش بیاید
+
+      if (match.start > currentIndex) {
+        spans.addAll(
+          applyMapToText(
+            content.substring(currentIndex, match.start),
+            baseStyle,
+            localMap?.sublist(currentIndex, match.start),
+            activeOcc,
+            exactMatchKey: exactMatchKey,
+            keyClaim: keyClaim,
+          ),
+        );
+      }
+
+      List<int>? wordMap;
+      if (localMap != null) {
+        wordMap = localMap.sublist(match.start, match.end);
+      }
+
+      TextStyle interactiveBaseStyle = baseStyle.copyWith(
+        color: interactiveColor,
+        decoration: TextDecoration.underline,
+        decorationStyle: TextDecorationStyle.dotted,
+      );
+
+      if (wordMap == null || wordMap.every((v) => v == -1)) {
+        spans.add(
+          TextSpan(
+            text: matchedWord.exactText,
+            style: interactiveBaseStyle,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => _showWordModal(context, matchedWord),
+          ),
+        );
+      } else {
+        spans.addAll(
+          _sliceInteractiveWord(
+            matchedWord,
+            wordMap,
+            interactiveBaseStyle,
+            activeOcc,
+            context,
+            exactMatchKey: exactMatchKey,
+            keyClaim: keyClaim,
+          ),
+        );
+      }
+
+      currentIndex = match.end;
+    }
+
+    if (currentIndex < content.length) {
+      spans.addAll(
+        applyMapToText(
+          content.substring(currentIndex),
+          baseStyle,
+          localMap?.sublist(currentIndex),
+          activeOcc,
+          exactMatchKey: exactMatchKey,
+          keyClaim: keyClaim,
+        ),
+      );
+    }
+
     return spans;
   }
 
