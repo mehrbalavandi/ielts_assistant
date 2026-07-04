@@ -6,16 +6,52 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/document_lo
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/book_search_delegate.dart';
 
-class MainBookScreen extends ConsumerWidget {
+class MainBookScreen extends ConsumerStatefulWidget {
   const MainBookScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MainBookScreen> createState() => _MainBookScreenState();
+}
+
+class _MainBookScreenState extends ConsumerState<MainBookScreen> {
+  // 🌟 رفع یک باگ ساختاری مهم:
+  //
+  // قبلاً این خط مستقیم داخل build() بود:
+  //   future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath)
+  //
+  // یعنی هر بار build() اجرا می‌شد یک Future کاملاً تازه ساخته می‌شد.
+  // چون این ویجت هم activeSearchProvider را watch می‌کند، هر بار دکمه‌ی
+  // بعدی/قبلیِ جستجو زده می‌شد (یا حتی هر جابه‌جایی currentIndex)، کل
+  // build() دوباره اجرا و یک Future تازه به FutureBuilder داده می‌شد.
+  // FutureBuilder با دیدن یک Future جدید (متفاوت از قبلی)، وضعیتش را
+  // ریست می‌کند: یک فریم به ConnectionState.waiting برمی‌گردد (یعنی
+  // به‌جای ReadingCanvasScreen موقتاً CircularProgressIndicator نشان
+  // می‌دهد)، و چون نوع ویجت در آن نقطه از درخت عوض می‌شود
+  // (ReadingCanvasScreen ↔ Center)، فلاتر مجبور می‌شود کل
+  // ReadingCanvasScreen (و state داخلی‌اش — GlobalKeyها،
+  // ItemScrollController، همه‌ی منطق اسکرول دقیق) را dispose و از نو
+  // بسازد؛ درست وسط اسکرول به نتیجه‌ی جستجو! این دقیقاً همان چیزی بود که
+  // باعث می‌شد اسکرول دقیق هیچ‌وقت به‌طور پایدار به هدف نرسد.
+  //
+  // راه‌حل: Future را فقط یک‌بار (و فقط وقتی کتاب واقعاً عوض شود) می‌سازیم
+  // و در طول عمر ویجت نگهش می‌داریم.
+  Future<BookContent>? _bookContentFuture;
+  String? _loadedBookId;
+
+  @override
+  Widget build(BuildContext context) {
     final activeBook = ref.watch(activeBookProvider);
     final searchSession = ref.watch(activeSearchProvider);
 
     if (activeBook == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (_loadedBookId != activeBook.id) {
+      _loadedBookId = activeBook.id;
+      _bookContentFuture = DocumentLoader.loadBookFromJson(
+        activeBook.jsonAssetPath,
+      );
     }
 
     return Scaffold(
@@ -145,8 +181,8 @@ class MainBookScreen extends ConsumerWidget {
             )
           : null,
       body: FutureBuilder<BookContent>(
-        // 🌟 نوع خروجی تغییر کرد
-        future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath),
+        // 🌟 حالا این Future فقط با تغییر واقعیِ کتاب دوباره ساخته می‌شود
+        future: _bookContentFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

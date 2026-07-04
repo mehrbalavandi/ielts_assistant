@@ -50,4 +50,8 @@ class StorageService {
   static void clearLastBookId() {
     _box.remove('lastBookId');
   }
+
+  static void clearOfflineBooks() {
+    _box.remove(_booksKey);
+  }
 }

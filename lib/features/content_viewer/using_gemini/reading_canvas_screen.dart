@@ -71,6 +71,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   // با هدف جدید (occurrence جدید) rebuild شده باشد، نه یک context قدیمی
   // و باقی‌مانده از هدف قبلی.
   String? _lastBuiltTargetSignature;
+  int? _lastBuiltTargetPageIndex;
   int _scrollRequestId = 0;
 
   String? _signatureFor(SearchResult? r) {
@@ -91,6 +92,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   @override
   void initState() {
     super.initState();
+    debugPrint('🔍[lifecycle] ReadingCanvasScreen initState (ساخته شد)');
     _transformationController.addListener(_onTransformChanged);
 
     // خواندن موقعیت ذخیره‌شده هنگام init (قبل از اولین build)
@@ -159,77 +161,100 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   // 🌟 جایگزینِ کلید قدیمی: سیستم دو-کلیده برای اسکرول نقطه‌ای
   final GlobalKey _fallbackParaKey = GlobalKey();
   final GlobalKey _exactMatchKey = GlobalKey();
+  // 🌟 لنگر ثابتِ خودِ صفحه (مستقل از موقعیت فعلی اسکرول). چون
+  // ScrollablePositionedList داخلاً از دو لیست تشکیل شده و offset اسکرول
+  // را با یک منطق سفارشی خودش مدیریت می‌کند، خواندن/نوشتن مستقیم
+  // position.pixels روی Scrollable نزدیک به هدف قابل‌اعتماد نبود (همیشه
+  // ۰ خوانده می‌شد و افست منفی هم clamp می‌شد). به‌جایش فاصله‌ی هدف را
+  // نسبت به بالای خودِ صفحه اندازه می‌گیریم (که وابسته به اسکرول نیست)
+  // و از API خودِ پکیج (ItemScrollController.scrollTo با alignment
+  // محاسبه‌شده) برای رساندن دقیق آن به نقطه‌ی درست استفاده می‌کنیم.
+  final GlobalKey _pageAnchorKey = GlobalKey();
 
-  // 🌟 اسکرول دستی و دقیق.
+  // 🌟 اسکرول دقیق — تلاش دوم.
   //
-  // چرا به‌جای Scrollable.ensureVisible؟ آن متد برای محاسبه‌ی افست به
-  // RenderAbstractViewport.getOffsetToReveal تکیه می‌کند که مسیر رندر بین
-  // هدف و viewport را طی می‌کند. چون هدف اینجا داخل WrappableText/FloatColumn
-  // (از پکیج float_column، که چیدمان سفارشی خودش را دارد) قرار گرفته، این
-  // مسیر همیشه به‌درستی طی نمی‌شود و افست غلط محاسبه می‌شود؛ نتیجه‌اش دقیقاً
-  // همان «رفتن به جای دیگری، قبل یا بعد از هدف واقعی» است.
-  // اینجا به‌جایش مستقیماً از getTransformTo (یک متد پایه‌ی هر RenderObject،
-  // که hit-testing/تپ‌کردن هم به آن متکی است و می‌دانیم درست کار می‌کند)
-  // برای پیدا کردن موقعیت واقعیِ هدف نسبت به viewport استفاده می‌کنیم و
-  // offset را خودمان حساب می‌کنیم.
+  // تلاش قبلی (خواندن/نوشتن مستقیم روی position.pixels نزدیک‌ترین
+  // Scrollable) کار نکرد: طبق لاگ واقعی از دستگاه، pixels همیشه ۰.۰
+  // خوانده می‌شد و افست‌های منفیِ محاسبه‌شده به minScrollExtent=0
+  // clamp می‌شدند — یعنی عملاً هیچ اسکرولی اتفاق نمی‌افتاد. علتش این
+  // است که ScrollablePositionedList موقعیت اسکرول را با منطق داخلی و
+  // سفارشی خودش (نه یک pixels خطی ساده) مدیریت می‌کند، پس دستکاری مستقیم
+  // ScrollPosition نزدیک‌ترین Scrollable قابل‌اعتماد نیست.
+  //
+  // راه‌حل: به‌جای دست‌کاری مستقیم اسکرول، فاصله‌ی هدف را نسبت به «بالای
+  // خودِ صفحه» اندازه می‌گیریم (این فاصله کاملاً مستقل از موقعیت فعلی
+  // اسکرول است و همیشه درست می‌ماند)، آن را به یک مقدار «alignment»
+  // تبدیل می‌کنیم، و کار نهایی اسکرول را کاملاً به خودِ پکیج
+  // (ItemScrollController.scrollTo) می‌سپاریم — همان API که خودِ پکیج
+  // برای اسکرول دقیق و انیمیت‌شده به یک آیتم طراحی کرده.
   bool _scrollToRenderContext(
-    BuildContext targetContext, {
+    BuildContext targetContext,
+    int pageIndex, {
     required String tag,
   }) {
     final RenderObject? targetRO = targetContext.findRenderObject();
-    if (targetRO == null || !targetRO.attached) {
-      debugPrint('🔍[$tag] RenderObject هدف هنوز attach نشده');
+    if (targetRO == null ||
+        targetRO is! RenderBox ||
+        !targetRO.attached ||
+        !targetRO.hasSize) {
+      debugPrint('🔍[$tag] هدف هنوز layout نشده (hasSize/attached=false)');
       return false;
     }
-    if (targetRO is! RenderBox || !targetRO.hasSize) {
-      debugPrint('🔍[$tag] RenderObject هدف هنوز layout نشده (hasSize=false)');
+
+    final RenderObject? pageRO = _pageAnchorKey.currentContext
+        ?.findRenderObject();
+    if (pageRO == null ||
+        pageRO is! RenderBox ||
+        !pageRO.attached ||
+        !pageRO.hasSize) {
+      debugPrint('🔍[$tag] لنگرِ صفحه هنوز آماده نیست');
       return false;
     }
 
     final ScrollableState? scrollable = Scrollable.maybeOf(targetContext);
     if (scrollable == null) {
-      debugPrint('🔍[$tag] هیچ Scrollable والدی پیدا نشد');
+      debugPrint('🔍[$tag] Scrollable پیدا نشد');
       return false;
     }
-
     final RenderObject? viewportRO = scrollable.context.findRenderObject();
     if (viewportRO == null || viewportRO is! RenderBox || !viewportRO.hasSize) {
-      debugPrint('🔍[$tag] RenderBox ویوپورت اسکرول هنوز آماده نیست');
+      debugPrint('🔍[$tag] viewport آماده نیست');
       return false;
     }
 
-    final Matrix4 transform = targetRO.getTransformTo(viewportRO);
-    final Offset targetTopLeft = MatrixUtils.transformPoint(
+    // فاصله‌ی هدف از بالای خودِ صفحه — مستقل از اسکرول فعلی
+    final Matrix4 transform = targetRO.getTransformTo(pageRO);
+    final double offsetWithinPage = MatrixUtils.transformPoint(
       transform,
       Offset.zero,
-    );
+    ).dy;
 
-    const double alignment = 0.15; // جلوگیری از مخفی شدن زیر نوار بالا
-    final double desiredTopOffset = viewportRO.size.height * alignment;
-    final double delta = targetTopLeft.dy - desiredTopOffset;
+    final double viewportHeight = viewportRO.size.height;
+    const double desiredAlignment = 0.15; // جلوگیری از مخفی شدن زیر نوار بالا
 
-    final double targetPixels = (scrollable.position.pixels + delta).clamp(
-      scrollable.position.minScrollExtent,
-      scrollable.position.maxScrollExtent,
-    );
+    // اگر alignment=0 یعنی «بالای آیتم روی بالای viewport»، برای اینکه
+    // نقطه‌ای offsetWithinPage پیکسل پایین‌تر از بالای آیتم دقیقاً روی
+    // ۱۵٪ از بالای viewport بنشیند، باید alignment را همین مقدار عقب برد:
+    final double alignment =
+        desiredAlignment - (offsetWithinPage / viewportHeight);
 
     debugPrint(
-      '🔍[$tag] pixels=${scrollable.position.pixels.toStringAsFixed(1)} '
-      'targetTop=${targetTopLeft.dy.toStringAsFixed(1)} '
-      'delta=${delta.toStringAsFixed(1)} '
-      'هدف نهایی=${targetPixels.toStringAsFixed(1)}',
+      '🔍[$tag] offsetWithinPage=${offsetWithinPage.toStringAsFixed(1)} '
+      'viewportH=${viewportHeight.toStringAsFixed(1)} '
+      'alignment=${alignment.toStringAsFixed(3)}',
     );
 
-    // 🌟 اگر فاصله خیلی ناچیز است، انیمیت نکن (از لرزش/چشمک جلوگیری می‌کند)
-    if ((targetPixels - scrollable.position.pixels).abs() < 1.0) {
-      return true;
+    try {
+      _itemScrollController.scrollTo(
+        index: pageIndex,
+        alignment: alignment,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOutCubic,
+      );
+    } catch (e, st) {
+      debugPrint('🔍[$tag] خطا در scrollTo: $e\n$st');
+      return false;
     }
-
-    scrollable.position.animateTo(
-      targetPixels,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOutCubic,
-    );
     return true;
   }
 
@@ -255,6 +280,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     debugPrint('🔍 شروع اسکرول به هدف، امضای موردانتظار=$expectedSignature');
 
     void tryScroll() {
+      if (!mounted) {
+        debugPrint('🔍 state دیگر mounted نیست، متوقف شد');
+        return;
+      }
       if (myRequestId != _scrollRequestId) {
         debugPrint('🔍 درخواست #$myRequestId توسط درخواست جدیدتر لغو شد');
         return;
@@ -282,9 +311,13 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
           : 'none';
 
       bool handled = false;
-      if (targetContext != null) {
+      if (targetContext != null && _lastBuiltTargetPageIndex != null) {
         try {
-          handled = _scrollToRenderContext(targetContext, tag: whichKey);
+          handled = _scrollToRenderContext(
+            targetContext,
+            _lastBuiltTargetPageIndex!,
+            tag: whichKey,
+          );
         } catch (e) {
           debugPrint("خطا در اسکرول: $e");
         }
@@ -313,6 +346,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
   @override
   void dispose() {
+    debugPrint('🔍[lifecycle] ReadingCanvasScreen dispose (نابود شد)');
     _scrollPersistDebounce?.cancel();
     _transformationController.removeListener(_onTransformChanged);
     _transformationController.dispose();
@@ -354,6 +388,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     // _ensureTargetVisible از روی همین امضا تشخیص می‌دهد که آیا واقعاً به
     // build تازه رسیده‌ایم یا هنوز context قدیمی در دست است.
     _lastBuiltTargetSignature = _signatureFor(activeTarget);
+    // 🌟 ایندکس صفحه‌ی همین هدف را هم نگه می‌داریم تا _ensureTargetVisible
+    // برای مرحله‌ی دوم (scrollTo با alignment دقیق) به آن نیاز نداشته باشد
+    // که دوباره جستجویش کند.
+    _lastBuiltTargetPageIndex = activeTarget == null
+        ? null
+        : widget.documentPages.indexWhere(
+            (p) => p.pageNumber == activeTarget.pageNumber,
+          );
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
@@ -366,20 +408,39 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             (p) => p.pageNumber == target.pageNumber,
           );
 
+          debugPrint(
+            '🔍[jump] هدف صفحه=${target.pageNumber} → pageIndex=$pageIndex',
+          );
+
           if (pageIndex != -1 && _itemScrollController.isAttached) {
             final visiblePositions = _itemPositionsListener.itemPositions.value;
             bool isPageVisible = visiblePositions.any(
               (pos) => pos.index == pageIndex,
             );
+            debugPrint(
+              '🔍[jump] indexهای فعلاً قابل‌مشاهده='
+              '${visiblePositions.map((p) => p.index).toList()} '
+              'isPageVisible=$isPageVisible',
+            );
 
             if (!isPageVisible) {
               // فقط به صفحه پرش می‌کنیم
-              _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
+              try {
+                _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
+                debugPrint('🔍[jump] jumpTo($pageIndex) با موفقیت صدا زده شد');
+              } catch (e, st) {
+                debugPrint('🔍[jump] خطا در jumpTo($pageIndex): $e\n$st');
+              }
             }
 
             // 🌟 موتور هوشمند جستجو خودش منتظر می‌ماند تا آیتم لود شود
             // *و* build با هدف تازه انجام شود، سپس اسکرول دقیق می‌کند
             _ensureTargetVisible(expectedSignature: targetSignature);
+          } else {
+            debugPrint(
+              '🔍[jump] رد شد: pageIndex=$pageIndex, '
+              'isAttached=${_itemScrollController.isAttached}',
+            );
           }
         }
       }
@@ -504,6 +565,9 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                   exactMatchKey: hasTarget
                                       ? _exactMatchKey
                                       : null, // 🌟 پاس دادن کلید دقیق نقطه‌ای
+                                  pageAnchorKey: hasTarget
+                                      ? _pageAnchorKey
+                                      : null, // 🌟 لنگر اندازه‌گیری مستقل از اسکرول
                                 ),
                               );
                             },
@@ -530,6 +594,7 @@ class BookPageWidget extends ConsumerStatefulWidget {
   final double screenWidth;
   final GlobalKey? targetKey;
   final GlobalKey? exactMatchKey; // 🌟 اضافه شد
+  final GlobalKey? pageAnchorKey; // 🌟 اضافه شد
 
   const BookPageWidget({
     super.key,
@@ -540,6 +605,7 @@ class BookPageWidget extends ConsumerStatefulWidget {
     required this.screenWidth,
     this.targetKey,
     this.exactMatchKey, // 🌟 اضافه شد
+    this.pageAnchorKey, // 🌟 اضافه شد
   });
 
   @override
@@ -629,6 +695,8 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
     _cachedWidgets ??= _buildParaWidgets(context);
 
     return Column(
+      key:
+          widget.pageAnchorKey, // 🌟 لنگر ثابت برای اندازه‌گیری مستقل از اسکرول
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _buildPageDivider(widget.page.pageNumber),
