@@ -1043,7 +1043,10 @@ Widget _buildParagraph(
       textDirection: para.direction == "RTL"
           ? TextDirection.rtl
           : TextDirection.ltr,
-      child: FloatColumn(children: blockElements),
+      child: FloatColumn(
+        children: blockElements,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+      ),
     ),
   );
   bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
@@ -1171,6 +1174,8 @@ Widget _buildTable(
           .replaceAll("_", "");
 
   final bool isBorderedTable = rawStyle.contains("borderedtable");
+
+  // 🌟 ۱. مخفی کردن حاشیه برای استایل‌های خاص (از جمله columnstack)
   final bool hideBorders =
       rawStyle.contains("dottedtable") ||
       rawStyle.contains("columnstack") ||
@@ -1191,6 +1196,13 @@ Widget _buildTable(
   );
   final bool showBorders =
       !hideBorders && (isBorderedTable || tableSpan.hasBorders == "true");
+
+  // 🌟 ۲. متد محلی برای مپ‌کردن تراز عمودی استخراج‌شده از Word
+  TableCellVerticalAlignment getVAlign(String? vAlign) {
+    if (vAlign == "center") return TableCellVerticalAlignment.middle;
+    if (vAlign == "bottom") return TableCellVerticalAlignment.bottom;
+    return TableCellVerticalAlignment.top; // پیش‌فرض
+  }
 
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells =
@@ -1264,6 +1276,7 @@ Widget _buildTable(
               right: cell.paddingRight ?? 8.0,
             );
 
+      // کانتینر اصلی محتوای سلول (تراز افقی در متد _buildParagraph مدیریت شده است)
       Widget cellContent = Container(
         padding: cellPadding, // 🌟 تزریق پدینگ‌های میلی‌متری
         decoration: BoxDecoration(color: _hexToColor(cell.fillColor)),
@@ -1287,23 +1300,29 @@ Widget _buildTable(
     if (applyColumnStack) {
       allGridCells.add(cellWidgets);
     } else {
-      // 🌟 حالت استاندارد قبلی شما
       if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
-        // 🌟 جادوی رفع ناترازی: هر ردیف یک Table مستقل است که خطوط داخلی و پایین خود را به صورت یکپارچه رسم می‌کند
+        // 🌟 ۳. پیچیدن سلول‌ها در TableCell برای اعمال تراز عمودیِ (vAlign) دریافت شده از ورد
+        List<Widget> tableCellWidgets = [];
+        for (int i = 0; i < cellWidgets.length; i++) {
+          tableCellWidgets.add(
+            TableCell(
+              verticalAlignment: getVAlign(row.cells[i].vAlign),
+              child: cellWidgets[i],
+            ),
+          );
+        }
+
         rowWidgets.add(
           Table(
             columnWidths: columnWidths,
-            defaultVerticalAlignment:
-                TableCellVerticalAlignment.top, // ارتفاع طبیعی و بدون کرش
             border: showBorders
                 ? TableBorder(
-                    bottom: activeSide, // خط پایین کاملاً صاف برای کل ردیف
-                    right: activeSide, // خط راست ردیف
-                    verticalInside:
-                        activeSide, // خطوط جداکننده ستون‌ها (کاملاً صاف)
+                    bottom: activeSide,
+                    right: activeSide,
+                    verticalInside: activeSide,
                   )
                 : const TableBorder.symmetric(),
-            children: [TableRow(children: cellWidgets)],
+            children: [TableRow(children: tableCellWidgets)],
           ),
         );
       } else {
@@ -1323,16 +1342,13 @@ Widget _buildTable(
       0,
       (max, rowCells) => rowCells.length > max ? rowCells.length : max,
     );
-
     for (int colIndex = 0; colIndex < maxCols; colIndex++) {
       List<Widget> columnCells = [];
-
       for (int rowIndex = 0; rowIndex < allGridCells.length; rowIndex++) {
         if (colIndex < allGridCells[rowIndex].length) {
           columnCells.add(allGridCells[rowIndex][colIndex]);
         }
       }
-
       rowWidgets.add(
         Container(
           margin: const EdgeInsets.only(
@@ -1353,7 +1369,6 @@ Widget _buildTable(
         : const EdgeInsets.symmetric(vertical: 12.0),
     decoration: BoxDecoration(
       color: _hexToColor(tableSpan.fillColor),
-      // 🌟 تکمیل کادر: خطوط بالا و چپ به کل ظرفِ جدول داده می‌شود تا شبکه کامل شود
       border: showBorders ? Border(top: activeSide, left: activeSide) : null,
     ),
     child: Column(

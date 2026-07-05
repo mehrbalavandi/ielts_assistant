@@ -12805,8 +12805,7 @@
                               "Content": "03",
                               "Markers": [
                                 "b",
-                                "fn:Source Sans 3",
-                                "sz:19"
+                                "fn:Source Sans 3"
                               ],
                               "BorderColor": "CA0D8E",
                               "BorderStyle": "BorderValues { }",
@@ -12817,8 +12816,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 3.7,
-                      "VAlign": "tableverticalalignmentvalues { }",
+                      "WidthPercent": 3.91,
                       "IsHeaderCell": false
                     },
                     {
@@ -12841,7 +12839,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 96.3,
+                      "WidthPercent": 96.09,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "IsHeaderCell": false
                     }
@@ -12894,7 +12892,7 @@
                         }
                       ],
                       "FillColor": "468ED5",
-                      "WidthPercent": 3.7,
+                      "WidthPercent": 3.91,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "ColSpan": 2,
                       "IsHeaderCell": false
@@ -13039,7 +13037,7 @@
                         }
                       ],
                       "FillColor": "468ED5",
-                      "WidthPercent": 3.7,
+                      "WidthPercent": 3.91,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "ColSpan": 2,
                       "IsHeaderCell": false
@@ -13069,7 +13067,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 3.7,
+                      "WidthPercent": 3.91,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "ColSpan": 2,
                       "IsHeaderCell": false
@@ -15338,7 +15336,7 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 3.7,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
@@ -15530,7 +15528,7 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 2.85,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
@@ -15686,7 +15684,7 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 4.55,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
@@ -15832,14 +15830,15 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 4.2,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
                               "Content": "7",
                               "Markers": [
                                 "b",
-                                "fn:Source Sans 3"
+                                "fn:Source Sans 3",
+                                "sz:21"
                               ],
                               "InnerSpans": [],
                               "TableRows": []
@@ -15996,7 +15995,7 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 4.3,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
@@ -16142,7 +16141,7 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 4.3,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
@@ -16298,7 +16297,7 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 4.3,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
@@ -16553,7 +16552,7 @@
                         {
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
-                          "SpaceBefore": 4.3,
+                          "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
@@ -16849,7 +16848,7 @@
                       "Paragraphs": [
                         {
                           "Direction": "LTR",
-                          "SpaceAfter": 0.0,
+                          "SpaceAfter": 8.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
@@ -16913,7 +16912,7 @@
                         },
                         {
                           "Direction": "LTR",
-                          "SpaceAfter": 0.0,
+                          "SpaceAfter": 8.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
@@ -16946,7 +16945,18 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "1 If James can't ",
+                              "Content": "1",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " If James can't ",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -17182,7 +17192,7 @@
                         },
                         {
                           "Direction": "LTR",
-                          "SpaceAfter": 0.0,
+                          "SpaceAfter": 4.0,
                           "SpaceBefore": 0.0,
                           "IndentLeft": 7.1,
                           "Spans": [
@@ -17227,7 +17237,18 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "2 The museum employee ",
+                              "Content": "2",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " The museum employee ",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -18239,11 +18260,43 @@
                               "InnerSpans": [
                                 {
                                   "Type": "text",
-                                  "Content": "Condition in blue, result in red",
+                                  "Content": "Condition in ",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
                                   ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "blue",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "3399D3",
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": ", result in ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "red",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "CB060B",
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -18256,11 +18309,43 @@
                                 },
                                 {
                                   "Type": "text",
-                                  "Content": "1 I'll book tickets for that as well today, provided there is something special that I'm particularly interested in.",
+                                  "Content": "1 ",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
                                   ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "I'll book tickets for that as well today,",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "CB060B",
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "provided there is something special that I'm particularly interested in.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "3399D3",
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -18273,11 +18358,44 @@
                                 },
                                 {
                                   "Type": "text",
-                                  "Content": "2 You'll get your tickets fine, as long as you can produce the payment card you bought the tickets with.",
+                                  "Content": "2 ",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
                                   ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "You'll get your tickets fine,",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "CB060B",
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "CA0D8E",
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "as long as you can produce the payment card you bought the tickets with.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "3399D3",
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -18290,11 +18408,43 @@
                                 },
                                 {
                                   "Type": "text",
-                                  "Content": "3 Once we leave the part of the exhibition called 'Contemporary London', we will move into the 22nd century.",
+                                  "Content": "3 ",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
                                   ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "Once we leave the part of the exhibition called 'Contemporary London',",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "3399D3",
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "we will move into the 22nd century.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "CB060B",
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -18307,11 +18457,43 @@
                                 },
                                 {
                                   "Type": "text",
-                                  "Content": "4 Unless something dramatic happens, I should be working here for a longtime.",
+                                  "Content": "4 ",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
                                   ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "Unless something dramatic happens,",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "3399D3",
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "I should be working here for a longtime.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "TextColor": "CB060B",
                                   "InnerSpans": [],
                                   "TableRows": []
                                 }
@@ -18508,6 +18690,7 @@
                                     "fn:Calibri",
                                     "sz:18"
                                   ],
+                                  "TextColor": "020203",
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -18558,12 +18741,629 @@
                   "IsHeader": false,
                   "Cells": [
                     {
-                      "Paragraphs": [],
+                      "Paragraphs": [
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "14",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "CA0D8E",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
                       "WidthPercent": 3.67,
                       "IsHeaderCell": false
                     },
                     {
-                      "Paragraphs": [],
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 4.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Choose the correct answers from each pair of options to complete the rule.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Future time conditionals follow the same structure as the ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "first/ second ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "conditional:",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "If + ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "present ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "/",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " past ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "simple, .../ ... ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "will / ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "would + ",
+                              "Markers": [
+                                "b",
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "'to' infinitive ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "/",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " bare infinitive",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}Future time conditionals follow the same structure as the first\nconditional:\nIf+ present simple ... / ... will+ bare infinitive.\nNote that all present tenses are possible in the If clause, although the present simple is the most commonly used. In the result clause, instead of will we can use be going to and other modal verbs such as can, should and must. We can also use an imperative in the result clause. {/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [
+                                {
+                                  "Type": "text",
+                                  "Content": "Future time conditionals follow the same structure as the ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "first",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "conditional:",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "If+ ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "present simple ... / ... ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "will+ ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "bare infinitive.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "Note that all present tenses are possible in the ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "If ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "clause, although the present simple is the most commonly used. In the result clause, instead of ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "will ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "we can use ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "be going to ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "and other modal verbs such as ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "can, should ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "and ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "must. ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "We can also use an imperative in the result clause. ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                }
+                              ],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 96.33,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "15",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "CA0D8E",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.67,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 4.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Imagine you are a tour guide taking tourists to a museum. Complete the statements to make sentences you might say to your tourists.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}1 You can get a discounted ticket as long as .. .\n2 Once everybody has bought their ticket, .. .\n3 You won't get lost provided ...\n4 Now everybody is free to explore the museum. You can go wherever you like as long as ...\n5 Your bus back to the hotel will depart as soon as .. .{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [
+                                {
+                                  "Type": "text",
+                                  "Content": "1 You can get a discounted ticket as long as .. .",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "2 Once everybody has bought their ticket, .. .",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "3 You won't get lost provided ...",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "4 Now everybody is free to explore the museum. You can go wherever you like ",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "as long ",
+                                  "Markers": [
+                                    "i",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "as ...",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "5 Your bus back to the hotel will depart as soon as .. .",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                }
+                              ],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 4.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "6 Do not touch or take photos of the exhibits unless ...",
+                              "Markers": [
+                                "bg:FFF2CC",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "FillColor": "FFF2CC",
+                              "BorderColor": "ED7D31",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
                       "WidthPercent": 96.33,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "IsHeaderCell": false

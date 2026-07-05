@@ -300,7 +300,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 8.0),
+                  SizedBox(height: 1.0),
                   ElevatedButton.icon(
                     icon: const Icon(Icons.sync, size: 14),
                     label: const Text(

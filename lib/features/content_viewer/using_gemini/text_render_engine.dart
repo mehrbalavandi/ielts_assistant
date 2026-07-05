@@ -120,11 +120,12 @@ class TextRenderEngine {
   static TextStyle applySpanStyle(TextStyle base, SpanData span, bool isDark) {
     double fontSize = base.fontSize ?? 16.0;
 
-    // 🌟 اصلاح شد: وضعیت استایل‌ها کاملاً بر اساس مارکرهای خود اسپن تعیین می‌شود نه ارث‌بری کورکورانه از والد تگ‌شده
     bool isBold = span.markers.contains("b");
     bool isItalic = span.markers.contains("i");
     bool isUnderline = span.markers.contains("u");
+
     Color color = isDark ? Colors.white : Colors.black87;
+    Color? bgColor; // 🌟 متغیر جدید برای ذخیره رنگ پس‌زمینه
 
     for (var marker in span.markers) {
       if (marker.startsWith("sz:")) {
@@ -133,6 +134,7 @@ class TextRenderEngine {
       }
     }
 
+    // ۱. پردازش رنگ متن
     if (span.textColor != null &&
         span.textColor!.isNotEmpty &&
         span.textColor != "auto") {
@@ -144,8 +146,20 @@ class TextRenderEngine {
         color = Color(int.parse(buffer.toString(), radix: 16));
       } catch (_) {}
     } else {
-      // بازگشت به رنگ پیش‌فرض پوسته در صورت نداشتن رنگ اختصاصی
       color = isDark ? Colors.white : Colors.black87;
+    }
+
+    // 🌟 ۲. پردازش رنگ پس‌زمینه (FillColor)
+    if (span.fillColor != null &&
+        span.fillColor!.isNotEmpty &&
+        span.fillColor != "auto") {
+      final buffer = StringBuffer();
+      if (span.fillColor!.length == 6 || span.fillColor!.length == 7)
+        buffer.write('ff');
+      buffer.write(span.fillColor!.replaceFirst('#', ''));
+      try {
+        bgColor = Color(int.parse(buffer.toString(), radix: 16));
+      } catch (_) {}
     }
 
     return base.copyWith(
@@ -154,6 +168,7 @@ class TextRenderEngine {
       fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
       decoration: isUnderline ? TextDecoration.underline : TextDecoration.none,
       color: color,
+      backgroundColor: bgColor, // 🌟 اعمال رنگ پس‌زمینه به استایل نهایی
     );
   }
 
