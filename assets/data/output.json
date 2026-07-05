@@ -19231,133 +19231,134 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}1 You can get a discounted ticket as long as .. .\n2 Once everybody has bought their ticket, .. .\n3 You won't get lost provided ...\n4 Now everybody is free to explore the museum. You can go wherever you like as long as ...\n5 Your bus back to the hotel will depart as soon as .. .{/blk}",
+                              "Content": "Sample answers",
                               "Markers": [
+                                "i",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
-                              "InnerSpans": [
-                                {
-                                  "Type": "text",
-                                  "Content": "1 You can get a discounted ticket as long as .. .",
-                                  "Markers": [
-                                    "fn:Source Sans 3",
-                                    "sz:21"
-                                  ],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "\n",
-                                  "Markers": [],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "2 Once everybody has bought their ticket, .. .",
-                                  "Markers": [
-                                    "fn:Source Sans 3",
-                                    "sz:21"
-                                  ],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "\n",
-                                  "Markers": [],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "3 You won't get lost provided ...",
-                                  "Markers": [
-                                    "fn:Source Sans 3",
-                                    "sz:21"
-                                  ],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "\n",
-                                  "Markers": [],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "4 Now everybody is free to explore the museum. You can go wherever you like ",
-                                  "Markers": [
-                                    "fn:Source Sans 3",
-                                    "sz:21"
-                                  ],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "as long ",
-                                  "Markers": [
-                                    "i",
-                                    "fn:Source Sans 3",
-                                    "sz:21"
-                                  ],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "as ...",
-                                  "Markers": [
-                                    "fn:Source Sans 3",
-                                    "sz:21"
-                                  ],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "\n",
-                                  "Markers": [],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                },
-                                {
-                                  "Type": "text",
-                                  "Content": "5 Your bus back to the hotel will depart as soon as .. .",
-                                  "Markers": [
-                                    "fn:Source Sans 3",
-                                    "sz:21"
-                                  ],
-                                  "InnerSpans": [],
-                                  "TableRows": []
-                                }
-                              ],
+                              "InnerSpans": [],
                               "TableRows": []
                             }
                           ]
                         },
                         {
                           "Direction": "LTR",
-                          "SpaceAfter": 4.0,
+                          "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "6 Do not touch or take photos of the exhibits unless ...",
+                              "Content": "1 You can get a discounted ticket as long as {blk}you show your student card.{/blk}",
                               "Markers": [
-                                "bg:FFF2CC",
                                 "fn:Source Sans 3",
                                 "sz:21"
                               ],
-                              "FillColor": "FFF2CC",
-                              "BorderColor": "ED7D31",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "2 Once everybody has bought their ticket, {blk}we will go to the first exhibit room.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "3 You won't get lost provided {blk}you use the map you were given.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "4 Now everybody is free to explore the museum. You can go wherever you like ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "as long as",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " {blk}you return to the main entrance for 4 pm.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "5 Your bus back to the hotel will depart as soon as {blk}everybody is on board.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "6 Do not touch or take photos of the exhibits unless {blk}there is a sign saying that it is allowed.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -19366,6 +19367,2640 @@
                       ],
                       "WidthPercent": 96.33,
                       "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "PageNumber": 17,
+      "Paragraphs": [
+        {
+          "Direction": "LTR",
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "text",
+              "Content": "[[[[[[[[[[",
+              "Markers": [
+                "bg:CA0D8E",
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "FillColor": "CA0D8E",
+              "TextColor": "CA0D8E",
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "EXAM SKILLS",
+              "Markers": [
+                "b",
+                "fn:Source Sans 3 SemiBold",
+                "sz:32"
+              ],
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "]",
+              "Markers": [
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "TextColor": "CA0D8E",
+              "InnerSpans": [],
+              "TableRows": []
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "16",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "CA0D8E",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 4.8,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Listen and answer questions 1-9.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Questions 1-6",
+                              "Markers": [
+                                "b",
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "05",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": "audio:MindsetIELTS_L3_05.mp3",
+                              "TextColor": "0563C1",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Complete the notes below.",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Write ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "NO MORE THAN TWO WORDS AND/ORA NUMBER",
+                              "Markers": [
+                                "b",
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " for each answer.",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "table",
+                              "Markers": [],
+                              "BorderWidth": 0.5,
+                              "TableStyleId": "DottedTable",
+                              "TableStyleName": "DottedTable",
+                              "HasBorders": "true",
+                              "TableWidthPercent": 90.03205128205128,
+                              "InnerSpans": [],
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Name:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Mr ",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "1",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " {blk}David Cottenham{/blk}",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Current address:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "4 West Cottages, Humblington, Devon, ",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "2",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " {blk}DV12 8HA{/blk}",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Destination address:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "8b Greenend Road, El9 4RR",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Date of move:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "30 August",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Time booked:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "3 ",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "{blk}7.30 pm I 19.30 /half past seven{/blk}",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Value of insurance cover:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "4 ",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "£ {blk}60,000{/blk}",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Total cost for service:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "around £2,000",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Telephone number:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "(07238) ",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "5 ",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "{blk}244 510{/blk}",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Website:",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 36.09,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "WWW. ",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "6",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " ",
+                                              "Markers": [
+                                                "fn:Calibri",
+                                                "sz:22"
+                                              ],
+                                              "TextColor": "050505",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "{blk}we-move-u{/blk}",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " ",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": ".co.uk",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 63.91,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Questions 7-9",
+                              "Markers": [
+                                "b",
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Choose the correct letter, A, B or C.",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "7",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " The removals package that the man chooses is {blk}Silver{/blk}.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Premium.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "B",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Silver.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "C",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Economy.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "8 The woman believes that the best thing about We-Move-U is that they {blk}provide excellent service to their clients.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " cost less than people expect.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "B",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " are very efficient.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "C",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " provide excellent service to their clients.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "9 After the man makes a booking, there will be {blk}a charge if the man changes the day of his move.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " no more charges.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "B",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " a 10% charge when the move is completed.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 7.1,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "C",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " a charge if the man changes the day of his move.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 95.2,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "PageNumber": 18,
+      "Paragraphs": [
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "UNIT/01: URBAN AND RURAL LIFE",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3 ExtraBold",
+                                "sz:32"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "LISTENING",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3 Black",
+                                "sz:88"
+                              ],
+                              "TextColor": "FFFFFF",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3 Bold",
+                                "sz:22"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "review all three parts of the Speaking test",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "analyse good and bad answers to parts of the test",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "correctly use future time conditionals in the Speaking test.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "FillColor": "0A7EDD",
+                      "WidthPercent": 100.0,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Direction": "LTR",
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 12.0,
+          "Spans": [
+            {
+              "Type": "text",
+              "Content": "Lead-in",
+              "Markers": [
+                "b",
+                "bg:0A7EDD",
+                "fn:Source Sans 3"
+              ],
+              "FillColor": "0A7EDD",
+              "TextColor": "FFFFFF",
+              "BorderColor": "000000",
+              "BorderStyle": "BorderValues { }",
+              "HasBorders": "true",
+              "InnerSpans": [],
+              "TableRows": []
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "01",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "0A7EDD",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.93,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 4.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Complete this IELTS Speaking test quiz. Then compare your answers with a partner.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}1{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}How long does the full Speaking test last?{blk} B{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "table",
+                              "Markers": [],
+                              "BorderWidth": 0.5,
+                              "TableStyleId": "DottedTable",
+                              "TableStyleName": "DottedTable",
+                              "HasBorders": "true",
+                              "TableWidthPercent": 100.0,
+                              "InnerSpans": [],
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "A",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " 8-10 minutes",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "B",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " 11-14 minutes",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "C",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " 17-20 minutes",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}2{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}Which part of the test is a two-way discussion with the examiner about abstract issues and ideas? {blk}C{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "table",
+                              "Markers": [],
+                              "BorderWidth": 0.5,
+                              "TableStyleId": "DottedTable",
+                              "TableStyleName": "DottedTable",
+                              "HasBorders": "true",
+                              "TableWidthPercent": 100.0,
+                              "InnerSpans": [],
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "A",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 1",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "B",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 2",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "C",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 3",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}3{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}The assessment criteria Fluency and Coherence relates to {blk}C{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "table",
+                              "Markers": [],
+                              "BorderWidth": 0.5,
+                              "TableStyleId": "DottedTable",
+                              "TableStyleName": "DottedTable",
+                              "HasBorders": "true",
+                              "TableWidthPercent": 100.0,
+                              "InnerSpans": [],
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "A",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " the range of vocabulary you use.",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "B",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " grammatical structures and accuracy.",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "C ",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "the flow of your speech and how you connect your ideas.",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}4{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}Which part of the test is known as the 'Long Turn'? {blk}B{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "table",
+                              "Markers": [],
+                              "BorderWidth": 0.5,
+                              "TableStyleId": "DottedTable",
+                              "TableStyleName": "DottedTable",
+                              "HasBorders": "true",
+                              "TableWidthPercent": 100.0,
+                              "InnerSpans": [],
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "A",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 1",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "B",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 2",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "C",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 3",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}5{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}Which parts of the test are linked by topic/theme? {blk}C{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "table",
+                              "Markers": [],
+                              "BorderWidth": 0.5,
+                              "TableStyleId": "DottedTable",
+                              "TableStyleName": "DottedTable",
+                              "HasBorders": "true",
+                              "TableWidthPercent": 100.0,
+                              "InnerSpans": [],
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "A",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 1 and Part 3",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "B",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 1 and Part 2",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "C",
+                                              "Markers": [
+                                                "b",
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " Part 2 and Part 3",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}6{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}In the assessment Criteria, what is indicated by ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "GRA? ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}C{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "IndentLeft": 14.2,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Grammar Rules and Application",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "IndentLeft": 14.2,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "B ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Grammatical Rules and Accuracy",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "IndentLeft": 14.2,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "C ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Grammatical Range and Accuracy",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}7{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}Describe the focus of the questions in Part 1. {blk}A{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "IndentLeft": 14.2,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Simple general questions, familiar topics, personal focus",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "IndentLeft": 14.2,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "B ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "More complex questions based on one topic only, personal focus",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "IndentLeft": 14.2,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "C ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "More complex questions based on one topic only, impersonal focus",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}8{/blk}",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk} {/blk}How long do you get to prepare your answer in Speaking Part 2? {blk}A{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "table",
+                              "Markers": [],
+                              "BorderWidth": 0.5,
+                              "TableStyleId": "DottedTable",
+                              "TableStyleName": "DottedTable",
+                              "HasBorders": "true",
+                              "TableWidthPercent": 100.0,
+                              "InnerSpans": [],
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "A 1 minute",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "B 30 seconds",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "C 45 seconds",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:21"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 33.33,
+                                      "IsHeaderCell": false
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 96.07,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "02",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "0A7EDD",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.93,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 4.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Discuss with a partner what you find easy/difficult about each part of the Speaking test and why. ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3 Medium",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}Students' own answers{/blk}",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 96.07,
                       "IsHeaderCell": false
                     }
                   ]

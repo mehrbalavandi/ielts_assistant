@@ -240,6 +240,27 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     return initialBooks;
   }
 
+  /// همه نسخه‌های آفلاین را صفر می‌کند تا در اجرای بعدی،
+  /// برنامه همه فایل‌ها را نیازمند بروزرسانی تشخیص دهد.
+  Future<void> resetOfflineVersions() async {
+    state = state
+        .map(
+          (book) => book.copyWith(
+            localSampleVersion: 0,
+            localSampleAudioVersion: 0,
+            localSampleImagesVersion: 0,
+            localJsonVersion: 0,
+            localAudioVersion: 0,
+            localImagesVersion: 0,
+          ),
+        )
+        .toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
   Future<void> fetchBooks() async {
     try {
       final dio = ref.read(dioProvider);

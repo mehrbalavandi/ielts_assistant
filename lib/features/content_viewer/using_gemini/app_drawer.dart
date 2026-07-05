@@ -1,15 +1,18 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/services/storage_service.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/settings_screen.dart';
 import 'package:path_provider/path_provider.dart'; // مسیر را تنظیم کنید
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends ConsumerWidget {
   const AppDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       child: Column(
         children: [
@@ -47,25 +50,58 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.restart_alt),
             title: const Text("پاکسازی حافظه"),
             onTap: () async {
-              StorageService.clearOfflineBooks();
-              // پاکسازی حافظه
-              // این فقط یک مثال است. در عمل، شما باید داده‌های واقعی را پاک کنید.
-              // برای مثال، اگر از SharedPreferences استفاده می‌کنید:
-              // SharedPreferences.getInstance().then((prefs) => prefs.clear());
-              // یا اگر فایل‌ها را ذخیره کرده‌اید، آن‌ها را حذف کنید.
-              // File('path_to_your_file').deleteSync();
-              if (Platform.isWindows) {
-                final dir = await getApplicationSupportDirectory();
+              // StorageService.clearOfflineBooks();
+              // // پاکسازی حافظه
+              // // این فقط یک مثال است. در عمل، شما باید داده‌های واقعی را پاک کنید.
+              // // برای مثال، اگر از SharedPreferences استفاده می‌کنید:
+              // // SharedPreferences.getInstance().then((prefs) => prefs.clear());
+              // // یا اگر فایل‌ها را ذخیره کرده‌اید، آن‌ها را حذف کنید.
+              // // File('path_to_your_file').deleteSync();
+              // if (Platform.isWindows) {
+              //   final dir = await getApplicationSupportDirectory();
 
-                if (await dir.exists()) {
-                  await dir.delete(recursive: true);
-                }
-              }
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("حافظه پاکسازی شد!")),
-              );
+              //   if (await dir.exists()) {
+              //     await dir.delete(recursive: true);
+              //   }
+              // }
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   const SnackBar(content: Text("حافظه پاکسازی شد!")),
+              // );
             },
           ),
+          // 🌟 دکمه مخفی که فقط در حالت Debug نمایش داده می‌شود
+          if (kDebugMode) ...[
+            const Divider(color: Colors.redAccent),
+            ListTile(
+              leading: const Icon(Icons.bug_report, color: Colors.redAccent),
+              title: const Text(
+                'ریست ورژن محتواها (Debug)',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () async {
+                ref.read(booksProvider.notifier).resetOfflineVersions();
+
+                // بستن منوی کشویی
+                if (context.mounted) {
+                  Navigator.pop(context);
+
+                  // نمایش اسنک‌بار موفقیت
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text(
+                        'ورژن فایل‌های اصلی و دمو روی ۰ تنظیم شد!',
+                      ),
+                      backgroundColor: Colors.green.shade700,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
         ],
       ),
     );
