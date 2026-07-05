@@ -480,9 +480,28 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                             initialAlignment: 0,
 
                             // ── pre-build آیتم‌ها قبل از ورود به viewport ────
-                            // ۳ برابر ارتفاع صفحه → lazy-build jump حذف می‌شود
+                            // 🌟 رفع اصلیِ مشکل کندی اسکرول (ریشه‌ی واقعی):
+                            // با بررسی خروجی DevTools Performance مشخص شد که
+                            // بدترین فریم‌ها (بعضی تا ۱۶۰ میلی‌ثانیه!) کاملاً
+                            // روی UI thread (build+layout) اتفاق می‌افتند، نه
+                            // GPU/raster. علتش این مقدار ۳ برابر ارتفاع صفحه
+                            // بود: چون هر «آیتم» در این لیست یک صفحه‌ی کامل
+                            // کتاب است (که می‌تواند خودش چند پاراگراف/جدول
+                            // داشته باشد)، یک cache extent به این بزرگی یعنی
+                            // در یک جهش بزرگ (مثلاً پرش جستجو یا اسکرول تند)،
+                            // فلاتر مجبور می‌شود دوجین‌ها صفحه را همزمان و در
+                            // یک فریم بسازد و لایه‌بندی کند — دقیقاً همان چیزی
+                            // که در داده‌های واقعی دیدیم (بیش از ۳۷۰ پاراگراف
+                            // در یک فریم!). با کاهش این مقدار، فلاتر فقط کمی
+                            // جلوتر از viewport واقعی می‌سازد، و بقیه‌ی صفحات
+                            // در فریم‌های بعدی (طی خودِ اسکرول) به‌تدریج ساخته
+                            // می‌شوند — یعنی همان هزینه‌ی کل، اما پخش‌شده روی
+                            // فریم‌های بیشتر به‌جای فشرده در یک فریم.
+                            // اگر هنوز حین اسکرولِ خیلی سریع، صفحه‌ی خالی/جای‌
+                            // خالی برای یک لحظه دیده شد، این عدد را کمی (نه به
+                            // همان ۳ برابر) افزایش دهید.
                             minCacheExtent:
-                                MediaQuery.of(context).size.height * 3,
+                                MediaQuery.of(context).size.height * 0.5,
 
                             physics: _isPinching
                                 ? const NeverScrollableScrollPhysics()
@@ -593,6 +612,30 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
   List<Widget> _buildParaWidgets(BuildContext context) {
     final List<Widget> result = [];
     final currentBook = ref.read(activeBookProvider);
+
+    // 🌟 رفع باگ دکمه‌های بعدی/قبلیِ پلیر صوتی:
+    // قبلاً هر لینک صوتی هنگام پخش، یک پلی‌لیستِ تک‌عضوی (فقط خودش) به
+    // پلیر می‌داد؛ چون دکمه‌ی بعدی/قبلی بر اساس همین پلی‌لیست کار می‌کند،
+    // همیشه چیزی برای «بعدی/قبلی» وجود نداشت. اینجا، یک‌بار برای کل صفحه،
+    // تمام لینک‌های صوتی (span.url با پیشوند "audio:") را به ترتیب ظاهرشدن
+    // جمع‌آوری و به مسیر واقعی‌شان (فایل آفلاین یا asset) resolve می‌کنیم؛
+    // همین لیست به هر InlineAudioLink پاس داده می‌شود تا دکمه‌های
+    // بعدی/قبلی واقعاً بین همه‌ی صداهای این صفحه حرکت کنند.
+    final List<String> pageAudioPlaylist = [];
+    final Set<String> seenAudioFiles = {};
+    for (final p in widget.page.paragraphs) {
+      for (final s in p.spans) {
+        if (s.url != null && s.url!.startsWith("audio:")) {
+          final fileName = s.url!.replaceFirst("audio:", "");
+          if (fileName.isNotEmpty && seenAudioFiles.add(fileName)) {
+            pageAudioPlaylist.add(
+              InlineAudioLink.resolveAudioPath(fileName, currentBook),
+            );
+          }
+        }
+      }
+    }
+
     for (int pIndex = 0; pIndex < widget.page.paragraphs.length; pIndex++) {
       var para = widget.page.paragraphs[pIndex];
       final isTarget =
@@ -618,6 +661,7 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         pageInteractives: widget.page.interactives,
         interactivesPattern: widget.page.interactivesPattern, // 🌟 اضافه شد
         interactivesByText: widget.page.interactivesByText, // 🌟 اضافه شد
+        pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
         rootHighlightMap: rootHighlightMap,
         mapOffset: MapOffset(),
         activeOccurrence: isTarget
@@ -640,7 +684,29 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
   Widget build(BuildContext context) {
     super.build(context);
     // ??=  →  فقط اولین بار یا پس از باطل‌شدن کش، محاسبه می‌کند
-    _cachedWidgets ??= _buildParaWidgets(context);
+    if (_cachedWidgets == null) {
+      final sw = Stopwatch()..start();
+      _cachedWidgets = _buildParaWidgets(context);
+      sw.stop();
+
+      // 🌟 لاگ تشخیصیِ موقت: فقط برای پیدا کردن اینکه دقیقاً کدام صفحه‌ها
+      // و به چه دلیل (تعداد پاراگراف/جدول/تصویر) کند هستند. بعد از پیدا
+      // شدن علت، این بلوک کامل حذف می‌شود.
+      int imageCount = 0;
+      int tableCount = 0;
+      for (final p in widget.page.paragraphs) {
+        for (final s in p.spans) {
+          if (s.type == 'image') imageCount++;
+          if (s.type == 'table') tableCount++;
+        }
+      }
+      debugPrint(
+        '⏱️ صفحه ${widget.page.pageNumber}: ${sw.elapsedMilliseconds}ms '
+        '| پاراگراف=${widget.page.paragraphs.length} '
+        '| کلمه‌دیکشنری=${widget.page.interactives.length} '
+        '| تصویر=$imageCount | جدول=$tableCount',
+      );
+    }
 
     return Column(
       key:
@@ -838,6 +904,7 @@ Widget _buildParagraph(
   required List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید اضافه شد
   RegExp? interactivesPattern, // 🌟 اضافه شد
   Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
+  List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
   GlobalKey? exactMatchKey, // 🌟 اضافه شد
 }) {
   if (para.spans.isEmpty ||
@@ -870,7 +937,12 @@ Widget _buildParagraph(
   }
 
   bool isLargeScreen = screenWidth >= 600;
-
+  // 🌟 جادوی تورفتگی خط اول (First Line Indent)
+  if (para.indentFirstLine != null && para.indentFirstLine! > 0) {
+    currentInlineSpans.add(
+      WidgetSpan(child: SizedBox(width: para.indentFirstLine)),
+    );
+  }
   for (var span in para.spans) {
     if (span.type == "text") {
       String content = span.content ?? '';
@@ -895,6 +967,7 @@ Widget _buildParagraph(
           exactMatchKey: exactMatchKey, // 🌟 انتقال به انجین متن
           interactivesPattern: interactivesPattern, // 🌟 اضافه شد
           interactivesByText: interactivesByText, // 🌟 اضافه شد
+          pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
         ),
       );
       mapOffset.value += content.length;
@@ -924,6 +997,7 @@ Widget _buildParagraph(
                       screenWidth: screenWidth,
                       isImageCell: isImageCell,
                       activeBook: activeBook,
+                      context: context, // 🌟 اضافه شد
                     ),
                   )
                 : _buildLocalImage(
@@ -932,6 +1006,7 @@ Widget _buildParagraph(
                     screenWidth: screenWidth,
                     isImageCell: isImageCell,
                     activeBook: activeBook,
+                    context: context, // 🌟 اضافه شد
                   ),
           ),
         );
@@ -953,6 +1028,7 @@ Widget _buildParagraph(
           exactMatchKey: exactMatchKey, // 🌟 انتقال به جدول
           interactivesPattern: interactivesPattern, // 🌟 اضافه شد
           interactivesByText: interactivesByText, // 🌟 اضافه شد
+          pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
         ),
       );
     }
@@ -996,6 +1072,22 @@ Widget _buildParagraph(
     externalBottomMargin = spaceAfter;
   }
 
+  // 🌟 اعمال فاصله‌های تورفتگی کلی چپ و راست
+  // 🌟 جلوگیری از خطای Padding منفی (وقتی در ورد تورفتگی معکوس اعمال شده باشد)
+  double leftMargin = (para.indentLeft != null && para.indentLeft! > 0)
+      ? para.indentLeft!
+      : 0.0;
+  double rightMargin = (para.indentRight != null && para.indentRight! > 0)
+      ? para.indentRight!
+      : 0.0;
+  double topMargin = externalTopMargin > 0 ? externalTopMargin : 0.0;
+  double bottomMargin = externalBottomMargin > 0 ? externalBottomMargin : 0.0;
+
+  double topInternal = internalTopPadding > 0 ? internalTopPadding : 0.0;
+  double bottomInternal = internalBottomPadding > 0
+      ? internalBottomPadding
+      : 0.0;
+
   if (hasBgColor || hasBorder) {
     Color borderColor = _hexToColor(para.borderColor) ?? Colors.grey.shade600;
     double borderWidth = 1.5;
@@ -1037,16 +1129,19 @@ Widget _buildParagraph(
           : EdgeInsets.only(
               left: isInsideTableCell ? 2.0 : 10.0,
               right: isInsideTableCell ? 2.0 : 10.0,
-              top: internalTopPadding,
-              bottom: internalBottomPadding,
+              top: topInternal,
+              bottom: bottomInternal,
             ),
       child: paragraphContent,
     );
   }
+
   return Padding(
     padding: EdgeInsets.only(
-      top: externalTopMargin,
-      bottom: externalBottomMargin,
+      top: topMargin, // 🌟 استفاده از مقادیر ایمن
+      bottom: bottomMargin, // 🌟 استفاده از مقادیر ایمن
+      left: leftMargin, // 🌟 اعمال تورفتگی چپ
+      right: rightMargin, // 🌟 اعمال تورفتگی راست
     ),
     child: paragraphContent,
   );
@@ -1066,6 +1161,7 @@ Widget _buildTable(
   GlobalKey? exactMatchKey,
   RegExp? interactivesPattern, // 🌟 اضافه شد
   Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
+  List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
 }) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -1145,18 +1241,27 @@ Widget _buildTable(
             exactMatchKey: exactMatchKey,
             interactivesPattern: interactivesPattern, // 🌟 اضافه شد
             interactivesByText: interactivesByText, // 🌟 اضافه شد
+            pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
           ),
         );
       }
 
+      // 🌟 محاسبه دقیق پدینگ سلول (با حفظ رفتار خاص عکس‌ها)
+      EdgeInsetsGeometry cellPadding;
+      if (isImageCell) {
+        cellPadding = const EdgeInsets.all(2.0);
+      } else {
+        cellPadding = EdgeInsets.only(
+          top: cell.paddingTop ?? 4.0, // فال‌بک دیفالت در صورت نبود دیتا
+          bottom: cell.paddingBottom ?? 4.0,
+          left: cell.paddingLeft ?? 8.0,
+          right: cell.paddingRight ?? 8.0,
+        );
+      }
+
       Widget cellContent = Container(
-        padding: isImageCell
-            ? const EdgeInsets.all(2.0)
-            : const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: _hexToColor(cell.fillColor),
-          // 🎯 مهم: بوردرهای کانتینر حذف شدند تا ناترازی ایجاد نکنند!
-        ),
+        padding: cellPadding, // 🌟 تزریق پدینگ‌های میلی‌متری
+        decoration: BoxDecoration(color: _hexToColor(cell.fillColor)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -1252,6 +1357,7 @@ List<InlineSpan> _buildStyledInteractiveText(
   GlobalKey? exactMatchKey, // 🌟 اضافه شد
   RegExp? interactivesPattern, // 🌟 اضافه شد
   Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
+  List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -1300,6 +1406,7 @@ List<InlineSpan> _buildStyledInteractiveText(
           fileName: span.url!.replaceFirst("audio:", ""),
           text: span.content,
           baseColor: interactiveColor,
+          playlist: pageAudioPlaylist, // 🌟 اضافه شد
         ),
       ),
     );
@@ -1354,6 +1461,7 @@ Widget _buildLocalImage(
   required double screenWidth,
   required bool isImageCell,
   required BookModel? activeBook, // 🌟 اضافه شد
+  required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
 }) {
   String fallbackPath = 'assets/data/images/$imageName';
   File? localFile;
@@ -1368,6 +1476,24 @@ Widget _buildLocalImage(
     }
   }
 
+  final double? logicalWidth = (isMobile && !isImageCell)
+      ? screenWidth * 0.85
+      : null;
+
+  // 🌟 رفع یک منبع واقعی و بزرگ جنک (تأییدشده با DevTools: میانگین ۲۶۷ms
+  // به ازای هر تصویر!): بدون cacheWidth، فلاتر تصویر را در رزولوشن اصلی
+  // فایل دیکود می‌کند، حتی اگر فایل چند برابر بزرگ‌تر از چیزی باشد که روی
+  // صفحه نشان داده می‌شود. این هم دیکود را کند می‌کند و هم حافظه‌ی زیادی
+  // برای یک بیت‌مپ بزرگ‌تر از نیاز نگه می‌دارد — که مستقیماً فشار GC را هم
+  // بالا می‌برد. با محدود کردن cacheWidth به اندازه‌ی واقعیِ نمایش (ضرب‌شده
+  // در devicePixelRatio دستگاه)، فلاتر مستقیماً در همان اندازه‌ی کوچک
+  // دیکود می‌کند.
+  final double dpr = MediaQuery.of(context).devicePixelRatio;
+  final int cacheWidth = ((logicalWidth ?? screenWidth) * dpr).round().clamp(
+    1,
+    4000,
+  );
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
     child: ClipRRect(
@@ -1376,14 +1502,16 @@ Widget _buildLocalImage(
           ? Image.file(
               localFile,
               fit: BoxFit.contain,
-              width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
+              width: logicalWidth,
+              cacheWidth: cacheWidth, // 🌟 اضافه شد
               errorBuilder: (context, error, stackTrace) =>
                   _errorImage(imageName),
             )
           : Image.asset(
               fallbackPath,
               fit: BoxFit.contain,
-              width: (isMobile && !isImageCell) ? screenWidth * 0.85 : null,
+              width: logicalWidth,
+              cacheWidth: cacheWidth, // 🌟 اضافه شد
               errorBuilder: (context, error, stackTrace) =>
                   _errorImage(imageName),
             ),
@@ -1416,44 +1544,94 @@ class InlineAudioLink extends ConsumerWidget {
   final String fileName;
   final String text;
   final Color baseColor;
+  // 🌟 پلی‌لیستِ همه‌ی فایل‌های صوتیِ این صفحه (مسیرهای resolve‌شده)، تا
+  // دکمه‌های بعدی/قبلی در پلیر واقعاً چیزی برای رفتن داشته باشند. قبلاً هر
+  // لینک هنگام پخش فقط خودش را به‌عنوان یک پلی‌لیستِ تک‌عضوی می‌فرستاد، پس
+  // دکمه‌ی بعدی/قبلی همیشه در انتهای لیست بود و کاری نمی‌کرد.
+  final List<String> playlist;
 
   const InlineAudioLink({
     super.key,
     required this.fileName,
     required this.text,
     required this.baseColor,
+    this.playlist = const [],
   });
+
+  // 🌟 رفع مشکل لرزش/جنکِ اسکرول هنگام پخش صدا:
+  //
+  // قبلاً این ویجت با `ref.watch(audioPlayerProvider)` کل شیء وضعیت پلیر
+  // را نگاه می‌کرد. چون `position` چندین بار در ثانیه تغییر می‌کند، این
+  // یعنی همه‌ی لینک‌های صوتی مونتاژشده روی صفحه (حتی آن‌هایی که اصلاً در
+  // حال پخش نیستند و AutomaticKeepAliveClientMixin آن‌ها را زنده نگه
+  // داشته) با هر تیکِ پخش دوباره rebuild می‌شدند — و هر rebuild هم شامل
+  // یک چک هم‌زمانِ فایل‌سیستم (`existsSync`) و خواندن از GetStorage بود.
+  // نتیجه دقیقاً همان لرزشی بود که هنگام اسکرول + پخش صدا حس می‌کردید،
+  // چون این کارها روی UI thread رقیب اسکرول می‌شدند.
+  //
+  // راه‌حل: فقط فیلدهای کم‌تغییر (currentPath، isPlaying) را همیشه watch
+  // می‌کنیم؛ فیلد پرتغییر (position/duration) را فقط وقتی این لینکِ خاص
+  // همان فایل در حال پخش است می‌خوانیم. یعنی از بین ده‌ها لینک صوتیِ
+  // ممکن روی صفحه، فقط همان یکی که واقعاً پخش می‌شود با هر تیک rebuild
+  // می‌شود، نه همه‌شان.
+  static final Map<String, String> _resolvedPathCache = {};
+
+  // 🌟 اکنون static و public (بدون آندرلاین) تا _buildParaWidgets هم
+  // بتواند برای ساختن پلی‌لیستِ کل صفحه از همین منطق resolve استفاده کند
+  // (و از همان کش مشترک بهره ببرد، بدون نیاز به existsSync تکراری).
+  static String resolveAudioPath(String fileName, BookModel? activeBook) {
+    final cacheKey = '${activeBook?.id ?? ''}::$fileName';
+    return _resolvedPathCache.putIfAbsent(cacheKey, () {
+      String targetPath = 'assets/data/audio/$fileName';
+      if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
+        final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
+        final localAudioFile = File('$bookFolderPath/$fileName');
+        if (localAudioFile.existsSync()) {
+          targetPath = localAudioFile.path;
+        }
+      }
+      return targetPath;
+    });
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final audioState = ref.watch(audioPlayerProvider);
+    // فیلدهای کم‌تغییر — فقط وقتی پخش شروع/متوقف/عوض شود rebuild می‌کند
+    final currentPath = ref.watch(
+      audioPlayerProvider.select((s) => s.currentPath),
+    );
+    final isPlayingGlobal = ref.watch(
+      audioPlayerProvider.select((s) => s.isPlaying),
+    );
     final activeBook = ref.watch(activeBookProvider);
-    final box = GetStorage();
 
-    // 🌟 پیدا کردن مسیر دقیق (این همون کلیدی هست که پلیر تو دیتابیس ذخیره میکنه)
-    String targetPath = 'assets/data/audio/$fileName';
-    if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
-      final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
-      final localAudioFile = File('$bookFolderPath/$fileName');
-      if (localAudioFile.existsSync()) {
-        targetPath = localAudioFile.path;
-      }
-    }
+    // 🌟 دیگر هر بار existsSync صدا زده نمی‌شود؛ فقط یک‌بار برای هر فایل
+    final targetPath = InlineAudioLink.resolveAudioPath(fileName, activeBook);
 
-    bool isCurrent = audioState.currentPath == targetPath;
-    bool isPlaying = isCurrent && audioState.isPlaying;
+    bool isCurrent = currentPath == targetPath;
+    bool isPlaying = isCurrent && isPlayingGlobal;
 
-    // 🌟 اصلاح کلیدهای GetStorage برای تطابق با Provider
     final storagePosKey = 'pos_$targetPath';
     final storageDurKey = 'dur_$targetPath';
 
-    int currentPosMs = isCurrent
-        ? audioState.position.inMilliseconds
-        : (box.read(storagePosKey) ?? 0);
-
-    int currentDurMs = isCurrent && audioState.duration.inMilliseconds > 0
-        ? audioState.duration.inMilliseconds
-        : (box.read(storageDurKey) ?? 0);
+    int currentPosMs;
+    int currentDurMs;
+    if (isCurrent) {
+      // 🌟 فقط همینجا (فقط برای لینکِ در حال پخش) فیلد پرتغییر را watch کن
+      currentPosMs = ref.watch(
+        audioPlayerProvider.select((s) => s.position.inMilliseconds),
+      );
+      currentDurMs = ref.watch(
+        audioPlayerProvider.select((s) => s.duration.inMilliseconds),
+      );
+      if (currentDurMs <= 0) {
+        currentDurMs = GetStorage().read(storageDurKey) ?? 0;
+      }
+    } else {
+      final box = GetStorage();
+      currentPosMs = box.read(storagePosKey) ?? 0;
+      currentDurMs = box.read(storageDurKey) ?? 0;
+    }
 
     double progress = currentDurMs > 0
         ? (currentPosMs / currentDurMs).clamp(0.0, 1.0)
@@ -1464,11 +1642,19 @@ class InlineAudioLink extends ConsumerWidget {
         if (isPlaying) {
           ref.read(audioPlayerProvider.notifier).pause();
         } else {
-          // 🌟 اینجا برای اینکه دکمه‌های بعدی/قبلی درست کار کنند، ما یک پلی‌لیست پویا
-          // از تمام فایل‌های صوتی ممکن می‌سازیم (در صورت نیاز می‌توانید پلی‌لیست رو پیچیده‌تر کنید)
+          // 🌟 رفع باگ دکمه‌های بعدی/قبلی: قبلاً اینجا `newPlaylist:
+          // [targetPath]` فرستاده می‌شد — یعنی یک پلی‌لیستِ تک‌عضوی که
+          // خودش تنها عضوش بود. چون playNext/playPrevious بر اساس
+          // اندیسِ فایل فعلی در همین لیست حرکت می‌کنند، همیشه یا اول یا
+          // آخر لیست بودیم و دکمه‌ها هیچ‌وقت جایی برای رفتن نداشتند. حالا
+          // پلی‌لیستِ واقعیِ همه‌ی لینک‌های صوتیِ این صفحه (به ترتیب ظاهر
+          // شدنشان در متن) پاس داده می‌شود.
+          final effectivePlaylist = playlist.contains(targetPath)
+              ? playlist
+              : [targetPath];
           ref
               .read(audioPlayerProvider.notifier)
-              .playFile(targetPath, newPlaylist: [targetPath]);
+              .playFile(targetPath, newPlaylist: effectivePlaylist);
         }
       },
       child: Container(
@@ -1503,7 +1689,7 @@ class InlineAudioLink extends ConsumerWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 6),
+            const SizedBox(width: 8.0),
             Text(
               text,
               style: TextStyle(
@@ -1512,6 +1698,7 @@ class InlineAudioLink extends ConsumerWidget {
                 fontSize: 14,
                 letterSpacing: 0.5,
               ),
+              overflow: TextOverflow.ellipsis, // 🌟 اگر جا نبود نقطه‌چین می‌شود
             ),
           ],
         ),

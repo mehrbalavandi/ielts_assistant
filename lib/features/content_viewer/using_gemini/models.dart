@@ -50,6 +50,9 @@ class ParagraphData {
 
   final double spaceBefore;
   final double spaceAfter;
+  final double? indentLeft;
+  final double? indentRight;
+  final double? indentFirstLine;
 
   // 🌟 فیلدهای زمان‌بندی صوتی و نام فایل (Karaoke)
   final int? startMs;
@@ -70,6 +73,9 @@ class ParagraphData {
     this.borderStyle,
     this.spaceBefore = 0.0,
     this.spaceAfter = 0.0,
+    this.indentLeft,
+    this.indentRight,
+    this.indentFirstLine,
     this.startMs,
     this.endMs,
     this.audioTrackName, // 🌟 اضافه شد
@@ -91,6 +97,9 @@ class ParagraphData {
       borderStyle: json['BorderStyle'],
       spaceBefore: (json['SpaceBefore'] as num?)?.toDouble() ?? 0.0,
       spaceAfter: (json['SpaceAfter'] as num?)?.toDouble() ?? 0.0,
+      indentLeft: json['IndentLeft']?.toDouble(),
+      indentRight: json['IndentRight']?.toDouble(),
+      indentFirstLine: json['IndentFirstLine']?.toDouble(),
       startMs: json['StartMs'] as int?,
       endMs: json['EndMs'] as int?,
       audioTrackName: json['AudioTrackName'] as String?, // 🌟 مپ کردن از JSON
@@ -236,6 +245,10 @@ class TableCellData {
   final String? rowMerge;
   final bool isHeaderCell;
   final CellBorders? borders;
+  final double? paddingTop;
+  final double? paddingBottom;
+  final double? paddingLeft;
+  final double? paddingRight;
 
   TableCellData({
     this.widthPercent,
@@ -246,6 +259,10 @@ class TableCellData {
     this.rowMerge,
     this.isHeaderCell = false,
     this.borders, // پیش‌فرض خالی
+    this.paddingTop,
+    this.paddingBottom,
+    this.paddingLeft,
+    this.paddingRight,
   });
 
   factory TableCellData.fromJson(Map<String, dynamic> json) {
@@ -261,6 +278,10 @@ class TableCellData {
       borders: json['Borders'] != null
           ? CellBorders.fromJson(json['Borders'])
           : null,
+      paddingTop: json['PaddingTop']?.toDouble(),
+      paddingBottom: json['PaddingBottom']?.toDouble(),
+      paddingLeft: json['PaddingLeft']?.toDouble(),
+      paddingRight: json['PaddingRight']?.toDouble(),
     );
   }
 }

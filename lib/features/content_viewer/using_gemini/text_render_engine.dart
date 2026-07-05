@@ -709,15 +709,15 @@ class InteractiveBlankWord extends StatelessWidget {
               size: 16,
               color: hasSearchResult ? Colors.orangeAccent : iconColor,
             ),
-            const SizedBox(width: 6),
-            Text(
-              "نمایش پاسخ",
-              style: textStyle.copyWith(
-                fontSize: 12,
-                color: hasSearchResult ? Colors.orangeAccent : iconColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            // const SizedBox(width: 6),
+            // Text(
+            //   "", //نمایش پاسخ
+            //   style: textStyle.copyWith(
+            //     fontSize: 12,
+            //     color: hasSearchResult ? Colors.orangeAccent : iconColor,
+            //     fontWeight: FontWeight.w600,
+            //   ),
+            // ),
           ],
         ),
       ),
