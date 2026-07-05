@@ -1169,15 +1169,21 @@ Widget _buildTable(
           .toLowerCase()
           .replaceAll(" ", "")
           .replaceAll("_", "");
+
   final bool isBorderedTable = rawStyle.contains("borderedtable");
   final bool hideBorders =
-      rawStyle.contains("dottedtable") || rawStyle.contains("tablegrid");
+      rawStyle.contains("dottedtable") ||
+      rawStyle.contains("columnstack") ||
+      rawStyle.contains("tablegrid");
+
+  // 🌟 استخراج استایل جدید برای چیدمان ستونی در موبایل
+  final bool isColumnStack = rawStyle.contains("columnstack");
+  final bool applyColumnStack = isColumnStack && !isLargeScreen;
 
   double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
   Color borderColor =
       _hexToColor(tableSpan.borderColor) ??
       (isBorderedTable ? Colors.black : Colors.grey.shade400);
-
   // 🌟 ساخت خط مرزی یکپارچه
   final BorderSide activeSide = BorderSide(
     color: borderColor,
@@ -1187,6 +1193,9 @@ Widget _buildTable(
       !hideBorders && (isBorderedTable || tableSpan.hasBorders == "true");
 
   List<Widget> rowWidgets = [];
+  List<List<Widget>> allGridCells =
+      []; // 🌟 آرایه موقت برای ذخیره سلول‌ها جهت چیدمان ستونی
+
   for (var row in tableSpan.tableRows) {
     List<Widget> cellWidgets = [];
     bool hasAnyImage = false, hasAnyText = false;
@@ -1215,7 +1224,6 @@ Widget _buildTable(
     for (int i = 0; i < row.cells.length; i++) {
       var cell = row.cells[i];
       List<Widget> cellParagraphs = [];
-
       bool isImageCell = cell.paragraphs.any(
         (p) => p.spans.any((s) => s.type == "image"),
       );
@@ -1247,17 +1255,14 @@ Widget _buildTable(
       }
 
       // 🌟 محاسبه دقیق پدینگ سلول (با حفظ رفتار خاص عکس‌ها)
-      EdgeInsetsGeometry cellPadding;
-      if (isImageCell) {
-        cellPadding = const EdgeInsets.all(2.0);
-      } else {
-        cellPadding = EdgeInsets.only(
-          top: cell.paddingTop ?? 4.0, // فال‌بک دیفالت در صورت نبود دیتا
-          bottom: cell.paddingBottom ?? 4.0,
-          left: cell.paddingLeft ?? 8.0,
-          right: cell.paddingRight ?? 8.0,
-        );
-      }
+      EdgeInsetsGeometry cellPadding = isImageCell
+          ? const EdgeInsets.all(2.0)
+          : EdgeInsets.only(
+              top: cell.paddingTop ?? 4.0, // فال‌بک دیفالت در صورت نبود دیتا
+              bottom: cell.paddingBottom ?? 4.0,
+              left: cell.paddingLeft ?? 8.0,
+              right: cell.paddingRight ?? 8.0,
+            );
 
       Widget cellContent = Container(
         padding: cellPadding, // 🌟 تزریق پدینگ‌های میلی‌متری
@@ -1278,29 +1283,65 @@ Widget _buildTable(
       }
     }
 
-    if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
-      // 🌟 جادوی رفع ناترازی: هر ردیف یک Table مستقل است که خطوط داخلی و پایین خود را به صورت یکپارچه رسم می‌کند
-      rowWidgets.add(
-        Table(
-          columnWidths: columnWidths,
-          defaultVerticalAlignment:
-              TableCellVerticalAlignment.top, // ارتفاع طبیعی و بدون کرش
-          border: showBorders
-              ? TableBorder(
-                  bottom: activeSide, // خط پایین کاملاً صاف برای کل ردیف
-                  right: activeSide, // خط راست ردیف
-                  verticalInside:
-                      activeSide, // خطوط جداکننده ستون‌ها (کاملاً صاف)
-                )
-              : const TableBorder.symmetric(),
-          children: [TableRow(children: cellWidgets)],
-        ),
-      );
+    // 🌟 منطق تفکیک: اگر حالت ستونی فعال است، فعلاً رندر نکن و فقط ذخیره کن
+    if (applyColumnStack) {
+      allGridCells.add(cellWidgets);
     } else {
+      // 🌟 حالت استاندارد قبلی شما
+      if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
+        // 🌟 جادوی رفع ناترازی: هر ردیف یک Table مستقل است که خطوط داخلی و پایین خود را به صورت یکپارچه رسم می‌کند
+        rowWidgets.add(
+          Table(
+            columnWidths: columnWidths,
+            defaultVerticalAlignment:
+                TableCellVerticalAlignment.top, // ارتفاع طبیعی و بدون کرش
+            border: showBorders
+                ? TableBorder(
+                    bottom: activeSide, // خط پایین کاملاً صاف برای کل ردیف
+                    right: activeSide, // خط راست ردیف
+                    verticalInside:
+                        activeSide, // خطوط جداکننده ستون‌ها (کاملاً صاف)
+                  )
+                : const TableBorder.symmetric(),
+            children: [TableRow(children: cellWidgets)],
+          ),
+        );
+      } else {
+        rowWidgets.add(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: cellWidgets,
+          ),
+        );
+      }
+    }
+  }
+
+  // 🌟 جادوی چیدمان ستونی: خواندن آرایه 2D از ستون به ردیف
+  if (applyColumnStack && allGridCells.isNotEmpty) {
+    int maxCols = allGridCells.fold(
+      0,
+      (max, rowCells) => rowCells.length > max ? rowCells.length : max,
+    );
+
+    for (int colIndex = 0; colIndex < maxCols; colIndex++) {
+      List<Widget> columnCells = [];
+
+      for (int rowIndex = 0; rowIndex < allGridCells.length; rowIndex++) {
+        if (colIndex < allGridCells[rowIndex].length) {
+          columnCells.add(allGridCells[rowIndex][colIndex]);
+        }
+      }
+
       rowWidgets.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: cellWidgets,
+        Container(
+          margin: const EdgeInsets.only(
+            bottom: 12.0,
+          ), // فاصله بین هر بلوکِ ستونی
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: columnCells,
+          ),
         ),
       );
     }
