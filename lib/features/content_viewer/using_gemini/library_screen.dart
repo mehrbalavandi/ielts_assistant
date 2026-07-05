@@ -44,7 +44,15 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
   Widget build(BuildContext context) {
     final books = ref.watch(booksProvider);
     final authState = ref.watch(authProvider);
+    final width = MediaQuery.of(context).size.width;
 
+    int crossAxisCount = switch (width) {
+      < 300 => 1,
+      < 600 => 2,
+      < 900 => 3,
+      < 1200 => 4,
+      _ => 5,
+    };
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
@@ -110,13 +118,12 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                   )
                 : GridView.builder(
                     padding: const EdgeInsets.all(16),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1.0,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                        ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      childAspectRatio: 0.75,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                    ),
                     itemCount: books.length,
                     itemBuilder: (context, index) {
                       final book = books[index];
@@ -290,23 +297,29 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
             // نمایش دکمه آپدیت فقط در صورت وجود نسخه جدید برای فایل‌های اصلی
             if (book
                 .hasAnyMainUpdate) // 🌟 تغییر از hasAnyUpdate به hasAnyMainUpdate
-              ElevatedButton.icon(
-                icon: const Icon(Icons.sync, size: 14),
-                label: const Text(
-                  "به‌روزرسانی محتوا",
-                  style: TextStyle(fontSize: 11),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue.shade50,
-                  foregroundColor: Colors.blue.shade900,
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                ),
-                onPressed: () => ref
-                    .read(booksProvider.notifier)
-                    .downloadBookContent(
-                      book,
-                      isSample: false,
-                    ), // 🌟 استفاده از متد جدید
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 8.0),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.sync, size: 14),
+                    label: const Text(
+                      "به‌روزرسانی محتوا",
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade50,
+                      foregroundColor: Colors.blue.shade900,
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                    ),
+                    onPressed: () => ref
+                        .read(booksProvider.notifier)
+                        .downloadBookContent(
+                          book,
+                          isSample: false,
+                        ), // 🌟 استفاده از متد جدید
+                  ),
+                ],
               ),
           ],
         );

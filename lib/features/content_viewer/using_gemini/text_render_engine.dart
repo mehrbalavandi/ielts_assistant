@@ -692,7 +692,7 @@ class InteractiveBlankWord extends StatelessWidget {
       onTap: () => _showHiddenTextModal(context, isDarkTheme),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
         decoration: BoxDecoration(
           color: buttonColor,
           borderRadius: BorderRadius.circular(12),
