@@ -20804,7 +20804,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}1{/blk}",
+                              "Content": "1 ",
                               "Markers": [
                                 "b",
                                 "fn:Source Sans 3",
@@ -20815,7 +20815,7 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}How long does the full Speaking test last?{blk} B{/blk}",
+                              "Content": "How long does the full Speaking test last?{blk} B{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -20957,7 +20957,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}2{/blk}",
+                              "Content": "2",
                               "Markers": [
                                 "b",
                                 "fn:Source Sans 3",
@@ -20968,7 +20968,7 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}Which part of the test is a two-way discussion with the examiner about abstract issues and ideas? {blk}C{/blk}",
+                              "Content": " Which part of the test is a two-way discussion with the examiner about abstract issues and ideas? {blk}C{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -21110,7 +21110,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}3{/blk}",
+                              "Content": "3",
                               "Markers": [
                                 "b",
                                 "fn:Source Sans 3",
@@ -21121,7 +21121,7 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}The assessment criteria Fluency and Coherence relates to {blk}C{/blk}",
+                              "Content": " The assessment criteria Fluency and Coherence relates to {blk}C{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -21263,7 +21263,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}4{/blk}",
+                              "Content": "4",
                               "Markers": [
                                 "b",
                                 "fn:Source Sans 3",
@@ -21274,7 +21274,7 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}Which part of the test is known as the 'Long Turn'? {blk}B{/blk}",
+                              "Content": " Which part of the test is known as the 'Long Turn'? {blk}B{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -21416,18 +21416,26 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}5{/blk}",
+                              "Content": "5",
                               "Markers": [
                                 "b",
-                                "fn:Source Sans 3",
-                                "sz:21"
+                                "fn:Source Sans 3"
                               ],
                               "InnerSpans": [],
                               "TableRows": []
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}Which parts of the test are linked by topic/theme? {blk}C{/blk}",
+                              "Content": " ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Which parts of the test are linked by topic/theme? {blk}C{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -21569,7 +21577,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}6{/blk}",
+                              "Content": "6",
                               "Markers": [
                                 "b",
                                 "fn:Source Sans 3",
@@ -21580,7 +21588,7 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}In the assessment Criteria, what is indicated by ",
+                              "Content": " In the assessment Criteria, what is indicated by ",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -21705,7 +21713,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}7{/blk}",
+                              "Content": "7",
                               "Markers": [
                                 "b",
                                 "fn:Source Sans 3",
@@ -21716,7 +21724,7 @@
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}Describe the focus of the questions in Part 1. {blk}A{/blk}",
+                              "Content": " Describe the focus of the questions in Part 1. {blk}A{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -21820,18 +21828,26 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "{blk}8{/blk}",
+                              "Content": "8",
                               "Markers": [
                                 "b",
-                                "fn:Source Sans 3",
-                                "sz:21"
+                                "fn:Source Sans 3"
                               ],
                               "InnerSpans": [],
                               "TableRows": []
                             },
                             {
                               "Type": "text",
-                              "Content": "{blk} {/blk}How long do you get to prepare your answer in Speaking Part 2? {blk}A{/blk}",
+                              "Content": " ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "How long do you get to prepare your answer in Speaking Part 2? {blk}A{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"

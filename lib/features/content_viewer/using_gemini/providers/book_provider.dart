@@ -250,8 +250,8 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             localSampleAudioVersion: 0,
             localSampleImagesVersion: 0,
             localJsonVersion: 0,
-            localAudioVersion: 0,
-            localImagesVersion: 0,
+            // localAudioVersion: 0,
+            // localImagesVersion: 0,
           ),
         )
         .toList();
