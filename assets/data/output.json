@@ -13601,7 +13601,7 @@
         },
         {
           "Direction": "LTR",
-          "SpaceAfter": 0.0,
+          "SpaceAfter": 8.0,
           "SpaceBefore": 0.0,
           "Spans": [
             {
@@ -15666,12 +15666,12 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 37.44,
+                      "WidthPercent": 44.33,
                       "IsHeaderCell": false
                     },
                     {
                       "Paragraphs": [],
-                      "WidthPercent": 27.14,
+                      "WidthPercent": 20.24,
                       "IsHeaderCell": false
                     }
                   ]
@@ -15977,12 +15977,12 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 37.44,
+                      "WidthPercent": 44.33,
                       "IsHeaderCell": false
                     },
                     {
                       "Paragraphs": [],
-                      "WidthPercent": 27.14,
+                      "WidthPercent": 20.24,
                       "IsHeaderCell": false
                     }
                   ]
@@ -16279,12 +16279,12 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 37.44,
+                      "WidthPercent": 44.33,
                       "IsHeaderCell": false
                     },
                     {
                       "Paragraphs": [],
-                      "WidthPercent": 27.14,
+                      "WidthPercent": 20.24,
                       "IsHeaderCell": false
                     }
                   ]
@@ -16439,107 +16439,13 @@
                       "IsHeaderCell": false
                     },
                     {
-                      "Paragraphs": [
-                        {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 6.0,
-                          "SpaceBefore": 0.0,
-                          "IndentRight": 4.25,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "TIP 08",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3 SemiBold"
-                              ],
-                              "TextColor": "0B0D0E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 6.0,
-                          "SpaceBefore": 0.0,
-                          "IndentRight": 4.25,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "If you know the conventions for expressing information in English, you will avoid making a mistake with your answer. ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:20"
-                              ],
-                              "TextColor": "0B0D0E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Make sure you practise:",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:20"
-                              ],
-                              "TextColor": "0B0E0E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.15,
-                          "IndentLeft": 19.05,
-                          "IndentFirstLine": -6.8,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "numbers (money, dates, years, telephone numbers)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:18"
-                              ],
-                              "TextColor": "0A0E10",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.15,
-                          "IndentLeft": 19.05,
-                          "IndentFirstLine": -6.8,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "spelling of names (people, places, addresses, including email addresses), paying special attention to letters which represent problem sounds for your language",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:18"
-                              ],
-                              "TextColor": "0A0E10",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 37.44,
-                      "RowMerge": "mergedcellvalues { }",
+                      "Paragraphs": [],
+                      "WidthPercent": 44.33,
                       "IsHeaderCell": false
                     },
                     {
                       "Paragraphs": [],
-                      "WidthPercent": 27.14,
-                      "RowMerge": "mergedcellvalues { }",
+                      "WidthPercent": 20.24,
                       "IsHeaderCell": false
                     }
                   ]
@@ -16694,15 +16600,103 @@
                       "IsHeaderCell": false
                     },
                     {
-                      "Paragraphs": [],
-                      "WidthPercent": 37.44,
-                      "RowMerge": "continue",
+                      "Paragraphs": [
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "IndentRight": 4.25,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "TIP 08",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3 SemiBold"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "IndentRight": 4.25,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "If you know the conventions for expressing information in English, you will avoid making a mistake with your answer. ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Make sure you practise:",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0E0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.15,
+                          "IndentLeft": 19.05,
+                          "IndentFirstLine": -6.8,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "numbers (money, dates, years, telephone numbers)",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:18"
+                              ],
+                              "TextColor": "0A0E10",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 4.3,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "spelling of names (people, places, addresses, including email addresses), paying special attention to letters which represent problem sounds for your language",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:18"
+                              ],
+                              "TextColor": "0A0E10",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 44.33,
                       "IsHeaderCell": false
                     },
                     {
                       "Paragraphs": [],
-                      "WidthPercent": 27.14,
-                      "RowMerge": "continue",
+                      "WidthPercent": 20.24,
                       "IsHeaderCell": false
                     }
                   ]
@@ -16713,7 +16707,7 @@
         },
         {
           "Direction": "LTR",
-          "SpaceAfter": 0.0,
+          "SpaceAfter": 8.0,
           "SpaceBefore": 0.0,
           "Spans": [
             {
@@ -22823,7 +22817,6 @@
                       ],
                       "WidthPercent": 64.25,
                       "VAlign": "tableverticalalignmentvalues { }",
-                      "ColSpan": 2,
                       "IsHeaderCell": false
                     },
                     {
@@ -22833,7 +22826,25 @@
                       "IsHeaderCell": false
                     }
                   ]
-                },
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
                 {
                   "IsHeader": false,
                   "Cells": [
@@ -22962,7 +22973,6 @@
                       "Paragraphs": [],
                       "WidthPercent": 48.16,
                       "VAlign": "tableverticalalignmentvalues { }",
-                      "ColSpan": 2,
                       "IsHeaderCell": false
                     }
                   ]
@@ -23179,7 +23189,6 @@
                         }
                       ],
                       "WidthPercent": 48.16,
-                      "ColSpan": 2,
                       "IsHeaderCell": false
                     }
                   ]
