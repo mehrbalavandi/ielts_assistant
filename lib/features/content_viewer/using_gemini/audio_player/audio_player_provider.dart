@@ -173,7 +173,10 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       if (path.startsWith('assets/')) {
         await _player.setAsset(path);
       } else {
-        await _player.setFilePath(path);
+        final uri = Uri.file(path).toString();
+        debugPrint(uri);
+        await _player.setUrl(uri);
+        // await _player.setFilePath(path);
       }
 
       await _player.seek(Duration(milliseconds: lastPosMs));

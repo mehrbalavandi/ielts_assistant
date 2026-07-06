@@ -40,18 +40,6 @@ class Player extends _$Player {
     return const PlayerState();
   }
 
-  // --- متدهای کنترلی ---
-
-  Future<void> playFile(String path) async {
-    try {
-      await _audioPlayer.setFilePath(path);
-      state = state.copyWith(currentFilePath: path, startA: null, endB: null);
-      _audioPlayer.play();
-    } catch (e) {
-      print("Error loading audio: $e");
-    }
-  }
-
   void resume() => _audioPlayer.play();
   void pause() => _audioPlayer.pause();
   void stop() async {
