@@ -711,10 +711,10 @@ class InteractiveBlankWord extends StatelessWidget {
         decoration: BoxDecoration(
           color: buttonColor,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: borderColor,
-            width: hasSearchResult ? 2.0 : 0.0,
-          ),
+          // 🌟 اصلاح شد: جلوگیری از کشیده شدن خط مویی (Hairline) در فلاتر
+          border: hasSearchResult
+              ? Border.all(color: borderColor, width: 2.0)
+              : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -775,17 +775,64 @@ class InteractiveBlankWord extends StatelessWidget {
               }
             }
 
-            revealedSpans.addAll(
-              TextRenderEngine.buildInteractiveText(
-                span.content,
-                interactives,
-                context,
-                spanStyle,
-                localHighlightMap:
-                    spanMapSlice, // 🌟 ارسال برش اختصاصی به جای کل نقشه
-                activeOccurrence: activeOcc,
-              ),
-            );
+            // 🌟 ۱. ابتدا محتوای تعاملی (دیکشنری/هایلایت) را می‌سازیم
+            List<InlineSpan> interactiveSpans =
+                TextRenderEngine.buildInteractiveText(
+                  span.content,
+                  interactives,
+                  context,
+                  spanStyle,
+                  localHighlightMap: spanMapSlice, // 🌟 ارسال برش اختصاصی
+                  activeOccurrence: activeOcc,
+                );
+
+            // 🌟 ۲. بررسی وجود بوردر برای این تکه از متن
+            bool isInlineBorder = span.hasBorders == "true";
+
+            if (isInlineBorder) {
+              // متد کمکی محلی برای تبدیل رنگ Hex
+              Color? hexToColor(String? hex) {
+                if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
+                  return null;
+                final buffer = StringBuffer();
+                if (hex.length == 6 || hex.length == 7) buffer.write('ff');
+                buffer.write(hex.replaceFirst('#', ''));
+                try {
+                  return Color(int.parse(buffer.toString(), radix: 16));
+                } catch (_) {
+                  return null;
+                }
+              }
+
+              // 🌟 ۳. پیچیدن متن در کانتینرِ کادردار (WidgetSpan)
+              revealedSpans.add(
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4.0,
+                      vertical: 2.0,
+                    ),
+                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      color: hexToColor(span.fillColor),
+                      border: Border.all(
+                        color:
+                            hexToColor(span.borderColor) ??
+                            Colors.grey.shade600,
+                        width: 1.2,
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    // رندر کردن متن‌های تعاملی درون این کادر
+                    child: Text.rich(TextSpan(children: interactiveSpans)),
+                  ),
+                ),
+              );
+            } else {
+              // 🌟 اگر بوردر نداشت، مثل قبل مستقیماً به لیست اضافه می‌شود
+              revealedSpans.addAll(interactiveSpans);
+            }
 
             innerOffset += span.content.length; // 🌟 حرکت به جلو در نقشه
           }
