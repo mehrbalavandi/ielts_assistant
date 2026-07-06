@@ -1236,9 +1236,22 @@ Widget _buildTable(
     for (int i = 0; i < row.cells.length; i++) {
       var cell = row.cells[i];
       List<Widget> cellParagraphs = [];
-      bool isImageCell = cell.paragraphs.any(
+
+      // 🌟 اصلاح هوشمندانه: بررسی می‌کنیم که آیا سلول متن هم دارد یا خیر
+      bool hasTextInCell = cell.paragraphs.any(
+        (p) => p.spans.any(
+          (s) =>
+              s.type == "text" &&
+              s.content != null &&
+              s.content!.trim().isNotEmpty,
+        ),
+      );
+      bool hasImageInCell = cell.paragraphs.any(
         (p) => p.spans.any((s) => s.type == "image"),
       );
+
+      // 🎯 سلول فقط زمانی "سلولِ عکسی" محسوب می‌شود که هیچ متنی در آن نباشد
+      bool isImageCell = hasImageInCell && !hasTextInCell;
 
       for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
         cellParagraphs.add(
@@ -1247,7 +1260,7 @@ Widget _buildTable(
             canvasWidth,
             screenWidth,
             context,
-            isImageCell: isImageCell,
+            isImageCell: isImageCell, // انتقال وضعیت دقیق به پاراگراف
             isInsideTableCell: true,
             prevPara: pIndex > 0 ? cell.paragraphs[pIndex - 1] : null,
             nextPara: pIndex < cell.paragraphs.length - 1
@@ -1259,22 +1272,25 @@ Widget _buildTable(
             activeBook: activeBook,
             pageInteractives: pageInteractives,
             exactMatchKey: exactMatchKey,
-            interactivesPattern: interactivesPattern, // 🌟 اضافه شد
-            interactivesByText: interactivesByText, // 🌟 اضافه شد
-            pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+            interactivesPattern: interactivesPattern,
+            interactivesByText: interactivesByText,
+            pageAudioPlaylist: pageAudioPlaylist,
           ),
         );
       }
 
-      // 🌟 محاسبه دقیق پدینگ سلول (با حفظ رفتار خاص عکس‌ها)
-      EdgeInsetsGeometry cellPadding = isImageCell
-          ? const EdgeInsets.all(2.0)
-          : EdgeInsets.only(
-              top: cell.paddingTop ?? 4.0, // فال‌بک دیفالت در صورت نبود دیتا
-              bottom: cell.paddingBottom ?? 4.0,
-              left: cell.paddingLeft ?? 8.0,
-              right: cell.paddingRight ?? 8.0,
-            );
+      // 🌟 اعمال دقیق پدینگ: اگر متن داشته باشد، تورفتگی‌های Word مو به مو اعمال می‌شوند
+      EdgeInsetsGeometry cellPadding;
+      if (isImageCell) {
+        cellPadding = const EdgeInsets.all(2.0);
+      } else {
+        cellPadding = EdgeInsets.only(
+          top: cell.paddingTop ?? 4.0,
+          bottom: cell.paddingBottom ?? 4.0,
+          left: cell.paddingLeft ?? 8.0,
+          right: cell.paddingRight ?? 8.0,
+        );
+      }
 
       // کانتینر اصلی محتوای سلول (تراز افقی در متد _buildParagraph مدیریت شده است)
       Widget cellContent = Container(

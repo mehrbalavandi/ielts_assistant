@@ -75,7 +75,97 @@ class AppDrawer extends ConsumerWidget {
             ListTile(
               leading: const Icon(Icons.bug_report, color: Colors.redAccent),
               title: const Text(
-                'ریست ورژن محتواها (Debug)',
+                'ریست ورژن متن اصلی (دیباگ)',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () async {
+                ref.read(booksProvider.notifier).resetOfflinelocalJsonVersion();
+
+                // بستن منوی کشویی
+                if (context.mounted) {
+                  Navigator.pop(context);
+
+                  // نمایش اسنک‌بار موفقیت
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('ورژن متن اصلی روی ۰ تنظیم شد!'),
+                      backgroundColor: Colors.green.shade700,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 8.0),
+            ListTile(
+              leading: const Icon(Icons.bug_report, color: Colors.redAccent),
+              title: const Text(
+                'ریست ورژن فایل‌های صوتی (دیباگ)',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () async {
+                ref
+                    .read(booksProvider.notifier)
+                    .resetOfflinelocalAudioVersion();
+
+                // بستن منوی کشویی
+                if (context.mounted) {
+                  Navigator.pop(context);
+
+                  // نمایش اسنک‌بار موفقیت
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('ورژن فایل‌های صوتی روی ۰ تنظیم شد!'),
+                      backgroundColor: Colors.green.shade700,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 8.0),
+            ListTile(
+              leading: const Icon(Icons.bug_report, color: Colors.redAccent),
+              title: const Text(
+                'ریست ورژن فایل‌های تصویری (دیباگ)',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () async {
+                ref
+                    .read(booksProvider.notifier)
+                    .resetOfflinelocalImagesVersion();
+
+                // بستن منوی کشویی
+                if (context.mounted) {
+                  Navigator.pop(context);
+
+                  // نمایش اسنک‌بار موفقیت
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text(
+                        'ورژن فایل‌های تصویری روی ۰ تنظیم شد!',
+                      ),
+                      backgroundColor: Colors.green.shade700,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 8.0),
+            ListTile(
+              leading: const Icon(Icons.bug_report, color: Colors.redAccent),
+              title: const Text(
+                'ریست ورژن محتواها (دیباگ)',
                 style: TextStyle(
                   color: Colors.redAccent,
                   fontWeight: FontWeight.bold,

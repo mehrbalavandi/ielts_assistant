@@ -240,6 +240,30 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     return initialBooks;
   }
 
+  Future<void> resetOfflinelocalJsonVersion() async {
+    state = state.map((book) => book.copyWith(localJsonVersion: 0)).toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  Future<void> resetOfflinelocalAudioVersion() async {
+    state = state.map((book) => book.copyWith(localAudioVersion: 0)).toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  Future<void> resetOfflinelocalImagesVersion() async {
+    state = state.map((book) => book.copyWith(localImagesVersion: 0)).toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
   /// همه نسخه‌های آفلاین را صفر می‌کند تا در اجرای بعدی،
   /// برنامه همه فایل‌ها را نیازمند بروزرسانی تشخیص دهد.
   Future<void> resetOfflineVersions() async {
