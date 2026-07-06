@@ -26114,7 +26114,18 @@
                               "InnerSpans": [
                                 {
                                   "Type": "text",
-                                  "Content": "B By the ",
+                                  "Content": "B",
+                                  "Markers": [
+                                    "b",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " By the ",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
@@ -26236,7 +26247,18 @@
                                 },
                                 {
                                   "Type": "text",
-                                  "Content": "C Pr",
+                                  "Content": "C",
+                                  "Markers": [
+                                    "b",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " Pr",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
@@ -26404,7 +26426,18 @@
                                 },
                                 {
                                   "Type": "text",
-                                  "Content": "D As ",
+                                  "Content": "D",
+                                  "Markers": [
+                                    "b",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " As ",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
@@ -26561,7 +26594,18 @@
                                 },
                                 {
                                   "Type": "text",
-                                  "Content": "E Un",
+                                  "Content": "E",
+                                  "Markers": [
+                                    "b",
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": " Un",
                                   "Markers": [
                                     "fn:Source Sans 3",
                                     "sz:21"
@@ -27095,7 +27139,312 @@
     },
     {
       "PageNumber": 22,
-      "Paragraphs": []
+      "Paragraphs": [
+        {
+          "Direction": "LTR",
+          "SpaceAfter": 6.0,
+          "SpaceBefore": 12.0,
+          "Spans": [
+            {
+              "Type": "text",
+              "Content": "[[[[[[[[[[",
+              "Markers": [
+                "bg:058AF3",
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "FillColor": "058AF3",
+              "TextColor": "058AF3",
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "EXAM SKILLS",
+              "Markers": [
+                "b",
+                "fn:Source Sans 3 SemiBold",
+                "sz:32"
+              ],
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "]",
+              "Markers": [
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "TextColor": "028BF3",
+              "InnerSpans": [],
+              "TableRows": []
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "16",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "028BF3",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Listen to a candidate giving good answers to Part 3 questions. For each answer (1-5), choose the corresponding question (A-E), and write the letter.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "08",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "Url": "audio:MindsetIELTS_L3_08.mp3",
+                              "TextColor": "0563C1",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "1 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}D{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "    2 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}E{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "     3 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}A{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "     4 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}C{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "     5 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}B{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "In your city, what do you usually do at the weekend?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "When you were last in the countryside, who did you go with? Why?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "In the town or city you live in now, what are your favourite pastimes?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 67.21,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [],
+                      "WidthPercent": 29.11,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "AudioScripts": []
