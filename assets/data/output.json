@@ -10506,7 +10506,7 @@
                       "Paragraphs": [
                         {
                           "Direction": "LTR",
-                          "SpaceAfter": 0.0,
+                          "SpaceAfter": 6.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
@@ -21419,23 +21419,15 @@
                               "Content": "5",
                               "Markers": [
                                 "b",
-                                "fn:Source Sans 3"
+                                "fn:Source Sans 3",
+                                "sz:21"
                               ],
                               "InnerSpans": [],
                               "TableRows": []
                             },
                             {
                               "Type": "text",
-                              "Content": " ",
-                              "Markers": [
-                                "fn:Source Sans 3"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Which parts of the test are linked by topic/theme? {blk}C{/blk}",
+                              "Content": " Which parts of the test are linked by topic/theme? {blk}C{/blk}",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:21"
@@ -21828,19 +21820,11 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "8",
+                              "Content": "8 ",
                               "Markers": [
                                 "b",
-                                "fn:Source Sans 3"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " ",
-                              "Markers": [
-                                "fn:Source Sans 3"
+                                "fn:Source Sans 3",
+                                "sz:21"
                               ],
                               "InnerSpans": [],
                               "TableRows": []
@@ -22017,6 +22001,2581 @@
                         }
                       ],
                       "WidthPercent": 96.07,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "PageNumber": 19,
+      "Paragraphs": [
+        {
+          "Direction": "LTR",
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "text",
+              "Content": "[[[[[[[[[[",
+              "Markers": [
+                "bg:26EFFF",
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "FillColor": "26EFFF",
+              "TextColor": "26EFFF",
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "SPEAKING TEST - PART 1",
+              "Markers": [
+                "b",
+                "fn:Source Sans 3 SemiBold",
+                "sz:32"
+              ],
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "]",
+              "Markers": [
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "TextColor": "26EFFF",
+              "InnerSpans": [],
+              "TableRows": []
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "03",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "26EFFF",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Read the questions. Which ones would probably NOT be asked in Part 1 of the Speaking test?",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}The following questions would not be asked: 2, 3, 5, 7{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [
+                                {
+                                  "Type": "text",
+                                  "Content": "The following questions would not be asked: 2, 3, 5, 7",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                }
+                              ],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "1",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Do you live in a house or an apartment?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "2",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " If you could choose any country to visit, where would you go?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "3",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " What are the main issues affecting life in your town?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "4",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " What do you like about the area where you live?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "5",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " How might overpopulation affect city life in the future?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "6",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " How often do you use public transport in your town/city?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "7",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Why is it important to look after places of natural beauty?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "8",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Do you often visit parks in your town/city?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 58.35,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "◎",
+                              "Markers": [
+                                "fn:Cambria Math",
+                                "sz:20"
+                              ],
+                              "TextColor": "26EFFF",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " ",
+                              "Markers": [
+                                "fn:Cambria Math",
+                                "sz:20"
+                              ],
+                              "TextColor": "CA0D8E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Part 1 questions focus on general familiar topics that reflect your everyday life, rather than complex or abstract questions.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 37.97,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "04",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "26EFFF",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Listen to three candidates answering three of the questions in exercise 3. For each question, what does the candidate do wrong?",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "06",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "Url": "audio:MindsetIELTS_L3_06.mp3",
+                              "TextColor": "0563C1",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}These answers are not likely to impress the examiner.\nQuestion 1: The candidate repeats the word 'apartment' several times. She could improve this by using reference words like 'it' and 'one', and the flow of her answer would improve (along with her score for Fluency and Coherence).\nQuestion 2: The language used is very good, but it doesn't answer the question. It is highly likely to be a memorised answer, which should be avoided completely - the vocabulary is not relevant to the topic at all. This limits the score for both Fluency and Coherence and Lexical Resource.\nQuestion 3: There are several problems with the grammar used; these would limit the score the candidate might get for Grammatical Range and Accuracy.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [
+                                {
+                                  "Type": "text",
+                                  "Content": "These answers are not likely to impress the examiner.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "Question 1: The candidate repeats the word 'apartment' several times. She could improve this by using reference words like 'it' and 'one', and the flow of her answer would improve (along with her score for Fluency and Coherence).",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "Question 2: The language used is very good, but it doesn't answer the question. It is highly likely to be a memorised answer, which should be avoided completely - the vocabulary is not relevant to the topic at all. This limits the score for both Fluency and Coherence and Lexical Resource.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "\n",
+                                  "Markers": [],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                },
+                                {
+                                  "Type": "text",
+                                  "Content": "Question 3: There are several problems with the grammar used; these would limit the score the candidate might get for Grammatical Range and Accuracy.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                }
+                              ],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 58.35,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "TIP 04",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:22"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "IndentRight": 4.25,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Never memorise complete answers to questions before the exam. It is normally obvious to examiners when a candidate does this and it may affect your score.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "IndentRight": 4.25,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Aim to show a variety of verb forms and grammar structures",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 23.2,
+                          "IndentRight": 4.25,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "- but they must be correct if you want a high score.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Alignment": "J",
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "IndentRight": 4.25,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Vary your vocabulary. Use synonyms and paraphrase to express your ideas using different words.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 37.97,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Direction": "LTR",
+          "SpaceAfter": 6.0,
+          "SpaceBefore": 12.0,
+          "Spans": [
+            {
+              "Type": "text",
+              "Content": "[[[[[[[[[[",
+              "Markers": [
+                "bg:26EFFF",
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "FillColor": "26EFFF",
+              "TextColor": "26EFFF",
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "SPEAKING TEST - PART 2",
+              "Markers": [
+                "b",
+                "fn:Source Sans 3 SemiBold",
+                "sz:32"
+              ],
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "]",
+              "Markers": [
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "TextColor": "26EFFF",
+              "InnerSpans": [],
+              "TableRows": []
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "05",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "20AFC0",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Read the questions. Which ones would probably NOT be asked in Part 1 of the Speaking test?",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}Task card A{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [
+                                {
+                                  "Type": "text",
+                                  "Content": "Task card A",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                }
+                              ],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 48.16,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "ColSpan": 2,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Describe a rural town that you plan to visit in the future. You should say:",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 21.0,
+                          "IndentFirstLine": -6.8,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "where the town is",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 21.0,
+                          "IndentFirstLine": -6.8,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "when you would like to go",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 21.0,
+                          "IndentFirstLine": -6.8,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "who you would go with",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "and explain what you would like to do there.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 48.16,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [],
+                      "WidthPercent": 48.16,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "B",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Describe this town in a rural area.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "image",
+                              "Markers": [],
+                              "Url": "p19_s1_img15.png",
+                              "FloatPosition": "none",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "State whether you would like to go there and why.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 48.16,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "C",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Describe a town in a rural area that you plan to visit in the future.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "You should say:",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 21.0,
+                          "IndentFirstLine": -6.8,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "how far it is from your home",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 21.0,
+                          "IndentFirstLine": -6.8,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "when you plan to go",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "IndentLeft": 21.0,
+                          "IndentFirstLine": -6.8,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "why it is important for people to spend time in places like this",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "and explain what is being done to maintain it as an area of outstanding natural beauty.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 48.16,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "06",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "20AFC0",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Listen to an answer to the task card in exercise 5. Does the candidate cover all the prompts in equal detail? What effect would this have on his score?",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "07",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "Url": "audio:MindsetIELTS_L3_07.mp3",
+                              "TextColor": "0563C1",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "{blk}This candidate talked about all four points, exploring three of them in some detail. He used a good range of vocabulary and grammar; the organisation of the answer was also very good indeed, and the long turn flowed naturally from one idea to the next. It is not important that he spoke about the third prompt only very briefly, as he clearly had decided to spend more time on the points he felt he could expand on more easily, and in more detail.{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [
+                                {
+                                  "Type": "text",
+                                  "Content": "This candidate talked about all four points, exploring three of them in some detail. He used a good range of vocabulary and grammar; the organisation of the answer was also very good indeed, and the long turn flowed naturally from one idea to the next. It is not important that he spoke about the third prompt only very briefly, as he clearly had decided to spend more time on the points he felt he could expand on more easily, and in more detail.",
+                                  "Markers": [
+                                    "fn:Source Sans 3",
+                                    "sz:21"
+                                  ],
+                                  "InnerSpans": [],
+                                  "TableRows": []
+                                }
+                              ],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 67.21,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "TIP 06",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:22"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "When answering the Part 2 question, you do not need to try and give equal time to each of the four prompts. Some prompts will be easier to expand on than others.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 29.11,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "PageNumber": 20,
+      "Paragraphs": [
+        {
+          "Direction": "LTR",
+          "SpaceAfter": 6.0,
+          "SpaceBefore": 12.0,
+          "Spans": [
+            {
+              "Type": "text",
+              "Content": "[[[[[[[[[[",
+              "Markers": [
+                "bg:058AF3",
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "FillColor": "058AF3",
+              "TextColor": "058AF3",
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "SPEAKING TEST - PART 3",
+              "Markers": [
+                "b",
+                "fn:Source Sans 3 SemiBold",
+                "sz:32"
+              ],
+              "InnerSpans": [],
+              "TableRows": []
+            },
+            {
+              "Type": "text",
+              "Content": "]",
+              "Markers": [
+                "fn:Source Sans 3",
+                "sz:32"
+              ],
+              "TextColor": "028BF3",
+              "InnerSpans": [],
+              "TableRows": []
+            }
+          ]
+        },
+        {
+          "SpaceAfter": 0.0,
+          "SpaceBefore": 0.0,
+          "Spans": [
+            {
+              "Type": "table",
+              "Markers": [],
+              "BorderWidth": 0.5,
+              "TableStyleId": "DottedTable",
+              "TableStyleName": "DottedTable",
+              "HasBorders": "true",
+              "TableWidthPercent": 100.0,
+              "InnerSpans": [],
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "07",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "028BF3",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Listen to a candidate giving good answers to Part 3 questions. For each answer (1-5), choose the corresponding question (A-E), and write the letter.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "08",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "Url": "audio:MindsetIELTS_L3_08.mp3",
+                              "TextColor": "0563C1",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "1 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}D{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "    2 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}E{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "     3 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}A{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "     4 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}C{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "     5 ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}B{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " If private cars were completely banned from the most overcrowded cities, what might happen?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "B",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " How was family life different before transport links connected most towns and cities?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "C",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Which is preferable, living on the top floor of a studio apartment block in a city, or in a beautiful house in the middle of the countryside?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "D",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Why do people decide to move from the city to the countryside?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "E",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " How might overpopulation affect city life in the future?",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 67.21,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "ColSpan": 2,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "08",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "028BF3",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Read questions A-E again and read the script on page 208. What was each question asking the candidate to do? Discuss with a partner and choose from the list of 'functions' below.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "A ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}iii{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " B ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}v{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " C ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}ii{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " D ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}iv{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " E ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}i{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "i ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Make a prediction",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "ii ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Compare and contrast",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "iii ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Consider a hypothetical situation",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "iv ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Suggest cause and effect",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "v ",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Analyse past and present",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 67.21,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "TIP 08",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:22"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Thinking about the ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "function ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "of the question being asked will help you to develop your answer and decide what language and structures to use.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 29.11,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "09",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "028BF3",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Read these comments on the candidate's performance. Write the correct marking criteria they correspond to: Fluency and Coherence (FC); Lexical Resource (LR); Grammatical Range and Accuracy (GRA); Pronunciation (P).",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Uses stress and intonation appropriately, e.g ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "NOT just NAtionally, but INternationally. ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}P{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Uses a good range of more advanced structures naturally, e.g. … if you were just visiting the city, it probably wouldn't bother you… I That might sound ridiculous now, but cities are likely to keep expanding at the rate they are currently ... ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}GRA{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Speaks fluently with very rare hesitation or repetition. ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}FC{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Avoids making grammatical mistakes. ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}GRA{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Uses varied vocabulary that is relevant to the topics discussed. ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}LR{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Develops the topics fully and appropriately; supplies answers of an appropriate length. ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}FC{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Every answer can be understood very easily. ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}P{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Uses less common vocabulary, including collocation and idiomatic phrases, e.g. ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "the bright lights of the big city ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "I ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "traditional family unit ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "I ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "it's too over the top for some. ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}LR{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Uses appropriate phrases to introduce and connect ideas, e.g. ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Generally speaking, though ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "... I ",
+                              "Markers": [
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "Having said that ... ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3"
+                              ],
+                              "TextColor": "0B0D0E",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "{blk}FC{/blk}",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 67.21,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "ColSpan": 2,
+                      "IsHeaderCell": false
+                    }
+                  ]
+                },
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "10",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3"
+                              ],
+                              "BorderColor": "028BF3",
+                              "BorderStyle": "BorderValues { }",
+                              "HasBorders": "true",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 3.68,
+                      "IsHeaderCell": false
+                    },
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "Listen again to the candidate and notice how she does these things.",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "08",
+                              "Markers": [
+                                "b",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "Url": "audio:MindsetIELTS_L3_08.mp3",
+                              "TextColor": "0563C1",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 67.21,
+                      "VAlign": "tableverticalalignmentvalues { }",
+                      "ColSpan": 2,
                       "IsHeaderCell": false
                     }
                   ]
