@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   file_selector_windows
   flutter_localization
+  just_audio_windows
   permission_handler_windows
 )
 

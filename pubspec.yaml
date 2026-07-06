@@ -57,6 +57,7 @@ dependencies:
   shimmer: ^3.0.0
   float_column: ^4.0.3
   scrollable_positioned_list: ^0.3.8
+  just_audio_windows: ^0.2.3
 
 dev_dependencies:
   flutter_test:

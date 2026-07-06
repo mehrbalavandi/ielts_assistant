@@ -240,51 +240,6 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     return initialBooks;
   }
 
-  Future<void> resetOfflinelocalJsonVersion() async {
-    state = state.map((book) => book.copyWith(localJsonVersion: 0)).toList();
-
-    await StorageService.saveOfflineBooks(
-      state.map((b) => b.toJson()).toList(),
-    );
-  }
-
-  Future<void> resetOfflinelocalAudioVersion() async {
-    state = state.map((book) => book.copyWith(localAudioVersion: 0)).toList();
-
-    await StorageService.saveOfflineBooks(
-      state.map((b) => b.toJson()).toList(),
-    );
-  }
-
-  Future<void> resetOfflinelocalImagesVersion() async {
-    state = state.map((book) => book.copyWith(localImagesVersion: 0)).toList();
-
-    await StorageService.saveOfflineBooks(
-      state.map((b) => b.toJson()).toList(),
-    );
-  }
-
-  /// همه نسخه‌های آفلاین را صفر می‌کند تا در اجرای بعدی،
-  /// برنامه همه فایل‌ها را نیازمند بروزرسانی تشخیص دهد.
-  Future<void> resetOfflineVersions() async {
-    state = state
-        .map(
-          (book) => book.copyWith(
-            localSampleVersion: 0,
-            localSampleAudioVersion: 0,
-            localSampleImagesVersion: 0,
-            localJsonVersion: 0,
-            localAudioVersion: 0,
-            localImagesVersion: 0,
-          ),
-        )
-        .toList();
-
-    await StorageService.saveOfflineBooks(
-      state.map((b) => b.toJson()).toList(),
-    );
-  }
-
   Future<void> fetchBooks() async {
     try {
       final dio = ref.read(dioProvider);
@@ -621,6 +576,114 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       return b;
     }).toList();
     return updatedBook ?? state.firstWhere((b) => b.id == id);
+  }
+
+  Future<void> resetOfflinelocalJsonVersion() async {
+    for (final book in state) {
+      await _deleteBookContent(book, json: true);
+    }
+
+    state = state
+        .map((book) => book.copyWith(localJsonPath: null, localJsonVersion: 0))
+        .toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  Future<void> resetOfflinelocalAudioVersion() async {
+    for (final book in state) {
+      await _deleteBookContent(book, audio: true);
+    }
+
+    state = state.map((book) => book.copyWith(localAudioVersion: 0)).toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  Future<void> resetOfflinelocalImagesVersion() async {
+    for (final book in state) {
+      await _deleteBookContent(book, images: true);
+    }
+
+    state = state.map((book) => book.copyWith(localImagesVersion: 0)).toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  Future<void> resetOfflineVersions() async {
+    for (final book in state) {
+      await _deleteBookFolder(book);
+    }
+
+    state = state.map((book) {
+      return book.copyWith(
+        localSamplePath: null,
+        localSampleVersion: 0,
+        localSampleAudioVersion: 0,
+        localSampleImagesVersion: 0,
+        localJsonPath: null,
+        localJsonVersion: 0,
+        localAudioVersion: 0,
+        localImagesVersion: 0,
+      );
+    }).toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  Future<void> _deleteBookFolder(BookModel book) async {
+    final dir = await getApplicationDocumentsDirectory();
+
+    final folder = Directory('${dir.path}/${book.folderName ?? book.id}');
+
+    if (await folder.exists()) {
+      await folder.delete(recursive: true);
+    }
+  }
+
+  Future<void> _deleteBookContent(
+    BookModel book, {
+    bool json = false,
+    bool audio = false,
+    bool images = false,
+  }) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final bookFolder = Directory('${dir.path}/${book.folderName ?? book.id}');
+
+    if (!await bookFolder.exists()) return;
+
+    if (json) {
+      final file = File('${bookFolder.path}/main_content.json');
+      if (await file.exists()) {
+        await file.delete();
+      }
+    }
+
+    if (audio) {
+      for (final path in book.audioFiles) {
+        final file = File('${bookFolder.path}/${path.split('/').last}');
+        if (await file.exists()) {
+          await file.delete();
+        }
+      }
+    }
+
+    if (images) {
+      for (final path in book.images) {
+        final file = File('${bookFolder.path}/${path.split('/').last}');
+        if (await file.exists()) {
+          await file.delete();
+        }
+      }
+    }
   }
 }
 
