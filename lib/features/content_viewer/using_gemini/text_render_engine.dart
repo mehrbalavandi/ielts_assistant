@@ -740,168 +740,252 @@ class InteractiveBlankWord extends StatelessWidget {
   }
 
   void _showHiddenTextModal(BuildContext context, bool isDarkTheme) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        // 🌟 قابلیت اول: رندر کردن متن مخفی با ساختار تعاملی موتور رندر شما (دیکشنری + هایلایت جستجو)
-        // چون متن داخل مودال فاقد تگ {blk} است، مستقیماً کلمات تعاملی آن پردازش و بازگردانده می‌شود.
-        List<InlineSpan> revealedSpans = [];
+    // 🌟 ۱. استخراج متن کامل برای محاسبه طول و بررسی کلمات تعاملی
+    String fullText = hiddenText;
+    if (innerSpans != null && innerSpans!.isNotEmpty) {
+      fullText = innerSpans!.map((span) => span.content).join();
+    }
+    int textLength = fullText.length;
 
-        // 🌟 رندر کردن درخت استایل‌ها (همراه با برش‌زنیِ نقطه‌ایِ نقشه جستجو)
-        if (innerSpans != null && innerSpans!.isNotEmpty) {
-          int innerOffset = 0; // 🌟 شمارنده برای ردیابی موقعیت در نقشه اصلی
-
-          for (var span in innerSpans!) {
-            TextStyle spanStyle = TextRenderEngine.applySpanStyle(
-              textStyle,
-              span,
-              isDarkTheme,
-            );
-
-            // 🌟 برش زدن دقیق نقشه جستجو به اندازه طول همین تکه از متن
-            List<int>? spanMapSlice;
-            if (blankMap != null) {
-              int spanLen = span.content.length;
-              if (innerOffset + spanLen <= blankMap!.length) {
-                spanMapSlice = blankMap!.sublist(
-                  innerOffset,
-                  innerOffset + spanLen,
-                );
-              }
-            }
-
-            // 🌟 ۱. ابتدا محتوای تعاملی (دیکشنری/هایلایت) را می‌سازیم
-            List<InlineSpan> interactiveSpans =
-                TextRenderEngine.buildInteractiveText(
-                  span.content,
-                  interactives,
-                  context,
-                  spanStyle,
-                  localHighlightMap: spanMapSlice, // 🌟 ارسال برش اختصاصی
-                  activeOccurrence: activeOcc,
-                );
-
-            // 🌟 ۲. بررسی وجود بوردر برای این تکه از متن
-            bool isInlineBorder = span.hasBorders == "true";
-
-            if (isInlineBorder) {
-              // متد کمکی محلی برای تبدیل رنگ Hex
-              Color? hexToColor(String? hex) {
-                if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
-                  return null;
-                final buffer = StringBuffer();
-                if (hex.length == 6 || hex.length == 7) buffer.write('ff');
-                buffer.write(hex.replaceFirst('#', ''));
-                try {
-                  return Color(int.parse(buffer.toString(), radix: 16));
-                } catch (_) {
-                  return null;
-                }
-              }
-
-              // 🌟 ۳. پیچیدن متن در کانتینرِ کادردار (WidgetSpan)
-              revealedSpans.add(
-                WidgetSpan(
-                  alignment: PlaceholderAlignment.middle,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0,
-                      vertical: 2.0,
-                    ),
-                    margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      color: hexToColor(span.fillColor),
-                      border: Border.all(
-                        color:
-                            hexToColor(span.borderColor) ??
-                            Colors.grey.shade600,
-                        width: 1.2,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    // رندر کردن متن‌های تعاملی درون این کادر
-                    child: Text.rich(TextSpan(children: interactiveSpans)),
-                  ),
-                ),
-              );
-            } else {
-              // 🌟 اگر بوردر نداشت، مثل قبل مستقیماً به لیست اضافه می‌شود
-              revealedSpans.addAll(interactiveSpans);
-            }
-
-            innerOffset += span.content.length; // 🌟 حرکت به جلو در نقشه
-          }
-        } else {
-          // 🌟 فال‌بک برای متون ساده یا JSONهای قدیمی
-          // 🌟 فال‌بک برای متون ساده یا JSONهای قدیمی
-          revealedSpans = TextRenderEngine.buildInteractiveText(
-            hiddenText,
-            interactives,
-            context,
-            textStyle.copyWith(
-              color: isDarkTheme ? Colors.white : Colors.black87,
-              fontSize: textStyle.fontSize ?? 16.0,
-              height: 1.6,
-            ),
-            localHighlightMap: blankMap,
-            activeOccurrence: activeOcc,
-            translationFa: translationFa,
-            translationAr: translationAr,
+    // 🌟 ۲. بررسی هوشمند: آیا این متن حاوی کلمه تعاملی (قابل کلیک) هست یا خیر؟
+    bool hasInteractiveWords = false;
+    if (interactives != null && interactives!.isNotEmpty) {
+      // بررسی می‌کند آیا هیچ‌کدام از کلمات کلیدی تعاملی در این متن وجود دارند؟
+      // نکته: اگر مدل شما فیلد خاصی مثل .targetWord دارد، به جای item از آن استفاده کنید
+      hasInteractiveWords = interactives!.any(
+        (item) =>
+            fullText.toLowerCase().contains(item.toString().toLowerCase()),
+      );
+    }
+    // 🌟 ۳. قانون طلایی: فقط در صورتی بنر بالا باز شود که متن کوتاه باشد و هیچ تعاملی درونش نباشد
+    final bool useTopBanner = textLength < 40 && !hasInteractiveWords;
+    // متد محلی برای تولید محتوای تعاملی (برای جلوگیری از تکرار کد در دایالوگ و مودال)
+    List<InlineSpan> buildRevealedSpans() {
+      List<InlineSpan> spans = [];
+      if (innerSpans != null && innerSpans!.isNotEmpty) {
+        int innerOffset = 0;
+        for (var span in innerSpans!) {
+          TextStyle spanStyle = TextRenderEngine.applySpanStyle(
+            textStyle,
+            span,
+            isDarkTheme,
           );
-        }
-        return DraggableScrollableSheet(
-          initialChildSize: 0.4,
-          minChildSize: 0.2,
-          maxChildSize: 0.8,
-          expand: false,
-          builder: (context, scrollController) {
-            return Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 40,
-                        height: 5,
-                        margin: const EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        controller: scrollController,
-                        physics: const BouncingScrollPhysics(),
+          List<int>? spanMapSlice;
+          if (blankMap != null) {
+            int spanLen = span.content.length;
+            if (innerOffset + spanLen <= blankMap!.length) {
+              spanMapSlice = blankMap!.sublist(
+                innerOffset,
+                innerOffset + spanLen,
+              );
+            }
+          }
+          List<InlineSpan> interactiveSpans =
+              TextRenderEngine.buildInteractiveText(
+                span.content,
+                interactives,
+                context,
+                spanStyle,
+                localHighlightMap: spanMapSlice,
+                activeOccurrence: activeOcc,
+              );
 
-                        // 🌟 قابلیت دوم: استفاده از Wrapper اختصاصی شما برای فعال‌سازی لمس طولانی و نمایش ترجمه پاراگراف
-                        child: TranslatableContentWrapper(
+          if (span.hasBorders == "true") {
+            Color? hexToColor(String? hex) {
+              if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
+                return null;
+              final buffer = StringBuffer();
+              if (hex.length == 6 || hex.length == 7) buffer.write('ff');
+              buffer.write(hex.replaceFirst('#', ''));
+              try {
+                return Color(int.parse(buffer.toString(), radix: 16));
+              } catch (_) {
+                return null;
+              }
+            }
+
+            spans.add(
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4.0,
+                    vertical: 2.0,
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    color: hexToColor(span.fillColor),
+                    border: Border.all(
+                      color:
+                          hexToColor(span.borderColor) ?? Colors.grey.shade600,
+                      width: 1.2,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text.rich(TextSpan(children: interactiveSpans)),
+                ),
+              ),
+            );
+          } else {
+            spans.addAll(interactiveSpans);
+          }
+          innerOffset += span.content.length;
+        }
+      } else {
+        spans = TextRenderEngine.buildInteractiveText(
+          hiddenText,
+          interactives,
+          context,
+          textStyle.copyWith(
+            color: isDarkTheme ? Colors.white : Colors.black87,
+            fontSize: textStyle.fontSize ?? 16.0,
+            height: 1.6,
+          ),
+          localHighlightMap: blankMap,
+          activeOccurrence: activeOcc,
+          translationFa: translationFa,
+          translationAr: translationAr,
+        );
+      }
+      return spans;
+    }
+
+    // 🌟 ۲. شاخه‌بندی نمایش بر اساس طول متن
+    // 🌟 ۲. شاخه‌بندی نمایش بر اساس طول متن
+    if (useTopBanner) {
+      // 🚀 حالت بنر کشویی از بالا (Top Banner) برای متون کوتاه
+      showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel: "TopPopup",
+        barrierColor: Colors.black45, // رنگ پس‌زمینه نیمه‌شفاف
+        transitionDuration: const Duration(milliseconds: 350),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return SafeArea(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    top: 16.0,
+                    left: 16.0,
+                    right: 16.0,
+                  ),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 12,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TranslatableContentWrapper(
                           originalContent: Text.rich(
-                            TextSpan(children: revealedSpans),
-                            textAlign: TextAlign.justify,
+                            TextSpan(children: buildRevealedSpans()),
+                            textAlign: TextAlign.center,
                           ),
                           translationFa: translationFa,
                           translationAr: translationAr,
                           isDarkMode: isDarkTheme,
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            );
-          },
-        );
-      },
-    );
+            ),
+          );
+        },
+        transitionBuilder: (context, animation, secondaryAnimation, child) {
+          // 🌟 جادوی انیمیشن: لغزش از بیرونِ صفحه (بالا) به سمت داخل با افکت فنری
+          return SlideTransition(
+            position:
+                Tween<Offset>(
+                  begin: const Offset(
+                    0,
+                    -1.2,
+                  ), // از سقفِ خارج از تصویر شروع می‌شود
+                  end: Offset
+                      .zero, // در جایگاه تعیین‌شده (کمی پایین‌تر از سقف) می‌ایستد
+                ).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeOutBack, // افکت زیبای فنری در لحظه توقف
+                    reverseCurve: Curves.easeIn,
+                  ),
+                ),
+            child: child,
+          );
+        },
+      );
+    } else {
+      // 🚀 حالت Bottom Sheet (برای متون طولانی و پاراگراف‌ها) - کدهای قبلی شما
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (context) {
+          return DraggableScrollableSheet(
+            initialChildSize: 0.4,
+            minChildSize: 0.2,
+            maxChildSize: 0.8,
+            expand: false,
+            builder: (context, scrollController) {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 40,
+                          height: 5,
+                          margin: const EdgeInsets.only(bottom: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          controller: scrollController,
+                          physics: const BouncingScrollPhysics(),
+                          child: TranslatableContentWrapper(
+                            originalContent: Text.rich(
+                              TextSpan(children: buildRevealedSpans()),
+                              textAlign: TextAlign.justify,
+                            ),
+                            translationFa: translationFa,
+                            translationAr: translationAr,
+                            isDarkMode: isDarkTheme,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
   }
 }

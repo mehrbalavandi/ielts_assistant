@@ -198,18 +198,19 @@ class TableRowData {
   }
 }
 
+// 🌟 کلاس‌های جدید برای پشتیبانی از ضخامت و رنگ اختصاصی هر مرز
 class BorderDetail {
+  final String? val;
   final double? width;
   final String? color;
-  final String? val;
 
-  BorderDetail({this.width, this.color, this.val});
+  BorderDetail({this.val, this.width, this.color});
 
   factory BorderDetail.fromJson(Map<String, dynamic> json) {
     return BorderDetail(
-      width: json['Width']?.toDouble(),
-      color: json['Color'],
-      val: json['Val'],
+      val: json['val'] ?? json['Val'],
+      width: (json['width'] ?? json['Width'])?.toDouble(),
+      color: json['color'] ?? json['Color'],
     );
   }
 }
@@ -224,14 +225,22 @@ class CellBorders {
 
   factory CellBorders.fromJson(Map<String, dynamic> json) {
     return CellBorders(
-      top: json['Top'] != null ? BorderDetail.fromJson(json['Top']) : null,
-      bottom: json['Bottom'] != null
-          ? BorderDetail.fromJson(json['Bottom'])
-          : null,
-      left: json['Left'] != null ? BorderDetail.fromJson(json['Left']) : null,
-      right: json['Right'] != null
-          ? BorderDetail.fromJson(json['Right'])
-          : null,
+      top: json['top'] != null
+          ? BorderDetail.fromJson(json['top'])
+          : (json['Top'] != null ? BorderDetail.fromJson(json['Top']) : null),
+      bottom: json['bottom'] != null
+          ? BorderDetail.fromJson(json['bottom'])
+          : (json['Bottom'] != null
+                ? BorderDetail.fromJson(json['Bottom'])
+                : null),
+      left: json['left'] != null
+          ? BorderDetail.fromJson(json['left'])
+          : (json['Left'] != null ? BorderDetail.fromJson(json['Left']) : null),
+      right: json['right'] != null
+          ? BorderDetail.fromJson(json['right'])
+          : (json['Right'] != null
+                ? BorderDetail.fromJson(json['Right'])
+                : null),
     );
   }
 }
