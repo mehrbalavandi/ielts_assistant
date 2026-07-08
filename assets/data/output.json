@@ -1353,12 +1353,8 @@
                         }
                       ],
                       "WidthPercent": 4.21,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     },
                     {
                       "Paragraphs": [
@@ -1495,12 +1491,8 @@
                     {
                       "Paragraphs": [],
                       "WidthPercent": 4.21,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     },
                     {
                       "Paragraphs": [
@@ -1616,12 +1608,8 @@
                         }
                       ],
                       "WidthPercent": 4.21,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     },
                     {
                       "Paragraphs": [
@@ -1676,12 +1664,8 @@
                         }
                       ],
                       "WidthPercent": 51.84,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     },
                     {
                       "Paragraphs": [
@@ -1711,6 +1695,9 @@
                         },
                         {
                           "Direction": "LTR",
+                          "HasBorders": "true",
+                          "BorderColor": "C4E747",
+                          "BorderStyle": "BorderValues { }",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "IndentLeft": 4.9,
@@ -1730,12 +1717,8 @@
                         }
                       ],
                       "WidthPercent": 43.96,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     }
                   ]
                 },
@@ -1767,12 +1750,8 @@
                         }
                       ],
                       "WidthPercent": 4.21,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     },
                     {
                       "Paragraphs": [
@@ -1909,12 +1888,8 @@
                         }
                       ],
                       "WidthPercent": 51.84,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     },
                     {
                       "Paragraphs": [
@@ -1944,6 +1919,9 @@
                         },
                         {
                           "Direction": "LTR",
+                          "HasBorders": "true",
+                          "BorderColor": "C4E747",
+                          "BorderStyle": "BorderValues { }",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "IndentLeft": 4.9,
@@ -1963,12 +1941,8 @@
                         }
                       ],
                       "WidthPercent": 43.96,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     }
                   ]
                 }
@@ -2850,6 +2824,9 @@
                         },
                         {
                           "Direction": "LTR",
+                          "HasBorders": "true",
+                          "BorderColor": "C4E747",
+                          "BorderStyle": "BorderValues { }",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "IndentRight": 1.7,
@@ -7436,7 +7413,13 @@
                       ],
                       "WidthPercent": 52.77,
                       "IsHeaderCell": false,
-                      "Borders": {}
+                      "Borders": {
+                        "Right": {
+                          "Width": 2.2,
+                          "Color": "E8CA2D",
+                          "Val": "single"
+                        }
+                      }
                     },
                     {
                       "Paragraphs": [
@@ -7552,7 +7535,28 @@
                       ],
                       "WidthPercent": 42.61,
                       "IsHeaderCell": false,
-                      "Borders": {}
+                      "Borders": {
+                        "Top": {
+                          "Width": 2.2,
+                          "Color": "E8CA2D",
+                          "Val": "single"
+                        },
+                        "Bottom": {
+                          "Width": 2.2,
+                          "Color": "E8CA2D",
+                          "Val": "single"
+                        },
+                        "Left": {
+                          "Width": 2.2,
+                          "Color": "E8CA2D",
+                          "Val": "single"
+                        },
+                        "Right": {
+                          "Width": 2.2,
+                          "Color": "E8CA2D",
+                          "Val": "single"
+                        }
+                      }
                     }
                   ]
                 }
@@ -23444,11 +23448,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-<<<<<<< HEAD
                               "Url": "p24_s1_img15.png",
-=======
-                              "Url": "p23_s1_img15.png",
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                               "FloatPosition": "none",
                               "InnerSpans": [],
                               "TableRows": []
@@ -24527,6 +24527,9 @@
                         },
                         {
                           "Direction": "LTR",
+                          "HasBorders": "true",
+                          "BorderColor": "47C4DB",
+                          "BorderStyle": "BorderValues { }",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
@@ -25605,7 +25608,7 @@
                               "Type": "table",
                               "Markers": [],
                               "BorderColor": "08A7E4",
-                              "BorderWidth": 3.0,
+                              "BorderWidth": 1.5,
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
                               "HasBorders": "true",
@@ -25639,17 +25642,17 @@
                                       "IsHeaderCell": false,
                                       "Borders": {
                                         "Top": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Bottom": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Left": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         }
@@ -25679,12 +25682,12 @@
                                       "IsHeaderCell": false,
                                       "Borders": {
                                         "Top": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Bottom": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         }
@@ -25714,12 +25717,12 @@
                                       "IsHeaderCell": false,
                                       "Borders": {
                                         "Top": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Bottom": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         }
@@ -25749,12 +25752,12 @@
                                       "IsHeaderCell": false,
                                       "Borders": {
                                         "Top": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Bottom": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         }
@@ -25784,17 +25787,17 @@
                                       "IsHeaderCell": false,
                                       "Borders": {
                                         "Top": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Bottom": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Right": {
-                                          "Width": 3.0,
+                                          "Width": 1.5,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         }
@@ -27694,12 +27697,8 @@
                         }
                       ],
                       "WidthPercent": 4.39,
-<<<<<<< HEAD
                       "IsHeaderCell": false,
                       "Borders": {}
-=======
-                      "IsHeaderCell": false
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                     },
                     {
                       "Paragraphs": [
@@ -27781,342 +27780,6 @@
                     {
                       "Paragraphs": [],
                       "WidthPercent": 16.3,
-<<<<<<< HEAD
-=======
-                      "VAlign": "tableverticalalignmentvalues { }",
-                      "IsHeaderCell": false
-                    }
-                  ]
-                },
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "17",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:28"
-                              ],
-                              "BorderColor": "1AA5F9",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 4.39,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Read the Task 2 card Then practise making notes for one minute, and deliver your",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "long turn to a partner.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Describe a city where you have lived in the past.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "You should say:",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "• where the city was",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "• why you were living there",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "• how long you lived therefor",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "and explain what you liked and disliked about living there.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 79.31,
-                      "VAlign": "tableverticalalignmentvalues { }",
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [],
-                      "WidthPercent": 16.3,
-                      "VAlign": "tableverticalalignmentvalues { }",
-                      "IsHeaderCell": false
-                    }
-                  ]
-                },
-                {
-                  "IsHeader": false,
-                  "Cells": [
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "18",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:28"
-                              ],
-                              "BorderColor": "1985C6",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 4.39,
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Ask and answer the Part 3 questions with a partner.",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "1",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " Do you think that within the next 100 years we will be trying to build new cities on other planets?",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "2",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " What would happen if the government put limits on how many people were allowed to live in big cities?",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "3",
-                              "Markers": [
-                                "b",
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " Today, many young people move away from smaller towns to big cities. What effect does this have on these small towns?",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:25"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        }
-                      ],
-                      "WidthPercent": 79.31,
-                      "VAlign": "tableverticalalignmentvalues { }",
-                      "IsHeaderCell": false
-                    },
-                    {
-                      "Paragraphs": [],
-                      "WidthPercent": 16.3,
->>>>>>> b511853dadcd8a83f5982fc51b0aafc24588fd70
                       "VAlign": "tableverticalalignmentvalues { }",
                       "IsHeaderCell": false,
                       "Borders": {}
