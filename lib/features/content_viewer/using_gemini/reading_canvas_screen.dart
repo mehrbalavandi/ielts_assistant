@@ -782,7 +782,7 @@ String _extractFullText(ParagraphData para) {
     if (span.type == "text" && span.content != null) {
       sb.write(span.content);
     } else if (span.type == "table" && span.tableRows != null) {
-      for (var row in span.tableRows!) {
+      for (var row in span.tableRows) {
         for (var cell in row.cells) {
           for (var cellPara in cell.paragraphs) {
             sb.write(_extractFullText(cellPara));
@@ -911,7 +911,7 @@ Widget _buildParagraph(
       (para.spans.length == 1 &&
           para.spans.first.type == "text" &&
           (para.spans.first.content == "\n" ||
-              (para.spans.first.content ?? "").trim().isEmpty))) {
+              (para.spans.first.content).trim().isEmpty))) {
     return const SizedBox.shrink();
   }
 
@@ -923,6 +923,14 @@ Widget _buildParagraph(
   if (para.alignment == "C") textAlign = TextAlign.center;
   if (para.alignment == "R") textAlign = TextAlign.right;
   if (para.alignment == "J") textAlign = TextAlign.justify;
+
+  // 🌟 بررسی وجود متن معنادار در پاراگراف برای تشخیص حالت ترکیبی (تصویر + متن)
+  bool hasText = para.spans.any(
+    (span) => span.type == "text" && (span.content ?? "").trim().isNotEmpty,
+  );
+
+  // 🌟 اگر در جدول هستیم و متن هم وجود دارد، تصاویر به‌صورت Inline رندر شوند
+  bool renderInline = isInsideTableCell && hasText;
 
   void flushText() {
     if (currentInlineSpans.isNotEmpty) {
@@ -946,15 +954,15 @@ Widget _buildParagraph(
 
   for (var span in para.spans) {
     if (span.type == "text") {
-      String content = span.content ?? ""; // ✅ هندل کردن حالت Null
+      String content = span.content; // ✅ هندل کردن حالت Null
 
       List<int>? localMap;
       if (rootHighlightMap != null &&
           content.isNotEmpty &&
-          mapOffset!.value + content.length <= rootHighlightMap.length) {
+          mapOffset.value + content.length <= rootHighlightMap.length) {
         localMap = rootHighlightMap.sublist(
-          mapOffset!.value,
-          mapOffset!.value + content.length,
+          mapOffset.value,
+          mapOffset.value + content.length,
         );
       }
       currentInlineSpans.addAll(
@@ -972,47 +980,85 @@ Widget _buildParagraph(
           pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
         ),
       );
-      mapOffset!.value += content.length;
+      mapOffset.value += content.length;
     } else if (span.type == "image") {
       flushText();
-      String imagePath =
-          span.url ?? span.content ?? ""; // ✅ هندل کردن حالت Null
+      String imagePath = span.url ?? span.content; // ✅ هندل کردن حالت Null
       if (imagePath.isNotEmpty) {
-        FCFloat floatAlign = FCFloat.none;
-        if (isLargeScreen) {
-          if (span.floatPosition == 'left') floatAlign = FCFloat.left;
-          if (span.floatPosition == 'right') floatAlign = FCFloat.right;
-        }
-        blockElements.add(
-          Floatable(
-            float: floatAlign,
-            clear: floatAlign == FCFloat.none ? FCClear.both : FCClear.none,
-            padding: floatAlign == FCFloat.left
-                ? const EdgeInsets.only(right: 16.0, bottom: 8.0, top: 4.0)
-                : floatAlign == FCFloat.right
-                ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
-                : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 8.0),
-            child: floatAlign == FCFloat.none
-                ? Center(
-                    child: _buildLocalImage(
-                      imagePath,
-                      isMobile: !isLargeScreen,
-                      screenWidth: screenWidth,
-                      isImageCell: isImageCell,
-                      activeBook: activeBook,
-                      context: context, // 🌟 اضافه شد
-                    ),
-                  )
-                : _buildLocalImage(
+        if (renderInline) {
+          // 🌟 حالت اول: قرار دادن تصویر به صورت Inline در کنار متن (بدون فراخوانی flushText)
+          // اگر در موتور C# ابعاد تصویر (عرض و ارتفاع) را از فایل ورد استخراج کرده‌اید،
+          // می‌توانید از آن‌ها در اینجا استفاده کنید. در غیر این صورت روی یک ارتفاع منطقی محدودش می‌کنیم.
+          int? inlineWidth =
+              span.imageWidth; // (اختیاری) اگر این فیلد را در خروجی JSON دارید
+          int? inlineHeight =
+              span.imageHeight; // (اختیاری) اگر این فیلد را در خروجی JSON دارید
+
+          currentInlineSpans.add(
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    // اگر ارتفاع تصویر در دیتای ورد موجود بود همان را اعمال کن،
+                    // در غیر این صورت نهایتاً 35 پیکسل (حدوداً ارتفاع یک خط متن با فاصله) فضا بگیرد.
+                    maxHeight: inlineHeight?.toDouble() ?? 35.0,
+                    maxWidth:
+                        inlineWidth?.toDouble() ??
+                        screenWidth * 0.5, // جلوگیری از اشغال کل عرض
+                  ),
+                  child: _buildLocalImage(
                     imagePath,
-                    isMobile: false,
+                    isMobile: !isLargeScreen,
                     screenWidth: screenWidth,
                     isImageCell: isImageCell,
                     activeBook: activeBook,
-                    context: context, // 🌟 اضافه شد
+                    context: context,
                   ),
-          ),
-        );
+                ),
+              ),
+            ),
+          );
+        } else {
+          // 🌟 حالت دوم: منطق قبلی برای تصویر مستقل در یک پاراگراف مجزا
+          flushText();
+          FCFloat floatAlign = FCFloat.none;
+          if (isLargeScreen) {
+            if (span.floatPosition == 'left') floatAlign = FCFloat.left;
+            if (span.floatPosition == 'right') floatAlign = FCFloat.right;
+          }
+          blockElements.add(
+            Floatable(
+              float: floatAlign,
+              clear: floatAlign == FCFloat.none ? FCClear.both : FCClear.none,
+              padding: floatAlign == FCFloat.left
+                  ? const EdgeInsets.only(right: 16.0, bottom: 8.0, top: 4.0)
+                  : floatAlign == FCFloat.right
+                  ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
+                  : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 8.0),
+              child: floatAlign == FCFloat.none
+                  ? Center(
+                      child: _buildLocalImage(
+                        imagePath,
+                        isMobile: !isLargeScreen,
+                        screenWidth: screenWidth,
+                        isImageCell: isImageCell,
+                        activeBook: activeBook,
+                        context: context,
+                      ),
+                    )
+                  : _buildLocalImage(
+                      imagePath,
+                      isMobile: false,
+                      screenWidth: screenWidth,
+                      isImageCell: isImageCell,
+                      activeBook: activeBook,
+                      context: context,
+                    ),
+            ),
+          );
+        }
       }
     } else if (span.type == "table") {
       flushText();
@@ -1310,7 +1356,7 @@ Widget _buildTable(
           (s) =>
               s.type == "text" &&
               s.content != null &&
-              s.content!.trim().isNotEmpty,
+              s.content.trim().isNotEmpty,
         ),
       );
       bool hasImageInCell = cell.paragraphs.any(

@@ -301,6 +301,8 @@ class SpanData {
   final String type;
   final String content;
   final String? url;
+  final int? imageWidth;
+  final int? imageHeight;
   final List<String> markers;
   final List<TableRowData> tableRows;
   final List<SpanData> innerSpans;
@@ -323,6 +325,8 @@ class SpanData {
     required this.type,
     this.content = '',
     this.url,
+    this.imageWidth,
+    this.imageHeight,
     required this.markers,
     this.tableRows = const [],
     this.innerSpans = const [],
@@ -345,6 +349,8 @@ class SpanData {
       type: json['Type'] ?? 'text',
       content: json['Content'] ?? '',
       url: json['Url'],
+      imageWidth: json['ImageWidth'] as int?,
+      imageHeight: json['ImageHeight'] as int?,
       markers: List<String>.from(json['Markers'] ?? []),
       tableRows: rowsList.map((e) => TableRowData.fromJson(e)).toList(),
       innerSpans: innerList.map((e) => SpanData.fromJson(e)).toList(),
