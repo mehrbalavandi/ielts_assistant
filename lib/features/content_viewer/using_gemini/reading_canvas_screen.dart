@@ -1169,9 +1169,9 @@ Widget _buildTable(
   List<InteractiveWord> pageInteractives, {
   bool isNestedTable = false,
   GlobalKey? exactMatchKey,
-  RegExp? interactivesPattern, // 🌟 اضافه شد
-  Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
-  List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
+  RegExp? interactivesPattern,
+  Map<String, InteractiveWord>? interactivesByText,
+  List<String> pageAudioPlaylist = const [],
 }) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -1181,41 +1181,34 @@ Widget _buildTable(
           .replaceAll("_", "");
 
   final bool isBorderedTable = rawStyle.contains("borderedtable");
-  // 🌟 ۱. مخفی کردن حاشیه برای استایل‌های خاص (از جمله columnstack)
   final bool hideBorders =
       rawStyle.contains("dottedtable") ||
       rawStyle.contains("columnstack") ||
       rawStyle.contains("tablegrid");
 
-  // 🌟 استخراج استایل جدید برای چیدمان ستونی در موبایل
   final bool isColumnStack = rawStyle.contains("columnstack");
   final bool applyColumnStack = isColumnStack && !isLargeScreen;
 
-  double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
-  Color borderColor =
+  double defaultBorderWidth =
+      tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
+  Color defaultBorderColor =
       _hexToColor(tableSpan.borders?.color) ??
       (isBorderedTable ? Colors.black : Colors.grey.shade400);
 
-  // 🌟 ساخت خط مرزی یکپارچه
-  final BorderSide activeSide = BorderSide(
-    color: borderColor,
-    width: borderWidth,
-  );
   final bool showBorders =
       !hideBorders && (isBorderedTable || tableSpan.hasBorders == "true");
 
-  // 🌟 ۲. متد محلی برای مپ‌کردن تراز عمودی استخراج‌شده از Word
   TableCellVerticalAlignment getVAlign(String? vAlign) {
     if (vAlign == "center") return TableCellVerticalAlignment.middle;
     if (vAlign == "bottom") return TableCellVerticalAlignment.bottom;
-    return TableCellVerticalAlignment.top; // پیش‌فرض
+    return TableCellVerticalAlignment.top;
   }
 
   List<Widget> rowWidgets = [];
-  List<List<Widget>> allGridCells =
-      []; // 🌟 آرایه موقت برای ذخیره سلول‌ها جهت چیدمان ستونی
+  List<List<Widget>> allGridCells = [];
 
-  for (var row in tableSpan.tableRows) {
+  for (int rowIndex = 0; rowIndex < tableSpan.tableRows.length; rowIndex++) {
+    var row = tableSpan.tableRows[rowIndex];
     List<Widget> cellWidgets = [];
     bool hasAnyImage = false, hasAnyText = false;
 
@@ -1228,9 +1221,7 @@ Widget _buildTable(
             p.spans.isEmpty ||
             (p.spans.length == 1 &&
                 p.spans.first.type == "text" &&
-                (p.spans.first.content ?? "")
-                    .trim()
-                    .isEmpty), // ✅ هندل کردن حالت Null
+                (p.spans.first.content ?? "").trim().isEmpty),
       );
       if (isImg) {
         hasAnyImage = true;
@@ -1240,14 +1231,68 @@ Widget _buildTable(
     }
     bool isImageRow = hasAnyImage && !hasAnyText;
 
-    // نقشه عرض ستون‌ها برای موتور Table
     Map<int, TableColumnWidth> columnWidths = {};
+
+    // تنظیمات داینامیک مرزها برای هر ردیف
+    double currentTopWidth = defaultBorderWidth;
+    double currentBottomWidth = defaultBorderWidth;
+    double currentLeftWidth = defaultBorderWidth;
+    double currentRightWidth = defaultBorderWidth;
+    double currentInsideVWidth = defaultBorderWidth;
+
+    Color currentTopColor = defaultBorderColor;
+    Color currentBottomColor = defaultBorderColor;
+    Color currentLeftColor = defaultBorderColor;
+    Color currentRightColor = defaultBorderColor;
+    Color currentInsideVColor = defaultBorderColor;
+
+    for (var cell in row.cells) {
+      if (cell.borders != null) {
+        var cb = cell.borders;
+        if (cb?.bottom?.width != null)
+          currentBottomWidth = cb!.bottom!.width!.toDouble();
+        if (cb?.top?.width != null)
+          currentTopWidth = cb!.top!.width!.toDouble();
+        if (cb!.left?.width != null)
+          currentLeftWidth = cb.left!.width!.toDouble();
+        if (cb?.right?.width != null)
+          currentRightWidth = cb.right!.width!.toDouble();
+
+        if (cb?.bottom?.color != null)
+          currentBottomColor =
+              _hexToColor(cb.bottom!.color) ?? defaultBorderColor;
+        if (cb?.top?.color != null)
+          currentTopColor = _hexToColor(cb.top!.color) ?? defaultBorderColor;
+        if (cb?.left?.color != null)
+          currentLeftColor = _hexToColor(cb.left!.color) ?? defaultBorderColor;
+        if (cb?.right?.color != null)
+          currentRightColor =
+              _hexToColor(cb.right!.color) ?? defaultBorderColor;
+      }
+      try {
+        var dynamicCell = cell as dynamic;
+        if (dynamicCell.borderBottomWidth != null)
+          currentBottomWidth = dynamicCell.borderBottomWidth.toDouble();
+        if (dynamicCell.borderTopWidth != null)
+          currentTopWidth = dynamicCell.borderTopWidth.toDouble();
+        if (dynamicCell.borderLeftWidth != null)
+          currentLeftWidth = dynamicCell.borderLeftWidth.toDouble();
+        if (dynamicCell.borderRightWidth != null)
+          currentRightWidth = dynamicCell.borderRightWidth.toDouble();
+      } catch (_) {}
+    }
+
+    // زاپاس ردیف اول برای جداول استاندارد ورد
+    if (rowIndex == 0 &&
+        currentBottomWidth == defaultBorderWidth &&
+        isBorderedTable) {
+      currentBottomWidth = defaultBorderWidth * 2.2;
+    }
 
     for (int i = 0; i < row.cells.length; i++) {
       var cell = row.cells[i];
       List<Widget> cellParagraphs = [];
 
-      // 🌟 اصلاح هوشمندانه: بررسی می‌کنیم که آیا سلول متن هم دارد یا خیر
       bool hasTextInCell = cell.paragraphs.any(
         (p) => p.spans.any(
           (s) =>
@@ -1259,8 +1304,6 @@ Widget _buildTable(
       bool hasImageInCell = cell.paragraphs.any(
         (p) => p.spans.any((s) => s.type == "image"),
       );
-
-      // 🎯 سلول فقط زمانی "سلولِ عکسی" محسوب می‌شود که هیچ متنی در آن نباشد
       bool isImageCell = hasImageInCell && !hasTextInCell;
 
       for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
@@ -1270,7 +1313,7 @@ Widget _buildTable(
             canvasWidth,
             screenWidth,
             context,
-            isImageCell: isImageCell, // انتقال وضعیت دقیق به پاراگراف
+            isImageCell: isImageCell,
             isInsideTableCell: true,
             prevPara: pIndex > 0 ? cell.paragraphs[pIndex - 1] : null,
             nextPara: pIndex < cell.paragraphs.length - 1
@@ -1289,22 +1332,17 @@ Widget _buildTable(
         );
       }
 
-      // 🌟 اعمال دقیق پدینگ: اگر متن داشته باشد، تورفتگی‌های Word مو به مو اعمال می‌شوند
-      EdgeInsetsGeometry cellPadding;
-      if (isImageCell) {
-        cellPadding = const EdgeInsets.all(2.0);
-      } else {
-        cellPadding = EdgeInsets.only(
-          top: cell.paddingTop ?? 4.0,
-          bottom: cell.paddingBottom ?? 4.0,
-          left: cell.paddingLeft ?? 8.0,
-          right: cell.paddingRight ?? 8.0,
-        );
-      }
+      EdgeInsetsGeometry cellPadding = isImageCell
+          ? const EdgeInsets.all(2.0)
+          : EdgeInsets.only(
+              top: cell.paddingTop ?? 4.0,
+              bottom: cell.paddingBottom ?? 4.0,
+              left: cell.paddingLeft ?? 8.0,
+              right: cell.paddingRight ?? 8.0,
+            );
 
-      // کانتینر اصلی محتوای سلول (تراز افقی در متد _buildParagraph مدیریت شده است)
       Widget cellContent = Container(
-        padding: cellPadding, // 🌟 تزریق پدینگ‌های میلی‌متری
+        padding: cellPadding,
         decoration: BoxDecoration(color: _hexToColor(cell.fillColor)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1322,12 +1360,10 @@ Widget _buildTable(
       }
     }
 
-    // 🌟 منطق تفکیک: اگر حالت ستونی فعال است، فعلاً رندر نکن و فقط ذخیره کن
     if (applyColumnStack) {
       allGridCells.add(cellWidgets);
     } else {
       if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
-        // 🌟 ۳. پیچیدن سلول‌ها در TableCell برای اعمال تراز عمودیِ (vAlign) دریافت شده از ورد
         List<Widget> tableCellWidgets = [];
         for (int i = 0; i < cellWidgets.length; i++) {
           tableCellWidgets.add(
@@ -1338,14 +1374,38 @@ Widget _buildTable(
           );
         }
 
+        final BorderSide topSide = BorderSide(
+          color: currentTopColor,
+          width: currentTopWidth,
+        );
+        final BorderSide bottomSide = BorderSide(
+          color: currentBottomColor,
+          width: currentBottomWidth,
+        );
+        final BorderSide leftSide = BorderSide(
+          color: currentLeftColor,
+          width: currentLeftWidth,
+        );
+        final BorderSide rightSide = BorderSide(
+          color: currentRightColor,
+          width: currentRightWidth,
+        );
+        final BorderSide insideVSide = BorderSide(
+          color: currentInsideVColor,
+          width: currentInsideVWidth,
+        );
+
         rowWidgets.add(
           Table(
             columnWidths: columnWidths,
             border: showBorders
                 ? TableBorder(
-                    bottom: activeSide,
-                    right: activeSide,
-                    verticalInside: activeSide,
+                    // 🌟 خط بالایی کل جدول فقط و فقط توسط ردیف اول رسم می‌شود
+                    top: rowIndex == 0 ? topSide : BorderSide.none,
+                    bottom: bottomSide,
+                    left: leftSide,
+                    right: rightSide,
+                    verticalInside: insideVSide,
                   )
                 : const TableBorder.symmetric(),
             children: [TableRow(children: tableCellWidgets)],
@@ -1362,7 +1422,6 @@ Widget _buildTable(
     }
   }
 
-  // 🌟 جادوی چیدمان ستونی: خواندن آرایه 2D از ستون به ردیف
   if (applyColumnStack && allGridCells.isNotEmpty) {
     int maxCols = allGridCells.fold(
       0,
@@ -1377,9 +1436,7 @@ Widget _buildTable(
       }
       rowWidgets.add(
         Container(
-          margin: const EdgeInsets.only(
-            bottom: 12.0,
-          ), // فاصله بین هر بلوکِ ستونی
+          margin: const EdgeInsets.only(bottom: 12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: columnCells,
@@ -1389,13 +1446,14 @@ Widget _buildTable(
     }
   }
 
+  // 🌟 اصلاح نهایی: حذف پارامتر border از کانتینر بیرونی برای جلوگیری از تداخل و دابل‌بوردر شدن سایدها
   Widget tableContainer = Container(
     margin: isNestedTable
         ? const EdgeInsets.only(top: 2.0)
         : const EdgeInsets.symmetric(vertical: 12.0),
     decoration: BoxDecoration(
       color: _hexToColor(tableSpan.fillColor),
-      border: showBorders ? Border(top: activeSide, left: activeSide) : null,
+      // کدهای تداخل‌زا حذف شدند 💥
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1407,9 +1465,8 @@ Widget _buildTable(
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
       if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
-      if (tableSpan.tableAlignment == "right") {
+      if (tableSpan.tableAlignment == "right")
         tableAlign = Alignment.centerRight;
-      }
       return Align(
         alignment: tableAlign,
         child: SizedBox(
