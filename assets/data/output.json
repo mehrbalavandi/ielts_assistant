@@ -25569,7 +25569,7 @@
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "In the Part 3 section you listened to in exercise 7, the candidate gave strong answers which would score well for GRA, and included the sentences below. Complete the sentences with the correct future time phrases from the box. Then listen and check.",
+                              "Content": "In the Part 3 section you listened to in exercise 7, the candidate gave strong answers which would score well for GRA, and included the sentences below. Complete the sentences with the correct future time phrases from the box. Then listen and check. ",
                               "Markers": [
                                 "b",
                                 "fn:Source Sans 3",
@@ -25581,7 +25581,6 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
@@ -25608,11 +25607,11 @@
                               "Type": "table",
                               "Markers": [],
                               "BorderColor": "08A7E4",
-                              "BorderWidth": 1.5,
+                              "BorderWidth": 2.25,
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
                               "HasBorders": "true",
-                              "TableWidthPercent": 76.64529914529915,
+                              "TableWidthPercent": 76.741452991453,
                               "InnerSpans": [],
                               "TableRows": [
                                 {
@@ -25627,7 +25626,7 @@
                                           "Spans": [
                                             {
                                               "Type": "text",
-                                              "Content": "As long as",
+                                              "Content": "As long as     As soon as     By the time     Providing that     Unless",
                                               "Markers": [
                                                 "fn:Source Sans 3",
                                                 "sz:25"
@@ -25638,166 +25637,26 @@
                                           ]
                                         }
                                       ],
-                                      "WidthPercent": 19.0,
+                                      "WidthPercent": 100.0,
                                       "IsHeaderCell": false,
                                       "Borders": {
                                         "Top": {
-                                          "Width": 1.5,
+                                          "Width": 2.2,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Bottom": {
-                                          "Width": 1.5,
+                                          "Width": 2.2,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Left": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "Paragraphs": [
-                                        {
-                                          "Direction": "LTR",
-                                          "SpaceAfter": 0.0,
-                                          "SpaceBefore": 0.0,
-                                          "Spans": [
-                                            {
-                                              "Type": "text",
-                                              "Content": "As soon as",
-                                              "Markers": [
-                                                "fn:Source Sans 3",
-                                                "sz:25"
-                                              ],
-                                              "InnerSpans": [],
-                                              "TableRows": []
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "WidthPercent": 19.75,
-                                      "IsHeaderCell": false,
-                                      "Borders": {
-                                        "Top": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        },
-                                        "Bottom": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "Paragraphs": [
-                                        {
-                                          "Direction": "LTR",
-                                          "SpaceAfter": 0.0,
-                                          "SpaceBefore": 0.0,
-                                          "Spans": [
-                                            {
-                                              "Type": "text",
-                                              "Content": "By the time",
-                                              "Markers": [
-                                                "fn:Source Sans 3",
-                                                "sz:25"
-                                              ],
-                                              "InnerSpans": [],
-                                              "TableRows": []
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "WidthPercent": 21.73,
-                                      "IsHeaderCell": false,
-                                      "Borders": {
-                                        "Top": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        },
-                                        "Bottom": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "Paragraphs": [
-                                        {
-                                          "Direction": "LTR",
-                                          "SpaceAfter": 0.0,
-                                          "SpaceBefore": 0.0,
-                                          "Spans": [
-                                            {
-                                              "Type": "text",
-                                              "Content": "Providing that",
-                                              "Markers": [
-                                                "fn:Source Sans 3",
-                                                "sz:25"
-                                              ],
-                                              "InnerSpans": [],
-                                              "TableRows": []
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "WidthPercent": 25.69,
-                                      "IsHeaderCell": false,
-                                      "Borders": {
-                                        "Top": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        },
-                                        "Bottom": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "Paragraphs": [
-                                        {
-                                          "Direction": "LTR",
-                                          "SpaceAfter": 0.0,
-                                          "SpaceBefore": 0.0,
-                                          "Spans": [
-                                            {
-                                              "Type": "text",
-                                              "Content": "Unless",
-                                              "Markers": [
-                                                "fn:Source Sans 3",
-                                                "sz:25"
-                                              ],
-                                              "InnerSpans": [],
-                                              "TableRows": []
-                                            }
-                                          ]
-                                        }
-                                      ],
-                                      "WidthPercent": 13.83,
-                                      "IsHeaderCell": false,
-                                      "Borders": {
-                                        "Top": {
-                                          "Width": 1.5,
-                                          "Color": "08A7E4",
-                                          "Val": "single"
-                                        },
-                                        "Bottom": {
-                                          "Width": 1.5,
+                                          "Width": 2.2,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         },
                                         "Right": {
-                                          "Width": 1.5,
+                                          "Width": 2.2,
                                           "Color": "08A7E4",
                                           "Val": "single"
                                         }
