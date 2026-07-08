@@ -817,7 +817,8 @@ class InteractiveBlankWord extends StatelessWidget {
                     color: hexToColor(span.fillColor),
                     border: Border.all(
                       color:
-                          hexToColor(span.borderColor) ?? Colors.grey.shade600,
+                          hexToColor(span.borders?.color) ??
+                          Colors.grey.shade600,
                       width: 1.2,
                     ),
                     borderRadius: BorderRadius.circular(4),

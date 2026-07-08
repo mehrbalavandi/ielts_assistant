@@ -10,10 +10,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -121,9 +123,10 @@
                 "sz:26"
               ],
               "FillColor": "F8FC3E",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -136,10 +139,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -161,9 +166,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "FFFF00",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -971,9 +978,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "FFFF00",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -1065,10 +1074,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -1090,9 +1101,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "FFFF00",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "FFFF00",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -1170,10 +1183,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -1318,10 +1333,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -1343,9 +1360,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "8CA03B",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "8CA03B",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -1598,9 +1617,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "8CA03B",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "8CA03B",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -1685,9 +1706,11 @@
                               ],
                               "FillColor": "68AF3D",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "C4E747",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "C4E747",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -1695,9 +1718,11 @@
                         },
                         {
                           "Direction": "LTR",
-                          "HasBorders": "true",
-                          "BorderColor": "C4E747",
-                          "BorderStyle": "BorderValues { }",
+                          "Borders": {
+                            "Width": 2.2,
+                            "Color": "C4E747",
+                            "Val": "single"
+                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "IndentLeft": 4.9,
@@ -1740,9 +1765,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "CDE84D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CDE84D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -1909,9 +1936,11 @@
                               ],
                               "FillColor": "68AF3D",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "C4E747",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "C4E747",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -1919,9 +1948,11 @@
                         },
                         {
                           "Direction": "LTR",
-                          "HasBorders": "true",
-                          "BorderColor": "C4E747",
-                          "BorderStyle": "BorderValues { }",
+                          "Borders": {
+                            "Width": 2.2,
+                            "Color": "C4E747",
+                            "Val": "single"
+                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "IndentLeft": 4.9,
@@ -1962,10 +1993,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -1987,9 +2020,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "CDE84D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CDE84D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -2112,9 +2147,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "CDE84D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CDE84D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -2174,10 +2211,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -2199,9 +2238,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "CDE84D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CDE84D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -2464,9 +2505,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "CDE84D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CDE84D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -2814,9 +2857,11 @@
                               ],
                               "FillColor": "68AF3D",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "C4E747",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "C4E747",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -2824,9 +2869,11 @@
                         },
                         {
                           "Direction": "LTR",
-                          "HasBorders": "true",
-                          "BorderColor": "C4E747",
-                          "BorderStyle": "BorderValues { }",
+                          "Borders": {
+                            "Width": 2.2,
+                            "Color": "C4E747",
+                            "Val": "single"
+                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "IndentRight": 1.7,
@@ -2867,10 +2914,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -2892,9 +2941,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "BCC98C",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "BCC98C",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -2982,9 +3033,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "BCC98C",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "BCC98C",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -3050,9 +3103,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "BCC98C",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "BCC98C",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -3156,9 +3211,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "BCC98C",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "BCC98C",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -3311,9 +3368,10 @@
                 "sz:26"
               ],
               "FillColor": "C1DA28",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -3326,10 +3384,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -3351,9 +3411,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "BCC98C",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "BCC98C",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -3639,10 +3701,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -3664,9 +3728,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "BCC98C",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "BCC98C",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -3981,9 +4047,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "1C1A1C",
-                              "BorderColor": "E0EC9D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "E0EC9D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -4014,9 +4082,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "CDE84D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CDE84D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -4333,10 +4403,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -4358,9 +4430,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "6B9443",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "6B9443",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -4896,10 +4970,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -4967,10 +5043,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -5365,10 +5443,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -5476,9 +5556,10 @@
                 "sz:26"
               ],
               "FillColor": "E8B756",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -5491,10 +5572,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -5516,9 +5599,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "E8B756",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "E8B756",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -5905,10 +5990,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -6054,10 +6141,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -6079,9 +6168,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "D1C4BF",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "D1C4BF",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -6197,11 +6288,13 @@
                               "Type": "table",
                               "Markers": [],
                               "FillColor": "E3EDEF",
-                              "BorderColor": "FFC000",
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Color": "FFC000",
+                                "Val": "single"
+                              },
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 66.58119658119658,
                               "InnerSpans": [],
                               "TableRows": [
@@ -6824,10 +6917,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -7050,10 +7145,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -7075,9 +7172,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "D1C4BF",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "D1C4BF",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -7249,10 +7348,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "TableGrid",
                               "TableStyleName": "Table Grid",
-                              "HasBorders": "true",
                               "TableWidthPercent": 78.73931623931624,
                               "InnerSpans": [],
                               "TableRows": [
@@ -7439,9 +7540,11 @@
                               ],
                               "FillColor": "E23124",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "E8CA2D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -7571,10 +7674,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -7596,9 +7701,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "D1C4BF",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "D1C4BF",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -7770,11 +7877,13 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderColor": "E1CD95",
-                              "BorderWidth": 1.5,
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "E1CD95",
+                                "Val": "single"
+                              },
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -7889,10 +7998,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -7914,9 +8025,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "E8CA2D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -7974,11 +8087,13 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderColor": "E8CA2D",
-                              "BorderWidth": 1.5,
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -8335,10 +8450,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -8360,9 +8477,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "CABD86",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 2.2,
+                                "Color": "CABD86",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -8585,9 +8704,11 @@
                               ],
                               "FillColor": "E23124",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "E8CA2D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -8642,9 +8763,10 @@
                 "sz:26"
               ],
               "FillColor": "E38F28",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 2.2,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -8657,10 +8779,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -8682,9 +8806,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "A87D51",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "A87D51",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -8723,11 +8849,13 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderColor": "ECBD8E",
-                              "BorderWidth": 2.25,
+                              "Borders": {
+                                "Width": 2.25,
+                                "Color": "ECBD8E",
+                                "Val": "single"
+                              },
                               "TableStyleId": "TableGrid",
                               "TableStyleName": "Table Grid",
-                              "HasBorders": "true",
                               "TableWidthPercent": 83.3440170940171,
                               "InnerSpans": [],
                               "TableRows": [
@@ -9314,10 +9442,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -9339,9 +9469,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "A87D51",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "A87D51",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -9533,11 +9665,13 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderColor": "FFC000",
-                              "BorderWidth": 1.5,
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "FFC000",
+                                "Val": "single"
+                              },
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 80.41666666666667,
                               "InnerSpans": [],
                               "TableRows": [
@@ -9889,9 +10023,11 @@
                               ],
                               "FillColor": "E23124",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "E8CA2D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -9932,10 +10068,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -9957,9 +10095,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "A87D51",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "A87D51",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -10267,10 +10407,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -10292,9 +10434,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "F0914E",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "F0914E",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -10698,9 +10842,11 @@
                               ],
                               "FillColor": "E23124",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "E8CA2D",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -10747,10 +10893,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -10772,9 +10920,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "A87D51",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "A87D51",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -11051,10 +11201,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "TableGrid",
                               "TableStyleName": "Table Grid",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -11288,10 +11440,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -11451,9 +11605,10 @@
               ],
               "FillColor": "CA0D8E",
               "TextColor": "FFFFFF",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -11466,10 +11621,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -11491,9 +11648,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "B32887",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "B32887",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -11634,9 +11793,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "B32887",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "B32887",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -12883,9 +13044,10 @@
               ],
               "FillColor": "FC5CDE",
               "TextColor": "FFFFFF",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 2.2,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -12990,10 +13152,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -13015,9 +13179,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "FC5CDE",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "FC5CDE",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -13124,10 +13290,12 @@
                               "Type": "table",
                               "Markers": [],
                               "FillColor": "519CE4",
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -13312,10 +13480,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -13338,9 +13508,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -13435,9 +13607,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -13908,10 +14082,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -13934,9 +14110,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -14016,10 +14194,12 @@
                               "Type": "table",
                               "Markers": [],
                               "FillColor": "FEFFFA",
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 90.03205128205128,
                               "InnerSpans": [],
                               "TableRows": [
@@ -14734,9 +14914,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -14795,10 +14977,12 @@
                               "Type": "table",
                               "Markers": [],
                               "FillColor": "FEFFFA",
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 90.03205128205128,
                               "InnerSpans": [],
                               "TableRows": [
@@ -15573,10 +15757,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -15599,9 +15785,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -15651,10 +15839,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "ColumnStackTable",
               "TableStyleName": "ColumnStackTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -16915,9 +17105,11 @@
                               ],
                               "FillColor": "9E006C",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "CD0891",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CD0891",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -17105,10 +17297,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -17131,9 +17325,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "C9048E",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "C9048E",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -17836,10 +18032,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -17862,9 +18060,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -17995,9 +18195,11 @@
                               ],
                               "FillColor": "9E006C",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "CD0891",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "CD0891",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -18045,9 +18247,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -18420,9 +18624,10 @@
               ],
               "FillColor": "D30068",
               "TextColor": "FFFFFF",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 2.2,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -18435,10 +18640,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -18461,9 +18668,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -18846,9 +19055,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -19077,9 +19288,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -19517,9 +19730,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "BD0063",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "BD0063",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -19757,10 +19972,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -19783,9 +20000,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "970C77",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "970C77",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -19921,10 +20140,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 90.03205128205128,
                               "InnerSpans": [],
                               "TableRows": [
@@ -20931,10 +21152,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -21077,9 +21300,10 @@
               ],
               "FillColor": "0A7EDD",
               "TextColor": "FFFFFF",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -21092,10 +21316,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -21117,9 +21343,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1069AE",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1069AE",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -21185,10 +21413,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -21341,10 +21571,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -21497,10 +21729,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -21653,10 +21887,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -21809,10 +22045,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -22236,10 +22474,12 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderWidth": 0.5,
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
                               "TableStyleId": "DottedTable",
                               "TableStyleName": "DottedTable",
-                              "HasBorders": "true",
                               "TableWidthPercent": 100.0,
                               "InnerSpans": [],
                               "TableRows": [
@@ -22349,9 +22589,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1069AE",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1069AE",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -22458,10 +22700,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -22483,9 +22727,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "2BB4C3",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "2BB4C3",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -22839,9 +23085,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "3AEDFD",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "3AEDFD",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -22995,9 +23243,11 @@
                               ],
                               "FillColor": "3AEDFD",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "95E2E0",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "95E2E0",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -23140,10 +23390,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -23165,9 +23417,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "2BB4C3",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "2BB4C3",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -23252,10 +23506,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -23624,10 +23880,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -23649,9 +23907,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "2BB4C3",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "2BB4C3",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -23754,9 +24014,11 @@
                               ],
                               "FillColor": "3AEDFD",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "95E2E0",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "95E2E0",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -23845,10 +24107,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -23870,9 +24134,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1271BE",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1271BE",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -24208,9 +24474,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1271BE",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1271BE",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -24517,9 +24785,11 @@
                               ],
                               "FillColor": "189AF4",
                               "TextColor": "FFFFFF",
-                              "BorderColor": "47C4DB",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "47C4DB",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -24527,9 +24797,11 @@
                         },
                         {
                           "Direction": "LTR",
-                          "HasBorders": "true",
-                          "BorderColor": "47C4DB",
-                          "BorderStyle": "BorderValues { }",
+                          "Borders": {
+                            "Width": 2.2,
+                            "Color": "47C4DB",
+                            "Val": "single"
+                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
@@ -24594,9 +24866,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1271BE",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1271BE",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -25194,9 +25468,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1271BE",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1271BE",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -25287,9 +25563,10 @@
               ],
               "FillColor": "08A7E4",
               "TextColor": "FFFFFF",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 2.2,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -25302,10 +25579,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -25327,9 +25606,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1689C6",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1689C6",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -25547,9 +25828,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1689C6",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1689C6",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -25606,12 +25889,14 @@
                             {
                               "Type": "table",
                               "Markers": [],
-                              "BorderColor": "08A7E4",
-                              "BorderWidth": 2.25,
+                              "Borders": {
+                                "Width": 2.25,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
-                              "HasBorders": "true",
-                              "TableWidthPercent": 76.741452991453,
+                              "TableWidthPercent": 71.59188034188034,
                               "InnerSpans": [],
                               "TableRows": [
                                 {
@@ -25834,9 +26119,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1689C6",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1689C6",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -26334,9 +26621,10 @@
               ],
               "FillColor": "08A7E4",
               "TextColor": "FFFFFF",
-              "BorderColor": "auto",
-              "BorderStyle": "BorderValues { }",
-              "HasBorders": "true",
+              "Borders": {
+                "Width": 2.2,
+                "Val": "single"
+              },
               "InnerSpans": [],
               "TableRows": []
             }
@@ -26349,10 +26637,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -26374,9 +26664,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1CB0FD",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1CB0FD",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -26469,9 +26761,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26493,9 +26787,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26527,9 +26823,11 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "1683B0",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "1683B0",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26550,9 +26848,10 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "auto",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26613,9 +26912,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26647,9 +26948,11 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "1683B0",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "1683B0",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26670,9 +26973,10 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "auto",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26694,9 +26998,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26729,9 +27035,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26780,9 +27088,11 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "1683B0",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "1683B0",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26804,9 +27114,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26839,9 +27151,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26874,9 +27188,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26897,9 +27213,11 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "1683B0",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "1683B0",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26948,9 +27266,11 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "1683B0",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "1683B0",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -26972,9 +27292,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -27007,9 +27329,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -27031,9 +27355,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -27055,9 +27381,11 @@
                                     "sz:25"
                                   ],
                                   "TextColor": "028BF3",
-                                  "BorderColor": "08A7E4",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "08A7E4",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -27078,9 +27406,11 @@
                                     "fn:Source Sans 3",
                                     "sz:25"
                                   ],
-                                  "BorderColor": "1683B0",
-                                  "BorderStyle": "BorderValues { }",
-                                  "HasBorders": "true",
+                                  "Borders": {
+                                    "Width": 1.5,
+                                    "Color": "1683B0",
+                                    "Val": "single"
+                                  },
                                   "InnerSpans": [],
                                   "TableRows": []
                                 },
@@ -27122,9 +27452,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27146,9 +27478,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27181,9 +27515,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27205,9 +27541,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27240,9 +27578,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27264,9 +27604,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27288,9 +27630,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27312,9 +27656,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27347,9 +27693,11 @@
                                 "sz:25"
                               ],
                               "TextColor": "028BF3",
-                              "BorderColor": "08A7E4",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 1.5,
+                                "Color": "08A7E4",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             },
@@ -27402,9 +27750,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1CB0FD",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1CB0FD",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -27521,10 +27871,12 @@
             {
               "Type": "table",
               "Markers": [],
-              "BorderWidth": 0.5,
+              "Borders": {
+                "Width": 0.5,
+                "Val": "single"
+              },
               "TableStyleId": "DottedTable",
               "TableStyleName": "DottedTable",
-              "HasBorders": "true",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -27546,9 +27898,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1985C6",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1985C6",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -27663,9 +28017,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1AA5F9",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1AA5F9",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -27852,9 +28208,11 @@
                                 "fn:Source Sans 3",
                                 "sz:28"
                               ],
-                              "BorderColor": "1985C6",
-                              "BorderStyle": "BorderValues { }",
-                              "HasBorders": "true",
+                              "Borders": {
+                                "Width": 3.0,
+                                "Color": "1985C6",
+                                "Val": "single"
+                              },
                               "InnerSpans": [],
                               "TableRows": []
                             }

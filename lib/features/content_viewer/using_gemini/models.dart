@@ -34,19 +34,14 @@ class InteractiveWord {
   }
 }
 
-// ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
-// ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
-// ۲. مدل پاراگراف (غنی شده با هوش مصنوعی و Shading)
 class ParagraphData {
   final List<SpanData> spans;
   final String direction;
   final String alignment;
   final String? fillColor;
 
-  // --- فیلدهای حاشیه ---
-  final String? hasBorders;
-  final String? borderColor;
-  final String? borderStyle;
+  // 🌟 ارتقاء: استفاده از کلاس مشترک به جای ۴ فیلد مجزا
+  final BorderDetail? borders;
 
   final double spaceBefore;
   final double spaceAfter;
@@ -54,10 +49,9 @@ class ParagraphData {
   final double? indentRight;
   final double? indentFirstLine;
 
-  // 🌟 فیلدهای زمان‌بندی صوتی و نام فایل (Karaoke)
   final int? startMs;
   final int? endMs;
-  final String? audioTrackName; // 🌟 این خط باعث رفع خطای شما می‌شود
+  final String? audioTrackName;
 
   final String? translationFa;
   final String? translationAr;
@@ -68,9 +62,7 @@ class ParagraphData {
     this.direction = "LTR",
     this.alignment = "L",
     this.fillColor,
-    this.hasBorders,
-    this.borderColor,
-    this.borderStyle,
+    this.borders, // تزریق بوردر جدید
     this.spaceBefore = 0.0,
     this.spaceAfter = 0.0,
     this.indentLeft,
@@ -78,7 +70,7 @@ class ParagraphData {
     this.indentFirstLine,
     this.startMs,
     this.endMs,
-    this.audioTrackName, // 🌟 اضافه شد
+    this.audioTrackName,
     this.translationFa,
     this.translationAr,
     required this.interactives,
@@ -92,9 +84,10 @@ class ParagraphData {
       direction: json['Direction'] ?? 'LTR',
       alignment: json['Alignment'] ?? 'L',
       fillColor: json['FillColor'],
-      hasBorders: json['HasBorders'],
-      borderColor: json['BorderColor'],
-      borderStyle: json['BorderStyle'],
+      // 🌟 مپ کردن مستقیم ساختار یکپارچه بوردر از JSON بک‌اندمان
+      borders: json['Borders'] != null
+          ? BorderDetail.fromJson(json['Borders'])
+          : null,
       spaceBefore: (json['SpaceBefore'] as num?)?.toDouble() ?? 0.0,
       spaceAfter: (json['SpaceAfter'] as num?)?.toDouble() ?? 0.0,
       indentLeft: json['IndentLeft']?.toDouble(),
@@ -102,7 +95,7 @@ class ParagraphData {
       indentFirstLine: json['IndentFirstLine']?.toDouble(),
       startMs: json['StartMs'] as int?,
       endMs: json['EndMs'] as int?,
-      audioTrackName: json['AudioTrackName'] as String?, // 🌟 مپ کردن از JSON
+      audioTrackName: json['AudioTrackName'] as String?,
       translationFa: json['translationFa'],
       translationAr: json['translationAr'],
       interactives: interactivesList
@@ -310,13 +303,14 @@ class SpanData {
   final String? url;
   final List<String> markers;
   final List<TableRowData> tableRows;
-  final List<SpanData> innerSpans; // 🌟 اضافه شد برای استایل‌های داخل جای‌خالی
+  final List<SpanData> innerSpans;
 
-  // فیلدهای استایل متن و جدول
   final String? fillColor;
   final String? textColor;
-  final String? borderColor;
-  final String? borderStyle;
+
+  // 🌟 ارتقاء: افزودن کادر مشترک به سطح متن
+  final BorderDetail? borders;
+
   final String? tableStyleId;
   final String? tableStyleName;
   final String? tableAlignment;
@@ -331,11 +325,10 @@ class SpanData {
     this.url,
     required this.markers,
     this.tableRows = const [],
-    this.innerSpans = const [], // 🌟 مقدار اولیه
+    this.innerSpans = const [],
     this.fillColor,
     this.textColor,
-    this.borderColor,
-    this.borderStyle,
+    this.borders, // کادر متنی
     this.tableStyleId,
     this.tableStyleName,
     this.tableAlignment,
@@ -347,20 +340,20 @@ class SpanData {
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
     var rowsList = json['TableRows'] as List? ?? [];
-    var innerList = json['InnerSpans'] as List? ?? []; // 🌟 استخراج از JSON
+    var innerList = json['InnerSpans'] as List? ?? [];
     return SpanData(
       type: json['Type'] ?? 'text',
       content: json['Content'] ?? '',
       url: json['Url'],
       markers: List<String>.from(json['Markers'] ?? []),
       tableRows: rowsList.map((e) => TableRowData.fromJson(e)).toList(),
-      innerSpans: innerList
-          .map((e) => SpanData.fromJson(e))
-          .toList(), // 🌟 مپ کردن
+      innerSpans: innerList.map((e) => SpanData.fromJson(e)).toList(),
       fillColor: json['FillColor'],
       textColor: json['TextColor'],
-      borderColor: json['BorderColor'],
-      borderStyle: json['BorderStyle'],
+      // 🌟 دریافت کادر متنی پارس شده از فایل JSON
+      borders: json['Borders'] != null
+          ? BorderDetail.fromJson(json['Borders'])
+          : null,
       tableStyleId: json['TableStyleId'],
       tableStyleName: json['TableStyleName'],
       tableAlignment: json['TableAlignment'],

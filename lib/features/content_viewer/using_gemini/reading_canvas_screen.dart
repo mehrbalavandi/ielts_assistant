@@ -901,7 +901,7 @@ Widget _buildParagraph(
   MapOffset? mapOffset,
   int? activeOccurrence,
   required BookModel? activeBook,
-  required List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید اضافه شد
+  required List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید
   RegExp? interactivesPattern, // 🌟 اضافه شد
   Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
   List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
@@ -911,11 +911,11 @@ Widget _buildParagraph(
       (para.spans.length == 1 &&
           para.spans.first.type == "text" &&
           (para.spans.first.content == "\n" ||
-              para.spans.first.content.trim().isEmpty))) {
+              (para.spans.first.content ?? "").trim().isEmpty))) {
     return const SizedBox.shrink();
   }
 
-  if (mapOffset == null) mapOffset = MapOffset();
+  mapOffset ??= MapOffset();
 
   List<Object> blockElements = [];
   List<InlineSpan> currentInlineSpans = [];
@@ -943,16 +943,18 @@ Widget _buildParagraph(
       WidgetSpan(child: SizedBox(width: para.indentFirstLine)),
     );
   }
+
   for (var span in para.spans) {
     if (span.type == "text") {
-      String content = span.content ?? '';
+      String content = span.content ?? ""; // ✅ هندل کردن حالت Null
+
       List<int>? localMap;
       if (rootHighlightMap != null &&
           content.isNotEmpty &&
-          mapOffset.value + content.length <= rootHighlightMap.length) {
+          mapOffset!.value + content.length <= rootHighlightMap.length) {
         localMap = rootHighlightMap.sublist(
-          mapOffset.value,
-          mapOffset.value + content.length,
+          mapOffset!.value,
+          mapOffset!.value + content.length,
         );
       }
       currentInlineSpans.addAll(
@@ -970,10 +972,11 @@ Widget _buildParagraph(
           pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
         ),
       );
-      mapOffset.value += content.length;
+      mapOffset!.value += content.length;
     } else if (span.type == "image") {
       flushText();
-      String imagePath = span.url ?? span.content;
+      String imagePath =
+          span.url ?? span.content ?? ""; // ✅ هندل کردن حالت Null
       if (imagePath.isNotEmpty) {
         FCFloat floatAlign = FCFloat.none;
         if (isLargeScreen) {
@@ -1050,7 +1053,7 @@ Widget _buildParagraph(
     ),
   );
   bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
-  bool hasBorder = para.hasBorders == "true";
+
   double defaultBoxPadding = 6.0,
       internalTopPadding = 0.0,
       internalBottomPadding = 0.0,
@@ -1076,7 +1079,6 @@ Widget _buildParagraph(
   }
 
   // 🌟 اعمال فاصله‌های تورفتگی کلی چپ و راست
-  // 🌟 جلوگیری از خطای Padding منفی (وقتی در ورد تورفتگی معکوس اعمال شده باشد)
   double leftMargin = (para.indentLeft != null && para.indentLeft! > 0)
       ? para.indentLeft!
       : 0.0;
@@ -1090,15 +1092,20 @@ Widget _buildParagraph(
   double bottomInternal = internalBottomPadding > 0
       ? internalBottomPadding
       : 0.0;
+  bool showBorder =
+      para.borders != null &&
+      para.borders!.val != 'none' &&
+      para.borders!.val != 'nil';
 
-  if (hasBgColor || hasBorder) {
-    Color borderColor = _hexToColor(para.borderColor) ?? Colors.grey.shade600;
-    double borderWidth = 1.5;
+  if (hasBgColor || showBorder) {
+    Color borderColor =
+        _hexToColor(para.borders?.color) ?? Colors.grey.shade600;
+    double borderWidth = para.borders?.width ?? 1.5;
     paragraphContent = Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: _hexToColor(para.fillColor),
-        border: hasBorder
+        border: showBorder
             ? Border(
                 left: BorderSide(color: borderColor, width: borderWidth),
                 right: BorderSide(color: borderColor, width: borderWidth),
@@ -1110,7 +1117,7 @@ Widget _buildParagraph(
                     : BorderSide(color: borderColor, width: borderWidth),
               )
             : null,
-        borderRadius: hasBorder
+        borderRadius: showBorder
             ? BorderRadius.only(
                 topLeft: sameColorBefore
                     ? Radius.zero
@@ -1127,7 +1134,7 @@ Widget _buildParagraph(
               )
             : null,
       ),
-      padding: (isInsideTableCell && hasBorder)
+      padding: (isInsideTableCell && showBorder)
           ? EdgeInsets.zero
           : EdgeInsets.only(
               left: isInsideTableCell ? 2.0 : 10.0,
@@ -1174,7 +1181,6 @@ Widget _buildTable(
           .replaceAll("_", "");
 
   final bool isBorderedTable = rawStyle.contains("borderedtable");
-
   // 🌟 ۱. مخفی کردن حاشیه برای استایل‌های خاص (از جمله columnstack)
   final bool hideBorders =
       rawStyle.contains("dottedtable") ||
@@ -1187,8 +1193,9 @@ Widget _buildTable(
 
   double borderWidth = tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
   Color borderColor =
-      _hexToColor(tableSpan.borderColor) ??
+      _hexToColor(tableSpan.borders?.color) ??
       (isBorderedTable ? Colors.black : Colors.grey.shade400);
+
   // 🌟 ساخت خط مرزی یکپارچه
   final BorderSide activeSide = BorderSide(
     color: borderColor,
@@ -1221,12 +1228,15 @@ Widget _buildTable(
             p.spans.isEmpty ||
             (p.spans.length == 1 &&
                 p.spans.first.type == "text" &&
-                p.spans.first.content.trim().isEmpty),
+                (p.spans.first.content ?? "")
+                    .trim()
+                    .isEmpty), // ✅ هندل کردن حالت Null
       );
       if (isImg) {
         hasAnyImage = true;
-      } else if (!isEmpty)
+      } else if (!isEmpty) {
         hasAnyText = true;
+      }
     }
     bool isImageRow = hasAnyImage && !hasAnyText;
 
@@ -1428,10 +1438,10 @@ List<InlineSpan> _buildStyledInteractiveText(
   required ParagraphData para,
   List<int>? localMap,
   int? activeOccurrence,
-  GlobalKey? exactMatchKey, // 🌟 اضافه شد
-  RegExp? interactivesPattern, // 🌟 اضافه شد
-  Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
-  List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
+  GlobalKey? exactMatchKey,
+  RegExp? interactivesPattern,
+  Map<String, InteractiveWord>? interactivesByText,
+  List<String> pageAudioPlaylist = const [],
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -1455,13 +1465,22 @@ List<InlineSpan> _buildStyledInteractiveText(
   Color? customTextColor = _hexToColor(span.textColor);
   bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
   if (isAudioLink) customTextColor = interactiveColor;
-  bool isInlineBorder = span.hasBorders == "true";
+
+  // 🌟 اصلاح اساسی: تشخیص بسیار منعطف‌تر برای رسم باکس اطراف تکه متن
+  final String bordersStr =
+      span.hasBorders?.toString().toLowerCase().trim() ?? "false";
+  bool hasBorderFlag = bordersStr == "true" || bordersStr == "1";
+  bool hasBorderObject = span.borders != null;
+
+  // اگر در JSON به هر شکلی به حاشیه اشاره شده باشد (یا فلگ true باشد یا آبجکت borders وجود داشته باشد)
+  bool isInlineBorder = hasBorderFlag || hasBorderObject;
 
   TextStyle baseStyle = TextStyle(
     fontSize: fontSize,
     fontFamily: fontFamily,
     color: customTextColor ?? Colors.black87,
     height: 1.3,
+    // 🌟 اگر قرار است باکس داشته باشیم، رنگ پس‌زمینه را به Container می‌دهیم نه به استایلِ متن
     backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
     fontWeight: span.markers.contains("b")
         ? FontWeight.bold
@@ -1479,46 +1498,49 @@ List<InlineSpan> _buildStyledInteractiveText(
         alignment: PlaceholderAlignment.middle,
         child: InlineAudioLink(
           fileName: span.url!.replaceFirst("audio:", ""),
-          text: span.content,
+          text: span.content ?? "",
           baseColor: interactiveColor,
-          playlist: pageAudioPlaylist, // 🌟 اضافه شد
+          playlist: pageAudioPlaylist,
         ),
       ),
     );
   } else {
     interactiveSpans = TextRenderEngine.buildInteractiveText(
-      span.content,
+      span.content ?? "",
       interactives,
       context,
       baseStyle,
       interactiveColor: interactiveColor,
       localHighlightMap: localMap,
       activeOccurrence: activeOccurrence,
-      translationFa: para.translationFa, // 🌟 پاس دادن به کامپوننت مادر
+      translationFa: para.translationFa, // 🌟 حفظ پشتیبانی از ترجمه‌های دوزبانه
       translationAr: para.translationAr,
       innerSpans: span.innerSpans,
       exactMatchKey: exactMatchKey,
-      interactivesPattern: interactivesPattern, // 🌟 اضافه شد
-      interactivesByText: interactivesByText, // 🌟 اضافه شد
+      interactivesPattern: interactivesPattern,
+      interactivesByText: interactivesByText,
     );
   }
 
+  // 🌟 ساختاردهی به باکسی که در UI رندر می‌شود
   if (isInlineBorder) {
     return [
       WidgetSpan(
         alignment: PlaceholderAlignment.middle,
         child: Container(
           padding: isInsideTableCell
-              ? EdgeInsets.zero
+              ? const EdgeInsets.symmetric(horizontal: 2.0, vertical: 1.0)
               : const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
           margin: isInsideTableCell
               ? EdgeInsets.zero
               : const EdgeInsets.symmetric(horizontal: 2.0),
           decoration: BoxDecoration(
-            color: _hexToColor(span.fillColor),
+            color: _hexToColor(span.fillColor), // تزریق رنگ پس‌زمینه به باکس
             border: Border.all(
-              color: _hexToColor(span.borderColor) ?? Colors.grey.shade600,
-              width: 1.2,
+              color: _hexToColor(span.borders?.color) ?? Colors.grey.shade600,
+              width:
+                  span.borders?.width ??
+                  1.2, // خواندن ضخامت از JSON در صورت وجود
             ),
             borderRadius: BorderRadius.circular(4),
           ),
@@ -1527,6 +1549,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       ),
     ];
   }
+
   return interactiveSpans;
 }
 
