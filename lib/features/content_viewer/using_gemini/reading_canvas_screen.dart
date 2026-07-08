@@ -1249,36 +1249,48 @@ Widget _buildTable(
     for (var cell in row.cells) {
       if (cell.borders != null) {
         var cb = cell.borders;
-        if (cb?.bottom?.width != null)
+        if (cb?.bottom?.width != null) {
           currentBottomWidth = cb!.bottom!.width!.toDouble();
-        if (cb?.top?.width != null)
+        }
+        if (cb?.top?.width != null) {
           currentTopWidth = cb!.top!.width!.toDouble();
-        if (cb!.left?.width != null)
+        }
+        if (cb!.left?.width != null) {
           currentLeftWidth = cb.left!.width!.toDouble();
-        if (cb?.right?.width != null)
+        }
+        if (cb.right?.width != null) {
           currentRightWidth = cb.right!.width!.toDouble();
+        }
 
-        if (cb?.bottom?.color != null)
+        if (cb.bottom?.color != null) {
           currentBottomColor =
               _hexToColor(cb.bottom!.color) ?? defaultBorderColor;
-        if (cb?.top?.color != null)
+        }
+        if (cb.top?.color != null) {
           currentTopColor = _hexToColor(cb.top!.color) ?? defaultBorderColor;
-        if (cb?.left?.color != null)
+        }
+        if (cb.left?.color != null) {
           currentLeftColor = _hexToColor(cb.left!.color) ?? defaultBorderColor;
-        if (cb?.right?.color != null)
+        }
+        if (cb.right?.color != null) {
           currentRightColor =
               _hexToColor(cb.right!.color) ?? defaultBorderColor;
+        }
       }
       try {
         var dynamicCell = cell as dynamic;
-        if (dynamicCell.borderBottomWidth != null)
+        if (dynamicCell.borderBottomWidth != null) {
           currentBottomWidth = dynamicCell.borderBottomWidth.toDouble();
-        if (dynamicCell.borderTopWidth != null)
+        }
+        if (dynamicCell.borderTopWidth != null) {
           currentTopWidth = dynamicCell.borderTopWidth.toDouble();
-        if (dynamicCell.borderLeftWidth != null)
+        }
+        if (dynamicCell.borderLeftWidth != null) {
           currentLeftWidth = dynamicCell.borderLeftWidth.toDouble();
-        if (dynamicCell.borderRightWidth != null)
+        }
+        if (dynamicCell.borderRightWidth != null) {
           currentRightWidth = dynamicCell.borderRightWidth.toDouble();
+        }
       } catch (_) {}
     }
 
@@ -1465,8 +1477,9 @@ Widget _buildTable(
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
       if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
-      if (tableSpan.tableAlignment == "right")
+      if (tableSpan.tableAlignment == "right") {
         tableAlign = Alignment.centerRight;
+      }
       return Align(
         alignment: tableAlign,
         child: SizedBox(
