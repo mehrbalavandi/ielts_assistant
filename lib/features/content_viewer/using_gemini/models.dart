@@ -258,6 +258,8 @@ class TableCellData {
   final double? paddingBottom;
   final double? paddingLeft;
   final double? paddingRight;
+  final int? gridSpan;
+  final String? vMerge;
 
   TableCellData({
     this.widthPercent,
@@ -272,6 +274,8 @@ class TableCellData {
     this.paddingBottom,
     this.paddingLeft,
     this.paddingRight,
+    this.gridSpan,
+    this.vMerge,
   });
 
   factory TableCellData.fromJson(Map<String, dynamic> json) {
@@ -291,6 +295,10 @@ class TableCellData {
       paddingBottom: json['PaddingBottom']?.toDouble(),
       paddingLeft: json['PaddingLeft']?.toDouble(),
       paddingRight: json['PaddingRight']?.toDouble(),
+      gridSpan: json['gridSpan'] != null
+          ? json['ColSpan'] as int
+          : 1, // مقدار پیش‌فرض ۱
+      vMerge: json['RowMerge'] as String?,
     );
   }
 }

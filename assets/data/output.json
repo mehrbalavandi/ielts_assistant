@@ -24503,8 +24503,8 @@
                       "Paragraphs": [
                         {
                           "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 6.0,
                           "Spans": [
                             {
                               "Type": "text",

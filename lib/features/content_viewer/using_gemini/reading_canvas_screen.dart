@@ -1223,9 +1223,9 @@ Widget _buildTable(
                 p.spans.first.type == "text" &&
                 p.spans.first.content.trim().isEmpty),
       );
-      if (isImg)
+      if (isImg) {
         hasAnyImage = true;
-      else if (!isEmpty)
+      } else if (!isEmpty)
         hasAnyText = true;
     }
     bool isImageRow = hasAnyImage && !hasAnyText;
@@ -1397,8 +1397,9 @@ Widget _buildTable(
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
       if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
-      if (tableSpan.tableAlignment == "right")
+      if (tableSpan.tableAlignment == "right") {
         tableAlign = Alignment.centerRight;
+      }
       return Align(
         alignment: tableAlign,
         child: SizedBox(
@@ -1407,11 +1408,12 @@ Widget _buildTable(
         ),
       );
     } else {
-      if (tableSpan.tableWidthPercent! < 40)
+      if (tableSpan.tableWidthPercent! < 40) {
         return Align(
           alignment: Alignment.center,
           child: SizedBox(width: canvasWidth * 0.6, child: tableContainer),
         );
+      }
       return tableContainer;
     }
   }
@@ -1437,8 +1439,9 @@ List<InlineSpan> _buildStyledInteractiveText(
     if (marker.startsWith("sz:")) {
       double? parsedSize = double.tryParse(marker.substring(3));
       if (parsedSize != null) fontSize = parsedSize / 2;
-    } else if (marker.startsWith("fn:"))
+    } else if (marker.startsWith("fn:")) {
       fontFamily = _mapFontFamily(marker.substring(3));
+    }
   }
 
   Color? effectiveBgColor =
