@@ -11299,85 +11299,146 @@
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "image",
+                              "Type": "table",
                               "Markers": [],
-                              "Url": "p11_s1_img11.png",
-                              "ImageWidth": 48,
-                              "ImageHeight": 21,
-                              "FloatPosition": "none",
+                              "Borders": {
+                                "Width": 0.5,
+                                "Val": "single"
+                              },
+                              "TableStyleId": "TableGrid",
+                              "TableStyleName": "Table Grid",
+                              "TableWidthPercent": 96.03632478632478,
                               "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " employment ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "image",
-                              "Markers": [],
-                              "Url": "p11_s1_img12.png",
-                              "ImageWidth": 41,
-                              "ImageHeight": 23,
-                              "FloatPosition": "none",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " study ",
-                              "Markers": [
-                                "fn:Arial Narrow",
-                                "sz:22"
-                              ],
-                              "TextColor": "2F2C2D",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "image",
-                              "Markers": [],
-                              "Url": "p11_s1_img13.png",
-                              "ImageWidth": 45,
-                              "ImageHeight": 21,
-                              "FloatPosition": "none",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " family/friends ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "image",
-                              "Markers": [],
-                              "Url": "p11_s1_img14.png",
-                              "ImageWidth": 48,
-                              "ImageHeight": 21,
-                              "FloatPosition": "none",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " adventure",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [],
+                                      "WidthPercent": 11.77,
+                                      "IsHeaderCell": false,
+                                      "Borders": {}
+                                    },
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "image",
+                                              "Markers": [],
+                                              "Url": "p11_s1_img11.png",
+                                              "ImageWidth": 48,
+                                              "ImageHeight": 21,
+                                              "FloatPosition": "none",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "employment ",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:22"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "image",
+                                              "Markers": [],
+                                              "Url": "p11_s1_img12.png",
+                                              "ImageWidth": 41,
+                                              "ImageHeight": 23,
+                                              "FloatPosition": "none",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " ",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:22"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "study ",
+                                              "Markers": [
+                                                "fn:Arial Narrow",
+                                                "sz:22"
+                                              ],
+                                              "TextColor": "2F2C2D",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "image",
+                                              "Markers": [],
+                                              "Url": "p11_s1_img13.png",
+                                              "ImageWidth": 45,
+                                              "ImageHeight": 21,
+                                              "FloatPosition": "none",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " ",
+                                              "Markers": [
+                                                "fn:Arial Narrow",
+                                                "sz:22"
+                                              ],
+                                              "TextColor": "2F2C2D",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "family/friends ",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:22"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "image",
+                                              "Markers": [],
+                                              "Url": "p11_s1_img14.png",
+                                              "ImageWidth": 48,
+                                              "ImageHeight": 21,
+                                              "FloatPosition": "none",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " adventure",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:22"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 88.23,
+                                      "VAlign": "tableverticalalignmentvalues { }",
+                                      "IsHeaderCell": false,
+                                      "Borders": {}
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }

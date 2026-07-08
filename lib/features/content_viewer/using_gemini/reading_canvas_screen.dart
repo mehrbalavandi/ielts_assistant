@@ -982,7 +982,9 @@ Widget _buildParagraph(
       );
       mapOffset.value += content.length;
     } else if (span.type == "image") {
-      // flushText();
+      if (!isLargeScreen) {
+        flushText();
+      }
       String imagePath = span.url ?? span.content; // ✅ هندل کردن حالت Null
       if (imagePath.isNotEmpty) {
         if (renderInline) {
