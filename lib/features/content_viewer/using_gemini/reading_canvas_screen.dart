@@ -157,18 +157,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     });
   }
 
-  // 🌟 جایگزینِ کلید قدیمی: سیستم دو-کلیده برای اسکرول نقطه‌ای
-  final GlobalKey _fallbackParaKey = GlobalKey();
-  final GlobalKey _exactMatchKey = GlobalKey();
-  // 🌟 لنگر ثابتِ خودِ صفحه (مستقل از موقعیت فعلی اسکرول). چون
-  // ScrollablePositionedList داخلاً از دو لیست تشکیل شده و offset اسکرول
-  // را با یک منطق سفارشی خودش مدیریت می‌کند، خواندن/نوشتن مستقیم
-  // position.pixels روی Scrollable نزدیک به هدف قابل‌اعتماد نبود (همیشه
-  // ۰ خوانده می‌شد و افست منفی هم clamp می‌شد). به‌جایش فاصله‌ی هدف را
-  // نسبت به بالای خودِ صفحه اندازه می‌گیریم (که وابسته به اسکرول نیست)
-  // و از API خودِ پکیج (ItemScrollController.scrollTo با alignment
-  // محاسبه‌شده) برای رساندن دقیق آن به نقطه‌ی درست استفاده می‌کنیم.
-  final GlobalKey _pageAnchorKey = GlobalKey();
+  // خط ۱۶۱-۱۷۱: final را بردارید
+  GlobalKey _fallbackParaKey = GlobalKey();
+  GlobalKey _exactMatchKey = GlobalKey();
+  GlobalKey _pageAnchorKey = GlobalKey();
 
   // 🌟 اسکرول دقیق — تلاش دوم.
   //
@@ -348,6 +340,16 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     // _fallbackParaKey را به پاراگراف/کلمه‌ی درست وصل کرده ثبت می‌کند.
     // _ensureTargetVisible از روی همین امضا تشخیص می‌دهد که آیا واقعاً به
     // build تازه رسیده‌ایم یا هنوز context قدیمی در دست است.
+    final newSignature = _signatureFor(activeTarget);
+    if (newSignature != _lastBuiltTargetSignature) {
+      // 🌟 هدف واقعاً عوض شده → کلیدهای تازه بساز تا با کلیدِ زیردرختِ
+      // احتمالاً هنوز زنده‌ی صفحه‌ی قبلی (به‌خاطر AutomaticKeepAliveClientMixin)
+      // تصادم نکند
+      _fallbackParaKey = GlobalKey();
+      _exactMatchKey = GlobalKey();
+      _pageAnchorKey = GlobalKey();
+    }
+    _lastBuiltTargetSignature = newSignature;
     _lastBuiltTargetSignature = _signatureFor(activeTarget);
     // 🌟 ایندکس صفحه‌ی همین هدف را هم نگه می‌داریم تا _ensureTargetVisible
     // برای مرحله‌ی دوم (scrollTo با alignment دقیق) به آن نیاز نداشته باشد
@@ -468,74 +470,83 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                         child: Opacity(
                           // ── نامرئی تا زمانی که jumpTo تکمیل شود ────────────
                           opacity: _isReady ? 1.0 : 0.0,
-                          child: ScrollablePositionedList.builder(
-                            itemCount: widget.documentPages.length,
-                            itemScrollController: _itemScrollController,
-                            itemPositionsListener: _itemPositionsListener,
+                          child: MediaQuery(
+                            data: MediaQuery.of(context).copyWith(
+                              textScaler: TextScaler
+                                  .noScaling, // 🌟 خنثی‌کردن اسکیل فونت سیستم فقط برای این صفحه
+                            ),
+                            child: ScrollablePositionedList.builder(
+                              itemCount: widget.documentPages.length,
+                              itemScrollController: _itemScrollController,
+                              itemPositionsListener: _itemPositionsListener,
 
-                            // ── کلید رفع پرش اولیه ───────────────────────────
-                            // همیشه از index 0 شروع کن؛ jumpTo در initState
-                            // موقعیت را بی‌صدا (opacity=0) تنظیم می‌کند.
-                            initialScrollIndex: 0,
-                            initialAlignment: 0,
+                              // ── کلید رفع پرش اولیه ───────────────────────────
+                              // همیشه از index 0 شروع کن؛ jumpTo در initState
+                              // موقعیت را بی‌صدا (opacity=0) تنظیم می‌کند.
+                              initialScrollIndex: 0,
+                              initialAlignment: 0,
 
-                            // ── pre-build آیتم‌ها قبل از ورود به viewport ────
-                            // 🌟 رفع اصلیِ مشکل کندی اسکرول (ریشه‌ی واقعی):
-                            // با بررسی خروجی DevTools Performance مشخص شد که
-                            // بدترین فریم‌ها (بعضی تا ۱۶۰ میلی‌ثانیه!) کاملاً
-                            // روی UI thread (build+layout) اتفاق می‌افتند، نه
-                            // GPU/raster. علتش این مقدار ۳ برابر ارتفاع صفحه
-                            // بود: چون هر «آیتم» در این لیست یک صفحه‌ی کامل
-                            // کتاب است (که می‌تواند خودش چند پاراگراف/جدول
-                            // داشته باشد)، یک cache extent به این بزرگی یعنی
-                            // در یک جهش بزرگ (مثلاً پرش جستجو یا اسکرول تند)،
-                            // فلاتر مجبور می‌شود دوجین‌ها صفحه را همزمان و در
-                            // یک فریم بسازد و لایه‌بندی کند — دقیقاً همان چیزی
-                            // که در داده‌های واقعی دیدیم (بیش از ۳۷۰ پاراگراف
-                            // در یک فریم!). با کاهش این مقدار، فلاتر فقط کمی
-                            // جلوتر از viewport واقعی می‌سازد، و بقیه‌ی صفحات
-                            // در فریم‌های بعدی (طی خودِ اسکرول) به‌تدریج ساخته
-                            // می‌شوند — یعنی همان هزینه‌ی کل، اما پخش‌شده روی
-                            // فریم‌های بیشتر به‌جای فشرده در یک فریم.
-                            // اگر هنوز حین اسکرولِ خیلی سریع، صفحه‌ی خالی/جای‌
-                            // خالی برای یک لحظه دیده شد، این عدد را کمی (نه به
-                            // همان ۳ برابر) افزایش دهید.
-                            minCacheExtent:
-                                MediaQuery.of(context).size.height * 0.5,
+                              // ── pre-build آیتم‌ها قبل از ورود به viewport ────
+                              // 🌟 رفع اصلیِ مشکل کندی اسکرول (ریشه‌ی واقعی):
+                              // با بررسی خروجی DevTools Performance مشخص شد که
+                              // بدترین فریم‌ها (بعضی تا ۱۶۰ میلی‌ثانیه!) کاملاً
+                              // روی UI thread (build+layout) اتفاق می‌افتند، نه
+                              // GPU/raster. علتش این مقدار ۳ برابر ارتفاع صفحه
+                              // بود: چون هر «آیتم» در این لیست یک صفحه‌ی کامل
+                              // کتاب است (که می‌تواند خودش چند پاراگراف/جدول
+                              // داشته باشد)، یک cache extent به این بزرگی یعنی
+                              // در یک جهش بزرگ (مثلاً پرش جستجو یا اسکرول تند)،
+                              // فلاتر مجبور می‌شود دوجین‌ها صفحه را همزمان و در
+                              // یک فریم بسازد و لایه‌بندی کند — دقیقاً همان چیزی
+                              // که در داده‌های واقعی دیدیم (بیش از ۳۷۰ پاراگراف
+                              // در یک فریم!). با کاهش این مقدار، فلاتر فقط کمی
+                              // جلوتر از viewport واقعی می‌سازد، و بقیه‌ی صفحات
+                              // در فریم‌های بعدی (طی خودِ اسکرول) به‌تدریج ساخته
+                              // می‌شوند — یعنی همان هزینه‌ی کل، اما پخش‌شده روی
+                              // فریم‌های بیشتر به‌جای فشرده در یک فریم.
+                              // اگر هنوز حین اسکرولِ خیلی سریع، صفحه‌ی خالی/جای‌
+                              // خالی برای یک لحظه دیده شد، این عدد را کمی (نه به
+                              // همان ۳ برابر) افزایش دهید.
+                              minCacheExtent:
+                                  MediaQuery.of(context).size.height * 0.5,
 
-                            physics: _isPinching
-                                ? const NeverScrollableScrollPhysics()
-                                : const ClampingScrollPhysics(),
-                            padding: const EdgeInsets.symmetric(vertical: 24.0),
-                            itemBuilder: (context, pageIndex) {
-                              final page = widget.documentPages[pageIndex];
-                              bool hasTarget =
-                                  activeTarget != null &&
-                                  activeTarget.pageNumber == page.pageNumber;
+                              physics: _isPinching
+                                  ? const NeverScrollableScrollPhysics()
+                                  : const ClampingScrollPhysics(),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 24.0,
+                              ),
+                              itemBuilder: (context, pageIndex) {
+                                final page = widget.documentPages[pageIndex];
+                                // 🌟 مقایسه با ایندکس یکتا به‌جای pageNumber (که یکتا نیست و می‌تواند
+                                // باعث شود چند PageData همزمان hasTarget=true بگیرند و کلید سراسری
+                                // را دوبار مصرف کنند)
+                                bool hasTarget =
+                                    activeTarget != null &&
+                                    pageIndex == _lastBuiltTargetPageIndex;
 
-                              // RepaintBoundary: هر صفحه مستقل repaint می‌شود
-                              // → تغییر یک صفحه باعث repaint صفحات دیگر نمی‌شود
-                              return RepaintBoundary(
-                                child: BookPageWidget(
-                                  page: page,
-                                  activeTarget: activeTarget,
-                                  searchSession: searchSession,
-                                  canvasWidth: canvasWidth,
-                                  screenWidth: MediaQuery.of(
-                                    context,
-                                  ).size.width,
-                                  targetKey: hasTarget
-                                      ? _fallbackParaKey
-                                      : null,
-                                  exactMatchKey: hasTarget
-                                      ? _exactMatchKey
-                                      : null, // 🌟 پاس دادن کلید دقیق نقطه‌ای
-                                  pageAnchorKey: hasTarget
-                                      ? _pageAnchorKey
-                                      : null, // 🌟 لنگر اندازه‌گیری مستقل از اسکرول
-                                ),
-                              );
-                            },
+                                return RepaintBoundary(
+                                  child: BookPageWidget(
+                                    page: page,
+                                    activeTarget: activeTarget,
+                                    searchSession: searchSession,
+                                    canvasWidth: canvasWidth,
+                                    screenWidth: MediaQuery.of(
+                                      context,
+                                    ).size.width,
+                                    targetKey: hasTarget
+                                        ? _fallbackParaKey
+                                        : null,
+                                    exactMatchKey: hasTarget
+                                        ? _exactMatchKey
+                                        : null,
+                                    pageAnchorKey: hasTarget
+                                        ? _pageAnchorKey
+                                        : null,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -604,7 +615,9 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         old.canvasWidth != widget.canvasWidth ||
         old.screenWidth != widget.screenWidth ||
         old.targetKey != widget.targetKey ||
-        old.exactMatchKey != widget.exactMatchKey) {
+        old.exactMatchKey != widget.exactMatchKey ||
+        old.pageAnchorKey != widget.pageAnchorKey) {
+      // 🌟 اضافه شد
       _cachedWidgets = null;
     }
   }
@@ -700,12 +713,12 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
           if (s.type == 'table') tableCount++;
         }
       }
-      debugPrint(
-        '⏱️ صفحه ${widget.page.pageNumber}: ${sw.elapsedMilliseconds}ms '
-        '| پاراگراف=${widget.page.paragraphs.length} '
-        '| کلمه‌دیکشنری=${widget.page.interactives.length} '
-        '| تصویر=$imageCount | جدول=$tableCount',
-      );
+      // debugPrint(
+      //   '⏱️ صفحه ${widget.page.pageNumber}: ${sw.elapsedMilliseconds}ms '
+      //   '| پاراگراف=${widget.page.paragraphs.length} '
+      //   '| کلمه‌دیکشنری=${widget.page.interactives.length} '
+      //   '| تصویر=$imageCount | جدول=$tableCount',
+      // );
     }
 
     return Column(
@@ -988,6 +1001,9 @@ Widget _buildParagraph(
       String imagePath = span.url ?? span.content; // ✅ هندل کردن حالت Null
       if (imagePath.isNotEmpty) {
         if (renderInline) {
+          if (span.url!.contains('p8_s1_img7.png')) {
+            String test = '';
+          }
           // 🌟 حالت اول: قرار دادن تصویر به صورت Inline در کنار متن (بدون فراخوانی flushText)
           // اگر در موتور C# ابعاد تصویر (عرض و ارتفاع) را از فایل ورد استخراج کرده‌اید،
           // می‌توانید از آن‌ها در اینجا استفاده کنید. در غیر این صورت روی یک ارتفاع منطقی محدودش می‌کنیم.
@@ -999,25 +1015,22 @@ Widget _buildParagraph(
           currentInlineSpans.add(
             WidgetSpan(
               alignment: PlaceholderAlignment.middle,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    // اگر ارتفاع تصویر در دیتای ورد موجود بود همان را اعمال کن،
-                    // در غیر این صورت نهایتاً 35 پیکسل (حدوداً ارتفاع یک خط متن با فاصله) فضا بگیرد.
-                    maxHeight: inlineHeight?.toDouble() ?? 35.0,
-                    maxWidth:
-                        inlineWidth?.toDouble() ??
-                        screenWidth * 0.5, // جلوگیری از اشغال کل عرض
-                  ),
-                  child: _buildLocalImage(
-                    imagePath,
-                    isMobile: !isLargeScreen,
-                    screenWidth: screenWidth,
-                    isImageCell: isImageCell,
-                    activeBook: activeBook,
-                    context: context,
-                  ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  // اگر ارتفاع تصویر در دیتای ورد موجود بود همان را اعمال کن،
+                  // در غیر این صورت نهایتاً 35 پیکسل (حدوداً ارتفاع یک خط متن با فاصله) فضا بگیرد.
+                  maxHeight: inlineHeight?.toDouble() ?? 35.0,
+                  maxWidth:
+                      inlineWidth?.toDouble() ??
+                      screenWidth * 0.5, // جلوگیری از اشغال کل عرض
+                ),
+                child: _buildLocalImage(
+                  imagePath,
+                  isMobile: !isLargeScreen,
+                  screenWidth: screenWidth,
+                  isImageCell: isImageCell,
+                  activeBook: activeBook,
+                  context: context,
                 ),
               ),
             ),
@@ -1647,10 +1660,10 @@ List<InlineSpan> _buildStyledInteractiveText(
         alignment: PlaceholderAlignment.middle,
         child: Container(
           padding: isInsideTableCell
-              ? const EdgeInsets.symmetric(horizontal: 2.0, vertical: 1.0)
+              ? const EdgeInsets.symmetric(horizontal: 0.0, vertical: 1.0)
               : const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
           margin: isInsideTableCell
-              ? EdgeInsets.zero
+              ? const EdgeInsets.symmetric(horizontal: 0.0) //EdgeInsets.zero
               : const EdgeInsets.symmetric(horizontal: 2.0),
           decoration: BoxDecoration(
             color: _hexToColor(span.fillColor), // تزریق رنگ پس‌زمینه به باکس
@@ -1692,9 +1705,8 @@ Widget _buildLocalImage(
     }
   }
 
-  final double? logicalWidth = (isMobile && !isImageCell)
-      ? screenWidth * 0.85
-      : null;
+  final double? logicalWidth = null;
+  // (isMobile) ? screenWidth * 0.85 : null;
 
   // 🌟 رفع یک منبع واقعی و بزرگ جنک (تأییدشده با DevTools: میانگین ۲۶۷ms
   // به ازای هر تصویر!): بدون cacheWidth، فلاتر تصویر را در رزولوشن اصلی
