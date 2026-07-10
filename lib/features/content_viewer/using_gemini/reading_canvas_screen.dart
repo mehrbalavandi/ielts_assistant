@@ -157,10 +157,20 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     });
   }
 
-  // خط ۱۶۱-۱۷۱: final را بردارید
-  GlobalKey _fallbackParaKey = GlobalKey();
-  GlobalKey _exactMatchKey = GlobalKey();
-  GlobalKey _pageAnchorKey = GlobalKey();
+  // 🌟 چون GlobalObjectKey با identical() مقایسه می‌شود نه محتوای رشته،
+  // باید خودمان شیء GlobalKey را برای هر «امضا» فقط یک‌بار بسازیم و
+  // همیشه همان شیء را برگردانیم — وگرنه هر بار صدا زدن گتر یک کلید
+  // «متفاوت» از نگاه فلاتر تولید می‌کند، حتی برای همان هدف قبلی.
+  final Map<String, GlobalKey> _navKeyCache = {};
+
+  GlobalKey _keyFor(String prefix) {
+    final id = '${prefix}_${_lastBuiltTargetSignature ?? "none"}';
+    return _navKeyCache.putIfAbsent(id, () => GlobalKey());
+  }
+
+  GlobalKey get _fallbackParaKey => _keyFor('fallback');
+  GlobalKey get _exactMatchKey => _keyFor('exact');
+  GlobalKey get _pageAnchorKey => _keyFor('anchor');
 
   // 🌟 اسکرول دقیق — تلاش دوم.
   //
@@ -341,14 +351,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     // _ensureTargetVisible از روی همین امضا تشخیص می‌دهد که آیا واقعاً به
     // build تازه رسیده‌ایم یا هنوز context قدیمی در دست است.
     final newSignature = _signatureFor(activeTarget);
-    if (newSignature != _lastBuiltTargetSignature) {
-      // 🌟 هدف واقعاً عوض شده → کلیدهای تازه بساز تا با کلیدِ زیردرختِ
-      // احتمالاً هنوز زنده‌ی صفحه‌ی قبلی (به‌خاطر AutomaticKeepAliveClientMixin)
-      // تصادم نکند
-      _fallbackParaKey = GlobalKey();
-      _exactMatchKey = GlobalKey();
-      _pageAnchorKey = GlobalKey();
-    }
+    // if (newSignature != _lastBuiltTargetSignature) {
+    //   // 🌟 هدف واقعاً عوض شده → کلیدهای تازه بساز تا با کلیدِ زیردرختِ
+    //   // احتمالاً هنوز زنده‌ی صفحه‌ی قبلی (به‌خاطر AutomaticKeepAliveClientMixin)
+    //   // تصادم نکند
+    //   _fallbackParaKey = GlobalKey();
+    //   _exactMatchKey = GlobalKey();
+    //   _pageAnchorKey = GlobalKey();
+    // }
     _lastBuiltTargetSignature = newSignature;
     _lastBuiltTargetSignature = _signatureFor(activeTarget);
     // 🌟 ایندکس صفحه‌ی همین هدف را هم نگه می‌داریم تا _ensureTargetVisible
