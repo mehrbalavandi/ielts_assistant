@@ -1324,6 +1324,58 @@
             }
           ]
         }
+      ],
+      "Interactives": [
+        {
+          "exactText": "urban and rural",
+          "translationFa": "شهری و روستایی",
+          "translationAr": "الحضرية والريفية",
+          "pronounceFa": "erban and rooral",
+          "pronounceAr": "erban and rooral",
+          "explanationFa": "یک کالوکیشن بسیار متداول و کاربردی در موضوعات آیلتس (به‌ویژه رایتینگ Task 2) برای مقایسه سبک زندگی، توسعه و دموگرافی جامعه.",
+          "explanationAr": "متلازمة لفظية شائعة جداً في مواضيع الآيلتس (خاصة الكتابة المهمة 2) لمقارنة نمط الحياة والتنمية والتركيبة السكانية.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "situated",
+          "translationFa": "واقع شده / مستقر",
+          "translationAr": "واقع / يقع في",
+          "pronounceFa": "sichueytid",
+          "pronounceAr": "sichueytid",
+          "explanationFa": "جایگزین رسمی و آکادمیک برای فعل 'located' که در توصیف مکان‌ها و نقشه‌ها در رایتینگ Task 1 بسیار نمره‌آور است.",
+          "explanationAr": "بديل رسمي وأكاديمي للفعل 'located'، مفيد جداً للحصول على درجات في وصف الأماكن والخرائط في الكتابة المهمة 1.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "contrasts entirely",
+          "translationFa": "کاملاً متباین است / تضاد کامل دارد",
+          "translationAr": "يتناقض تماماً / يختلف بالكامل",
+          "pronounceFa": "kontrahsts intayali",
+          "pronounceAr": "kontrahsts intayali",
+          "explanationFa": "عبارتی پیشرفته و سطح بالا برای نشان دادن تضاد شدید بین دو مؤلفه؛ برای ارتقای بخش Coherence and Cohesion در آزمون کتبی آیلتس بسیار توصیه می‌شود.",
+          "explanationAr": "تركيب متقدم وعالي المستوى لإظهار التناقض الشديد بين عنصرين؛ يوصى به بشدة لتحسين درجة الترابط والتماسك في اختبار الكتابة.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "summarises",
+          "translationFa": "خلاصه می‌کند",
+          "translationAr": "يلخص",
+          "pronounceFa": "sumarayziz",
+          "pronounceAr": "sumarayziz",
+          "explanationFa": "فعلی کلیدی در درک مفاهیم ریدینگ و همچنین عبارتی آکادمیک برای استفاده در پاراگراف‌های نتیجه‌گیری رایتینگ آیلتس.",
+          "explanationAr": "فعل رئيسي لفهم استراتيجيات القراءة، كما أنه مصطلح أكاديمي للاستخدام في فقرات الخاتمة في كتابة الآيلتس.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "conveys",
+          "translationFa": "منتقل می‌کند / بیان می‌کند",
+          "translationAr": "ينقل / يوصل (الفكرة)",
+          "pronounceFa": "kunveyz",
+          "pronounceAr": "kunveyz",
+          "explanationFa": "یک واژه آکادمیک (C1) و جایگزینی عالی برای افعال ساده‌ای مثل 'shows' یا 'expresses' هنگام تحلیل ایده اصلی یک متن یا نمودار.",
+          "explanationAr": "كلمة أكاديمية (C1) وبديل ممتاز للأفعال البسيطة مثل 'shows' أو 'expresses' عند تحليل الفكرة الرئيسية لنص أو مخطط.",
+          "cefrLevel": "C1"
+        }
       ]
     },
     {
@@ -1983,6 +2035,68 @@
               ]
             }
           ]
+        }
+      ],
+      "Interactives": [
+        {
+          "exactText": "paraphrases",
+          "translationFa": "بازنویسی‌ها / نقل‌قول‌های دست‌کاری‌شده",
+          "translationAr": "إعادات صياغة",
+          "pronounceFa": "parafreyziz",
+          "pronounceAr": "barafreyziz",
+          "explanationFa": "یکی از کلیدی‌ترین مهارت‌ها در آزمون ریدینگ و رایتینگ آیلتس؛ یعنی بیان یک مفهوم با استفاده از ساختار و کلمات متفاوت بدون تغییر دادن معنای اصلی.",
+          "explanationAr": "واحدة من أهم المهارات في اختبار الآيلتس (القراءة والكتابة)؛ وتعني التعبير عن المعنى أو الفكرة باستخدام كلمات وقواعد مختلفة دون تغيير المعنى الأصلي.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "constant struggles",
+          "translationFa": "مبارزات مداوم / چالش‌های همیشگی",
+          "translationAr": "صراعات مستمرة / كفاح دائم",
+          "pronounceFa": "konstant stragalz",
+          "pronounceAr": "konstant stragalz",
+          "explanationFa": "یک ترکیب اسمی عالی (Collocation) برای توصیف چالش‌ها و مشکلات پایدار؛ بسیار کاربردی برای بسط دادن ایده‌ها در رایتینگ آیلتس تسک 2.",
+          "explanationAr": "متلازمة لفظية ممتازة تُستخدم لوصف المشاكل والتحديات المستمرة، مفيدة جداً لتطوير الأفكار في قسم الكتابة (Task 2).",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "ultimate model",
+          "translationFa": "الگوی غایی / بهترین نمونه",
+          "translationAr": "النموذج الأسمى / المثال النهائي",
+          "pronounceFa": "altimat modl",
+          "pronounceAr": "altimat modl",
+          "explanationFa": "ترکیبی آکادمیک برای توصیف بهترین، کامل‌ترین یا نهایی‌ترین نسخه از یک چیز یا یک ایده در موضوعات اجتماعی و توسعه شهری.",
+          "explanationAr": "تعبير أكاديمي يُستخدم لوصف النسخة الأفضل أو الأكثر كمالاً لشيء ما، ممتاز لمواضيع المجتمع والتطوير الحضري.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "creeping up",
+          "translationFa": "به آرامی بالا رفتن / افزایش تدریجی",
+          "translationAr": "الارتفاع التدريجي / الزحف للأعلى",
+          "pronounceFa": "kriiping ap",
+          "pronounceAr": "kriiping ap",
+          "explanationFa": "یک فعل عبارتی (Phrasal Verb) پیشرفته که برای توصیف افزایش آهسته، تدریجی و گاهی نامحسوس آمارها (مانند نرخ جرم، تورم یا قیمت‌ها) به کار می‌رود.",
+          "explanationAr": "فعل مركب (Phrasal Verb) متقدم يُستخدم لوصف الزيادة البطيئة والتدريجية في الإحصاءات أو المعدلات (مثل معدلات الجريمة أو التضخم).",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "utopian",
+          "translationFa": "آرمان‌شهری / ایده‌آل‌گرایانه",
+          "translationAr": "طوباوي / خيالي مثالي",
+          "pronounceFa": "yootoopian",
+          "pronounceAr": "yutubian",
+          "explanationFa": "صفتی سطح بالا (C2) متعلق به یک جامعه یا ایده کاملاً بی‌نقص و آرمانی که معمولاً در دنیای واقعی دست‌نیافتنی است. برای موضوعات فلسفی و جامعه‌شناختی آیلتس عالی است.",
+          "explanationAr": "صفة عالية المستوى (C2) تشير إلى مجتمع أو فكرة مثالية تماماً تكاد تكون غير واقعية، ممتازة لمواضيع الفلسفة وعلم الاجتماع في الآيلتس.",
+          "cefrLevel": "C2"
+        },
+        {
+          "exactText": "boasting",
+          "translationFa": "برخوردار بودن (با افتخار) / داشتن ویژگی متمایز",
+          "translationAr": "يضم بفخر / يتباهى بامتلاك",
+          "pronounceFa": "bowsting",
+          "pronounceAr": "bosting",
+          "explanationFa": "در متون توصیفی و آکادمیک، هنگامی که یک مکان، شهر یا سازمان یک ویژگی بسیار خوب، بزرگ یا متمایز دارد که مایه افتخار است، از این فعل استفاده می‌شود.",
+          "explanationAr": "في النصوص الأكاديمية والوصفية، يُستخدم هذا الفعل عندما يمتلك مكان أو مدينة ميزة رائعة أو فريدة من نوعها تستدعي الفخر والتميز.",
+          "cefrLevel": "B2"
         }
       ]
     },
@@ -2905,6 +3019,78 @@
             }
           ]
         }
+      ],
+      "Interactives": [
+        {
+          "exactText": "boasting",
+          "translationFa": "داشتن / بهره‌مند بودن (با افتخار)",
+          "translationAr": "تضم / تفتخر بـ",
+          "pronounceFa": "bowsting",
+          "pronounceAr": "bowsting",
+          "explanationFa": "فعل آکادمیک سطح بالا؛ زمانی استفاده می‌شود که مکانی یک ویژگی فوق‌العاده یا ارزشمند دارد که مایه افتخار است.",
+          "explanationAr": "فعل أكاديمي رفيع المستوى؛ يُستخدم عندما يمتلك مكان ما ميزة رائعة أو فريدة يفتخر بها.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "sets it apart",
+          "translationFa": "آن را متمایز می‌کند",
+          "translationAr": "يميزها / يجعلها فريدة",
+          "pronounceFa": "sets it upaat",
+          "pronounceAr": "sets it apaat",
+          "explanationFa": "اصطلاحی بسیار کاربردی در رایتینگ و اسپیکینگ آیلتس برای بیان متمایز بودن و منحصربه‌فرد بودن یک پدیده یا شخص.",
+          "explanationAr": "تعبير ممتاز للمحادثة والكتابة في الآيلتس، يُستخدم لبيان تميز أو تفرد شيء أو شخص عن الآخرين.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "lay claim to",
+          "translationFa": "مدعی داشتن چیزی بودن",
+          "translationAr": "تدعي امتلاك / تطالب بـ",
+          "pronounceFa": "ley kleym too",
+          "pronounceAr": "lay klaym too",
+          "explanationFa": "ساختار و کالوکیشن پیشرفته (C1)؛ به معنای ادعا کردن در مورد داشتن یک افتخار، ویژگی یا حق.",
+          "explanationAr": "تركيب متقدم ومتلازمة لفظية (C1) تعني ادعاء الحق في امتلاك ميزة أو شرف أو خاصية معينة.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "decompose",
+          "translationFa": "تجزیه شدن / فاسد شدن",
+          "translationAr": "تتحلل / تتفسخ",
+          "pronounceFa": "deekompowz",
+          "pronounceAr": "deekombowz",
+          "explanationFa": "واژه‌ای کاملاً آکادمیک، پرکاربرد در موضوعات علمی، زیست‌محیطی و طبیعت در دفترچه‌های آیلتس.",
+          "explanationAr": "كلمة أكاديمية تماماً، شائعة الاستخدام في مواضيع العلوم، البيئة والطبيعة في اختبارات الآيلتس.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "peculiar",
+          "translationFa": "عجیب و غریب / خاص و غیرعادی",
+          "translationAr": "غريبة / متميزة / غير مألوفة",
+          "pronounceFa": "pekyoolyar",
+          "pronounceAr": "pikyooliar",
+          "explanationFa": "صفتی سطح بالا که جایگزین بسیار مناسبی برای strange یا unusual جهت ارتقای نمره واژگان است.",
+          "explanationAr": "صفة متقدمة تعد بديلاً ممتازاً لكلمتي strange أو unusual لرفع درجة المعجم اللغوي.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "co-exist",
+          "translationFa": "همزیستی داشتن / در کنار هم زندگی کردن",
+          "translationAr": "يتعايش",
+          "pronounceFa": "kowegzist",
+          "pronounceAr": "kowegzist",
+          "explanationFa": "فعلی آکادمیک و کلیدی؛ برای توصیف زندگی هم‌زمان حیوانات و انسان‌ها یا فرهنگ‌های مختلف بدون درگیری استفاده می‌شود.",
+          "explanationAr": "فعل أكاديمي رئيسي؛ يُستخدم لوصف العيش المشترك والمنظم بين البشر والحيوانات أو الثقافات المختلفة دون نزاع.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "eliminate",
+          "translationFa": "حذف کردن / ساقط کردن (گزینه)",
+          "translationAr": "استبعاد / إزالة",
+          "pronounceFa": "ilimineyt",
+          "pronounceAr": "iliminayt",
+          "explanationFa": "واژه‌ای فرمال و آکادمیک؛ در تسک‌های آیلتس به معنای حذف گزینه‌های نادرست و در رایتینگ به معنای ریشه‌کن کردن یک مشکل است.",
+          "explanationAr": "كلمة رسمية وأكاديمية؛ تُستخدم في أسئلة الآيلتس بمعنى استبعاد الخيارات الخاطئة، وفي الكتابة بمعنى إزالة مشكلة ما.",
+          "cefrLevel": "C1"
+        }
       ]
     },
     {
@@ -3691,6 +3877,88 @@
               ]
             }
           ]
+        }
+      ],
+      "Interactives": [
+        {
+          "exactText": "consequently",
+          "translationFa": "در نتیجه / بنابراین",
+          "translationAr": "وبناءً على ذلك / بالتالي",
+          "pronounceFa": "konsikwentli",
+          "pronounceAr": "kunsikwuntli",
+          "explanationFa": "قید انتقال (Transition) بسیار عالی برای رایتینگ آیلتس (Task 2) جهت نشان دادن رابطه علت و معلولی و افزایش نمره انسجام متن (Coherence and Cohesion).",
+          "explanationAr": "ظرف انتقالي ممتاز لكتابة الآيلتس (Task 2) لإظهار علاقة السبب والنتيجة ورفع درجة التماسك والترابط.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "predator",
+          "translationFa": "شکارچی / حیوان درنده",
+          "translationAr": "حيوان مفترس / كاسر",
+          "pronounceFa": "predatar",
+          "pronounceAr": "bridatar",
+          "explanationFa": "واژه‌ای تخصصی و آکادمیک که در موضوعات مربوط به محیط زیست، حیات وحش و اکوسیستم در ریدینگ و لیسنینگ آیلتس به وفور استفاده می‌شود.",
+          "explanationAr": "كلمة أكاديمية تخصصية تتكرر كثيراً في مواضيع البيئة، الحياة البرية، والأنظمة البيئية في قراءة واستماع الآيلتس.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "unnervingly",
+          "translationFa": "به طرز نگران‌کننده‌ای / به طور دلهره‌آوری",
+          "translationAr": "بشكل مقلق / على نحو يثير القلق",
+          "pronounceFa": "anervinli",
+          "pronounceAr": "anervinli",
+          "explanationFa": "قید پیشرفته و متمایز (C1) برای توصیف شرایط یا آماری که باعث ایجاد اضطراب یا تعجب می‌شود؛ بسیار مناسب برای توصیف روندهای منفی در رایتینگ.",
+          "explanationAr": "ظرف متقدم ومميز (C1) لوصف الحالات أو الإحصاءات التي تسبب القلق أو الدهشة، مفيد جداً للتعبير عن الاتجاهات السلبية في الكتابة.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "thoroughfares",
+          "translationFa": "خیابان‌های اصلی / شریان‌های حیاتی شهر",
+          "translationAr": "الشارع العام / الطرق الرئيسية",
+          "pronounceFa": "tharaferz",
+          "pronounceAr": "tharaferz",
+          "explanationFa": "واژه‌ای آکادمیک و بسیار سطح بالا برای توصیف ساختار شهری و راه‌های اصلی پرتردد، مناسب جهت ارتقای نمره Lexical Resource.",
+          "explanationAr": "كلمة أكاديمية رفيعة المستوى لوصف البنية التحتية الحضرية والطرق الرئيسية المزدحمة، ممتازة لرفع درجة المعجم اللغوي.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "wary understanding",
+          "translationFa": "تفاهم همراه با هوشیاری / درک محتاطانه",
+          "translationAr": "تفاهم حذر / إدراك محترس",
+          "pronounceFa": "weri andarstendin",
+          "pronounceAr": "weri andarstandin",
+          "explanationFa": "یک کالوکیشن پیشرفته و نیتیو؛ ترکیب صفت wary (محتاط) و اسم understanding برای توصیف روابط پیچیده یا همزیستی‌های حساس بین دو گروه.",
+          "explanationAr": "متلازمة لفظية متقدمة؛ تجمع بين الصفة wary (حذر) والاسم understanding لوصف العلاقات المعقدة أو التعايش الحساس بين طرفين.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "carbon copy",
+          "translationFa": "کپی برابر اصل / نسخه کاملاً مشابه",
+          "translationAr": "نسخة كربونية / مطابقة تماماً",
+          "pronounceFa": "karban kopi",
+          "pronounceAr": "karbun kubi",
+          "explanationFa": "اصطلاحی پرکاربرد و نمره‌آور در لایه واژگان پیشرفته برای اشاره به شباهت صددرصدی و بازسازی دقیق یک چیز از روی چیز دیگر.",
+          "explanationAr": "تعبير شائع ومميز في المعجم المتقدم للإشارة إلى التطابق التام بنسبة 100٪ وإعادة إنتاج شيء بدقة من شيء آخر.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "improbably beautiful",
+          "translationFa": "به طرز غیرقابل‌باوری زیبا / شگفت‌انگیز",
+          "translationAr": "جميلة بشكل لا يصدق / خارقة الجمال",
+          "pronounceFa": "improbabli byutiful",
+          "pronounceAr": "imbrobabli byutiful",
+          "explanationFa": "ترکیب قید و صفت (Collocation) بسیار قوی و سطح بالا برای توصیف مکان‌ها، معماری یا طبیعت در اسپیکینگ آیلتس (به‌ویژه در توصیف یک مکان در پارت ۲).",
+          "explanationAr": "تركيب متقدم من ظرف وصفة (متلازمة لفظية قوية) لوصف الأماكن، العمارة، أو الطبيعة في محادثة الآيلتس (خاصة الجزء الثاني).",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "co-exist",
+          "translationFa": "همزیستی داشتن / در کنار هم زندگی کردن",
+          "translationAr": "يتعايش / الوجود معاً",
+          "pronounceFa": "kou igzist",
+          "pronounceAr": "ku igzist",
+          "explanationFa": "فعل آکادمیک حاوی پیشوند co- که در موضوعات مربوط به جامعه، محیط زیست، جهانی‌شدن و روابط انسان و طبیعت در آیلتس بسیار کاربردی است.",
+          "explanationAr": "فعل أكاديمي يحتوي على البادئة co-، مفيد جداً في مواضيع المجتمع، البيئة، العولمة، والعلاقة بين الإنسان والطبيعة في الآيلتس.",
+          "cefrLevel": "B2"
         }
       ]
     },
@@ -5035,6 +5303,68 @@
             }
           ]
         }
+      ],
+      "Interactives": [
+        {
+          "exactText": "encounter",
+          "translationFa": "روبرو شدن / مواجه شدن",
+          "translationAr": "يواجه / يصادف",
+          "pronounceFa": "inkawnter",
+          "pronounceAr": "inkawnter",
+          "explanationFa": "فعل آکادمیک برای بیان رویارویی ناگهانی یا غیرمنتظره با یک شخص یا مشکل.",
+          "explanationAr": "فعل أكاديمي للتعبير عن المواجهة المفاجئة أو غير المتوقعة لشخص أو مشكلة.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "forerunner",
+          "translationFa": "پیشگام / طلایه‌دار",
+          "translationAr": "رائد / سلف",
+          "pronounceFa": "for-raner",
+          "pronounceAr": "for-raner",
+          "explanationFa": "کلمه‌ای عالی برای توصیف چیزی که پیش از چیز دیگری آمده و راه را برای آن باز کرده است.",
+          "explanationAr": "كلمة ممتازة لوصف شيء جاء قبل شيء آخر ومهد الطريق له.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "metropolis",
+          "translationFa": "کلان‌شهر",
+          "translationAr": "عاصمة / مدينة كبرى",
+          "pronounceFa": "metropalis",
+          "pronounceAr": "matrubalis",
+          "explanationFa": "واژه‌ای سطح بالا به جای city برای اشاره به شهرهای بزرگ و مهم، بسیار کاربردی در تسک 1 و 2 رایتینگ.",
+          "explanationAr": "كلمة رفيعة المستوى بدلا من مدينة للإشارة إلى المدن الكبيرة والمهمة، مفيدة جدا في الكتابة.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "prosperous",
+          "translationFa": "مرفه / شکوفا",
+          "translationAr": "مزدهر",
+          "pronounceFa": "prasperas",
+          "pronounceAr": "brasperas",
+          "explanationFa": "صفت آکادمیک برای توصیف جوامع یا اقتصادهای موفق و ثروتمند.",
+          "explanationAr": "صفة أكاديمية لوصف المجتمعات أو الاقتصادات الناجحة والثرية.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "sophisticated",
+          "translationFa": "پیچیده / پیشرفته",
+          "translationAr": "متطور / معقد",
+          "pronounceFa": "safistikayted",
+          "pronounceAr": "sufistikayted",
+          "explanationFa": "کلمه‌ای کلیدی در آیلتس برای توصیف سیستم‌ها، ماشین‌ها یا جوامع پیشرفته و هوشمند.",
+          "explanationAr": "كلمة رئيسية في الآيلتس لوصف الأنظمة أو الآلات أو المجتمعات المتقدمة والذكية.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "cosmopolitan",
+          "translationFa": "جهان‌وطنی / بین‌المللی",
+          "translationAr": "عالمي",
+          "pronounceFa": "kazmapalitan",
+          "pronounceAr": "kazmubalitan",
+          "explanationFa": "صفتی نمره‌آور برای شهرهایی که مردمی از فرهنگ‌ها و کشورهای مختلف در آن زندگی می‌کنند.",
+          "explanationAr": "صفة قوية للمدن التي يعيش فيها أناس من ثقافات وبلدان مختلفة.",
+          "cefrLevel": "C1"
+        }
       ]
     },
     {
@@ -5523,6 +5853,78 @@
               ]
             }
           ]
+        }
+      ],
+      "Interactives": [
+        {
+          "exactText": "relocate",
+          "translationFa": "نقل مکان کردن / کوچ کردن",
+          "translationAr": "ينتقل / يغير مكان إقامته",
+          "pronounceFa": "ree-loh-kayt",
+          "pronounceAr": "ree-loh-kayt",
+          "explanationFa": "یک فعل آکادمیک پرکاربرد در رایتینگ آیلتس برای توصیف جابه‌جایی افراد، قبایل یا شرکت‌ها از یک مکان به مکان دیگر.",
+          "explanationAr": "فعل أكاديمي شائع في اختبار الآيلتس لوصف انتقال الأفراد، القبائل أو الشركات من مكان إلى آخر.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "postulated",
+          "translationFa": "فرض کردند / فرض را بر این گذاشتند",
+          "translationAr": "افترضوا / وضعوا فرضية",
+          "pronounceFa": "pos-tyuh-lay-tid",
+          "pronounceAr": "pos-tyu-lay-ted",
+          "explanationFa": "فعل رسمی و سطح بالا، عالی برای بخش‌های آکادمیک آیلتس هنگام مطرح کردن یک نظریه یا فرض علمی بدون داشتن مدرک قطعی.",
+          "explanationAr": "فعل رسمي رفيع المستوى، ممتاز للكتابة الأكاديمية في الآيلتس عند طرح فرضية أو نظرية دون وجود دليل قطعي.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "tireless determination",
+          "translationFa": "عزم خستگی‌ناپذیر",
+          "translationAr": "عزيمة لا تكل / إصرار دؤوب",
+          "pronounceFa": "tyuh-luhs di-tur-mi-nay-shuhn",
+          "pronounceAr": "taya-les de-ter-me-nay-shon",
+          "explanationFa": "یک کالوکیشن سطح بالا و نمره‌آور برای بخش اسپیکینگ و رایتینگ توصیفی جهت نشان دادن پشتکار شدید و مداوم.",
+          "explanationAr": "متلازمة لغوية ممتازة لرفع نمرة المحادثة والكتابة للتعبير عن الإصرار الشديد والمستمر وبذل جهد كبير.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "prosperous",
+          "translationFa": "شکوفا / مرفه / پررونق",
+          "translationAr": "مزدهر / ناجح ماديًا",
+          "pronounceFa": "pros-puh-ruhs",
+          "pronounceAr": "bros-pa-ras",
+          "explanationFa": "صفتی بسیار مناسب برای موضوعات اقتصادی، تاریخی و جامعه‌شناختی در آیلتس برای توصیف یک شهر، جامعه یا تجارت موفق.",
+          "explanationAr": "صفة ممتازة للمواضيع الاقتصادية والتاريخية والاجتماعية في الآيلتس لوصف مدينة أو مجتمع أو مشروع ناجح.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "enigma",
+          "translationFa": "معما / راز سرپوشیده",
+          "translationAr": "لغز / أمر غامض",
+          "pronounceFa": "i-nig-muh",
+          "pronounceAr": "e-neg-ma",
+          "explanationFa": "اسم پیشرفته برای توصیف پدیده‌ها یا موضوعات تاریخی و علمی مبهم؛ استفاده از آن نمره بخش Lexical Resource شما را به شدت بالا می‌برد.",
+          "explanationAr": "اسم متقدم لوصف الظواهر أو الأحداث التاريخية والعلمية الغامضة، يساهم بشكل كبير في رفع درجة المعجم اللغوي.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "conclusively",
+          "translationFa": "به طور قطعی / قاطعانه",
+          "translationAr": "بشكل قاطع / بما لا يدع مجالاً للشك",
+          "pronounceFa": "kuhn-kloo-siv-lee",
+          "pronounceAr": "kan-klu-sev-ly",
+          "explanationFa": "قیدی بسیار قوی برای ارائه‌ی نتایج نهایی، تحلیل داده‌ها و شواهد محکم در رایتینگ آکادمیک آیلتس.",
+          "explanationAr": "ظرف قوي جدًا يُستخدم لتقديم النتائج النهائية، تحليل البيانات والأدلة الدامغة في كتابة الآيلتس الأكاديمية.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "bemused",
+          "translationFa": "سردرگم / گیج و متحیر",
+          "translationAr": "حائر / مندهش مع حيرة",
+          "pronounceFa": "bi-myoozd",
+          "pronounceAr": "be-myuzd",
+          "explanationFa": "صفتی سطح بالا برای نشان دادن سردرگمی توأم با شگفتی، گزینه‌ای متمایز برای توصیف واکنش دانشمندان یا مورخان در متون پیچیده.",
+          "explanationAr": "صفة متقدمة تعني الحيرة والدهشة، خيار مميز لوصف ردود أفعال العلماء أو المؤرخين في النصوص المعقدة.",
+          "cefrLevel": "C2"
         }
       ]
     },
@@ -8061,6 +8463,68 @@
             }
           ]
         }
+      ],
+      "Interactives": [
+        {
+          "exactText": "overview statement",
+          "translationFa": "جمله بیان کلیات / عبارت بررسی اجمالی",
+          "translationAr": "بيان النظرة العامة / جملة الإجمال",
+          "pronounceFa": "ohvervyoo steytment",
+          "pronounceAr": "ufarvyu staytment",
+          "explanationFa": "مهم‌ترین بخش رایتینگ تسک 1 آیلتس که روندهای اصلی یا ویژگی‌های کلی را بدون ذکر جزئیات دقیق بیان می‌کند و برای کسب نمره بالای 5 در معیار TA حیاتی است.",
+          "explanationAr": "الجزء الأكثر أهمية في كتابة المهمة 1 للآيلتس، حيث يوضح الاتجاهات الرئيسية دون تفاصيل دقيقة، وهو ضروري للحصول على درجة أعلى من 5 في معيار TA.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "speculating",
+          "translationFa": "گمانه‌زنی کردن / حدس و گمان زدن",
+          "translationAr": "التكهن / التخمين",
+          "pronounceFa": "spekyoolating",
+          "pronounceAr": "isbikyulating",
+          "explanationFa": "در رایتینگ تسک 1 آیلتس نباید بر اساس داده‌ها حدس بزنید یا دلیل‌تراشی شخصی کنید؛ این کلمه آکادمیک به معنای فرضیه‌سازی بدون مدرک است.",
+          "explanationAr": "في كتابة المهمة 1 للآيلتس، لا ينبغي التخمين أو افتراض الأسباب الشخصية وراء البيانات؛ تعني هذه الكلمة الأكاديمية وضع فرضيات دون دليل.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "steepest rise",
+          "translationFa": "شدیدترین صعود / تندترین افزایش",
+          "translationAr": "الارتفاع الأكثر حدة / الصعود الأعلى",
+          "pronounceFa": "steepist rayz",
+          "pronounceAr": "stibist rayz",
+          "explanationFa": "یک کالوکیشن بسیار قوی و نمره‌آور در آیلتس برای توصیف خطوطی در نمودار که شیب صعودی بسیار تند و ناگهانی دارند.",
+          "explanationAr": "متلازمة لفظية قوية وممتازة في الآيلتس لوصف الخطوط البيانية التي تظهر ارتفاعاً حاداً ومفاجئاً في الصعود.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "by a significant margin",
+          "translationFa": "با اختلاف چشمگیر / با تفاوت معنی‌دار",
+          "translationAr": "بفارق كبير / بفارق ملحوظ",
+          "pronounceFa": "bay e signifikent maarjin",
+          "pronounceAr": "bay a signifikant marjin",
+          "explanationFa": "عبارتی آکادمیک و پیشرفته برای مقایسه داده‌ها در آیلتس، زمانی که یک بخش فاصله یا برتری بسیار زیادی با بخش‌های دیگر دارد.",
+          "explanationAr": "عبارة أكاديمية متقدمة لمقارنة البيانات في الآيلتس، تُستخدم عندما تكون هناك فئة تتفوق على بقية الفئات بفارق كبير جداً.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "subsequently",
+          "translationFa": "متعاقباً / پس از آن",
+          "translationAr": "بناءً على ذلك / لاحقاً",
+          "pronounceFa": "sabsikwentli",
+          "pronounceAr": "sabsikwentli",
+          "explanationFa": "یک قید ربط پُرکاربرد (Cohesive Device) برای نشان دادن توالی زمانی رویدادها که نمره معیار Coherence and Cohesion را افزایش می‌دهد.",
+          "explanationAr": "ظرف ربط شائع الاستخدام لإظهار التتابع الزمني للأحداث، مما يساهم في رفع درجة التماسك والترابط اللغوي (Coherence and Cohesion).",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "paraphrase",
+          "translationFa": "بازنویسی کردن / نقل به مضمون کردن",
+          "translationAr": "إعادة الصياغة",
+          "pronounceFa": "parefreyz",
+          "pronounceAr": "barafrayz",
+          "explanationFa": "مهارتی کلیدی در آیلتس که به معنای بیان کلمات صورت سؤال با واژه‌ها و ساختارهای گرامری جدید برای کسب نمره در Lexical Resource است.",
+          "explanationAr": "مهارة أساسية في اختبار الآيلتس تعني إعادة كتابة كلمات السؤال باستخدام مفردات وتراكيب قواعدية جديدة لرفع درجة المعجم اللغوي.",
+          "cefrLevel": "B2"
+        }
       ]
     },
     {
@@ -8816,6 +9280,88 @@
               ]
             }
           ]
+        }
+      ],
+      "Interactives": [
+        {
+          "exactText": "room for improvement",
+          "translationFa": "جای پیشرفت / جا برای بهتر شدن",
+          "translationAr": "مجال للتحسين / إمكانية للتطوير",
+          "pronounceFa": "ruum fer impruuvment",
+          "pronounceAr": "ruum far impruuvment",
+          "explanationFa": "یک اصطلاح نیتیو و کاربردی؛ بسیار مناسب برای بخش اسپیکینگ آیلتس هنگام توصیف شرایط یا مهارت‌هایی که نیاز به اصلاح و بهتر شدن دارند.",
+          "explanationAr": "تعبير اصطلاحي طبيعي وممتاز لقسم المحادثة في الآيلتس لوصف حالة أو مهارة تحتاج إلى تطوير وتعديل لتصبح أفضل.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "overall trend",
+          "translationFa": "روند کلی",
+          "translationAr": "الاتجاه العام",
+          "pronounceFa": "owverawl trend",
+          "pronounceAr": "awverawl trand",
+          "explanationFa": "یک عبارت کلیدی و ساختاری در رایتینگ آیلتس تسک 1 (آکادمیک) که برای نوشتن پاراگراف خلاصه یا همان Overview الزامی است.",
+          "explanationAr": "عبارة رئيسية وهيكلية في كتابة الآيلتس التاسك 1 (الأكاديميك) وهي إلزامية لكتابة فقرة النظرة العامة (Overview).",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "relocating",
+          "translationFa": "نقل مکان کردن / هجرت کردن",
+          "translationAr": "الانتقال / تغيير مكان الإقامة",
+          "pronounceFa": "riilowkeyting",
+          "pronounceAr": "riilowkeyting",
+          "explanationFa": "واژه‌ای آکادمیک و رسمی؛ جایگزینی عالی برای فعل ساده 'move' در موضوعات مربوط به جمعیت، شهرنشینی و مهاجرت در رایتینگ آیلتس.",
+          "explanationAr": "كلمة أكاديمية ورسمية؛ تعتبر بديلاً ممتازاً للفعل البسيط 'move' في المواضيع المتعلقة بالسكان، التوسع الحَضَري، والهجرة في الآيلتس.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "Subsequently",
+          "translationFa": "متعاقباً / پس از آن",
+          "translationAr": "تِلوَ ذلك / متعاقباً / بناءً على ذلك",
+          "pronounceFa": "sabsikwentli",
+          "pronounceAr": "sabsikwentli",
+          "explanationFa": "یک کلمه ربطی (Linker) بسیار پیشرفته و رسمی برای نشان دادن توالی زمانی رویدادها در رایتینگ تسک 1 و تسک 2.",
+          "explanationAr": "أداة ربط (Linker) متقدمة ورسمية تُستخدم لإظهار التوالي الزمني للأحداث في كتابة الآيلتس التاسك 1 والتاسك 2.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "steeply",
+          "translationFa": "با شیب تند / به شدت",
+          "translationAr": "بشكل حاد / بشكل عمودي",
+          "pronounceFa": "stiipli",
+          "pronounceAr": "stiipli",
+          "explanationFa": "قیدی بسیار مهم و نمره‌آور در آیلتس تسک 1 برای توصیف تغییرات و افزایش یا کاهش‌های ناگهانی و شدید در نمودارها.",
+          "explanationAr": "ظرف مهم جداً ومميز في الآيلتس التاسك 1 لوصف التغييرات والزيادات أو الانخفاضات المفاجئة والحادة في الرسوم البيانية.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "speculate",
+          "translationFa": "گمانه‌زنی کردن / حدس زدن بدون مدرک",
+          "translationAr": "يتكهن / يخمّن دون دليل قطعي",
+          "pronounceFa": "spekyuleyt",
+          "pronounceAr": "spekyuleyt",
+          "explanationFa": "واژه‌ای سطح بالا؛ در رایتینگ تسک 1 آکادمیک نباید درباره علل پشت پرده آمار گمانه‌زنی کنید، بلکه باید صرفاً داده‌ها را گزارش دهید.",
+          "explanationAr": "كلمة رفيعة المستوى؛ في الآيلتس التاسك 1 الأكاديميك لا ينبغي عليك التكهن بالأسباب الكامنة وراء الأرقام، بل يجب فقط تقرير البيانات.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "significantly",
+          "translationFa": "به طور قابل‌توجهی / چشمگیر",
+          "translationAr": "بشكل ملحوظ / بدرجة كبيرة",
+          "pronounceFa": "signifikantli",
+          "pronounceAr": "signifikantli",
+          "explanationFa": "از پرکاربردترین قیدهای آکادمیک در آیلتس جهت توصیف اهمیت یک موضوع یا نشان دادن حجم بزرگ تغییرات در نمودارها.",
+          "explanationAr": "من أكثر الظروف الأكاديمية استخداماً في الآيلتس لوصف أهمية موضوع ما أو لإظهار حجم التغييرات الكبير في الرسوم البيانية.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "by some distance",
+          "translationFa": "با اختلاف زیاد / با فاصله فراوان",
+          "translationAr": "بفارق كبير / بمسافة شاسعة",
+          "pronounceFa": "bay sam distans",
+          "pronounceAr": "bay sam distans",
+          "explanationFa": "یک عبارت پیشرفته و ایده‌آل برای ساختارهای مقایسه‌ای در آیلتس رایتینگ تسک 1، هنگامی که یک داده تفاوت چشمگیری با بقیه دارد.",
+          "explanationAr": "عبارة متقدمة ومثالية للصيغ المقارنة في الآيلتس التاسك 1، عندما يكون أحد البيانات مختلفاً بشكل واضح وكبير عن البقية.",
+          "cefrLevel": "C1"
         }
       ]
     },
@@ -10542,6 +11088,58 @@
               ]
             }
           ]
+        }
+      ],
+      "Interactives": [
+        {
+          "exactText": "consistent",
+          "translationFa": "مداوم / یکنواخت",
+          "translationAr": "ثابت / متسق",
+          "pronounceFa": "kensistent",
+          "pronounceAr": "kensistent",
+          "explanationFa": "واژه‌ای بسیار کلیدی و آکادمیک برای توصیف روندهایی که بدون تغییرات ناگهانی و به صورت هماهنگ پیش می‌روند؛ مناسب برای رایتینگ تسک 1 آیلتس.",
+          "explanationAr": "كلمة أكاديمية رئيسية لوصف الاتجاهات التي تسير بشكل منتظم دون تغيرات مفاجئة، مفيدة جداً للمهمة الأولى في كتابة الآيلتس.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "notable",
+          "translationFa": "قابل توجه / بارز",
+          "translationAr": "ملحوظ / لافت للانتباه",
+          "pronounceFa": "noutabl",
+          "pronounceAr": "noutabl",
+          "explanationFa": "صفتی عالی در سطح C1 برای برجسته کردن تغییرات یا نقاط عطف مهم در نمودارها، جهت افزایش نمره معیار Lexical Resource.",
+          "explanationAr": "صفة ممتازة من المستوى C1 لتسليط الضوء على التغييرات أو النقاط البارزة في الرسوم البيانية لرفع درجة معيار الثروة اللفظية.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "stable",
+          "translationFa": "پایدار / بدون تغییر",
+          "translationAr": "مستقر / ثابت",
+          "pronounceFa": "steybl",
+          "pronounceAr": "steybl",
+          "explanationFa": "واژه‌ای پرکاربرد برای توصیف وضعیت داده‌هایی که برای مدتی دچار نوسان نشده و ثابت مانده‌اند.",
+          "explanationAr": "كلمة شائعة الاستخدام لوصف حالة البيانات التي لم تشهد تقلبات لفترة من الوقت وظلت ثابتة.",
+          "cefrLevel": "B2"
+        },
+        {
+          "exactText": "joint-lowest",
+          "translationFa": "به طور مشترک پایین‌ترین",
+          "translationAr": "الأدنى مشتركاً",
+          "pronounceFa": "joynt louist",
+          "pronounceAr": "joynt louist",
+          "explanationFa": "یک صفت ترکیبی پیشرفته و دقیق برای مقایسه داده‌ها، زمانی که دو یا چند آیتم کمترین مقدار مشابهی را ثبت کرده باشند.",
+          "explanationAr": "صفة مركبة متقدمة ودقيقة لمقارنة البيانات عندما يسجل عنصران أو أكثر نفس القيمة الأدنى.",
+          "cefrLevel": "C1"
+        },
+        {
+          "exactText": "line graph",
+          "translationFa": "نمودار خطی",
+          "translationAr": "رسم بياني خطي",
+          "pronounceFa": "layn graaf",
+          "pronounceAr": "layn graaf",
+          "explanationFa": "یکی از انواع اصلی نمودارهای ارائه شده در دفترچه آزمون آیلتس آکادمیک (تسک 1) که معمولاً روند تغییرات را در طول زمان نشان می‌دهد.",
+          "explanationAr": "أحد الأنواع الرئيسية للرسوم البيانية التي تأتي في امتحان الآيلتس الأكاديمي (المهمة الأولى)، وغالباً ما يوضح اتجاه التغير بمرور الوقت.",
+          "cefrLevel": "B1"
         }
       ]
     },

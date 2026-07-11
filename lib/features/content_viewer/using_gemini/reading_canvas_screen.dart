@@ -271,11 +271,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
           expectedSignature == null ||
           expectedSignature == _lastBuiltTargetSignature;
 
-      // اولویت اول: پیدا کردن خود کادر جای‌خالی/کلمه‌ی دقیق.
-      // اولویت دوم: پاراگراف مادر (فقط اگر کلمه‌ی دقیق قابل‌کلید نبود)
+      // این‌طور (چون exactMatchKey دیگر هرگز به چیزی وصل نمی‌شود):
       final targetContext = targetIsBuilt
-          ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
-          : null; // هنوز widget tree با هدف جدید rebuild نشده → صبر کن
+          ? _fallbackParaKey.currentContext
+          : null;
 
       bool handled = false;
       if (targetContext != null && _lastBuiltTargetPageIndex != null) {
