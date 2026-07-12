@@ -73,7 +73,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   String? _lastBuiltTargetSignature;
   int? _lastBuiltTargetPageIndex;
   int _scrollRequestId = 0;
-
+  // 🌟 جلوگیری از claim دوباره‌ی کلیدهای هدف اگر ScrollablePositionedList
+  // (به‌خاطر معماری دو-لیستیِ داخلی‌اش، مخصوصاً حین یک جهشِ بزرگ) برای
+  // همان pageIndex بیش از یک‌بار در همین build، itemBuilder صدا بزند
+  bool _targetKeyClaimedThisBuild = false;
   String? _signatureFor(SearchResult? r) {
     if (r == null) return null;
     return '${r.pageNumber}:${r.paraIndex}:${r.occurrenceIndex}';
@@ -368,6 +371,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         : widget.documentPages.indexWhere(
             (p) => p.pageNumber == activeTarget.pageNumber,
           );
+    _targetKeyClaimedThisBuild =
+        false; // 🌟 اضافه شد — شروع تازه برای این build
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
@@ -527,12 +532,13 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                               ),
                               itemBuilder: (context, pageIndex) {
                                 final page = widget.documentPages[pageIndex];
-                                // 🌟 مقایسه با ایندکس یکتا به‌جای pageNumber (که یکتا نیست و می‌تواند
-                                // باعث شود چند PageData همزمان hasTarget=true بگیرند و کلید سراسری
-                                // را دوبار مصرف کنند)
                                 bool hasTarget =
                                     activeTarget != null &&
-                                    pageIndex == _lastBuiltTargetPageIndex;
+                                    pageIndex == _lastBuiltTargetPageIndex &&
+                                    !_targetKeyClaimedThisBuild; // 🌟 اضافه شد
+                                if (hasTarget)
+                                  _targetKeyClaimedThisBuild =
+                                      true; // 🌟 اضافه شد
 
                                 return RepaintBoundary(
                                   child: BookPageWidget(
