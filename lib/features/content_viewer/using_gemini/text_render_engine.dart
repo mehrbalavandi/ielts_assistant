@@ -482,23 +482,23 @@ class TextRenderEngine {
       );
     }
 
-    // if (isActive &&
-    //     exactMatchKey != null &&
-    //     keyClaim != null &&
-    //     !keyClaim.used) {
-    //   keyClaim.used = true;
-    //   return WidgetSpan(
-    //     alignment: PlaceholderAlignment.baseline,
-    //     baseline: TextBaseline.alphabetic,
-    //     child: KeyedSubtree(
-    //       key: exactMatchKey,
-    //       child: GestureDetector(
-    //         onTap: () => _showWordModal(context, word),
-    //         child: Text(text, style: finalStyle),
-    //       ),
-    //     ),
-    //   );
-    // }
+    if (isActive &&
+        exactMatchKey != null &&
+        keyClaim != null &&
+        !keyClaim.used) {
+      keyClaim.used = true;
+      return WidgetSpan(
+        alignment: PlaceholderAlignment.baseline,
+        baseline: TextBaseline.alphabetic,
+        child: KeyedSubtree(
+          key: exactMatchKey,
+          child: GestureDetector(
+            onTap: () => _showWordModal(context, word),
+            child: Text(text, style: finalStyle),
+          ),
+        ),
+      );
+    }
 
     return TextSpan(
       text: text,
@@ -577,20 +577,20 @@ class TextRenderEngine {
       color: isActive ? Colors.white : Colors.black,
     );
 
-    // if (isActive &&
-    //     exactMatchKey != null &&
-    //     keyClaim != null &&
-    //     !keyClaim.used) {
-    //   keyClaim.used = true;
-    //   return WidgetSpan(
-    //     alignment: PlaceholderAlignment.baseline,
-    //     baseline: TextBaseline.alphabetic,
-    //     child: KeyedSubtree(
-    //       key: exactMatchKey,
-    //       child: Text(text, style: finalStyle),
-    //     ),
-    //   );
-    // }
+    if (isActive &&
+        exactMatchKey != null &&
+        keyClaim != null &&
+        !keyClaim.used) {
+      keyClaim.used = true;
+      return WidgetSpan(
+        alignment: PlaceholderAlignment.baseline,
+        baseline: TextBaseline.alphabetic,
+        child: KeyedSubtree(
+          key: exactMatchKey,
+          child: Text(text, style: finalStyle),
+        ),
+      );
+    }
 
     return TextSpan(text: text, style: finalStyle);
   }
@@ -703,7 +703,7 @@ class InteractiveBlankWord extends StatelessWidget {
         ? Colors.orangeAccent
         : Colors.transparent;
 
-    return GestureDetector(
+    final Widget content = GestureDetector(
       onTap: () => _showHiddenTextModal(context, isDarkTheme),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
@@ -711,7 +711,6 @@ class InteractiveBlankWord extends StatelessWidget {
         decoration: BoxDecoration(
           color: buttonColor,
           borderRadius: BorderRadius.circular(12),
-          // 🌟 اصلاح شد: جلوگیری از کشیده شدن خط مویی (Hairline) در فلاتر
           border: hasSearchResult
               ? Border.all(color: borderColor, width: 2.0)
               : null,
@@ -724,19 +723,17 @@ class InteractiveBlankWord extends StatelessWidget {
               size: 16,
               color: hasSearchResult ? Colors.orangeAccent : iconColor,
             ),
-            // const SizedBox(width: 6),
-            // Text(
-            //   "", //نمایش پاسخ
-            //   style: textStyle.copyWith(
-            //     fontSize: 12,
-            //     color: hasSearchResult ? Colors.orangeAccent : iconColor,
-            //     fontWeight: FontWeight.w600,
-            //   ),
-            // ),
           ],
         ),
       ),
     );
+
+    // 🌟 این دقیقاً همان occurrence فعال جستجوست — با GlobalKey دقیق
+    // بپیچانش تا اسکرول بتواند مستقیم روی همین آیکون بایستد
+    if (exactMatchKey != null) {
+      return KeyedSubtree(key: exactMatchKey, child: content);
+    }
+    return content;
   }
 
   void _showHiddenTextModal(BuildContext context, bool isDarkTheme) {

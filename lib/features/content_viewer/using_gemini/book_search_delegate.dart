@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
@@ -5,8 +7,17 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_
 
 class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   final WidgetRef ref;
-
   BookSearchDelegate(this.ref);
+
+  Timer? _debounce;
+  final ValueNotifier<String> _debouncedQuery = ValueNotifier<String>('');
+
+  void _scheduleSearch() {
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 350), () {
+      _debouncedQuery.value = query.trim();
+    });
+  }
 
   @override
   String get searchFieldLabel => 'جستجو در کتاب‌ها...';
@@ -31,21 +42,46 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   Widget buildResults(BuildContext context) {
     if (query.trim().length < 3)
       return const Center(child: Text('حداقل ۳ حرف وارد کنید.'));
-    return _buildSearchResults();
+    _scheduleSearch();
+    return _buildDebouncedResults();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.trim().length < 3) return const SizedBox.shrink();
-    return _buildSearchResults();
+    _scheduleSearch();
+    return _buildDebouncedResults();
   }
 
-  Widget _buildSearchResults() {
-    // 🌟 اصلاح شد: خواندن لیست کتاب‌ها از حافظه Riverpod
+  Widget _buildDebouncedResults() {
+    return ValueListenableBuilder<String>(
+      valueListenable: _debouncedQuery,
+      builder: (context, debouncedQ, _) {
+        final bool isPending =
+            debouncedQ != query.trim(); // 🌟 هنوز تایمر تمام نشده
+        return Stack(
+          children: [
+            if (debouncedQ.length >= 3) _buildSearchResults(debouncedQ),
+            if (isPending)
+              const Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: LinearProgressIndicator(minHeight: 2),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildSearchResults(String debouncedQuery) {
     final availableBooks = ref.read(booksProvider);
     return FutureBuilder<List<SearchResult>>(
-      // 🌟 پاس دادن لیست جدید به موتور جستجو
-      future: CrossBookSearchEngine.searchAllBooks(query, availableBooks),
+      future: CrossBookSearchEngine.searchAllBooks(
+        debouncedQuery,
+        availableBooks,
+      ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -108,5 +144,11 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
         );
       },
     );
+  }
+
+  @override
+  void close(BuildContext context, SearchSession? result) {
+    _debounce?.cancel();
+    super.close(context, result);
   }
 }

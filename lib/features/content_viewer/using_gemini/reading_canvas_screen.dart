@@ -273,7 +273,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
       // این‌طور (چون exactMatchKey دیگر هرگز به چیزی وصل نمی‌شود):
       final targetContext = targetIsBuilt
-          ? _fallbackParaKey.currentContext
+          ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
           : null;
 
       bool handled = false;
@@ -1656,7 +1656,12 @@ List<InlineSpan> _buildStyledInteractiveText(
       translationFa: para.translationFa, // 🌟 حفظ پشتیبانی از ترجمه‌های دوزبانه
       translationAr: para.translationAr,
       innerSpans: span.innerSpans,
-      exactMatchKey: exactMatchKey,
+      exactMatchKey: isInlineBorder ? null : exactMatchKey,
+      // 🌟 وقتی محتوا قرار است داخل باکسِ border در یک Text.rich تودرتو
+      // بنشیند (خط ۱۶۵۹ به بعد)، کلید را نمی‌دهیم تا WidgetSpanِ دومی
+      // ساخته نشود. برای همه‌ی حالت‌های دیگر (آیکون چشم، جای‌خالی،
+      // لینک صوتی، کلمه‌ی معمولی) کلید واقعی داده می‌شود و دقتِ
+      // کلمه‌به‌کلمه‌ی قبلی برمی‌گردد.
       interactivesPattern: interactivesPattern,
       interactivesByText: interactivesByText,
     );
