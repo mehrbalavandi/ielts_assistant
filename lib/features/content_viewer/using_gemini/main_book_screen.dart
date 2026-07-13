@@ -16,14 +16,6 @@ class MainBookScreen extends ConsumerStatefulWidget {
 }
 
 class _MainBookScreenState extends ConsumerState<MainBookScreen> {
-  // 🌟 رفع یک مشکل معماری: قبلاً DocumentLoader.loadBookFromJson مستقیم
-  // داخل build() و به FutureBuilder.future پاس داده می‌شد. چون این ویجت
-  // به activeSearchProvider هم گوش می‌دهد (برای نوار ناوبری نتایج جستجو)،
-  // با هر بار تغییر searchSession (یعنی هر بار دکمه‌ی بعدی/قبلی جستجو)،
-  // کل build() دوباره اجرا و یک Future تازه ساخته می‌شد — یعنی کل کتاب
-  // (حالا با پردازش سنگین‌ترِ دیکشنریِ مشترک) دوباره از صفر parse می‌شد و
-  // ReadingCanvasScreen هم به‌طور کامل بازسازی می‌شد. حالا Future فقط وقتی
-  // کتابِ فعال واقعاً عوض شود دوباره ساخته می‌شود.
   Future<List<PageData>>? _pagesFuture;
   String? _loadedBookId;
 
@@ -55,29 +47,24 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                 context: context,
                 delegate: BookSearchDelegate(ref),
               );
+
               if (session != null && context.mounted) {
-                // اگر کاربر کتاب دیگری را انتخاب کرده بود، سوییچ کن
                 final targetBookId =
                     (session.results.first as SearchResult).bookId;
+
+                // تغییر کتاب در صورت نیاز
                 if (activeBook.id != targetBookId) {
-                  // 🌟 اصلاح شد: در پروژه‌ی شما availableBooks یک متغیر سراسری
-                  // نیست؛ لیست کتاب‌ها از booksProvider (که یک
-                  // NotifierProvider<BooksNotifier, List<BookModel>> است)
-                  // خوانده می‌شود.
                   final availableBooks = ref.read(booksProvider);
                   final targetBook = availableBooks.firstWhere(
                     (b) => b.id == targetBookId,
                   );
-                  // 🌟 اصلاح شد: activeBookProvider یک StateProvider ساده است
-                  // (نه یک NotifierProvider با متد اختصاصی setActiveBook)،
-                  // پس تغییر state مستقیماً از طریق .state انجام می‌شود —
-                  // دقیقاً همان الگویی که چند خط پایین‌تر برای
-                  // activeSearchProvider هم استفاده شده.
                   ref.read(activeBookProvider.notifier).state = targetBook;
                 }
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  ref.read(activeSearchProvider.notifier).state = session;
-                });
+
+                // 🌟 حذف تأخیر (Future.delayed) برای جلوگیری از تداخل استیت‌ها
+                // ریورپاد به صورت خودکار مقادیر را پیگیری کرده و به محض لود شدن
+                // صفحه جدید، نتایج جستجو را اعمال می‌کند.
+                ref.read(activeSearchProvider.notifier).state = session;
               }
             },
           ),
@@ -93,8 +80,6 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
           ),
         ],
       ),
-
-      // 🌟 نوار حرفه‌ای ناوبری بین نتایج جستجو در پایین صفحه
       bottomNavigationBar: searchSession != null
           ? Container(
               color: Colors.indigo.shade50,
@@ -107,7 +92,6 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                     children: [
                       Row(
                         children: [
-                          // 🌟 دکمه بعدی (با قابلیت چرخش و تریگر همیشگی)
                           IconButton(
                             icon: const Icon(
                               Icons.keyboard_arrow_down,
@@ -125,7 +109,6 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                                       )
                                 : null,
                           ),
-                          // 🌟 دکمه قبلی (با قابلیت چرخش و تریگر همیشگی)
                           IconButton(
                             icon: const Icon(
                               Icons.keyboard_arrow_up,
@@ -164,21 +147,27 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               ),
             )
           : null,
-
       body: FutureBuilder<List<PageData>>(
         future: _pagesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
+          // 🌟 اضافه شدن هندل کردن خطا
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                "خطا در بارگیری کتاب:\n${snapshot.error}",
+                textAlign: TextAlign.center,
+                textDirection: TextDirection.rtl,
+              ),
+            );
+          }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("داده‌ای یافت نشد."));
           }
           return ReadingCanvasScreen(
             documentPages: snapshot.data!,
-            // 🌟 پاراگراف‌هایی که واقعاً به یک تکه‌صدا وصل‌اند (startMs/endMs/
-            // audioTrackName هر سه ست شده‌اند) — ورودی موردنیاز
-            // TelegramAudioPlayer داخل ReadingCanvasScreen.
             audioScripts: _extractAudioScripts(snapshot.data!),
           );
         },
