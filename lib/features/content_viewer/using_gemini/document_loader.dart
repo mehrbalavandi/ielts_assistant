@@ -1,88 +1,189 @@
-// import 'dart:convert';
-// import 'dart:io';
-// import 'package:flutter/services.dart' show rootBundle;
-// import 'package:ielts_assistant/features/content_viewer/presentation/using_gemini/models.dart';
-
-// class DocumentLoader {
-//   static Future<List<PageData>> loadBookFromJson(String path) async {
-//     String jsonString = '';
-
-//     // 🌟 بررسی هوشمند: فایل در حافظه گوشی است یا دارایی برنامه (assets)؟
-//     if (path.startsWith('assets/')) {
-//       jsonString = await rootBundle.loadString(path);
-//     } else {
-//       final file = File(path);
-//       if (await file.exists()) {
-//         jsonString = await file.readAsString();
-//       } else {
-//         throw Exception("فایل در حافظه گوشی یافت نشد: $path");
-//       }
-//     }
-
-//     List<dynamic> jsonList = jsonDecode(jsonString);
-//     List<PageData> allPages = [];
-
-//     for (var pageJson in jsonList) {
-//       allPages.add(PageData.fromJson(pageJson));
-//     }
-//     return allPages;
-//   }
-// }
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 
-// 🌟 کلاس جدید برای نگه داشتن همزمان کتاب و اسکریپت‌ها
-class BookContent {
-  final List<PageData> pages;
-  final List<ParagraphData> audioScripts;
-
-  BookContent({required this.pages, required this.audioScripts});
-}
-
 class DocumentLoader {
-  static Future<BookContent> loadBookFromJson(String path) async {
+  // 🌟 دریافت مسیر فایل به عنوان پارامتر ورودی
+  static Future<List<PageData>> loadBookFromJson(String assetPath) async {
     String jsonString = '';
-
-    if (path.startsWith('assets/')) {
-      jsonString = await rootBundle.loadString(path);
+    if (assetPath.startsWith('assets/')) {
+      jsonString = await rootBundle.loadString(assetPath);
     } else {
-      final file = File(path);
+      final file = File(assetPath);
       if (await file.exists()) {
         jsonString = await file.readAsString();
       } else {
-        throw Exception("فایل در حافظه گوشی یافت نشد: $path");
+        throw Exception("فایل در حافظه گوشی یافت نشد: $assetPath");
+      }
+      final decoded = jsonDecode(jsonString);
+
+      // ── ساختار جدید (مثل data.json): یک آبجکت با یک دیکشنریِ Interactives
+      // مشترکِ کل کتاب + آرایه‌ی Pages ──────────────────────────────────────
+      if (decoded is Map<String, dynamic>) {
+        return _loadFromSharedInteractivesStructure(decoded);
+      }
+
+      // ── ساختار قدیم (output.json): آرایه‌ی مستقیم صفحات، هرکدام با
+      // Interactives محلیِ خودش. برای سازگاری با کتاب‌هایی که هنوز به فرمت
+      // جدید مهاجرت نکرده‌اند نگه داشته شده ─────────────────────────────────
+      if (decoded is List) {
+        return decoded
+            .map(
+              (pageJson) => PageData.fromJson(pageJson as Map<String, dynamic>),
+            )
+            .toList();
       }
     }
 
-    var decoded = jsonDecode(jsonString);
+    throw FormatException('ساختار JSON کتاب ناشناخته است: $assetPath');
+  }
 
-    // 🌟 بررسی هوشمند ساختار JSON
-    if (decoded is Map<String, dynamic>) {
-      // فرمت جدید (دارای فیلد pages و audioScripts)
-      List<PageData> allPages =
-          (decoded['Pages'] as List?)
-              ?.map((e) => PageData.fromJson(e))
-              .toList() ??
-          [];
+  static List<PageData> _loadFromSharedInteractivesStructure(
+    Map<String, dynamic> decoded,
+  ) {
+    final pagesJson = (decoded['Pages'] ?? decoded['pages']) as List? ?? [];
+    final rawInteractivesJson =
+        (decoded['Interactives'] ?? decoded['interactives']) as List? ?? [];
 
-      List<ParagraphData> scripts =
-          (decoded['AudioScripts'] as List?)
-              ?.map((e) => ParagraphData.fromJson(e))
-              .toList() ??
-          [];
+    // 🌟 حذف موارد تکراری بر اساس exactText — فقط اولین موردِ هر متن نگه
+    // داشته می‌شود (طبق درخواست: قبل از شروع برنامه انجام شود).
+    final sharedInteractives = _dedupeInteractives(
+      rawInteractivesJson
+          .map((e) => InteractiveWord.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
-      return BookContent(pages: allPages, audioScripts: scripts);
-    } else if (decoded is List) {
-      // پشتیبانی از فرمت قدیمی (آرایه مستقیم از صفحات)
-      List<PageData> allPages = decoded
-          .map((e) => PageData.fromJson(e))
+    // مرتب‌سازی نزولی بر اساس طول متن: دقیقاً همان رفتار قبلی، تا در
+    // موقعیت‌های هم‌ابتدا طولانی‌ترین کلمه برنده‌ی تطبیق شود
+    // (مثلاً «ice cream» باید قبل از «ice» تشخیص داده شود).
+    sharedInteractives.sort(
+      (a, b) => b.exactText.length.compareTo(a.exactText.length),
+    );
+
+    final nonEmptyWords = sharedInteractives
+        .where((w) => w.exactText.isNotEmpty)
+        .toList();
+
+    // 🌟 این RegExp و این Map فقط یک‌بار برای کل کتاب ساخته می‌شوند (نه یک‌بار
+    // به‌ازای هر صفحه مثل قبل) و بین همه‌ی صفحات به اشتراک گذاشته می‌شوند.
+    final RegExp? sharedPattern = nonEmptyWords.isEmpty
+        ? null
+        : RegExp(
+            nonEmptyWords.map((w) => RegExp.escape(w.exactText)).join('|'),
+          );
+
+    final Map<String, InteractiveWord> sharedByText = {
+      for (final w in nonEmptyWords) w.exactText: w,
+    };
+
+    return pagesJson.map((pageJson) {
+      final page = PageData.fromJson(
+        pageJson as Map<String, dynamic>,
+        sharedInteractives: sharedInteractives,
+        sharedPattern: sharedPattern,
+        sharedByText: sharedByText,
+      );
+
+      // 🌟 با اینکه دیکشنری اصلی حالا سطح کتاب است، بخش‌های رندر فعلی
+      // برنامه (مثل _buildStyledInteractiveText و پلیر صوتی) هنوز از
+      // para.interactives استفاده می‌کنند. برای اینکه این بخش‌ها بدون
+      // تغییر کار کنند، همان‌جا برای هر پاراگراف زیرمجموعه‌ای از دیکشنری
+      // مشترک را که واقعاً در متنِ همان پاراگراف ظاهر شده محاسبه و تزریق
+      // می‌کنیم (به‌صورت بازگشتی، شامل پاراگراف‌های داخل سلول‌های جدول).
+      // از همان RegExp/Map از‌قبل‌ساخته‌شده استفاده می‌شود، پس این کار
+      // برای هر پاراگراف یک اسکن خطی است، نه یک حلقه به‌ازای هر کلمه.
+      final annotatedParagraphs = page.paragraphs
+          .map(
+            (p) => _attachRelevantInteractives(p, sharedPattern, sharedByText),
+          )
           .toList();
-      return BookContent(pages: allPages, audioScripts: []);
+
+      return PageData(
+        pageNumber: page.pageNumber,
+        paragraphs: annotatedParagraphs,
+        interactives: page.interactives,
+        interactivesPattern: page.interactivesPattern,
+        interactivesByText: page.interactivesByText,
+      );
+    }).toList();
+  }
+
+  // 🌟 حذف موارد تکراری بر اساس exactText — فقط اولین موردِ هر متن باقی
+  // می‌ماند؛ ترتیب اصلیِ لیست (بجز حذف تکراری‌ها) دست‌نخورده می‌ماند.
+  static List<InteractiveWord> _dedupeInteractives(
+    List<InteractiveWord> source,
+  ) {
+    final seen = <String>{};
+    final result = <InteractiveWord>[];
+    for (final word in source) {
+      if (word.exactText.isEmpty) continue;
+      if (seen.add(word.exactText)) {
+        result.add(word);
+      }
+    }
+    return result;
+  }
+
+  // 🌟 متنِ مستقیمِ یک اسپن را برمی‌گرداند؛ اگر innerSpans داشته باشد
+  // (مثلاً یک باکسِ شناور با محتوای متنیِ داخلی)، متنِ آن‌ها هم به‌صورت
+  // بازگشتی لحاظ می‌شود — چون یک کلمه‌ی دیکشنری ممکن است فقط داخل
+  // innerSpans ظاهر شده باشد.
+  static String _flattenSpanText(SpanData span) {
+    final buffer = StringBuffer();
+    if (span.type == 'text') buffer.write(span.content);
+    for (final inner in span.innerSpans) {
+      buffer.write(_flattenSpanText(inner));
+    }
+    return buffer.toString();
+  }
+
+  // 🌟 برای یک پاراگراف مشخص، از میان کل دیکشنریِ مشترکِ کتاب، فقط آن
+  // کلماتی را نگه می‌دارد که واقعاً در متنِ همین پاراگراف ظاهر شده‌اند —
+  // دقیقاً همان چیزی که para.interactives قبلاً (از JSON محلی صفحه)
+  // نمایندگی می‌کرد. با استفاده از همان RegExp/Map مشترکِ از‌قبل‌ساخته‌شده،
+  // این کار یک اسکن خطیِ متن است (نه یک حلقه به‌ازای هر کلمه‌ی دیکشنری).
+  // اگر پاراگراف شامل جدول باشد، پاراگراف‌های داخل سلول‌ها هم به‌صورت
+  // بازگشتی و مستقل پردازش می‌شوند.
+  static ParagraphData _attachRelevantInteractives(
+    ParagraphData para,
+    RegExp? sharedPattern,
+    Map<String, InteractiveWord> sharedByText,
+  ) {
+    final directText = para.spans.map(_flattenSpanText).join();
+
+    List<InteractiveWord> matched = const [];
+    if (directText.isNotEmpty && sharedPattern != null) {
+      final matchedTexts = <String>{
+        for (final m in sharedPattern.allMatches(directText)) m.group(0)!,
+      };
+      matched = matchedTexts
+          .map((text) => sharedByText[text])
+          .whereType<InteractiveWord>()
+          .toList();
     }
 
-    throw Exception("فرمت JSON نامعتبر است.");
+    final processedSpans = para.spans.map((span) {
+      if (span.type != 'table' || span.tableRows.isEmpty) return span;
+      final newRows = span.tableRows.map((row) {
+        final newCells = row.cells.map((cell) {
+          return cell.copyWith(
+            paragraphs: cell.paragraphs
+                .map(
+                  (p) => _attachRelevantInteractives(
+                    p,
+                    sharedPattern,
+                    sharedByText,
+                  ),
+                )
+                .toList(),
+          );
+        }).toList();
+        return row.copyWith(cells: newCells);
+      }).toList();
+      return span.copyWith(tableRows: newRows);
+    }).toList();
+
+    return para.copyWith(spans: processedSpans, interactives: matched);
   }
 }

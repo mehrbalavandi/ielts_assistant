@@ -4,7 +4,9 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/b
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/book_search_delegate.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/library_screen.dart';
 
 class MainBookScreen extends ConsumerStatefulWidget {
   const MainBookScreen({super.key});
@@ -14,29 +16,22 @@ class MainBookScreen extends ConsumerStatefulWidget {
 }
 
 class _MainBookScreenState extends ConsumerState<MainBookScreen> {
-  // 🌟 رفع یک باگ ساختاری مهم:
-  //
-  // قبلاً این خط مستقیم داخل build() بود:
-  //   future: DocumentLoader.loadBookFromJson(activeBook.jsonAssetPath)
-  //
-  // یعنی هر بار build() اجرا می‌شد یک Future کاملاً تازه ساخته می‌شد.
-  // چون این ویجت هم activeSearchProvider را watch می‌کند، هر بار دکمه‌ی
-  // بعدی/قبلیِ جستجو زده می‌شد (یا حتی هر جابه‌جایی currentIndex)، کل
-  // build() دوباره اجرا و یک Future تازه به FutureBuilder داده می‌شد.
-  // FutureBuilder با دیدن یک Future جدید (متفاوت از قبلی)، وضعیتش را
-  // ریست می‌کند: یک فریم به ConnectionState.waiting برمی‌گردد (یعنی
-  // به‌جای ReadingCanvasScreen موقتاً CircularProgressIndicator نشان
-  // می‌دهد)، و چون نوع ویجت در آن نقطه از درخت عوض می‌شود
-  // (ReadingCanvasScreen ↔ Center)، فلاتر مجبور می‌شود کل
-  // ReadingCanvasScreen (و state داخلی‌اش — GlobalKeyها،
-  // ItemScrollController، همه‌ی منطق اسکرول دقیق) را dispose و از نو
-  // بسازد؛ درست وسط اسکرول به نتیجه‌ی جستجو! این دقیقاً همان چیزی بود که
-  // باعث می‌شد اسکرول دقیق هیچ‌وقت به‌طور پایدار به هدف نرسد.
-  //
-  // راه‌حل: Future را فقط یک‌بار (و فقط وقتی کتاب واقعاً عوض شود) می‌سازیم
-  // و در طول عمر ویجت نگهش می‌داریم.
-  Future<BookContent>? _bookContentFuture;
+  // 🌟 رفع یک مشکل معماری: قبلاً DocumentLoader.loadBookFromJson مستقیم
+  // داخل build() و به FutureBuilder.future پاس داده می‌شد. چون این ویجت
+  // به activeSearchProvider هم گوش می‌دهد (برای نوار ناوبری نتایج جستجو)،
+  // با هر بار تغییر searchSession (یعنی هر بار دکمه‌ی بعدی/قبلی جستجو)،
+  // کل build() دوباره اجرا و یک Future تازه ساخته می‌شد — یعنی کل کتاب
+  // (حالا با پردازش سنگین‌ترِ دیکشنریِ مشترک) دوباره از صفر parse می‌شد و
+  // ReadingCanvasScreen هم به‌طور کامل بازسازی می‌شد. حالا Future فقط وقتی
+  // کتابِ فعال واقعاً عوض شود دوباره ساخته می‌شود.
+  Future<List<PageData>>? _pagesFuture;
   String? _loadedBookId;
+
+  void _ensureBookLoaded(String bookId, String jsonAssetPath) {
+    if (_loadedBookId == bookId && _pagesFuture != null) return;
+    _loadedBookId = bookId;
+    _pagesFuture = DocumentLoader.loadBookFromJson(jsonAssetPath);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +42,7 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    if (_loadedBookId != activeBook.id) {
-      _loadedBookId = activeBook.id;
-      _bookContentFuture = DocumentLoader.loadBookFromJson(
-        activeBook.jsonAssetPath,
-      );
-    }
+    _ensureBookLoaded(activeBook.id, activeBook.jsonAssetPath);
 
     return Scaffold(
       appBar: AppBar(
@@ -64,25 +54,26 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               final SearchSession? session = await showSearch<SearchSession?>(
                 context: context,
                 delegate: BookSearchDelegate(ref),
-                query: searchSession?.query ?? '',
               );
-
               if (session != null && context.mounted) {
+                // اگر کاربر کتاب دیگری را انتخاب کرده بود، سوییچ کن
                 final targetBookId =
                     (session.results.first as SearchResult).bookId;
                 if (activeBook.id != targetBookId) {
-                  // 🌟 اصلاح شد: گرفتن لیست کتاب‌ها از پرووایدرِ API
+                  // 🌟 اصلاح شد: در پروژه‌ی شما availableBooks یک متغیر سراسری
+                  // نیست؛ لیست کتاب‌ها از booksProvider (که یک
+                  // NotifierProvider<BooksNotifier, List<BookModel>> است)
+                  // خوانده می‌شود.
                   final availableBooks = ref.read(booksProvider);
-
-                  // اگر کتاب پیدا شد، سوییچ کن
-                  if (availableBooks.any((b) => b.id == targetBookId)) {
-                    final targetBook = availableBooks.firstWhere(
-                      (b) => b.id == targetBookId,
-                    );
-
-                    // 🌟 اصلاح شد: تغییر مستقیم وضعیت پرووایدر با دات استیت (.state)
-                    ref.read(activeBookProvider.notifier).state = targetBook;
-                  }
+                  final targetBook = availableBooks.firstWhere(
+                    (b) => b.id == targetBookId,
+                  );
+                  // 🌟 اصلاح شد: activeBookProvider یک StateProvider ساده است
+                  // (نه یک NotifierProvider با متد اختصاصی setActiveBook)،
+                  // پس تغییر state مستقیماً از طریق .state انجام می‌شود —
+                  // دقیقاً همان الگویی که چند خط پایین‌تر برای
+                  // activeSearchProvider هم استفاده شده.
+                  ref.read(activeBookProvider.notifier).state = targetBook;
                 }
                 Future.delayed(const Duration(milliseconds: 200), () {
                   ref.read(activeSearchProvider.notifier).state = session;
@@ -93,16 +84,17 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
           IconButton(
             icon: const Icon(Icons.library_books_rounded),
             onPressed: () {
-              // ref.read(activeSearchProvider.notifier).state = null;
-              // Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const LibraryScreen()),
-              // );
+              ref.read(activeSearchProvider.notifier).state = null;
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LibraryScreen()),
+              );
             },
           ),
         ],
       ),
 
+      // 🌟 نوار حرفه‌ای ناوبری بین نتایج جستجو در پایین صفحه
       bottomNavigationBar: searchSession != null
           ? Container(
               color: Colors.indigo.shade50,
@@ -121,19 +113,17 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                               Icons.keyboard_arrow_down,
                               color: Colors.indigo,
                             ),
-                            onPressed: () {
-                              int nextIdx =
-                                  (searchSession.currentIndex + 1) %
-                                  searchSession.results.length;
-                              ref
-                                  .read(activeSearchProvider.notifier)
-                                  .state = searchSession.copyWith(
-                                currentIndex: nextIdx,
-                                jumpTrigger:
-                                    searchSession.jumpTrigger +
-                                    1, // اجبار به اسکرول مجدد
-                              );
-                            },
+                            onPressed:
+                                searchSession.currentIndex <
+                                    searchSession.results.length - 1
+                                ? () =>
+                                      ref
+                                          .read(activeSearchProvider.notifier)
+                                          .state = searchSession.copyWith(
+                                        currentIndex:
+                                            searchSession.currentIndex + 1,
+                                      )
+                                : null,
                           ),
                           // 🌟 دکمه قبلی (با قابلیت چرخش و تریگر همیشگی)
                           IconButton(
@@ -141,21 +131,15 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                               Icons.keyboard_arrow_up,
                               color: Colors.indigo,
                             ),
-                            onPressed: () {
-                              int prevIdx =
-                                  (searchSession.currentIndex -
-                                      1 +
-                                      searchSession.results.length) %
-                                  searchSession.results.length;
-                              ref
-                                  .read(activeSearchProvider.notifier)
-                                  .state = searchSession.copyWith(
-                                currentIndex: prevIdx,
-                                jumpTrigger:
-                                    searchSession.jumpTrigger +
-                                    1, // اجبار به اسکرول مجدد
-                              );
-                            },
+                            onPressed: searchSession.currentIndex > 0
+                                ? () =>
+                                      ref
+                                          .read(activeSearchProvider.notifier)
+                                          .state = searchSession.copyWith(
+                                        currentIndex:
+                                            searchSession.currentIndex - 1,
+                                      )
+                                : null,
                           ),
                           const SizedBox(width: 12),
                           Text(
@@ -180,24 +164,39 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               ),
             )
           : null,
-      body: FutureBuilder<BookContent>(
-        // 🌟 حالا این Future فقط با تغییر واقعیِ کتاب دوباره ساخته می‌شود
-        future: _bookContentFuture,
+
+      body: FutureBuilder<List<PageData>>(
+        future: _pagesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (!snapshot.hasData || snapshot.data!.pages.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("داده‌ای یافت نشد."));
           }
-
-          // 🌟 ارسال صفحات و اسکریپت‌ها به صورت مجزا به بوم نقاشی
           return ReadingCanvasScreen(
-            documentPages: snapshot.data!.pages,
-            audioScripts: snapshot.data!.audioScripts,
+            documentPages: snapshot.data!,
+            // 🌟 پاراگراف‌هایی که واقعاً به یک تکه‌صدا وصل‌اند (startMs/endMs/
+            // audioTrackName هر سه ست شده‌اند) — ورودی موردنیاز
+            // TelegramAudioPlayer داخل ReadingCanvasScreen.
+            audioScripts: _extractAudioScripts(snapshot.data!),
           );
         },
       ),
     );
+  }
+
+  List<ParagraphData> _extractAudioScripts(List<PageData> pages) {
+    final scripts = <ParagraphData>[];
+    for (final page in pages) {
+      for (final para in page.paragraphs) {
+        if (para.startMs != null &&
+            para.endMs != null &&
+            para.audioTrackName != null) {
+          scripts.add(para);
+        }
+      }
+    }
+    return scripts;
   }
 }

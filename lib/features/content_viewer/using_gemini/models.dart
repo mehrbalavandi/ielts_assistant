@@ -104,6 +104,33 @@ class ParagraphData {
       spans: spansList.map((e) => SpanData.fromJson(e)).toList(),
     );
   }
+
+  // 🌟 برای جایگزینی «فقط» فیلد(های) مشخص بدون بازنویسی دستی و مستعدِ خطای
+  // بقیه‌ی فیلدها؛ DocumentLoader از این برای تزریق زیرمجموعه‌ی مرتبط از
+  // دیکشنری مشترک (ساختار جدید data.json) استفاده می‌کند.
+  ParagraphData copyWith({
+    List<SpanData>? spans,
+    List<InteractiveWord>? interactives,
+  }) {
+    return ParagraphData(
+      spans: spans ?? this.spans,
+      direction: direction,
+      alignment: alignment,
+      fillColor: fillColor,
+      borders: borders,
+      spaceBefore: spaceBefore,
+      spaceAfter: spaceAfter,
+      indentLeft: indentLeft,
+      indentRight: indentRight,
+      indentFirstLine: indentFirstLine,
+      startMs: startMs,
+      endMs: endMs,
+      audioTrackName: audioTrackName,
+      translationFa: translationFa,
+      translationAr: translationAr,
+      interactives: interactives ?? this.interactives,
+    );
+  }
 }
 
 // ۳. مدل صفحه
@@ -133,9 +160,29 @@ class PageData {
     this.interactivesByText = const {},
   });
 
-  factory PageData.fromJson(Map<String, dynamic> json) {
-    var interactivesList = json['Interactives'] as List? ?? [];
+  factory PageData.fromJson(
+    Map<String, dynamic> json, {
+    // 🌟 اگر این‌ها داده شوند (ساختار جدید data.json با دیکشنری مشترک کل
+    // کتاب)، به‌جای ساختن از کلید Interactives خودِ این صفحه، مستقیماً از
+    // این‌ها استفاده می‌شود. اگر داده نشوند، رفتار قبلی (سازگار با
+    // ساختار قدیم که هر صفحه Interactives خودش را دارد) حفظ می‌شود.
+    List<InteractiveWord>? sharedInteractives,
+    RegExp? sharedPattern,
+    Map<String, InteractiveWord>? sharedByText,
+  }) {
     var parasList = json['Paragraphs'] as List? ?? [];
+
+    if (sharedInteractives != null) {
+      return PageData(
+        pageNumber: json['PageNumber'] ?? 1,
+        paragraphs: parasList.map((e) => ParagraphData.fromJson(e)).toList(),
+        interactives: sharedInteractives,
+        interactivesPattern: sharedPattern,
+        interactivesByText: sharedByText ?? const {},
+      );
+    }
+
+    var interactivesList = json['Interactives'] as List? ?? [];
 
     // 🌟 رفع مشکل کندی اسکرول: قبلاً این لیست هر بار که یک تکه از متن
     // در حال رندر شدن بود (داخل TextRenderEngine) از نو مرتب می‌شد.
@@ -188,6 +235,10 @@ class TableRowData {
       isHeader: json['IsHeader'] ?? false,
       cells: cellsList.map((e) => TableCellData.fromJson(e)).toList(),
     );
+  }
+
+  TableRowData copyWith({List<TableCellData>? cells}) {
+    return TableRowData(isHeader: isHeader, cells: cells ?? this.cells);
   }
 }
 
@@ -294,6 +345,25 @@ class TableCellData {
       vMerge: json['RowMerge'] as String?,
     );
   }
+
+  TableCellData copyWith({List<ParagraphData>? paragraphs}) {
+    return TableCellData(
+      widthPercent: widthPercent,
+      paragraphs: paragraphs ?? this.paragraphs,
+      fillColor: fillColor,
+      vAlign: vAlign,
+      colSpan: colSpan,
+      rowMerge: rowMerge,
+      isHeaderCell: isHeaderCell,
+      borders: borders,
+      paddingTop: paddingTop,
+      paddingBottom: paddingBottom,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight,
+      gridSpan: gridSpan,
+      vMerge: vMerge,
+    );
+  }
 }
 
 // ۵. مدل اسپن
@@ -366,6 +436,32 @@ class SpanData {
       hasBorders: json['HasBorders'],
       tableWidthPercent: (json['TableWidthPercent'] as num?)?.toDouble(),
       borderWidth: (json['BorderWidth'] as num?)?.toDouble(),
+    );
+  }
+
+  // 🌟 برای بازنویسیِ فقط tableRows (وقتی پاراگراف‌های داخل سلول‌های جدول
+  // هم باید دیکشنری مشترک‌شان تزریق شود) بدون کپی دستیِ مستعدِ خطای بقیه‌ی
+  // فیلدها.
+  SpanData copyWith({List<TableRowData>? tableRows}) {
+    return SpanData(
+      type: type,
+      content: content,
+      url: url,
+      imageWidth: imageWidth,
+      imageHeight: imageHeight,
+      markers: markers,
+      tableRows: tableRows ?? this.tableRows,
+      innerSpans: innerSpans,
+      fillColor: fillColor,
+      textColor: textColor,
+      borders: borders,
+      tableStyleId: tableStyleId,
+      tableStyleName: tableStyleName,
+      tableAlignment: tableAlignment,
+      hasBorders: hasBorders,
+      floatPosition: floatPosition,
+      tableWidthPercent: tableWidthPercent,
+      borderWidth: borderWidth,
     );
   }
 }
