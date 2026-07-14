@@ -8,7 +8,21 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_can
 // گاهی (در مرز یک کلمه دیکشنری) به چند تکه‌ی InlineSpan شکسته می‌شود،
 // این کلاس مطمئن می‌شود کلید دقیق فقط یک‌بار مصرف می‌شود و به اولین
 // تکه‌ای که واقعاً همان occurrence فعال است متصل می‌گردد.
-class _KeyClaim {
+//
+// 🐞 رفع باگ کرش رندر (RenderBox did not set its size / _RenderScaledInlineWidget):
+// قبلاً buildInteractiveText به ازای *هر* اسپن (و هر پاراگرافِ داخل هر
+// سلولِ جدول) یک نمونه‌ی تازه از این کلاس می‌ساخت. وقتی نتیجه‌ی فعالِ
+// جستجو دقیقاً روی مرزِ دو اسپن یا دو سلول جدول می‌افتاد (چون عبارتِ
+// جستجو از ترکیب چند تکه به دست آمده بود)، هر دو طرفِ مرز مستقل از هم
+// فکر می‌کردند «هنوز کسی کلید را claim نکرده» و هر دو یک WidgetSpan با
+// همان exactMatchKey (یک GlobalKey واحد) می‌ساختند. استفاده‌ی هم‌زمان از
+// یک GlobalKey برای دو ویجت مختلف در یک فریم، درخت رندر را در میانه‌ی
+// layout به‌هم می‌ریزد و باعث می‌شد یک RenderObject کاملاً نامرتبط
+// (اینجا: _RenderScaledInlineWidget داخلی فلاتر) بدون اینکه اندازه‌اش
+// را ست کند از performLayout خارج شود. کلاس حالا public است تا از سطح
+// پاراگراف (در reading_canvas_screen.dart) یک نمونه‌ی واحد بین همه‌ی
+// اسپن‌ها و سلول‌های جدولِ همان پاراگراف به اشتراک گذاشته شود.
+class KeyClaim {
   bool used = false;
 }
 
@@ -27,11 +41,17 @@ class TextRenderEngine {
     GlobalKey? exactMatchKey, // 🌟 اضافه شد
     RegExp? interactivesPattern, // 🌟 اضافه شد: جستجوی سریع کلمات دیکشنری
     Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
+    // 🐞 رفع کرش: اگر تماس‌گیرنده (سطح پاراگراف) یک KeyClaim مشترک بدهد،
+    // از همان استفاده کن تا وضعیتِ «مصرف‌شده» بین چند اسپن/سلول جدولِ یک
+    // پاراگراف مشترک بماند. اگر داده نشود (مثلاً فراخوانی‌های مستقلِ مودالِ
+    // کلمه‌ی مخفی که اصلاً exactMatchKey ندارند)، مثل قبل یکی محلی و
+    // یک‌بارمصرف ساخته می‌شود.
+    KeyClaim? sharedKeyClaim,
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
-    // 🌟 یک‌بار مصرف بودن کلید دقیق را برای کل این فراخوانی تضمین می‌کند
-    final _KeyClaim keyClaim = _KeyClaim();
+    // 🌟 یک‌بار مصرف بودن کلید دقیق را برای کل پاراگراف (نه فقط همین اسپن) تضمین می‌کند
+    final KeyClaim keyClaim = sharedKeyClaim ?? KeyClaim();
 
     final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
     final matches = blankRegex.allMatches(content);
@@ -181,7 +201,7 @@ class TextRenderEngine {
     List<int>? localMap,
     int? activeOcc, {
     GlobalKey? exactMatchKey,
-    _KeyClaim? keyClaim,
+    KeyClaim? keyClaim,
     RegExp? pattern,
     Map<String, InteractiveWord>? byText,
   }) {
@@ -330,7 +350,7 @@ class TextRenderEngine {
     List<int>? localMap,
     int? activeOcc, {
     GlobalKey? exactMatchKey,
-    _KeyClaim? keyClaim,
+    KeyClaim? keyClaim,
   }) {
     List<InlineSpan> spans = [];
     int currentIndex = 0;
@@ -412,7 +432,7 @@ class TextRenderEngine {
     int? activeOcc,
     BuildContext context, {
     GlobalKey? exactMatchKey,
-    _KeyClaim? keyClaim,
+    KeyClaim? keyClaim,
   }) {
     List<InlineSpan> spans = [];
     int currentState = wordMap[0];
@@ -468,7 +488,7 @@ class TextRenderEngine {
     InteractiveWord word,
     BuildContext context, {
     GlobalKey? exactMatchKey,
-    _KeyClaim? keyClaim,
+    KeyClaim? keyClaim,
   }) {
     TextStyle finalStyle = baseStyle;
     bool isActive = false;
@@ -515,7 +535,7 @@ class TextRenderEngine {
     List<int>? localMap,
     int? activeOcc, {
     GlobalKey? exactMatchKey,
-    _KeyClaim? keyClaim,
+    KeyClaim? keyClaim,
   }) {
     if (localMap == null || localMap.every((v) => v == -1))
       return [TextSpan(text: content, style: baseStyle)];
@@ -566,7 +586,7 @@ class TextRenderEngine {
     int? activeOcc,
     TextStyle baseStyle, {
     GlobalKey? exactMatchKey,
-    _KeyClaim? keyClaim,
+    KeyClaim? keyClaim,
   }) {
     if (state == -1) return TextSpan(text: text, style: baseStyle);
     bool isActive = state == activeOcc;

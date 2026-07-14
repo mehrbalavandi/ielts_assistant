@@ -692,6 +692,8 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
         rootHighlightMap: rootHighlightMap,
         mapOffset: MapOffset(),
+        keyClaim:
+            KeyClaim(), // 🐞 یک claim تازه به ازای هر پاراگراف (نه هر اسپن)
         activeOccurrence: isTarget
             ? widget.activeTarget!.occurrenceIndex
             : null,
@@ -934,6 +936,12 @@ Widget _buildParagraph(
   Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
   List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
   GlobalKey? exactMatchKey, // 🌟 اضافه شد
+  // 🐞 رفع کرش «RenderBox did not set its size»: وقتی occurrence فعالِ
+  // جستجو بین دو اسپن یا بین دو سلولِ جدولِ همین پاراگراف شکسته می‌شود،
+  // هر دو طرف باید بدانند کلید قبلاً claim شده یا نه. برای همین یک
+  // KeyClaim مشترک برای کل پاراگراف (نه یکی جدا به ازای هر اسپن) از اینجا
+  // به پایین‌دست پاس داده می‌شود.
+  KeyClaim? keyClaim,
 }) {
   if (para.spans.isEmpty ||
       (para.spans.length == 1 &&
@@ -944,6 +952,7 @@ Widget _buildParagraph(
   }
 
   mapOffset ??= MapOffset();
+  keyClaim ??= KeyClaim();
 
   List<Object> blockElements = [];
   List<InlineSpan> currentInlineSpans = [];
@@ -1006,6 +1015,7 @@ Widget _buildParagraph(
           interactivesPattern: interactivesPattern, // 🌟 اضافه شد
           interactivesByText: interactivesByText, // 🌟 اضافه شد
           pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+          keyClaim: keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
         ),
       );
       mapOffset.value += content.length;
@@ -1108,6 +1118,7 @@ Widget _buildParagraph(
           interactivesPattern: interactivesPattern, // 🌟 اضافه شد
           interactivesByText: interactivesByText, // 🌟 اضافه شد
           pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+          keyClaim: keyClaim, // 🐞 مشترک بین پاراگراف و همه‌ی سلول‌های جدولش
         ),
       );
     }
@@ -1248,6 +1259,7 @@ Widget _buildTable(
   RegExp? interactivesPattern,
   Map<String, InteractiveWord>? interactivesByText,
   List<String> pageAudioPlaylist = const [],
+  KeyClaim? keyClaim, // 🐞 مشترک بین پاراگراف مادر و همه‌ی سلول‌های این جدول
 }) {
   final bool isLargeScreen = screenWidth > 600;
   final String rawStyle =
@@ -1416,6 +1428,7 @@ Widget _buildTable(
             interactivesPattern: interactivesPattern,
             interactivesByText: interactivesByText,
             pageAudioPlaylist: pageAudioPlaylist,
+            keyClaim: keyClaim, // 🐞 همان claim مشترکِ کل پاراگراف/جدول
           ),
         );
       }
@@ -1588,6 +1601,7 @@ List<InlineSpan> _buildStyledInteractiveText(
   RegExp? interactivesPattern,
   Map<String, InteractiveWord>? interactivesByText,
   List<String> pageAudioPlaylist = const [],
+  KeyClaim? keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -1670,6 +1684,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       // کلمه‌به‌کلمه‌ی قبلی برمی‌گردد.
       interactivesPattern: interactivesPattern,
       interactivesByText: interactivesByText,
+      sharedKeyClaim: keyClaim, // 🐞 رفع کرش: claim مشترکِ سطح پاراگراف
     );
   }
 
