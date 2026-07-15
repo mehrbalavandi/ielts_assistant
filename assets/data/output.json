@@ -1247,69 +1247,117 @@
                     {
                       "Paragraphs": [
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "◎",
-                              "Markers": [
-                                "bg:FFFF00",
-                                "fn:Cambria Math",
-                                "sz:22"
-                              ],
-                              "FillColor": "FFFF00",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 0.5,
+                                "Color": "FAFE24",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 90.27777777777779,
                               "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "topic sentence",
-                              "Markers": [
-                                "i",
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": ".",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "image",
+                                              "Markers": [],
+                                              "Url": "p1_s1_img1.png",
+                                              "ImageWidth": 21,
+                                              "ImageHeight": 21,
+                                              "FloatPosition": "none",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " This type of task requires you to choose a heading which correctly summarises the whole paragraph. Often, it is possible to find one sentence in a paragraph which conveys the main idea - this is known as the ",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "topic sentence",
+                                              "Markers": [
+                                                "i",
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": ".",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "The topic sentence can frequently be found at the start of the paragraph, but can appear in the middle, or even at the end. Sometimes a paragraph may not have one single, clear topic sentence at all, and the main idea can only be understood by reading the paragraph in full.",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:26"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 0.5,
+                                          "Color": "FAFE24",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 0.5,
+                                          "Color": "FAFE24",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 0.5,
+                                          "Color": "FAFE24",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 0.5,
+                                          "Color": "FAFE24",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -1323,58 +1371,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "urban and rural",
-          "translationFa": "شهری و روستایی",
-          "translationAr": "الحضرية والريفية",
-          "pronounceFa": "erban and rooral",
-          "pronounceAr": "erban and rooral",
-          "explanationFa": "یک کالوکیشن بسیار متداول و کاربردی در موضوعات آیلتس (به‌ویژه رایتینگ Task 2) برای مقایسه سبک زندگی، توسعه و دموگرافی جامعه.",
-          "explanationAr": "متلازمة لفظية شائعة جداً في مواضيع الآيلتس (خاصة الكتابة المهمة 2) لمقارنة نمط الحياة والتنمية والتركيبة السكانية.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "situated",
-          "translationFa": "واقع شده / مستقر",
-          "translationAr": "واقع / يقع في",
-          "pronounceFa": "sichueytid",
-          "pronounceAr": "sichueytid",
-          "explanationFa": "جایگزین رسمی و آکادمیک برای فعل 'located' که در توصیف مکان‌ها و نقشه‌ها در رایتینگ Task 1 بسیار نمره‌آور است.",
-          "explanationAr": "بديل رسمي وأكاديمي للفعل 'located'، مفيد جداً للحصول على درجات في وصف الأماكن والخرائط في الكتابة المهمة 1.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "contrasts entirely",
-          "translationFa": "کاملاً متباین است / تضاد کامل دارد",
-          "translationAr": "يتناقض تماماً / يختلف بالكامل",
-          "pronounceFa": "kontrahsts intayali",
-          "pronounceAr": "kontrahsts intayali",
-          "explanationFa": "عبارتی پیشرفته و سطح بالا برای نشان دادن تضاد شدید بین دو مؤلفه؛ برای ارتقای بخش Coherence and Cohesion در آزمون کتبی آیلتس بسیار توصیه می‌شود.",
-          "explanationAr": "تركيب متقدم وعالي المستوى لإظهار التناقض الشديد بين عنصرين؛ يوصى به بشدة لتحسين درجة الترابط والتماسك في اختبار الكتابة.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "summarises",
-          "translationFa": "خلاصه می‌کند",
-          "translationAr": "يلخص",
-          "pronounceFa": "sumarayziz",
-          "pronounceAr": "sumarayziz",
-          "explanationFa": "فعلی کلیدی در درک مفاهیم ریدینگ و همچنین عبارتی آکادمیک برای استفاده در پاراگراف‌های نتیجه‌گیری رایتینگ آیلتس.",
-          "explanationAr": "فعل رئيسي لفهم استراتيجيات القراءة، كما أنه مصطلح أكاديمي للاستخدام في فقرات الخاتمة في كتابة الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "conveys",
-          "translationFa": "منتقل می‌کند / بیان می‌کند",
-          "translationAr": "ينقل / يوصل (الفكرة)",
-          "pronounceFa": "kunveyz",
-          "pronounceAr": "kunveyz",
-          "explanationFa": "یک واژه آکادمیک (C1) و جایگزینی عالی برای افعال ساده‌ای مثل 'shows' یا 'expresses' هنگام تحلیل ایده اصلی یک متن یا نمودار.",
-          "explanationAr": "كلمة أكاديمية (C1) وبديل ممتاز للأفعال البسيطة مثل 'shows' أو 'expresses' عند تحليل الفكرة الرئيسية لنص أو مخطط.",
-          "cefrLevel": "C1"
         }
       ]
     },
@@ -1771,27 +1767,74 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
-                          "Borders": {
-                            "Width": 2.2,
-                            "Color": "C4E747",
-                            "Val": "single"
-                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 4.9,
-                          "IndentFirstLine": 0.8,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "The heading you want will probably not use the same words as those which appear in the paragraph, but will paraphrase the ideas.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0E0D0F",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "C4E747",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 64.6474358974359,
                               "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "The heading you want will probably not use the same words as those which appear in the paragraph, but will paraphrase the ideas.",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:26"
+                                              ],
+                                              "TextColor": "0E0D0F",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -2001,27 +2044,73 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
-                          "Borders": {
-                            "Width": 2.2,
-                            "Color": "C4E747",
-                            "Val": "single"
-                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 4.9,
-                          "IndentFirstLine": 0.8,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "Be careful: sometimes the first sentence of a paragraph seems to fit entirely with one particular heading. However, don't be caught out - you still need to check by reading the whole paragraph.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0E0D0F",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "C4E747",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 64.6474358974359,
                               "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Be careful: sometimes the first sentence of a paragraph seems to fit entirely with one particular heading. However, don't be caught out - you still need to check by reading the whole paragraph.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "0E0D0F",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -2035,68 +2124,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "paraphrases",
-          "translationFa": "بازنویسی‌ها / نقل‌قول‌های دست‌کاری‌شده",
-          "translationAr": "إعادات صياغة",
-          "pronounceFa": "parafreyziz",
-          "pronounceAr": "barafreyziz",
-          "explanationFa": "یکی از کلیدی‌ترین مهارت‌ها در آزمون ریدینگ و رایتینگ آیلتس؛ یعنی بیان یک مفهوم با استفاده از ساختار و کلمات متفاوت بدون تغییر دادن معنای اصلی.",
-          "explanationAr": "واحدة من أهم المهارات في اختبار الآيلتس (القراءة والكتابة)؛ وتعني التعبير عن المعنى أو الفكرة باستخدام كلمات وقواعد مختلفة دون تغيير المعنى الأصلي.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "constant struggles",
-          "translationFa": "مبارزات مداوم / چالش‌های همیشگی",
-          "translationAr": "صراعات مستمرة / كفاح دائم",
-          "pronounceFa": "konstant stragalz",
-          "pronounceAr": "konstant stragalz",
-          "explanationFa": "یک ترکیب اسمی عالی (Collocation) برای توصیف چالش‌ها و مشکلات پایدار؛ بسیار کاربردی برای بسط دادن ایده‌ها در رایتینگ آیلتس تسک 2.",
-          "explanationAr": "متلازمة لفظية ممتازة تُستخدم لوصف المشاكل والتحديات المستمرة، مفيدة جداً لتطوير الأفكار في قسم الكتابة (Task 2).",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "ultimate model",
-          "translationFa": "الگوی غایی / بهترین نمونه",
-          "translationAr": "النموذج الأسمى / المثال النهائي",
-          "pronounceFa": "altimat modl",
-          "pronounceAr": "altimat modl",
-          "explanationFa": "ترکیبی آکادمیک برای توصیف بهترین، کامل‌ترین یا نهایی‌ترین نسخه از یک چیز یا یک ایده در موضوعات اجتماعی و توسعه شهری.",
-          "explanationAr": "تعبير أكاديمي يُستخدم لوصف النسخة الأفضل أو الأكثر كمالاً لشيء ما، ممتاز لمواضيع المجتمع والتطوير الحضري.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "creeping up",
-          "translationFa": "به آرامی بالا رفتن / افزایش تدریجی",
-          "translationAr": "الارتفاع التدريجي / الزحف للأعلى",
-          "pronounceFa": "kriiping ap",
-          "pronounceAr": "kriiping ap",
-          "explanationFa": "یک فعل عبارتی (Phrasal Verb) پیشرفته که برای توصیف افزایش آهسته، تدریجی و گاهی نامحسوس آمارها (مانند نرخ جرم، تورم یا قیمت‌ها) به کار می‌رود.",
-          "explanationAr": "فعل مركب (Phrasal Verb) متقدم يُستخدم لوصف الزيادة البطيئة والتدريجية في الإحصاءات أو المعدلات (مثل معدلات الجريمة أو التضخم).",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "utopian",
-          "translationFa": "آرمان‌شهری / ایده‌آل‌گرایانه",
-          "translationAr": "طوباوي / خيالي مثالي",
-          "pronounceFa": "yootoopian",
-          "pronounceAr": "yutubian",
-          "explanationFa": "صفتی سطح بالا (C2) متعلق به یک جامعه یا ایده کاملاً بی‌نقص و آرمانی که معمولاً در دنیای واقعی دست‌نیافتنی است. برای موضوعات فلسفی و جامعه‌شناختی آیلتس عالی است.",
-          "explanationAr": "صفة عالية المستوى (C2) تشير إلى مجتمع أو فكرة مثالية تماماً تكاد تكون غير واقعية، ممتازة لمواضيع الفلسفة وعلم الاجتماع في الآيلتس.",
-          "cefrLevel": "C2"
-        },
-        {
-          "exactText": "boasting",
-          "translationFa": "برخوردار بودن (با افتخار) / داشتن ویژگی متمایز",
-          "translationAr": "يضم بفخر / يتباهى بامتلاك",
-          "pronounceFa": "bowsting",
-          "pronounceAr": "bosting",
-          "explanationFa": "در متون توصیفی و آکادمیک، هنگامی که یک مکان، شهر یا سازمان یک ویژگی بسیار خوب، بزرگ یا متمایز دارد که مایه افتخار است، از این فعل استفاده می‌شود.",
-          "explanationAr": "في النصوص الأكاديمية والوصفية، يُستخدم هذا الفعل عندما يمتلك مكان أو مدينة ميزة رائعة أو فريدة من نوعها تستدعي الفخر والتميز.",
-          "cefrLevel": "B2"
         }
       ]
     },
@@ -2984,27 +3011,72 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
-                          "Borders": {
-                            "Width": 2.2,
-                            "Color": "C4E747",
-                            "Val": "single"
-                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentRight": 1.7,
-                          "IndentFirstLine": 0.25,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "Pay particular attention to adjectives and adverbs in headings and texts, as they may help you to eliminate an incorrect heading immediately.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "101011",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "C4E747",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 65.63034188034187,
                               "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Pay particular attention to adjectives and adverbs in headings and texts, as they may help you to eliminate an incorrect heading immediately.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "101011",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "C4E747",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -3018,78 +3090,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "boasting",
-          "translationFa": "داشتن / بهره‌مند بودن (با افتخار)",
-          "translationAr": "تضم / تفتخر بـ",
-          "pronounceFa": "bowsting",
-          "pronounceAr": "bowsting",
-          "explanationFa": "فعل آکادمیک سطح بالا؛ زمانی استفاده می‌شود که مکانی یک ویژگی فوق‌العاده یا ارزشمند دارد که مایه افتخار است.",
-          "explanationAr": "فعل أكاديمي رفيع المستوى؛ يُستخدم عندما يمتلك مكان ما ميزة رائعة أو فريدة يفتخر بها.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "sets it apart",
-          "translationFa": "آن را متمایز می‌کند",
-          "translationAr": "يميزها / يجعلها فريدة",
-          "pronounceFa": "sets it upaat",
-          "pronounceAr": "sets it apaat",
-          "explanationFa": "اصطلاحی بسیار کاربردی در رایتینگ و اسپیکینگ آیلتس برای بیان متمایز بودن و منحصربه‌فرد بودن یک پدیده یا شخص.",
-          "explanationAr": "تعبير ممتاز للمحادثة والكتابة في الآيلتس، يُستخدم لبيان تميز أو تفرد شيء أو شخص عن الآخرين.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "lay claim to",
-          "translationFa": "مدعی داشتن چیزی بودن",
-          "translationAr": "تدعي امتلاك / تطالب بـ",
-          "pronounceFa": "ley kleym too",
-          "pronounceAr": "lay klaym too",
-          "explanationFa": "ساختار و کالوکیشن پیشرفته (C1)؛ به معنای ادعا کردن در مورد داشتن یک افتخار، ویژگی یا حق.",
-          "explanationAr": "تركيب متقدم ومتلازمة لفظية (C1) تعني ادعاء الحق في امتلاك ميزة أو شرف أو خاصية معينة.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "decompose",
-          "translationFa": "تجزیه شدن / فاسد شدن",
-          "translationAr": "تتحلل / تتفسخ",
-          "pronounceFa": "deekompowz",
-          "pronounceAr": "deekombowz",
-          "explanationFa": "واژه‌ای کاملاً آکادمیک، پرکاربرد در موضوعات علمی، زیست‌محیطی و طبیعت در دفترچه‌های آیلتس.",
-          "explanationAr": "كلمة أكاديمية تماماً، شائعة الاستخدام في مواضيع العلوم، البيئة والطبيعة في اختبارات الآيلتس.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "peculiar",
-          "translationFa": "عجیب و غریب / خاص و غیرعادی",
-          "translationAr": "غريبة / متميزة / غير مألوفة",
-          "pronounceFa": "pekyoolyar",
-          "pronounceAr": "pikyooliar",
-          "explanationFa": "صفتی سطح بالا که جایگزین بسیار مناسبی برای strange یا unusual جهت ارتقای نمره واژگان است.",
-          "explanationAr": "صفة متقدمة تعد بديلاً ممتازاً لكلمتي strange أو unusual لرفع درجة المعجم اللغوي.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "co-exist",
-          "translationFa": "همزیستی داشتن / در کنار هم زندگی کردن",
-          "translationAr": "يتعايش",
-          "pronounceFa": "kowegzist",
-          "pronounceAr": "kowegzist",
-          "explanationFa": "فعلی آکادمیک و کلیدی؛ برای توصیف زندگی هم‌زمان حیوانات و انسان‌ها یا فرهنگ‌های مختلف بدون درگیری استفاده می‌شود.",
-          "explanationAr": "فعل أكاديمي رئيسي؛ يُستخدم لوصف العيش المشترك والمنظم بين البشر والحيوانات أو الثقافات المختلفة دون نزاع.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "eliminate",
-          "translationFa": "حذف کردن / ساقط کردن (گزینه)",
-          "translationAr": "استبعاد / إزالة",
-          "pronounceFa": "ilimineyt",
-          "pronounceAr": "iliminayt",
-          "explanationFa": "واژه‌ای فرمال و آکادمیک؛ در تسک‌های آیلتس به معنای حذف گزینه‌های نادرست و در رایتینگ به معنای ریشه‌کن کردن یک مشکل است.",
-          "explanationAr": "كلمة رسمية وأكاديمية؛ تُستخدم في أسئلة الآيلتس بمعنى استبعاد الخيارات الخاطئة، وفي الكتابة بمعنى إزالة مشكلة ما.",
-          "cefrLevel": "C1"
         }
       ]
     },
@@ -3877,88 +3877,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "consequently",
-          "translationFa": "در نتیجه / بنابراین",
-          "translationAr": "وبناءً على ذلك / بالتالي",
-          "pronounceFa": "konsikwentli",
-          "pronounceAr": "kunsikwuntli",
-          "explanationFa": "قید انتقال (Transition) بسیار عالی برای رایتینگ آیلتس (Task 2) جهت نشان دادن رابطه علت و معلولی و افزایش نمره انسجام متن (Coherence and Cohesion).",
-          "explanationAr": "ظرف انتقالي ممتاز لكتابة الآيلتس (Task 2) لإظهار علاقة السبب والنتيجة ورفع درجة التماسك والترابط.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "predator",
-          "translationFa": "شکارچی / حیوان درنده",
-          "translationAr": "حيوان مفترس / كاسر",
-          "pronounceFa": "predatar",
-          "pronounceAr": "bridatar",
-          "explanationFa": "واژه‌ای تخصصی و آکادمیک که در موضوعات مربوط به محیط زیست، حیات وحش و اکوسیستم در ریدینگ و لیسنینگ آیلتس به وفور استفاده می‌شود.",
-          "explanationAr": "كلمة أكاديمية تخصصية تتكرر كثيراً في مواضيع البيئة، الحياة البرية، والأنظمة البيئية في قراءة واستماع الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "unnervingly",
-          "translationFa": "به طرز نگران‌کننده‌ای / به طور دلهره‌آوری",
-          "translationAr": "بشكل مقلق / على نحو يثير القلق",
-          "pronounceFa": "anervinli",
-          "pronounceAr": "anervinli",
-          "explanationFa": "قید پیشرفته و متمایز (C1) برای توصیف شرایط یا آماری که باعث ایجاد اضطراب یا تعجب می‌شود؛ بسیار مناسب برای توصیف روندهای منفی در رایتینگ.",
-          "explanationAr": "ظرف متقدم ومميز (C1) لوصف الحالات أو الإحصاءات التي تسبب القلق أو الدهشة، مفيد جداً للتعبير عن الاتجاهات السلبية في الكتابة.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "thoroughfares",
-          "translationFa": "خیابان‌های اصلی / شریان‌های حیاتی شهر",
-          "translationAr": "الشارع العام / الطرق الرئيسية",
-          "pronounceFa": "tharaferz",
-          "pronounceAr": "tharaferz",
-          "explanationFa": "واژه‌ای آکادمیک و بسیار سطح بالا برای توصیف ساختار شهری و راه‌های اصلی پرتردد، مناسب جهت ارتقای نمره Lexical Resource.",
-          "explanationAr": "كلمة أكاديمية رفيعة المستوى لوصف البنية التحتية الحضرية والطرق الرئيسية المزدحمة، ممتازة لرفع درجة المعجم اللغوي.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "wary understanding",
-          "translationFa": "تفاهم همراه با هوشیاری / درک محتاطانه",
-          "translationAr": "تفاهم حذر / إدراك محترس",
-          "pronounceFa": "weri andarstendin",
-          "pronounceAr": "weri andarstandin",
-          "explanationFa": "یک کالوکیشن پیشرفته و نیتیو؛ ترکیب صفت wary (محتاط) و اسم understanding برای توصیف روابط پیچیده یا همزیستی‌های حساس بین دو گروه.",
-          "explanationAr": "متلازمة لفظية متقدمة؛ تجمع بين الصفة wary (حذر) والاسم understanding لوصف العلاقات المعقدة أو التعايش الحساس بين طرفين.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "carbon copy",
-          "translationFa": "کپی برابر اصل / نسخه کاملاً مشابه",
-          "translationAr": "نسخة كربونية / مطابقة تماماً",
-          "pronounceFa": "karban kopi",
-          "pronounceAr": "karbun kubi",
-          "explanationFa": "اصطلاحی پرکاربرد و نمره‌آور در لایه واژگان پیشرفته برای اشاره به شباهت صددرصدی و بازسازی دقیق یک چیز از روی چیز دیگر.",
-          "explanationAr": "تعبير شائع ومميز في المعجم المتقدم للإشارة إلى التطابق التام بنسبة 100٪ وإعادة إنتاج شيء بدقة من شيء آخر.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "improbably beautiful",
-          "translationFa": "به طرز غیرقابل‌باوری زیبا / شگفت‌انگیز",
-          "translationAr": "جميلة بشكل لا يصدق / خارقة الجمال",
-          "pronounceFa": "improbabli byutiful",
-          "pronounceAr": "imbrobabli byutiful",
-          "explanationFa": "ترکیب قید و صفت (Collocation) بسیار قوی و سطح بالا برای توصیف مکان‌ها، معماری یا طبیعت در اسپیکینگ آیلتس (به‌ویژه در توصیف یک مکان در پارت ۲).",
-          "explanationAr": "تركيب متقدم من ظرف وصفة (متلازمة لفظية قوية) لوصف الأماكن، العمارة، أو الطبيعة في محادثة الآيلتس (خاصة الجزء الثاني).",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "co-exist",
-          "translationFa": "همزیستی داشتن / در کنار هم زندگی کردن",
-          "translationAr": "يتعايش / الوجود معاً",
-          "pronounceFa": "kou igzist",
-          "pronounceAr": "ku igzist",
-          "explanationFa": "فعل آکادمیک حاوی پیشوند co- که در موضوعات مربوط به جامعه، محیط زیست، جهانی‌شدن و روابط انسان و طبیعت در آیلتس بسیار کاربردی است.",
-          "explanationAr": "فعل أكاديمي يحتوي على البادئة co-، مفيد جداً في مواضيع المجتمع، البيئة، العولمة، والعلاقة بين الإنسان والطبيعة في الآيلتس.",
-          "cefrLevel": "B2"
         }
       ]
     },
@@ -5303,68 +5221,6 @@
             }
           ]
         }
-      ],
-      "Interactives": [
-        {
-          "exactText": "encounter",
-          "translationFa": "روبرو شدن / مواجه شدن",
-          "translationAr": "يواجه / يصادف",
-          "pronounceFa": "inkawnter",
-          "pronounceAr": "inkawnter",
-          "explanationFa": "فعل آکادمیک برای بیان رویارویی ناگهانی یا غیرمنتظره با یک شخص یا مشکل.",
-          "explanationAr": "فعل أكاديمي للتعبير عن المواجهة المفاجئة أو غير المتوقعة لشخص أو مشكلة.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "forerunner",
-          "translationFa": "پیشگام / طلایه‌دار",
-          "translationAr": "رائد / سلف",
-          "pronounceFa": "for-raner",
-          "pronounceAr": "for-raner",
-          "explanationFa": "کلمه‌ای عالی برای توصیف چیزی که پیش از چیز دیگری آمده و راه را برای آن باز کرده است.",
-          "explanationAr": "كلمة ممتازة لوصف شيء جاء قبل شيء آخر ومهد الطريق له.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "metropolis",
-          "translationFa": "کلان‌شهر",
-          "translationAr": "عاصمة / مدينة كبرى",
-          "pronounceFa": "metropalis",
-          "pronounceAr": "matrubalis",
-          "explanationFa": "واژه‌ای سطح بالا به جای city برای اشاره به شهرهای بزرگ و مهم، بسیار کاربردی در تسک 1 و 2 رایتینگ.",
-          "explanationAr": "كلمة رفيعة المستوى بدلا من مدينة للإشارة إلى المدن الكبيرة والمهمة، مفيدة جدا في الكتابة.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "prosperous",
-          "translationFa": "مرفه / شکوفا",
-          "translationAr": "مزدهر",
-          "pronounceFa": "prasperas",
-          "pronounceAr": "brasperas",
-          "explanationFa": "صفت آکادمیک برای توصیف جوامع یا اقتصادهای موفق و ثروتمند.",
-          "explanationAr": "صفة أكاديمية لوصف المجتمعات أو الاقتصادات الناجحة والثرية.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "sophisticated",
-          "translationFa": "پیچیده / پیشرفته",
-          "translationAr": "متطور / معقد",
-          "pronounceFa": "safistikayted",
-          "pronounceAr": "sufistikayted",
-          "explanationFa": "کلمه‌ای کلیدی در آیلتس برای توصیف سیستم‌ها، ماشین‌ها یا جوامع پیشرفته و هوشمند.",
-          "explanationAr": "كلمة رئيسية في الآيلتس لوصف الأنظمة أو الآلات أو المجتمعات المتقدمة والذكية.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "cosmopolitan",
-          "translationFa": "جهان‌وطنی / بین‌المللی",
-          "translationAr": "عالمي",
-          "pronounceFa": "kazmapalitan",
-          "pronounceAr": "kazmubalitan",
-          "explanationFa": "صفتی نمره‌آور برای شهرهایی که مردمی از فرهنگ‌ها و کشورهای مختلف در آن زندگی می‌کنند.",
-          "explanationAr": "صفة قوية للمدن التي يعيش فيها أناس من ثقافات وبلدان مختلفة.",
-          "cefrLevel": "C1"
-        }
       ]
     },
     {
@@ -5853,78 +5709,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "relocate",
-          "translationFa": "نقل مکان کردن / کوچ کردن",
-          "translationAr": "ينتقل / يغير مكان إقامته",
-          "pronounceFa": "ree-loh-kayt",
-          "pronounceAr": "ree-loh-kayt",
-          "explanationFa": "یک فعل آکادمیک پرکاربرد در رایتینگ آیلتس برای توصیف جابه‌جایی افراد، قبایل یا شرکت‌ها از یک مکان به مکان دیگر.",
-          "explanationAr": "فعل أكاديمي شائع في اختبار الآيلتس لوصف انتقال الأفراد، القبائل أو الشركات من مكان إلى آخر.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "postulated",
-          "translationFa": "فرض کردند / فرض را بر این گذاشتند",
-          "translationAr": "افترضوا / وضعوا فرضية",
-          "pronounceFa": "pos-tyuh-lay-tid",
-          "pronounceAr": "pos-tyu-lay-ted",
-          "explanationFa": "فعل رسمی و سطح بالا، عالی برای بخش‌های آکادمیک آیلتس هنگام مطرح کردن یک نظریه یا فرض علمی بدون داشتن مدرک قطعی.",
-          "explanationAr": "فعل رسمي رفيع المستوى، ممتاز للكتابة الأكاديمية في الآيلتس عند طرح فرضية أو نظرية دون وجود دليل قطعي.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "tireless determination",
-          "translationFa": "عزم خستگی‌ناپذیر",
-          "translationAr": "عزيمة لا تكل / إصرار دؤوب",
-          "pronounceFa": "tyuh-luhs di-tur-mi-nay-shuhn",
-          "pronounceAr": "taya-les de-ter-me-nay-shon",
-          "explanationFa": "یک کالوکیشن سطح بالا و نمره‌آور برای بخش اسپیکینگ و رایتینگ توصیفی جهت نشان دادن پشتکار شدید و مداوم.",
-          "explanationAr": "متلازمة لغوية ممتازة لرفع نمرة المحادثة والكتابة للتعبير عن الإصرار الشديد والمستمر وبذل جهد كبير.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "prosperous",
-          "translationFa": "شکوفا / مرفه / پررونق",
-          "translationAr": "مزدهر / ناجح ماديًا",
-          "pronounceFa": "pros-puh-ruhs",
-          "pronounceAr": "bros-pa-ras",
-          "explanationFa": "صفتی بسیار مناسب برای موضوعات اقتصادی، تاریخی و جامعه‌شناختی در آیلتس برای توصیف یک شهر، جامعه یا تجارت موفق.",
-          "explanationAr": "صفة ممتازة للمواضيع الاقتصادية والتاريخية والاجتماعية في الآيلتس لوصف مدينة أو مجتمع أو مشروع ناجح.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "enigma",
-          "translationFa": "معما / راز سرپوشیده",
-          "translationAr": "لغز / أمر غامض",
-          "pronounceFa": "i-nig-muh",
-          "pronounceAr": "e-neg-ma",
-          "explanationFa": "اسم پیشرفته برای توصیف پدیده‌ها یا موضوعات تاریخی و علمی مبهم؛ استفاده از آن نمره بخش Lexical Resource شما را به شدت بالا می‌برد.",
-          "explanationAr": "اسم متقدم لوصف الظواهر أو الأحداث التاريخية والعلمية الغامضة، يساهم بشكل كبير في رفع درجة المعجم اللغوي.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "conclusively",
-          "translationFa": "به طور قطعی / قاطعانه",
-          "translationAr": "بشكل قاطع / بما لا يدع مجالاً للشك",
-          "pronounceFa": "kuhn-kloo-siv-lee",
-          "pronounceAr": "kan-klu-sev-ly",
-          "explanationFa": "قیدی بسیار قوی برای ارائه‌ی نتایج نهایی، تحلیل داده‌ها و شواهد محکم در رایتینگ آکادمیک آیلتس.",
-          "explanationAr": "ظرف قوي جدًا يُستخدم لتقديم النتائج النهائية، تحليل البيانات والأدلة الدامغة في كتابة الآيلتس الأكاديمية.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "bemused",
-          "translationFa": "سردرگم / گیج و متحیر",
-          "translationAr": "حائر / مندهش مع حيرة",
-          "pronounceFa": "bi-myoozd",
-          "pronounceAr": "be-myuzd",
-          "explanationFa": "صفتی سطح بالا برای نشان دادن سردرگمی توأم با شگفتی، گزینه‌ای متمایز برای توصیف واکنش دانشمندان یا مورخان در متون پیچیده.",
-          "explanationAr": "صفة متقدمة تعني الحيرة والدهشة، خيار مميز لوصف ردود أفعال العلماء أو المؤرخين في النصوص المعقدة.",
-          "cefrLevel": "C2"
         }
       ]
     },
@@ -6506,7 +6290,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p7_s1_img1.png",
+                              "Url": "p7_s1_img2.png",
                               "ImageWidth": 206,
                               "ImageHeight": 164,
                               "FloatPosition": "none",
@@ -6541,7 +6325,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p7_s1_img2.png",
+                              "Url": "p7_s1_img3.png",
                               "ImageWidth": 204,
                               "ImageHeight": 180,
                               "FloatPosition": "none",
@@ -6565,7 +6349,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p7_s1_img3.png",
+                              "Url": "p7_s1_img4.png",
                               "ImageWidth": 220,
                               "ImageHeight": 180,
                               "FloatPosition": "none",
@@ -6594,7 +6378,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p7_s1_img4.png",
+                              "Url": "p7_s1_img5.png",
                               "ImageWidth": 211,
                               "ImageHeight": 180,
                               "FloatPosition": "none",
@@ -6618,7 +6402,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p7_s1_img5.png",
+                              "Url": "p7_s1_img6.png",
                               "ImageWidth": 208,
                               "ImageHeight": 180,
                               "FloatPosition": "none",
@@ -7423,10 +7207,11 @@
               "Markers": [],
               "Borders": {
                 "Width": 0.5,
+                "Color": "FFBF4C",
                 "Val": "single"
               },
-              "TableStyleId": "DottedTable",
-              "TableStyleName": "DottedTable",
+              "TableStyleId": "BorderedTable",
+              "TableStyleName": "BorderedTable",
               "TableWidthPercent": 100.0,
               "InnerSpans": [],
               "TableRows": [
@@ -7439,29 +7224,23 @@
                           "Direction": "LTR",
                           "SpaceAfter": 6.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 0.1,
-                          "IndentRight": 152.9,
-                          "IndentFirstLine": -0.1,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "◎",
-                              "Markers": [
-                                "bg:F9C569",
-                                "fn:Cambria Math",
-                                "sz:26"
-                              ],
-                              "FillColor": "F9C569",
-                              "TextColor": "1A150E",
+                              "Type": "image",
+                              "Markers": [],
+                              "Url": "p8_s1_img7.png",
+                              "ImageWidth": 21,
+                              "ImageHeight": 21,
+                              "FloatPosition": "none",
                               "InnerSpans": [],
                               "TableRows": []
                             },
                             {
                               "Type": "text",
-                              "Content": "Task Achievement (TA) is the mark you get for how well you answer the question. There are a number of common mistakes that prevent candidates from getting a high score in TA. These are:",
+                              "Content": " Task Achievement (TA) is the mark you get for how well you answer the question. There are a number of common mistakes that prevent candidates from getting a high score in TA. These are:",
                               "Markers": [
                                 "fn:Source Sans 3",
-                                "sz:26"
+                                "sz:23"
                               ],
                               "TextColor": "1A150E",
                               "InnerSpans": [],
@@ -7473,12 +7252,11 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 5.4,
-                          "IndentLeft": 19.7,
-                          "IndentFirstLine": -7.0,
+                          "IndentLeft": 12.75,
                           "Spans": [
                             {
                               "Type": "text",
-                              "Content": "not including an overview statement",
+                              "Content": "• not including an overview statement",
                               "Markers": [
                                 "fn:Source Sans 3",
                                 "sz:20"
@@ -7493,9 +7271,19 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 19.7,
-                          "IndentFirstLine": -6.85,
+                          "IndentLeft": 12.75,
                           "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "• ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "1F1D12",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
                             {
                               "Type": "text",
                               "Content": "misreporting data",
@@ -7513,9 +7301,19 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 19.65,
-                          "IndentFirstLine": -6.8,
+                          "IndentLeft": 12.75,
                           "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "• ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "1F1D12",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
                             {
                               "Type": "text",
                               "Content": "not highlighting key information or trends",
@@ -7533,9 +7331,19 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 19.65,
-                          "IndentFirstLine": -6.8,
+                          "IndentLeft": 12.75,
                           "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "• ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "1F1D12",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
                             {
                               "Type": "text",
                               "Content": "not including enough or any data",
@@ -7553,9 +7361,19 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 19.75,
-                          "IndentFirstLine": -6.9,
+                          "IndentLeft": 12.75,
                           "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "• ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "1F1D12",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
                             {
                               "Type": "text",
                               "Content": "speculating or giving an opinion about why changes have occurred",
@@ -7573,9 +7391,19 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 19.65,
-                          "IndentFirstLine": -6.8,
+                          "IndentLeft": 12.75,
                           "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "• ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "1F1D12",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
                             {
                               "Type": "text",
                               "Content": "using an inappropriate tone",
@@ -7593,9 +7421,19 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 19.85,
-                          "IndentFirstLine": -7.0,
+                          "IndentLeft": 12.75,
                           "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "• ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "1F1D12",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
                             {
                               "Type": "text",
                               "Content": "writing fewer than 150 words",
@@ -7603,7 +7441,7 @@
                                 "fn:Source Sans 3",
                                 "sz:20"
                               ],
-                              "TextColor": "201F13",
+                              "TextColor": "211E12",
                               "InnerSpans": [],
                               "TableRows": []
                             }
@@ -7613,10 +7451,18 @@
                           "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentLeft": 19.8,
-                          "IndentRight": 191.9,
-                          "IndentFirstLine": -6.75,
                           "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "• ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:20"
+                              ],
+                              "TextColor": "1F1D12",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
                             {
                               "Type": "text",
                               "Content": "not including a final summary or concluding paragraph, or producing one which doesn't summarise the main features.",
@@ -7624,17 +7470,38 @@
                                 "fn:Source Sans 3",
                                 "sz:20"
                               ],
-                              "TextColor": "1E1A11",
+                              "TextColor": "211E12",
                               "InnerSpans": [],
                               "TableRows": []
                             }
                           ]
                         }
                       ],
-                      "FillColor": "FCFEF3",
+                      "FillColor": "FCFDF5",
                       "WidthPercent": 100.0,
                       "IsHeaderCell": false,
-                      "Borders": {}
+                      "Borders": {
+                        "Top": {
+                          "Width": 0.5,
+                          "Color": "FFBF4C",
+                          "Val": "single"
+                        },
+                        "Bottom": {
+                          "Width": 0.5,
+                          "Color": "FFBF4C",
+                          "Val": "single"
+                        },
+                        "Left": {
+                          "Width": 0.5,
+                          "Color": "FFBF4C",
+                          "Val": "single"
+                        },
+                        "Right": {
+                          "Width": 0.5,
+                          "Color": "FFBF4C",
+                          "Val": "single"
+                        }
+                      }
                     }
                   ]
                 }
@@ -7838,7 +7705,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p8_s1_img6.png",
+                              "Url": "p8_s1_img8.png",
                               "ImageWidth": 469,
                               "ImageHeight": 342,
                               "FloatPosition": "none",
@@ -7882,7 +7749,7 @@
                                             {
                                               "Type": "image",
                                               "Markers": [],
-                                              "Url": "p8_s1_img7.png",
+                                              "Url": "p8_s1_img9.png",
                                               "ImageWidth": 58,
                                               "ImageHeight": 12,
                                               "FloatPosition": "none",
@@ -7912,7 +7779,7 @@
                                             {
                                               "Type": "image",
                                               "Markers": [],
-                                              "Url": "p8_s1_img8.png",
+                                              "Url": "p8_s1_img10.png",
                                               "ImageWidth": 58,
                                               "ImageHeight": 12,
                                               "FloatPosition": "none",
@@ -7943,7 +7810,7 @@
                                             {
                                               "Type": "image",
                                               "Markers": [],
-                                              "Url": "p8_s1_img9.png",
+                                              "Url": "p8_s1_img11.png",
                                               "ImageWidth": 58,
                                               "ImageHeight": 12,
                                               "FloatPosition": "none",
@@ -7989,9 +7856,8 @@
                       "IsHeaderCell": false,
                       "Borders": {
                         "Right": {
-                          "Width": 2.2,
-                          "Color": "E8CA2D",
-                          "Val": "single"
+                          "Width": 0.5,
+                          "Val": "dotted"
                         }
                       }
                     },
@@ -8023,92 +7889,141 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "As you look at a graph/table/chart for the first time, ask yourself:",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "101011",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 63.00213675213675,
                               "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Are there any common trends in the graphical information?",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "101011",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Does any of the information differ from the rest in an obvious and significant way? If so, how?",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "101011",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Is there anything that two or more categories have in common?",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "101011",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.0,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Is there anything that only happens once?",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "101011",
-                              "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "As you look at a graph/table/chart for the first time, ask yourself:",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "101011",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Are there any common trends in the graphical information?",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "101011",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Does any of the information differ from the rest in an obvious and significant way? If so, how?",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "101011",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Is there anything that two or more categories have in common?",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "101011",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Is there anything that only happens once?",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "101011",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -8117,24 +8032,20 @@
                       "IsHeaderCell": false,
                       "Borders": {
                         "Top": {
-                          "Width": 2.2,
-                          "Color": "E8CA2D",
-                          "Val": "single"
+                          "Width": 0.5,
+                          "Val": "dotted"
                         },
                         "Bottom": {
-                          "Width": 2.2,
-                          "Color": "E8CA2D",
-                          "Val": "single"
+                          "Width": 0.5,
+                          "Val": "dotted"
                         },
                         "Left": {
-                          "Width": 2.2,
-                          "Color": "E8CA2D",
-                          "Val": "single"
+                          "Width": 0.5,
+                          "Val": "dotted"
                         },
                         "Right": {
-                          "Width": 2.2,
-                          "Color": "E8CA2D",
-                          "Val": "single"
+                          "Width": 0.5,
+                          "Val": "dotted"
                         }
                       }
                     }
@@ -8462,68 +8373,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "overview statement",
-          "translationFa": "جمله بیان کلیات / عبارت بررسی اجمالی",
-          "translationAr": "بيان النظرة العامة / جملة الإجمال",
-          "pronounceFa": "ohvervyoo steytment",
-          "pronounceAr": "ufarvyu staytment",
-          "explanationFa": "مهم‌ترین بخش رایتینگ تسک 1 آیلتس که روندهای اصلی یا ویژگی‌های کلی را بدون ذکر جزئیات دقیق بیان می‌کند و برای کسب نمره بالای 5 در معیار TA حیاتی است.",
-          "explanationAr": "الجزء الأكثر أهمية في كتابة المهمة 1 للآيلتس، حيث يوضح الاتجاهات الرئيسية دون تفاصيل دقيقة، وهو ضروري للحصول على درجة أعلى من 5 في معيار TA.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "speculating",
-          "translationFa": "گمانه‌زنی کردن / حدس و گمان زدن",
-          "translationAr": "التكهن / التخمين",
-          "pronounceFa": "spekyoolating",
-          "pronounceAr": "isbikyulating",
-          "explanationFa": "در رایتینگ تسک 1 آیلتس نباید بر اساس داده‌ها حدس بزنید یا دلیل‌تراشی شخصی کنید؛ این کلمه آکادمیک به معنای فرضیه‌سازی بدون مدرک است.",
-          "explanationAr": "في كتابة المهمة 1 للآيلتس، لا ينبغي التخمين أو افتراض الأسباب الشخصية وراء البيانات؛ تعني هذه الكلمة الأكاديمية وضع فرضيات دون دليل.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "steepest rise",
-          "translationFa": "شدیدترین صعود / تندترین افزایش",
-          "translationAr": "الارتفاع الأكثر حدة / الصعود الأعلى",
-          "pronounceFa": "steepist rayz",
-          "pronounceAr": "stibist rayz",
-          "explanationFa": "یک کالوکیشن بسیار قوی و نمره‌آور در آیلتس برای توصیف خطوطی در نمودار که شیب صعودی بسیار تند و ناگهانی دارند.",
-          "explanationAr": "متلازمة لفظية قوية وممتازة في الآيلتس لوصف الخطوط البيانية التي تظهر ارتفاعاً حاداً ومفاجئاً في الصعود.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "by a significant margin",
-          "translationFa": "با اختلاف چشمگیر / با تفاوت معنی‌دار",
-          "translationAr": "بفارق كبير / بفارق ملحوظ",
-          "pronounceFa": "bay e signifikent maarjin",
-          "pronounceAr": "bay a signifikant marjin",
-          "explanationFa": "عبارتی آکادمیک و پیشرفته برای مقایسه داده‌ها در آیلتس، زمانی که یک بخش فاصله یا برتری بسیار زیادی با بخش‌های دیگر دارد.",
-          "explanationAr": "عبارة أكاديمية متقدمة لمقارنة البيانات في الآيلتس، تُستخدم عندما تكون هناك فئة تتفوق على بقية الفئات بفارق كبير جداً.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "subsequently",
-          "translationFa": "متعاقباً / پس از آن",
-          "translationAr": "بناءً على ذلك / لاحقاً",
-          "pronounceFa": "sabsikwentli",
-          "pronounceAr": "sabsikwentli",
-          "explanationFa": "یک قید ربط پُرکاربرد (Cohesive Device) برای نشان دادن توالی زمانی رویدادها که نمره معیار Coherence and Cohesion را افزایش می‌دهد.",
-          "explanationAr": "ظرف ربط شائع الاستخدام لإظهار التتابع الزمني للأحداث، مما يساهم في رفع درجة التماسك والترابط اللغوي (Coherence and Cohesion).",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "paraphrase",
-          "translationFa": "بازنویسی کردن / نقل به مضمون کردن",
-          "translationAr": "إعادة الصياغة",
-          "pronounceFa": "parefreyz",
-          "pronounceAr": "barafrayz",
-          "explanationFa": "مهارتی کلیدی در آیلتس که به معنای بیان کلمات صورت سؤال با واژه‌ها و ساختارهای گرامری جدید برای کسب نمره در Lexical Resource است.",
-          "explanationAr": "مهارة أساسية في اختبار الآيلتس تعني إعادة كتابة كلمات السؤال باستخدام مفردات وتراكيب قواعدية جديدة لرفع درجة المعجم اللغوي.",
-          "cefrLevel": "B2"
         }
       ]
     },
@@ -9253,20 +9102,73 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "Don't include data in your conclusion - it is a summary of the trends shown in the whole graph, and you do not need to repeat specific information.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "101011",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 42.17948717948718,
                               "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Don't include data in your conclusion - it is a summary of the trends shown in the whole graph, and you do not need to repeat specific information.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "101011",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -9280,88 +9182,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "room for improvement",
-          "translationFa": "جای پیشرفت / جا برای بهتر شدن",
-          "translationAr": "مجال للتحسين / إمكانية للتطوير",
-          "pronounceFa": "ruum fer impruuvment",
-          "pronounceAr": "ruum far impruuvment",
-          "explanationFa": "یک اصطلاح نیتیو و کاربردی؛ بسیار مناسب برای بخش اسپیکینگ آیلتس هنگام توصیف شرایط یا مهارت‌هایی که نیاز به اصلاح و بهتر شدن دارند.",
-          "explanationAr": "تعبير اصطلاحي طبيعي وممتاز لقسم المحادثة في الآيلتس لوصف حالة أو مهارة تحتاج إلى تطوير وتعديل لتصبح أفضل.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "overall trend",
-          "translationFa": "روند کلی",
-          "translationAr": "الاتجاه العام",
-          "pronounceFa": "owverawl trend",
-          "pronounceAr": "awverawl trand",
-          "explanationFa": "یک عبارت کلیدی و ساختاری در رایتینگ آیلتس تسک 1 (آکادمیک) که برای نوشتن پاراگراف خلاصه یا همان Overview الزامی است.",
-          "explanationAr": "عبارة رئيسية وهيكلية في كتابة الآيلتس التاسك 1 (الأكاديميك) وهي إلزامية لكتابة فقرة النظرة العامة (Overview).",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "relocating",
-          "translationFa": "نقل مکان کردن / هجرت کردن",
-          "translationAr": "الانتقال / تغيير مكان الإقامة",
-          "pronounceFa": "riilowkeyting",
-          "pronounceAr": "riilowkeyting",
-          "explanationFa": "واژه‌ای آکادمیک و رسمی؛ جایگزینی عالی برای فعل ساده 'move' در موضوعات مربوط به جمعیت، شهرنشینی و مهاجرت در رایتینگ آیلتس.",
-          "explanationAr": "كلمة أكاديمية ورسمية؛ تعتبر بديلاً ممتازاً للفعل البسيط 'move' في المواضيع المتعلقة بالسكان، التوسع الحَضَري، والهجرة في الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "Subsequently",
-          "translationFa": "متعاقباً / پس از آن",
-          "translationAr": "تِلوَ ذلك / متعاقباً / بناءً على ذلك",
-          "pronounceFa": "sabsikwentli",
-          "pronounceAr": "sabsikwentli",
-          "explanationFa": "یک کلمه ربطی (Linker) بسیار پیشرفته و رسمی برای نشان دادن توالی زمانی رویدادها در رایتینگ تسک 1 و تسک 2.",
-          "explanationAr": "أداة ربط (Linker) متقدمة ورسمية تُستخدم لإظهار التوالي الزمني للأحداث في كتابة الآيلتس التاسك 1 والتاسك 2.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "steeply",
-          "translationFa": "با شیب تند / به شدت",
-          "translationAr": "بشكل حاد / بشكل عمودي",
-          "pronounceFa": "stiipli",
-          "pronounceAr": "stiipli",
-          "explanationFa": "قیدی بسیار مهم و نمره‌آور در آیلتس تسک 1 برای توصیف تغییرات و افزایش یا کاهش‌های ناگهانی و شدید در نمودارها.",
-          "explanationAr": "ظرف مهم جداً ومميز في الآيلتس التاسك 1 لوصف التغييرات والزيادات أو الانخفاضات المفاجئة والحادة في الرسوم البيانية.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "speculate",
-          "translationFa": "گمانه‌زنی کردن / حدس زدن بدون مدرک",
-          "translationAr": "يتكهن / يخمّن دون دليل قطعي",
-          "pronounceFa": "spekyuleyt",
-          "pronounceAr": "spekyuleyt",
-          "explanationFa": "واژه‌ای سطح بالا؛ در رایتینگ تسک 1 آکادمیک نباید درباره علل پشت پرده آمار گمانه‌زنی کنید، بلکه باید صرفاً داده‌ها را گزارش دهید.",
-          "explanationAr": "كلمة رفيعة المستوى؛ في الآيلتس التاسك 1 الأكاديميك لا ينبغي عليك التكهن بالأسباب الكامنة وراء الأرقام، بل يجب فقط تقرير البيانات.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "significantly",
-          "translationFa": "به طور قابل‌توجهی / چشمگیر",
-          "translationAr": "بشكل ملحوظ / بدرجة كبيرة",
-          "pronounceFa": "signifikantli",
-          "pronounceAr": "signifikantli",
-          "explanationFa": "از پرکاربردترین قیدهای آکادمیک در آیلتس جهت توصیف اهمیت یک موضوع یا نشان دادن حجم بزرگ تغییرات در نمودارها.",
-          "explanationAr": "من أكثر الظروف الأكاديمية استخداماً في الآيلتس لوصف أهمية موضوع ما أو لإظهار حجم التغييرات الكبير في الرسوم البيانية.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "by some distance",
-          "translationFa": "با اختلاف زیاد / با فاصله فراوان",
-          "translationAr": "بفارق كبير / بمسافة شاسعة",
-          "pronounceFa": "bay sam distans",
-          "pronounceAr": "bay sam distans",
-          "explanationFa": "یک عبارت پیشرفته و ایده‌آل برای ساختارهای مقایسه‌ای در آیلتس رایتینگ تسک 1، هنگامی که یک داده تفاوت چشمگیری با بقیه دارد.",
-          "explanationAr": "عبارة متقدمة ومثالية للصيغ المقارنة في الآيلتس التاسك 1، عندما يكون أحد البيانات مختلفاً بشكل واضح وكبير عن البقية.",
-          "cefrLevel": "C1"
         }
       ]
     },
@@ -10188,20 +10008,74 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "This kind of task requires you to report the data objectively. Avoid using adverbs which give your subjective interpretation or opinion of the data, e.g. worryingly.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:20"
-                              ],
-                              "TextColor": "101312",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "E8CA2D",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 43.73931623931624,
                               "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "This kind of task requires you to report the data objectively. Avoid using adverbs which give your subjective interpretation or opinion of the data, e.g. worryingly.",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:20"
+                                              ],
+                                              "TextColor": "101312",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "E8CA2D",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -11014,13 +10888,13 @@
                               "Type": "table",
                               "Markers": [],
                               "Borders": {
-                                "Width": 2.25,
+                                "Width": 1.0,
                                 "Color": "E8CA2D",
                                 "Val": "single"
                               },
                               "TableStyleId": "BorderedTable",
                               "TableStyleName": "BorderedTable",
-                              "TableWidthPercent": 64.43376068376068,
+                              "TableWidthPercent": 64.67948717948718,
                               "InnerSpans": [],
                               "TableRows": [
                                 {
@@ -11051,22 +10925,22 @@
                                       "IsHeaderCell": false,
                                       "Borders": {
                                         "Top": {
-                                          "Width": 2.2,
+                                          "Width": 1.0,
                                           "Color": "E8CA2D",
                                           "Val": "single"
                                         },
                                         "Bottom": {
-                                          "Width": 2.2,
+                                          "Width": 1.0,
                                           "Color": "E8CA2D",
                                           "Val": "single"
                                         },
                                         "Left": {
-                                          "Width": 2.2,
+                                          "Width": 1.0,
                                           "Color": "E8CA2D",
                                           "Val": "single"
                                         },
                                         "Right": {
-                                          "Width": 2.2,
+                                          "Width": 1.0,
                                           "Color": "E8CA2D",
                                           "Val": "single"
                                         }
@@ -11088,58 +10962,6 @@
               ]
             }
           ]
-        }
-      ],
-      "Interactives": [
-        {
-          "exactText": "consistent",
-          "translationFa": "مداوم / یکنواخت",
-          "translationAr": "ثابت / متسق",
-          "pronounceFa": "kensistent",
-          "pronounceAr": "kensistent",
-          "explanationFa": "واژه‌ای بسیار کلیدی و آکادمیک برای توصیف روندهایی که بدون تغییرات ناگهانی و به صورت هماهنگ پیش می‌روند؛ مناسب برای رایتینگ تسک 1 آیلتس.",
-          "explanationAr": "كلمة أكاديمية رئيسية لوصف الاتجاهات التي تسير بشكل منتظم دون تغيرات مفاجئة، مفيدة جداً للمهمة الأولى في كتابة الآيلتس.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "notable",
-          "translationFa": "قابل توجه / بارز",
-          "translationAr": "ملحوظ / لافت للانتباه",
-          "pronounceFa": "noutabl",
-          "pronounceAr": "noutabl",
-          "explanationFa": "صفتی عالی در سطح C1 برای برجسته کردن تغییرات یا نقاط عطف مهم در نمودارها، جهت افزایش نمره معیار Lexical Resource.",
-          "explanationAr": "صفة ممتازة من المستوى C1 لتسليط الضوء على التغييرات أو النقاط البارزة في الرسوم البيانية لرفع درجة معيار الثروة اللفظية.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "stable",
-          "translationFa": "پایدار / بدون تغییر",
-          "translationAr": "مستقر / ثابت",
-          "pronounceFa": "steybl",
-          "pronounceAr": "steybl",
-          "explanationFa": "واژه‌ای پرکاربرد برای توصیف وضعیت داده‌هایی که برای مدتی دچار نوسان نشده و ثابت مانده‌اند.",
-          "explanationAr": "كلمة شائعة الاستخدام لوصف حالة البيانات التي لم تشهد تقلبات لفترة من الوقت وظلت ثابتة.",
-          "cefrLevel": "B2"
-        },
-        {
-          "exactText": "joint-lowest",
-          "translationFa": "به طور مشترک پایین‌ترین",
-          "translationAr": "الأدنى مشتركاً",
-          "pronounceFa": "joynt louist",
-          "pronounceAr": "joynt louist",
-          "explanationFa": "یک صفت ترکیبی پیشرفته و دقیق برای مقایسه داده‌ها، زمانی که دو یا چند آیتم کمترین مقدار مشابهی را ثبت کرده باشند.",
-          "explanationAr": "صفة مركبة متقدمة ودقيقة لمقارنة البيانات عندما يسجل عنصران أو أكثر نفس القيمة الأدنى.",
-          "cefrLevel": "C1"
-        },
-        {
-          "exactText": "line graph",
-          "translationFa": "نمودار خطی",
-          "translationAr": "رسم بياني خطي",
-          "pronounceFa": "layn graaf",
-          "pronounceAr": "layn graaf",
-          "explanationFa": "یکی از انواع اصلی نمودارهای ارائه شده در دفترچه آزمون آیلتس آکادمیک (تسک 1) که معمولاً روند تغییرات را در طول زمان نشان می‌دهد.",
-          "explanationAr": "أحد الأنواع الرئيسية للرسوم البيانية التي تأتي في امتحان الآيلتس الأكاديمي (المهمة الأولى)، وغالباً ما يوضح اتجاه التغير بمرور الوقت.",
-          "cefrLevel": "B1"
         }
       ]
     },
@@ -11447,7 +11269,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p11_s1_img10.png",
+                              "Url": "p11_s1_img12.png",
                               "ImageWidth": 566,
                               "ImageHeight": 385,
                               "FloatPosition": "none",
@@ -11491,7 +11313,7 @@
                                             {
                                               "Type": "image",
                                               "Markers": [],
-                                              "Url": "p11_s1_img11.png",
+                                              "Url": "p11_s1_img13.png",
                                               "ImageWidth": 58,
                                               "ImageHeight": 12,
                                               "FloatPosition": "none",
@@ -11511,7 +11333,7 @@
                                             {
                                               "Type": "image",
                                               "Markers": [],
-                                              "Url": "p11_s1_img12.png",
+                                              "Url": "p11_s1_img14.png",
                                               "ImageWidth": 58,
                                               "ImageHeight": 12,
                                               "FloatPosition": "none",
@@ -11532,7 +11354,7 @@
                                             {
                                               "Type": "image",
                                               "Markers": [],
-                                              "Url": "p11_s1_img13.png",
+                                              "Url": "p11_s1_img15.png",
                                               "ImageWidth": 58,
                                               "ImageHeight": 12,
                                               "FloatPosition": "none",
@@ -11552,7 +11374,7 @@
                                             {
                                               "Type": "image",
                                               "Markers": [],
-                                              "Url": "p11_s1_img14.png",
+                                              "Url": "p11_s1_img16.png",
                                               "ImageWidth": 58,
                                               "ImageHeight": 12,
                                               "FloatPosition": "none",
@@ -13219,94 +13041,146 @@
           ]
         },
         {
-          "Direction": "LTR",
-          "SpaceAfter": 8.0,
+          "SpaceAfter": 0.0,
           "SpaceBefore": 0.0,
           "Spans": [
             {
-              "Type": "text",
-              "Content": "◎",
-              "Markers": [
-                "bg:FC5CDE",
-                "fn:Cambria Math",
-                "sz:21"
-              ],
-              "FillColor": "FC5CDE",
+              "Type": "table",
+              "Markers": [],
+              "Borders": {
+                "Width": 0.5,
+                "Color": "F261D1",
+                "Val": "single"
+              },
+              "TableStyleId": "BorderedTable",
+              "TableStyleName": "BorderedTable",
+              "TableWidthPercent": 100.0,
               "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": " Many tasks in the IELTS Listening test test your ability to recognise ",
-              "Markers": [
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "paraphrases ",
-              "Markers": [
-                "i",
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "or ",
-              "Markers": [
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "synonyms. ",
-              "Markers": [
-                "i",
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "You need to be able to understand the key ideas in a question and listen for these ideas expressed in different words in the recording. However, the answers you write will ",
-              "Markers": [
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "always ",
-              "Markers": [
-                "i",
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": "need to be exactly as you hear them - and must also be spelt correctly",
-              "Markers": [
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "image",
+                              "Markers": [],
+                              "Url": "p13_s1_img17.png",
+                              "ImageWidth": 21,
+                              "ImageHeight": 21,
+                              "FloatPosition": "none",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Many tasks in the IELTS Listening test test your ability to recognise ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "paraphrases ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "or ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "synonyms. ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "You need to be able to understand the key ideas in a question and listen for these ideas expressed in different words in the recording. However, the answers you write will ",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "always ",
+                              "Markers": [
+                                "i",
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": "need to be exactly as you hear them - and must also be spelt correctly",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "WidthPercent": 100.0,
+                      "IsHeaderCell": false,
+                      "Borders": {
+                        "Top": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Bottom": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Left": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Right": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -14211,32 +14085,85 @@
           ]
         },
         {
-          "Direction": "LTR",
-          "FillColor": "F4E8FC",
-          "SpaceAfter": 8.0,
+          "SpaceAfter": 0.0,
           "SpaceBefore": 0.0,
           "Spans": [
             {
-              "Type": "text",
-              "Content": "◎",
-              "Markers": [
-                "bg:970C77",
-                "fn:Cambria Math",
-                "sz:21"
-              ],
-              "FillColor": "970C77",
+              "Type": "table",
+              "Markers": [],
+              "FillColor": "F4E8FC",
+              "Borders": {
+                "Width": 0.5,
+                "Color": "F261D1",
+                "Val": "single"
+              },
+              "TableStyleId": "BorderedTable",
+              "TableStyleName": "BorderedTable",
+              "TableWidthPercent": 100.0,
               "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": " Section 1 is the least difficult of the four parts of the Listening test and is often a form completion task. If you are aiming for a high score, it is important that you listen carefully from the first moment you hear somebody speak and try to get all ten marks for Section 1. After all, each question carries one mark, which is exactly the same as the later, more difficult sections.",
-              "Markers": [
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "image",
+                              "Markers": [],
+                              "Url": "p14_s1_img18.png",
+                              "ImageWidth": 21,
+                              "ImageHeight": 21,
+                              "FloatPosition": "none",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " Section 1 is the least difficult of the four parts of the Listening test and is often a form completion task. If you are aiming for a high score, it is important that you listen carefully from the first moment you hear somebody speak and try to get all ten marks for Section 1. After all, each question carries one mark, which is exactly the same as the later, more difficult sections.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "FillColor": "F4E8FC",
+                      "WidthPercent": 100.0,
+                      "IsHeaderCell": false,
+                      "Borders": {
+                        "Top": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Bottom": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Left": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Right": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -14286,7 +14213,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 4.8,
+                      "WidthPercent": 5.49,
                       "IsHeaderCell": false,
                       "Borders": {}
                     },
@@ -15053,7 +14980,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 95.2,
+                      "WidthPercent": 94.51,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "IsHeaderCell": false,
                       "Borders": {}
@@ -15090,7 +15017,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 4.8,
+                      "WidthPercent": 5.49,
                       "IsHeaderCell": false,
                       "Borders": {}
                     },
@@ -15899,7 +15826,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 95.2,
+                      "WidthPercent": 94.51,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "IsHeaderCell": false,
                       "Borders": {}
@@ -17281,69 +17208,125 @@
                           ]
                         },
                         {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 6.0,
+                          "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentRight": 4.25,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "If you know the conventions for expressing information in English, you will avoid making a mistake with your answer. ",
-                              "Markers": [
-                                "fn:Source Sans 3"
-                              ],
-                              "TextColor": "0B0D0E",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "CD0891",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 65.63034188034187,
                               "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Make sure you practise:",
-                              "Markers": [
-                                "fn:Source Sans 3"
-                              ],
-                              "TextColor": "0B0E0E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 0.15,
-                          "IndentLeft": 19.05,
-                          "IndentFirstLine": -6.8,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "numbers (money, dates, years, telephone numbers)",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:20"
-                              ],
-                              "TextColor": "0A0E10",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Direction": "LTR",
-                          "SpaceAfter": 0.0,
-                          "SpaceBefore": 4.3,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "spelling of names (people, places, addresses, including email addresses), paying special attention to letters which represent problem sounds for your language",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:20"
-                              ],
-                              "TextColor": "0A0E10",
-                              "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Alignment": "J",
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 6.0,
+                                          "SpaceBefore": 0.0,
+                                          "IndentRight": 4.25,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "If you know the conventions for expressing information in English, you will avoid making a mistake with your answer. ",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "Make sure you practise:",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "0B0E0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 4.3,
+                                          "IndentLeft": 19.05,
+                                          "IndentFirstLine": -6.8,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "numbers (money, dates, years, telephone numbers)",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:20"
+                                              ],
+                                              "TextColor": "0A0E10",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 4.3,
+                                          "IndentLeft": 19.05,
+                                          "IndentFirstLine": -6.8,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "spelling of names (people, places, addresses, including email addresses), paying special attention to letters which represent problem sounds for your language",
+                                              "Markers": [
+                                                "fn:Source Sans 3",
+                                                "sz:20"
+                                              ],
+                                              "TextColor": "0A0E10",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -17407,50 +17390,103 @@
           ]
         },
         {
-          "Direction": "LTR",
-          "FillColor": "F4E8FC",
-          "SpaceAfter": 8.0,
+          "SpaceAfter": 0.0,
           "SpaceBefore": 0.0,
           "Spans": [
             {
-              "Type": "text",
-              "Content": "◎",
-              "Markers": [
-                "bg:970C77",
-                "fn:Cambria Math",
-                "sz:21"
-              ],
-              "FillColor": "970C77",
+              "Type": "table",
+              "Markers": [],
+              "FillColor": "F4E8FC",
+              "Borders": {
+                "Width": 0.5,
+                "Color": "F261D1",
+                "Val": "single"
+              },
+              "TableStyleId": "BorderedTable",
+              "TableStyleName": "BorderedTable",
+              "TableWidthPercent": 100.0,
               "InnerSpans": [],
-              "TableRows": []
-            },
-            {
-              "Type": "text",
-              "Content": " For multiple-choice tasks, you will normally hear all three options mentioned in the recording in some way, but only one will answer the question.",
-              "Markers": [
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
-            }
-          ]
-        },
-        {
-          "Direction": "LTR",
-          "FillColor": "F4E8FC",
-          "SpaceAfter": 8.0,
-          "SpaceBefore": 0.0,
-          "Spans": [
-            {
-              "Type": "text",
-              "Content": "The correct answer is often a paraphrase, so when you read the question stem and the possible answers, think about what can and can't be paraphrased. For example, if you have a question where all three options are proper nouns, you only need to focus on the key words in the stem, and how these might be re-phrased.",
-              "Markers": [
-                "fn:Source Sans 3",
-                "sz:21"
-              ],
-              "InnerSpans": [],
-              "TableRows": []
+              "TableRows": [
+                {
+                  "IsHeader": false,
+                  "Cells": [
+                    {
+                      "Paragraphs": [
+                        {
+                          "Direction": "LTR",
+                          "FillColor": "F4E8FC",
+                          "SpaceAfter": 6.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "image",
+                              "Markers": [],
+                              "Url": "p15_s1_img19.png",
+                              "ImageWidth": 21,
+                              "ImageHeight": 21,
+                              "FloatPosition": "none",
+                              "InnerSpans": [],
+                              "TableRows": []
+                            },
+                            {
+                              "Type": "text",
+                              "Content": " For multiple-choice tasks, you will normally hear all three options mentioned in the recording in some way, but only one will answer the question.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        },
+                        {
+                          "Direction": "LTR",
+                          "SpaceAfter": 0.0,
+                          "SpaceBefore": 0.0,
+                          "Spans": [
+                            {
+                              "Type": "text",
+                              "Content": "The correct answer is often a paraphrase, so when you read the question stem and the possible answers, think about what can and can't be paraphrased. For example, if you have a question where all three options are proper nouns, you only need to focus on the key words in the stem, and how these might be re-phrased.",
+                              "Markers": [
+                                "fn:Source Sans 3",
+                                "sz:21"
+                              ],
+                              "InnerSpans": [],
+                              "TableRows": []
+                            }
+                          ]
+                        }
+                      ],
+                      "FillColor": "F4E8FC",
+                      "WidthPercent": 100.0,
+                      "IsHeaderCell": false,
+                      "Borders": {
+                        "Top": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Bottom": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Left": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        },
+                        "Right": {
+                          "Width": 0.5,
+                          "Color": "F261D1",
+                          "Val": "single"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -17500,7 +17536,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 3.67,
+                      "WidthPercent": 4.23,
                       "IsHeaderCell": false,
                       "Borders": {}
                     },
@@ -18173,7 +18209,7 @@
                           ]
                         }
                       ],
-                      "WidthPercent": 96.33,
+                      "WidthPercent": 95.77,
                       "VAlign": "tableverticalalignmentvalues { }",
                       "IsHeaderCell": false,
                       "Borders": {}
@@ -18369,19 +18405,72 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "Don't write down the first piece of information that seems to fit the gap. Sometimes in the Listening test, the speaker will talk for longer than you might expect before the correct answer becomes clear. For example, a speaker may seem to confirm an answer and then change their mind.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "CD0891",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 49.797008547008545,
                               "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Don't write down the first piece of information that seems to fit the gap. Sometimes in the Listening test, the speaker will talk for longer than you might expect before the correct answer becomes clear. For example, a speaker may seem to confirm an answer and then change their mind.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "CD0891",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -23186,42 +23275,92 @@
                     {
                       "Paragraphs": [
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "◎",
-                              "Markers": [
-                                "bg:26EFFF",
-                                "fn:Cambria Math",
-                                "sz:34"
-                              ],
-                              "FillColor": "26EFFF",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 0.5,
+                                "Color": "2AEDFF",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 55.67307692307693,
                               "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": " ",
-                              "Markers": [
-                                "fn:Cambria Math",
-                                "sz:22"
-                              ],
-                              "TextColor": "CA0D8E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "Part 1 questions focus on general familiar topics that reflect your everyday life, rather than complex or abstract questions.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "image",
+                                              "Markers": [],
+                                              "Url": "p19_s1_img20.png",
+                                              "ImageWidth": 21,
+                                              "ImageHeight": 21,
+                                              "FloatPosition": "none",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": " ",
+                                              "Markers": [
+                                                "fn:Cambria Math"
+                                              ],
+                                              "TextColor": "CA0D8E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "Part 1 questions focus on general familiar topics that reflect your everyday life, rather than complex or abstract questions.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 0.5,
+                                          "Color": "2AEDFF",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 0.5,
+                                          "Color": "2AEDFF",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 0.5,
+                                          "Color": "2AEDFF",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 0.5,
+                                          "Color": "2AEDFF",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -23418,83 +23557,133 @@
                           ]
                         },
                         {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 6.0,
+                          "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
-                          "IndentRight": 4.25,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "Never memorise complete answers to questions before the exam. It is normally obvious to examiners when a candidate does this and it may affect your score.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "95E2E0",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 55.56623931623932,
                               "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 6.0,
-                          "SpaceBefore": 0.0,
-                          "IndentRight": 4.25,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Aim to show a variety of verb forms and grammar structures",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 6.0,
-                          "SpaceBefore": 0.0,
-                          "IndentLeft": 23.2,
-                          "IndentRight": 4.25,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "- but they must be correct if you want a high score.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            }
-                          ]
-                        },
-                        {
-                          "Alignment": "J",
-                          "Direction": "LTR",
-                          "SpaceAfter": 6.0,
-                          "SpaceBefore": 0.0,
-                          "IndentRight": 4.25,
-                          "Spans": [
-                            {
-                              "Type": "text",
-                              "Content": "Vary your vocabulary. Use synonyms and paraphrase to express your ideas using different words.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
-                              "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Alignment": "J",
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 6.0,
+                                          "SpaceBefore": 0.0,
+                                          "IndentRight": 4.25,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Never memorise complete answers to questions before the exam. It is normally obvious to examiners when a candidate does this and it may affect your score.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Alignment": "J",
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 6.0,
+                                          "SpaceBefore": 0.0,
+                                          "IndentRight": 4.25,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Aim to show a variety of verb forms and grammar structures",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Alignment": "J",
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 6.0,
+                                          "SpaceBefore": 0.0,
+                                          "IndentLeft": 23.2,
+                                          "IndentRight": 4.25,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "- but they must be correct if you want a high score.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Alignment": "J",
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 6.0,
+                                          "SpaceBefore": 0.0,
+                                          "IndentRight": 4.25,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Vary your vocabulary. Use synonyms and paraphrase to express your ideas using different words.",
+                                              "Markers": [
+                                                "fn:Source Sans 3"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -23872,7 +24061,7 @@
                             {
                               "Type": "image",
                               "Markers": [],
-                              "Url": "p19_s1_img15.png",
+                              "Url": "p19_s1_img21.png",
                               "ImageWidth": 325,
                               "ImageHeight": 175,
                               "FloatPosition": "none",
@@ -24194,20 +24383,73 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "When answering the Part 2 question, you do not need to try and give equal time to each of the four prompts. Some prompts will be easier to expand on than others.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "95E2E0",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 42.00854700854701,
                               "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "When answering the Part 2 question, you do not need to try and give equal time to each of the four prompts. Some prompts will be easier to expand on than others.",
+                                              "Markers": [
+                                                "fn:Calibri"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "95E2E0",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -24940,7 +25182,7 @@
                       "Paragraphs": [
                         {
                           "Direction": "LTR",
-                          "SpaceAfter": 6.0,
+                          "SpaceAfter": 0.0,
                           "SpaceBefore": 6.0,
                           "Spans": [
                             {
@@ -24964,48 +25206,94 @@
                           ]
                         },
                         {
-                          "Direction": "LTR",
-                          "Borders": {
-                            "Width": 2.2,
-                            "Color": "47C4DB",
-                            "Val": "single"
-                          },
                           "SpaceAfter": 0.0,
                           "SpaceBefore": 0.0,
                           "Spans": [
                             {
-                              "Type": "text",
-                              "Content": "Thinking about the ",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
+                              "Type": "table",
+                              "Markers": [],
+                              "Borders": {
+                                "Width": 1.0,
+                                "Color": "47C4DB",
+                                "Val": "single"
+                              },
+                              "TableStyleId": "BorderedTable",
+                              "TableStyleName": "BorderedTable",
+                              "TableWidthPercent": 42.00854700854701,
                               "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "function ",
-                              "Markers": [
-                                "i",
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
-                              "InnerSpans": [],
-                              "TableRows": []
-                            },
-                            {
-                              "Type": "text",
-                              "Content": "of the question being asked will help you to develop your answer and decide what language and structures to use.",
-                              "Markers": [
-                                "fn:Source Sans 3",
-                                "sz:22"
-                              ],
-                              "TextColor": "0B0D0E",
-                              "InnerSpans": [],
-                              "TableRows": []
+                              "TableRows": [
+                                {
+                                  "IsHeader": false,
+                                  "Cells": [
+                                    {
+                                      "Paragraphs": [
+                                        {
+                                          "Direction": "LTR",
+                                          "SpaceAfter": 0.0,
+                                          "SpaceBefore": 0.0,
+                                          "Spans": [
+                                            {
+                                              "Type": "text",
+                                              "Content": "Thinking about the ",
+                                              "Markers": [
+                                                "fn:Calibri"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "function ",
+                                              "Markers": [
+                                                "i",
+                                                "fn:Calibri"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            },
+                                            {
+                                              "Type": "text",
+                                              "Content": "of the question being asked will help you to develop your answer and decide what language and structures to use.",
+                                              "Markers": [
+                                                "fn:Calibri"
+                                              ],
+                                              "TextColor": "0B0D0E",
+                                              "InnerSpans": [],
+                                              "TableRows": []
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "WidthPercent": 100.0,
+                                      "IsHeaderCell": false,
+                                      "Borders": {
+                                        "Top": {
+                                          "Width": 1.0,
+                                          "Color": "47C4DB",
+                                          "Val": "single"
+                                        },
+                                        "Bottom": {
+                                          "Width": 1.0,
+                                          "Color": "47C4DB",
+                                          "Val": "single"
+                                        },
+                                        "Left": {
+                                          "Width": 1.0,
+                                          "Color": "47C4DB",
+                                          "Val": "single"
+                                        },
+                                        "Right": {
+                                          "Width": 1.0,
+                                          "Color": "47C4DB",
+                                          "Val": "single"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
