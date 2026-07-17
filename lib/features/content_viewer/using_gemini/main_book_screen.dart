@@ -22,7 +22,9 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
   void _ensureBookLoaded(String bookId, String jsonAssetPath) {
     if (_loadedBookId == bookId && _pagesFuture != null) return;
     _loadedBookId = bookId;
-    _pagesFuture = DocumentLoader.loadBookFromJson(jsonAssetPath);
+    _pagesFuture = DocumentLoader.loadBookFromJson(
+      jsonAssetPath, // 'assets/data/testbook/index.json',
+    );
   }
 
   @override

@@ -91,6 +91,8 @@ flutter:
     - assets/
     - assets/icon/icon.png
     - assets/data/
+    - assets/data/testbook/
+    - assets/data/testbook/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

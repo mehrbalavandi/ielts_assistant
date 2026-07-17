@@ -1139,6 +1139,36 @@ Widget _buildParagraph(
       ),
     ),
   );
+  // 🌟 لیست‌ها: مارکر با تورفتگی معلق (hanging indent) مانند Word
+  if (para.listMarker != null && para.listMarker!.isNotEmpty) {
+    final bool rtl = para.direction == "RTL";
+    const double indentStep = 22.0; // تورفتگی هر سطح
+    const double markerWidth = 28.0; // عرض ناحیه‌ی مارکر
+    final double levelIndent = para.listLevel * indentStep;
+
+    paragraphContent = Padding(
+      padding: EdgeInsets.only(
+        left: rtl ? 0 : levelIndent,
+        right: rtl ? levelIndent : 0,
+      ),
+      child: Row(
+        textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: markerWidth,
+            child: Text(
+              para.listMarker!,
+              textAlign: rtl ? TextAlign.left : TextAlign.right,
+              style: const TextStyle(height: 1.4),
+            ),
+          ),
+          const SizedBox(width: 6),
+          Expanded(child: paragraphContent),
+        ],
+      ),
+    );
+  }
   bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
 
   double defaultBoxPadding = 6.0,
@@ -1268,13 +1298,23 @@ Widget _buildTable(
           .replaceAll(" ", "")
           .replaceAll("_", "");
 
-  final bool isBorderedTable = rawStyle.contains("borderedtable");
-  final bool hideBorders =
-      rawStyle.contains("dottedtable") ||
-      rawStyle.contains("columnstack") ||
-      rawStyle.contains("tablegrid");
+  // 🌟 اول فیلدهای declarativeِ جدید، بعد فال‌بکِ نام استایل (سازگاری با دادهٔ قدیم)
+  final String strategy = tableSpan.responsiveStrategy ?? "";
+  final String? borderVal = tableSpan.borders?.val?.toLowerCase();
 
-  final bool isColumnStack = rawStyle.contains("columnstack");
+  final bool isBorderedTable =
+      strategy == "horizontalScroll" || rawStyle.contains("borderedtable");
+  final bool isColumnStack =
+      strategy == "stack" ||
+      tableSpan.layoutReflow == "stack" ||
+      rawStyle.contains("columnstack");
+  final bool isDotted =
+      strategy == "collapseToCards" ||
+      borderVal == "dotted" ||
+      rawStyle.contains("dottedtable");
+
+  final bool hideBorders =
+      isDotted || isColumnStack || rawStyle.contains("tablegrid");
   final bool applyColumnStack = isColumnStack && !isLargeScreen;
 
   double defaultBorderWidth =
@@ -1284,7 +1324,13 @@ Widget _buildTable(
       (isBorderedTable ? Colors.black : Colors.grey.shade400);
 
   final bool showBorders =
-      !hideBorders && (isBorderedTable || tableSpan.hasBorders == "true");
+      !hideBorders &&
+      (isBorderedTable ||
+          tableSpan.hasBorders == "true" ||
+          (borderVal != null &&
+              borderVal != "none" &&
+              borderVal != "nil" &&
+              borderVal != "dotted"));
 
   TableCellVerticalAlignment getVAlign(String? vAlign) {
     if (vAlign == "center") return TableCellVerticalAlignment.middle;
@@ -1727,7 +1773,7 @@ Widget _buildLocalImage(
   required BookModel? activeBook, // 🌟 اضافه شد
   required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
 }) {
-  String fallbackPath = 'assets/data/images/$imageName';
+  String fallbackPath = 'assets/data/testbook/images/$imageName';
   File? localFile;
 
   // 🌟 هوشمندی: خواندن از فایل آفلاین

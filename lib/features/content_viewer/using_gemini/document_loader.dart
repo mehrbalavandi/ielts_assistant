@@ -5,38 +5,64 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart
 
 class DocumentLoader {
   // 🌟 دریافت مسیر فایل به عنوان پارامتر ورودی
-  static Future<List<PageData>> loadBookFromJson(String assetPath) async {
-    String jsonString = '';
-    if (assetPath.startsWith('assets/')) {
-      jsonString = await rootBundle.loadString(assetPath);
-    } else {
-      final file = File(assetPath);
-      if (await file.exists()) {
-        jsonString = await file.readAsString();
-      } else {
-        throw Exception("فایل در حافظه گوشی یافت نشد: $assetPath");
-      }
-      final decoded = jsonDecode(jsonString);
+  static Future<List<PageData>> loadBookFromJson(String path) async {
+    final decoded = jsonDecode(await _readText(path));
 
-      // ── ساختار جدید (مثل data.json): یک آبجکت با یک دیکشنریِ Interactives
-      // مشترکِ کل کتاب + آرایه‌ی Pages ──────────────────────────────────────
-      if (decoded is Map<String, dynamic>) {
-        return _loadFromSharedInteractivesStructure(decoded);
-      }
+    if (decoded is List) {
+      // ساختار قدیم: آرایه‌ی مستقیم صفحات
+      return decoded
+          .map((p) => PageData.fromJson(p as Map<String, dynamic>))
+          .toList();
+    }
+    if (decoded is Map<String, dynamic>) {
+      // 🌟 index.json: هر آیتمِ Pages فقط مانیفست است ({n, file, version})
+      if (_looksLikeIndex(decoded)) return _loadFromIndex(decoded, path);
+      // ساختار تک‌فایلِ فعلی: {Pages:[full pages], Interactives:[...]}
+      return _loadFromSharedInteractivesStructure(decoded);
+    }
+    throw FormatException('ساختار JSON کتاب ناشناخته است: $path');
+  }
 
-      // ── ساختار قدیم (output.json): آرایه‌ی مستقیم صفحات، هرکدام با
-      // Interactives محلیِ خودش. برای سازگاری با کتاب‌هایی که هنوز به فرمت
-      // جدید مهاجرت نکرده‌اند نگه داشته شده ─────────────────────────────────
-      if (decoded is List) {
-        return decoded
-            .map(
-              (pageJson) => PageData.fromJson(pageJson as Map<String, dynamic>),
-            )
-            .toList();
-      }
+  static Future<String> _readText(String path) async {
+    if (path.startsWith('assets/')) return rootBundle.loadString(path);
+    final file = File(path);
+    if (!await file.exists()) throw Exception('فایل یافت نشد: $path');
+    return file.readAsString();
+  }
+
+  static bool _looksLikeIndex(Map<String, dynamic> d) {
+    final pages = (d['Pages'] ?? d['pages']) as List?;
+    if (pages == null || pages.isEmpty) return false;
+    final first = pages.first;
+    return first is Map &&
+        (first.containsKey('file') || first.containsKey('File'));
+  }
+
+  static String _dirOf(String p) {
+    final i = p.lastIndexOf('/');
+    return i <= 0 ? '' : p.substring(0, i);
+  }
+
+  static Future<List<PageData>> _loadFromIndex(
+    Map<String, dynamic> index,
+    String indexPath,
+  ) async {
+    final baseDir = _dirOf(indexPath);
+    final entries = (index['Pages'] ?? index['pages']) as List? ?? [];
+
+    final List<Map<String, dynamic>> pageJsons = [];
+    for (final e in entries) {
+      final rel = (e['file'] ?? e['File']) as String; // "pages/page_0001.json"
+      final full = baseDir.isEmpty ? rel : '$baseDir/$rel';
+      pageJsons.add(jsonDecode(await _readText(full)) as Map<String, dynamic>);
     }
 
-    throw FormatException('ساختار JSON کتاب ناشناخته است: $assetPath');
+    // همان مسیرِ «Interactives مشترک» را با ساختارِ سرهم‌شده تغذیه کن
+    return _loadFromSharedInteractivesStructure({
+      'Pages': pageJsons,
+      'Interactives':
+          index['Interactives'] ?? index['interactives'] ?? const [],
+    });
   }
 
   static List<PageData> _loadFromSharedInteractivesStructure(

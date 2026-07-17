@@ -1,3 +1,7 @@
+enum ParaAlign { left, center, right, justify }
+
+enum ParaDir { ltr, rtl }
+
 // ۱. مدل کلمات تعاملی
 class InteractiveWord {
   final String exactText;
@@ -56,6 +60,10 @@ class ParagraphData {
   final String? translationFa;
   final String? translationAr;
   final List<InteractiveWord> interactives;
+  // 🌟 لیست‌ها (numbering که در C# به مارکر آماده تبدیل شده)
+  final String? listType; // "ordered" | "bullet"  (null اگر لیست نباشد)
+  final int listLevel; // 0 = سطح اول
+  final String? listMarker; // متن نهایی مارکر: "1." , "a)" , "•"
 
   ParagraphData({
     required this.spans,
@@ -74,6 +82,9 @@ class ParagraphData {
     this.translationFa,
     this.translationAr,
     required this.interactives,
+    this.listType, // 🌟
+    this.listLevel = 0, // 🌟
+    this.listMarker, // 🌟
   });
 
   factory ParagraphData.fromJson(Map<String, dynamic> json) {
@@ -102,6 +113,9 @@ class ParagraphData {
           .map((e) => InteractiveWord.fromJson(e))
           .toList(),
       spans: spansList.map((e) => SpanData.fromJson(e)).toList(),
+      listType: json['ListType'], // 🌟
+      listLevel: json['ListLevel'] ?? 0, // 🌟
+      listMarker: json['ListMarker'], // 🌟
     );
   }
 
@@ -129,6 +143,9 @@ class ParagraphData {
       translationFa: translationFa,
       translationAr: translationAr,
       interactives: interactives ?? this.interactives,
+      listType: listType, // 🌟
+      listLevel: listLevel, // 🌟
+      listMarker: listMarker, // 🌟
     );
   }
 }
@@ -390,6 +407,10 @@ class SpanData {
   final String? floatPosition;
   final double? tableWidthPercent;
   final double? borderWidth;
+  final String?
+  responsiveStrategy; // "horizontalScroll" | "collapseToCards" | "stack"
+  final String? layoutDirection;
+  final String? layoutReflow;
 
   SpanData({
     required this.type,
@@ -410,6 +431,9 @@ class SpanData {
     this.floatPosition,
     this.tableWidthPercent,
     this.borderWidth,
+    this.responsiveStrategy,
+    this.layoutDirection,
+    this.layoutReflow,
   });
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
@@ -436,6 +460,9 @@ class SpanData {
       hasBorders: json['HasBorders'],
       tableWidthPercent: (json['TableWidthPercent'] as num?)?.toDouble(),
       borderWidth: (json['BorderWidth'] as num?)?.toDouble(),
+      responsiveStrategy: json['ResponsiveStrategy'],
+      layoutDirection: json['LayoutDirection'],
+      layoutReflow: json['LayoutReflow'],
     );
   }
 
@@ -462,6 +489,9 @@ class SpanData {
       floatPosition: floatPosition,
       tableWidthPercent: tableWidthPercent,
       borderWidth: borderWidth,
+      responsiveStrategy: responsiveStrategy,
+      layoutDirection: layoutDirection,
+      layoutReflow: layoutReflow,
     );
   }
 }
