@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class BookModel {
   final String? folderName;
 
   // --- 🌐 اطلاعات سرور (Remote) ---
+  final Map<String, String> localPageVersions; // remotePagePath -> hash
   final String? sampleFilePath;
   final int sampleVersion;
   final List<String> sampleAudioFiles;
@@ -87,6 +89,8 @@ class BookModel {
     required this.id,
     required this.title,
     this.folderName,
+
+    this.localPageVersions = const {},
     this.sampleFilePath,
     this.sampleVersion = 0,
     this.sampleAudioFiles = const [],
@@ -115,6 +119,7 @@ class BookModel {
   });
 
   BookModel copyWith({
+    Map<String, String>? localPageVersions,
     String? localSamplePath,
     int? localSampleVersion,
     int? localSampleAudioVersion,
@@ -131,6 +136,7 @@ class BookModel {
       id: id,
       title: title,
       folderName: folderName,
+      localPageVersions: localPageVersions ?? this.localPageVersions,
       sampleFilePath: sampleFilePath,
       sampleVersion: sampleVersion,
       sampleAudioFiles: sampleAudioFiles,
@@ -166,6 +172,11 @@ class BookModel {
     title: json['title'] ?? 'بدون عنوان',
     folderName: json['folder_name'],
 
+    localPageVersions:
+        (json['localPageVersions'] as Map?)?.map(
+          (k, v) => MapEntry(k.toString(), v.toString()),
+        ) ??
+        const {},
     sampleFilePath: json['sample_file_path'],
     sampleVersion: json['sample_version'] ?? 0,
     sampleAudioFiles: List<String>.from(json['sample_audio_files'] ?? []),
@@ -197,7 +208,7 @@ class BookModel {
     'id': id,
     'title': title,
     'folder_name': folderName,
-
+    'localPageVersions': localPageVersions,
     'sample_file_path': sampleFilePath,
     'sample_version': sampleVersion,
     'sample_audio_files': sampleAudioFiles,
@@ -288,6 +299,64 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     }
   }
 
+  String _dirOf(String p) {
+    final i = p.lastIndexOf('/');
+    return i <= 0 ? '' : p.substring(0, i);
+  }
+
+  /// index.json را می‌گیرد و فقط صفحاتی که هَش‌شان عوض شده. مسیرِ سروریِ هر صفحه از
+  /// dirname(مسیرِ سروریِ index) + file ساخته می‌شود؛ فایل‌های محلی هم‌ساختار ذخیره می‌شوند.
+  Future<(bool, Map<String, String>)> _downloadIndexAndPages(
+    Dio dio,
+    String bookId,
+    String remoteIndexPath,
+    String localIndexPath,
+    Map<String, String> existingVersions,
+    void Function() onFileDownloaded,
+  ) async {
+    final okIndex = await _downloadSingleFile(
+      dio,
+      bookId,
+      remoteIndexPath,
+      localIndexPath,
+    );
+    if (!okIndex) return (false, existingVersions);
+    onFileDownloaded();
+
+    final index =
+        jsonDecode(await File(localIndexPath).readAsString())
+            as Map<String, dynamic>;
+    final entries = (index['Pages'] ?? index['pages']) as List? ?? const [];
+
+    final remoteRoot = _dirOf(
+      remoteIndexPath,
+    ); // books/foo  یا  books/foo/sample
+    final localRoot = _dirOf(localIndexPath);
+    final versions = Map<String, String>.from(existingVersions);
+
+    for (final e in entries) {
+      final rel = (e['file'] ?? e['File']) as String; // pages/page_0001.json
+      final ver = (e['version'] ?? e['Version'])?.toString() ?? '';
+      final remotePagePath = '$remoteRoot/$rel';
+
+      if (versions[remotePagePath] == ver) continue; // بدون تغییر → رد شو
+
+      final localPagePath = '$localRoot/$rel';
+      await Directory(_dirOf(localPagePath)).create(recursive: true);
+
+      if (await _downloadSingleFile(
+        dio,
+        bookId,
+        remotePagePath,
+        localPagePath,
+      )) {
+        versions[remotePagePath] = ver;
+        onFileDownloaded();
+      }
+    }
+    return (true, versions);
+  }
+
   // 🌟 ۱. دانلود منیجر موازی (به‌روزرسانی شده با ردیابی دقیق خطاها)
   Future<void> downloadBookContent(
     BookModel book, {
@@ -332,23 +401,25 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           return;
         }
 
-        // --- دانلود JSON نمونه ---
+        // --- دانلود JSON نمونه (index + صفحات) ---
         String? newSamplePath = book.localSamplePath;
         int newSampleVer = book.localSampleVersion;
+        Map<String, String> newPageVersions = book.localPageVersions;
         if (book.sampleFilePath != null &&
             (!book.isSampleDownloaded || book.hasSampleJsonUpdate)) {
-          final targetPath = '${bookFolder.path}/sample.json';
-          bool success = await _downloadSingleFile(
+          final localIndex = '${bookFolder.path}/sample/index.json';
+          final (ok, versions) = await _downloadIndexAndPages(
             dio,
             book.id,
             book.sampleFilePath!,
-            targetPath,
+            localIndex,
+            book.localPageVersions,
+            onFileDownloaded,
           );
-          if (success) {
-            newSamplePath =
-                targetPath; // 🌟 فقط در صورت موفقیت مسیر آپدیت می‌شود
+          if (ok) {
+            newSamplePath = localIndex;
             newSampleVer = book.sampleVersion;
-            onFileDownloaded();
+            newPageVersions = versions;
           }
         }
 
@@ -382,6 +453,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           book.id,
           localSamplePath: newSamplePath,
           localSampleVersion: newSampleVer,
+          localPageVersions: newPageVersions,
           localSampleAudioVersion: newSampleAudioVer,
           localSampleImagesVersion: newSampleImagesVer,
           isDownloading: false,
@@ -401,22 +473,25 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           return;
         }
 
-        // --- دانلود JSON ---
+        // --- دانلود JSON اصلی (index + صفحات) ---
         String? newJsonPath = book.localJsonPath;
         int newJsonVer = book.localJsonVersion;
+        Map<String, String> newPageVersions = book.localPageVersions;
         if (book.jsonFile != null &&
             (!book.isJsonDownloaded || book.hasJsonUpdate)) {
-          final targetPath = '${bookFolder.path}/main_content.json';
-          bool success = await _downloadSingleFile(
+          final localIndex = '${bookFolder.path}/index.json';
+          final (ok, versions) = await _downloadIndexAndPages(
             dio,
             book.id,
             book.jsonFile!,
-            targetPath,
+            localIndex,
+            book.localPageVersions,
+            onFileDownloaded,
           );
-          if (success) {
-            newJsonPath = targetPath;
+          if (ok) {
+            newJsonPath = localIndex;
             newJsonVer = book.jsonVersion;
-            onFileDownloaded();
+            newPageVersions = versions;
           }
         }
 
@@ -450,6 +525,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           book.id,
           localJsonPath: newJsonPath,
           localJsonVersion: newJsonVer,
+          localPageVersions: newPageVersions,
           localAudioVersion: newAudioVer,
           localImagesVersion: newImagesVer,
           isDownloading: false,
@@ -545,6 +621,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
 
   BookModel _updateBook(
     String id, {
+    Map<String, String>? localPageVersions,
     String? localSamplePath,
     int? localSampleVersion,
     int? localSampleAudioVersion,
@@ -560,6 +637,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     state = state.map((b) {
       if (b.id == id) {
         updatedBook = b.copyWith(
+          localPageVersions: localPageVersions,
           localSamplePath: localSamplePath,
           localSampleVersion: localSampleVersion,
           localSampleAudioVersion: localSampleAudioVersion,
