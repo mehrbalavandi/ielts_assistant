@@ -43,6 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+<<<<<<< HEAD
 lib/features/content_viewer/presentation/using_gemini - Shortcut.lnk
 assets/data/~$ndset-Level-3.docx
 assets/data/~WRL0003.tmp
@@ -59,3 +60,7 @@ assets/data/~$ndset-For-IELTS-Level-3-zandi-english0.docx
 assets/data/Cambridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
 assets/data/~$mbridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
 assets/~WRL1819.tmp
+=======
+assets/data/Cambridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
+assets/data/~$mbridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
+>>>>>>> main
