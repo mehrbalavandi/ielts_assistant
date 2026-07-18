@@ -1685,7 +1685,7 @@ List<InlineSpan> _buildStyledInteractiveText(
     fontSize: fontSize,
     fontFamily: fontFamily,
     color: customTextColor ?? Colors.black87,
-    height: 1.3,
+    height: para.lineSpacing ?? 1.3, // 🌟 به‌جای عددِ ثابت
     // 🌟 اگر قرار است باکس داشته باشیم، رنگ پس‌زمینه را به Container می‌دهیم نه به استایلِ متن
     backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
     fontWeight: span.markers.contains("b")

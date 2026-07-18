@@ -64,6 +64,7 @@ class ParagraphData {
   final String? listType; // "ordered" | "bullet"  (null اگر لیست نباشد)
   final int listLevel; // 0 = سطح اول
   final String? listMarker; // متن نهایی مارکر: "1." , "a)" , "•"
+  final double? lineSpacing; // 🌟 ضریبِ فاصله‌ی خطوط (1.0 = تک، 1.5، ...)
 
   ParagraphData({
     required this.spans,
@@ -85,6 +86,7 @@ class ParagraphData {
     this.listType, // 🌟
     this.listLevel = 0, // 🌟
     this.listMarker, // 🌟
+    this.lineSpacing, // 🌟
   });
 
   factory ParagraphData.fromJson(Map<String, dynamic> json) {
@@ -113,6 +115,7 @@ class ParagraphData {
           .map((e) => InteractiveWord.fromJson(e))
           .toList(),
       spans: spansList.map((e) => SpanData.fromJson(e)).toList(),
+      lineSpacing: (json['LineSpacing'] as num?)?.toDouble(), // 🌟
       listType: json['ListType'], // 🌟
       listLevel: json['ListLevel'] ?? 0, // 🌟
       listMarker: json['ListMarker'], // 🌟
@@ -143,6 +146,7 @@ class ParagraphData {
       translationFa: translationFa,
       translationAr: translationAr,
       interactives: interactives ?? this.interactives,
+      lineSpacing: lineSpacing, // 🌟
       listType: listType, // 🌟
       listLevel: listLevel, // 🌟
       listMarker: listMarker, // 🌟
