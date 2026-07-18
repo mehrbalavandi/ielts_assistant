@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/language_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
@@ -42,6 +43,15 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
       appBar: AppBar(
         title: Text(activeBook.title, style: const TextStyle(fontSize: 16)),
         actions: [
+          // 🌟 تعویضِ زبانِ محتوا: فارسی ↔ عربی
+          IconButton(
+            tooltip: 'تغییر زبان (فارسی/عربی)',
+            icon: Text(
+              ref.watch(languageProvider) == 'fa' ? 'ع' : 'ف',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () => ref.read(languageProvider.notifier).toggle(),
+          ),
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () async {

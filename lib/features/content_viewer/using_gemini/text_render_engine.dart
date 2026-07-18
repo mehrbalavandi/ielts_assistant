@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/language_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart'; // برای دسترسی به TranslatableContentWrapper
 
@@ -622,6 +624,21 @@ class TextRenderEngine {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (ctx) {
+        // 🌟 دوزبانه: بر اساس زبانِ انتخابی، فیلدهای عربی یا فارسی (با fallback)
+        final lang = ProviderScope.containerOf(
+          context,
+          listen: false,
+        ).read(languageProvider);
+        final bool ar = lang == 'ar';
+        String pick(String arabic, String farsi) => ar
+            ? (arabic.isNotEmpty ? arabic : farsi)
+            : (farsi.isNotEmpty ? farsi : arabic);
+        final String pronounce = pick(word.pronounceAr, word.pronounceFa);
+        final String translation = pick(word.translationAr, word.translationFa);
+        final String explanation = pick(word.explanationAr, word.explanationFa);
+        final String meaningLabel = ar ? 'المعنى' : 'معنی';
+        final String explainLabel = ar ? 'الشرح' : 'توضیح';
+
         return Padding(
           padding: const EdgeInsets.all(24.0),
           child: Directionality(
@@ -657,18 +674,15 @@ class TextRenderEngine {
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  word.pronounceFa,
-                  style: const TextStyle(color: Colors.grey),
-                ),
+                Text(pronounce, style: const TextStyle(color: Colors.grey)),
                 const Divider(),
                 Text(
-                  "معنی: ${word.translationFa}",
+                  "$meaningLabel: $translation",
                   style: const TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "توضیح: ${word.explanationFa}",
+                  "$explainLabel: $explanation",
                   style: const TextStyle(fontSize: 14),
                 ),
                 const SizedBox(height: 24),

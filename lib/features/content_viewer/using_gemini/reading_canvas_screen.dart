@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/language_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/text_render_engine.dart';
@@ -66,6 +67,11 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   // اصلی ناروان بودن اسکرول (به‌خصوص اسکرول اول) بود.
   Timer? _scrollPersistDebounce;
 
+  // 🌟 نشانِ معلقِ شماره‌ی صفحه (مثل تلگرام) + پرش به صفحه
+  int _currentPage = 1;
+  bool _showPageBadge = false;
+  Timer? _badgeTimer;
+
   // 🌟 رفع مشکل اسکرول نادقیق جستجو: این دو فیلد مطمئن می‌شوند که
   // Scrollable.ensureVisible فقط زمانی اجرا می‌شود که widget tree واقعاً
   // با هدف جدید (occurrence جدید) rebuild شده باشد، نه یک context قدیمی
@@ -116,6 +122,19 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       final topItem = positions
           .where((p) => p.itemTrailingEdge > 0)
           .reduce((min, p) => p.index < min.index ? p : min);
+
+      // 🌟 شماره‌ی صفحه‌ی جاری + نمایشِ نشان هنگام اسکرول (مثل تلگرام)
+      final newPage = topItem.index + 1;
+      if (newPage != _currentPage || !_showPageBadge) {
+        setState(() {
+          _currentPage = newPage;
+          _showPageBadge = true;
+        });
+      }
+      _badgeTimer?.cancel();
+      _badgeTimer = Timer(const Duration(milliseconds: 1200), () {
+        if (mounted) setState(() => _showPageBadge = false);
+      });
 
       _scrollPersistDebounce?.cancel();
       _scrollPersistDebounce = Timer(const Duration(milliseconds: 250), () {
@@ -313,9 +332,55 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   @override
   void dispose() {
     _scrollPersistDebounce?.cancel();
+    _badgeTimer?.cancel();
     _transformationController.removeListener(_onTransformChanged);
     _transformationController.dispose();
     super.dispose();
+  }
+
+  // 🌟 دیالوگِ «رفتن به صفحه» (مثل PDF‌خوان‌ها)
+  Future<void> _openJumpToPageDialog() async {
+    final total = widget.documentPages.length;
+    final ctrl = TextEditingController();
+    final n = await showDialog<int>(
+      context: context,
+      builder: (_) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          title: const Text('رفتن به صفحه'),
+          content: TextField(
+            controller: ctrl,
+            keyboardType: TextInputType.number,
+            autofocus: true,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              hintText: 'شماره‌ای بین ۱ تا $total',
+              border: const OutlineInputBorder(),
+            ),
+            onSubmitted: (v) => Navigator.pop(context, int.tryParse(v)),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('انصراف'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(context, int.tryParse(ctrl.text)),
+              child: const Text('برو'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (n != null && n >= 1 && n <= total && _itemScrollController.isAttached) {
+      _itemScrollController.scrollTo(
+        index: n - 1,
+        duration: const Duration(milliseconds: 450),
+        curve: Curves.easeInOutCubic,
+        alignment: 0.0,
+      );
+    }
   }
 
   @override
@@ -411,9 +476,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
 
-      // دکمه ریست زوم — فقط وقتی زوم فعال است ظاهر می‌شود
-      floatingActionButton: _isZoomed
-          ? FloatingActionButton.small(
+      // دکمه ریست زوم (فقط هنگام زوم) + نشانِ معلقِ شماره‌ی صفحه
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (_isZoomed)
+            FloatingActionButton.small(
+              heroTag: 'zoomReset',
               onPressed: () => setState(() {
                 _transformationController.value = Matrix4.identity();
                 _currentScale = 1.0;
@@ -422,8 +492,34 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
               elevation: 4,
               tooltip: 'بازگشت به اندازه اصلی',
               child: const Icon(Icons.zoom_out_map, color: Colors.white),
-            )
-          : null,
+            ),
+          const SizedBox(height: 8),
+          // 🌟 نشانِ شماره‌ی صفحه: هنگام اسکرول ظاهر و بعد از توقف محو می‌شود؛
+          // ضربه روی آن دیالوگِ «رفتن به صفحه» را باز می‌کند
+          IgnorePointer(
+            ignoring: !_showPageBadge,
+            child: AnimatedOpacity(
+              opacity: _showPageBadge ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 250),
+              child: FloatingActionButton.extended(
+                heroTag: 'pageBadge',
+                onPressed: _openJumpToPageDialog,
+                backgroundColor: Colors.black.withOpacity(0.75),
+                elevation: 3,
+                icon: const Icon(
+                  Icons.menu_book,
+                  size: 18,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'صفحه $_currentPage از ${widget.documentPages.length}',
+                  style: const TextStyle(color: Colors.white, fontSize: 13),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
 
       body: SafeArea(
         child: Column(
@@ -2016,7 +2112,7 @@ class InlineAudioLink extends ConsumerWidget {
   }
 }
 
-class TranslatableContentWrapper extends StatefulWidget {
+class TranslatableContentWrapper extends ConsumerStatefulWidget {
   final Widget originalContent;
   final String? translationFa;
   final String? translationAr;
@@ -2029,12 +2125,12 @@ class TranslatableContentWrapper extends StatefulWidget {
     this.isDarkMode = false,
   });
   @override
-  State<TranslatableContentWrapper> createState() =>
+  ConsumerState<TranslatableContentWrapper> createState() =>
       _TranslatableContentWrapperState();
 }
 
 class _TranslatableContentWrapperState
-    extends State<TranslatableContentWrapper> {
+    extends ConsumerState<TranslatableContentWrapper> {
   bool _showTranslation = false;
   @override
   Widget build(BuildContext context) {
@@ -2042,9 +2138,20 @@ class _TranslatableContentWrapperState
         (widget.translationFa != null && widget.translationFa!.isNotEmpty) ||
         (widget.translationAr != null && widget.translationAr!.isNotEmpty);
     if (!hasTranslation) return widget.originalContent;
-    String finalTranslation = (widget.translationFa?.isNotEmpty ?? false)
-        ? widget.translationFa!
-        : widget.translationAr!;
+
+    // 🌟 دوزبانه: بر اساس زبانِ انتخابی، ترجمه‌ی فارسی یا عربی را نشان بده
+    // (اگر ترجمه‌ی زبانِ انتخابی خالی بود، به زبانِ دیگر برگرد تا خالی نماند)
+    final lang = ref.watch(languageProvider);
+    final bool preferAr = lang == 'ar';
+    final String? primary = preferAr
+        ? widget.translationAr
+        : widget.translationFa;
+    final String? secondary = preferAr
+        ? widget.translationFa
+        : widget.translationAr;
+    final String finalTranslation = (primary?.isNotEmpty ?? false)
+        ? primary!
+        : (secondary ?? '');
     Color bgColor = widget.isDarkMode
         ? Colors.white.withOpacity(0.08)
         : Colors.blue.withOpacity(0.05);
