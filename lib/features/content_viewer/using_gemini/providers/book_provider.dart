@@ -312,8 +312,9 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     String remoteIndexPath,
     String localIndexPath,
     Map<String, String> existingVersions,
-    void Function() onFileDownloaded,
-  ) async {
+    void Function() onFileDownloaded, {
+    void Function(int changedPageCount)? onPageCountKnown,
+  }) async {
     final okIndex = await _downloadSingleFile(
       dio,
       bookId,
@@ -334,13 +335,24 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     final localRoot = _dirOf(localIndexPath);
     final versions = Map<String, String>.from(existingVersions);
 
+    // 🌟 اول لیستِ صفحاتِ واقعاً تغییرکرده را بساز تا مخرجِ نوارِ پیشرفت درست شود
+    // (قبلاً «۱» برای کل JSON فرض می‌شد؛ با صدها صفحه، درصد به‌اشتباه به
+    // «تعداد صفحه × ۱۰۰٪» می‌رسید)
+    final changed = <MapEntry<String, String>>[]; // remotePagePath -> version
     for (final e in entries) {
       final rel = (e['file'] ?? e['File']) as String; // pages/page_0001.json
       final ver = (e['version'] ?? e['Version'])?.toString() ?? '';
       final remotePagePath = '$remoteRoot/$rel';
+      if (versions[remotePagePath] != ver) {
+        changed.add(MapEntry(remotePagePath, ver));
+      }
+    }
+    onPageCountKnown?.call(changed.length);
 
-      if (versions[remotePagePath] == ver) continue; // بدون تغییر → رد شو
-
+    for (final entry in changed) {
+      final remotePagePath = entry.key;
+      final ver = entry.value;
+      final rel = remotePagePath.substring(remoteRoot.length + 1);
       final localPagePath = '$localRoot/$rel';
       await Directory(_dirOf(localPagePath)).create(recursive: true);
 
@@ -415,6 +427,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             localIndex,
             book.localPageVersions,
             onFileDownloaded,
+            onPageCountKnown: (n) => totalFiles += n,
           );
           if (ok) {
             newSamplePath = localIndex;
@@ -487,6 +500,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             localIndex,
             book.localPageVersions,
             onFileDownloaded,
+            onPageCountKnown: (n) => totalFiles += n,
           );
           if (ok) {
             newJsonPath = localIndex;
