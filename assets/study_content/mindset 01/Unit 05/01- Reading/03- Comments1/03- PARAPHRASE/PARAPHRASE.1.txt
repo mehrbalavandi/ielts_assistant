@@ -1,4 +1,0 @@
-PARAPHRASE
-In a 'matching headings' task, the headings you have to match will be a paraphrase of the main idea of the paragraph. Don't expect the same words to be used in the headings and the passage. The headings may contain synonyms (words which mean the same) and antonyms (words which mean the opposite) or they may use paraphrase (phrases which have a similar meaning to words in the passage).
-For example, a heading for paragraph A in The future of malls might be 'Adapt or die'. This is a paraphrase of the main idea 'Malls need to change to survive'.
-change-adapt (synonyms) survive-die (antonyms)

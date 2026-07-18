@@ -51,12 +51,14 @@ dependencies:
   json_annotation: ^4.9.0
   freezed_annotation: ^3.1.0
   riverpod_annotation: ^4.0.2
-  drift: ^2.30.0  
+  drift: ^2.34.0  
   flutter_launcher_icons: ^0.14.3
   fl_chart: ^1.2.0
   shimmer: ^3.0.0
   float_column: ^4.0.3
   scrollable_positioned_list: ^0.3.8
+  just_audio_windows: ^0.2.3
+  flutter_layout_grid: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -88,9 +90,9 @@ flutter:
   assets:
     - assets/
     - assets/icon/icon.png
-    - assets/data/images/
-    - assets/data/audio/
-    - assets/data/mindset_l3.json
+    - assets/data/
+    # - assets/data/testbook/
+    # - assets/data/testbook/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
