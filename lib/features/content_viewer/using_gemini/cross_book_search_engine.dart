@@ -18,6 +18,8 @@ class SearchResult {
   final ParagraphData paragraph;
   final String matchedExcerpt;
   final String query;
+  final int
+  hiddenMatchCount; // 🌟 اگر >۱، یعنی چند occurrence داخلِ همین یک جای‌خالی گروه شده‌اند
 
   SearchResult({
     required this.bookId,
@@ -28,7 +30,40 @@ class SearchResult {
     required this.paragraph,
     required this.matchedExcerpt,
     required this.query,
+    this.hiddenMatchCount = 1,
   });
+}
+
+// یک occurrence خام، قبل از گروه‌بندی: کدام occurrence-index سراسری است، در کجای
+// متنِ تمیز افتاده، و داخلِ کدام بازه‌ی {blk} (اگر داخلِ هیچ‌کدام نبود: ‑۱)
+class _RawOcc {
+  final int occurrence;
+  final int matchIndex;
+  final int blkIndex;
+  _RawOcc(this.occurrence, this.matchIndex, this.blkIndex);
+}
+
+// بازه‌های خامِ {blk}...{/blk} در متنِ خامِ پاراگراف (برای تشخیصِ اینکه یک
+// occurrence داخلِ کدام جای‌خالی افتاده)
+List<List<int>> _findBlkRanges(String rawText) {
+  final ranges = <List<int>>[];
+  int searchFrom = 0;
+  while (true) {
+    final openIdx = rawText.indexOf('{blk}', searchFrom);
+    if (openIdx == -1) break;
+    final closeIdx = rawText.indexOf('{/blk}', openIdx + 5);
+    if (closeIdx == -1) break;
+    ranges.add([openIdx, closeIdx]);
+    searchFrom = closeIdx + 6;
+  }
+  return ranges;
+}
+
+int _blkIndexForRawPos(List<List<int>> blkRanges, int rawPos) {
+  for (int i = 0; i < blkRanges.length; i++) {
+    if (rawPos >= blkRanges[i][0] && rawPos < blkRanges[i][1]) return i;
+  }
+  return -1;
 }
 
 // ---------- پیام‌های رفت‌وبرگشت با ایزوله‌ی دائمی ----------
@@ -245,15 +280,43 @@ Future<List<SearchResult>> _performSearch(
         String rawText = _extractFullText(para);
         TextSearchMapper mapper = TextSearchMapper(rawText);
         String normalizedText = _normalizeText(mapper.cleanText);
+        List<List<int>> blkRanges = _findBlkRanges(rawText);
 
+        // 🌟 گام ۱: همه‌ی occurrenceهای این پاراگراف را جمع می‌کنیم، به‌همراهِ
+        // اینکه هرکدام داخلِ کدام {blk} افتاده‌اند (اگر هیچ‌کدام: -۱)
+        List<_RawOcc> occs = [];
         int occurrence = 0;
         int matchIndex = normalizedText.indexOf(lowerQuery);
         while (matchIndex != -1) {
-          int cleanStartIdx = (matchIndex - 30).clamp(
+          final rawPos = mapper.cleanToRaw[matchIndex];
+          final blkIdx = _blkIndexForRawPos(blkRanges, rawPos);
+          occs.add(_RawOcc(occurrence, matchIndex, blkIdx));
+          occurrence++;
+          matchIndex = normalizedText.indexOf(
+            lowerQuery,
+            matchIndex + lowerQuery.length,
+          );
+        }
+
+        // 🌟 گام ۲: occurrenceهای متوالی که داخلِ همان یک {blk} هستند، فقط یک
+        // SearchResult می‌سازند — پس next/prev روی آن‌ها یک‌بار توقف می‌کند،
+        // نه یک‌بار به‌ازای هر occurrenceِ پنهان.
+        int i = 0;
+        while (i < occs.length) {
+          final first = occs[i];
+          int j = i + 1;
+          if (first.blkIndex != -1) {
+            while (j < occs.length && occs[j].blkIndex == first.blkIndex) {
+              j++;
+            }
+          }
+          final groupSize = j - i;
+
+          int cleanStartIdx = (first.matchIndex - 30).clamp(
             0,
             mapper.cleanText.length,
           );
-          int cleanEndIdx = (matchIndex + lowerQuery.length + 30).clamp(
+          int cleanEndIdx = (first.matchIndex + lowerQuery.length + 30).clamp(
             0,
             mapper.cleanText.length,
           );
@@ -266,18 +329,17 @@ Future<List<SearchResult>> _performSearch(
               bookTitle: book['title']!,
               pageNumber: page.pageNumber,
               paraIndex: pIndex,
-              occurrenceIndex: occurrence,
+              // 🌟 اولین occurrenceِ گروه کافی است: چون تمامِ occurrenceهای این
+              // گروه داخلِ همان یک blank هستند، این اندیس در blankMap همان
+              // blank هم حضور دارد و هایلایتِ فعال درست کار می‌کند.
+              occurrenceIndex: first.occurrence,
               paragraph: para,
               matchedExcerpt: excerpt,
               query: query,
+              hiddenMatchCount: groupSize,
             ),
           );
-
-          occurrence++;
-          matchIndex = normalizedText.indexOf(
-            lowerQuery,
-            matchIndex + lowerQuery.length,
-          );
+          i = j;
         }
       }
     }

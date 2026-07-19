@@ -1203,7 +1203,20 @@ Widget _buildParagraph(
     final double indentLeft = para.indentLeft ?? 0.0;
     final double hanging = -(para.indentFirstLine ?? 0.0);
     final double rawMarkerWidth = hanging > 0 ? hanging : 18.0;
-    final double markerWidth = rawMarkerWidth.clamp(16.0, 60.0);
+
+    // 🌟 به‌جای تکیه بر overflow:visible (که رفتارش داخلِ SizedBoxِ تنگ همیشه
+    // قابل‌اتکا نیست)، عرضِ واقعیِ متنِ مارکر را با TextPainter اندازه می‌گیریم و
+    // جعبه را دقیقاً به همان اندازه (+ کمی حاشیه) می‌سازیم — این تضمین می‌کند
+    // که رقم هیچ‌وقت به هیچ دلیلی clip/ناپدید نشود.
+    const TextStyle _markerStyle = TextStyle(height: 1.4, fontSize: 14);
+    final TextPainter _tp = TextPainter(
+      text: TextSpan(text: para.listMarker!, style: _markerStyle),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final double markerWidth = (_tp.width + 4.0).clamp(
+      rawMarkerWidth.clamp(16.0, 60.0),
+      80.0,
+    );
     final double outerLeft = (indentLeft - markerWidth).clamp(0.0, 999.0);
 
     paragraphContent = Padding(
@@ -1220,9 +1233,7 @@ Widget _buildParagraph(
             child: Text(
               para.listMarker!,
               textAlign: rtl ? TextAlign.left : TextAlign.right,
-              overflow: TextOverflow.visible, // 🌟 هیچ‌وقت رقم را clip نکن
-              softWrap: false,
-              style: const TextStyle(height: 1.4),
+              style: _markerStyle,
             ),
           ),
           const SizedBox(width: 4),
