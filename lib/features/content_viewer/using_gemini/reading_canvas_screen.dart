@@ -868,18 +868,6 @@ String _normalizeText(String text) => normalizeText(text);
 
 String _extractFullText(ParagraphData para) => extractFullText(para);
 
-// آیا کلِ محتوای پاراگراف مخفی است (داخلِ {blk}...{/blk})؟ اگر بله، مارکرِ لیست
-// نباید جدا کنارِ آیکونِ چشم نشان داده شود.
-bool _isFullyHiddenParagraph(ParagraphData para) {
-  final full = extractFullText(para);
-  if (!full.contains('{blk}')) return false;
-  final visible = full.replaceAll(
-    RegExp(r'\{blk\}.*?\{/blk\}', dotAll: true),
-    '',
-  );
-  return visible.trim().isEmpty;
-}
-
 List<int> _buildOccurrenceMap(String fullText, String query) {
   TextSearchMapper mapper = TextSearchMapper(fullText);
   String nText = _normalizeText(mapper.cleanText);
@@ -1196,30 +1184,51 @@ Widget _buildParagraph(
     ),
   );
   // 🌟 لیست‌ها: مارکر با تورفتگی معلق (hanging indent) مانند Word
-  if (para.listMarker != null &&
-      para.listMarker!.isNotEmpty &&
-      !_isFullyHiddenParagraph(para)) {
+  bool _paraHasListMarker =
+      false; // 🌟 برای جلوگیری از اعمالِ دوبارهٔ تورفتگی در ادامهٔ تابع
+  if (para.listMarker != null && para.listMarker!.isNotEmpty) {
+    // 🌟 مارکر همیشه نمایش داده می‌شود، حتی اگر کلِ متنِ پاراگراف پشتِ آیکونِ چشم
+    // مخفی باشد (دقیقاً مثل Word: شماره‌ی لیست مستقل از محتوای مخفی‌شده
+    // نمایش داده می‌شود — نمونه: «1: 👁»).
+    _paraHasListMarker = true;
     final bool rtl = para.direction == "RTL";
-    const double markerWidth = 28.0; // عرض ناحیه‌ی مارکر
 
-    // نکته: تورفتگیِ لیست دیگر مصنوعی (listLevel*ثابت) نیست؛ به IndentLeftِ خودِ Word
-    // که در leftMargin پاراگراف اعمال می‌شود واگذار شده، تا جایی که Word تورفتگی ندارد
-    // در فلاتر هم اضافه نشود. فقط ناحیه‌ی «هنگِ» مارکر باقی می‌ماند.
-    paragraphContent = Row(
-      textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: markerWidth,
-          child: Text(
-            para.listMarker!,
-            textAlign: rtl ? TextAlign.left : TextAlign.right,
-            style: const TextStyle(height: 1.4),
+    // 🌟 مدلِ hanging-indent وُرد: IndentLeft = جایی که خطوطِ wrap‌شده می‌نشینند،
+    // IndentFirstLine = افستِ منفیِ خطِ اول (مارکر) نسبت به IndentLeft.
+    // نکته‌ی مهم: Word عرضِ مارکر را به همین مقدار محدود نمی‌کند — اگر شماره از
+    // این تنگنا بزرگ‌تر باشد، Word اجازه‌ی overflow می‌دهد، نه clip. پس اینجا هم
+    // حداقلِ عرضِ قابل‌خواندن (۱۶px) را تضمین می‌کنیم تا رقم هیچ‌وقت گم نشود؛
+    // این همان چیزی بود که در دورِ قبل باعثِ ناپدید شدنِ کاملِ شماره شد
+    // (IndentLeft واقعیِ Word برای برخی لیست‌ها فقط ~۱۰px بود).
+    final double indentLeft = para.indentLeft ?? 0.0;
+    final double hanging = -(para.indentFirstLine ?? 0.0);
+    final double rawMarkerWidth = hanging > 0 ? hanging : 18.0;
+    final double markerWidth = rawMarkerWidth.clamp(16.0, 60.0);
+    final double outerLeft = (indentLeft - markerWidth).clamp(0.0, 999.0);
+
+    paragraphContent = Padding(
+      padding: EdgeInsets.only(
+        left: rtl ? 0 : outerLeft,
+        right: rtl ? outerLeft : 0,
+      ),
+      child: Row(
+        textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: markerWidth,
+            child: Text(
+              para.listMarker!,
+              textAlign: rtl ? TextAlign.left : TextAlign.right,
+              overflow: TextOverflow.visible, // 🌟 هیچ‌وقت رقم را clip نکن
+              softWrap: false,
+              style: const TextStyle(height: 1.4),
+            ),
           ),
-        ),
-        const SizedBox(width: 6),
-        Expanded(child: paragraphContent),
-      ],
+          const SizedBox(width: 4),
+          Expanded(child: paragraphContent),
+        ],
+      ),
     );
   }
   bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
@@ -1249,7 +1258,10 @@ Widget _buildParagraph(
   }
 
   // 🌟 اعمال فاصله‌های تورفتگی کلی چپ و راست
-  double leftMargin = (para.indentLeft != null && para.indentLeft! > 0)
+  // 🌟 اگر پاراگراف مارکرِ لیست دارد، تورفتگی همان‌جا (مدلِ hanging-indent) اعمال
+  // شده؛ اینجا دوباره اعمال نمی‌شود وگرنه دوبرابر می‌شود.
+  double leftMargin =
+      (!_paraHasListMarker && para.indentLeft != null && para.indentLeft! > 0)
       ? para.indentLeft!
       : 0.0;
   double rightMargin = (para.indentRight != null && para.indentRight! > 0)
@@ -1756,6 +1768,20 @@ List<InlineSpan> _buildStyledInteractiveText(
   );
 
   List<InlineSpan> interactiveSpans = [];
+  // 🌟 اگر این span فقط یک توکنِ کوتاهِ رنگی است (مثلِ جای‌خالی‌های "___" یا یک
+  // کلمه‌ی تکی هایلایت‌شده، بدون فاصله)، آن را به‌جای TextStyle.backgroundColor
+  // (که جعبه‌ی رنگ را دقیقاً به اندازه‌ی «خط» می‌کشد و بین خطوطِ متوالی هیچ فاصله‌ای
+  // نمی‌گذارد) با یک Container+padding عمودی رسم می‌کنیم — این تنها راهی است که در
+  // فلاتر واقعاً بینِ پس‌زمینه‌ی خطوطِ پشتِ‌هم فاصله‌ی دیداری ایجاد می‌کند.
+  final String _content = (span.content ?? "").trim();
+  final bool _isSafeHighlightToken =
+      !isInlineBorder &&
+      _hexToColor(span.fillColor) != null &&
+      _content.isNotEmpty &&
+      _content.length <= 20 &&
+      !_content.contains(' ') &&
+      (span.innerSpans.isEmpty);
+
   if (isAudioLink) {
     interactiveSpans.add(
       WidgetSpan(
@@ -1765,6 +1791,24 @@ List<InlineSpan> _buildStyledInteractiveText(
           text: span.content ?? "",
           baseColor: interactiveColor,
           playlist: pageAudioPlaylist,
+        ),
+      ),
+    );
+  } else if (_isSafeHighlightToken) {
+    interactiveSpans.add(
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 2.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          decoration: BoxDecoration(
+            color: _hexToColor(span.fillColor),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          child: Text(
+            span.content ?? "",
+            style: baseStyle.copyWith(backgroundColor: null),
+          ),
         ),
       ),
     );

@@ -15,6 +15,34 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   // 🌟 کَش کردن Future برای جلوگیری از اجرای تکراری جستجو با هر بار Rebuild شدن UI
   Future<List<SearchResult>>? _cachedSearchFuture;
   String _lastSearchQuery = '';
+  // 🌟 اگر لیستِ کتاب‌ها هنگامِ آخرین جستجو خالی بود (هنوز از API لود نشده)،
+  // آن نتیجه را «قطعی» تلقی نمی‌کنیم — وگرنه جستجوی روی صفر کتاب برای همیشه
+  // کش می‌شد و حتی بعد از لود شدنِ کتاب‌ها دوباره اجرا نمی‌شد.
+  bool _lastSearchWasOnEmptyBooks = false;
+  Timer? _retryTimer;
+  int _retryAttempts = 0;
+  final ValueNotifier<int> _retryTick = ValueNotifier<int>(0);
+
+  void _ensureRetryTimerIfBooksEmpty(List<BookModel> books) {
+    if (books.isNotEmpty) {
+      _retryTimer?.cancel();
+      _retryTimer = null;
+      _retryAttempts = 0;
+      return;
+    }
+    if (_retryTimer != null) return; // از قبل در حالِ تلاشِ مجدد است
+    _retryAttempts = 0;
+    _retryTimer = Timer.periodic(const Duration(milliseconds: 400), (t) {
+      _retryAttempts++;
+      if (_retryAttempts > 15) {
+        // 🌟 تا ۶ ثانیه صبر می‌کنیم؛ بعد از آن رها می‌کنیم تا کاربر خودش دوباره تایپ کند
+        t.cancel();
+        _retryTimer = null;
+        return;
+      }
+      _retryTick.value++; // 🌟 باعثِ rebuild و تلاشِ دوباره‌ی جستجو می‌شود
+    });
+  }
 
   void _scheduleSearch() {
     if (query.trim() == _debouncedQuery.value)
@@ -68,7 +96,15 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
         final bool isPending = debouncedQ != query.trim();
         return Stack(
           children: [
-            if (debouncedQ.length >= 3) _buildSearchResults(debouncedQ),
+            if (debouncedQ.length >= 3)
+              // 🌟 با این ValueListenableBuilder، هر تیکِ retryِ ناشی از خالی‌بودنِ
+              // لیستِ کتاب‌ها باعثِ rebuild می‌شود، پس وقتی booksProvider پر شود
+              // (که ممکن است بعد از باز شدنِ جستجو از API برسد)، جستجو خودکار
+              // دوباره اجرا می‌شود — قبلاً این تیک هیچ‌جا watch نمی‌شد.
+              ValueListenableBuilder<int>(
+                valueListenable: _retryTick,
+                builder: (context, _, __) => _buildSearchResults(debouncedQ),
+              ),
             if (isPending)
               const Positioned(
                 top: 0,
@@ -84,10 +120,21 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
 
   Widget _buildSearchResults(String debouncedQuery) {
     final availableBooks = ref.read(booksProvider);
+    _ensureRetryTimerIfBooksEmpty(
+      availableBooks,
+    ); // 🌟 اگر هنوز خالی است، تلاشِ دوره‌ای را فعال کن
 
-    // 🌟 فقط در صورتی که کلمه جستجو واقعاً تغییر کرده باشد، یک درخواست جدید می‌سازیم
-    if (_cachedSearchFuture == null || _lastSearchQuery != debouncedQuery) {
+    // 🌟 یک جستجوی جدید در دو حالت اجرا می‌شود: کوئری عوض شده، یا کوئریِ قبلی
+    // روی لیستِ خالیِ کتاب‌ها اجرا شده بود و حالا کتاب‌ها بار شده‌اند (نباید نتیجهٔ
+    // «صفر کتاب» برای همیشه کش بماند).
+    final bool shouldResearch =
+        _cachedSearchFuture == null ||
+        _lastSearchQuery != debouncedQuery ||
+        (_lastSearchWasOnEmptyBooks && availableBooks.isNotEmpty);
+
+    if (shouldResearch) {
       _lastSearchQuery = debouncedQuery;
+      _lastSearchWasOnEmptyBooks = availableBooks.isEmpty;
       _cachedSearchFuture = CrossBookSearchEngine.searchAllBooks(
         debouncedQuery,
         availableBooks,
@@ -165,6 +212,7 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   @override
   void close(BuildContext context, SearchSession? result) {
     _debounce?.cancel();
+    _retryTimer?.cancel();
     super.close(context, result);
   }
 }
