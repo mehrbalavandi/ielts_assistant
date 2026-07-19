@@ -736,6 +736,16 @@ class InteractiveBlankWord extends StatelessWidget {
         activeOcc != null && matchedOccurrences.contains(activeOcc!);
     final bool hasAnyMatch = hiddenMatchCount > 0;
 
+    // 🔍 لاگِ موقتِ تشخیصی — یک‌بار تست کن و خروجیِ کنسول را برایم بفرست تا
+    // دقیقاً ببینم کدام مقدار اشتباه است؛ بعد از تشخیص حذفش می‌کنم.
+    if (hasAnyMatch) {
+      debugPrint(
+        '[BLANK-DEBUG] hiddenText="${hiddenText.substring(0, hiddenText.length > 20 ? 20 : hiddenText.length)}" '
+        'activeOcc=$activeOcc matchedOccurrences=$matchedOccurrences '
+        'hasActive=$hasActive hiddenMatchCount=$hiddenMatchCount',
+      );
+    }
+
     final Color buttonColor = isDarkTheme
         ? Colors.grey.shade800
         : Colors.grey.shade200;
