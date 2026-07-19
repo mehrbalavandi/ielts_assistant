@@ -173,22 +173,50 @@ Future<List<PageData>> _loadAndParsePages(
   if (cached != null)
     return cached; // 🌟 از دومین بار به بعد برای همین کتاب، فقط همین خط اجرا می‌شود
 
-  String jsonStr;
-  final file = File(book['activeJsonPath']!);
-  if (await file.exists()) {
-    jsonStr = await file.readAsString();
-  } else {
-    jsonStr = await rootBundle.loadString(book['jsonAssetPath']!);
-  }
+  final indexPath = book['activeJsonPath']!;
+  final assetPath = book['jsonAssetPath']!;
 
-  var decoded = jsonDecode(jsonStr);
+  final bool fromFile = await File(indexPath).exists();
+  final String indexStr = fromFile
+      ? await File(indexPath).readAsString()
+      : await rootBundle.loadString(assetPath);
+
+  final decoded = jsonDecode(indexStr);
   List<PageData> pages = [];
-  if (decoded is Map<String, dynamic>) {
-    var pagesList = decoded['Pages'] ?? decoded['pages'];
-    pages =
-        (pagesList as List?)?.map((e) => PageData.fromJson(e)).toList() ?? [];
-  } else if (decoded is List) {
+
+  if (decoded is List) {
+    // ساختار قدیمِ آرایه‌ی صفحات
     pages = decoded.map((e) => PageData.fromJson(e)).toList();
+  } else if (decoded is Map<String, dynamic>) {
+    final pagesList = (decoded['Pages'] ?? decoded['pages']) as List? ?? [];
+
+    // 🌟 آیا این یک index.json است؟ (هر آیتمِ Pages فقط مانیفست است: {n, file, version})
+    final bool isIndex =
+        pagesList.isNotEmpty &&
+        pagesList.first is Map &&
+        ((pagesList.first as Map).containsKey('file') ||
+            (pagesList.first as Map).containsKey('File'));
+
+    if (isIndex) {
+      // فایلِ هر صفحه را جدا و نسبت به پوشه‌ی همان index بخوان — دقیقاً مثل DocumentLoader
+      final String basePath = fromFile ? indexPath : assetPath;
+      final String baseDir = basePath.contains('/')
+          ? basePath.substring(0, basePath.lastIndexOf('/'))
+          : '';
+      for (final e in pagesList) {
+        final String rel = (e['file'] ?? e['File']) as String;
+        final String full = baseDir.isEmpty ? rel : '$baseDir/$rel';
+        final String pageStr = fromFile
+            ? await File(full).readAsString()
+            : await rootBundle.loadString(full);
+        pages.add(
+          PageData.fromJson(jsonDecode(pageStr) as Map<String, dynamic>),
+        );
+      }
+    } else {
+      // ساختارِ تک‌فایلی: {Pages:[full pages], ...}
+      pages = pagesList.map((e) => PageData.fromJson(e)).toList();
+    }
   }
 
   cache[id] = pages;

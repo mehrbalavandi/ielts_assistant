@@ -868,6 +868,18 @@ String _normalizeText(String text) => normalizeText(text);
 
 String _extractFullText(ParagraphData para) => extractFullText(para);
 
+// آیا کلِ محتوای پاراگراف مخفی است (داخلِ {blk}...{/blk})؟ اگر بله، مارکرِ لیست
+// نباید جدا کنارِ آیکونِ چشم نشان داده شود.
+bool _isFullyHiddenParagraph(ParagraphData para) {
+  final full = extractFullText(para);
+  if (!full.contains('{blk}')) return false;
+  final visible = full.replaceAll(
+    RegExp(r'\{blk\}.*?\{/blk\}', dotAll: true),
+    '',
+  );
+  return visible.trim().isEmpty;
+}
+
 List<int> _buildOccurrenceMap(String fullText, String query) {
   TextSearchMapper mapper = TextSearchMapper(fullText);
   String nText = _normalizeText(mapper.cleanText);
@@ -1184,33 +1196,30 @@ Widget _buildParagraph(
     ),
   );
   // 🌟 لیست‌ها: مارکر با تورفتگی معلق (hanging indent) مانند Word
-  if (para.listMarker != null && para.listMarker!.isNotEmpty) {
+  if (para.listMarker != null &&
+      para.listMarker!.isNotEmpty &&
+      !_isFullyHiddenParagraph(para)) {
     final bool rtl = para.direction == "RTL";
-    const double indentStep = 22.0; // تورفتگی هر سطح
     const double markerWidth = 28.0; // عرض ناحیه‌ی مارکر
-    final double levelIndent = para.listLevel * indentStep;
 
-    paragraphContent = Padding(
-      padding: EdgeInsets.only(
-        left: rtl ? 0 : levelIndent,
-        right: rtl ? levelIndent : 0,
-      ),
-      child: Row(
-        textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: markerWidth,
-            child: Text(
-              para.listMarker!,
-              textAlign: rtl ? TextAlign.left : TextAlign.right,
-              style: const TextStyle(height: 1.4),
-            ),
+    // نکته: تورفتگیِ لیست دیگر مصنوعی (listLevel*ثابت) نیست؛ به IndentLeftِ خودِ Word
+    // که در leftMargin پاراگراف اعمال می‌شود واگذار شده، تا جایی که Word تورفتگی ندارد
+    // در فلاتر هم اضافه نشود. فقط ناحیه‌ی «هنگِ» مارکر باقی می‌ماند.
+    paragraphContent = Row(
+      textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: markerWidth,
+          child: Text(
+            para.listMarker!,
+            textAlign: rtl ? TextAlign.left : TextAlign.right,
+            style: const TextStyle(height: 1.4),
           ),
-          const SizedBox(width: 6),
-          Expanded(child: paragraphContent),
-        ],
-      ),
+        ),
+        const SizedBox(width: 6),
+        Expanded(child: paragraphContent),
+      ],
     );
   }
   bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
@@ -1729,7 +1738,12 @@ List<InlineSpan> _buildStyledInteractiveText(
     fontSize: fontSize,
     fontFamily: fontFamily,
     color: customTextColor ?? Colors.black87,
-    height: para.lineSpacing ?? 1.3, // 🌟 به‌جای عددِ ثابت
+    // 🌟 فاصله‌ی خطوط از Word؛ اما اگر همین span پس‌زمینه‌ی رنگی دارد، حداقلِ
+    // ۱٫۴ اعمال می‌شود تا رنگِ خطوطِ پشتِ‌هم به هم نچسبند (وگرنه Word با تک‌فاصله
+    // خطوط را طوری می‌چسباند که پس‌زمینه‌ها به هم می‌رسند).
+    height: (!isInlineBorder && _hexToColor(span.fillColor) != null)
+        ? (para.lineSpacing ?? 1.3).clamp(1.4, 3.0)
+        : (para.lineSpacing ?? 1.3),
     // 🌟 اگر قرار است باکس داشته باشیم، رنگ پس‌زمینه را به Container می‌دهیم نه به استایلِ متن
     backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
     fontWeight: span.markers.contains("b")
