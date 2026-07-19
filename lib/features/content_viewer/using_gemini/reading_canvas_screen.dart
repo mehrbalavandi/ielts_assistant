@@ -12,6 +12,7 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/b
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/search_text_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
@@ -863,62 +864,9 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
   }
 }
 
-class TextSearchMapper {
-  final String rawText;
-  late final String cleanText;
-  late final List<int> cleanToRaw;
+String _normalizeText(String text) => normalizeText(text);
 
-  TextSearchMapper(this.rawText) {
-    StringBuffer clean = StringBuffer();
-    cleanToRaw = [];
-    int rawIdx = 0;
-
-    while (rawIdx < rawText.length) {
-      if (rawText.startsWith('{blk}', rawIdx)) {
-        rawIdx += 5;
-        continue;
-      }
-      if (rawText.startsWith('{/blk}', rawIdx)) {
-        rawIdx += 6;
-        continue;
-      }
-      clean.write(rawText[rawIdx]);
-      cleanToRaw.add(rawIdx);
-      rawIdx++;
-    }
-    cleanText = clean.toString();
-  }
-}
-
-String _normalizeText(String text) {
-  return text
-      .toLowerCase()
-      .replaceAll('ي', 'ی')
-      .replaceAll('ك', 'ک')
-      .replaceAll('ة', 'ه')
-      .replaceAll('أ', 'ا')
-      .replaceAll('إ', 'ا')
-      .replaceAll('ؤ', 'و')
-      .replaceAll('\u200c', ' ');
-}
-
-String _extractFullText(ParagraphData para) {
-  StringBuffer sb = StringBuffer();
-  for (var span in para.spans) {
-    if (span.type == "text" && span.content != null) {
-      sb.write(span.content);
-    } else if (span.type == "table" && span.tableRows != null) {
-      for (var row in span.tableRows) {
-        for (var cell in row.cells) {
-          for (var cellPara in cell.paragraphs) {
-            sb.write(_extractFullText(cellPara));
-          }
-        }
-      }
-    }
-  }
-  return sb.toString();
-}
+String _extractFullText(ParagraphData para) => extractFullText(para);
 
 List<int> _buildOccurrenceMap(String fullText, String query) {
   TextSearchMapper mapper = TextSearchMapper(fullText);
