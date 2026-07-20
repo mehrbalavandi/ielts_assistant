@@ -49,7 +49,8 @@ class TextRenderEngine {
     // کلمه‌ی مخفی که اصلاً exactMatchKey ندارند)، مثل قبل یکی محلی و
     // یک‌بارمصرف ساخته می‌شود.
     KeyClaim? sharedKeyClaim,
-    String? listMarker, // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودالِ متنِ مخفی هم نشان داده شود
+    String?
+    listMarker, // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودالِ متنِ مخفی هم نشان داده شود
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -708,7 +709,8 @@ class InteractiveBlankWord extends StatelessWidget {
   final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
   final List<SpanData>? innerSpans;
   final GlobalKey? exactMatchKey; // 🌟 فیلد جدید
-  final String? listMarker; // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودال هم نشان داده شود
+  final String?
+  listMarker; // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودال هم نشان داده شود
 
   const InteractiveBlankWord({
     super.key,
@@ -740,8 +742,9 @@ class InteractiveBlankWord extends StatelessWidget {
         activeOcc != null && matchedOccurrences.contains(activeOcc!);
     final bool hasAnyMatch = hiddenMatchCount > 0;
 
-    // 🔍 لاگِ موقتِ تشخیصی — یک‌بار تست کن و خروجیِ کنسول را برایم بفرست تا
-    // دقیقاً ببینم کدام مقدار اشتباه است؛ بعد از تشخیص حذفش می‌کنم.
+    // 🔍 لاگِ موقتِ تشخیصی — همچنان نگه داشته می‌شود؛ اگر بازهم چیزِ غیرمنتظره
+    // دیدی (مثلاً hasActive برای دو رخدادِ متوالی روی همین متن ناسازگار بود)
+    // خروجی‌اش را بفرست.
     if (hasAnyMatch) {
       debugPrint(
         '[BLANK-DEBUG] hiddenText="${hiddenText.substring(0, hiddenText.length > 20 ? 20 : hiddenText.length)}" '
@@ -750,14 +753,21 @@ class InteractiveBlankWord extends StatelessWidget {
       );
     }
 
-    final Color buttonColor = isDarkTheme
-        ? Colors.grey.shade800
-        : Colors.grey.shade200;
-    final Color iconColor = isDarkTheme
-        ? Colors.grey.shade300
-        : Colors.grey.shade700;
-    final Color? highlightColor = hasActive
-        ? Colors.orangeAccent
+    // 🌟 قبلاً «فعال» و «تطبیقِ غیرفعال» فقط با رنگِ حاشیه (نارنجیِ روشن در
+    // برابرِ کهربایی) از هم جدا می‌شدند — دو تُنِ گرمِ خیلی نزدیک به هم که
+    // روی یک حاشیه‌ی ۲پیکسلی عملاً قابلِ تشخیص نبودند. این‌بار کاملِ ظاهرِ
+    // دکمه فرق می‌کند: فعال = پس‌زمینه‌ی نارنجیِ پُررنگِ توپُر با آیکونِ سفید؛
+    // تطبیقِ غیرفعال = همان پس‌زمینه‌ی خاکستریِ همیشگی با حاشیه‌ی کهربایی.
+    final Color buttonColor = hasActive
+        ? Colors.deepOrange.shade600
+        : (isDarkTheme ? Colors.grey.shade800 : Colors.grey.shade200);
+    final Color iconColor = hasActive
+        ? Colors.white
+        : (hasAnyMatch
+              ? Colors.amber.shade800
+              : (isDarkTheme ? Colors.grey.shade300 : Colors.grey.shade700));
+    final Color? borderColor = hasActive
+        ? null // پس‌زمینه‌ی توپُر خودش کافی است؛ حاشیه لازم نیست
         : (hasAnyMatch ? Colors.amber.shade700 : null);
 
     final Widget content = GestureDetector(
@@ -768,18 +778,23 @@ class InteractiveBlankWord extends StatelessWidget {
         decoration: BoxDecoration(
           color: buttonColor,
           borderRadius: BorderRadius.circular(12),
-          border: highlightColor != null
-              ? Border.all(color: highlightColor, width: 2.0)
+          border: borderColor != null
+              ? Border.all(color: borderColor, width: 2.0)
+              : null,
+          boxShadow: hasActive
+              ? [
+                  BoxShadow(
+                    color: Colors.deepOrange.withOpacity(0.4),
+                    blurRadius: 6,
+                    spreadRadius: 1,
+                  ),
+                ]
               : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.visibility_rounded,
-              size: 16,
-              color: highlightColor ?? iconColor,
-            ),
+            Icon(Icons.visibility_rounded, size: 16, color: iconColor),
             // 🌟 اگر بیش از یک موردِ یافت‌شده داخلِ همین جای‌خالی باشد، تعدادشان
             // کنارِ آیکون نشان داده می‌شود
             if (hiddenMatchCount > 1) ...[
@@ -789,7 +804,7 @@ class InteractiveBlankWord extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
-                  color: highlightColor ?? iconColor,
+                  color: iconColor,
                 ),
               ),
             ],
@@ -1020,117 +1035,11 @@ class InteractiveBlankWord extends StatelessWidget {
         ),
         builder: (context) {
           // 🌟 قابلیت اول: رندر کردن متن مخفی با ساختار تعاملی موتور رندر شما (دیکشنری + هایلایت جستجو)
-          // چون متن داخل مودال فاقد تگ {blk} است، مستقیماً کلمات تعاملی آن پردازش و بازگردانده می‌شود.
-          List<InlineSpan> revealedSpans = [];
-
-          // 🌟 رندر کردن درخت استایل‌ها (همراه با برش‌زنیِ نقطه‌ایِ نقشه جستجو)
-          if (innerSpans != null && innerSpans!.isNotEmpty) {
-            int innerOffset = 0; // 🌟 شمارنده برای ردیابی موقعیت در نقشه اصلی
-
-            for (var span in innerSpans!) {
-              TextStyle spanStyle = TextRenderEngine.applySpanStyle(
-                textStyle,
-                span,
-                isDarkTheme,
-              );
-
-              // 🌟 برش زدن دقیق نقشه جستجو به اندازه طول همین تکه از متن
-              List<int>? spanMapSlice;
-              if (blankMap != null) {
-                int spanLen = span.content.length;
-                if (innerOffset + spanLen <= blankMap!.length) {
-                  spanMapSlice = blankMap!.sublist(
-                    innerOffset,
-                    innerOffset + spanLen,
-                  );
-                }
-              }
-
-              // 🌟 ۱. ابتدا محتوای تعاملی (دیکشنری/هایلایت) را می‌سازیم
-              List<InlineSpan> interactiveSpans =
-                  TextRenderEngine.buildInteractiveText(
-                    span.content,
-                    interactives,
-                    context,
-                    spanStyle,
-                    localHighlightMap: spanMapSlice, // 🌟 ارسال برش اختصاصی
-                    activeOccurrence: activeOcc,
-                  );
-
-              // 🌟 اصلاح اساسی: تشخیص بسیار منعطف‌تر برای رسم باکس اطراف تکه متن
-              final String bordersStr =
-                  span.hasBorders?.toString().toLowerCase().trim() ?? "false";
-              bool hasBorderFlag = bordersStr == "true" || bordersStr == "1";
-              bool hasBorderObject = span.borders != null;
-
-              // اگر در JSON به هر شکلی به حاشیه اشاره شده باشد (یا فلگ true باشد یا آبجکت borders وجود داشته باشد)
-              bool isInlineBorder = hasBorderFlag || hasBorderObject;
-
-              if (isInlineBorder) {
-                // متد کمکی محلی برای تبدیل رنگ Hex
-                Color? hexToColor(String? hex) {
-                  if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
-                    return null;
-                  final buffer = StringBuffer();
-                  if (hex.length == 6 || hex.length == 7) buffer.write('ff');
-                  buffer.write(hex.replaceFirst('#', ''));
-                  try {
-                    return Color(int.parse(buffer.toString(), radix: 16));
-                  } catch (_) {
-                    return null;
-                  }
-                }
-
-                // 🌟 ۳. پیچیدن متن در کانتینرِ کادردار (WidgetSpan)
-                revealedSpans.add(
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4.0,
-                        vertical: 2.0,
-                      ),
-                      margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                      decoration: BoxDecoration(
-                        color: hexToColor(span.fillColor),
-                        border: Border.all(
-                          color:
-                              hexToColor(span.borders?.color) ??
-                              Colors.grey.shade600,
-                          width: 1.2,
-                        ),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      // رندر کردن متن‌های تعاملی درون این کادر
-                      child: Text.rich(TextSpan(children: interactiveSpans)),
-                    ),
-                  ),
-                );
-              } else {
-                // 🌟 اگر بوردر نداشت، مثل قبل مستقیماً به لیست اضافه می‌شود
-                revealedSpans.addAll(interactiveSpans);
-              }
-
-              innerOffset += span.content.length; // 🌟 حرکت به جلو در نقشه
-            }
-          } else {
-            // 🌟 فال‌بک برای متون ساده یا JSONهای قدیمی
-            // 🌟 فال‌بک برای متون ساده یا JSONهای قدیمی
-            revealedSpans = TextRenderEngine.buildInteractiveText(
-              hiddenText,
-              interactives,
-              context,
-              textStyle.copyWith(
-                color: isDarkTheme ? Colors.white : Colors.black87,
-                fontSize: textStyle.fontSize ?? 16.0,
-                height: 1.6,
-              ),
-              localHighlightMap: blankMap,
-              activeOccurrence: activeOcc,
-              translationFa: translationFa,
-              translationAr: translationAr,
-            );
-          }
+          // 🌟 قبلاً اینجا یک پیاده‌سازیِ کاملاً جداگانه (و تکراری) از buildRevealedSpans()
+          // وجود داشت که نه مارکرِ لیست را می‌شناخت و نه اصلاحِ addAll را داشت — یعنی
+          // برای متونِ بلند (شیتِ پایین)، مودال هیچ‌وقت شماره‌ی لیست را نشان نمی‌داد،
+          // برخلافِ بنرِ بالا. حالا هر دو مسیر از همان یک تابع استفاده می‌کنند.
+          final List<InlineSpan> revealedSpans = buildRevealedSpans();
           return DraggableScrollableSheet(
             initialChildSize: 0.4,
             minChildSize: 0.2,
