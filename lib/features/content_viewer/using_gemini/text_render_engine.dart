@@ -49,6 +49,7 @@ class TextRenderEngine {
     // کلمه‌ی مخفی که اصلاً exactMatchKey ندارند)، مثل قبل یکی محلی و
     // یک‌بارمصرف ساخته می‌شود.
     KeyClaim? sharedKeyClaim,
+    String? listMarker, // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودالِ متنِ مخفی هم نشان داده شود
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -110,6 +111,7 @@ class TextRenderEngine {
             translationFa: translationFa,
             translationAr: translationAr,
             innerSpans: innerSpans,
+            listMarker: listMarker, // 🌟
             exactMatchKey: claimBlankKey
                 ? exactMatchKey
                 : null, // 🌟 اتصال کلید فقط به همین هدف!
@@ -706,6 +708,7 @@ class InteractiveBlankWord extends StatelessWidget {
   final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
   final List<SpanData>? innerSpans;
   final GlobalKey? exactMatchKey; // 🌟 فیلد جدید
+  final String? listMarker; // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودال هم نشان داده شود
 
   const InteractiveBlankWord({
     super.key,
@@ -718,6 +721,7 @@ class InteractiveBlankWord extends StatelessWidget {
     this.translationAr,
     this.innerSpans,
     this.exactMatchKey, // 🌟 دریافت فیلد
+    this.listMarker, // 🌟
   });
 
   @override
@@ -825,6 +829,19 @@ class InteractiveBlankWord extends StatelessWidget {
     // متد محلی برای تولید محتوای تعاملی (برای جلوگیری از تکرار کد در دایالوگ و مودال)
     List<InlineSpan> buildRevealedSpans() {
       List<InlineSpan> spans = [];
+      // 🌟 اگر این پاراگراف مارکرِ لیست دارد، همان‌جا داخلِ مودال هم نشانش بده
+      // (قبلاً فقط بیرونِ آیکونِ چشم نشان داده می‌شد، نه داخلِ متنِ آشکارشده)
+      if (listMarker != null && listMarker!.isNotEmpty) {
+        spans.add(
+          TextSpan(
+            text: '$listMarker  ',
+            style: textStyle.copyWith(
+              fontWeight: FontWeight.bold,
+              color: isDarkTheme ? Colors.white : Colors.black87,
+            ),
+          ),
+        );
+      }
       if (innerSpans != null && innerSpans!.isNotEmpty) {
         int innerOffset = 0;
         for (var span in innerSpans!) {
@@ -896,19 +913,21 @@ class InteractiveBlankWord extends StatelessWidget {
           innerOffset += span.content.length;
         }
       } else {
-        spans = TextRenderEngine.buildInteractiveText(
-          hiddenText,
-          interactives,
-          context,
-          textStyle.copyWith(
-            color: isDarkTheme ? Colors.white : Colors.black87,
-            fontSize: textStyle.fontSize ?? 16.0,
-            height: 1.6,
+        spans.addAll(
+          TextRenderEngine.buildInteractiveText(
+            hiddenText,
+            interactives,
+            context,
+            textStyle.copyWith(
+              color: isDarkTheme ? Colors.white : Colors.black87,
+              fontSize: textStyle.fontSize ?? 16.0,
+              height: 1.6,
+            ),
+            localHighlightMap: blankMap,
+            activeOccurrence: activeOcc,
+            translationFa: translationFa,
+            translationAr: translationAr,
           ),
-          localHighlightMap: blankMap,
-          activeOccurrence: activeOcc,
-          translationFa: translationFa,
-          translationAr: translationAr,
         );
       }
       return spans;

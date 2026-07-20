@@ -868,6 +868,17 @@ String _normalizeText(String text) => normalizeText(text);
 
 String _extractFullText(ParagraphData para) => extractFullText(para);
 
+// آیا محتوای این اسپن یک {blk}...{/blk} تنها است (نه یک جای‌خالیِ کوچکِ داخلِ
+// یک جملهٔ دیگر)؟ فقط در این حالت مارکرِ لیست باید داخلِ مودال هم تکرار شود؛
+// برای جای‌خالیِ کوچکِ داخلِ یک پاراگرافِ عمدتاً-قابل‌مشاهده لازم نیست، چون
+// شماره از قبل بیرون از آیکون دیده می‌شود.
+bool _isWhollyOneBlank(String? content) {
+  if (content == null) return false;
+  final t = content.trim();
+  if (!t.startsWith('{blk}') || !t.endsWith('{/blk}')) return false;
+  return '{blk}'.allMatches(t).length == 1;
+}
+
 List<int> _buildOccurrenceMap(String fullText, String query) {
   TextSearchMapper mapper = TextSearchMapper(fullText);
   String nText = _normalizeText(mapper.cleanText);
@@ -1844,6 +1855,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       interactivesPattern: interactivesPattern,
       interactivesByText: interactivesByText,
       sharedKeyClaim: keyClaim, // 🐞 رفع کرش: claim مشترکِ سطح پاراگراف
+      listMarker: _isWhollyOneBlank(span.content) ? para.listMarker : null,
     );
   }
 
