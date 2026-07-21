@@ -869,6 +869,157 @@ class InteractiveBlankWord extends StatelessWidget {
     // showModalBottomSheet با چکِ درست‌تر). چون دو نسخه‌ی مستقل بودند، هر
     // بار فقط یکی‌شان اصلاح می‌شد و آن‌یکی regressی می‌ماند. حالا هر دو
     // مسیر (بنرِ کوتاه و بات‌شیتِ بلند) از همینِ یک تابع استفاده می‌کنند.
+    // 🐞 منطقِ رندرِ یک InnerSpan (هایلایتِ جستجو + بوردر) که هم در حالتِ
+    // مسطح (buildRevealedSpans، برای بنرِ کوتاه) و هم در حالتِ ردیفی
+    // (buildNumberedLineGroups، پایین‌تر) لازم است — یک‌جا نگه داشته شده تا
+    // دوباره دو نسخه‌ی موازی از منطقِ بوردر/هایلایت drift نکنند (همان
+    // اشتباهی که قبلاً باعثِ گم‌شدنِ فیکسِ بوردر شده بود).
+    List<InlineSpan> renderInnerSpan(SpanData span, List<int>? spanMapSlice) {
+      TextStyle spanStyle = TextRenderEngine.applySpanStyle(
+        textStyle,
+        span,
+        isDarkTheme,
+      );
+      List<InlineSpan> interactiveSpans = TextRenderEngine.buildInteractiveText(
+        span.content,
+        interactives,
+        context,
+        spanStyle,
+        localHighlightMap: spanMapSlice,
+        activeOccurrence: activeOcc,
+        // 🐞 رفع باگ هایلایت جستجو: وقتی این مودال باز است یعنی این بلانک
+        // از قبل «نتیجه‌ی فعالِ» جستجوست (وگرنه آیکون چشمِ نارنجی‌اش تپ
+        // نمی‌شد)، پس همه‌ی occurrenceهای یافت‌شده‌ی داخلش باید نارنجی نشان
+        // داده شوند، نه فقط اولین‌شان.
+        allMatchesActive: true,
+      );
+
+      // 🐞 رفع بوردر گم‌شده: تشخیص منعطف‌تر (فلگِ رشته‌ای «true»/«1» یا خودِ
+      // آبجکتِ borders)، نه فقط رشته‌ی hasBorders که هیچ‌وقت در JSON ست
+      // نمی‌شود.
+      final String bordersStr =
+          span.hasBorders?.toString().toLowerCase().trim() ?? "false";
+      final bool hasBorderFlag = bordersStr == "true" || bordersStr == "1";
+      final bool hasBorderObject = span.borders != null;
+      final bool isInlineBorder = hasBorderFlag || hasBorderObject;
+
+      if (!isInlineBorder) return interactiveSpans;
+
+      Color? hexToColor(String? hex) {
+        if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
+          return null;
+        final buffer = StringBuffer();
+        if (hex.length == 6 || hex.length == 7) buffer.write('ff');
+        buffer.write(hex.replaceFirst('#', ''));
+        try {
+          return Color(int.parse(buffer.toString(), radix: 16));
+        } catch (_) {
+          return null;
+        }
+      }
+
+      return [
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+            margin: const EdgeInsets.symmetric(horizontal: 2.0),
+            decoration: BoxDecoration(
+              color: hexToColor(span.fillColor),
+              border: Border.all(
+                color: hexToColor(span.borders?.color) ?? Colors.grey.shade600,
+                width: 1.2,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text.rich(TextSpan(children: interactiveSpans)),
+          ),
+        ),
+      ];
+    }
+
+    // 🐞 پارسِ عددِ پایه‌ی listMarker (مثلاً "1:" → عدد بعدی "2:")، مشترک بین
+    // buildRevealedSpans و buildNumberedLineGroups.
+    int? parsedNextNumber;
+    String parsedSuffix = '';
+    if (listMarker != null) {
+      final numMatch = RegExp(r'^(\d+)(\D*)$').firstMatch(listMarker!);
+      if (numMatch != null) {
+        parsedNextNumber = int.parse(numMatch.group(1)!) + 1;
+        parsedSuffix = numMatch.group(2) ?? '';
+      }
+    }
+
+    // 🐞 رفع باگِ «هم‌ترازی خطوطِ برگشتی»: وقتی چند آیتمِ اصلیِ Word (هرکدام
+    // با شماره‌ی خودشان) در یک {blk} ادغام شده‌اند، پیش‌تر همه‌شان را در
+    // یک Text.rich تخت با «\n» می‌گذاشتیم — کارِ نمایشِ شماره را حل می‌کرد،
+    // ولی چون RichText به‌طور بومی hanging-indent ندارد، اگر متنِ یک آیتم
+    // بلند بود و wrap می‌خورد، خطِ برگشتی به‌جای هم‌ترازی زیرِ متنِ همان
+    // آیتم، به حاشیه‌ی چپِ کل بازمی‌گشت — دقیقاً چیزی که کاربر گزارش کرد
+    // (برخلافِ تمرین‌های عادی/غیرِ لیستی که اصلاً چنین انتظاری ندارند).
+    // راه‌حل: هر آیتم را در Row جداگانه‌ی خودش می‌گذاریم — [جعبه‌ی
+    // ثابت‌عرضِ شماره][Expanded(محتوا)] — دقیقاً همان الگویی که در نمای
+    // جمع‌شده برای مارکرِ لیست استفاده می‌شود؛ اینجوری خطِ برگشتیِ هر آیتم
+    // طبیعتاً زیرِ ستونِ محتوای همان Row می‌ایستد، نه زیرِ شماره.
+    List<MapEntry<String, List<InlineSpan>>>? buildNumberedLineGroups() {
+      if (innerSpans == null || innerSpans!.isEmpty) return null;
+      final bool hasNewlineBoundary = innerSpans!.any((s) => s.content == "\n");
+      if (!hasNewlineBoundary) return null;
+      if (listMarker == null || listMarker!.isEmpty) return null;
+
+      final List<MapEntry<String, List<InlineSpan>>> groups = [];
+      String currentMarker = listMarker!;
+      List<InlineSpan> current = [];
+      int innerOffset = 0;
+      int? nextNumber = parsedNextNumber;
+
+      int idx = 0;
+      while (idx < innerSpans!.length) {
+        final span = innerSpans![idx];
+
+        if (span.content == "\n") {
+          groups.add(MapEntry(currentMarker, current));
+          current = [];
+          innerOffset += span.content.length;
+          idx++;
+
+          if (nextNumber != null) {
+            final String expected = "$nextNumber$parsedSuffix";
+            final SpanData? peek = (idx < innerSpans!.length)
+                ? innerSpans![idx]
+                : null;
+            final bool alreadyEmbedded =
+                peek != null && peek.content.trimLeft().startsWith(expected);
+            if (alreadyEmbedded) {
+              // 🐞 مارکرِ این خط از قبل توسطِ استخراج‌کننده‌ی C# به‌عنوانِ یک
+              // InnerSpanِ مستقل تزریق شده — همان را به‌جای متن مصرف کن،
+              // نه این‌که دوباره از رویِ عدد بسازی‌اش (که تکراری می‌شد).
+              currentMarker = peek!.content.trim();
+              innerOffset += peek.content.length;
+              idx++;
+            } else {
+              currentMarker = "$nextNumber$parsedSuffix";
+            }
+            nextNumber = nextNumber + 1;
+          } else {
+            currentMarker = '';
+          }
+          continue;
+        }
+
+        List<int>? spanMapSlice;
+        final int spanLen = span.content.length;
+        if (blankMap != null && innerOffset + spanLen <= blankMap!.length) {
+          spanMapSlice = blankMap!.sublist(innerOffset, innerOffset + spanLen);
+        }
+        current.addAll(renderInnerSpan(span, spanMapSlice));
+        innerOffset += spanLen;
+        idx++;
+      }
+      groups.add(MapEntry(currentMarker, current));
+      return groups;
+    }
+
     List<InlineSpan> buildRevealedSpans() {
       List<InlineSpan> spans = [];
 
@@ -883,15 +1034,8 @@ class InteractiveBlankWord extends StatelessWidget {
       // شروع شود این‌کار انجام می‌شود (مثلاً "1:", "1.")؛ برای مارکرهای
       // غیرعددی (مثل بولت «•» یا حرف «a») دست‌نخورده می‌ماند تا رفتارِ قبلی حفظ
       // شود، چون افزایشِ خودکارِ حرف/بولت معنای مشخصی ندارد.
-      int? nextLineNumber;
-      String lineMarkerSuffix = '';
-      if (listMarker != null) {
-        final numMatch = RegExp(r'^(\d+)(\D*)$').firstMatch(listMarker!);
-        if (numMatch != null) {
-          nextLineNumber = int.parse(numMatch.group(1)!) + 1;
-          lineMarkerSuffix = numMatch.group(2) ?? '';
-        }
-      }
+      int? nextLineNumber = parsedNextNumber;
+      String lineMarkerSuffix = parsedSuffix;
       InlineSpan buildLineMarkerSpan() {
         final span = TextSpan(
           text: "$nextLineNumber$lineMarkerSuffix  ",
@@ -908,11 +1052,6 @@ class InteractiveBlankWord extends StatelessWidget {
         int innerOffset = 0;
         for (int idx = 0; idx < innerSpans!.length; idx++) {
           final span = innerSpans![idx];
-          TextStyle spanStyle = TextRenderEngine.applySpanStyle(
-            textStyle,
-            span,
-            isDarkTheme,
-          );
           List<int>? spanMapSlice;
           if (blankMap != null) {
             int spanLen = span.content.length;
@@ -923,70 +1062,7 @@ class InteractiveBlankWord extends StatelessWidget {
               );
             }
           }
-          List<InlineSpan> interactiveSpans =
-              TextRenderEngine.buildInteractiveText(
-                span.content,
-                interactives,
-                context,
-                spanStyle,
-                localHighlightMap: spanMapSlice,
-                activeOccurrence: activeOcc,
-                // 🐞 رفع باگ هایلایت جستجو: وقتی این مودال باز است یعنی این
-                // بلانک از قبل «نتیجه‌ی فعالِ» جستجوست (وگرنه آیکون چشمِ
-                // نارنجی‌اش تپ نمی‌شد)، پس همه‌ی occurrenceهای یافت‌شده‌ی
-                // داخلش باید نارنجی نشان داده شوند، نه فقط اولین‌شان.
-                allMatchesActive: true,
-              );
-
-          // 🐞 رفع بوردر گم‌شده: تشخیص منعطف‌تر (فلگِ رشته‌ای «true»/«1» یا
-          // خودِ آبجکتِ borders)، نه فقط رشته‌ی hasBorders که هیچ‌وقت در
-          // JSON ست نمی‌شود.
-          final String bordersStr =
-              span.hasBorders?.toString().toLowerCase().trim() ?? "false";
-          final bool hasBorderFlag = bordersStr == "true" || bordersStr == "1";
-          final bool hasBorderObject = span.borders != null;
-          final bool isInlineBorder = hasBorderFlag || hasBorderObject;
-
-          if (isInlineBorder) {
-            Color? hexToColor(String? hex) {
-              if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
-                return null;
-              final buffer = StringBuffer();
-              if (hex.length == 6 || hex.length == 7) buffer.write('ff');
-              buffer.write(hex.replaceFirst('#', ''));
-              try {
-                return Color(int.parse(buffer.toString(), radix: 16));
-              } catch (_) {
-                return null;
-              }
-            }
-
-            spans.add(
-              WidgetSpan(
-                alignment: PlaceholderAlignment.middle,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4.0,
-                    vertical: 2.0,
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    color: hexToColor(span.fillColor),
-                    border: Border.all(
-                      color:
-                          hexToColor(span.borders?.color) ??
-                          Colors.grey.shade600,
-                      width: 1.2,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text.rich(TextSpan(children: interactiveSpans)),
-                ),
-              ),
-            );
-          } else {
-            spans.addAll(interactiveSpans);
-          }
+          spans.addAll(renderInnerSpan(span, spanMapSlice));
           innerOffset += span.content.length;
 
           // 🐞 اگر این دقیقاً یک مرزِ خطِ تک‌کاراکتریِ «\n» بود (نه یک شکستِ
@@ -1183,7 +1259,68 @@ class InteractiveBlankWord extends StatelessWidget {
           // (بوردر و شماره‌ی لیست را جدا اصلاح می‌کردیم و یکی‌شان جا
           // می‌ماند). حالا هر دو مسیرِ مودال از همان تابعِ مشترک بالا
           // استفاده می‌کنند تا این‌جور regressionها دیگر تکرار نشوند.
-          final List<InlineSpan> revealedSpans = buildRevealedSpans();
+          final List<MapEntry<String, List<InlineSpan>>>? numberedGroups =
+              buildNumberedLineGroups();
+
+          // 🐞 رفع باگِ «هم‌ترازی خطوطِ برگشتی»: اگر این پاراگراف واقعاً چند
+          // آیتمِ اصلیِ Word ادغام‌شده است (numberedGroups != null)، به‌جای
+          // یک Text.rich تخت، هر آیتم را در Row جداگانه‌ی خودش با
+          // hanging-indentِ واقعی می‌سازیم؛ در غیرِ این‌صورت (بلانکِ عادی،
+          // مثلِ تمرین ۰۲) رفتارِ قبلی دست‌نخورده می‌ماند.
+          final Widget revealedContent;
+          if (numberedGroups != null && numberedGroups.isNotEmpty) {
+            double markerWidth = 24;
+            for (final entry in numberedGroups) {
+              final tp = TextPainter(
+                text: TextSpan(
+                  text: entry.key,
+                  style: textStyle.copyWith(fontWeight: FontWeight.bold),
+                ),
+                textDirection: TextDirection.ltr,
+              )..layout();
+              if (tp.width + 8 > markerWidth) markerWidth = tp.width + 8;
+            }
+            markerWidth = markerWidth.clamp(24, 64);
+
+            revealedContent = Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final entry in numberedGroups)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: markerWidth,
+                          child: Text(
+                            entry.key,
+                            style: textStyle.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: isDarkTheme
+                                  ? Colors.white
+                                  : Colors.black87,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(children: entry.value),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            );
+          } else {
+            final List<InlineSpan> revealedSpans = buildRevealedSpans();
+            revealedContent = Text.rich(
+              TextSpan(children: revealedSpans),
+              textAlign: TextAlign.justify,
+            );
+          }
           return DraggableScrollableSheet(
             initialChildSize: 0.4,
             minChildSize: 0.2,
@@ -1215,10 +1352,7 @@ class InteractiveBlankWord extends StatelessWidget {
 
                           // 🌟 قابلیت دوم: استفاده از Wrapper اختصاصی شما برای فعال‌سازی لمس طولانی و نمایش ترجمه پاراگراف
                           child: TranslatableContentWrapper(
-                            originalContent: Text.rich(
-                              TextSpan(children: revealedSpans),
-                              textAlign: TextAlign.justify,
-                            ),
+                            originalContent: revealedContent,
                             translationFa: translationFa,
                             translationAr: translationAr,
                             isDarkMode: isDarkTheme,
