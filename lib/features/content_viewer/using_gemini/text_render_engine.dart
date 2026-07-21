@@ -770,20 +770,34 @@ class InteractiveBlankWord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 🌟 همه‌ی occurrenceهای منحصربه‌فردی که داخلِ همین جای‌خالی پنهان‌اند
+    // (این عدد مستقل از گروه‌بندیِ ناوبری است؛ مستقیم از روی blankMap محاسبه می‌شود)
+    final Set<int> matchedOccurrences =
+        blankMap?.where((e) => e >= 0).toSet() ?? const {};
+    final int hiddenMatchCount = matchedOccurrences.length;
+
+    // نارنجی = نتیجه‌ی فعالِ جستجو همین‌جاست؛ کهربایی = تطبیقِ غیرفعال هست؛
+    // خاکستری = هیچ تطبیقی نیست
+    final bool hasActive =
+        activeOcc != null && matchedOccurrences.contains(activeOcc!);
+    final bool hasAnyMatch = hiddenMatchCount > 0;
+
     final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     // 🌟 رفع مشکل جستجو: فقط دکمه‌ای نارنجی می‌شود که ایندکس جستجوی فعال را درون خود داشته باشد
     final bool hasSearchResult =
         blankMap != null && activeOcc != null && blankMap!.contains(activeOcc!);
 
-    final Color buttonColor = isDarkTheme
-        ? Colors.grey.shade800
-        : Colors.grey.shade200;
-    final Color iconColor = isDarkTheme
-        ? Colors.grey.shade300
-        : Colors.grey.shade700;
-    final Color borderColor = hasSearchResult
+    final Color buttonColor = hasActive
         ? Colors.orangeAccent
-        : Colors.transparent;
+        : (hasAnyMatch
+              ? Colors.yellowAccent.withOpacity(0.6)
+              : (isDarkTheme ? Colors.grey.shade800 : Colors.grey.shade200));
+    final Color iconColor = hasActive
+        ? Colors.white
+        : ((isDarkTheme ? Colors.grey.shade300 : Colors.grey.shade700));
+    final Color? borderColor = hasActive
+        ? null // پس‌زمینه‌ی توپُر خودش کافی است؛ حاشیه لازم نیست
+        : (hasAnyMatch ? Colors.yellowAccent.withOpacity(0.6) : null);
 
     final Widget content = GestureDetector(
       onTap: () => _showHiddenTextModal(context, isDarkTheme),
@@ -793,18 +807,27 @@ class InteractiveBlankWord extends StatelessWidget {
         decoration: BoxDecoration(
           color: buttonColor,
           borderRadius: BorderRadius.circular(12),
-          border: hasSearchResult
+          border: borderColor != null
               ? Border.all(color: borderColor, width: 2.0)
               : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.visibility_rounded,
-              size: 16,
-              color: hasSearchResult ? Colors.orangeAccent : iconColor,
-            ),
+            Icon(Icons.visibility_rounded, size: 16, color: iconColor),
+            // 🌟 اگر بیش از یک موردِ یافت‌شده داخلِ همین جای‌خالی باشد، تعدادشان
+            // کنارِ آیکون نشان داده می‌شود
+            if (hiddenMatchCount > 1) ...[
+              const SizedBox(width: 4),
+              Text(
+                '$hiddenMatchCount',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: iconColor,
+                ),
+              ),
+            ],
           ],
         ),
       ),
