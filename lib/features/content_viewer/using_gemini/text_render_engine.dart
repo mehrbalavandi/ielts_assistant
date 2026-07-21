@@ -759,16 +759,16 @@ class InteractiveBlankWord extends StatelessWidget {
     // دکمه فرق می‌کند: فعال = پس‌زمینه‌ی نارنجیِ پُررنگِ توپُر با آیکونِ سفید؛
     // تطبیقِ غیرفعال = همان پس‌زمینه‌ی خاکستریِ همیشگی با حاشیه‌ی کهربایی.
     final Color buttonColor = hasActive
-        ? Colors.deepOrange.shade600
-        : (isDarkTheme ? Colors.grey.shade800 : Colors.grey.shade200);
+        ? Colors.orangeAccent
+        : (hasAnyMatch
+              ? Colors.yellowAccent.withOpacity(0.6)
+              : (isDarkTheme ? Colors.grey.shade800 : Colors.grey.shade200));
     final Color iconColor = hasActive
         ? Colors.white
-        : (hasAnyMatch
-              ? Colors.amber.shade800
-              : (isDarkTheme ? Colors.grey.shade300 : Colors.grey.shade700));
+        : ((isDarkTheme ? Colors.grey.shade300 : Colors.grey.shade700));
     final Color? borderColor = hasActive
         ? null // پس‌زمینه‌ی توپُر خودش کافی است؛ حاشیه لازم نیست
-        : (hasAnyMatch ? Colors.amber.shade700 : null);
+        : (hasAnyMatch ? Colors.yellowAccent.withOpacity(0.6) : null);
 
     final Widget content = GestureDetector(
       onTap: () => _showHiddenTextModal(context, isDarkTheme),
@@ -781,15 +781,15 @@ class InteractiveBlankWord extends StatelessWidget {
           border: borderColor != null
               ? Border.all(color: borderColor, width: 2.0)
               : null,
-          boxShadow: hasActive
-              ? [
-                  BoxShadow(
-                    color: Colors.deepOrange.withOpacity(0.4),
-                    blurRadius: 6,
-                    spreadRadius: 1,
-                  ),
-                ]
-              : null,
+          // boxShadow: hasActive
+          //     ? [
+          //         BoxShadow(
+          //           color: Colors.deepOrange.withOpacity(0.4),
+          //           blurRadius: 6,
+          //           spreadRadius: 1,
+          //         ),
+          //       ]
+          //     : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
