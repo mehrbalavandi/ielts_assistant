@@ -49,8 +49,17 @@ class TextRenderEngine {
     // کلمه‌ی مخفی که اصلاً exactMatchKey ندارند)، مثل قبل یکی محلی و
     // یک‌بارمصرف ساخته می‌شود.
     KeyClaim? sharedKeyClaim,
-    String?
-    listMarker, // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودالِ متنِ مخفی هم نشان داده شود
+    // 🐞 رفع باگ شماره‌ی لیست: فقط برای پاراگراف‌های کاملاً-یک-بلانک
+    // (تمرین-۰۵ استایل) از بالادست (reading_canvas_screen.dart) پر می‌شود؛
+    // تا InteractiveBlankWord رد می‌شود تا داخل مودال prepend شود، نه
+    // در نمای جمع‌شده.
+    String? listMarker,
+    // 🐞 رفع باگ هایلایت جستجو: وقتی true باشد، همه‌ی occurrenceهای
+    // یافت‌شده (نه فقط دقیقاً همان activeOccurrence) به‌رنگ orangeAccent
+    // نشان داده می‌شوند. فقط داخل مودالِ جای‌خالی (که خودش یک نتیجه‌ی
+    // فعالِ گروه‌بندی‌شده است) true پاس داده می‌شود؛ در رندر عادیِ صفحه
+    // false می‌ماند تا تمایز نارنجی/زردِ معمول حفظ شود.
+    bool allMatchesActive = false,
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -77,6 +86,7 @@ class TextRenderEngine {
             keyClaim: keyClaim,
             pattern: interactivesPattern,
             byText: interactivesByText,
+            allMatchesActive: allMatchesActive,
           ),
         );
       }
@@ -112,7 +122,7 @@ class TextRenderEngine {
             translationFa: translationFa,
             translationAr: translationAr,
             innerSpans: innerSpans,
-            listMarker: listMarker, // 🌟
+            listMarker: listMarker, // 🐞 برای prepend داخل مودال
             exactMatchKey: claimBlankKey
                 ? exactMatchKey
                 : null, // 🌟 اتصال کلید فقط به همین هدف!
@@ -136,6 +146,7 @@ class TextRenderEngine {
           keyClaim: keyClaim,
           pattern: interactivesPattern,
           byText: interactivesByText,
+          allMatchesActive: allMatchesActive,
         ),
       );
     }
@@ -209,6 +220,7 @@ class TextRenderEngine {
     KeyClaim? keyClaim,
     RegExp? pattern,
     Map<String, InteractiveWord>? byText,
+    bool allMatchesActive = false,
   }) {
     if (interactives.isEmpty || content.isEmpty) {
       return applyMapToText(
@@ -218,6 +230,7 @@ class TextRenderEngine {
         activeOcc,
         exactMatchKey: exactMatchKey,
         keyClaim: keyClaim,
+        allMatchesActive: allMatchesActive,
       );
     }
 
@@ -238,6 +251,7 @@ class TextRenderEngine {
         activeOcc,
         exactMatchKey: exactMatchKey,
         keyClaim: keyClaim,
+        allMatchesActive: allMatchesActive,
       );
     }
 
@@ -249,6 +263,7 @@ class TextRenderEngine {
         activeOcc,
         exactMatchKey: exactMatchKey,
         keyClaim: keyClaim,
+        allMatchesActive: allMatchesActive,
       );
 
     // ── مسیر قدیمی: فقط وقتی pattern/byText از بیرون پاس داده نشده باشد ──
@@ -278,6 +293,7 @@ class TextRenderEngine {
               activeOcc,
               exactMatchKey: exactMatchKey,
               keyClaim: keyClaim,
+              allMatchesActive: allMatchesActive,
             ),
           );
 
@@ -314,6 +330,7 @@ class TextRenderEngine {
               context,
               exactMatchKey: exactMatchKey,
               keyClaim: keyClaim,
+              allMatchesActive: allMatchesActive,
             ),
           );
         }
@@ -331,6 +348,7 @@ class TextRenderEngine {
             activeOcc,
             exactMatchKey: exactMatchKey,
             keyClaim: keyClaim,
+            allMatchesActive: allMatchesActive,
           ),
         );
         break;
@@ -356,6 +374,7 @@ class TextRenderEngine {
     int? activeOcc, {
     GlobalKey? exactMatchKey,
     KeyClaim? keyClaim,
+    bool allMatchesActive = false,
   }) {
     List<InlineSpan> spans = [];
     int currentIndex = 0;
@@ -373,6 +392,7 @@ class TextRenderEngine {
             activeOcc,
             exactMatchKey: exactMatchKey,
             keyClaim: keyClaim,
+            allMatchesActive: allMatchesActive,
           ),
         );
       }
@@ -407,6 +427,7 @@ class TextRenderEngine {
             context,
             exactMatchKey: exactMatchKey,
             keyClaim: keyClaim,
+            allMatchesActive: allMatchesActive,
           ),
         );
       }
@@ -423,6 +444,7 @@ class TextRenderEngine {
           activeOcc,
           exactMatchKey: exactMatchKey,
           keyClaim: keyClaim,
+          allMatchesActive: allMatchesActive,
         ),
       );
     }
@@ -438,6 +460,7 @@ class TextRenderEngine {
     BuildContext context, {
     GlobalKey? exactMatchKey,
     KeyClaim? keyClaim,
+    bool allMatchesActive = false,
   }) {
     List<InlineSpan> spans = [];
     int currentState = wordMap[0];
@@ -458,6 +481,7 @@ class TextRenderEngine {
             context,
             exactMatchKey: exactMatchKey,
             keyClaim: keyClaim,
+            allMatchesActive: allMatchesActive,
           ),
         );
         chunk = content[i];
@@ -475,6 +499,7 @@ class TextRenderEngine {
           context,
           exactMatchKey: exactMatchKey,
           keyClaim: keyClaim,
+          allMatchesActive: allMatchesActive,
         ),
       );
     return spans;
@@ -494,16 +519,22 @@ class TextRenderEngine {
     BuildContext context, {
     GlobalKey? exactMatchKey,
     KeyClaim? keyClaim,
+    bool allMatchesActive = false,
   }) {
     TextStyle finalStyle = baseStyle;
     bool isActive = false;
     if (state != -1) {
       isActive = state == activeOcc;
+      // 🐞 رفع باگ هایلایت جستجو: داخل مودالِ جای‌خالی، همه‌ی موارد
+      // یافت‌شده باید orangeAccent باشند نه فقط دقیقاً همان activeOcc.
+      // توجه: isActive (برای منطق exactMatchKey/اسکرول) دست‌نخورده می‌ماند؛
+      // فقط رنگ از showAsActive تبعیت می‌کند.
+      final bool showAsActive = allMatchesActive || isActive;
       finalStyle = baseStyle.copyWith(
-        backgroundColor: isActive
+        backgroundColor: showAsActive
             ? Colors.orangeAccent
             : Colors.yellowAccent.withOpacity(0.6),
-        color: isActive ? Colors.white : Colors.black,
+        color: showAsActive ? Colors.white : Colors.black,
       );
     }
 
@@ -541,6 +572,7 @@ class TextRenderEngine {
     int? activeOcc, {
     GlobalKey? exactMatchKey,
     KeyClaim? keyClaim,
+    bool allMatchesActive = false,
   }) {
     if (localMap == null || localMap.every((v) => v == -1))
       return [TextSpan(text: content, style: baseStyle)];
@@ -561,6 +593,7 @@ class TextRenderEngine {
             baseStyle,
             exactMatchKey: exactMatchKey,
             keyClaim: keyClaim,
+            allMatchesActive: allMatchesActive,
           ),
         );
         chunk = content[i];
@@ -576,6 +609,7 @@ class TextRenderEngine {
           baseStyle,
           exactMatchKey: exactMatchKey,
           keyClaim: keyClaim,
+          allMatchesActive: allMatchesActive,
         ),
       );
     return spans;
@@ -592,14 +626,20 @@ class TextRenderEngine {
     TextStyle baseStyle, {
     GlobalKey? exactMatchKey,
     KeyClaim? keyClaim,
+    bool allMatchesActive = false,
   }) {
     if (state == -1) return TextSpan(text: text, style: baseStyle);
     bool isActive = state == activeOcc;
+    // 🐞 رفع باگ هایلایت جستجو: داخل مودالِ جای‌خالی، همه‌ی موارد یافت‌شده
+    // باید orangeAccent باشند نه فقط دقیقاً همان activeOcc. isActive (برای
+    // منطق exactMatchKey/اسکرول) دست‌نخورده می‌ماند؛ فقط رنگ از
+    // showAsActive تبعیت می‌کند.
+    final bool showAsActive = allMatchesActive || isActive;
     final TextStyle finalStyle = baseStyle.copyWith(
-      backgroundColor: isActive
+      backgroundColor: showAsActive
           ? Colors.orangeAccent
           : Colors.yellowAccent.withOpacity(0.6),
-      color: isActive ? Colors.white : Colors.black,
+      color: showAsActive ? Colors.white : Colors.black,
     );
 
     if (isActive &&
@@ -709,8 +749,10 @@ class InteractiveBlankWord extends StatelessWidget {
   final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
   final List<SpanData>? innerSpans;
   final GlobalKey? exactMatchKey; // 🌟 فیلد جدید
-  final String?
-  listMarker; // 🌟 اگر پاراگراف مارکرِ لیست دارد، داخلِ مودال هم نشان داده شود
+  // 🐞 رفع باگ شماره‌ی لیست: فقط برای پاراگراف‌های کاملاً-یک-بلانک پر
+  // می‌شود (تمرین-۰۵ استایل)؛ در نمای جمع‌شده استفاده نمی‌شود، فقط برای
+  // prepend کردن داخل مودالِ بازشده.
+  final String? listMarker;
 
   const InteractiveBlankWord({
     super.key,
@@ -723,52 +765,25 @@ class InteractiveBlankWord extends StatelessWidget {
     this.translationAr,
     this.innerSpans,
     this.exactMatchKey, // 🌟 دریافت فیلد
-    this.listMarker, // 🌟
+    this.listMarker,
   });
 
   @override
   Widget build(BuildContext context) {
     final bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    // 🌟 رفع مشکل جستجو: فقط دکمه‌ای نارنجی می‌شود که ایندکس جستجوی فعال را درون خود داشته باشد
+    final bool hasSearchResult =
+        blankMap != null && activeOcc != null && blankMap!.contains(activeOcc!);
 
-    // 🌟 همه‌ی occurrenceهای منحصربه‌فردی که داخلِ همین جای‌خالی پنهان‌اند
-    // (این عدد مستقل از گروه‌بندیِ ناوبری است؛ مستقیم از روی blankMap محاسبه می‌شود)
-    final Set<int> matchedOccurrences =
-        blankMap?.where((e) => e >= 0).toSet() ?? const {};
-    final int hiddenMatchCount = matchedOccurrences.length;
-
-    // نارنجی = نتیجه‌ی فعالِ جستجو همین‌جاست؛ کهربایی = تطبیقِ غیرفعال هست؛
-    // خاکستری = هیچ تطبیقی نیست
-    final bool hasActive =
-        activeOcc != null && matchedOccurrences.contains(activeOcc!);
-    final bool hasAnyMatch = hiddenMatchCount > 0;
-
-    // 🔍 لاگِ موقتِ تشخیصی — همچنان نگه داشته می‌شود؛ اگر بازهم چیزِ غیرمنتظره
-    // دیدی (مثلاً hasActive برای دو رخدادِ متوالی روی همین متن ناسازگار بود)
-    // خروجی‌اش را بفرست.
-    if (hasAnyMatch) {
-      debugPrint(
-        '[BLANK-DEBUG] hiddenText="${hiddenText.substring(0, hiddenText.length > 20 ? 20 : hiddenText.length)}" '
-        'activeOcc=$activeOcc matchedOccurrences=$matchedOccurrences '
-        'hasActive=$hasActive hiddenMatchCount=$hiddenMatchCount',
-      );
-    }
-
-    // 🌟 قبلاً «فعال» و «تطبیقِ غیرفعال» فقط با رنگِ حاشیه (نارنجیِ روشن در
-    // برابرِ کهربایی) از هم جدا می‌شدند — دو تُنِ گرمِ خیلی نزدیک به هم که
-    // روی یک حاشیه‌ی ۲پیکسلی عملاً قابلِ تشخیص نبودند. این‌بار کاملِ ظاهرِ
-    // دکمه فرق می‌کند: فعال = پس‌زمینه‌ی نارنجیِ پُررنگِ توپُر با آیکونِ سفید؛
-    // تطبیقِ غیرفعال = همان پس‌زمینه‌ی خاکستریِ همیشگی با حاشیه‌ی کهربایی.
-    final Color buttonColor = hasActive
+    final Color buttonColor = isDarkTheme
+        ? Colors.grey.shade800
+        : Colors.grey.shade200;
+    final Color iconColor = isDarkTheme
+        ? Colors.grey.shade300
+        : Colors.grey.shade700;
+    final Color borderColor = hasSearchResult
         ? Colors.orangeAccent
-        : (hasAnyMatch
-              ? Colors.yellowAccent.withOpacity(0.6)
-              : (isDarkTheme ? Colors.grey.shade800 : Colors.grey.shade200));
-    final Color iconColor = hasActive
-        ? Colors.white
-        : ((isDarkTheme ? Colors.grey.shade300 : Colors.grey.shade700));
-    final Color? borderColor = hasActive
-        ? null // پس‌زمینه‌ی توپُر خودش کافی است؛ حاشیه لازم نیست
-        : (hasAnyMatch ? Colors.yellowAccent.withOpacity(0.6) : null);
+        : Colors.transparent;
 
     final Widget content = GestureDetector(
       onTap: () => _showHiddenTextModal(context, isDarkTheme),
@@ -778,36 +793,18 @@ class InteractiveBlankWord extends StatelessWidget {
         decoration: BoxDecoration(
           color: buttonColor,
           borderRadius: BorderRadius.circular(12),
-          border: borderColor != null
+          border: hasSearchResult
               ? Border.all(color: borderColor, width: 2.0)
               : null,
-          // boxShadow: hasActive
-          //     ? [
-          //         BoxShadow(
-          //           color: Colors.deepOrange.withOpacity(0.4),
-          //           blurRadius: 6,
-          //           spreadRadius: 1,
-          //         ),
-          //       ]
-          //     : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.visibility_rounded, size: 16, color: iconColor),
-            // 🌟 اگر بیش از یک موردِ یافت‌شده داخلِ همین جای‌خالی باشد، تعدادشان
-            // کنارِ آیکون نشان داده می‌شود
-            if (hiddenMatchCount > 1) ...[
-              const SizedBox(width: 4),
-              Text(
-                '$hiddenMatchCount',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: iconColor,
-                ),
-              ),
-            ],
+            Icon(
+              Icons.visibility_rounded,
+              size: 16,
+              color: hasSearchResult ? Colors.orangeAccent : iconColor,
+            ),
           ],
         ),
       ),
@@ -841,22 +838,16 @@ class InteractiveBlankWord extends StatelessWidget {
     }
     // 🌟 ۳. قانون طلایی: فقط در صورتی بنر بالا باز شود که متن کوتاه باشد و هیچ تعاملی درونش نباشد
     final bool useTopBanner = textLength < 40 && !hasInteractiveWords;
-    // متد محلی برای تولید محتوای تعاملی (برای جلوگیری از تکرار کد در دایالوگ و مودال)
+
+    // 🐞 رفع بوردر گم‌شده + یکی‌سازی: قبلاً این بخش دو پیاده‌سازیِ تقریباً
+    // یکسانِ موازی داشت (یکی همین‌جا برای بنرِ کوتاه با چکِ ضعیف‌ترِ
+    // «span.hasBorders == "true"» که چون فیلد HasBorders هیچ‌وقت در JSON
+    // ست نمی‌شود همیشه false بود؛ یکی کپیِ ~۱۱۰ خطیِ تقریباً یکسان داخل
+    // showModalBottomSheet با چکِ درست‌تر). چون دو نسخه‌ی مستقل بودند، هر
+    // بار فقط یکی‌شان اصلاح می‌شد و آن‌یکی regressی می‌ماند. حالا هر دو
+    // مسیر (بنرِ کوتاه و بات‌شیتِ بلند) از همینِ یک تابع استفاده می‌کنند.
     List<InlineSpan> buildRevealedSpans() {
       List<InlineSpan> spans = [];
-      // 🌟 اگر این پاراگراف مارکرِ لیست دارد، همان‌جا داخلِ مودال هم نشانش بده
-      // (قبلاً فقط بیرونِ آیکونِ چشم نشان داده می‌شد، نه داخلِ متنِ آشکارشده)
-      if (listMarker != null && listMarker!.isNotEmpty) {
-        spans.add(
-          TextSpan(
-            text: '$listMarker  ',
-            style: textStyle.copyWith(
-              fontWeight: FontWeight.bold,
-              color: isDarkTheme ? Colors.white : Colors.black87,
-            ),
-          ),
-        );
-      }
       if (innerSpans != null && innerSpans!.isNotEmpty) {
         int innerOffset = 0;
         for (var span in innerSpans!) {
@@ -883,9 +874,23 @@ class InteractiveBlankWord extends StatelessWidget {
                 spanStyle,
                 localHighlightMap: spanMapSlice,
                 activeOccurrence: activeOcc,
+                // 🐞 رفع باگ هایلایت جستجو: وقتی این مودال باز است یعنی این
+                // بلانک از قبل «نتیجه‌ی فعالِ» جستجوست (وگرنه آیکون چشمِ
+                // نارنجی‌اش تپ نمی‌شد)، پس همه‌ی occurrenceهای یافت‌شده‌ی
+                // داخلش باید نارنجی نشان داده شوند، نه فقط اولین‌شان.
+                allMatchesActive: true,
               );
 
-          if (span.hasBorders == "true") {
+          // 🐞 رفع بوردر گم‌شده: تشخیص منعطف‌تر (فلگِ رشته‌ای «true»/«1» یا
+          // خودِ آبجکتِ borders)، نه فقط رشته‌ی hasBorders که هیچ‌وقت در
+          // JSON ست نمی‌شود.
+          final String bordersStr =
+              span.hasBorders?.toString().toLowerCase().trim() ?? "false";
+          final bool hasBorderFlag = bordersStr == "true" || bordersStr == "1";
+          final bool hasBorderObject = span.borders != null;
+          final bool isInlineBorder = hasBorderFlag || hasBorderObject;
+
+          if (isInlineBorder) {
             Color? hexToColor(String? hex) {
               if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
                 return null;
@@ -928,20 +933,35 @@ class InteractiveBlankWord extends StatelessWidget {
           innerOffset += span.content.length;
         }
       } else {
-        spans.addAll(
-          TextRenderEngine.buildInteractiveText(
-            hiddenText,
-            interactives,
-            context,
-            textStyle.copyWith(
+        spans = TextRenderEngine.buildInteractiveText(
+          hiddenText,
+          interactives,
+          context,
+          textStyle.copyWith(
+            color: isDarkTheme ? Colors.white : Colors.black87,
+            fontSize: textStyle.fontSize ?? 16.0,
+            height: 1.6,
+          ),
+          localHighlightMap: blankMap,
+          activeOccurrence: activeOcc,
+          translationFa: translationFa,
+          translationAr: translationAr,
+          allMatchesActive: true, // 🐞 همان دلیلِ بالا
+        );
+      }
+
+      // 🐞 رفع باگ شماره‌ی لیست: listMarker فقط برای پاراگراف‌های
+      // کاملاً-یک-بلانک (تمرین-۰۵ استایل) از بالادست پر شده؛ همین‌جا (داخل
+      // مودالِ بازشده، نه کنار آیکون چشمِ جمع‌شده) prepend می‌شود.
+      if (listMarker != null && listMarker!.isNotEmpty) {
+        spans.insert(
+          0,
+          TextSpan(
+            text: "$listMarker  ",
+            style: textStyle.copyWith(
+              fontWeight: FontWeight.bold,
               color: isDarkTheme ? Colors.white : Colors.black87,
-              fontSize: textStyle.fontSize ?? 16.0,
-              height: 1.6,
             ),
-            localHighlightMap: blankMap,
-            activeOccurrence: activeOcc,
-            translationFa: translationFa,
-            translationAr: translationAr,
           ),
         );
       }
@@ -1034,11 +1054,11 @@ class InteractiveBlankWord extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         builder: (context) {
-          // 🌟 قابلیت اول: رندر کردن متن مخفی با ساختار تعاملی موتور رندر شما (دیکشنری + هایلایت جستجو)
-          // 🌟 قبلاً اینجا یک پیاده‌سازیِ کاملاً جداگانه (و تکراری) از buildRevealedSpans()
-          // وجود داشت که نه مارکرِ لیست را می‌شناخت و نه اصلاحِ addAll را داشت — یعنی
-          // برای متونِ بلند (شیتِ پایین)، مودال هیچ‌وقت شماره‌ی لیست را نشان نمی‌داد،
-          // برخلافِ بنرِ بالا. حالا هر دو مسیر از همان یک تابع استفاده می‌کنند.
+          // 🐞 یکی‌سازی: قبلاً اینجا ~۱۱۰ خط کدِ تقریباً یکسان با
+          // buildRevealedSpans() تکرار شده بود که مستقل از آن drift کرد
+          // (بوردر و شماره‌ی لیست را جدا اصلاح می‌کردیم و یکی‌شان جا
+          // می‌ماند). حالا هر دو مسیرِ مودال از همان تابعِ مشترک بالا
+          // استفاده می‌کنند تا این‌جور regressionها دیگر تکرار نشوند.
           final List<InlineSpan> revealedSpans = buildRevealedSpans();
           return DraggableScrollableSheet(
             initialChildSize: 0.4,

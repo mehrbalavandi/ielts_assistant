@@ -12,7 +12,6 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/b
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/text_render_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
-import 'package:ielts_assistant/features/content_viewer/using_gemini/search_text_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
@@ -864,19 +863,61 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
   }
 }
 
-String _normalizeText(String text) => normalizeText(text);
+class TextSearchMapper {
+  final String rawText;
+  late final String cleanText;
+  late final List<int> cleanToRaw;
 
-String _extractFullText(ParagraphData para) => extractFullText(para);
+  TextSearchMapper(this.rawText) {
+    StringBuffer clean = StringBuffer();
+    cleanToRaw = [];
+    int rawIdx = 0;
 
-// آیا محتوای این اسپن یک {blk}...{/blk} تنها است (نه یک جای‌خالیِ کوچکِ داخلِ
-// یک جملهٔ دیگر)؟ فقط در این حالت مارکرِ لیست باید داخلِ مودال هم تکرار شود؛
-// برای جای‌خالیِ کوچکِ داخلِ یک پاراگرافِ عمدتاً-قابل‌مشاهده لازم نیست، چون
-// شماره از قبل بیرون از آیکون دیده می‌شود.
-bool _isWhollyOneBlank(String? content) {
-  if (content == null) return false;
-  final t = content.trim();
-  if (!t.startsWith('{blk}') || !t.endsWith('{/blk}')) return false;
-  return '{blk}'.allMatches(t).length == 1;
+    while (rawIdx < rawText.length) {
+      if (rawText.startsWith('{blk}', rawIdx)) {
+        rawIdx += 5;
+        continue;
+      }
+      if (rawText.startsWith('{/blk}', rawIdx)) {
+        rawIdx += 6;
+        continue;
+      }
+      clean.write(rawText[rawIdx]);
+      cleanToRaw.add(rawIdx);
+      rawIdx++;
+    }
+    cleanText = clean.toString();
+  }
+}
+
+String _normalizeText(String text) {
+  return text
+      .toLowerCase()
+      .replaceAll('ي', 'ی')
+      .replaceAll('ك', 'ک')
+      .replaceAll('ة', 'ه')
+      .replaceAll('أ', 'ا')
+      .replaceAll('إ', 'ا')
+      .replaceAll('ؤ', 'و')
+      .replaceAll('\u200c', ' ');
+}
+
+String _extractFullText(ParagraphData para) {
+  StringBuffer sb = StringBuffer();
+  for (var span in para.spans) {
+    if (span.type == "text" && span.content != null) {
+      sb.write(span.content);
+    } else if (span.type == "table" && span.tableRows != null) {
+      for (var row in span.tableRows) {
+        for (var cell in row.cells) {
+          for (var cellPara in cell.paragraphs) {
+            sb.write(_extractFullText(cellPara));
+          }
+        }
+      }
+    }
+  }
+  return sb.toString();
 }
 
 List<int> _buildOccurrenceMap(String fullText, String query) {
@@ -973,6 +1014,20 @@ Color? _hexToColor(String? hexString) {
   }
 }
 
+// 🐞 رفع باگ شماره‌ی لیست: تشخیص می‌دهد که آیا کل محتوای پاراگراف فقط
+// یک جای‌خالیِ {blk}...{/blk} است (مثل تمرین ۰۵) یا نه (مثل تمرین ۰۴ که
+// متنِ آزادِ قابل‌مشاهده قبل یا بعد از {blk} دارد). فقط در حالت اول
+// می‌خواهیم شماره‌ی لیست را در نمای جمع‌شده (کنار آیکون چشم) مخفی کنیم و
+// به‌جایش داخل مودالِ بازشده نشان دهیم.
+bool _isWhollyOneBlank(ParagraphData para) {
+  if (para.spans.length != 1) return false;
+  final span = para.spans.first;
+  if (span.type != "text") return false;
+  final trimmed = span.content.trim();
+  if (trimmed.isEmpty) return false;
+  return RegExp(r'^\{blk\}[\s\S]*\{/blk\}$').hasMatch(trimmed);
+}
+
 Widget _buildParagraph(
   ParagraphData para,
   double canvasWidth,
@@ -1008,6 +1063,11 @@ Widget _buildParagraph(
 
   mapOffset ??= MapOffset();
   keyClaim ??= KeyClaim();
+
+  // 🐞 رفع باگ شماره‌ی لیست: یک‌بار همین اول محاسبه می‌شود تا هم برای
+  // پنهان‌کردن شماره از نمای جمع‌شده و هم برای پاس‌دادنش به مودالِ
+  // جای‌خالی (وقتی کل پاراگراف یک {blk} است) استفاده شود.
+  final bool wholeParaIsBlank = _isWhollyOneBlank(para);
 
   List<Object> blockElements = [];
   List<InlineSpan> currentInlineSpans = [];
@@ -1071,6 +1131,11 @@ Widget _buildParagraph(
           interactivesByText: interactivesByText, // 🌟 اضافه شد
           pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
           keyClaim: keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
+          // 🐞 رفع باگ شماره‌ی لیست: فقط وقتی کل پاراگراف یک {blk} است
+          // شماره را تا مودال رد کن؛ برای پاراگراف‌های حالت تمرین-۰۴
+          // (متنِ آزادِ قابل‌مشاهده + {blk}) چیزی رد نمی‌شود چون شماره
+          // همین‌جا (بالاتر) کنار متنِ آزاد نشان داده می‌شود.
+          listMarker: wholeParaIsBlank ? para.listMarker : null,
         ),
       );
       mapOffset.value += content.length;
@@ -1195,45 +1260,21 @@ Widget _buildParagraph(
     ),
   );
   // 🌟 لیست‌ها: مارکر با تورفتگی معلق (hanging indent) مانند Word
-  bool _paraHasListMarker =
-      false; // 🌟 برای جلوگیری از اعمالِ دوبارهٔ تورفتگی در ادامهٔ تابع
-  if (para.listMarker != null && para.listMarker!.isNotEmpty) {
-    // 🌟 مارکر همیشه نمایش داده می‌شود، حتی اگر کلِ متنِ پاراگراف پشتِ آیکونِ چشم
-    // مخفی باشد (دقیقاً مثل Word: شماره‌ی لیست مستقل از محتوای مخفی‌شده
-    // نمایش داده می‌شود — نمونه: «1: 👁»).
-    _paraHasListMarker = true;
+  // 🐞 رفع باگ شماره‌ی لیست: اگر کل پاراگراف فقط یک {blk} است (تمرین ۰۵)،
+  // شماره را اینجا (کنار آیکون چشمِ جمع‌شده) نشان نده؛ به‌جایش بالاتر
+  // به InteractiveBlankWord پاس داده شده تا داخل مودال prepend شود.
+  if (para.listMarker != null &&
+      para.listMarker!.isNotEmpty &&
+      !wholeParaIsBlank) {
     final bool rtl = para.direction == "RTL";
-
-    // 🌟 مدلِ hanging-indent وُرد: IndentLeft = جایی که خطوطِ wrap‌شده می‌نشینند،
-    // IndentFirstLine = افستِ منفیِ خطِ اول (مارکر) نسبت به IndentLeft.
-    // نکته‌ی مهم: Word عرضِ مارکر را به همین مقدار محدود نمی‌کند — اگر شماره از
-    // این تنگنا بزرگ‌تر باشد، Word اجازه‌ی overflow می‌دهد، نه clip. پس اینجا هم
-    // حداقلِ عرضِ قابل‌خواندن (۱۶px) را تضمین می‌کنیم تا رقم هیچ‌وقت گم نشود؛
-    // این همان چیزی بود که در دورِ قبل باعثِ ناپدید شدنِ کاملِ شماره شد
-    // (IndentLeft واقعیِ Word برای برخی لیست‌ها فقط ~۱۰px بود).
-    final double indentLeft = para.indentLeft ?? 0.0;
-    final double hanging = -(para.indentFirstLine ?? 0.0);
-    final double rawMarkerWidth = hanging > 0 ? hanging : 18.0;
-
-    // 🌟 به‌جای تکیه بر overflow:visible (که رفتارش داخلِ SizedBoxِ تنگ همیشه
-    // قابل‌اتکا نیست)، عرضِ واقعیِ متنِ مارکر را با TextPainter اندازه می‌گیریم و
-    // جعبه را دقیقاً به همان اندازه (+ کمی حاشیه) می‌سازیم — این تضمین می‌کند
-    // که رقم هیچ‌وقت به هیچ دلیلی clip/ناپدید نشود.
-    const TextStyle _markerStyle = TextStyle(height: 1.4, fontSize: 14);
-    final TextPainter _tp = TextPainter(
-      text: TextSpan(text: para.listMarker!, style: _markerStyle),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    final double markerWidth = (_tp.width + 4.0).clamp(
-      rawMarkerWidth.clamp(16.0, 60.0),
-      80.0,
-    );
-    final double outerLeft = (indentLeft - markerWidth).clamp(0.0, 999.0);
+    const double indentStep = 22.0; // تورفتگی هر سطح
+    const double markerWidth = 28.0; // عرض ناحیه‌ی مارکر
+    final double levelIndent = para.listLevel * indentStep;
 
     paragraphContent = Padding(
       padding: EdgeInsets.only(
-        left: rtl ? 0 : outerLeft,
-        right: rtl ? outerLeft : 0,
+        left: rtl ? 0 : levelIndent,
+        right: rtl ? levelIndent : 0,
       ),
       child: Row(
         textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
@@ -1244,10 +1285,10 @@ Widget _buildParagraph(
             child: Text(
               para.listMarker!,
               textAlign: rtl ? TextAlign.left : TextAlign.right,
-              style: _markerStyle,
+              style: const TextStyle(height: 1.4),
             ),
           ),
-          const SizedBox(width: 4),
+          const SizedBox(width: 6),
           Expanded(child: paragraphContent),
         ],
       ),
@@ -1280,10 +1321,7 @@ Widget _buildParagraph(
   }
 
   // 🌟 اعمال فاصله‌های تورفتگی کلی چپ و راست
-  // 🌟 اگر پاراگراف مارکرِ لیست دارد، تورفتگی همان‌جا (مدلِ hanging-indent) اعمال
-  // شده؛ اینجا دوباره اعمال نمی‌شود وگرنه دوبرابر می‌شود.
-  double leftMargin =
-      (!_paraHasListMarker && para.indentLeft != null && para.indentLeft! > 0)
+  double leftMargin = (para.indentLeft != null && para.indentLeft! > 0)
       ? para.indentLeft!
       : 0.0;
   double rightMargin = (para.indentRight != null && para.indentRight! > 0)
@@ -1735,6 +1773,8 @@ List<InlineSpan> _buildStyledInteractiveText(
   Map<String, InteractiveWord>? interactivesByText,
   List<String> pageAudioPlaylist = const [],
   KeyClaim? keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
+  String?
+  listMarker, // 🐞 فقط برای پاراگراف‌های کاملاً-یک-بلانک؛ تا مودال رد می‌شود
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -1772,12 +1812,7 @@ List<InlineSpan> _buildStyledInteractiveText(
     fontSize: fontSize,
     fontFamily: fontFamily,
     color: customTextColor ?? Colors.black87,
-    // 🌟 فاصله‌ی خطوط از Word؛ اما اگر همین span پس‌زمینه‌ی رنگی دارد، حداقلِ
-    // ۱٫۴ اعمال می‌شود تا رنگِ خطوطِ پشتِ‌هم به هم نچسبند (وگرنه Word با تک‌فاصله
-    // خطوط را طوری می‌چسباند که پس‌زمینه‌ها به هم می‌رسند).
-    height: (!isInlineBorder && _hexToColor(span.fillColor) != null)
-        ? (para.lineSpacing ?? 1.3).clamp(1.4, 3.0)
-        : (para.lineSpacing ?? 1.3),
+    height: para.lineSpacing ?? 1.3, // 🌟 به‌جای عددِ ثابت
     // 🌟 اگر قرار است باکس داشته باشیم، رنگ پس‌زمینه را به Container می‌دهیم نه به استایلِ متن
     backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
     fontWeight: span.markers.contains("b")
@@ -1790,20 +1825,6 @@ List<InlineSpan> _buildStyledInteractiveText(
   );
 
   List<InlineSpan> interactiveSpans = [];
-  // 🌟 اگر این span فقط یک توکنِ کوتاهِ رنگی است (مثلِ جای‌خالی‌های "___" یا یک
-  // کلمه‌ی تکی هایلایت‌شده، بدون فاصله)، آن را به‌جای TextStyle.backgroundColor
-  // (که جعبه‌ی رنگ را دقیقاً به اندازه‌ی «خط» می‌کشد و بین خطوطِ متوالی هیچ فاصله‌ای
-  // نمی‌گذارد) با یک Container+padding عمودی رسم می‌کنیم — این تنها راهی است که در
-  // فلاتر واقعاً بینِ پس‌زمینه‌ی خطوطِ پشتِ‌هم فاصله‌ی دیداری ایجاد می‌کند.
-  final String _content = (span.content ?? "").trim();
-  final bool _isSafeHighlightToken =
-      !isInlineBorder &&
-      _hexToColor(span.fillColor) != null &&
-      _content.isNotEmpty &&
-      _content.length <= 20 &&
-      !_content.contains(' ') &&
-      (span.innerSpans.isEmpty);
-
   if (isAudioLink) {
     interactiveSpans.add(
       WidgetSpan(
@@ -1813,24 +1834,6 @@ List<InlineSpan> _buildStyledInteractiveText(
           text: span.content ?? "",
           baseColor: interactiveColor,
           playlist: pageAudioPlaylist,
-        ),
-      ),
-    );
-  } else if (_isSafeHighlightToken) {
-    interactiveSpans.add(
-      WidgetSpan(
-        alignment: PlaceholderAlignment.middle,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 2.0),
-          padding: const EdgeInsets.symmetric(horizontal: 2.0),
-          decoration: BoxDecoration(
-            color: _hexToColor(span.fillColor),
-            borderRadius: BorderRadius.circular(2),
-          ),
-          child: Text(
-            span.content ?? "",
-            style: baseStyle.copyWith(backgroundColor: null),
-          ),
         ),
       ),
     );
@@ -1855,7 +1858,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       interactivesPattern: interactivesPattern,
       interactivesByText: interactivesByText,
       sharedKeyClaim: keyClaim, // 🐞 رفع کرش: claim مشترکِ سطح پاراگراف
-      listMarker: _isWhollyOneBlank(span.content) ? para.listMarker : null,
+      listMarker: listMarker, // 🐞 فقط برای پاراگراف‌های کاملاً-یک-بلانک
     );
   }
 
