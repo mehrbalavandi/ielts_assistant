@@ -871,9 +871,43 @@ class InteractiveBlankWord extends StatelessWidget {
     // مسیر (بنرِ کوتاه و بات‌شیتِ بلند) از همینِ یک تابع استفاده می‌کنند.
     List<InlineSpan> buildRevealedSpans() {
       List<InlineSpan> spans = [];
+
+      // 🐞 رفع باگ «فقط شماره‌ی خط اول دیده می‌شود»: در فایل Word، هر خط
+      // از این‌جور پاراگراف‌ها (مثل تمرین ۰۵ صفحه‌ی ۲۴) اصلاً یک پاراگرافِ
+      // جداگانه با numPr خودش بوده (BlankWord2 + همان numId، شماره‌های
+      // ۱ تا ۶)، اما استخراجِ C# این ۶ پاراگراف را در یک Content واحد ادغام
+      // کرده و بین‌شان یک InnerSpan تک‌کاراکتریِ «\n» گذاشته — و فقط
+      // ListMarker همان پاراگرافِ اول ("1:") را نگه داشته. پس اینجا با
+      // شمردن همین مرزهای «\n» و افزایشِ عددِ ابتدای listMarker، شماره‌ی
+      // خط‌های بعدی را بازسازی می‌کنیم. فقط وقتی listMarker با یک عددِ خالص
+      // شروع شود این‌کار انجام می‌شود (مثلاً "1:", "1.")؛ برای مارکرهای
+      // غیرعددی (مثل بولت «•» یا حرف «a») دست‌نخورده می‌ماند تا رفتارِ قبلی حفظ
+      // شود، چون افزایشِ خودکارِ حرف/بولت معنای مشخصی ندارد.
+      int? nextLineNumber;
+      String lineMarkerSuffix = '';
+      if (listMarker != null) {
+        final numMatch = RegExp(r'^(\d+)(\D*)$').firstMatch(listMarker!);
+        if (numMatch != null) {
+          nextLineNumber = int.parse(numMatch.group(1)!) + 1;
+          lineMarkerSuffix = numMatch.group(2) ?? '';
+        }
+      }
+      InlineSpan buildLineMarkerSpan() {
+        final span = TextSpan(
+          text: "$nextLineNumber$lineMarkerSuffix  ",
+          style: textStyle.copyWith(
+            fontWeight: FontWeight.bold,
+            color: isDarkTheme ? Colors.white : Colors.black87,
+          ),
+        );
+        nextLineNumber = nextLineNumber! + 1;
+        return span;
+      }
+
       if (innerSpans != null && innerSpans!.isNotEmpty) {
         int innerOffset = 0;
-        for (var span in innerSpans!) {
+        for (int idx = 0; idx < innerSpans!.length; idx++) {
+          final span = innerSpans![idx];
           TextStyle spanStyle = TextRenderEngine.applySpanStyle(
             textStyle,
             span,
@@ -954,6 +988,73 @@ class InteractiveBlankWord extends StatelessWidget {
             spans.addAll(interactiveSpans);
           }
           innerOffset += span.content.length;
+
+          // 🐞 اگر این دقیقاً یک مرزِ خطِ تک‌کاراکتریِ «\n» بود (نه یک شکستِ
+          // خط داخلِ متنِ یک تکه)، بلافاصله بعدش شماره‌ی خطِ بعدی را
+          // prepend کن — مگر اینکه استخراج‌کننده‌ی C# (نسخه‌ی فیکس‌شده) خودش
+          // همین مارکر را از قبل داخل InnerSpanِ بعدی گذاشته باشد؛ در آن
+          // صورت اضافه‌کردنِ دوباره باعثِ نمایشِ تکراری («2: 2: ...») می‌شود.
+          if (span.content == "\n" && nextLineNumber != null) {
+            final String expectedMarker = "$nextLineNumber$lineMarkerSuffix";
+            final String? nextContent = (idx + 1 < innerSpans!.length)
+                ? innerSpans![idx + 1].content.trimLeft()
+                : null;
+            final bool alreadyEmbedded =
+                nextContent != null && nextContent.startsWith(expectedMarker);
+            if (!alreadyEmbedded) {
+              spans.add(buildLineMarkerSpan());
+            } else {
+              nextLineNumber = nextLineNumber! + 1;
+            }
+          }
+        }
+      } else if (nextLineNumber != null && hiddenText.contains('\n')) {
+        // 🐞 همان رفعِ باگ، برای موردی که innerSpans نداریم و فقط hiddenText
+        // خام در دسترس است: به‌جای یک فراخوانیِ واحد برای کلِ متن، به ازای
+        // هر خط جدا فراخوانی می‌کنیم تا بشود بینِ‌شان شماره prepend کرد؛
+        // هایلایتِ جستجو هم به همان نسبت برشِ blankMap با offset دنبال
+        // می‌شود تا دقتش از حالتِ قبلی کم نشود.
+        int offset = 0;
+        final lines = hiddenText.split('\n');
+        for (int i = 0; i < lines.length; i++) {
+          final line = lines[i];
+          List<int>? lineMap;
+          if (blankMap != null && offset + line.length <= blankMap!.length) {
+            lineMap = blankMap!.sublist(offset, offset + line.length);
+          }
+          spans.addAll(
+            TextRenderEngine.buildInteractiveText(
+              line,
+              interactives,
+              context,
+              textStyle.copyWith(
+                color: isDarkTheme ? Colors.white : Colors.black87,
+                fontSize: textStyle.fontSize ?? 16.0,
+                height: 1.6,
+              ),
+              localHighlightMap: lineMap,
+              activeOccurrence: activeOcc,
+              translationFa: translationFa,
+              translationAr: translationAr,
+              allMatchesActive: true,
+            ),
+          );
+          offset += line.length + 1; // +۱ برای خودِ کاراکترِ \n
+          if (i < lines.length - 1) {
+            spans.add(const TextSpan(text: "\n"));
+            // 🐞 همان گاردِ idempotency: اگر خطِ بعدی از قبل با همین مارکر
+            // شروع شده (JSONِ استخراج‌شده با نسخه‌ی فیکس‌شده‌ی C#)، دوباره
+            // prepend نکن.
+            final String expectedMarker = "$nextLineNumber$lineMarkerSuffix";
+            final bool alreadyEmbedded =
+                i + 1 < lines.length &&
+                lines[i + 1].trimLeft().startsWith(expectedMarker);
+            if (!alreadyEmbedded) {
+              spans.add(buildLineMarkerSpan());
+            } else {
+              nextLineNumber = nextLineNumber! + 1;
+            }
+          }
         }
       } else {
         spans = TextRenderEngine.buildInteractiveText(
