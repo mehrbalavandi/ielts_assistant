@@ -41,6 +41,8 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(activeBook.title, style: const TextStyle(fontSize: 16)),
         actions: [
           // 🌟 تعویضِ زبانِ محتوا: فارسی ↔ عربی
