@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/login_screen.dart';
@@ -6,6 +7,7 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/app_drawer.
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/services/storage_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {
   const LibraryScreen({super.key});
@@ -14,14 +16,73 @@ class LibraryScreen extends ConsumerStatefulWidget {
   ConsumerState<LibraryScreen> createState() => _LibraryScreenState();
 }
 
-class _LibraryScreenState extends ConsumerState<LibraryScreen> {
+class _LibraryScreenState extends ConsumerState<LibraryScreen>
+    with WidgetsBindingObserver {
+  // 🌟 فقط برای حالت دیباگ: وقتی true باشد یعنی کاربر برای خرید به مرورگر
+  // بیرونی فرستاده شده و منتظریم برگردد تا ویترین را دوباره fetch کنیم.
+  bool _awaitingPurchaseReturn = false;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   _openLastBook();
     // });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    // 🌟 فقط برای حالت دیباگ: وقتی از صفحه‌ی خریدِ بیرونی برمی‌گردیم (اپ
+    // resume می‌شود)، یک‌بار ویترین را رفرش می‌کنیم. با فلگ گارد شده تا
+    // resumeهای معمولی (مثلاً باز کردن اپ از نو) باعث فچ اضافه نشوند.
+    if (state == AppLifecycleState.resumed && _awaitingPurchaseReturn) {
+      _awaitingPurchaseReturn = false;
+      ref.read(booksProvider.notifier).fetchBooks();
+    }
+  }
+
+  // 🌟 فقط برای حالت دیباگ: هدایت به سایتِ خرید (همان base_url ذخیره‌شده در
+  // StorageService) در مرورگرِ بیرونی؛ برگشت از آن توسط didChangeAppLifecycleState
+  // بالا رصد و باعثِ رفرشِ ویترین می‌شود.
+  Future<void> _launchPurchasePage(BuildContext context) async {
+    final baseUrl = StorageService.getBaseUrl();
+    if (baseUrl == null || baseUrl.isEmpty) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("آدرس سایت (base_url) هنوز تنظیم نشده است."),
+        ),
+      );
+      return;
+    }
+
+    final uri = Uri.tryParse(baseUrl);
+    if (uri == null) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("آدرس سایت نامعتبر است: $baseUrl")),
+      );
+      return;
+    }
+
+    _awaitingPurchaseReturn = true;
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched) {
+      _awaitingPurchaseReturn = false;
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("امکان باز کردن $baseUrl وجود نداشت.")),
+      );
+    }
   }
 
   Future<void> _openLastBook() async {
@@ -402,6 +463,10 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                 context,
                 MaterialPageRoute(builder: (_) => const LoginScreen()),
               );
+            } else if (kDebugMode) {
+              // 🌟 فقط برای حالت دیباگ: هدایت به سایتِ خرید + رفرشِ خودکارِ
+              // ویترین بعدِ برگشت (بالاتر، didChangeAppLifecycleState)
+              _launchPurchasePage(context);
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("در حال انتقال به صفحه خرید...")),
