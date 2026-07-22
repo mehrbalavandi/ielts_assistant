@@ -1148,9 +1148,19 @@ Widget _buildParagraph(
             explicitWidth: imageExplicitWidth,
           );
           if (imageNeedsHScroll) {
+            // 🐞 رفع کرش «Scrollbar's ScrollController has no ScrollPosition
+            // attached»: بدون controllerِ صریح، Scrollbar سعی می‌کند از
+            // PrimaryScrollController استفاده کند که به این
+            // SingleChildScrollViewِ افقیِ تودرتو وصل نیست (آن یکی معمولاً
+            // به اسکرولِ عمودیِ کلِ صفحه وصل است). با یک ScrollController
+            // مشترک بین خودِ Scrollbar و SingleChildScrollView این مشکل
+            // رفع می‌شود.
+            final ScrollController hCtrl = ScrollController();
             standaloneImage = Scrollbar(
+              controller: hCtrl,
               thumbVisibility: true,
               child: SingleChildScrollView(
+                controller: hCtrl,
                 scrollDirection: Axis.horizontal,
                 child: standaloneImage,
               ),
@@ -1739,15 +1749,11 @@ Widget _buildTable(
   // تعدادِ ستون‌ها) رندر می‌کنیم و داخل یک اسکرولِ افقی می‌گذاریم؛ چون همه‌ی
   // ردیف‌ها همین یک columnWidths نسبی را دارند، تناسبِ ستون‌ها بین ردیف‌ها
   // حفظ می‌ماند.
-  // 🐞 رفع باگِ نسخه‌ی قبلی: اینجا با «فقط وقتی tableWidthPercent تعیین
-  // نشده» گیت زده بودم، چون فکر می‌کردم یک دستورِ صریح‌ترِ رقیب است. اما با
-  // خودِ JSON واقعی (صفحه‌ی ۱۰، جدولِ abruptly/markedly/...) معلوم شد این
-  // فرض غلط بود: همان جدول هم ResponsiveStrategy="horizontalScroll" دارد
-  // *و هم* TableWidthPercent ست شده (۵۱.۵٪) — یعنی دقیقاً جدولی که این
-  // قابلیت برایش ساخته شده بود، با آن گیت هیچ‌وقت اسکرول نمی‌گرفت. حالا
-  // خودِ فلگِ صریحِ سند (strategy == "horizontalScroll") اولویتِ اول است و
-  // از این گیت عبور می‌کند؛ tableWidthPercent == null فقط برای جدول‌هایی
-  // که هیچ راهنمایی صریحی ندارند به‌عنوان فال‌بکِ heuristic باقی می‌ماند.
+  // فقط با فلگِ tableWidthPercent==null گیت نمی‌شود: جدولِ واقعیِ
+  // «abruptly/markedly/...» هم TableWidthPercent (۵۱.۵٪) دارد و هم
+  // ResponsiveStrategy="horizontalScroll" صریح — پس فلگِ صریحِ سند اولویتِ
+  // اول است و از این گیت عبور می‌کند؛ tableWidthPercent==null فقط فال‌بکِ
+  // heuristic برای جدول‌های بدونِ راهنماییِ صریح است.
   final bool explicitHorizontalScroll = strategy == "horizontalScroll";
   if (!applyColumnStack &&
       !isNestedTable &&
@@ -1763,9 +1769,15 @@ Widget _buildTable(
         canvasWidth,
         canvasWidth * 3,
       );
+      // 🐞 رفع کرش «Scrollbar's ScrollController has no ScrollPosition
+      // attached»: بدون controllerِ صریح، Scrollbar به PrimaryScrollController
+      // برمی‌گردد که به این SingleChildScrollViewِ افقیِ تودرتو وصل نیست.
+      final ScrollController hCtrl = ScrollController();
       tableContainer = Scrollbar(
+        controller: hCtrl,
         thumbVisibility: true,
         child: SingleChildScrollView(
+          controller: hCtrl,
           scrollDirection: Axis.horizontal,
           child: SizedBox(width: renderWidth, child: tableContainer),
         ),
