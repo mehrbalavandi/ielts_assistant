@@ -1123,6 +1123,40 @@ Widget _buildParagraph(
             if (span.floatPosition == 'left') floatAlign = FCFloat.left;
             if (span.floatPosition == 'right') floatAlign = FCFloat.right;
           }
+          // 🐞 رفع بکلاگ «اسکرول افقی خودکار برای تصویر عریض در صفحه‌ی
+          // باریک»: اگر عرض واقعیِ تصویر (از Word استخراج‌شده، span.imageWidth)
+          // از عرض قابل‌نمایشِ صفحه (canvasWidth) بیشتر باشد، به‌جای کوچک
+          // کردنِ تصویر برای جاشدن (که جزئیات را نامفهوم می‌کند)، تصویر را
+          // در اندازه‌ی طبیعی‌اش نگه می‌داریم و داخل یک اسکرولِ افقی
+          // می‌گذاریم تا کاربر با سوایپ بقیه‌اش را ببیند.
+          final int? naturalImgWidth = span.imageWidth;
+          final bool imageNeedsHScroll =
+              !isImageCell &&
+              naturalImgWidth != null &&
+              naturalImgWidth > canvasWidth;
+          final double? imageExplicitWidth = imageNeedsHScroll
+              ? naturalImgWidth.toDouble().clamp(canvasWidth, canvasWidth * 2.5)
+              : null;
+
+          Widget standaloneImage = _buildLocalImage(
+            imagePath,
+            isMobile: !isLargeScreen,
+            screenWidth: screenWidth,
+            isImageCell: isImageCell,
+            activeBook: activeBook,
+            context: context,
+            explicitWidth: imageExplicitWidth,
+          );
+          if (imageNeedsHScroll) {
+            standaloneImage = Scrollbar(
+              thumbVisibility: true,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: standaloneImage,
+              ),
+            );
+          }
+
           blockElements.add(
             Floatable(
               float: floatAlign,
@@ -1133,16 +1167,9 @@ Widget _buildParagraph(
                   ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
                   : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 8.0),
               child: floatAlign == FCFloat.none
-                  ? Center(
-                      child: _buildLocalImage(
-                        imagePath,
-                        isMobile: !isLargeScreen,
-                        screenWidth: screenWidth,
-                        isImageCell: isImageCell,
-                        activeBook: activeBook,
-                        context: context,
-                      ),
-                    )
+                  ? (imageNeedsHScroll
+                        ? standaloneImage
+                        : Center(child: standaloneImage))
                   : _buildLocalImage(
                       imagePath,
                       isMobile: false,
@@ -1705,6 +1732,47 @@ Widget _buildTable(
     ),
   );
 
+  // 🐞 رفع بکلاگِ «اسکرول افقی خودکار برای جدول عریض در صفحه‌ی باریک»: اگر
+  // جدول آن‌قدر ستون دارد که فشرده‌کردنِ همه در canvasWidth ناخوانا می‌شود
+  // (هر ستون فقط چند پیکسل جا دارد)، به‌جای فشردن‌شان با FlexColumnWidth،
+  // خودِ tableContainer را با یک عرضِ عریض‌تر (حداقلِ خواناییِ هر ستون ×
+  // تعدادِ ستون‌ها) رندر می‌کنیم و داخل یک اسکرولِ افقی می‌گذاریم؛ چون همه‌ی
+  // ردیف‌ها همین یک columnWidths نسبی را دارند، تناسبِ ستون‌ها بین ردیف‌ها
+  // حفظ می‌ماند.
+  // 🐞 رفع باگِ نسخه‌ی قبلی: اینجا با «فقط وقتی tableWidthPercent تعیین
+  // نشده» گیت زده بودم، چون فکر می‌کردم یک دستورِ صریح‌ترِ رقیب است. اما با
+  // خودِ JSON واقعی (صفحه‌ی ۱۰، جدولِ abruptly/markedly/...) معلوم شد این
+  // فرض غلط بود: همان جدول هم ResponsiveStrategy="horizontalScroll" دارد
+  // *و هم* TableWidthPercent ست شده (۵۱.۵٪) — یعنی دقیقاً جدولی که این
+  // قابلیت برایش ساخته شده بود، با آن گیت هیچ‌وقت اسکرول نمی‌گرفت. حالا
+  // خودِ فلگِ صریحِ سند (strategy == "horizontalScroll") اولویتِ اول است و
+  // از این گیت عبور می‌کند؛ tableWidthPercent == null فقط برای جدول‌هایی
+  // که هیچ راهنمایی صریحی ندارند به‌عنوان فال‌بکِ heuristic باقی می‌ماند.
+  final bool explicitHorizontalScroll = strategy == "horizontalScroll";
+  if (!applyColumnStack &&
+      !isNestedTable &&
+      (explicitHorizontalScroll || tableSpan.tableWidthPercent == null)) {
+    int maxColumnCount = 0;
+    for (final row in tableSpan.tableRows) {
+      if (row.cells.length > maxColumnCount) maxColumnCount = row.cells.length;
+    }
+    const double minReadableColumnWidth = 90.0;
+    final double neededWidth = maxColumnCount * minReadableColumnWidth;
+    if (maxColumnCount > 1 && neededWidth > canvasWidth) {
+      final double renderWidth = neededWidth.clamp(
+        canvasWidth,
+        canvasWidth * 3,
+      );
+      tableContainer = Scrollbar(
+        thumbVisibility: true,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SizedBox(width: renderWidth, child: tableContainer),
+        ),
+      );
+    }
+  }
+
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
@@ -1907,6 +1975,7 @@ Widget _buildLocalImage(
   required bool isImageCell,
   required BookModel? activeBook, // 🌟 اضافه شد
   required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
+  double? explicitWidth, // 🐞 برای تصاویر عریض که در اسکرول افقی رندر می‌شوند
 }) {
   String fallbackPath = 'assets/data/testbook/images/$imageName';
   File? localFile;
@@ -1921,7 +1990,7 @@ Widget _buildLocalImage(
     }
   }
 
-  final double? logicalWidth = null;
+  final double? logicalWidth = explicitWidth;
   // (isMobile) ? screenWidth * 0.85 : null;
 
   // 🌟 رفع یک منبع واقعی و بزرگ جنک (تأییدشده با DevTools: میانگین ۲۶۷ms
