@@ -1759,12 +1759,37 @@ Widget _buildTable(
       !isNestedTable &&
       (explicitHorizontalScroll || tableSpan.tableWidthPercent == null)) {
     int maxColumnCount = 0;
+    // 🐞 برای جدولِ «عکس + زیرنویسِ رنگی» (استایلِ FigureTable): عرضِ لازم
+    // را نه فقط از رویِ تعدادِ ستون‌ها، بلکه از رویِ عرضِ طبیعیِ عکسِ داخلِ
+    // سلول‌ها هم حساب می‌کنیم — این‌طوری یک جدولِ تک‌سلولیِ حاویِ عکسِ عریض
+    // هم عرضِ درستی می‌گیرد (بدونِ این، heuristicِ ستون‌محور برای یک جدولِ
+    // تک‌ستونی فقط ۹۰px می‌داد که برای عکس بی‌معناست)، و چون زیرنویس در
+    // همان سلول است، با همان عرضِ عکس رندر و هم‌زمان اسکرول می‌شود.
+    double maxEmbeddedImageWidth = 0;
     for (final row in tableSpan.tableRows) {
       if (row.cells.length > maxColumnCount) maxColumnCount = row.cells.length;
+      for (final cell in row.cells) {
+        for (final p in cell.paragraphs) {
+          for (final s in p.spans) {
+            if (s.type == "image" &&
+                s.imageWidth != null &&
+                s.imageWidth! > maxEmbeddedImageWidth) {
+              maxEmbeddedImageWidth = s.imageWidth!.toDouble();
+            }
+          }
+        }
+      }
     }
     const double minReadableColumnWidth = 90.0;
-    final double neededWidth = maxColumnCount * minReadableColumnWidth;
-    if (maxColumnCount > 1 && neededWidth > canvasWidth) {
+    final double columnHeuristicWidth = maxColumnCount * minReadableColumnWidth;
+    final double neededWidth = columnHeuristicWidth > maxEmbeddedImageWidth
+        ? columnHeuristicWidth
+        : maxEmbeddedImageWidth;
+    final bool manyColumnsNeedRoom =
+        maxColumnCount > 1 && columnHeuristicWidth > canvasWidth;
+    final bool embeddedImageNeedsRoom = maxEmbeddedImageWidth > canvasWidth;
+    if ((manyColumnsNeedRoom || embeddedImageNeedsRoom) &&
+        neededWidth > canvasWidth) {
       final double renderWidth = neededWidth.clamp(
         canvasWidth,
         canvasWidth * 3,
