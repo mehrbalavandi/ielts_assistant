@@ -1169,7 +1169,12 @@ Widget _buildParagraph(
               child: SingleChildScrollView(
                 controller: hCtrl,
                 scrollDirection: Axis.horizontal,
-                child: standaloneImage,
+                // 🐞 همان فیکسِ فاصله: تا نوارِ اسکرول روی لبه‌ی پایینیِ
+                // خودِ عکس لَم ندهد.
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 14.0),
+                  child: standaloneImage,
+                ),
               ),
             );
           }
@@ -1848,10 +1853,21 @@ Widget _buildTable(
     }
   }
 
+  // 🐞 رفع باگِ «جدول به محتوای بعدی چسبیده»: قبلاً جدولِ تودرتو
+  // (isNestedTable، مثلِ FigureTable که همیشه داخلِ سلولِ جدولِ بیرونیِ
+  // تمرین است) فقط ۲px فاصله‌ی بالا داشت و اصلاً فاصله‌ی پایین نداشت — برای
+  // یک جدولِ تودرتوی کوچکِ معمولی شاید قابلِ‌قبول بود، ولی برای
+  // FigureTable/OutsideTable که خودشان یک شکلِ کاملند، خیلی چسبیده به‌نظر
+  // می‌رسید. حالا فاصله‌ی پایینِ معقولی هم می‌گیرند؛ اگر جدول قرار است
+  // اسکرولِ افقی هم بگیرد، کمی فاصله‌ی بیشتر می‌دهیم تا نوارِ اسکرول
+  // (پایین‌تر) جا برای نفس‌کشیدن داشته باشد و روی بوردرِ جدول لَم ندهد.
+  final bool willScrollHorizontally = strategy == "horizontalScroll";
+  final double nestedBottomMargin = willScrollHorizontally ? 14.0 : 10.0;
+
   // 🌟 اصلاح نهایی: حذف پارامتر border از کانتینر بیرونی برای جلوگیری از تداخل و دابل‌بوردر شدن سایدها
   Widget tableContainer = Container(
     margin: isNestedTable
-        ? const EdgeInsets.only(top: 2.0)
+        ? EdgeInsets.only(top: 2.0, bottom: nestedBottomMargin)
         : const EdgeInsets.symmetric(vertical: 12.0),
     decoration: BoxDecoration(
       color: _hexToColor(tableSpan.fillColor),
@@ -1929,7 +1945,14 @@ Widget _buildTable(
         child: SingleChildScrollView(
           controller: hCtrl,
           scrollDirection: Axis.horizontal,
-          child: SizedBox(width: renderWidth, child: tableContainer),
+          // 🐞 رفع باگِ «نوارِ اسکرول داخلِ جدول افتاده»: بدونِ این فاصله،
+          // نوارِ اسکرولِ افقی درست روی لبه‌ی پایینیِ بوردرِ جدول لَم
+          // می‌دهد و به‌نظر می‌رسد داخلِ خودِ جدول جا گرفته. این ۱۴px
+          // فاصله‌ی پایین، جدول و نوارِ اسکرول را از هم جدا نگه می‌دارد.
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 14.0),
+            child: SizedBox(width: renderWidth, child: tableContainer),
+          ),
         ),
       );
     }
