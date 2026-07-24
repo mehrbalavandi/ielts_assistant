@@ -1564,7 +1564,13 @@ Widget _buildTable(
           maxEmbeddedImageWidth
       ? maxParagraphNaturalWidth + 24
       : maxEmbeddedImageWidth;
-  final bool stretchCellsToImage = widestContentWidth > canvasWidth;
+  // 🐞 همان محدودسازیِ «فقط برای استایل‌های خاص»: stretch کردنِ محتوای سلول
+  // هم فقط وقتی معنا دارد که خودِ جدول قرار است اسکرولِ افقی بگیرد
+  // (strategy=="horizontalScroll")، وگرنه برای جدول‌های معمولی که هیچ‌وقت
+  // عریض‌تر نمی‌شوند، این stretch اثرِ عملیِ مفیدی ندارد و بهتر است رفتارِ
+  // پیش‌فرض (start) دست‌نخورده بماند.
+  final bool stretchCellsToImage =
+      strategy == "horizontalScroll" && widestContentWidth > canvasWidth;
 
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells = [];
@@ -1845,14 +1851,15 @@ Widget _buildTable(
   // تعدادِ ستون‌ها) رندر می‌کنیم و داخل یک اسکرولِ افقی می‌گذاریم؛ چون همه‌ی
   // ردیف‌ها همین یک columnWidths نسبی را دارند، تناسبِ ستون‌ها بین ردیف‌ها
   // حفظ می‌ماند.
-  // فقط با فلگِ tableWidthPercent==null گیت نمی‌شود: جدولِ واقعیِ
-  // «abruptly/markedly/...» هم TableWidthPercent (۵۱.۵٪) دارد و هم
-  // ResponsiveStrategy="horizontalScroll" صریح — پس فلگِ صریحِ سند اولویتِ
-  // اول است و از این گیت عبور می‌کند؛ tableWidthPercent==null فقط فال‌بکِ
-  // heuristic برای جدول‌های بدونِ راهنماییِ صریح است.
+  // 🐞 رفع باگِ «اسکرولِ افقیِ بیش‌ازحد فراگیر»: قبلاً وقتی tableWidthPercent
+  // ست نشده بود هم (فارغ از strategy) این‌جا فعال می‌شد — یعنی هر جدولِ
+  // ساده‌ای که فقط TableWidthPercent نداشت هم اسکرولِ افقی می‌گرفت، که خیلی
+  // بیشتر از نیاز بود. حالا فقط به فلگِ صریحِ strategy=="horizontalScroll"
+  // متکی است؛ سمتِ C# (ResponsiveLowering.cs) این فلگ را فقط برای
+  // استایل‌های خاصِ FigureTable و HBTable ست می‌کند، نه به‌عنوانِ پیش‌فرضِ
+  // هر جدولِ ناشناخته‌ای.
   final bool explicitHorizontalScroll = strategy == "horizontalScroll";
-  if (!applyColumnStack &&
-      (explicitHorizontalScroll || tableSpan.tableWidthPercent == null)) {
+  if (!applyColumnStack && explicitHorizontalScroll) {
     int maxColumnCount = 0;
     for (final row in tableSpan.tableRows) {
       if (row.cells.length > maxColumnCount) maxColumnCount = row.cells.length;
