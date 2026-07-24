@@ -1451,6 +1451,13 @@ Widget _buildTable(
   // widget، منطقِ tableWidthPercent — هنوز لازم است true بماند). پس اینجا
   // یک فلگِ جدا می‌سازیم و فقط تصمیمِ نمایشِ بوردر را از آن مستثنی می‌کنیم.
   final bool isFigureTable = rawStyle.contains("figuretable");
+  // 🐞 OutsideTable: فقط بوردرِ دورتادورِ کلِ جدول باید دیده شود، نه خطوطِ
+  // داخلیِ بینِ سلول‌ها/ردیف‌ها. چون مکانیزمِ فعلیِ showBorders یک TableBorder
+  // به هر ردیف (که خودش یک Table جداست) می‌دهد — یعنی هر ردیف جعبه‌ی خودش
+  // را می‌کشد، نه فقط بیرونیِ کل — اینجا رسمِ بوردرِ per-row/per-cell را
+  // برایش خاموش می‌کنیم و پایین‌تر (بعد از ساختِ کاملِ tableContainer) یک
+  // Border.all بیرونی دورِ کلِ جدول می‌کشیم.
+  final bool isOutsideTable = rawStyle.contains("outsidetable");
   final bool isColumnStack =
       strategy == "stack" ||
       tableSpan.layoutReflow == "stack" ||
@@ -1476,6 +1483,7 @@ Widget _buildTable(
   final bool showBorders =
       !hideBorders &&
       !isFigureTable &&
+      !isOutsideTable &&
       (isBorderedTable ||
           tableSpan.hasBorders == "true" ||
           (borderVal != null &&
@@ -1663,7 +1671,13 @@ Widget _buildTable(
     }
 
     // زاپاس ردیف اول برای جداول استاندارد ورد
+    // 🐞 رفع باگِ «بوردرِ پایینیِ ضخیم‌تر»: این تقویت فقط برای جداولِ
+    // چندردیفه معنا دارد (جداکردنِ ردیفِ اول از بقیه، مثلِ سرستونِ جدول)؛
+    // برای جدولِ تک‌ردیفه/تک‌سلولی (مثلِ جعبه‌ی TIP صفحه‌ی ۸) هیچ ردیفِ
+    // بعدی‌ای برای جدا شدن وجود ندارد، ولی چون rowIndex==0 همیشه true بود،
+    // بی‌دلیل بوردرِ پایین را ۲.۲ برابر می‌کرد.
     if (rowIndex == 0 &&
+        tableSpan.tableRows.length > 1 &&
         currentBottomWidth == defaultBorderWidth &&
         isBorderedTable) {
       currentBottomWidth = defaultBorderWidth * 2.2;
@@ -1746,7 +1760,12 @@ Widget _buildTable(
     if (applyColumnStack) {
       allGridCells.add(cellWidgets);
     } else {
-      if (isLargeScreen || isBorderedTable || isImageRow || isNestedTable) {
+      if (isLargeScreen ||
+          isBorderedTable ||
+          isImageRow ||
+          isNestedTable ||
+          showBorders ||
+          isOutsideTable) {
         List<Widget> tableCellWidgets = [];
         for (int i = 0; i < cellWidgets.length; i++) {
           tableCellWidgets.add(
@@ -1843,6 +1862,23 @@ Widget _buildTable(
       children: rowWidgets,
     ),
   );
+
+  // 🐞 OutsideTable: چون رسمِ بوردرِ per-row/per-cell برایش بالاتر خاموش
+  // شد (showBorders=false)، اینجا یک‌بار دورِ کلِ tableContainer (که همه‌ی
+  // ردیف‌ها را در بر دارد) یک Border.all می‌کشیم — یعنی فقط بوردرِ بیرونی،
+  // بدونِ خطوطِ داخلی. این wrap قبل از منطقِ اسکرولِ افقیِ زیر انجام می‌شود
+  // تا بوردر با محتوا اسکرول شود (فقط در ابتدا/انتهای واقعیِ جدول دیده شود).
+  if (isOutsideTable && !hideBorders) {
+    tableContainer = Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: defaultBorderColor,
+          width: defaultBorderWidth,
+        ),
+      ),
+      child: tableContainer,
+    );
+  }
 
   // 🐞 رفع بکلاگِ «اسکرول افقی خودکار برای جدول عریض در صفحه‌ی باریک»: اگر
   // جدول آن‌قدر ستون دارد که فشرده‌کردنِ همه در canvasWidth ناخوانا می‌شود
