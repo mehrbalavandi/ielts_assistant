@@ -89,6 +89,27 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     return '${r.pageNumber}:${r.paraIndex}:${r.occurrenceIndex}';
   }
 
+  // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر: چون این کار روی کلِ کتاب است (همه‌ی
+  // صفحات، نه فقط یکی)، فقط یک‌بار (به‌ازای همین documentPages) محاسبه و
+  // کش می‌شود — نه در هر rebuildِ هر صفحه.
+  List<BookAudioEntry>? _cachedBookAudioEntries;
+  List<PageData>? _cachedForDocumentPages;
+  List<String> _bookAudioPlaylist = const [];
+  Map<String, AudioLocation> _bookAudioFirstOccurrence = const {};
+
+  void _ensureBookAudioPlaylistBuilt() {
+    if (_cachedBookAudioEntries != null &&
+        _cachedForDocumentPages == widget.documentPages) {
+      return;
+    }
+    final currentBook = ref.read(activeBookProvider);
+    final entries = buildBookAudioPlaylist(widget.documentPages, currentBook);
+    _cachedBookAudioEntries = entries;
+    _cachedForDocumentPages = widget.documentPages;
+    _bookAudioPlaylist = entries.map((e) => e.resolvedPath).toList();
+    _bookAudioFirstOccurrence = bookAudioFirstOccurrence(entries);
+  }
+
   // وقتی transform تغییر می‌کند — فقط اگر در حال pinch باشیم setState می‌زنیم
   // این جلوگیری می‌کند از setState غیرضروری در حین اسکرول معمولی
   void _onTransformChanged() {
@@ -398,6 +419,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     double initialAlignment =
         _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
 
+    // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر — کش‌شده، فقط واقعاً یک‌بار به‌ازای
+    // همین documentPages محاسبه می‌شود.
+    _ensureBookAudioPlaylistBuilt();
+
     final activeTarget =
         (searchSession != null && searchSession.results.isNotEmpty)
         ? searchSession.results[searchSession.currentIndex] as SearchResult
@@ -655,6 +680,9 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                     pageAnchorKey: hasTarget
                                         ? _pageAnchorKey
                                         : null,
+                                    bookAudioPlaylist: _bookAudioPlaylist,
+                                    bookAudioFirstOccurrence:
+                                        _bookAudioFirstOccurrence,
                                   ),
                                 );
                               },
@@ -683,6 +711,11 @@ class BookPageWidget extends ConsumerStatefulWidget {
   final GlobalKey? targetKey;
   final GlobalKey? exactMatchKey; // 🌟 اضافه شد
   final GlobalKey? pageAnchorKey; // 🌟 اضافه شد
+  // 🐞 پلی‌لیستِ کتاب‌محور (نه فقط همین صفحه) + اولین وقوعِ هر فایل — از
+  // ReadingCanvasScreen پاس داده می‌شود تا یک‌بار برای کل کتاب محاسبه شود،
+  // نه به‌ازای هر صفحه.
+  final List<String> bookAudioPlaylist;
+  final Map<String, AudioLocation> bookAudioFirstOccurrence;
 
   const BookPageWidget({
     super.key,
@@ -694,6 +727,8 @@ class BookPageWidget extends ConsumerStatefulWidget {
     this.targetKey,
     this.exactMatchKey, // 🌟 اضافه شد
     this.pageAnchorKey, // 🌟 اضافه شد
+    this.bookAudioPlaylist = const [],
+    this.bookAudioFirstOccurrence = const {},
   });
 
   @override
@@ -728,7 +763,8 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         old.screenWidth != widget.screenWidth ||
         old.targetKey != widget.targetKey ||
         old.exactMatchKey != widget.exactMatchKey ||
-        old.pageAnchorKey != widget.pageAnchorKey) {
+        old.pageAnchorKey != widget.pageAnchorKey ||
+        old.bookAudioPlaylist != widget.bookAudioPlaylist) {
       // 🌟 اضافه شد
       _cachedWidgets = null;
     }
@@ -741,25 +777,13 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
     // 🌟 رفع باگ دکمه‌های بعدی/قبلیِ پلیر صوتی:
     // قبلاً هر لینک صوتی هنگام پخش، یک پلی‌لیستِ تک‌عضوی (فقط خودش) به
     // پلیر می‌داد؛ چون دکمه‌ی بعدی/قبلی بر اساس همین پلی‌لیست کار می‌کند،
-    // همیشه چیزی برای «بعدی/قبلی» وجود نداشت. اینجا، یک‌بار برای کل صفحه،
-    // تمام لینک‌های صوتی (span.url با پیشوند "audio:") را به ترتیب ظاهرشدن
-    // جمع‌آوری و به مسیر واقعی‌شان (فایل آفلاین یا asset) resolve می‌کنیم؛
-    // همین لیست به هر InlineAudioLink پاس داده می‌شود تا دکمه‌های
-    // بعدی/قبلی واقعاً بین همه‌ی صداهای این صفحه حرکت کنند.
-    final List<String> pageAudioPlaylist = [];
-    final Set<String> seenAudioFiles = {};
-    for (final p in widget.page.paragraphs) {
-      for (final s in p.spans) {
-        if (s.url != null && s.url!.startsWith("audio:")) {
-          final fileName = s.url!.replaceFirst("audio:", "");
-          if (fileName.isNotEmpty && seenAudioFiles.add(fileName)) {
-            pageAudioPlaylist.add(
-              InlineAudioLink.resolveAudioPath(fileName, currentBook),
-            );
-          }
-        }
-      }
-    }
+    // همیشه چیزی برای «بعدی/قبلی» وجود نداشت. سپس یک‌بار برای کل صفحه
+    // ساخته می‌شد؛ حالا برای قابلیتِ «پلی‌لیستِ کتاب + برو به متن»،
+    // پلی‌لیست از سطحِ ReadingCanvasScreen (که کلِ کتاب را می‌بیند، نه فقط
+    // این صفحه) پاس داده می‌شود — bookAudioPlaylist/bookAudioFirstOccurrence.
+    final List<String> pageAudioPlaylist = widget.bookAudioPlaylist;
+    final Map<String, AudioLocation> audioFirstOccurrence =
+        widget.bookAudioFirstOccurrence;
 
     for (int pIndex = 0; pIndex < widget.page.paragraphs.length; pIndex++) {
       var para = widget.page.paragraphs[pIndex];
@@ -787,6 +811,9 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         interactivesPattern: widget.page.interactivesPattern, // 🌟 اضافه شد
         interactivesByText: widget.page.interactivesByText, // 🌟 اضافه شد
         pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+        audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+        audioPageNumber: widget.page.pageNumber, // 🐞 اضافه شد
+        audioParaIndex: pIndex, // 🐞 اضافه شد
         rootHighlightMap: rootHighlightMap,
         mapOffset: MapOffset(),
         keyClaim:
@@ -990,6 +1017,12 @@ Widget _buildParagraph(
   RegExp? interactivesPattern, // 🌟 اضافه شد
   Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
   List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
+  // 🐞 برای قابلیتِ «پلی‌لیستِ کتاب + برو به متن»: اولین وقوعِ هر فایل در
+  // کتاب، و موقعیتِ خودِ همین پاراگراف (صفحه+اندیس) — تا هر InlineAudioLink
+  // داخلِ این پاراگراف بداند دقیقاً کجای کتاب است.
+  Map<String, AudioLocation> audioFirstOccurrence = const {},
+  int? audioPageNumber,
+  int? audioParaIndex,
   GlobalKey? exactMatchKey, // 🌟 اضافه شد
   // 🐞 رفع کرش «RenderBox did not set its size»: وقتی occurrence فعالِ
   // جستجو بین دو اسپن یا بین دو سلولِ جدولِ همین پاراگراف شکسته می‌شود،
@@ -1070,6 +1103,9 @@ Widget _buildParagraph(
           interactivesPattern: interactivesPattern, // 🌟 اضافه شد
           interactivesByText: interactivesByText, // 🌟 اضافه شد
           pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+          audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+          audioPageNumber: audioPageNumber, // 🐞 اضافه شد
+          audioParaIndex: audioParaIndex, // 🐞 اضافه شد
           keyClaim: keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
         ),
       );
@@ -1222,6 +1258,9 @@ Widget _buildParagraph(
           interactivesPattern: interactivesPattern, // 🌟 اضافه شد
           interactivesByText: interactivesByText, // 🌟 اضافه شد
           pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+          audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+          audioPageNumber: audioPageNumber, // 🐞 اضافه شد
+          audioParaIndex: audioParaIndex, // 🐞 اضافه شد
           keyClaim: keyClaim, // 🐞 مشترک بین پاراگراف و همه‌ی سلول‌های جدولش
         ),
       );
@@ -1435,6 +1474,9 @@ Widget _buildTable(
   RegExp? interactivesPattern,
   Map<String, InteractiveWord>? interactivesByText,
   List<String> pageAudioPlaylist = const [],
+  Map<String, AudioLocation> audioFirstOccurrence = const {},
+  int? audioPageNumber,
+  int? audioParaIndex,
   KeyClaim? keyClaim, // 🐞 مشترک بین پاراگراف مادر و همه‌ی سلول‌های این جدول
 }) {
   final bool isLargeScreen = screenWidth > 600;
@@ -1727,6 +1769,9 @@ Widget _buildTable(
             interactivesPattern: interactivesPattern,
             interactivesByText: interactivesByText,
             pageAudioPlaylist: pageAudioPlaylist,
+            audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+            audioPageNumber: audioPageNumber, // 🐞 اضافه شد
+            audioParaIndex: audioParaIndex, // 🐞 اضافه شد
             keyClaim: keyClaim, // 🐞 همان claim مشترکِ کل پاراگراف/جدول
           ),
         );
@@ -1997,6 +2042,9 @@ List<InlineSpan> _buildStyledInteractiveText(
   RegExp? interactivesPattern,
   Map<String, InteractiveWord>? interactivesByText,
   List<String> pageAudioPlaylist = const [],
+  Map<String, AudioLocation> audioFirstOccurrence = const {},
+  int? audioPageNumber,
+  int? audioParaIndex,
   KeyClaim? keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
 }) {
   double fontSize = 14.0;
@@ -2076,6 +2124,9 @@ List<InlineSpan> _buildStyledInteractiveText(
           text: span.content ?? "",
           baseColor: interactiveColor,
           playlist: pageAudioPlaylist,
+          firstOccurrence: audioFirstOccurrence,
+          pageNumber: audioPageNumber,
+          paraIndex: audioParaIndex,
         ),
       ),
     );
@@ -2238,15 +2289,88 @@ Widget _errorImage(String imageName) {
   );
 }
 
+// 🐞 برای قابلیتِ «پلی‌لیستِ کتاب»: هر فایلِ صوتیِ یکتا در کتاب، به همراهِ
+// همه‌ی موقعیت‌هایی (صفحه+پاراگراف) که در آن‌ها ظاهر شده — چون یک فایل
+// می‌تواند در چند تمرین/جای مختلفِ کتاب استفاده شده باشد، ولی باید فقط
+// یک‌بار در لیستِ پخش بیاید.
+class BookAudioEntry {
+  final String resolvedPath;
+  final String fileName;
+  final List<AudioLocation> occurrences;
+  BookAudioEntry({
+    required this.resolvedPath,
+    required this.fileName,
+    required this.occurrences,
+  });
+}
+
+// یک اسکنِ یک‌باره از تمامِ صفحاتِ کتاب برای جمع‌آوریِ پلی‌لیستِ کتاب‌محور.
+// چون این کار روی کلِ کتاب است (نه فقط یک صفحه)، فراخوان (ReadingCanvasScreen)
+// باید نتیجه‌اش را کش کند و به‌ازای هر rebuild دوباره صدا نزند.
+List<BookAudioEntry> buildBookAudioPlaylist(
+  List<PageData> pages,
+  BookModel? activeBook,
+) {
+  final Map<String, BookAudioEntry> byPath = {};
+  final List<String> order = [];
+  for (final page in pages) {
+    for (int pIndex = 0; pIndex < page.paragraphs.length; pIndex++) {
+      final para = page.paragraphs[pIndex];
+      for (final s in para.spans) {
+        if (s.url != null && s.url!.startsWith("audio:")) {
+          final fileName = s.url!.replaceFirst("audio:", "");
+          if (fileName.isEmpty) continue;
+          final resolved = InlineAudioLink.resolveAudioPath(
+            fileName,
+            activeBook,
+          );
+          BookAudioEntry? entry = byPath[resolved];
+          if (entry == null) {
+            entry = BookAudioEntry(
+              resolvedPath: resolved,
+              fileName: fileName,
+              occurrences: [],
+            );
+            byPath[resolved] = entry;
+            order.add(resolved);
+          }
+          entry.occurrences.add(
+            AudioLocation(pageNumber: page.pageNumber, paraIndex: pIndex),
+          );
+        }
+      }
+    }
+  }
+  return order.map((k) => byPath[k]!).toList();
+}
+
+// اولین وقوعِ هر فایل، برای رفتارِ sequential (دکمه‌های قبلی/بعدی و خودِ
+// لیستِ پخش) — همان چیزی که AudioPlayerNotifier.playFile وقتی
+// explicitLocation پاس داده نشود استفاده می‌کند.
+Map<String, AudioLocation> bookAudioFirstOccurrence(
+  List<BookAudioEntry> entries,
+) {
+  return {for (final e in entries) e.resolvedPath: e.occurrences.first};
+}
+
 class InlineAudioLink extends ConsumerWidget {
   final String fileName;
   final String text;
   final Color baseColor;
-  // 🌟 پلی‌لیستِ همه‌ی فایل‌های صوتیِ این صفحه (مسیرهای resolve‌شده)، تا
+  // 🌟 پلی‌لیستِ همه‌ی فایل‌های صوتیِ کتاب (مسیرهای resolve‌شده)، تا
   // دکمه‌های بعدی/قبلی در پلیر واقعاً چیزی برای رفتن داشته باشند. قبلاً هر
   // لینک هنگام پخش فقط خودش را به‌عنوان یک پلی‌لیستِ تک‌عضوی می‌فرستاد، پس
   // دکمه‌ی بعدی/قبلی همیشه در انتهای لیست بود و کاری نمی‌کرد.
   final List<String> playlist;
+  // 🐞 اولین وقوعِ هر فایل در کتاب — همراهِ پلی‌لیست به پلیر پاس داده
+  // می‌شود تا وقتی از طریقِ قبلی/بعدی به این فایل رسیدیم، دکمه‌ی «برو به
+  // متن» بداند به کجا برود.
+  final Map<String, AudioLocation> firstOccurrence;
+  // 🐞 موقعیتِ خودِ همین دکمه در کتاب (صفحه + اندیسِ پاراگراف) — وقتی خودِ
+  // همین دکمه تپ شود، این دقیقاً همان جایی است که «برو به متن» باید به آن
+  // برگردد، نه لزوماً اولین وقوعِ فایل.
+  final int? pageNumber;
+  final int? paraIndex;
 
   const InlineAudioLink({
     super.key,
@@ -2254,6 +2378,9 @@ class InlineAudioLink extends ConsumerWidget {
     required this.text,
     required this.baseColor,
     this.playlist = const [],
+    this.firstOccurrence = const {},
+    this.pageNumber,
+    this.paraIndex,
   });
 
   // 🌟 رفع مشکل لرزش/جنکِ اسکرول هنگام پخش صدا:
@@ -2350,9 +2477,20 @@ class InlineAudioLink extends ConsumerWidget {
           final effectivePlaylist = playlist.contains(targetPath)
               ? playlist
               : [targetPath];
+          final AudioLocation? thisLocation =
+              (pageNumber != null && paraIndex != null)
+              ? AudioLocation(pageNumber: pageNumber!, paraIndex: paraIndex!)
+              : null;
           ref
               .read(audioPlayerProvider.notifier)
-              .playFile(targetPath, newPlaylist: effectivePlaylist);
+              .playFile(
+                targetPath,
+                newPlaylist: effectivePlaylist,
+                newFirstOccurrence: firstOccurrence,
+                // 🐞 خودِ همین دکمه تپ شده → این دقیقاً وقوعِ موردنظرِ
+                // کاربر است، نه صرفاً اولین وقوعِ فایل.
+                explicitLocation: thisLocation,
+              );
         }
       },
       child: Container(

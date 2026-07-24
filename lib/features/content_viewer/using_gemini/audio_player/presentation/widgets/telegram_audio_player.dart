@@ -1,10 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/audio_player_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/text_render_engine.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+// 🐞 برای دکمه‌ی «برو به متن»: مکانیزمِ موجودِ اسکرول (در
+// ReadingCanvasScreen) فقط از رویِ activeSearchProvider/SearchResult کار
+// می‌کند (طراحی‌شده برای نتایجِ جستجو). به‌جای ساختِ یک مسیرِ کاملاً جدا،
+// همان مکانیزمِ ثابت‌شده را با یک SearchResult مصنوعیِ تک‌عضوی دوباره
+// استفاده می‌کنیم — query خالی می‌ماند تا هایلایتِ جستجو در متن فعال نشود؛
+// paragraph هم یک ParagraphData خالیِ جای‌پرکن است چون در مسیرِ اسکرولِ
+// فعلی اصلاً خوانده نمی‌شود (فقط pageNumber/paraIndex استفاده می‌شوند).
+void _jumpToAudioLocation(WidgetRef ref, BuildContext context) {
+  final playerState = ref.read(audioPlayerProvider);
+  final target = playerState.targetLocation;
+  if (target == null) return;
+  final book = ref.read(activeBookProvider);
+  if (book == null) return;
+
+  final result = SearchResult(
+    bookId: book.id,
+    bookTitle: book.title,
+    pageNumber: target.pageNumber,
+    paraIndex: target.paraIndex,
+    occurrenceIndex: 0,
+    paragraph: ParagraphData(spans: const [], interactives: const []),
+    matchedExcerpt: '',
+    query: '',
+  );
+  final current = ref.read(activeSearchProvider);
+  ref.read(activeSearchProvider.notifier).state = SearchSession(
+    query: '',
+    results: [result],
+    currentIndex: 0,
+    jumpTrigger: (current?.jumpTrigger ?? 0) + 1,
+  );
+  Navigator.of(context).pop();
+}
 
 class TelegramAudioPlayer extends ConsumerWidget {
   // final List<PageData> documentPages;
@@ -60,6 +96,18 @@ class TelegramAudioPlayer extends ConsumerWidget {
                   backgroundColor: Colors.transparent,
                   builder: (context) =>
                       AudioscriptViewerSheet(audioScripts: audioScripts),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.queue_music_rounded),
+              tooltip: "پلی‌لیستِ کتاب",
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => const _AudioPlaylistSheet(),
                 );
               },
             ),
@@ -155,12 +203,39 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            state.currentPath?.split('/').last ?? '',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Text(
+                    state.currentPath?.split('/').last ?? '',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                if (state.targetLocation != null) ...[
+                  const SizedBox(width: 8),
+                  // 🐞 «برو به متن»: کاربر را به دقیقاً همان صفحه/پاراگرافی
+                  // می‌برد که یا اولین وقوعِ این فایل در کتاب است (اگر با
+                  // قبلی/بعدی یا لیستِ پخش به این فایل رسیده‌ایم)، یا همان
+                  // نقطه‌ی دقیقی که رویِ دکمه‌ی صوتیِ داخلِ متن تپ شده.
+                  IconButton(
+                    icon: const Icon(
+                      Icons.subject_rounded,
+                      color: Colors.orangeAccent,
+                      size: 20,
+                    ),
+                    tooltip: 'برو به متن',
+                    onPressed: () => _jumpToAudioLocation(ref, context),
+                  ),
+                ],
+              ],
             ),
           ),
           const SizedBox(height: 16),
@@ -400,6 +475,116 @@ class _FullPlayerBottomSheet extends ConsumerWidget {
             fontSize: 12,
           ),
         ),
+      ),
+    );
+  }
+}
+
+// 🐞 پلی‌لیستِ کتاب: تمامِ فایل‌های صوتیِ یکتای این کتاب (دیدوپلیکیت‌شده،
+// از همان state.playlist/firstOccurrence که با اولین تپِ روی هر دکمه‌ی
+// صوتیِ داخلِ متن پر می‌شود). تپ‌کردن روی یک آیتم آن را پخش می‌کند (منبعِ
+// sequential، چون از خودِ لیستِ پخش انتخاب شده، نه یک نقطه‌ی خاص از متن) و
+// به اولین وقوعش در کتاب می‌رود.
+class _AudioPlaylistSheet extends ConsumerWidget {
+  const _AudioPlaylistSheet();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(audioPlayerProvider);
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: const BoxDecoration(
+        color: Color(0xFF1E222D),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 12),
+          Container(
+            width: 40,
+            height: 4.5,
+            decoration: BoxDecoration(
+              color: Colors.white24,
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "پلی‌لیستِ کتاب",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close_rounded, color: Colors.white70),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          ),
+          const Divider(color: Colors.white10, height: 20),
+          Expanded(
+            child: state.playlist.isEmpty
+                ? const Center(
+                    child: Text(
+                      "فایلِ صوتی‌ای در این کتاب یافت نشد.",
+                      style: TextStyle(color: Colors.white54),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: state.playlist.length,
+                    itemBuilder: (context, index) {
+                      final path = state.playlist[index];
+                      final bool isCurrent = state.currentPath == path;
+                      return ListTile(
+                        leading: Icon(
+                          isCurrent && state.isPlaying
+                              ? Icons.pause_circle_filled_rounded
+                              : Icons.play_circle_fill_rounded,
+                          color: isCurrent
+                              ? Colors.orangeAccent
+                              : Colors.white54,
+                        ),
+                        title: Text(
+                          path.split('/').last,
+                          style: TextStyle(
+                            color: isCurrent
+                                ? Colors.orangeAccent
+                                : Colors.white70,
+                            fontWeight: isCurrent
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        onTap: () {
+                          ref
+                              .read(audioPlayerProvider.notifier)
+                              .playFile(
+                                path,
+                                newPlaylist: state.playlist,
+                                newFirstOccurrence: state.firstOccurrence,
+                                // 🐞 explicitLocation عمداً پاس داده نمی‌شود:
+                                // انتخاب از خودِ لیستِ پخش، sequential است —
+                                // یعنی هدف باید اولین وقوعِ همین فایل باشد،
+                                // نه یک نقطه‌ی خاص.
+                              );
+                          _jumpToAudioLocation(ref, context);
+                        },
+                      );
+                    },
+                  ),
+          ),
+        ],
       ),
     );
   }

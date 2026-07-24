@@ -16,6 +16,28 @@ enum PlaybackMode {
   autoAdvance, // رفتن به فایل بعدی
 }
 
+// 🐞 برای قابلیتِ «پلی‌لیستِ کتاب + برگشتن به نقطه‌ی درست در متن»: مشخص
+// می‌کند فایلِ در حال پخش از چه راهی انتخاب شده — این تصمیم می‌گیرد که
+// دکمه‌ی «برو به متن» باید کاربر را به کجای کتاب ببرد.
+enum AudioTrackSource {
+  none,
+  // از طریق دکمه‌های قبلی/بعدیِ پلیر یا خودِ لیستِ پخش → به اولین وقوعِ
+  // این فایل در کتاب می‌رویم (چون این انتخاب به یک نقطه‌ی خاص از متن وصل
+  // نبوده).
+  sequential,
+  // از طریق دکمه‌ی صوتیِ داخلِ متنِ کتاب (یک وقوعِ مشخص) → دقیقاً به همان
+  // نقطه‌ای می‌رویم که کاربر رویش تپ کرده.
+  explicitLocation,
+}
+
+// یک موقعیتِ مشخص از کتاب که این فایلِ صوتی در آن ظاهر شده (شماره‌ی صفحه +
+// اندیسِ پاراگراف)؛ اولین موردِ هر فایل برای حالتِ sequential استفاده می‌شود.
+class AudioLocation {
+  final int pageNumber;
+  final int paraIndex;
+  const AudioLocation({required this.pageNumber, required this.paraIndex});
+}
+
 class AudioPlayerState {
   final bool isPlaying;
   final Duration position;
@@ -26,6 +48,13 @@ class AudioPlayerState {
   final double speed;
   final PlaybackMode playbackMode; // 🌟 اضافه شد
   final List<String> playlist; // 🌟 لیست فایل‌ها برای قبلی/بعدی
+  // 🐞 اولین وقوعِ هر فایل در کتاب (برای رفتنِ sequential) — از رویِ همین
+  // پلی‌لیستِ کتاب‌محور پر می‌شود.
+  final Map<String, AudioLocation> firstOccurrence;
+  final AudioTrackSource lastSource;
+  // 🐞 موقعیتِ هدف برای دکمه‌ی «برو به متن»: یا اولین وقوع (sequential) یا
+  // همان وقوعِ دقیقی که رویش تپ شده (explicitLocation).
+  final AudioLocation? targetLocation;
 
   AudioPlayerState({
     this.isPlaying = false,
@@ -37,6 +66,9 @@ class AudioPlayerState {
     this.speed = 1.0,
     this.playbackMode = PlaybackMode.stop, // پیش‌فرض: توقف
     this.playlist = const [],
+    this.firstOccurrence = const {},
+    this.lastSource = AudioTrackSource.none,
+    this.targetLocation,
   });
 
   AudioPlayerState copyWith({
@@ -49,6 +81,9 @@ class AudioPlayerState {
     double? speed,
     PlaybackMode? playbackMode,
     List<String>? playlist,
+    Map<String, AudioLocation>? firstOccurrence,
+    AudioTrackSource? lastSource,
+    AudioLocation? Function()? targetLocation,
   }) {
     return AudioPlayerState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -60,6 +95,11 @@ class AudioPlayerState {
       speed: speed ?? this.speed,
       playbackMode: playbackMode ?? this.playbackMode,
       playlist: playlist ?? this.playlist,
+      firstOccurrence: firstOccurrence ?? this.firstOccurrence,
+      lastSource: lastSource ?? this.lastSource,
+      targetLocation: targetLocation != null
+          ? targetLocation()
+          : this.targetLocation,
     );
   }
 }
@@ -142,20 +182,47 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     return AudioPlayerState(playbackMode: savedMode);
   }
 
-  // 🌟 متد ثبت لیست پخش (صداهای صفحه فعلی)
-  void setPlaylist(List<String> files) {
+  // 🌟 متد ثبت لیست پخش (صداهای کل کتاب) + اولین وقوعِ هر فایل در کتاب
+  void setPlaylist(
+    List<String> files, {
+    Map<String, AudioLocation>? firstOccurrence,
+  }) {
     if (files.isNotEmpty) {
-      state = state.copyWith(playlist: files);
+      state = state.copyWith(
+        playlist: files,
+        firstOccurrence: firstOccurrence ?? state.firstOccurrence,
+      );
     }
   }
 
-  Future<void> playFile(String path, {List<String>? newPlaylist}) async {
+  Future<void> playFile(
+    String path, {
+    List<String>? newPlaylist,
+    Map<String, AudioLocation>? newFirstOccurrence,
+    // 🐞 اگر مشخص شود، یعنی این پخش از رویِ یک وقوعِ دقیق در متن بوده
+    // (دکمه‌ی صوتیِ داخلِ کتاب) — همین را به‌عنوانِ هدفِ «برو به متن» ذخیره
+    // می‌کنیم. اگر مشخص نشود، از firstOccurrence همان فایل استفاده می‌شود
+    // (یعنی این انتخاب sequential بوده، مثلِ لیستِ پخش یا قبلی/بعدی).
+    AudioLocation? explicitLocation,
+  }) async {
     try {
       if (newPlaylist != null) {
-        setPlaylist(newPlaylist);
+        setPlaylist(newPlaylist, firstOccurrence: newFirstOccurrence);
       }
 
+      final AudioLocation? resolvedTarget =
+          explicitLocation ??
+          newFirstOccurrence?[path] ??
+          state.firstOccurrence[path];
+      final AudioTrackSource resolvedSource = explicitLocation != null
+          ? AudioTrackSource.explicitLocation
+          : AudioTrackSource.sequential;
+
       if (state.currentPath == path && _player.duration != null) {
+        state = state.copyWith(
+          lastSource: resolvedSource,
+          targetLocation: () => resolvedTarget,
+        );
         _player.play();
         return;
       }
@@ -168,6 +235,8 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
         pointA: () => null,
         pointB: () => null,
         position: Duration(milliseconds: lastPosMs),
+        lastSource: resolvedSource,
+        targetLocation: () => resolvedTarget,
       );
 
       if (path.startsWith('assets/')) {
@@ -191,6 +260,8 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     if (state.playlist.isEmpty || state.currentPath == null) return;
     int currentIndex = state.playlist.indexOf(state.currentPath!);
     if (currentIndex != -1 && currentIndex < state.playlist.length - 1) {
+      // 🐞 از طریقِ دکمه‌ی بعدی → sequential (explicitLocation پاس داده
+      // نمی‌شود، پس playFile خودش از firstOccurrence استفاده می‌کند)
       playFile(state.playlist[currentIndex + 1]);
     } else {
       // اگر به آخر لیست رسیدیم توقف کن
