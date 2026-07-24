@@ -1075,15 +1075,22 @@ Widget _buildParagraph(
       );
       mapOffset.value += content.length;
     } else if (span.type == "image") {
-      if (!isLargeScreen) {
+      // 🐞 رفع باگِ «انبارشدنِ عمودیِ زیرنویس در صفحاتِ باریک»: این خط قبلاً
+      // بدونِ توجه به renderInline، قبل از *هر* عکسی روی صفحه‌ی باریک
+      // flushText صدا می‌زد. برای زیرنویسِ FigureTable (یک پاراگرافِ واحد:
+      // آیکون+متن، آیکون+متن، آیکون+متن) این یعنی به‌ازای هر آیکون یک
+      // WrappableTextِ جداگانه ساخته می‌شد — دقیقاً همان چیزی که در
+      // اسکرین‌شات به‌شکلِ «سه ردیفِ روی‌همِ جدا» دیده شد، چون سه بلاکِ
+      // block-level پشتِ‌سرِهم به‌جای یک جریانِ متنیِ پیوسته. حالا وقتی
+      // renderInline==true (عکس قرار است داخلِ همان جریانِ متن بماند)، این
+      // flush را رد می‌کنیم؛ برای عکسِ مستقل (renderInline==false) رفتارِ
+      // قبلی دست‌نخورده می‌ماند.
+      if (!isLargeScreen && !renderInline) {
         flushText();
       }
       String imagePath = span.url ?? span.content; // ✅ هندل کردن حالت Null
       if (imagePath.isNotEmpty) {
         if (renderInline) {
-          if (span.url!.contains('p8_s1_img7.png')) {
-            String test = '';
-          }
           // 🌟 حالت اول: قرار دادن تصویر به صورت Inline در کنار متن (بدون فراخوانی flushText)
           // اگر در موتور C# ابعاد تصویر (عرض و ارتفاع) را از فایل ورد استخراج کرده‌اید،
           // می‌توانید از آن‌ها در اینجا استفاده کنید. در غیر این صورت روی یک ارتفاع منطقی محدودش می‌کنیم.
@@ -1472,6 +1479,83 @@ Widget _buildTable(
     return TableCellVerticalAlignment.top;
   }
 
+  // 🐞 رفع باگِ «فقط عکس ریسپانسیو می‌شود، زیرنویس نه»: قبلاً این اسکن فقط
+  // پایین‌تر (نزدیکِ wrap‌کردنِ tableContainer) انجام می‌شد، یعنی بعد از
+  // اینکه محتوای سلول‌ها (cellContent) از قبل ساخته شده بودند. مشکل این
+  // بود که Columnِ داخلِ هر سلول crossAxisAlignment: start داشت، یعنی هر
+  // پاراگراف (عکس، زیرنویس) فقط به‌اندازه‌ی نیازِ خودش عرض می‌گرفت، نه به
+  // اندازه‌ی کلِ سلول — پس زیرنویس، حتی وقتی سلول به‌اندازه‌ی عکس عریض
+  // می‌شد، باز هم جمع‌وجورِ خودش می‌ماند و بصری هم‌راستا با عکس نبود. حالا
+  // این اسکن را زودتر انجام می‌دهیم تا موقعِ ساختِ cellContent هم در
+  // دسترس باشد.
+  //
+  // 🐞 رفع دورِ دومِ همین باگ: با خودِ page_0008.json معلوم شد زیرنویس واقعاً
+  // یک پاراگرافِ واحد است (سه آیکونِ رنگی + سه برچسبِ متنی، همه inline)، نه
+  // چند پاراگراف — پس مشکل از تعدادِ پاراگراف نبود. مشکل این بود که عرضِ
+  // لازمِ جدول را فقط از رویِ عرضِ عکسِ نمودار (۴۱۶px) حساب می‌کردیم، در
+  // حالی‌که عرضِ طبیعیِ خودِ زیرنویس (۳ آیکون + ۳ برچسبِ متنی + فاصله‌ها،
+  // یک‌جا) می‌تواند از عرضِ خودِ عکس هم بیشتر باشد — پس ۴۱۶px برای یک‌خط‌
+  // نشدنِ زیرنویس کافی نبود. حالا عرضِ طبیعیِ یک‌خطِ هر پاراگراف را هم
+  // می‌سنجیم (آیکون‌ها از رویِ imageWidth، متن‌ها با TextPainter و همان
+  // قاعده‌ی تبدیلِ sz:/fn: که رندرِ واقعی استفاده می‌کند) و بیشینه‌ی همه‌ی
+  // پاراگراف‌ها را ملاکِ عرضِ جدول قرار می‌دهیم — این‌طوری چه محرکِ عرض،
+  // عکسِ نمودار باشد چه خودِ زیرنویس، جدول به‌اندازه‌ی کافی عریض می‌شود.
+  double measureParagraphNaturalWidth(ParagraphData p) {
+    double width = 0;
+    for (final s in p.spans) {
+      if (s.type == "image" && s.imageWidth != null) {
+        width += s.imageWidth!.toDouble();
+      } else if (s.type == "text" && (s.content ?? '').isNotEmpty) {
+        double fontSize = 14.0;
+        String? fontFamily;
+        for (final marker in s.markers) {
+          if (marker.startsWith("sz:")) {
+            final parsed = double.tryParse(marker.substring(3));
+            if (parsed != null) fontSize = parsed / 2;
+          } else if (marker.startsWith("fn:")) {
+            fontFamily = _mapFontFamily(marker.substring(3));
+          }
+        }
+        final tp = TextPainter(
+          text: TextSpan(
+            text: s.content,
+            style: TextStyle(fontSize: fontSize, fontFamily: fontFamily),
+          ),
+          textDirection: TextDirection.ltr,
+          maxLines: 1,
+        )..layout();
+        width += tp.width;
+      }
+    }
+    return width;
+  }
+
+  double maxEmbeddedImageWidth = 0;
+  double maxParagraphNaturalWidth = 0;
+  for (final row in tableSpan.tableRows) {
+    for (final cell in row.cells) {
+      for (final p in cell.paragraphs) {
+        final paraWidth = measureParagraphNaturalWidth(p);
+        if (paraWidth > maxParagraphNaturalWidth) {
+          maxParagraphNaturalWidth = paraWidth;
+        }
+        for (final s in p.spans) {
+          if (s.type == "image" &&
+              s.imageWidth != null &&
+              s.imageWidth! > maxEmbeddedImageWidth) {
+            maxEmbeddedImageWidth = s.imageWidth!.toDouble();
+          }
+        }
+      }
+    }
+  }
+  final double widestContentWidth =
+      (maxParagraphNaturalWidth > 0 ? maxParagraphNaturalWidth + 24 : 0) >
+          maxEmbeddedImageWidth
+      ? maxParagraphNaturalWidth + 24
+      : maxEmbeddedImageWidth;
+  final bool stretchCellsToImage = widestContentWidth > canvasWidth;
+
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells = [];
 
@@ -1626,7 +1710,9 @@ Widget _buildTable(
         padding: cellPadding,
         decoration: BoxDecoration(color: _hexToColor(cell.fillColor)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: stretchCellsToImage
+              ? CrossAxisAlignment.stretch
+              : CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: cellParagraphs,
         ),
@@ -1759,35 +1845,22 @@ Widget _buildTable(
       !isNestedTable &&
       (explicitHorizontalScroll || tableSpan.tableWidthPercent == null)) {
     int maxColumnCount = 0;
-    // 🐞 برای جدولِ «عکس + زیرنویسِ رنگی» (استایلِ FigureTable): عرضِ لازم
-    // را نه فقط از رویِ تعدادِ ستون‌ها، بلکه از رویِ عرضِ طبیعیِ عکسِ داخلِ
-    // سلول‌ها هم حساب می‌کنیم — این‌طوری یک جدولِ تک‌سلولیِ حاویِ عکسِ عریض
-    // هم عرضِ درستی می‌گیرد (بدونِ این، heuristicِ ستون‌محور برای یک جدولِ
-    // تک‌ستونی فقط ۹۰px می‌داد که برای عکس بی‌معناست)، و چون زیرنویس در
-    // همان سلول است، با همان عرضِ عکس رندر و هم‌زمان اسکرول می‌شود.
-    double maxEmbeddedImageWidth = 0;
     for (final row in tableSpan.tableRows) {
       if (row.cells.length > maxColumnCount) maxColumnCount = row.cells.length;
-      for (final cell in row.cells) {
-        for (final p in cell.paragraphs) {
-          for (final s in p.spans) {
-            if (s.type == "image" &&
-                s.imageWidth != null &&
-                s.imageWidth! > maxEmbeddedImageWidth) {
-              maxEmbeddedImageWidth = s.imageWidth!.toDouble();
-            }
-          }
-        }
-      }
     }
+    // 🐞 widestContentWidth بالاتر (قبل از حلقه‌ی ساختِ سلول‌ها) یک‌بار
+    // محاسبه شده — همان‌جا هم برای stretch‌کردنِ محتوای سلول استفاده شد،
+    // اینجا دوباره اسکن نمی‌کنیم، همان مقدار (بیشینه‌ی عرضِ عکس یا عرضِ
+    // طبیعیِ یک‌خطِ هر پاراگراف، هرکدام بیشتر بود) را برای عرضِ لازم به کار
+    // می‌بریم.
     const double minReadableColumnWidth = 90.0;
     final double columnHeuristicWidth = maxColumnCount * minReadableColumnWidth;
-    final double neededWidth = columnHeuristicWidth > maxEmbeddedImageWidth
+    final double neededWidth = columnHeuristicWidth > widestContentWidth
         ? columnHeuristicWidth
-        : maxEmbeddedImageWidth;
+        : widestContentWidth;
     final bool manyColumnsNeedRoom =
         maxColumnCount > 1 && columnHeuristicWidth > canvasWidth;
-    final bool embeddedImageNeedsRoom = maxEmbeddedImageWidth > canvasWidth;
+    final bool embeddedImageNeedsRoom = widestContentWidth > canvasWidth;
     if ((manyColumnsNeedRoom || embeddedImageNeedsRoom) &&
         neededWidth > canvasWidth) {
       final double renderWidth = neededWidth.clamp(
