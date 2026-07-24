@@ -1445,6 +1445,12 @@ Widget _buildTable(
 
   final bool isBorderedTable =
       strategy == "horizontalScroll" || rawStyle.contains("borderedtable");
+  // 🐞 درخواستِ کاربر: جدولِ FigureTable هیچ‌وقت نباید بوردر نشان دهد،
+  // حتی اگرچه strategy آن هم "horizontalScroll" است (همان چیزی که
+  // isBorderedTable را true می‌کند و در جاهای دیگر — مسیرِ رندرِ Table
+  // widget، منطقِ tableWidthPercent — هنوز لازم است true بماند). پس اینجا
+  // یک فلگِ جدا می‌سازیم و فقط تصمیمِ نمایشِ بوردر را از آن مستثنی می‌کنیم.
+  final bool isFigureTable = rawStyle.contains("figuretable");
   final bool isColumnStack =
       strategy == "stack" ||
       tableSpan.layoutReflow == "stack" ||
@@ -1459,13 +1465,17 @@ Widget _buildTable(
   final bool applyColumnStack = isColumnStack && !isLargeScreen;
 
   double defaultBorderWidth =
-      tableSpan.borderWidth ?? (isBorderedTable ? 1.0 : 0.5);
+      tableSpan.borderWidth ??
+      ((isBorderedTable && !isFigureTable) ? 1.0 : 0.5);
   Color defaultBorderColor =
       _hexToColor(tableSpan.borders?.color) ??
-      (isBorderedTable ? Colors.black : Colors.grey.shade400);
+      ((isBorderedTable && !isFigureTable)
+          ? Colors.black
+          : Colors.grey.shade400);
 
   final bool showBorders =
       !hideBorders &&
+      !isFigureTable &&
       (isBorderedTable ||
           tableSpan.hasBorders == "true" ||
           (borderVal != null &&
@@ -1842,7 +1852,6 @@ Widget _buildTable(
   // heuristic برای جدول‌های بدونِ راهنماییِ صریح است.
   final bool explicitHorizontalScroll = strategy == "horizontalScroll";
   if (!applyColumnStack &&
-      !isNestedTable &&
       (explicitHorizontalScroll || tableSpan.tableWidthPercent == null)) {
     int maxColumnCount = 0;
     for (final row in tableSpan.tableRows) {
