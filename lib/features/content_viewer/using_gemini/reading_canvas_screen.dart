@@ -976,6 +976,18 @@ String _mapFontFamily(String rawFontName) {
   if (normalized.contains("emoji")) return "Segoe UI Emoji";
   if (normalized.contains("zar")) return "Zar";
   if (normalized.contains("titr")) return "Titr";
+  // 🐞 رفع باگِ «کاراکترِ ناشناخته» برای Wingdings: قبلاً هیچ case‌ای برای
+  // این خانواده‌ی فونت نبود، پس "Wingdings 3" (از marker "fn:Wingdings 3")
+  // به پیش‌فرضِ آخر (Source Sans 3) می‌افتاد — که برای کدپوینت‌های
+  // Private-Use-Area که Wingdings استفاده می‌کند (مثلاً U+F069) هیچ
+  // گلیفی ندارد، پس جعبه‌ی «کاراکترِ ناشناخته» نشان داده می‌شد. خودِ فونت
+  // در pubspec.yaml درست ثبت شده بود (family: "Wingdings 3" →
+  // fonts/WINGDNG3.TTF)؛ فقط این نگاشت از قلم بیفتاده بود.
+  if (normalized.contains("wingdings")) {
+    if (normalized.contains("3")) return "Wingdings 3";
+    if (normalized.contains("2")) return "Wingdings 2";
+    return "Wingdings";
+  }
   if (normalized.contains("yekan")) {
     if (normalized.contains("light")) return "YekanBakhLight";
     if (normalized.contains("extra")) return "YekanBakhExtraBold";
@@ -2313,34 +2325,67 @@ List<BookAudioEntry> buildBookAudioPlaylist(
 ) {
   final Map<String, BookAudioEntry> byPath = {};
   final List<String> order = [];
-  for (final page in pages) {
-    for (int pIndex = 0; pIndex < page.paragraphs.length; pIndex++) {
-      final para = page.paragraphs[pIndex];
-      for (final s in para.spans) {
-        if (s.url != null && s.url!.startsWith("audio:")) {
-          final fileName = s.url!.replaceFirst("audio:", "");
-          if (fileName.isEmpty) continue;
+
+  void addOccurrence(
+    String resolved,
+    String fileName,
+    int pageNumber,
+    int paraIndex,
+  ) {
+    BookAudioEntry? entry = byPath[resolved];
+    if (entry == null) {
+      entry = BookAudioEntry(
+        resolvedPath: resolved,
+        fileName: fileName,
+        occurrences: [],
+      );
+      byPath[resolved] = entry;
+      order.add(resolved);
+    }
+    entry.occurrences.add(
+      AudioLocation(pageNumber: pageNumber, paraIndex: paraIndex),
+    );
+  }
+
+  // 🐞 رفع باگِ «پلی‌لیست فقط یک فایل نشان می‌دهد»: قبلاً فقط اسپن‌های
+  // سطحِ‌بالای خودِ پاراگراف چک می‌شد؛ چون اکثرِ تمرین‌های این کتاب داخلِ
+  // یک جدول‌اند (BorderedTable/NormalTable/...)، دکمه‌های صوتیِ داخلِ
+  // سلول‌های جدول اصلاً دیده نمی‌شدند. حالا اگر اسپن از نوعِ «table» باشد،
+  // به‌صورتِ بازگشتی داخلِ سلول‌هایش (و جدول‌های تودرتوی احتمالیِ داخلِ
+  // همان سلول‌ها) هم می‌گردد — ولی همیشه pageNumber/paraIndex همان
+  // پاراگرافِ بیرونی را گزارش می‌دهد (نه اندیسِ داخلیِ سلول)، چون این دقیقاً
+  // همان قراردادی است که هنگامِ رندر هم برای audioPageNumber/audioParaIndex
+  // استفاده می‌شود — در غیرِ این صورت هدفِ پرش معتبر نبود.
+  void scanSpans(List<SpanData> spans, int pageNumber, int topParaIndex) {
+    for (final s in spans) {
+      if (s.url != null && s.url!.startsWith("audio:")) {
+        final fileName = s.url!.replaceFirst("audio:", "");
+        if (fileName.isNotEmpty) {
           final resolved = InlineAudioLink.resolveAudioPath(
             fileName,
             activeBook,
           );
-          BookAudioEntry? entry = byPath[resolved];
-          if (entry == null) {
-            entry = BookAudioEntry(
-              resolvedPath: resolved,
-              fileName: fileName,
-              occurrences: [],
-            );
-            byPath[resolved] = entry;
-            order.add(resolved);
+          addOccurrence(resolved, fileName, pageNumber, topParaIndex);
+        }
+      }
+      if (s.type == "table") {
+        for (final row in s.tableRows) {
+          for (final cell in row.cells) {
+            for (final p in cell.paragraphs) {
+              scanSpans(p.spans, pageNumber, topParaIndex);
+            }
           }
-          entry.occurrences.add(
-            AudioLocation(pageNumber: page.pageNumber, paraIndex: pIndex),
-          );
         }
       }
     }
   }
+
+  for (final page in pages) {
+    for (int pIndex = 0; pIndex < page.paragraphs.length; pIndex++) {
+      scanSpans(page.paragraphs[pIndex].spans, page.pageNumber, pIndex);
+    }
+  }
+
   return order.map((k) => byPath[k]!).toList();
 }
 
