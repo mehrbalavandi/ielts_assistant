@@ -151,6 +151,10 @@ flutter:
     fonts:
       - asset: fonts/Verdana.ttf
 
+  - family: Wingdings 3
+    fonts:
+      - asset: fonts/WINGDNG3.TTF
+
   - family: Source Sans 3
     fonts:
       - asset: fonts/SourceSans3-Light.ttf
