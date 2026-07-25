@@ -492,99 +492,118 @@ class _AudioPlaylistSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(audioPlayerProvider);
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
-      decoration: const BoxDecoration(
-        color: Color(0xFF1E222D),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        children: [
-          const SizedBox(height: 12),
-          Container(
-            width: 40,
-            height: 4.5,
-            decoration: BoxDecoration(
-              color: Colors.white24,
-              borderRadius: BorderRadius.circular(4),
+    // 🐞 رفع اخطارِ «ListTile background color or ink splashes may be
+    // invisible»: قبلاً این Containerِ بیرونی یک رنگِ توپُر داشت که بینِ
+    // ListTileها و نزدیک‌ترین Materialِ اجدادی‌شان (از خودِ مودال) می‌نشست؛
+    // چون این Container غیرشفاف بود، افکتِ ink splash را بصری می‌پوشاند.
+    // Material خودش هم color و هم borderRadius را پشتیبانی می‌کند و دقیقاً
+    // میزبانِ درستِ ink splash است (نه چیزی که جلویش را بگیرد)، پس همان
+    // Container بیرونی را با Material جایگزین کردیم.
+    return Material(
+      color: const Color(0xFF1E222D),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              width: 40,
+              height: 4.5,
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "پلی‌لیستِ کتاب",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.close_rounded, color: Colors.white70),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-            ),
-          ),
-          const Divider(color: Colors.white10, height: 20),
-          Expanded(
-            child: state.playlist.isEmpty
-                ? const Center(
-                    child: Text(
-                      "فایلِ صوتی‌ای در این کتاب یافت نشد.",
-                      style: TextStyle(color: Colors.white54),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "پلی‌لیستِ کتاب",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: state.playlist.length,
-                    itemBuilder: (context, index) {
-                      final path = state.playlist[index];
-                      final bool isCurrent = state.currentPath == path;
-                      return ListTile(
-                        leading: Icon(
-                          isCurrent && state.isPlaying
-                              ? Icons.pause_circle_filled_rounded
-                              : Icons.play_circle_fill_rounded,
-                          color: isCurrent
-                              ? Colors.orangeAccent
-                              : Colors.white54,
-                        ),
-                        title: Text(
-                          path.split('/').last,
-                          style: TextStyle(
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.close_rounded,
+                      color: Colors.white70,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(color: Colors.white10, height: 20),
+            Expanded(
+              child: state.playlist.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "فایلِ صوتی‌ای در این کتاب یافت نشد.",
+                        style: TextStyle(color: Colors.white54),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: state.playlist.length,
+                      itemBuilder: (context, index) {
+                        final path = state.playlist[index];
+                        final bool isCurrent = state.currentPath == path;
+                        return ListTile(
+                          leading: Icon(
+                            isCurrent && state.isPlaying
+                                ? Icons.pause_circle_filled_rounded
+                                : Icons.play_circle_fill_rounded,
                             color: isCurrent
                                 ? Colors.orangeAccent
-                                : Colors.white70,
-                            fontWeight: isCurrent
-                                ? FontWeight.bold
-                                : FontWeight.normal,
+                                : Colors.white54,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        onTap: () {
-                          ref
-                              .read(audioPlayerProvider.notifier)
-                              .playFile(
-                                path,
-                                newPlaylist: state.playlist,
-                                newFirstOccurrence: state.firstOccurrence,
-                                // 🐞 explicitLocation عمداً پاس داده نمی‌شود:
-                                // انتخاب از خودِ لیستِ پخش، sequential است —
-                                // یعنی هدف باید اولین وقوعِ همین فایل باشد،
-                                // نه یک نقطه‌ی خاص.
-                              );
-                          _jumpToAudioLocation(ref, context);
-                        },
-                      );
-                    },
-                  ),
-          ),
-        ],
+                          title: Text(
+                            path.split('/').last,
+                            style: TextStyle(
+                              color: isCurrent
+                                  ? Colors.orangeAccent
+                                  : Colors.white70,
+                              fontWeight: isCurrent
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          onTap: () async {
+                            // 🐞 رفع باگِ «هدایتِ نادرست بعدِ تپ روی پلی‌لیست»:
+                            // playFile برای فایلِ متفاوت یک await
+                            // _player.stop() اولش دارد — یعنی state (شاملِ
+                            // targetLocation) فقط *بعدِ* آن await آپدیت
+                            // می‌شود. بدونِ await صدا زدنِ playFile،
+                            // _jumpToAudioLocation بلافاصله بعدش
+                            // targetLocationِ کهنه (مالِ فایلِ قبلی) را
+                            // می‌خواند.
+                            await ref
+                                .read(audioPlayerProvider.notifier)
+                                .playFile(
+                                  path,
+                                  newPlaylist: state.playlist,
+                                  newFirstOccurrence: state.firstOccurrence,
+                                  // 🐞 explicitLocation عمداً پاس داده نمی‌شود:
+                                  // انتخاب از خودِ لیستِ پخش، sequential است —
+                                  // یعنی هدف باید اولین وقوعِ همین فایل باشد،
+                                  // نه یک نقطه‌ی خاص.
+                                );
+                            if (!context.mounted) return;
+                            _jumpToAudioLocation(ref, context);
+                          },
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -94,7 +94,14 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: searchSession != null
+      // 🐞 رفع باگ: این نوار قبلاً با هر activeSearchProvider غیرِ null نشان
+      // داده می‌شد — از جمله SearchSessionِ مصنوعی‌ای که _jumpToAudioLocation
+      // (برای «پلی‌لیستِ کتاب») می‌سازد تا فقط از همان مکانیزمِ اسکرول
+      // استفاده کند. چون آن SearchSession عمداً query خالی دارد (تا
+      // هایلایتِ متن فعال نشود)، همین را برای تشخیصِ «این یک جستجوی واقعی
+      // است، نه صرفاً یک پرش» هم به کار می‌بریم.
+      bottomNavigationBar:
+          searchSession != null && searchSession.query.isNotEmpty
           ? Container(
               color: Colors.indigo.shade50,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
