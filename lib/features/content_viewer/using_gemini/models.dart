@@ -38,6 +38,27 @@ class InteractiveWord {
   }
 }
 
+// 🐞 برای اسکریپتِ صوتیِ همگام‌سازی‌شده: یک فایلِ صوتی = یک AudioScriptTrack؛
+// AudioTrackName فقط یک‌بار این‌جا نوشته می‌شود (نه به‌ازای هر پاراگراف/اسپن
+// مثلِ قبل)، و هر پاراگراف (مطابقِ یک پاراگرافِ واقعیِ Word) می‌تواند چند
+// اسپن داشته باشد که هرکدام StartMs/EndMsِ خودشان را دارند.
+class AudioScriptTrack {
+  final String audioTrackName;
+  final List<ParagraphData> paragraphs;
+
+  AudioScriptTrack({required this.audioTrackName, required this.paragraphs});
+
+  factory AudioScriptTrack.fromJson(Map<String, dynamic> json) {
+    final rawParagraphs = json['Paragraphs'] as List? ?? [];
+    return AudioScriptTrack(
+      audioTrackName: json['AudioTrackName'] ?? '',
+      paragraphs: rawParagraphs
+          .map((e) => ParagraphData.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
+
 class ParagraphData {
   final List<SpanData> spans;
   final String direction;
@@ -415,6 +436,11 @@ class SpanData {
   responsiveStrategy; // "horizontalScroll" | "collapseToCards" | "stack"
   final String? layoutDirection;
   final String? layoutReflow;
+  // 🐞 برای هایلایتِ همگام‌سازی‌شده در سطحِ اسپن (کلمه‌به‌کلمه یا هر
+  // دانه‌بندیِ دیگری که در سندِ Word با مارکرهای [میلی‌ثانیه] بین کلمات
+  // مشخص شده باشد) — از AudioScripts (نه محتوای معمولیِ صفحات) می‌آید.
+  final int? startMs;
+  final int? endMs;
 
   SpanData({
     required this.type,
@@ -438,6 +464,8 @@ class SpanData {
     this.responsiveStrategy,
     this.layoutDirection,
     this.layoutReflow,
+    this.startMs,
+    this.endMs,
   });
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
@@ -467,6 +495,8 @@ class SpanData {
       responsiveStrategy: json['ResponsiveStrategy'],
       layoutDirection: json['LayoutDirection'],
       layoutReflow: json['LayoutReflow'],
+      startMs: json['StartMs'] as int?,
+      endMs: json['EndMs'] as int?,
     );
   }
 
@@ -496,6 +526,8 @@ class SpanData {
       responsiveStrategy: responsiveStrategy,
       layoutDirection: layoutDirection,
       layoutReflow: layoutReflow,
+      startMs: startMs,
+      endMs: endMs,
     );
   }
 }

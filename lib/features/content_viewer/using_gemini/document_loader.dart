@@ -23,6 +23,22 @@ class DocumentLoader {
     throw FormatException('ساختار JSON کتاب ناشناخته است: $path');
   }
 
+  // 🐞 اسکریپتِ صوتی (AudioScripts) یک فیلدِ سطحِ‌بالای خودِ index.json است —
+  // نه چیزی که داخلِ محتوای هیچ صفحه‌ای باشد (چون از یک سندِ Word کاملاً
+  // جدا استخراج می‌شود). برای همین یک متدِ مستقلِ خودش لازم دارد؛
+  // loadBookFromJson فقط Pages/Interactives را برمی‌گرداند و اصلاً به این
+  // فیلد دست نمی‌زند.
+  static Future<List<AudioScriptTrack>> loadAudioScripts(String path) async {
+    final decoded = jsonDecode(await _readText(path));
+    if (decoded is Map<String, dynamic>) {
+      final rawList = decoded['AudioScripts'] as List? ?? [];
+      return rawList
+          .map((e) => AudioScriptTrack.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return const [];
+  }
+
   static Future<String> _readText(String path) async {
     if (path.startsWith('assets/')) return rootBundle.loadString(path);
     final file = File(path);

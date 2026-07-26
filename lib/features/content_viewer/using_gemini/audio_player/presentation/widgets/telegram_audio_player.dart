@@ -44,7 +44,7 @@ void _jumpToAudioLocation(WidgetRef ref, BuildContext context) {
 
 class TelegramAudioPlayer extends ConsumerWidget {
   // final List<PageData> documentPages;
-  final List<ParagraphData> audioScripts; // 🌟 به جای documentPages
+  final List<AudioScriptTrack> audioScripts; // 🌟 به جای documentPages
 
   const TelegramAudioPlayer({super.key, required this.audioScripts});
 
@@ -609,20 +609,24 @@ class _AudioPlaylistSheet extends ConsumerWidget {
   }
 }
 
-class AudioSegment {
+// 🐞 برای اسکریپتِ صوتیِ همگام‌سازی‌شده در سطحِ اسپن: یک "اسلات" قابلِ
+// هایلایت که می‌تواند یک کلمه یا یک جمله باشد — بسته به این‌که مارکرهای
+// [میلی‌ثانیه] در سندِ اسکریپتِ Word کجا گذاشته شده‌اند. دیگر لازم نیست هر
+// اسلات یک پاراگرافِ کاملاً جدا باشد؛ StartMs/EndMs حالا روی خودِ اسپن است.
+class ActiveSpanInfo {
   final int startMs;
   final int endMs;
-  final ParagraphData paragraph;
+  final int paragraphIndex;
 
-  AudioSegment({
+  ActiveSpanInfo({
     required this.startMs,
     required this.endMs,
-    required this.paragraph,
+    required this.paragraphIndex,
   });
 }
 
 class AudioscriptViewerSheet extends ConsumerStatefulWidget {
-  final List<ParagraphData> audioScripts; // 🌟 جایگزین شد
+  final List<AudioScriptTrack> audioScripts; // 🌟 جایگزین شد
 
   const AudioscriptViewerSheet({super.key, required this.audioScripts});
 
@@ -642,26 +646,34 @@ class _AudioscriptViewerSheetState
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
 
-    List<AudioSegment> currentSegments = [];
-
-    for (var para in widget.audioScripts) {
-      if (para.startMs != null &&
-          para.endMs != null &&
-          para.audioTrackName == currentFileName) {
-        currentSegments.add(
-          AudioSegment(
-            startMs: para.startMs!,
-            endMs: para.endMs!,
-            paragraph: para,
-          ),
-        );
+    // 🐞 AudioTrackName حالا فقط یک‌بار در سطحِ خودِ تراک است (نه تکرارشده
+    // روی هر پاراگراف/اسپن مثلِ قبل) — پس فقط باید تراکِ همین فایل را پیدا
+    // کنیم، نه این‌که هر پاراگراف را جداگانه فیلتر کنیم.
+    List<ParagraphData> paragraphs = const [];
+    for (final track in widget.audioScripts) {
+      if (track.audioTrackName == currentFileName) {
+        paragraphs = track.paragraphs;
+        break;
       }
     }
 
-    // 🌟 مهم: استفاده از < به جای <= تا جملاتِ به هم چسبیده، با هم هایلایت نشوند
-    int activeIndex = currentSegments.indexWhere(
-      (seg) => currentPosMs >= seg.startMs && currentPosMs < seg.endMs,
-    );
+    // 🐞 کدام پاراگراف الان فعال است؟ یعنی حداقل یک اسپنِ داخلش
+    // بازه‌ی زمانیِ StartMs تا EndMs، لحظه‌ی فعلی را در بر می‌گیرد. مهم: از <
+    // می‌شود (نه <=) تا کلماتِ به‌هم‌چسبیده با هم هایلایت نشوند.
+    int activeIndex = -1;
+    for (int i = 0; i < paragraphs.length; i++) {
+      final bool hasActiveSpan = paragraphs[i].spans.any(
+        (s) =>
+            s.startMs != null &&
+            s.endMs != null &&
+            currentPosMs >= s.startMs! &&
+            currentPosMs < s.endMs!,
+      );
+      if (hasActiveSpan) {
+        activeIndex = i;
+        break;
+      }
+    }
 
     if (activeIndex != -1 && activeIndex != _lastActiveIndex) {
       _lastActiveIndex = activeIndex;
@@ -738,7 +750,7 @@ class _AudioscriptViewerSheetState
           ),
 
           Expanded(
-            child: currentSegments.isEmpty
+            child: paragraphs.isEmpty
                 ? const Center(
                     child: Text(
                       "هیچ متن صوتی همگام‌سازی شده‌ای برای این بخش یافت نشد.",
@@ -746,62 +758,88 @@ class _AudioscriptViewerSheetState
                     ),
                   )
                 : ScrollablePositionedList.builder(
-                    itemCount: currentSegments.length,
+                    itemCount: paragraphs.length,
                     itemScrollController: _itemScrollController,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 4,
                     ),
                     itemBuilder: (context, index) {
-                      final segment = currentSegments[index];
-                      final bool isActive = index == activeIndex;
+                      final para = paragraphs[index];
+                      final bool paraIsActive = index == activeIndex;
 
-                      String fullContent = segment.paragraph.spans
-                          .map((s) => s.content)
-                          .join();
+                      // 🐞 هر اسپن با استایلِ واقعیِ خودش (بولد/ایتالیک/رنگ —
+                      // دقیقاً همان چیزی که از سندِ Word استخراج شده، از
+                      // طریقِ applySpanStyle، همان تابعی که برای متنِ اصلیِ
+                      // کتاب هم استفاده می‌شود) رندر می‌شود؛ اگر لحظه‌ی
+                      // پخش داخلِ بازه‌ی زمانیِ همان اسپن باشد، پس‌زمینه‌ی
+                      // نارنجی هم رویش اضافه می‌شود. buildInteractiveText هم
+                      // همچنان به‌ازای هر اسپن صدا زده می‌شود تا قابلیتِ
+                      // کلیک‌رویِ‌کلمه‌ی‌دیکشنری از دست نرود.
+                      final List<InlineSpan> richSpans = [];
+                      for (final span in para.spans) {
+                        final bool isActiveWord =
+                            paraIsActive &&
+                            span.startMs != null &&
+                            span.endMs != null &&
+                            currentPosMs >= span.startMs! &&
+                            currentPosMs < span.endMs!;
+
+                        final TextStyle baseStyle =
+                            TextRenderEngine.applySpanStyle(
+                              const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 15,
+                                height: 1.6,
+                              ),
+                              span,
+                              true, // isDarkTheme
+                            );
+
+                        richSpans.addAll(
+                          TextRenderEngine.buildInteractiveText(
+                            span.content,
+                            para.interactives,
+                            context,
+                            baseStyle.copyWith(
+                              color: isActiveWord
+                                  ? Colors.black
+                                  : baseStyle.color,
+                              backgroundColor: isActiveWord
+                                  ? Colors.orangeAccent
+                                  : null,
+                              fontWeight: isActiveWord
+                                  ? FontWeight.bold
+                                  : baseStyle.fontWeight,
+                            ),
+                            interactiveColor: isActiveWord
+                                ? Colors.black
+                                : Colors.cyanAccent,
+                            translationFa: para.translationFa,
+                            translationAr: para.translationAr,
+                          ),
+                        );
+                      }
 
                       Widget englishContent = AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: isActive
-                              ? Colors.orangeAccent.withOpacity(0.15)
+                          color: paraIsActive
+                              ? Colors.orangeAccent.withOpacity(0.08)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: isActive
+                            color: paraIsActive
                                 ? Colors.orangeAccent.withOpacity(0.4)
                                 : Colors.transparent,
                             width: 1,
                           ),
                         ),
                         child: Text.rich(
-                          TextSpan(
-                            children: TextRenderEngine.buildInteractiveText(
-                              fullContent,
-                              segment.paragraph.interactives,
-                              context,
-                              TextStyle(
-                                color: isActive
-                                    ? Colors.orangeAccent
-                                    : Colors.white70,
-                                fontSize: isActive ? 17 : 15,
-                                fontWeight: isActive
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                height: 1.6,
-                              ),
-                              interactiveColor: isActive
-                                  ? Colors.yellowAccent
-                                  : Colors.cyanAccent,
-                              translationFa: segment
-                                  .paragraph
-                                  .translationFa, // 🌟 پاس دادن به کامپوننت مادر
-                              translationAr: segment.paragraph.translationAr,
-                            ),
-                          ),
-                          textAlign: segment.paragraph.direction == "RTL"
+                          TextSpan(children: richSpans),
+                          textAlign: para.direction == "RTL"
                               ? TextAlign.right
                               : TextAlign.left,
                         ),
@@ -809,8 +847,8 @@ class _AudioscriptViewerSheetState
 
                       return TranslatableContentWrapper(
                         originalContent: englishContent,
-                        translationFa: segment.paragraph.translationFa,
-                        translationAr: segment.paragraph.translationAr,
+                        translationFa: para.translationFa,
+                        translationAr: para.translationAr,
                         isDarkMode: true,
                       );
                     },

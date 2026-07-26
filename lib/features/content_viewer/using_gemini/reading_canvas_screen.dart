@@ -25,7 +25,7 @@ class MapOffset {
 
 class ReadingCanvasScreen extends ConsumerStatefulWidget {
   final List<PageData> documentPages;
-  final List<ParagraphData> audioScripts; // 🌟 اضافه شد
+  final List<AudioScriptTrack> audioScripts; // 🌟 اضافه شد
   const ReadingCanvasScreen({
     super.key,
     required this.documentPages,

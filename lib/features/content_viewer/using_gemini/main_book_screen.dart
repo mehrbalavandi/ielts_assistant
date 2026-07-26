@@ -18,6 +18,15 @@ class MainBookScreen extends ConsumerStatefulWidget {
 
 class _MainBookScreenState extends ConsumerState<MainBookScreen> {
   Future<List<PageData>>? _pagesFuture;
+  // 🐞 رفع باگِ اسکریپتِ صوتی: _extractAudioScripts قبلی، پاراگراف‌های
+  // *صفحاتِ معمولیِ کتاب* را برای startMs/endMs/audioTrackName می‌گشت — ولی
+  // اسکریپتِ صوتی هیچ‌وقت داخلِ محتوای صفحات نبوده (از یک سندِ Word کاملاً
+  // جدا می‌آید و مستقیماً به فیلدِ سطحِ‌بالای «AudioScripts» در index.json
+  // نوشته می‌شود که loadBookFromJson اصلاً به آن دست نمی‌زند)، پس این تابع
+  // همیشه لیستِ خالی برمی‌گرداند — یعنی قابلیتِ هایلایتِ هم‌زمان هیچ‌وقت
+  // داده‌ای برای نمایش نداشت. حالا با DocumentLoader.loadAudioScripts که
+  // مستقیماً همان فیلد را می‌خواند جایگزین شده.
+  Future<List<AudioScriptTrack>>? _audioScriptsFuture;
   String? _loadedBookId;
 
   void _ensureBookLoaded(String bookId, String jsonAssetPath) {
@@ -26,6 +35,7 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
     _pagesFuture = DocumentLoader.loadBookFromJson(
       jsonAssetPath, // 'assets/data/testbook/index.json',
     );
+    _audioScriptsFuture = DocumentLoader.loadAudioScripts(jsonAssetPath);
   }
 
   @override
@@ -187,26 +197,20 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("داده‌ای یافت نشد."));
           }
-          return ReadingCanvasScreen(
-            documentPages: snapshot.data!,
-            audioScripts: _extractAudioScripts(snapshot.data!),
+          return FutureBuilder<List<AudioScriptTrack>>(
+            future: _audioScriptsFuture,
+            builder: (context, audioSnapshot) {
+              return ReadingCanvasScreen(
+                documentPages: snapshot.data!,
+                // 🐞 تا وقتی اسکریپتِ صوتی لود می‌شود (یا اگر خطا بخورد)، یک
+                // لیستِ خالی کافی است — کلِ صفحه‌ی خواندن نباید منتظرش بماند؛
+                // فقط پلیرِ صوتی موقتاً چیزی برای هایلایت نشان نمی‌دهد.
+                audioScripts: audioSnapshot.data ?? const [],
+              );
+            },
           );
         },
       ),
     );
-  }
-
-  List<ParagraphData> _extractAudioScripts(List<PageData> pages) {
-    final scripts = <ParagraphData>[];
-    for (final page in pages) {
-      for (final para in page.paragraphs) {
-        if (para.startMs != null &&
-            para.endMs != null &&
-            para.audioTrackName != null) {
-          scripts.add(para);
-        }
-      }
-    }
-    return scripts;
   }
 }
