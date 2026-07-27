@@ -92,16 +92,16 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               }
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.library_books_rounded),
-            onPressed: () {
-              ref.read(activeSearchProvider.notifier).state = null;
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LibraryScreen()),
-              );
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.library_books_rounded),
+          //   onPressed: () {
+          //     ref.read(activeSearchProvider.notifier).state = null;
+          //     Navigator.pushReplacement(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => const LibraryScreen()),
+          //     );
+          //   },
+          // ),
         ],
       ),
       // 🐞 رفع باگ: این نوار قبلاً با هر activeSearchProvider غیرِ null نشان
