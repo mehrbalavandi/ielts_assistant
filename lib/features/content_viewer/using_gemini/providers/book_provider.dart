@@ -327,7 +327,17 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     final index =
         jsonDecode(await File(localIndexPath).readAsString())
             as Map<String, dynamic>;
-    final entries = (index['Pages'] ?? index['pages']) as List? ?? const [];
+    final pageEntries = (index['Pages'] ?? index['pages']) as List? ?? const [];
+    // 🐞 رفع باگِ «پوشه‌ی audio_scripts دانلود نمی‌شود»: اشاره‌گرهای
+    // AudioScripts در index.json دقیقاً همان شکلِ {File, Version} را
+    // دارند که Pages دارد — قبلاً این تابع فقط Pages را می‌خواند، پس
+    // فایل‌های audio_scripts/*.json هیچ‌وقت دانلود نمی‌شدند. با
+    // ترکیب‌کردنشان در همین لیست، بقیه‌ی منطقِ موجود (تشخیصِ تغییرکرده‌ها
+    // از رویِ هَش، دانلودِ دلتا) بدونِ هیچ تغییرِ دیگری هم برایشان اجرا
+    // می‌شود.
+    final audioScriptEntries =
+        (index['AudioScripts'] ?? index['audioScripts']) as List? ?? const [];
+    final entries = [...pageEntries, ...audioScriptEntries];
 
     final remoteRoot = _dirOf(
       remoteIndexPath,
