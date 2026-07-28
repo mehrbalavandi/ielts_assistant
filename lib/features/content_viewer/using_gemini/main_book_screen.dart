@@ -5,6 +5,7 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/b
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/book_search_delegate.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/library_screen.dart';
@@ -60,6 +61,15 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(activeBook.title, style: const TextStyle(fontSize: 16)),
         actions: [
+          // 🐞 دسترسیِ مستقل به پلی‌لیستِ کتاب: قبلاً این دکمه فقط داخلِ
+          // نوارِ کوچکِ پلیر بود که تا پخش‌نشدنِ حداقل یک فایل، اصلاً نشان
+          // داده نمی‌شد — یعنی برای دیدنِ پلی‌لیست، اول باید یک فایل را پخش
+          // می‌کردید. حالا این‌جا، همیشه در AppBar، مستقل از وضعیتِ پخش.
+          IconButton(
+            icon: const Icon(Icons.queue_music_rounded),
+            tooltip: 'پلی‌لیستِ کتاب',
+            onPressed: () => showBookAudioPlaylist(context),
+          ),
           // 🌟 تعویضِ زبانِ محتوا: فارسی ↔ عربی
           IconButton(
             tooltip: 'تغییر زبان (فارسی/عربی)',

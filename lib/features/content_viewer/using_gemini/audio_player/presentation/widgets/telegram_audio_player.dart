@@ -88,28 +88,14 @@ class TelegramAudioPlayer extends ConsumerWidget {
             ),
             IconButton(
               icon: const Icon(Icons.description_rounded),
-              tooltip: "مشاهده متن صوتی",
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) =>
-                      AudioscriptViewerSheet(audioScripts: audioScripts),
-                );
-              },
+              tooltip: "مشاهده متن صوتی + کنترل‌های پخش",
+              onPressed: () =>
+                  _showCombinedPlayerModal(context, ref, audioScripts),
             ),
             IconButton(
               icon: const Icon(Icons.queue_music_rounded),
               tooltip: "پلی‌لیستِ کتاب",
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => const _AudioPlaylistSheet(),
-                );
-              },
+              onPressed: () => showBookAudioPlaylist(context),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -145,346 +131,43 @@ class TelegramAudioPlayer extends ConsumerWidget {
   }
 
   void _showFullPlayerModal(BuildContext context, WidgetRef ref) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) => const _FullPlayerBottomSheet(),
-    );
+    _showCombinedPlayerModal(context, ref, audioScripts);
   }
 }
 
-class _FullPlayerBottomSheet extends ConsumerWidget {
-  const _FullPlayerBottomSheet();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(audioPlayerProvider);
-    final totalMs = state.duration.inMilliseconds.toDouble();
-
-    // 🌟 منطق نمایش آیکون و رنگ برای دکمه رفتار پایان فایل
-    IconData modeIcon;
-    Color modeColor;
-    String modeTooltip;
-
-    switch (state.playbackMode) {
-      case PlaybackMode.autoAdvance:
-        modeIcon = Icons.playlist_play_rounded; // یا Icons.repeat
-        modeColor = Colors.blueAccent;
-        modeTooltip = "پخش پیوسته";
-        break;
-      case PlaybackMode.repeatOne:
-        modeIcon = Icons.repeat_one_rounded;
-        modeColor = Colors.orangeAccent;
-        modeTooltip = "تکرار فایل فعلی";
-        break;
-      case PlaybackMode.stop:
-        modeIcon = Icons.stop_circle_outlined;
-        modeColor = Colors.white54;
-        modeTooltip = "توقف پس از پایان";
-        break;
-    }
-
-    return Container(
-      height: 300, // 🌟 کمی ارتفاع بیشتر برای جا شدن دکمه‌ها
-      decoration: BoxDecoration(
-        color: Colors.blueGrey[900],
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        children: [
-          const SizedBox(height: 12),
-          Container(
-            width: 40,
-            height: 5,
-            decoration: BoxDecoration(
-              color: Colors.white30,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Text(
-                    state.currentPath?.split('/').last ?? '',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (state.targetLocation != null) ...[
-                  const SizedBox(width: 8),
-                  // 🐞 «برو به متن»: کاربر را به دقیقاً همان صفحه/پاراگرافی
-                  // می‌برد که یا اولین وقوعِ این فایل در کتاب است (اگر با
-                  // قبلی/بعدی یا لیستِ پخش به این فایل رسیده‌ایم)، یا همان
-                  // نقطه‌ی دقیقی که رویِ دکمه‌ی صوتیِ داخلِ متن تپ شده.
-                  IconButton(
-                    icon: const Icon(
-                      Icons.subject_rounded,
-                      color: Colors.orangeAccent,
-                      size: 20,
-                    ),
-                    tooltip: 'برو به متن',
-                    onPressed: () => _jumpToAudioLocation(ref, context),
-                  ),
-                ],
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    if (state.pointA != null && totalMs > 0)
-                      Positioned(
-                        left:
-                            (state.pointA!.inMilliseconds / totalMs) *
-                                (constraints.maxWidth - 24) +
-                            12,
-                        top: 10,
-                        bottom: 10,
-                        child: Container(width: 2, color: Colors.orange),
-                      ),
-                    if (state.pointB != null && totalMs > 0)
-                      Positioned(
-                        left:
-                            (state.pointB!.inMilliseconds / totalMs) *
-                                (constraints.maxWidth - 24) +
-                            12,
-                        top: 10,
-                        bottom: 10,
-                        child: Container(width: 2, color: Colors.redAccent),
-                      ),
-                    Slider(
-                      value: state.position.inMilliseconds.toDouble().clamp(
-                        0,
-                        totalMs > 0 ? totalMs : 1.0,
-                      ),
-                      max: totalMs > 0 ? totalMs : 1.0,
-                      onChanged: (v) => ref
-                          .read(audioPlayerProvider.notifier)
-                          .seek(Duration(milliseconds: v.toInt())),
-                      activeColor: Colors.blueAccent.withOpacity(0.7),
-                      inactiveColor: Colors.white12,
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  _formatDuration(state.position),
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
-                ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _buildSmallCircleButton(
-                        label: "A",
-                        isActive: state.pointA != null,
-                        onTap: () =>
-                            ref.read(audioPlayerProvider.notifier).setPointA(),
-                      ),
-                      const SizedBox(width: 12.0),
-                      _buildSmallCircleButton(
-                        label: "B",
-                        isActive: state.pointB != null,
-                        onTap: () {
-                          if (state.pointA != null)
-                            ref.read(audioPlayerProvider.notifier).setPointB();
-                        },
-                      ),
-                      if (state.pointA != null)
-                        IconButton(
-                          icon: const Icon(
-                            Icons.layers_clear_outlined,
-                            color: Colors.white54,
-                            size: 20,
-                          ),
-                          onPressed: () =>
-                              ref.read(audioPlayerProvider.notifier).clearAB(),
-                          tooltip: 'پاک کردن',
-                        ),
-                    ],
-                  ),
-                ),
-                PopupMenuButton<double>(
-                  initialValue: state.speed,
-                  offset: const Offset(0, -200),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white30),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      "${state.speed}x",
-                      style: const TextStyle(color: Colors.white, fontSize: 11),
-                    ),
-                  ),
-                  onSelected: (value) =>
-                      ref.read(audioPlayerProvider.notifier).setSpeed(value),
-                  itemBuilder: (context) => <PopupMenuEntry<double>>[
-                    const PopupMenuItem(value: 0.5, child: Text('0.5x')),
-                    const PopupMenuItem(value: 0.8, child: Text('0.8x')),
-                    const PopupMenuItem(value: 1.0, child: Text('1.0x')),
-                    const PopupMenuItem(value: 1.2, child: Text('1.2x')),
-                    const PopupMenuItem(value: 1.5, child: Text('1.5x')),
-                  ],
-                ),
-
-                // 🌟 دکمه تغییر حالت با طراحی جدید
-                IconButton(
-                  icon: Icon(modeIcon, color: modeColor),
-                  tooltip: modeTooltip,
-                  onPressed: () => ref
-                      .read(audioPlayerProvider.notifier)
-                      .togglePlaybackMode(),
-                ),
-
-                Text(
-                  _formatDuration(state.duration),
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // 🌟 دکمه قبلی
-              IconButton(
-                icon: const Icon(
-                  Icons.skip_previous_rounded,
-                  color: Colors.white,
-                  size: 36,
-                ),
-                onPressed: () =>
-                    ref.read(audioPlayerProvider.notifier).playPrevious(),
-              ),
-              const SizedBox(width: 8),
-
-              IconButton(
-                icon: const Icon(
-                  Icons.replay_10,
-                  color: Colors.white,
-                  size: 28,
-                ),
-                onPressed: () =>
-                    ref.read(audioPlayerProvider.notifier).skip10Sec(false),
-              ),
-              const SizedBox(width: 8),
-
-              IconButton(
-                icon: Icon(
-                  state.isPlaying
-                      ? Icons.pause_circle_filled
-                      : Icons.play_circle_filled,
-                ),
-                color: Colors.white,
-                iconSize: 65,
-                onPressed: () => state.isPlaying
-                    ? ref.read(audioPlayerProvider.notifier).pause()
-                    : ref.read(audioPlayerProvider.notifier).resume(),
-              ),
-
-              const SizedBox(width: 8),
-              IconButton(
-                icon: const Icon(
-                  Icons.forward_10,
-                  color: Colors.white,
-                  size: 28,
-                ),
-                onPressed: () =>
-                    ref.read(audioPlayerProvider.notifier).skip10Sec(true),
-              ),
-
-              const SizedBox(width: 8),
-              // 🌟 دکمه بعدی
-              IconButton(
-                icon: const Icon(
-                  Icons.skip_next_rounded,
-                  color: Colors.white,
-                  size: 36,
-                ),
-                onPressed: () =>
-                    ref.read(audioPlayerProvider.notifier).playNext(),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _formatDuration(Duration d) {
-    final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
-    final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return "$minutes:$seconds";
-  }
-
-  Widget _buildSmallCircleButton({
-    required String label,
-    required bool isActive,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isActive ? Colors.orangeAccent : Colors.transparent,
-          border: Border.all(
-            color: isActive ? Colors.orangeAccent : Colors.white54,
-            width: 1.5,
-          ),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isActive ? Colors.black : Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-          ),
-        ),
-      ),
-    );
-  }
+// 🐞 پلی‌لیستِ کتاب: قبلاً فقط از داخلِ نوارِ کوچکِ پلیر (که تا وقتی هیچ
+// فایلی پخش نشده اصلاً نمایش داده نمی‌شد) در دسترس بود — یعنی برای دیدنِ
+// پلی‌لیست، اول باید یک فایل را پخش می‌کردید. حالا این یک تابعِ سطحِ‌بالا
+// و عمومی است تا از هرجایی (مثلاً یک آیکونِ همیشه‌دیده در AppBar) بشود
+// صدایش زد، مستقل از این‌که چیزی در حالِ پخش هست یا نه.
+void showBookAudioPlaylist(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) => const _AudioPlaylistSheet(),
+  );
 }
 
-// 🐞 پلی‌لیستِ کتاب: تمامِ فایل‌های صوتیِ یکتای این کتاب (دیدوپلیکیت‌شده،
-// از همان state.playlist/firstOccurrence که با اولین تپِ روی هر دکمه‌ی
-// صوتیِ داخلِ متن پر می‌شود). تپ‌کردن روی یک آیتم آن را پخش می‌کند (منبعِ
-// sequential، چون از خودِ لیستِ پخش انتخاب شده، نه یک نقطه‌ی خاص از متن) و
-// به اولین وقوعش در کتاب می‌رود.
+// 🐞 ادغامِ AudioscriptViewerSheet و _FullPlayerBottomSheet: قبلاً این دو
+// شیتِ جدا بودند — یکی متنِ اسکریپت را نشان می‌داد، دیگری کنترل‌های کاملِ
+// پخش (نوارِ پیشرفت، A/B، سرعت، حالت، قبلی/بعدی) را؛ برای دسترسی به
+// کنترل‌ها موقعِ خواندنِ متن، باید یکی را می‌بستید و دیگری را باز
+// می‌کردید. حالا هر دو مسیرِ ورودی (آیکونِ توضیحاتِ متن، و خودِ تپ‌کردنِ
+// رویِ نوارِ کوچک) به همین یک شیتِ ادغام‌شده می‌روند.
+void _showCombinedPlayerModal(
+  BuildContext context,
+  WidgetRef ref,
+  List<AudioScriptTrack> audioScripts,
+) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (ctx) => CombinedAudioSheet(audioScripts: audioScripts),
+  );
+}
+
 class _AudioPlaylistSheet extends ConsumerWidget {
   const _AudioPlaylistSheet();
 
@@ -609,42 +292,68 @@ class _AudioPlaylistSheet extends ConsumerWidget {
   }
 }
 
-// 🐞 برای اسکریپتِ صوتیِ همگام‌سازی‌شده در سطحِ اسپن: یک "اسلات" قابلِ
-// هایلایت که می‌تواند یک کلمه یا یک جمله باشد — بسته به این‌که مارکرهای
-// [میلی‌ثانیه] در سندِ اسکریپتِ Word کجا گذاشته شده‌اند. دیگر لازم نیست هر
-// اسلات یک پاراگرافِ کاملاً جدا باشد؛ StartMs/EndMs حالا روی خودِ اسپن است.
-class ActiveSpanInfo {
-  final int startMs;
-  final int endMs;
-  final int paragraphIndex;
+// 🐞 ادغامِ AudioscriptViewerSheet و _FullPlayerBottomSheet در یک ویجت:
+// قبلاً برای دیدنِ متنِ اسکریپت باید یک شیت را می‌بستید تا به کنترل‌های
+// کاملِ پخش (نوارِ پیشرفت، A/B، سرعت، حالت، قبلی/بعدی) در شیتِ دیگر
+// برسید. حالا هر دو در همین یک ویجت‌اند — متن به‌صورتِ اسکرول‌شونده در
+// وسط، و نوارِ کنترل‌های کامل همیشه پایین ثابت است.
+class CombinedAudioSheet extends ConsumerStatefulWidget {
+  final List<AudioScriptTrack> audioScripts;
 
-  ActiveSpanInfo({
-    required this.startMs,
-    required this.endMs,
-    required this.paragraphIndex,
-  });
-}
-
-class AudioscriptViewerSheet extends ConsumerStatefulWidget {
-  final List<AudioScriptTrack> audioScripts; // 🌟 جایگزین شد
-
-  const AudioscriptViewerSheet({super.key, required this.audioScripts});
+  const CombinedAudioSheet({super.key, required this.audioScripts});
 
   @override
-  ConsumerState<AudioscriptViewerSheet> createState() =>
-      _AudioscriptViewerSheetState();
+  ConsumerState<CombinedAudioSheet> createState() => _CombinedAudioSheetState();
 }
 
-class _AudioscriptViewerSheetState
-    extends ConsumerState<AudioscriptViewerSheet> {
+class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   int _lastActiveIndex = -1;
+
+  String _formatDuration(Duration d) {
+    final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
+  }
+
+  Widget _buildSmallCircleButton({
+    required String label,
+    required bool isActive,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        width: 32,
+        height: 32,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isActive ? Colors.orangeAccent : Colors.transparent,
+          border: Border.all(
+            color: isActive ? Colors.orangeAccent : Colors.white54,
+            width: 1.5,
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isActive ? Colors.black : Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final audioState = ref.watch(audioPlayerProvider);
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
+    final double totalMs = audioState.duration.inMilliseconds.toDouble();
 
     // 🐞 AudioTrackName حالا فقط یک‌بار در سطحِ خودِ تراک است (نه تکرارشده
     // روی هر پاراگراف/اسپن مثلِ قبل) — پس فقط باید تراکِ همین فایل را پیدا
@@ -657,8 +366,8 @@ class _AudioscriptViewerSheetState
       }
     }
 
-    // 🐞 کدام پاراگراف الان فعال است؟ یعنی حداقل یک اسپنِ داخلش
-    // بازه‌ی زمانیِ StartMs تا EndMs، لحظه‌ی فعلی را در بر می‌گیرد. مهم: از <
+    // 🐞 کدام پاراگراف الان فعال است؟ یعنی حداقل یک اسپنِ داخلش بازه‌ی
+    // زمانیِ StartMs تا EndMs، لحظه‌ی فعلی را در بر می‌گیرد. مهم: از < استفاده
     // می‌شود (نه <=) تا کلماتِ به‌هم‌چسبیده با هم هایلایت نشوند.
     int activeIndex = -1;
     for (int i = 0; i < paragraphs.length; i++) {
@@ -689,8 +398,30 @@ class _AudioscriptViewerSheetState
       });
     }
 
+    // 🌟 منطق نمایش آیکون و رنگ برای دکمه رفتار پایان فایل
+    IconData modeIcon;
+    Color modeColor;
+    String modeTooltip;
+    switch (audioState.playbackMode) {
+      case PlaybackMode.autoAdvance:
+        modeIcon = Icons.playlist_play_rounded;
+        modeColor = Colors.blueAccent;
+        modeTooltip = "پخش پیوسته";
+        break;
+      case PlaybackMode.repeatOne:
+        modeIcon = Icons.repeat_one_rounded;
+        modeColor = Colors.orangeAccent;
+        modeTooltip = "تکرار فایل فعلی";
+        break;
+      case PlaybackMode.stop:
+        modeIcon = Icons.stop_circle_outlined;
+        modeColor = Colors.white54;
+        modeTooltip = "توقف پس از پایان";
+        break;
+    }
+
     return Container(
-      height: MediaQuery.of(context).size.height * 0.85,
+      height: MediaQuery.of(context).size.height * 0.92,
       decoration: const BoxDecoration(
         color: Color(0xFF1E222D),
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
@@ -713,14 +444,33 @@ class _AudioscriptViewerSheetState
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Audioscript (متن صوتی)",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Text(
+                    audioState.currentPath?.split('/').last ??
+                        "Audioscript (متن صوتی)",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                if (audioState.targetLocation != null)
+                  // 🐞 «برو به متن»: کاربر را به دقیقاً همان صفحه/پاراگرافی
+                  // می‌برد که یا اولین وقوعِ این فایل در کتاب است (اگر با
+                  // قبلی/بعدی یا لیستِ پخش به این فایل رسیده‌ایم)، یا همان
+                  // نقطه‌ی دقیقی که رویِ دکمه‌ی صوتیِ داخلِ متن تپ شده.
+                  IconButton(
+                    icon: const Icon(
+                      Icons.subject_rounded,
+                      color: Colors.orangeAccent,
+                      size: 20,
+                    ),
+                    tooltip: 'برو به متن',
+                    onPressed: () => _jumpToAudioLocation(ref, context),
+                  ),
                 IconButton(
                   icon: const Icon(Icons.close_rounded, color: Colors.white70),
                   onPressed: () => Navigator.pop(context),
@@ -768,14 +518,6 @@ class _AudioscriptViewerSheetState
                       final para = paragraphs[index];
                       final bool paraIsActive = index == activeIndex;
 
-                      // 🐞 هر اسپن با استایلِ واقعیِ خودش (بولد/ایتالیک/رنگ —
-                      // دقیقاً همان چیزی که از سندِ Word استخراج شده، از
-                      // طریقِ applySpanStyle، همان تابعی که برای متنِ اصلیِ
-                      // کتاب هم استفاده می‌شود) رندر می‌شود؛ اگر لحظه‌ی
-                      // پخش داخلِ بازه‌ی زمانیِ همان اسپن باشد، پس‌زمینه‌ی
-                      // نارنجی هم رویش اضافه می‌شود. buildInteractiveText هم
-                      // همچنان به‌ازای هر اسپن صدا زده می‌شود تا قابلیتِ
-                      // کلیک‌رویِ‌کلمه‌ی‌دیکشنری از دست نرود.
                       final List<InlineSpan> richSpans = [];
                       for (final span in para.spans) {
                         final bool isActiveWord =
@@ -855,31 +597,248 @@ class _AudioscriptViewerSheetState
                   ),
           ),
 
+          // 🐞 بخشِ ادغام‌شده: کنترل‌های کاملِ پخش، دقیقاً همان چیزی که
+          // قبلاً فقط در _FullPlayerBottomSheetِ جدا بود — حالا همیشه پایینِ
+          // همین شیت ثابت است، حتی وقتی متنِ اسکریپت را می‌خوانید.
           Container(
-            padding: const EdgeInsets.all(16),
-            color: const Color(0xFF161922),
+            decoration: const BoxDecoration(
+              color: Color(0xFF161922),
+              border: Border(top: BorderSide(color: Colors.white10)),
+            ),
             child: SafeArea(
               top: false,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      audioState.isPlaying
-                          ? Icons.pause_circle_filled_rounded
-                          : Icons.play_circle_filled_rounded,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          return Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              if (audioState.pointA != null && totalMs > 0)
+                                Positioned(
+                                  left:
+                                      (audioState.pointA!.inMilliseconds /
+                                              totalMs) *
+                                          (constraints.maxWidth - 24) +
+                                      12,
+                                  top: 10,
+                                  bottom: 10,
+                                  child: Container(
+                                    width: 2,
+                                    color: Colors.orange,
+                                  ),
+                                ),
+                              if (audioState.pointB != null && totalMs > 0)
+                                Positioned(
+                                  left:
+                                      (audioState.pointB!.inMilliseconds /
+                                              totalMs) *
+                                          (constraints.maxWidth - 24) +
+                                      12,
+                                  top: 10,
+                                  bottom: 10,
+                                  child: Container(
+                                    width: 2,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                              Slider(
+                                value: audioState.position.inMilliseconds
+                                    .toDouble()
+                                    .clamp(0, totalMs > 0 ? totalMs : 1.0),
+                                max: totalMs > 0 ? totalMs : 1.0,
+                                onChanged: (v) => ref
+                                    .read(audioPlayerProvider.notifier)
+                                    .seek(Duration(milliseconds: v.toInt())),
+                                activeColor: Colors.blueAccent.withOpacity(0.7),
+                                inactiveColor: Colors.white12,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                    iconSize: 48,
-                    color: Colors.orangeAccent,
-                    onPressed: () {
-                      if (audioState.isPlaying) {
-                        ref.read(audioPlayerProvider.notifier).pause();
-                      } else {
-                        ref.read(audioPlayerProvider.notifier).resume();
-                      }
-                    },
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            _formatDuration(audioState.position),
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(width: 16.0),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                _buildSmallCircleButton(
+                                  label: "A",
+                                  isActive: audioState.pointA != null,
+                                  onTap: () => ref
+                                      .read(audioPlayerProvider.notifier)
+                                      .setPointA(),
+                                ),
+                                const SizedBox(width: 12.0),
+                                _buildSmallCircleButton(
+                                  label: "B",
+                                  isActive: audioState.pointB != null,
+                                  onTap: () {
+                                    if (audioState.pointA != null) {
+                                      ref
+                                          .read(audioPlayerProvider.notifier)
+                                          .setPointB();
+                                    }
+                                  },
+                                ),
+                                if (audioState.pointA != null)
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.layers_clear_outlined,
+                                      color: Colors.white54,
+                                      size: 20,
+                                    ),
+                                    onPressed: () => ref
+                                        .read(audioPlayerProvider.notifier)
+                                        .clearAB(),
+                                    tooltip: 'پاک کردن',
+                                  ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuButton<double>(
+                            initialValue: audioState.speed,
+                            offset: const Offset(0, -200),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.white30),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                "${audioState.speed}x",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                            onSelected: (value) => ref
+                                .read(audioPlayerProvider.notifier)
+                                .setSpeed(value),
+                            itemBuilder: (context) => <PopupMenuEntry<double>>[
+                              const PopupMenuItem(
+                                value: 0.5,
+                                child: Text('0.5x'),
+                              ),
+                              const PopupMenuItem(
+                                value: 0.8,
+                                child: Text('0.8x'),
+                              ),
+                              const PopupMenuItem(
+                                value: 1.0,
+                                child: Text('1.0x'),
+                              ),
+                              const PopupMenuItem(
+                                value: 1.2,
+                                child: Text('1.2x'),
+                              ),
+                              const PopupMenuItem(
+                                value: 1.5,
+                                child: Text('1.5x'),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            icon: Icon(modeIcon, color: modeColor),
+                            tooltip: modeTooltip,
+                            onPressed: () => ref
+                                .read(audioPlayerProvider.notifier)
+                                .togglePlaybackMode(),
+                          ),
+                          Text(
+                            _formatDuration(audioState.duration),
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.skip_previous_rounded,
+                            color: Colors.white,
+                            size: 36,
+                          ),
+                          onPressed: () => ref
+                              .read(audioPlayerProvider.notifier)
+                              .playPrevious(),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.replay_10,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                          onPressed: () => ref
+                              .read(audioPlayerProvider.notifier)
+                              .skip10Sec(false),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: Icon(
+                            audioState.isPlaying
+                                ? Icons.pause_circle_filled
+                                : Icons.play_circle_filled,
+                          ),
+                          color: Colors.white,
+                          iconSize: 60,
+                          onPressed: () => audioState.isPlaying
+                              ? ref.read(audioPlayerProvider.notifier).pause()
+                              : ref.read(audioPlayerProvider.notifier).resume(),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.forward_10,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                          onPressed: () => ref
+                              .read(audioPlayerProvider.notifier)
+                              .skip10Sec(true),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.skip_next_rounded,
+                            color: Colors.white,
+                            size: 36,
+                          ),
+                          onPressed: () =>
+                              ref.read(audioPlayerProvider.notifier).playNext(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -117,6 +117,27 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     _cachedForDocumentPages = widget.documentPages;
     _bookAudioPlaylist = entries.map((e) => e.resolvedPath).toList();
     _bookAudioFirstOccurrence = bookAudioFirstOccurrence(entries);
+
+    // 🐞 قبلاً state.playlist/firstOccurrence فقط با اولین تپِ رویِ یک
+    // دکمه‌ی صوتیِ داخلِ متن پر می‌شد — یعنی تا وقتی کاربر چیزی پخش نکرده
+    // بود، پلی‌لیست (حتی اگر دکمه‌ی مستقلش را داشته باشد) خالی نشان داده
+    // می‌شد. حالا همین‌جا، به‌محضِ آماده‌شدنِ پلی‌لیستِ کتاب، مستقیم در
+    // پلیر هم ثبتش می‌کنیم — بدونِ نیاز به هیچ پخشی. اگر همین الان چیزی
+    // در حالِ پخش باشد دست‌نخورده می‌ماند (setPlaylist فقط این دو فیلد را
+    // عوض می‌کند). با addPostFrameCallback بعد از اتمامِ همین build اجرا
+    // می‌شود تا با ویجت‌های دیگری که audioPlayerProvider را watch می‌کنند
+    // تداخلِ «rebuild حین build» نداشته باشد.
+    if (_bookAudioPlaylist.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ref
+            .read(audioPlayerProvider.notifier)
+            .setPlaylist(
+              _bookAudioPlaylist,
+              firstOccurrence: _bookAudioFirstOccurrence,
+            );
+      });
+    }
   }
 
   // وقتی transform تغییر می‌کند — فقط اگر در حال pinch باشیم setState می‌زنیم
