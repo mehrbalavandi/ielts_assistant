@@ -79,13 +79,21 @@ class _LazyPageState extends State<_LazyPage> {
   @override
   Widget build(BuildContext context) {
     final page = _page;
-    if (page == null) {
-      return const SizedBox(
-        height: 400,
-        child: Center(child: CircularProgressIndicator()),
-      );
-    }
-    return widget.builder(page);
+    // 🐞 حتی با پیشگرمی (prewarmAround)، ممکن است بعضی صفحات (مثلاً همان
+    // اولین صفحه‌ای که هنوز پیشگرمی برایش فرصت نداشته، یا حینِ فلینگِ
+    // خیلی سریع) هنوز به کش نرسیده باشند؛ AnimatedSize باعث می‌شود
+    // تغییرِ ارتفاعِ پلیس‌هولدر به ارتفاعِ واقعیِ صفحه به‌جای یک جهشِ
+    // ناگهانی، به‌آرامی و در چند فریم انجام شود.
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 200),
+      alignment: Alignment.topCenter,
+      child: page == null
+          ? const SizedBox(
+              height: 400,
+              child: Center(child: CircularProgressIndicator()),
+            )
+          : widget.builder(page),
+    );
   }
 }
 
@@ -257,6 +265,19 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
       // 🌟 شماره‌ی صفحه‌ی جاری + نمایشِ نشان هنگام اسکرول (مثل تلگرام)
       final newPage = topItem.index + 1;
+      if (newPage != _currentPage) {
+        // 🐞 رفع باگِ گزارش‌شده‌ی «پرش حینِ اسکرول»: با لودِ تنبل، وقتی
+        // یک صفحه هنوز در کش نیست، _LazyPage یک پلیس‌هولدرِ ارتفاعِ‌ثابت
+        // نشان می‌دهد که بعداً با ارتفاعِ واقعیِ صفحه (که می‌تواند خیلی
+        // متفاوت باشد) جایگزین می‌شود — همین تغییرِ ارتفاعِ ناگهانی حینِ
+        // اسکرول، باعثِ جابه‌جاییِ محتوا/«پرش» می‌شود. با پیش‌بارگذاریِ
+        // چند صفحه‌ی جلوتر/عقب‌تر از همین الان (نه فقط دقیقاً همان صفحه‌ای
+        // که دیده می‌شود)، تا وقتی کاربر واقعاً به آن صفحه برسد، معمولاً
+        // از قبل در کش است — یعنی از مسیرِ سریعِ peekPage رد می‌شود، نه
+        // پلیس‌هولدر. await نمی‌شود چون قرار است در پس‌زمینه، همزمان با
+        // ادامه‌ی اسکرولِ کاربر، انجام شود.
+        widget.pagedBookStore.prewarmAround(topItem.index);
+      }
       if (newPage != _currentPage || !_showPageBadge) {
         setState(() {
           _currentPage = newPage;
