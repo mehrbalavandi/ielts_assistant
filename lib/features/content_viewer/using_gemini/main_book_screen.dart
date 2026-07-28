@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/language_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
-import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/paged_book_store.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
@@ -18,30 +18,22 @@ class MainBookScreen extends ConsumerStatefulWidget {
 }
 
 class _MainBookScreenState extends ConsumerState<MainBookScreen> {
-  Future<List<PageData>>? _pagesFuture;
-  // 🐞 رفع باگِ اسکریپتِ صوتی: _extractAudioScripts قبلی، پاراگراف‌های
-  // *صفحاتِ معمولیِ کتاب* را برای startMs/endMs/audioTrackName می‌گشت — ولی
-  // اسکریپتِ صوتی هیچ‌وقت داخلِ محتوای صفحات نبوده (از یک سندِ Word کاملاً
-  // جدا می‌آید و مستقیماً به فیلدِ سطحِ‌بالای «AudioScripts» در index.json
-  // نوشته می‌شود که loadBookFromJson اصلاً به آن دست نمی‌زند)، پس این تابع
-  // همیشه لیستِ خالی برمی‌گرداند — یعنی قابلیتِ هایلایتِ هم‌زمان هیچ‌وقت
-  // داده‌ای برای نمایش نداشت. حالا با DocumentLoader.loadAudioScripts که
-  // مستقیماً همان فیلد را می‌خواند جایگزین شده.
-  Future<List<AudioScriptTrack>>? _audioScriptsFuture;
-  // 🐞 شاخصِ لینک‌های صوتی (AudioLinksIndex در index.json): تا پلی‌لیستِ
-  // کتاب دیگر نیازی به گشتنِ زنده‌ی محتوایِ همه‌ی صفحاتِ لودشده نداشته
-  // باشد — از قبل توسطِ ابزارِ C# محاسبه شده.
-  Future<List<AudioLinkEntry>>? _audioLinksIndexFuture;
+  // 🐞 بازنویسیِ اصلیِ لودِ تنبل: قبلاً این‌جا کلِ کتاب (List<PageData>) یک‌جا
+  // await می‌شد. حالا فقط منیفستِ سبکِ index.json (بدونِ محتوای صفحات)
+  // await می‌شود — خودِ صفحات فقط وقتی واقعاً دیده شوند از دیسک لود
+  // می‌شوند (داخلِ ReadingCanvasScreen/_LazyPage). چون PagedBookStore خودش
+  // AudioScripts/AudioLinksIndex را هم همین‌جا (از همان یک‌بار خواندنِ
+  // index.json) استخراج می‌کند، دیگر نیازی به فراخوانیِ جداگانه‌ی
+  // DocumentLoader.loadAudioScripts/loadAudioLinksIndex نیست.
+  PagedBookStore? _pagedBookStore;
+  Future<void>? _manifestFuture;
   String? _loadedBookId;
 
-  void _ensureBookLoaded(String bookId, String jsonAssetPath) {
-    if (_loadedBookId == bookId && _pagesFuture != null) return;
-    _loadedBookId = bookId;
-    _pagesFuture = DocumentLoader.loadBookFromJson(
-      jsonAssetPath, // 'assets/data/testbook/index.json',
-    );
-    _audioScriptsFuture = DocumentLoader.loadAudioScripts(jsonAssetPath);
-    _audioLinksIndexFuture = DocumentLoader.loadAudioLinksIndex(jsonAssetPath);
+  void _ensureBookLoaded(BookModel book) {
+    if (_loadedBookId == book.id && _pagedBookStore != null) return;
+    _loadedBookId = book.id;
+    _pagedBookStore = PagedBookStore(book: book);
+    _manifestFuture = _pagedBookStore!.ensureManifestLoaded();
   }
 
   @override
@@ -53,7 +45,8 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    _ensureBookLoaded(activeBook.id, activeBook.jsonAssetPath);
+    _ensureBookLoaded(activeBook);
+    final pagedBookStore = _pagedBookStore!;
 
     return Scaffold(
       appBar: AppBar(
@@ -193,8 +186,8 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               ),
             )
           : null,
-      body: FutureBuilder<List<PageData>>(
-        future: _pagesFuture,
+      body: FutureBuilder<void>(
+        future: _manifestFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -209,29 +202,13 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               ),
             );
           }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          if (pagedBookStore.pageCount == 0) {
             return const Center(child: Text("داده‌ای یافت نشد."));
           }
-          return FutureBuilder<List<AudioScriptTrack>>(
-            future: _audioScriptsFuture,
-            builder: (context, audioSnapshot) {
-              return FutureBuilder<List<AudioLinkEntry>>(
-                future: _audioLinksIndexFuture,
-                builder: (context, linksSnapshot) {
-                  return ReadingCanvasScreen(
-                    documentPages: snapshot.data!,
-                    // 🐞 تا وقتی اسکریپتِ صوتی لود می‌شود (یا اگر خطا بخورد)، یک
-                    // لیستِ خالی کافی است — کلِ صفحه‌ی خواندن نباید منتظرش بماند؛
-                    // فقط پلیرِ صوتی موقتاً چیزی برای هایلایت نشان نمی‌دهد.
-                    audioScripts: audioSnapshot.data ?? const [],
-                    // 🐞 اگر این کتاب هنوز با ابزارِ جدیدِ C# استخراج نشده،
-                    // لیست خالی می‌ماند و buildBookAudioPlaylist خودش به
-                    // همان اسکنِ زنده‌ی قبلی برمی‌گردد (بدونِ خطا).
-                    precomputedAudioLinksIndex: linksSnapshot.data ?? const [],
-                  );
-                },
-              );
-            },
+          return ReadingCanvasScreen(
+            pagedBookStore: pagedBookStore,
+            audioScripts: pagedBookStore.audioScripts,
+            precomputedAudioLinksIndex: pagedBookStore.audioLinksIndex,
           );
         },
       ),

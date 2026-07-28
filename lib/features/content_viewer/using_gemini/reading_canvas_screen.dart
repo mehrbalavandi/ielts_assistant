@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/language_provider.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/paged_book_store.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/text_render_engine.dart';
@@ -23,16 +24,88 @@ class MapOffset {
   int value = 0;
 }
 
+// 🐞 برای لودِ تنبل: وقتی یک صفحه هنوز در کشِ PagedBookStore نیست، این
+// ویجت getPage (async) را درخواست می‌کند و تا رسیدنش یک پلیس‌هولدرِ ساده
+// نشان می‌دهد؛ وقتی رسید، همان‌جا (بدونِ نیاز به rebuildِ کلِ لیست)
+// خودش را با محتوای واقعی جایگزین می‌کند.
+class _LazyPage extends StatefulWidget {
+  final PagedBookStore store;
+  final int pageIndex;
+  final Widget Function(PageData page) builder;
+
+  const _LazyPage({
+    required this.store,
+    required this.pageIndex,
+    required this.builder,
+  });
+
+  @override
+  State<_LazyPage> createState() => _LazyPageState();
+}
+
+class _LazyPageState extends State<_LazyPage> {
+  PageData? _page;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  @override
+  void didUpdateWidget(covariant _LazyPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 🐞 اگر همین آیتمِ لیست حالا به ایندکسِ دیگری اشاره کند (مثلاً به‌خاطرِ
+    // تغییرِ کتاب)، دوباره از صفر لود می‌شود.
+    if (oldWidget.pageIndex != widget.pageIndex ||
+        oldWidget.store != widget.store) {
+      _page = null;
+      _load();
+    }
+  }
+
+  void _load() {
+    widget.store
+        .getPage(widget.pageIndex)
+        .then((page) {
+          if (mounted) setState(() => _page = page);
+        })
+        .catchError((Object e) {
+          // 🐞 یک صفحه‌ی گم‌شده/خراب نباید کلِ کتاب را کرش کند — همان
+          // پلیس‌هولدر می‌ماند.
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final page = _page;
+    if (page == null) {
+      return const SizedBox(
+        height: 400,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+    return widget.builder(page);
+  }
+}
+
 class ReadingCanvasScreen extends ConsumerStatefulWidget {
-  final List<PageData> documentPages;
+  // 🐞 بازنویسیِ اصلیِ لودِ تنبل: قبلاً این‌جا کلِ کتاب به‌صورتِ
+  // List<PageData>ِ کاملاً لودشده می‌آمد (مصرفِ حافظه/زمانِ بازشدنِ کتاب با
+  // تعدادِ کل صفحات رشد می‌کرد). حالا به‌جایش یک PagedBookStore می‌آید که
+  // فقط منیفستِ سبک (index.json، بدونِ محتوای صفحات) را از قبل لود کرده و
+  // هر صفحه را فقط وقتی واقعاً دیده می‌شود (getPage) از دیسک می‌خواند و در
+  // یک کشِ LRU با سقفِ ثابت نگه می‌دارد.
+  final PagedBookStore pagedBookStore;
   final List<AudioScriptTrack> audioScripts; // 🌟 اضافه شد
   // 🐞 شاخصِ لینک‌های صوتیِ از‌قبل‌محاسبه‌شده (سمتِ C#) — اگر داده شود،
   // buildBookAudioPlaylist بدونِ گشتنِ زنده‌ی محتوای صفحات، مستقیم از
-  // رویش پلی‌لیست می‌سازد.
+  // رویش پلی‌لیست می‌سازد؛ حالا با لودِ تنبل این تقریباً همیشه لازم است
+  // (چون دیگر کل کتاب برای اسکن در دسترس نیست).
   final List<AudioLinkEntry> precomputedAudioLinksIndex;
   const ReadingCanvasScreen({
     super.key,
-    required this.documentPages,
+    required this.pagedBookStore,
     required this.audioScripts,
     this.precomputedAudioLinksIndex = const [],
   });
@@ -94,27 +167,34 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     return '${r.pageNumber}:${r.paraIndex}:${r.occurrenceIndex}';
   }
 
-  // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر: چون این کار روی کلِ کتاب است (همه‌ی
-  // صفحات، نه فقط یکی)، فقط یک‌بار (به‌ازای همین documentPages) محاسبه و
-  // کش می‌شود — نه در هر rebuildِ هر صفحه.
+  // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر: چون این کار روی کلِ کتاب است، فقط
+  // یک‌بار (به‌ازای همین pagedBookStore) محاسبه و کش می‌شود — نه در هر
+  // rebuildِ هر صفحه.
   List<BookAudioEntry>? _cachedBookAudioEntries;
-  List<PageData>? _cachedForDocumentPages;
+  PagedBookStore? _cachedForStore;
   List<String> _bookAudioPlaylist = const [];
   Map<String, AudioLocation> _bookAudioFirstOccurrence = const {};
 
   void _ensureBookAudioPlaylistBuilt() {
     if (_cachedBookAudioEntries != null &&
-        _cachedForDocumentPages == widget.documentPages) {
+        _cachedForStore == widget.pagedBookStore) {
       return;
     }
     final currentBook = ref.read(activeBookProvider);
+    // 🐞 دیگر لیستِ کاملِ صفحات برای اسکن در دسترس نیست (لودِ تنبل) — پس
+    // pages خالی پاس داده می‌شود؛ چون precomputedAudioLinksIndex تقریباً
+    // همیشه از index.json پر است، buildBookAudioPlaylist بدونِ نیاز به
+    // pages مستقیم از رویِ همان کار می‌کند. فقط برای کتابِ خیلی قدیمی که
+    // هنوز این شاخص را ندارد، پلی‌لیستِ کتاب‌محور خالی می‌ماند (تا وقتی
+    // دوباره با ابزارِ جدید استخراج شود) — این یک محدودیتِ صریح و
+    // مستندشده است، نه کرش یا رفتارِ نامشخص.
     final entries = buildBookAudioPlaylist(
-      widget.documentPages,
+      const [],
       currentBook,
       precomputedIndex: widget.precomputedAudioLinksIndex,
     );
     _cachedBookAudioEntries = entries;
-    _cachedForDocumentPages = widget.documentPages;
+    _cachedForStore = widget.pagedBookStore;
     _bookAudioPlaylist = entries.map((e) => e.resolvedPath).toList();
     _bookAudioFirstOccurrence = bookAudioFirstOccurrence(entries);
 
@@ -207,7 +287,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       // چون opacity=0 است کاربر هیچ‌چیز نمی‌بیند.
       // این jumpTo باعث می‌شود dual-list transition پیش از تعامل کاربر اتفاق بیفتد.
       if (_itemScrollController.isAttached && _savedIndex > 0) {
-        final safeIndex = _savedIndex < widget.documentPages.length
+        final safeIndex = _savedIndex < widget.pagedBookStore.pageCount
             ? _savedIndex
             : 0;
         _itemScrollController.jumpTo(
@@ -392,7 +472,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
   // 🌟 دیالوگِ «رفتن به صفحه» (مثل PDF‌خوان‌ها)
   Future<void> _openJumpToPageDialog() async {
-    final total = widget.documentPages.length;
+    final total = widget.pagedBookStore.pageCount;
     final ctrl = TextEditingController();
     final n = await showDialog<int>(
       context: context,
@@ -450,7 +530,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
 
     // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر — کش‌شده، فقط واقعاً یک‌بار به‌ازای
-    // همین documentPages محاسبه می‌شود.
+    // همین pagedBookStore محاسبه می‌شود.
     _ensureBookAudioPlaylistBuilt();
 
     final activeTarget =
@@ -459,9 +539,9 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         : null;
 
     if (activeTarget != null) {
-      int pIndex = widget.documentPages.indexWhere(
-        (p) => p.pageNumber == activeTarget.pageNumber,
-      );
+      int pIndex =
+          widget.pagedBookStore.indexForPageNumber(activeTarget.pageNumber) ??
+          -1;
       if (pIndex != -1) {
         initialIndex = pIndex;
         // 🌟 در هنگام جستجو، می‌خواهیم نتیجه مستقیماً از ابتدای کادر نشان داده شود
@@ -489,9 +569,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     // که دوباره جستجویش کند.
     _lastBuiltTargetPageIndex = activeTarget == null
         ? null
-        : widget.documentPages.indexWhere(
-            (p) => p.pageNumber == activeTarget.pageNumber,
-          );
+        : widget.pagedBookStore.indexForPageNumber(activeTarget.pageNumber);
     _targetKeyClaimedThisBuild =
         false; // 🌟 اضافه شد — شروع تازه برای این build
 
@@ -502,9 +580,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             previous?.jumpTrigger != next.jumpTrigger) {
           final target = next.results[next.currentIndex] as SearchResult;
           final targetSignature = _signatureFor(target);
-          int pageIndex = widget.documentPages.indexWhere(
-            (p) => p.pageNumber == target.pageNumber,
-          );
+          int pageIndex =
+              widget.pagedBookStore.indexForPageNumber(target.pageNumber) ?? -1;
 
           if (pageIndex != -1 && _itemScrollController.isAttached) {
             final visiblePositions = _itemPositionsListener.itemPositions.value;
@@ -568,7 +645,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                   color: Colors.white,
                 ),
                 label: Text(
-                  'صفحه $_currentPage از ${widget.documentPages.length}',
+                  'صفحه $_currentPage از ${widget.pagedBookStore.pageCount}',
                   style: const TextStyle(color: Colors.white, fontSize: 13),
                 ),
               ),
@@ -642,7 +719,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                   .noScaling, // 🌟 خنثی‌کردن اسکیل فونت سیستم فقط برای این صفحه
                             ),
                             child: ScrollablePositionedList.builder(
-                              itemCount: widget.documentPages.length,
+                              itemCount: widget.pagedBookStore.pageCount,
                               itemScrollController: _itemScrollController,
                               itemPositionsListener: _itemPositionsListener,
 
@@ -683,7 +760,6 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                 vertical: 24.0,
                               ),
                               itemBuilder: (context, pageIndex) {
-                                final page = widget.documentPages[pageIndex];
                                 bool hasTarget =
                                     activeTarget != null &&
                                     pageIndex == _lastBuiltTargetPageIndex &&
@@ -692,28 +768,48 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                                   _targetKeyClaimedThisBuild =
                                       true; // 🌟 اضافه شد
 
-                                return RepaintBoundary(
-                                  child: BookPageWidget(
-                                    page: page,
-                                    activeTarget: activeTarget,
-                                    searchSession: searchSession,
-                                    canvasWidth: canvasWidth,
-                                    screenWidth: MediaQuery.of(
-                                      context,
-                                    ).size.width,
-                                    targetKey: hasTarget
-                                        ? _fallbackParaKey
-                                        : null,
-                                    exactMatchKey: hasTarget
-                                        ? _exactMatchKey
-                                        : null,
-                                    pageAnchorKey: hasTarget
-                                        ? _pageAnchorKey
-                                        : null,
-                                    bookAudioPlaylist: _bookAudioPlaylist,
-                                    bookAudioFirstOccurrence:
-                                        _bookAudioFirstOccurrence,
-                                  ),
+                                Widget buildForPage(PageData page) {
+                                  return RepaintBoundary(
+                                    child: BookPageWidget(
+                                      page: page,
+                                      activeTarget: activeTarget,
+                                      searchSession: searchSession,
+                                      canvasWidth: canvasWidth,
+                                      screenWidth: MediaQuery.of(
+                                        context,
+                                      ).size.width,
+                                      targetKey: hasTarget
+                                          ? _fallbackParaKey
+                                          : null,
+                                      exactMatchKey: hasTarget
+                                          ? _exactMatchKey
+                                          : null,
+                                      pageAnchorKey: hasTarget
+                                          ? _pageAnchorKey
+                                          : null,
+                                      bookAudioPlaylist: _bookAudioPlaylist,
+                                      bookAudioFirstOccurrence:
+                                          _bookAudioFirstOccurrence,
+                                    ),
+                                  );
+                                }
+
+                                // 🐞 بازنویسیِ اصلیِ لودِ تنبل: اگر این صفحه از
+                                // قبل در کشِ PagedBookStore باشد (peekPage،
+                                // sync)، مستقیم رندر می‌شود — دقیقاً همان
+                                // سرعتِ قبلی، بدونِ حتی یک فریم پرش. اگر هنوز
+                                // نیامده، _LazyPage آن را (getPage، async)
+                                // درخواست می‌کند و تا رسیدنش یک پلیس‌هولدرِ
+                                // ساده نشان می‌دهد.
+                                final cachedPage = widget.pagedBookStore
+                                    .peekPage(pageIndex);
+                                if (cachedPage != null) {
+                                  return buildForPage(cachedPage);
+                                }
+                                return _LazyPage(
+                                  store: widget.pagedBookStore,
+                                  pageIndex: pageIndex,
+                                  builder: buildForPage,
                                 );
                               },
                             ),
