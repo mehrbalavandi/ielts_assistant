@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 
@@ -18,9 +19,9 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/b
 // این کلاس آن الگو را با یک الگوی استاندارد (دقیقاً همان چیزی که
 // اپ‌های کتاب‌خوان حرفه‌ای استفاده می‌کنند) جایگزین می‌کند: «عمر داده» را
 // از «عمر ویجت» جدا می‌کند.
-//   ۱. فقط یک manifest سبک (شمار صفحات + دیکشنری مشترک کلمات تعاملی +
-//      شاخص صوتی) یک‌بار و کامل لود می‌شود — حجمش با تعداد صفحات رشد
-//      نمی‌کند.
+//   ۱. فقط یک منیفستِ سبک (شمار صفحات + دیکشنری مشترک کلمات تعاملی +
+//      اسکریپت‌های صوتی + شاخصِ لینک‌های صوتی) یک‌بار و کامل لود می‌شود —
+//      حجمش با تعداد صفحات رشد نمی‌کند.
 //   ۲. هر صفحه در یک فایل جدای خودش ذخیره شده و فقط وقتی درخواست شود
 //      (getPage) از دیسک خوانده و پارس می‌شود.
 //   ۳. صفحاتِ پارس‌شده در یک کش LRU با سقفِ ثابت (maxCachedPages) نگه
@@ -28,41 +29,36 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/b
 //      آزاد می‌شود. یعنی مصرف حافظه‌ی این کلاس، مستقل از اندازه‌ی کل
 //      کتاب، به یک عدد ثابت محدود می‌ماند.
 //
+// 🐞 رفع باگِ نسخه‌ی قبلی: این کلاس قبلاً منتظرِ یک «manifest.json» با
+// فیلدهای PageCount/PageNumbers/ImageIndex/AudioIndex بود — ولی
+// BookOutputWriter.cs (ابزارِ سی‌شارپ) هیچ‌وقت چنین فایلی ننوشته و
+// نمی‌نویسد؛ خروجیِ واقعیِ آن همیشه «index.json» با این شکل بوده:
+//   { SchemaVersion, BookVersion, Pages:[{N,File,Version}],
+//     Interactives:[...], AudioScripts:[{AudioTrackName,Paragraphs}],
+//     AudioLinksIndex:[{PageNumber,ParaIndex,FileName}] }
+// یعنی این کلاس عملاً همیشه به فال‌بکِ «فرمتِ قدیمِ تک‌فایلی» می‌افتاد (و
+// حتی آن فال‌بک هم چون Pagesِ index.json را «پاراگرافِ کاملِ هر صفحه»
+// فرض می‌کرد نه «مسیرِ فایلِ هر صفحه»، برای خودِ همین فرمتِ رایج هم درست
+// کار نمی‌کرد). حالا مستقیماً همان index.jsonِ واقعی را می‌خواند.
+//
+// 🐞 AudioLinksIndex تازه اضافه شده: قبلاً ساختنِ پلی‌لیستِ کتاب
+// (buildBookAudioPlaylist در reading_canvas_screen.dart) مجبور بود محتوایِ
+// *همه‌ی* صفحاتِ لودشده را زنده بگردد — دقیقاً همان چیزی که این کلاس
+// می‌خواست جلویش را بگیرد. حالا این شاخص از قبل در index.json آماده است
+// و buildBookAudioPlaylist می‌تواند از رویِ همین (بدونِ لودِ محتوای هیچ
+// صفحه‌ای) پلی‌لیست بسازد.
+//
 // ساختار مورد انتظار روی دیسک (چه در پوشه‌ی دانلودشده‌ی محلی، چه در
 // assets برای نسخه‌ی نمونه/باندل‌شده)، داخل یک پوشه به‌ازای هر کتاب:
-//   <bookFolder>/manifest.json
+//   <bookFolder>/index.json
 //   <bookFolder>/pages/page_0001.json
 //   <bookFolder>/pages/page_0002.json
 //   ...
 //
-// manifest.json:
-// {
-//   "SchemaVersion": 2,
-//   "PageCount": 214,
-//   // 🌟 اختیاری: اگر شماره‌ی چاپی صفحات همیشه دقیقاً index+1 نیست (مثلاً
-//   // صفحات مقدماتی/فهرست شماره‌گذاری متفاوت دارند)، این آرایه (هم‌طول با
-//   // PageCount) شماره‌ی چاپی هر ایندکس را می‌دهد. اگر نباشد، فال‌بکِ
-//   // «pageNumber == index+1» استفاده می‌شود. این برای اسکرول به نتیجه‌ی
-//   // جستجو لازم است (قبلاً با گشتن در بین همه‌ی PageData های لودشده پیدا
-//   // می‌شد؛ حالا دیگر همه‌ی صفحات از قبل لود نیستند).
-//   "PageNumbers": [1, 2, 3, ...],
-//   // 🌟 لیست تخت و بدون تکرار نام تمام تصاویر استفاده‌شده در کل کتاب —
-//   // برای پیش‌بارگذاریِ تصاویر بدون نیاز به لود کردن محتوای هر صفحه.
-//   "ImageIndex": ["p12_img1.png", "p45_img2.png", ...],
-//   "Interactives": [ ...دقیقاً همان آرایه‌ی InteractiveWord فعلی... ],
-//   "AudioIndex": [
-//     {
-//       "PageNumber": 12,
-//       "Paragraph": { ...یک آبجکت کامل Paragraph همان فرمتِ فعلی... }
-//     },
-//     ...
-//   ]
-// }
-//
-// هر pages/page_XXXX.json دقیقاً همان چیزی است که امروز یک عضو از آرایه‌ی
-// "Pages" در data.json فعلی است — یعنی { "PageNumber": N, "Paragraphs": [...] }
-// — هیچ تغییری در ساختار داخلیِ خودِ صفحه لازم نیست، چون PageData.fromJson
-// از قبل پارامترهای sharedInteractives/sharedPattern/sharedByText را
+// هر pages/page_XXXX.json دقیقاً همان چیزی است که در C#، BookOutputWriter
+// برای هر صفحه جدا نوشته — { "PageNumber": N, "Paragraphs": [...] } — هیچ
+// تغییری در ساختار داخلیِ خودِ صفحه لازم نیست، چون PageData.fromJson از
+// قبل پارامترهای sharedInteractives/sharedPattern/sharedByText را
 // می‌پذیرد.
 class PagedBookStore {
   final BookModel book;
@@ -83,12 +79,24 @@ class PagedBookStore {
   List<InteractiveWord> _sharedInteractives = const [];
   RegExp? _sharedPattern;
   Map<String, InteractiveWord> _sharedByText = const {};
-  List<ParagraphData> _audioScripts = const [];
+  // 🐞 نوع عوض شد: سطحِ کتاب و گروه‌بندی‌شده‌بر‌اساسِ تراک (یک آیتم به‌ازای
+  // هر فایلِ صوتی)، نه فهرستِ تخت پاراگراف‌های تک‌تک مثلِ قبل.
+  List<AudioScriptTrack> _audioScripts = const [];
+  // 🐞 شاخصِ جدید: کجای متن دکمه‌ی صوتی هست.
+  List<AudioLinkEntry> _audioLinksIndex = const [];
   Map<int, int> _pageNumberToIndex = const {};
+  // 🐞 مسیرِ فایلِ هر صفحه، مستقیماً از index.json (فیلدِ File در هر
+  // آیتمِ Pages) — دیگر نیازی به فرض‌کردنِ الگویِ نام‌گذاریِ ثابت نیست.
+  List<String> _pageFiles = const [];
+  // 🐞 index.json فعلاً فیلدِ ImageIndex ندارد (چیزی که این کلاس قبلاً
+  // انتظارش را داشت)؛ تا وقتی به BookOutputWriter اضافه نشده، این همیشه
+  // خالی می‌ماند — نه کرش، فقط یعنی پیش‌بارگذاریِ تصاویر فعلاً غیرفعال
+  // است.
   List<String> _imageNames = const [];
 
   int get pageCount => _pageCount;
-  List<ParagraphData> get audioScripts => _audioScripts;
+  List<AudioScriptTrack> get audioScripts => _audioScripts;
+  List<AudioLinkEntry> get audioLinksIndex => _audioLinksIndex;
   List<String> get imageNames => _imageNames;
   bool get isManifestLoaded => _manifestLoaded;
 
@@ -99,17 +107,6 @@ class PagedBookStore {
   int? indexForPageNumber(int pageNumber) => _pageNumberToIndex[pageNumber];
 
   // ── مسیر فعال پوشه‌ی این کتاب (دانلودشده یا asset) ───────────────────
-  // 🌟 عمداً هیچ فیلد جدیدی به BookModel اضافه نشده. از همان
-  // BookModel.activeJsonPath موجود (که خودِ آن از قبل منطق سه‌مرحله‌ای
-  // خرید‌شده→نمونه→فال‌بک را دارد) استفاده می‌کنیم:
-  //   • حالت محلی (دانلودشده): فایلِ ردیاب نسخه (data.json/sample.json)
-  //     هنوز داخل پوشه‌ی کتاب می‌نشیند؛ پوشه‌ی کتاب همان پوشه‌ی والدِ این
-  //     فایل است — دقیقاً همان قراردادی که _resolveLocalImageFile در
-  //     reading_canvas_screen.dart از قبل برای پیدا کردن تصاویر استفاده
-  //     می‌کند، پس هیچ تغییری در سیستم دانلود/نسخه‌بندی لازم نیست.
-  //   • حالت asset/باندل‌شده: به‌جای assets/data/<id>.json تخت، هر کتاب
-  //     زیرپوشه‌ی مخصوص خودش می‌گیرد: assets/data/<id>/ (باید در
-  //     pubspec.yaml هم به‌همین شکل ثبت شود).
   bool get _isLocal => book.isJsonDownloaded || book.isSampleDownloaded;
 
   String get _bookFolderPath {
@@ -136,40 +133,46 @@ class PagedBookStore {
     _manifestLoading = completer;
     try {
       String raw;
+      Map<String, dynamic>? json;
       try {
-        raw = await _readAsset('manifest.json');
+        raw = await _readAsset('index.json');
+        final decoded = jsonDecode(raw);
+        if (decoded is Map<String, dynamic> &&
+            _looksLikePagePointerIndex(decoded)) {
+          json = decoded;
+        }
       } catch (_) {
-        // 🐞 دوران گذار: این کتابِ خاص هنوز به فرمت جدید مهاجرت نکرده (کاربر
-        // نسخه‌ی جدیدش را دانلود نکرده، یا asset باندل‌شده هنوز به‌روزرسانی
-        // نشده). به‌جای کرش/خالی‌نشان‌دادن صفحه، همان فایل قدیمیِ تک‌جایی را
-        // می‌خوانیم و از رویش، *فقط برای همین یک کتاب*، یک نسخه‌ی معادل در
-        // حافظه می‌سازیم — دقیقاً همان رفتار قبلی (کل کتاب یک‌جا)، تا وقتی
-        // که با یک دانلود بعدی به فرمت جدید مهاجرت کند.
-        await _loadLegacySingleFileFormat();
+        json = null;
+      }
+
+      if (json == null) {
+        // 🐞 دوران گذار/فرمتِ ناشناخته: یا index.json پیدا نشد، یا شکلش با
+        // ساختارِ موردِ انتظار (Pages به‌صورتِ مسیرِ فایل) نمی‌خواند —
+        // مثلاً یک کتابِ خیلی قدیمی که کل محتوا را یک‌جا دارد. به‌جای
+        // کرش، از همان DocumentLoader موجود (که هر سه فرمتِ شناخته‌شده را
+        // می‌فهمد) برای بارگذاریِ کاملِ کتاب استفاده می‌کنیم — دقیقاً
+        // همان رفتارِ قبلیِ برنامه (کل کتاب یک‌جا)، تا وقتی این کتاب با
+        // یک دانلودِ بعدی به فرمتِ جدید مهاجرت کند.
+        await _loadViaDocumentLoader();
         _manifestLoaded = true;
         completer.complete();
         return;
       }
-      final Map<String, dynamic> json = jsonDecode(raw) as Map<String, dynamic>;
 
-      _pageCount = json['PageCount'] as int? ?? 0;
+      final rawPages = (json['Pages'] as List? ?? []);
+      _pageCount = rawPages.length;
 
-      // 🌟 نگاشت شماره‌ی چاپیِ صفحه → ایندکس در لیست. اگر مولد کتاب این
-      // آرایه را نداد، فرض می‌کنیم رایج‌ترین حالت برقرار است: pageNumber
-      // همیشه دقیقاً index+1 است.
-      final rawPageNumbers = json['PageNumbers'] as List?;
-      if (rawPageNumbers != null && rawPageNumbers.length == _pageCount) {
-        _pageNumberToIndex = {
-          for (int i = 0; i < rawPageNumbers.length; i++)
-            (rawPageNumbers[i] as num).toInt(): i,
-        };
-      } else {
-        _pageNumberToIndex = {for (int i = 0; i < _pageCount; i++) (i + 1): i};
+      final Map<int, int> pageNumberToIndex = {};
+      final List<String> pageFiles = List<String>.filled(rawPages.length, '');
+      for (int i = 0; i < rawPages.length; i++) {
+        final entry = rawPages[i] as Map<String, dynamic>;
+        final int n = (entry['N'] as num?)?.toInt() ?? (i + 1);
+        final String file = (entry['File'] ?? entry['file'] ?? '') as String;
+        pageNumberToIndex[n] = i;
+        pageFiles[i] = file;
       }
-
-      _imageNames = (json['ImageIndex'] as List? ?? [])
-          .map((e) => e.toString())
-          .toList();
+      _pageNumberToIndex = pageNumberToIndex;
+      _pageFiles = pageFiles;
 
       final interactivesList =
           (json['Interactives'] as List? ?? [])
@@ -188,15 +191,21 @@ class PagedBookStore {
           : null;
       _sharedByText = {for (final w in nonEmptyWords) w.exactText: w};
 
-      // 🌟 شاخص صوتی: فقط همان پاراگراف‌هایی که واقعاً به یک تکه‌صدا وصل‌اند
-      // (startMs/endMs/audioTrackName هر سه ست) — دقیقاً همان چیزی که قبلاً
-      // MainBookScreen._extractAudioScripts با اسکن *کل* کتاب می‌ساخت. حالا
-      // مولد کتاب (ابزار C#) این لیستِ کوچک را از قبل در manifest می‌گذارد،
-      // پس دیگر نیازی به لود کردن همه‌ی صفحات فقط برای ساختن پلی‌لیست نیست.
-      final audioList = (json['AudioIndex'] as List? ?? [])
-          .map((e) => ParagraphData.fromJson(e['Paragraph'] ?? e))
+      // 🐞 اسکریپتِ صوتی: سطحِ کتاب، از قبل در index.json آماده است (نیازی
+      // به اسکنِ صفحات نیست) — و حالا AudioScriptTrack است، نه فهرستِ
+      // پاراگرافِ تخت.
+      final rawAudioScripts = (json['AudioScripts'] as List? ?? []);
+      _audioScripts = rawAudioScripts
+          .map((e) => AudioScriptTrack.fromJson(e as Map<String, dynamic>))
           .toList();
-      _audioScripts = audioList;
+
+      // 🐞 شاخصِ لینک‌های صوتی: هم از قبل در index.json آماده است.
+      final rawAudioLinks = (json['AudioLinksIndex'] as List? ?? []);
+      _audioLinksIndex = rawAudioLinks
+          .map((e) => AudioLinkEntry.fromJson(e as Map<String, dynamic>))
+          .toList();
+
+      _imageNames = const [];
 
       _manifestLoaded = true;
       completer.complete();
@@ -207,83 +216,95 @@ class PagedBookStore {
     }
   }
 
-  // ── فال‌بکِ دوران گذار: فرمت قدیمِ تک‌فایلی ────────────────────────────
-  // 🌟 دقیقاً همان چیزی که قبلاً DocumentLoader.loadBookFromJson انجام
-  // می‌داد، فقط اینجا محدود به همین یک نمونه (و فقط وقتی manifest.json
-  // پیدا نشود). چون کل کتاب همین‌جا لود شده، همه‌ی صفحات مستقیم در _cache
-  // قرار می‌گیرند (بدون _evictIfNeeded) تا getPage بعدی صرفاً یک cache hit
-  // باشد؛ به‌محض اینکه این کتاب با یک دانلود بعدی به فرمت جدید مهاجرت کند
-  // (و نمونه‌ی PagedBookStore دوباره ساخته شود)، رفتار تنبل/کم‌حافظه‌ی
-  // معمول خودش را پیدا می‌کند.
-  Future<void> _loadLegacySingleFileFormat() async {
-    final String jsonStr = _isLocal
-        ? await File(book.activeJsonPath).readAsString()
-        : await rootBundle.loadString(book.activeJsonPath);
+  // 🌟 تشخیصِ این‌که آیا Pagesِ این JSON واقعاً «مسیرِ فایلِ هر صفحه» است
+  // (فرمتِ فعلیِ index.json) یا چیزِ دیگری — همان قاعده‌ای که
+  // DocumentLoader._looksLikeIndex هم برای همین تشخیص استفاده می‌کند.
+  bool _looksLikePagePointerIndex(Map<String, dynamic> d) {
+    final pages = d['Pages'] as List?;
+    if (pages == null || pages.isEmpty) return false;
+    final first = pages.first;
+    return first is Map &&
+        (first.containsKey('File') || first.containsKey('file'));
+  }
 
-    final decoded = jsonDecode(jsonStr);
-    List<dynamic> rawPages = const [];
-    List<dynamic> rawInteractives = const [];
-    if (decoded is Map<String, dynamic>) {
-      rawPages = (decoded['Pages'] ?? decoded['pages'] ?? []) as List;
-      rawInteractives = (decoded['Interactives'] as List?) ?? const [];
-    } else if (decoded is List) {
-      rawPages = decoded;
-    }
+  // ── فال‌بکِ دوران گذار: هر فرمتِ دیگری، با همان DocumentLoardِ موجود ──
+  // 🌟 چون این مسیر کل کتاب را یک‌جا لود می‌کند (نه تنبل)، همه‌ی صفحات
+  // مستقیم در _cache قرار می‌گیرند (بدون _evictIfNeeded) تا getPage بعدی
+  // صرفاً یک cache hit باشد؛ به‌محض اینکه این کتاب با یک دانلود بعدی به
+  // فرمتِ جدید مهاجرت کند (و نمونه‌ی PagedBookStore دوباره ساخته شود)،
+  // رفتار تنبل/کم‌حافظه‌ی معمول خودش را پیدا می‌کند.
+  Future<void> _loadViaDocumentLoader() async {
+    final String path = _isLocal ? book.activeJsonPath : book.jsonAssetPath;
 
-    final interactivesList =
-        rawInteractives.map((e) => InteractiveWord.fromJson(e)).toList()
-          ..sort((a, b) => b.exactText.length.compareTo(a.exactText.length));
-    _sharedInteractives = interactivesList;
-    final nonEmptyWords = interactivesList
-        .where((w) => w.exactText.isNotEmpty)
-        .toList();
-    _sharedPattern = nonEmptyWords.isNotEmpty
-        ? RegExp(nonEmptyWords.map((w) => RegExp.escape(w.exactText)).join('|'))
-        : null;
-    _sharedByText = {for (final w in nonEmptyWords) w.exactText: w};
-
-    _pageCount = rawPages.length;
+    final pages = await DocumentLoader.loadBookFromJson(path);
+    _pageCount = pages.length;
     final Map<int, int> pageNumberToIndex = {};
     _cache.clear();
-    for (int i = 0; i < rawPages.length; i++) {
-      final page = PageData.fromJson(
-        rawPages[i] as Map<String, dynamic>,
-        sharedInteractives: _sharedInteractives,
-        sharedPattern: _sharedPattern,
-        sharedByText: _sharedByText,
-      );
-      _cache[i] = page;
-      pageNumberToIndex[page.pageNumber] = i;
+    for (int i = 0; i < pages.length; i++) {
+      _cache[i] = pages[i];
+      pageNumberToIndex[pages[i].pageNumber] = i;
     }
     _pageNumberToIndex = pageNumberToIndex;
+    _pageFiles = const []; // این مسیر صفحات را مستقیم لود کرده، دیگر لازم نیست
 
-    final List<ParagraphData> audioScripts = [];
-    final List<String> images = [];
-    void collectFromParagraphs(List<ParagraphData> paragraphs) {
-      for (final p in paragraphs) {
-        if (p.startMs != null && p.endMs != null && p.audioTrackName != null) {
-          audioScripts.add(p);
-        }
-        for (final s in p.spans) {
-          if (s.type == 'image') {
-            final name = s.url ?? s.content;
-            if (name.isNotEmpty) images.add(name);
-          } else if (s.type == 'table') {
+    try {
+      _audioScripts = await DocumentLoader.loadAudioScripts(path);
+    } catch (_) {
+      _audioScripts = const [];
+    }
+
+    try {
+      _audioLinksIndex = await DocumentLoader.loadAudioLinksIndex(path);
+    } catch (_) {
+      _audioLinksIndex = const [];
+    }
+    // 🐞 اگر این فرمتِ قدیمی اصلاً AudioLinksIndex نداشته باشد (کتابی که
+    // هنوز با ابزارِ جدیدِ C# استخراج نشده)، به‌جای پلی‌لیستِ خالی، از
+    // رویِ همین صفحاتی که همین الان یک‌جا لود کرده‌ایم می‌سازیمش —
+    // دقیقاً همان اسکنِ زنده‌ای که reading_canvas_screen.dart قبلاً
+    // همیشه انجام می‌داد، فقط این‌جا هم به‌عنوانِ فال‌بک.
+    if (_audioLinksIndex.isEmpty) {
+      final List<AudioLinkEntry> derived = [];
+      void scanSpans(List<SpanData> spans, int pageNumber, int topParaIndex) {
+        for (final s in spans) {
+          if (s.url != null && s.url!.startsWith('audio:')) {
+            final fileName = s.url!.replaceFirst('audio:', '');
+            if (fileName.isNotEmpty) {
+              derived.add(
+                AudioLinkEntry(
+                  pageNumber: pageNumber,
+                  paraIndex: topParaIndex,
+                  fileName: fileName,
+                ),
+              );
+            }
+          }
+          if (s.type == 'table') {
             for (final row in s.tableRows) {
               for (final cell in row.cells) {
-                collectFromParagraphs(cell.paragraphs);
+                for (final p in cell.paragraphs) {
+                  scanSpans(p.spans, pageNumber, topParaIndex);
+                }
               }
             }
           }
         }
       }
+
+      for (final page in pages) {
+        for (int i = 0; i < page.paragraphs.length; i++) {
+          scanSpans(page.paragraphs[i].spans, page.pageNumber, i);
+        }
+      }
+      _audioLinksIndex = derived;
     }
 
-    for (final page in _cache.values) {
-      collectFromParagraphs(page.paragraphs);
-    }
-    _audioScripts = audioScripts;
-    _imageNames = images;
+    _imageNames = const [];
+
+    // 🐞 دیکشنریِ کلماتِ تعاملی در این مسیر از قبل داخلِ هر PageData تزریق
+    // شده (DocumentLoader خودش این کار را می‌کند)، پس _sharedInteractives/
+    // _sharedPattern/_sharedByText این‌جا لازم نیستند — فقط برای مسیرِ
+    // تنبل (index.json واقعی) استفاده می‌شوند.
   }
 
   // ── کش LRU صفحات ────────────────────────────────────────────────────
@@ -298,6 +319,8 @@ class PagedBookStore {
   // برای جلوگیری از خواندن هم‌زمانِ چندبارِ یک فایل وقتی چند ویجت هم‌زمان
   // (مثلاً حین یک جهش بزرگ) همان صفحه را درخواست می‌کنند.
   Future<PageData> getPage(int pageIndex) async {
+    await ensureManifestLoaded();
+
     final cached = _cache.remove(pageIndex);
     if (cached != null) {
       _cache[pageIndex] = cached; // انتقال به انتهای لیست = MRU
@@ -332,9 +355,19 @@ class PagedBookStore {
 
   Future<PageData> _loadPage(int pageIndex) async {
     await ensureManifestLoaded();
-    final pageNumber = pageIndex + 1;
-    final fileName = 'pages/page_${pageNumber.toString().padLeft(4, '0')}.json';
-    final String raw = await _readAsset(fileName);
+
+    // 🐞 اگر این کتاب از مسیرِ فال‌بک (_loadViaDocumentLoader) لود شده،
+    // همه‌ی صفحات از قبل در _cache هستند و getPage هیچ‌وقت تا این‌جا
+    // نمی‌رسد؛ این چک فقط برای ایمنی است.
+    if (pageIndex < 0 ||
+        pageIndex >= _pageFiles.length ||
+        _pageFiles[pageIndex].isEmpty) {
+      throw Exception(
+        'صفحه‌ای با این ایندکس در index.json پیدا نشد: $pageIndex',
+      );
+    }
+
+    final String raw = await _readAsset(_pageFiles[pageIndex]);
     final Map<String, dynamic> json = jsonDecode(raw) as Map<String, dynamic>;
     return PageData.fromJson(
       json,

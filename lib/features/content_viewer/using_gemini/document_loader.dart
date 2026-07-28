@@ -39,6 +39,21 @@ class DocumentLoader {
     return const [];
   }
 
+  // 🐞 شاخصِ سطحِ‌کتابِ لینک‌های صوتیِ داخلِ متن (کجای متن دکمه‌ی صوتی
+  // هست و نامِ فایلش چیست) — مثلِ AudioScripts، فیلدِ سطحِ‌بالای خودِ
+  // index.json است، از قبل توسطِ ابزارِ C# محاسبه شده تا برای ساختنِ
+  // پلی‌لیستِ کتاب دیگر نیازی به اسکنِ زنده‌ی محتوایِ همه‌ی صفحات نباشد.
+  static Future<List<AudioLinkEntry>> loadAudioLinksIndex(String path) async {
+    final decoded = jsonDecode(await _readText(path));
+    if (decoded is Map<String, dynamic>) {
+      final rawList = decoded['AudioLinksIndex'] as List? ?? [];
+      return rawList
+          .map((e) => AudioLinkEntry.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return const [];
+  }
+
   static Future<String> _readText(String path) async {
     if (path.startsWith('assets/')) return rootBundle.loadString(path);
     final file = File(path);

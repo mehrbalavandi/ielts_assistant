@@ -2321,8 +2321,15 @@ class BookAudioEntry {
 // باید نتیجه‌اش را کش کند و به‌ازای هر rebuild دوباره صدا نزند.
 List<BookAudioEntry> buildBookAudioPlaylist(
   List<PageData> pages,
-  BookModel? activeBook,
-) {
+  BookModel? activeBook, {
+  // 🐞 شاخصِ از‌قبل‌محاسبه‌شده (AudioLinksIndex در index.json، سمتِ C#).
+  // اگر داده شود و خالی نباشد، پلی‌لیست مستقیم از رویِ همین ساخته می‌شود
+  // — بدونِ نیاز به گشتنِ محتوای هیچ صفحه‌ای، که دقیقاً همان چیزی است که
+  // لودِ تنبل/صفحه‌به‌صفحه (PagedBookStore) به آن نیاز دارد. اگر داده
+  // نشود یا خالی باشد (کتابی که هنوز با ابزارِ جدیدِ C# استخراج نشده)، به
+  // همان اسکنِ زنده‌ی قبلی برمی‌گردیم.
+  List<AudioLinkEntry>? precomputedIndex,
+}) {
   final Map<String, BookAudioEntry> byPath = {};
   final List<String> order = [];
 
@@ -2345,6 +2352,22 @@ List<BookAudioEntry> buildBookAudioPlaylist(
     entry.occurrences.add(
       AudioLocation(pageNumber: pageNumber, paraIndex: paraIndex),
     );
+  }
+
+  if (precomputedIndex != null && precomputedIndex.isNotEmpty) {
+    for (final entry in precomputedIndex) {
+      final resolved = InlineAudioLink.resolveAudioPath(
+        entry.fileName,
+        activeBook,
+      );
+      addOccurrence(
+        resolved,
+        entry.fileName,
+        entry.pageNumber,
+        entry.paraIndex,
+      );
+    }
+    return order.map((k) => byPath[k]!).toList();
   }
 
   // 🐞 رفع باگِ «پلی‌لیست فقط یک فایل نشان می‌دهد»: قبلاً فقط اسپن‌های

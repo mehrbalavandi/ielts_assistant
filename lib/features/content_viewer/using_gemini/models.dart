@@ -42,6 +42,29 @@ class InteractiveWord {
 // AudioTrackName فقط یک‌بار این‌جا نوشته می‌شود (نه به‌ازای هر پاراگراف/اسپن
 // مثلِ قبل)، و هر پاراگراف (مطابقِ یک پاراگرافِ واقعیِ Word) می‌تواند چند
 // اسپن داشته باشد که هرکدام StartMs/EndMsِ خودشان را دارند.
+// 🐞 یک وقوعِ لینکِ صوتیِ داخلِ متن — سطحِ کتاب، از قبل توسطِ ابزارِ C#
+// محاسبه‌شده (AudioLinksIndex در index.json) تا فلاتر مجبور نباشد برای
+// ساختنِ پلی‌لیستِ کتاب، محتوای *همه‌ی* صفحات را زنده اسکن کند.
+class AudioLinkEntry {
+  final int pageNumber;
+  final int paraIndex;
+  final String fileName;
+
+  AudioLinkEntry({
+    required this.pageNumber,
+    required this.paraIndex,
+    required this.fileName,
+  });
+
+  factory AudioLinkEntry.fromJson(Map<String, dynamic> json) {
+    return AudioLinkEntry(
+      pageNumber: (json['PageNumber'] as num?)?.toInt() ?? 0,
+      paraIndex: (json['ParaIndex'] as num?)?.toInt() ?? 0,
+      fileName: json['FileName'] ?? '',
+    );
+  }
+}
+
 class AudioScriptTrack {
   final String audioTrackName;
   final List<ParagraphData> paragraphs;
