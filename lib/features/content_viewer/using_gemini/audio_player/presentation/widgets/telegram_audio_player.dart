@@ -537,22 +537,39 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                               span,
                               true, // isDarkTheme
                             );
+                        // 🐞 applySpanStyle فقط بولد/ایتالیک/زیرخط/سایز/رنگ را
+                        // اعمال می‌کند — مارکرِ "fn:" (خانواده‌ی فونت) را
+                        // اصلاً نمی‌فهمد؛ متنِ اصلیِ کتاب این را جداگانه (با
+                        // mapFontFamily) اضافه می‌کند، ولی این‌جا قبلاً از
+                        // قلم نیفتاده بود. همان الگو را این‌جا هم تکرار
+                        // می‌کنیم تا اسکریپتِ صوتی هم فونتِ درست (مثلاً برای
+                        // متنِ فارسی/عربی) بگیرد، نه همیشه فونتِ پیش‌فرض.
+                        String? fontFamily;
+                        for (final marker in span.markers) {
+                          if (marker.startsWith("fn:")) {
+                            fontFamily = mapFontFamily(marker.substring(3));
+                            break;
+                          }
+                        }
+                        final TextStyle styledBase = fontFamily != null
+                            ? baseStyle.copyWith(fontFamily: fontFamily)
+                            : baseStyle;
 
                         richSpans.addAll(
                           TextRenderEngine.buildInteractiveText(
                             span.content,
                             para.interactives,
                             context,
-                            baseStyle.copyWith(
+                            styledBase.copyWith(
                               color: isActiveWord
                                   ? Colors.black
-                                  : baseStyle.color,
+                                  : styledBase.color,
                               backgroundColor: isActiveWord
                                   ? Colors.orangeAccent
                                   : null,
                               fontWeight: isActiveWord
                                   ? FontWeight.bold
-                                  : baseStyle.fontWeight,
+                                  : styledBase.fontWeight,
                             ),
                             interactiveColor: isActiveWord
                                 ? Colors.black

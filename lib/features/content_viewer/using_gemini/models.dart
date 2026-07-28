@@ -65,6 +65,27 @@ class AudioLinkEntry {
   }
 }
 
+// 🐞 برای فیلدِ جدیدِ «AudioScripts» در index.json: حالا فقط یک اشاره‌گر
+// است (مثلِ Pages)، نه محتوای کاملِ پاراگراف‌ها — چون پاراگراف‌های
+// اسکریپتِ صوتی هم باید مثلِ صفحاتِ سندِ اصلی به‌صورتِ page-like نوشته
+// شوند (در پوشه‌ی audio_scripts/، نه pages/) تا پایپلاینِ ترجمه‌ی
+// هوش‌مصنوعی آن‌ها را هم پردازش کند. AudioScriptTrackِ کامل (با
+// paragraphs) با خواندنِ فایلِ اشاره‌شده ساخته می‌شود، نه مستقیم از رویِ
+// index.json.
+class AudioScriptTrackPointer {
+  final String audioTrackName;
+  final String file;
+
+  AudioScriptTrackPointer({required this.audioTrackName, required this.file});
+
+  factory AudioScriptTrackPointer.fromJson(Map<String, dynamic> json) {
+    return AudioScriptTrackPointer(
+      audioTrackName: json['AudioTrackName'] ?? '',
+      file: json['File'] ?? '',
+    );
+  }
+}
+
 class AudioScriptTrack {
   final String audioTrackName;
   final List<ParagraphData> paragraphs;

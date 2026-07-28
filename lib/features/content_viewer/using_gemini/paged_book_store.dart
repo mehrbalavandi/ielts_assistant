@@ -191,13 +191,37 @@ class PagedBookStore {
           : null;
       _sharedByText = {for (final w in nonEmptyWords) w.exactText: w};
 
-      // 🐞 اسکریپتِ صوتی: سطحِ کتاب، از قبل در index.json آماده است (نیازی
-      // به اسکنِ صفحات نیست) — و حالا AudioScriptTrack است، نه فهرستِ
-      // پاراگرافِ تخت.
+      // 🐞 اسکریپتِ صوتی: index.json فقط یک اشاره‌گر (مثلِ Pages) به هر
+      // تراک می‌دهد — چون پاراگراف‌هایش هم مثلِ صفحاتِ سندِ اصلی در یک
+      // فایلِ page-likeِ جدا (پوشه‌ی audio_scripts/) نوشته می‌شوند (تا
+      // پایپلاینِ ترجمه آن‌ها را هم پردازش کند). هر اشاره‌گر را resolve
+      // می‌کنیم.
       final rawAudioScripts = (json['AudioScripts'] as List? ?? []);
-      _audioScripts = rawAudioScripts
-          .map((e) => AudioScriptTrack.fromJson(e as Map<String, dynamic>))
+      final audioPointers = rawAudioScripts
+          .map(
+            (e) => AudioScriptTrackPointer.fromJson(e as Map<String, dynamic>),
+          )
           .toList();
+      final List<AudioScriptTrack> resolvedTracks = [];
+      for (final p in audioPointers) {
+        if (p.file.isEmpty) continue;
+        try {
+          final raw = await _readAsset(p.file);
+          final pageJson = jsonDecode(raw) as Map<String, dynamic>;
+          final rawParagraphs = pageJson['Paragraphs'] as List? ?? [];
+          resolvedTracks.add(
+            AudioScriptTrack(
+              audioTrackName: p.audioTrackName,
+              paragraphs: rawParagraphs
+                  .map((e) => ParagraphData.fromJson(e as Map<String, dynamic>))
+                  .toList(),
+            ),
+          );
+        } catch (_) {
+          // یک فایلِ گم‌شده/خراب نباید بقیه‌ی تراک‌ها را متوقف کند
+        }
+      }
+      _audioScripts = resolvedTracks;
 
       // 🐞 شاخصِ لینک‌های صوتی: هم از قبل در index.json آماده است.
       final rawAudioLinks = (json['AudioLinksIndex'] as List? ?? []);

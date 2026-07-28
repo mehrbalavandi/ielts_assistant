@@ -32,9 +32,40 @@ class DocumentLoader {
     final decoded = jsonDecode(await _readText(path));
     if (decoded is Map<String, dynamic>) {
       final rawList = decoded['AudioScripts'] as List? ?? [];
-      return rawList
-          .map((e) => AudioScriptTrack.fromJson(e as Map<String, dynamic>))
+      final pointers = rawList
+          .map(
+            (e) => AudioScriptTrackPointer.fromJson(e as Map<String, dynamic>),
+          )
           .toList();
+      if (pointers.isEmpty) return const [];
+
+      // 🐞 هر اشاره‌گر را به فایلِ page-likeِ همان تراک resolve می‌کنیم
+      // (همان الگویِ resolve کردنِ Pages در _loadFromIndex) — چون
+      // پاراگراف‌های اسکریپتِ صوتی دیگر مستقیم داخلِ index.json نیستند.
+      // مسیرش هرچه در File نوشته شده باشد (مثلاً audio_scripts/xxx.json)
+      // دقیقاً همان‌طور دنبال می‌شود؛ این تابع به نامِ پوشه کاری ندارد.
+      final baseDir = _dirOf(path);
+      final List<AudioScriptTrack> tracks = [];
+      for (final p in pointers) {
+        if (p.file.isEmpty) continue;
+        final full = baseDir.isEmpty ? p.file : '$baseDir/${p.file}';
+        try {
+          final pageJson =
+              jsonDecode(await _readText(full)) as Map<String, dynamic>;
+          final rawParagraphs = pageJson['Paragraphs'] as List? ?? [];
+          tracks.add(
+            AudioScriptTrack(
+              audioTrackName: p.audioTrackName,
+              paragraphs: rawParagraphs
+                  .map((e) => ParagraphData.fromJson(e as Map<String, dynamic>))
+                  .toList(),
+            ),
+          );
+        } catch (_) {
+          // یک فایلِ گم‌شده/خراب نباید بقیه‌ی تراک‌ها را متوقف کند
+        }
+      }
+      return tracks;
     }
     return const [];
   }
