@@ -27,6 +27,10 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
   // داده‌ای برای نمایش نداشت. حالا با DocumentLoader.loadAudioScripts که
   // مستقیماً همان فیلد را می‌خواند جایگزین شده.
   Future<List<AudioScriptTrack>>? _audioScriptsFuture;
+  // 🐞 شاخصِ لینک‌های صوتی (AudioLinksIndex در index.json): تا پلی‌لیستِ
+  // کتاب دیگر نیازی به گشتنِ زنده‌ی محتوایِ همه‌ی صفحاتِ لودشده نداشته
+  // باشد — از قبل توسطِ ابزارِ C# محاسبه شده.
+  Future<List<AudioLinkEntry>>? _audioLinksIndexFuture;
   String? _loadedBookId;
 
   void _ensureBookLoaded(String bookId, String jsonAssetPath) {
@@ -36,6 +40,7 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
       jsonAssetPath, // 'assets/data/testbook/index.json',
     );
     _audioScriptsFuture = DocumentLoader.loadAudioScripts(jsonAssetPath);
+    _audioLinksIndexFuture = DocumentLoader.loadAudioLinksIndex(jsonAssetPath);
   }
 
   @override
@@ -200,12 +205,21 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
           return FutureBuilder<List<AudioScriptTrack>>(
             future: _audioScriptsFuture,
             builder: (context, audioSnapshot) {
-              return ReadingCanvasScreen(
-                documentPages: snapshot.data!,
-                // 🐞 تا وقتی اسکریپتِ صوتی لود می‌شود (یا اگر خطا بخورد)، یک
-                // لیستِ خالی کافی است — کلِ صفحه‌ی خواندن نباید منتظرش بماند؛
-                // فقط پلیرِ صوتی موقتاً چیزی برای هایلایت نشان نمی‌دهد.
-                audioScripts: audioSnapshot.data ?? const [],
+              return FutureBuilder<List<AudioLinkEntry>>(
+                future: _audioLinksIndexFuture,
+                builder: (context, linksSnapshot) {
+                  return ReadingCanvasScreen(
+                    documentPages: snapshot.data!,
+                    // 🐞 تا وقتی اسکریپتِ صوتی لود می‌شود (یا اگر خطا بخورد)، یک
+                    // لیستِ خالی کافی است — کلِ صفحه‌ی خواندن نباید منتظرش بماند؛
+                    // فقط پلیرِ صوتی موقتاً چیزی برای هایلایت نشان نمی‌دهد.
+                    audioScripts: audioSnapshot.data ?? const [],
+                    // 🐞 اگر این کتاب هنوز با ابزارِ جدیدِ C# استخراج نشده،
+                    // لیست خالی می‌ماند و buildBookAudioPlaylist خودش به
+                    // همان اسکنِ زنده‌ی قبلی برمی‌گردد (بدونِ خطا).
+                    precomputedAudioLinksIndex: linksSnapshot.data ?? const [],
+                  );
+                },
               );
             },
           );

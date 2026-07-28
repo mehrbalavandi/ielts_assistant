@@ -26,10 +26,15 @@ class MapOffset {
 class ReadingCanvasScreen extends ConsumerStatefulWidget {
   final List<PageData> documentPages;
   final List<AudioScriptTrack> audioScripts; // 🌟 اضافه شد
+  // 🐞 شاخصِ لینک‌های صوتیِ از‌قبل‌محاسبه‌شده (سمتِ C#) — اگر داده شود،
+  // buildBookAudioPlaylist بدونِ گشتنِ زنده‌ی محتوای صفحات، مستقیم از
+  // رویش پلی‌لیست می‌سازد.
+  final List<AudioLinkEntry> precomputedAudioLinksIndex;
   const ReadingCanvasScreen({
     super.key,
     required this.documentPages,
     required this.audioScripts,
+    this.precomputedAudioLinksIndex = const [],
   });
 
   @override
@@ -103,7 +108,11 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       return;
     }
     final currentBook = ref.read(activeBookProvider);
-    final entries = buildBookAudioPlaylist(widget.documentPages, currentBook);
+    final entries = buildBookAudioPlaylist(
+      widget.documentPages,
+      currentBook,
+      precomputedIndex: widget.precomputedAudioLinksIndex,
+    );
     _cachedBookAudioEntries = entries;
     _cachedForDocumentPages = widget.documentPages;
     _bookAudioPlaylist = entries.map((e) => e.resolvedPath).toList();
