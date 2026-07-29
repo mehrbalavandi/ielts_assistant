@@ -363,6 +363,9 @@ class CombinedAudioSheet extends ConsumerStatefulWidget {
 class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   int _lastActiveIndex = -1;
+  // 🐞 در build() مقداردهی می‌شود؛ چون _buildSmallCircleButton هم به آن
+  // نیاز دارد (و context ندارد)، به‌عنوانِ فیلدِ کلاس نگه داشته می‌شود.
+  late _PlayerColors _colors;
 
   String _formatDuration(Duration d) {
     final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
@@ -404,6 +407,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
   @override
   Widget build(BuildContext context) {
+    _colors = _playerColors(context);
     final audioState = ref.watch(audioPlayerProvider);
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
