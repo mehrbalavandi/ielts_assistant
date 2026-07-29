@@ -600,6 +600,28 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             previous?.currentIndex != next.currentIndex ||
             previous?.jumpTrigger != next.jumpTrigger) {
           final target = next.results[next.currentIndex] as SearchResult;
+
+          // 🐞 رفعِ باگِ «دکمه‌های بعدی/قبلیِ جستجو رویِ نتایجِ صوتی کار
+          // نمی‌کنند»: قبلاً این listener فقط مسیرِ اسکرول‌به‌صفحه را
+          // امتحان می‌کرد — برای نتایجِ صوتی (pageNumber معنایی ندارد)،
+          // pageIndex همیشه -1 می‌شد و هیچ اتفاقی نمی‌افتاد. حالا همان
+          // تابعِ مشترکی که تپِ مستقیم رویِ نتیجه هم استفاده می‌کند
+          // (openAudioSearchResult) این‌جا هم صدا زده می‌شود.
+          if (target.audioTrackName != null) {
+            final currentBook = ref.read(activeBookProvider);
+            if (currentBook != null && context.mounted) {
+              await openAudioSearchResult(
+                context: context,
+                ref: ref,
+                session: next,
+                target: target,
+                pagedBookStore: widget.pagedBookStore,
+                activeBook: currentBook,
+              );
+            }
+            return;
+          }
+
           final targetSignature = _signatureFor(target);
           int pageIndex =
               widget.pagedBookStore.indexForPageNumber(target.pageNumber) ?? -1;

@@ -35,6 +35,18 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
     _loadedBookId = book.id;
     _pagedBookStore = PagedBookStore(book: book);
     _manifestFuture = _pagedBookStore!.ensureManifestLoaded();
+    // 🐞 رفعِ باگِ «نتیجه‌ی جستجوی قدیمی دوباره ظاهر می‌شود»: activeSearchProvider
+    // قبلاً هیچ‌وقت با بازشدنِ کتابِ جدید (یا حتی همان کتاب برای بارِ دوم)
+    // پاک نمی‌شد — یعنی یک جستجویِ قدیمی از یک بازدیدِ قبلی همچنان می‌ماند.
+    // چون این تابع حینِ build() اجرا می‌شود و activeSearchProvider هم در
+    // همین build وُچ می‌شود، ریست‌کردنش را با addPostFrameCallback به بعدِ
+    // این فریم موکول می‌کنیم (وگرنه «rebuild حینِ build» می‌شود).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      if (ref.read(activeSearchProvider) != null) {
+        ref.read(activeSearchProvider.notifier).state = null;
+      }
+    });
   }
 
   @override
@@ -89,28 +101,14 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                   // 🐞 این نتیجه از یک اسکریپتِ صوتی آمده — طبقِ خواسته،
                   // به‌جای اسکرول به یک صفحه، دقیقاً مثلِ آیکونِ چشمِ متنِ
                   // مخفی عمل می‌کنیم، ولی این‌بار هدف آیکونِ پخش است.
-                  // autoPlay:false یعنی فقط پلیر را به همان‌جا می‌بریم (و
-                  // اگر چیزِ دیگری در حالِ پخش بود pause می‌شود) — پخشِ
-                  // خودکار نمی‌شود؛ کاربر خودش تصمیم می‌گیرد.
-                  final resolvedPath = InlineAudioLink.resolveAudioPath(
-                    tappedResult.audioTrackName!,
-                    activeBook,
+                  await openAudioSearchResult(
+                    context: context,
+                    ref: ref,
+                    session: session,
+                    target: tappedResult,
+                    pagedBookStore: pagedBookStore,
+                    activeBook: activeBook,
                   );
-                  await ref
-                      .read(audioPlayerProvider.notifier)
-                      .playFile(
-                        resolvedPath,
-                        autoPlay: false,
-                        seekToMs: tappedResult.matchedStartMs,
-                      );
-                  if (context.mounted) {
-                    showCombinedPlayerModal(
-                      context,
-                      ref,
-                      pagedBookStore.audioScripts,
-                      searchMatchStartMs: tappedResult.matchedStartMs,
-                    );
-                  }
                 } else {
                   // 🌟 حذف تأخیر (Future.delayed) برای جلوگیری از تداخل استیت‌ها
                   // ریورپاد به صورت خودکار مقادیر را پیگیری کرده و به محض لود شدن

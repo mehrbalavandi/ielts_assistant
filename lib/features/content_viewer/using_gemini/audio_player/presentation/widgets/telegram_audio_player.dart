@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_search_engine.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/paged_book_store.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/text_render_engine.dart';
@@ -239,11 +240,13 @@ void showCombinedPlayerModal(
   BuildContext context,
   WidgetRef ref,
   List<AudioScriptTrack> audioScripts, {
-  // 🐞 وقتی از یک نتیجه‌ی جستجو باز می‌شود، این‌جا StartMsِ همان کلمه‌ی
-  // یافت‌شده می‌آید — تا در متن، به‌جای هایلایتِ نارنجیِ «در حالِ پخش»
+  // 🐞 وقتی از یک نتیجه‌ی جستجو باز می‌شود، این‌جا StartMsِ *همه‌ی*
+  // کلماتِ یافت‌شده‌ی همین تراک می‌آید (نه فقط همانی که رویش تپ/پرش
+  // کرده‌ایم) — تا اگر کلمه‌ی جستجوشده چندبار در همین تراک آمده باشد،
+  // همه‌شان با هم هایلایت شوند؛ به‌جای هایلایتِ نارنجیِ «در حالِ پخش»
   // (که ممکن است با آن قاطی شود)، یک هایلایتِ کاملاً متفاوت (نشانه‌ی
-  // «نتیجه‌ی جستجو») بگیرد.
-  int? searchMatchStartMs,
+  // «نتیجه‌ی جستجو») می‌گیرند.
+  Set<int>? searchMatchTimestamps,
 }) {
   showModalBottomSheet(
     context: context,
@@ -251,9 +254,51 @@ void showCombinedPlayerModal(
     backgroundColor: Colors.transparent,
     builder: (ctx) => CombinedAudioSheet(
       audioScripts: audioScripts,
-      searchMatchStartMs: searchMatchStartMs,
+      searchMatchTimestamps: searchMatchTimestamps,
     ),
   );
+}
+
+// 🐞 هم از لیستِ نتایجِ جستجو (تپ مستقیم) هم از دکمه‌های بعدی/قبلیِ
+// جستجو (که currentIndex را عوض می‌کنند) باید بشود به یک نتیجه‌ی صوتی
+// رفت — قبلاً فقط مسیرِ لیست این را مدیریت می‌کرد، پس دکمه‌های بعدی/قبلی
+// وقتی currentIndex به یک نتیجه‌ی صوتی می‌رسید هیچ اتفاقی نمی‌افتاد. این
+// تابعِ مشترک، هر دو مسیر را از همین یک‌جا پوشش می‌دهد.
+Future<void> openAudioSearchResult({
+  required BuildContext context,
+  required WidgetRef ref,
+  required SearchSession session,
+  required SearchResult target,
+  required PagedBookStore pagedBookStore,
+  required BookModel activeBook,
+}) async {
+  final resolvedPath = InlineAudioLink.resolveAudioPath(
+    target.audioTrackName!,
+    activeBook,
+  );
+  await ref
+      .read(audioPlayerProvider.notifier)
+      .playFile(resolvedPath, autoPlay: false, seekToMs: target.matchedStartMs);
+
+  // 🐞 رفعِ باگِ «برگشتن به نتیجه‌ی جستجوی قبلی»: قبلاً برایِ نتایجِ صوتی،
+  // activeSearchProvider هیچ‌وقت آپدیت نمی‌شد (فقط نتایجِ متنی این کار را
+  // می‌کردند) — یعنی اگر یک جستجویِ قدیمی‌تر از قبل در این پرووایدر بود،
+  // همان‌جا می‌ماند و با بستنِ مودال، همان جستجویِ قدیمی دوباره نمایان
+  // می‌شد. حالا همین‌جا هم آپدیت می‌شود، مستقل از این‌که خودِ اسکرول به
+  // صفحه معنایی دارد یا نه.
+  ref.read(activeSearchProvider.notifier).state = session;
+
+  if (context.mounted) {
+    showCombinedPlayerModal(
+      context,
+      ref,
+      pagedBookStore.audioScripts,
+      searchMatchTimestamps: matchedStartMsForTrack(
+        session.results,
+        target.audioTrackName!,
+      ),
+    );
+  }
 }
 
 class _AudioPlaylistSheet extends ConsumerWidget {
@@ -386,12 +431,12 @@ class _AudioPlaylistSheet extends ConsumerWidget {
 // وسط، و نوارِ کنترل‌های کامل همیشه پایین ثابت است.
 class CombinedAudioSheet extends ConsumerStatefulWidget {
   final List<AudioScriptTrack> audioScripts;
-  final int? searchMatchStartMs;
+  final Set<int>? searchMatchTimestamps;
 
   const CombinedAudioSheet({
     super.key,
     required this.audioScripts,
-    this.searchMatchStartMs,
+    this.searchMatchTimestamps,
   });
 
   @override
@@ -640,14 +685,17 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                         // 🐞 کلمه‌ای که از رویِ یک نتیجه‌ی جستجو به آن
                         // رسیده‌ایم — هایلایتِ کاملاً متفاوتی می‌گیرد
                         // (searchMatch، نه accent) تا با «در حالِ پخش»
-                        // قاطی نشود.
+                        // قاطی نشود. اگر همان کلمه‌ی جستجوشده چندبار در
+                        // همین تراک آمده باشد، همه‌شان (نه فقط همانی که
+                        // رویش پرش کرده‌ایم) هایلایت می‌شوند.
                         final bool isSearchMatch =
                             !isActiveWord &&
-                            widget.searchMatchStartMs != null &&
+                            widget.searchMatchTimestamps != null &&
                             span.startMs != null &&
                             span.endMs != null &&
-                            widget.searchMatchStartMs! >= span.startMs! &&
-                            widget.searchMatchStartMs! < span.endMs!;
+                            widget.searchMatchTimestamps!.any(
+                              (ms) => ms >= span.startMs! && ms < span.endMs!,
+                            );
 
                         final TextStyle baseStyle =
                             TextRenderEngine.applySpanStyle(

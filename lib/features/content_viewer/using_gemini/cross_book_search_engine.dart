@@ -10,6 +10,22 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart
 import 'package:ielts_assistant/features/content_viewer/using_gemini/search_text_utils.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 
+// 🐞 وقتی چند نتیجه‌ی جستجو از یک تراکِ صوتیِ واحد می‌آیند (مثلاً کلمه‌ای
+// دوبار در همان اسکریپت آمده)، باید همه‌شان با هم هایلایت شوند — نه فقط
+// همانی که رویش تپ/پرش کرده‌ایم. این تابع، از رویِ کلِ نتایجِ یک
+// SearchSession، تمام StartMsهای مربوط به یک تراکِ مشخص را جمع می‌کند.
+Set<int> matchedStartMsForTrack(List<dynamic> results, String audioTrackName) {
+  final Set<int> out = {};
+  for (final r in results) {
+    if (r is SearchResult &&
+        r.audioTrackName == audioTrackName &&
+        r.matchedStartMs != null) {
+      out.add(r.matchedStartMs!);
+    }
+  }
+  return out;
+}
+
 class SearchResult {
   final String bookId;
   final String bookTitle;
