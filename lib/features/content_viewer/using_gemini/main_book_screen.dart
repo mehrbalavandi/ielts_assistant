@@ -108,6 +108,7 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                       context,
                       ref,
                       pagedBookStore.audioScripts,
+                      searchMatchStartMs: tappedResult.matchedStartMs,
                     );
                   }
                 } else {

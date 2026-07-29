@@ -56,6 +56,11 @@ class _PlayerColors {
   final Color accent; // قبلاً Colors.orangeAccent
   final Color onAccent; // متن/آیکون روی accent
   final Color interactive; // قبلاً Colors.cyanAccent (کلماتِ تعاملی)
+  // 🐞 برای کلمه‌ای که از یک نتیجه‌ی جستجو به آن رسیده‌ایم — عمداً از
+  // accent (که برای «الان در حالِ پخش» است) متفاوت است تا با هم قاطی
+  // نشوند.
+  final Color searchMatch;
+  final Color onSearchMatch;
   final Color textPrimary; // قبلاً Colors.white
   final Color textSecondary; // قبلاً Colors.white70
   final Color textMuted; // قبلاً Colors.white54
@@ -69,6 +74,8 @@ class _PlayerColors {
     required this.accent,
     required this.onAccent,
     required this.interactive,
+    required this.searchMatch,
+    required this.onSearchMatch,
     required this.textPrimary,
     required this.textSecondary,
     required this.textMuted,
@@ -82,13 +89,31 @@ _PlayerColors _playerColors(BuildContext context) {
     seedColor: Theme.of(context).colorScheme.primary,
     brightness: Brightness.dark,
   );
+  // 🐞 رفع باگِ «زیرخط رویِ هایلایت دیده نمی‌شود»: scheme.tertiary در یک
+  // ColorScheme تیره می‌تواند به‌اندازه‌ی کافی روشن/پررنگ نباشد — وقتی
+  // متن/زیرخطِ رویش با رنگِ تیره (برای کنتراست) کشیده می‌شود، این کنتراست
+  // از بین می‌رود. برای تضمینِ روشنی/اشباعِ کافی، مستقل از اینکه seedColor
+  // چه باشد، با HSL این دو رنگ را به یک بازه‌ی همیشه-خوانا می‌رسانیم.
+  Color vivid(Color c, {double lightness = 0.62, double saturation = 0.75}) {
+    final hsl = HSLColor.fromColor(c);
+    return hsl.withLightness(lightness).withSaturation(saturation).toColor();
+  }
+
+  final Color accent = vivid(scheme.tertiary);
+  // 🐞 رنگِ جداگانه برای «این نتیجه‌ی جستجو است» — عمداً از رنگِ accent
+  // (نارنجیِ «در حالِ پخش») متفاوت است تا با هم قاطی نشوند؛ از رویِ رنگِ
+  // اصلیِ برندِ اپ (primary) ساخته می‌شود، نه یک رنگِ کاملاً بی‌ربط.
+  final Color searchMatch = vivid(scheme.primary, lightness: 0.68);
+
   return _PlayerColors(
     bgTop: Color.lerp(scheme.surfaceContainerHigh, scheme.primary, 0.12)!,
     bgBottom: scheme.surface,
     barBg: scheme.surfaceContainerHighest,
-    accent: scheme.tertiary,
-    onAccent: scheme.onTertiary,
+    accent: accent,
+    onAccent: Colors.black,
     interactive: scheme.secondary,
+    searchMatch: searchMatch,
+    onSearchMatch: Colors.black,
     textPrimary: scheme.onSurface,
     textSecondary: scheme.onSurface.withOpacity(0.7),
     textMuted: scheme.onSurface.withOpacity(0.54),
@@ -213,13 +238,21 @@ void showBookAudioPlaylist(BuildContext context) {
 void showCombinedPlayerModal(
   BuildContext context,
   WidgetRef ref,
-  List<AudioScriptTrack> audioScripts,
-) {
+  List<AudioScriptTrack> audioScripts, {
+  // 🐞 وقتی از یک نتیجه‌ی جستجو باز می‌شود، این‌جا StartMsِ همان کلمه‌ی
+  // یافت‌شده می‌آید — تا در متن، به‌جای هایلایتِ نارنجیِ «در حالِ پخش»
+  // (که ممکن است با آن قاطی شود)، یک هایلایتِ کاملاً متفاوت (نشانه‌ی
+  // «نتیجه‌ی جستجو») بگیرد.
+  int? searchMatchStartMs,
+}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (ctx) => CombinedAudioSheet(audioScripts: audioScripts),
+    builder: (ctx) => CombinedAudioSheet(
+      audioScripts: audioScripts,
+      searchMatchStartMs: searchMatchStartMs,
+    ),
   );
 }
 
@@ -353,8 +386,13 @@ class _AudioPlaylistSheet extends ConsumerWidget {
 // وسط، و نوارِ کنترل‌های کامل همیشه پایین ثابت است.
 class CombinedAudioSheet extends ConsumerStatefulWidget {
   final List<AudioScriptTrack> audioScripts;
+  final int? searchMatchStartMs;
 
-  const CombinedAudioSheet({super.key, required this.audioScripts});
+  const CombinedAudioSheet({
+    super.key,
+    required this.audioScripts,
+    this.searchMatchStartMs,
+  });
 
   @override
   ConsumerState<CombinedAudioSheet> createState() => _CombinedAudioSheetState();
@@ -583,12 +621,33 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
                       final List<InlineSpan> richSpans = [];
                       for (final span in para.spans) {
+                        // 🐞 رفع باگِ «قاطی‌شدنِ هایلایتِ نتیجه‌ی جستجو با
+                        // هایلایتِ در‌حال‌پخش»: قبلاً isActiveWord فقط به
+                        // موقعیتِ پخش نگاه می‌کرد — یعنی وقتی از یک نتیجه‌ی
+                        // جستجو seek می‌کردیم (autoPlay:false)، همان کلمه
+                        // دقیقاً همان هایلایتِ نارنجیِ «الان در حالِ پخش» را
+                        // می‌گرفت، با این‌که چیزی در حالِ پخش نبود. حالا
+                        // isActiveWord علاوه‌بر موقعیت، isPlaying را هم
+                        // چک می‌کند.
                         final bool isActiveWord =
                             paraIsActive &&
+                            audioState.isPlaying &&
                             span.startMs != null &&
                             span.endMs != null &&
                             currentPosMs >= span.startMs! &&
                             currentPosMs < span.endMs!;
+
+                        // 🐞 کلمه‌ای که از رویِ یک نتیجه‌ی جستجو به آن
+                        // رسیده‌ایم — هایلایتِ کاملاً متفاوتی می‌گیرد
+                        // (searchMatch، نه accent) تا با «در حالِ پخش»
+                        // قاطی نشود.
+                        final bool isSearchMatch =
+                            !isActiveWord &&
+                            widget.searchMatchStartMs != null &&
+                            span.startMs != null &&
+                            span.endMs != null &&
+                            widget.searchMatchStartMs! >= span.startMs! &&
+                            widget.searchMatchStartMs! < span.endMs!;
 
                         final TextStyle baseStyle =
                             TextRenderEngine.applySpanStyle(
@@ -628,28 +687,31 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                           fontSize: fontSize,
                         );
 
-                        final List<InlineSpan> rawSpans =
-                            TextRenderEngine.buildInteractiveText(
-                              span.content,
-                              para.interactives,
-                              context,
-                              styledBase.copyWith(
-                                color: isActiveWord
-                                    ? Colors.black
-                                    : styledBase.color,
-                                backgroundColor: isActiveWord
-                                    ? _colors.accent
-                                    : null,
-                                fontWeight: isActiveWord
-                                    ? FontWeight.bold
-                                    : styledBase.fontWeight,
-                              ),
-                              interactiveColor: isActiveWord
-                                  ? Colors.black
-                                  : _colors.interactive,
-                              translationFa: para.translationFa,
-                              translationAr: para.translationAr,
-                            );
+                        final Color? highlightBg = isActiveWord
+                            ? _colors.accent
+                            : (isSearchMatch ? _colors.searchMatch : null);
+                        final Color? onHighlight = isActiveWord
+                            ? _colors.onAccent
+                            : (isSearchMatch ? _colors.onSearchMatch : null);
+
+                        final List<InlineSpan>
+                        rawSpans = TextRenderEngine.buildInteractiveText(
+                          span.content,
+                          para.interactives,
+                          context,
+                          styledBase.copyWith(
+                            color: onHighlight ?? styledBase.color,
+                            backgroundColor: highlightBg,
+                            fontWeight: (isActiveWord || isSearchMatch)
+                                ? FontWeight.bold
+                                : styledBase.fontWeight,
+                            decoration: styledBase.decoration,
+                            decorationColor: onHighlight ?? styledBase.color,
+                          ),
+                          interactiveColor: onHighlight ?? _colors.interactive,
+                          translationFa: para.translationFa,
+                          translationAr: para.translationAr,
+                        );
 
                         // 🐞 لمسِ کلمه → پرشِ پلیر به همان لحظه (span.startMs).
                         // فقط رویِ قسمت‌هایی که recognizer ندارند (یعنی خودِ
