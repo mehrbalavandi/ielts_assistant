@@ -43,6 +43,54 @@ void _jumpToAudioLocation(WidgetRef ref, BuildContext context) {
   Navigator.of(context).pop();
 }
 
+// 🐞 قبلاً رنگ‌های این ویجت‌ها (پس‌زمینه، نارنجیِ هایلایت، فیروزه‌ایِ کلماتِ
+// تعاملی و ...) کاملاً مستقل و ثابت بودند — هیچ ربطی به رنگِ اپ نداشتند.
+// این تابع یک پالتِ تیره از رویِ همان seedColorِ خودِ اپ (که در main.dart
+// تعریف شده) می‌سازد — یعنی اگر بعداً رنگِ برندِ اپ عوض شود یا کاربر
+// بتواند تم انتخاب کند، همین پلیر هم خودکار هماهنگ می‌ماند، بدونِ نیاز به
+// دست‌کاریِ دوباره‌ی رنگ‌های این فایل.
+class _PlayerColors {
+  final Color bgTop;
+  final Color bgBottom;
+  final Color barBg;
+  final Color accent; // قبلاً Colors.orangeAccent
+  final Color onAccent; // متن/آیکون روی accent
+  final Color interactive; // قبلاً Colors.cyanAccent (کلماتِ تعاملی)
+  final Color textPrimary;
+  final Color textSecondary;
+  final Color divider;
+
+  _PlayerColors({
+    required this.bgTop,
+    required this.bgBottom,
+    required this.barBg,
+    required this.accent,
+    required this.onAccent,
+    required this.interactive,
+    required this.textPrimary,
+    required this.textSecondary,
+    required this.divider,
+  });
+}
+
+_PlayerColors _playerColors(BuildContext context) {
+  final scheme = ColorScheme.fromSeed(
+    seedColor: Theme.of(context).colorScheme.primary,
+    brightness: Brightness.dark,
+  );
+  return _PlayerColors(
+    bgTop: Color.lerp(scheme.surfaceContainerHigh, scheme.primary, 0.12)!,
+    bgBottom: scheme.surface,
+    barBg: scheme.surfaceContainerHighest,
+    accent: scheme.tertiary,
+    onAccent: scheme.onTertiary,
+    interactive: scheme.secondary,
+    textPrimary: scheme.onSurface,
+    textSecondary: scheme.onSurface.withOpacity(0.7),
+    divider: scheme.onSurface.withOpacity(0.12),
+  );
+}
+
 class TelegramAudioPlayer extends ConsumerWidget {
   // final List<PageData> documentPages;
   final List<AudioScriptTrack> audioScripts; // 🌟 به جای documentPages
@@ -175,6 +223,7 @@ class _AudioPlaylistSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(audioPlayerProvider);
+    final colors = _playerColors(context);
 
     // 🐞 رفع اخطارِ «ListTile background color or ink splashes may be
     // invisible»: قبلاً این Containerِ بیرونی یک رنگِ توپُر داشت که بینِ
@@ -184,7 +233,7 @@ class _AudioPlaylistSheet extends ConsumerWidget {
     // میزبانِ درستِ ink splash است (نه چیزی که جلویش را بگیرد)، پس همان
     // Container بیرونی را با Material جایگزین کردیم.
     return Material(
-      color: const Color(0xFF1E222D),
+      color: colors.bgBottom,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.7,
@@ -242,16 +291,12 @@ class _AudioPlaylistSheet extends ConsumerWidget {
                             isCurrent && state.isPlaying
                                 ? Icons.pause_circle_filled_rounded
                                 : Icons.play_circle_fill_rounded,
-                            color: isCurrent
-                                ? Colors.orangeAccent
-                                : Colors.white54,
+                            color: isCurrent ? colors.accent : Colors.white54,
                           ),
                           title: Text(
                             path.split('/').last,
                             style: TextStyle(
-                              color: isCurrent
-                                  ? Colors.orangeAccent
-                                  : Colors.white70,
+                              color: isCurrent ? colors.accent : Colors.white70,
                               fontWeight: isCurrent
                                   ? FontWeight.bold
                                   : FontWeight.normal,
@@ -310,6 +355,9 @@ class CombinedAudioSheet extends ConsumerStatefulWidget {
 class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   int _lastActiveIndex = -1;
+  // 🐞 در build() مقداردهی می‌شود؛ چون _buildSmallCircleButton هم به آن
+  // نیاز دارد (و context ندارد)، به‌عنوانِ فیلدِ کلاس نگه داشته می‌شود.
+  late _PlayerColors _colors;
 
   String _formatDuration(Duration d) {
     final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
@@ -330,9 +378,9 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
         height: 32,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isActive ? Colors.orangeAccent : Colors.transparent,
+          color: isActive ? _colors.accent : Colors.transparent,
           border: Border.all(
-            color: isActive ? Colors.orangeAccent : Colors.white54,
+            color: isActive ? _colors.accent : Colors.white54,
             width: 1.5,
           ),
         ),
@@ -351,6 +399,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
   @override
   Widget build(BuildContext context) {
+    _colors = _playerColors(context);
     final audioState = ref.watch(audioPlayerProvider);
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
@@ -411,7 +460,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
         break;
       case PlaybackMode.repeatOne:
         modeIcon = Icons.repeat_one_rounded;
-        modeColor = Colors.orangeAccent;
+        modeColor = _colors.accent;
         modeTooltip = "تکرار فایل فعلی";
         break;
       case PlaybackMode.stop:
@@ -423,13 +472,13 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.92,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         // 🐞 پولیشِ ظاهری: به‌جای رنگِ تخت، یک گرادیانِ ملایم برای عمق و
         // حسِ بهترِ بصری.
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF23273A), Color(0xFF181B26)],
+          colors: [_colors.bgTop, _colors.bgBottom],
         ),
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -494,7 +543,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           //     children: [
           //       Icon(
           //         Icons.lightbulb_outline_rounded,
-          //         color: Colors.orangeAccent,
+          //         color: _colors.accent,
           //         size: 14,
           //       ),
           //       SizedBox(width: 4),
@@ -581,7 +630,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                                     ? Colors.black
                                     : styledBase.color,
                                 backgroundColor: isActiveWord
-                                    ? Colors.orangeAccent
+                                    ? _colors.accent
                                     : null,
                                 fontWeight: isActiveWord
                                     ? FontWeight.bold
@@ -589,7 +638,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                               ),
                               interactiveColor: isActiveWord
                                   ? Colors.black
-                                  : Colors.cyanAccent,
+                                  : _colors.interactive,
                               translationFa: para.translationFa,
                               translationAr: para.translationAr,
                             );
@@ -630,12 +679,12 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: paraIsActive
-                              ? Colors.orangeAccent.withOpacity(0.08)
+                              ? _colors.accent.withOpacity(0.08)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: paraIsActive
-                                ? Colors.orangeAccent.withOpacity(0.4)
+                                ? _colors.accent.withOpacity(0.4)
                                 : Colors.transparent,
                             width: 1,
                           ),
@@ -645,9 +694,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                           boxShadow: paraIsActive
                               ? [
                                   BoxShadow(
-                                    color: Colors.orangeAccent.withOpacity(
-                                      0.12,
-                                    ),
+                                    color: _colors.accent.withOpacity(0.12),
                                     blurRadius: 16,
                                     spreadRadius: 1,
                                   ),
@@ -676,9 +723,9 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           // قبلاً فقط در _FullPlayerBottomSheetِ جدا بود — حالا همیشه پایینِ
           // همین شیت ثابت است، حتی وقتی متنِ اسکریپت را می‌خوانید.
           Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFF161922),
-              border: Border(top: BorderSide(color: Colors.white10)),
+            decoration: BoxDecoration(
+              color: _colors.barBg,
+              border: const Border(top: BorderSide(color: Colors.white10)),
             ),
             child: SafeArea(
               top: false,

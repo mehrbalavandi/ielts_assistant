@@ -23,8 +23,8 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   int _retryAttempts = 0;
   final ValueNotifier<int> _retryTick = ValueNotifier<int>(0);
 
-  void _ensureRetryTimerIfBooksEmpty(List<BookModel> books) {
-    if (books.isNotEmpty) {
+  void _ensureRetryTimerIfBookMissing(BookModel? activeBook) {
+    if (activeBook != null) {
       _retryTimer?.cancel();
       _retryTimer = null;
       _retryAttempts = 0;
@@ -97,9 +97,9 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
         return Stack(
           children: [
             if (debouncedQ.length >= 3)
-              // 🌟 با این ValueListenableBuilder، هر تیکِ retryِ ناشی از خالی‌بودنِ
-              // لیستِ کتاب‌ها باعثِ rebuild می‌شود، پس وقتی booksProvider پر شود
-              // (که ممکن است بعد از باز شدنِ جستجو از API برسد)، جستجو خودکار
+              // 🌟 با این ValueListenableBuilder، هر تیکِ retryِ ناشی از لود‌نشدنِ
+              // کتابِ فعال باعثِ rebuild می‌شود، پس وقتی activeBookProvider پر شود
+              // (که ممکن است بعد از باز شدنِ جستجو برسد)، جستجو خودکار
               // دوباره اجرا می‌شود — قبلاً این تیک هیچ‌جا watch نمی‌شد.
               ValueListenableBuilder<int>(
                 valueListenable: _retryTick,
@@ -119,25 +119,28 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   }
 
   Widget _buildSearchResults(String debouncedQuery) {
-    final availableBooks = ref.read(booksProvider);
-    _ensureRetryTimerIfBooksEmpty(
-      availableBooks,
-    ); // 🌟 اگر هنوز خالی است، تلاشِ دوره‌ای را فعال کن
+    // 🐞 محدودکردنِ جستجو فقط به کتابِ در حالِ مطالعه: هم سریع‌تر است، هم
+    // آن مشکلِ لبه‌ایِ «نتیجه از کتابِ دیگر بیاید ولی PagedBookStore هنوز
+    // برایش rebuild نشده» را کاملاً از بین می‌برد — چون دیگر هیچ نتیجه‌ای
+    // نمی‌تواند از کتابِ دیگری باشد.
+    final activeBook = ref.read(activeBookProvider);
+    _ensureRetryTimerIfBookMissing(
+      activeBook,
+    ); // 🌟 اگر هنوز لود نشده، تلاشِ دوره‌ای را فعال کن
 
     // 🌟 یک جستجوی جدید در دو حالت اجرا می‌شود: کوئری عوض شده، یا کوئریِ قبلی
-    // روی لیستِ خالیِ کتاب‌ها اجرا شده بود و حالا کتاب‌ها بار شده‌اند (نباید نتیجهٔ
-    // «صفر کتاب» برای همیشه کش بماند).
+    // وقتی کتاب هنوز لود نشده بود اجرا شده بود و حالا کتاب لود شده است.
     final bool shouldResearch =
         _cachedSearchFuture == null ||
         _lastSearchQuery != debouncedQuery ||
-        (_lastSearchWasOnEmptyBooks && availableBooks.isNotEmpty);
+        (_lastSearchWasOnEmptyBooks && activeBook != null);
 
     if (shouldResearch) {
       _lastSearchQuery = debouncedQuery;
-      _lastSearchWasOnEmptyBooks = availableBooks.isEmpty;
+      _lastSearchWasOnEmptyBooks = activeBook == null;
       _cachedSearchFuture = CrossBookSearchEngine.searchAllBooks(
         debouncedQuery,
-        availableBooks,
+        activeBook == null ? const [] : [activeBook],
       );
     }
 

@@ -84,37 +84,25 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               if (session != null && context.mounted) {
                 final tappedResult =
                     session.results[session.currentIndex] as SearchResult;
-                final targetBookId = tappedResult.bookId;
-
-                // تغییر کتاب در صورت نیاز
-                if (activeBook.id != targetBookId) {
-                  final availableBooks = ref.read(booksProvider);
-                  final targetBook = availableBooks.firstWhere(
-                    (b) => b.id == targetBookId,
-                  );
-                  ref.read(activeBookProvider.notifier).state = targetBook;
-                }
 
                 if (tappedResult.audioTrackName != null) {
                   // 🐞 این نتیجه از یک اسکریپتِ صوتی آمده — طبقِ خواسته،
                   // به‌جای اسکرول به یک صفحه، دقیقاً مثلِ آیکونِ چشمِ متنِ
-                  // مخفی عمل می‌کنیم، ولی این‌بار هدف آیکونِ پخش است: فایلِ
-                  // صوتی را resolve و پخش می‌کنیم، به لحظه‌ی دقیقِ کلمه‌ی
-                  // یافت‌شده seek می‌کنیم، و پلیرِ کامل را باز می‌کنیم.
+                  // مخفی عمل می‌کنیم، ولی این‌بار هدف آیکونِ پخش است.
+                  // autoPlay:false یعنی فقط پلیر را به همان‌جا می‌بریم
+                  // (و اگر چیزِ دیگری در حالِ پخش بود، pause می‌شود) —
+                  // پخشِ خودکار نمی‌شود؛ کاربر خودش تصمیم می‌گیرد.
                   final resolvedPath = InlineAudioLink.resolveAudioPath(
                     tappedResult.audioTrackName!,
                     activeBook,
                   );
                   await ref
                       .read(audioPlayerProvider.notifier)
-                      .playFile(resolvedPath);
-                  if (tappedResult.matchedStartMs != null) {
-                    ref
-                        .read(audioPlayerProvider.notifier)
-                        .seek(
-                          Duration(milliseconds: tappedResult.matchedStartMs!),
-                        );
-                  }
+                      .playFile(
+                        resolvedPath,
+                        autoPlay: false,
+                        seekToMs: tappedResult.matchedStartMs,
+                      );
                   if (context.mounted) {
                     showCombinedPlayerModal(
                       context,

@@ -38,6 +38,13 @@ class MyApp extends ConsumerWidget {
       locale: const Locale("en", "US"),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        // 🐞 قبلاً فقط primarySwatch/AppBarTheme جدا از هم بودند — حالا یک
+        // ColorScheme واقعی از رویِ همان رنگِ برندِ اپ (ایندیگو) ساخته
+        // می‌شود؛ هر جایی (ازجمله مودالِ پلیرِ صوتی) که رنگش را از
+        // Theme.of(context).colorScheme بگیرد، خودکار با این هماهنگ
+        // می‌ماند — حتی اگر بعداً این seedColor یا کلِ تم توسطِ کاربر
+        // انتخاب‌شدنی شود.
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
       ),

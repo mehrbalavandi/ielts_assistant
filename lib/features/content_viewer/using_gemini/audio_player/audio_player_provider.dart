@@ -204,6 +204,14 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     // می‌کنیم. اگر مشخص نشود، از firstOccurrence همان فایل استفاده می‌شود
     // (یعنی این انتخاب sequential بوده، مثلِ لیستِ پخش یا قبلی/بعدی).
     AudioLocation? explicitLocation,
+    // 🐞 اگر false باشد، فایل لود و به موقعیتِ موردنظر seek می‌شود ولی
+    // پخش شروع نمی‌شود (و اگر همین الان چیزِ دیگری در حالِ پخش بود،
+    // pause می‌شود) — برای «فقط بردنِ پلیر به این نقطه» به‌جای «پخشِ
+    // فوری» (مثلاً وقتی از یک نتیجه‌ی جستجو می‌آییم).
+    bool autoPlay = true,
+    // 🐞 اگر داده شود، به‌جای ادامه از آخرین موقعیتِ ذخیره‌شده‌ی این فایل،
+    // دقیقاً به همین میلی‌ثانیه seek می‌شود.
+    int? seekToMs,
   }) async {
     try {
       if (newPlaylist != null) {
@@ -223,12 +231,19 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
           lastSource: resolvedSource,
           targetLocation: () => resolvedTarget,
         );
-        _player.play();
+        if (seekToMs != null) {
+          await _player.seek(Duration(milliseconds: seekToMs));
+        }
+        if (autoPlay) {
+          _player.play();
+        } else {
+          _player.pause();
+        }
         return;
       }
       await _player.stop();
 
-      final lastPosMs = _box.read('pos_$path') ?? 0;
+      final lastPosMs = seekToMs ?? (_box.read('pos_$path') ?? 0);
 
       state = state.copyWith(
         currentPath: path,
@@ -249,7 +264,15 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       }
 
       await _player.seek(Duration(milliseconds: lastPosMs));
-      _player.play();
+      if (autoPlay) {
+        _player.play();
+      } else {
+        // 🐞 حتی اگر قبل از این فایلِ دیگری در حالِ پخش بود، await
+        // _player.stop() بالاتر آن را از قبل متوقف کرده؛ این pause فقط
+        // برای اطمینان است که پخشِ این فایلِ تازه‌لودشده هم خودکار شروع
+        // نشود.
+        _player.pause();
+      }
     } catch (e) {
       debugPrint("خطا در پخش فایل: $e");
     }
