@@ -174,7 +174,9 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
                 children: [
                   Text(
                     isAudioResult
-                        ? 'اسکریپتِ صوتی: ${result.audioTrackName}'
+                        ? (result.hiddenMatchCount > 1
+                              ? 'اسکریپتِ صوتی: ${result.audioTrackName} (${result.hiddenMatchCount} نتیجه)'
+                              : 'اسکریپتِ صوتی: ${result.audioTrackName}')
                         : 'صفحه ${result.pageNumber}',
                     style: const TextStyle(
                       color: Colors.blueAccent,

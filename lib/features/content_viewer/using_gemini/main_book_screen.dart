@@ -94,27 +94,16 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               );
 
               if (session != null && context.mounted) {
-                final tappedResult =
-                    session.results[session.currentIndex] as SearchResult;
-
-                if (tappedResult.audioTrackName != null) {
-                  // 🐞 این نتیجه از یک اسکریپتِ صوتی آمده — طبقِ خواسته،
-                  // به‌جای اسکرول به یک صفحه، دقیقاً مثلِ آیکونِ چشمِ متنِ
-                  // مخفی عمل می‌کنیم، ولی این‌بار هدف آیکونِ پخش است.
-                  await openAudioSearchResult(
-                    context: context,
-                    ref: ref,
-                    session: session,
-                    target: tappedResult,
-                    pagedBookStore: pagedBookStore,
-                    activeBook: activeBook,
-                  );
-                } else {
-                  // 🌟 حذف تأخیر (Future.delayed) برای جلوگیری از تداخل استیت‌ها
-                  // ریورپاد به صورت خودکار مقادیر را پیگیری کرده و به محض لود شدن
-                  // صفحه جدید، نتایج جستجو را اعمال می‌کند.
-                  ref.read(activeSearchProvider.notifier).state = session;
-                }
+                // 🐞 رفعِ باگِ «مودالِ صوتی دوبار باز می‌شود»: قبلاً این‌جا
+                // برایِ نتایجِ صوتی مستقیماً openAudioSearchResult صدا زده
+                // می‌شد — ولی خودِ آن تابع activeSearchProvider را هم
+                // آپدیت می‌کند، که چون reading_canvas_screen.dart هم به
+                // همین پرووایدر listen می‌کند و شاخه‌ی صوتیِ خودش را دارد،
+                // دوباره openAudioSearchResult را صدا می‌زد — یعنی مودال دو
+                // بار باز می‌شد. حالا این‌جا فقط state تنظیم می‌شود (دقیقاً
+                // مثلِ نتایجِ متنی)؛ تنها همان listenerِ reading_canvas_screen.dart
+                // تصمیم می‌گیرد چه اتفاقی بیفتد (چه اسکرول به صفحه، چه بازکردنِ پلیر).
+                ref.read(activeSearchProvider.notifier).state = session;
               }
             },
           ),

@@ -289,14 +289,19 @@ Future<void> openAudioSearchResult({
   ref.read(activeSearchProvider.notifier).state = session;
 
   if (context.mounted) {
+    // 🐞 حالا که خودِ موتورِ جستجو نتایجِ یک تراک را گروه‌بندی می‌کند،
+    // target.audioMatchTimestamps معمولاً همه‌ی لحظات را از قبل دارد —
+    // نیازی به گشتنِ کلِ session.results نیست. برای اطمینان (مثلاً اگر
+    // یک نتیجه‌ی قدیمیِ گروه‌بندی‌نشده جایی باقی مانده باشد)،
+    // matchedStartMsForTrack همچنان به‌عنوانِ فال‌بک نگه داشته شده.
+    final Set<int> timestamps =
+        target.audioMatchTimestamps?.toSet() ??
+        matchedStartMsForTrack(session.results, target.audioTrackName!);
     showCombinedPlayerModal(
       context,
       ref,
       pagedBookStore.audioScripts,
-      searchMatchTimestamps: matchedStartMsForTrack(
-        session.results,
-        target.audioTrackName!,
-      ),
+      searchMatchTimestamps: timestamps,
     );
   }
 }

@@ -44,6 +44,11 @@ class SearchResult {
   // پخش است).
   final String? audioTrackName;
   final int? matchedStartMs;
+  // 🐞 اگر این نتیجه، نتیجه‌ی گروه‌بندی‌شده‌ی چند وقوع در همین تراک باشد
+  // (کلمه‌ی جستجوشده بیش از یک‌بار در همین فایلِ صوتی آمده)، همه‌ی
+  // StartMsهایشان این‌جا جمع می‌شوند — برای این‌که هایلایتِ نتیجه‌ی جستجو
+  // در متنِ اسکریپت، همه‌شان را با هم نشان بدهد، نه فقط اولی را.
+  final List<int>? audioMatchTimestamps;
 
   SearchResult({
     required this.bookId,
@@ -57,6 +62,7 @@ class SearchResult {
     this.hiddenMatchCount = 1,
     this.audioTrackName,
     this.matchedStartMs,
+    this.audioMatchTimestamps,
   });
 }
 
@@ -419,12 +425,13 @@ Future<List<SearchResult>> _performSearch(
       }
     }
 
-    // 🐞 جستجو در اسکریپت‌های صوتیِ همین کتاب هم — این پاراگراف‌ها {blk}
-    // (متنِ مخفی) ندارند، پس نیازی به گروه‌بندی نیست: هر occurrence یک
-    // SearchResult مستقل می‌سازد. audioTrackName پر می‌شود تا سمتِ UI
-    // بفهمد این نتیجه باید پلیر را باز کند، نه این‌که به یک صفحه اسکرول
-    // کند؛ matchedStartMs هم از رویِ اسپنی که تطبیق داخلش افتاده محاسبه
-    // می‌شود تا بشود پلیر را دقیقاً به همان‌جا seek کرد.
+    // 🐞 جستجو در اسکریپت‌های صوتیِ همین کتاب هم. برخلافِ نسخه‌ی قبلی (که
+    // هر occurrence یک SearchResult جدا می‌ساخت و لیستِ نتایج را شلوغ
+    // می‌کرد)، حالا همه‌ی occurrenceهای یک تراک را جمع می‌کنیم و فقط یک
+    // SearchResult نماینده‌ی کلِ تراک می‌سازیم — با audioMatchTimestamps
+    // شاملِ همه‌ی StartMsها و hiddenMatchCount به‌عنوانِ تعدادِ نمایشی
+    // («۲ نتیجه»)، دقیقاً همان الگویی که برایِ گروه‌بندیِ متنِ مخفی از قبل
+    // استفاده می‌شد.
     List<AudioScriptTrack> audioTracks;
     try {
       audioTracks = await _loadAndParseAudioScripts(book, audioScriptsCache);
@@ -433,51 +440,65 @@ Future<List<SearchResult>> _performSearch(
     }
 
     for (var track in audioTracks) {
+      final List<int> trackTimestamps = [];
+      ParagraphData? firstMatchedPara;
+      int firstMatchedParaIndex = -1;
+      String firstExcerpt = '';
+
       for (int pIndex = 0; pIndex < track.paragraphs.length; pIndex++) {
         var para = track.paragraphs[pIndex];
         String rawText = _extractFullText(para);
         TextSearchMapper mapper = TextSearchMapper(rawText);
         String normalizedText = _normalizeText(mapper.cleanText);
 
-        int occurrence = 0;
         int matchIndex = normalizedText.indexOf(lowerQuery);
         while (matchIndex != -1) {
           final rawPos = mapper.cleanToRaw[matchIndex];
           final matchedSpan = _spanAtRawPos(para, rawPos);
+          if (matchedSpan?.startMs != null) {
+            trackTimestamps.add(matchedSpan!.startMs!);
+          }
 
-          int cleanStartIdx = (matchIndex - 30).clamp(
-            0,
-            mapper.cleanText.length,
-          );
-          int cleanEndIdx = (matchIndex + lowerQuery.length + 30).clamp(
-            0,
-            mapper.cleanText.length,
-          );
-          String excerpt =
-              "... ${mapper.cleanText.substring(cleanStartIdx, cleanEndIdx).trim()} ...";
+          if (firstMatchedPara == null) {
+            firstMatchedPara = para;
+            firstMatchedParaIndex = pIndex;
+            int cleanStartIdx = (matchIndex - 30).clamp(
+              0,
+              mapper.cleanText.length,
+            );
+            int cleanEndIdx = (matchIndex + lowerQuery.length + 30).clamp(
+              0,
+              mapper.cleanText.length,
+            );
+            firstExcerpt =
+                "... ${mapper.cleanText.substring(cleanStartIdx, cleanEndIdx).trim()} ...";
+          }
 
-          results.add(
-            SearchResult(
-              bookId: book['id']!,
-              bookTitle: book['title']!,
-              pageNumber:
-                  0, // برای نتایجِ صوتی معنایی ندارد؛ audioTrackName مرجع است
-              paraIndex: pIndex,
-              occurrenceIndex: occurrence,
-              paragraph: para,
-              matchedExcerpt: excerpt,
-              query: query,
-              audioTrackName: track.audioTrackName,
-              matchedStartMs: matchedSpan?.startMs,
-            ),
-          );
-
-          occurrence++;
           matchIndex = normalizedText.indexOf(
             lowerQuery,
             matchIndex + lowerQuery.length,
           );
         }
+      }
+
+      if (firstMatchedPara != null && trackTimestamps.isNotEmpty) {
+        results.add(
+          SearchResult(
+            bookId: book['id']!,
+            bookTitle: book['title']!,
+            pageNumber:
+                0, // برای نتایجِ صوتی معنایی ندارد؛ audioTrackName مرجع است
+            paraIndex: firstMatchedParaIndex,
+            occurrenceIndex: 0,
+            paragraph: firstMatchedPara,
+            matchedExcerpt: firstExcerpt,
+            query: query,
+            audioTrackName: track.audioTrackName,
+            matchedStartMs: trackTimestamps.first,
+            audioMatchTimestamps: trackTimestamps,
+            hiddenMatchCount: trackTimestamps.length,
+          ),
+        );
       }
     }
   }
