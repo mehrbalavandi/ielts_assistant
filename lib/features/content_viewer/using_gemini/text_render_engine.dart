@@ -307,8 +307,10 @@ class TextRenderEngine {
 
         TextStyle interactiveBaseStyle = baseStyle.copyWith(
           color: interactiveColor,
-          decoration: TextDecoration.underline,
-          decorationStyle: TextDecorationStyle.dotted,
+          decoration: baseStyle.decoration ?? TextDecoration.underline,
+          decorationStyle: baseStyle.decoration != null
+              ? baseStyle.decorationStyle
+              : TextDecorationStyle.dotted,
         );
 
         if (wordMap == null || wordMap.every((v) => v == -1)) {
@@ -404,8 +406,17 @@ class TextRenderEngine {
 
       TextStyle interactiveBaseStyle = baseStyle.copyWith(
         color: interactiveColor,
-        decoration: TextDecoration.underline,
-        decorationStyle: TextDecorationStyle.dotted,
+        // 🐞 قبلاً همیشه decoration را به‌طورِ اجباری underline/dotted
+        // می‌گذاشت — یعنی اگر خودِ کلمه در سندِ Word استایلِ دیگری داشت
+        // (یا حتی هیچ decorationای نداشت)، این‌جا از بین می‌رفت. حالا فقط
+        // وقتی خودِ span هیچ decorationِ خاصی ندارد، همان زیرخطِ نقطه‌چینِ
+        // «قابلِ‌کلیک‌بودن» پیش‌فرض اعمال می‌شود؛ اگر خودِ کلمه از قبل
+        // decorationِ واقعی (مثلاً زیرخطِ خودِ Word) داشته باشد، همان حفظ
+        // می‌شود.
+        decoration: baseStyle.decoration ?? TextDecoration.underline,
+        decorationStyle: baseStyle.decoration != null
+            ? baseStyle.decorationStyle
+            : TextDecorationStyle.dotted,
       );
 
       if (wordMap == null || wordMap.every((v) => v == -1)) {

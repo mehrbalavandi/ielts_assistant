@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/audio_player_provider.dart';
@@ -423,7 +424,13 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.92,
       decoration: const BoxDecoration(
-        color: Color(0xFF1E222D),
+        // 🐞 پولیشِ ظاهری: به‌جای رنگِ تخت، یک گرادیانِ ملایم برای عمق و
+        // حسِ بهترِ بصری.
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF23273A), Color(0xFF181B26)],
+        ),
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
@@ -544,40 +551,78 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                         // قلم نیفتاده بود. همان الگو را این‌جا هم تکرار
                         // می‌کنیم تا اسکریپتِ صوتی هم فونتِ درست (مثلاً برای
                         // متنِ فارسی/عربی) بگیرد، نه همیشه فونتِ پیش‌فرض.
+                        // 🐞 مثلِ fn:، مارکرِ sz: (اندازه‌ی فونت، بر حسبِ
+                        // نیم‌پوینتِ Word) هم قبلاً اصلاً اعمال نمی‌شد —
+                        // اندازه همیشه همان مقدارِ پیش‌فرضِ ثابت (15) بود،
+                        // نه اندازه‌ی واقعیِ سندِ Word. همان تبدیلِ
+                        // نیم‌پوینت→پوینت که متنِ اصلیِ کتاب استفاده می‌کند
+                        // (تقسیم بر ۲) این‌جا هم تکرار شده.
                         String? fontFamily;
+                        double? fontSize;
                         for (final marker in span.markers) {
                           if (marker.startsWith("fn:")) {
                             fontFamily = mapFontFamily(marker.substring(3));
-                            break;
+                          } else if (marker.startsWith("sz:")) {
+                            final parsed = double.tryParse(marker.substring(3));
+                            if (parsed != null) fontSize = parsed / 2;
                           }
                         }
-                        final TextStyle styledBase = fontFamily != null
-                            ? baseStyle.copyWith(fontFamily: fontFamily)
-                            : baseStyle;
-
-                        richSpans.addAll(
-                          TextRenderEngine.buildInteractiveText(
-                            span.content,
-                            para.interactives,
-                            context,
-                            styledBase.copyWith(
-                              color: isActiveWord
-                                  ? Colors.black
-                                  : styledBase.color,
-                              backgroundColor: isActiveWord
-                                  ? Colors.orangeAccent
-                                  : null,
-                              fontWeight: isActiveWord
-                                  ? FontWeight.bold
-                                  : styledBase.fontWeight,
-                            ),
-                            interactiveColor: isActiveWord
-                                ? Colors.black
-                                : Colors.cyanAccent,
-                            translationFa: para.translationFa,
-                            translationAr: para.translationAr,
-                          ),
+                        final TextStyle styledBase = baseStyle.copyWith(
+                          fontFamily: fontFamily,
+                          fontSize: fontSize,
                         );
+
+                        final List<InlineSpan> rawSpans =
+                            TextRenderEngine.buildInteractiveText(
+                              span.content,
+                              para.interactives,
+                              context,
+                              styledBase.copyWith(
+                                color: isActiveWord
+                                    ? Colors.black
+                                    : styledBase.color,
+                                backgroundColor: isActiveWord
+                                    ? Colors.orangeAccent
+                                    : null,
+                                fontWeight: isActiveWord
+                                    ? FontWeight.bold
+                                    : styledBase.fontWeight,
+                              ),
+                              interactiveColor: isActiveWord
+                                  ? Colors.black
+                                  : Colors.cyanAccent,
+                              translationFa: para.translationFa,
+                              translationAr: para.translationAr,
+                            );
+
+                        // 🐞 لمسِ کلمه → پرشِ پلیر به همان لحظه (span.startMs).
+                        // فقط رویِ قسمت‌هایی که recognizer ندارند (یعنی خودِ
+                        // کلماتِ دیکشنری نیستند) اضافه می‌شود، تا رفتارِ
+                        // «لمس برای دیدنِ معنی» رویِ کلماتِ دیکشنری دست‌نخورده
+                        // بماند.
+                        final int? seekMs = span.startMs;
+                        if (seekMs == null) {
+                          richSpans.addAll(rawSpans);
+                        } else {
+                          richSpans.addAll(
+                            rawSpans.map((s) {
+                              if (s is TextSpan && s.recognizer == null) {
+                                return TextSpan(
+                                  text: s.text,
+                                  style: s.style,
+                                  children: s.children,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      ref
+                                          .read(audioPlayerProvider.notifier)
+                                          .seek(Duration(milliseconds: seekMs));
+                                    },
+                                );
+                              }
+                              return s;
+                            }),
+                          );
+                        }
                       }
 
                       Widget englishContent = AnimatedContainer(
@@ -595,6 +640,20 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                                 : Colors.transparent,
                             width: 1,
                           ),
+                          // 🐞 پولیشِ ظاهری: یک سایه‌ی ملایمِ نارنجی موقعِ
+                          // فعال‌بودن، برای جلبِ توجهِ بهتر به پاراگرافِ
+                          // در حالِ پخش.
+                          boxShadow: paraIsActive
+                              ? [
+                                  BoxShadow(
+                                    color: Colors.orangeAccent.withOpacity(
+                                      0.12,
+                                    ),
+                                    blurRadius: 16,
+                                    spreadRadius: 1,
+                                  ),
+                                ]
+                              : null,
                         ),
                         child: Text.rich(
                           TextSpan(children: richSpans),
