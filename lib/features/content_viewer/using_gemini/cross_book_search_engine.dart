@@ -8,6 +8,7 @@ import 'package:flutter/services.dart'
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/search_text_utils.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 
 class SearchResult {
   final String bookId;
@@ -20,6 +21,13 @@ class SearchResult {
   final String query;
   final int
   hiddenMatchCount; // 🌟 اگر >۱، یعنی چند occurrence داخلِ همین یک جای‌خالی گروه شده‌اند
+  // 🐞 برای نتایجِ داخلِ اسکریپتِ صوتی: اگر غیرِخالی باشد، یعنی این نتیجه
+  // از یک ترانسکریپتِ صوتی آمده، نه یک صفحه‌ی معمولی — به‌جای اسکرول به
+  // صفحه، باید پلیرِ همین تراک باز و به matchedStartMs seek شود (دقیقاً
+  // همان رفتاری که آیکونِ چشم برای متنِ مخفی دارد، ولی این‌بار هدف آیکونِ
+  // پخش است).
+  final String? audioTrackName;
+  final int? matchedStartMs;
 
   SearchResult({
     required this.bookId,
@@ -31,6 +39,8 @@ class SearchResult {
     required this.matchedExcerpt,
     required this.query,
     this.hiddenMatchCount = 1,
+    this.audioTrackName,
+    this.matchedStartMs,
   });
 }
 
@@ -181,6 +191,8 @@ void _isolateEntryPoint(_IsolateInit init) {
   // 🌟 این کش هرگز از این ایزوله خارج نمی‌شود؛ برخلاف compute() قبلی،
   // این ایزوله زنده می‌ماند، پس این Map هم بین جستجوهای پی‌درپی می‌ماند
   final Map<String, List<PageData>> pagesCache = {};
+  // 🐞 برای جستجو در اسکریپت‌های صوتی: کشِ جداگانه، همان الگو.
+  final Map<String, List<AudioScriptTrack>> audioScriptsCache = {};
 
   commandPort.listen((message) async {
     if (message is! _SearchRequest) return;
@@ -189,6 +201,7 @@ void _isolateEntryPoint(_IsolateInit init) {
         message.query,
         message.books,
         pagesCache,
+        audioScriptsCache,
       );
       init.mainSendPort.send(_SearchResponse(message.requestId, results));
     } catch (e) {
@@ -258,10 +271,56 @@ Future<List<PageData>> _loadAndParsePages(
   return pages;
 }
 
+// 🐞 برای جستجو در اسکریپت‌های صوتی: همان الگویِ کش/لودِ pagesِ بالا، ولی
+// برای AudioScriptTrackها. مستقیم از DocumentLoader.loadAudioScripts
+// استفاده می‌شود (همان منطقی که PagedBookStore هم برای resolve کردنِ
+// اشاره‌گرهای AudioScripts در index.json به کار می‌برد) تا منطقِ resolve
+// دوباره این‌جا تکرار نشود.
+Future<List<AudioScriptTrack>> _loadAndParseAudioScripts(
+  Map<String, String> book,
+  Map<String, List<AudioScriptTrack>> cache,
+) async {
+  final id = book['id']!;
+  final cached = cache[id];
+  if (cached != null) return cached;
+
+  final indexPath = book['activeJsonPath']!;
+  final assetPath = book['jsonAssetPath']!;
+  final bool fromFile = await File(indexPath).exists();
+  final String path = fromFile ? indexPath : assetPath;
+
+  List<AudioScriptTrack> tracks;
+  try {
+    tracks = await DocumentLoader.loadAudioScripts(path);
+  } catch (_) {
+    tracks = const [];
+  }
+
+  cache[id] = tracks;
+  return tracks;
+}
+
+// 🐞 موقعیتِ خامِ یک تطبیق (rawPos، اندیسِ کاراکتر در متنِ کاملِ پاراگراف)
+// را به اسپنی که آن کاراکتر داخلش افتاده resolve می‌کند — تا بشود
+// StartMsِ همان اسپن (نه کلِ پاراگراف) را برای seekِ پلیر برداشت. فقط
+// اسپن‌های متنیِ سطحِ‌بالا را می‌بیند (اسکریپتِ صوتی جدول ندارد، پس نیازی
+// به بازگشتی‌بودن مثلِ extractFullText نیست).
+SpanData? _spanAtRawPos(ParagraphData para, int rawPos) {
+  int cursor = 0;
+  for (final span in para.spans) {
+    if (span.type != "text") continue;
+    final len = span.content?.length ?? 0;
+    if (rawPos >= cursor && rawPos < cursor + len) return span;
+    cursor += len;
+  }
+  return null;
+}
+
 Future<List<SearchResult>> _performSearch(
   String query,
   List<Map<String, String>> books,
   Map<String, List<PageData>> cache,
+  Map<String, List<AudioScriptTrack>> audioScriptsCache,
 ) async {
   String lowerQuery = _normalizeText(query);
   List<SearchResult> results = [];
@@ -340,6 +399,68 @@ Future<List<SearchResult>> _performSearch(
             ),
           );
           i = j;
+        }
+      }
+    }
+
+    // 🐞 جستجو در اسکریپت‌های صوتیِ همین کتاب هم — این پاراگراف‌ها {blk}
+    // (متنِ مخفی) ندارند، پس نیازی به گروه‌بندی نیست: هر occurrence یک
+    // SearchResult مستقل می‌سازد. audioTrackName پر می‌شود تا سمتِ UI
+    // بفهمد این نتیجه باید پلیر را باز کند، نه این‌که به یک صفحه اسکرول
+    // کند؛ matchedStartMs هم از رویِ اسپنی که تطبیق داخلش افتاده محاسبه
+    // می‌شود تا بشود پلیر را دقیقاً به همان‌جا seek کرد.
+    List<AudioScriptTrack> audioTracks;
+    try {
+      audioTracks = await _loadAndParseAudioScripts(book, audioScriptsCache);
+    } catch (e) {
+      audioTracks = const [];
+    }
+
+    for (var track in audioTracks) {
+      for (int pIndex = 0; pIndex < track.paragraphs.length; pIndex++) {
+        var para = track.paragraphs[pIndex];
+        String rawText = _extractFullText(para);
+        TextSearchMapper mapper = TextSearchMapper(rawText);
+        String normalizedText = _normalizeText(mapper.cleanText);
+
+        int occurrence = 0;
+        int matchIndex = normalizedText.indexOf(lowerQuery);
+        while (matchIndex != -1) {
+          final rawPos = mapper.cleanToRaw[matchIndex];
+          final matchedSpan = _spanAtRawPos(para, rawPos);
+
+          int cleanStartIdx = (matchIndex - 30).clamp(
+            0,
+            mapper.cleanText.length,
+          );
+          int cleanEndIdx = (matchIndex + lowerQuery.length + 30).clamp(
+            0,
+            mapper.cleanText.length,
+          );
+          String excerpt =
+              "... ${mapper.cleanText.substring(cleanStartIdx, cleanEndIdx).trim()} ...";
+
+          results.add(
+            SearchResult(
+              bookId: book['id']!,
+              bookTitle: book['title']!,
+              pageNumber:
+                  0, // برای نتایجِ صوتی معنایی ندارد؛ audioTrackName مرجع است
+              paraIndex: pIndex,
+              occurrenceIndex: occurrence,
+              paragraph: para,
+              matchedExcerpt: excerpt,
+              query: query,
+              audioTrackName: track.audioTrackName,
+              matchedStartMs: matchedSpan?.startMs,
+            ),
+          );
+
+          occurrence++;
+          matchIndex = normalizedText.indexOf(
+            lowerQuery,
+            matchIndex + lowerQuery.length,
+          );
         }
       }
     }

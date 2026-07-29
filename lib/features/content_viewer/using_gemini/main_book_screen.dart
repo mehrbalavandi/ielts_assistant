@@ -6,6 +6,7 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/cross_book_
 import 'package:ielts_assistant/features/content_viewer/using_gemini/paged_book_store.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/reading_canvas_screen.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/presentation/widgets/telegram_audio_player.dart';
+import 'package:ielts_assistant/features/content_viewer/using_gemini/audio_player/audio_player_provider.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/book_search_delegate.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/library_screen.dart';
@@ -81,8 +82,9 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
               );
 
               if (session != null && context.mounted) {
-                final targetBookId =
-                    (session.results.first as SearchResult).bookId;
+                final tappedResult =
+                    session.results[session.currentIndex] as SearchResult;
+                final targetBookId = tappedResult.bookId;
 
                 // تغییر کتاب در صورت نیاز
                 if (activeBook.id != targetBookId) {
@@ -93,10 +95,39 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                   ref.read(activeBookProvider.notifier).state = targetBook;
                 }
 
-                // 🌟 حذف تأخیر (Future.delayed) برای جلوگیری از تداخل استیت‌ها
-                // ریورپاد به صورت خودکار مقادیر را پیگیری کرده و به محض لود شدن
-                // صفحه جدید، نتایج جستجو را اعمال می‌کند.
-                ref.read(activeSearchProvider.notifier).state = session;
+                if (tappedResult.audioTrackName != null) {
+                  // 🐞 این نتیجه از یک اسکریپتِ صوتی آمده — طبقِ خواسته،
+                  // به‌جای اسکرول به یک صفحه، دقیقاً مثلِ آیکونِ چشمِ متنِ
+                  // مخفی عمل می‌کنیم، ولی این‌بار هدف آیکونِ پخش است: فایلِ
+                  // صوتی را resolve و پخش می‌کنیم، به لحظه‌ی دقیقِ کلمه‌ی
+                  // یافت‌شده seek می‌کنیم، و پلیرِ کامل را باز می‌کنیم.
+                  final resolvedPath = InlineAudioLink.resolveAudioPath(
+                    tappedResult.audioTrackName!,
+                    activeBook,
+                  );
+                  await ref
+                      .read(audioPlayerProvider.notifier)
+                      .playFile(resolvedPath);
+                  if (tappedResult.matchedStartMs != null) {
+                    ref
+                        .read(audioPlayerProvider.notifier)
+                        .seek(
+                          Duration(milliseconds: tappedResult.matchedStartMs!),
+                        );
+                  }
+                  if (context.mounted) {
+                    showCombinedPlayerModal(
+                      context,
+                      ref,
+                      pagedBookStore.audioScripts,
+                    );
+                  }
+                } else {
+                  // 🌟 حذف تأخیر (Future.delayed) برای جلوگیری از تداخل استیت‌ها
+                  // ریورپاد به صورت خودکار مقادیر را پیگیری کرده و به محض لود شدن
+                  // صفحه جدید، نتایج جستجو را اعمال می‌کند.
+                  ref.read(activeSearchProvider.notifier).state = session;
+                }
               }
             },
           ),

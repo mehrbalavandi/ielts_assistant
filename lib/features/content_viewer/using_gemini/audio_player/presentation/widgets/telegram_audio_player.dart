@@ -91,7 +91,7 @@ class TelegramAudioPlayer extends ConsumerWidget {
               icon: const Icon(Icons.description_rounded),
               tooltip: "مشاهده متن صوتی + کنترل‌های پخش",
               onPressed: () =>
-                  _showCombinedPlayerModal(context, ref, audioScripts),
+                  showCombinedPlayerModal(context, ref, audioScripts),
             ),
             IconButton(
               icon: const Icon(Icons.queue_music_rounded),
@@ -132,7 +132,7 @@ class TelegramAudioPlayer extends ConsumerWidget {
   }
 
   void _showFullPlayerModal(BuildContext context, WidgetRef ref) {
-    _showCombinedPlayerModal(context, ref, audioScripts);
+    showCombinedPlayerModal(context, ref, audioScripts);
   }
 }
 
@@ -156,7 +156,7 @@ void showBookAudioPlaylist(BuildContext context) {
 // کنترل‌ها موقعِ خواندنِ متن، باید یکی را می‌بستید و دیگری را باز
 // می‌کردید. حالا هر دو مسیرِ ورودی (آیکونِ توضیحاتِ متن، و خودِ تپ‌کردنِ
 // رویِ نوارِ کوچک) به همین یک شیتِ ادغام‌شده می‌روند.
-void _showCombinedPlayerModal(
+void showCombinedPlayerModal(
   BuildContext context,
   WidgetRef ref,
   List<AudioScriptTrack> audioScripts,
@@ -454,7 +454,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                 Expanded(
                   child: Text(
                     audioState.currentPath?.split('/').last ??
-                        "Audioscript (متن صوتی)",
+                        "(متن صوتی)", // = Audioscript
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -487,25 +487,24 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           ),
           const Divider(color: Colors.white10, height: 20),
 
-          const Padding(
-            padding: EdgeInsets.only(bottom: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.lightbulb_outline_rounded,
-                  color: Colors.orangeAccent,
-                  size: 14,
-                ),
-                SizedBox(width: 4),
-                Text(
-                  "برای مشاهده ترجمه، روی متن لمس طولانی (Long Press) کنید",
-                  style: TextStyle(color: Colors.white54, fontSize: 11),
-                ),
-              ],
-            ),
-          ),
-
+          // const Padding(
+          //   padding: EdgeInsets.only(bottom: 8.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Icon(
+          //         Icons.lightbulb_outline_rounded,
+          //         color: Colors.orangeAccent,
+          //         size: 14,
+          //       ),
+          //       SizedBox(width: 4),
+          //       Text(
+          //         "برای مشاهده ترجمه، روی متن لمس طولانی (Long Press) کنید",
+          //         style: TextStyle(color: Colors.white54, fontSize: 11),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Expanded(
             child: paragraphs.isEmpty
                 ? const Center(

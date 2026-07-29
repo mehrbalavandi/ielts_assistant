@@ -159,8 +159,14 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
           itemCount: results.length,
           itemBuilder: (context, index) {
             final result = results[index];
+            final bool isAudioResult = result.audioTrackName != null;
             return ListTile(
-              leading: const Icon(Icons.menu_book, color: Colors.indigo),
+              leading: Icon(
+                isAudioResult
+                    ? Icons.play_circle_fill_rounded
+                    : Icons.menu_book,
+                color: isAudioResult ? Colors.orangeAccent : Colors.indigo,
+              ),
               title: Text(
                 result.bookTitle,
                 style: const TextStyle(
@@ -172,7 +178,9 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'صفحه ${result.pageNumber}',
+                    isAudioResult
+                        ? 'اسکریپتِ صوتی: ${result.audioTrackName}'
+                        : 'صفحه ${result.pageNumber}',
                     style: const TextStyle(
                       color: Colors.blueAccent,
                       fontSize: 11,
