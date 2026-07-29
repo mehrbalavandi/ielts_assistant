@@ -1107,7 +1107,7 @@ Widget _buildPageDivider(int pageNumber) {
   );
 }
 
-String _mapFontFamily(String rawFontName) {
+String mapFontFamily(String rawFontName) {
   String normalized = rawFontName
       .toLowerCase()
       .replaceAll("-", "")
@@ -1737,7 +1737,7 @@ Widget _buildTable(
             final parsed = double.tryParse(marker.substring(3));
             if (parsed != null) fontSize = parsed / 2;
           } else if (marker.startsWith("fn:")) {
-            fontFamily = _mapFontFamily(marker.substring(3));
+            fontFamily = mapFontFamily(marker.substring(3));
           }
         }
         final tp = TextPainter(
@@ -2213,7 +2213,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       double? parsedSize = double.tryParse(marker.substring(3));
       if (parsedSize != null) fontSize = parsedSize / 2;
     } else if (marker.startsWith("fn:")) {
-      fontFamily = _mapFontFamily(marker.substring(3));
+      fontFamily = mapFontFamily(marker.substring(3));
     }
   }
 
