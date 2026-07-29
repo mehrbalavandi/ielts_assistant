@@ -97,9 +97,9 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
         return Stack(
           children: [
             if (debouncedQ.length >= 3)
-              // 🌟 با این ValueListenableBuilder، هر تیکِ retryِ ناشی از لود‌نشدنِ
-              // کتابِ فعال باعثِ rebuild می‌شود، پس وقتی activeBookProvider پر شود
-              // (که ممکن است بعد از باز شدنِ جستجو برسد)، جستجو خودکار
+              // 🌟 با این ValueListenableBuilder، هر تیکِ retryِ ناشی از خالی‌بودنِ
+              // لیستِ کتاب‌ها باعثِ rebuild می‌شود، پس وقتی booksProvider پر شود
+              // (که ممکن است بعد از باز شدنِ جستجو از API برسد)، جستجو خودکار
               // دوباره اجرا می‌شود — قبلاً این تیک هیچ‌جا watch نمی‌شد.
               ValueListenableBuilder<int>(
                 valueListenable: _retryTick,
@@ -119,17 +119,9 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   }
 
   Widget _buildSearchResults(String debouncedQuery) {
-    // 🐞 محدودکردنِ جستجو فقط به کتابِ در حالِ مطالعه: هم سریع‌تر است، هم
-    // آن مشکلِ لبه‌ایِ «نتیجه از کتابِ دیگر بیاید ولی PagedBookStore هنوز
-    // برایش rebuild نشده» را کاملاً از بین می‌برد — چون دیگر هیچ نتیجه‌ای
-    // نمی‌تواند از کتابِ دیگری باشد.
     final activeBook = ref.read(activeBookProvider);
-    _ensureRetryTimerIfBookMissing(
-      activeBook,
-    ); // 🌟 اگر هنوز لود نشده، تلاشِ دوره‌ای را فعال کن
+    _ensureRetryTimerIfBookMissing(activeBook);
 
-    // 🌟 یک جستجوی جدید در دو حالت اجرا می‌شود: کوئری عوض شده، یا کوئریِ قبلی
-    // وقتی کتاب هنوز لود نشده بود اجرا شده بود و حالا کتاب لود شده است.
     final bool shouldResearch =
         _cachedSearchFuture == null ||
         _lastSearchQuery != debouncedQuery ||

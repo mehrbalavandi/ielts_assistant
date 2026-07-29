@@ -89,9 +89,9 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
                   // 🐞 این نتیجه از یک اسکریپتِ صوتی آمده — طبقِ خواسته،
                   // به‌جای اسکرول به یک صفحه، دقیقاً مثلِ آیکونِ چشمِ متنِ
                   // مخفی عمل می‌کنیم، ولی این‌بار هدف آیکونِ پخش است.
-                  // autoPlay:false یعنی فقط پلیر را به همان‌جا می‌بریم
-                  // (و اگر چیزِ دیگری در حالِ پخش بود، pause می‌شود) —
-                  // پخشِ خودکار نمی‌شود؛ کاربر خودش تصمیم می‌گیرد.
+                  // autoPlay:false یعنی فقط پلیر را به همان‌جا می‌بریم (و
+                  // اگر چیزِ دیگری در حالِ پخش بود pause می‌شود) — پخشِ
+                  // خودکار نمی‌شود؛ کاربر خودش تصمیم می‌گیرد.
                   final resolvedPath = InlineAudioLink.resolveAudioPath(
                     tappedResult.audioTrackName!,
                     activeBook,

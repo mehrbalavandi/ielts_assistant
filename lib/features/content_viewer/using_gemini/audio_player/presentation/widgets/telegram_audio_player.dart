@@ -56,9 +56,11 @@ class _PlayerColors {
   final Color accent; // قبلاً Colors.orangeAccent
   final Color onAccent; // متن/آیکون روی accent
   final Color interactive; // قبلاً Colors.cyanAccent (کلماتِ تعاملی)
-  final Color textPrimary;
-  final Color textSecondary;
-  final Color divider;
+  final Color textPrimary; // قبلاً Colors.white
+  final Color textSecondary; // قبلاً Colors.white70
+  final Color textMuted; // قبلاً Colors.white54
+  final Color borderFaint; // قبلاً Colors.white24
+  final Color divider; // قبلاً Colors.white10
 
   _PlayerColors({
     required this.bgTop,
@@ -69,6 +71,8 @@ class _PlayerColors {
     required this.interactive,
     required this.textPrimary,
     required this.textSecondary,
+    required this.textMuted,
+    required this.borderFaint,
     required this.divider,
   });
 }
@@ -87,6 +91,8 @@ _PlayerColors _playerColors(BuildContext context) {
     interactive: scheme.secondary,
     textPrimary: scheme.onSurface,
     textSecondary: scheme.onSurface.withOpacity(0.7),
+    textMuted: scheme.onSurface.withOpacity(0.54),
+    borderFaint: scheme.onSurface.withOpacity(0.24),
     divider: scheme.onSurface.withOpacity(0.12),
   );
 }
@@ -244,7 +250,7 @@ class _AudioPlaylistSheet extends ConsumerWidget {
               width: 40,
               height: 4.5,
               decoration: BoxDecoration(
-                color: Colors.white24,
+                color: colors.borderFaint,
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
@@ -254,31 +260,31 @@ class _AudioPlaylistSheet extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "پلی‌لیستِ کتاب",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: colors.textPrimary,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.close_rounded,
-                      color: Colors.white70,
+                      color: colors.textSecondary,
                     ),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),
             ),
-            const Divider(color: Colors.white10, height: 20),
+            Divider(color: colors.divider, height: 20),
             Expanded(
               child: state.playlist.isEmpty
-                  ? const Center(
+                  ? Center(
                       child: Text(
                         "فایلِ صوتی‌ای در این کتاب یافت نشد.",
-                        style: TextStyle(color: Colors.white54),
+                        style: TextStyle(color: colors.textMuted),
                       ),
                     )
                   : ListView.builder(
@@ -291,12 +297,14 @@ class _AudioPlaylistSheet extends ConsumerWidget {
                             isCurrent && state.isPlaying
                                 ? Icons.pause_circle_filled_rounded
                                 : Icons.play_circle_fill_rounded,
-                            color: isCurrent ? colors.accent : Colors.white54,
+                            color: isCurrent ? colors.accent : colors.textMuted,
                           ),
                           title: Text(
                             path.split('/').last,
                             style: TextStyle(
-                              color: isCurrent ? colors.accent : Colors.white70,
+                              color: isCurrent
+                                  ? colors.accent
+                                  : colors.textSecondary,
                               fontWeight: isCurrent
                                   ? FontWeight.bold
                                   : FontWeight.normal,
@@ -355,9 +363,6 @@ class CombinedAudioSheet extends ConsumerStatefulWidget {
 class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   int _lastActiveIndex = -1;
-  // 🐞 در build() مقداردهی می‌شود؛ چون _buildSmallCircleButton هم به آن
-  // نیاز دارد (و context ندارد)، به‌عنوانِ فیلدِ کلاس نگه داشته می‌شود.
-  late _PlayerColors _colors;
 
   String _formatDuration(Duration d) {
     final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
@@ -380,7 +385,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           shape: BoxShape.circle,
           color: isActive ? _colors.accent : Colors.transparent,
           border: Border.all(
-            color: isActive ? _colors.accent : Colors.white54,
+            color: isActive ? _colors.accent : _colors.textMuted,
             width: 1.5,
           ),
         ),
@@ -399,7 +404,6 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
   @override
   Widget build(BuildContext context) {
-    _colors = _playerColors(context);
     final audioState = ref.watch(audioPlayerProvider);
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
@@ -465,7 +469,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
         break;
       case PlaybackMode.stop:
         modeIcon = Icons.stop_circle_outlined;
-        modeColor = Colors.white54;
+        modeColor = _colors.textMuted;
         modeTooltip = "توقف پس از پایان";
         break;
     }
@@ -489,7 +493,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
             width: 40,
             height: 4.5,
             decoration: BoxDecoration(
-              color: Colors.white24,
+              color: _colors.borderFaint,
               borderRadius: BorderRadius.circular(4),
             ),
           ),
@@ -519,22 +523,22 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                   // قبلی/بعدی یا لیستِ پخش به این فایل رسیده‌ایم)، یا همان
                   // نقطه‌ی دقیقی که رویِ دکمه‌ی صوتیِ داخلِ متن تپ شده.
                   IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.subject_rounded,
-                      color: Colors.orangeAccent,
+                      color: _colors.accent,
                       size: 20,
                     ),
                     tooltip: 'برو به متن',
                     onPressed: () => _jumpToAudioLocation(ref, context),
                   ),
                 IconButton(
-                  icon: const Icon(Icons.close_rounded, color: Colors.white70),
+                  icon: Icon(Icons.close_rounded, color: _colors.textSecondary),
                   onPressed: () => Navigator.pop(context),
                 ),
               ],
             ),
           ),
-          const Divider(color: Colors.white10, height: 20),
+          Divider(color: _colors.divider, height: 20),
 
           // const Padding(
           //   padding: EdgeInsets.only(bottom: 8.0),
@@ -549,17 +553,17 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           //       SizedBox(width: 4),
           //       Text(
           //         "برای مشاهده ترجمه، روی متن لمس طولانی (Long Press) کنید",
-          //         style: TextStyle(color: Colors.white54, fontSize: 11),
+          //         style: TextStyle(color: _colors.textMuted, fontSize: 11),
           //       ),
           //     ],
           //   ),
           // ),
           Expanded(
             child: paragraphs.isEmpty
-                ? const Center(
+                ? Center(
                     child: Text(
                       "هیچ متن صوتی همگام‌سازی شده‌ای برای این بخش یافت نشد.",
-                      style: TextStyle(color: Colors.white54),
+                      style: TextStyle(color: _colors.textMuted),
                     ),
                   )
                 : ScrollablePositionedList.builder(
@@ -584,8 +588,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
                         final TextStyle baseStyle =
                             TextRenderEngine.applySpanStyle(
-                              const TextStyle(
-                                color: Colors.white70,
+                              TextStyle(
+                                color: _colors.textSecondary,
                                 fontSize: 15,
                                 height: 1.6,
                               ),
@@ -725,7 +729,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           Container(
             decoration: BoxDecoration(
               color: _colors.barBg,
-              border: const Border(top: BorderSide(color: Colors.white10)),
+              border: Border(top: BorderSide(color: _colors.divider)),
             ),
             child: SafeArea(
               top: false,
@@ -792,8 +796,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                         children: [
                           Text(
                             _formatDuration(audioState.position),
-                            style: const TextStyle(
-                              color: Colors.white70,
+                            style: TextStyle(
+                              color: _colors.textSecondary,
                               fontSize: 12,
                             ),
                           ),
@@ -823,9 +827,9 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                                 ),
                                 if (audioState.pointA != null)
                                   IconButton(
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.layers_clear_outlined,
-                                      color: Colors.white54,
+                                      color: _colors.textMuted,
                                       size: 20,
                                     ),
                                     onPressed: () => ref
@@ -891,8 +895,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                           ),
                           Text(
                             _formatDuration(audioState.duration),
-                            style: const TextStyle(
-                              color: Colors.white70,
+                            style: TextStyle(
+                              color: _colors.textSecondary,
                               fontSize: 12,
                             ),
                           ),
