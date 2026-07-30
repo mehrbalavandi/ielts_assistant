@@ -700,7 +700,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            TelegramAudioPlayer(audioScripts: widget.audioScripts),
+            TelegramAudioPlayer(
+              audioScripts: widget.audioScripts,
+              pagedBookStore: widget.pagedBookStore,
+            ),
 
             Expanded(
               // ── Listener: شمارش انگشتان (قبل از gesture arena) ─────────────

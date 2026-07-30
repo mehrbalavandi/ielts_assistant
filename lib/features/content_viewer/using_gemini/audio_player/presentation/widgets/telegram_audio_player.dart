@@ -126,8 +126,13 @@ _PlayerColors _playerColors(BuildContext context) {
 class TelegramAudioPlayer extends ConsumerWidget {
   // final List<PageData> documentPages;
   final List<AudioScriptTrack> audioScripts; // 🌟 به جای documentPages
+  final PagedBookStore pagedBookStore;
 
-  const TelegramAudioPlayer({super.key, required this.audioScripts});
+  const TelegramAudioPlayer({
+    super.key,
+    required this.audioScripts,
+    required this.pagedBookStore,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -176,7 +181,7 @@ class TelegramAudioPlayer extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.queue_music_rounded),
               tooltip: "پلی‌لیستِ کتاب",
-              onPressed: () => showBookAudioPlaylist(context),
+              onPressed: () => showBookAudioPlaylist(context, pagedBookStore),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -216,17 +221,40 @@ class TelegramAudioPlayer extends ConsumerWidget {
   }
 }
 
+// 🐞 محاسبه‌ی مستقیمِ اولین وقوعِ یک فایلِ صوتی در متنِ کتاب — از رویِ
+// pagedBookStore.audioLinksIndex (منبعِ اصلیِ داده)، نه از رویِ
+// state.firstOccurrence که ممکن است در برخی توالی‌ها (مثلاً پخشِ یک فایل،
+// بستنِ مودال، بعد بازکردنش از رویِ جستجو) به‌موقع/درست پر نشده باشد.
+// این تابع، مستقل از تاریخچه‌ی پلیر، همیشه یک جواب قابلِ‌اتکا می‌دهد.
+AudioLocation? firstOccurrenceForTrack(
+  PagedBookStore pagedBookStore,
+  String audioTrackName,
+) {
+  for (final entry in pagedBookStore.audioLinksIndex) {
+    if (entry.fileName == audioTrackName) {
+      return AudioLocation(
+        pageNumber: entry.pageNumber,
+        paraIndex: entry.paraIndex,
+      );
+    }
+  }
+  return null;
+}
+
 // 🐞 پلی‌لیستِ کتاب: قبلاً فقط از داخلِ نوارِ کوچکِ پلیر (که تا وقتی هیچ
 // فایلی پخش نشده اصلاً نمایش داده نمی‌شد) در دسترس بود — یعنی برای دیدنِ
 // پلی‌لیست، اول باید یک فایل را پخش می‌کردید. حالا این یک تابعِ سطحِ‌بالا
 // و عمومی است تا از هرجایی (مثلاً یک آیکونِ همیشه‌دیده در AppBar) بشود
 // صدایش زد، مستقل از این‌که چیزی در حالِ پخش هست یا نه.
-void showBookAudioPlaylist(BuildContext context) {
+void showBookAudioPlaylist(
+  BuildContext context,
+  PagedBookStore pagedBookStore,
+) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (context) => const _AudioPlaylistSheet(),
+    builder: (context) => _AudioPlaylistSheet(pagedBookStore: pagedBookStore),
   );
 }
 
@@ -276,9 +304,23 @@ Future<void> openAudioSearchResult({
     target.audioTrackName!,
     activeBook,
   );
+  // 🐞 قبلاً explicitLocation پاس داده نمی‌شد — یعنی targetLocation فقط
+  // اگر state.firstOccurrence[resolvedPath] از قبل درست پر شده بود کار
+  // می‌کرد؛ در توالیِ «پخشِ یک فایل بدونِ جستجو → بستنِ مودال → بازکردن
+  // از رویِ جستجو»، این نبود و دکمه‌ی «برو به متن» ناپدید می‌شد. حالا
+  // مستقیم از رویِ pagedBookStore.audioLinksIndex محاسبه می‌شود.
+  final location = firstOccurrenceForTrack(
+    pagedBookStore,
+    target.audioTrackName!,
+  );
   await ref
       .read(audioPlayerProvider.notifier)
-      .playFile(resolvedPath, autoPlay: false, seekToMs: target.matchedStartMs);
+      .playFile(
+        resolvedPath,
+        autoPlay: false,
+        seekToMs: target.matchedStartMs,
+        explicitLocation: location,
+      );
 
   // 🐞 رفعِ باگِ «برگشتن به نتیجه‌ی جستجوی قبلی»: قبلاً برایِ نتایجِ صوتی،
   // activeSearchProvider هیچ‌وقت آپدیت نمی‌شد (فقط نتایجِ متنی این کار را
@@ -307,7 +349,8 @@ Future<void> openAudioSearchResult({
 }
 
 class _AudioPlaylistSheet extends ConsumerWidget {
-  const _AudioPlaylistSheet();
+  final PagedBookStore pagedBookStore;
+  const _AudioPlaylistSheet({required this.pagedBookStore});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -404,16 +447,23 @@ class _AudioPlaylistSheet extends ConsumerWidget {
                             // _jumpToAudioLocation بلافاصله بعدش
                             // targetLocationِ کهنه (مالِ فایلِ قبلی) را
                             // می‌خواند.
+                            // 🐞 قبلاً newFirstOccurrence: state.firstOccurrence
+                            // پاس داده می‌شد — که در برخی توالی‌ها (پخشِ یک
+                            // فایل، بستنِ مودال، بازکردنش از رویِ جستجو) درست
+                            // پر نبود و «برو به متن» را خراب می‌کرد. حالا
+                            // مستقیم از رویِ pagedBookStore.audioLinksIndex
+                            // (منبعِ اصلی) محاسبه می‌شود — همیشه قابلِ‌اتکا.
+                            final fileName = path.split('/').last;
                             await ref
                                 .read(audioPlayerProvider.notifier)
                                 .playFile(
                                   path,
                                   newPlaylist: state.playlist,
                                   newFirstOccurrence: state.firstOccurrence,
-                                  // 🐞 explicitLocation عمداً پاس داده نمی‌شود:
-                                  // انتخاب از خودِ لیستِ پخش، sequential است —
-                                  // یعنی هدف باید اولین وقوعِ همین فایل باشد،
-                                  // نه یک نقطه‌ی خاص.
+                                  explicitLocation: firstOccurrenceForTrack(
+                                    pagedBookStore,
+                                    fileName,
+                                  ),
                                 );
                             if (!context.mounted) return;
                             _jumpToAudioLocation(ref, context);

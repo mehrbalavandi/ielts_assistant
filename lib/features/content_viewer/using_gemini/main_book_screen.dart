@@ -61,163 +61,185 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
     _ensureBookLoaded(activeBook);
     final pagedBookStore = _pagedBookStore!;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(activeBook.title, style: const TextStyle(fontSize: 16)),
-        actions: [
-          // 🐞 دسترسیِ مستقل به پلی‌لیستِ کتاب: قبلاً این دکمه فقط داخلِ
-          // نوارِ کوچکِ پلیر بود که تا پخش‌نشدنِ حداقل یک فایل، اصلاً نشان
-          // داده نمی‌شد — یعنی برای دیدنِ پلی‌لیست، اول باید یک فایل را پخش
-          // می‌کردید. حالا این‌جا، همیشه در AppBar، مستقل از وضعیتِ پخش.
-          IconButton(
-            icon: const Icon(Icons.queue_music_rounded),
-            tooltip: 'پلی‌لیستِ کتاب',
-            onPressed: () => showBookAudioPlaylist(context),
-          ),
-          // 🌟 تعویضِ زبانِ محتوا: فارسی ↔ عربی
-          IconButton(
-            tooltip: 'تغییر زبان (فارسی/عربی)',
-            icon: Text(
-              ref.watch(languageProvider) == 'fa' ? 'ع' : 'ف',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    // 🐞 وقتی در حالتِ جستجو هستیم (نوارِ قبلی/بعدیِ جستجو نمایش داده
+    // می‌شود)، دکمه‌ی بازِ گوشی باید اول از حالتِ جستجو خارج کند، نه این‌که
+    // مستقیم کلِ صفحه را pop کند و کاربر را به library_screen ببرد.
+    return PopScope(
+      canPop: searchSession == null,
+      onPopInvokedWithResult: (didPop, result) {
+        //onPopInvokedWithPop
+        if (didPop) return;
+        if (searchSession != null) {
+          ref.read(activeSearchProvider.notifier).state = null;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          title: Text(activeBook.title, style: const TextStyle(fontSize: 16)),
+          actions: [
+            // 🐞 دسترسیِ مستقل به پلی‌لیستِ کتاب: قبلاً این دکمه فقط داخلِ
+            // نوارِ کوچکِ پلیر بود که تا پخش‌نشدنِ حداقل یک فایل، اصلاً نشان
+            // داده نمی‌شد — یعنی برای دیدنِ پلی‌لیست، اول باید یک فایل را پخش
+            // می‌کردید. حالا این‌جا، همیشه در AppBar، مستقل از وضعیتِ پخش.
+            IconButton(
+              icon: const Icon(Icons.queue_music_rounded),
+              tooltip: 'پلی‌لیستِ کتاب',
+              onPressed: () => showBookAudioPlaylist(context, pagedBookStore),
             ),
-            onPressed: () => ref.read(languageProvider.notifier).toggle(),
-          ),
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () async {
-              final SearchSession? session = await showSearch<SearchSession?>(
-                context: context,
-                delegate: BookSearchDelegate(ref),
-              );
-
-              if (session != null && context.mounted) {
-                // 🐞 رفعِ باگِ «مودالِ صوتی دوبار باز می‌شود»: قبلاً این‌جا
-                // برایِ نتایجِ صوتی مستقیماً openAudioSearchResult صدا زده
-                // می‌شد — ولی خودِ آن تابع activeSearchProvider را هم
-                // آپدیت می‌کند، که چون reading_canvas_screen.dart هم به
-                // همین پرووایدر listen می‌کند و شاخه‌ی صوتیِ خودش را دارد،
-                // دوباره openAudioSearchResult را صدا می‌زد — یعنی مودال دو
-                // بار باز می‌شد. حالا این‌جا فقط state تنظیم می‌شود (دقیقاً
-                // مثلِ نتایجِ متنی)؛ تنها همان listenerِ reading_canvas_screen.dart
-                // تصمیم می‌گیرد چه اتفاقی بیفتد (چه اسکرول به صفحه، چه بازکردنِ پلیر).
-                ref.read(activeSearchProvider.notifier).state = session;
-              }
-            },
-          ),
-          // IconButton(
-          //   icon: const Icon(Icons.library_books_rounded),
-          //   onPressed: () {
-          //     ref.read(activeSearchProvider.notifier).state = null;
-          //     Navigator.pushReplacement(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => const LibraryScreen()),
-          //     );
-          //   },
-          // ),
-        ],
-      ),
-      // 🐞 رفع باگ: این نوار قبلاً با هر activeSearchProvider غیرِ null نشان
-      // داده می‌شد — از جمله SearchSessionِ مصنوعی‌ای که _jumpToAudioLocation
-      // (برای «پلی‌لیستِ کتاب») می‌سازد تا فقط از همان مکانیزمِ اسکرول
-      // استفاده کند. چون آن SearchSession عمداً query خالی دارد (تا
-      // هایلایتِ متن فعال نشود)، همین را برای تشخیصِ «این یک جستجوی واقعی
-      // است، نه صرفاً یک پرش» هم به کار می‌بریم.
-      bottomNavigationBar:
-          searchSession != null && searchSession.query.isNotEmpty
-          ? Container(
-              color: Colors.indigo.shade50,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              child: SafeArea(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.indigo,
-                            ),
-                            onPressed:
-                                searchSession.currentIndex <
-                                    searchSession.results.length - 1
-                                ? () =>
-                                      ref
-                                          .read(activeSearchProvider.notifier)
-                                          .state = searchSession.copyWith(
-                                        currentIndex:
-                                            searchSession.currentIndex + 1,
-                                      )
-                                : null,
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.keyboard_arrow_up,
-                              color: Colors.indigo,
-                            ),
-                            onPressed: searchSession.currentIndex > 0
-                                ? () =>
-                                      ref
-                                          .read(activeSearchProvider.notifier)
-                                          .state = searchSession.copyWith(
-                                        currentIndex:
-                                            searchSession.currentIndex - 1,
-                                      )
-                                : null,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.indigo,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close, color: Colors.redAccent),
-                        onPressed: () =>
-                            ref.read(activeSearchProvider.notifier).state =
-                                null,
-                      ),
-                    ],
-                  ),
+            // 🌟 تعویضِ زبانِ محتوا: فارسی ↔ عربی
+            IconButton(
+              tooltip: 'تغییر زبان (فارسی/عربی)',
+              icon: Text(
+                ref.watch(languageProvider) == 'fa' ? 'ع' : 'ف',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            )
-          : null,
-      body: FutureBuilder<void>(
-        future: _manifestFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          // 🌟 اضافه شدن هندل کردن خطا
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                "خطا در بارگیری کتاب:\n${snapshot.error}",
-                textAlign: TextAlign.center,
-                textDirection: TextDirection.rtl,
-              ),
+              onPressed: () => ref.read(languageProvider.notifier).toggle(),
+            ),
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () async {
+                final SearchSession? session = await showSearch<SearchSession?>(
+                  context: context,
+                  delegate: BookSearchDelegate(ref),
+                );
+
+                if (session != null && context.mounted) {
+                  // 🐞 رفعِ باگِ «مودالِ صوتی دوبار باز می‌شود»: قبلاً این‌جا
+                  // برایِ نتایجِ صوتی مستقیماً openAudioSearchResult صدا زده
+                  // می‌شد — ولی خودِ آن تابع activeSearchProvider را هم
+                  // آپدیت می‌کند، که چون reading_canvas_screen.dart هم به
+                  // همین پرووایدر listen می‌کند و شاخه‌ی صوتیِ خودش را دارد،
+                  // دوباره openAudioSearchResult را صدا می‌زد — یعنی مودال دو
+                  // بار باز می‌شد. حالا این‌جا فقط state تنظیم می‌شود (دقیقاً
+                  // مثلِ نتایجِ متنی)؛ تنها همان listenerِ reading_canvas_screen.dart
+                  // تصمیم می‌گیرد چه اتفاقی بیفتد (چه اسکرول به صفحه، چه بازکردنِ پلیر).
+                  ref.read(activeSearchProvider.notifier).state = session;
+                }
+              },
+            ),
+            // IconButton(
+            //   icon: const Icon(Icons.library_books_rounded),
+            //   onPressed: () {
+            //     ref.read(activeSearchProvider.notifier).state = null;
+            //     Navigator.pushReplacement(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const LibraryScreen()),
+            //     );
+            //   },
+            // ),
+          ],
+        ),
+        // 🐞 رفع باگ: این نوار قبلاً با هر activeSearchProvider غیرِ null نشان
+        // داده می‌شد — از جمله SearchSessionِ مصنوعی‌ای که _jumpToAudioLocation
+        // (برای «پلی‌لیستِ کتاب») می‌سازد تا فقط از همان مکانیزمِ اسکرول
+        // استفاده کند. چون آن SearchSession عمداً query خالی دارد (تا
+        // هایلایتِ متن فعال نشود)، همین را برای تشخیصِ «این یک جستجوی واقعی
+        // است، نه صرفاً یک پرش» هم به کار می‌بریم.
+        bottomNavigationBar:
+            searchSession != null && searchSession.query.isNotEmpty
+            ? Container(
+                color: Colors.indigo.shade50,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                child: SafeArea(
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.indigo,
+                              ),
+                              onPressed:
+                                  searchSession.currentIndex <
+                                      searchSession.results.length - 1
+                                  ? () =>
+                                        ref
+                                            .read(activeSearchProvider.notifier)
+                                            .state = searchSession.copyWith(
+                                          currentIndex:
+                                              searchSession.currentIndex + 1,
+                                        )
+                                  : null,
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.keyboard_arrow_up,
+                                color: Colors.indigo,
+                              ),
+                              onPressed: searchSession.currentIndex > 0
+                                  ? () =>
+                                        ref
+                                            .read(activeSearchProvider.notifier)
+                                            .state = searchSession.copyWith(
+                                          currentIndex:
+                                              searchSession.currentIndex - 1,
+                                        )
+                                  : null,
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.indigo,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.redAccent,
+                          ),
+                          onPressed: () =>
+                              ref.read(activeSearchProvider.notifier).state =
+                                  null,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            : null,
+        body: FutureBuilder<void>(
+          future: _manifestFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            // 🌟 اضافه شدن هندل کردن خطا
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  "خطا در بارگیری کتاب:\n${snapshot.error}",
+                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.rtl,
+                ),
+              );
+            }
+            if (pagedBookStore.pageCount == 0) {
+              return const Center(child: Text("داده‌ای یافت نشد."));
+            }
+            return ReadingCanvasScreen(
+              pagedBookStore: pagedBookStore,
+              audioScripts: pagedBookStore.audioScripts,
+              precomputedAudioLinksIndex: pagedBookStore.audioLinksIndex,
             );
-          }
-          if (pagedBookStore.pageCount == 0) {
-            return const Center(child: Text("داده‌ای یافت نشد."));
-          }
-          return ReadingCanvasScreen(
-            pagedBookStore: pagedBookStore,
-            audioScripts: pagedBookStore.audioScripts,
-            precomputedAudioLinksIndex: pagedBookStore.audioLinksIndex,
-          );
-        },
+          },
+        ),
       ),
     );
   }
