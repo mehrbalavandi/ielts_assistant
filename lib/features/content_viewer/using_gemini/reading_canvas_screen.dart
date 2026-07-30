@@ -1690,6 +1690,11 @@ Widget _buildTable(
 
   final bool isBorderedTable =
       strategy == "horizontalScroll" || rawStyle.contains("borderedtable");
+  // 🐞 برای جعبه‌های کوچکِ تک‌سلولی (مثلِ شماره‌ی تمرین) که باید بوردر
+  // داشته باشند ولی هرگز کش نیایند/اسکرول نگیرند — کاملاً جدا از
+  // isBorderedTable نگه داشته می‌شود تا هیچ‌کدام از رفتارهای مرتبط با
+  // horizontalScroll/tableWidthPercent رویش اثر نگذارد.
+  final bool isCompactTable = rawStyle.contains("compacttable");
   // 🐞 درخواستِ کاربر: جدولِ FigureTable هیچ‌وقت نباید بوردر نشان دهد،
   // حتی اگرچه strategy آن هم "horizontalScroll" است (همان چیزی که
   // isBorderedTable را true می‌کند و در جاهای دیگر — مسیرِ رندرِ Table
@@ -1718,10 +1723,10 @@ Widget _buildTable(
 
   double defaultBorderWidth =
       tableSpan.borderWidth ??
-      ((isBorderedTable && !isFigureTable) ? 1.0 : 0.5);
+      ((isBorderedTable || isCompactTable) && !isFigureTable ? 1.0 : 0.5);
   Color defaultBorderColor =
       _hexToColor(tableSpan.borders?.color) ??
-      ((isBorderedTable && !isFigureTable)
+      (((isBorderedTable || isCompactTable) && !isFigureTable)
           ? Colors.black
           : Colors.grey.shade400);
 
@@ -1730,6 +1735,7 @@ Widget _buildTable(
       !isFigureTable &&
       !isOutsideTable &&
       (isBorderedTable ||
+          isCompactTable ||
           tableSpan.hasBorders == "true" ||
           (borderVal != null &&
               borderVal != "none" &&
@@ -2001,7 +2007,9 @@ Widget _buildTable(
       if (cell.widthPercent != null && cell.widthPercent! > 0) {
         columnWidths[i] = FlexColumnWidth(cell.widthPercent!);
       } else {
-        columnWidths[i] = const FlexColumnWidth(1);
+        columnWidths[i] = isCompactTable
+            ? const IntrinsicColumnWidth()
+            : const FlexColumnWidth(1);
       }
     }
 
@@ -2166,11 +2174,22 @@ Widget _buildTable(
     // می‌بریم.
     const double minReadableColumnWidth = 90.0;
     final double columnHeuristicWidth = maxColumnCount * minReadableColumnWidth;
-    final double neededWidth = columnHeuristicWidth > widestContentWidth
+    final double neededWidth =
+        (!isOutsideTable && columnHeuristicWidth > widestContentWidth)
         ? columnHeuristicWidth
         : widestContentWidth;
+    // 🐞 رفع باگِ «OutsideTable عریض‌تر از سند + فاصله‌ی اضافه در انتهای
+    // ردیفِ آخر»: قبلاً همین فرضِ «هر ستون حداقل ۹۰px» برای OutsideTable
+    // هم اعمال می‌شد — یعنی حتی وقتی محتوای واقعیِ ستون‌ها خیلی باریک‌تر
+    // بود، جدول به‌خاطرِ همین فرض کش می‌آمد (بیشتر از چیزی که واقعاً لازم
+    // داشت)، و چون بوردرِ بیرونی هم با همین عرضِ اجباری کشیده می‌شود، هم
+    // بوردر با سند نمی‌خواند هم انتهای هر ردیف فضای خالیِ اضافه داشت.
+    // برای OutsideTable، فقط بر اساسِ محتوای واقعاً اندازه‌گیری‌شده
+    // (widestContentWidth) عریض می‌کنیم، نه یک فرضِ ثابتِ به‌ازایِ هر ستون.
     final bool manyColumnsNeedRoom =
-        maxColumnCount > 1 && columnHeuristicWidth > canvasWidth;
+        !isOutsideTable &&
+        maxColumnCount > 1 &&
+        columnHeuristicWidth > canvasWidth;
     final bool embeddedImageNeedsRoom = widestContentWidth > canvasWidth;
     if ((manyColumnsNeedRoom || embeddedImageNeedsRoom) &&
         neededWidth > canvasWidth) {
@@ -2199,6 +2218,22 @@ Widget _buildTable(
         ),
       );
     }
+  }
+
+  if (isCompactTable) {
+    // 🐞 برای جعبه‌های کوچکِ تک‌سلولی: IntrinsicWidth تضمین می‌کند که
+    // جدول هیچ‌وقت بیشتر از عرضِ طبیعیِ محتوایش (متن + پدینگ) کش
+    // نیاید، مستقل از این‌که چقدر فضای افقی در دسترس است — دقیقاً
+    // همان چیزی که در سندِ Word هم می‌بینیم.
+    Alignment tableAlign = Alignment.centerLeft;
+    if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
+    if (tableSpan.tableAlignment == "right") {
+      tableAlign = Alignment.centerRight;
+    }
+    return Align(
+      alignment: tableAlign,
+      child: IntrinsicWidth(child: tableContainer),
+    );
   }
 
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
