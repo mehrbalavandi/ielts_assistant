@@ -698,14 +698,14 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ),
 
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            TelegramAudioPlayer(
-              audioScripts: widget.audioScripts,
-              pagedBookStore: widget.pagedBookStore,
-            ),
-
-            Expanded(
+            // 🐞 محتوای کتاب حالا با Positioned.fill کلِ فضا را پر می‌کند —
+            // دقیقاً همان child که قبلاً زیرِ Expanded بود، بدونِ هیچ تغییرِ
+            // دیگری. چون این‌جا داخلِ یک Stack است (نه یک Column که
+            // موقعیتِ فرزندانش به هم وابسته است)، دیگر Column به التِ نوارِ
+            // پلیر برای محاسبه‌ی جا وابسته نیست.
+            Positioned.fill(
               // ── Listener: شمارش انگشتان (قبل از gesture arena) ─────────────
               child: Listener(
                 onPointerDown: (e) {
@@ -865,6 +865,20 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                     ),
                   ),
                 ),
+              ),
+            ),
+            // 🐞 نوارِ کوچکِ پلیرِ صوتی حالا یک overlayِ مستقل است، نه
+            // فرزندِ یک Column کنارِ محتوای اصلی — ظاهر/ناپدیدشدنش (وقتی
+            // فایلی پخش/متوقف می‌شود) دیگر باعثِ جابه‌جاییِ محتوای کتاب
+            // نمی‌شود، چون هیچ فضایی از Stack اشغال نمی‌کند؛ فقط رویِ آن
+            // می‌نشیند.
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: TelegramAudioPlayer(
+                audioScripts: widget.audioScripts,
+                pagedBookStore: widget.pagedBookStore,
               ),
             ),
           ],

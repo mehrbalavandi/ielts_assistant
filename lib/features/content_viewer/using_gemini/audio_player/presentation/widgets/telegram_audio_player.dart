@@ -172,17 +172,17 @@ class TelegramAudioPlayer extends ConsumerWidget {
                 audioState.isPlaying ? notifier.pause() : notifier.resume();
               },
             ),
-            IconButton(
-              icon: const Icon(Icons.description_rounded),
-              tooltip: "مشاهده متن صوتی + کنترل‌های پخش",
-              onPressed: () =>
-                  showCombinedPlayerModal(context, ref, audioScripts),
-            ),
-            IconButton(
-              icon: const Icon(Icons.queue_music_rounded),
-              tooltip: "پلی‌لیستِ کتاب",
-              onPressed: () => showBookAudioPlaylist(context, pagedBookStore),
-            ),
+            // IconButton(
+            //   icon: const Icon(Icons.description_rounded),
+            //   tooltip: "مشاهده متن صوتی + کنترل‌های پخش",
+            //   onPressed: () =>
+            //       showCombinedPlayerModal(context, ref, audioScripts),
+            // ),
+            // IconButton(
+            //   icon: const Icon(Icons.queue_music_rounded),
+            //   tooltip: "پلی‌لیستِ کتاب",
+            //   onPressed: () => showBookAudioPlaylist(context, pagedBookStore),
+            // ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -721,17 +721,12 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
                       final List<InlineSpan> richSpans = [];
                       for (final span in para.spans) {
-                        // 🐞 رفع باگِ «قاطی‌شدنِ هایلایتِ نتیجه‌ی جستجو با
-                        // هایلایتِ در‌حال‌پخش»: قبلاً isActiveWord فقط به
-                        // موقعیتِ پخش نگاه می‌کرد — یعنی وقتی از یک نتیجه‌ی
-                        // جستجو seek می‌کردیم (autoPlay:false)، همان کلمه
-                        // دقیقاً همان هایلایتِ نارنجیِ «الان در حالِ پخش» را
-                        // می‌گرفت، با این‌که چیزی در حالِ پخش نبود. حالا
-                        // isActiveWord علاوه‌بر موقعیت، isPlaying را هم
-                        // چک می‌کند.
+                        // 🐞 هایلایتِ موقعیتِ فعلی: حالا مستقل از isPlaying
+                        // همیشه نشان داده می‌شود — کاربر باید هر لحظه (چه
+                        // در حالِ پخش چه مکث‌کرده) بداند دقیقاً رویِ کدام
+                        // کلمه است.
                         final bool isActiveWord =
                             paraIsActive &&
-                            audioState.isPlaying &&
                             span.startMs != null &&
                             span.endMs != null &&
                             currentPosMs >= span.startMs! &&
@@ -739,10 +734,12 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
                         // 🐞 کلمه‌ای که از رویِ یک نتیجه‌ی جستجو به آن
                         // رسیده‌ایم — هایلایتِ کاملاً متفاوتی می‌گیرد
-                        // (searchMatch، نه accent) تا با «در حالِ پخش»
-                        // قاطی نشود. اگر همان کلمه‌ی جستجوشده چندبار در
+                        // (searchMatch، نه accent) تا با هایلایتِ موقعیتِ
+                        // فعلی قاطی نشود. اگر همان کلمه‌ی جستجوشده چندبار در
                         // همین تراک آمده باشد، همه‌شان (نه فقط همانی که
-                        // رویش پرش کرده‌ایم) هایلایت می‌شوند.
+                        // رویش پرش کرده‌ایم) هایلایت می‌شوند. وقتی موقعیتِ
+                        // فعلی دقیقاً رویِ یک نتیجه‌ی جستجو باشد، هایلایتِ
+                        // موقعیت اولویت دارد (پاسخِ «الان کجام؟» مهم‌تر است).
                         final bool isSearchMatch =
                             !isActiveWord &&
                             widget.searchMatchTimestamps != null &&
@@ -805,9 +802,14 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                           styledBase.copyWith(
                             color: onHighlight ?? styledBase.color,
                             backgroundColor: highlightBg,
-                            fontWeight: (isActiveWord || isSearchMatch)
-                                ? FontWeight.bold
-                                : styledBase.fontWeight,
+                            // 🐞 قبلاً هایلایت‌شدن باعثِ bold هم می‌شد —
+                            // چون حروفِ بولد پهن‌ترند، با حرکتِ هایلایت از
+                            // کلمه‌ای به کلمه‌ی بعدی، طولِ خطوط پیوسته کم و
+                            // زیاد می‌شد (آزاردهنده). حالا وزنِ فونت همیشه
+                            // همان مقدارِ اصلیِ کلمه می‌ماند؛ فقط رنگِ
+                            // پس‌زمینه هایلایت را نشان می‌دهد، بدونِ تأثیر
+                            // روی چیدمانِ متن.
+                            fontWeight: styledBase.fontWeight,
                             decoration: styledBase.decoration,
                             decorationColor: onHighlight ?? styledBase.color,
                           ),

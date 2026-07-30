@@ -53,6 +53,7 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
   Widget build(BuildContext context) {
     final activeBook = ref.watch(activeBookProvider);
     final searchSession = ref.watch(activeSearchProvider);
+    final audioState = ref.watch(audioPlayerProvider);
 
     if (activeBook == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -62,15 +63,19 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
     final pagedBookStore = _pagedBookStore!;
 
     // 🐞 وقتی در حالتِ جستجو هستیم (نوارِ قبلی/بعدیِ جستجو نمایش داده
-    // می‌شود)، دکمه‌ی بازِ گوشی باید اول از حالتِ جستجو خارج کند، نه این‌که
-    // مستقیم کلِ صفحه را pop کند و کاربر را به library_screen ببرد.
+    // می‌شود) یا نوارِ کوچکِ پلیرِ صوتی بالای صفحه نمایان است، دکمه‌ی بازِ
+    // گوشی باید اول از همان حالت خارج شود، نه این‌که مستقیم کلِ صفحه را
+    // pop کند و کاربر را به library_screen ببرد. اگر هر دو هم‌زمان فعال
+    // باشند، اول جستجو بسته می‌شود (چون معمولاً کاری است که همین الان
+    // رویش تمرکز دارید)، و با بارِ بعدیِ دکمه‌ی برگشت، پلیر بسته می‌شود.
     return PopScope(
-      canPop: searchSession == null,
+      canPop: searchSession == null && audioState.currentPath == null,
       onPopInvokedWithResult: (didPop, result) {
-        //onPopInvokedWithPop
         if (didPop) return;
         if (searchSession != null) {
           ref.read(activeSearchProvider.notifier).state = null;
+        } else if (audioState.currentPath != null) {
+          ref.read(audioPlayerProvider.notifier).stopAndClear();
         }
       },
       child: Scaffold(
