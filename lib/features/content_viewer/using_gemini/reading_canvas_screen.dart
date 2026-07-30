@@ -1722,7 +1722,7 @@ Widget _buildTable(
   final bool applyColumnStack = isColumnStack && !isLargeScreen;
 
   double defaultBorderWidth =
-      tableSpan.borderWidth ??
+      tableSpan.borders?.width ??
       ((isBorderedTable || isCompactTable) && !isFigureTable ? 1.0 : 0.5);
   Color defaultBorderColor =
       _hexToColor(tableSpan.borders?.color) ??
@@ -1801,13 +1801,23 @@ Widget _buildTable(
 
   double maxEmbeddedImageWidth = 0;
   double maxParagraphNaturalWidth = 0;
+  // 🐞 برای جدول‌های چندستونی (مثلاً یک جدولِ واژگان با ۵-۶ ستونِ کوتاه
+  // کنارِ هم)، «پهن‌ترین یک سلولِ کلِ جدول» معیارِ درستی برای «عرضِ لازم»
+  // نیست — چون همه‌ی ستون‌ها کنارِ هم قرار می‌گیرند، عرضِ واقعاً لازم
+  // نزدیک به مجموعِ پهن‌ترینِ هر ستون است، نه فقط پهن‌ترینِ یک سلول در
+  // کلِ جدول. این Map پهن‌ترین محتوای هر ستون (بر اساسِ اندیسِ سلول در
+  // هر ردیف) را جدا نگه می‌دارد.
+  final Map<int, double> perColumnWidestContent = {};
   for (final row in tableSpan.tableRows) {
-    for (final cell in row.cells) {
+    for (int ci = 0; ci < row.cells.length; ci++) {
+      final cell = row.cells[ci];
+      double thisColumnWidth = 0;
       for (final p in cell.paragraphs) {
         final paraWidth = measureParagraphNaturalWidth(p);
         if (paraWidth > maxParagraphNaturalWidth) {
           maxParagraphNaturalWidth = paraWidth;
         }
+        if (paraWidth > thisColumnWidth) thisColumnWidth = paraWidth;
         for (final s in p.spans) {
           if (s.type == "image" &&
               s.imageWidth != null &&
@@ -1816,8 +1826,14 @@ Widget _buildTable(
           }
         }
       }
+      if (thisColumnWidth > (perColumnWidestContent[ci] ?? 0)) {
+        perColumnWidestContent[ci] = thisColumnWidth;
+      }
     }
   }
+  final double sumOfColumnWidestContent =
+      perColumnWidestContent.values.fold(0.0, (a, b) => a + b) +
+      (perColumnWidestContent.length * 24);
   final double widestContentWidth =
       (maxParagraphNaturalWidth > 0 ? maxParagraphNaturalWidth + 24 : 0) >
           maxEmbeddedImageWidth
@@ -2174,23 +2190,37 @@ Widget _buildTable(
     // می‌بریم.
     const double minReadableColumnWidth = 90.0;
     final double columnHeuristicWidth = maxColumnCount * minReadableColumnWidth;
-    final double neededWidth =
-        (!isOutsideTable && columnHeuristicWidth > widestContentWidth)
-        ? columnHeuristicWidth
+    // 🐞 برای OutsideTable، «پهن‌ترین یک سلول» (widestContentWidth) کافی
+    // نیست — یک جدولِ واژگانِ چندستونی (مثلِ جدولِ کلماتِ این تمرین) عرضِ
+    // واقعی‌اش نزدیک به مجموعِ پهن‌ترینِ هر ستون است، چون همه‌ی ستون‌ها
+    // کنارِ هم قرار می‌گیرند. sumOfColumnWidestContent همین را می‌دهد؛
+    // هرکدام از این دو معیار (تکی یا مجموع) بیشتر بود همان استفاده
+    // می‌شود.
+    final double outsideTableContentWidth =
+        sumOfColumnWidestContent > widestContentWidth
+        ? sumOfColumnWidestContent
         : widestContentWidth;
+    final double neededWidth = isOutsideTable
+        ? outsideTableContentWidth
+        : (columnHeuristicWidth > widestContentWidth
+              ? columnHeuristicWidth
+              : widestContentWidth);
     // 🐞 رفع باگِ «OutsideTable عریض‌تر از سند + فاصله‌ی اضافه در انتهای
     // ردیفِ آخر»: قبلاً همین فرضِ «هر ستون حداقل ۹۰px» برای OutsideTable
     // هم اعمال می‌شد — یعنی حتی وقتی محتوای واقعیِ ستون‌ها خیلی باریک‌تر
     // بود، جدول به‌خاطرِ همین فرض کش می‌آمد (بیشتر از چیزی که واقعاً لازم
     // داشت)، و چون بوردرِ بیرونی هم با همین عرضِ اجباری کشیده می‌شود، هم
     // بوردر با سند نمی‌خواند هم انتهای هر ردیف فضای خالیِ اضافه داشت.
-    // برای OutsideTable، فقط بر اساسِ محتوای واقعاً اندازه‌گیری‌شده
-    // (widestContentWidth) عریض می‌کنیم، نه یک فرضِ ثابتِ به‌ازایِ هر ستون.
+    // برای OutsideTable، فقط بر اساسِ محتوایِ واقعاً اندازه‌گیری‌شده
+    // (outsideTableContentWidth، نه یک فرضِ ثابتِ به‌ازایِ هر ستون) عریض
+    // می‌شود.
     final bool manyColumnsNeedRoom =
         !isOutsideTable &&
         maxColumnCount > 1 &&
         columnHeuristicWidth > canvasWidth;
-    final bool embeddedImageNeedsRoom = widestContentWidth > canvasWidth;
+    final bool embeddedImageNeedsRoom = isOutsideTable
+        ? outsideTableContentWidth > canvasWidth
+        : widestContentWidth > canvasWidth;
     if ((manyColumnsNeedRoom || embeddedImageNeedsRoom) &&
         neededWidth > canvasWidth) {
       final double renderWidth = neededWidth.clamp(
