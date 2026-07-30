@@ -480,6 +480,13 @@ class SpanData {
   responsiveStrategy; // "horizontalScroll" | "collapseToCards" | "stack"
   final String? layoutDirection;
   final String? layoutReflow;
+  // 🐞 مدلِ صریح و توسعه‌پذیرِ نمایشِ جدول — طرفِ سی‌شارپِ همین فیلدها
+  // (Responsivelowering.cs). اگر خالی/null باشند یعنی این کتاب هنوز با
+  // ابزارِ جدید استخراج نشده؛ رندرِ جدول به رفتارِ قدیمیِ مبتنی‌بر نامِ
+  // استایل رجوع می‌کند.
+  final String?
+  borderMode; // "all" | "outer" | "inner" | "none" | "firstRowOuter"
+  final String? widthMode; // "content" | "equal" | "proportional" | "fill"
   // 🐞 برای هایلایتِ همگام‌سازی‌شده در سطحِ اسپن (کلمه‌به‌کلمه یا هر
   // دانه‌بندیِ دیگری که در سندِ Word با مارکرهای [میلی‌ثانیه] بین کلمات
   // مشخص شده باشد) — از AudioScripts (نه محتوای معمولیِ صفحات) می‌آید.
@@ -508,6 +515,8 @@ class SpanData {
     this.responsiveStrategy,
     this.layoutDirection,
     this.layoutReflow,
+    this.borderMode,
+    this.widthMode,
     this.startMs,
     this.endMs,
   });
@@ -539,6 +548,8 @@ class SpanData {
       responsiveStrategy: json['ResponsiveStrategy'],
       layoutDirection: json['LayoutDirection'],
       layoutReflow: json['LayoutReflow'],
+      borderMode: json['BorderMode'],
+      widthMode: json['WidthMode'],
       startMs: json['StartMs'] as int?,
       endMs: json['EndMs'] as int?,
     );
@@ -570,6 +581,8 @@ class SpanData {
       responsiveStrategy: responsiveStrategy,
       layoutDirection: layoutDirection,
       layoutReflow: layoutReflow,
+      borderMode: borderMode,
+      widthMode: widthMode,
       startMs: startMs,
       endMs: endMs,
     );

@@ -1742,6 +1742,23 @@ Widget _buildTable(
               borderVal != "nil" &&
               borderVal != "dotted"));
 
+  // 🐞 مدلِ صریحِ جدید: اول از فیلدهای BorderMode/WidthMode (که سی‌شارپ
+  // برایِ کتاب‌هایِ تازه‌استخراج‌شده ست می‌کند) استفاده می‌شود؛ اگر خالی
+  // بودند (کتابِ قدیمی)، از همان پرچم‌های قبلیِ مبتنی‌بر نامِ استایل
+  // (بالا) نتیجه‌گیری می‌شود — یعنی هیچ کتابِ قدیمی‌ای رفتارش عوض نمی‌شود.
+  final String resolvedBorderMode =
+      tableSpan.borderMode ??
+      (isOutsideTable
+          ? "outer"
+          : (hideBorders ? "none" : (showBorders ? "all" : "none")));
+  final String resolvedWidthMode =
+      tableSpan.widthMode ??
+      (isCompactTable
+          ? "content"
+          : (isOutsideTable
+                ? "proportional"
+                : ((isBorderedTable && !isFigureTable) ? "fill" : "equal")));
+
   TableCellVerticalAlignment getVAlign(String? vAlign) {
     if (vAlign == "center") return TableCellVerticalAlignment.middle;
     if (vAlign == "bottom") return TableCellVerticalAlignment.bottom;
@@ -2023,9 +2040,37 @@ Widget _buildTable(
       if (cell.widthPercent != null && cell.widthPercent! > 0) {
         columnWidths[i] = FlexColumnWidth(cell.widthPercent!);
       } else {
-        columnWidths[i] = isCompactTable
-            ? const IntrinsicColumnWidth()
-            : const FlexColumnWidth(1);
+        // 🐞 اندازه‌گیریِ واقعیِ عرضِ محتوایِ همین ستون (نه یک پرچمِ Intrinsic
+        // شکننده) — perColumnWidestContent همان چیزی است که بالاترِ همین
+        // تابع، برایِ محاسبه‌ی عرضِ لازمِ OutsideTable هم استفاده شد؛
+        // این‌جا دوباره اندازه‌گیری نمی‌کنیم، همان مقدار را می‌خوانیم.
+        final double measuredColumnWidth =
+            (perColumnWidestContent[i] ?? 0) + 24;
+        switch (resolvedWidthMode) {
+          case "content":
+            // 🐞 IntrinsicColumnWidth قبلاً باعثِ جمع‌شدنِ کاملِ جدول به
+            // نزدیکِ صفر می‌شد (احتمالاً چون یکی از ویجت‌های داخلِ سلول
+            // عرضِ intrinsic را درست گزارش نمی‌دهد) — با این‌که خودِ متن
+            // هنوز با اندازه‌ی طبیعی‌اش رندر می‌شد، یعنی از جعبه‌ی
+            // جمع‌شده بیرون می‌زد. FixedColumnWidth با یک عددِ دقیق و
+            // اندازه‌گیری‌شده، این مشکل را کاملاً کنار می‌گذارد.
+            columnWidths[i] = FixedColumnWidth(
+              measuredColumnWidth > 0 ? measuredColumnWidth : 24,
+            );
+            break;
+          case "proportional":
+            // 🐞 FlexColumnWidth یک وزن است، نه لزوماً بینِ ۰ و ۱ — با
+            // پاس‌دادنِ همان عددِ اندازه‌گیری‌شده به‌عنوانِ وزن، ستونی که
+            // محتوایش پهن‌تر است سهمِ بیشتری از عرضِ دردسترس می‌گیرد،
+            // به‌جای تقسیمِ کورکورانه‌ی مساوی (که باعثِ له‌شدنِ متنِ
+            // ستون‌های پهن‌تر می‌شد، حتی وقتی عرضِ کلی کافی بود).
+            columnWidths[i] = FlexColumnWidth(
+              measuredColumnWidth > 0 ? measuredColumnWidth : 1,
+            );
+            break;
+          default:
+            columnWidths[i] = const FlexColumnWidth(1);
+        }
       }
     }
 
@@ -2069,19 +2114,56 @@ Widget _buildTable(
           width: currentInsideVWidth,
         );
 
+        // 🐞 بوردرِ هر ردیف حالا بر اساسِ resolvedBorderMode تصمیم‌گیری
+        // می‌شود، نه فقط یک روشن/خاموشِ ساده (showBorders). "outer" هنوز
+        // با همان مکانیزمِ قبلی (پایین‌تر، بعدِ ساختِ کاملِ جدول، یک
+        // Border.all دورِ کل کشیده می‌شود) کار می‌کند — این‌جا برایش هیچ
+        // بوردرِ per-row رسم نمی‌شود. "inner"/"firstRowOuter" مستقیماً
+        // این‌جا محاسبه می‌شوند.
+        final bool isLastRow = rowIndex == tableSpan.tableRows.length - 1;
+        TableBorder resolvedTableBorder;
+        switch (resolvedBorderMode) {
+          case "all":
+            resolvedTableBorder = TableBorder(
+              // 🌟 خط بالایی کل جدول فقط و فقط توسط ردیف اول رسم می‌شود
+              top: rowIndex == 0 ? topSide : BorderSide.none,
+              bottom: bottomSide,
+              left: leftSide,
+              right: rightSide,
+              verticalInside: insideVSide,
+            );
+            break;
+          case "inner":
+            // 🐞 فقط خطوطِ داخلی: بینِ ستون‌ها (هر ردیف) و بینِ ردیف‌ها —
+            // بجز زیرِ آخرین ردیف، که آن مرزِ بیرونی است، نه داخلی؛ و بدونِ
+            // top/left/right (که همیشه مرزِ بیرونی‌اند).
+            resolvedTableBorder = TableBorder(
+              bottom: isLastRow ? BorderSide.none : bottomSide,
+              verticalInside: insideVSide,
+            );
+            break;
+          case "firstRowOuter":
+            // 🐞 بوردرِ دورِ کلِ جدول + یک خط زیرِ ردیفِ اول (جداکننده‌ی
+            // سرستون از بدنه)، بدونِ خطوطِ داخلیِ دیگر.
+            resolvedTableBorder = TableBorder(
+              top: rowIndex == 0 ? topSide : BorderSide.none,
+              bottom: (rowIndex == 0 || isLastRow)
+                  ? bottomSide
+                  : BorderSide.none,
+              left: leftSide,
+              right: rightSide,
+            );
+            break;
+          case "outer":
+          case "none":
+          default:
+            resolvedTableBorder = const TableBorder.symmetric();
+        }
+
         rowWidgets.add(
           Table(
             columnWidths: columnWidths,
-            border: showBorders
-                ? TableBorder(
-                    // 🌟 خط بالایی کل جدول فقط و فقط توسط ردیف اول رسم می‌شود
-                    top: rowIndex == 0 ? topSide : BorderSide.none,
-                    bottom: bottomSide,
-                    left: leftSide,
-                    right: rightSide,
-                    verticalInside: insideVSide,
-                  )
-                : const TableBorder.symmetric(),
+            border: resolvedTableBorder,
             children: [TableRow(children: tableCellWidgets)],
           ),
         );
@@ -2151,7 +2233,7 @@ Widget _buildTable(
   // ردیف‌ها را در بر دارد) یک Border.all می‌کشیم — یعنی فقط بوردرِ بیرونی،
   // بدونِ خطوطِ داخلی. این wrap قبل از منطقِ اسکرولِ افقیِ زیر انجام می‌شود
   // تا بوردر با محتوا اسکرول شود (فقط در ابتدا/انتهای واقعیِ جدول دیده شود).
-  if (isOutsideTable && !hideBorders) {
+  if (resolvedBorderMode == "outer" && !hideBorders) {
     tableContainer = Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -2250,20 +2332,19 @@ Widget _buildTable(
     }
   }
 
-  if (isCompactTable) {
-    // 🐞 برای جعبه‌های کوچکِ تک‌سلولی: IntrinsicWidth تضمین می‌کند که
-    // جدول هیچ‌وقت بیشتر از عرضِ طبیعیِ محتوایش (متن + پدینگ) کش
-    // نیاید، مستقل از این‌که چقدر فضای افقی در دسترس است — دقیقاً
-    // همان چیزی که در سندِ Word هم می‌بینیم.
+  if (resolvedWidthMode == "content") {
+    // 🐞 چون ستون‌ها با FixedColumnWidth (یک عددِ دقیقِ اندازه‌گیری‌شده)
+    // ساخته شده‌اند، خودِ Table از قبل عرضِ مشخص و بدونِ‌کش‌آمدن دارد —
+    // دیگر نیازی به IntrinsicWidth نیست (که ظاهراً باعثِ جمع‌شدنِ کاملِ
+    // جدول به نزدیکِ صفر می‌شد، چون این ویجت نیاز دارد همه‌ی فرزندانش
+    // عرضِ intrinsic را درست گزارش بدهند، که یکی از ویجت‌های داخلِ سلول
+    // ظاهراً نمی‌داد).
     Alignment tableAlign = Alignment.centerLeft;
     if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
     if (tableSpan.tableAlignment == "right") {
       tableAlign = Alignment.centerRight;
     }
-    return Align(
-      alignment: tableAlign,
-      child: IntrinsicWidth(child: tableContainer),
-    );
+    return Align(alignment: tableAlign, child: tableContainer);
   }
 
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
