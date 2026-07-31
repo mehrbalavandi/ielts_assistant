@@ -1759,6 +1759,88 @@ Widget _buildTable(
                 ? "proportional"
                 : ((isBorderedTable && !isFigureTable) ? "fill" : "equal")));
 
+  // 🐞 بازنویسیِ کامل: به‌جای این‌که ماشین‌آلاتِ کاملِ Table/TableRow/
+  // TableCell/columnWidths را مجبور کنیم مثلِ یک جعبهٔ ساده‌ی بوردردار
+  // رفتار کند (که در چند تلاشِ قبلی، هربار به یک شکلِ جدید خراب می‌شد —
+  // جمع‌شدنِ کامل، کش‌آمدنِ کاملِ عرضِ صفحه، ...)، برایِ WidthMode="content"
+  // اصلاً وارد آن مسیر نمی‌شویم. چنین جدولی طبقِ تعریف همیشه تک‌سلولی
+  // است (برایِ نشان‌هایِ کوچک مثلِ شماره‌ی تمرین) — پس مستقیم محتوایِ همان
+  // یک سلول را (با همان _buildParagraph که سلول‌هایِ عادی هم استفاده
+  // می‌کنند) در یک Containerِ بوردردار می‌گذاریم؛ این Container خودش،
+  // دقیقاً مثلِ یک پاراگرافِ معمولیِ بوردردار (بدونِ هیچ جدولی)، طبیعتاً به
+  // اندازه‌ی محتوایش می‌ماند — همان رفتاری که تمرینِ ۰۲ (بدونِ جدول، فقط
+  // بوردرِ مستقیم رویِ پاراگراف) از اول درست داشت.
+  if (resolvedWidthMode == "content") {
+    final singleCell =
+        tableSpan.tableRows.isNotEmpty &&
+            tableSpan.tableRows.first.cells.isNotEmpty
+        ? tableSpan.tableRows.first.cells.first
+        : null;
+    if (singleCell == null) return const SizedBox.shrink();
+
+    final List<Widget> contentParagraphs = [];
+    for (int pIndex = 0; pIndex < singleCell.paragraphs.length; pIndex++) {
+      contentParagraphs.add(
+        _buildParagraph(
+          singleCell.paragraphs[pIndex],
+          canvasWidth,
+          screenWidth,
+          context,
+          isInsideTableCell: true,
+          prevPara: pIndex > 0 ? singleCell.paragraphs[pIndex - 1] : null,
+          nextPara: pIndex < singleCell.paragraphs.length - 1
+              ? singleCell.paragraphs[pIndex + 1]
+              : null,
+          rootHighlightMap: rootMap,
+          mapOffset: mapOffset,
+          activeOccurrence: activeOcc,
+          activeBook: activeBook,
+          pageInteractives: pageInteractives,
+          exactMatchKey: exactMatchKey,
+          interactivesPattern: interactivesPattern,
+          interactivesByText: interactivesByText,
+          pageAudioPlaylist: pageAudioPlaylist,
+          audioFirstOccurrence: audioFirstOccurrence,
+          audioPageNumber: audioPageNumber,
+          audioParaIndex: audioParaIndex,
+          keyClaim: keyClaim,
+        ),
+      );
+    }
+
+    Alignment tableAlign = Alignment.centerLeft;
+    if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
+    if (tableSpan.tableAlignment == "right") {
+      tableAlign = Alignment.centerRight;
+    }
+
+    return Align(
+      alignment: tableAlign,
+      child: Container(
+        padding: EdgeInsets.only(
+          top: singleCell.paddingTop ?? 4.0,
+          bottom: singleCell.paddingBottom ?? 4.0,
+          left: singleCell.paddingLeft ?? 8.0,
+          right: singleCell.paddingRight ?? 8.0,
+        ),
+        decoration: BoxDecoration(
+          color: _hexToColor(singleCell.fillColor),
+          border: (resolvedBorderMode == "none")
+              ? null
+              : Border.all(
+                  color: defaultBorderColor,
+                  width: defaultBorderWidth,
+                ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: contentParagraphs,
+        ),
+      ),
+    );
+  }
+
   TableCellVerticalAlignment getVAlign(String? vAlign) {
     if (vAlign == "center") return TableCellVerticalAlignment.middle;
     if (vAlign == "bottom") return TableCellVerticalAlignment.bottom;
@@ -2330,21 +2412,6 @@ Widget _buildTable(
         ),
       );
     }
-  }
-
-  if (resolvedWidthMode == "content") {
-    // 🐞 چون ستون‌ها با FixedColumnWidth (یک عددِ دقیقِ اندازه‌گیری‌شده)
-    // ساخته شده‌اند، خودِ Table از قبل عرضِ مشخص و بدونِ‌کش‌آمدن دارد —
-    // دیگر نیازی به IntrinsicWidth نیست (که ظاهراً باعثِ جمع‌شدنِ کاملِ
-    // جدول به نزدیکِ صفر می‌شد، چون این ویجت نیاز دارد همه‌ی فرزندانش
-    // عرضِ intrinsic را درست گزارش بدهند، که یکی از ویجت‌های داخلِ سلول
-    // ظاهراً نمی‌داد).
-    Alignment tableAlign = Alignment.centerLeft;
-    if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
-    if (tableSpan.tableAlignment == "right") {
-      tableAlign = Alignment.centerRight;
-    }
-    return Align(alignment: tableAlign, child: tableContainer);
   }
 
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
