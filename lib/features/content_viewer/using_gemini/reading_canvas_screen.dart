@@ -1824,7 +1824,17 @@ Widget _buildTable(
       tableAlign = Alignment.centerRight;
     }
 
-    return Align(
+    // 🐞 UnconstrainedBox (تلاشِ قبلی) در عمل باعثِ خطای واقعیِ overflow
+    // شد (RenderConstraintsTransformBox overflowed) — یعنی در حداقل یک
+    // موقعیتِ واقعی، عرضِ واقعاً دردسترسِ آن سلول از چیزی که «۰۱» لازم
+    // دارد کمتر است، و اصرار بر اندازه‌ی طبیعی فقط یک خطای رندر تولید
+    // می‌کند، نه یک ظاهرِ قابلِ‌قبول. FittedBox با BoxFit.scaleDown راهِ
+    // امنِ فلاتر برایِ همین سناریوست: هروقت جا کافی بود (حالتِ رایج،
+    // منطبق با سند)، دقیقاً با اندازه‌ی طبیعی رندر می‌شود؛ فقط وقتی
+    // واقعاً جا نیست، کلِ جعبه (با بوردرش، متناسب) کمی کوچک می‌شود —
+    // هیچ‌وقت overflow نمی‌دهد و هیچ‌وقت هم بدونِ بوردر رها نمی‌شود.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
       alignment: tableAlign,
       child: Container(
         padding: EdgeInsets.only(
@@ -1842,16 +1852,9 @@ Widget _buildTable(
                   width: defaultBorderWidth,
                 ),
         ),
-        // 🐞 حتی با این مسیرِ سبک‌تر، اگر سلولِ والد (DottedTable) در
-        // یک عرضِ میانی این سلول را کمی تنگ کند، Text.rich به‌طورِ
-        // پیش‌فرض ممکن است متن را wrap کند. softWrap:false این را کلاً
-        // خاموش می‌کند؛ اگر واقعاً جا نبود، به‌جایِ شکستنِ خط، به‌آرامی از
-        // مرزِ جعبه بیرون می‌زند (overflow:visible) — که برایِ یک نشانِ
-        // کوچک، خیلی بهتر از دونیم‌شدنِ عددی مثلِ «۰۱» است.
         child: Text.rich(
           TextSpan(children: richSpans),
           softWrap: false,
-          overflow: TextOverflow.visible,
           textAlign:
               (tableSpan.tableAlignment == "center" ||
                   tableSpan.tableAlignment == "right")
