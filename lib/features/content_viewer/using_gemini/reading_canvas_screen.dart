@@ -1778,35 +1778,45 @@ Widget _buildTable(
         : null;
     if (singleCell == null) return const SizedBox.shrink();
 
-    final List<Widget> contentParagraphs = [];
-    for (int pIndex = 0; pIndex < singleCell.paragraphs.length; pIndex++) {
-      contentParagraphs.add(
-        _buildParagraph(
-          singleCell.paragraphs[pIndex],
-          canvasWidth,
-          screenWidth,
-          context,
-          isInsideTableCell: true,
-          prevPara: pIndex > 0 ? singleCell.paragraphs[pIndex - 1] : null,
-          nextPara: pIndex < singleCell.paragraphs.length - 1
-              ? singleCell.paragraphs[pIndex + 1]
-              : null,
-          rootHighlightMap: rootMap,
-          mapOffset: mapOffset,
-          activeOccurrence: activeOcc,
-          activeBook: activeBook,
-          pageInteractives: pageInteractives,
-          exactMatchKey: exactMatchKey,
-          interactivesPattern: interactivesPattern,
-          interactivesByText: interactivesByText,
-          pageAudioPlaylist: pageAudioPlaylist,
-          audioFirstOccurrence: audioFirstOccurrence,
-          audioPageNumber: audioPageNumber,
-          audioParaIndex: audioParaIndex,
-          keyClaim: keyClaim,
-        ),
-      );
+    // 🐞 پیدا شد: _buildParagraph متن را داخلِ WrappableText (از پکیجِ
+    // float_column، برایِ پاراگراف‌هایِ عادیِ عریض که ممکن است دورِ عکس
+    // بپیچند) می‌گذارد — این ویجت برایِ محاسبه‌ی چیدمانِ wrap/float به
+    // عرضِ دردسترس حساس است، مستقل از این‌که متنِ داخلش چقدر کوتاه
+    // است. برایِ این موردِ ساده (متنِ تک‌خطیِ یک نشان)، کاملاً از
+    // _buildParagraph/WrappableText صرف‌نظر می‌شود؛ مستقیم با همان
+    // توابعِ سطحِ‌پایینِ TextRenderEngine که ویوئرِ ترانسکریپتِ صوتی هم
+    // موفق استفاده می‌کند، رندر می‌شود.
+    final List<InlineSpan> richSpans = [];
+    for (final para in singleCell.paragraphs) {
+      for (final span in para.spans) {
+        if (span.type != "text") continue;
+        final TextStyle baseStyle = TextRenderEngine.applySpanStyle(
+          const TextStyle(color: Colors.black87, fontSize: 14, height: 1.3),
+          span,
+          false, // isDarkTheme
+        );
+        String? fontFamily;
+        double? fontSize;
+        for (final marker in span.markers) {
+          if (marker.startsWith("fn:")) {
+            fontFamily = mapFontFamily(marker.substring(3));
+          } else if (marker.startsWith("sz:")) {
+            final parsed = double.tryParse(marker.substring(3));
+            if (parsed != null) fontSize = parsed / 2;
+          }
+        }
+        richSpans.add(
+          TextSpan(
+            text: span.content,
+            style: baseStyle.copyWith(
+              fontFamily: fontFamily,
+              fontSize: fontSize,
+            ),
+          ),
+        );
+      }
     }
+    if (richSpans.isEmpty) return const SizedBox.shrink();
 
     Alignment tableAlign = Alignment.centerLeft;
     if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
@@ -1832,10 +1842,21 @@ Widget _buildTable(
                   width: defaultBorderWidth,
                 ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: contentParagraphs,
+        // 🐞 حتی با این مسیرِ سبک‌تر، اگر سلولِ والد (DottedTable) در
+        // یک عرضِ میانی این سلول را کمی تنگ کند، Text.rich به‌طورِ
+        // پیش‌فرض ممکن است متن را wrap کند. softWrap:false این را کلاً
+        // خاموش می‌کند؛ اگر واقعاً جا نبود، به‌جایِ شکستنِ خط، به‌آرامی از
+        // مرزِ جعبه بیرون می‌زند (overflow:visible) — که برایِ یک نشانِ
+        // کوچک، خیلی بهتر از دونیم‌شدنِ عددی مثلِ «۰۱» است.
+        child: Text.rich(
+          TextSpan(children: richSpans),
+          softWrap: false,
+          overflow: TextOverflow.visible,
+          textAlign:
+              (tableSpan.tableAlignment == "center" ||
+                  tableSpan.tableAlignment == "right")
+              ? TextAlign.center
+              : TextAlign.left,
         ),
       ),
     );
@@ -2361,9 +2382,16 @@ Widget _buildTable(
     // هرکدام از این دو معیار (تکی یا مجموع) بیشتر بود همان استفاده
     // می‌شود.
     final double outsideTableContentWidth =
-        sumOfColumnWidestContent > widestContentWidth
-        ? sumOfColumnWidestContent
-        : widestContentWidth;
+        (sumOfColumnWidestContent > widestContentWidth
+            ? sumOfColumnWidestContent
+            : widestContentWidth) *
+        1.08;
+    // 🐞 ضریبِ ۱.۰۸: اندازه‌گیریِ TextPainter هیچ‌وقت دقیقاً برابرِ عرضِ
+    // واقعیِ رندرشده در سلول نیست (رُندکردنِ فاصله‌گذاریِ حروف/کلمات و
+    // این‌جور جزئیات) — بدونِ این حاشیه‌ی امن، در برخی عرض‌هایِ صفحه
+    // (نه همه)، محاسبه‌ی «کافی است» درست از آب درمی‌آمد ولی رندرِ واقعی
+    // چند پیکسل بیشتر لازم داشت، و ستون‌ها به‌جایِ گرفتنِ اسکرولِ افقی
+    // (که کاربر می‌خواهد)، له/wrap می‌شدند.
     final double neededWidth = isOutsideTable
         ? outsideTableContentWidth
         : (columnHeuristicWidth > widestContentWidth
