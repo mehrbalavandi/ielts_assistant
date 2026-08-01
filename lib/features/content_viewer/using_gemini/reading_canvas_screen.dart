@@ -2447,14 +2447,13 @@ Widget _buildTable(
         child: SingleChildScrollView(
           controller: hCtrl,
           scrollDirection: Axis.horizontal,
-          // 🐞 رفع باگِ «نوارِ اسکرول داخلِ جدول افتاده»: بدونِ این فاصله،
-          // نوارِ اسکرولِ افقی درست روی لبه‌ی پایینیِ بوردرِ جدول لَم
-          // می‌دهد و به‌نظر می‌رسد داخلِ خودِ جدول جا گرفته. این ۱۴px
-          // فاصله‌ی پایین، جدول و نوارِ اسکرول را از هم جدا نگه می‌دارد.
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 14.0),
-            child: SizedBox(width: renderWidth, child: tableContainer),
-          ),
+          // 🐞 این‌جا قبلاً یک Padding(bottom: 14) بود تا نوارِ اسکرول روی
+          // لبه‌ی پایینیِ بوردرِ جدول لَم ندهد. ولی بعد از فیکسِ قبلی (که
+          // marginِ ۱۴پیکسلیِ جدول را از داخلِ بوردر به بیرونش منتقل کرد)،
+          // همان margin — که خودش داخلِ همین ناحیه‌ی اسکرول است — دقیقاً
+          // همین جدایی را فراهم می‌کند. پس این Padding تکراری شده بود و
+          // ۱۴+۱۴=۲۸ پیکسل فاصله می‌ساخت؛ حذف شد تا فقط همان ۱۴ بماند.
+          child: SizedBox(width: renderWidth, child: tableContainer),
         ),
       );
     }
