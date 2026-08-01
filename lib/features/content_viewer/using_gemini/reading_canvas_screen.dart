@@ -1727,8 +1727,38 @@ Widget _buildTable(
       borderVal == "dotted" ||
       rawStyle.contains("dottedtable");
 
+  // 🐞 درخواستِ کاربر: بوردرهای «پیوسته» باید دیده شوند. قبلاً بعضی
+  // استایل‌ها (ColumnStackTable و TableGrid) بی‌قید‌و‌شرط بوردرشان مخفی
+  // می‌شد، حتی وقتی خودِ سندِ Word یک بوردرِ واقعیِ single/double با عرض و
+  // رنگِ مشخص تعیین کرده بود (مثلِ جدولِ صفحه‌ی ۲۹ با Val:"single").
+  // این تابع فقط سبک‌های نقطه‌چین/خط‌چین (و none/nil) را «غیرِپیوسته»
+  // می‌شمارد؛ هر چیزِ دیگری پیوسته است و باید رسم شود.
+  bool isSolidBorderStyle(String? val) {
+    if (val == null || val.isEmpty) return false;
+    final v = val.toLowerCase();
+    if (v == "none" || v == "nil") return false;
+    // dotted, dashed, dotDash, dashSmallGap, dashDotStroked و ...
+    if (v.contains("dot") || v.contains("dash")) return false;
+    return true;
+  }
+
+  // بوردرِ پیوسته یا در سطحِ خودِ جدول تعریف شده، یا (وقتی جدول سطحِ خودش
+  // را ندارد) در سطحِ سلول‌ها — هر دو را می‌پذیریم.
+  final bool hasSolidBorder =
+      isSolidBorderStyle(borderVal) ||
+      tableSpan.tableRows.any(
+        (row) => row.cells.any(
+          (cell) =>
+              isSolidBorderStyle(cell.borders?.top?.val) ||
+              isSolidBorderStyle(cell.borders?.bottom?.val) ||
+              isSolidBorderStyle(cell.borders?.left?.val) ||
+              isSolidBorderStyle(cell.borders?.right?.val),
+        ),
+      );
+
   final bool hideBorders =
-      isDotted || isColumnStack || rawStyle.contains("tablegrid");
+      (isDotted || isColumnStack || rawStyle.contains("tablegrid")) &&
+      !hasSolidBorder;
   final bool applyColumnStack = isColumnStack && !isLargeScreen;
 
   double defaultBorderWidth =
