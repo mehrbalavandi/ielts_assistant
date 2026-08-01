@@ -2339,6 +2339,20 @@ Widget _buildTable(
       rowWidgets.add(
         Container(
           margin: const EdgeInsets.only(bottom: 12.0),
+          // 🐞 مسیرِ دوم که از قلم افتاده بود: در حالتِ استکی (صفحه‌ی باریک)
+          // سلول‌ها اصلاً از مسیرِ Table با resolvedTableBorder رد نمی‌شوند،
+          // پس هر ستون به‌صورتِ یک Columnِ ساده و کاملاً بی‌بوردر رندر
+          // می‌شد — یعنی فیکسِ قبلی فقط در صفحه‌ی عریض اثر داشت. حالا وقتی
+          // قرار است بوردر دیده شود، هر ستونِ استک‌شده جعبه‌ی بوردردارِ خودش
+          // را می‌گیرد (معادلِ طبیعیِ ستون‌های بوردردارِ Word بعد از عمودی‌شدن).
+          decoration: (resolvedBorderMode != "none" && !hideBorders)
+              ? BoxDecoration(
+                  border: Border.all(
+                    color: defaultBorderColor,
+                    width: defaultBorderWidth,
+                  ),
+                )
+              : null,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: columnCells,
