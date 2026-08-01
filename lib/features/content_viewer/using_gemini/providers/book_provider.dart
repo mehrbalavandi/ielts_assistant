@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +45,10 @@ class BookModel {
   final bool isPurchased;
   final bool isDownloading;
   final double downloadProgress;
+  // 🌟 حالتِ مکث: با isDownloading فرق دارد — یعنی دانلود شروع شده ولی
+  // موقتاً متوقف است و فایلِ نیمه‌کاره روی دیسک نگه داشته شده تا با
+  // ادامه‌دادن، از همان‌جا (نه از صفر) دنبال شود.
+  final bool isPaused;
 
   // 🌟 هوش تشخیص آپدیت و دانلود (دقیقاً مطابق سناریوی شما)
   bool get isSampleDownloaded =>
@@ -116,6 +121,7 @@ class BookModel {
     this.isPurchased = false,
     this.isDownloading = false,
     this.downloadProgress = 0.0,
+    this.isPaused = false,
   });
 
   BookModel copyWith({
@@ -131,6 +137,7 @@ class BookModel {
     bool? isDownloading,
     double? downloadProgress,
     bool? isPurchased,
+    bool? isPaused,
   }) {
     return BookModel(
       id: id,
@@ -164,6 +171,7 @@ class BookModel {
       isDownloading: isDownloading ?? this.isDownloading,
       downloadProgress: downloadProgress ?? this.downloadProgress,
       isPurchased: isPurchased ?? this.isPurchased,
+      isPaused: isPaused ?? this.isPaused,
     );
   }
 
@@ -377,6 +385,263 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       }
     }
     return (true, versions);
+  }
+
+  // ─────────────── دانلودِ یکجا (ZIP) با قابلیتِ مکث/ادامه ───────────────
+  // 🌟 چرا: دانلودِ فایل‌به‌فایل با صدها صفحه/صوت/تصویر بسیار کند است. حالا
+  // سرور یک آرشیوِ واحد می‌دهد و همین‌جا استخراج می‌شود. چون سرور هدرِ Range
+  // را پشتیبانی می‌کند، دانلودِ نیمه‌کاره در یک فایلِ .part نگه داشته می‌شود
+  // و با ادامه‌دادن، از همان بایتِ آخر (نه از صفر) دنبال می‌شود.
+
+  /// برای هر کتابِ در حالِ دانلود یک CancelToken نگه می‌داریم تا بشود مکث کرد.
+  final Map<String, CancelToken> _zipCancelTokens = {};
+
+  /// کاربر خودش مکث کرده (در برابرِ قطعِ اتفاقیِ شبکه) — تا در catch بفهمیم
+  /// این یک خطا نیست و نباید فایلِ نیمه‌کاره پاک شود.
+  final Set<String> _userPaused = {};
+
+  Future<String> _zipPartPath(BookModel book, bool isSample) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final folder = book.folderName ?? book.id;
+    return '${dir.path}/$folder/.download_${isSample ? 'sample' : 'main'}.part';
+  }
+
+  /// مکثِ دانلودِ در جریان. فایلِ .part دست‌نخورده می‌ماند.
+  void pauseZipDownload(BookModel book) {
+    final token = _zipCancelTokens[book.id];
+    if (token == null || token.isCancelled) return;
+    _userPaused.add(book.id);
+    token.cancel('paused-by-user');
+    _updateBook(book.id, isDownloading: false, isPaused: true);
+  }
+
+  /// ادامه‌ی دانلودِ مکث‌شده — همان مسیرِ عادی است، چون خودِ downloadBookZip
+  /// وجودِ فایلِ .part را تشخیص می‌دهد و از ادامه‌ی آن شروع می‌کند.
+  Future<void> resumeZipDownload(BookModel book, {bool isSample = false}) {
+    return downloadBookZip(book, isSample: isSample);
+  }
+
+  Future<void> downloadBookZip(BookModel book, {bool isSample = false}) async {
+    _userPaused.remove(book.id);
+    _updateBook(book.id, isDownloading: true, isPaused: false);
+
+    final token = CancelToken();
+    _zipCancelTokens[book.id] = token;
+
+    try {
+      final dio = ref.read(dioProvider);
+      final dir = await getApplicationDocumentsDirectory();
+      final bookFolder = Directory('${dir.path}/${book.folderName ?? book.id}');
+      if (!await bookFolder.exists()) {
+        await bookFolder.create(recursive: true);
+      }
+
+      final scope = isSample ? 'sample' : 'main';
+
+      // ۱. حجمِ کل را بگیر — هم برای درصدِ درست، هم برای اعتبارسنجیِ .part
+      final infoRes = await dio.get(
+        '/api/books/${book.id}/zip-info',
+        queryParameters: {'scope': scope},
+        cancelToken: token,
+      );
+      final info = infoRes.data as Map<String, dynamic>;
+      final int totalBytes = (info['size'] as num?)?.toInt() ?? 0;
+
+      final partPath = await _zipPartPath(book, isSample);
+      final partFile = File(partPath);
+
+      int alreadyHave = await partFile.exists() ? await partFile.length() : 0;
+      // اگر فایلِ نیمه‌کاره از حجمِ کل بزرگ‌تر است، یعنی مربوط به نسخه‌ی
+      // قدیمی‌ترِ آرشیو بوده — دور بریز و از صفر شروع کن.
+      if (totalBytes > 0 && alreadyHave > totalBytes) {
+        await partFile.delete();
+        alreadyHave = 0;
+      }
+
+      if (totalBytes > 0 && alreadyHave == totalBytes) {
+        // قبلاً کامل دانلود شده بود ولی استخراج نشده — مستقیم برو به استخراج
+        await _extractBookZip(partFile, bookFolder, isSample);
+        await _finishZipDownload(book, isSample);
+        return;
+      }
+
+      // ۲. دانلود با Range از همان‌جایی که قطع شده بود
+      final response = await dio.get<ResponseBody>(
+        '/api/books/${book.id}/download-zip',
+        queryParameters: {'scope': scope},
+        cancelToken: token,
+        options: Options(
+          responseType: ResponseType.stream,
+          headers: alreadyHave > 0 ? {'Range': 'bytes=$alreadyHave-'} : null,
+          // ۴۱۶ یعنی رنجِ نامعتبر (فایلِ سرور عوض شده) — خودمان هندل می‌کنیم
+          validateStatus: (s) => s != null && s < 400 || s == 416,
+        ),
+      );
+
+      if (response.statusCode == 416) {
+        // رنجِ درخواستی معتبر نیست → از صفر شروع کن
+        if (await partFile.exists()) await partFile.delete();
+        _zipCancelTokens.remove(book.id);
+        return downloadBookZip(book, isSample: isSample);
+      }
+
+      // اگر سرور ۲۰۰ داد (نه ۲۰۶)، یعنی Range را نادیده گرفته و کلِ فایل
+      // را می‌فرستد — پس باید از اول بنویسیم، نه اینکه به دنباله‌ی قبلی
+      // اضافه کنیم (وگرنه فایلِ خراب می‌شود).
+      final bool serverHonoredRange = response.statusCode == 206;
+      final int baseOffset = serverHonoredRange ? alreadyHave : 0;
+
+      final sink = partFile.openWrite(
+        mode: serverHonoredRange ? FileMode.append : FileMode.write,
+      );
+      int received = baseOffset;
+
+      try {
+        await for (final chunk in response.data!.stream) {
+          sink.add(chunk);
+          received += chunk.length;
+          if (totalBytes > 0) {
+            _updateBook(
+              book.id,
+              isDownloading: true,
+              // ۹۵٪ برای دانلود، ۵٪ باقی‌مانده برای استخراج
+              downloadProgress: (received / totalBytes) * 0.95,
+            );
+          }
+        }
+      } finally {
+        await sink.flush();
+        await sink.close();
+      }
+
+      // ۳. استخراج
+      await _extractBookZip(partFile, bookFolder, isSample);
+      await _finishZipDownload(book, isSample);
+    } catch (e) {
+      if (_userPaused.contains(book.id)) {
+        // مکثِ عمدی — فایلِ .part عمداً نگه داشته می‌شود
+        debugPrint("⏸️ دانلود مکث شد: ${book.id}");
+      } else {
+        _updateBook(
+          book.id,
+          isDownloading: false,
+          isPaused: false,
+          downloadProgress: 0.0,
+        );
+        debugPrint("🔴 خطای دانلودِ ZIP: $e");
+      }
+    } finally {
+      _zipCancelTokens.remove(book.id);
+    }
+  }
+
+  /// استخراجِ آرشیو در پوشه‌ی مقصد. ورودی‌های آرشیو از قبل با ساختارِ
+  /// موردِ انتظارِ اپ ساخته شده‌اند (index.json و audio/images صاف در ریشه،
+  /// pages/ و audio_scripts/ به‌صورتِ زیرپوشه) — پس فقط باز می‌شوند.
+  Future<void> _extractBookZip(
+    File partFile,
+    Directory bookFolder,
+    bool isSample,
+  ) async {
+    final targetRoot = isSample
+        ? Directory('${bookFolder.path}/sample')
+        : bookFolder;
+    if (!await targetRoot.exists()) {
+      await targetRoot.create(recursive: true);
+    }
+
+    final bytes = await partFile.readAsBytes();
+    final archive = ZipDecoder().decodeBytes(bytes);
+
+    for (final entry in archive) {
+      if (!entry.isFile) continue;
+      // 🌟 محافظت در برابرِ Zip Slip: هیچ ورودی‌ای نباید بیرونِ پوشه‌ی مقصد بنویسد
+      final safeName = entry.name.replaceAll('\\', '/');
+      if (safeName.contains('..') || safeName.startsWith('/')) continue;
+
+      final outFile = File('${targetRoot.path}/$safeName');
+      await outFile.parent.create(recursive: true);
+      await outFile.writeAsBytes(entry.content as List<int>);
+    }
+
+    if (await partFile.exists()) {
+      await partFile.delete();
+    }
+  }
+
+  /// بعد از استخراجِ موفق: نسخه‌های محلی را برابرِ نسخه‌های سرور کن.
+  Future<void> _finishZipDownload(BookModel book, bool isSample) async {
+    final dir = await getApplicationDocumentsDirectory();
+    final folder = '${dir.path}/${book.folderName ?? book.id}';
+
+    if (isSample) {
+      _updateBook(
+        book.id,
+        localSamplePath: '$folder/sample/index.json',
+        localSampleVersion: book.sampleVersion,
+        localSampleAudioVersion: book.sampleAudioVersion,
+        localSampleImagesVersion: book.sampleImagesVersion,
+        isDownloading: false,
+        isPaused: false,
+        downloadProgress: 1.0,
+      );
+    } else {
+      _updateBook(
+        book.id,
+        localJsonPath: '$folder/index.json',
+        localJsonVersion: book.jsonVersion,
+        localAudioVersion: book.audioVersion,
+        localImagesVersion: book.imagesVersion,
+        isDownloading: false,
+        isPaused: false,
+        downloadProgress: 1.0,
+      );
+    }
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  /// حذفِ کاملِ محتوای دانلودشده‌ی یک کتاب (و ریست‌کردنِ نسخه‌های محلی، تا
+  /// دفعه‌ی بعد دوباره کامل دانلود شود).
+  Future<void> deleteDownloadedBook(BookModel book) async {
+    // اگر همین حالا در حالِ دانلود است، اول متوقفش کن
+    final token = _zipCancelTokens[book.id];
+    if (token != null && !token.isCancelled) {
+      token.cancel('deleted-by-user');
+    }
+    _zipCancelTokens.remove(book.id);
+    _userPaused.remove(book.id);
+
+    await _deleteBookFolder(book);
+
+    state = state.map((b) {
+      if (b.id != book.id) return b;
+      return BookModel(
+        id: b.id,
+        title: b.title,
+        folderName: b.folderName,
+        sampleFilePath: b.sampleFilePath,
+        sampleVersion: b.sampleVersion,
+        sampleAudioFiles: b.sampleAudioFiles,
+        sampleAudioVersion: b.sampleAudioVersion,
+        sampleImages: b.sampleImages,
+        sampleImagesVersion: b.sampleImagesVersion,
+        jsonFile: b.jsonFile,
+        jsonVersion: b.jsonVersion,
+        audioFiles: b.audioFiles,
+        audioVersion: b.audioVersion,
+        images: b.images,
+        imagesVersion: b.imagesVersion,
+        isPurchased: b.isPurchased,
+        // همه‌ی مقادیرِ محلی عمداً به حالتِ «دانلودنشده» برمی‌گردند
+      );
+    }).toList();
+
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
   }
 
   // 🌟 ۱. دانلود منیجر موازی (به‌روزرسانی شده با ردیابی دقیق خطاها)
@@ -656,6 +921,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     int? localImagesVersion,
     bool? isDownloading,
     double? downloadProgress,
+    bool? isPaused,
   }) {
     BookModel? updatedBook;
     state = state.map((b) {
@@ -672,6 +938,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           localImagesVersion: localImagesVersion,
           isDownloading: isDownloading,
           downloadProgress: downloadProgress,
+          isPaused: isPaused,
         );
         return updatedBook!;
       }

@@ -40,6 +40,8 @@ dependencies:
   just_audio: ^0.10.5
   path: ^1.9.1
   dio: ^5.9.0
+  # 🌟 برای استخراجِ آرشیوِ ZIP کتاب پس از دانلود
+  archive: ^3.6.1
   permission_handler: ^12.0.1
   path_provider: ^2.1.5
   file_selector: ^1.1.0

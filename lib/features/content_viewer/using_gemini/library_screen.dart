@@ -301,6 +301,43 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     );
   }
 
+  /// تأییدِ حذفِ محتوای دانلودشده. اگر همین کتاب همین حالا باز باشد،
+  /// activeBook هم پاک می‌شود تا صفحه‌ی مطالعه به فایل‌هایی که دیگر وجود
+  /// ندارند اشاره نکند.
+  Future<void> _confirmDeleteBook(
+    BuildContext context,
+    WidgetRef ref,
+    BookModel book,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('حذف محتوای دانلودشده'),
+        content: Text(
+          'محتوای دانلودشده‌ی «${book.title}» از این دستگاه پاک شود؟ '
+          'خودِ کتاب در کتابخانه می‌ماند و هر زمان بخواهید دوباره قابل دانلود است.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('انصراف'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('حذف', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    if (ref.read(activeBookProvider)?.id == book.id) {
+      ref.read(activeBookProvider.notifier).state = null;
+    }
+    await ref.read(booksProvider.notifier).deleteDownloadedBook(book);
+  }
+
   Widget _buildActionSection(
     BuildContext context,
     WidgetRef ref,
@@ -310,15 +347,80 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     // --- ۱. حالت در حال دانلود ---
     if (book.isDownloading) {
       return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           LinearProgressIndicator(
             value: book.downloadProgress,
             color: Colors.indigo,
           ),
           const SizedBox(height: 4),
-          Text(
-            "${(book.downloadProgress * 100).toStringAsFixed(0)}%",
-            style: const TextStyle(fontSize: 11),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "${(book.downloadProgress * 100).toStringAsFixed(0)}%",
+                style: const TextStyle(fontSize: 11),
+              ),
+              const SizedBox(width: 6),
+              // 🌟 مکث: فایلِ نیمه‌دانلودشده نگه داشته می‌شود تا بعداً از
+              // همان‌جا ادامه پیدا کند، نه از صفر.
+              InkWell(
+                onTap: () =>
+                    ref.read(booksProvider.notifier).pauseZipDownload(book),
+                child: const Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Icon(Icons.pause_circle_outline, size: 20),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    }
+
+    // --- ۱.۵ حالت مکث‌شده ---
+    if (book.isPaused) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          LinearProgressIndicator(
+            value: book.downloadProgress,
+            color: Colors.orange,
+          ),
+          const SizedBox(height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "متوقف شده • ${(book.downloadProgress * 100).toStringAsFixed(0)}%",
+                style: const TextStyle(fontSize: 11),
+              ),
+              const SizedBox(width: 6),
+              InkWell(
+                onTap: () => ref
+                    .read(booksProvider.notifier)
+                    .resumeZipDownload(book, isSample: !book.isPurchased),
+                child: const Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Icon(
+                    Icons.play_circle_outline,
+                    size: 20,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () => _confirmDeleteBook(context, ref, book),
+                child: const Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Icon(
+                    Icons.delete_outline,
+                    size: 20,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       );
@@ -355,6 +457,24 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                 );
               },
             ),
+            // 🌟 حذفِ محتوای دانلودشده — برای آزادکردنِ فضای دستگاه؛ خودِ
+            // کتاب در کتابخانه می‌ماند و هر وقت خواستید دوباره دانلود می‌شود.
+            SizedBox(height: 1.0),
+            OutlinedButton.icon(
+              icon: const Icon(
+                Icons.delete_outline,
+                size: 14,
+                color: Colors.red,
+              ),
+              label: const Text(
+                "حذف محتوای دانلودشده",
+                style: TextStyle(fontSize: 11, color: Colors.red),
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+              ),
+              onPressed: () => _confirmDeleteBook(context, ref, book),
+            ),
             // نمایش دکمه آپدیت فقط در صورت وجود نسخه جدید برای فایل‌های اصلی
             if (book
                 .hasAnyMainUpdate) // 🌟 تغییر از hasAnyUpdate به hasAnyMainUpdate
@@ -375,10 +495,10 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                     ),
                     onPressed: () => ref
                         .read(booksProvider.notifier)
-                        .downloadBookContent(
+                        .downloadBookZip(
                           book,
                           isSample: false,
-                        ), // 🌟 استفاده از متد جدید
+                        ), // 🌟 دانلودِ یکجا به‌صورت ZIP
                   ),
                 ],
               ),
@@ -390,7 +510,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
         label: const Text("دانلود کامل", style: TextStyle(fontSize: 11)),
         onPressed: () => ref
             .read(booksProvider.notifier)
-            .downloadBookContent(book, isSample: false),
+            .downloadBookZip(book, isSample: false),
       );
     }
 
@@ -428,7 +548,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
               ),
               onPressed: () => ref
                   .read(booksProvider.notifier)
-                  .downloadBookContent(book, isSample: true),
+                  .downloadBookZip(book, isSample: true),
               label: const Text("آپدیت نمونه", style: TextStyle(fontSize: 11)),
             ),
         ] else
@@ -438,7 +558,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
             ),
             onPressed: () => ref
                 .read(booksProvider.notifier)
-                .downloadBookContent(book, isSample: true),
+                .downloadBookZip(book, isSample: true),
             child: const Text("دریافت نمونه", style: TextStyle(fontSize: 11)),
           ),
 
