@@ -2319,11 +2319,25 @@ Widget _buildTable(
   final bool willScrollHorizontally = strategy == "horizontalScroll";
   final double nestedBottomMargin = willScrollHorizontally ? 14.0 : 10.0;
 
+  // 🐞 پیدا شد — علتِ «فاصله‌ی اضافه زیرِ ردیفِ آخر، داخلِ بوردر»: در فلاتر
+  // margin یک Container بیرونِ decorationِ *خودش* است، ولی وقتی این
+  // Container داخلِ یک Containerِ دیگر با بوردر پیچیده می‌شود (کارِ بلاکِ
+  // زیر برایِ BorderMode="outer")، آن margin عملاً داخلِ بوردرِ بیرونی
+  // می‌افتد. یعنی همان ۱۴px فاصله‌ی پایین (که برایِ جدایِ نگه‌داشتنِ نوارِ
+  // اسکرول از جدول گذاشته شده) و ۲px بالا، به‌جایِ بیرونِ کادر، *داخلِ*
+  // کادر رسم می‌شدند — دقیقاً همان فضایِ خالیِ نامتقارنِ زیرِ ردیفِ آخر.
+  // راهِ حل: وقتی بوردرِ بیرونی اعمال می‌شود، margin از کانتینرِ داخلی
+  // برداشته و به خودِ کانتینرِ بوردردار داده می‌شود تا بوردر دقیقاً دورِ
+  // ردیف‌ها بچسبد و فاصله بیرونِ آن بماند.
+  final EdgeInsets tableOuterMargin = isNestedTable
+      ? EdgeInsets.only(top: 2.0, bottom: nestedBottomMargin)
+      : const EdgeInsets.symmetric(vertical: 12.0);
+  final bool borderWrapsWholeTable =
+      resolvedBorderMode == "outer" && !hideBorders;
+
   // 🌟 اصلاح نهایی: حذف پارامتر border از کانتینر بیرونی برای جلوگیری از تداخل و دابل‌بوردر شدن سایدها
   Widget tableContainer = Container(
-    margin: isNestedTable
-        ? EdgeInsets.only(top: 2.0, bottom: nestedBottomMargin)
-        : const EdgeInsets.symmetric(vertical: 12.0),
+    margin: borderWrapsWholeTable ? EdgeInsets.zero : tableOuterMargin,
     decoration: BoxDecoration(
       color: _hexToColor(tableSpan.fillColor),
       // کدهای تداخل‌زا حذف شدند 💥
@@ -2339,8 +2353,9 @@ Widget _buildTable(
   // ردیف‌ها را در بر دارد) یک Border.all می‌کشیم — یعنی فقط بوردرِ بیرونی،
   // بدونِ خطوطِ داخلی. این wrap قبل از منطقِ اسکرولِ افقیِ زیر انجام می‌شود
   // تا بوردر با محتوا اسکرول شود (فقط در ابتدا/انتهای واقعیِ جدول دیده شود).
-  if (resolvedBorderMode == "outer" && !hideBorders) {
+  if (borderWrapsWholeTable) {
     tableContainer = Container(
+      margin: tableOuterMargin,
       decoration: BoxDecoration(
         border: Border.all(
           color: defaultBorderColor,
