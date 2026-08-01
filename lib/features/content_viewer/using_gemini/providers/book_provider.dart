@@ -559,7 +559,22 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       final safeName = entry.name.replaceAll('\\', '/');
       if (safeName.contains('..') || safeName.startsWith('/')) continue;
 
-      final outFile = File('${targetRoot.path}/$safeName');
+      // 🌟 آرشیو دقیقاً همان فایلِ ZIPی است که ادمین آپلود کرده — یعنی
+      // audio/ و images/ داخلش زیرپوشه‌اند. ولی اپ فایل‌های صوتی/تصویری را
+      // کنارِ خودِ index.json می‌جوید (resolveAudioPath و رندرکننده‌ی تصویر
+      // هر دو از parent مسیرِ index.json استفاده می‌کنند). پس همین‌جا، تنها
+      // جایی که چیدمانِ روی دیسکِ اپ را می‌شناسد، صافشان می‌کنیم؛
+      // pages/ و audio_scripts/ ساختارشان دست‌نخورده می‌ماند.
+      final segments = safeName.split('/');
+      final String outName;
+      if (segments.length > 1 &&
+          (segments.first == 'audio' || segments.first == 'images')) {
+        outName = segments.last;
+      } else {
+        outName = safeName;
+      }
+
+      final outFile = File('${targetRoot.path}/$outName');
       await outFile.parent.create(recursive: true);
       await outFile.writeAsBytes(entry.content as List<int>);
     }
