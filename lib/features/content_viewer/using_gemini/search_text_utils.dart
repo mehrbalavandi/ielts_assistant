@@ -38,7 +38,11 @@ String extractFullText(ParagraphData para) {
   for (var span in para.spans) {
     if (span.type == "text") {
       sb.write(span.content);
-    } else if (span.type == "table" && span.tableRows.isNotEmpty) {
+    } else if ((span.type == "table" || span.type == "layout") &&
+        span.tableRows.isNotEmpty) {
+      // 🐞 "layout" هم باید پیمایش شود: اسپنِ ColumnStackTable در سی‌شارپ
+      // نوعش به "layout" تغییر می‌کند ولی ساختارِ ردیف/سلولش همان است —
+      // بدونِ این، متنِ داخلِ چنین جدولی اصلاً قابلِ جستجو نبود.
       for (var row in span.tableRows) {
         for (var cell in row.cells) {
           for (var cellPara in cell.paragraphs) {

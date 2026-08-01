@@ -303,7 +303,8 @@ class PagedBookStore {
               );
             }
           }
-          if (s.type == 'table') {
+          // 🐞 "layout" هم پیمایش شود (همان دلیلِ بالا).
+          if (s.type == 'table' || s.type == 'layout') {
             for (final row in s.tableRows) {
               for (final cell in row.cells) {
                 for (final p in cell.paragraphs) {

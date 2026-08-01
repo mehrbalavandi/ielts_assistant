@@ -1438,7 +1438,17 @@ Widget _buildParagraph(
           );
         }
       }
-    } else if (span.type == "table") {
+      // 🐞 رفعِ باگِ «صفحه‌ی کاملاً خالی»: ResponsiveLowering در سی‌شارپ
+      // نوعِ اسپنِ ColumnStackTable را از "table" به "layout" تغییر می‌دهد،
+      // ولی این‌جا فقط "text"/"image"/"table" شناخته می‌شدند — یعنی چنین
+      // اسپنی بی‌صدا نادیده گرفته می‌شد و اگر تنها اسپنِ صفحه بود (مثلِ
+      // صفحه‌ی ۲۹)، کلِ صفحه خالی نمایش داده می‌شد. ربطی به تودرتو‌بودن یا
+      // نبودنِ جدول نداشت.
+      // خودِ _buildTable از قبل چیدمانِ ستونی/استکی را کامل پشتیبانی می‌کند
+      // (isColumnStack روی strategy=="stack" و layoutReflow=="stack" — که هر
+      // دو در همین JSON هستند)، پس فقط کافی است "layout" هم به همان مسیر
+      // هدایت شود، نه اینکه رندرکننده‌ی موازیِ جدیدی نوشته شود.
+    } else if (span.type == "table" || span.type == "layout") {
       flushText();
       blockElements.add(
         _buildTable(
@@ -2835,7 +2845,9 @@ List<BookAudioEntry> buildBookAudioPlaylist(
           addOccurrence(resolved, fileName, pageNumber, topParaIndex);
         }
       }
-      if (s.type == "table") {
+      // 🐞 "layout" هم پیمایش شود، وگرنه لینک‌های صوتیِ داخلِ
+      // ColumnStackTable پیدا نمی‌شوند.
+      if (s.type == "table" || s.type == "layout") {
         for (final row in s.tableRows) {
           for (final cell in row.cells) {
             for (final p in cell.paragraphs) {
