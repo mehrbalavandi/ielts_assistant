@@ -2386,8 +2386,12 @@ Widget _buildTable(
   final EdgeInsets tableOuterMargin = isNestedTable
       ? EdgeInsets.only(top: 2.0, bottom: nestedBottomMargin)
       : const EdgeInsets.symmetric(vertical: 12.0);
+  // 🐞 در حالتِ استکی (صفحهٔ باریک) هر ستون خودش جعبهٔ بوردردارِ مستقل
+  // می‌گیرد، پس این wrapِ بیرونی نباید اجرا شود — وگرنه یک کادرِ اضافه هم
+  // دورِ کلِ ستون‌های از‌قبل‌کادردار کشیده می‌شد (مشکلِ MultiColumnTable که
+  // BorderMode="outer" دارد ولی در باریک استک می‌شود).
   final bool borderWrapsWholeTable =
-      resolvedBorderMode == "outer" && !hideBorders;
+      resolvedBorderMode == "outer" && !hideBorders && !applyColumnStack;
 
   // 🌟 اصلاح نهایی: حذف پارامتر border از کانتینر بیرونی برای جلوگیری از تداخل و دابل‌بوردر شدن سایدها
   Widget tableContainer = Container(
