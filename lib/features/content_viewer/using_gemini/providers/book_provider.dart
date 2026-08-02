@@ -423,7 +423,21 @@ class BooksNotifier extends Notifier<List<BookModel>> {
 
   Future<void> downloadBookZip(BookModel book, {bool isSample = false}) async {
     _userPaused.remove(book.id);
-    _updateBook(book.id, isDownloading: true, isPaused: false);
+    // 🐞 «مکثِ اولِ نوارِ پیشرفت، بعد پرشدنِ ناگهانی» که تشخیص دادید، از
+    // همین‌جا می‌آید: خودِ درخواستِ zip-info سمتِ سرور ensureZip را صدا
+    // می‌زند، که برایِ هر کتابی که هنوز از رویِ آپلودِ حفظ‌شده (فیکسِ چند
+    // نوبتِ قبل) سرو نمی‌شود، آرشیو را همان لحظه از نو می‌سازد — که برایِ
+    // کتابِ بزرگ می‌تواند واقعاً چند ثانیه طول بکشد. تا الان این کل مدت
+    // با یک نوارِ پیشرفتِ ثابت‌روی‌صفر نشان داده می‌شد که از «هیچ اتفاقی
+    // نمی‌افتد» قابلِ‌تشخیص نبود. downloadProgress=-1 به‌عنوانِ نشانه‌ی
+    // «در حالِ آماده‌سازی» به UI اجازه می‌دهد یک اسپینرِ نامعین نشان بدهد،
+    // نه یک نوارِ گیرکرده.
+    _updateBook(
+      book.id,
+      isDownloading: true,
+      isPaused: false,
+      downloadProgress: -1,
+    );
 
     final token = CancelToken();
     _zipCancelTokens[book.id] = token;
@@ -450,7 +464,21 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       final partPath = await _zipPartPath(book, isSample);
       final partFile = File(partPath);
 
-      int alreadyHave = await partFile.exists() ? await partFile.length() : 0;
+      // 🐞 به‌محضِ برگشتنِ zip-info، از حالتِ نامعین خارج می‌شویم — اگر
+      // دانلودِ قبلی نیمه‌کاره مانده (partFile موجود)، درصدِ واقعیِ همان‌جا
+      // نشان داده می‌شود، نه دوباره صفر.
+      final int alreadyOnDisk = await partFile.exists()
+          ? await partFile.length()
+          : 0;
+      _updateBook(
+        book.id,
+        isDownloading: true,
+        downloadProgress: totalBytes > 0
+            ? (alreadyOnDisk / totalBytes) * 0.95
+            : 0.0,
+      );
+
+      int alreadyHave = alreadyOnDisk;
       // اگر فایلِ نیمه‌کاره از حجمِ کل بزرگ‌تر است، یعنی مربوط به نسخه‌ی
       // قدیمی‌ترِ آرشیو بوده — دور بریز و از صفر شروع کن.
       if (totalBytes > 0 && alreadyHave > totalBytes) {

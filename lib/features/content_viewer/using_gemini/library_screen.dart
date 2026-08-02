@@ -346,6 +346,25 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
   ) {
     // --- ۱. حالت در حال دانلود ---
     if (book.isDownloading) {
+      // 🐞 مقدارِ سنتینلِ -1 یعنی هنوز حجمِ آرشیو معلوم نیست (سرور دارد
+      // آرشیو را آماده می‌کند) — به‌جایِ نوارِ پیشرفتِ ثابت‌روی‌صفر (که از
+      // «هیچ اتفاقی نمی‌افتد» قابلِ‌تشخیص نبود و باعثِ همان حسِ «مکثِ
+      // عجیب، بعد پرشدنِ ناگهانی» می‌شد)، یک اسپینرِ نامعین با برچسبِ
+      // روشن نشان می‌دهیم.
+      if (book.downloadProgress < 0) {
+        return const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 14,
+              height: 14,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+            SizedBox(width: 8),
+            Text("در حال آماده‌سازی…", style: TextStyle(fontSize: 11)),
+          ],
+        );
+      }
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
