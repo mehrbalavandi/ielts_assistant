@@ -129,6 +129,10 @@ class ParagraphData {
   final String? listType; // "ordered" | "bullet"  (null اگر لیست نباشد)
   final int listLevel; // 0 = سطح اول
   final String? listMarker; // متن نهایی مارکر: "1." , "a)" , "•"
+  // 🐞 شماره‌ی لیست بولد است؟ (از rPr سطحِ numbering در C#). null/false = عادی.
+  final bool listMarkerBold;
+  // 🐞 BlankWord3: شماره‌ی لیست بیرونِ {blk} دیده شود و فقط متن مخفی شود.
+  final bool keepListMarkerVisible;
   final double? lineSpacing; // 🌟 ضریبِ فاصله‌ی خطوط (1.0 = تک، 1.5، ...)
 
   ParagraphData({
@@ -151,6 +155,8 @@ class ParagraphData {
     this.listType, // 🌟
     this.listLevel = 0, // 🌟
     this.listMarker, // 🌟
+    this.listMarkerBold = false, // 🐞
+    this.keepListMarkerVisible = false, // 🐞
     this.lineSpacing, // 🌟
   });
 
@@ -184,6 +190,9 @@ class ParagraphData {
       listType: json['ListType'], // 🌟
       listLevel: json['ListLevel'] ?? 0, // 🌟
       listMarker: json['ListMarker'], // 🌟
+      listMarkerBold:
+          json['ListMarkerBold'] == true, // 🐞 (null یا نبود = false)
+      keepListMarkerVisible: json['KeepListMarkerVisible'] == true, // 🐞
     );
   }
 
@@ -215,6 +224,8 @@ class ParagraphData {
       listType: listType, // 🌟
       listLevel: listLevel, // 🌟
       listMarker: listMarker, // 🌟
+      listMarkerBold: listMarkerBold, // 🐞
+      keepListMarkerVisible: keepListMarkerVisible, // 🐞
     );
   }
 }

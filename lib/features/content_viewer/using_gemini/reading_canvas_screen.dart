@@ -1503,7 +1503,9 @@ Widget _buildParagraph(
   // قابل‌مشاهده + {blk} به‌عنوان بخشی از جمله)، چون چیزی مخفی نیست که
   // شماره افشایش بدهد، مثل قبل همین‌جا نمایش داده می‌شود.
   final bool wholeParaIsBlank =
-      para.spans.length == 1 && _isWhollyOneBlank(para.spans.first.content);
+      para.keepListMarkerVisible != true &&
+      para.spans.length == 1 &&
+      _isWhollyOneBlank(para.spans.first.content);
   if (para.listMarker != null &&
       para.listMarker!.isNotEmpty &&
       !wholeParaIsBlank) {
@@ -1525,7 +1527,14 @@ Widget _buildParagraph(
     // قابل‌اتکا نیست)، عرضِ واقعیِ متنِ مارکر را با TextPainter اندازه می‌گیریم و
     // جعبه را دقیقاً به همان اندازه (+ کمی حاشیه) می‌سازیم — این تضمین می‌کند
     // که رقم هیچ‌وقت به هیچ دلیلی clip/ناپدید نشود.
-    const TextStyle _markerStyle = TextStyle(height: 1.4, fontSize: 14);
+    // 🐞 رفع باگِ «شماره‌ی لیست بولد نمی‌شود»: بولد بودنِ شماره داده‌محور است
+    // (para.listMarkerBold از rPr سطحِ numbering در C#)، نه هاردکد. قبلاً این
+    // استایل هیچ fontWeight نداشت و شماره همیشه non-bold رندر می‌شد.
+    final TextStyle _markerStyle = TextStyle(
+      height: 1.4,
+      fontSize: 14,
+      fontWeight: para.listMarkerBold ? FontWeight.bold : FontWeight.normal,
+    );
     final TextPainter _tp = TextPainter(
       text: TextSpan(text: para.listMarker!, style: _markerStyle),
       textDirection: TextDirection.ltr,
@@ -2683,7 +2692,11 @@ List<InlineSpan> _buildStyledInteractiveText(
       interactivesPattern: interactivesPattern,
       interactivesByText: interactivesByText,
       sharedKeyClaim: keyClaim, // 🐞 رفع کرش: claim مشترکِ سطح پاراگراف
-      listMarker: _isWhollyOneBlank(span.content) ? para.listMarker : null,
+      listMarker:
+          (para.keepListMarkerVisible != true &&
+              _isWhollyOneBlank(span.content))
+          ? para.listMarker
+          : null,
     );
   }
 
