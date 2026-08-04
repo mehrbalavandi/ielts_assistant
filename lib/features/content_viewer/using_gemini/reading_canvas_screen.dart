@@ -1573,7 +1573,17 @@ Widget _buildParagraph(
       ),
       child: Row(
         textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // 🐞 رفع نهاییِ ناهم‌ترازیِ نشانگرِ لیست: علتِ واقعی این بود که وقتی
+        // متنِ آیتم شاملِ آیکونِ چشمِ متنِ مخفی است، آن WidgetSpan (ارتفاعِ
+        // ~۲۴px، بسیار بلندتر از خطِ ~۱۵px) خطِ اولِ محتوا را باد می‌کند و متن
+        // را پایین‌تر می‌بَرد، در حالی که ستونِ مارکر (start) بالا می‌ماند —
+        // برای همین بدونِ آیکون هم‌تراز بود و با آیکون نه. راهِ درست: هم‌ترازیِ
+        // بر اساسِ baseline نه top. RenderFloatColumn متد
+        // computeDistanceToActualBaseline را دارد (baselineِ خطِ اولش را
+        // برمی‌گرداند)، پس baselineِ مارکر دقیقاً روی baselineِ خطِ اولِ متن
+        // می‌نشیند، فارغ از اینکه آیکون خط را چقدر بلند کرده باشد.
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic,
         children: [
           SizedBox(
             width: markerWidth,
