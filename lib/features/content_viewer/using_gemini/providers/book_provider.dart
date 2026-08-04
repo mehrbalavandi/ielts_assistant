@@ -563,9 +563,9 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     }
   }
 
-  /// استخراجِ آرشیو در پوشه‌ی مقصد. ورودی‌های آرشیو از قبل با ساختارِ
-  /// موردِ انتظارِ اپ ساخته شده‌اند (index.json و audio/images صاف در ریشه،
-  /// pages/ و audio_scripts/ به‌صورتِ زیرپوشه) — پس فقط باز می‌شوند.
+  /// استخراجِ آرشیو در پوشه‌ی مقصد، با حفظِ کاملِ ساختارِ داخلیِ آرشیو
+  /// (index.json در ریشه؛ pages/ , audio/ , images/ , audio_scripts/ همگی
+  /// به‌صورتِ زیرپوشه). دیگر چیزی صاف نمی‌شود.
   Future<void> _extractBookZip(
     File partFile,
     Directory bookFolder,
@@ -587,22 +587,13 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       final safeName = entry.name.replaceAll('\\', '/');
       if (safeName.contains('..') || safeName.startsWith('/')) continue;
 
-      // 🌟 آرشیو دقیقاً همان فایلِ ZIPی است که ادمین آپلود کرده — یعنی
-      // audio/ و images/ داخلش زیرپوشه‌اند. ولی اپ فایل‌های صوتی/تصویری را
-      // کنارِ خودِ index.json می‌جوید (resolveAudioPath و رندرکننده‌ی تصویر
-      // هر دو از parent مسیرِ index.json استفاده می‌کنند). پس همین‌جا، تنها
-      // جایی که چیدمانِ روی دیسکِ اپ را می‌شناسد، صافشان می‌کنیم؛
-      // pages/ و audio_scripts/ ساختارشان دست‌نخورده می‌ماند.
-      final segments = safeName.split('/');
-      final String outName;
-      if (segments.length > 1 &&
-          (segments.first == 'audio' || segments.first == 'images')) {
-        outName = segments.last;
-      } else {
-        outName = safeName;
-      }
-
-      final outFile = File('${targetRoot.path}/$outName');
+      // 🐞 درخواستِ کاربر: چیدمانِ روی دیسک دقیقاً مثلِ آرشیو باشد — audio/ و
+      // images/ به‌صورتِ زیرپوشه بمانند (مثلِ pages/ و audio_scripts/)، نه صاف
+      // در ریشه. پیش‌تر این‌جا آن‌ها را صاف می‌کردیم؛ حالا مسیرِ کاملِ داخلِ
+      // آرشیو حفظ می‌شود. (resolveAudioPath و رندرکننده‌ی تصویر هم به‌روز شدند
+      // تا اول زیرپوشه را نگاه کنند و برای کتاب‌های قدیمیِ صافْ‌ذخیره‌شده هم
+      // fallbackِ ریشه داشته باشند.)
+      final outFile = File('${targetRoot.path}/$safeName');
       await outFile.parent.create(recursive: true);
       await outFile.writeAsBytes(entry.content as List<int>);
     }
@@ -834,7 +825,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             dio,
             book.id,
             book.audioFiles,
-            bookFolder.path,
+            '${bookFolder.path}/audio', // 🐞 زیرپوشه‌ی audio/
             onFileDownloaded,
           );
           if (allSuccess) newAudioVer = book.audioVersion;
@@ -847,7 +838,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             dio,
             book.id,
             book.images,
-            bookFolder.path,
+            '${bookFolder.path}/images', // 🐞 زیرپوشه‌ی images/
             onFileDownloaded,
           );
           if (allSuccess) newImagesVer = book.imagesVersion;
@@ -881,6 +872,12 @@ class BooksNotifier extends Notifier<List<BookModel>> {
   ) async {
     const int batchSize = 5;
     bool allSuccess = true;
+
+    // 🐞 مطمئن شو پوشه‌ی مقصد (مثلاً audio/ یا images/) وجود دارد.
+    final targetDir = Directory(folderPath);
+    if (!await targetDir.exists()) {
+      await targetDir.create(recursive: true);
+    }
 
     for (int i = 0; i < paths.length; i += batchSize) {
       final batch = paths.sublist(
@@ -1079,20 +1076,30 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       }
     }
 
+    // 🐞 فایل‌ها ممکن است در زیرپوشه (audio/ , images/) یا — برای کتاب‌های
+    // قدیمی — صاف در ریشه باشند؛ هر دو محل را پاک می‌کنیم.
     if (audio) {
       for (final path in book.audioFiles) {
-        final file = File('${bookFolder.path}/${path.split('/').last}');
-        if (await file.exists()) {
-          await file.delete();
+        final base = path.split('/').last;
+        for (final p in [
+          '${bookFolder.path}/audio/$base',
+          '${bookFolder.path}/$base',
+        ]) {
+          final file = File(p);
+          if (await file.exists()) await file.delete();
         }
       }
     }
 
     if (images) {
       for (final path in book.images) {
-        final file = File('${bookFolder.path}/${path.split('/').last}');
-        if (await file.exists()) {
-          await file.delete();
+        final base = path.split('/').last;
+        for (final p in [
+          '${bookFolder.path}/images/$base',
+          '${bookFolder.path}/$base',
+        ]) {
+          final file = File(p);
+          if (await file.exists()) await file.delete();
         }
       }
     }

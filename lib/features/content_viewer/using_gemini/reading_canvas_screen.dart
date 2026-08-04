@@ -1527,12 +1527,33 @@ Widget _buildParagraph(
     // قابل‌اتکا نیست)، عرضِ واقعیِ متنِ مارکر را با TextPainter اندازه می‌گیریم و
     // جعبه را دقیقاً به همان اندازه (+ کمی حاشیه) می‌سازیم — این تضمین می‌کند
     // که رقم هیچ‌وقت به هیچ دلیلی clip/ناپدید نشود.
+    // 🐞 رفع باگِ «نشانگرِ لیست با متنِ بعدش هم‌ترازِ عمودی نیست»: مارکر قبلاً
+    // fontSize هاردکدِ ۱۴ و height ۱.۴ داشت، ولی متنِ پاراگراف اندازه‌ی خودش
+    // (مثلاً sz:23 → ۱۱.۵) و height خودش (para.lineSpacing) را دارد. اختلافِ
+    // اندازه/ارتفاعِ خطْ باعث می‌شد baseline‌ها روی هم نیفتند (Word شماره را
+    // با همان اندازه‌ی متن می‌کشد، پس هم‌تراز است). حالا اندازه‌ی مارکر را از
+    // اولین اسپنِ متنیِ همین پاراگراف (اولین sz: که پیدا شود) و ارتفاعِ خط را
+    // برابرِ متن می‌گیریم؛ با CrossAxisAlignment.start این یعنی هم‌ترازیِ دقیق.
+    double markerFontSize = 14.0;
+    for (final s in para.spans) {
+      if (s.type != "text") continue;
+      final szMarker = s.markers.firstWhere(
+        (m) => m.startsWith("sz:"),
+        orElse: () => "",
+      );
+      if (szMarker.isNotEmpty) {
+        final parsed = double.tryParse(szMarker.substring(3));
+        if (parsed != null) {
+          markerFontSize = parsed / 2;
+          break;
+        }
+      }
+    }
     // 🐞 رفع باگِ «شماره‌ی لیست بولد نمی‌شود»: بولد بودنِ شماره داده‌محور است
-    // (para.listMarkerBold از rPr سطحِ numbering در C#)، نه هاردکد. قبلاً این
-    // استایل هیچ fontWeight نداشت و شماره همیشه non-bold رندر می‌شد.
+    // (para.listMarkerBold از rPr سطحِ numbering در C#)، نه هاردکد.
     final TextStyle _markerStyle = TextStyle(
-      height: 1.4,
-      fontSize: 14,
+      height: para.lineSpacing ?? 1.3,
+      fontSize: markerFontSize,
       fontWeight: para.listMarkerBold ? FontWeight.bold : FontWeight.normal,
     );
     final TextPainter _tp = TextPainter(
@@ -2309,6 +2330,26 @@ Widget _buildTable(
               right: rightSide,
             );
             break;
+          case "outerThickFirstRow":
+            // 🐞 HeaderOutsideTable: بوردرِ بیرونیِ کامل توسطِ wrapِ پایین‌تر
+            // (Border.all) کشیده می‌شود؛ این‌جا فقط یک خطِ *ضخیم‌تر* زیرِ ردیفِ
+            // اول به‌عنوانِ جداکننده‌ی سرستون می‌کشیم (وقتی جدول بیش از یک ردیف
+            // دارد). بقیه‌ی ردیف‌ها هیچ خطی نمی‌گیرند — مثلِ OutsideTable.
+            if (rowIndex == 0 && tableSpan.tableRows.length > 1) {
+              resolvedTableBorder = TableBorder(
+                bottom: BorderSide(
+                  color: currentBottomColor,
+                  width:
+                      (currentBottomWidth <= 0
+                          ? defaultBorderWidth
+                          : currentBottomWidth) *
+                      2.5,
+                ),
+              );
+            } else {
+              resolvedTableBorder = const TableBorder.symmetric();
+            }
+            break;
           case "outer":
           case "none":
           default:
@@ -2399,8 +2440,14 @@ Widget _buildTable(
   // می‌گیرد، پس این wrapِ بیرونی نباید اجرا شود — وگرنه یک کادرِ اضافه هم
   // دورِ کلِ ستون‌های از‌قبل‌کادردار کشیده می‌شد (مشکلِ MultiColumnTable که
   // BorderMode="outer" دارد ولی در باریک استک می‌شود).
+  // 🐞 "outerThickFirstRow" (استایلِ HeaderOutsideTable) هم مثلِ "outer" یک
+  // بوردرِ بیرونیِ کامل (شاملِ بالای جدول) دورِ کلِ جدول می‌خواهد؛ خطِ ضخیمِ
+  // زیرِ ردیفِ اول جداگانه در سوییچِ per-row رسم می‌شود.
   final bool borderWrapsWholeTable =
-      resolvedBorderMode == "outer" && !hideBorders && !applyColumnStack;
+      (resolvedBorderMode == "outer" ||
+          resolvedBorderMode == "outerThickFirstRow") &&
+      !hideBorders &&
+      !applyColumnStack;
 
   // 🌟 اصلاح نهایی: حذف پارامتر border از کانتینر بیرونی برای جلوگیری از تداخل و دابل‌بوردر شدن سایدها
   Widget tableContainer = Container(
@@ -2740,16 +2787,22 @@ Widget _buildLocalImage(
   required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
   double? explicitWidth, // 🐞 برای تصاویر عریض که در اسکرول افقی رندر می‌شوند
 }) {
-  String fallbackPath = 'assets/data/testbook/images/$imageName';
+  final String baseImageName = imageName.split('/').last;
+  String fallbackPath = 'assets/data/testbook/images/$baseImageName';
   File? localFile;
 
   // 🌟 هوشمندی: خواندن از فایل آفلاین
   if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
     final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
-    final possibleFile = File('$bookFolderPath/$imageName');
+    // 🐞 درخواستِ کاربر: تصاویر در زیرپوشه‌ی images/ ذخیره می‌شوند. اول آن‌جا،
+    // سپس fallback به ریشه برای کتاب‌های قدیمیِ صافْ‌ذخیره‌شده.
+    final subFolderFile = File('$bookFolderPath/images/$baseImageName');
+    final flatFile = File('$bookFolderPath/$baseImageName');
 
-    if (possibleFile.existsSync()) {
-      localFile = possibleFile;
+    if (subFolderFile.existsSync()) {
+      localFile = subFolderFile;
+    } else if (flatFile.existsSync()) {
+      localFile = flatFile;
     }
   }
 
@@ -2992,12 +3045,21 @@ class InlineAudioLink extends ConsumerWidget {
   static String resolveAudioPath(String fileName, BookModel? activeBook) {
     final cacheKey = '${activeBook?.id ?? ''}::$fileName';
     return _resolvedPathCache.putIfAbsent(cacheKey, () {
-      String targetPath = 'assets/data/audio/$fileName';
+      // fileName ممکن است خودش شاملِ مسیرِ زیرپوشه باشد یا فقط نامِ فایل؛
+      // فقط نامِ پایه را برمی‌داریم تا مسیرها را خودمان بسازیم.
+      final baseName = fileName.split('/').last;
+      String targetPath = 'assets/data/audio/$baseName';
       if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
         final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
-        final localAudioFile = File('$bookFolderPath/$fileName');
-        if (localAudioFile.existsSync()) {
-          targetPath = localAudioFile.path;
+        // 🐞 درخواستِ کاربر: صوت‌ها در زیرپوشه‌ی audio/ ذخیره می‌شوند. اول
+        // آن‌جا را می‌جوییم؛ اگر نبود (کتابِ قدیمی که صافْ‌ذخیره شده) به ریشه
+        // fallback می‌کنیم تا دانلودهای قبلی نشکنند.
+        final subFolderFile = File('$bookFolderPath/audio/$baseName');
+        final flatFile = File('$bookFolderPath/$baseName');
+        if (subFolderFile.existsSync()) {
+          targetPath = subFolderFile.path;
+        } else if (flatFile.existsSync()) {
+          targetPath = flatFile.path;
         }
       }
       return targetPath;
