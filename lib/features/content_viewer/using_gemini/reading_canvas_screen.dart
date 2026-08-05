@@ -1798,13 +1798,20 @@ Widget _buildTable(
     );
   }
 
-  Border? cellBorderFrom(CellBorders? b) {
+  // 🐞 collapse بوردرها (رفعِ «همه بوردرها هم‌ضخامت دیده می‌شوند»): اگر هر
+  // سلول هر ۴ ضلعش را بکشد، لبه‌های مشترکِ داخلی از دو سلولِ مجاور دوبل
+  // می‌شوند (۱.۰+۱.۰≈۲.۰) و کنتراستِ ضخامت با لبه‌ی بالای ۲.۲ گم می‌شود. مثلِ
+  // مدلِ collapsed در Word/HTML، هر لبه را فقط یک سلول «مالک» می‌کشد: راست و
+  // پایینِ هر سلول همیشه، ولی بالا فقط در ردیفِ اول و چپ فقط در ستونِ اول.
+  // این‌طور هر خطِ داخلی یک‌بار کشیده می‌شود و ضخامت‌های واقعیِ سند (مثلِ
+  // بالای ضخیمِ سرستون) دقیق دیده می‌شوند.
+  Border? cellBorderFrom(CellBorders? b, bool isFirstRow, bool isFirstCol) {
     if (b == null) return null;
     return Border(
-      top: cellSideFrom(b.top),
-      bottom: cellSideFrom(b.bottom),
-      left: cellSideFrom(b.left),
+      top: isFirstRow ? cellSideFrom(b.top) : BorderSide.none,
+      left: isFirstCol ? cellSideFrom(b.left) : BorderSide.none,
       right: cellSideFrom(b.right),
+      bottom: cellSideFrom(b.bottom),
     );
   }
 
@@ -2241,7 +2248,7 @@ Widget _buildTable(
           color: _hexToColor(cell.fillColor),
           // 🐞 CommonTable (BorderMode="cell"): بوردرِ هر سلول عیناً از سند.
           border: resolvedBorderMode == "cell"
-              ? cellBorderFrom(cell.borders)
+              ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
               : null,
         ),
         child: Column(
