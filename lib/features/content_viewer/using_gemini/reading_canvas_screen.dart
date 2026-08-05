@@ -1205,6 +1205,10 @@ Widget _buildParagraph(
   BuildContext context, {
   bool isImageCell = false,
   bool isInsideTableCell = false,
+  // 🐞 CommonTable: عکس‌های داخلِ سلول با ابعادِ طبیعیِ سند (verbatim) رندر
+  // شوند تا ابعادِ قطعی داشته باشند و زیرِ intrinsicHeight جمع نشوند/خالی
+  // نمانند (به‌ویژه سلولِ فقط‌عکس بدونِ متن).
+  bool verbatimCellImage = false,
   ParagraphData? prevPara,
   ParagraphData? nextPara,
   List<int>? rootHighlightMap,
@@ -1379,6 +1383,21 @@ Widget _buildParagraph(
               ? naturalImgWidth.toDouble().clamp(canvasWidth, canvasWidth * 2.5)
               : null;
 
+          // 🐞 در سلولِ CommonTable عکس را عیناً با ابعادِ سند رندر می‌کنیم.
+          // دادنِ عرض *و* ارتفاعِ صریح یعنی عکس فوراً (حتی پیش از لود) همان
+          // فضا را می‌گیرد، پس در پاسِ اندازه‌گیریِ intrinsicHeight ارتفاعِ
+          // درست دارد و سلولِ فقط‌عکس دیگر خالی/جمع‌شده نمی‌شود.
+          double? cellImgW = imageExplicitWidth;
+          double? cellImgH;
+          if (verbatimCellImage &&
+              span.imageWidth != null &&
+              span.imageWidth! > 0) {
+            cellImgW = span.imageWidth!.toDouble();
+            cellImgH = (span.imageHeight != null && span.imageHeight! > 0)
+                ? span.imageHeight!.toDouble()
+                : null;
+          }
+
           Widget standaloneImage = _buildLocalImage(
             imagePath,
             isMobile: !isLargeScreen,
@@ -1386,7 +1405,8 @@ Widget _buildParagraph(
             isImageCell: isImageCell,
             activeBook: activeBook,
             context: context,
-            explicitWidth: imageExplicitWidth,
+            explicitWidth: cellImgW,
+            explicitHeight: cellImgH,
           );
           if (imageNeedsHScroll) {
             // 🐞 رفع کرش «Scrollbar's ScrollController has no ScrollPosition
@@ -1707,14 +1727,14 @@ Widget _buildParagraph(
   );
 }
 
-// 🐞 CommonTable AutoFit: در Word حاشیه‌ی پیش‌فرضِ سلول ~۵.۷۶pt هر طرف است،
-// ولی padding افقیِ پیش‌فرضِ سلول در فلاتر ۸px هر طرف — پس ناحیه‌ی متن ~۴.۵px
-// از Word باریک‌تر می‌شود و ستون‌هایی که با «AutoFit to contents» دقیقاً
-// اندازه‌ی محتوا شده‌اند در فلاتر wrap می‌کنند. به‌علاوه، متریکِ متنِ فلاتر کمی
-// از Word پهن‌تر است. این safety به عرضِ هر ستون در حالتِ natural اضافه می‌شود
-// تا محتوایی که در سند یک‌خطی است، یک‌خطی بماند (همان کاری که کاربر دستی
-// می‌کرد: «ستون را کمی پهن‌تر بگیر»).
-const double _kNaturalColSafetyPx = 22.0;
+// 🐞 CommonTable AutoFit: در Word حاشیه‌ی پیش‌فرضِ سلول ~۵.۷۶pt هر طرف است و
+// حالا padding افقیِ سلولِ CommonTable هم به همان مقدار کم شده تا ناحیه‌ی متن
+// دقیقاً برابرِ Word شود. باقی‌مانده‌ی اختلاف صرفاً از پهن‌تر بودنِ متریکِ متنِ
+// فلاتر نسبت به Word است؛ این safety آن را جبران می‌کند تا محتوایی که در سند
+// با «AutoFit to contents» یک‌خطی است، در فلاتر هم یک‌خطی بماند. (کاربر با
+// padding=۸px و safety=۲۲ به نتیجه رسیده بود؛ با paddingِ کم‌شده همان فضای
+// مؤثر تقریباً با ۱۸ بازتولید می‌شود. در صورتِ نیاز قابلِ تنظیم است.)
+const double _kNaturalColSafetyPx = 18.0;
 
 Widget _buildTable(
   SpanData tableSpan,
@@ -2221,6 +2241,7 @@ Widget _buildTable(
             context,
             isImageCell: isImageCell,
             isInsideTableCell: true,
+            verbatimCellImage: resolvedBorderMode == "cell", // 🐞 CommonTable
             prevPara: pIndex > 0 ? cell.paragraphs[pIndex - 1] : null,
             nextPara: pIndex < cell.paragraphs.length - 1
                 ? cell.paragraphs[pIndex + 1]
@@ -2242,13 +2263,19 @@ Widget _buildTable(
         );
       }
 
+      // 🐞 راهِ اصولیِ AutoFit (به‌جای تکیه‌ی صرف بر safetyِ عرضِ ستون): در
+      // Word حاشیه‌ی پیش‌فرضِ سلول ۰.۰۸in=۵.۷۶pt هر طرف است؛ برای CommonTable
+      // (که وفادار به سند است) padding افقی را به همان مقدار می‌گذاریم تا
+      // ناحیه‌ی متن دقیقاً برابرِ Word شود. بقیه‌ی جدول‌ها ۸px پیشینِ خود را
+      // نگه می‌دارند.
+      final double _hpad = (resolvedBorderMode == "cell") ? 5.76 : 8.0;
       EdgeInsetsGeometry cellPadding = isImageCell
           ? const EdgeInsets.all(2.0)
           : EdgeInsets.only(
               top: cell.paddingTop ?? 4.0,
               bottom: cell.paddingBottom ?? 4.0,
-              left: cell.paddingLeft ?? 8.0,
-              right: cell.paddingRight ?? 8.0,
+              left: cell.paddingLeft ?? _hpad,
+              right: cell.paddingRight ?? _hpad,
             );
 
       Widget cellContent = Container(
@@ -2906,6 +2933,8 @@ Widget _buildLocalImage(
   required BookModel? activeBook, // 🌟 اضافه شد
   required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
   double? explicitWidth, // 🐞 برای تصاویر عریض که در اسکرول افقی رندر می‌شوند
+  double?
+  explicitHeight, // 🐞 CommonTable: ارتفاعِ صریح تا سلولِ فقط‌عکس جمع نشود
 }) {
   final String baseImageName = imageName.split('/').last;
   String fallbackPath = 'assets/data/testbook/images/$baseImageName';
@@ -2952,6 +2981,7 @@ Widget _buildLocalImage(
               localFile,
               fit: BoxFit.contain,
               width: logicalWidth,
+              height: explicitHeight,
               cacheWidth: cacheWidth, // 🌟 اضافه شد
               errorBuilder: (context, error, stackTrace) =>
                   _errorImage(imageName),
@@ -2960,6 +2990,7 @@ Widget _buildLocalImage(
               fallbackPath,
               fit: BoxFit.contain,
               width: logicalWidth,
+              height: explicitHeight,
               cacheWidth: cacheWidth, // 🌟 اضافه شد
               errorBuilder: (context, error, stackTrace) =>
                   _errorImage(imageName),
