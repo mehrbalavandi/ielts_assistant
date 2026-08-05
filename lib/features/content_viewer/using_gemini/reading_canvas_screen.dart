@@ -1782,6 +1782,32 @@ Widget _buildTable(
     return true;
   }
 
+  // 🐞 CommonTable: یک ضلعِ بوردر را عیناً از دادهٔ همان سلول می‌سازد. اگر
+  // ضلع تعریف‌نشده یا none/nil باشد → BorderSide.none. عرض به point است و
+  // چون اپ ۱pt→۱px رندر می‌کند مستقیماً همان عدد px است. بوردرِ نقطه‌چین/
+  // خط‌چینِ سند چون فلاتر BorderSide نقطه‌چین ندارد، به‌صورتِ خطِ پیوسته‌ی
+  // نازک تقریب زده می‌شود (نه حذف) تا وفادار به سند بماند.
+  BorderSide cellSideFrom(BorderDetail? d) {
+    if (d == null) return BorderSide.none;
+    final v = (d.val ?? "").toLowerCase();
+    if (v.isEmpty || v == "none" || v == "nil") return BorderSide.none;
+    final double w = d.width ?? 0.5;
+    return BorderSide(
+      color: _hexToColor(d.color) ?? Colors.grey.shade500,
+      width: w <= 0 ? 0.5 : w,
+    );
+  }
+
+  Border? cellBorderFrom(CellBorders? b) {
+    if (b == null) return null;
+    return Border(
+      top: cellSideFrom(b.top),
+      bottom: cellSideFrom(b.bottom),
+      left: cellSideFrom(b.left),
+      right: cellSideFrom(b.right),
+    );
+  }
+
   // بوردرِ پیوسته یا در سطحِ خودِ جدول تعریف شده، یا (وقتی جدول سطحِ خودش
   // را ندارد) در سطحِ سلول‌ها — هر دو را می‌پذیریم.
   final bool hasSolidBorder =
@@ -2211,7 +2237,13 @@ Widget _buildTable(
 
       Widget cellContent = Container(
         padding: cellPadding,
-        decoration: BoxDecoration(color: _hexToColor(cell.fillColor)),
+        decoration: BoxDecoration(
+          color: _hexToColor(cell.fillColor),
+          // 🐞 CommonTable (BorderMode="cell"): بوردرِ هر سلول عیناً از سند.
+          border: resolvedBorderMode == "cell"
+              ? cellBorderFrom(cell.borders)
+              : null,
+        ),
         child: Column(
           crossAxisAlignment: stretchCellsToImage
               ? CrossAxisAlignment.stretch
@@ -2223,7 +2255,17 @@ Widget _buildTable(
 
       cellWidgets.add(cellContent);
 
-      if (cell.widthPercent != null && cell.widthPercent! > 0) {
+      if (resolvedWidthMode == "natural") {
+        // 🐞 CommonTable: هر ستون دقیقاً عرضِ مطلقِ سند را می‌گیرد (WidthPt،
+        // که ۱pt=۱px است). اگر سلولی عرضِ صریح نداشت، به عرضِ اندازه‌گیری‌شده‌ی
+        // محتوا برمی‌گردیم تا ستون جمع نشود.
+        final double? wpt = cell.widthPt;
+        columnWidths[i] = FixedColumnWidth(
+          (wpt != null && wpt > 0)
+              ? wpt
+              : ((perColumnWidestContent[i] ?? 60) + 24),
+        );
+      } else if (cell.widthPercent != null && cell.widthPercent! > 0) {
         columnWidths[i] = FlexColumnWidth(cell.widthPercent!);
       } else {
         // 🐞 اندازه‌گیریِ واقعیِ عرضِ محتوایِ همین ستون (نه یک پرچمِ Intrinsic
@@ -2268,12 +2310,24 @@ Widget _buildTable(
           isImageRow ||
           isNestedTable ||
           showBorders ||
-          isOutsideTable) {
+          isOutsideTable ||
+          resolvedBorderMode == "cell" || // 🐞 CommonTable همیشه گرید
+          resolvedWidthMode == "natural") {
         List<Widget> tableCellWidgets = [];
         for (int i = 0; i < cellWidgets.length; i++) {
           tableCellWidgets.add(
             TableCell(
-              verticalAlignment: getVAlign(row.cells[i].vAlign),
+              // 🐞 پاسخِ نکتهٔ کاربر: در CommonTable اگر یک سلول wrap شده و
+              // بلندتر از بقیه شود، همه‌ی سلول‌های همان ردیف باید هم‌ارتفاعِ آن
+              // شوند و بوردر/پس‌زمینه‌شان تا پایینِ ردیف پُر شود. مقدارِ
+              // intrinsicHeight دقیقاً این کار را می‌کند: در محاسبه‌ی ارتفاعِ
+              // ردیف با layoutِ واقعی شرکت می‌کند (نه intrinsic، پس با
+              // FloatColumnِ محتوایِ سلول که ابعادِ intrinsic نمی‌دهد سازگار
+              // است) و سپس هر سلول را تا ارتفاعِ ردیف کش می‌دهد. برایِ بقیه‌ی
+              // استایل‌ها همان رفتارِ قبلی (getVAlign) حفظ می‌شود.
+              verticalAlignment: resolvedBorderMode == "cell"
+                  ? TableCellVerticalAlignment.intrinsicHeight
+                  : getVAlign(row.cells[i].vAlign),
               child: cellWidgets[i],
             ),
           );
@@ -2579,6 +2633,42 @@ Widget _buildTable(
           // ۱۴+۱۴=۲۸ پیکسل فاصله می‌ساخت؛ حذف شد تا فقط همان ۱۴ بماند.
           child: SizedBox(width: renderWidth, child: tableContainer),
         ),
+      );
+    }
+  }
+
+  // 🐞 CommonTable (WidthMode="natural"): تصمیمِ اسکرولِ افقی داده‌محور و
+  // قطعی است — مجموعِ عرضِ مطلقِ ستون‌ها (WidthPt، ۱pt=۱px) را با عرضِ
+  // دستگاه مقایسه می‌کنیم. اگر بزرگ‌تر بود، جدول با عرضِ طبیعی‌اش داخلِ اسکرولِ
+  // افقی می‌رود (ستون‌ها له نمی‌شوند)؛ اگر جا می‌شد، با همان عرضِ طبیعی و
+  // چپ‌چین رندر می‌شود (کش نمی‌آید، عیناً مثلِ سند). این‌جا نه حدسِ محتوا لازم
+  // است نه حاشیه‌ی امن — عددِ واقعیِ سند را داریم.
+  if (resolvedWidthMode == "natural") {
+    double naturalTableWidth = 0;
+    for (final row in tableSpan.tableRows) {
+      double rowW = 0;
+      for (final c in row.cells) {
+        rowW += (c.widthPt ?? 0);
+      }
+      if (rowW > naturalTableWidth) naturalTableWidth = rowW;
+    }
+
+    if (naturalTableWidth > 0) {
+      if (naturalTableWidth > canvasWidth) {
+        final ScrollController hCtrl = ScrollController();
+        return Scrollbar(
+          controller: hCtrl,
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            controller: hCtrl,
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(width: naturalTableWidth, child: tableContainer),
+          ),
+        );
+      }
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: SizedBox(width: naturalTableWidth, child: tableContainer),
       );
     }
   }

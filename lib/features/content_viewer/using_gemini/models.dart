@@ -388,6 +388,7 @@ class CellBorders {
 
 class TableCellData {
   final double? widthPercent;
+  final double? widthPt; // 🐞 CommonTable: عرضِ مطلقِ سلول به point (=px منطقی)
   final List<ParagraphData> paragraphs;
   final String? fillColor;
   final String? vAlign;
@@ -404,6 +405,7 @@ class TableCellData {
 
   TableCellData({
     this.widthPercent,
+    this.widthPt,
     required this.paragraphs,
     this.fillColor,
     this.vAlign,
@@ -423,6 +425,7 @@ class TableCellData {
     var parasList = json['Paragraphs'] as List? ?? [];
     return TableCellData(
       widthPercent: json['WidthPercent']?.toDouble(),
+      widthPt: json['WidthPt']?.toDouble(),
       fillColor: json['FillColor'],
       vAlign: json['VAlign'],
       colSpan: json['ColSpan'],
@@ -446,6 +449,7 @@ class TableCellData {
   TableCellData copyWith({List<ParagraphData>? paragraphs}) {
     return TableCellData(
       widthPercent: widthPercent,
+      widthPt: widthPt,
       paragraphs: paragraphs ?? this.paragraphs,
       fillColor: fillColor,
       vAlign: vAlign,
