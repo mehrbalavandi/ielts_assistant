@@ -1707,6 +1707,15 @@ Widget _buildParagraph(
   );
 }
 
+// 🐞 CommonTable AutoFit: در Word حاشیه‌ی پیش‌فرضِ سلول ~۵.۷۶pt هر طرف است،
+// ولی padding افقیِ پیش‌فرضِ سلول در فلاتر ۸px هر طرف — پس ناحیه‌ی متن ~۴.۵px
+// از Word باریک‌تر می‌شود و ستون‌هایی که با «AutoFit to contents» دقیقاً
+// اندازه‌ی محتوا شده‌اند در فلاتر wrap می‌کنند. به‌علاوه، متریکِ متنِ فلاتر کمی
+// از Word پهن‌تر است. این safety به عرضِ هر ستون در حالتِ natural اضافه می‌شود
+// تا محتوایی که در سند یک‌خطی است، یک‌خطی بماند (همان کاری که کاربر دستی
+// می‌کرد: «ستون را کمی پهن‌تر بگیر»).
+const double _kNaturalColSafetyPx = 22.0;
+
 Widget _buildTable(
   SpanData tableSpan,
   double canvasWidth,
@@ -2269,7 +2278,7 @@ Widget _buildTable(
         final double? wpt = cell.widthPt;
         columnWidths[i] = FixedColumnWidth(
           (wpt != null && wpt > 0)
-              ? wpt
+              ? wpt + _kNaturalColSafetyPx
               : ((perColumnWidestContent[i] ?? 60) + 24),
         );
       } else if (cell.widthPercent != null && cell.widthPercent! > 0) {
@@ -2655,7 +2664,11 @@ Widget _buildTable(
     for (final row in tableSpan.tableRows) {
       double rowW = 0;
       for (final c in row.cells) {
-        rowW += (c.widthPt ?? 0);
+        // همان safetyِ عرضِ ستون را این‌جا هم جمع می‌زنیم تا مجموعِ عرض با
+        // عرضِ واقعیِ رندرشده بخواند (وگرنه تصمیمِ اسکرول/عرضِ SizedBox کمتر
+        // از عرضِ واقعیِ جدول می‌شد و آخرین ستون بریده/جمع می‌شد).
+        final double? cwpt = c.widthPt;
+        rowW += (cwpt != null && cwpt > 0) ? cwpt + _kNaturalColSafetyPx : 0;
       }
       if (rowW > naturalTableWidth) naturalTableWidth = rowW;
     }
