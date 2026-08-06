@@ -1555,6 +1555,7 @@ Widget _buildParagraph(
     // اولین اسپنِ متنیِ همین پاراگراف (اولین sz: که پیدا شود) و ارتفاعِ خط را
     // برابرِ متن می‌گیریم؛ با CrossAxisAlignment.start این یعنی هم‌ترازیِ دقیق.
     double markerFontSize = 14.0;
+    String? markerFontFamily; // 🐞 fontFamily مارکر را هم از متن می‌گیریم
     for (final s in para.spans) {
       if (s.type != "text") continue;
       final szMarker = s.markers.firstWhere(
@@ -1563,17 +1564,25 @@ Widget _buildParagraph(
       );
       if (szMarker.isNotEmpty) {
         final parsed = double.tryParse(szMarker.substring(3));
-        if (parsed != null) {
-          markerFontSize = parsed / 2;
-          break;
-        }
+        if (parsed != null) markerFontSize = parsed / 2;
       }
+      final fnMarker = s.markers.firstWhere(
+        (m) => m.startsWith("fn:"),
+        orElse: () => "",
+      );
+      if (fnMarker.isNotEmpty) {
+        markerFontFamily = mapFontFamily(fnMarker.substring(3));
+      }
+      break; // فقط اولین اسپنِ متنی
     }
-    // 🐞 رفع باگِ «شماره‌ی لیست بولد نمی‌شود»: بولد بودنِ شماره داده‌محور است
-    // (para.listMarkerBold از rPr سطحِ numbering در C#)، نه هاردکد.
+    // 🐞 رفع باگِ «شماره‌ی لیست بولد نمی‌شود» (ادامه): بولد بودن داده‌محور است
+    // (para.listMarkerBold)، ولی چون قبلاً fontFamily ست نمی‌شد، مارکر از فونتِ
+    // ambient ارث می‌برد که ممکن است بولدِ واقعی نداشته باشد؛ حالا همان فونتِ
+    // متن (که بولدش کار می‌کند) را می‌گذاریم تا مارکر هم دقیقاً مثلِ متن بولد شود.
     final TextStyle _markerStyle = TextStyle(
       height: para.lineSpacing ?? 1.3,
       fontSize: markerFontSize,
+      fontFamily: markerFontFamily,
       fontWeight: para.listMarkerBold ? FontWeight.bold : FontWeight.normal,
     );
     final TextPainter _tp = TextPainter(
@@ -2886,9 +2895,16 @@ List<InlineSpan> _buildStyledInteractiveText(
       interactivesPattern: interactivesPattern,
       interactivesByText: interactivesByText,
       sharedKeyClaim: keyClaim, // 🐞 رفع کرش: claim مشترکِ سطح پاراگراف
+      // 🐞 صفحه ۵ تمرین ۱۸: مارکرِ لیست فقط وقتی به مودالِ جای‌خالی پیش‌چسب
+      // شود که *کلِ پاراگراف* یک بلاکِ مخفی باشد (یعنی خودِ خط پنهان است و
+      // شماره در متنِ بیرون دیده نمی‌شود). برای جای‌خالیِ inline داخلِ آیتمِ
+      // لیست (مثلِ «Paragraph A {blk}ii{/blk}» که شماره‌اش بیرون دیده می‌شود)
+      // نباید «1:» به «ii» چسبانده شود؛ مودال باید فقط «ii» را نشان دهد.
+      // قبلاً شرط روی خودِ span بود، نه پاراگراف، و همین باعثِ «1: ii» می‌شد.
       listMarker:
           (para.keepListMarkerVisible != true &&
-              _isWhollyOneBlank(span.content))
+              para.spans.length == 1 &&
+              _isWhollyOneBlank(para.spans.first.content))
           ? para.listMarker
           : null,
     );
