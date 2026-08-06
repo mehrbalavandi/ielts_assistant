@@ -1031,6 +1031,73 @@ class InteractiveBlankWord extends StatelessWidget {
       return groups;
     }
 
+    // 🐞 صفحه ۱۰ تمرین ۸: اگر محتوای مخفیِ merged پاراگراف‌های تورفته دارد
+    // (مارکرِ «pindent:<pt>» روی اولین اسپنِ هر پاراگراف، از C#) و لیستِ
+    // شماره‌دار نیست، هر پاراگراف را در بلاکِ جدا با padding واقعی (برابرِ
+    // IndentLeftِ سند؛ اپ ۱pt≈۱px رندر می‌کند) می‌سازیم تا تورفتگی دقیقاً مثلِ
+    // سند دیده شود — شاملِ خطوطِ wrap‌شده، نه فقط خطِ اول.
+    double _parsePindent(SpanData s) {
+      for (final m in s.markers) {
+        if (m.startsWith("pindent:")) {
+          return double.tryParse(m.substring(8)) ?? 0;
+        }
+      }
+      return -1; // مارکرِ pindent ندارد
+    }
+
+    List<Widget>? buildIndentedBlocks() {
+      if (innerSpans == null || innerSpans!.isEmpty) return null;
+      final bool anyIndent = innerSpans!.any((s) => _parsePindent(s) > 0);
+      if (!anyIndent) return null; // بدونِ تورفتگی، مسیرِ تختِ قبلی کافی است
+
+      final List<Widget> blocks = [];
+      List<InlineSpan> current = [];
+      double currentIndent = 0;
+      int innerOffset = 0;
+      bool started = false;
+
+      void flush() {
+        blocks.add(
+          Padding(
+            padding: EdgeInsets.only(left: currentIndent, bottom: 6),
+            child: Text.rich(
+              TextSpan(
+                children: current.isEmpty
+                    ? [const TextSpan(text: "")]
+                    : List.of(current),
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ),
+        );
+        current = [];
+        currentIndent = 0;
+        started = false;
+      }
+
+      for (int idx = 0; idx < innerSpans!.length; idx++) {
+        final span = innerSpans![idx];
+        if (span.content == "\n") {
+          flush();
+          innerOffset += span.content.length;
+          continue;
+        }
+        final double pind = _parsePindent(span);
+        if (!started && pind >= 0) currentIndent = pind;
+        started = true;
+
+        List<int>? spanMapSlice;
+        final int spanLen = span.content.length;
+        if (blankMap != null && innerOffset + spanLen <= blankMap!.length) {
+          spanMapSlice = blankMap!.sublist(innerOffset, innerOffset + spanLen);
+        }
+        current.addAll(renderInnerSpan(span, spanMapSlice));
+        innerOffset += spanLen;
+      }
+      flush();
+      return blocks;
+    }
+
     List<InlineSpan> buildRevealedSpans() {
       List<InlineSpan> spans = [];
 
@@ -1218,10 +1285,22 @@ class InteractiveBlankWord extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TranslatableContentWrapper(
-                          originalContent: Text.rich(
-                            TextSpan(children: buildRevealedSpans()),
-                            textAlign: TextAlign.center,
-                          ),
+                          originalContent: (() {
+                            // 🐞 toast هم مثلِ مودال: اگر پاراگرافِ تورفته باشد،
+                            // بلاکِ padding‌دار؛ وگرنه همان Text.richِ وسط‌چینِ قبلی.
+                            final List<Widget>? tBlocks = buildIndentedBlocks();
+                            if (tBlocks != null && tBlocks.isNotEmpty) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: tBlocks,
+                              );
+                            }
+                            return Text.rich(
+                              TextSpan(children: buildRevealedSpans()),
+                              textAlign: TextAlign.center,
+                            );
+                          })(),
                           translationFa: translationFa,
                           translationAr: translationAr,
                           isDarkMode: isDarkTheme,
@@ -1272,6 +1351,7 @@ class InteractiveBlankWord extends StatelessWidget {
           // استفاده می‌کنند تا این‌جور regressionها دیگر تکرار نشوند.
           final List<MapEntry<String, List<InlineSpan>>>? numberedGroups =
               buildNumberedLineGroups();
+          final List<Widget>? indentedBlocks = buildIndentedBlocks();
 
           // 🐞 رفع باگِ «هم‌ترازی خطوطِ برگشتی»: اگر این پاراگراف واقعاً چند
           // آیتمِ اصلیِ Word ادغام‌شده است (numberedGroups != null)، به‌جای
@@ -1324,6 +1404,13 @@ class InteractiveBlankWord extends StatelessWidget {
                     ),
                   ),
               ],
+            );
+          } else if (indentedBlocks != null && indentedBlocks.isNotEmpty) {
+            // 🐞 پاراگراف‌های تورفته (تمرین ۸ صفحه ۱۰): هر کدام بلاکِ جدا با
+            // padding واقعی — تورفتگی دقیقاً مثلِ سند، حتی برای خطوطِ wrap‌شده.
+            revealedContent = Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: indentedBlocks,
             );
           } else {
             final List<InlineSpan> revealedSpans = buildRevealedSpans();
