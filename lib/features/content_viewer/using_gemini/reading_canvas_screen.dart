@@ -1856,23 +1856,25 @@ Widget _buildTable(
 
   // بوردرِ پیوسته یا در سطحِ خودِ جدول تعریف شده، یا (وقتی جدول سطحِ خودش
   // را ندارد) در سطحِ سلول‌ها — هر دو را می‌پذیریم.
-  // 🐞 بوردرِ سلولیِ solid را جدا نگه می‌داریم: برای جداولِ layoutی (ColumnStack/
-  // Dotted/TableGrid) که ذاتاً بی‌بوردر نمایش داده می‌شوند، یک بوردرِ *کم‌رنگِ
-  // فقط‌سطحِ‌جدول* (مثلِ E2EFD9 در ص۱۵ که سلول‌ها هیچ بوردری ندارند) نباید باعثِ
-  // نمایشِ بوردر شود؛ ولی اگر سلول‌ها بوردرِ واقعی داشته باشند (مثلِ ColumnStackِ
-  // ص۲۹ با بوردرِ قرمز در سطحِ سلول) باید نشان داده شود.
-  final bool hasCellSolidBorder = tableSpan.tableRows.any(
-    (row) => row.cells.any(
-      (cell) =>
-          isSolidBorderStyle(cell.borders?.top?.val) ||
-          isSolidBorderStyle(cell.borders?.bottom?.val) ||
-          isSolidBorderStyle(cell.borders?.left?.val) ||
-          isSolidBorderStyle(cell.borders?.right?.val),
-    ),
-  );
+  // 🐞 قانونِ درست (اصلاحِ کاربر): بوردر فقط وقتی مخفی شود که *غیر solid* باشد
+  // (dashed/dotted/none)، فارغ از کم‌رنگ بودن. ColumnStackTableِ ص۱۵ در سند
+  // بوردرِ dashed دارد (که حالا C# درست به‌صورتِ "dashed" می‌فرستد، نه "single")
+  // پس isSolidBorderStyle=false → مخفی؛ ولی جدولی با بوردرِ solid (سطحِ جدول یا
+  // سلول) نشان داده می‌شود.
+  final bool hasSolidBorder =
+      isSolidBorderStyle(borderVal) ||
+      tableSpan.tableRows.any(
+        (row) => row.cells.any(
+          (cell) =>
+              isSolidBorderStyle(cell.borders?.top?.val) ||
+              isSolidBorderStyle(cell.borders?.bottom?.val) ||
+              isSolidBorderStyle(cell.borders?.left?.val) ||
+              isSolidBorderStyle(cell.borders?.right?.val),
+        ),
+      );
   final bool hideBorders =
       (isDotted || isColumnStack || rawStyle.contains("tablegrid")) &&
-      !hasCellSolidBorder;
+      !hasSolidBorder;
   final bool applyColumnStack = isColumnStack && !isLargeScreen;
 
   double defaultBorderWidth =
