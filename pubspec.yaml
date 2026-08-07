@@ -153,6 +153,10 @@ flutter:
     fonts:
       - asset: fonts/Verdana.ttf
 
+  - family: Symbol
+    fonts:
+      - asset: fonts/Symbol.ttf
+
   - family: Wingdings 3
     fonts:
       - asset: fonts/WINGDNG3.TTF
