@@ -1162,7 +1162,6 @@ String mapFontFamily(String rawFontName) {
   if (normalized.contains("emoji")) return "Segoe UI Emoji";
   if (normalized.contains("zar")) return "Zar";
   if (normalized.contains("titr")) return "Titr";
-  if (normalized.contains("symbol")) return "Symbol";
   // 🐞 رفع باگِ «کاراکترِ ناشناخته» برای Wingdings: قبلاً هیچ case‌ای برای
   // این خانواده‌ی فونت نبود، پس "Wingdings 3" (از marker "fn:Wingdings 3")
   // به پیش‌فرضِ آخر (Source Sans 3) می‌افتاد — که برای کدپوینت‌های
@@ -1619,7 +1618,11 @@ Widget _buildParagraph(
             width: markerWidth,
             child: Text(
               para.listMarker!,
-              textAlign: rtl ? TextAlign.left : TextAlign.right,
+              // 🐞 Word شماره‌ی لیست را در موقعیتِ (left−hanging) *چپ‌چین*
+              // می‌گذارد؛ راست‌چینِ قبلی شماره را ته جعبه می‌بُرد و لیست تورفته
+              // دیده می‌شد (مثلِ ۱،۲ ص۱۵ که کاربر flush می‌خواست). حالا چپ‌چین:
+              // مارکرِ سطحِ پایه روی لبه‌ی چپ (flush) و سطوحِ عمیق‌تر تورفته.
+              textAlign: rtl ? TextAlign.right : TextAlign.left,
               style: _markerStyle,
             ),
           ),
