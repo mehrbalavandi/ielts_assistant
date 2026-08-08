@@ -2718,21 +2718,56 @@ Widget _buildTable(
     }
 
     if (naturalTableWidth > 0) {
-      if (naturalTableWidth > canvasWidth) {
-        final ScrollController hCtrl = ScrollController();
-        return Scrollbar(
-          controller: hCtrl,
-          thumbVisibility: true,
-          child: SingleChildScrollView(
-            controller: hCtrl,
-            scrollDirection: Axis.horizontal,
+      // 🐞 تصمیمِ scroll/fit را با عرضِ *واقعیِ در دسترس* می‌گیریم نه canvasWidthِ
+      // بیرونی. جدولِ تودرتو (مثلِ Societies تمرین۷ ص۳۷ داخلِ ستونِ چپِ چیدمانِ
+      // دو ستونی) canvasWidth را از کلِ صفحه می‌گرفت و روی نمایشگرِ عریض با عرضِ
+      // طبیعی رندر می‌شد و از ستونش بیرون می‌زد (می‌رفت زیرِ TIP). با LayoutBuilder
+      // عرضِ همان سلول را می‌گیریم: اگر جا نشد، داخلِ خودش اسکرولِ افقی می‌گیرد؛
+      // اگر جا شد، با عرضِ طبیعی. دیگر هیچ‌وقت از ظرفش سرریز نمی‌کند.
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final double avail = constraints.maxWidth.isFinite
+              ? constraints.maxWidth
+              : canvasWidth;
+          if (naturalTableWidth > avail + 0.5) {
+            // 🐞 وقتی جدول از عرضِ در دسترس بزرگ‌تر است:
+            // - نمایشگرِ عریض → shrink-to-fit: کلِ جدول (متن هم) یکنواخت کوچک
+            //   می‌شود تا کامل جا شود (روی صفحه‌ی بزرگ رزولوشن هست و جاشدن بهتر
+            //   از اسکرول است). FittedBox با scaleDown فقط کوچک می‌کند نه بزرگ.
+            // - نمایشگرِ باریک (گوشی) → اسکرولِ افقی، چون کوچک‌کردن متن را
+            //   ناخوانا می‌کند (کاربر قبلاً squish/shrink روی گوشی را نمی‌خواست).
+            if (isLargeScreen) {
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    width: naturalTableWidth,
+                    child: tableContainer,
+                  ),
+                ),
+              );
+            }
+            final ScrollController hCtrl = ScrollController();
+            return Scrollbar(
+              controller: hCtrl,
+              thumbVisibility: true,
+              child: SingleChildScrollView(
+                controller: hCtrl,
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: naturalTableWidth,
+                  child: tableContainer,
+                ),
+              ),
+            );
+          }
+          return Align(
+            alignment: Alignment.centerLeft,
             child: SizedBox(width: naturalTableWidth, child: tableContainer),
-          ),
-        );
-      }
-      return Align(
-        alignment: Alignment.centerLeft,
-        child: SizedBox(width: naturalTableWidth, child: tableContainer),
+          );
+        },
       );
     }
   }
