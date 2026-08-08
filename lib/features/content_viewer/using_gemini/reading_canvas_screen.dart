@@ -2295,21 +2295,30 @@ Widget _buildTable(
               right: cell.paddingRight ?? _hpad,
             );
 
-      Widget cellContent = Container(
-        padding: cellPadding,
-        decoration: BoxDecoration(
-          color: _hexToColor(cell.fillColor),
-          // 🐞 CommonTable (BorderMode="cell"): بوردرِ هر سلول عیناً از سند.
-          border: resolvedBorderMode == "cell"
-              ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
-              : null,
-        ),
-        child: Column(
-          crossAxisAlignment: stretchCellsToImage
-              ? CrossAxisAlignment.stretch
-              : CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: cellParagraphs,
+      // 🐞 جلوگیریِ عمومی از سرریزِ محتوا به ستونِ مجاور (همه‌ی جداول): سلول در
+      // Table عرضِ تنگِ ستونش را می‌گیرد، ولی اگر محتوا (مثلاً یک کلمه‌ی بلندِ
+      // بی‌فاصله مثل «Candidate» در ستونِ باریکِ DottedTableِ تودرتوی ص۴۳) از آن
+      // پهن‌تر باشد، پیش‌فرضِ فلاتر آن را بیرونِ کادر می‌کشد و روی ستونِ بعدی
+      // می‌افتد. ClipRect نقاشی را به مرزِ همان سلول محدود می‌کند (روی layout
+      // اثری ندارد، پس intrinsicHeight/FloatColumn دست‌نخورده می‌مانند). برای
+      // سلول‌هایی که محتوایشان جا می‌شود این یک no-op است.
+      Widget cellContent = ClipRect(
+        child: Container(
+          padding: cellPadding,
+          decoration: BoxDecoration(
+            color: _hexToColor(cell.fillColor),
+            // 🐞 CommonTable (BorderMode="cell"): بوردرِ هر سلول عیناً از سند.
+            border: resolvedBorderMode == "cell"
+                ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
+                : null,
+          ),
+          child: Column(
+            crossAxisAlignment: stretchCellsToImage
+                ? CrossAxisAlignment.stretch
+                : CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: cellParagraphs,
+          ),
         ),
       );
 
@@ -2463,8 +2472,7 @@ Widget _buildTable(
               resolvedTableBorder = TableBorder(
                 bottom: BorderSide(
                   color: currentBottomColor,
-                  width:
-                      (currentBottomWidth <= 0
+                  width: (currentBottomWidth <= 0
                           ? defaultBorderWidth
                           : currentBottomWidth) *
                       2.5,
@@ -2756,10 +2764,7 @@ Widget _buildTable(
               child: SingleChildScrollView(
                 controller: hCtrl,
                 scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  width: naturalTableWidth,
-                  child: tableContainer,
-                ),
+                child: SizedBox(width: naturalTableWidth, child: tableContainer),
               ),
             );
           }
@@ -2992,8 +2997,7 @@ Widget _buildLocalImage(
   required BookModel? activeBook, // 🌟 اضافه شد
   required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
   double? explicitWidth, // 🐞 برای تصاویر عریض که در اسکرول افقی رندر می‌شوند
-  double?
-  explicitHeight, // 🐞 CommonTable: ارتفاعِ صریح تا سلولِ فقط‌عکس جمع نشود
+  double? explicitHeight, // 🐞 CommonTable: ارتفاعِ صریح تا سلولِ فقط‌عکس جمع نشود
 }) {
   final String baseImageName = imageName.split('/').last;
   String fallbackPath = 'assets/data/testbook/images/$baseImageName';
