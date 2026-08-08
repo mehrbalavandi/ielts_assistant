@@ -1,7 +1,9 @@
 //! تحریم شکن
 /*
-185.51.200.2 or 185.51.200.1
-178.22.122.102
+flutter analyze --suggestions
+cd android
+.\gradlew.bat --version
+flutter config --jdk-dir="C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot"
 
 Using Flutter in China
 https://docs.flutter.dev/community/china#configuring-flutter-to-use-a-mirror-site
