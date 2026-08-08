@@ -4,6 +4,14 @@ flutter analyze --suggestions
 cd android
 .\gradlew.bat --version
 flutter config --jdk-dir="C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot"
+یک نکته برای آینده
+
+اگر بعداً Flutter یا Android Studio را Upgrade کردید و دوباره خطاهای عجیب Gradle/Java دیدید، اولین دستورهایی که ارزش بررسی دارند این‌ها هستند:
+
+flutter doctor -v
+flutter analyze --suggestions
+cd android
+.\gradlew.bat --version
 
 Using Flutter in China
 https://docs.flutter.dev/community/china#configuring-flutter-to-use-a-mirror-site
