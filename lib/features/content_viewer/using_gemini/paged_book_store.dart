@@ -2,14 +2,28 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ielts_assistant/features/content_viewer/using_gemini/document_loader.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 
-// 🐞 رفع «سقفِ» معماریِ قبلی (نه فقط جنکِ اسکرول):
-//
+// 🐞 روانیِ اسکرول — علتِ اصلیِ «قفل‌های کوتاه»: خواندن و jsonDecodeِ هر صفحه
+// روی ترِدِ اصلی (UI) اجرا می‌شد. jsonDecode یک عملیاتِ *همگام* است؛ حتی وقتی
+// داخلِ یک async هست، از لحظه‌ای که شروع شود تا تمام شود ترِد UI را نگه
+// می‌دارد. برای یک صفحه‌ی سنگین (جدول‌ها و اسپن‌های تودرتو) این ده‌ها
+// میلی‌ثانیه است ⇒ چند فریمِ پریده، دقیقاً همان لحظه‌ای که کاربر در حالِ
+// اسکرول به آن صفحه است. این دو تابعِ سطحِ‌بالا کار را در یک ایزوله‌ی
+// پس‌زمینه انجام می‌دهند تا ترِد UI آزاد بماند. (سطحِ‌بالا و با آرگومانِ
+// String تعریف شده‌اند تا کلوژر چیزی جز یک رشته را capture نکند — شرطِ
+// لازمِ Isolate.run.)
+Map<String, dynamic> _decodeJsonMapFromFile(String path) =>
+    jsonDecode(File(path).readAsStringSync()) as Map<String, dynamic>;
+
+Map<String, dynamic> _decodeJsonMap(String raw) =>
+    jsonDecode(raw) as Map<String, dynamic>;
+
 // قبلاً DocumentLoader.loadBookFromJson کل فایل data.json کتاب را یک‌جا
 // jsonDecode می‌کرد و یک List<PageData> برای *همه‌ی* صفحات کتاب می‌ساخت که
 // تا وقتی کاربر در صفحه بود، کامل در حافظه می‌ماند — چه صفحه‌ی ۱ دیده شود
@@ -392,8 +406,18 @@ class PagedBookStore {
       );
     }
 
-    final String raw = await _readAsset(_pageFiles[pageIndex]);
-    final Map<String, dynamic> json = jsonDecode(raw) as Map<String, dynamic>;
+    // 🐞 خواندن + jsonDecode در ایزوله‌ی پس‌زمینه (ترِد UI آزاد می‌ماند).
+    // فقط PageData.fromJson روی ترِد اصلی می‌ماند، چون به آبجکت‌های مشترکِ
+    // همین ایزوله (sharedInteractives/Pattern/ByText) نیاز دارد — و آن هم
+    // سبک‌تر از خودِ پارس است.
+    final String assetPath = '$_bookFolderPath/${_pageFiles[pageIndex]}';
+    final Map<String, dynamic> json;
+    if (_isLocal) {
+      json = await Isolate.run(() => _decodeJsonMapFromFile(assetPath));
+    } else {
+      final raw = await _readAsset(_pageFiles[pageIndex]);
+      json = await Isolate.run(() => _decodeJsonMap(raw));
+    }
     return PageData.fromJson(
       json,
       sharedInteractives: _sharedInteractives,
@@ -405,15 +429,42 @@ class PagedBookStore {
   // 🌟 برای پیش‌بارگذاریِ «پنجره‌ای» (نه کل کتاب) — مثلاً چند صفحه‌ی
   // جلوتر/عقب‌تر از موقعیت فعلی، پیوسته حین اسکرول. صرفاً getPage را صدا
   // می‌زند تا نتیجه وارد کش شود؛ خطای تک‌صفحه بقیه را متوقف نمی‌کند.
+  // 🐞 روانیِ اسکرول: نسخه‌ی قبلی از start تا end پشتِ‌سرِهم و بدونِ وقفه
+  // getPage می‌کرد — یعنی تا ۹ صفحه در یک رگبار، و چون هر صفحه هم
+  // PageData.fromJsonِ ترِد اصلی دارد، همان لحظه‌ی اسکرول چند فریم می‌پرید.
+  // سه تغییر: (۱) ترتیبِ نزدیک‌ترین‌اول (صفحه‌ای که کاربر واقعاً دارد به آن
+  // می‌رسد اول آماده می‌شود)، (۲) بعد از هر صفحه‌ی *واقعاً لودشده* یک نوبت به
+  // حلقه‌ی رویداد برمی‌گردیم تا کارها بینِ فریم‌ها پخش شود نه در یک فریم،
+  // (۳) شماره‌ی نسل: با هر اسکرولِ جدید prewarmِ قبلی خودش را کنار می‌کشد تا
+  // چند prewarm هم‌زمان روی هم تلنبار نشوند.
+  int _prewarmGeneration = 0;
+
   Future<void> prewarmAround(int centerIndex, {int radius = 4}) async {
+    final gen = ++_prewarmGeneration;
     final start = (centerIndex - radius).clamp(0, _pageCount - 1);
     final end = (centerIndex + radius).clamp(0, _pageCount - 1);
-    for (int i = start; i <= end; i++) {
+
+    final List<int> order = [];
+    for (int d = 0; d <= radius; d++) {
+      final ahead = centerIndex + d;
+      if (ahead >= start && ahead <= end) order.add(ahead);
+      if (d != 0) {
+        final behind = centerIndex - d;
+        if (behind >= start && behind <= end) order.add(behind);
+      }
+    }
+
+    for (final i in order) {
+      if (gen != _prewarmGeneration) return; // یک prewarmِ تازه‌تر آمده
+      final bool wasCached = _cache.containsKey(i);
       try {
         await getPage(i);
       } catch (_) {
         // یک صفحه‌ی خراب/گم‌شده نباید بقیه‌ی پیش‌بارگذاریِ پنجره را متوقف کند
       }
+      // فقط وقتی واقعاً کاری انجام شد نفس بکش؛ برای صفحه‌ی از قبل در کش
+      // هیچ هزینه‌ای نداشتیم پس وقفه هم لازم نیست.
+      if (!wasCached) await Future<void>.delayed(Duration.zero);
     }
   }
 

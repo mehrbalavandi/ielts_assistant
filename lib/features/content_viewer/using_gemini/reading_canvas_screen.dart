@@ -1416,19 +1416,12 @@ Widget _buildParagraph(
             // به اسکرولِ عمودیِ کلِ صفحه وصل است). با یک ScrollController
             // مشترک بین خودِ Scrollbar و SingleChildScrollView این مشکل
             // رفع می‌شود.
-            final ScrollController hCtrl = ScrollController();
-            standaloneImage = Scrollbar(
-              controller: hCtrl,
-              thumbVisibility: true,
-              child: SingleChildScrollView(
-                controller: hCtrl,
-                scrollDirection: Axis.horizontal,
-                // 🐞 همان فیکسِ فاصله: تا نوارِ اسکرول روی لبه‌ی پایینیِ
-                // خودِ عکس لَم ندهد.
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 14.0),
-                  child: standaloneImage,
-                ),
+            standaloneImage = _HScrollBox(
+              // 🐞 همان فیکسِ فاصله: تا نوارِ اسکرول روی لبه‌ی پایینیِ
+              // خودِ عکس لَم ندهد.
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 14.0),
+                child: standaloneImage,
               ),
             );
           }
@@ -1748,6 +1741,42 @@ Widget _buildParagraph(
 // padding=۸px و safety=۲۲ به نتیجه رسیده بود؛ با paddingِ کم‌شده همان فضای
 // مؤثر تقریباً با ۱۸ بازتولید می‌شود. در صورتِ نیاز قابلِ تنظیم است.)
 const double _kNaturalColSafetyPx = 18.0;
+
+// 🐞 روانیِ اسکرول: قبلاً در سه جای مسیرِ رندر، داخلِ خودِ build یک
+// `ScrollController()` ساخته می‌شد. build ممکن است بارها اجرا شود، پس هر بار
+// یک کنترلرِ تازه ساخته می‌شد که هیچ‌وقت dispose نمی‌شد (نشتیِ حافظه) و
+// Scrollbar در هر فریم دوباره attach/detach می‌کرد. این ویجتِ کوچک کنترلر را
+// یک‌بار می‌سازد و در dispose آزاد می‌کند.
+class _HScrollBox extends StatefulWidget {
+  const _HScrollBox({required this.child});
+  final Widget child;
+
+  @override
+  State<_HScrollBox> createState() => _HScrollBoxState();
+}
+
+class _HScrollBoxState extends State<_HScrollBox> {
+  final ScrollController _ctrl = ScrollController();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      controller: _ctrl,
+      thumbVisibility: true,
+      child: SingleChildScrollView(
+        controller: _ctrl,
+        scrollDirection: Axis.horizontal,
+        child: widget.child,
+      ),
+    );
+  }
+}
 
 Widget _buildTable(
   SpanData tableSpan,
@@ -2695,21 +2724,14 @@ Widget _buildTable(
       // 🐞 رفع کرش «Scrollbar's ScrollController has no ScrollPosition
       // attached»: بدون controllerِ صریح، Scrollbar به PrimaryScrollController
       // برمی‌گردد که به این SingleChildScrollViewِ افقیِ تودرتو وصل نیست.
-      final ScrollController hCtrl = ScrollController();
-      tableContainer = Scrollbar(
-        controller: hCtrl,
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          controller: hCtrl,
-          scrollDirection: Axis.horizontal,
-          // 🐞 این‌جا قبلاً یک Padding(bottom: 14) بود تا نوارِ اسکرول روی
-          // لبه‌ی پایینیِ بوردرِ جدول لَم ندهد. ولی بعد از فیکسِ قبلی (که
-          // marginِ ۱۴پیکسلیِ جدول را از داخلِ بوردر به بیرونش منتقل کرد)،
-          // همان margin — که خودش داخلِ همین ناحیه‌ی اسکرول است — دقیقاً
-          // همین جدایی را فراهم می‌کند. پس این Padding تکراری شده بود و
-          // ۱۴+۱۴=۲۸ پیکسل فاصله می‌ساخت؛ حذف شد تا فقط همان ۱۴ بماند.
-          child: SizedBox(width: renderWidth, child: tableContainer),
-        ),
+      tableContainer = _HScrollBox(
+        // 🐞 این‌جا قبلاً یک Padding(bottom: 14) بود تا نوارِ اسکرول روی
+        // لبه‌ی پایینیِ بوردرِ جدول لَم ندهد. ولی بعد از فیکسِ قبلی (که
+        // marginِ ۱۴پیکسلیِ جدول را از داخلِ بوردر به بیرونش منتقل کرد)،
+        // همان margin — که خودش داخلِ همین ناحیه‌ی اسکرول است — دقیقاً
+        // همین جدایی را فراهم می‌کند. پس این Padding تکراری شده بود و
+        // ۱۴+۱۴=۲۸ پیکسل فاصله می‌ساخت؛ حذف شد تا فقط همان ۱۴ بماند.
+        child: SizedBox(width: renderWidth, child: tableContainer),
       );
     }
   }
@@ -2766,18 +2788,8 @@ Widget _buildTable(
                 ),
               );
             }
-            final ScrollController hCtrl = ScrollController();
-            return Scrollbar(
-              controller: hCtrl,
-              thumbVisibility: true,
-              child: SingleChildScrollView(
-                controller: hCtrl,
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  width: naturalTableWidth,
-                  child: tableContainer,
-                ),
-              ),
+            return _HScrollBox(
+              child: SizedBox(width: naturalTableWidth, child: tableContainer),
             );
           }
           return Align(
