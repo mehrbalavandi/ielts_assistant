@@ -51,13 +51,6 @@ app.*.map.json
 /android/app/release
 
 # Project-specific ignored files
-lib/features/content_viewer/presentation/using_gemini - Shortcut.lnk
-assets/data/~WRL*.tmp
-assets/~WRL*.tmp
-assets/data/images/
-assets/data/pages/
-assets/data/audio/
-assets/data/audio_scripts/
 
 # If you want to ignore EVERYTHING inside a folder except one file, use:
 # assets/some_folder/*
