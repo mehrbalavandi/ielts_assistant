@@ -2295,30 +2295,21 @@ Widget _buildTable(
               right: cell.paddingRight ?? _hpad,
             );
 
-      // 🐞 جلوگیریِ عمومی از سرریزِ محتوا به ستونِ مجاور (همه‌ی جداول): سلول در
-      // Table عرضِ تنگِ ستونش را می‌گیرد، ولی اگر محتوا (مثلاً یک کلمه‌ی بلندِ
-      // بی‌فاصله مثل «Candidate» در ستونِ باریکِ DottedTableِ تودرتوی ص۴۳) از آن
-      // پهن‌تر باشد، پیش‌فرضِ فلاتر آن را بیرونِ کادر می‌کشد و روی ستونِ بعدی
-      // می‌افتد. ClipRect نقاشی را به مرزِ همان سلول محدود می‌کند (روی layout
-      // اثری ندارد، پس intrinsicHeight/FloatColumn دست‌نخورده می‌مانند). برای
-      // سلول‌هایی که محتوایشان جا می‌شود این یک no-op است.
-      Widget cellContent = ClipRect(
-        child: Container(
-          padding: cellPadding,
-          decoration: BoxDecoration(
-            color: _hexToColor(cell.fillColor),
-            // 🐞 CommonTable (BorderMode="cell"): بوردرِ هر سلول عیناً از سند.
-            border: resolvedBorderMode == "cell"
-                ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
-                : null,
-          ),
-          child: Column(
-            crossAxisAlignment: stretchCellsToImage
-                ? CrossAxisAlignment.stretch
-                : CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: cellParagraphs,
-          ),
+      Widget cellContent = Container(
+        padding: cellPadding,
+        decoration: BoxDecoration(
+          color: _hexToColor(cell.fillColor),
+          // 🐞 CommonTable (BorderMode="cell"): بوردرِ هر سلول عیناً از سند.
+          border: resolvedBorderMode == "cell"
+              ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
+              : null,
+        ),
+        child: Column(
+          crossAxisAlignment: stretchCellsToImage
+              ? CrossAxisAlignment.stretch
+              : CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: cellParagraphs,
         ),
       );
 
@@ -2335,7 +2326,24 @@ Widget _buildTable(
               : ((perColumnWidestContent[i] ?? 60) + 24),
         );
       } else if (cell.widthPercent != null && cell.widthPercent! > 0) {
-        columnWidths[i] = FlexColumnWidth(cell.widthPercent!);
+        // 🐞 حفظِ محتوا بدونِ بریدن/اسکرولِ بی‌جا: ستونِ باریکِ برچسب (WidthPt
+        // کوچک — مثلِ ستونِ Examiner/Candidateِ ص۴۳) روی صفحه‌ی باریک سهمِ
+        // درصدی‌اش از عرضِ محتوایش (یک کلمه‌ی بی‌فاصله) کمتر می‌شد و سرریز
+        // می‌کرد. حالا اگر ستون باریک است *و* حداقل یک ستونِ پهن (متنِ شکنا)
+        // هم در ردیف هست، این ستون را با عرضِ مطلقِ سند (WidthPt+safety، که Word
+        // محتوا را در آن جا داده) ثابت می‌کنیم و ستون‌های پهن flex می‌مانند و
+        // بقیه‌ی عرض را پر می‌کنند (متن wrap می‌شود). اگر ستونِ پهنی نبود
+        // (جدولِ یکنواختِ باریک) همه flex می‌مانند تا عرض را پر کنند و چیزی
+        // سرریز نکند. جدولِ بدنه (ستونِ محتوایِ پهن) هم دست‌نخورده flex می‌ماند.
+        final double? wpt = cell.widthPt;
+        final bool hasWideColumn = row.cells.any(
+          (c) => c.widthPt == null || (c.widthPt ?? 0) > 120,
+        );
+        if (wpt != null && wpt > 0 && wpt <= 120 && hasWideColumn) {
+          columnWidths[i] = FixedColumnWidth(wpt + _kNaturalColSafetyPx);
+        } else {
+          columnWidths[i] = FlexColumnWidth(cell.widthPercent!);
+        }
       } else {
         // 🐞 اندازه‌گیریِ واقعیِ عرضِ محتوایِ همین ستون (نه یک پرچمِ Intrinsic
         // شکننده) — perColumnWidestContent همان چیزی است که بالاترِ همین
@@ -2472,7 +2480,8 @@ Widget _buildTable(
               resolvedTableBorder = TableBorder(
                 bottom: BorderSide(
                   color: currentBottomColor,
-                  width: (currentBottomWidth <= 0
+                  width:
+                      (currentBottomWidth <= 0
                           ? defaultBorderWidth
                           : currentBottomWidth) *
                       2.5,
@@ -2764,7 +2773,10 @@ Widget _buildTable(
               child: SingleChildScrollView(
                 controller: hCtrl,
                 scrollDirection: Axis.horizontal,
-                child: SizedBox(width: naturalTableWidth, child: tableContainer),
+                child: SizedBox(
+                  width: naturalTableWidth,
+                  child: tableContainer,
+                ),
               ),
             );
           }
@@ -2997,7 +3009,8 @@ Widget _buildLocalImage(
   required BookModel? activeBook, // 🌟 اضافه شد
   required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
   double? explicitWidth, // 🐞 برای تصاویر عریض که در اسکرول افقی رندر می‌شوند
-  double? explicitHeight, // 🐞 CommonTable: ارتفاعِ صریح تا سلولِ فقط‌عکس جمع نشود
+  double?
+  explicitHeight, // 🐞 CommonTable: ارتفاعِ صریح تا سلولِ فقط‌عکس جمع نشود
 }) {
   final String baseImageName = imageName.split('/').last;
   String fallbackPath = 'assets/data/testbook/images/$baseImageName';
