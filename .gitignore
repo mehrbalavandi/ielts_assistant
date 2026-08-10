@@ -12,6 +12,12 @@
 .swiftpm/
 migrate_working_dir/
 
+# Word temporary / lock files
+~$*.doc
+~$*.docx
+~$*.docm
+~WRL*.tmp
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -43,39 +49,40 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-<<<<<<< HEAD
+
+# Project-specific ignored files
 lib/features/content_viewer/presentation/using_gemini - Shortcut.lnk
-assets/data/~$ndset-Level-3.docx
-assets/data/~WRL0003.tmp
-assets/data/~$ndset-Level-3- Custom.docx
-assets/data/Mindset-Level-3- Custom - Copy.docx
-assets/data/~$ndset3- Converted.docx
-assets/data/~$ndset3- Custom.docx
-assets/data/~WRL2416.tmp
-assets/~$ماری پروژه.docx
-assets/~WRL1292.tmp
-assets/data/~WRL2590.tmp
-assets/data/Mindset-For-IELTS-Level-3-zandi-english0.docx
-assets/data/~$ndset-For-IELTS-Level-3-zandi-english0.docx
-assets/data/Cambridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
-assets/data/~$mbridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
-assets/~WRL1819.tmp
+assets/data/~WRL*.tmp
+assets/~WRL*.tmp
 assets/data/images/
 assets/data/pages/
 assets/data/audio/
 assets/data/audio_scripts/
+
+# If you want to ignore EVERYTHING inside a folder except one file, use:
+# assets/some_folder/*
+# !assets/some_folder/
+# !assets/some_folder/keep-this-file.ext
+assets/data/Mindset 03/*
+!assets/data/Mindset 03/
+!assets/data/Mindset 03/Mindset3- Custom.docx
+!assets/data/Mindset 03/Mindset3- Audio Scripts.docx
+!assets/data/Mindset 03/Mindset3- Audio Scripts_markers.docx
+
+assets/data/Mindset 01/*
+!assets/data/Mindset 01/
+!assets/data/Mindset 01/Mindset1- Custom.docx
+!assets/data/Mindset 01/Mindset1- Audio Scripts.docx
+!assets/data/Mindset 01/Mindset1- Audio Scripts_markers.docx
+# Example: keep only this file in assets/data/
+# assets/data/*
+# !assets/data/
+# !assets/data/Cambridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
+
+# Files currently intended to remain tracked
+assets/data/Mindset-Level-3- Custom - Copy.docx
+assets/data/Mindset-For-IELTS-Level-3-zandi-english0.docx
+assets/data/Cambridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
 assets/data/data.zip
 assets/data/index.json
-=======
-assets/data/Cambridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
-assets/data/~$mbridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
->>>>>>> main
-assets/data/~WRL2331.tmp
-assets/data/~WRL3263.tmp
 assets/data/مارکرها.docx
-assets/data/~WRL1036.tmp
-assets/data/~WRL0074.tmp
-assets/data/~WRL2648.tmp
-assets/data/~WRL4041.tmp
-assets/data/~WRL3913.tmp
-assets/data/~$ndset1- Custom.docx
