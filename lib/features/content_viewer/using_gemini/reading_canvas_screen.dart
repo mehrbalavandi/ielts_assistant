@@ -1577,6 +1577,10 @@ Widget _buildParagraph(
       fontSize: markerFontSize,
       fontFamily: markerFontFamily,
       fontWeight: para.listMarkerBold ? FontWeight.bold : FontWeight.normal,
+      // 🐞 رنگِ نشانگرِ خودکارِ لیست از سندخوانده می‌شود (rPrِ سطحِ numbering).
+      // اگر تعریف نشده باشد null می‌ماند و رنگِ پیش‌فرضِ تمِ متن اعمال می‌شود —
+      // پس روی لیست‌های بی‌رنگ هیچ تغییری نمی‌دهد.
+      color: _hexToColor(para.listMarkerColor),
     );
     final TextPainter _tp = TextPainter(
       text: TextSpan(text: para.listMarker!, style: _markerStyle),
