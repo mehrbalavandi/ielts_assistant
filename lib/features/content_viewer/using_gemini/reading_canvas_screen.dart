@@ -2953,8 +2953,23 @@ List<InlineSpan> _buildStyledInteractiveText(
   // اگر در JSON به هر شکلی به حاشیه اشاره شده باشد (یا فلگ true باشد یا آبجکت borders وجود داشته باشد)
   bool isInlineBorder = hasBorderFlag || hasBorderObject;
 
+  // 🐞 مارکرهای جدیدِ متن: خط‌خورده (s) و زیرنویس/بالانویس (sub/sup).
+  // sub/sup در فلاتر معادلِ مستقیم ندارند: اندازه را کوچک می‌کنیم و با
+  // fontFeatures از فونت رقمِ sub/sup می‌خواهیم (اگر فونت پشتیبانی نکند فقط
+  // کوچک می‌ماند، خراب نمی‌شود). چند decoration با combine جمع می‌شوند.
+  final bool _mStrike = span.markers.contains("s");
+  final bool _mSub = span.markers.contains("sub");
+  final bool _mSup = span.markers.contains("sup");
+  final List<TextDecoration> _mDecos = [
+    if (span.markers.contains("u")) TextDecoration.underline,
+    if (_mStrike) TextDecoration.lineThrough,
+  ];
+
   TextStyle baseStyle = TextStyle(
-    fontSize: fontSize,
+    fontSize: (_mSub || _mSup) ? fontSize * 0.75 : fontSize,
+    fontFeatures: _mSup
+        ? const [FontFeature.superscript()]
+        : (_mSub ? const [FontFeature.subscript()] : null),
     fontFamily: fontFamily,
     color: customTextColor ?? Colors.black87,
     // 🌟 فاصله‌ی خطوط از Word؛ اما اگر همین span پس‌زمینه‌ی رنگی دارد، حداقلِ
@@ -2969,9 +2984,9 @@ List<InlineSpan> _buildStyledInteractiveText(
         ? FontWeight.bold
         : FontWeight.normal,
     fontStyle: span.markers.contains("i") ? FontStyle.italic : FontStyle.normal,
-    decoration: (span.markers.contains("u"))
-        ? TextDecoration.underline
-        : TextDecoration.none,
+    decoration: _mDecos.isEmpty
+        ? TextDecoration.none
+        : TextDecoration.combine(_mDecos),
   );
 
   List<InlineSpan> interactiveSpans = [];

@@ -159,6 +159,10 @@ class TextRenderEngine {
     bool isBold = span.markers.contains("b");
     bool isItalic = span.markers.contains("i");
     bool isUnderline = span.markers.contains("u");
+    // 🐞 مارکرهای جدید: خط‌خورده / زیرنویس / بالانویس
+    bool isStrike = span.markers.contains("s");
+    bool isSub = span.markers.contains("sub");
+    bool isSup = span.markers.contains("sup");
 
     Color color = isDark ? Colors.white : Colors.black87;
     Color? bgColor; // 🌟 متغیر جدید برای ذخیره رنگ پس‌زمینه
@@ -198,11 +202,29 @@ class TextRenderEngine {
       } catch (_) {}
     }
 
+    // 🐞 زیرنویس/بالانویس: فلاتر در TextStyle چیزی معادلِ vertical-align ندارد.
+    // روشِ استانداردِ تقریب: اندازه‌ی فونت را کوچک کن و با `fontFeatures` از
+    // خودِ فونت رقمِ sub/sup بخواه؛ اگر فونت آن ویژگی را نداشته باشد، حداقل
+    // اندازه‌ی کوچک‌ترِ آن باقی می‌ماند (fontFeatures بی‌اثر است، نه خراب‌کننده).
+    final List<FontFeature>? _feat = isSup
+        ? const [FontFeature.superscript()]
+        : (isSub ? const [FontFeature.subscript()] : null);
+    final double _finalSize = (isSup || isSub) ? fontSize * 0.75 : fontSize;
+
+    // 🐞 چند decoration هم‌زمان (مثلاً هم زیرخط هم خط‌خورده) با combine
+    final List<TextDecoration> _decos = [
+      if (isUnderline) TextDecoration.underline,
+      if (isStrike) TextDecoration.lineThrough,
+    ];
+
     return base.copyWith(
-      fontSize: fontSize,
+      fontSize: _finalSize,
       fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
-      decoration: isUnderline ? TextDecoration.underline : TextDecoration.none,
+      decoration: _decos.isEmpty
+          ? TextDecoration.none
+          : TextDecoration.combine(_decos),
+      fontFeatures: _feat,
       color: color,
       backgroundColor: bgColor, // 🌟 اعمال رنگ پس‌زمینه به استایل نهایی
     );
