@@ -2968,8 +2968,8 @@ List<InlineSpan> _buildStyledInteractiveText(
   TextStyle baseStyle = TextStyle(
     fontSize: (_mSub || _mSup) ? fontSize * 0.75 : fontSize,
     fontFeatures: _mSup
-        ? const [FontFeature.superscript()]
-        : (_mSub ? const [FontFeature.subscript()] : null),
+        ? const [FontFeature('sups')]
+        : (_mSub ? const [FontFeature('subs')] : null),
     fontFamily: fontFamily,
     color: customTextColor ?? Colors.black87,
     // 🌟 فاصله‌ی خطوط از Word؛ اما اگر همین span پس‌زمینه‌ی رنگی دارد، حداقلِ

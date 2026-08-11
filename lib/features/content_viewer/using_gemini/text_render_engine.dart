@@ -206,9 +206,13 @@ class TextRenderEngine {
     // روشِ استانداردِ تقریب: اندازه‌ی فونت را کوچک کن و با `fontFeatures` از
     // خودِ فونت رقمِ sub/sup بخواه؛ اگر فونت آن ویژگی را نداشته باشد، حداقل
     // اندازه‌ی کوچک‌ترِ آن باقی می‌ماند (fontFeatures بی‌اثر است، نه خراب‌کننده).
+    // 🐞 اصلاحِ خطای کامپایل: FontFeature.superscript()/.subscript() به‌عنوانِ
+    // سازنده‌ی نام‌دار در این نسخه‌ی SDK وجود ندارند. سازنده‌ی پایه
+    // `FontFeature(String tag, [int value=1])` همیشه هست؛ تگ‌های چهارحرفیِ
+    // استانداردِ OpenType مستقیماً استفاده می‌شوند: 'sups'=بالانویس، 'subs'=زیرنویس.
     final List<FontFeature>? _feat = isSup
-        ? const [FontFeature.superscript()]
-        : (isSub ? const [FontFeature.subscript()] : null);
+        ? const [FontFeature('sups')]
+        : (isSub ? const [FontFeature('subs')] : null);
     final double _finalSize = (isSup || isSub) ? fontSize * 0.75 : fontSize;
 
     // 🐞 چند decoration هم‌زمان (مثلاً هم زیرخط هم خط‌خورده) با combine
