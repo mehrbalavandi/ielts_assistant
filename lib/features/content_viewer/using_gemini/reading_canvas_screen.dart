@@ -2119,26 +2119,62 @@ Widget _buildTable(
   // کلِ جدول. این Map پهن‌ترین محتوای هر ستون (بر اساسِ اندیسِ سلول در
   // هر ردیف) را جدا نگه می‌دارد.
   final Map<int, double> perColumnWidestContent = {};
+
+  // 🐞 روانیِ اسکرول — علتِ «تا همه‌ی صفحات یک‌بار دیده نشوند روان نمی‌شود»:
+  // حلقه‌ی زیر برای *هر جدول* روی تک‌تکِ اسپن‌های هر سلول یک
+  // TextPainter.layout() اجرا می‌کند. layout واقعاً متن را shape می‌کند
+  // (کارِ سنگینِ Skia)، و یک صفحه با چند جدولِ چندسلولی به‌راحتی صدها بار
+  // این کار را در همان فریمی انجام می‌دهد که کاربر دارد به آن صفحه می‌رسد —
+  // یعنی دقیقاً همان قفلِ «اولین عبور». بعد از اولین ساخت، صفحه به‌خاطرِ
+  // AutomaticKeepAlive + _cachedWidgets زنده می‌ماند و دیگر تکرار نمی‌شود؛
+  // برای همین «بعد از یک‌بار اسکرولِ کامل» روان می‌شد.
+  //
+  // نکته‌ی کلیدی: خروجیِ این اندازه‌گیری فقط در حالت‌های horizontalScroll و
+  // proportional مصرف می‌شود، و در حالتِ natural فقط به‌عنوانِ *فال‌بک* وقتی
+  // widthPt نداریم. ولی از وقتی Responsivelowering هر استایلِ ناشناخته را
+  // CommonTable (natural + widthPtِ معتبر) می‌کند، اکثریتِ جدول‌ها این
+  // اندازه‌گیری را انجام می‌دادند و بعد دور می‌ریختند. این گاردِ ارزان
+  // (فقط چند مقایسه‌ی عددی، بدونِ TextPainter) آن کارِ بی‌مصرف را حذف می‌کند.
+  bool everyCellHasWidthPt = tableSpan.tableRows.isNotEmpty;
   for (final row in tableSpan.tableRows) {
-    for (int ci = 0; ci < row.cells.length; ci++) {
-      final cell = row.cells[ci];
-      double thisColumnWidth = 0;
-      for (final p in cell.paragraphs) {
-        final paraWidth = measureParagraphNaturalWidth(p);
-        if (paraWidth > maxParagraphNaturalWidth) {
-          maxParagraphNaturalWidth = paraWidth;
-        }
-        if (paraWidth > thisColumnWidth) thisColumnWidth = paraWidth;
-        for (final s in p.spans) {
-          if (s.type == "image" &&
-              s.imageWidth != null &&
-              s.imageWidth! > maxEmbeddedImageWidth) {
-            maxEmbeddedImageWidth = s.imageWidth!.toDouble();
+    for (final cell in row.cells) {
+      final w = cell.widthPt;
+      if (w == null || w <= 0) {
+        everyCellHasWidthPt = false;
+        break;
+      }
+    }
+    if (!everyCellHasWidthPt) break;
+  }
+  final bool measurementUnused =
+      resolvedWidthMode == "natural" &&
+      everyCellHasWidthPt &&
+      strategy != "horizontalScroll" &&
+      !isBorderedTable &&
+      !isOutsideTable;
+
+  if (!measurementUnused) {
+    for (final row in tableSpan.tableRows) {
+      for (int ci = 0; ci < row.cells.length; ci++) {
+        final cell = row.cells[ci];
+        double thisColumnWidth = 0;
+        for (final p in cell.paragraphs) {
+          final paraWidth = measureParagraphNaturalWidth(p);
+          if (paraWidth > maxParagraphNaturalWidth) {
+            maxParagraphNaturalWidth = paraWidth;
+          }
+          if (paraWidth > thisColumnWidth) thisColumnWidth = paraWidth;
+          for (final s in p.spans) {
+            if (s.type == "image" &&
+                s.imageWidth != null &&
+                s.imageWidth! > maxEmbeddedImageWidth) {
+              maxEmbeddedImageWidth = s.imageWidth!.toDouble();
+            }
           }
         }
-      }
-      if (thisColumnWidth > (perColumnWidestContent[ci] ?? 0)) {
-        perColumnWidestContent[ci] = thisColumnWidth;
+        if (thisColumnWidth > (perColumnWidestContent[ci] ?? 0)) {
+          perColumnWidestContent[ci] = thisColumnWidth;
+        }
       }
     }
   }

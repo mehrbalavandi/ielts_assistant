@@ -33,6 +33,10 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
   void _ensureBookLoaded(BookModel book) {
     if (_loadedBookId == book.id && _pagedBookStore != null) return;
     _loadedBookId = book.id;
+    // 🐞 اگر کتابِ دیگری قبلاً باز بوده، ایزوله‌ی دائمیِ آن را قبل از
+    // جایگزینی آزاد می‌کنیم — وگرنه هر عوض‌کردنِ کتاب یک ایزوله‌ی زنده‌ی
+    // بی‌مصرف پشتِ سر می‌گذارد.
+    _pagedBookStore?.dispose();
     _pagedBookStore = PagedBookStore(book: book);
     _manifestFuture = _pagedBookStore!.ensureManifestLoaded();
     // 🐞 رفعِ باگِ «نتیجه‌ی جستجوی قدیمی دوباره ظاهر می‌شود»: activeSearchProvider
@@ -47,6 +51,13 @@ class _MainBookScreenState extends ConsumerState<MainBookScreen> {
         ref.read(activeSearchProvider.notifier).state = null;
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // 🐞 با بسته‌شدنِ صفحه‌ی کتاب، ایزوله‌ی دائمیِ decode هم باید کشته شود.
+    _pagedBookStore?.dispose();
+    super.dispose();
   }
 
   @override

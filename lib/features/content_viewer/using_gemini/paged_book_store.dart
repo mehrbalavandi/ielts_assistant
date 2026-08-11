@@ -9,20 +9,95 @@ import 'package:ielts_assistant/features/content_viewer/using_gemini/document_lo
 import 'package:ielts_assistant/features/content_viewer/using_gemini/models.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/providers/book_provider.dart';
 
-// 🐞 روانیِ اسکرول — علتِ اصلیِ «قفل‌های کوتاه»: خواندن و jsonDecodeِ هر صفحه
-// روی ترِدِ اصلی (UI) اجرا می‌شد. jsonDecode یک عملیاتِ *همگام* است؛ حتی وقتی
-// داخلِ یک async هست، از لحظه‌ای که شروع شود تا تمام شود ترِد UI را نگه
-// می‌دارد. برای یک صفحه‌ی سنگین (جدول‌ها و اسپن‌های تودرتو) این ده‌ها
-// میلی‌ثانیه است ⇒ چند فریمِ پریده، دقیقاً همان لحظه‌ای که کاربر در حالِ
-// اسکرول به آن صفحه است. این دو تابعِ سطحِ‌بالا کار را در یک ایزوله‌ی
-// پس‌زمینه انجام می‌دهند تا ترِد UI آزاد بماند. (سطحِ‌بالا و با آرگومانِ
-// String تعریف شده‌اند تا کلوژر چیزی جز یک رشته را capture نکند — شرطِ
-// لازمِ Isolate.run.)
-Map<String, dynamic> _decodeJsonMapFromFile(String path) =>
-    jsonDecode(File(path).readAsStringSync()) as Map<String, dynamic>;
+// 🐞 روانیِ اسکرول — تصحیحِ یک اشتباهِ خودم: راه‌حلِ دورِ قبل (`Isolate.run` به
+// ازای هر صفحه) نتیجه‌ی معکوس داد و کاربر با تست تأیید کرد — «کتاب دیرتر لود
+// می‌شود» و «تا همه‌ی صفحات یک‌بار اسکرول نخورند روان نمی‌شود». علتش این است:
+// `Isolate.run` برایِ *هر* فراخوانی یک ایزوله‌ی کاملاً تازه اسپاون می‌کند و در
+// پایان آن را از بین می‌برد؛ این اسپاون/تخریب خودش ده‌ها میلی‌ثانیه هزینه دارد
+// — که برای یک کتابِ پرصفحه، به‌ازای *هر تک‌صفحه* پرداخت می‌شد و مجموعاً از
+// همان jsonDecodeِ رویِ ترِدِ اصلی که می‌خواستیم رفعش کنیم، کندتر شد (و اولین
+// عبورِ هر صفحه، که تا امروز هم قفل داشت، حالا حتی سنگین‌تر شده بود).
+//
+// راهِ درست: یک ایزوله‌یِ *دائمی* که فقط یک‌بار (اولین باری که به یک صفحه نیاز
+// داریم) بالا می‌آید، هزینه‌ی اسپاون فقط همان یک‌بار پرداخت می‌شود، و بعد از آن
+// هر صفحه فقط با یک پیام سبک (SendPort/ReceivePort — نه اسپاونِ ایزوله‌ی
+// جدید) درخواست می‌شود. این هم ترِدِ UI را در حینِ jsonDecode آزاد نگه می‌دارد
+// (هدفِ اصلی) و هم سربارِ اسپاونِ تکراری را حذف می‌کند.
+class _DecodeWorker {
+  Isolate? _isolate;
+  SendPort? _commandPort;
+  Future<SendPort>? _starting;
 
-Map<String, dynamic> _decodeJsonMap(String raw) =>
-    jsonDecode(raw) as Map<String, dynamic>;
+  Future<SendPort> _ensureStarted() {
+    final existing = _commandPort;
+    if (existing != null) return Future.value(existing);
+    return _starting ??= _start();
+  }
+
+  Future<SendPort> _start() async {
+    final ReceivePort initPort = ReceivePort();
+    _isolate = await Isolate.spawn(_decodeWorkerMain, initPort.sendPort);
+    final SendPort commandPort = await initPort.first as SendPort;
+    initPort.close();
+    _commandPort = commandPort;
+    return commandPort;
+  }
+
+  // path=null یعنی raw از قبل خوانده شده (asset باندل‌شده)؛ در غیرِ این صورت
+  // خودِ ایزوله‌ی worker فایل را از دیسک می‌خواند (باز هم دورِ ترِدِ UI).
+  Future<Map<String, dynamic>> decode({String? path, String? raw}) async {
+    try {
+      final SendPort cmd = await _ensureStarted();
+      final ReceivePort replyPort = ReceivePort();
+      cmd.send(<dynamic>[replyPort.sendPort, path, raw]);
+      final dynamic result = await replyPort.first;
+      replyPort.close();
+      if (result is String && result.startsWith(_workerErrorPrefix)) {
+        throw Exception(result.substring(_workerErrorPrefix.length));
+      }
+      return result as Map<String, dynamic>;
+    } catch (_) {
+      // 🐞 فال‌بکِ ایمنی: اگر ایزوله به هر دلیلی (پلتفرم/سندباکس) شکست
+      // بخورد، به دیکدِ همگامِ رویِ ترِدِ اصلی برمی‌گردیم — کندتر ولی کتاب
+      // هیچ‌وقت کامل نمی‌شکند.
+      final String content = path != null
+          ? await File(path).readAsString()
+          : raw!;
+      return jsonDecode(content) as Map<String, dynamic>;
+    }
+  }
+
+  void dispose() {
+    _isolate?.kill(priority: Isolate.immediate);
+    _isolate = null;
+    _commandPort = null;
+    _starting = null;
+  }
+}
+
+const String _workerErrorPrefix = '__DECODE_ERROR__:';
+
+// نقطه‌ی ورودِ ایزوله‌ی worker — باید سطحِ‌بالا/استاتیک باشد. یک بار اجرا
+// می‌شود و برای همیشه به درخواست‌ها گوش می‌دهد (نه یک‌بار-مصرف مثلِ
+// Isolate.run).
+void _decodeWorkerMain(SendPort mainSendPort) {
+  final ReceivePort commandPort = ReceivePort();
+  mainSendPort.send(commandPort.sendPort);
+  commandPort.listen((dynamic message) {
+    final List<dynamic> req = message as List<dynamic>;
+    final SendPort replyTo = req[0] as SendPort;
+    final String? path = req[1] as String?;
+    final String? raw = req[2] as String?;
+    try {
+      final String content = path != null
+          ? File(path).readAsStringSync()
+          : raw!;
+      replyTo.send(jsonDecode(content));
+    } catch (e) {
+      replyTo.send('$_workerErrorPrefix$e');
+    }
+  });
+}
 
 // قبلاً DocumentLoader.loadBookFromJson کل فایل data.json کتاب را یک‌جا
 // jsonDecode می‌کرد و یک List<PageData> برای *همه‌ی* صفحات کتاب می‌ساخت که
@@ -85,6 +160,11 @@ class PagedBookStore {
   final int maxCachedPages;
 
   PagedBookStore({required this.book, this.maxCachedPages = 60});
+
+  // 🐞 یک ایزوله‌ی دائمی به‌ازای هر PagedBookStore (یعنی هر کتابِ بازشده) —
+  // نه به‌ازای هر صفحه. اولین getPage آن را بالا می‌آورد؛ بقیه‌ی صفحات
+  // فقط پیام رد و بدل می‌کنند.
+  final _DecodeWorker _decodeWorker = _DecodeWorker();
 
   // ── وضعیت منیفست (یک‌بار لود می‌شود، کوچک است، برای همیشه می‌ماند) ──────
   bool _manifestLoaded = false;
@@ -406,18 +486,18 @@ class PagedBookStore {
       );
     }
 
-    // 🐞 خواندن + jsonDecode در ایزوله‌ی پس‌زمینه (ترِد UI آزاد می‌ماند).
-    // فقط PageData.fromJson روی ترِد اصلی می‌ماند، چون به آبجکت‌های مشترکِ
-    // همین ایزوله (sharedInteractives/Pattern/ByText) نیاز دارد — و آن هم
-    // سبک‌تر از خودِ پارس است.
-    final String assetPath = '$_bookFolderPath/${_pageFiles[pageIndex]}';
-    final Map<String, dynamic> json;
-    if (_isLocal) {
-      json = await Isolate.run(() => _decodeJsonMapFromFile(assetPath));
-    } else {
-      final raw = await _readAsset(_pageFiles[pageIndex]);
-      json = await Isolate.run(() => _decodeJsonMap(raw));
-    }
+    // 🐞 خواندن + jsonDecode روی همان ایزوله‌ی دائمیِ این کتاب انجام می‌شود
+    // (نه یک ایزوله‌ی تازه به‌ازای این صفحه). ترِد UI در حینِ decode آزاد
+    // می‌ماند، ولی بدونِ هزینه‌ی اسپاونِ تکراری. فقط PageData.fromJson روی
+    // ترِد اصلی می‌ماند، چون به آبجکت‌های مشترکِ همین ایزوله
+    // (sharedInteractives/Pattern/ByText) نیاز دارد — سبک‌تر از خودِ پارس.
+    final Map<String, dynamic> json = _isLocal
+        ? await _decodeWorker.decode(
+            path: '$_bookFolderPath/${_pageFiles[pageIndex]}',
+          )
+        : await _decodeWorker.decode(
+            raw: await _readAsset(_pageFiles[pageIndex]),
+          );
     return PageData.fromJson(
       json,
       sharedInteractives: _sharedInteractives,
@@ -470,5 +550,12 @@ class PagedBookStore {
 
   void clearCache() {
     _cache.clear();
+  }
+
+  // 🐞 باید وقتی این PagedBookStore دیگر لازم نیست (مثلاً کاربر کتاب را
+  // بست/عوض کرد) صدا زده شود تا ایزوله‌ی دائمی‌اش کشته شود؛ وگرنه هر کتابی
+  // که باز شده، یک ایزوله‌ی زنده برای همیشه پشتِ سر می‌گذارد.
+  void dispose() {
+    _decodeWorker.dispose();
   }
 }
