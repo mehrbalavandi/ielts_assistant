@@ -1741,6 +1741,18 @@ Widget _buildParagraph(
     );
   }
 
+  // 🐞 روانیِ اسکرول (داده‌محور، از تریسِ Track Widget Builds): اولین ساختِ هر
+  // صفحه ~۲۰۳ RenderPadding و ~۹۱ RenderDecoratedBox و ~۹۳ RenderFlex می‌سازد.
+  // بخشی از این‌ها بی‌اثرند (paddingِ صفر، decorationِ خالی، Columnِ تک‌فرزند) و
+  // فقط هزینه‌ی build+layout اضافه می‌کنند بدونِ هیچ اثرِ بصری. اگر هر چهار
+  // margin صفر باشد اصلاً Padding نمی‌سازیم.
+  if (topMargin == 0 &&
+      bottomMargin == 0 &&
+      leftMargin == 0 &&
+      rightMargin == 0) {
+    return paragraphContent;
+  }
+
   return Padding(
     padding: EdgeInsets.only(
       top: topMargin, // 🌟 استفاده از مقادیر ایمن
@@ -2379,22 +2391,31 @@ Widget _buildTable(
               right: cell.paddingRight ?? _hpad,
             );
 
+      // 🐞 روانیِ اسکرول: هر دو تا حذفِ بی‌اثر — (۱) اگر سلول نه رنگِ پس‌زمینه
+      // دارد نه بوردر، decoration را null می‌گذاریم تا RenderDecoratedBox اصلاً
+      // ساخته نشود (تریس ~۹۱ عدد از این‌ها در هر صفحه نشان می‌داد). (۲) اگر
+      // سلول فقط یک پاراگراف دارد، Columnِ تک‌فرزند حذف می‌شود (RenderFlexِ
+      // کم‌تر). هیچ‌کدام اثرِ بصری ندارند.
+      final Color? _cellFill = _hexToColor(cell.fillColor);
+      final Border? _cellBorder = resolvedBorderMode == "cell"
+          ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
+          : null;
+      final Widget _cellInner = cellParagraphs.length == 1
+          ? cellParagraphs.first
+          : Column(
+              crossAxisAlignment: stretchCellsToImage
+                  ? CrossAxisAlignment.stretch
+                  : CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: cellParagraphs,
+            );
+
       Widget cellContent = Container(
         padding: cellPadding,
-        decoration: BoxDecoration(
-          color: _hexToColor(cell.fillColor),
-          // 🐞 CommonTable (BorderMode="cell"): بوردرِ هر سلول عیناً از سند.
-          border: resolvedBorderMode == "cell"
-              ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
-              : null,
-        ),
-        child: Column(
-          crossAxisAlignment: stretchCellsToImage
-              ? CrossAxisAlignment.stretch
-              : CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: cellParagraphs,
-        ),
+        decoration: (_cellFill != null || _cellBorder != null)
+            ? BoxDecoration(color: _cellFill, border: _cellBorder)
+            : null,
+        child: _cellInner,
       );
 
       cellWidgets.add(cellContent);
