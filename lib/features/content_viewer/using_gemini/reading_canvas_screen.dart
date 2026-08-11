@@ -1592,6 +1592,13 @@ Widget _buildParagraph(
     );
     final double outerLeft = (indentLeft - markerWidth).clamp(0.0, 999.0);
 
+    // 🐞 فقط آیتم‌هایی که آیکونِ چشمِ متنِ مخفی دارند به هم‌ترازیِ baseline
+    // نیاز دارند (بقیه با start درست‌اند). یک اسکنِ ارزانِ رشته‌ای — در برابرِ
+    // پاسِ layoutِ اضافی که baseline تحمیل می‌کند، عملاً رایگان است.
+    final bool _paraHasBlankIcon = para.spans.any(
+      (s) => s.type == "text" && (s.content ?? '').contains('{blk}'),
+    );
+
     paragraphContent = Padding(
       padding: EdgeInsets.only(
         left: rtl ? 0 : outerLeft,
@@ -1604,12 +1611,20 @@ Widget _buildParagraph(
         // ~۲۴px، بسیار بلندتر از خطِ ~۱۵px) خطِ اولِ محتوا را باد می‌کند و متن
         // را پایین‌تر می‌بَرد، در حالی که ستونِ مارکر (start) بالا می‌ماند —
         // برای همین بدونِ آیکون هم‌تراز بود و با آیکون نه. راهِ درست: هم‌ترازیِ
-        // بر اساسِ baseline نه top. RenderFloatColumn متد
-        // computeDistanceToActualBaseline را دارد (baselineِ خطِ اولش را
-        // برمی‌گرداند)، پس baselineِ مارکر دقیقاً روی baselineِ خطِ اولِ متن
-        // می‌نشیند، فارغ از اینکه آیکون خط را چقدر بلند کرده باشد.
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
+        // بر اساسِ baseline نه top.
+        //
+        // 🐞 روانیِ اسکرول (تأییدشده با پروفایلِ DevTools): این baseline رایگان
+        // نیست. CrossAxisAlignment.baseline مجبور می‌کند Row از هر فرزند
+        // baseline بپرسد، و برای RenderFloatColumn یعنی یک پاسِ layoutِ اضافیِ
+        // کاملِ همان پاراگراف (در تریس: صدها RenderFloatColumn.getDryBaseline و
+        // RenderConstrainedBox.getDryBaseline — تنها رویدادهای سنگینِ ترِد UI).
+        // چون ناهم‌ترازی *فقط* وقتی رخ می‌دهد که آیکونِ چشم در متن باشد، این
+        // مسیرِ گران را هم فقط برای همان آیتم‌ها روشن می‌کنیم؛ بقیه (اکثریتِ
+        // قاطع) به هم‌ترازیِ ارزانِ start برمی‌گردند که قبلاً هم برایشان درست بود.
+        crossAxisAlignment: _paraHasBlankIcon
+            ? CrossAxisAlignment.baseline
+            : CrossAxisAlignment.start,
+        textBaseline: _paraHasBlankIcon ? TextBaseline.alphabetic : null,
         children: [
           SizedBox(
             width: markerWidth,
