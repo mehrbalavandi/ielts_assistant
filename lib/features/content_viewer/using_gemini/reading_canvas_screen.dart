@@ -3086,6 +3086,10 @@ List<InlineSpan> _buildStyledInteractiveText(
       translationFa: para.translationFa, // 🌟 حفظ پشتیبانی از ترجمه‌های دوزبانه
       translationAr: para.translationAr,
       innerSpans: span.innerSpans,
+      // 🐞 مارکرهای جدید (s/sub/sup): خودِ مارکرهای این اسپن هم رد می‌شوند تا
+      // مودال/بنرِ متنِ مخفی بداند چه چیزی از قبل داخلِ baseStyle اعمال شده و
+      // بتواند آن را برای متنِ آشکارشده و شماره‌ی لیست خنثی کند.
+      blankParentMarkers: span.markers,
       exactMatchKey: isInlineBorder ? null : exactMatchKey,
       // 🌟 وقتی محتوا قرار است داخل باکسِ border در یک Text.rich تودرتو
       // بنشیند (خط ۱۶۵۹ به بعد)، کلید را نمی‌دهیم تا WidgetSpanِ دومی

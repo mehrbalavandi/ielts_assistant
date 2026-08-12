@@ -60,6 +60,13 @@ class TextRenderEngine {
     // فعالِ گروه‌بندی‌شده است) true پاس داده می‌شود؛ در رندر عادیِ صفحه
     // false می‌ماند تا تمایز نارنجی/زردِ معمول حفظ شود.
     bool allMatchesActive = false,
+    // 🐞 مارکرهای خودِ اسپنِ جای‌خالی (والد). لازم است چون مارکرهای جدیدِ
+    // s/sub/sup در baseStyle «پخته» شده‌اند (خط‌خوردگی روی decoration و
+    // بالانویس/زیرنویس روی fontFeatures + کوچک‌شدنِ ۰٫۷۵ فونت) و اگر همان
+    // استایل داخلِ مودال به‌عنوانِ پایه‌ی InnerSpanها یا به شماره‌ی لیست
+    // برسد، به همه‌ی متنِ آشکارشده نشت می‌کند. با داشتنِ خودِ مارکرها
+    // می‌شود دقیقاً همان‌ها را خنثی کرد (و اندازه‌ی فونت را برگرداند).
+    List<String>? blankParentMarkers,
   }) {
     if (content.isEmpty) return [];
     List<InlineSpan> spans = [];
@@ -122,6 +129,7 @@ class TextRenderEngine {
             translationFa: translationFa,
             translationAr: translationAr,
             innerSpans: innerSpans,
+            parentMarkers: blankParentMarkers, // 🐞 برای خنثی‌سازی s/sub/sup
             listMarker: listMarker, // 🐞 برای prepend داخل مودال
             exactMatchKey: claimBlankKey
                 ? exactMatchKey
@@ -210,9 +218,14 @@ class TextRenderEngine {
     // سازنده‌ی نام‌دار در این نسخه‌ی SDK وجود ندارند. سازنده‌ی پایه
     // `FontFeature(String tag, [int value=1])` همیشه هست؛ تگ‌های چهارحرفیِ
     // استانداردِ OpenType مستقیماً استفاده می‌شوند: 'sups'=بالانویس، 'subs'=زیرنویس.
-    final List<FontFeature>? _feat = isSup
+    // 🐞 نکته‌ی مهمِ copyWith: در فلاتر `copyWith(fontFeatures: null)` مقدار را
+    // پاک نمی‌کند، بلکه مقدارِ قبلیِ base را نگه می‌دارد (`x ?? this.x`). پس اگر
+    // اسپنِ والد (مثلاً جای‌خالیِ بالانویس) روی base فیچرِ 'sups' گذاشته باشد،
+    // هر InnerSpanِ غیرِ بالانویس هم بالانویس می‌ماند. با دادنِ لیستِ خالی
+    // (که null نیست) مقدار واقعاً بازنویسی و خنثی می‌شود.
+    final List<FontFeature> _feat = isSup
         ? const [FontFeature('sups')]
-        : (isSub ? const [FontFeature('subs')] : null);
+        : (isSub ? const [FontFeature('subs')] : const <FontFeature>[]);
     final double _finalSize = (isSup || isSub) ? fontSize * 0.75 : fontSize;
 
     // 🐞 چند decoration هم‌زمان (مثلاً هم زیرخط هم خط‌خورده) با combine
@@ -785,6 +798,10 @@ class InteractiveBlankWord extends StatelessWidget {
   final String? translationFa; // 🌟 ۲. ترجمه فارسی برای لمس طولانی
   final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
   final List<SpanData>? innerSpans;
+  // 🐞 مارکرهای خودِ اسپنِ جای‌خالی (b/i/u/s/sub/sup/sz:/fn:…). برای این است
+  // که بدانیم چه چیزی از قبل داخلِ textStyle «پخته» شده تا هنگامِ ساختنِ
+  // استایلِ پایه‌ی InnerSpanها و شماره‌ی لیست همان را خنثی کنیم.
+  final List<String>? parentMarkers;
   final GlobalKey? exactMatchKey; // 🌟 فیلد جدید
   // 🐞 رفع باگ شماره‌ی لیست: فقط برای پاراگراف‌های کاملاً-یک-بلانک پر
   // می‌شود (تمرین-۰۵ استایل)؛ در نمای جمع‌شده استفاده نمی‌شود، فقط برای
@@ -801,6 +818,7 @@ class InteractiveBlankWord extends StatelessWidget {
     this.translationFa,
     this.translationAr,
     this.innerSpans,
+    this.parentMarkers,
     this.exactMatchKey, // 🌟 دریافت فیلد
     this.listMarker,
   });
@@ -911,9 +929,32 @@ class InteractiveBlankWord extends StatelessWidget {
     // (buildNumberedLineGroups، پایین‌تر) لازم است — یک‌جا نگه داشته شده تا
     // دوباره دو نسخه‌ی موازی از منطقِ بوردر/هایلایت drift نکنند (همان
     // اشتباهی که قبلاً باعثِ گم‌شدنِ فیکسِ بوردر شده بود).
+    // 🐞 مارکرهای جدید (s/sub/sup) در مودال و بنر:
+    // textStyle که از بالادست می‌آید، استایلِ «خودِ اسپنِ جای‌خالی» است — یعنی
+    // اگر آن اسپن خط‌خورده/بالانویس/زیرنویس باشد، این استایل از قبل
+    // decoration=lineThrough، fontFeatures=['sups'|'subs'] و fontSize×۰٫۷۵
+    // دارد. اگر همین را بدونِ خنثی‌سازی به‌عنوانِ پایه به InnerSpanها یا به
+    // شماره‌ی لیست بدهیم، آن قالب‌بندی به کلِ متنِ آشکارشده نشت می‌کند
+    // (مثلاً یک زیرنویسِ کوچک باعث می‌شود تمامِ متنِ مودال ریز و زیرنویس شود).
+    // پس یک پایه‌ی «خنثی» می‌سازیم: قالب‌بندی‌های اجرایی پاک می‌شوند و
+    // کوچک‌شدگیِ sub/sup هم برگردانده می‌شود. سپس هر InnerSpan قالب‌بندیِ
+    // واقعیِ خودش را از applySpanStyle می‌گیرد.
+    final List<String> _pMarkers = parentMarkers ?? const <String>[];
+    final bool _parentShrunk =
+        _pMarkers.contains("sub") || _pMarkers.contains("sup");
+    final TextStyle neutralStyle = textStyle.copyWith(
+      fontWeight: FontWeight.normal,
+      fontStyle: FontStyle.normal,
+      decoration: TextDecoration.none,
+      fontFeatures: const <FontFeature>[],
+      fontSize: _parentShrunk
+          ? (textStyle.fontSize ?? 16.0) / 0.75
+          : textStyle.fontSize,
+    );
+
     List<InlineSpan> renderInnerSpan(SpanData span, List<int>? spanMapSlice) {
       TextStyle spanStyle = TextRenderEngine.applySpanStyle(
-        textStyle,
+        neutralStyle,
         span,
         isDarkTheme,
       );
@@ -1143,7 +1184,9 @@ class InteractiveBlankWord extends StatelessWidget {
       InlineSpan buildLineMarkerSpan() {
         final span = TextSpan(
           text: "$nextLineNumber$lineMarkerSuffix  ",
-          style: textStyle.copyWith(
+          // 🐞 شماره‌ی خط از پایه‌ی خنثی ساخته می‌شود تا اگر خودِ جای‌خالی
+          // خط‌خورده/بالانویس/زیرنویس بوده، شماره هم خط‌خورده یا ریز نشود.
+          style: neutralStyle.copyWith(
             fontWeight: FontWeight.bold,
             color: isDarkTheme ? Colors.white : Colors.black87,
           ),
@@ -1262,7 +1305,7 @@ class InteractiveBlankWord extends StatelessWidget {
           0,
           TextSpan(
             text: "$listMarker  ",
-            style: textStyle.copyWith(
+            style: neutralStyle.copyWith(
               fontWeight: FontWeight.bold,
               color: isDarkTheme ? Colors.white : Colors.black87,
             ),
@@ -1391,7 +1434,7 @@ class InteractiveBlankWord extends StatelessWidget {
               final tp = TextPainter(
                 text: TextSpan(
                   text: entry.key,
-                  style: textStyle.copyWith(fontWeight: FontWeight.bold),
+                  style: neutralStyle.copyWith(fontWeight: FontWeight.bold),
                 ),
                 textDirection: TextDirection.ltr,
               )..layout();
@@ -1412,7 +1455,7 @@ class InteractiveBlankWord extends StatelessWidget {
                           width: markerWidth,
                           child: Text(
                             entry.key,
-                            style: textStyle.copyWith(
+                            style: neutralStyle.copyWith(
                               fontWeight: FontWeight.bold,
                               color: isDarkTheme
                                   ? Colors.white
