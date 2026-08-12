@@ -1860,9 +1860,24 @@ Widget _buildTable(
   // برایش خاموش می‌کنیم و پایین‌تر (بعد از ساختِ کاملِ tableContainer) یک
   // Border.all بیرونی دورِ کلِ جدول می‌کشیم.
   final bool isOutsideTable = rawStyle.contains("outsidetable");
+  // 🐞 اصلاحِ برداشتِ قبلی (تصحیحِ کاربر) دربارهٔ MultiColumnTable:
+  // «متنِ چندستونی» در صفحهٔ باریک نباید به چند جدولِ تک‌ستونهٔ *جدا از هم*
+  // (هرکدام با بوردرِ خودش) تبدیل شود. رفتارِ درست این است که متنِ همهٔ
+  // ستون‌ها پشتِ‌سرِ هم به یکدیگر الحاق شود و همگی داخلِ *یک* جدولِ
+  // تک‌ستونهٔ بوردردار قرار بگیرند — یعنی فقط یک کادر، دورِ کلِ متن.
+  // (رفتارِ صفحهٔ عریض تغییری نمی‌کند: همهٔ ستون‌ها کنارِ هم داخلِ یک جدول
+  // با BorderMode="outer" و بدونِ خطوطِ داخلی.)
+  // تشخیص: اول فیلدِ declarative (LayoutReflow=="merge" که سی‌شارپ برای
+  // استخراج‌های جدید می‌فرستد)، بعد فال‌بکِ نامِ استایل تا کتاب‌هایی که
+  // قبلاً با LayoutReflow=="stack" استخراج شده‌اند هم بدونِ استخراجِ مجدد
+  // درست رندر شوند.
+  final bool isMultiColumnMerge =
+      tableSpan.layoutReflow == "merge" ||
+      rawStyle.contains("multicolumntable");
   final bool isColumnStack =
       strategy == "stack" ||
       tableSpan.layoutReflow == "stack" ||
+      isMultiColumnMerge ||
       rawStyle.contains("columnstack");
   final bool isDotted =
       strategy == "collapseToCards" ||
@@ -2625,12 +2640,23 @@ Widget _buildTable(
       0,
       (max, rowCells) => rowCells.length > max ? rowCells.length : max,
     );
+    // 🐞 حالتِ merge (MultiColumnTable): محتوایِ همهٔ ستون‌ها — به ترتیبِ
+    // ستونی (اولْ کلِ ستونِ ۱، بعد کلِ ستونِ ۲ و ...) که همان ترتیبِ خواندنِ
+    // متنِ چندستونی است — در یک لیستِ واحد جمع می‌شود و در پایانِ حلقه
+    // به‌صورتِ *یک* ستونِ یکپارچه اضافه می‌گردد. بوردرِ دورِ آن را
+    // borderWrapsWholeTable (پایین‌تر) می‌کشد، پس این‌جا نه بوردرِ per-column
+    // می‌خواهیم نه فاصلهٔ بینِ ستون‌ها.
+    final List<Widget> mergedColumnCells = [];
     for (int colIndex = 0; colIndex < maxCols; colIndex++) {
       List<Widget> columnCells = [];
       for (int rowIndex = 0; rowIndex < allGridCells.length; rowIndex++) {
         if (colIndex < allGridCells[rowIndex].length) {
           columnCells.add(allGridCells[rowIndex][colIndex]);
         }
+      }
+      if (isMultiColumnMerge) {
+        mergedColumnCells.addAll(columnCells);
+        continue;
       }
       rowWidgets.add(
         Container(
@@ -2653,6 +2679,14 @@ Widget _buildTable(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: columnCells,
           ),
+        ),
+      );
+    }
+    if (isMultiColumnMerge && mergedColumnCells.isNotEmpty) {
+      rowWidgets.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: mergedColumnCells,
         ),
       );
     }
@@ -2682,18 +2716,21 @@ Widget _buildTable(
   final EdgeInsets tableOuterMargin = isNestedTable
       ? EdgeInsets.only(top: 2.0, bottom: nestedBottomMargin)
       : const EdgeInsets.symmetric(vertical: 12.0);
-  // 🐞 در حالتِ استکی (صفحهٔ باریک) هر ستون خودش جعبهٔ بوردردارِ مستقل
-  // می‌گیرد، پس این wrapِ بیرونی نباید اجرا شود — وگرنه یک کادرِ اضافه هم
-  // دورِ کلِ ستون‌های از‌قبل‌کادردار کشیده می‌شد (مشکلِ MultiColumnTable که
-  // BorderMode="outer" دارد ولی در باریک استک می‌شود).
+  // 🐞 در حالتِ استکیِ معمولی (ColumnStackTable روی صفحهٔ باریک) هر ستون
+  // خودش جعبهٔ بوردردارِ مستقل می‌گیرد، پس این wrapِ بیرونی نباید اجرا شود —
+  // وگرنه یک کادرِ اضافه هم دورِ کلِ ستون‌های از‌قبل‌کادردار کشیده می‌شد.
   // 🐞 "outerThickFirstRow" (استایلِ HeaderOutsideTable) هم مثلِ "outer" یک
   // بوردرِ بیرونیِ کامل (شاملِ بالای جدول) دورِ کلِ جدول می‌خواهد؛ خطِ ضخیمِ
   // زیرِ ردیفِ اول جداگانه در سوییچِ per-row رسم می‌شود.
+  // 🐞 استثنا: در حالتِ merge (MultiColumnTable روی صفحهٔ باریک) دقیقاً
+  // برعکس است — همهٔ ستون‌ها در یک ستونِ یکپارچه ادغام شده‌اند و *هیچ*
+  // بوردرِ per-columnی ندارند، پس همین wrapِ بیرونی است که تنها کادرِ
+  // دورِ کلِ متن را می‌کشد و باید فعال بماند.
   final bool borderWrapsWholeTable =
       (resolvedBorderMode == "outer" ||
           resolvedBorderMode == "outerThickFirstRow") &&
       !hideBorders &&
-      !applyColumnStack;
+      (!applyColumnStack || isMultiColumnMerge);
 
   // 🌟 اصلاح نهایی: حذف پارامتر border از کانتینر بیرونی برای جلوگیری از تداخل و دابل‌بوردر شدن سایدها
   Widget tableContainer = Container(
