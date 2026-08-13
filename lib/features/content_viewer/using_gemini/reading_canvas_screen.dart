@@ -736,6 +736,18 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                   panAxis: PanAxis.horizontal,
                   // scale همیشه فعال — pinch را در هر لحظه تشخیص می‌دهد
                   scaleEnabled: true,
+                  // 🐞 رفعِ «اسکرول به بالا اول زوم می‌کند»: InteractiveViewer
+                  // چرخِ ماوس را هم به‌عنوانِ زوم می‌گیرد
+                  // (scaleChange = exp(-scrollDelta.dy / scaleFactor)) و این کار
+                  // را مستقل از لیستِ زیرش انجام می‌دهد — پس هر دو با هم واکنش
+                  // نشان می‌دادند. رو به پایین چون زوم را کم می‌کند و اسکیل
+                  // از قبل روی minScale=1 است، هیچ اثری دیده نمی‌شد؛ رو به بالا
+                  // ولی تا maxScale زوم می‌کرد و تازه بعدش اسکرول دیده می‌شد.
+                  // با یک scaleFactor بسیار بزرگ، سهمِ هر تیکِ چرخ در زوم
+                  // عملاً صفر می‌شود (exp(-100/1e9) ≈ 1) و چرخ فقط اسکرول
+                  // می‌کند. مهم: این پارامتر *فقط* روی چرخِ ماوس اثر دارد، پس
+                  // pinch با دو انگشت و زومِ ترک‌پد دست‌نخورده باقی می‌مانند.
+                  scaleFactor: 1e9,
                   minScale: 1.0,
                   maxScale: 3.5,
                   clipBehavior: Clip.hardEdge,
@@ -1246,10 +1258,35 @@ Widget _buildParagraph(
 
   List<Object> blockElements = [];
   List<InlineSpan> currentInlineSpans = [];
-  TextAlign textAlign = TextAlign.left;
+  // 🐞 پیش‌فرض از left به start عوض شد: وقتی سند هیچ هم‌ترازی‌ای تعیین نکرده،
+  // ورد از جهتِ خودِ پاراگراف پیروی می‌کند — یعنی پاراگرافِ RTL راست‌چین است،
+  // نه چپ‌چین. Directionality (پایین‌تر، از para.direction) این را حل می‌کند.
+  // "S"/"E" مقادیرِ تازه‌ی سی‌شارپ برای start/end هستند (که در ورد نسبت به
+  // جهتِ پاراگراف‌اند، نه چپ/راستِ مطلق)؛ "L"/"R"/"C"/"J" مثلِ قبل کار
+  // می‌کنند، پس JSONهای قدیمی بدونِ استخراجِ مجدد هم درست می‌مانند.
+  TextAlign textAlign = TextAlign.start;
+  if (para.alignment == "L") textAlign = TextAlign.left;
   if (para.alignment == "C") textAlign = TextAlign.center;
   if (para.alignment == "R") textAlign = TextAlign.right;
   if (para.alignment == "J") textAlign = TextAlign.justify;
+  if (para.alignment == "S") textAlign = TextAlign.start;
+  if (para.alignment == "E") textAlign = TextAlign.end;
+
+  // 🌟 همان هم‌ترازی برای بلاک‌های غیرمتنی (عکسِ مستقل) — تا عکس هم دقیقاً
+  // همان‌جایی بنشیند که در سند نشسته بود. اگر سند هم‌ترازی تعیین نکرده
+  // باشد (alignment == null) عمداً همان رفتارِ قبلی (وسط‌چین) نگه داشته
+  // می‌شود، تا کتاب‌های قبلاً استخراج‌شده ناگهان تغییرِ ظاهر ندهند.
+  final Alignment? standaloneBlockAlign = switch (para.alignment) {
+    "C" => Alignment.center,
+    "R" => Alignment.centerRight,
+    "L" => Alignment.centerLeft,
+    "J" => Alignment.centerLeft,
+    "S" =>
+      para.direction == "RTL" ? Alignment.centerRight : Alignment.centerLeft,
+    "E" =>
+      para.direction == "RTL" ? Alignment.centerLeft : Alignment.centerRight,
+    _ => null,
+  };
 
   // 🌟 بررسی وجود متن معنادار در پاراگراف برای تشخیص حالت ترکیبی (تصویر + متن)
   bool hasText = para.spans.any(
@@ -1438,7 +1475,10 @@ Widget _buildParagraph(
               child: floatAlign == FCFloat.none
                   ? (imageNeedsHScroll
                         ? standaloneImage
-                        : Center(child: standaloneImage))
+                        : Align(
+                            alignment: standaloneBlockAlign ?? Alignment.center,
+                            child: standaloneImage,
+                          ))
                   : _buildLocalImage(
                       imagePath,
                       isMobile: false,
@@ -2425,12 +2465,36 @@ Widget _buildTable(
               children: cellParagraphs,
             );
 
+      // 🐞 هم‌ترازیِ عمودیِ سلول در حالتِ BorderMode="cell" (CommonTable و
+      // هر جدولِ ناشناخته‌ای که به default می‌افتد) اصلاً اعمال نمی‌شد: آن
+      // مسیر به‌جای getVAlign از TableCellVerticalAlignment.intrinsicHeight
+      // استفاده می‌کند (که برای هم‌ارتفاع‌کردنِ سلول‌های یک ردیف لازم است و
+      // نمی‌شود حذفش کرد)، ولی intrinsicHeight فقط سلول را تا ارتفاعِ ردیف
+      // کِش می‌دهد و محتوا را همیشه بالا می‌گذارد. حالا خودِ محتوا داخلِ آن
+      // سلولِ کش‌آمده هم‌تراز می‌شود.
+      // SizedBox(width: infinity) عمدی است: Align به فرزندش constraintهای
+      // شُل می‌دهد و بدونِ آن، محتوا ممکن بود به عرضِ خودش جمع شود و
+      // هم‌ترازیِ افقیِ متن (textAlign) بی‌اثر به‌نظر برسد.
+      // بقیه‌ی حالت‌ها دست‌نخورده‌اند چون همان بالا با getVAlign(cell.vAlign)
+      // به‌صورتِ نیتیو روی خودِ TableCell اعمال می‌شوند.
+      final String? _cellVAlign = cell.vAlign;
+      Widget _cellAlignedInner = _cellInner;
+      if (resolvedBorderMode == "cell" &&
+          (_cellVAlign == "center" || _cellVAlign == "bottom")) {
+        _cellAlignedInner = Align(
+          alignment: _cellVAlign == "center"
+              ? Alignment.center
+              : Alignment.bottomCenter,
+          child: SizedBox(width: double.infinity, child: _cellInner),
+        );
+      }
+
       Widget cellContent = Container(
         padding: cellPadding,
         decoration: (_cellFill != null || _cellBorder != null)
             ? BoxDecoration(color: _cellFill, border: _cellBorder)
             : null,
-        child: _cellInner,
+        child: _cellAlignedInner,
       );
 
       cellWidgets.add(cellContent);
