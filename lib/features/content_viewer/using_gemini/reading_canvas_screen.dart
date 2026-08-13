@@ -407,7 +407,12 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
           .reduce((min, p) => p.index < min.index ? p : min);
 
       // 🌟 شماره‌ی صفحه‌ی جاری + نمایشِ نشان هنگام اسکرول (مثل تلگرام)
-      final newPage = topItem.index + 1;
+      // 🐞 دیگر «ایندکس + ۱» نیست: استخراج‌کننده می‌تواند شماره‌گذاری را از
+      // عددِ دلخواه شروع کند، پس شماره‌ی واقعیِ صفحه از index.json خوانده
+      // می‌شود. فالبکِ index+1 برای کتاب‌های قدیمی رفتارِ قبلی را نگه می‌دارد.
+      final newPage =
+          widget.pagedBookStore.pageNumberForIndex(topItem.index) ??
+          (topItem.index + 1);
       if (newPage != _currentPage) {
         // 🐞 رفع باگِ گزارش‌شده‌ی «پرش حینِ اسکرول»: با لودِ تنبل، وقتی
         // یک صفحه هنوز در کش نیست، _LazyPage یک پلیس‌هولدرِ ارتفاعِ‌ثابت
@@ -638,6 +643,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   // 🌟 دیالوگِ «رفتن به صفحه» (مثل PDF‌خوان‌ها)
   Future<void> _openJumpToPageDialog() async {
     final total = widget.pagedBookStore.pageCount;
+    final int firstPage = widget.pagedBookStore.firstPageNumber;
+    final int lastPage = widget.pagedBookStore.lastPageNumber;
     final ctrl = TextEditingController();
     final n = await showDialog<int>(
       context: context,
@@ -651,7 +658,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             autofocus: true,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
-              hintText: 'شماره‌ای بین ۱ تا $total',
+              hintText: 'شماره‌ای بین $firstPage تا $lastPage',
               border: const OutlineInputBorder(),
             ),
             onSubmitted: (v) => Navigator.pop(context, int.tryParse(v)),
@@ -670,9 +677,18 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
       ),
     );
 
-    if (n != null && n >= 1 && n <= total && _itemScrollController.isAttached) {
+    // 🐞 قبلاً مستقیم `n - 1` به‌عنوانِ ایندکس استفاده می‌شد، که فقط وقتی
+    // درست است که صفحات از ۱ شروع شوند. حالا شماره → ایندکس از همان نگاشتی
+    // خوانده می‌شود که جستجو هم از آن استفاده می‌کند.
+    final int targetIndex =
+        (n == null ? null : widget.pagedBookStore.indexForPageNumber(n)) ??
+        ((n != null && n >= 1 && n <= total) ? n - 1 : -1);
+
+    if (targetIndex >= 0 &&
+        targetIndex < total &&
+        _itemScrollController.isAttached) {
       _itemScrollController.scrollTo(
-        index: n - 1,
+        index: targetIndex,
         duration: const Duration(milliseconds: 450),
         curve: Curves.easeInOutCubic,
         alignment: 0.0,

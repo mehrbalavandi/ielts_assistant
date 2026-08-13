@@ -179,6 +179,10 @@ class PagedBookStore {
   // 🐞 شاخصِ جدید: کجای متن دکمه‌ی صوتی هست.
   List<AudioLinkEntry> _audioLinksIndex = const [];
   Map<int, int> _pageNumberToIndex = const {};
+  // 🌟 عکسِ نگاشتِ بالا. لازم شد چون استخراج‌کننده‌ی سی‌شارپ حالا می‌تواند
+  // شماره‌ی صفحه‌ها را از عددِ دلخواهِ کاربر شروع کند (مثلاً ۱۵)، پس دیگر
+  // نمی‌شود شماره‌ی صفحه را از رویِ «ایندکس + ۱» حدس زد.
+  List<int> _pageNumbers = const [];
   // 🐞 مسیرِ فایلِ هر صفحه، مستقیماً از index.json (فیلدِ File در هر
   // آیتمِ Pages) — دیگر نیازی به فرض‌کردنِ الگویِ نام‌گذاریِ ثابت نیست.
   List<String> _pageFiles = const [];
@@ -199,6 +203,17 @@ class PagedBookStore {
   // نتیجه‌ی جستجو (که فقط pageNumber را می‌داند، نه ایندکس لیست) استفاده
   // می‌شود. اگر پیدا نشود null برمی‌گرداند (دقیقاً معادلِ -1 قبلی).
   int? indexForPageNumber(int pageNumber) => _pageNumberToIndex[pageNumber];
+
+  /// شماره‌ی صفحه‌ی واقعی (همان که در کتابِ چاپی نوشته شده) برای ایندکسِ
+  /// لیست. اگر ایندکس معتبر نباشد null. فراخوان‌ها معمولاً به `index + 1`
+  /// فالبک می‌کنند تا کتاب‌های قدیمی هم مثل قبل رفتار کنند.
+  int? pageNumberForIndex(int index) =>
+      (index >= 0 && index < _pageNumbers.length) ? _pageNumbers[index] : null;
+
+  /// اولین و آخرین شماره‌ی صفحه — برای راهنمای دیالوگِ «رفتن به صفحه».
+  int get firstPageNumber => _pageNumbers.isNotEmpty ? _pageNumbers.first : 1;
+  int get lastPageNumber =>
+      _pageNumbers.isNotEmpty ? _pageNumbers.last : _pageCount;
 
   // ── مسیر فعال پوشه‌ی این کتاب (دانلودشده یا asset) ───────────────────
   bool get _isLocal => book.isJsonDownloaded || book.isSampleDownloaded;
@@ -258,15 +273,18 @@ class PagedBookStore {
 
       final Map<int, int> pageNumberToIndex = {};
       final List<String> pageFiles = List<String>.filled(rawPages.length, '');
+      final List<int> pageNumbers = List<int>.filled(rawPages.length, 0);
       for (int i = 0; i < rawPages.length; i++) {
         final entry = rawPages[i] as Map<String, dynamic>;
         final int n = (entry['N'] as num?)?.toInt() ?? (i + 1);
         final String file = (entry['File'] ?? entry['file'] ?? '') as String;
         pageNumberToIndex[n] = i;
         pageFiles[i] = file;
+        pageNumbers[i] = n;
       }
       _pageNumberToIndex = pageNumberToIndex;
       _pageFiles = pageFiles;
+      _pageNumbers = pageNumbers;
 
       final interactivesList =
           (json['Interactives'] as List? ?? [])
@@ -357,12 +375,15 @@ class PagedBookStore {
     final pages = await DocumentLoader.loadBookFromJson(path);
     _pageCount = pages.length;
     final Map<int, int> pageNumberToIndex = {};
+    final List<int> pageNumbers = List<int>.filled(pages.length, 0);
     _cache.clear();
     for (int i = 0; i < pages.length; i++) {
       _cache[i] = pages[i];
       pageNumberToIndex[pages[i].pageNumber] = i;
+      pageNumbers[i] = pages[i].pageNumber;
     }
     _pageNumberToIndex = pageNumberToIndex;
+    _pageNumbers = pageNumbers;
     _pageFiles = const []; // این مسیر صفحات را مستقیم لود کرده، دیگر لازم نیست
 
     try {
