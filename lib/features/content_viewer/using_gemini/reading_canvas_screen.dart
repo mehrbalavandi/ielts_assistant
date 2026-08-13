@@ -5,6 +5,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+// 🌟 برای زومِ دسکتاپ: PointerScrollEvent از gestures و HardwareKeyboard/
+// LogicalKeyboardKey از services می‌آیند. هیچ‌کدام در showـلیستِ صادراتیِ
+// material نیستند، پس باید صریح import شوند.
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/content_viewer/using_gemini/language_provider.dart';
@@ -140,6 +145,26 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   bool get _isZoomed => _currentScale > 1.02;
   bool get _isPinching => _pointerCount >= 2;
 
+  // ── زوم روی دسکتاپ (ویندوز/لینوکس/مک) ────────────────────────────────
+  // روی موبایل زوم با pinch انجام می‌شود و این بخش عملاً بی‌اثر است.
+  static const double _kMinZoom = 1.0;
+  static const double _kMaxZoom = 3.5;
+  static const double _kZoomStep = 1.25; // برای دکمه‌ها و Ctrl +/-
+  static const double _kWheelZoomStep =
+      1.12; // ریزتر، چون چرخ تیک‌های زیاد می‌زند
+
+  /// کلیدِ ویجتِ Listener — برای گرفتنِ اندازه‌ی واقعیِ ناحیه‌ی نمایش هنگام
+  /// محدودکردنِ جابه‌جایی بعد از زوم.
+  final GlobalKey _viewerKey = GlobalKey();
+
+  /// آیا Ctrl (یا Cmd روی مک) همین حالا نگه داشته شده است؟
+  bool _ctrlHeld = false;
+
+  /// دکمه‌های ‎+/−‎ فقط روی دسکتاپ معنا دارند؛ روی موبایل pinch هست و
+  /// شلوغ‌کردنِ صفحه ارزشی ندارد.
+  bool get _isDesktop =>
+      Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+
   // ── رفع پرش اولیه اسکرول ────────────────────────────────────────────────
   // ScrollablePositionedList از دو ListView داخلی استفاده می‌کند.
   // اولین scroll از initialScrollIndex، یک transition بین این دو فعال می‌کند → پرش.
@@ -238,10 +263,101 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     }
   }
 
+  /// میان‌برهای زومِ دسکتاپ + دنبال‌کردنِ وضعیتِ Ctrl.
+  /// خروجی true یعنی «کلید مصرف شد». فقط برای همان سه میان‌بر true
+  /// برمی‌گردانیم تا هیچ کلیدِ دیگری (تایپ در جستجو، دیالوگ‌ها) دست نخورد.
+  bool _handleKeyEvent(KeyEvent event) {
+    final bool ctrl =
+        HardwareKeyboard.instance.isControlPressed ||
+        HardwareKeyboard.instance.isMetaPressed;
+    if (ctrl != _ctrlHeld && mounted) {
+      setState(() => _ctrlHeld = ctrl);
+    }
+
+    if (!ctrl || event is! KeyDownEvent) return false;
+
+    final LogicalKeyboardKey k = event.logicalKey;
+    if (k == LogicalKeyboardKey.equal ||
+        k == LogicalKeyboardKey.add ||
+        k == LogicalKeyboardKey.numpadAdd) {
+      _zoomBy(_kZoomStep);
+      return true;
+    }
+    if (k == LogicalKeyboardKey.minus ||
+        k == LogicalKeyboardKey.numpadSubtract) {
+      _zoomBy(1 / _kZoomStep);
+      return true;
+    }
+    if (k == LogicalKeyboardKey.digit0 || k == LogicalKeyboardKey.numpad0) {
+      _resetZoom();
+      return true;
+    }
+    return false;
+  }
+
+  void _resetZoom() {
+    _transformationController.value = Matrix4.identity();
+    if (mounted) setState(() => _currentScale = 1.0);
+  }
+
+  /// زومِ برنامه‌ای حولِ یک نقطه‌ی کانونی (محلِ نشانگرِ ماوس، یا مرکزِ صفحه
+  /// وقتی از دکمه/میان‌بر می‌آید).
+  ///
+  /// چرا دستی و نه از خودِ InteractiveViewer: چرخِ ماوس در IV عمداً با
+  /// scaleFactor بسیار بزرگ خنثی شده (وگرنه بی‌آنکه بخواهیم، هم‌زمان با
+  /// اسکرول زوم می‌کرد). پس زومِ خواسته‌شده را این‌جا خودمان روی همان
+  /// transformationController اعمال می‌کنیم — یعنی pinch و این مسیر روی یک
+  /// حالتِ مشترک کار می‌کنند و با هم ناسازگار نمی‌شوند.
+  void _zoomBy(double factor, {Offset? focalPoint}) {
+    final RenderObject? ro = _viewerKey.currentContext?.findRenderObject();
+    final Size viewport = (ro is RenderBox && ro.hasSize)
+        ? ro.size
+        : MediaQuery.of(context).size;
+
+    final Offset focal =
+        focalPoint ?? Offset(viewport.width / 2, viewport.height / 2);
+
+    final Matrix4 current = _transformationController.value;
+    final double currentScale = current.getMaxScaleOnAxis();
+    final double target = (currentScale * factor).clamp(_kMinZoom, _kMaxZoom);
+    final double applied = target / currentScale;
+    if ((applied - 1.0).abs() < 0.0001) return;
+
+    // M' = T(focal) · S(applied) · T(-focal) · M
+    // یعنی نقطه‌ای که زیرِ نشانگر است، دقیقاً همان‌جا می‌ماند.
+    final Matrix4 next = Matrix4.identity()
+      ..translate(focal.dx, focal.dy)
+      ..scale(applied)
+      ..translate(-focal.dx, -focal.dy);
+    final Matrix4 result = next * current;
+
+    final double newScale = result.getMaxScaleOnAxis();
+    if (newScale <= _kMinZoom + 0.0001) {
+      _resetZoom();
+      return;
+    }
+
+    // 🐞 محدودکردنِ جابه‌جایی: InteractiveViewer فقط حرکت‌های *خودش* را
+    // داخلِ کادر نگه می‌دارد؛ چون این‌جا مستقیم روی کنترلر می‌نویسیم، بدونِ
+    // این کلمپ زوم روی لبه‌ی صفحه می‌توانست فضای خالی کنارِ محتوا باز کند.
+    final translation = result.getTranslation();
+    result.setTranslationRaw(
+      translation.x.clamp(viewport.width * (1 - newScale), 0.0),
+      translation.y.clamp(viewport.height * (1 - newScale), 0.0),
+      0.0,
+    );
+
+    _transformationController.value = result;
+  }
+
   @override
   void initState() {
     super.initState();
     _transformationController.addListener(_onTransformChanged);
+    // 🌟 هندلرِ سراسریِ صفحه‌کلید: هم وضعیتِ Ctrl را دنبال می‌کند (برای
+    // Ctrl+چرخ) و هم میان‌برهای Ctrl + / − / 0 را اجرا می‌کند. سراسری است
+    // چون به فوکوسِ ویجت وابسته نباشد.
+    HardwareKeyboard.instance.addHandler(_handleKeyEvent);
 
     // خواندن موقعیت ذخیره‌شده هنگام init (قبل از اولین build)
     final currentBook = ref.read(activeBookProvider);
@@ -486,6 +602,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   void dispose() {
     _scrollPersistDebounce?.cancel();
     _badgeTimer?.cancel();
+    HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
     _transformationController.removeListener(_onTransformChanged);
     _transformationController.dispose();
     super.dispose();
@@ -657,16 +774,39 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          // 🌟 روی دسکتاپ pinch وجود ندارد، پس دکمه‌های صریحِ بزرگ‌نمایی/
+          // کوچک‌نمایی لازم‌اند. روی موبایل نمایش داده نمی‌شوند.
+          if (_isDesktop) ...[
+            FloatingActionButton.small(
+              heroTag: 'zoomIn',
+              onPressed: _currentScale >= _kMaxZoom - 0.01
+                  ? null
+                  : () => _zoomBy(_kZoomStep),
+              backgroundColor: Colors.black.withOpacity(0.55),
+              elevation: 3,
+              tooltip: 'بزرگ‌نمایی (Ctrl و +، یا Ctrl و چرخِ ماوس)',
+              child: const Icon(Icons.add, color: Colors.white),
+            ),
+            const SizedBox(height: 8),
+            FloatingActionButton.small(
+              heroTag: 'zoomOut',
+              onPressed: _currentScale <= _kMinZoom + 0.01
+                  ? null
+                  : () => _zoomBy(1 / _kZoomStep),
+              backgroundColor: Colors.black.withOpacity(0.55),
+              elevation: 3,
+              tooltip: 'کوچک‌نمایی (Ctrl و −)',
+              child: const Icon(Icons.remove, color: Colors.white),
+            ),
+            const SizedBox(height: 8),
+          ],
           if (_isZoomed)
             FloatingActionButton.small(
               heroTag: 'zoomReset',
-              onPressed: () => setState(() {
-                _transformationController.value = Matrix4.identity();
-                _currentScale = 1.0;
-              }),
+              onPressed: _resetZoom,
               backgroundColor: Colors.orange,
               elevation: 4,
-              tooltip: 'بازگشت به اندازه اصلی',
+              tooltip: 'بازگشت به اندازه اصلی (Ctrl و ۰)',
               child: const Icon(Icons.zoom_out_map, color: Colors.white),
             ),
           const SizedBox(height: 8),
@@ -708,6 +848,19 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             Positioned.fill(
               // ── Listener: شمارش انگشتان (قبل از gesture arena) ─────────────
               child: Listener(
+                key: _viewerKey,
+                // 🌟 Ctrl + چرخِ ماوس = زوم (قراردادِ رایجِ دسکتاپ). بدونِ
+                // Ctrl هیچ کاری نمی‌کنیم و چرخ فقط اسکرول می‌کند.
+                onPointerSignal: (e) {
+                  if (!_ctrlHeld || e is! PointerScrollEvent) return;
+                  if (e.scrollDelta.dy == 0) return;
+                  _zoomBy(
+                    e.scrollDelta.dy < 0
+                        ? _kWheelZoomStep
+                        : 1 / _kWheelZoomStep,
+                    focalPoint: e.localPosition,
+                  );
+                },
                 onPointerDown: (e) {
                   _pointerCount++;
                   // فقط در لحظه لمس انگشت دوم rebuild لازم است
@@ -811,7 +964,13 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                               minCacheExtent:
                                   MediaQuery.of(context).size.height * 0.5,
 
-                              physics: _isPinching
+                              // 🐞 نکته‌ی ظریف: Listenerِ ما بالای لیست است،
+                              // پس اگر لیست بتواند اسکرول کند، Ctrl+چرخ
+                              // هم‌زمان زوم *و* اسکرول می‌کرد. وقتی Ctrl
+                              // نگه داشته شده اسکرول را می‌بندیم؛ آن‌وقت
+                              // Scrollable اصلاً رویدادِ چرخ را برنمی‌دارد
+                              // و فقط زوم می‌ماند.
+                              physics: (_isPinching || _ctrlHeld)
                                   ? const NeverScrollableScrollPhysics()
                                   : const ClampingScrollPhysics(),
                               padding: const EdgeInsets.symmetric(
