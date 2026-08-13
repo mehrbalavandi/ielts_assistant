@@ -142,13 +142,27 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
   int _pointerCount = 0;
   double _currentScale = 1.0;
 
-  bool get _isZoomed => _currentScale > 1.02;
+  // 🐞 قبلاً «زوم» فقط یعنی بزرگ‌تر از ۱۰۰٪. حالا که کوچک‌نماییِ زیرِ ۱۰۰٪ هم
+  // ممکن است، این گتر باید هر انحرافی از اندازه‌ی اصلی را زوم بداند — وگرنه
+  // در حالتِ کوچک‌شده دکمه‌ی «بازگشت به اندازه اصلی» ظاهر نمی‌شد.
+  bool get _isZoomed => (_currentScale - 1.0).abs() > 0.02;
+
+  /// فقط بزرگ‌نمایی. pan معنایش وقتی است که محتوا از کادر بزرگ‌تر شده باشد؛
+  /// در حالتِ کوچک‌شده چیزی برای جابه‌جا کردن نیست.
+  bool get _isZoomedIn => _currentScale > 1.02;
   bool get _isPinching => _pointerCount >= 2;
 
   // ── زوم روی دسکتاپ (ویندوز/لینوکس/مک) ────────────────────────────────
   // روی موبایل زوم با pinch انجام می‌شود و این بخش عملاً بی‌اثر است.
-  static const double _kMinZoom = 1.0;
+  // 🐞 ریشه‌ی «دکمه‌ی کوچک‌نمایی کار نمی‌کند»: کفِ زوم ۱.۰ بود، یعنی در
+  // اندازه‌ی اصلی هیچ‌جایی برای کوچک‌تر شدن وجود نداشت و دکمه درست‌کار ولی
+  // غیرفعال می‌ماند. روی موبایل همان کفِ ۱.۰ منطقی است (کوچک‌کردنِ متن روی
+  // صفحه‌ی کوچک فقط ناخوانا می‌شود)، ولی روی دسکتاپ که صفحه بزرگ است،
+  // کوچک‌نمایی برای دیدنِ کلِ صفحه یک خواسته‌ی طبیعی است.
+  static const double _kDesktopMinZoom = 0.5;
   static const double _kMaxZoom = 3.5;
+
+  double get _minZoom => _isDesktop ? _kDesktopMinZoom : 1.0;
   static const double _kZoomStep = 1.25; // برای دکمه‌ها و Ctrl +/-
   static const double _kWheelZoomStep =
       1.12; // ریزتر، چون چرخ تیک‌های زیاد می‌زند
@@ -319,9 +333,17 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
 
     final Matrix4 current = _transformationController.value;
     final double currentScale = current.getMaxScaleOnAxis();
-    final double target = (currentScale * factor).clamp(_kMinZoom, _kMaxZoom);
+    final double target = (currentScale * factor).clamp(_minZoom, _kMaxZoom);
     final double applied = target / currentScale;
     if ((applied - 1.0).abs() < 0.0001) return;
+
+    // 🌟 عبور از ۱۰۰٪ دقیقاً روی ۱۰۰٪ بایستد: بدونِ این، پله‌های ۱.۲۵ هیچ‌وقت
+    // سرِ راست به اندازه‌ی اصلی نمی‌رسند و کاربر مجبور می‌شد دکمه‌ی ریست را
+    // بزند تا «۱۰۰٪» را ببیند.
+    if ((target - 1.0).abs() < 0.02) {
+      _resetZoom();
+      return;
+    }
 
     // M' = T(focal) · S(applied) · T(-focal) · M
     // یعنی نقطه‌ای که زیرِ نشانگر است، دقیقاً همان‌جا می‌ماند.
@@ -332,20 +354,25 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
     final Matrix4 result = next * current;
 
     final double newScale = result.getMaxScaleOnAxis();
-    if (newScale <= _kMinZoom + 0.0001) {
-      _resetZoom();
-      return;
-    }
 
     // 🐞 محدودکردنِ جابه‌جایی: InteractiveViewer فقط حرکت‌های *خودش* را
     // داخلِ کادر نگه می‌دارد؛ چون این‌جا مستقیم روی کنترلر می‌نویسیم، بدونِ
     // این کلمپ زوم روی لبه‌ی صفحه می‌توانست فضای خالی کنارِ محتوا باز کند.
-    final translation = result.getTranslation();
-    result.setTranslationRaw(
-      translation.x.clamp(viewport.width * (1 - newScale), 0.0),
-      translation.y.clamp(viewport.height * (1 - newScale), 0.0),
-      0.0,
-    );
+    if (newScale > 1.0) {
+      final translation = result.getTranslation();
+      result.setTranslationRaw(
+        translation.x.clamp(viewport.width * (1 - newScale), 0.0),
+        translation.y.clamp(viewport.height * (1 - newScale), 0.0),
+        0.0,
+      );
+    } else {
+      // 🐞 مسیرِ کوچک‌نمایی نمی‌تواند از همان کلمپ استفاده کند: با scale<1
+      // مقدارِ viewport.width*(1-scale) *مثبت* است و از حدِ بالا (۰) بزرگ‌تر
+      // می‌شود — و clamp در دارت با lower > upper خطا پرتاب می‌کند. این‌جا
+      // اصلاً محدودیتی لازم نیست: محتوا از کادر کوچک‌تر شده، فقط افقی
+      // وسط‌چین و عمودی از بالا می‌چسبانیمش.
+      result.setTranslationRaw(viewport.width * (1 - newScale) / 2, 0.0, 0.0);
+    }
 
     _transformationController.value = result;
   }
@@ -790,7 +817,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
             const SizedBox(height: 8),
             FloatingActionButton.small(
               heroTag: 'zoomOut',
-              onPressed: _currentScale <= _kMinZoom + 0.01
+              onPressed: _currentScale <= _minZoom + 0.01
                   ? null
                   : () => _zoomBy(1 / _kZoomStep),
               backgroundColor: Colors.black.withOpacity(0.55),
@@ -885,7 +912,7 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                   // زوم نشده: panEnabled:false → IV هرگز با scroll رقابت نمی‌کند
                   // زوم شده:  panEnabled:true  → فقط افق pan می‌کند (PanAxis.horizontal)
                   //           scroll عمودی کاملاً دست‌نخورده باقی می‌ماند
-                  panEnabled: _isZoomed,
+                  panEnabled: _isZoomedIn,
                   panAxis: PanAxis.horizontal,
                   // scale همیشه فعال — pinch را در هر لحظه تشخیص می‌دهد
                   scaleEnabled: true,
@@ -901,8 +928,8 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                   // می‌کند. مهم: این پارامتر *فقط* روی چرخِ ماوس اثر دارد، پس
                   // pinch با دو انگشت و زومِ ترک‌پد دست‌نخورده باقی می‌مانند.
                   scaleFactor: 1e9,
-                  minScale: 1.0,
-                  maxScale: 3.5,
+                  minScale: _minZoom,
+                  maxScale: _kMaxZoom,
                   clipBehavior: Clip.hardEdge,
 
                   // وقتی کاربر انگشتان را برمی‌دارد:
@@ -910,7 +937,11 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
                   onInteractionEnd: (_) {
                     final s = _transformationController.value
                         .getMaxScaleOnAxis();
-                    if (s <= 1.02) {
+                    // 🐞 قبلاً «s <= 1.02» بود، یعنی هر نتیجه‌ی کوچک‌نمایی
+                    // (که همیشه زیرِ ۱ است) بلافاصله به ۱۰۰٪ پرت می‌شد.
+                    // حالا فقط وقتی ریست می‌کنیم که کاربر عملاً *روی* اندازه‌ی
+                    // اصلی ایستاده باشد.
+                    if ((s - 1.0).abs() <= 0.02) {
                       _transformationController.value = Matrix4.identity();
                       if (_isZoomed) setState(() => _currentScale = 1.0);
                     }
