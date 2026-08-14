@@ -157,6 +157,10 @@ flutter:
     fonts:
       - asset: fonts/Symbol.ttf
 
+  - family: Segoepr
+    fonts:
+      - asset: fonts/segoepr.ttf
+
   - family: Wingdings 3
     fonts:
       - asset: fonts/WINGDNG3.TTF

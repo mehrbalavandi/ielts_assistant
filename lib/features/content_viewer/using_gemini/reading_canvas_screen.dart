@@ -1397,6 +1397,9 @@ String mapFontFamily(String rawFontName) {
     if (normalized.contains("extra")) return "YekanBakhExtraBold";
     return "YekanBakhBold";
   }
+  if (normalized.contains("segoepr")) {
+    return "Segoepr";
+  }
   return "Source Sans 3";
 }
 
