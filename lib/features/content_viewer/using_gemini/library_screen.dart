@@ -197,17 +197,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                       return GestureDetector(
                         onTap: canOpenCanvas
                             ? () {
-                                StorageService.saveLastBookId(book.id);
                                 // 🌟 انتقال به صفحه مطالعه با ضربه روی هر جای کارت (در صورت آماده بودن فایل)
-                                ref.read(activeBookProvider.notifier).state =
-                                    book;
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const MainBookScreen(),
-                                  ),
-                                );
+                                _openBookForReading(context, ref, book);
                               }
                             : null,
                         child: Card(
@@ -299,6 +290,29 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
         ],
       ),
     );
+  }
+
+  /// 🌟 تنها مسیرِ رفتن به صفحه‌ی مطالعه. علتِ یک‌کاسه‌کردنش: بعد از بازگشت
+  /// باید ویترین رفرش شود (وضعیتِ دانلود/آپدیت/خرید ممکن است در حینِ مطالعه
+  /// عوض شده باشد) و قبلاً چهار جای مختلف Navigator.push می‌کردند — هر
+  /// کدام که یادش می‌رفت، یک مسیرِ بی‌رفرش می‌ماند.
+  /// await روی push لازم است: تا وقتی صفحه‌ی مطالعه باز است این Future
+  /// تمام نمی‌شود و درست در لحظه‌ی pop ادامه پیدا می‌کند.
+  Future<void> _openBookForReading(
+    BuildContext context,
+    WidgetRef ref,
+    BookModel book,
+  ) async {
+    StorageService.saveLastBookId(book.id);
+    ref.read(activeBookProvider.notifier).state = book;
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const MainBookScreen()),
+    );
+
+    if (!context.mounted) return;
+    await ref.read(booksProvider.notifier).fetchBooks();
   }
 
   /// تأییدِ حذفِ محتوای دانلودشده. اگر همین کتاب همین حالا باز باشد،
@@ -459,22 +473,15 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                 color: Colors.green,
                 size: 14,
               ),
-              label: const Text("مطالعه کامل", style: TextStyle(fontSize: 11)),
+              // «کامل» در برابرِ «نمونه» بود، ولی وقتی کتاب خریداری شده کاربر
+              // اصلاً نسخه‌ی دیگری نمی‌بیند که با آن مقایسه کند.
+              label: const Text("مطالعه کتاب", style: TextStyle(fontSize: 11)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black87,
                 padding: const EdgeInsets.symmetric(horizontal: 2),
               ),
-              onPressed: () {
-                ref.read(activeBookProvider.notifier).state = book;
-
-                StorageService.saveLastBookId(book.id);
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MainBookScreen()),
-                );
-              },
+              onPressed: () => _openBookForReading(context, ref, book),
             ),
             // 🌟 حذفِ محتوای دانلودشده — برای آزادکردنِ فضای دستگاه؛ خودِ
             // کتاب در کتابخانه می‌ماند و هر وقت خواستید دوباره دانلود می‌شود.
@@ -485,8 +492,11 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                 size: 14,
                 color: Colors.red,
               ),
+              // 🌟 عبارتِ قبلی توضیحِ عملیات بود، نه نتیجه‌اش — و در عرضِ
+              // باریکِ کارت هم می‌شکست. «آزادسازی فضا» همان کار را از دیدِ
+              // کاربر توصیف می‌کند و کوتاه‌تر است.
               label: const Text(
-                "حذف محتوای دانلودشده",
+                "آزادسازی فضا",
                 style: TextStyle(fontSize: 11, color: Colors.red),
               ),
               style: OutlinedButton.styleFrom(
@@ -526,7 +536,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
       }
       return ElevatedButton.icon(
         icon: const Icon(Icons.cloud_download, size: 14),
-        label: const Text("دانلود کامل", style: TextStyle(fontSize: 11)),
+        label: const Text("دانلود کتاب", style: TextStyle(fontSize: 11)),
         onPressed: () => ref
             .read(booksProvider.notifier)
             .downloadBookZip(book, isSample: false),
@@ -545,13 +555,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
               padding: const EdgeInsets.symmetric(horizontal: 2),
               side: const BorderSide(color: Colors.indigo),
             ),
-            onPressed: () {
-              ref.read(activeBookProvider.notifier).state = book;
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MainBookScreen()),
-              );
-            },
+            onPressed: () => _openBookForReading(context, ref, book),
             child: const Text(
               "مطالعه نمونه",
               style: TextStyle(fontSize: 11, color: Colors.indigo),
@@ -568,7 +572,11 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
               onPressed: () => ref
                   .read(booksProvider.notifier)
                   .downloadBookZip(book, isSample: true),
-              label: const Text("آپدیت نمونه", style: TextStyle(fontSize: 11)),
+              // هم‌زبان با «به‌روزرسانی محتوا»ی نسخه‌ی اصلی
+              label: const Text(
+                "به‌روزرسانی نمونه",
+                style: TextStyle(fontSize: 11),
+              ),
             ),
         ] else
           OutlinedButton(

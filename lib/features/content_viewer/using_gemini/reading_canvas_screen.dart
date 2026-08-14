@@ -433,7 +433,10 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
         });
       }
       _badgeTimer?.cancel();
-      _badgeTimer = Timer(const Duration(milliseconds: 1200), () {
+      // 🐞 از ۱۲۰۰ به ۲۵۰۰ رفت: با مکثِ کوتاه، نشان دیگر بلافاصله کم‌رنگ
+      // نمی‌شود، پس در خواندنِ عادی (اسکرول، مکث، اسکرول) مدام حالت عوض
+      // نمی‌کند.
+      _badgeTimer = Timer(const Duration(milliseconds: 2500), () {
         if (mounted) setState(() => _showPageBadge = false);
       });
 
@@ -853,26 +856,66 @@ class _ReadingCanvasScreenState extends ConsumerState<ReadingCanvasScreen> {
               child: const Icon(Icons.zoom_out_map, color: Colors.white),
             ),
           const SizedBox(height: 8),
-          // 🌟 نشانِ شماره‌ی صفحه: هنگام اسکرول ظاهر و بعد از توقف محو می‌شود؛
-          // ضربه روی آن دیالوگِ «رفتن به صفحه» را باز می‌کند
-          IgnorePointer(
-            ignoring: !_showPageBadge,
-            child: AnimatedOpacity(
-              opacity: _showPageBadge ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 250),
-              child: FloatingActionButton.extended(
-                heroTag: 'pageBadge',
-                onPressed: _openJumpToPageDialog,
-                backgroundColor: Colors.black.withOpacity(0.75),
-                elevation: 3,
-                icon: const Icon(
-                  Icons.menu_book,
-                  size: 18,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'صفحه $_currentPage از ${widget.pagedBookStore.pageCount}',
-                  style: const TextStyle(color: Colors.white, fontSize: 13),
+          // 🌟 نشانِ شماره‌ی صفحه؛ ضربه روی آن دیالوگِ «رفتن به صفحه» را باز
+          // می‌کند.
+          //
+          // 🐞 دو ایرادِ گزارش‌شده این‌جا اصلاح شد:
+          // ۱) «چشمک‌زدن»: قبلاً بینِ opacity صفر و یک می‌رفت، پس با هر مکثِ
+          //    کوتاهِ کاربر کامل محو و دوباره ظاهر می‌شد. حالا همیشه دیده
+          //    می‌شود و فقط بینِ «کم‌رنگ» و «پررنگ» جابه‌جا می‌شود — با
+          //    ترنزیشنِ کندتر (۴۰۰ms و easeOutCubic) که چشم را نمی‌زند.
+          //    IgnorePointer هم حذف شد، چون حالا همیشه قابلِ لمس است.
+          // ۲) ظاهر: FloatingActionButton.extended برای یک نشانِ اطلاعاتی
+          //    زیادی سنگین بود. حالا یک چیپِ قرصی‌شکلِ نیمه‌شفاف با حاشیه‌ی
+          //    نازک است که رویِ هر رنگِ صفحه می‌نشیند.
+          //
+          // 🌟 و برچسب: عدد دوم دیگر «تعدادِ کل صفحات» نیست بلکه شماره‌ی
+          // آخرین صفحه است — چون استخراج‌کننده می‌تواند شماره‌گذاری را از
+          // عددِ دلخواه شروع کند و «صفحه ۲۰ از ۱۲» بی‌معنی می‌شد.
+          AnimatedOpacity(
+            opacity: _showPageBadge ? 1.0 : 0.62,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeOutCubic,
+            child: Material(
+              color: Colors.black.withOpacity(0.62),
+              elevation: 2,
+              shadowColor: Colors.black45,
+              borderRadius: BorderRadius.circular(999),
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: _openJumpToPageDialog,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 9,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.22),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.menu_book_rounded,
+                        size: 16,
+                        color: Colors.white70,
+                      ),
+                      const SizedBox(width: 7),
+                      Text(
+                        'صفحه $_currentPage از ${widget.pagedBookStore.lastPageNumber}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.2,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
