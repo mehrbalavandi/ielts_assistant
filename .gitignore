@@ -64,8 +64,7 @@ assets/data/Mindset 03/*
 
 assets/data/Mindset 01/*
 !assets/data/Mindset 01/
-!assets/data/Mindset 01/Mindset1- Custom.docx
-!assets/data/Mindset 01/Mindset1- Custom - Unit 02.docx
+!assets/data/Mindset 01/Mindset1- Custom*.docx
 !assets/data/Mindset 01/Mindset1- Audio Scripts.docx
 !assets/data/Mindset 01/Mindset1- Audio Scripts_markers.docx
 # Example: keep only this file in assets/data/
