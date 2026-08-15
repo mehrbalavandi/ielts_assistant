@@ -1,0 +1,3974 @@
+// 🔊 🎧 ▶ ▶️
+// ignore_for_file: unused_local_variable, unused_import
+
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+// 🌟 برای زومِ دسکتاپ: PointerScrollEvent از gestures و HardwareKeyboard/
+// LogicalKeyboardKey از services می‌آیند. هیچ‌کدام در showـلیستِ صادراتیِ
+// material نیستند، پس باید صریح import شوند.
+import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
+import 'package:float_column/float_column.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
+import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
+import 'package:ielts_assistant/features/library/providers/books_provider.dart';
+import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/text_render_engine.dart';
+import 'package:ielts_assistant/features/reader/domain/document_models.dart';
+import 'package:ielts_assistant/core/text/document_text_utils.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/audio/presentation/audio_player_bar.dart';
+import 'dart:math' as math;
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+class MapOffset {
+  int value = 0;
+}
+
+// 🐞 برای لودِ تنبل: وقتی یک صفحه هنوز در کشِ PagedBookStore نیست، این
+// ویجت getPage (async) را درخواست می‌کند و تا رسیدنش یک پلیس‌هولدرِ ساده
+// نشان می‌دهد؛ وقتی رسید، همان‌جا (بدونِ نیاز به rebuildِ کلِ لیست)
+// خودش را با محتوای واقعی جایگزین می‌کند.
+class _LazyPage extends StatefulWidget {
+  final PagedBookStore store;
+  final int pageIndex;
+  final Widget Function(PageData page) builder;
+
+  const _LazyPage({
+    required this.store,
+    required this.pageIndex,
+    required this.builder,
+  });
+
+  @override
+  State<_LazyPage> createState() => _LazyPageState();
+}
+
+class _LazyPageState extends State<_LazyPage> {
+  PageData? _page;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  @override
+  void didUpdateWidget(covariant _LazyPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 🐞 اگر همین آیتمِ لیست حالا به ایندکسِ دیگری اشاره کند (مثلاً به‌خاطرِ
+    // تغییرِ کتاب)، دوباره از صفر لود می‌شود.
+    if (oldWidget.pageIndex != widget.pageIndex ||
+        oldWidget.store != widget.store) {
+      _page = null;
+      _load();
+    }
+  }
+
+  void _load() {
+    widget.store
+        .getPage(widget.pageIndex)
+        .then((page) {
+          if (mounted) setState(() => _page = page);
+        })
+        .catchError((Object e) {
+          // 🐞 یک صفحه‌ی گم‌شده/خراب نباید کلِ کتاب را کرش کند — همان
+          // پلیس‌هولدر می‌ماند.
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final page = _page;
+    // 🐞 حتی با پیشگرمی (prewarmAround)، ممکن است بعضی صفحات (مثلاً همان
+    // اولین صفحه‌ای که هنوز پیشگرمی برایش فرصت نداشته، یا حینِ فلینگِ
+    // خیلی سریع) هنوز به کش نرسیده باشند؛ AnimatedSize باعث می‌شود
+    // تغییرِ ارتفاعِ پلیس‌هولدر به ارتفاعِ واقعیِ صفحه به‌جای یک جهشِ
+    // ناگهانی، به‌آرامی و در چند فریم انجام شود.
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 200),
+      alignment: Alignment.topCenter,
+      child: page == null
+          ? const SizedBox(
+              height: 400,
+              child: Center(child: CircularProgressIndicator()),
+            )
+          : widget.builder(page),
+    );
+  }
+}
+
+class ReadingCanvas extends ConsumerStatefulWidget {
+  // 🐞 بازنویسیِ اصلیِ لودِ تنبل: قبلاً این‌جا کلِ کتاب به‌صورتِ
+  // List<PageData>ِ کاملاً لودشده می‌آمد (مصرفِ حافظه/زمانِ بازشدنِ کتاب با
+  // تعدادِ کل صفحات رشد می‌کرد). حالا به‌جایش یک PagedBookStore می‌آید که
+  // فقط منیفستِ سبک (index.json، بدونِ محتوای صفحات) را از قبل لود کرده و
+  // هر صفحه را فقط وقتی واقعاً دیده می‌شود (getPage) از دیسک می‌خواند و در
+  // یک کشِ LRU با سقفِ ثابت نگه می‌دارد.
+  final PagedBookStore pagedBookStore;
+  final List<AudioScriptTrack> audioScripts; // 🌟 اضافه شد
+  // 🐞 شاخصِ لینک‌های صوتیِ از‌قبل‌محاسبه‌شده (سمتِ C#) — اگر داده شود،
+  // buildBookAudioPlaylist بدونِ گشتنِ زنده‌ی محتوای صفحات، مستقیم از
+  // رویش پلی‌لیست می‌سازد؛ حالا با لودِ تنبل این تقریباً همیشه لازم است
+  // (چون دیگر کل کتاب برای اسکن در دسترس نیست).
+  final List<AudioLinkEntry> precomputedAudioLinksIndex;
+  const ReadingCanvas({
+    super.key,
+    required this.pagedBookStore,
+    required this.audioScripts,
+    this.precomputedAudioLinksIndex = const [],
+  });
+
+  @override
+  ConsumerState<ReadingCanvas> createState() {
+    return _ReadingCanvasState();
+  }
+}
+
+class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
+  final TransformationController _transformationController =
+      TransformationController();
+  final _box = GetStorage();
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
+  final GlobalKey _targetParaKey = GlobalKey();
+
+  // ── وضعیت zoom و شمارش انگشتان ─────────────────────────────────────────
+  int _pointerCount = 0;
+  double _currentScale = 1.0;
+
+  // 🐞 قبلاً «زوم» فقط یعنی بزرگ‌تر از ۱۰۰٪. حالا که کوچک‌نماییِ زیرِ ۱۰۰٪ هم
+  // ممکن است، این گتر باید هر انحرافی از اندازه‌ی اصلی را زوم بداند — وگرنه
+  // در حالتِ کوچک‌شده دکمه‌ی «بازگشت به اندازه اصلی» ظاهر نمی‌شد.
+  bool get _isZoomed => (_currentScale - 1.0).abs() > 0.02;
+
+  /// فقط بزرگ‌نمایی. pan معنایش وقتی است که محتوا از کادر بزرگ‌تر شده باشد؛
+  /// در حالتِ کوچک‌شده چیزی برای جابه‌جا کردن نیست.
+  bool get _isZoomedIn => _currentScale > 1.02;
+  bool get _isPinching => _pointerCount >= 2;
+
+  // ── زوم روی دسکتاپ (ویندوز/لینوکس/مک) ────────────────────────────────
+  // روی موبایل زوم با pinch انجام می‌شود و این بخش عملاً بی‌اثر است.
+  // 🐞 ریشه‌ی «دکمه‌ی کوچک‌نمایی کار نمی‌کند»: کفِ زوم ۱.۰ بود، یعنی در
+  // اندازه‌ی اصلی هیچ‌جایی برای کوچک‌تر شدن وجود نداشت و دکمه درست‌کار ولی
+  // غیرفعال می‌ماند. روی موبایل همان کفِ ۱.۰ منطقی است (کوچک‌کردنِ متن روی
+  // صفحه‌ی کوچک فقط ناخوانا می‌شود)، ولی روی دسکتاپ که صفحه بزرگ است،
+  // کوچک‌نمایی برای دیدنِ کلِ صفحه یک خواسته‌ی طبیعی است.
+  static const double _kDesktopMinZoom = 0.5;
+  static const double _kMaxZoom = 3.5;
+
+  double get _minZoom => _isDesktop ? _kDesktopMinZoom : 1.0;
+  static const double _kZoomStep = 1.25; // برای دکمه‌ها و Ctrl +/-
+  static const double _kWheelZoomStep =
+      1.12; // ریزتر، چون چرخ تیک‌های زیاد می‌زند
+
+  /// کلیدِ ویجتِ Listener — برای گرفتنِ اندازه‌ی واقعیِ ناحیه‌ی نمایش هنگام
+  /// محدودکردنِ جابه‌جایی بعد از زوم.
+  final GlobalKey _viewerKey = GlobalKey();
+
+  /// آیا Ctrl (یا Cmd روی مک) همین حالا نگه داشته شده است؟
+  bool _ctrlHeld = false;
+
+  /// دکمه‌های ‎+/−‎ فقط روی دسکتاپ معنا دارند؛ روی موبایل pinch هست و
+  /// شلوغ‌کردنِ صفحه ارزشی ندارد.
+  bool get _isDesktop =>
+      Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+
+  // ── رفع پرش اولیه اسکرول ────────────────────────────────────────────────
+  // ScrollablePositionedList از دو ListView داخلی استفاده می‌کند.
+  // اولین scroll از initialScrollIndex، یک transition بین این دو فعال می‌کند → پرش.
+  // راه‌حل: صفحه را نامرئی نگه‌داریم، jumpTo را در پس‌زمینه اجرا کنیم
+  // (transition بی‌صدا انجام شود)، سپس صفحه را نشان دهیم.
+  bool _isReady = false;
+  int _savedIndex = 0;
+  double _savedAlignment = 0.0;
+
+  // 🌟 دیبانس‌کردن ذخیره‌سازی موقعیت اسکرول: قبلاً روی هر فریمِ اسکرول
+  // (ده‌ها بار در ثانیه) مستقیم روی دیسک نوشته می‌شد که یکی از عوامل
+  // اصلی ناروان بودن اسکرول (به‌خصوص اسکرول اول) بود.
+  Timer? _scrollPersistDebounce;
+
+  // 🌟 نشانِ معلقِ شماره‌ی صفحه (مثل تلگرام) + پرش به صفحه
+  int _currentPage = 1;
+  bool _showPageBadge = false;
+  Timer? _badgeTimer;
+
+  // 🌟 رفع مشکل اسکرول نادقیق جستجو: این دو فیلد مطمئن می‌شوند که
+  // Scrollable.ensureVisible فقط زمانی اجرا می‌شود که widget tree واقعاً
+  // با هدف جدید (occurrence جدید) rebuild شده باشد، نه یک context قدیمی
+  // و باقی‌مانده از هدف قبلی.
+  String? _lastBuiltTargetSignature;
+  int? _lastBuiltTargetPageIndex;
+  int _scrollRequestId = 0;
+  // 🌟 جلوگیری از claim دوباره‌ی کلیدهای هدف اگر ScrollablePositionedList
+  // (به‌خاطر معماری دو-لیستیِ داخلی‌اش، مخصوصاً حین یک جهشِ بزرگ) برای
+  // همان pageIndex بیش از یک‌بار در همین build، itemBuilder صدا بزند
+  bool _targetKeyClaimedThisBuild = false;
+  String? _signatureFor(SearchResult? r) {
+    if (r == null) return null;
+    return '${r.pageNumber}:${r.paraIndex}:${r.occurrenceIndex}';
+  }
+
+  // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر: چون این کار روی کلِ کتاب است، فقط
+  // یک‌بار (به‌ازای همین pagedBookStore) محاسبه و کش می‌شود — نه در هر
+  // rebuildِ هر صفحه.
+  List<BookAudioEntry>? _cachedBookAudioEntries;
+  PagedBookStore? _cachedForStore;
+  List<String> _bookAudioPlaylist = const [];
+  Map<String, AudioLocation> _bookAudioFirstOccurrence = const {};
+
+  void _ensureBookAudioPlaylistBuilt() {
+    if (_cachedBookAudioEntries != null &&
+        _cachedForStore == widget.pagedBookStore) {
+      return;
+    }
+    final currentBook = ref.read(activeBookProvider);
+    // 🐞 دیگر لیستِ کاملِ صفحات برای اسکن در دسترس نیست (لودِ تنبل) — پس
+    // pages خالی پاس داده می‌شود؛ چون precomputedAudioLinksIndex تقریباً
+    // همیشه از index.json پر است، buildBookAudioPlaylist بدونِ نیاز به
+    // pages مستقیم از رویِ همان کار می‌کند. فقط برای کتابِ خیلی قدیمی که
+    // هنوز این شاخص را ندارد، پلی‌لیستِ کتاب‌محور خالی می‌ماند (تا وقتی
+    // دوباره با ابزارِ جدید استخراج شود) — این یک محدودیتِ صریح و
+    // مستندشده است، نه کرش یا رفتارِ نامشخص.
+    final entries = buildBookAudioPlaylist(
+      const [],
+      currentBook,
+      precomputedIndex: widget.precomputedAudioLinksIndex,
+    );
+    _cachedBookAudioEntries = entries;
+    _cachedForStore = widget.pagedBookStore;
+    _bookAudioPlaylist = entries.map((e) => e.resolvedPath).toList();
+    _bookAudioFirstOccurrence = bookAudioFirstOccurrence(entries);
+
+    // 🐞 قبلاً state.playlist/firstOccurrence فقط با اولین تپِ رویِ یک
+    // دکمه‌ی صوتیِ داخلِ متن پر می‌شد — یعنی تا وقتی کاربر چیزی پخش نکرده
+    // بود، پلی‌لیست (حتی اگر دکمه‌ی مستقلش را داشته باشد) خالی نشان داده
+    // می‌شد. حالا همین‌جا، به‌محضِ آماده‌شدنِ پلی‌لیستِ کتاب، مستقیم در
+    // پلیر هم ثبتش می‌کنیم — بدونِ نیاز به هیچ پخشی. اگر همین الان چیزی
+    // در حالِ پخش باشد دست‌نخورده می‌ماند (setPlaylist فقط این دو فیلد را
+    // عوض می‌کند). با addPostFrameCallback بعد از اتمامِ همین build اجرا
+    // می‌شود تا با ویجت‌های دیگری که audioPlayerProvider را watch می‌کنند
+    // تداخلِ «rebuild حین build» نداشته باشد.
+    if (_bookAudioPlaylist.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ref
+            .read(audioPlayerProvider.notifier)
+            .setPlaylist(
+              _bookAudioPlaylist,
+              firstOccurrence: _bookAudioFirstOccurrence,
+            );
+      });
+    }
+  }
+
+  // وقتی transform تغییر می‌کند — فقط اگر در حال pinch باشیم setState می‌زنیم
+  // این جلوگیری می‌کند از setState غیرضروری در حین اسکرول معمولی
+  void _onTransformChanged() {
+    if (!_isPinching) return;
+    final s = _transformationController.value.getMaxScaleOnAxis();
+    if ((s - _currentScale).abs() > 0.005) {
+      setState(() => _currentScale = s);
+    }
+  }
+
+  /// میان‌برهای زومِ دسکتاپ + دنبال‌کردنِ وضعیتِ Ctrl.
+  /// خروجی true یعنی «کلید مصرف شد». فقط برای همان سه میان‌بر true
+  /// برمی‌گردانیم تا هیچ کلیدِ دیگری (تایپ در جستجو، دیالوگ‌ها) دست نخورد.
+  bool _handleKeyEvent(KeyEvent event) {
+    final bool ctrl =
+        HardwareKeyboard.instance.isControlPressed ||
+        HardwareKeyboard.instance.isMetaPressed;
+    if (ctrl != _ctrlHeld && mounted) {
+      setState(() => _ctrlHeld = ctrl);
+    }
+
+    if (!ctrl || event is! KeyDownEvent) return false;
+
+    final LogicalKeyboardKey k = event.logicalKey;
+    if (k == LogicalKeyboardKey.equal ||
+        k == LogicalKeyboardKey.add ||
+        k == LogicalKeyboardKey.numpadAdd) {
+      _zoomBy(_kZoomStep);
+      return true;
+    }
+    if (k == LogicalKeyboardKey.minus ||
+        k == LogicalKeyboardKey.numpadSubtract) {
+      _zoomBy(1 / _kZoomStep);
+      return true;
+    }
+    if (k == LogicalKeyboardKey.digit0 || k == LogicalKeyboardKey.numpad0) {
+      _resetZoom();
+      return true;
+    }
+    return false;
+  }
+
+  void _resetZoom() {
+    _transformationController.value = Matrix4.identity();
+    if (mounted) setState(() => _currentScale = 1.0);
+  }
+
+  /// زومِ برنامه‌ای حولِ یک نقطه‌ی کانونی (محلِ نشانگرِ ماوس، یا مرکزِ صفحه
+  /// وقتی از دکمه/میان‌بر می‌آید).
+  ///
+  /// چرا دستی و نه از خودِ InteractiveViewer: چرخِ ماوس در IV عمداً با
+  /// scaleFactor بسیار بزرگ خنثی شده (وگرنه بی‌آنکه بخواهیم، هم‌زمان با
+  /// اسکرول زوم می‌کرد). پس زومِ خواسته‌شده را این‌جا خودمان روی همان
+  /// transformationController اعمال می‌کنیم — یعنی pinch و این مسیر روی یک
+  /// حالتِ مشترک کار می‌کنند و با هم ناسازگار نمی‌شوند.
+  void _zoomBy(double factor, {Offset? focalPoint}) {
+    final RenderObject? ro = _viewerKey.currentContext?.findRenderObject();
+    final Size viewport = (ro is RenderBox && ro.hasSize)
+        ? ro.size
+        : MediaQuery.of(context).size;
+
+    final Offset focal =
+        focalPoint ?? Offset(viewport.width / 2, viewport.height / 2);
+
+    final Matrix4 current = _transformationController.value;
+    final double currentScale = current.getMaxScaleOnAxis();
+    final double target = (currentScale * factor).clamp(_minZoom, _kMaxZoom);
+    final double applied = target / currentScale;
+    if ((applied - 1.0).abs() < 0.0001) return;
+
+    // 🌟 عبور از ۱۰۰٪ دقیقاً روی ۱۰۰٪ بایستد: بدونِ این، پله‌های ۱.۲۵ هیچ‌وقت
+    // سرِ راست به اندازه‌ی اصلی نمی‌رسند و کاربر مجبور می‌شد دکمه‌ی ریست را
+    // بزند تا «۱۰۰٪» را ببیند.
+    if ((target - 1.0).abs() < 0.02) {
+      _resetZoom();
+      return;
+    }
+
+    // M' = T(focal) · S(applied) · T(-focal) · M
+    // یعنی نقطه‌ای که زیرِ نشانگر است، دقیقاً همان‌جا می‌ماند.
+    final Matrix4 next = Matrix4.identity()
+      ..translate(focal.dx, focal.dy)
+      ..scale(applied)
+      ..translate(-focal.dx, -focal.dy);
+    final Matrix4 result = next * current;
+
+    final double newScale = result.getMaxScaleOnAxis();
+
+    // 🐞 محدودکردنِ جابه‌جایی: InteractiveViewer فقط حرکت‌های *خودش* را
+    // داخلِ کادر نگه می‌دارد؛ چون این‌جا مستقیم روی کنترلر می‌نویسیم، بدونِ
+    // این کلمپ زوم روی لبه‌ی صفحه می‌توانست فضای خالی کنارِ محتوا باز کند.
+    if (newScale > 1.0) {
+      final translation = result.getTranslation();
+      result.setTranslationRaw(
+        translation.x.clamp(viewport.width * (1 - newScale), 0.0),
+        translation.y.clamp(viewport.height * (1 - newScale), 0.0),
+        0.0,
+      );
+    } else {
+      // 🐞 مسیرِ کوچک‌نمایی نمی‌تواند از همان کلمپ استفاده کند: با scale<1
+      // مقدارِ viewport.width*(1-scale) *مثبت* است و از حدِ بالا (۰) بزرگ‌تر
+      // می‌شود — و clamp در دارت با lower > upper خطا پرتاب می‌کند. این‌جا
+      // اصلاً محدودیتی لازم نیست: محتوا از کادر کوچک‌تر شده، فقط افقی
+      // وسط‌چین و عمودی از بالا می‌چسبانیمش.
+      result.setTranslationRaw(viewport.width * (1 - newScale) / 2, 0.0, 0.0);
+    }
+
+    _transformationController.value = result;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _transformationController.addListener(_onTransformChanged);
+    // 🌟 هندلرِ سراسریِ صفحه‌کلید: هم وضعیتِ Ctrl را دنبال می‌کند (برای
+    // Ctrl+چرخ) و هم میان‌برهای Ctrl + / − / 0 را اجرا می‌کند. سراسری است
+    // چون به فوکوسِ ویجت وابسته نباشد.
+    HardwareKeyboard.instance.addHandler(_handleKeyEvent);
+
+    // خواندن موقعیت ذخیره‌شده هنگام init (قبل از اولین build)
+    final currentBook = ref.read(activeBookProvider);
+    _savedIndex = _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
+    _savedAlignment =
+        _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
+
+    _itemPositionsListener.itemPositions.addListener(() {
+      // 🌟 این listener روی هر فریمِ اسکرول فراخوانی می‌شود. نوشتن مستقیم
+      // روی GetStorage در همین لحظه یعنی ده‌ها بار در ثانیه I/O روی دیسک،
+      // که خودش باعث افت فریم (jank) در طول اسکرول می‌شود. به‌جای آن،
+      // فقط آخرین موقعیت را نگه می‌داریم و ۲۵۰ میلی‌ثانیه بعد از توقف
+      // اسکرول، یک‌بار می‌نویسیم.
+      final positions = _itemPositionsListener.itemPositions.value;
+      if (positions.isEmpty) return;
+
+      // 🌟 پیدا کردن بالاترین آیتمی که هم‌اکنون در کادر در حال نمایش است
+      final topItem = positions
+          .where((p) => p.itemTrailingEdge > 0)
+          .reduce((min, p) => p.index < min.index ? p : min);
+
+      // 🌟 شماره‌ی صفحه‌ی جاری + نمایشِ نشان هنگام اسکرول (مثل تلگرام)
+      // 🐞 دیگر «ایندکس + ۱» نیست: استخراج‌کننده می‌تواند شماره‌گذاری را از
+      // عددِ دلخواه شروع کند، پس شماره‌ی واقعیِ صفحه از index.json خوانده
+      // می‌شود. فالبکِ index+1 برای کتاب‌های قدیمی رفتارِ قبلی را نگه می‌دارد.
+      final newPage =
+          widget.pagedBookStore.pageNumberForIndex(topItem.index) ??
+          (topItem.index + 1);
+      if (newPage != _currentPage) {
+        // 🐞 رفع باگِ گزارش‌شده‌ی «پرش حینِ اسکرول»: با لودِ تنبل، وقتی
+        // یک صفحه هنوز در کش نیست، _LazyPage یک پلیس‌هولدرِ ارتفاعِ‌ثابت
+        // نشان می‌دهد که بعداً با ارتفاعِ واقعیِ صفحه (که می‌تواند خیلی
+        // متفاوت باشد) جایگزین می‌شود — همین تغییرِ ارتفاعِ ناگهانی حینِ
+        // اسکرول، باعثِ جابه‌جاییِ محتوا/«پرش» می‌شود. با پیش‌بارگذاریِ
+        // چند صفحه‌ی جلوتر/عقب‌تر از همین الان (نه فقط دقیقاً همان صفحه‌ای
+        // که دیده می‌شود)، تا وقتی کاربر واقعاً به آن صفحه برسد، معمولاً
+        // از قبل در کش است — یعنی از مسیرِ سریعِ peekPage رد می‌شود، نه
+        // پلیس‌هولدر. await نمی‌شود چون قرار است در پس‌زمینه، همزمان با
+        // ادامه‌ی اسکرولِ کاربر، انجام شود.
+        widget.pagedBookStore.prewarmAround(topItem.index);
+      }
+      if (newPage != _currentPage || !_showPageBadge) {
+        setState(() {
+          _currentPage = newPage;
+          _showPageBadge = true;
+        });
+      }
+      _badgeTimer?.cancel();
+      // 🐞 از ۱۲۰۰ به ۲۵۰۰ رفت: با مکثِ کوتاه، نشان دیگر بلافاصله کم‌رنگ
+      // نمی‌شود، پس در خواندنِ عادی (اسکرول، مکث، اسکرول) مدام حالت عوض
+      // نمی‌کند.
+      _badgeTimer = Timer(const Duration(milliseconds: 2500), () {
+        if (mounted) setState(() => _showPageBadge = false);
+      });
+
+      _scrollPersistDebounce?.cancel();
+      _scrollPersistDebounce = Timer(const Duration(milliseconds: 250), () {
+        if (!mounted) return;
+        final currentBook = ref.read(activeBookProvider);
+        if (currentBook != null) {
+          _box.write('scroll_page_${currentBook.id}', topItem.index);
+          // 🌟 ذخیره نقطه دقیق (Offset) آیتم برای بازگشت به همان مکان
+          _box.write('scroll_align_${currentBook.id}', topItem.itemLeadingEdge);
+        }
+      });
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+
+      // ── مرحله ۱: پرش بی‌صدا به موقعیت ذخیره‌شده ─────────────────────────
+      // چون opacity=0 است کاربر هیچ‌چیز نمی‌بیند.
+      // این jumpTo باعث می‌شود dual-list transition پیش از تعامل کاربر اتفاق بیفتد.
+      if (_itemScrollController.isAttached && _savedIndex > 0) {
+        final safeIndex = _savedIndex < widget.pagedBookStore.pageCount
+            ? _savedIndex
+            : 0;
+        _itemScrollController.jumpTo(
+          index: safeIndex,
+          alignment: _savedAlignment,
+        );
+      }
+
+      // ── مرحله ۲: صبر برای تکمیل transition (۲ فریم کافی است) ──────────
+      await Future.delayed(const Duration(milliseconds: 80));
+      if (!mounted) return;
+
+      // ── مرحله ۳: نمایش صفحه — کاربر اکنون صفحه درست را می‌بیند ─────────
+      setState(() => _isReady = true);
+
+      // ── مرحله ۴: در صورت وجود search target، به آن اسکرول کن ─────────────
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) =>
+            _ensureTargetVisible(expectedSignature: _lastBuiltTargetSignature),
+      );
+    });
+  }
+
+  // 🌟 چون GlobalObjectKey با identical() مقایسه می‌شود نه محتوای رشته،
+  // باید خودمان شیء GlobalKey را برای هر «امضا» فقط یک‌بار بسازیم و
+  // همیشه همان شیء را برگردانیم — وگرنه هر بار صدا زدن گتر یک کلید
+  // «متفاوت» از نگاه فلاتر تولید می‌کند، حتی برای همان هدف قبلی.
+  final Map<String, GlobalKey> _navKeyCache = {};
+
+  GlobalKey _keyFor(String prefix) {
+    final id = '${prefix}_${_lastBuiltTargetSignature ?? "none"}';
+    return _navKeyCache.putIfAbsent(id, () => GlobalKey());
+  }
+
+  GlobalKey get _fallbackParaKey => _keyFor('fallback');
+  GlobalKey get _exactMatchKey => _keyFor('exact');
+  GlobalKey get _pageAnchorKey => _keyFor('anchor');
+
+  // 🌟 اسکرول دقیق — تلاش دوم.
+  //
+  // تلاش قبلی (خواندن/نوشتن مستقیم روی position.pixels نزدیک‌ترین
+  // Scrollable) کار نکرد: طبق لاگ واقعی از دستگاه، pixels همیشه ۰.۰
+  // خوانده می‌شد و افست‌های منفیِ محاسبه‌شده به minScrollExtent=0
+  // clamp می‌شدند — یعنی عملاً هیچ اسکرولی اتفاق نمی‌افتاد. علتش این
+  // است که ScrollablePositionedList موقعیت اسکرول را با منطق داخلی و
+  // سفارشی خودش (نه یک pixels خطی ساده) مدیریت می‌کند، پس دستکاری مستقیم
+  // ScrollPosition نزدیک‌ترین Scrollable قابل‌اعتماد نیست.
+  //
+  // راه‌حل: به‌جای دست‌کاری مستقیم اسکرول، فاصله‌ی هدف را نسبت به «بالای
+  // خودِ صفحه» اندازه می‌گیریم (این فاصله کاملاً مستقل از موقعیت فعلی
+  // اسکرول است و همیشه درست می‌ماند)، آن را به یک مقدار «alignment»
+  // تبدیل می‌کنیم، و کار نهایی اسکرول را کاملاً به خودِ پکیج
+  // (ItemScrollController.scrollTo) می‌سپاریم — همان API که خودِ پکیج
+  // برای اسکرول دقیق و انیمیت‌شده به یک آیتم طراحی کرده.
+  bool _scrollToRenderContext(BuildContext targetContext, int pageIndex) {
+    final RenderObject? targetRO = targetContext.findRenderObject();
+    if (targetRO == null ||
+        targetRO is! RenderBox ||
+        !targetRO.attached ||
+        !targetRO.hasSize) {
+      return false;
+    }
+
+    final RenderObject? pageRO = _pageAnchorKey.currentContext
+        ?.findRenderObject();
+    if (pageRO == null ||
+        pageRO is! RenderBox ||
+        !pageRO.attached ||
+        !pageRO.hasSize) {
+      return false;
+    }
+
+    final ScrollableState? scrollable = Scrollable.maybeOf(targetContext);
+    if (scrollable == null) return false;
+
+    final RenderObject? viewportRO = scrollable.context.findRenderObject();
+    if (viewportRO == null || viewportRO is! RenderBox || !viewportRO.hasSize) {
+      return false;
+    }
+
+    // فاصله‌ی هدف از بالای خودِ صفحه — مستقل از اسکرول فعلی
+    final Matrix4 transform = targetRO.getTransformTo(pageRO);
+    final double offsetWithinPage = MatrixUtils.transformPoint(
+      transform,
+      Offset.zero,
+    ).dy;
+
+    final double viewportHeight = viewportRO.size.height;
+    const double desiredAlignment = 0.15; // جلوگیری از مخفی شدن زیر نوار بالا
+
+    // اگر alignment=0 یعنی «بالای آیتم روی بالای viewport»، برای اینکه
+    // نقطه‌ای offsetWithinPage پیکسل پایین‌تر از بالای آیتم دقیقاً روی
+    // ۱۵٪ از بالای viewport بنشیند، باید alignment را همین مقدار عقب برد:
+    final double alignment =
+        desiredAlignment - (offsetWithinPage / viewportHeight);
+
+    try {
+      _itemScrollController.scrollTo(
+        index: pageIndex,
+        alignment: alignment,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOutCubic,
+      );
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  // 🌟 متد اسکرول دقیق به هدف جستجو.
+  //
+  // مشکل قبلی: _exactMatchKey و _fallbackParaKey دو GlobalKey سراسری‌اند که
+  // در هر build به پاراگراف/کلمه‌ی هدفِ *جدید* منتقل می‌شوند. اما وقتی این
+  // متد از داخل ref.listen صدا زده می‌شود (دکمه‌ی بعدی/قبلی)، ممکن است هنوز
+  // یک فریم طول بکشد تا build() با activeTarget تازه اجرا شود. اگر در همان
+  // لحظه currentContext غیر-null باشد (چون هنوز به هدفِ *قبلی* وصل است)،
+  // کد قدیم به اشتباه همان‌جا (هدف قبلی) را معتبر می‌دانست و اسکرول را آنجا
+  // متوقف می‌کرد → دقیقاً همان «رفتن به جای دیگری، قبل یا بعد از هدف واقعی».
+  //
+  // راه‌حل: هر بار که این متد صدا زده می‌شود، «امضای» هدف مورد انتظار
+  // (expectedSignature) را می‌گیریم و currentContext را فقط زمانی معتبر
+  // می‌دانیم که _lastBuiltTargetSignature (که در build() به‌روزرسانی می‌شود)
+  // دقیقاً با همان امضا یکی باشد. همچنین با _scrollRequestId، اگر کاربر
+  // سریع چند بار روی بعدی/قبلی بزند، تلاش‌های قدیمی‌تر بی‌صدا لغو می‌شوند
+  // تا انیمیشنِ یک هدفِ منسوخ، جای هدف تازه را نگیرد.
+  void _ensureTargetVisible({String? expectedSignature}) {
+    final int myRequestId = ++_scrollRequestId;
+    int attempts = 0;
+
+    void tryScroll() {
+      if (!mounted) return;
+      if (myRequestId != _scrollRequestId) return;
+
+      final bool targetIsBuilt =
+          expectedSignature == null ||
+          expectedSignature == _lastBuiltTargetSignature;
+
+      // این‌طور (چون exactMatchKey دیگر هرگز به چیزی وصل نمی‌شود):
+      final targetContext = targetIsBuilt
+          ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
+          : null;
+
+      bool handled = false;
+      if (targetContext != null && _lastBuiltTargetPageIndex != null) {
+        try {
+          handled = _scrollToRenderContext(
+            targetContext,
+            _lastBuiltTargetPageIndex!,
+          );
+        } catch (e) {
+          debugPrint("خطا در اسکرول: $e");
+        }
+      }
+
+      if (!handled) {
+        attempts++;
+        if (attempts < 20) {
+          // 🌟 در صورت پیدا نشدن، ۵۰ میلی‌ثانیه دیگر صبر می‌کند (تا سقف ۱ ثانیه)
+          Future.delayed(const Duration(milliseconds: 50), () {
+            if (myRequestId != _scrollRequestId) return;
+            tryScroll();
+          });
+        }
+      }
+    }
+
+    // همیشه در فریم بعدی استارت می‌زنیم تا چرخه‌ی فعلیِ چیدمان تمام شود
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (myRequestId != _scrollRequestId) return;
+      tryScroll();
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollPersistDebounce?.cancel();
+    _badgeTimer?.cancel();
+    HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    _transformationController.removeListener(_onTransformChanged);
+    _transformationController.dispose();
+    super.dispose();
+  }
+
+  // 🌟 دیالوگِ «رفتن به صفحه» (مثل PDF‌خوان‌ها)
+  Future<void> _openJumpToPageDialog() async {
+    final total = widget.pagedBookStore.pageCount;
+    final int firstPage = widget.pagedBookStore.firstPageNumber;
+    final int lastPage = widget.pagedBookStore.lastPageNumber;
+    final ctrl = TextEditingController();
+    final n = await showDialog<int>(
+      context: context,
+      builder: (_) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          title: const Text('رفتن به صفحه'),
+          content: TextField(
+            controller: ctrl,
+            keyboardType: TextInputType.number,
+            autofocus: true,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              hintText: 'شماره‌ای بین $firstPage تا $lastPage',
+              border: const OutlineInputBorder(),
+            ),
+            onSubmitted: (v) => Navigator.pop(context, int.tryParse(v)),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('انصراف'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(context, int.tryParse(ctrl.text)),
+              child: const Text('برو'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // 🐞 قبلاً مستقیم `n - 1` به‌عنوانِ ایندکس استفاده می‌شد، که فقط وقتی
+    // درست است که صفحات از ۱ شروع شوند. حالا شماره → ایندکس از همان نگاشتی
+    // خوانده می‌شود که جستجو هم از آن استفاده می‌کند.
+    final int targetIndex =
+        (n == null ? null : widget.pagedBookStore.indexForPageNumber(n)) ??
+        ((n != null && n >= 1 && n <= total) ? n - 1 : -1);
+
+    if (targetIndex >= 0 &&
+        targetIndex < total &&
+        _itemScrollController.isAttached) {
+      _itemScrollController.scrollTo(
+        index: targetIndex,
+        duration: const Duration(milliseconds: 450),
+        curve: Curves.easeInOutCubic,
+        alignment: 0.0,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double canvasWidth = MediaQuery.of(context).size.width > 800
+        ? 760.0
+        : MediaQuery.of(context).size.width - 24;
+    final currentBook = ref.read(activeBookProvider);
+    final searchSession = ref.watch(activeSearchProvider);
+
+    int initialIndex =
+        _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
+    // 🌟 فراخوانی نقطه دقیق (Offset) ذخیره شده
+    double initialAlignment =
+        _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
+
+    // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر — کش‌شده، فقط واقعاً یک‌بار به‌ازای
+    // همین pagedBookStore محاسبه می‌شود.
+    _ensureBookAudioPlaylistBuilt();
+
+    final activeTarget =
+        (searchSession != null && searchSession.results.isNotEmpty)
+        ? searchSession.results[searchSession.currentIndex] as SearchResult
+        : null;
+
+    if (activeTarget != null) {
+      int pIndex =
+          widget.pagedBookStore.indexForPageNumber(activeTarget.pageNumber) ??
+          -1;
+      if (pIndex != -1) {
+        initialIndex = pIndex;
+        // 🌟 در هنگام جستجو، می‌خواهیم نتیجه مستقیماً از ابتدای کادر نشان داده شود
+        initialAlignment = 0.0;
+      }
+    }
+
+    // 🌟 این خط، «امضای» هدفی را که همین build با آن _exactMatchKey/
+    // _fallbackParaKey را به پاراگراف/کلمه‌ی درست وصل کرده ثبت می‌کند.
+    // _ensureTargetVisible از روی همین امضا تشخیص می‌دهد که آیا واقعاً به
+    // build تازه رسیده‌ایم یا هنوز context قدیمی در دست است.
+    final newSignature = _signatureFor(activeTarget);
+    // if (newSignature != _lastBuiltTargetSignature) {
+    //   // 🌟 هدف واقعاً عوض شده → کلیدهای تازه بساز تا با کلیدِ زیردرختِ
+    //   // احتمالاً هنوز زنده‌ی صفحه‌ی قبلی (به‌خاطر AutomaticKeepAliveClientMixin)
+    //   // تصادم نکند
+    //   _fallbackParaKey = GlobalKey();
+    //   _exactMatchKey = GlobalKey();
+    //   _pageAnchorKey = GlobalKey();
+    // }
+    _lastBuiltTargetSignature = newSignature;
+    _lastBuiltTargetSignature = _signatureFor(activeTarget);
+    // 🌟 ایندکس صفحه‌ی همین هدف را هم نگه می‌داریم تا _ensureTargetVisible
+    // برای مرحله‌ی دوم (scrollTo با alignment دقیق) به آن نیاز نداشته باشد
+    // که دوباره جستجویش کند.
+    _lastBuiltTargetPageIndex = activeTarget == null
+        ? null
+        : widget.pagedBookStore.indexForPageNumber(activeTarget.pageNumber);
+    _targetKeyClaimedThisBuild =
+        false; // 🌟 اضافه شد — شروع تازه برای این build
+
+    ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
+      if (next != null && next.results.isNotEmpty) {
+        if (previous?.query != next.query ||
+            previous?.currentIndex != next.currentIndex ||
+            previous?.jumpTrigger != next.jumpTrigger) {
+          final target = next.results[next.currentIndex] as SearchResult;
+
+          // 🐞 رفعِ باگِ «دکمه‌های بعدی/قبلیِ جستجو رویِ نتایجِ صوتی کار
+          // نمی‌کنند»: قبلاً این listener فقط مسیرِ اسکرول‌به‌صفحه را
+          // امتحان می‌کرد — برای نتایجِ صوتی (pageNumber معنایی ندارد)،
+          // pageIndex همیشه -1 می‌شد و هیچ اتفاقی نمی‌افتاد. حالا همان
+          // تابعِ مشترکی که تپِ مستقیم رویِ نتیجه هم استفاده می‌کند
+          // (openAudioSearchResult) این‌جا هم صدا زده می‌شود.
+          if (target.audioTrackName != null) {
+            final currentBook = ref.read(activeBookProvider);
+            if (currentBook != null && context.mounted) {
+              await openAudioSearchResult(
+                context: context,
+                ref: ref,
+                session: next,
+                target: target,
+                pagedBookStore: widget.pagedBookStore,
+                activeBook: currentBook,
+              );
+            }
+            return;
+          }
+
+          final targetSignature = _signatureFor(target);
+          int pageIndex =
+              widget.pagedBookStore.indexForPageNumber(target.pageNumber) ?? -1;
+
+          if (pageIndex != -1 && _itemScrollController.isAttached) {
+            final visiblePositions = _itemPositionsListener.itemPositions.value;
+            bool isPageVisible = visiblePositions.any(
+              (pos) => pos.index == pageIndex,
+            );
+
+            if (!isPageVisible) {
+              // فقط به صفحه پرش می‌کنیم
+              try {
+                _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
+              } catch (e) {
+                debugPrint("خطا در jumpTo: $e");
+              }
+            }
+
+            // 🌟 موتور هوشمند جستجو خودش منتظر می‌ماند تا آیتم لود شود
+            // *و* build با هدف تازه انجام شود، سپس اسکرول دقیق می‌کند
+            _ensureTargetVisible(expectedSignature: targetSignature);
+          }
+        }
+      }
+    });
+
+    return Scaffold(
+      backgroundColor: Colors.grey.shade200,
+
+      // دکمه ریست زوم (فقط هنگام زوم) + نشانِ معلقِ شماره‌ی صفحه
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          // 🌟 روی دسکتاپ pinch وجود ندارد، پس دکمه‌های صریحِ بزرگ‌نمایی/
+          // کوچک‌نمایی لازم‌اند. روی موبایل نمایش داده نمی‌شوند.
+          if (_isDesktop) ...[
+            FloatingActionButton.small(
+              heroTag: 'zoomIn',
+              onPressed: _currentScale >= _kMaxZoom - 0.01
+                  ? null
+                  : () => _zoomBy(_kZoomStep),
+              backgroundColor: Colors.black.withOpacity(0.55),
+              elevation: 3,
+              tooltip: 'بزرگ‌نمایی (Ctrl و +، یا Ctrl و چرخِ ماوس)',
+              child: const Icon(Icons.add, color: Colors.white),
+            ),
+            const SizedBox(height: 8),
+            FloatingActionButton.small(
+              heroTag: 'zoomOut',
+              onPressed: _currentScale <= _minZoom + 0.01
+                  ? null
+                  : () => _zoomBy(1 / _kZoomStep),
+              backgroundColor: Colors.black.withOpacity(0.55),
+              elevation: 3,
+              tooltip: 'کوچک‌نمایی (Ctrl و −)',
+              child: const Icon(Icons.remove, color: Colors.white),
+            ),
+            const SizedBox(height: 8),
+          ],
+          if (_isZoomed)
+            FloatingActionButton.small(
+              heroTag: 'zoomReset',
+              onPressed: _resetZoom,
+              backgroundColor: Colors.orange,
+              elevation: 4,
+              tooltip: 'بازگشت به اندازه اصلی (Ctrl و ۰)',
+              child: const Icon(Icons.zoom_out_map, color: Colors.white),
+            ),
+          const SizedBox(height: 8),
+          // 🌟 نشانِ شماره‌ی صفحه؛ ضربه روی آن دیالوگِ «رفتن به صفحه» را باز
+          // می‌کند.
+          //
+          // 🐞 دو ایرادِ گزارش‌شده این‌جا اصلاح شد:
+          // ۱) «چشمک‌زدن»: قبلاً بینِ opacity صفر و یک می‌رفت، پس با هر مکثِ
+          //    کوتاهِ کاربر کامل محو و دوباره ظاهر می‌شد. حالا همیشه دیده
+          //    می‌شود و فقط بینِ «کم‌رنگ» و «پررنگ» جابه‌جا می‌شود — با
+          //    ترنزیشنِ کندتر (۴۰۰ms و easeOutCubic) که چشم را نمی‌زند.
+          //    IgnorePointer هم حذف شد، چون حالا همیشه قابلِ لمس است.
+          // ۲) ظاهر: FloatingActionButton.extended برای یک نشانِ اطلاعاتی
+          //    زیادی سنگین بود. حالا یک چیپِ قرصی‌شکلِ نیمه‌شفاف با حاشیه‌ی
+          //    نازک است که رویِ هر رنگِ صفحه می‌نشیند.
+          //
+          // 🌟 و برچسب: عدد دوم دیگر «تعدادِ کل صفحات» نیست بلکه شماره‌ی
+          // آخرین صفحه است — چون استخراج‌کننده می‌تواند شماره‌گذاری را از
+          // عددِ دلخواه شروع کند و «صفحه ۲۰ از ۱۲» بی‌معنی می‌شد.
+          AnimatedOpacity(
+            opacity: _showPageBadge ? 1.0 : 0.62,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeOutCubic,
+            child: Material(
+              color: Colors.black.withOpacity(0.62),
+              elevation: 2,
+              shadowColor: Colors.black45,
+              borderRadius: BorderRadius.circular(999),
+              clipBehavior: Clip.antiAlias,
+              child: InkWell(
+                onTap: _openJumpToPageDialog,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 9,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.22),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.menu_book_rounded,
+                        size: 16,
+                        color: Colors.white70,
+                      ),
+                      const SizedBox(width: 7),
+                      Text(
+                        'صفحه $_currentPage از ${widget.pagedBookStore.lastPageNumber}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // 🐞 محتوای کتاب حالا با Positioned.fill کلِ فضا را پر می‌کند —
+            // دقیقاً همان child که قبلاً زیرِ Expanded بود، بدونِ هیچ تغییرِ
+            // دیگری. چون این‌جا داخلِ یک Stack است (نه یک Column که
+            // موقعیتِ فرزندانش به هم وابسته است)، دیگر Column به التِ نوارِ
+            // پلیر برای محاسبه‌ی جا وابسته نیست.
+            Positioned.fill(
+              // ── Listener: شمارش انگشتان (قبل از gesture arena) ─────────────
+              child: Listener(
+                key: _viewerKey,
+                // 🌟 Ctrl + چرخِ ماوس = زوم (قراردادِ رایجِ دسکتاپ). بدونِ
+                // Ctrl هیچ کاری نمی‌کنیم و چرخ فقط اسکرول می‌کند.
+                onPointerSignal: (e) {
+                  if (!_ctrlHeld || e is! PointerScrollEvent) return;
+                  if (e.scrollDelta.dy == 0) return;
+                  _zoomBy(
+                    e.scrollDelta.dy < 0
+                        ? _kWheelZoomStep
+                        : 1 / _kWheelZoomStep,
+                    focalPoint: e.localPosition,
+                  );
+                },
+                onPointerDown: (e) {
+                  _pointerCount++;
+                  // فقط در لحظه لمس انگشت دوم rebuild لازم است
+                  if (_pointerCount == 2) setState(() {});
+                },
+                onPointerUp: (e) {
+                  final prev = _pointerCount;
+                  _pointerCount = (_pointerCount - 1).clamp(0, 10);
+                  if (prev == 2) {
+                    setState(() {}); // rebuild فقط هنگام خروج از pinch
+                  }
+                },
+                onPointerCancel: (e) {
+                  final prev = _pointerCount;
+                  _pointerCount = (_pointerCount - 1).clamp(0, 10);
+                  if (prev == 2) setState(() {});
+                },
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+
+                  // ── منطق pan ──────────────────────────────────────────────
+                  // زوم نشده: panEnabled:false → IV هرگز با scroll رقابت نمی‌کند
+                  // زوم شده:  panEnabled:true  → فقط افق pan می‌کند (PanAxis.horizontal)
+                  //           scroll عمودی کاملاً دست‌نخورده باقی می‌ماند
+                  panEnabled: _isZoomedIn,
+                  panAxis: PanAxis.horizontal,
+                  // scale همیشه فعال — pinch را در هر لحظه تشخیص می‌دهد
+                  scaleEnabled: true,
+                  // 🐞 رفعِ «اسکرول به بالا اول زوم می‌کند»: InteractiveViewer
+                  // چرخِ ماوس را هم به‌عنوانِ زوم می‌گیرد
+                  // (scaleChange = exp(-scrollDelta.dy / scaleFactor)) و این کار
+                  // را مستقل از لیستِ زیرش انجام می‌دهد — پس هر دو با هم واکنش
+                  // نشان می‌دادند. رو به پایین چون زوم را کم می‌کند و اسکیل
+                  // از قبل روی minScale=1 است، هیچ اثری دیده نمی‌شد؛ رو به بالا
+                  // ولی تا maxScale زوم می‌کرد و تازه بعدش اسکرول دیده می‌شد.
+                  // با یک scaleFactor بسیار بزرگ، سهمِ هر تیکِ چرخ در زوم
+                  // عملاً صفر می‌شود (exp(-100/1e9) ≈ 1) و چرخ فقط اسکرول
+                  // می‌کند. مهم: این پارامتر *فقط* روی چرخِ ماوس اثر دارد، پس
+                  // pinch با دو انگشت و زومِ ترک‌پد دست‌نخورده باقی می‌مانند.
+                  scaleFactor: 1e9,
+                  minScale: _minZoom,
+                  maxScale: _kMaxZoom,
+                  clipBehavior: Clip.hardEdge,
+
+                  // وقتی کاربر انگشتان را برمی‌دارد:
+                  // اگر scale ≈ 1 بود → ریست کامل transform
+                  onInteractionEnd: (_) {
+                    final s = _transformationController.value
+                        .getMaxScaleOnAxis();
+                    // 🐞 قبلاً «s <= 1.02» بود، یعنی هر نتیجه‌ی کوچک‌نمایی
+                    // (که همیشه زیرِ ۱ است) بلافاصله به ۱۰۰٪ پرت می‌شد.
+                    // حالا فقط وقتی ریست می‌کنیم که کاربر عملاً *روی* اندازه‌ی
+                    // اصلی ایستاده باشد.
+                    if ((s - 1.0).abs() <= 0.02) {
+                      _transformationController.value = Matrix4.identity();
+                      if (_isZoomed) setState(() => _currentScale = 1.0);
+                    }
+                  },
+
+                  child: Center(
+                    child: SizedBox(
+                      width: canvasWidth,
+                      child: AbsorbPointer(
+                        absorbing: _isPinching,
+                        child: Opacity(
+                          // ── نامرئی تا زمانی که jumpTo تکمیل شود ────────────
+                          opacity: _isReady ? 1.0 : 0.0,
+                          child: MediaQuery(
+                            data: MediaQuery.of(context).copyWith(
+                              textScaler: TextScaler
+                                  .noScaling, // 🌟 خنثی‌کردن اسکیل فونت سیستم فقط برای این صفحه
+                            ),
+                            child: ScrollablePositionedList.builder(
+                              itemCount: widget.pagedBookStore.pageCount,
+                              itemScrollController: _itemScrollController,
+                              itemPositionsListener: _itemPositionsListener,
+
+                              // ── کلید رفع پرش اولیه ───────────────────────────
+                              // همیشه از index 0 شروع کن؛ jumpTo در initState
+                              // موقعیت را بی‌صدا (opacity=0) تنظیم می‌کند.
+                              initialScrollIndex: 0,
+                              initialAlignment: 0,
+
+                              // ── pre-build آیتم‌ها قبل از ورود به viewport ────
+                              // 🌟 رفع اصلیِ مشکل کندی اسکرول (ریشه‌ی واقعی):
+                              // با بررسی خروجی DevTools Performance مشخص شد که
+                              // بدترین فریم‌ها (بعضی تا ۱۶۰ میلی‌ثانیه!) کاملاً
+                              // روی UI thread (build+layout) اتفاق می‌افتند، نه
+                              // GPU/raster. علتش این مقدار ۳ برابر ارتفاع صفحه
+                              // بود: چون هر «آیتم» در این لیست یک صفحه‌ی کامل
+                              // کتاب است (که می‌تواند خودش چند پاراگراف/جدول
+                              // داشته باشد)، یک cache extent به این بزرگی یعنی
+                              // در یک جهش بزرگ (مثلاً پرش جستجو یا اسکرول تند)،
+                              // فلاتر مجبور می‌شود دوجین‌ها صفحه را همزمان و در
+                              // یک فریم بسازد و لایه‌بندی کند — دقیقاً همان چیزی
+                              // که در داده‌های واقعی دیدیم (بیش از ۳۷۰ پاراگراف
+                              // در یک فریم!). با کاهش این مقدار، فلاتر فقط کمی
+                              // جلوتر از viewport واقعی می‌سازد، و بقیه‌ی صفحات
+                              // در فریم‌های بعدی (طی خودِ اسکرول) به‌تدریج ساخته
+                              // می‌شوند — یعنی همان هزینه‌ی کل، اما پخش‌شده روی
+                              // فریم‌های بیشتر به‌جای فشرده در یک فریم.
+                              // اگر هنوز حین اسکرولِ خیلی سریع، صفحه‌ی خالی/جای‌
+                              // خالی برای یک لحظه دیده شد، این عدد را کمی (نه به
+                              // همان ۳ برابر) افزایش دهید.
+                              minCacheExtent:
+                                  MediaQuery.of(context).size.height * 0.5,
+
+                              // 🐞 نکته‌ی ظریف: Listenerِ ما بالای لیست است،
+                              // پس اگر لیست بتواند اسکرول کند، Ctrl+چرخ
+                              // هم‌زمان زوم *و* اسکرول می‌کرد. وقتی Ctrl
+                              // نگه داشته شده اسکرول را می‌بندیم؛ آن‌وقت
+                              // Scrollable اصلاً رویدادِ چرخ را برنمی‌دارد
+                              // و فقط زوم می‌ماند.
+                              physics: (_isPinching || _ctrlHeld)
+                                  ? const NeverScrollableScrollPhysics()
+                                  : const ClampingScrollPhysics(),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 24.0,
+                              ),
+                              itemBuilder: (context, pageIndex) {
+                                bool hasTarget =
+                                    activeTarget != null &&
+                                    pageIndex == _lastBuiltTargetPageIndex &&
+                                    !_targetKeyClaimedThisBuild; // 🌟 اضافه شد
+                                if (hasTarget)
+                                  _targetKeyClaimedThisBuild =
+                                      true; // 🌟 اضافه شد
+
+                                Widget buildForPage(PageData page) {
+                                  return RepaintBoundary(
+                                    child: BookPageWidget(
+                                      page: page,
+                                      activeTarget: activeTarget,
+                                      searchSession: searchSession,
+                                      canvasWidth: canvasWidth,
+                                      screenWidth: MediaQuery.of(
+                                        context,
+                                      ).size.width,
+                                      targetKey: hasTarget
+                                          ? _fallbackParaKey
+                                          : null,
+                                      exactMatchKey: hasTarget
+                                          ? _exactMatchKey
+                                          : null,
+                                      pageAnchorKey: hasTarget
+                                          ? _pageAnchorKey
+                                          : null,
+                                      bookAudioPlaylist: _bookAudioPlaylist,
+                                      bookAudioFirstOccurrence:
+                                          _bookAudioFirstOccurrence,
+                                    ),
+                                  );
+                                }
+
+                                // 🐞 بازنویسیِ اصلیِ لودِ تنبل: اگر این صفحه از
+                                // قبل در کشِ PagedBookStore باشد (peekPage،
+                                // sync)، مستقیم رندر می‌شود — دقیقاً همان
+                                // سرعتِ قبلی، بدونِ حتی یک فریم پرش. اگر هنوز
+                                // نیامده، _LazyPage آن را (getPage، async)
+                                // درخواست می‌کند و تا رسیدنش یک پلیس‌هولدرِ
+                                // ساده نشان می‌دهد.
+                                final cachedPage = widget.pagedBookStore
+                                    .peekPage(pageIndex);
+                                if (cachedPage != null) {
+                                  return buildForPage(cachedPage);
+                                }
+                                return _LazyPage(
+                                  store: widget.pagedBookStore,
+                                  pageIndex: pageIndex,
+                                  builder: buildForPage,
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // 🐞 نوارِ کوچکِ پلیرِ صوتی حالا یک overlayِ مستقل است، نه
+            // فرزندِ یک Column کنارِ محتوای اصلی — ظاهر/ناپدیدشدنش (وقتی
+            // فایلی پخش/متوقف می‌شود) دیگر باعثِ جابه‌جاییِ محتوای کتاب
+            // نمی‌شود، چون هیچ فضایی از Stack اشغال نمی‌کند؛ فقط رویِ آن
+            // می‌نشیند.
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: AudioPlayerBar(
+                audioScripts: widget.audioScripts,
+                pagedBookStore: widget.pagedBookStore,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BookPageWidget extends ConsumerStatefulWidget {
+  final PageData page;
+  final SearchResult? activeTarget;
+  final SearchSession? searchSession;
+  final double canvasWidth;
+  final double screenWidth;
+  final GlobalKey? targetKey;
+  final GlobalKey? exactMatchKey; // 🌟 اضافه شد
+  final GlobalKey? pageAnchorKey; // 🌟 اضافه شد
+  // 🐞 پلی‌لیستِ کتاب‌محور (نه فقط همین صفحه) + اولین وقوعِ هر فایل — از
+  // ReadingCanvas پاس داده می‌شود تا یک‌بار برای کل کتاب محاسبه شود،
+  // نه به‌ازای هر صفحه.
+  final List<String> bookAudioPlaylist;
+  final Map<String, AudioLocation> bookAudioFirstOccurrence;
+
+  const BookPageWidget({
+    super.key,
+    required this.page,
+    this.activeTarget,
+    this.searchSession,
+    required this.canvasWidth,
+    required this.screenWidth,
+    this.targetKey,
+    this.exactMatchKey, // 🌟 اضافه شد
+    this.pageAnchorKey, // 🌟 اضافه شد
+    this.bookAudioPlaylist = const [],
+    this.bookAudioFirstOccurrence = const {},
+  });
+
+  @override
+  ConsumerState<BookPageWidget> createState() => _BookPageWidgetState();
+}
+
+class _BookPageWidgetState extends ConsumerState<BookPageWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  // ── کش ویجت‌های پاراگراف ──────────────────────────────────────────────────
+  //
+  // مشکل: هر setState در ReadingCanvas (تغییر _pointerCount، zoom، ...)
+  //        باعث می‌شود build() همه BookPageWidgetهای visible دوباره اجرا شوند.
+  //        بدون کش: هر build() → حلقه کامل پاراگراف‌ها + _buildOccurrenceMap → jank
+  //        با کش:    هر build() → null check + return cached → ~0ms
+  //
+  // AutomaticKeepAliveClientMixin مانع rebuild هنگام off-screen می‌شود.
+  // این کش مانع rebuild هنگام parent-setState می‌شود.
+  // ترکیب هر دو: build() فقط یک بار واقعی اجرا می‌شود.
+  List<Widget>? _cachedWidgets;
+
+  @override
+  void didUpdateWidget(BookPageWidget old) {
+    super.didUpdateWidget(old);
+    // 🌟 شرط تغییر currentIndex اضافه شد تا کش فوراً باطل شود و کلید (_targetParaKey) به پاراگراف جدید منتقل شود
+    if (old.searchSession?.query != widget.searchSession?.query ||
+        old.searchSession?.currentIndex != widget.searchSession?.currentIndex ||
+        old.activeTarget != widget.activeTarget ||
+        old.canvasWidth != widget.canvasWidth ||
+        old.screenWidth != widget.screenWidth ||
+        old.targetKey != widget.targetKey ||
+        old.exactMatchKey != widget.exactMatchKey ||
+        old.pageAnchorKey != widget.pageAnchorKey ||
+        old.bookAudioPlaylist != widget.bookAudioPlaylist) {
+      // 🌟 اضافه شد
+      _cachedWidgets = null;
+    }
+  }
+
+  List<Widget> _buildParaWidgets(BuildContext context) {
+    final List<Widget> result = [];
+    final currentBook = ref.read(activeBookProvider);
+
+    // 🌟 رفع باگ دکمه‌های بعدی/قبلیِ پلیر صوتی:
+    // قبلاً هر لینک صوتی هنگام پخش، یک پلی‌لیستِ تک‌عضوی (فقط خودش) به
+    // پلیر می‌داد؛ چون دکمه‌ی بعدی/قبلی بر اساس همین پلی‌لیست کار می‌کند،
+    // همیشه چیزی برای «بعدی/قبلی» وجود نداشت. سپس یک‌بار برای کل صفحه
+    // ساخته می‌شد؛ حالا برای قابلیتِ «پلی‌لیستِ کتاب + برو به متن»،
+    // پلی‌لیست از سطحِ ReadingCanvas (که کلِ کتاب را می‌بیند، نه فقط
+    // این صفحه) پاس داده می‌شود — bookAudioPlaylist/bookAudioFirstOccurrence.
+    final List<String> pageAudioPlaylist = widget.bookAudioPlaylist;
+    final Map<String, AudioLocation> audioFirstOccurrence =
+        widget.bookAudioFirstOccurrence;
+
+    for (int pIndex = 0; pIndex < widget.page.paragraphs.length; pIndex++) {
+      var para = widget.page.paragraphs[pIndex];
+      final isTarget =
+          widget.activeTarget != null &&
+          widget.activeTarget!.pageNumber == widget.page.pageNumber &&
+          widget.activeTarget!.paraIndex == pIndex;
+
+      List<int>? rootHighlightMap;
+      if (widget.searchSession?.query != null &&
+          widget.searchSession!.query.isNotEmpty) {
+        rootHighlightMap = _buildOccurrenceMap(
+          _extractFullText(para),
+          widget.searchSession!.query,
+        );
+      }
+
+      Widget w = _buildParagraph(
+        para,
+        widget.canvasWidth,
+        widget.screenWidth,
+        context,
+        activeBook: currentBook,
+        pageInteractives: widget.page.interactives,
+        interactivesPattern: widget.page.interactivesPattern, // 🌟 اضافه شد
+        interactivesByText: widget.page.interactivesByText, // 🌟 اضافه شد
+        pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+        audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+        audioPageNumber: widget.page.pageNumber, // 🐞 اضافه شد
+        audioParaIndex: pIndex, // 🐞 اضافه شد
+        rootHighlightMap: rootHighlightMap,
+        mapOffset: MapOffset(),
+        keyClaim:
+            KeyClaim(), // 🐞 یک claim تازه به ازای هر پاراگراف (نه هر اسپن)
+        activeOccurrence: isTarget
+            ? widget.activeTarget!.occurrenceIndex
+            : null,
+        exactMatchKey: isTarget
+            ? widget.exactMatchKey
+            : null, // 🌟 انتقال به درون پاراگراف
+      );
+
+      if (isTarget && widget.targetKey != null) {
+        w = Container(key: widget.targetKey, child: w);
+      }
+      result.add(w);
+    }
+    return result;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    // ??=  →  فقط اولین بار یا پس از باطل‌شدن کش، محاسبه می‌کند
+    if (_cachedWidgets == null) {
+      final sw = Stopwatch()..start();
+      _cachedWidgets = _buildParaWidgets(context);
+      sw.stop();
+
+      // 🌟 لاگ تشخیصیِ موقت: فقط برای پیدا کردن اینکه دقیقاً کدام صفحه‌ها
+      // و به چه دلیل (تعداد پاراگراف/جدول/تصویر) کند هستند. بعد از پیدا
+      // شدن علت، این بلوک کامل حذف می‌شود.
+      int imageCount = 0;
+      int tableCount = 0;
+      for (final p in widget.page.paragraphs) {
+        for (final s in p.spans) {
+          if (s.type == 'image') imageCount++;
+          if (s.type == 'table') tableCount++;
+        }
+      }
+      // debugPrint(
+      //   '⏱️ صفحه ${widget.page.pageNumber}: ${sw.elapsedMilliseconds}ms '
+      //   '| پاراگراف=${widget.page.paragraphs.length} '
+      //   '| کلمه‌دیکشنری=${widget.page.interactives.length} '
+      //   '| تصویر=$imageCount | جدول=$tableCount',
+      // );
+    }
+
+    return Column(
+      key:
+          widget.pageAnchorKey, // 🌟 لنگر ثابت برای اندازه‌گیری مستقل از اسکرول
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildPageDivider(widget.page.pageNumber),
+        Container(
+          margin: const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
+          padding: const EdgeInsets.all(12.0),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: _cachedWidgets!,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+String _normalizeText(String text) => normalizeText(text);
+
+String _extractFullText(ParagraphData para) => extractFullText(para);
+
+// آیا محتوای این اسپن یک {blk}...{/blk} تنها است (نه یک جای‌خالیِ کوچکِ داخلِ
+// یک جملهٔ دیگر)؟ فقط در این حالت مارکرِ لیست باید داخلِ مودال هم تکرار شود؛
+// برای جای‌خالیِ کوچکِ داخلِ یک پاراگرافِ عمدتاً-قابل‌مشاهده لازم نیست، چون
+// شماره از قبل بیرون از آیکون دیده می‌شود.
+bool _isWhollyOneBlank(String? content) {
+  if (content == null) return false;
+  final t = content.trim();
+  if (!t.startsWith('{blk}') || !t.endsWith('{/blk}')) return false;
+  return '{blk}'.allMatches(t).length == 1;
+}
+
+List<int> _buildOccurrenceMap(String fullText, String query) {
+  TextSearchMapper mapper = TextSearchMapper(fullText);
+  String nText = _normalizeText(mapper.cleanText);
+  String nQuery = _normalizeText(query);
+  List<int> map = List.filled(fullText.length, -1);
+  if (nQuery.isEmpty) return map;
+
+  int matchIndex = nText.indexOf(nQuery);
+  int occ = 0;
+  while (matchIndex != -1) {
+    for (int i = 0; i < nQuery.length; i++) {
+      if (matchIndex + i < mapper.cleanToRaw.length) {
+        int rawIndex = mapper.cleanToRaw[matchIndex + i];
+        map[rawIndex] = occ;
+      }
+    }
+    occ++;
+    matchIndex = nText.indexOf(nQuery, matchIndex + nQuery.length);
+  }
+  return map;
+}
+
+Widget _buildPageDivider(int pageNumber) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 16.0, left: 8.0, right: 8.0),
+    child: Row(
+      children: [
+        Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              "PAGE $pageNumber",
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade600,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+        ),
+        Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
+      ],
+    ),
+  );
+}
+
+String mapFontFamily(String rawFontName) {
+  String normalized = rawFontName
+      .toLowerCase()
+      .replaceAll("-", "")
+      .replaceAll(" ", "");
+  if (normalized.contains("sourcesans")) return "Source Sans 3";
+  if (normalized.contains("times") || normalized.contains("major")) {
+    return "Times New Roman";
+  }
+  if (normalized.contains("arial")) return "Arial";
+  if (normalized.contains("tahoma")) return "Tahoma";
+  if (normalized.contains("verdana")) return "Verdana";
+  if (normalized.contains("gadugi")) return "Gadugi";
+  if (normalized.contains("emoji")) return "Segoe UI Emoji";
+  if (normalized.contains("zar")) return "Zar";
+  if (normalized.contains("titr")) return "Titr";
+  // 🐞 رفع باگِ «کاراکترِ ناشناخته» برای Wingdings: قبلاً هیچ case‌ای برای
+  // این خانواده‌ی فونت نبود، پس "Wingdings 3" (از marker "fn:Wingdings 3")
+  // به پیش‌فرضِ آخر (Source Sans 3) می‌افتاد — که برای کدپوینت‌های
+  // Private-Use-Area که Wingdings استفاده می‌کند (مثلاً U+F069) هیچ
+  // گلیفی ندارد، پس جعبه‌ی «کاراکترِ ناشناخته» نشان داده می‌شد. خودِ فونت
+  // در pubspec.yaml درست ثبت شده بود (family: "Wingdings 3" →
+  // fonts/WINGDNG3.TTF)؛ فقط این نگاشت از قلم بیفتاده بود.
+  if (normalized.contains("wingdings")) {
+    if (normalized.contains("3")) return "Wingdings 3";
+    if (normalized.contains("2")) return "Wingdings 2";
+    return "Wingdings";
+  }
+  if (normalized.contains("yekan")) {
+    if (normalized.contains("light")) return "YekanBakhLight";
+    if (normalized.contains("extra")) return "YekanBakhExtraBold";
+    return "YekanBakhBold";
+  }
+  if (normalized.contains("segoepr")) {
+    return "Segoepr";
+  }
+  return "Source Sans 3";
+}
+
+Color? _hexToColor(String? hexString) {
+  if (hexString == null ||
+      hexString.isEmpty ||
+      hexString.toLowerCase() == 'auto') {
+    return null;
+  }
+  final buffer = StringBuffer();
+  if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+  buffer.write(hexString.replaceFirst('#', ''));
+  try {
+    return Color(int.parse(buffer.toString(), radix: 16));
+  } catch (e) {
+    return null;
+  }
+}
+
+Widget _buildParagraph(
+  ParagraphData para,
+  double canvasWidth,
+  double screenWidth,
+  BuildContext context, {
+  bool isImageCell = false,
+  bool isInsideTableCell = false,
+  // 🐞 CommonTable: عکس‌های داخلِ سلول با ابعادِ طبیعیِ سند (verbatim) رندر
+  // شوند تا ابعادِ قطعی داشته باشند و زیرِ intrinsicHeight جمع نشوند/خالی
+  // نمانند (به‌ویژه سلولِ فقط‌عکس بدونِ متن).
+  bool verbatimCellImage = false,
+  ParagraphData? prevPara,
+  ParagraphData? nextPara,
+  List<int>? rootHighlightMap,
+  MapOffset? mapOffset,
+  int? activeOccurrence,
+  required BookModel? activeBook,
+  required List<InteractiveWord> pageInteractives, // 🌟 پارامتر جدید
+  RegExp? interactivesPattern, // 🌟 اضافه شد
+  Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
+  List<String> pageAudioPlaylist = const [], // 🌟 اضافه شد
+  // 🐞 برای قابلیتِ «پلی‌لیستِ کتاب + برو به متن»: اولین وقوعِ هر فایل در
+  // کتاب، و موقعیتِ خودِ همین پاراگراف (صفحه+اندیس) — تا هر InlineAudioLink
+  // داخلِ این پاراگراف بداند دقیقاً کجای کتاب است.
+  Map<String, AudioLocation> audioFirstOccurrence = const {},
+  int? audioPageNumber,
+  int? audioParaIndex,
+  GlobalKey? exactMatchKey, // 🌟 اضافه شد
+  // 🐞 رفع کرش «RenderBox did not set its size»: وقتی occurrence فعالِ
+  // جستجو بین دو اسپن یا بین دو سلولِ جدولِ همین پاراگراف شکسته می‌شود،
+  // هر دو طرف باید بدانند کلید قبلاً claim شده یا نه. برای همین یک
+  // KeyClaim مشترک برای کل پاراگراف (نه یکی جدا به ازای هر اسپن) از اینجا
+  // به پایین‌دست پاس داده می‌شود.
+  KeyClaim? keyClaim,
+}) {
+  if (para.spans.isEmpty ||
+      (para.spans.length == 1 &&
+          para.spans.first.type == "text" &&
+          (para.spans.first.content == "\n" ||
+              (para.spans.first.content).trim().isEmpty))) {
+    return const SizedBox.shrink();
+  }
+
+  mapOffset ??= MapOffset();
+  keyClaim ??= KeyClaim();
+
+  List<Object> blockElements = [];
+  List<InlineSpan> currentInlineSpans = [];
+  // 🐞 پیش‌فرض از left به start عوض شد: وقتی سند هیچ هم‌ترازی‌ای تعیین نکرده،
+  // ورد از جهتِ خودِ پاراگراف پیروی می‌کند — یعنی پاراگرافِ RTL راست‌چین است،
+  // نه چپ‌چین. Directionality (پایین‌تر، از para.direction) این را حل می‌کند.
+  // "S"/"E" مقادیرِ تازه‌ی سی‌شارپ برای start/end هستند (که در ورد نسبت به
+  // جهتِ پاراگراف‌اند، نه چپ/راستِ مطلق)؛ "L"/"R"/"C"/"J" مثلِ قبل کار
+  // می‌کنند، پس JSONهای قدیمی بدونِ استخراجِ مجدد هم درست می‌مانند.
+  TextAlign textAlign = TextAlign.start;
+  if (para.alignment == "L") textAlign = TextAlign.left;
+  if (para.alignment == "C") textAlign = TextAlign.center;
+  if (para.alignment == "R") textAlign = TextAlign.right;
+  if (para.alignment == "J") textAlign = TextAlign.justify;
+  if (para.alignment == "S") textAlign = TextAlign.start;
+  if (para.alignment == "E") textAlign = TextAlign.end;
+
+  // 🌟 همان هم‌ترازی برای بلاک‌های غیرمتنی (عکسِ مستقل) — تا عکس هم دقیقاً
+  // همان‌جایی بنشیند که در سند نشسته بود. اگر سند هم‌ترازی تعیین نکرده
+  // باشد (alignment == null) عمداً همان رفتارِ قبلی (وسط‌چین) نگه داشته
+  // می‌شود، تا کتاب‌های قبلاً استخراج‌شده ناگهان تغییرِ ظاهر ندهند.
+  final Alignment? standaloneBlockAlign = switch (para.alignment) {
+    "C" => Alignment.center,
+    "R" => Alignment.centerRight,
+    "L" => Alignment.centerLeft,
+    "J" => Alignment.centerLeft,
+    "S" =>
+      para.direction == "RTL" ? Alignment.centerRight : Alignment.centerLeft,
+    "E" =>
+      para.direction == "RTL" ? Alignment.centerLeft : Alignment.centerRight,
+    _ => null,
+  };
+
+  // 🌟 بررسی وجود متن معنادار در پاراگراف برای تشخیص حالت ترکیبی (تصویر + متن)
+  bool hasText = para.spans.any(
+    (span) => span.type == "text" && (span.content ?? "").trim().isNotEmpty,
+  );
+
+  // 🌟 اگر در جدول هستیم و متن هم وجود دارد، تصاویر به‌صورت Inline رندر شوند
+  bool renderInline = isInsideTableCell && hasText;
+
+  void flushText() {
+    if (currentInlineSpans.isNotEmpty) {
+      blockElements.add(
+        WrappableText(
+          text: TextSpan(children: List.from(currentInlineSpans)),
+          textAlign: textAlign,
+        ),
+      );
+      currentInlineSpans.clear();
+    }
+  }
+
+  bool isLargeScreen = screenWidth >= 600;
+  // 🌟 جادوی تورفتگی خط اول (First Line Indent)
+  if (para.indentFirstLine != null && para.indentFirstLine! > 0) {
+    currentInlineSpans.add(
+      WidgetSpan(child: SizedBox(width: para.indentFirstLine)),
+    );
+  }
+
+  for (var span in para.spans) {
+    if (span.type == "text") {
+      String content = span.content; // ✅ هندل کردن حالت Null
+
+      List<int>? localMap;
+      if (rootHighlightMap != null &&
+          content.isNotEmpty &&
+          mapOffset.value + content.length <= rootHighlightMap.length) {
+        localMap = rootHighlightMap.sublist(
+          mapOffset.value,
+          mapOffset.value + content.length,
+        );
+      }
+      currentInlineSpans.addAll(
+        _buildStyledInteractiveText(
+          span,
+          pageInteractives, // 🌟 استفاده از اینتراکتیوهای سطح صفحه
+          context,
+          isInsideTableCell: isInsideTableCell,
+          para: para,
+          localMap: localMap,
+          activeOccurrence: activeOccurrence,
+          exactMatchKey: exactMatchKey, // 🌟 انتقال به انجین متن
+          interactivesPattern: interactivesPattern, // 🌟 اضافه شد
+          interactivesByText: interactivesByText, // 🌟 اضافه شد
+          pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+          audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+          audioPageNumber: audioPageNumber, // 🐞 اضافه شد
+          audioParaIndex: audioParaIndex, // 🐞 اضافه شد
+          keyClaim: keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
+        ),
+      );
+      mapOffset.value += content.length;
+    } else if (span.type == "image") {
+      // 🐞 رفع باگِ «انبارشدنِ عمودیِ زیرنویس در صفحاتِ باریک»: این خط قبلاً
+      // بدونِ توجه به renderInline، قبل از *هر* عکسی روی صفحه‌ی باریک
+      // flushText صدا می‌زد. برای زیرنویسِ FigureTable (یک پاراگرافِ واحد:
+      // آیکون+متن، آیکون+متن، آیکون+متن) این یعنی به‌ازای هر آیکون یک
+      // WrappableTextِ جداگانه ساخته می‌شد — دقیقاً همان چیزی که در
+      // اسکرین‌شات به‌شکلِ «سه ردیفِ روی‌همِ جدا» دیده شد، چون سه بلاکِ
+      // block-level پشتِ‌سرِهم به‌جای یک جریانِ متنیِ پیوسته. حالا وقتی
+      // renderInline==true (عکس قرار است داخلِ همان جریانِ متن بماند)، این
+      // flush را رد می‌کنیم؛ برای عکسِ مستقل (renderInline==false) رفتارِ
+      // قبلی دست‌نخورده می‌ماند.
+      if (!isLargeScreen && !renderInline) {
+        flushText();
+      }
+      String imagePath = span.url ?? span.content; // ✅ هندل کردن حالت Null
+      if (imagePath.isNotEmpty) {
+        if (renderInline) {
+          // 🌟 حالت اول: قرار دادن تصویر به صورت Inline در کنار متن (بدون فراخوانی flushText)
+          // اگر در موتور C# ابعاد تصویر (عرض و ارتفاع) را از فایل ورد استخراج کرده‌اید،
+          // می‌توانید از آن‌ها در اینجا استفاده کنید. در غیر این صورت روی یک ارتفاع منطقی محدودش می‌کنیم.
+          int? inlineWidth =
+              span.imageWidth; // (اختیاری) اگر این فیلد را در خروجی JSON دارید
+          int? inlineHeight =
+              span.imageHeight; // (اختیاری) اگر این فیلد را در خروجی JSON دارید
+
+          currentInlineSpans.add(
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  // اگر ارتفاع تصویر در دیتای ورد موجود بود همان را اعمال کن،
+                  // در غیر این صورت نهایتاً 35 پیکسل (حدوداً ارتفاع یک خط متن با فاصله) فضا بگیرد.
+                  maxHeight: inlineHeight?.toDouble() ?? 35.0,
+                  maxWidth:
+                      inlineWidth?.toDouble() ??
+                      screenWidth * 0.5, // جلوگیری از اشغال کل عرض
+                ),
+                child: _buildLocalImage(
+                  imagePath,
+                  isMobile: !isLargeScreen,
+                  screenWidth: screenWidth,
+                  isImageCell: isImageCell,
+                  activeBook: activeBook,
+                  context: context,
+                ),
+              ),
+            ),
+          );
+        } else {
+          // 🌟 حالت دوم: منطق قبلی برای تصویر مستقل در یک پاراگراف مجزا
+          flushText();
+          FCFloat floatAlign = FCFloat.none;
+          if (isLargeScreen) {
+            if (span.floatPosition == 'left') floatAlign = FCFloat.left;
+            if (span.floatPosition == 'right') floatAlign = FCFloat.right;
+          }
+          // 🐞 رفع بکلاگ «اسکرول افقی خودکار برای تصویر عریض در صفحه‌ی
+          // باریک»: اگر عرض واقعیِ تصویر (از Word استخراج‌شده، span.imageWidth)
+          // از عرض قابل‌نمایشِ صفحه (canvasWidth) بیشتر باشد، به‌جای کوچک
+          // کردنِ تصویر برای جاشدن (که جزئیات را نامفهوم می‌کند)، تصویر را
+          // در اندازه‌ی طبیعی‌اش نگه می‌داریم و داخل یک اسکرولِ افقی
+          // می‌گذاریم تا کاربر با سوایپ بقیه‌اش را ببیند.
+          final int? naturalImgWidth = span.imageWidth;
+          final bool imageNeedsHScroll =
+              !isImageCell &&
+              naturalImgWidth != null &&
+              naturalImgWidth > canvasWidth;
+          final double? imageExplicitWidth = imageNeedsHScroll
+              ? naturalImgWidth.toDouble().clamp(canvasWidth, canvasWidth * 2.5)
+              : null;
+
+          // 🐞 در سلولِ CommonTable عکس را عیناً با ابعادِ سند رندر می‌کنیم.
+          // دادنِ عرض *و* ارتفاعِ صریح یعنی عکس فوراً (حتی پیش از لود) همان
+          // فضا را می‌گیرد، پس در پاسِ اندازه‌گیریِ intrinsicHeight ارتفاعِ
+          // درست دارد و سلولِ فقط‌عکس دیگر خالی/جمع‌شده نمی‌شود.
+          double? cellImgW = imageExplicitWidth;
+          double? cellImgH;
+          if (verbatimCellImage &&
+              span.imageWidth != null &&
+              span.imageWidth! > 0) {
+            cellImgW = span.imageWidth!.toDouble();
+            cellImgH = (span.imageHeight != null && span.imageHeight! > 0)
+                ? span.imageHeight!.toDouble()
+                : null;
+          }
+
+          Widget standaloneImage = _buildLocalImage(
+            imagePath,
+            isMobile: !isLargeScreen,
+            screenWidth: screenWidth,
+            isImageCell: isImageCell,
+            activeBook: activeBook,
+            context: context,
+            explicitWidth: cellImgW,
+            explicitHeight: cellImgH,
+          );
+          if (imageNeedsHScroll) {
+            // 🐞 رفع کرش «Scrollbar's ScrollController has no ScrollPosition
+            // attached»: بدون controllerِ صریح، Scrollbar سعی می‌کند از
+            // PrimaryScrollController استفاده کند که به این
+            // SingleChildScrollViewِ افقیِ تودرتو وصل نیست (آن یکی معمولاً
+            // به اسکرولِ عمودیِ کلِ صفحه وصل است). با یک ScrollController
+            // مشترک بین خودِ Scrollbar و SingleChildScrollView این مشکل
+            // رفع می‌شود.
+            standaloneImage = _HScrollBox(
+              // 🐞 همان فیکسِ فاصله: تا نوارِ اسکرول روی لبه‌ی پایینیِ
+              // خودِ عکس لَم ندهد.
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 14.0),
+                child: standaloneImage,
+              ),
+            );
+          }
+
+          blockElements.add(
+            Floatable(
+              float: floatAlign,
+              clear: floatAlign == FCFloat.none ? FCClear.both : FCClear.none,
+              padding: floatAlign == FCFloat.left
+                  ? const EdgeInsets.only(right: 16.0, bottom: 8.0, top: 4.0)
+                  : floatAlign == FCFloat.right
+                  ? const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 4.0)
+                  : EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 8.0),
+              child: floatAlign == FCFloat.none
+                  ? (imageNeedsHScroll
+                        ? standaloneImage
+                        : Align(
+                            alignment: standaloneBlockAlign ?? Alignment.center,
+                            child: standaloneImage,
+                          ))
+                  : _buildLocalImage(
+                      imagePath,
+                      isMobile: false,
+                      screenWidth: screenWidth,
+                      isImageCell: isImageCell,
+                      activeBook: activeBook,
+                      context: context,
+                    ),
+            ),
+          );
+        }
+      }
+      // 🐞 رفعِ باگِ «صفحه‌ی کاملاً خالی»: ResponsiveLowering در سی‌شارپ
+      // نوعِ اسپنِ ColumnStackTable را از "table" به "layout" تغییر می‌دهد،
+      // ولی این‌جا فقط "text"/"image"/"table" شناخته می‌شدند — یعنی چنین
+      // اسپنی بی‌صدا نادیده گرفته می‌شد و اگر تنها اسپنِ صفحه بود (مثلِ
+      // صفحه‌ی ۲۹)، کلِ صفحه خالی نمایش داده می‌شد. ربطی به تودرتو‌بودن یا
+      // نبودنِ جدول نداشت.
+      // خودِ _buildTable از قبل چیدمانِ ستونی/استکی را کامل پشتیبانی می‌کند
+      // (isColumnStack روی strategy=="stack" و layoutReflow=="stack" — که هر
+      // دو در همین JSON هستند)، پس فقط کافی است "layout" هم به همان مسیر
+      // هدایت شود، نه اینکه رندرکننده‌ی موازیِ جدیدی نوشته شود.
+    } else if (span.type == "table" || span.type == "layout") {
+      flushText();
+      blockElements.add(
+        _buildTable(
+          span,
+          canvasWidth,
+          screenWidth,
+          context,
+          rootHighlightMap,
+          mapOffset,
+          activeOccurrence,
+          activeBook,
+          pageInteractives,
+          isNestedTable: isInsideTableCell,
+          exactMatchKey: exactMatchKey, // 🌟 انتقال به جدول
+          interactivesPattern: interactivesPattern, // 🌟 اضافه شد
+          interactivesByText: interactivesByText, // 🌟 اضافه شد
+          pageAudioPlaylist: pageAudioPlaylist, // 🌟 اضافه شد
+          audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+          audioPageNumber: audioPageNumber, // 🐞 اضافه شد
+          audioParaIndex: audioParaIndex, // 🐞 اضافه شد
+          keyClaim: keyClaim, // 🐞 مشترک بین پاراگراف و همه‌ی سلول‌های جدولش
+        ),
+      );
+    }
+  }
+
+  flushText();
+
+  Widget paragraphContent = TranslatableContentWrapper(
+    translationFa: para.translationFa,
+    translationAr: para.translationAr,
+    originalContent: Directionality(
+      textDirection: para.direction == "RTL"
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+      child: FloatColumn(
+        children: blockElements,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+      ),
+    ),
+  );
+  // 🌟 لیست‌ها: مارکر با تورفتگی معلق (hanging indent) مانند Word
+  bool _paraHasListMarker =
+      false; // 🌟 برای جلوگیری از اعمالِ دوبارهٔ تورفتگی در ادامهٔ تابع
+  // 🐞 رفع باگِ گزارش‌شده: وقتی کلِ پاراگراف فقط یک {blk} است (تمرین-۰۵
+  // استایل، مثل صفحه‌ی ۲۴)، شماره‌ی خودکارِ لیست نباید کنارِ آیکونِ چشمِ
+  // جمع‌شده دیده شود — چون خودِ محتوا هنوز مخفی است و این شماره را می‌شود
+  // به‌جایش داخلِ مودالِ بازشده دید (کدِ پایین‌تر که listMarker را به
+  // InteractiveBlankWord پاس می‌دهد دقیقاً همین کار را می‌کند). این با
+  // شمارهٔ badge نتایج جستجو روی آیکونِ چشم (مثلاً «🟠 ۳») کاملاً فرق دارد
+  // و آن دست‌نخورده می‌ماند. برای پاراگراف‌های تمرین-۰۴ استایل (متنِ آزادِ
+  // قابل‌مشاهده + {blk} به‌عنوان بخشی از جمله)، چون چیزی مخفی نیست که
+  // شماره افشایش بدهد، مثل قبل همین‌جا نمایش داده می‌شود.
+  final bool wholeParaIsBlank =
+      para.keepListMarkerVisible != true &&
+      para.spans.length == 1 &&
+      _isWhollyOneBlank(para.spans.first.content);
+  if (para.listMarker != null &&
+      para.listMarker!.isNotEmpty &&
+      !wholeParaIsBlank) {
+    _paraHasListMarker = true;
+    final bool rtl = para.direction == "RTL";
+
+    // 🌟 مدلِ hanging-indent وُرد: IndentLeft = جایی که خطوطِ wrap‌شده می‌نشینند،
+    // IndentFirstLine = افستِ منفیِ خطِ اول (مارکر) نسبت به IndentLeft.
+    // نکته‌ی مهم: Word عرضِ مارکر را به همین مقدار محدود نمی‌کند — اگر شماره از
+    // این تنگنا بزرگ‌تر باشد، Word اجازه‌ی overflow می‌دهد، نه clip. پس اینجا هم
+    // حداقلِ عرضِ قابل‌خواندن (۱۶px) را تضمین می‌کنیم تا رقم هیچ‌وقت گم نشود؛
+    // این همان چیزی بود که در دورِ قبل باعثِ ناپدید شدنِ کاملِ شماره شد
+    // (IndentLeft واقعیِ Word برای برخی لیست‌ها فقط ~۱۰px بود).
+    final double indentLeft = para.indentLeft ?? 0.0;
+    final double hanging = -(para.indentFirstLine ?? 0.0);
+    final double rawMarkerWidth = hanging > 0 ? hanging : 18.0;
+
+    // 🌟 به‌جای تکیه بر overflow:visible (که رفتارش داخلِ SizedBoxِ تنگ همیشه
+    // قابل‌اتکا نیست)، عرضِ واقعیِ متنِ مارکر را با TextPainter اندازه می‌گیریم و
+    // جعبه را دقیقاً به همان اندازه (+ کمی حاشیه) می‌سازیم — این تضمین می‌کند
+    // که رقم هیچ‌وقت به هیچ دلیلی clip/ناپدید نشود.
+    // 🐞 رفع باگِ «نشانگرِ لیست با متنِ بعدش هم‌ترازِ عمودی نیست»: مارکر قبلاً
+    // fontSize هاردکدِ ۱۴ و height ۱.۴ داشت، ولی متنِ پاراگراف اندازه‌ی خودش
+    // (مثلاً sz:23 → ۱۱.۵) و height خودش (para.lineSpacing) را دارد. اختلافِ
+    // اندازه/ارتفاعِ خطْ باعث می‌شد baseline‌ها روی هم نیفتند (Word شماره را
+    // با همان اندازه‌ی متن می‌کشد، پس هم‌تراز است). حالا اندازه‌ی مارکر را از
+    // اولین اسپنِ متنیِ همین پاراگراف (اولین sz: که پیدا شود) و ارتفاعِ خط را
+    // برابرِ متن می‌گیریم؛ با CrossAxisAlignment.start این یعنی هم‌ترازیِ دقیق.
+    double markerFontSize = 14.0;
+    String? markerFontFamily; // 🐞 fontFamily مارکر را هم از متن می‌گیریم
+    for (final s in para.spans) {
+      if (s.type != "text") continue;
+      final szMarker = s.markers.firstWhere(
+        (m) => m.startsWith("sz:"),
+        orElse: () => "",
+      );
+      if (szMarker.isNotEmpty) {
+        final parsed = double.tryParse(szMarker.substring(3));
+        if (parsed != null) markerFontSize = parsed / 2;
+      }
+      final fnMarker = s.markers.firstWhere(
+        (m) => m.startsWith("fn:"),
+        orElse: () => "",
+      );
+      if (fnMarker.isNotEmpty) {
+        markerFontFamily = mapFontFamily(fnMarker.substring(3));
+      }
+      break; // فقط اولین اسپنِ متنی
+    }
+    // 🐞 رفع باگِ «شماره‌ی لیست بولد نمی‌شود» (ادامه): بولد بودن داده‌محور است
+    // (para.listMarkerBold)، ولی چون قبلاً fontFamily ست نمی‌شد، مارکر از فونتِ
+    // ambient ارث می‌برد که ممکن است بولدِ واقعی نداشته باشد؛ حالا همان فونتِ
+    // متن (که بولدش کار می‌کند) را می‌گذاریم تا مارکر هم دقیقاً مثلِ متن بولد شود.
+    final TextStyle _markerStyle = TextStyle(
+      height: para.lineSpacing ?? 1.3,
+      fontSize: markerFontSize,
+      fontFamily: markerFontFamily,
+      fontWeight: para.listMarkerBold ? FontWeight.bold : FontWeight.normal,
+      // 🐞 رنگِ نشانگرِ خودکارِ لیست از سندخوانده می‌شود (rPrِ سطحِ numbering).
+      // اگر تعریف نشده باشد null می‌ماند و رنگِ پیش‌فرضِ تمِ متن اعمال می‌شود —
+      // پس روی لیست‌های بی‌رنگ هیچ تغییری نمی‌دهد.
+      color: _hexToColor(para.listMarkerColor),
+    );
+    final TextPainter _tp = TextPainter(
+      text: TextSpan(text: para.listMarker!, style: _markerStyle),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final double markerWidth = (_tp.width + 4.0).clamp(
+      rawMarkerWidth.clamp(16.0, 60.0),
+      80.0,
+    );
+    final double outerLeft = (indentLeft - markerWidth).clamp(0.0, 999.0);
+
+    // 🐞 فقط آیتم‌هایی که آیکونِ چشمِ متنِ مخفی دارند به هم‌ترازیِ baseline
+    // نیاز دارند (بقیه با start درست‌اند). یک اسکنِ ارزانِ رشته‌ای — در برابرِ
+    // پاسِ layoutِ اضافی که baseline تحمیل می‌کند، عملاً رایگان است.
+    final bool _paraHasBlankIcon = para.spans.any(
+      (s) => s.type == "text" && (s.content ?? '').contains('{blk}'),
+    );
+
+    paragraphContent = Padding(
+      padding: EdgeInsets.only(
+        left: rtl ? 0 : outerLeft,
+        right: rtl ? outerLeft : 0,
+      ),
+      child: Row(
+        textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+        // 🐞 رفع نهاییِ ناهم‌ترازیِ نشانگرِ لیست: علتِ واقعی این بود که وقتی
+        // متنِ آیتم شاملِ آیکونِ چشمِ متنِ مخفی است، آن WidgetSpan (ارتفاعِ
+        // ~۲۴px، بسیار بلندتر از خطِ ~۱۵px) خطِ اولِ محتوا را باد می‌کند و متن
+        // را پایین‌تر می‌بَرد، در حالی که ستونِ مارکر (start) بالا می‌ماند —
+        // برای همین بدونِ آیکون هم‌تراز بود و با آیکون نه. راهِ درست: هم‌ترازیِ
+        // بر اساسِ baseline نه top.
+        //
+        // 🐞 روانیِ اسکرول (تأییدشده با پروفایلِ DevTools): این baseline رایگان
+        // نیست. CrossAxisAlignment.baseline مجبور می‌کند Row از هر فرزند
+        // baseline بپرسد، و برای RenderFloatColumn یعنی یک پاسِ layoutِ اضافیِ
+        // کاملِ همان پاراگراف (در تریس: صدها RenderFloatColumn.getDryBaseline و
+        // RenderConstrainedBox.getDryBaseline — تنها رویدادهای سنگینِ ترِد UI).
+        // چون ناهم‌ترازی *فقط* وقتی رخ می‌دهد که آیکونِ چشم در متن باشد، این
+        // مسیرِ گران را هم فقط برای همان آیتم‌ها روشن می‌کنیم؛ بقیه (اکثریتِ
+        // قاطع) به هم‌ترازیِ ارزانِ start برمی‌گردند که قبلاً هم برایشان درست بود.
+        crossAxisAlignment: _paraHasBlankIcon
+            ? CrossAxisAlignment.baseline
+            : CrossAxisAlignment.start,
+        textBaseline: _paraHasBlankIcon ? TextBaseline.alphabetic : null,
+        children: [
+          SizedBox(
+            width: markerWidth,
+            child: Text(
+              para.listMarker!,
+              // 🐞 Word شماره‌ی لیست را در موقعیتِ (left−hanging) *چپ‌چین*
+              // می‌گذارد؛ راست‌چینِ قبلی شماره را ته جعبه می‌بُرد و لیست تورفته
+              // دیده می‌شد (مثلِ ۱،۲ ص۱۵ که کاربر flush می‌خواست). حالا چپ‌چین:
+              // مارکرِ سطحِ پایه روی لبه‌ی چپ (flush) و سطوحِ عمیق‌تر تورفته.
+              textAlign: rtl ? TextAlign.right : TextAlign.left,
+              style: _markerStyle,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Expanded(child: paragraphContent),
+        ],
+      ),
+    );
+  }
+  bool hasBgColor = para.fillColor != null && para.fillColor!.isNotEmpty;
+
+  double defaultBoxPadding = 6.0,
+      internalTopPadding = 0.0,
+      internalBottomPadding = 0.0,
+      externalTopMargin = 0.0,
+      externalBottomMargin = 0.0;
+  bool sameColorBefore =
+      prevPara != null && prevPara.fillColor == para.fillColor && hasBgColor;
+  bool sameColorAfter =
+      nextPara != null && nextPara.fillColor == para.fillColor && hasBgColor;
+  double spaceBefore = isImageCell ? 0.0 : para.spaceBefore;
+  double spaceAfter = isImageCell ? 0.0 : para.spaceAfter;
+
+  if (hasBgColor) {
+    internalTopPadding = sameColorBefore
+        ? spaceBefore
+        : (defaultBoxPadding + spaceBefore);
+    internalBottomPadding = sameColorAfter
+        ? spaceAfter
+        : (defaultBoxPadding + spaceAfter);
+  } else {
+    externalTopMargin = spaceBefore;
+    externalBottomMargin = spaceAfter;
+  }
+
+  // 🌟 اعمال فاصله‌های تورفتگی کلی چپ و راست
+  // 🌟 اگر پاراگراف مارکرِ لیست دارد، تورفتگی همان‌جا (مدلِ hanging-indent) اعمال
+  // شده؛ اینجا دوباره اعمال نمی‌شود وگرنه دوبرابر می‌شود.
+  double leftMargin =
+      (!_paraHasListMarker && para.indentLeft != null && para.indentLeft! > 0)
+      ? para.indentLeft!
+      : 0.0;
+  double rightMargin = (para.indentRight != null && para.indentRight! > 0)
+      ? para.indentRight!
+      : 0.0;
+  double topMargin = externalTopMargin > 0 ? externalTopMargin : 0.0;
+  double bottomMargin = externalBottomMargin > 0 ? externalBottomMargin : 0.0;
+
+  double topInternal = internalTopPadding > 0 ? internalTopPadding : 0.0;
+  double bottomInternal = internalBottomPadding > 0
+      ? internalBottomPadding
+      : 0.0;
+  bool showBorder =
+      para.borders != null &&
+      para.borders!.val != 'none' &&
+      para.borders!.val != 'nil';
+
+  if (hasBgColor || showBorder) {
+    Color borderColor =
+        _hexToColor(para.borders?.color) ?? Colors.grey.shade600;
+    double borderWidth = para.borders?.width ?? 1.5;
+    paragraphContent = Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: _hexToColor(para.fillColor),
+        border: showBorder
+            ? Border(
+                left: BorderSide(color: borderColor, width: borderWidth),
+                right: BorderSide(color: borderColor, width: borderWidth),
+                top: sameColorBefore
+                    ? BorderSide.none
+                    : BorderSide(color: borderColor, width: borderWidth),
+                bottom: sameColorAfter
+                    ? BorderSide.none
+                    : BorderSide(color: borderColor, width: borderWidth),
+              )
+            : null,
+        borderRadius: showBorder
+            ? BorderRadius.only(
+                topLeft: sameColorBefore
+                    ? Radius.zero
+                    : const Radius.circular(6),
+                topRight: sameColorBefore
+                    ? Radius.zero
+                    : const Radius.circular(6),
+                bottomLeft: sameColorAfter
+                    ? Radius.zero
+                    : const Radius.circular(6),
+                bottomRight: sameColorAfter
+                    ? Radius.zero
+                    : const Radius.circular(6),
+              )
+            : null,
+      ),
+      padding: (isInsideTableCell && showBorder)
+          ? EdgeInsets.zero
+          : EdgeInsets.only(
+              left: isInsideTableCell ? 2.0 : 10.0,
+              right: isInsideTableCell ? 2.0 : 10.0,
+              top: topInternal,
+              bottom: bottomInternal,
+            ),
+      child: paragraphContent,
+    );
+  }
+
+  // 🐞 روانیِ اسکرول (داده‌محور، از تریسِ Track Widget Builds): اولین ساختِ هر
+  // صفحه ~۲۰۳ RenderPadding و ~۹۱ RenderDecoratedBox و ~۹۳ RenderFlex می‌سازد.
+  // بخشی از این‌ها بی‌اثرند (paddingِ صفر، decorationِ خالی، Columnِ تک‌فرزند) و
+  // فقط هزینه‌ی build+layout اضافه می‌کنند بدونِ هیچ اثرِ بصری. اگر هر چهار
+  // margin صفر باشد اصلاً Padding نمی‌سازیم.
+  if (topMargin == 0 &&
+      bottomMargin == 0 &&
+      leftMargin == 0 &&
+      rightMargin == 0) {
+    return paragraphContent;
+  }
+
+  return Padding(
+    padding: EdgeInsets.only(
+      top: topMargin, // 🌟 استفاده از مقادیر ایمن
+      bottom: bottomMargin, // 🌟 استفاده از مقادیر ایمن
+      left: leftMargin, // 🌟 اعمال تورفتگی چپ
+      right: rightMargin, // 🌟 اعمال تورفتگی راست
+    ),
+    child: paragraphContent,
+  );
+}
+
+// 🐞 CommonTable AutoFit: در Word حاشیه‌ی پیش‌فرضِ سلول ~۵.۷۶pt هر طرف است و
+// حالا padding افقیِ سلولِ CommonTable هم به همان مقدار کم شده تا ناحیه‌ی متن
+// دقیقاً برابرِ Word شود. باقی‌مانده‌ی اختلاف صرفاً از پهن‌تر بودنِ متریکِ متنِ
+// فلاتر نسبت به Word است؛ این safety آن را جبران می‌کند تا محتوایی که در سند
+// با «AutoFit to contents» یک‌خطی است، در فلاتر هم یک‌خطی بماند. (کاربر با
+// padding=۸px و safety=۲۲ به نتیجه رسیده بود؛ با paddingِ کم‌شده همان فضای
+// مؤثر تقریباً با ۱۸ بازتولید می‌شود. در صورتِ نیاز قابلِ تنظیم است.)
+const double _kNaturalColSafetyPx = 18.0;
+
+// 🐞 روانیِ اسکرول: قبلاً در سه جای مسیرِ رندر، داخلِ خودِ build یک
+// `ScrollController()` ساخته می‌شد. build ممکن است بارها اجرا شود، پس هر بار
+// یک کنترلرِ تازه ساخته می‌شد که هیچ‌وقت dispose نمی‌شد (نشتیِ حافظه) و
+// Scrollbar در هر فریم دوباره attach/detach می‌کرد. این ویجتِ کوچک کنترلر را
+// یک‌بار می‌سازد و در dispose آزاد می‌کند.
+class _HScrollBox extends StatefulWidget {
+  const _HScrollBox({required this.child});
+  final Widget child;
+
+  @override
+  State<_HScrollBox> createState() => _HScrollBoxState();
+}
+
+class _HScrollBoxState extends State<_HScrollBox> {
+  final ScrollController _ctrl = ScrollController();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scrollbar(
+      controller: _ctrl,
+      thumbVisibility: true,
+      child: SingleChildScrollView(
+        controller: _ctrl,
+        scrollDirection: Axis.horizontal,
+        child: widget.child,
+      ),
+    );
+  }
+}
+
+Widget _buildTable(
+  SpanData tableSpan,
+  double canvasWidth,
+  double screenWidth,
+  BuildContext context,
+  List<int>? rootMap,
+  MapOffset? mapOffset,
+  int? activeOcc,
+  BookModel? activeBook,
+  List<InteractiveWord> pageInteractives, {
+  bool isNestedTable = false,
+  GlobalKey? exactMatchKey,
+  RegExp? interactivesPattern,
+  Map<String, InteractiveWord>? interactivesByText,
+  List<String> pageAudioPlaylist = const [],
+  Map<String, AudioLocation> audioFirstOccurrence = const {},
+  int? audioPageNumber,
+  int? audioParaIndex,
+  KeyClaim? keyClaim, // 🐞 مشترک بین پاراگراف مادر و همه‌ی سلول‌های این جدول
+}) {
+  final bool isLargeScreen = screenWidth > 600;
+  final String rawStyle =
+      (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
+          .toLowerCase()
+          .replaceAll(" ", "")
+          .replaceAll("_", "");
+
+  // 🌟 اول فیلدهای declarativeِ جدید، بعد فال‌بکِ نام استایل (سازگاری با دادهٔ قدیم)
+  final String strategy = tableSpan.responsiveStrategy ?? "";
+  final String? borderVal = tableSpan.borders?.val?.toLowerCase();
+
+  final bool isBorderedTable =
+      strategy == "horizontalScroll" || rawStyle.contains("borderedtable");
+  // 🐞 برای جعبه‌های کوچکِ تک‌سلولی (مثلِ شماره‌ی تمرین) که باید بوردر
+  // داشته باشند ولی هرگز کش نیایند/اسکرول نگیرند — کاملاً جدا از
+  // isBorderedTable نگه داشته می‌شود تا هیچ‌کدام از رفتارهای مرتبط با
+  // horizontalScroll/tableWidthPercent رویش اثر نگذارد.
+  final bool isCompactTable = rawStyle.contains("compacttable");
+  // 🐞 درخواستِ کاربر: جدولِ FigureTable هیچ‌وقت نباید بوردر نشان دهد،
+  // حتی اگرچه strategy آن هم "horizontalScroll" است (همان چیزی که
+  // isBorderedTable را true می‌کند و در جاهای دیگر — مسیرِ رندرِ Table
+  // widget، منطقِ tableWidthPercent — هنوز لازم است true بماند). پس اینجا
+  // یک فلگِ جدا می‌سازیم و فقط تصمیمِ نمایشِ بوردر را از آن مستثنی می‌کنیم.
+  final bool isFigureTable = rawStyle.contains("figuretable");
+  // 🐞 OutsideTable: فقط بوردرِ دورتادورِ کلِ جدول باید دیده شود، نه خطوطِ
+  // داخلیِ بینِ سلول‌ها/ردیف‌ها. چون مکانیزمِ فعلیِ showBorders یک TableBorder
+  // به هر ردیف (که خودش یک Table جداست) می‌دهد — یعنی هر ردیف جعبه‌ی خودش
+  // را می‌کشد، نه فقط بیرونیِ کل — اینجا رسمِ بوردرِ per-row/per-cell را
+  // برایش خاموش می‌کنیم و پایین‌تر (بعد از ساختِ کاملِ tableContainer) یک
+  // Border.all بیرونی دورِ کلِ جدول می‌کشیم.
+  final bool isOutsideTable = rawStyle.contains("outsidetable");
+  // 🐞 اصلاحِ برداشتِ قبلی (تصحیحِ کاربر) دربارهٔ MultiColumnTable:
+  // «متنِ چندستونی» در صفحهٔ باریک نباید به چند جدولِ تک‌ستونهٔ *جدا از هم*
+  // (هرکدام با بوردرِ خودش) تبدیل شود. رفتارِ درست این است که متنِ همهٔ
+  // ستون‌ها پشتِ‌سرِ هم به یکدیگر الحاق شود و همگی داخلِ *یک* جدولِ
+  // تک‌ستونهٔ بوردردار قرار بگیرند — یعنی فقط یک کادر، دورِ کلِ متن.
+  // (رفتارِ صفحهٔ عریض تغییری نمی‌کند: همهٔ ستون‌ها کنارِ هم داخلِ یک جدول
+  // با BorderMode="outer" و بدونِ خطوطِ داخلی.)
+  // تشخیص: اول فیلدِ declarative (LayoutReflow=="merge" که سی‌شارپ برای
+  // استخراج‌های جدید می‌فرستد)، بعد فال‌بکِ نامِ استایل تا کتاب‌هایی که
+  // قبلاً با LayoutReflow=="stack" استخراج شده‌اند هم بدونِ استخراجِ مجدد
+  // درست رندر شوند.
+  final bool isMultiColumnMerge =
+      tableSpan.layoutReflow == "merge" ||
+      rawStyle.contains("multicolumntable");
+  final bool isColumnStack =
+      strategy == "stack" ||
+      tableSpan.layoutReflow == "stack" ||
+      isMultiColumnMerge ||
+      rawStyle.contains("columnstack");
+  final bool isDotted =
+      strategy == "collapseToCards" ||
+      borderVal == "dotted" ||
+      rawStyle.contains("dottedtable");
+
+  // 🐞 درخواستِ کاربر: بوردرهای «پیوسته» باید دیده شوند. قبلاً بعضی
+  // استایل‌ها (ColumnStackTable و TableGrid) بی‌قید‌و‌شرط بوردرشان مخفی
+  // می‌شد، حتی وقتی خودِ سندِ Word یک بوردرِ واقعیِ single/double با عرض و
+  // رنگِ مشخص تعیین کرده بود (مثلِ جدولِ صفحه‌ی ۲۹ با Val:"single").
+  // این تابع فقط سبک‌های نقطه‌چین/خط‌چین (و none/nil) را «غیرِپیوسته»
+  // می‌شمارد؛ هر چیزِ دیگری پیوسته است و باید رسم شود.
+  bool isSolidBorderStyle(String? val) {
+    if (val == null || val.isEmpty) return false;
+    final v = val.toLowerCase();
+    if (v == "none" || v == "nil") return false;
+    // dotted, dashed, dotDash, dashSmallGap, dashDotStroked و ...
+    if (v.contains("dot") || v.contains("dash")) return false;
+    return true;
+  }
+
+  // 🐞 CommonTable: یک ضلعِ بوردر را عیناً از دادهٔ همان سلول می‌سازد. اگر
+  // ضلع تعریف‌نشده یا none/nil باشد → BorderSide.none. عرض به point است و
+  // چون اپ ۱pt→۱px رندر می‌کند مستقیماً همان عدد px است. بوردرِ نقطه‌چین/
+  // خط‌چینِ سند چون فلاتر BorderSide نقطه‌چین ندارد، به‌صورتِ خطِ پیوسته‌ی
+  // نازک تقریب زده می‌شود (نه حذف) تا وفادار به سند بماند.
+  BorderSide cellSideFrom(BorderDetail? d) {
+    if (d == null) return BorderSide.none;
+    final v = (d.val ?? "").toLowerCase();
+    if (v.isEmpty || v == "none" || v == "nil") return BorderSide.none;
+    final double w = d.width ?? 0.5;
+    return BorderSide(
+      color: _hexToColor(d.color) ?? Colors.grey.shade500,
+      width: w <= 0 ? 0.5 : w,
+    );
+  }
+
+  // 🐞 collapse بوردرها (رفعِ «همه بوردرها هم‌ضخامت دیده می‌شوند»): اگر هر
+  // سلول هر ۴ ضلعش را بکشد، لبه‌های مشترکِ داخلی از دو سلولِ مجاور دوبل
+  // می‌شوند (۱.۰+۱.۰≈۲.۰) و کنتراستِ ضخامت با لبه‌ی بالای ۲.۲ گم می‌شود. مثلِ
+  // مدلِ collapsed در Word/HTML، هر لبه را فقط یک سلول «مالک» می‌کشد: راست و
+  // پایینِ هر سلول همیشه، ولی بالا فقط در ردیفِ اول و چپ فقط در ستونِ اول.
+  // این‌طور هر خطِ داخلی یک‌بار کشیده می‌شود و ضخامت‌های واقعیِ سند (مثلِ
+  // بالای ضخیمِ سرستون) دقیق دیده می‌شوند.
+  Border? cellBorderFrom(CellBorders? b, bool isFirstRow, bool isFirstCol) {
+    if (b == null) return null;
+    return Border(
+      top: isFirstRow ? cellSideFrom(b.top) : BorderSide.none,
+      left: isFirstCol ? cellSideFrom(b.left) : BorderSide.none,
+      right: cellSideFrom(b.right),
+      bottom: cellSideFrom(b.bottom),
+    );
+  }
+
+  // بوردرِ پیوسته یا در سطحِ خودِ جدول تعریف شده، یا (وقتی جدول سطحِ خودش
+  // را ندارد) در سطحِ سلول‌ها — هر دو را می‌پذیریم.
+  // 🐞 قانونِ درست (اصلاحِ کاربر): بوردر فقط وقتی مخفی شود که *غیر solid* باشد
+  // (dashed/dotted/none)، فارغ از کم‌رنگ بودن. ColumnStackTableِ ص۱۵ در سند
+  // بوردرِ dashed دارد (که حالا C# درست به‌صورتِ "dashed" می‌فرستد، نه "single")
+  // پس isSolidBorderStyle=false → مخفی؛ ولی جدولی با بوردرِ solid (سطحِ جدول یا
+  // سلول) نشان داده می‌شود.
+  final bool hasSolidBorder =
+      isSolidBorderStyle(borderVal) ||
+      tableSpan.tableRows.any(
+        (row) => row.cells.any(
+          (cell) =>
+              isSolidBorderStyle(cell.borders?.top?.val) ||
+              isSolidBorderStyle(cell.borders?.bottom?.val) ||
+              isSolidBorderStyle(cell.borders?.left?.val) ||
+              isSolidBorderStyle(cell.borders?.right?.val),
+        ),
+      );
+  final bool hideBorders =
+      (isDotted || isColumnStack || rawStyle.contains("tablegrid")) &&
+      !hasSolidBorder;
+  final bool applyColumnStack = isColumnStack && !isLargeScreen;
+
+  double defaultBorderWidth =
+      tableSpan.borders?.width ??
+      ((isBorderedTable || isCompactTable) && !isFigureTable ? 1.0 : 0.5);
+  Color defaultBorderColor =
+      _hexToColor(tableSpan.borders?.color) ??
+      (((isBorderedTable || isCompactTable) && !isFigureTable)
+          ? Colors.black
+          : Colors.grey.shade400);
+
+  final bool showBorders =
+      !hideBorders &&
+      !isFigureTable &&
+      !isOutsideTable &&
+      (isBorderedTable ||
+          isCompactTable ||
+          tableSpan.hasBorders == "true" ||
+          (borderVal != null &&
+              borderVal != "none" &&
+              borderVal != "nil" &&
+              borderVal != "dotted"));
+
+  // 🐞 مدلِ صریحِ جدید: اول از فیلدهای BorderMode/WidthMode (که سی‌شارپ
+  // برایِ کتاب‌هایِ تازه‌استخراج‌شده ست می‌کند) استفاده می‌شود؛ اگر خالی
+  // بودند (کتابِ قدیمی)، از همان پرچم‌های قبلیِ مبتنی‌بر نامِ استایل
+  // (بالا) نتیجه‌گیری می‌شود — یعنی هیچ کتابِ قدیمی‌ای رفتارش عوض نمی‌شود.
+  final String resolvedBorderMode =
+      tableSpan.borderMode ??
+      (isOutsideTable
+          ? "outer"
+          : (hideBorders ? "none" : (showBorders ? "all" : "none")));
+  final String resolvedWidthMode =
+      tableSpan.widthMode ??
+      (isCompactTable
+          ? "content"
+          : (isOutsideTable
+                ? "proportional"
+                : ((isBorderedTable && !isFigureTable) ? "fill" : "equal")));
+
+  // 🐞 بازنویسیِ کامل: به‌جای این‌که ماشین‌آلاتِ کاملِ Table/TableRow/
+  // TableCell/columnWidths را مجبور کنیم مثلِ یک جعبهٔ ساده‌ی بوردردار
+  // رفتار کند (که در چند تلاشِ قبلی، هربار به یک شکلِ جدید خراب می‌شد —
+  // جمع‌شدنِ کامل، کش‌آمدنِ کاملِ عرضِ صفحه، ...)، برایِ WidthMode="content"
+  // اصلاً وارد آن مسیر نمی‌شویم. چنین جدولی طبقِ تعریف همیشه تک‌سلولی
+  // است (برایِ نشان‌هایِ کوچک مثلِ شماره‌ی تمرین) — پس مستقیم محتوایِ همان
+  // یک سلول را (با همان _buildParagraph که سلول‌هایِ عادی هم استفاده
+  // می‌کنند) در یک Containerِ بوردردار می‌گذاریم؛ این Container خودش،
+  // دقیقاً مثلِ یک پاراگرافِ معمولیِ بوردردار (بدونِ هیچ جدولی)، طبیعتاً به
+  // اندازه‌ی محتوایش می‌ماند — همان رفتاری که تمرینِ ۰۲ (بدونِ جدول، فقط
+  // بوردرِ مستقیم رویِ پاراگراف) از اول درست داشت.
+  if (resolvedWidthMode == "content") {
+    final singleCell =
+        tableSpan.tableRows.isNotEmpty &&
+            tableSpan.tableRows.first.cells.isNotEmpty
+        ? tableSpan.tableRows.first.cells.first
+        : null;
+    if (singleCell == null) return const SizedBox.shrink();
+
+    // 🐞 پیدا شد: _buildParagraph متن را داخلِ WrappableText (از پکیجِ
+    // float_column، برایِ پاراگراف‌هایِ عادیِ عریض که ممکن است دورِ عکس
+    // بپیچند) می‌گذارد — این ویجت برایِ محاسبه‌ی چیدمانِ wrap/float به
+    // عرضِ دردسترس حساس است، مستقل از این‌که متنِ داخلش چقدر کوتاه
+    // است. برایِ این موردِ ساده (متنِ تک‌خطیِ یک نشان)، کاملاً از
+    // _buildParagraph/WrappableText صرف‌نظر می‌شود؛ مستقیم با همان
+    // توابعِ سطحِ‌پایینِ TextRenderEngine که ویوئرِ ترانسکریپتِ صوتی هم
+    // موفق استفاده می‌کند، رندر می‌شود.
+    final List<InlineSpan> richSpans = [];
+    for (final para in singleCell.paragraphs) {
+      for (final span in para.spans) {
+        if (span.type != "text") continue;
+        final TextStyle baseStyle = TextRenderEngine.applySpanStyle(
+          const TextStyle(color: Colors.black87, fontSize: 14, height: 1.3),
+          span,
+          false, // isDarkTheme
+        );
+        String? fontFamily;
+        double? fontSize;
+        for (final marker in span.markers) {
+          if (marker.startsWith("fn:")) {
+            fontFamily = mapFontFamily(marker.substring(3));
+          } else if (marker.startsWith("sz:")) {
+            final parsed = double.tryParse(marker.substring(3));
+            if (parsed != null) fontSize = parsed / 2;
+          }
+        }
+        richSpans.add(
+          TextSpan(
+            text: span.content,
+            style: baseStyle.copyWith(
+              fontFamily: fontFamily,
+              fontSize: fontSize,
+            ),
+          ),
+        );
+      }
+    }
+    if (richSpans.isEmpty) return const SizedBox.shrink();
+
+    Alignment tableAlign = Alignment.centerLeft;
+    if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
+    if (tableSpan.tableAlignment == "right") {
+      tableAlign = Alignment.centerRight;
+    }
+
+    // 🐞 UnconstrainedBox (تلاشِ قبلی) در عمل باعثِ خطای واقعیِ overflow
+    // شد (RenderConstraintsTransformBox overflowed) — یعنی در حداقل یک
+    // موقعیتِ واقعی، عرضِ واقعاً دردسترسِ آن سلول از چیزی که «۰۱» لازم
+    // دارد کمتر است، و اصرار بر اندازه‌ی طبیعی فقط یک خطای رندر تولید
+    // می‌کند، نه یک ظاهرِ قابلِ‌قبول. FittedBox با BoxFit.scaleDown راهِ
+    // امنِ فلاتر برایِ همین سناریوست: هروقت جا کافی بود (حالتِ رایج،
+    // منطبق با سند)، دقیقاً با اندازه‌ی طبیعی رندر می‌شود؛ فقط وقتی
+    // واقعاً جا نیست، کلِ جعبه (با بوردرش، متناسب) کمی کوچک می‌شود —
+    // هیچ‌وقت overflow نمی‌دهد و هیچ‌وقت هم بدونِ بوردر رها نمی‌شود.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: tableAlign,
+      child: Container(
+        padding: EdgeInsets.only(
+          top: singleCell.paddingTop ?? 4.0,
+          bottom: singleCell.paddingBottom ?? 4.0,
+          left: singleCell.paddingLeft ?? 8.0,
+          right: singleCell.paddingRight ?? 8.0,
+        ),
+        decoration: BoxDecoration(
+          color: _hexToColor(singleCell.fillColor),
+          border: (resolvedBorderMode == "none")
+              ? null
+              : Border.all(
+                  color: defaultBorderColor,
+                  width: defaultBorderWidth,
+                ),
+        ),
+        child: Text.rich(
+          TextSpan(children: richSpans),
+          softWrap: false,
+          textAlign:
+              (tableSpan.tableAlignment == "center" ||
+                  tableSpan.tableAlignment == "right")
+              ? TextAlign.center
+              : TextAlign.left,
+        ),
+      ),
+    );
+  }
+
+  TableCellVerticalAlignment getVAlign(String? vAlign) {
+    if (vAlign == "center") return TableCellVerticalAlignment.middle;
+    if (vAlign == "bottom") return TableCellVerticalAlignment.bottom;
+    return TableCellVerticalAlignment.top;
+  }
+
+  // 🐞 رفع باگِ «فقط عکس ریسپانسیو می‌شود، زیرنویس نه»: قبلاً این اسکن فقط
+  // پایین‌تر (نزدیکِ wrap‌کردنِ tableContainer) انجام می‌شد، یعنی بعد از
+  // اینکه محتوای سلول‌ها (cellContent) از قبل ساخته شده بودند. مشکل این
+  // بود که Columnِ داخلِ هر سلول crossAxisAlignment: start داشت، یعنی هر
+  // پاراگراف (عکس، زیرنویس) فقط به‌اندازه‌ی نیازِ خودش عرض می‌گرفت، نه به
+  // اندازه‌ی کلِ سلول — پس زیرنویس، حتی وقتی سلول به‌اندازه‌ی عکس عریض
+  // می‌شد، باز هم جمع‌وجورِ خودش می‌ماند و بصری هم‌راستا با عکس نبود. حالا
+  // این اسکن را زودتر انجام می‌دهیم تا موقعِ ساختِ cellContent هم در
+  // دسترس باشد.
+  //
+  // 🐞 رفع دورِ دومِ همین باگ: با خودِ page_0008.json معلوم شد زیرنویس واقعاً
+  // یک پاراگرافِ واحد است (سه آیکونِ رنگی + سه برچسبِ متنی، همه inline)، نه
+  // چند پاراگراف — پس مشکل از تعدادِ پاراگراف نبود. مشکل این بود که عرضِ
+  // لازمِ جدول را فقط از رویِ عرضِ عکسِ نمودار (۴۱۶px) حساب می‌کردیم، در
+  // حالی‌که عرضِ طبیعیِ خودِ زیرنویس (۳ آیکون + ۳ برچسبِ متنی + فاصله‌ها،
+  // یک‌جا) می‌تواند از عرضِ خودِ عکس هم بیشتر باشد — پس ۴۱۶px برای یک‌خط‌
+  // نشدنِ زیرنویس کافی نبود. حالا عرضِ طبیعیِ یک‌خطِ هر پاراگراف را هم
+  // می‌سنجیم (آیکون‌ها از رویِ imageWidth، متن‌ها با TextPainter و همان
+  // قاعده‌ی تبدیلِ sz:/fn: که رندرِ واقعی استفاده می‌کند) و بیشینه‌ی همه‌ی
+  // پاراگراف‌ها را ملاکِ عرضِ جدول قرار می‌دهیم — این‌طوری چه محرکِ عرض،
+  // عکسِ نمودار باشد چه خودِ زیرنویس، جدول به‌اندازه‌ی کافی عریض می‌شود.
+  double measureParagraphNaturalWidth(ParagraphData p) {
+    double width = 0;
+    for (final s in p.spans) {
+      if (s.type == "image" && s.imageWidth != null) {
+        width += s.imageWidth!.toDouble();
+      } else if (s.type == "text" && (s.content ?? '').isNotEmpty) {
+        double fontSize = 14.0;
+        String? fontFamily;
+        for (final marker in s.markers) {
+          if (marker.startsWith("sz:")) {
+            final parsed = double.tryParse(marker.substring(3));
+            if (parsed != null) fontSize = parsed / 2;
+          } else if (marker.startsWith("fn:")) {
+            fontFamily = mapFontFamily(marker.substring(3));
+          }
+        }
+        final tp = TextPainter(
+          text: TextSpan(
+            text: s.content,
+            style: TextStyle(fontSize: fontSize, fontFamily: fontFamily),
+          ),
+          textDirection: TextDirection.ltr,
+          maxLines: 1,
+        )..layout();
+        width += tp.width;
+      }
+    }
+    return width;
+  }
+
+  double maxEmbeddedImageWidth = 0;
+  double maxParagraphNaturalWidth = 0;
+  // 🐞 برای جدول‌های چندستونی (مثلاً یک جدولِ واژگان با ۵-۶ ستونِ کوتاه
+  // کنارِ هم)، «پهن‌ترین یک سلولِ کلِ جدول» معیارِ درستی برای «عرضِ لازم»
+  // نیست — چون همه‌ی ستون‌ها کنارِ هم قرار می‌گیرند، عرضِ واقعاً لازم
+  // نزدیک به مجموعِ پهن‌ترینِ هر ستون است، نه فقط پهن‌ترینِ یک سلول در
+  // کلِ جدول. این Map پهن‌ترین محتوای هر ستون (بر اساسِ اندیسِ سلول در
+  // هر ردیف) را جدا نگه می‌دارد.
+  final Map<int, double> perColumnWidestContent = {};
+
+  // 🐞 روانیِ اسکرول — علتِ «تا همه‌ی صفحات یک‌بار دیده نشوند روان نمی‌شود»:
+  // حلقه‌ی زیر برای *هر جدول* روی تک‌تکِ اسپن‌های هر سلول یک
+  // TextPainter.layout() اجرا می‌کند. layout واقعاً متن را shape می‌کند
+  // (کارِ سنگینِ Skia)، و یک صفحه با چند جدولِ چندسلولی به‌راحتی صدها بار
+  // این کار را در همان فریمی انجام می‌دهد که کاربر دارد به آن صفحه می‌رسد —
+  // یعنی دقیقاً همان قفلِ «اولین عبور». بعد از اولین ساخت، صفحه به‌خاطرِ
+  // AutomaticKeepAlive + _cachedWidgets زنده می‌ماند و دیگر تکرار نمی‌شود؛
+  // برای همین «بعد از یک‌بار اسکرولِ کامل» روان می‌شد.
+  //
+  // نکته‌ی کلیدی: خروجیِ این اندازه‌گیری فقط در حالت‌های horizontalScroll و
+  // proportional مصرف می‌شود، و در حالتِ natural فقط به‌عنوانِ *فال‌بک* وقتی
+  // widthPt نداریم. ولی از وقتی Responsivelowering هر استایلِ ناشناخته را
+  // CommonTable (natural + widthPtِ معتبر) می‌کند، اکثریتِ جدول‌ها این
+  // اندازه‌گیری را انجام می‌دادند و بعد دور می‌ریختند. این گاردِ ارزان
+  // (فقط چند مقایسه‌ی عددی، بدونِ TextPainter) آن کارِ بی‌مصرف را حذف می‌کند.
+  bool everyCellHasWidthPt = tableSpan.tableRows.isNotEmpty;
+  for (final row in tableSpan.tableRows) {
+    for (final cell in row.cells) {
+      final w = cell.widthPt;
+      if (w == null || w <= 0) {
+        everyCellHasWidthPt = false;
+        break;
+      }
+    }
+    if (!everyCellHasWidthPt) break;
+  }
+  final bool measurementUnused =
+      resolvedWidthMode == "natural" &&
+      everyCellHasWidthPt &&
+      strategy != "horizontalScroll" &&
+      !isBorderedTable &&
+      !isOutsideTable;
+
+  if (!measurementUnused) {
+    for (final row in tableSpan.tableRows) {
+      for (int ci = 0; ci < row.cells.length; ci++) {
+        final cell = row.cells[ci];
+        double thisColumnWidth = 0;
+        for (final p in cell.paragraphs) {
+          final paraWidth = measureParagraphNaturalWidth(p);
+          if (paraWidth > maxParagraphNaturalWidth) {
+            maxParagraphNaturalWidth = paraWidth;
+          }
+          if (paraWidth > thisColumnWidth) thisColumnWidth = paraWidth;
+          for (final s in p.spans) {
+            if (s.type == "image" &&
+                s.imageWidth != null &&
+                s.imageWidth! > maxEmbeddedImageWidth) {
+              maxEmbeddedImageWidth = s.imageWidth!.toDouble();
+            }
+          }
+        }
+        if (thisColumnWidth > (perColumnWidestContent[ci] ?? 0)) {
+          perColumnWidestContent[ci] = thisColumnWidth;
+        }
+      }
+    }
+  }
+  final double sumOfColumnWidestContent =
+      perColumnWidestContent.values.fold(0.0, (a, b) => a + b) +
+      (perColumnWidestContent.length * 24);
+  final double widestContentWidth =
+      (maxParagraphNaturalWidth > 0 ? maxParagraphNaturalWidth + 24 : 0) >
+          maxEmbeddedImageWidth
+      ? maxParagraphNaturalWidth + 24
+      : maxEmbeddedImageWidth;
+  // 🐞 همان محدودسازیِ «فقط برای استایل‌های خاص»: stretch کردنِ محتوای سلول
+  // هم فقط وقتی معنا دارد که خودِ جدول قرار است اسکرولِ افقی بگیرد
+  // (strategy=="horizontalScroll")، وگرنه برای جدول‌های معمولی که هیچ‌وقت
+  // عریض‌تر نمی‌شوند، این stretch اثرِ عملیِ مفیدی ندارد و بهتر است رفتارِ
+  // پیش‌فرض (start) دست‌نخورده بماند.
+  final bool stretchCellsToImage =
+      strategy == "horizontalScroll" && widestContentWidth > canvasWidth;
+
+  List<Widget> rowWidgets = [];
+  List<List<Widget>> allGridCells = [];
+
+  for (int rowIndex = 0; rowIndex < tableSpan.tableRows.length; rowIndex++) {
+    var row = tableSpan.tableRows[rowIndex];
+    List<Widget> cellWidgets = [];
+    bool hasAnyImage = false, hasAnyText = false;
+
+    for (var cell in row.cells) {
+      bool isImg = cell.paragraphs.any(
+        (p) => p.spans.any((s) => s.type == "image"),
+      );
+      bool isEmpty = cell.paragraphs.every(
+        (p) =>
+            p.spans.isEmpty ||
+            (p.spans.length == 1 &&
+                p.spans.first.type == "text" &&
+                (p.spans.first.content ?? "").trim().isEmpty),
+      );
+      if (isImg) {
+        hasAnyImage = true;
+      } else if (!isEmpty) {
+        hasAnyText = true;
+      }
+    }
+    bool isImageRow = hasAnyImage && !hasAnyText;
+
+    Map<int, TableColumnWidth> columnWidths = {};
+
+    // تنظیمات داینامیک مرزها برای هر ردیف
+    double currentTopWidth = defaultBorderWidth;
+    double currentBottomWidth = defaultBorderWidth;
+    double currentLeftWidth = defaultBorderWidth;
+    double currentRightWidth = defaultBorderWidth;
+    double currentInsideVWidth = defaultBorderWidth;
+
+    Color currentTopColor = defaultBorderColor;
+    Color currentBottomColor = defaultBorderColor;
+    Color currentLeftColor = defaultBorderColor;
+    Color currentRightColor = defaultBorderColor;
+    Color currentInsideVColor = defaultBorderColor;
+
+    for (var cell in row.cells) {
+      if (cell.borders != null) {
+        var cb = cell.borders;
+        if (cb?.bottom?.width != null) {
+          currentBottomWidth = cb!.bottom!.width!.toDouble();
+        }
+        if (cb?.top?.width != null) {
+          currentTopWidth = cb!.top!.width!.toDouble();
+        }
+        if (cb!.left?.width != null) {
+          currentLeftWidth = cb.left!.width!.toDouble();
+        }
+        if (cb.right?.width != null) {
+          currentRightWidth = cb.right!.width!.toDouble();
+        }
+
+        if (cb.bottom?.color != null) {
+          currentBottomColor =
+              _hexToColor(cb.bottom!.color) ?? defaultBorderColor;
+        }
+        if (cb.top?.color != null) {
+          currentTopColor = _hexToColor(cb.top!.color) ?? defaultBorderColor;
+        }
+        if (cb.left?.color != null) {
+          currentLeftColor = _hexToColor(cb.left!.color) ?? defaultBorderColor;
+        }
+        if (cb.right?.color != null) {
+          currentRightColor =
+              _hexToColor(cb.right!.color) ?? defaultBorderColor;
+        }
+      }
+      try {
+        var dynamicCell = cell as dynamic;
+        if (dynamicCell.borderBottomWidth != null) {
+          currentBottomWidth = dynamicCell.borderBottomWidth.toDouble();
+        }
+        if (dynamicCell.borderTopWidth != null) {
+          currentTopWidth = dynamicCell.borderTopWidth.toDouble();
+        }
+        if (dynamicCell.borderLeftWidth != null) {
+          currentLeftWidth = dynamicCell.borderLeftWidth.toDouble();
+        }
+        if (dynamicCell.borderRightWidth != null) {
+          currentRightWidth = dynamicCell.borderRightWidth.toDouble();
+        }
+      } catch (_) {}
+    }
+
+    // زاپاس ردیف اول برای جداول استاندارد ورد
+    // 🐞 رفع باگِ «بوردرِ پایینیِ ضخیم‌تر»: این تقویت فقط برای جداولِ
+    // چندردیفه معنا دارد (جداکردنِ ردیفِ اول از بقیه، مثلِ سرستونِ جدول)؛
+    // برای جدولِ تک‌ردیفه/تک‌سلولی (مثلِ جعبه‌ی TIP صفحه‌ی ۸) هیچ ردیفِ
+    // بعدی‌ای برای جدا شدن وجود ندارد، ولی چون rowIndex==0 همیشه true بود،
+    // بی‌دلیل بوردرِ پایین را ۲.۲ برابر می‌کرد.
+    if (rowIndex == 0 &&
+        tableSpan.tableRows.length > 1 &&
+        currentBottomWidth == defaultBorderWidth &&
+        isBorderedTable) {
+      currentBottomWidth = defaultBorderWidth * 2.2;
+    }
+
+    for (int i = 0; i < row.cells.length; i++) {
+      var cell = row.cells[i];
+      List<Widget> cellParagraphs = [];
+
+      bool hasTextInCell = cell.paragraphs.any(
+        (p) => p.spans.any(
+          (s) =>
+              s.type == "text" &&
+              s.content != null &&
+              s.content.trim().isNotEmpty,
+        ),
+      );
+      bool hasImageInCell = cell.paragraphs.any(
+        (p) => p.spans.any((s) => s.type == "image"),
+      );
+      bool isImageCell = hasImageInCell && !hasTextInCell;
+
+      for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
+        cellParagraphs.add(
+          _buildParagraph(
+            cell.paragraphs[pIndex],
+            canvasWidth,
+            screenWidth,
+            context,
+            isImageCell: isImageCell,
+            isInsideTableCell: true,
+            verbatimCellImage: resolvedBorderMode == "cell", // 🐞 CommonTable
+            prevPara: pIndex > 0 ? cell.paragraphs[pIndex - 1] : null,
+            nextPara: pIndex < cell.paragraphs.length - 1
+                ? cell.paragraphs[pIndex + 1]
+                : null,
+            rootHighlightMap: rootMap,
+            mapOffset: mapOffset,
+            activeOccurrence: activeOcc,
+            activeBook: activeBook,
+            pageInteractives: pageInteractives,
+            exactMatchKey: exactMatchKey,
+            interactivesPattern: interactivesPattern,
+            interactivesByText: interactivesByText,
+            pageAudioPlaylist: pageAudioPlaylist,
+            audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
+            audioPageNumber: audioPageNumber, // 🐞 اضافه شد
+            audioParaIndex: audioParaIndex, // 🐞 اضافه شد
+            keyClaim: keyClaim, // 🐞 همان claim مشترکِ کل پاراگراف/جدول
+          ),
+        );
+      }
+
+      // 🐞 راهِ اصولیِ AutoFit (به‌جای تکیه‌ی صرف بر safetyِ عرضِ ستون): در
+      // Word حاشیه‌ی پیش‌فرضِ سلول ۰.۰۸in=۵.۷۶pt هر طرف است؛ برای CommonTable
+      // (که وفادار به سند است) padding افقی را به همان مقدار می‌گذاریم تا
+      // ناحیه‌ی متن دقیقاً برابرِ Word شود. بقیه‌ی جدول‌ها ۸px پیشینِ خود را
+      // نگه می‌دارند.
+      final double _hpad = (resolvedBorderMode == "cell") ? 5.76 : 8.0;
+      EdgeInsetsGeometry cellPadding = isImageCell
+          ? const EdgeInsets.all(2.0)
+          : EdgeInsets.only(
+              top: cell.paddingTop ?? 4.0,
+              bottom: cell.paddingBottom ?? 4.0,
+              left: cell.paddingLeft ?? _hpad,
+              right: cell.paddingRight ?? _hpad,
+            );
+
+      // 🐞 روانیِ اسکرول: هر دو تا حذفِ بی‌اثر — (۱) اگر سلول نه رنگِ پس‌زمینه
+      // دارد نه بوردر، decoration را null می‌گذاریم تا RenderDecoratedBox اصلاً
+      // ساخته نشود (تریس ~۹۱ عدد از این‌ها در هر صفحه نشان می‌داد). (۲) اگر
+      // سلول فقط یک پاراگراف دارد، Columnِ تک‌فرزند حذف می‌شود (RenderFlexِ
+      // کم‌تر). هیچ‌کدام اثرِ بصری ندارند.
+      final Color? _cellFill = _hexToColor(cell.fillColor);
+      final Border? _cellBorder = resolvedBorderMode == "cell"
+          ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
+          : null;
+      final Widget _cellInner = cellParagraphs.length == 1
+          ? cellParagraphs.first
+          : Column(
+              crossAxisAlignment: stretchCellsToImage
+                  ? CrossAxisAlignment.stretch
+                  : CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: cellParagraphs,
+            );
+
+      // 🐞 هم‌ترازیِ عمودیِ سلول در حالتِ BorderMode="cell" (CommonTable و
+      // هر جدولِ ناشناخته‌ای که به default می‌افتد) اصلاً اعمال نمی‌شد: آن
+      // مسیر به‌جای getVAlign از TableCellVerticalAlignment.intrinsicHeight
+      // استفاده می‌کند (که برای هم‌ارتفاع‌کردنِ سلول‌های یک ردیف لازم است و
+      // نمی‌شود حذفش کرد)، ولی intrinsicHeight فقط سلول را تا ارتفاعِ ردیف
+      // کِش می‌دهد و محتوا را همیشه بالا می‌گذارد. حالا خودِ محتوا داخلِ آن
+      // سلولِ کش‌آمده هم‌تراز می‌شود.
+      // SizedBox(width: infinity) عمدی است: Align به فرزندش constraintهای
+      // شُل می‌دهد و بدونِ آن، محتوا ممکن بود به عرضِ خودش جمع شود و
+      // هم‌ترازیِ افقیِ متن (textAlign) بی‌اثر به‌نظر برسد.
+      // بقیه‌ی حالت‌ها دست‌نخورده‌اند چون همان بالا با getVAlign(cell.vAlign)
+      // به‌صورتِ نیتیو روی خودِ TableCell اعمال می‌شوند.
+      final String? _cellVAlign = cell.vAlign;
+      Widget _cellAlignedInner = _cellInner;
+      if (resolvedBorderMode == "cell" &&
+          (_cellVAlign == "center" || _cellVAlign == "bottom")) {
+        _cellAlignedInner = Align(
+          alignment: _cellVAlign == "center"
+              ? Alignment.center
+              : Alignment.bottomCenter,
+          child: SizedBox(width: double.infinity, child: _cellInner),
+        );
+      }
+
+      Widget cellContent = Container(
+        padding: cellPadding,
+        decoration: (_cellFill != null || _cellBorder != null)
+            ? BoxDecoration(color: _cellFill, border: _cellBorder)
+            : null,
+        child: _cellAlignedInner,
+      );
+
+      cellWidgets.add(cellContent);
+
+      if (resolvedWidthMode == "natural") {
+        // 🐞 CommonTable: هر ستون دقیقاً عرضِ مطلقِ سند را می‌گیرد (WidthPt،
+        // که ۱pt=۱px است). اگر سلولی عرضِ صریح نداشت، به عرضِ اندازه‌گیری‌شده‌ی
+        // محتوا برمی‌گردیم تا ستون جمع نشود.
+        final double? wpt = cell.widthPt;
+        columnWidths[i] = FixedColumnWidth(
+          (wpt != null && wpt > 0)
+              ? wpt + _kNaturalColSafetyPx
+              : ((perColumnWidestContent[i] ?? 60) + 24),
+        );
+      } else if (cell.widthPercent != null && cell.widthPercent! > 0) {
+        // 🐞 حفظِ محتوا بدونِ بریدن/اسکرولِ بی‌جا: ستونِ باریکِ برچسب (WidthPt
+        // کوچک — مثلِ ستونِ Examiner/Candidateِ ص۴۳) روی صفحه‌ی باریک سهمِ
+        // درصدی‌اش از عرضِ محتوایش (یک کلمه‌ی بی‌فاصله) کمتر می‌شد و سرریز
+        // می‌کرد. حالا اگر ستون باریک است *و* حداقل یک ستونِ پهن (متنِ شکنا)
+        // هم در ردیف هست، این ستون را با عرضِ مطلقِ سند (WidthPt+safety، که Word
+        // محتوا را در آن جا داده) ثابت می‌کنیم و ستون‌های پهن flex می‌مانند و
+        // بقیه‌ی عرض را پر می‌کنند (متن wrap می‌شود). اگر ستونِ پهنی نبود
+        // (جدولِ یکنواختِ باریک) همه flex می‌مانند تا عرض را پر کنند و چیزی
+        // سرریز نکند. جدولِ بدنه (ستونِ محتوایِ پهن) هم دست‌نخورده flex می‌ماند.
+        final double? wpt = cell.widthPt;
+        final bool hasWideColumn = row.cells.any(
+          (c) => c.widthPt == null || (c.widthPt ?? 0) > 120,
+        );
+        if (wpt != null && wpt > 0 && wpt <= 120 && hasWideColumn) {
+          columnWidths[i] = FixedColumnWidth(wpt + _kNaturalColSafetyPx);
+        } else {
+          columnWidths[i] = FlexColumnWidth(cell.widthPercent!);
+        }
+      } else {
+        // 🐞 اندازه‌گیریِ واقعیِ عرضِ محتوایِ همین ستون (نه یک پرچمِ Intrinsic
+        // شکننده) — perColumnWidestContent همان چیزی است که بالاترِ همین
+        // تابع، برایِ محاسبه‌ی عرضِ لازمِ OutsideTable هم استفاده شد؛
+        // این‌جا دوباره اندازه‌گیری نمی‌کنیم، همان مقدار را می‌خوانیم.
+        final double measuredColumnWidth =
+            (perColumnWidestContent[i] ?? 0) + 24;
+        switch (resolvedWidthMode) {
+          case "content":
+            // 🐞 IntrinsicColumnWidth قبلاً باعثِ جمع‌شدنِ کاملِ جدول به
+            // نزدیکِ صفر می‌شد (احتمالاً چون یکی از ویجت‌های داخلِ سلول
+            // عرضِ intrinsic را درست گزارش نمی‌دهد) — با این‌که خودِ متن
+            // هنوز با اندازه‌ی طبیعی‌اش رندر می‌شد، یعنی از جعبه‌ی
+            // جمع‌شده بیرون می‌زد. FixedColumnWidth با یک عددِ دقیق و
+            // اندازه‌گیری‌شده، این مشکل را کاملاً کنار می‌گذارد.
+            columnWidths[i] = FixedColumnWidth(
+              measuredColumnWidth > 0 ? measuredColumnWidth : 24,
+            );
+            break;
+          case "proportional":
+            // 🐞 FlexColumnWidth یک وزن است، نه لزوماً بینِ ۰ و ۱ — با
+            // پاس‌دادنِ همان عددِ اندازه‌گیری‌شده به‌عنوانِ وزن، ستونی که
+            // محتوایش پهن‌تر است سهمِ بیشتری از عرضِ دردسترس می‌گیرد،
+            // به‌جای تقسیمِ کورکورانه‌ی مساوی (که باعثِ له‌شدنِ متنِ
+            // ستون‌های پهن‌تر می‌شد، حتی وقتی عرضِ کلی کافی بود).
+            columnWidths[i] = FlexColumnWidth(
+              measuredColumnWidth > 0 ? measuredColumnWidth : 1,
+            );
+            break;
+          default:
+            columnWidths[i] = const FlexColumnWidth(1);
+        }
+      }
+    }
+
+    if (applyColumnStack) {
+      allGridCells.add(cellWidgets);
+    } else {
+      if (isLargeScreen ||
+          isBorderedTable ||
+          isImageRow ||
+          isNestedTable ||
+          showBorders ||
+          isOutsideTable ||
+          resolvedBorderMode == "cell" || // 🐞 CommonTable همیشه گرید
+          resolvedWidthMode == "natural") {
+        List<Widget> tableCellWidgets = [];
+        for (int i = 0; i < cellWidgets.length; i++) {
+          tableCellWidgets.add(
+            TableCell(
+              // 🐞 پاسخِ نکتهٔ کاربر: در CommonTable اگر یک سلول wrap شده و
+              // بلندتر از بقیه شود، همه‌ی سلول‌های همان ردیف باید هم‌ارتفاعِ آن
+              // شوند و بوردر/پس‌زمینه‌شان تا پایینِ ردیف پُر شود. مقدارِ
+              // intrinsicHeight دقیقاً این کار را می‌کند: در محاسبه‌ی ارتفاعِ
+              // ردیف با layoutِ واقعی شرکت می‌کند (نه intrinsic، پس با
+              // FloatColumnِ محتوایِ سلول که ابعادِ intrinsic نمی‌دهد سازگار
+              // است) و سپس هر سلول را تا ارتفاعِ ردیف کش می‌دهد. برایِ بقیه‌ی
+              // استایل‌ها همان رفتارِ قبلی (getVAlign) حفظ می‌شود.
+              verticalAlignment: resolvedBorderMode == "cell"
+                  ? TableCellVerticalAlignment.intrinsicHeight
+                  : getVAlign(row.cells[i].vAlign),
+              child: cellWidgets[i],
+            ),
+          );
+        }
+
+        final BorderSide topSide = BorderSide(
+          color: currentTopColor,
+          width: currentTopWidth,
+        );
+        final BorderSide bottomSide = BorderSide(
+          color: currentBottomColor,
+          width: currentBottomWidth,
+        );
+        final BorderSide leftSide = BorderSide(
+          color: currentLeftColor,
+          width: currentLeftWidth,
+        );
+        final BorderSide rightSide = BorderSide(
+          color: currentRightColor,
+          width: currentRightWidth,
+        );
+        final BorderSide insideVSide = BorderSide(
+          color: currentInsideVColor,
+          width: currentInsideVWidth,
+        );
+
+        // 🐞 بوردرِ هر ردیف حالا بر اساسِ resolvedBorderMode تصمیم‌گیری
+        // می‌شود، نه فقط یک روشن/خاموشِ ساده (showBorders). "outer" هنوز
+        // با همان مکانیزمِ قبلی (پایین‌تر، بعدِ ساختِ کاملِ جدول، یک
+        // Border.all دورِ کل کشیده می‌شود) کار می‌کند — این‌جا برایش هیچ
+        // بوردرِ per-row رسم نمی‌شود. "inner"/"firstRowOuter" مستقیماً
+        // این‌جا محاسبه می‌شوند.
+        final bool isLastRow = rowIndex == tableSpan.tableRows.length - 1;
+        TableBorder resolvedTableBorder;
+        switch (resolvedBorderMode) {
+          case "all":
+            resolvedTableBorder = TableBorder(
+              // 🌟 خط بالایی کل جدول فقط و فقط توسط ردیف اول رسم می‌شود
+              top: rowIndex == 0 ? topSide : BorderSide.none,
+              bottom: bottomSide,
+              left: leftSide,
+              right: rightSide,
+              verticalInside: insideVSide,
+            );
+            break;
+          case "inner":
+            // 🐞 فقط خطوطِ داخلی: بینِ ستون‌ها (هر ردیف) و بینِ ردیف‌ها —
+            // بجز زیرِ آخرین ردیف، که آن مرزِ بیرونی است، نه داخلی؛ و بدونِ
+            // top/left/right (که همیشه مرزِ بیرونی‌اند).
+            resolvedTableBorder = TableBorder(
+              bottom: isLastRow ? BorderSide.none : bottomSide,
+              verticalInside: insideVSide,
+            );
+            break;
+          case "firstRowOuter":
+            // 🐞 بوردرِ دورِ کلِ جدول + یک خط زیرِ ردیفِ اول (جداکننده‌ی
+            // سرستون از بدنه)، بدونِ خطوطِ داخلیِ دیگر.
+            resolvedTableBorder = TableBorder(
+              top: rowIndex == 0 ? topSide : BorderSide.none,
+              bottom: (rowIndex == 0 || isLastRow)
+                  ? bottomSide
+                  : BorderSide.none,
+              left: leftSide,
+              right: rightSide,
+            );
+            break;
+          case "outerThickFirstRow":
+            // 🐞 HeaderOutsideTable: بوردرِ بیرونیِ کامل توسطِ wrapِ پایین‌تر
+            // (Border.all) کشیده می‌شود؛ این‌جا فقط یک خطِ *ضخیم‌تر* زیرِ ردیفِ
+            // اول به‌عنوانِ جداکننده‌ی سرستون می‌کشیم (وقتی جدول بیش از یک ردیف
+            // دارد). بقیه‌ی ردیف‌ها هیچ خطی نمی‌گیرند — مثلِ OutsideTable.
+            if (rowIndex == 0 && tableSpan.tableRows.length > 1) {
+              resolvedTableBorder = TableBorder(
+                bottom: BorderSide(
+                  color: currentBottomColor,
+                  width:
+                      (currentBottomWidth <= 0
+                          ? defaultBorderWidth
+                          : currentBottomWidth) *
+                      2.5,
+                ),
+              );
+            } else {
+              resolvedTableBorder = const TableBorder.symmetric();
+            }
+            break;
+          case "outer":
+          case "none":
+          default:
+            resolvedTableBorder = const TableBorder.symmetric();
+        }
+
+        rowWidgets.add(
+          Table(
+            columnWidths: columnWidths,
+            border: resolvedTableBorder,
+            children: [TableRow(children: tableCellWidgets)],
+          ),
+        );
+      } else {
+        rowWidgets.add(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: cellWidgets,
+          ),
+        );
+      }
+    }
+  }
+
+  if (applyColumnStack && allGridCells.isNotEmpty) {
+    int maxCols = allGridCells.fold(
+      0,
+      (max, rowCells) => rowCells.length > max ? rowCells.length : max,
+    );
+    // 🐞 حالتِ merge (MultiColumnTable): محتوایِ همهٔ ستون‌ها — به ترتیبِ
+    // ستونی (اولْ کلِ ستونِ ۱، بعد کلِ ستونِ ۲ و ...) که همان ترتیبِ خواندنِ
+    // متنِ چندستونی است — در یک لیستِ واحد جمع می‌شود و در پایانِ حلقه
+    // به‌صورتِ *یک* ستونِ یکپارچه اضافه می‌گردد. بوردرِ دورِ آن را
+    // borderWrapsWholeTable (پایین‌تر) می‌کشد، پس این‌جا نه بوردرِ per-column
+    // می‌خواهیم نه فاصلهٔ بینِ ستون‌ها.
+    final List<Widget> mergedColumnCells = [];
+    for (int colIndex = 0; colIndex < maxCols; colIndex++) {
+      List<Widget> columnCells = [];
+      for (int rowIndex = 0; rowIndex < allGridCells.length; rowIndex++) {
+        if (colIndex < allGridCells[rowIndex].length) {
+          columnCells.add(allGridCells[rowIndex][colIndex]);
+        }
+      }
+      if (isMultiColumnMerge) {
+        mergedColumnCells.addAll(columnCells);
+        continue;
+      }
+      rowWidgets.add(
+        Container(
+          margin: const EdgeInsets.only(bottom: 12.0),
+          // 🐞 مسیرِ دوم که از قلم افتاده بود: در حالتِ استکی (صفحه‌ی باریک)
+          // سلول‌ها اصلاً از مسیرِ Table با resolvedTableBorder رد نمی‌شوند،
+          // پس هر ستون به‌صورتِ یک Columnِ ساده و کاملاً بی‌بوردر رندر
+          // می‌شد — یعنی فیکسِ قبلی فقط در صفحه‌ی عریض اثر داشت. حالا وقتی
+          // قرار است بوردر دیده شود، هر ستونِ استک‌شده جعبه‌ی بوردردارِ خودش
+          // را می‌گیرد (معادلِ طبیعیِ ستون‌های بوردردارِ Word بعد از عمودی‌شدن).
+          decoration: (resolvedBorderMode != "none" && !hideBorders)
+              ? BoxDecoration(
+                  border: Border.all(
+                    color: defaultBorderColor,
+                    width: defaultBorderWidth,
+                  ),
+                )
+              : null,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: columnCells,
+          ),
+        ),
+      );
+    }
+    if (isMultiColumnMerge && mergedColumnCells.isNotEmpty) {
+      rowWidgets.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: mergedColumnCells,
+        ),
+      );
+    }
+  }
+
+  // 🐞 رفع باگِ «جدول به محتوای بعدی چسبیده»: قبلاً جدولِ تودرتو
+  // (isNestedTable، مثلِ FigureTable که همیشه داخلِ سلولِ جدولِ بیرونیِ
+  // تمرین است) فقط ۲px فاصله‌ی بالا داشت و اصلاً فاصله‌ی پایین نداشت — برای
+  // یک جدولِ تودرتوی کوچکِ معمولی شاید قابلِ‌قبول بود، ولی برای
+  // FigureTable/OutsideTable که خودشان یک شکلِ کاملند، خیلی چسبیده به‌نظر
+  // می‌رسید. حالا فاصله‌ی پایینِ معقولی هم می‌گیرند؛ اگر جدول قرار است
+  // اسکرولِ افقی هم بگیرد، کمی فاصله‌ی بیشتر می‌دهیم تا نوارِ اسکرول
+  // (پایین‌تر) جا برای نفس‌کشیدن داشته باشد و روی بوردرِ جدول لَم ندهد.
+  final bool willScrollHorizontally = strategy == "horizontalScroll";
+  final double nestedBottomMargin = willScrollHorizontally ? 14.0 : 10.0;
+
+  // 🐞 پیدا شد — علتِ «فاصله‌ی اضافه زیرِ ردیفِ آخر، داخلِ بوردر»: در فلاتر
+  // margin یک Container بیرونِ decorationِ *خودش* است، ولی وقتی این
+  // Container داخلِ یک Containerِ دیگر با بوردر پیچیده می‌شود (کارِ بلاکِ
+  // زیر برایِ BorderMode="outer")، آن margin عملاً داخلِ بوردرِ بیرونی
+  // می‌افتد. یعنی همان ۱۴px فاصله‌ی پایین (که برایِ جدایِ نگه‌داشتنِ نوارِ
+  // اسکرول از جدول گذاشته شده) و ۲px بالا، به‌جایِ بیرونِ کادر، *داخلِ*
+  // کادر رسم می‌شدند — دقیقاً همان فضایِ خالیِ نامتقارنِ زیرِ ردیفِ آخر.
+  // راهِ حل: وقتی بوردرِ بیرونی اعمال می‌شود، margin از کانتینرِ داخلی
+  // برداشته و به خودِ کانتینرِ بوردردار داده می‌شود تا بوردر دقیقاً دورِ
+  // ردیف‌ها بچسبد و فاصله بیرونِ آن بماند.
+  final EdgeInsets tableOuterMargin = isNestedTable
+      ? EdgeInsets.only(top: 2.0, bottom: nestedBottomMargin)
+      : const EdgeInsets.symmetric(vertical: 12.0);
+  // 🐞 در حالتِ استکیِ معمولی (ColumnStackTable روی صفحهٔ باریک) هر ستون
+  // خودش جعبهٔ بوردردارِ مستقل می‌گیرد، پس این wrapِ بیرونی نباید اجرا شود —
+  // وگرنه یک کادرِ اضافه هم دورِ کلِ ستون‌های از‌قبل‌کادردار کشیده می‌شد.
+  // 🐞 "outerThickFirstRow" (استایلِ HeaderOutsideTable) هم مثلِ "outer" یک
+  // بوردرِ بیرونیِ کامل (شاملِ بالای جدول) دورِ کلِ جدول می‌خواهد؛ خطِ ضخیمِ
+  // زیرِ ردیفِ اول جداگانه در سوییچِ per-row رسم می‌شود.
+  // 🐞 استثنا: در حالتِ merge (MultiColumnTable روی صفحهٔ باریک) دقیقاً
+  // برعکس است — همهٔ ستون‌ها در یک ستونِ یکپارچه ادغام شده‌اند و *هیچ*
+  // بوردرِ per-columnی ندارند، پس همین wrapِ بیرونی است که تنها کادرِ
+  // دورِ کلِ متن را می‌کشد و باید فعال بماند.
+  final bool borderWrapsWholeTable =
+      (resolvedBorderMode == "outer" ||
+          resolvedBorderMode == "outerThickFirstRow") &&
+      !hideBorders &&
+      (!applyColumnStack || isMultiColumnMerge);
+
+  // 🌟 اصلاح نهایی: حذف پارامتر border از کانتینر بیرونی برای جلوگیری از تداخل و دابل‌بوردر شدن سایدها
+  Widget tableContainer = Container(
+    margin: borderWrapsWholeTable ? EdgeInsets.zero : tableOuterMargin,
+    decoration: BoxDecoration(
+      color: _hexToColor(tableSpan.fillColor),
+      // کدهای تداخل‌زا حذف شدند 💥
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: rowWidgets,
+    ),
+  );
+
+  // 🐞 OutsideTable: چون رسمِ بوردرِ per-row/per-cell برایش بالاتر خاموش
+  // شد (showBorders=false)، اینجا یک‌بار دورِ کلِ tableContainer (که همه‌ی
+  // ردیف‌ها را در بر دارد) یک Border.all می‌کشیم — یعنی فقط بوردرِ بیرونی،
+  // بدونِ خطوطِ داخلی. این wrap قبل از منطقِ اسکرولِ افقیِ زیر انجام می‌شود
+  // تا بوردر با محتوا اسکرول شود (فقط در ابتدا/انتهای واقعیِ جدول دیده شود).
+  if (borderWrapsWholeTable) {
+    tableContainer = Container(
+      margin: tableOuterMargin,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: defaultBorderColor,
+          width: defaultBorderWidth,
+        ),
+      ),
+      child: tableContainer,
+    );
+  }
+
+  // 🐞 رفع بکلاگِ «اسکرول افقی خودکار برای جدول عریض در صفحه‌ی باریک»: اگر
+  // جدول آن‌قدر ستون دارد که فشرده‌کردنِ همه در canvasWidth ناخوانا می‌شود
+  // (هر ستون فقط چند پیکسل جا دارد)، به‌جای فشردن‌شان با FlexColumnWidth،
+  // خودِ tableContainer را با یک عرضِ عریض‌تر (حداقلِ خواناییِ هر ستون ×
+  // تعدادِ ستون‌ها) رندر می‌کنیم و داخل یک اسکرولِ افقی می‌گذاریم؛ چون همه‌ی
+  // ردیف‌ها همین یک columnWidths نسبی را دارند، تناسبِ ستون‌ها بین ردیف‌ها
+  // حفظ می‌ماند.
+  // 🐞 رفع باگِ «اسکرولِ افقیِ بیش‌ازحد فراگیر»: قبلاً وقتی tableWidthPercent
+  // ست نشده بود هم (فارغ از strategy) این‌جا فعال می‌شد — یعنی هر جدولِ
+  // ساده‌ای که فقط TableWidthPercent نداشت هم اسکرولِ افقی می‌گرفت، که خیلی
+  // بیشتر از نیاز بود. حالا فقط به فلگِ صریحِ strategy=="horizontalScroll"
+  // متکی است؛ سمتِ C# (ResponsiveLowering.cs) این فلگ را فقط برای
+  // استایل‌های خاصِ FigureTable و HBTable ست می‌کند، نه به‌عنوانِ پیش‌فرضِ
+  // هر جدولِ ناشناخته‌ای.
+  final bool explicitHorizontalScroll = strategy == "horizontalScroll";
+  if (!applyColumnStack && explicitHorizontalScroll) {
+    int maxColumnCount = 0;
+    for (final row in tableSpan.tableRows) {
+      if (row.cells.length > maxColumnCount) maxColumnCount = row.cells.length;
+    }
+    // 🐞 widestContentWidth بالاتر (قبل از حلقه‌ی ساختِ سلول‌ها) یک‌بار
+    // محاسبه شده — همان‌جا هم برای stretch‌کردنِ محتوای سلول استفاده شد،
+    // اینجا دوباره اسکن نمی‌کنیم، همان مقدار (بیشینه‌ی عرضِ عکس یا عرضِ
+    // طبیعیِ یک‌خطِ هر پاراگراف، هرکدام بیشتر بود) را برای عرضِ لازم به کار
+    // می‌بریم.
+    const double minReadableColumnWidth = 90.0;
+    final double columnHeuristicWidth = maxColumnCount * minReadableColumnWidth;
+    // 🐞 برای OutsideTable، «پهن‌ترین یک سلول» (widestContentWidth) کافی
+    // نیست — یک جدولِ واژگانِ چندستونی (مثلِ جدولِ کلماتِ این تمرین) عرضِ
+    // واقعی‌اش نزدیک به مجموعِ پهن‌ترینِ هر ستون است، چون همه‌ی ستون‌ها
+    // کنارِ هم قرار می‌گیرند. sumOfColumnWidestContent همین را می‌دهد؛
+    // هرکدام از این دو معیار (تکی یا مجموع) بیشتر بود همان استفاده
+    // می‌شود.
+    final double outsideTableContentWidth =
+        (sumOfColumnWidestContent > widestContentWidth
+            ? sumOfColumnWidestContent
+            : widestContentWidth) *
+        1.08;
+    // 🐞 ضریبِ ۱.۰۸: اندازه‌گیریِ TextPainter هیچ‌وقت دقیقاً برابرِ عرضِ
+    // واقعیِ رندرشده در سلول نیست (رُندکردنِ فاصله‌گذاریِ حروف/کلمات و
+    // این‌جور جزئیات) — بدونِ این حاشیه‌ی امن، در برخی عرض‌هایِ صفحه
+    // (نه همه)، محاسبه‌ی «کافی است» درست از آب درمی‌آمد ولی رندرِ واقعی
+    // چند پیکسل بیشتر لازم داشت، و ستون‌ها به‌جایِ گرفتنِ اسکرولِ افقی
+    // (که کاربر می‌خواهد)، له/wrap می‌شدند.
+    final double neededWidth = isOutsideTable
+        ? outsideTableContentWidth
+        : (columnHeuristicWidth > widestContentWidth
+              ? columnHeuristicWidth
+              : widestContentWidth);
+    // 🐞 رفع باگِ «OutsideTable عریض‌تر از سند + فاصله‌ی اضافه در انتهای
+    // ردیفِ آخر»: قبلاً همین فرضِ «هر ستون حداقل ۹۰px» برای OutsideTable
+    // هم اعمال می‌شد — یعنی حتی وقتی محتوای واقعیِ ستون‌ها خیلی باریک‌تر
+    // بود، جدول به‌خاطرِ همین فرض کش می‌آمد (بیشتر از چیزی که واقعاً لازم
+    // داشت)، و چون بوردرِ بیرونی هم با همین عرضِ اجباری کشیده می‌شود، هم
+    // بوردر با سند نمی‌خواند هم انتهای هر ردیف فضای خالیِ اضافه داشت.
+    // برای OutsideTable، فقط بر اساسِ محتوایِ واقعاً اندازه‌گیری‌شده
+    // (outsideTableContentWidth، نه یک فرضِ ثابتِ به‌ازایِ هر ستون) عریض
+    // می‌شود.
+    final bool manyColumnsNeedRoom =
+        !isOutsideTable &&
+        maxColumnCount > 1 &&
+        columnHeuristicWidth > canvasWidth;
+    final bool embeddedImageNeedsRoom = isOutsideTable
+        ? outsideTableContentWidth > canvasWidth
+        : widestContentWidth > canvasWidth;
+    if ((manyColumnsNeedRoom || embeddedImageNeedsRoom) &&
+        neededWidth > canvasWidth) {
+      final double renderWidth = neededWidth.clamp(
+        canvasWidth,
+        canvasWidth * 3,
+      );
+      // 🐞 رفع کرش «Scrollbar's ScrollController has no ScrollPosition
+      // attached»: بدون controllerِ صریح، Scrollbar به PrimaryScrollController
+      // برمی‌گردد که به این SingleChildScrollViewِ افقیِ تودرتو وصل نیست.
+      tableContainer = _HScrollBox(
+        // 🐞 این‌جا قبلاً یک Padding(bottom: 14) بود تا نوارِ اسکرول روی
+        // لبه‌ی پایینیِ بوردرِ جدول لَم ندهد. ولی بعد از فیکسِ قبلی (که
+        // marginِ ۱۴پیکسلیِ جدول را از داخلِ بوردر به بیرونش منتقل کرد)،
+        // همان margin — که خودش داخلِ همین ناحیه‌ی اسکرول است — دقیقاً
+        // همین جدایی را فراهم می‌کند. پس این Padding تکراری شده بود و
+        // ۱۴+۱۴=۲۸ پیکسل فاصله می‌ساخت؛ حذف شد تا فقط همان ۱۴ بماند.
+        child: SizedBox(width: renderWidth, child: tableContainer),
+      );
+    }
+  }
+
+  // 🐞 CommonTable (WidthMode="natural"): تصمیمِ اسکرولِ افقی داده‌محور و
+  // قطعی است — مجموعِ عرضِ مطلقِ ستون‌ها (WidthPt، ۱pt=۱px) را با عرضِ
+  // دستگاه مقایسه می‌کنیم. اگر بزرگ‌تر بود، جدول با عرضِ طبیعی‌اش داخلِ اسکرولِ
+  // افقی می‌رود (ستون‌ها له نمی‌شوند)؛ اگر جا می‌شد، با همان عرضِ طبیعی و
+  // چپ‌چین رندر می‌شود (کش نمی‌آید، عیناً مثلِ سند). این‌جا نه حدسِ محتوا لازم
+  // است نه حاشیه‌ی امن — عددِ واقعیِ سند را داریم.
+  if (resolvedWidthMode == "natural") {
+    double naturalTableWidth = 0;
+    for (final row in tableSpan.tableRows) {
+      double rowW = 0;
+      for (final c in row.cells) {
+        // همان safetyِ عرضِ ستون را این‌جا هم جمع می‌زنیم تا مجموعِ عرض با
+        // عرضِ واقعیِ رندرشده بخواند (وگرنه تصمیمِ اسکرول/عرضِ SizedBox کمتر
+        // از عرضِ واقعیِ جدول می‌شد و آخرین ستون بریده/جمع می‌شد).
+        final double? cwpt = c.widthPt;
+        rowW += (cwpt != null && cwpt > 0) ? cwpt + _kNaturalColSafetyPx : 0;
+      }
+      if (rowW > naturalTableWidth) naturalTableWidth = rowW;
+    }
+
+    if (naturalTableWidth > 0) {
+      // 🐞 تصمیمِ scroll/fit را با عرضِ *واقعیِ در دسترس* می‌گیریم نه canvasWidthِ
+      // بیرونی. جدولِ تودرتو (مثلِ Societies تمرین۷ ص۳۷ داخلِ ستونِ چپِ چیدمانِ
+      // دو ستونی) canvasWidth را از کلِ صفحه می‌گرفت و روی نمایشگرِ عریض با عرضِ
+      // طبیعی رندر می‌شد و از ستونش بیرون می‌زد (می‌رفت زیرِ TIP). با LayoutBuilder
+      // عرضِ همان سلول را می‌گیریم: اگر جا نشد، داخلِ خودش اسکرولِ افقی می‌گیرد؛
+      // اگر جا شد، با عرضِ طبیعی. دیگر هیچ‌وقت از ظرفش سرریز نمی‌کند.
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final double avail = constraints.maxWidth.isFinite
+              ? constraints.maxWidth
+              : canvasWidth;
+          if (naturalTableWidth > avail + 0.5) {
+            // 🐞 وقتی جدول از عرضِ در دسترس بزرگ‌تر است:
+            // - نمایشگرِ عریض → shrink-to-fit: کلِ جدول (متن هم) یکنواخت کوچک
+            //   می‌شود تا کامل جا شود (روی صفحه‌ی بزرگ رزولوشن هست و جاشدن بهتر
+            //   از اسکرول است). FittedBox با scaleDown فقط کوچک می‌کند نه بزرگ.
+            // - نمایشگرِ باریک (گوشی) → اسکرولِ افقی، چون کوچک‌کردن متن را
+            //   ناخوانا می‌کند (کاربر قبلاً squish/shrink روی گوشی را نمی‌خواست).
+            if (isLargeScreen) {
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    width: naturalTableWidth,
+                    child: tableContainer,
+                  ),
+                ),
+              );
+            }
+            return _HScrollBox(
+              child: SizedBox(width: naturalTableWidth, child: tableContainer),
+            );
+          }
+          return Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(width: naturalTableWidth, child: tableContainer),
+          );
+        },
+      );
+    }
+  }
+
+  if (isBorderedTable && tableSpan.tableWidthPercent != null) {
+    if (isLargeScreen) {
+      Alignment tableAlign = Alignment.centerLeft;
+      if (tableSpan.tableAlignment == "center") tableAlign = Alignment.center;
+      if (tableSpan.tableAlignment == "right") {
+        tableAlign = Alignment.centerRight;
+      }
+      return Align(
+        alignment: tableAlign,
+        child: SizedBox(
+          width: canvasWidth * (tableSpan.tableWidthPercent! / 100),
+          child: tableContainer,
+        ),
+      );
+    } else {
+      if (tableSpan.tableWidthPercent! < 40) {
+        return Align(
+          alignment: Alignment.center,
+          child: SizedBox(width: canvasWidth * 0.6, child: tableContainer),
+        );
+      }
+      return tableContainer;
+    }
+  }
+  return tableContainer;
+}
+
+List<InlineSpan> _buildStyledInteractiveText(
+  SpanData span,
+  List<InteractiveWord> interactives,
+  BuildContext context, {
+  bool isInsideTableCell = false,
+  required ParagraphData para,
+  List<int>? localMap,
+  int? activeOccurrence,
+  GlobalKey? exactMatchKey,
+  RegExp? interactivesPattern,
+  Map<String, InteractiveWord>? interactivesByText,
+  List<String> pageAudioPlaylist = const [],
+  Map<String, AudioLocation> audioFirstOccurrence = const {},
+  int? audioPageNumber,
+  int? audioParaIndex,
+  KeyClaim? keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
+}) {
+  double fontSize = 14.0;
+  String? fontFamily;
+  for (var marker in span.markers) {
+    if (marker.startsWith("sz:")) {
+      double? parsedSize = double.tryParse(marker.substring(3));
+      if (parsedSize != null) fontSize = parsedSize / 2;
+    } else if (marker.startsWith("fn:")) {
+      fontFamily = mapFontFamily(marker.substring(3));
+    }
+  }
+
+  Color? effectiveBgColor =
+      _hexToColor(span.fillColor) ?? _hexToColor(para.fillColor);
+  Color interactiveColor = Colors.blue;
+  if (effectiveBgColor != null) {
+    interactiveColor = effectiveBgColor.computeLuminance() < 0.4
+        ? Colors.lightBlueAccent
+        : Colors.blue.shade900;
+  }
+  Color? customTextColor = _hexToColor(span.textColor);
+  bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
+  if (isAudioLink) customTextColor = interactiveColor;
+
+  // 🌟 اصلاح اساسی: تشخیص بسیار منعطف‌تر برای رسم باکس اطراف تکه متن
+  final String bordersStr =
+      span.hasBorders?.toString().toLowerCase().trim() ?? "false";
+  bool hasBorderFlag = bordersStr == "true" || bordersStr == "1";
+  bool hasBorderObject = span.borders != null;
+
+  // اگر در JSON به هر شکلی به حاشیه اشاره شده باشد (یا فلگ true باشد یا آبجکت borders وجود داشته باشد)
+  bool isInlineBorder = hasBorderFlag || hasBorderObject;
+
+  // 🐞 مارکرهای جدیدِ متن: خط‌خورده (s) و زیرنویس/بالانویس (sub/sup).
+  // sub/sup در فلاتر معادلِ مستقیم ندارند: اندازه را کوچک می‌کنیم و با
+  // fontFeatures از فونت رقمِ sub/sup می‌خواهیم (اگر فونت پشتیبانی نکند فقط
+  // کوچک می‌ماند، خراب نمی‌شود). چند decoration با combine جمع می‌شوند.
+  final bool _mStrike = span.markers.contains("s");
+  final bool _mSub = span.markers.contains("sub");
+  final bool _mSup = span.markers.contains("sup");
+  final List<TextDecoration> _mDecos = [
+    if (span.markers.contains("u")) TextDecoration.underline,
+    if (_mStrike) TextDecoration.lineThrough,
+  ];
+
+  TextStyle baseStyle = TextStyle(
+    fontSize: (_mSub || _mSup) ? fontSize * 0.75 : fontSize,
+    fontFeatures: _mSup
+        ? const [FontFeature('sups')]
+        : (_mSub ? const [FontFeature('subs')] : null),
+    fontFamily: fontFamily,
+    color: customTextColor ?? Colors.black87,
+    // 🌟 فاصله‌ی خطوط از Word؛ اما اگر همین span پس‌زمینه‌ی رنگی دارد، حداقلِ
+    // ۱٫۴ اعمال می‌شود تا رنگِ خطوطِ پشتِ‌هم به هم نچسبند (وگرنه Word با تک‌فاصله
+    // خطوط را طوری می‌چسباند که پس‌زمینه‌ها به هم می‌رسند).
+    height: (!isInlineBorder && _hexToColor(span.fillColor) != null)
+        ? (para.lineSpacing ?? 1.3).clamp(1.4, 3.0)
+        : (para.lineSpacing ?? 1.3),
+    // 🌟 اگر قرار است باکس داشته باشیم، رنگ پس‌زمینه را به Container می‌دهیم نه به استایلِ متن
+    backgroundColor: !isInlineBorder ? _hexToColor(span.fillColor) : null,
+    fontWeight: span.markers.contains("b")
+        ? FontWeight.bold
+        : FontWeight.normal,
+    fontStyle: span.markers.contains("i") ? FontStyle.italic : FontStyle.normal,
+    decoration: _mDecos.isEmpty
+        ? TextDecoration.none
+        : TextDecoration.combine(_mDecos),
+  );
+
+  List<InlineSpan> interactiveSpans = [];
+  // 🌟 اگر این span فقط یک توکنِ کوتاهِ رنگی است (مثلِ جای‌خالی‌های "___" یا یک
+  // کلمه‌ی تکی هایلایت‌شده، بدون فاصله)، آن را به‌جای TextStyle.backgroundColor
+  // (که جعبه‌ی رنگ را دقیقاً به اندازه‌ی «خط» می‌کشد و بین خطوطِ متوالی هیچ فاصله‌ای
+  // نمی‌گذارد) با یک Container+padding عمودی رسم می‌کنیم — این تنها راهی است که در
+  // فلاتر واقعاً بینِ پس‌زمینه‌ی خطوطِ پشتِ‌هم فاصله‌ی دیداری ایجاد می‌کند.
+  final String _content = (span.content ?? "").trim();
+  final bool _isSafeHighlightToken =
+      !isInlineBorder &&
+      _hexToColor(span.fillColor) != null &&
+      _content.isNotEmpty &&
+      _content.length <= 20 &&
+      !_content.contains(' ') &&
+      (span.innerSpans.isEmpty);
+
+  if (isAudioLink) {
+    interactiveSpans.add(
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: InlineAudioLink(
+          fileName: span.url!.replaceFirst("audio:", ""),
+          text: span.content ?? "",
+          baseColor: interactiveColor,
+          playlist: pageAudioPlaylist,
+          firstOccurrence: audioFirstOccurrence,
+          pageNumber: audioPageNumber,
+          paraIndex: audioParaIndex,
+        ),
+      ),
+    );
+  } else if (_isSafeHighlightToken) {
+    interactiveSpans.add(
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 2.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          decoration: BoxDecoration(
+            color: _hexToColor(span.fillColor),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          child: Text(
+            span.content ?? "",
+            style: baseStyle.copyWith(backgroundColor: null),
+          ),
+        ),
+      ),
+    );
+  } else {
+    interactiveSpans = TextRenderEngine.buildInteractiveText(
+      span.content ?? "",
+      interactives,
+      context,
+      baseStyle,
+      interactiveColor: interactiveColor,
+      localHighlightMap: localMap,
+      activeOccurrence: activeOccurrence,
+      translationFa: para.translationFa, // 🌟 حفظ پشتیبانی از ترجمه‌های دوزبانه
+      translationAr: para.translationAr,
+      innerSpans: span.innerSpans,
+      // 🐞 مارکرهای جدید (s/sub/sup): خودِ مارکرهای این اسپن هم رد می‌شوند تا
+      // مودال/بنرِ متنِ مخفی بداند چه چیزی از قبل داخلِ baseStyle اعمال شده و
+      // بتواند آن را برای متنِ آشکارشده و شماره‌ی لیست خنثی کند.
+      blankParentMarkers: span.markers,
+      exactMatchKey: isInlineBorder ? null : exactMatchKey,
+      // 🌟 وقتی محتوا قرار است داخل باکسِ border در یک Text.rich تودرتو
+      // بنشیند (خط ۱۶۵۹ به بعد)، کلید را نمی‌دهیم تا WidgetSpanِ دومی
+      // ساخته نشود. برای همه‌ی حالت‌های دیگر (آیکون چشم، جای‌خالی،
+      // لینک صوتی، کلمه‌ی معمولی) کلید واقعی داده می‌شود و دقتِ
+      // کلمه‌به‌کلمه‌ی قبلی برمی‌گردد.
+      interactivesPattern: interactivesPattern,
+      interactivesByText: interactivesByText,
+      sharedKeyClaim: keyClaim, // 🐞 رفع کرش: claim مشترکِ سطح پاراگراف
+      // 🐞 صفحه ۵ تمرین ۱۸: مارکرِ لیست فقط وقتی به مودالِ جای‌خالی پیش‌چسب
+      // شود که *کلِ پاراگراف* یک بلاکِ مخفی باشد (یعنی خودِ خط پنهان است و
+      // شماره در متنِ بیرون دیده نمی‌شود). برای جای‌خالیِ inline داخلِ آیتمِ
+      // لیست (مثلِ «Paragraph A {blk}ii{/blk}» که شماره‌اش بیرون دیده می‌شود)
+      // نباید «1:» به «ii» چسبانده شود؛ مودال باید فقط «ii» را نشان دهد.
+      // قبلاً شرط روی خودِ span بود، نه پاراگراف، و همین باعثِ «1: ii» می‌شد.
+      listMarker:
+          (para.keepListMarkerVisible != true &&
+              para.spans.length == 1 &&
+              _isWhollyOneBlank(para.spans.first.content))
+          ? para.listMarker
+          : null,
+    );
+  }
+
+  // 🌟 ساختاردهی به باکسی که در UI رندر می‌شود
+  if (isInlineBorder) {
+    return [
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: Container(
+          padding: isInsideTableCell
+              ? const EdgeInsets.symmetric(horizontal: 0.0, vertical: 1.0)
+              : const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+          margin: isInsideTableCell
+              ? const EdgeInsets.symmetric(horizontal: 0.0) //EdgeInsets.zero
+              : const EdgeInsets.symmetric(horizontal: 2.0),
+          decoration: BoxDecoration(
+            color: _hexToColor(span.fillColor), // تزریق رنگ پس‌زمینه به باکس
+            border: Border.all(
+              color: _hexToColor(span.borders?.color) ?? Colors.grey.shade600,
+              width:
+                  span.borders?.width ??
+                  1.2, // خواندن ضخامت از JSON در صورت وجود
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text.rich(TextSpan(children: interactiveSpans)),
+        ),
+      ),
+    ];
+  }
+
+  return interactiveSpans;
+}
+
+Widget _buildLocalImage(
+  String imageName, {
+  required bool isMobile,
+  required double screenWidth,
+  required bool isImageCell,
+  required BookModel? activeBook, // 🌟 اضافه شد
+  required BuildContext context, // 🌟 اضافه شد برای محاسبه‌ی cacheWidth
+  double? explicitWidth, // 🐞 برای تصاویر عریض که در اسکرول افقی رندر می‌شوند
+  double?
+  explicitHeight, // 🐞 CommonTable: ارتفاعِ صریح تا سلولِ فقط‌عکس جمع نشود
+}) {
+  final String baseImageName = imageName.split('/').last;
+  String fallbackPath = 'assets/data/testbook/images/$baseImageName';
+  File? localFile;
+
+  // 🌟 هوشمندی: خواندن از فایل آفلاین
+  if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
+    final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
+    // 🐞 درخواستِ کاربر: تصاویر در زیرپوشه‌ی images/ ذخیره می‌شوند. اول آن‌جا،
+    // سپس fallback به ریشه برای کتاب‌های قدیمیِ صافْ‌ذخیره‌شده.
+    final subFolderFile = File('$bookFolderPath/images/$baseImageName');
+    final flatFile = File('$bookFolderPath/$baseImageName');
+
+    if (subFolderFile.existsSync()) {
+      localFile = subFolderFile;
+    } else if (flatFile.existsSync()) {
+      localFile = flatFile;
+    }
+  }
+
+  final double? logicalWidth = explicitWidth;
+  // (isMobile) ? screenWidth * 0.85 : null;
+
+  // 🌟 رفع یک منبع واقعی و بزرگ جنک (تأییدشده با DevTools: میانگین ۲۶۷ms
+  // به ازای هر تصویر!): بدون cacheWidth، فلاتر تصویر را در رزولوشن اصلی
+  // فایل دیکود می‌کند، حتی اگر فایل چند برابر بزرگ‌تر از چیزی باشد که روی
+  // صفحه نشان داده می‌شود. این هم دیکود را کند می‌کند و هم حافظه‌ی زیادی
+  // برای یک بیت‌مپ بزرگ‌تر از نیاز نگه می‌دارد — که مستقیماً فشار GC را هم
+  // بالا می‌برد. با محدود کردن cacheWidth به اندازه‌ی واقعیِ نمایش (ضرب‌شده
+  // در devicePixelRatio دستگاه)، فلاتر مستقیماً در همان اندازه‌ی کوچک
+  // دیکود می‌کند.
+  final double dpr = MediaQuery.of(context).devicePixelRatio;
+  final int cacheWidth = ((logicalWidth ?? screenWidth) * dpr).round().clamp(
+    1,
+    4000,
+  );
+
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(isImageCell ? 0 : 6),
+      child: localFile != null
+          ? Image.file(
+              localFile,
+              fit: BoxFit.contain,
+              width: logicalWidth,
+              height: explicitHeight,
+              cacheWidth: cacheWidth, // 🌟 اضافه شد
+              errorBuilder: (context, error, stackTrace) =>
+                  _errorImage(imageName),
+            )
+          : Image.asset(
+              fallbackPath,
+              fit: BoxFit.contain,
+              width: logicalWidth,
+              height: explicitHeight,
+              cacheWidth: cacheWidth, // 🌟 اضافه شد
+              errorBuilder: (context, error, stackTrace) =>
+                  _errorImage(imageName),
+            ),
+    ),
+  );
+}
+// متد کمکی برای جلوگیری از تکرار کد خطا
+
+Widget _errorImage(String imageName) {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    color: Colors.grey[200],
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(Icons.broken_image, color: Colors.red),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            "Image not found: $imageName",
+            style: const TextStyle(fontSize: 12),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// 🐞 برای قابلیتِ «پلی‌لیستِ کتاب»: هر فایلِ صوتیِ یکتا در کتاب، به همراهِ
+// همه‌ی موقعیت‌هایی (صفحه+پاراگراف) که در آن‌ها ظاهر شده — چون یک فایل
+// می‌تواند در چند تمرین/جای مختلفِ کتاب استفاده شده باشد، ولی باید فقط
+// یک‌بار در لیستِ پخش بیاید.
+class BookAudioEntry {
+  final String resolvedPath;
+  final String fileName;
+  final List<AudioLocation> occurrences;
+  BookAudioEntry({
+    required this.resolvedPath,
+    required this.fileName,
+    required this.occurrences,
+  });
+}
+
+// یک اسکنِ یک‌باره از تمامِ صفحاتِ کتاب برای جمع‌آوریِ پلی‌لیستِ کتاب‌محور.
+// چون این کار روی کلِ کتاب است (نه فقط یک صفحه)، فراخوان (ReadingCanvas)
+// باید نتیجه‌اش را کش کند و به‌ازای هر rebuild دوباره صدا نزند.
+List<BookAudioEntry> buildBookAudioPlaylist(
+  List<PageData> pages,
+  BookModel? activeBook, {
+  // 🐞 شاخصِ از‌قبل‌محاسبه‌شده (AudioLinksIndex در index.json، سمتِ C#).
+  // اگر داده شود و خالی نباشد، پلی‌لیست مستقیم از رویِ همین ساخته می‌شود
+  // — بدونِ نیاز به گشتنِ محتوای هیچ صفحه‌ای، که دقیقاً همان چیزی است که
+  // لودِ تنبل/صفحه‌به‌صفحه (PagedBookStore) به آن نیاز دارد. اگر داده
+  // نشود یا خالی باشد (کتابی که هنوز با ابزارِ جدیدِ C# استخراج نشده)، به
+  // همان اسکنِ زنده‌ی قبلی برمی‌گردیم.
+  List<AudioLinkEntry>? precomputedIndex,
+}) {
+  final Map<String, BookAudioEntry> byPath = {};
+  final List<String> order = [];
+
+  void addOccurrence(
+    String resolved,
+    String fileName,
+    int pageNumber,
+    int paraIndex,
+  ) {
+    BookAudioEntry? entry = byPath[resolved];
+    if (entry == null) {
+      entry = BookAudioEntry(
+        resolvedPath: resolved,
+        fileName: fileName,
+        occurrences: [],
+      );
+      byPath[resolved] = entry;
+      order.add(resolved);
+    }
+    entry.occurrences.add(
+      AudioLocation(pageNumber: pageNumber, paraIndex: paraIndex),
+    );
+  }
+
+  if (precomputedIndex != null && precomputedIndex.isNotEmpty) {
+    for (final entry in precomputedIndex) {
+      final resolved = InlineAudioLink.resolveAudioPath(
+        entry.fileName,
+        activeBook,
+      );
+      addOccurrence(
+        resolved,
+        entry.fileName,
+        entry.pageNumber,
+        entry.paraIndex,
+      );
+    }
+    return order.map((k) => byPath[k]!).toList();
+  }
+
+  // 🐞 رفع باگِ «پلی‌لیست فقط یک فایل نشان می‌دهد»: قبلاً فقط اسپن‌های
+  // سطحِ‌بالای خودِ پاراگراف چک می‌شد؛ چون اکثرِ تمرین‌های این کتاب داخلِ
+  // یک جدول‌اند (BorderedTable/NormalTable/...)، دکمه‌های صوتیِ داخلِ
+  // سلول‌های جدول اصلاً دیده نمی‌شدند. حالا اگر اسپن از نوعِ «table» باشد،
+  // به‌صورتِ بازگشتی داخلِ سلول‌هایش (و جدول‌های تودرتوی احتمالیِ داخلِ
+  // همان سلول‌ها) هم می‌گردد — ولی همیشه pageNumber/paraIndex همان
+  // پاراگرافِ بیرونی را گزارش می‌دهد (نه اندیسِ داخلیِ سلول)، چون این دقیقاً
+  // همان قراردادی است که هنگامِ رندر هم برای audioPageNumber/audioParaIndex
+  // استفاده می‌شود — در غیرِ این صورت هدفِ پرش معتبر نبود.
+  void scanSpans(List<SpanData> spans, int pageNumber, int topParaIndex) {
+    for (final s in spans) {
+      if (s.url != null && s.url!.startsWith("audio:")) {
+        final fileName = s.url!.replaceFirst("audio:", "");
+        if (fileName.isNotEmpty) {
+          final resolved = InlineAudioLink.resolveAudioPath(
+            fileName,
+            activeBook,
+          );
+          addOccurrence(resolved, fileName, pageNumber, topParaIndex);
+        }
+      }
+      // 🐞 "layout" هم پیمایش شود، وگرنه لینک‌های صوتیِ داخلِ
+      // ColumnStackTable پیدا نمی‌شوند.
+      if (s.type == "table" || s.type == "layout") {
+        for (final row in s.tableRows) {
+          for (final cell in row.cells) {
+            for (final p in cell.paragraphs) {
+              scanSpans(p.spans, pageNumber, topParaIndex);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  for (final page in pages) {
+    for (int pIndex = 0; pIndex < page.paragraphs.length; pIndex++) {
+      scanSpans(page.paragraphs[pIndex].spans, page.pageNumber, pIndex);
+    }
+  }
+
+  return order.map((k) => byPath[k]!).toList();
+}
+
+// اولین وقوعِ هر فایل، برای رفتارِ sequential (دکمه‌های قبلی/بعدی و خودِ
+// لیستِ پخش) — همان چیزی که AudioPlayerNotifier.playFile وقتی
+// explicitLocation پاس داده نشود استفاده می‌کند.
+Map<String, AudioLocation> bookAudioFirstOccurrence(
+  List<BookAudioEntry> entries,
+) {
+  return {for (final e in entries) e.resolvedPath: e.occurrences.first};
+}
+
+class InlineAudioLink extends ConsumerWidget {
+  final String fileName;
+  final String text;
+  final Color baseColor;
+  // 🌟 پلی‌لیستِ همه‌ی فایل‌های صوتیِ کتاب (مسیرهای resolve‌شده)، تا
+  // دکمه‌های بعدی/قبلی در پلیر واقعاً چیزی برای رفتن داشته باشند. قبلاً هر
+  // لینک هنگام پخش فقط خودش را به‌عنوان یک پلی‌لیستِ تک‌عضوی می‌فرستاد، پس
+  // دکمه‌ی بعدی/قبلی همیشه در انتهای لیست بود و کاری نمی‌کرد.
+  final List<String> playlist;
+  // 🐞 اولین وقوعِ هر فایل در کتاب — همراهِ پلی‌لیست به پلیر پاس داده
+  // می‌شود تا وقتی از طریقِ قبلی/بعدی به این فایل رسیدیم، دکمه‌ی «برو به
+  // متن» بداند به کجا برود.
+  final Map<String, AudioLocation> firstOccurrence;
+  // 🐞 موقعیتِ خودِ همین دکمه در کتاب (صفحه + اندیسِ پاراگراف) — وقتی خودِ
+  // همین دکمه تپ شود، این دقیقاً همان جایی است که «برو به متن» باید به آن
+  // برگردد، نه لزوماً اولین وقوعِ فایل.
+  final int? pageNumber;
+  final int? paraIndex;
+
+  const InlineAudioLink({
+    super.key,
+    required this.fileName,
+    required this.text,
+    required this.baseColor,
+    this.playlist = const [],
+    this.firstOccurrence = const {},
+    this.pageNumber,
+    this.paraIndex,
+  });
+
+  // 🌟 رفع مشکل لرزش/جنکِ اسکرول هنگام پخش صدا:
+  //
+  // قبلاً این ویجت با `ref.watch(audioPlayerProvider)` کل شیء وضعیت پلیر
+  // را نگاه می‌کرد. چون `position` چندین بار در ثانیه تغییر می‌کند، این
+  // یعنی همه‌ی لینک‌های صوتی مونتاژشده روی صفحه (حتی آن‌هایی که اصلاً در
+  // حال پخش نیستند و AutomaticKeepAliveClientMixin آن‌ها را زنده نگه
+  // داشته) با هر تیکِ پخش دوباره rebuild می‌شدند — و هر rebuild هم شامل
+  // یک چک هم‌زمانِ فایل‌سیستم (`existsSync`) و خواندن از GetStorage بود.
+  // نتیجه دقیقاً همان لرزشی بود که هنگام اسکرول + پخش صدا حس می‌کردید،
+  // چون این کارها روی UI thread رقیب اسکرول می‌شدند.
+  //
+  // راه‌حل: فقط فیلدهای کم‌تغییر (currentPath، isPlaying) را همیشه watch
+  // می‌کنیم؛ فیلد پرتغییر (position/duration) را فقط وقتی این لینکِ خاص
+  // همان فایل در حال پخش است می‌خوانیم. یعنی از بین ده‌ها لینک صوتیِ
+  // ممکن روی صفحه، فقط همان یکی که واقعاً پخش می‌شود با هر تیک rebuild
+  // می‌شود، نه همه‌شان.
+  static final Map<String, String> _resolvedPathCache = {};
+
+  // 🌟 اکنون static و public (بدون آندرلاین) تا _buildParaWidgets هم
+  // بتواند برای ساختن پلی‌لیستِ کل صفحه از همین منطق resolve استفاده کند
+  // (و از همان کش مشترک بهره ببرد، بدون نیاز به existsSync تکراری).
+  static String resolveAudioPath(String fileName, BookModel? activeBook) {
+    final cacheKey = '${activeBook?.id ?? ''}::$fileName';
+    return _resolvedPathCache.putIfAbsent(cacheKey, () {
+      // fileName ممکن است خودش شاملِ مسیرِ زیرپوشه باشد یا فقط نامِ فایل؛
+      // فقط نامِ پایه را برمی‌داریم تا مسیرها را خودمان بسازیم.
+      final baseName = fileName.split('/').last;
+      String targetPath = 'assets/data/audio/$baseName';
+      if (activeBook != null && activeBook.activeJsonPath.isNotEmpty) {
+        final bookFolderPath = File(activeBook.activeJsonPath).parent.path;
+        // 🐞 درخواستِ کاربر: صوت‌ها در زیرپوشه‌ی audio/ ذخیره می‌شوند. اول
+        // آن‌جا را می‌جوییم؛ اگر نبود (کتابِ قدیمی که صافْ‌ذخیره شده) به ریشه
+        // fallback می‌کنیم تا دانلودهای قبلی نشکنند.
+        final subFolderFile = File('$bookFolderPath/audio/$baseName');
+        final flatFile = File('$bookFolderPath/$baseName');
+        if (subFolderFile.existsSync()) {
+          targetPath = subFolderFile.path;
+        } else if (flatFile.existsSync()) {
+          targetPath = flatFile.path;
+        }
+      }
+      return targetPath;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // فیلدهای کم‌تغییر — فقط وقتی پخش شروع/متوقف/عوض شود rebuild می‌کند
+    final currentPath = ref.watch(
+      audioPlayerProvider.select((s) => s.currentPath),
+    );
+    final isPlayingGlobal = ref.watch(
+      audioPlayerProvider.select((s) => s.isPlaying),
+    );
+    final activeBook = ref.watch(activeBookProvider);
+
+    // 🌟 دیگر هر بار existsSync صدا زده نمی‌شود؛ فقط یک‌بار برای هر فایل
+    final targetPath = InlineAudioLink.resolveAudioPath(fileName, activeBook);
+
+    bool isCurrent = currentPath == targetPath;
+    bool isPlaying = isCurrent && isPlayingGlobal;
+
+    final storagePosKey = 'pos_$targetPath';
+    final storageDurKey = 'dur_$targetPath';
+
+    int currentPosMs;
+    int currentDurMs;
+    if (isCurrent) {
+      // 🌟 فقط همینجا (فقط برای لینکِ در حال پخش) فیلد پرتغییر را watch کن
+      currentPosMs = ref.watch(
+        audioPlayerProvider.select((s) => s.position.inMilliseconds),
+      );
+      currentDurMs = ref.watch(
+        audioPlayerProvider.select((s) => s.duration.inMilliseconds),
+      );
+      if (currentDurMs <= 0) {
+        currentDurMs = GetStorage().read(storageDurKey) ?? 0;
+      }
+    } else {
+      final box = GetStorage();
+      currentPosMs = box.read(storagePosKey) ?? 0;
+      currentDurMs = box.read(storageDurKey) ?? 0;
+    }
+
+    double progress = currentDurMs > 0
+        ? (currentPosMs / currentDurMs).clamp(0.0, 1.0)
+        : 0.0;
+
+    return GestureDetector(
+      onTap: () {
+        if (isPlaying) {
+          ref.read(audioPlayerProvider.notifier).pause();
+        } else {
+          // 🌟 رفع باگ دکمه‌های بعدی/قبلی: قبلاً اینجا `newPlaylist:
+          // [targetPath]` فرستاده می‌شد — یعنی یک پلی‌لیستِ تک‌عضوی که
+          // خودش تنها عضوش بود. چون playNext/playPrevious بر اساس
+          // اندیسِ فایل فعلی در همین لیست حرکت می‌کنند، همیشه یا اول یا
+          // آخر لیست بودیم و دکمه‌ها هیچ‌وقت جایی برای رفتن نداشتند. حالا
+          // پلی‌لیستِ واقعیِ همه‌ی لینک‌های صوتیِ این صفحه (به ترتیب ظاهر
+          // شدنشان در متن) پاس داده می‌شود.
+          final effectivePlaylist = playlist.contains(targetPath)
+              ? playlist
+              : [targetPath];
+          final AudioLocation? thisLocation =
+              (pageNumber != null && paraIndex != null)
+              ? AudioLocation(pageNumber: pageNumber!, paraIndex: paraIndex!)
+              : null;
+          ref
+              .read(audioPlayerProvider.notifier)
+              .playFile(
+                targetPath,
+                newPlaylist: effectivePlaylist,
+                newFirstOccurrence: firstOccurrence,
+                // 🐞 خودِ همین دکمه تپ شده → این دقیقاً وقوعِ موردنظرِ
+                // کاربر است، نه صرفاً اولین وقوعِ فایل.
+                explicitLocation: thisLocation,
+              );
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.only(left: 4.0, top: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        decoration: BoxDecoration(
+          color: baseColor.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: baseColor.withOpacity(0.3)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 22,
+              height: 22,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    value: progress,
+                    strokeWidth: 2.5,
+                    backgroundColor: baseColor.withOpacity(0.2),
+                    valueColor: AlwaysStoppedAnimation<Color>(baseColor),
+                  ),
+                  Icon(
+                    isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                    size: 16,
+                    color: baseColor,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8.0),
+            Text(
+              text,
+              style: TextStyle(
+                color: baseColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                letterSpacing: 0.5,
+              ),
+              overflow: TextOverflow.ellipsis, // 🌟 اگر جا نبود نقطه‌چین می‌شود
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TranslatableContentWrapper extends ConsumerStatefulWidget {
+  final Widget originalContent;
+  final String? translationFa;
+  final String? translationAr;
+  final bool isDarkMode;
+  const TranslatableContentWrapper({
+    super.key,
+    required this.originalContent,
+    this.translationFa,
+    this.translationAr,
+    this.isDarkMode = false,
+  });
+  @override
+  ConsumerState<TranslatableContentWrapper> createState() =>
+      _TranslatableContentWrapperState();
+}
+
+class _TranslatableContentWrapperState
+    extends ConsumerState<TranslatableContentWrapper> {
+  bool _showTranslation = false;
+  @override
+  Widget build(BuildContext context) {
+    bool hasTranslation =
+        (widget.translationFa != null && widget.translationFa!.isNotEmpty) ||
+        (widget.translationAr != null && widget.translationAr!.isNotEmpty);
+    if (!hasTranslation) return widget.originalContent;
+
+    // 🌟 دوزبانه: بر اساس زبانِ انتخابی، ترجمه‌ی فارسی یا عربی را نشان بده
+    // (اگر ترجمه‌ی زبانِ انتخابی خالی بود، به زبانِ دیگر برگرد تا خالی نماند)
+    final lang = ref.watch(languageProvider);
+    final bool preferAr = lang == 'ar';
+    final String? primary = preferAr
+        ? widget.translationAr
+        : widget.translationFa;
+    final String? secondary = preferAr
+        ? widget.translationFa
+        : widget.translationAr;
+    final String finalTranslation = (primary?.isNotEmpty ?? false)
+        ? primary!
+        : (secondary ?? '');
+    Color bgColor = widget.isDarkMode
+        ? Colors.white.withOpacity(0.08)
+        : Colors.blue.withOpacity(0.05);
+    Color borderColor = widget.isDarkMode
+        ? Colors.orangeAccent
+        : Colors.blueAccent;
+    Color textColor = widget.isDarkMode
+        ? Colors.white.withOpacity(0.9)
+        : Colors.black87;
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onLongPress: () => setState(() => _showTranslation = !_showTranslation),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            widget.originalContent,
+            AnimatedCrossFade(
+              firstChild: const SizedBox(width: double.infinity, height: 0),
+              secondChild: Container(
+                margin: const EdgeInsets.only(top: 6, bottom: 6),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  border: Border(
+                    right: BorderSide(color: borderColor, width: 3),
+                  ),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  finalTranslation,
+                  textAlign: TextAlign.right,
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(
+                    fontFamily: 'YekanBakh',
+                    fontSize: 14,
+                    height: 1.6,
+                    color: textColor,
+                  ),
+                ),
+              ),
+              crossFadeState: _showTranslation
+                  ? CrossFadeState.showSecond
+                  : CrossFadeState.showFirst,
+              duration: const Duration(milliseconds: 300),
+              sizeCurve: Curves.easeInOutCubic,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
