@@ -138,21 +138,55 @@ class AudioPlayerBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final audioState = ref.watch(audioPlayerProvider);
 
-    // اگر فایلی برای پخش وجود ندارد، نوار را مخفی کن
-    if (audioState.currentPath == null) return const SizedBox.shrink();
+    // 🐞 مشکلِ گزارش‌شده: با دکمه‌ی back این نوار بسته می‌شد ولی کاربر متوجه
+    // نمی‌شد و فکر می‌کرد back کار نکرده. سه چیز با هم عوض شد:
+    // (۱) ناپدیدشدن حالا انیمیشن دارد — قبلاً یک return ناگهانیِ
+    //     SizedBox.shrink بود که در یک فریم محو می‌شد و چشم نمی‌گرفتش.
+    //     AnimatedSwitcher + SizeTransition نوار را به‌سمتِ بالا جمع می‌کند،
+    //     یعنی حرکتی که حتی در دیدِ محیطی هم دیده می‌شود.
+    // (۲) رنگِ پس‌زمینه از سفیدِ خالص (دقیقاً همرنگِ صفحه‌ی کتاب) به یک
+    //     تهْ‌رنگِ نیلی + یک خطِ ضخیمِ نیلی در لبه‌ی پایین تغییر کرد، تا تا
+    //     وقتی باز است هم به‌وضوح «یک لایه‌ی جدا» دیده شود.
+    // (۳) پیامِ صریح موقعِ بسته‌شدن — در reader_screen.dart.
+    // نکته: AnimatedSwitcher عمداً بیرونِ شرط است تا هنگامِ بسته‌شدن، ویجتِ
+    // قدیمی تا پایانِ انیمیشن زنده بماند؛ اگر مثلِ قبل زودتر return می‌کردیم
+    // چیزی برای انیمیشن‌دادن باقی نمی‌ماند.
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 280),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeInCubic,
+      transitionBuilder: (child, animation) => SizeTransition(
+        sizeFactor: animation,
+        axisAlignment: -1.0,
+        child: FadeTransition(opacity: animation, child: child),
+      ),
+      child: audioState.currentPath == null
+          ? const SizedBox.shrink(key: ValueKey('audioBarHidden'))
+          : _buildBar(context, ref, audioState),
+    );
+  }
 
+  Widget _buildBar(
+    BuildContext context,
+    WidgetRef ref,
+    AudioPlayerState audioState,
+  ) {
     return GestureDetector(
+      key: const ValueKey('audioBarVisible'),
       onTap: () => _showFullPlayerModal(context, ref),
       child: Container(
         height: 56,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.indigo.shade50,
+          border: const Border(
+            bottom: BorderSide(color: Colors.indigo, width: 3),
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 6,
-              offset: const Offset(0, 2),
+              color: Colors.black.withOpacity(0.14),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
             ),
           ],
         ),

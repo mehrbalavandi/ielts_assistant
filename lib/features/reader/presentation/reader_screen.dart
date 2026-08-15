@@ -53,6 +53,54 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     });
   }
 
+  /// 🐞 مشکلِ گزارش‌شده: دکمه‌ی back اول جستجو/پلیر را می‌بست و بعد به
+  /// ویترین برمی‌گشت، ولی چون آن نوارها کم‌رنگ بودند و بدونِ انیمیشن محو
+  /// می‌شدند، کاربر فکر می‌کرد back اصلاً کار نکرده و دوباره می‌زد.
+  ///
+  /// انیمیشن و رنگِ پررنگ‌تر (پایین‌تر و در audio_player_bar.dart) نیمی از
+  /// راه‌حل‌اند؛ این پیامِ کوتاه نیمِ دیگر است، چون تنها چیزی است که *صریحاً*
+  /// می‌گوید چه اتفاقی افتاد و قدمِ بعدی چیست. بدونِ آن، کاربر باید از رویِ
+  /// یک تغییرِ بصری حدس بزند.
+  ///
+  /// hideCurrentSnackBar عمدی است: با دو بار back پشتِ‌سرِ هم (اول جستجو،
+  /// بعد پلیر) پیامِ دوم باید فوراً جایگزینِ اولی شود، نه این‌که پشتِ آن صف
+  /// بکشد و دیر نشان داده شود.
+  void _announceDismissal(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          duration: const Duration(milliseconds: 2200),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.indigo.shade700,
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          content: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.keyboard_return_rounded,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    '$message — برای بازگشت به ویترین دوباره برگردید',
+                    style: const TextStyle(fontSize: 13, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+  }
+
   @override
   void dispose() {
     // 🐞 با بسته‌شدنِ صفحه‌ی کتاب، ایزوله‌ی دائمیِ decode هم باید کشته شود.
@@ -85,8 +133,10 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
         if (didPop) return;
         if (searchSession != null) {
           ref.read(activeSearchProvider.notifier).state = null;
+          _announceDismissal('نوارِ جستجو بسته شد');
         } else if (audioState.currentPath != null) {
           ref.read(audioPlayerProvider.notifier).stopAndClear();
+          _announceDismissal('پخشِ صوت متوقف شد');
         }
       },
       child: Scaffold(
@@ -156,80 +206,106 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
         // استفاده کند. چون آن SearchSession عمداً query خالی دارد (تا
         // هایلایتِ متن فعال نشود)، همین را برای تشخیصِ «این یک جستجوی واقعی
         // است، نه صرفاً یک پرش» هم به کار می‌بریم.
-        bottomNavigationBar:
-            searchSession != null && searchSession.query.isNotEmpty
-            ? Container(
-                color: Colors.indigo.shade50,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 4,
-                ),
-                child: SafeArea(
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.indigo,
-                              ),
-                              onPressed:
-                                  searchSession.currentIndex <
-                                      searchSession.results.length - 1
-                                  ? () =>
-                                        ref
-                                            .read(activeSearchProvider.notifier)
-                                            .state = searchSession.copyWith(
-                                          currentIndex:
-                                              searchSession.currentIndex + 1,
-                                        )
-                                  : null,
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.keyboard_arrow_up,
-                                color: Colors.indigo,
-                              ),
-                              onPressed: searchSession.currentIndex > 0
-                                  ? () =>
-                                        ref
-                                            .read(activeSearchProvider.notifier)
-                                            .state = searchSession.copyWith(
-                                          currentIndex:
-                                              searchSession.currentIndex - 1,
-                                        )
-                                  : null,
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.indigo,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.close,
-                            color: Colors.redAccent,
-                          ),
-                          onPressed: () =>
-                              ref.read(activeSearchProvider.notifier).state =
-                                  null,
-                        ),
-                      ],
+        // 🐞 همان مشکل، سمتِ پایینِ صفحه: قبلاً این اسلات مستقیماً بینِ
+        // Container و null جابه‌جا می‌شد، یعنی نوار در یک فریم ناپدید
+        // می‌شد. AnimatedSwitcher نگهش می‌دارد تا انیمیشنِ جمع‌شدن تمام
+        // شود (axisAlignment: 1.0 یعنی به‌سمتِ پایین جمع می‌شود، جهتی که
+        // با محلِ خودِ نوار جور است). رنگ هم از shade50 به shade100 و یک
+        // خطِ ضخیمِ نیلی در لبه‌ی بالا تغییر کرد تا از صفحه‌ی کتاب جدا
+        // دیده شود.
+        bottomNavigationBar: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 280),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          transitionBuilder: (child, animation) => SizeTransition(
+            sizeFactor: animation,
+            axisAlignment: 1.0,
+            child: FadeTransition(opacity: animation, child: child),
+          ),
+          child: searchSession != null && searchSession.query.isNotEmpty
+              ? Container(
+                  key: const ValueKey('searchNavBarVisible'),
+                  decoration: BoxDecoration(
+                    color: Colors.indigo.shade100,
+                    border: const Border(
+                      top: BorderSide(color: Colors.indigo, width: 3),
                     ),
                   ),
-                ),
-              )
-            : null,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
+                  child: SafeArea(
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.indigo,
+                                ),
+                                onPressed:
+                                    searchSession.currentIndex <
+                                        searchSession.results.length - 1
+                                    ? () =>
+                                          ref
+                                              .read(
+                                                activeSearchProvider.notifier,
+                                              )
+                                              .state = searchSession.copyWith(
+                                            currentIndex:
+                                                searchSession.currentIndex + 1,
+                                          )
+                                    : null,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_up,
+                                  color: Colors.indigo,
+                                ),
+                                onPressed: searchSession.currentIndex > 0
+                                    ? () =>
+                                          ref
+                                              .read(
+                                                activeSearchProvider.notifier,
+                                              )
+                                              .state = searchSession.copyWith(
+                                            currentIndex:
+                                                searchSession.currentIndex - 1,
+                                          )
+                                    : null,
+                              ),
+                              const SizedBox(width: 12),
+                              Text(
+                                "${searchSession.currentIndex + 1} از ${searchSession.results.length}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.indigo,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.close,
+                              color: Colors.redAccent,
+                            ),
+                            onPressed: () =>
+                                ref.read(activeSearchProvider.notifier).state =
+                                    null,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(key: ValueKey('searchNavBarHidden')),
+        ),
         body: FutureBuilder<void>(
           future: _manifestFuture,
           builder: (context, snapshot) {
