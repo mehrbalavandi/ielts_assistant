@@ -254,9 +254,14 @@ class TextRenderEngine {
     // اسپنِ والد (مثلاً جای‌خالیِ بالانویس) روی base فیچرِ 'sups' گذاشته باشد،
     // هر InnerSpanِ غیرِ بالانویس هم بالانویس می‌ماند. با دادنِ لیستِ خالی
     // (که null نیست) مقدار واقعاً بازنویسی و خنثی می‌شود.
-    final List<FontFeature> _feat = isSup
-        ? const [FontFeature('sups')]
-        : (isSub ? const [FontFeature('subs')] : const <FontFeature>[]);
+    // 🌟 'smcp' (حروفِ کوچکِ بزرگ‌نما) می‌تواند هم‌زمان با بالا/زیرنویس باشد،
+    // پس لیست ساخته می‌شود نه یک ترنریِ انحصاری. لیستِ خالی عمدی است — دلیلش
+    // همان نکته‌ی copyWith(null) پایین‌تر.
+    final List<FontFeature> _feat = <FontFeature>[
+      if (isSup) const FontFeature('sups'),
+      if (isSub) const FontFeature('subs'),
+      if (span.markers.contains("smallcaps")) const FontFeature('smcp'),
+    ];
     final double _finalSize = (isSup || isSub) ? fontSize * 0.75 : fontSize;
 
     // 🐞 چند decoration هم‌زمان (مثلاً هم زیرخط هم خط‌خورده) با combine
@@ -286,6 +291,10 @@ class TextRenderEngine {
       decorationStyle: _uStyle,
       decorationColor: _uColor,
       decorationThickness: isUnderline ? span.underlineThickness : null,
+      // 🌟 فاصله‌ی حروف. صفرِ صریح لازم است نه null: با null مقدارِ base
+      // حفظ می‌شود و فاصله‌ی یک اسپن به اسپن‌های بعدی نشت می‌کند — دقیقاً
+      // همان تله‌ای که قبلاً با fontFeatures خوردیم.
+      letterSpacing: span.letterSpacing ?? 0.0,
       fontFeatures: _feat,
       color: color,
       backgroundColor: bgColor, // 🌟 اعمال رنگ پس‌زمینه به استایل نهایی

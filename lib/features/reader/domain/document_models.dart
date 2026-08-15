@@ -490,6 +490,9 @@ class SpanData {
   // مقدارها همان واژگانِ فلاتر هستند: solid/double/dotted/dashed/wavy.
   // همه nullable — کتاب‌های قبلاً استخراج‌شده این فیلدها را ندارند و باید
   // مثلِ قبل، زیرخطِ ساده‌ی هم‌رنگِ متن بگیرند.
+  // 🌟 فاصله‌ی بینِ حروف از ورد (w:spacing در rPr)، به پوینت. null یعنی عادی.
+  final double? letterSpacing;
+
   final String? underlineStyle;
   final double? underlineThickness;
   final String? underlineColor;
@@ -532,6 +535,7 @@ class SpanData {
     this.innerSpans = const [],
     this.fillColor,
     this.textColor,
+    this.letterSpacing,
     this.underlineStyle,
     this.underlineThickness,
     this.underlineColor,
@@ -566,6 +570,7 @@ class SpanData {
       innerSpans: innerList.map((e) => SpanData.fromJson(e)).toList(),
       fillColor: json['FillColor'],
       textColor: json['TextColor'],
+      letterSpacing: (json['LetterSpacing'] as num?)?.toDouble(),
       underlineStyle: json['UnderlineStyle'],
       underlineThickness: (json['UnderlineThickness'] as num?)?.toDouble(),
       underlineColor: json['UnderlineColor'],
@@ -604,6 +609,7 @@ class SpanData {
       innerSpans: innerSpans,
       fillColor: fillColor,
       textColor: textColor,
+      letterSpacing: letterSpacing,
       underlineStyle: underlineStyle,
       underlineThickness: underlineThickness,
       underlineColor: underlineColor,
