@@ -1443,6 +1443,9 @@ String mapFontFamily(String rawFontName) {
   if (normalized.contains("segoepr")) {
     return "Segoepr";
   }
+  if (normalized.contains("comic")) {
+    return "Comic";
+  }
   return "Source Sans 3";
 }
 
