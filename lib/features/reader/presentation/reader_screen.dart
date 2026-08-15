@@ -53,54 +53,6 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     });
   }
 
-  /// 🐞 مشکلِ گزارش‌شده: دکمه‌ی back اول جستجو/پلیر را می‌بست و بعد به
-  /// ویترین برمی‌گشت، ولی چون آن نوارها کم‌رنگ بودند و بدونِ انیمیشن محو
-  /// می‌شدند، کاربر فکر می‌کرد back اصلاً کار نکرده و دوباره می‌زد.
-  ///
-  /// انیمیشن و رنگِ پررنگ‌تر (پایین‌تر و در audio_player_bar.dart) نیمی از
-  /// راه‌حل‌اند؛ این پیامِ کوتاه نیمِ دیگر است، چون تنها چیزی است که *صریحاً*
-  /// می‌گوید چه اتفاقی افتاد و قدمِ بعدی چیست. بدونِ آن، کاربر باید از رویِ
-  /// یک تغییرِ بصری حدس بزند.
-  ///
-  /// hideCurrentSnackBar عمدی است: با دو بار back پشتِ‌سرِ هم (اول جستجو،
-  /// بعد پلیر) پیامِ دوم باید فوراً جایگزینِ اولی شود، نه این‌که پشتِ آن صف
-  /// بکشد و دیر نشان داده شود.
-  void _announceDismissal(String message) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          duration: const Duration(milliseconds: 2200),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.indigo.shade700,
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          content: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.keyboard_return_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    '$message — برای بازگشت به ویترین دوباره برگردید',
-                    style: const TextStyle(fontSize: 13, color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-  }
-
   @override
   void dispose() {
     // 🐞 با بسته‌شدنِ صفحه‌ی کتاب، ایزوله‌ی دائمیِ decode هم باید کشته شود.
@@ -121,6 +73,17 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     _ensureBookLoaded(activeBook);
     final pagedBookStore = _pagedBookStore!;
 
+    // 🐞 باگی که کاربر گرفت: قبلاً هم canPop و هم منطقِ دکمه‌ی back فقط
+    // `searchSession != null` را چک می‌کردند، ولی نوارِ جستجو با شرطِ
+    // سخت‌گیرانه‌ترِ `query.isNotEmpty` نمایش داده می‌شود. `_jumpToAudioLocation`
+    // (برای «پلی‌لیستِ کتاب») یک SearchSessionِ مصنوعی با query خالی می‌سازد تا
+    // فقط از مکانیزمِ اسکرول استفاده کند — پس بعد از هر پرشِ صوتی یک سشنِ
+    // نامرئی باقی می‌ماند و دکمه‌ی back یک بارِ اضافه «مصرف» می‌شد بدونِ
+    // این‌که چیزی روی صفحه بسته شود. حالا هر سه جا از همین یک متغیر
+    // استفاده می‌کنند، پس نمی‌توانند از هم واگرا شوند.
+    final bool searchBarVisible =
+        searchSession != null && searchSession.query.isNotEmpty;
+
     // 🐞 وقتی در حالتِ جستجو هستیم (نوارِ قبلی/بعدیِ جستجو نمایش داده
     // می‌شود) یا نوارِ کوچکِ پلیرِ صوتی بالای صفحه نمایان است، دکمه‌ی بازِ
     // گوشی باید اول از همان حالت خارج شود، نه این‌که مستقیم کلِ صفحه را
@@ -128,15 +91,18 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     // باشند، اول جستجو بسته می‌شود (چون معمولاً کاری است که همین الان
     // رویش تمرکز دارید)، و با بارِ بعدیِ دکمه‌ی برگشت، پلیر بسته می‌شود.
     return PopScope(
-      canPop: searchSession == null && audioState.currentPath == null,
+      canPop: !searchBarVisible && audioState.currentPath == null,
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
-        if (searchSession != null) {
+        if (searchBarVisible) {
           ref.read(activeSearchProvider.notifier).state = null;
-          _announceDismissal('نوارِ جستجو بسته شد');
         } else if (audioState.currentPath != null) {
           ref.read(audioPlayerProvider.notifier).stopAndClear();
-          _announceDismissal('پخشِ صوت متوقف شد');
+          // سشنِ مصنوعیِ نامرئی (اگر مانده باشد) هم همین‌جا پاک می‌شود تا
+          // فشارِ بعدیِ back مستقیم به ویترین برود.
+          if (searchSession != null) {
+            ref.read(activeSearchProvider.notifier).state = null;
+          }
         }
       },
       child: Scaffold(
@@ -213,16 +179,34 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
         // با محلِ خودِ نوار جور است). رنگ هم از shade50 به shade100 و یک
         // خطِ ضخیمِ نیلی در لبه‌ی بالا تغییر کرد تا از صفحه‌ی کتاب جدا
         // دیده شود.
+        // 🌟 به‌جای پیامِ متنی (که کاربر ترجیح داد نباشد)، خودِ رفتنِ نوار
+        // پررنگ‌تر شد: خروج عمداً کندتر از ورود است (۴۲۰ در برابر ۲۲۰
+        // میلی‌ثانیه) و علاوه بر جمع‌شدن و محوشدن، نوار به‌سمتِ پایین از
+        // صفحه سُر می‌خورد. سه حرکتِ هم‌زمانِ کُند چیزی است که چشم از دست
+        // نمی‌دهد؛ محوشدنِ سریع بود که دیده نمی‌شد.
         bottomNavigationBar: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 280),
+          duration: const Duration(milliseconds: 220),
+          reverseDuration: const Duration(milliseconds: 420),
           switchInCurve: Curves.easeOutCubic,
           switchOutCurve: Curves.easeInCubic,
           transitionBuilder: (child, animation) => SizeTransition(
             sizeFactor: animation,
             axisAlignment: 1.0,
-            child: FadeTransition(opacity: animation, child: child),
+            child: FadeTransition(
+              opacity: animation,
+              // begin زیرِ صفحه است، پس همین یک Tween هنگامِ ورود نوار را
+              // بالا می‌آورد و هنگامِ خروج — که AnimatedSwitcher انیمیشن را
+              // برعکس اجرا می‌کند — پایین می‌بَرد؛ بدونِ نیاز به دو بیلدر.
+              child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 0.6),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              ),
+            ),
           ),
-          child: searchSession != null && searchSession.query.isNotEmpty
+          child: searchBarVisible
               ? Container(
                   key: const ValueKey('searchNavBarVisible'),
                   decoration: BoxDecoration(

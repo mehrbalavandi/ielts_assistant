@@ -151,14 +151,27 @@ class AudioPlayerBar extends ConsumerWidget {
     // نکته: AnimatedSwitcher عمداً بیرونِ شرط است تا هنگامِ بسته‌شدن، ویجتِ
     // قدیمی تا پایانِ انیمیشن زنده بماند؛ اگر مثلِ قبل زودتر return می‌کردیم
     // چیزی برای انیمیشن‌دادن باقی نمی‌ماند.
+    // 🌟 خروجِ کندتر و محسوس‌تر از ورود (۴۲۰ در برابر ۲۲۰ میلی‌ثانیه): نوار
+    // هم‌زمان جمع می‌شود، محو می‌شود، و به‌سمتِ بالا از صفحه بیرون می‌رود.
+    // جهتِ Offset منفی است چون این نوار overlayِ بالای صفحه است.
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 280),
+      duration: const Duration(milliseconds: 220),
+      reverseDuration: const Duration(milliseconds: 420),
       switchInCurve: Curves.easeOutCubic,
       switchOutCurve: Curves.easeInCubic,
       transitionBuilder: (child, animation) => SizeTransition(
         sizeFactor: animation,
         axisAlignment: -1.0,
-        child: FadeTransition(opacity: animation, child: child),
+        child: FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, -0.6),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        ),
       ),
       child: audioState.currentPath == null
           ? const SizedBox.shrink(key: ValueKey('audioBarHidden'))
