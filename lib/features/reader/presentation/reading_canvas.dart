@@ -3343,6 +3343,17 @@ List<InlineSpan> _buildStyledInteractiveText(
     decoration: _mDecos.isEmpty
         ? TextDecoration.none
         : TextDecoration.combine(_mDecos),
+    // 🌟 نوع/ضخامت/رنگِ زیرخط از ورد. همان helperهای TextRenderEngine
+    // استفاده می‌شوند تا این مسیر و مسیرِ applySpanStyle از هم واگرا نشوند.
+    decorationStyle: span.markers.contains("u")
+        ? TextRenderEngine.decorationStyleFromWord(span.underlineStyle)
+        : null,
+    decorationColor: span.markers.contains("u")
+        ? TextRenderEngine.hexToColor(span.underlineColor)
+        : null,
+    decorationThickness: span.markers.contains("u")
+        ? span.underlineThickness
+        : null,
   );
 
   List<InlineSpan> interactiveSpans = [];

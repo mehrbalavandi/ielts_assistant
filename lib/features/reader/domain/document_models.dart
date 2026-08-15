@@ -485,6 +485,15 @@ class SpanData {
   final String? fillColor;
   final String? textColor;
 
+  // 🌟 جزئیاتِ زیرخط از سند ورد. مارکرِ "u" فقط می‌گوید زیرخط هست؛ این سه
+  // می‌گویند چه‌جور زیرخطی. نگاشتِ مقادیرِ ورد در سی‌شارپ انجام شده، پس
+  // مقدارها همان واژگانِ فلاتر هستند: solid/double/dotted/dashed/wavy.
+  // همه nullable — کتاب‌های قبلاً استخراج‌شده این فیلدها را ندارند و باید
+  // مثلِ قبل، زیرخطِ ساده‌ی هم‌رنگِ متن بگیرند.
+  final String? underlineStyle;
+  final double? underlineThickness;
+  final String? underlineColor;
+
   // 🌟 ارتقاء: افزودن کادر مشترک به سطح متن
   final BorderDetail? borders;
 
@@ -523,6 +532,9 @@ class SpanData {
     this.innerSpans = const [],
     this.fillColor,
     this.textColor,
+    this.underlineStyle,
+    this.underlineThickness,
+    this.underlineColor,
     this.borders, // کادر متنی
     this.tableStyleId,
     this.tableStyleName,
@@ -554,6 +566,9 @@ class SpanData {
       innerSpans: innerList.map((e) => SpanData.fromJson(e)).toList(),
       fillColor: json['FillColor'],
       textColor: json['TextColor'],
+      underlineStyle: json['UnderlineStyle'],
+      underlineThickness: (json['UnderlineThickness'] as num?)?.toDouble(),
+      underlineColor: json['UnderlineColor'],
       // 🌟 دریافت کادر متنی پارس شده از فایل JSON
       borders: json['Borders'] != null
           ? BorderDetail.fromJson(json['Borders'])
@@ -589,6 +604,9 @@ class SpanData {
       innerSpans: innerSpans,
       fillColor: fillColor,
       textColor: textColor,
+      underlineStyle: underlineStyle,
+      underlineThickness: underlineThickness,
+      underlineColor: underlineColor,
       borders: borders,
       tableStyleId: tableStyleId,
       tableStyleName: tableStyleName,

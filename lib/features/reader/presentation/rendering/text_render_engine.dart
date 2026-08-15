@@ -161,6 +161,37 @@ class TextRenderEngine {
     return spans;
   }
 
+  /// نگاشتِ نامِ سبکِ زیرخط (که سی‌شارپ از w:u ورد ساخته) به enum فلاتر.
+  /// null یعنی «سبکِ پیش‌فرضِ فلاتر» — همان رفتارِ قبلی برای کتاب‌هایی که
+  /// هنوز با نسخه‌ی جدیدِ استخراج‌کننده ساخته نشده‌اند.
+  static TextDecorationStyle? decorationStyleFromWord(String? style) {
+    switch (style) {
+      case 'double':
+        return TextDecorationStyle.double;
+      case 'dotted':
+        return TextDecorationStyle.dotted;
+      case 'dashed':
+        return TextDecorationStyle.dashed;
+      case 'wavy':
+        return TextDecorationStyle.wavy;
+      case 'solid':
+        return TextDecorationStyle.solid;
+      default:
+        return null;
+    }
+  }
+
+  /// هگزِ ورد (با یا بدون #، ۶ یا ۸ رقمی) → Color. برای رنگِ زیرخط.
+  static Color? hexToColor(String? hex) {
+    if (hex == null) return null;
+    var h = hex.replaceAll('#', '').trim();
+    if (h.isEmpty || h.toLowerCase() == 'auto') return null;
+    if (h.length == 6) h = 'FF$h';
+    if (h.length != 8) return null;
+    final v = int.tryParse(h, radix: 16);
+    return v == null ? null : Color(v);
+  }
+
   static TextStyle applySpanStyle(TextStyle base, SpanData span, bool isDark) {
     double fontSize = base.fontSize ?? 16.0;
 
@@ -234,6 +265,17 @@ class TextRenderEngine {
       if (isStrike) TextDecoration.lineThrough,
     ];
 
+    // 🌟 نوع/ضخامت/رنگِ زیرخط از سند ورد.
+    // ⚠️ نکته‌ای که در فلاتر گریزناپذیر است: decorationStyle و
+    // decorationColor روی *همه‌ی* decorationهای یک TextStyle اعمال می‌شوند.
+    // پس اگر یک ران هم‌زمان زیرخطِ نقطه‌چین و خط‌خورده باشد، خط‌خورده هم
+    // نقطه‌چین می‌شود. جداکردنشان نیازمندِ دو TextSpanِ تودرتوست که ارزشش
+    // را ندارد؛ ترکیبِ زیرخطِ غیرساده + خط‌خوردگی در عمل نادر است.
+    final TextDecorationStyle? _uStyle = isUnderline
+        ? decorationStyleFromWord(span.underlineStyle)
+        : null;
+    final Color? _uColor = isUnderline ? hexToColor(span.underlineColor) : null;
+
     return base.copyWith(
       fontSize: _finalSize,
       fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
@@ -241,6 +283,9 @@ class TextRenderEngine {
       decoration: _decos.isEmpty
           ? TextDecoration.none
           : TextDecoration.combine(_decos),
+      decorationStyle: _uStyle,
+      decorationColor: _uColor,
+      decorationThickness: isUnderline ? span.underlineThickness : null,
       fontFeatures: _feat,
       color: color,
       backgroundColor: bgColor, // 🌟 اعمال رنگ پس‌زمینه به استایل نهایی
