@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
@@ -120,18 +119,10 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
               tooltip: 'پلی‌لیستِ کتاب',
               onPressed: () => showBookAudioPlaylist(context, pagedBookStore),
             ),
-            // 🌟 تعویضِ زبانِ محتوا: فارسی ↔ عربی
-            IconButton(
-              tooltip: 'تغییر زبان (فارسی/عربی)',
-              icon: Text(
-                ref.watch(languageProvider) == 'fa' ? 'ع' : 'ف',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () => ref.read(languageProvider.notifier).toggle(),
-            ),
+            // 🌟 دکمه‌ی تعویضِ زبانِ محتوا از این‌جا به دراور منتقل شد
+            // (shared/widgets/app_drawer.dart) — کارِ همیشگی‌ای نیست که
+            // جای دائمی در نوارِ بالا بگیرد، و آن آیکونِ تک‌حرفیِ «ع/ف» هم
+            // خودش را توضیح نمی‌داد.
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () async {
