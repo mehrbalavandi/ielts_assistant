@@ -2535,6 +2535,60 @@ Widget _buildTable(
   final bool stretchCellsToImage =
       strategy == "horizontalScroll" && widestContentWidth > canvasWidth;
 
+  // 🐞 ریشه‌ی «جدولی که در Word سرریز نیست ولی در فلاتر سرریز می‌کند»:
+  // در حالتِ natural هر ستون WidthPtِ سند را می‌گرفت *به‌علاوه‌ی*
+  // _kNaturalColSafetyPx. یعنی عرضِ کلِ جدول به‌اندازه‌ی (تعدادِ ستون × ۱۸)
+  // از سند پهن‌تر می‌شد — برای یک جدولِ ۴ستونی ۷۲ پیکسل. اگر جدول در Word
+  // تقریباً کلِ عرضِ متن را پر کرده باشد، همین اضافه آن را سرریز می‌کند.
+  //
+  // safety حذف نشد چون کارِ مفیدی می‌کند (متریکِ متنِ فلاتر کمی پهن‌تر از
+  // Word است و بدونِ آن، محتوایی که در سند یک‌خطی است ممکن است دو خط شود).
+  // به‌جایش *تطبیقی* شد: اگر جدول با safety جا نمی‌شود ولی با عرضِ خودِ سند
+  // جا می‌شود، فقط همان مقدارِ فضایِ باقی‌مانده بینِ ستون‌ها پخش می‌شود و در
+  // بدترین حالت به صفر می‌رسد — یعنی هندسه دقیقاً همان سند. اگر جا بود،
+  // رفتارِ سخاوتمندانه‌ی قبلی دست‌نخورده می‌ماند.
+  double naturalPerColSafety = _kNaturalColSafetyPx;
+  if (resolvedWidthMode == "natural") {
+    double widestDocRowWidth = 0;
+    int widestDocRowCols = 0;
+    for (final row in tableSpan.tableRows) {
+      double rowW = 0;
+      int cols = 0;
+      for (final c in row.cells) {
+        final w = c.widthPt;
+        if (w != null && w > 0) {
+          rowW += w;
+          cols++;
+        }
+      }
+      if (rowW > widestDocRowWidth) {
+        widestDocRowWidth = rowW;
+        widestDocRowCols = cols;
+      }
+    }
+    if (widestDocRowCols > 0 &&
+        widestDocRowWidth + widestDocRowCols * _kNaturalColSafetyPx >
+            canvasWidth) {
+      final double spare = canvasWidth - widestDocRowWidth;
+      naturalPerColSafety = spare > 0 ? (spare / widestDocRowCols) : 0.0;
+      if (naturalPerColSafety > _kNaturalColSafetyPx) {
+        naturalPerColSafety = _kNaturalColSafetyPx;
+      }
+    }
+  }
+
+  // 🐞 دومین ریشه‌ی سرریز، و بدترش چون کران ندارد: عرضِ ستون و عرضِ
+  // SizedBoxِ دورِ جدول با *دو فرمولِ متفاوت* حساب می‌شدند. ستونی که
+  // widthPt نداشت، در columnWidths عرضِ اندازه‌گیری‌شده‌ی محتوا می‌گرفت ولی
+  // در مجموعِ عرضِ جدول صفر شمرده می‌شد — پس جدول همیشه از ظرفش پهن‌تر
+  // می‌شد. حالا هر دو از همین یک تابع می‌خوانند و نمی‌توانند واگرا شوند.
+  double naturalColumnPx(TableCellData c, int ci) {
+    final double? wpt = c.widthPt;
+    return (wpt != null && wpt > 0)
+        ? wpt + naturalPerColSafety
+        : ((perColumnWidestContent[ci] ?? 60) + 24);
+  }
+
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells = [];
 
@@ -2758,12 +2812,7 @@ Widget _buildTable(
         // 🐞 CommonTable: هر ستون دقیقاً عرضِ مطلقِ سند را می‌گیرد (WidthPt،
         // که ۱pt=۱px است). اگر سلولی عرضِ صریح نداشت، به عرضِ اندازه‌گیری‌شده‌ی
         // محتوا برمی‌گردیم تا ستون جمع نشود.
-        final double? wpt = cell.widthPt;
-        columnWidths[i] = FixedColumnWidth(
-          (wpt != null && wpt > 0)
-              ? wpt + _kNaturalColSafetyPx
-              : ((perColumnWidestContent[i] ?? 60) + 24),
-        );
+        columnWidths[i] = FixedColumnWidth(naturalColumnPx(cell, i));
       } else if (cell.widthPercent != null && cell.widthPercent! > 0) {
         // 🐞 حفظِ محتوا بدونِ بریدن/اسکرولِ بی‌جا: ستونِ باریکِ برچسب (WidthPt
         // کوچک — مثلِ ستونِ Examiner/Candidateِ ص۴۳) روی صفحه‌ی باریک سهمِ
@@ -3175,15 +3224,13 @@ Widget _buildTable(
   // چپ‌چین رندر می‌شود (کش نمی‌آید، عیناً مثلِ سند). این‌جا نه حدسِ محتوا لازم
   // است نه حاشیه‌ی امن — عددِ واقعیِ سند را داریم.
   if (resolvedWidthMode == "natural") {
+    // دقیقاً همان naturalColumnPx که عرضِ ستون‌ها را ساخت — تا عرضِ
+    // SizedBox هیچ‌وقت از عرضِ واقعیِ Table کمتر نشود.
     double naturalTableWidth = 0;
     for (final row in tableSpan.tableRows) {
       double rowW = 0;
-      for (final c in row.cells) {
-        // همان safetyِ عرضِ ستون را این‌جا هم جمع می‌زنیم تا مجموعِ عرض با
-        // عرضِ واقعیِ رندرشده بخواند (وگرنه تصمیمِ اسکرول/عرضِ SizedBox کمتر
-        // از عرضِ واقعیِ جدول می‌شد و آخرین ستون بریده/جمع می‌شد).
-        final double? cwpt = c.widthPt;
-        rowW += (cwpt != null && cwpt > 0) ? cwpt + _kNaturalColSafetyPx : 0;
+      for (int ci = 0; ci < row.cells.length; ci++) {
+        rowW += naturalColumnPx(row.cells[ci], ci);
       }
       if (rowW > naturalTableWidth) naturalTableWidth = rowW;
     }
