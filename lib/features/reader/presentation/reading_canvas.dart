@@ -2166,6 +2166,15 @@ Widget _buildTable(
   // استخراج‌های جدید می‌فرستد)، بعد فال‌بکِ نامِ استایل تا کتاب‌هایی که
   // قبلاً با LayoutReflow=="stack" استخراج شده‌اند هم بدونِ استخراجِ مجدد
   // درست رندر شوند.
+  // 🌟 استایلِ تازه‌ی FlowTable: به‌جای گریدِ ستون‌ثابت، محتوایِ سلول‌ها مثلِ
+  // «چیپ» کنارِ هم چیده می‌شوند و هر وقت جا کم آمد به خطِ بعد می‌روند.
+  // چرا لازم شد: جدولِ «Is it big or / How many bedrooms / ...» در سند یک
+  // ردیفِ ساده از عبارت‌هایِ رنگی است، ولی با WidthMode="equal" هر ستون
+  // یک‌چهارمِ عرضِ ظرف را می‌گرفت (فاصله‌هایِ عظیم) و با "natural" مجموعِ
+  // عرض‌ها از ظرف بیرون می‌زد. حالتِ جریانی هیچ‌کدام را ندارد: نه عرضِ
+  // تحمیلی، نه سرریز.
+  final bool applyWrapFlow = strategy == "wrap";
+
   final bool isMultiColumnMerge =
       tableSpan.layoutReflow == "merge" ||
       rawStyle.contains("multicolumntable");
@@ -2589,6 +2598,12 @@ Widget _buildTable(
         : ((perColumnWidestContent[ci] ?? 60) + 24);
   }
 
+  // 🌟 برای جدولِ تک‌ردیفه، ارجاعِ نقشه‌ی عرضِ ستون‌ها را نگه می‌داریم تا
+  // پایین‌تر — وقتی عرضِ واقعیِ ظرف را از LayoutBuilder گرفتیم — بتوانیم
+  // ستون‌ها را جمع کنیم. Table نقشه را در زمانِ layout می‌خواند، پس این
+  // تغییرِ متأخر به آن می‌رسد.
+  Map<int, TableColumnWidth>? singleRowColumnWidths;
+
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells = [];
 
@@ -2617,6 +2632,7 @@ Widget _buildTable(
     bool isImageRow = hasAnyImage && !hasAnyText;
 
     Map<int, TableColumnWidth> columnWidths = {};
+    if (tableSpan.tableRows.length == 1) singleRowColumnWidths = columnWidths;
 
     // تنظیمات داینامیک مرزها برای هر ردیف
     double currentTopWidth = defaultBorderWidth;
@@ -2761,8 +2777,14 @@ Widget _buildTable(
       // سلول فقط یک پاراگراف دارد، Columnِ تک‌فرزند حذف می‌شود (RenderFlexِ
       // کم‌تر). هیچ‌کدام اثرِ بصری ندارند.
       final Color? _cellFill = _hexToColor(cell.fillColor);
-      final Border? _cellBorder = resolvedBorderMode == "cell"
-          ? cellBorderFrom(cell.borders, rowIndex == 0, i == 0)
+      // در حالتِ جریانی هر سلول یک جعبه‌ی مستقل است و کنارِ سلولِ بعدی
+      // نمی‌چسبد، پس منطقِ collapse (که عمداً بوردرِ بالا/چپ را جز در ردیف و
+      // ستونِ اول حذف می‌کند تا خط‌ها دوتایی نشوند) این‌جا غلط است و باید
+      // هر چهار ضلع کشیده شود.
+      final Border? _cellBorder = (resolvedBorderMode == "cell")
+          ? (applyWrapFlow
+                ? cellBorderFrom(cell.borders, true, true)
+                : cellBorderFrom(cell.borders, rowIndex == 0, i == 0))
           : null;
       final Widget _cellInner = cellParagraphs.length == 1
           ? cellParagraphs.first
@@ -2788,7 +2810,10 @@ Widget _buildTable(
       // به‌صورتِ نیتیو روی خودِ TableCell اعمال می‌شوند.
       final String? _cellVAlign = cell.vAlign;
       Widget _cellAlignedInner = _cellInner;
-      if (resolvedBorderMode == "cell" &&
+      // !applyWrapFlow عمدی است: SizedBox(width: infinity) داخلِ Wrap —
+      // که constraintهای شُل می‌دهد — یعنی عرضِ بی‌نهایت.
+      if (!applyWrapFlow &&
+          resolvedBorderMode == "cell" &&
           (_cellVAlign == "center" || _cellVAlign == "bottom")) {
         _cellAlignedInner = Align(
           alignment: _cellVAlign == "center"
@@ -2867,7 +2892,19 @@ Widget _buildTable(
       }
     }
 
-    if (applyColumnStack) {
+    if (applyWrapFlow) {
+      // هر ردیفِ سند یک Wrap. spacing/runSpacing عمداً کوچک‌اند: کلِ شکایتِ
+      // کاربر از فاصله‌های بزرگ بود، و در این حالت هیچ عرضِ اضافه‌ای هم
+      // تحمیل نمی‌شود، پس فاصله فقط همین دو عدد است.
+      rowWidgets.add(
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 6.0,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: cellWidgets,
+        ),
+      );
+    } else if (applyColumnStack) {
       allGridCells.add(cellWidgets);
     } else {
       if (isLargeScreen ||
@@ -3247,6 +3284,24 @@ Widget _buildTable(
           final double avail = constraints.maxWidth.isFinite
               ? constraints.maxWidth
               : canvasWidth;
+          // 🌟 درخواستِ کاربر: وقتی جدول فقط یک ردیف دارد، عرضِ ستون‌ها هیچ
+          // نقشی در هم‌ترازیِ بینِ ردیف‌ها ندارد — تنها دلیلِ ثابت نگه‌داشتنِ
+          // آن‌ها از بین می‌رود. پس به‌جای اسکرول یا کوچک‌کردنِ کلِ جدول،
+          // ستون‌ها را به همان نسبتِ سند جمع می‌کنیم تا داخلِ ظرف جا شوند و
+          // متن wrap شود. نتیجه: جدولِ تک‌ردیفه هیچ‌وقت سرریز نمی‌کند و
+          // اندازه‌ی فونت هم دست‌نخورده می‌ماند.
+          if (naturalTableWidth > avail + 0.5 &&
+              tableSpan.tableRows.length == 1 &&
+              singleRowColumnWidths != null &&
+              singleRowColumnWidths!.isNotEmpty) {
+            final cells = tableSpan.tableRows.first.cells;
+            for (int ci = 0; ci < cells.length; ci++) {
+              singleRowColumnWidths![ci] = FlexColumnWidth(
+                naturalColumnPx(cells[ci], ci),
+              );
+            }
+            return SizedBox(width: avail, child: tableContainer);
+          }
           if (naturalTableWidth > avail + 0.5) {
             // 🐞 وقتی جدول از عرضِ در دسترس بزرگ‌تر است:
             // - نمایشگرِ عریض → shrink-to-fit: کلِ جدول (متن هم) یکنواخت کوچک
