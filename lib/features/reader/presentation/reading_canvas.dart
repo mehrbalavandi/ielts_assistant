@@ -2831,6 +2831,42 @@ Widget _buildTable(
         child: _cellAlignedInner,
       );
 
+      // 🐞 چرا در FlowTable فقط سلولِ اول دیده می‌شد: ویجتِ پاراگرافِ داخلِ
+      // سلول هر عرضی که به آن بدهند را کامل می‌گیرد (shrink-wrap نمی‌کند).
+      // Wrap به فرزندانش constraintِ شُل می‌دهد، پس چیپِ اول کلِ عرضِ خط را
+      // برمی‌داشت و بقیه به خط‌های بعد رانده و از کادر بیرون می‌افتادند.
+      // چون Wrap برخلافِ Table عرضِ ستون ندارد که جلوی این را بگیرد، عرضِ
+      // هر چیپ باید صریح تعیین شود.
+      //
+      // ConstrainedBox و نه SizedBox: این فقط سقف می‌گذارد. اگر ظرف از این
+      // باریک‌تر باشد (سلولِ تودرتو روی گوشی) چیپ کوچک‌تر می‌شود و متنش
+      // wrap می‌کند، به‌جای اینکه سرریز کند.
+      if (applyWrapFlow) {
+        double chipContentWidth = 0;
+        for (final p in cell.paragraphs) {
+          final double w = measureParagraphNaturalWidth(p);
+          if (w > chipContentWidth) chipContentWidth = w;
+        }
+        // ⚠️ cellPadding از نوع EdgeInsetsGeometry است و ‎.horizontal‎ ندارد،
+        // پس همان دو مقداری که بالاتر ساختندش دوباره جمع می‌شوند. عرضِ
+        // بوردر هم باید حساب شود، چون ConstrainedBox سقف را روی جعبه‌ی
+        // بیرونیِ Container می‌گذارد، نه روی محتوا.
+        final double chipHPad = isImageCell
+            ? 4.0
+            : ((cell.paddingLeft ?? _hpad) + (cell.paddingRight ?? _hpad));
+        final double chipBorder =
+            (_cellBorder?.left.width ?? 0) + (_cellBorder?.right.width ?? 0);
+        // ‎+2‎ برای خطاهای گردکردنِ اندازه‌گیریِ متن؛ بدونِ آن گاهی آخرین
+        // کلمه بی‌دلیل به خطِ دوم می‌افتد.
+        final double chipWidth = chipContentWidth + chipHPad + chipBorder + 2.0;
+        cellContent = ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: chipWidth < 24.0 ? 24.0 : chipWidth,
+          ),
+          child: cellContent,
+        );
+      }
+
       cellWidgets.add(cellContent);
 
       if (resolvedWidthMode == "natural") {
