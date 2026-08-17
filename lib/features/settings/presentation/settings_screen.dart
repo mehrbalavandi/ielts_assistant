@@ -34,11 +34,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('آدرس سرور با موفقیت ذخیره شد')),
       );
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('لطفاً آدرس سرور را وارد کنید')),
       );
     }
+    /*
     final activeBook = ref.watch(activeBookProvider);
 
     if (activeBook != null) {
@@ -56,6 +58,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         (route) => false,
       );
     }
+    */
   }
 
   @override
