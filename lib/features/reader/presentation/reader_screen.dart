@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
-import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart';
 import 'package:ielts_assistant/features/audio/presentation/audio_player_bar.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
-import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/search/presentation/book_search_delegate.dart';
-import 'package:ielts_assistant/features/library/presentation/library_screen.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   const ReaderScreen({super.key});
