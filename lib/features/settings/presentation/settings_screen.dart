@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ielts_assistant/features/library/presentation/library_screen.dart';
-import 'package:ielts_assistant/features/reader/presentation/reader_screen.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
-import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
