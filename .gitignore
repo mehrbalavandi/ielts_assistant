@@ -56,17 +56,22 @@ app.*.map.json
 # assets/some_folder/*
 # !assets/some_folder/
 # !assets/some_folder/keep-this-file.ext
+assets/data/Mindset 01/*
+!assets/data/Mindset 01/
+!assets/data/Mindset 01/Mindset1- Custom*.docx
+!assets/data/Mindset 01/Mindset1- Audio Scripts.docx
+!assets/data/Mindset 01/Mindset1- Audio Scripts_markers.docx
+
 assets/data/Mindset 03/*
 !assets/data/Mindset 03/
 !assets/data/Mindset 03/Mindset3- Custom.docx
 !assets/data/Mindset 03/Mindset3- Audio Scripts.docx
 !assets/data/Mindset 03/Mindset3- Audio Scripts_markers.docx
 
-assets/data/Mindset 01/*
-!assets/data/Mindset 01/
-!assets/data/Mindset 01/Mindset1- Custom*.docx
-!assets/data/Mindset 01/Mindset1- Audio Scripts.docx
-!assets/data/Mindset 01/Mindset1- Audio Scripts_markers.docx
+
+assets/data/Mindset test/*
+!assets/data/Mindset test/
+!assets/data/Mindset test/temp.docx
 # Example: keep only this file in assets/data/
 # assets/data/*
 # !assets/data/
