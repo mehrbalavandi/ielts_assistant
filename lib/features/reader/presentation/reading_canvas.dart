@@ -3506,13 +3506,16 @@ List<InlineSpan> _buildStyledInteractiveText(
   // نمی‌گذارد) با یک Container+padding عمودی رسم می‌کنیم — این تنها راهی است که در
   // فلاتر واقعاً بینِ پس‌زمینه‌ی خطوطِ پشتِ‌هم فاصله‌ی دیداری ایجاد می‌کند.
   final String _content = (span.content ?? "").trim();
+  final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
+  final bool isBlankSpan = blankRegex.allMatches(_content).isNotEmpty;
   final bool _isSafeHighlightToken =
       !isInlineBorder &&
       _hexToColor(span.fillColor) != null &&
       _content.isNotEmpty &&
       _content.length <= 20 &&
       !_content.contains(' ') &&
-      (span.innerSpans.isEmpty);
+      (span.innerSpans.isEmpty) &&
+      !isBlankSpan;
 
   if (isAudioLink) {
     interactiveSpans.add(
