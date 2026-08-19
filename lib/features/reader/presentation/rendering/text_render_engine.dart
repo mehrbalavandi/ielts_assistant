@@ -218,8 +218,9 @@ class TextRenderEngine {
         span.textColor!.isNotEmpty &&
         span.textColor != "auto") {
       final buffer = StringBuffer();
-      if (span.textColor!.length == 6 || span.textColor!.length == 7)
+      if (span.textColor!.length == 6 || span.textColor!.length == 7) {
         buffer.write('ff');
+      }
       buffer.write(span.textColor!.replaceFirst('#', ''));
       try {
         color = Color(int.parse(buffer.toString(), radix: 16));
@@ -233,8 +234,9 @@ class TextRenderEngine {
         span.fillColor!.isNotEmpty &&
         span.fillColor != "auto") {
       final buffer = StringBuffer();
-      if (span.fillColor!.length == 6 || span.fillColor!.length == 7)
+      if (span.fillColor!.length == 6 || span.fillColor!.length == 7) {
         buffer.write('ff');
+      }
       buffer.write(span.fillColor!.replaceFirst('#', ''));
       try {
         bgColor = Color(int.parse(buffer.toString(), radix: 16));
@@ -348,7 +350,7 @@ class TextRenderEngine {
       );
     }
 
-    if (interactives.isEmpty)
+    if (interactives.isEmpty) {
       return applyMapToText(
         content,
         baseStyle,
@@ -358,6 +360,7 @@ class TextRenderEngine {
         keyClaim: keyClaim,
         allMatchesActive: allMatchesActive,
       );
+    }
 
     // ── مسیر قدیمی: فقط وقتی pattern/byText از بیرون پاس داده نشده باشد ──
     // (fallback ایمنی؛ در استفاده‌ی عادی از داخل ReadingCanvas هیچ‌وقت
@@ -377,7 +380,7 @@ class TextRenderEngine {
       }
 
       if (bestIndex != -1 && matchedWord != null) {
-        if (bestIndex > 0)
+        if (bestIndex > 0) {
           spans.addAll(
             applyMapToText(
               remainingText.substring(0, bestIndex),
@@ -389,6 +392,7 @@ class TextRenderEngine {
               allMatchesActive: allMatchesActive,
             ),
           );
+        }
 
         List<int>? wordMap;
         if (localMap != null) {
@@ -592,7 +596,7 @@ class TextRenderEngine {
         currentState = wordMap[i];
       }
     }
-    if (chunk.isNotEmpty)
+    if (chunk.isNotEmpty) {
       spans.add(
         _createInteractiveTextSpan(
           chunk,
@@ -606,6 +610,7 @@ class TextRenderEngine {
           allMatchesActive: allMatchesActive,
         ),
       );
+    }
     return spans;
   }
 
@@ -678,8 +683,9 @@ class TextRenderEngine {
     KeyClaim? keyClaim,
     bool allMatchesActive = false,
   }) {
-    if (localMap == null || localMap.every((v) => v == -1))
+    if (localMap == null || localMap.every((v) => v == -1)) {
       return [TextSpan(text: content, style: baseStyle)];
+    }
 
     List<InlineSpan> spans = [];
     int currentState = localMap[0];
@@ -704,7 +710,7 @@ class TextRenderEngine {
         currentState = localMap[i];
       }
     }
-    if (chunk.isNotEmpty)
+    if (chunk.isNotEmpty) {
       spans.add(
         _createTextSpan(
           chunk,
@@ -716,6 +722,7 @@ class TextRenderEngine {
           allMatchesActive: allMatchesActive,
         ),
       );
+    }
     return spans;
   }
 
@@ -1038,8 +1045,9 @@ class InteractiveBlankWord extends StatelessWidget {
       if (!isInlineBorder) return interactiveSpans;
 
       Color? hexToColor(String? hex) {
-        if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto')
+        if (hex == null || hex.isEmpty || hex.toLowerCase() == 'auto') {
           return null;
+        }
         final buffer = StringBuffer();
         if (hex.length == 6 || hex.length == 7) buffer.write('ff');
         buffer.write(hex.replaceFirst('#', ''));
