@@ -3507,6 +3507,7 @@ List<InlineSpan> _buildStyledInteractiveText(
   // فلاتر واقعاً بینِ پس‌زمینه‌ی خطوطِ پشتِ‌هم فاصله‌ی دیداری ایجاد می‌کند.
   final String _content = (span.content ?? "").trim();
   final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
+  final matches = blankRegex.allMatches(_content);
   final bool isBlankSpan = blankRegex.allMatches(_content).isNotEmpty;
   final bool _isSafeHighlightToken =
       !isInlineBorder &&
