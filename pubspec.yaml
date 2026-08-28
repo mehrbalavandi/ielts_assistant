@@ -165,7 +165,11 @@ flutter:
     fonts:
       - asset: fonts/comic.ttf
 
-  - family: Wingdings 3
+  - family: Wingdings
+    fonts:
+      - asset: fonts/wingding.ttf
+
+  - family: Wingdings3
     fonts:
       - asset: fonts/WINGDNG3.TTF
 
