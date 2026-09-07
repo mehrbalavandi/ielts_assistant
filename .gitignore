@@ -58,13 +58,19 @@ app.*.map.json
 # !assets/some_folder/keep-this-file.ext
 assets/data/Mindset 01/*
 !assets/data/Mindset 01/
-!assets/data/Mindset 01/Mindset1- Custom*.docx
+!assets/data/Mindset 01/Mindset1- *.docx
 !assets/data/Mindset 01/Mindset1- Audio Scripts.docx
 !assets/data/Mindset 01/Mindset1- Audio Scripts_markers.docx
 
+assets/data/Mindset 02/*
+!assets/data/Mindset 02/
+!assets/data/Mindset 02/Mindset2- *.docx
+!assets/data/Mindset 02/Mindset2- Audio Scripts.docx
+!assets/data/Mindset 02/Mindset2- Audio Scripts_markers.docx
+
 assets/data/Mindset 03/*
 !assets/data/Mindset 03/
-!assets/data/Mindset 03/Mindset3- Custom.docx
+!assets/data/Mindset 03/Mindset3- *.docx
 !assets/data/Mindset 03/Mindset3- Audio Scripts.docx
 !assets/data/Mindset 03/Mindset3- Audio Scripts_markers.docx
 
