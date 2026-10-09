@@ -2284,11 +2284,41 @@ Widget _buildTable(
   // برایِ کتاب‌هایِ تازه‌استخراج‌شده ست می‌کند) استفاده می‌شود؛ اگر خالی
   // بودند (کتابِ قدیمی)، از همان پرچم‌های قبلیِ مبتنی‌بر نامِ استایل
   // (بالا) نتیجه‌گیری می‌شود — یعنی هیچ کتابِ قدیمی‌ای رفتارش عوض نمی‌شود.
+  //
+  // 🐞 NormalTable — بوردرِ هر سلول عیناً مثلِ سند (رنگ، ضخامت، و پنهان/پیدا
+  // بودنِ هر یک از چهار ضلع): قبلاً BorderMode="all" بود، یعنی یک TableBorderِ
+  // یکنواخت برای کلِ ردیف — هر چهار ضلع همیشه کشیده می‌شد. ولی بیشترِ
+  // NormalTableهای کتاب فقط بخشی از اضلاع را دارند (مثلاً فقط خطِ رنگیِ بالا،
+  // یا بالای ضخیم + پایینِ نازک بدونِ دو طرف)، پس جعبه‌ی کامل غلط بود. سی‌شارپ
+  // حالا برای NormalTable مقدارِ "cell" می‌فرستد؛ این‌جا کتاب‌هایی هم که قبلاً
+  // با "all" استخراج شده‌اند بدونِ استخراجِ مجدد به "cell" ارتقا داده می‌شوند —
+  // ولی فقط وقتی دست‌کم یک سلول داده‌ی بوردرِ خودش را دارد (وگرنه بوردرِ
+  // جدول فقط از استایل آمده و "cell" چیزی نمی‌کشید، پس همان "all" می‌ماند).
+  final bool isNormalTable = rawStyle.contains("normaltable");
+  bool anyCellHasBorderData() => tableSpan.tableRows.any(
+    (row) => row.cells.any(
+      (c) =>
+          c.borders?.top != null ||
+          c.borders?.bottom != null ||
+          c.borders?.left != null ||
+          c.borders?.right != null,
+    ),
+  );
   final String resolvedBorderMode =
-      tableSpan.borderMode ??
-      (isOutsideTable
-          ? "outer"
-          : (hideBorders ? "none" : (showBorders ? "all" : "none")));
+      (isNormalTable && tableSpan.borderMode == "all" && anyCellHasBorderData())
+      ? "cell"
+      : (tableSpan.borderMode ??
+            (isOutsideTable
+                ? "outer"
+                : (hideBorders ? "none" : (showBorders ? "all" : "none"))));
+  // 🐞 BorderMode="cell" از اول برای CommonTable ساخته شد و چند رفتارِ دیگرِ
+  // «وفاداری به هندسه‌ی سند» هم به آن گره خورده بود: paddingِ افقیِ ۵.۷۶ و
+  // رندرِ عکسِ داخلِ سلول با ابعادِ عینیِ سند. درخواستِ کاربر برای NormalTable
+  // فقط بوردرهاست، پس آن دو رفتار برای NormalTable اعمال نمی‌شوند و چیدمانش
+  // (padding و عکس‌ها) دقیقاً مثلِ قبل می‌ماند. بوردرِ per-cell، هم‌ارتفاع‌شدنِ
+  // سلول‌های یک ردیف (تا خطوط تا پایینِ ردیف برسند) و vAlign برایش فعال‌اند.
+  final bool cellGeometryFromDoc =
+      resolvedBorderMode == "cell" && !isNormalTable;
   final String resolvedWidthMode =
       tableSpan.widthMode ??
       (isCompactTable
@@ -2712,7 +2742,7 @@ Widget _buildTable(
             (s) => s.type == "text" && s.content.trim().isNotEmpty,
           ),
         );
-    final double hpad = (resolvedBorderMode == "cell") ? 5.76 : 8.0;
+    final double hpad = cellGeometryFromDoc ? 5.76 : 8.0;
     final double pad = imageOnly
         ? 4.0
         : (c.paddingLeft ?? hpad) + (c.paddingRight ?? hpad);
@@ -2865,7 +2895,7 @@ Widget _buildTable(
             context,
             isImageCell: isImageCell,
             isInsideTableCell: true,
-            verbatimCellImage: resolvedBorderMode == "cell", // 🐞 CommonTable
+            verbatimCellImage: cellGeometryFromDoc, // 🐞 CommonTable (نه NormalTable)
             prevPara: pIndex > 0 ? cell.paragraphs[pIndex - 1] : null,
             nextPara: pIndex < cell.paragraphs.length - 1
                 ? cell.paragraphs[pIndex + 1]
@@ -2892,7 +2922,7 @@ Widget _buildTable(
       // (که وفادار به سند است) padding افقی را به همان مقدار می‌گذاریم تا
       // ناحیه‌ی متن دقیقاً برابرِ Word شود. بقیه‌ی جدول‌ها ۸px پیشینِ خود را
       // نگه می‌دارند.
-      final double _hpad = (resolvedBorderMode == "cell") ? 5.76 : 8.0;
+      final double _hpad = cellGeometryFromDoc ? 5.76 : 8.0;
       EdgeInsetsGeometry cellPadding = isImageCell
           ? const EdgeInsets.all(2.0)
           : EdgeInsets.only(
