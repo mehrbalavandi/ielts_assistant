@@ -2579,7 +2579,13 @@ Widget _buildTable(
         widestDocRowWidth + widestDocRowCols * _kNaturalColSafetyPx >
             canvasWidth) {
       final double spare = canvasWidth - widestDocRowWidth;
-      naturalPerColSafety = spare > 0 ? (spare / widestDocRowCols) : 0.0;
+      // 🐞 اگر جدول حتی با عرضِ دقیقِ سند هم جا نمی‌شود (spare≤0)، به‌هرحال
+      // اسکرولِ افقی یا کوچک‌شدنِ یکنواخت می‌گیرد؛ صفرکردنِ safety در این
+      // حالت هیچ کمکی به جاشدن نمی‌کند و فقط باعث می‌شد کلماتی که در Word
+      // یک‌خطی‌اند در فلاتر به خطِ دوم بروند. پس safety کامل می‌ماند.
+      naturalPerColSafety = spare > 0
+          ? (spare / widestDocRowCols)
+          : _kNaturalColSafetyPx;
       if (naturalPerColSafety > _kNaturalColSafetyPx) {
         naturalPerColSafety = _kNaturalColSafetyPx;
       }
@@ -2598,11 +2604,136 @@ Widget _buildTable(
         : ((perColumnWidestContent[ci] ?? 60) + 24);
   }
 
+  // 🐞 CommonTable تک‌ردیفه روی صفحه‌ی باریک (جدولِ پیشوندهای ص۵: post- ،
+  // for-/fore- ، ... ، under-): قبلاً وقتی جدول جا نمی‌شد، ستون‌ها کورکورانه
+  // به نسبتِ عرضِ سند جمع می‌شدند. ولی یک کلمه‌ی بی‌فاصله قابلِ شکستن نیست؛
+  // پس «under-» از ستونش بیرون می‌زد و فلاتر «for-/fore-» را سرِ خط‌تیره‌ها
+  // می‌شکست — در حالی‌که در Word هر دو یک‌خطی‌اند.
+  //
+  // این تابع کمینه‌ی عرضی را می‌دهد که سلول بدونِ شکستنِ هیچ کلمه‌ای لازم
+  // دارد: پهن‌ترین «توکنِ» سلول — متنِ بینِ دو فاصله‌ی سفید، نه بینِ هر نقطه‌ی
+  // مجازِ شکستنِ فلاتر (که بعد از خط‌تیره و اسلش هم می‌شکند) — به‌علاوه‌ی
+  // تورفتگی، padding و بوردرِ همان سلول. اندازه‌گیری با همان فونت/اندازه/
+  // ضخامتی است که رندرِ واقعی استفاده می‌کند (مقیاسِ فونتِ سیستم در صفحه‌ی
+  // مطالعه خنثی شده، پس این‌جا هم noScaling).
+  //
+  // ⚡ عمداً lazy است: فقط داخلِ LayoutBuilder، فقط برای جدولِ *تک‌ردیفه*، و
+  // فقط یک‌بار برای هر جدول (singleRowFloors) — یعنی چند TextPainter برای
+  // سلول‌های همان یک ردیف. گاردِ measurementUnused برای بقیه‌ی جدول‌ها
+  // دست‌نخورده می‌ماند.
+  final RegExp breakingSpace = RegExp(r'[ \t\r\n\u2000-\u200A\u3000]');
+
+  TextStyle measureStyleFor(SpanData s) {
+    double fontSize = 14.0;
+    String? fontFamily;
+    for (final marker in s.markers) {
+      if (marker.startsWith("sz:")) {
+        final parsed = double.tryParse(marker.substring(3));
+        if (parsed != null) fontSize = parsed / 2;
+      } else if (marker.startsWith("fn:")) {
+        fontFamily = mapFontFamily(marker.substring(3));
+      }
+    }
+    final bool subOrSup =
+        s.markers.contains("sub") || s.markers.contains("sup");
+    return TextStyle(
+      fontSize: subOrSup ? fontSize * 0.75 : fontSize,
+      fontFamily: fontFamily,
+      fontWeight: s.markers.contains("b") ? FontWeight.bold : FontWeight.normal,
+      fontStyle: s.markers.contains("i") ? FontStyle.italic : FontStyle.normal,
+      letterSpacing: s.letterSpacing,
+    );
+  }
+
+  double cellNoBreakWidth(TableCellData c, int ci, bool isFirstRow) {
+    double widest = 0;
+    for (final p in c.paragraphs) {
+      final double indent =
+          ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0) +
+          ((p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0);
+      final List<TextSpan> pieces = [];
+
+      void flush() {
+        if (pieces.isEmpty) return;
+        final tp = TextPainter(
+          text: TextSpan(children: List<TextSpan>.of(pieces)),
+          textDirection: TextDirection.ltr,
+          textScaler: TextScaler.noScaling,
+          maxLines: 1,
+        )..layout();
+        if (tp.width + indent > widest) widest = tp.width + indent;
+        tp.dispose();
+        pieces.clear();
+      }
+
+      void addSpan(SpanData s) {
+        // اسپنِ {blk} محتوایش را در InnerSpans دارد؛ همان‌ها رندر می‌شوند.
+        if (s.innerSpans.isNotEmpty) {
+          for (final inner in s.innerSpans) {
+            addSpan(inner);
+          }
+          return;
+        }
+        if (s.type == "image") {
+          flush();
+          final double w = (s.imageWidth ?? 0).toDouble() + indent;
+          if (w > widest) widest = w;
+          return;
+        }
+        if (s.type != "text") return;
+        final String text = s.content
+            .replaceAll("{blk}", "")
+            .replaceAll("{/blk}", "");
+        if (text.isEmpty) return;
+        final TextStyle style = measureStyleFor(s);
+        // توکنی که از چند اسپن (مثلاً بخشی بولد) تشکیل شده یک‌جا اندازه
+        // گرفته می‌شود؛ هر فاصله‌ی سفید توکنِ جاری را می‌بندد.
+        final List<String> parts = text.split(breakingSpace);
+        for (int k = 0; k < parts.length; k++) {
+          if (k > 0) flush();
+          if (parts[k].isNotEmpty) {
+            pieces.add(TextSpan(text: parts[k], style: style));
+          }
+        }
+      }
+
+      for (final s in p.spans) {
+        addSpan(s);
+      }
+      flush();
+    }
+
+    // padding و بوردر دقیقاً با همان قاعده‌ی ساختِ سلول (پایین‌تر) — Container
+    // عرضِ بوردرِ decoration را هم به padding اضافه می‌کند.
+    final bool imageOnly =
+        c.paragraphs.any((p) => p.spans.any((s) => s.type == "image")) &&
+        !c.paragraphs.any(
+          (p) => p.spans.any(
+            (s) => s.type == "text" && s.content.trim().isNotEmpty,
+          ),
+        );
+    final double hpad = (resolvedBorderMode == "cell") ? 5.76 : 8.0;
+    final double pad = imageOnly
+        ? 4.0
+        : (c.paddingLeft ?? hpad) + (c.paddingRight ?? hpad);
+    final Border? b = (resolvedBorderMode == "cell")
+        ? cellBorderFrom(c.borders, isFirstRow, ci == 0)
+        : null;
+    final double border = (b?.left.width ?? 0) + (b?.right.width ?? 0);
+    // ‎+2‎ برای گردکردنِ زیرپیکسلیِ Table؛ بدونِ آن گاهی همان توکنِ مرزی
+    // باز هم می‌شکند (همان حاشیه‌ای که چیپ‌های FlowTable هم دارند).
+    return widest + pad + border + 2.0;
+  }
+
   // 🌟 برای جدولِ تک‌ردیفه، ارجاعِ نقشه‌ی عرضِ ستون‌ها را نگه می‌داریم تا
   // پایین‌تر — وقتی عرضِ واقعیِ ظرف را از LayoutBuilder گرفتیم — بتوانیم
   // ستون‌ها را جمع کنیم. Table نقشه را در زمانِ layout می‌خواند، پس این
   // تغییرِ متأخر به آن می‌رسد.
   Map<int, TableColumnWidth>? singleRowColumnWidths;
+  // کفِ بدونِ‌شکستنِ ستون‌های جدولِ تک‌ردیفه — مستقل از عرضِ ظرف است، پس یک‌بار
+  // (در اولین اجرای LayoutBuilder) اندازه گرفته و برای اجراهای بعدی نگه داشته
+  // می‌شود.
+  List<double>? singleRowFloors;
 
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells = [];
@@ -3321,24 +3452,99 @@ Widget _buildTable(
               ? constraints.maxWidth
               : canvasWidth;
           // 🌟 درخواستِ کاربر: وقتی جدول فقط یک ردیف دارد، عرضِ ستون‌ها هیچ
-          // نقشی در هم‌ترازیِ بینِ ردیف‌ها ندارد — تنها دلیلِ ثابت نگه‌داشتنِ
-          // آن‌ها از بین می‌رود. پس به‌جای اسکرول یا کوچک‌کردنِ کلِ جدول،
-          // ستون‌ها را به همان نسبتِ سند جمع می‌کنیم تا داخلِ ظرف جا شوند و
-          // متن wrap شود. نتیجه: جدولِ تک‌ردیفه هیچ‌وقت سرریز نمی‌کند و
-          // اندازه‌ی فونت هم دست‌نخورده می‌ماند.
-          if (naturalTableWidth > avail + 0.5 &&
-              tableSpan.tableRows.length == 1 &&
+          // نقشی در هم‌ترازیِ بینِ ردیف‌ها ندارد؛ پس به‌جای اسکرول، ستون‌ها
+          // جمع می‌شوند تا داخلِ ظرف جا شوند و متن wrap شود.
+          //
+          // 🐞 اصلاح (جدولِ پیشوندهای ص۵: post- ، for-/fore- ، ... ، under-):
+          // قبلاً ستون‌ها کورکورانه به نسبتِ سند جمع می‌شدند؛ «under-» از
+          // ستونش بیرون می‌زد و «for-/fore-» سرِ خط‌تیره به خطِ دوم می‌رفت،
+          // در حالی‌که در Word هر دو یک‌خطی‌اند. حالا هر ستون یک «کف» دارد
+          // (cellNoBreakWidth: پهن‌ترین کلمه‌ی سلول + padding + بوردر، با
+          // متریکِ واقعیِ فلاتر) و هیچ ستونی هرگز از کفش باریک‌تر نمی‌شود:
+          //  ۱) max(عرضِ سند، کف) جا شد → همان؛ یک‌خطی، عیناً مثلِ Word.
+          //     (این حالت هم لازم بود: safetyِ تطبیقی نزدیکِ مرزِ جاشدن به
+          //     صفر می‌رسد و چون متریکِ فلاتر کمی از Word پهن‌تر است، مثلاً
+          //     «under-» در عرضِ دقیقِ سند جا نمی‌شد.)
+          //  ۲) فقط کف‌ها جا شدند → هر ستون کفش را می‌گیرد و باقیِ عرض به
+          //     نسبتِ «کمبودِ» هر ستون پخش می‌شود؛ سلولِ تک‌کلمه‌ای نمی‌شکند و
+          //     سلولِ جمله‌ای فقط سرِ فاصله‌ها wrap می‌شود.
+          //  ۳) حتی کف‌ها جا نشدند → جمع‌کردن بدونِ شکستنِ کلمه ممکن نیست؛
+          //     جدول با هندسه‌ی خودِ سند رندر می‌شود (گوشی: اسکرولِ افقی؛
+          //     نمایشگرِ عریض: کوچک‌شدنِ یکنواخت) — مثلِ جدولِ چندردیفه.
+          //
+          // ⚠️ singleRowColumnWidths بینِ اجراهای LayoutBuilder (مثلاً بعد از
+          // چرخشِ گوشی) مشترک است، پس در هر اجرا *همه‌ی* ستون‌ها از نو مقدار
+          // می‌گیرند و چیزی از اجرای قبلی باقی نمی‌ماند.
+          double tableWidth = naturalTableWidth;
+          if (tableSpan.tableRows.length == 1 &&
               singleRowColumnWidths != null &&
-              singleRowColumnWidths!.isNotEmpty) {
+              tableSpan.tableRows.first.cells.isNotEmpty) {
             final cells = tableSpan.tableRows.first.cells;
-            for (int ci = 0; ci < cells.length; ci++) {
-              singleRowColumnWidths![ci] = FlexColumnWidth(
+            final List<double> floors = singleRowFloors ??= [
+              for (int ci = 0; ci < cells.length; ci++)
+                cellNoBreakWidth(cells[ci], ci, true),
+            ];
+            final List<double> naturals = [
+              for (int ci = 0; ci < cells.length; ci++)
                 naturalColumnPx(cells[ci], ci),
+            ];
+            final List<double> safeNaturals = [
+              for (int ci = 0; ci < cells.length; ci++)
+                math.max(naturals[ci], floors[ci]),
+            ];
+            final double sumSafe = safeNaturals.fold(0.0, (a, b) => a + b);
+            final double sumFloors = floors.fold(0.0, (a, b) => a + b);
+
+            if (sumSafe <= avail + 0.5) {
+              // ۱) یک‌خطی با عرضِ سند
+              for (int ci = 0; ci < cells.length; ci++) {
+                singleRowColumnWidths![ci] = FixedColumnWidth(safeNaturals[ci]);
+              }
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(width: sumSafe, child: tableContainer),
               );
             }
-            return SizedBox(width: avail, child: tableContainer);
+
+            if (sumFloors <= avail + 0.5) {
+              // ۲) جمع‌شده تا عرضِ ظرف، بدونِ شکستنِ هیچ کلمه‌ای
+              final List<double> deficits = [
+                for (int ci = 0; ci < cells.length; ci++)
+                  safeNaturals[ci] - floors[ci], // همیشه ≥ ۰
+              ];
+              final double sumDeficits = deficits.fold(0.0, (a, b) => a + b);
+              final double extra = math.max(0.0, avail - sumFloors);
+              double fittedWidth = 0;
+              for (int ci = 0; ci < cells.length; ci++) {
+                final double share = sumDeficits > 0
+                    ? extra * deficits[ci] / sumDeficits
+                    : extra / cells.length;
+                final double w = floors[ci] + share;
+                singleRowColumnWidths![ci] = FixedColumnWidth(w);
+                fittedWidth += w;
+              }
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  width: math.min(fittedWidth, avail),
+                  child: tableContainer,
+                ),
+              );
+            }
+
+            // ۳) هندسه‌ی خودِ سند (WidthPt بدونِ safety) + کف؛ این‌جا کفِ
+            // اندازه‌گیری‌شده جای safetyِ حدسی را می‌گیرد، پس ستون‌ها بی‌دلیل
+            // از Word پهن‌تر نمی‌شوند.
+            tableWidth = 0;
+            for (int ci = 0; ci < cells.length; ci++) {
+              final double? wpt = cells[ci].widthPt;
+              final double docW = (wpt != null && wpt > 0) ? wpt : naturals[ci];
+              final double w = math.max(docW, floors[ci]);
+              singleRowColumnWidths![ci] = FixedColumnWidth(w);
+              tableWidth += w;
+            }
           }
-          if (naturalTableWidth > avail + 0.5) {
+          if (tableWidth > avail + 0.5) {
             // 🐞 وقتی جدول از عرضِ در دسترس بزرگ‌تر است:
             // - نمایشگرِ عریض → shrink-to-fit: کلِ جدول (متن هم) یکنواخت کوچک
             //   می‌شود تا کامل جا شود (روی صفحه‌ی بزرگ رزولوشن هست و جاشدن بهتر
@@ -3351,20 +3557,17 @@ Widget _buildTable(
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
-                  child: SizedBox(
-                    width: naturalTableWidth,
-                    child: tableContainer,
-                  ),
+                  child: SizedBox(width: tableWidth, child: tableContainer),
                 ),
               );
             }
             return _HScrollBox(
-              child: SizedBox(width: naturalTableWidth, child: tableContainer),
+              child: SizedBox(width: tableWidth, child: tableContainer),
             );
           }
           return Align(
             alignment: Alignment.centerLeft,
-            child: SizedBox(width: naturalTableWidth, child: tableContainer),
+            child: SizedBox(width: tableWidth, child: tableContainer),
           );
         },
       );
