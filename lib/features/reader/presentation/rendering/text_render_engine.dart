@@ -1067,7 +1067,14 @@ class InteractiveBlankWord extends StatelessWidget {
             decoration: BoxDecoration(
               color: hexToColor(span.fillColor),
               border: Border.all(
-                color: hexToColor(span.borders?.color) ?? Colors.grey.shade600,
+                // 🐞 «auto»ِ سند = مشکی (مثلِ Word)؛ ولی این پنجره تمِ تیره هم
+                // دارد و مشکی روی پس‌زمینه‌ی تیره ناپدید می‌شد، پس در تمِ تیره
+                // «auto» همان رنگِ متن (سفید) است. خاکستری فقط وقتی سند اصلاً
+                // بوردری تعریف نکرده و این جعبه پیش‌فرضِ خودِ اپ است.
+                color: span.borders != null
+                    ? (hexToColor(span.borders!.color) ??
+                          (isDarkTheme ? Colors.white : Colors.black))
+                    : Colors.grey.shade600,
                 width: 1.2,
               ),
               borderRadius: BorderRadius.circular(4),

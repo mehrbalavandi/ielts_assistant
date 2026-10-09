@@ -1449,6 +1449,20 @@ String mapFontFamily(String rawFontName) {
   return "Source Sans 3";
 }
 
+// 🐞 رنگِ بوردری که *خودِ سند* تعریف کرده، همان‌طور که Word رسمش می‌کند. در Word
+// رنگِ «auto» (یا نبودنِ w:color) برای بوردر یعنی مشکی، و صفحه‌ی مطالعه هم
+// همیشه روشن است. اکسترکتورِ قدیمی «auto» را null می‌نوشت و این‌جا خاکستریِ
+// روشن کشیده می‌شد، پس بوردرهای مشکیِ سند در اپ کم‌رنگ دیده می‌شدند (Mindset 3:
+// ۱۱۵ جدولِ CommonTable). اکسترکتورِ جدید کلمه‌ی "auto" را صریح می‌نویسد
+// (نه "000000"، تا جایی که تمِ تیره دارد — پنجره‌ی متنِ مخفی — بتواند آن را
+// به رنگِ متن ببرد)؛ هر دو حالت (null در JSONِ قدیمی و "auto" در جدید) این‌جا
+// مشکی می‌شوند، پس استخراجِ مجدد لازم نیست.
+// ⚠️ فقط برای بوردری که شیءِ BorderDetail دارد (یعنی از سند آمده). جایی که
+// اپ خودش بوردرِ پیش‌فرض می‌کشد (مثلاً جعبه‌ی CompactTableی که سند بوردری
+// برایش تعریف نکرده) null برمی‌گرداند تا همان رنگِ پیش‌فرضِ قبلی بماند.
+Color? _docBorderColor(BorderDetail? border) =>
+    border == null ? null : (_hexToColor(border.color) ?? Colors.black);
+
 Color? _hexToColor(String? hexString) {
   if (hexString == null ||
       hexString.isEmpty ||
@@ -1989,7 +2003,7 @@ Widget _buildParagraph(
 
   if (hasBgColor || showBorder) {
     Color borderColor =
-        _hexToColor(para.borders?.color) ?? Colors.grey.shade600;
+        _docBorderColor(para.borders) ?? Colors.grey.shade600;
     double borderWidth = para.borders?.width ?? 1.5;
     paragraphContent = Container(
       width: double.infinity,
@@ -2214,7 +2228,7 @@ Widget _buildTable(
     if (v.isEmpty || v == "none" || v == "nil") return BorderSide.none;
     final double w = d.width ?? 0.5;
     return BorderSide(
-      color: _hexToColor(d.color) ?? Colors.grey.shade500,
+      color: _docBorderColor(d)!, // d این‌جا null نیست؛ «auto» → مشکی
       width: w <= 0 ? 0.5 : w,
     );
   }
@@ -2262,9 +2276,18 @@ Widget _buildTable(
   double defaultBorderWidth =
       tableSpan.borders?.width ??
       ((isBorderedTable || isCompactTable) && !isFigureTable ? 1.0 : 0.5);
+  // 🐞 بوردرِ سطحِ جدولی که از سند آمده همیشه Width دارد (اکسترکتور sz را
+  // می‌خواند)؛ بوردرِ پیش‌فرضی که ResponsiveLowering برای بعضی استایل‌ها
+  // می‌سازد Width ندارد. پس «Width دارد ولی رنگ ندارد» یعنی «auto»ِ سند در
+  // JSONِ قدیمی → مشکی، مثلِ Word. پیش‌فرضِ خودِ اپ (خاکستری) دست‌نخورده است.
+  // اکسترکتورِ جدید «auto» را صریحاً با همین کلمه می‌نویسد.
+  final bool tableBorderFromDoc =
+      tableSpan.borders?.width != null ||
+      (tableSpan.borders?.color ?? "").toLowerCase() == "auto";
   Color defaultBorderColor =
       _hexToColor(tableSpan.borders?.color) ??
-      (((isBorderedTable || isCompactTable) && !isFigureTable)
+      ((tableBorderFromDoc ||
+              ((isBorderedTable || isCompactTable) && !isFigureTable))
           ? Colors.black
           : Colors.grey.shade400);
 
@@ -2824,20 +2847,13 @@ Widget _buildTable(
           currentRightWidth = cb.right!.width!.toDouble();
         }
 
-        if (cb.bottom?.color != null) {
-          currentBottomColor =
-              _hexToColor(cb.bottom!.color) ?? defaultBorderColor;
-        }
-        if (cb.top?.color != null) {
-          currentTopColor = _hexToColor(cb.top!.color) ?? defaultBorderColor;
-        }
-        if (cb.left?.color != null) {
-          currentLeftColor = _hexToColor(cb.left!.color) ?? defaultBorderColor;
-        }
-        if (cb.right?.color != null) {
-          currentRightColor =
-              _hexToColor(cb.right!.color) ?? defaultBorderColor;
-        }
+        // 🐞 ضلعی که در سند وجود دارد ولی رنگش «auto» است (یا در JSONِ قدیمی
+        // null) قبلاً یا نادیده گرفته می‌شد یا به defaultBorderColor (که برای
+        // اکثرِ استایل‌ها خاکستری است) می‌افتاد؛ مثلِ Word باید مشکی باشد.
+        if (cb.bottom != null) currentBottomColor = _docBorderColor(cb.bottom)!;
+        if (cb.top != null) currentTopColor = _docBorderColor(cb.top)!;
+        if (cb.left != null) currentLeftColor = _docBorderColor(cb.left)!;
+        if (cb.right != null) currentRightColor = _docBorderColor(cb.right)!;
       }
       try {
         var dynamicCell = cell as dynamic;
@@ -3839,7 +3855,7 @@ List<InlineSpan> _buildStyledInteractiveText(
           decoration: BoxDecoration(
             color: _hexToColor(span.fillColor), // تزریق رنگ پس‌زمینه به باکس
             border: Border.all(
-              color: _hexToColor(span.borders?.color) ?? Colors.grey.shade600,
+              color: _docBorderColor(span.borders) ?? Colors.grey.shade600,
               width:
                   span.borders?.width ??
                   1.2, // خواندن ضخامت از JSON در صورت وجود
