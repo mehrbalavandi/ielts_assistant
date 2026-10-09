@@ -2728,9 +2728,11 @@ Widget _buildTable(
           return;
         }
         if (s.type == "image") {
+          // 🐞 عکس برخلافِ کلمه قابلِ کوچک‌شدن است (با حفظِ نسبتِ ابعاد، در
+          // _buildLocalImage)، پس نباید کف بگذارد. قبلاً عرضِ کاملِ عکس کفِ
+          // ستون می‌شد و یک CommonTableِ تک‌عکسی (نمودارِ ص۸) روی گوشی به‌جای
+          // جاشدن در عرضِ صفحه اسکرولِ افقی می‌گرفت.
           flush();
-          final double w = (s.imageWidth ?? 0).toDouble() + indent;
-          if (w > widest) widest = w;
           return;
         }
         if (s.type != "text") return;
@@ -3918,29 +3920,56 @@ Widget _buildLocalImage(
     4000,
   );
 
+  // 🐞 فضای خالیِ بزرگ بالا و پایینِ عکس (نمودارِ ص۸ داخلِ CommonTable): قبلاً
+  // برای عکسِ سلولِ CommonTable هم عرض و هم ارتفاعِ سند (۶۰۵×۴۸۲) *جداگانه* به
+  // Image داده می‌شد. وقتی جا کمتر از ۶۰۵ بود، عرض جمع می‌شد ولی ارتفاعِ جعبه
+  // همان ۴۸۲ می‌ماند؛ BoxFit.contain عکسِ کوچک‌شده را وسطِ آن جعبه‌ی بلند
+  // می‌گذاشت و دو نوارِ خالیِ هم‌اندازه بالا و پایینش می‌ماند (روی گوشی هر کدام
+  // ~۱۰۰px). حالا وقتی هر دو بعد معلوم‌اند، فقط *نسبتِ* ابعاد ثابت است:
+  // عرض = کمترینِ «عرضِ سند» و «جای موجود»، و ارتفاع همیشه از همان عرض و نسبت
+  // به دست می‌آید. هدفِ اصلیِ ارتفاعِ صریح هم حفظ می‌شود: AspectRatio حتی پیش
+  // از لودِ عکس ارتفاعِ درست را (هم در layout و هم در پاسِ intrinsicHeightِ
+  // سلول‌های CommonTable) گزارش می‌دهد، پس سلولِ فقط‌عکس جمع نمی‌شود.
+  final bool keepAspect =
+      logicalWidth != null &&
+      logicalWidth > 0 &&
+      explicitHeight != null &&
+      explicitHeight > 0;
+
+  Widget image = localFile != null
+      ? Image.file(
+          localFile,
+          fit: BoxFit.contain,
+          width: keepAspect ? null : logicalWidth,
+          height: keepAspect ? null : explicitHeight,
+          cacheWidth: cacheWidth, // 🌟 اضافه شد
+          errorBuilder: (context, error, stackTrace) => _errorImage(imageName),
+        )
+      : Image.asset(
+          fallbackPath,
+          fit: BoxFit.contain,
+          width: keepAspect ? null : logicalWidth,
+          height: keepAspect ? null : explicitHeight,
+          cacheWidth: cacheWidth, // 🌟 اضافه شد
+          errorBuilder: (context, error, stackTrace) => _errorImage(imageName),
+        );
+
+  if (keepAspect) {
+    image = ConstrainedBox(
+      // «!» لازم است: Dart متغیرِ nullable را از طریقِ یک boolِ جدا promote نمی‌کند.
+      constraints: BoxConstraints(maxWidth: logicalWidth!),
+      child: AspectRatio(
+        aspectRatio: logicalWidth / explicitHeight!,
+        child: image,
+      ),
+    );
+  }
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: isImageCell ? 0.0 : 4.0),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(isImageCell ? 0 : 6),
-      child: localFile != null
-          ? Image.file(
-              localFile,
-              fit: BoxFit.contain,
-              width: logicalWidth,
-              height: explicitHeight,
-              cacheWidth: cacheWidth, // 🌟 اضافه شد
-              errorBuilder: (context, error, stackTrace) =>
-                  _errorImage(imageName),
-            )
-          : Image.asset(
-              fallbackPath,
-              fit: BoxFit.contain,
-              width: logicalWidth,
-              height: explicitHeight,
-              cacheWidth: cacheWidth, // 🌟 اضافه شد
-              errorBuilder: (context, error, stackTrace) =>
-                  _errorImage(imageName),
-            ),
+      child: image,
     ),
   );
 }
