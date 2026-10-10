@@ -205,6 +205,7 @@ class ParagraphData {
   ParagraphData copyWith({
     List<SpanData>? spans,
     List<InteractiveWord>? interactives,
+    double? indentLeft, // 🌟 برای حذفِ تورفتگیِ پایه‌ی جواب در مودال
   }) {
     return ParagraphData(
       spans: spans ?? this.spans,
@@ -214,7 +215,7 @@ class ParagraphData {
       borders: borders,
       spaceBefore: spaceBefore,
       spaceAfter: spaceAfter,
-      indentLeft: indentLeft,
+      indentLeft: indentLeft ?? this.indentLeft,
       indentRight: indentRight,
       indentFirstLine: indentFirstLine,
       startMs: startMs,

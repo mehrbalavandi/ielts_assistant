@@ -1197,10 +1197,43 @@ class InteractiveBlankWord extends StatelessWidget {
       return -1; // مارکرِ pindent ندارد
     }
 
+    // 🐞 درخواستِ کاربر — حذفِ تورفتگیِ اضافه در مودال/بنر (Mindset 2 ص۴۹ تمرین
+    // ۱۱): جوابِ BlkPa در سند تورفتگی دارد تا زیرِ متنِ آیتمِ شماره‌دارِ سؤال
+    // بنشیند (IndentLeft=14.2). آیکونِ چشم در صفحه باید همان‌جا باشد، ولی در
+    // مودال فقط خودِ جواب نشان داده می‌شود و متنِ سؤال نیست؛ پس آن تورفتگی دیگر
+    // معنایی ندارد و فقط جواب را بی‌دلیل جلو می‌برد.
+    // قاعده: «تورفتگیِ پایه» = کمترین تورفتگیِ بینِ پاراگراف‌های همین جواب، از
+    // همه کم می‌شود. جوابِ تک‌پاراگرافی یا یکدست از لبه شروع می‌شود؛ اگر
+    // پاراگراف‌های جواب *نسبت به هم* تورفتگیِ متفاوت دارند (مثلاً یک زیربند)،
+    // همان اختلاف دقیقاً حفظ می‌شود. (لیستِ شماره‌دارِ داخلِ جواب از مسیرِ
+    // buildNumberedLineGroups با تورفتگیِ آویزانِ واقعی رندر می‌شود.)
     List<Widget>? buildIndentedBlocks() {
       if (innerSpans == null || innerSpans!.isEmpty) return null;
-      final bool anyIndent = innerSpans!.any((s) => _parsePindent(s) > 0);
-      if (!anyIndent) return null; // بدونِ تورفتگی، مسیرِ تختِ قبلی کافی است
+
+      // گذرِ اول: تورفتگیِ هر بلاک (پاراگراف) و تورفتگیِ پایه
+      final List<double> blockIndents = [];
+      {
+        double ind = 0;
+        bool started = false;
+        for (final span in innerSpans!) {
+          if (span.content == "\n") {
+            blockIndents.add(ind);
+            ind = 0;
+            started = false;
+            continue;
+          }
+          final double p = _parsePindent(span);
+          if (!started && p >= 0) ind = p;
+          started = true;
+        }
+        blockIndents.add(ind);
+      }
+      final double baseIndent = blockIndents.reduce((a, b) => a < b ? a : b);
+      final bool anyRelativeIndent = blockIndents.any(
+        (i) => i - baseIndent > 0.5,
+      );
+      // بعد از کم‌کردنِ پایه هیچ تورفتگی‌ای نماند → همان مسیرِ تختِ معمولی
+      if (!anyRelativeIndent) return null;
 
       final List<Widget> blocks = [];
       List<InlineSpan> current = [];
@@ -1211,7 +1244,10 @@ class InteractiveBlankWord extends StatelessWidget {
       void flush() {
         blocks.add(
           Padding(
-            padding: EdgeInsets.only(left: currentIndent, bottom: 6),
+            padding: EdgeInsets.only(
+              left: (currentIndent - baseIndent).clamp(0.0, double.infinity),
+              bottom: 6,
+            ),
             child: Text.rich(
               TextSpan(
                 children: current.isEmpty

@@ -1562,20 +1562,56 @@ Widget buildHiddenRichContent(
   };
   final List<InteractiveWord> allInteractives = byText.values.toList();
 
+  // 🐞 حذفِ تورفتگیِ پایه‌ی جواب (همان قاعده‌ی مودالِ متنی، Mindset 2 ص۴۹ تمرین
+  // ۱۱): در مودال متنِ سؤال نیست، پس تورفتگی‌ای که جواب را زیرِ سؤال می‌نشاند
+  // معنایی ندارد. «چپ‌ترین نقطه»ی هر پاراگراف = IndentLeft + (تورفتگیِ خطِ اول
+  // اگر منفی/آویزان است) — یعنی جای شماره‌ی لیست هم حساب می‌شود؛ کمترینِ آن
+  // بینِ پاراگراف‌ها از IndentLeftِ همه کم می‌شود. نتیجه: جواب از لبه شروع
+  // می‌شود، ولی تورفتگی‌های نسبی (زیربند، تورفتگیِ آویزانِ لیستِ شماره‌دار که
+  // خطوطِ دومش زیرِ متن می‌آیند) دست‌نخورده می‌مانند. جدول‌ها و پاراگراف‌های
+  // داخلِ سلول‌ها لمس نمی‌شوند.
+  double leftmost(ParagraphData p) {
+    final double left = p.indentLeft ?? 0;
+    final double first = p.indentFirstLine ?? 0;
+    return left + (first < 0 ? first : 0);
+  }
+
+  final List<double> leftmosts = [
+    for (final p in paragraphs)
+      if (p.spans.any((s) => s.type != "table" && s.type != "layout"))
+        leftmost(p),
+  ];
+  final double baseIndent = leftmosts.isEmpty
+      ? 0
+      : leftmosts.reduce((a, b) => a < b ? a : b).clamp(0.0, double.infinity);
+  final List<ParagraphData> normalized = baseIndent <= 0.5
+      ? paragraphs
+      : [
+          for (final p in paragraphs)
+            (p.indentLeft ?? 0) > 0
+                ? p.copyWith(
+                    indentLeft: ((p.indentLeft ?? 0.0) - baseIndent).clamp(
+                      0.0,
+                      double.infinity,
+                    ),
+                  )
+                : p,
+        ];
+
   return MediaQuery(
     data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (int i = 0; i < paragraphs.length; i++)
+        for (int i = 0; i < normalized.length; i++)
           _buildParagraph(
-            paragraphs[i],
+            normalized[i],
             width,
             screenWidth,
             context,
-            prevPara: i > 0 ? paragraphs[i - 1] : null,
-            nextPara: i < paragraphs.length - 1 ? paragraphs[i + 1] : null,
+            prevPara: i > 0 ? normalized[i - 1] : null,
+            nextPara: i < normalized.length - 1 ? normalized[i + 1] : null,
             activeBook: activeBook,
             pageInteractives: allInteractives,
             keyClaim: KeyClaim(),
