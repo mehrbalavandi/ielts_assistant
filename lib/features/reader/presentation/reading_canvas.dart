@@ -2039,6 +2039,13 @@ Widget _buildParagraph(
     // (para.listMarkerBold)، ولی چون قبلاً fontFamily ست نمی‌شد، مارکر از فونتِ
     // ambient ارث می‌برد که ممکن است بولدِ واقعی نداشته باشد؛ حالا همان فونتِ
     // متن (که بولدش کار می‌کند) را می‌گذاریم تا مارکر هم دقیقاً مثلِ متن بولد شود.
+    // 🐞 Mindset 2 ص۵۳ تمرینِ ۰۶ (شماره‌ی بولد، regular دیده می‌شد): پاراگرافِ
+    // «فقط‌شماره» در JSONهای فعلی هیچ اسپنی ندارد، پس fontFamily نال می‌ماند و
+    // شماره با فونتِ سیستمیِ گوشی کشیده می‌شد. فونتِ سیستمیِ بعضی گوشی‌ها (مثلاً
+    // شیائومی) متغیر (variable) است و FontWeight.bold در فلاتر محورِ وزنِ آن را
+    // جابه‌جا نمی‌کند؛ نتیجه: شماره‌ی regular. حالا در نبودِ اسپن، فونتِ پیش‌فرضِ
+    // کتاب (همان پیش‌فرضِ mapFontFamily) استفاده می‌شود که وزنِ بولدِ واقعی دارد.
+    markerFontFamily ??= mapFontFamily('');
     final TextStyle _markerStyle = TextStyle(
       height: para.lineSpacing ?? 1.3,
       fontSize: markerFontSize,
@@ -2053,7 +2060,20 @@ Widget _buildParagraph(
       text: TextSpan(text: para.listMarker!, style: _markerStyle),
       textDirection: TextDirection.ltr,
     )..layout();
-    final double markerWidth = (_tp.width + 4.0).clamp(
+    // 🐞 پس‌زمینه/کادرِ شماره (قاعده‌ی Word: سطحِ numbering ← نشانه‌ی پایانِ
+    // پاراگراف ← استایلِ کاراکتریِ آن). مثلاً Mindset 2 ص۱۱۷: شماره‌ی سفید داخلِ
+    // کادرِ آبی. کادر فقط دورِ خودِ شماره است، نه کلِ پهنای تورفتگی.
+    final Color? _markerFill = _hexToColor(para.listMarkerFill);
+    final BorderDetail? _markerBdr = para.listMarkerBorder;
+    final bool _markerBoxed = _markerFill != null || _markerBdr != null;
+    final double _markerBdrW = _markerBdr != null
+        ? (_markerBdr.width ?? 1.0)
+        : 0.0;
+    const double _markerBoxPadH = 2.0;
+    final double _markerBoxExtra = _markerBoxed
+        ? 2 * (_markerBoxPadH + _markerBdrW)
+        : 0.0;
+    final double markerWidth = (_tp.width + 4.0 + _markerBoxExtra).clamp(
       rawMarkerWidth.clamp(16.0, 60.0),
       80.0,
     );
@@ -2095,15 +2115,41 @@ Widget _buildParagraph(
         children: [
           SizedBox(
             width: markerWidth,
-            child: Text(
-              para.listMarker!,
-              // 🐞 Word شماره‌ی لیست را در موقعیتِ (left−hanging) *چپ‌چین*
-              // می‌گذارد؛ راست‌چینِ قبلی شماره را ته جعبه می‌بُرد و لیست تورفته
-              // دیده می‌شد (مثلِ ۱،۲ ص۱۵ که کاربر flush می‌خواست). حالا چپ‌چین:
-              // مارکرِ سطحِ پایه روی لبه‌ی چپ (flush) و سطوحِ عمیق‌تر تورفته.
-              textAlign: rtl ? TextAlign.right : TextAlign.left,
-              style: _markerStyle,
-            ),
+            child: _markerBoxed
+                // 🐞 شماره‌ی کادردار/رنگی: جعبه به اندازه‌ی خودِ شماره، در ابتدای
+                // خط (مثلِ چپ‌چینیِ حالتِ عادی).
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: _markerBoxPadH,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _markerFill,
+                          border: _markerBdr != null
+                              ? Border.all(
+                                  color:
+                                      _docBorderColor(_markerBdr) ??
+                                      Colors.black,
+                                  width: _markerBdrW,
+                                )
+                              : null,
+                        ),
+                        child: Text(para.listMarker!, style: _markerStyle),
+                      ),
+                    ],
+                  )
+                : Text(
+                    para.listMarker!,
+                    // 🐞 Word شماره‌ی لیست را در موقعیتِ (left−hanging) *چپ‌چین*
+                    // می‌گذارد؛ راست‌چینِ قبلی شماره را ته جعبه می‌بُرد و لیست تورفته
+                    // دیده می‌شد (مثلِ ۱،۲ ص۱۵ که کاربر flush می‌خواست). حالا چپ‌چین:
+                    // مارکرِ سطحِ پایه روی لبه‌ی چپ (flush) و سطوحِ عمیق‌تر تورفته.
+                    textAlign: rtl ? TextAlign.right : TextAlign.left,
+                    style: _markerStyle,
+                  ),
           ),
           const SizedBox(width: 4),
           Expanded(child: paragraphContent),
@@ -3070,7 +3116,8 @@ Widget _buildTable(
         style: inheritedTextStyle.merge(
           TextStyle(
             fontSize: fontSize,
-            fontFamily: fontFamily,
+            // 🐞 همان fallbackِ رندر: پاراگرافِ بی‌اسپن → فونتِ پیش‌فرضِ کتاب
+            fontFamily: fontFamily ?? mapFontFamily(''),
             fontWeight: p.listMarkerBold ? FontWeight.bold : FontWeight.normal,
           ),
         ),
@@ -3081,7 +3128,13 @@ Widget _buildTable(
     )..layout();
     final double hanging = -(p.indentFirstLine ?? 0.0);
     final double raw = hanging > 0 ? hanging : 18.0;
-    final double markerWidth = (tp.width + 4.0).clamp(
+    // 🐞 همان فضای اضافه‌ی کادر/پس‌زمینه‌ی شماره که رندر می‌گیرد
+    final bool boxed =
+        _hexToColor(p.listMarkerFill) != null || p.listMarkerBorder != null;
+    final double boxExtra = boxed
+        ? 2 * (2.0 + (p.listMarkerBorder?.width ?? 0.0))
+        : 0.0;
+    final double markerWidth = (tp.width + 4.0 + boxExtra).clamp(
       raw.clamp(16.0, 60.0),
       80.0,
     );
