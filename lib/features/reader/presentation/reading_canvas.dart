@@ -269,8 +269,17 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
 
   // وقتی transform تغییر می‌کند — فقط اگر در حال pinch باشیم setState می‌زنیم
   // این جلوگیری می‌کند از setState غیرضروری در حین اسکرول معمولی
+  //
+  // 🐞 «روی ویندوز بعد از زوم، اسکرولِ افقی ممکن نیست»: قبلاً این‌جا
+  // `if (!_isPinching) return;` بود، یعنی _currentScale *فقط* با pinchِ دو
+  // انگشتی به‌روز می‌شد. روی اندروید زوم همیشه pinch است، ولی روی ویندوز زوم از
+  // Ctrl+چرخ، دکمه‌های ‎+/−‎ و Ctrl+/− (یعنی _zoomBy) می‌آید — پس _currentScale
+  // روی ۱ می‌ماند، _isZoomedIn=false و در نتیجه panEnabledِ InteractiveViewer
+  // خاموش می‌ماند (دکمه‌ی «بازگشت به اندازه‌ی اصلی» هم ظاهر نمی‌شد).
+  // گارد لازم نبود: جابه‌جاییِ افقیِ IV فقط translation را عوض می‌کند و اسکیل
+  // ثابت می‌ماند، پس شرطِ پایین (تغییرِ اسکیل > ۰.۰۰۵) خودش جلوی setStateِ
+  // اضافه را می‌گیرد؛ اسکرولِ عمودیِ معمولی هم اصلاً به این کنترلر دست نمی‌زند.
   void _onTransformChanged() {
-    if (!_isPinching) return;
     final s = _transformationController.value.getMaxScaleOnAxis();
     if ((s - _currentScale).abs() > 0.005) {
       setState(() => _currentScale = s);
@@ -375,6 +384,27 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     }
 
     _transformationController.value = result;
+  }
+
+  /// 🌟 جابه‌جاییِ افقیِ صفحه‌ی زوم‌شده با چرخِ ماوس (Shift+چرخ، چرخِ افقی
+  /// یا اسکرولِ کناریِ تاچ‌پد) — قراردادِ رایجِ دسکتاپ. با ماوس هم می‌شود
+  /// صفحه را کشید (pan داخلِ خودِ InteractiveViewer)، ولی چرخ راحت‌تر است.
+  /// dx مثبت یعنی محتوا به راست می‌رود. محدوده همان کلمپِ _zoomBy است تا
+  /// هیچ‌وقت فضای خالی کنارِ صفحه باز نشود.
+  void _panHorizontallyBy(double dx) {
+    final RenderObject? ro = _viewerKey.currentContext?.findRenderObject();
+    if (ro is! RenderBox || !ro.hasSize) return;
+    final double viewportWidth = ro.size.width;
+
+    final Matrix4 m = _transformationController.value.clone();
+    final double s = m.getMaxScaleOnAxis();
+    if (s <= 1.0) return;
+
+    final t = m.getTranslation();
+    final double nx = (t.x + dx).clamp(viewportWidth * (1 - s), 0.0);
+    if ((nx - t.x).abs() < 0.01) return;
+    m.setTranslationRaw(nx, t.y, t.z);
+    _transformationController.value = m;
   }
 
   @override
@@ -938,13 +968,33 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                 // 🌟 Ctrl + چرخِ ماوس = زوم (قراردادِ رایجِ دسکتاپ). بدونِ
                 // Ctrl هیچ کاری نمی‌کنیم و چرخ فقط اسکرول می‌کند.
                 onPointerSignal: (e) {
-                  if (!_ctrlHeld || e is! PointerScrollEvent) return;
-                  if (e.scrollDelta.dy == 0) return;
-                  _zoomBy(
-                    e.scrollDelta.dy < 0
-                        ? _kWheelZoomStep
-                        : 1 / _kWheelZoomStep,
-                    focalPoint: e.localPosition,
+                  if (e is! PointerScrollEvent) return;
+                  if (_ctrlHeld) {
+                    if (e.scrollDelta.dy == 0) return;
+                    _zoomBy(
+                      e.scrollDelta.dy < 0
+                          ? _kWheelZoomStep
+                          : 1 / _kWheelZoomStep,
+                      focalPoint: e.localPosition,
+                    );
+                    return;
+                  }
+                  // 🌟 صفحه‌ی زوم‌شده: Shift+چرخ یا چرخ/تاچ‌پدِ افقی = جابه‌جاییِ
+                  // افقی. از طریقِ pointerSignalResolver ثبت می‌شود تا اگر
+                  // نشانگر روی یک جدول/عکسِ اسکرول‌شونده‌ی افقی است که هنوز جا
+                  // برای حرکت دارد، اول همان اسکرول شود (Scrollableِ داخلی زودتر
+                  // ثبت می‌کند و برنده است) و فقط وقتی به لبه رسید، صفحه جابه‌جا
+                  // شود. لیستِ عمودی با Shift خودش dx را می‌خواند (صفر) و ثبت
+                  // نمی‌کند، پس با این تداخل ندارد.
+                  if (!_isZoomedIn) return;
+                  final bool shift = HardwareKeyboard.instance.isShiftPressed;
+                  final double dx = e.scrollDelta.dx != 0
+                      ? e.scrollDelta.dx
+                      : (shift ? e.scrollDelta.dy : 0.0);
+                  if (dx == 0) return;
+                  GestureBinding.instance.pointerSignalResolver.register(
+                    e,
+                    (_) => _panHorizontallyBy(-dx),
                   );
                 },
                 onPointerDown: (e) {
@@ -1782,7 +1832,11 @@ Widget _buildParagraph(
               // 🐞 همان فیکسِ فاصله: تا نوارِ اسکرول روی لبه‌ی پایینیِ
               // خودِ عکس لَم ندهد.
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 14.0),
+                // فقط روی دسکتاپ اسکرول‌بار هست و این فاصله برای آن است؛ روی
+                // موبایل اسکرول‌بار نیست، پس فضای خالیِ اضافه هم نباید باشد.
+                padding: EdgeInsets.only(
+                  bottom: _isDesktopPlatform ? 14.0 : 0.0,
+                ),
                 child: standaloneImage,
               ),
             );
@@ -2151,24 +2205,183 @@ class _HScrollBox extends StatefulWidget {
   State<_HScrollBox> createState() => _HScrollBoxState();
 }
 
+/// آیا برنامه روی دسکتاپ (ویندوز/لینوکس/مک) اجرا می‌شود؟ کاربرِ ماوس به
+/// اسکرول‌بار عادت دارد و بدونِ آن نمی‌تواند با کشیدن اسکرول کند؛ روی
+/// موبایل/تبلت اسکرول با انگشت است و نشانه‌ی بصری کافی است.
+bool get _isDesktopPlatform =>
+    Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+
+/// 🌟 درخواستِ کاربر: روی اندروید و iOS اسکرول‌بارِ افقی نشان داده نشود؛ به‌جایش
+/// خودِ ناحیه طوری دیده شود که کاربر بفهمد «این‌جا ادامه دارد و افقی اسکرول
+/// می‌شود». الگوی آشنای اپ‌های موبایل (جدول‌های iOS، کاروسل‌ها) به کار رفته:
+///
+/// ۱) **سایه‌ی لبه:** در هر طرفی که محتوای پنهان هست، یک سایه‌ی محوِ باریک روی
+///    لبه می‌افتد؛ یعنی محتوا «زیرِ لبه» ادامه دارد. با اسکرول به‌روز می‌شود: در
+///    ابتدا فقط راست، وسطِ راه هر دو طرف، در انتها فقط چپ.
+/// ۲) **دکمه‌ی فلش:** یک دایره‌ی کوچک با فلشِ › روی لبه‌ی راست، که تا اولین
+///    اسکرولِ کاربر دیده می‌شود. با یک لمس، ناحیه حدودِ ۸۰٪ عرضش جلو می‌رود؛
+///    یعنی هم راهنماست و هم برای کسی که سوایپ را امتحان نکرده کار می‌کند. بعد
+///    از اولین اسکرول محو می‌شود و فقط سایه‌ها می‌مانند تا شلوغ نشود.
+///
+/// روی دسکتاپ اسکرول‌بار مثلِ قبل همیشه دیده می‌شود (ماوس بدونِ آن کشیدن
+/// ندارد) و سایه‌های لبه هم کنارش هستند. فلش روی دسکتاپ هم کمک می‌کند.
+///
+/// (🐞 تاریخچه: قبلاً در سه جای مسیرِ رندر، داخلِ خودِ build یک
+/// `ScrollController()` ساخته می‌شد که هیچ‌وقت dispose نمی‌شد. این ویجت کنترلر
+/// را یک‌بار می‌سازد و در dispose آزاد می‌کند.)
 class _HScrollBoxState extends State<_HScrollBox> {
   final ScrollController _ctrl = ScrollController();
+  bool _canScrollLeft = false;
+  bool _canScrollRight = false;
+  bool _userHasScrolled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl.addListener(_updateEdges);
+    // ابعادِ محتوا فقط بعد از اولین layout معلوم است.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateEdges());
+  }
 
   @override
   void dispose() {
+    _ctrl.removeListener(_updateEdges);
     _ctrl.dispose();
     super.dispose();
   }
 
+  void _updateEdges() {
+    if (!mounted || !_ctrl.hasClients) return;
+    final ScrollPosition p = _ctrl.position;
+    if (!p.hasContentDimensions) return;
+    final bool left = p.pixels > p.minScrollExtent + 1;
+    final bool right = p.pixels < p.maxScrollExtent - 1;
+    final bool scrolled = _userHasScrolled || p.pixels > 4;
+    if (left != _canScrollLeft ||
+        right != _canScrollRight ||
+        scrolled != _userHasScrolled) {
+      setState(() {
+        _canScrollLeft = left;
+        _canScrollRight = right;
+        _userHasScrolled = scrolled;
+      });
+    }
+  }
+
+  void _nudgeForward() {
+    if (!_ctrl.hasClients) return;
+    final ScrollPosition p = _ctrl.position;
+    final double target = (p.pixels + p.viewportDimension * 0.8).clamp(
+      p.minScrollExtent,
+      p.maxScrollExtent,
+    );
+    _ctrl.animateTo(
+      target,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  Widget _edgeShade({required bool left, required bool visible}) {
+    return IgnorePointer(
+      child: AnimatedOpacity(
+        opacity: visible ? 1.0 : 0.0,
+        duration: const Duration(milliseconds: 200),
+        child: Container(
+          width: 16,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: left ? Alignment.centerLeft : Alignment.centerRight,
+              end: left ? Alignment.centerRight : Alignment.centerLeft,
+              colors: const [Color(0x2E000000), Color(0x00000000)],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
+    final bool desktop = _isDesktopPlatform;
+
+    Widget scroller = SingleChildScrollView(
       controller: _ctrl,
-      thumbVisibility: true,
-      child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: widget.child,
+    );
+    if (desktop) {
+      // رفع کرش «Scrollbar's ScrollController has no ScrollPosition
+      // attached»: کنترلرِ صریح، مشترک بینِ Scrollbar و ScrollView.
+      scroller = Scrollbar(
         controller: _ctrl,
-        scrollDirection: Axis.horizontal,
-        child: widget.child,
+        thumbVisibility: true,
+        child: scroller,
+      );
+    } else {
+      // هیچ اسکرول‌باری روی موبایل؛ حتی اسکرول‌بارِ خودکارِ ScrollBehavior.
+      scroller = ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: scroller,
+      );
+    }
+
+    final bool showHint = _canScrollRight && !_userHasScrolled;
+
+    // تغییرِ ابعاد (چرخشِ گوشی، لودِ عکس) هم لبه‌ها را دوباره حساب کند.
+    return NotificationListener<ScrollMetricsNotification>(
+      onNotification: (_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => _updateEdges());
+        return false;
+      },
+      child: Stack(
+        children: [
+          scroller,
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            child: _edgeShade(left: true, visible: _canScrollLeft),
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: _edgeShade(left: false, visible: _canScrollRight),
+          ),
+          Positioned(
+            right: 4,
+            top: 0,
+            bottom: desktop ? 12 : 0, // بالای اسکرول‌بارِ دسکتاپ
+            child: Center(
+              child: IgnorePointer(
+                ignoring: !showHint,
+                child: AnimatedOpacity(
+                  opacity: showHint ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 250),
+                  child: Material(
+                    color: Colors.white,
+                    shape: const CircleBorder(),
+                    elevation: 3,
+                    shadowColor: Colors.black38,
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: _nudgeForward,
+                      child: const Padding(
+                        padding: EdgeInsets.all(3),
+                        child: Icon(
+                          Icons.chevron_right_rounded,
+                          size: 22,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -3377,7 +3590,9 @@ Widget _buildTable(
   // اسکرولِ افقی هم بگیرد، کمی فاصله‌ی بیشتر می‌دهیم تا نوارِ اسکرول
   // (پایین‌تر) جا برای نفس‌کشیدن داشته باشد و روی بوردرِ جدول لَم ندهد.
   final bool willScrollHorizontally = strategy == "horizontalScroll";
-  final double nestedBottomMargin = willScrollHorizontally ? 14.0 : 10.0;
+  // فاصله‌ی اضافه فقط برای جای اسکرول‌بار است، که حالا فقط روی دسکتاپ هست.
+  final double nestedBottomMargin =
+      (willScrollHorizontally && _isDesktopPlatform) ? 14.0 : 10.0;
 
   // 🐞 پیدا شد — علتِ «فاصله‌ی اضافه زیرِ ردیفِ آخر، داخلِ بوردر»: در فلاتر
   // margin یک Container بیرونِ decorationِ *خودش* است، ولی وقتی این
