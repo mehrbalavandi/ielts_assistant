@@ -3003,29 +3003,140 @@ Widget _buildTable(
     );
   }
 
+  // عرضِ دکمه‌ی آیکونِ چشم (InteractiveBlankWord): margin ۴+۴، padding ۱۰+۱۰ و
+  // آیکونِ ۱۶. متنِ مخفیِ داخلش در صفحه دیده نمی‌شود، پس به‌جای آن همین عرض
+  // حساب می‌شود.
+  const double kBlankIconWidth = 44.0;
+  final RegExp blankRe = RegExp(r'\{blk\}.*?\{/blk\}', dotAll: true);
+
+  // فضایی که شماره‌ی لیست می‌گیرد — دقیقاً همان فرمولِ _buildParagraph
+  // (کادرِ ثابت‌عرضِ شماره + ۴ فاصله + بیرون‌زدگیِ تورفتگی).
+  double listMarkerLead(ParagraphData p) {
+    double fontSize = 14.0;
+    String? fontFamily;
+    for (final s in p.spans) {
+      if (s.type != "text") continue;
+      for (final m in s.markers) {
+        if (m.startsWith("sz:")) {
+          final parsed = double.tryParse(m.substring(3));
+          if (parsed != null) fontSize = parsed / 2;
+        } else if (m.startsWith("fn:")) {
+          fontFamily = mapFontFamily(m.substring(3));
+        }
+      }
+      break; // فقط اولین اسپنِ متنی، مثلِ رندر
+    }
+    final tp = TextPainter(
+      text: TextSpan(
+        text: p.listMarker,
+        style: TextStyle(
+          fontSize: fontSize,
+          fontFamily: fontFamily,
+          fontWeight: p.listMarkerBold ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+      textScaler: TextScaler.noScaling,
+      maxLines: 1,
+    )..layout();
+    final double hanging = -(p.indentFirstLine ?? 0.0);
+    final double raw = hanging > 0 ? hanging : 18.0;
+    final double markerWidth = (tp.width + 4.0).clamp(
+      raw.clamp(16.0, 60.0),
+      80.0,
+    );
+    tp.dispose();
+    final double outerLeft = ((p.indentLeft ?? 0.0) - markerWidth).clamp(
+      0.0,
+      999.0,
+    );
+    return outerLeft + markerWidth + 4.0;
+  }
+
+  double measurePieces(List<TextSpan> pieces) {
+    final tp = TextPainter(
+      text: TextSpan(children: pieces),
+      textDirection: TextDirection.ltr,
+      textScaler: TextScaler.noScaling,
+      maxLines: 1,
+    )..layout();
+    final double w = tp.width;
+    tp.dispose();
+    return w;
+  }
+
+  // 🐞 حداقلِ عرضِ لازمِ یک سلول بدونِ شکستنِ هیچ کلمه و بدونِ روی‌هم‌افتادن:
+  // پهن‌ترین «کلمه» (متنِ بینِ دو فاصله‌ی سفید) + فضای شماره‌ی لیست یا
+  // تورفتگی + padding و بوردرِ سلول.
+  // - آیکونِ چشم ({blk}…{/blk}) با عرضِ واقعیِ دکمه حساب می‌شود، نه متنِ مخفی.
+  //   (Mindset 2 ص۵۱ تمرینِ ۰۱: شماره‌ی «1:» روی آیکونِ چشم می‌افتاد.)
+  // - شماره‌ی لیست با همان فرمولِ رندر حساب می‌شود.
+  // - عکس کف نمی‌گذارد؛ قابلِ کوچک‌شدن است.
+  // ⚡ برای هر پاراگراف فقط ۵ کلمه‌ی بلندتر (از نظرِ تعدادِ حروف) با TextPainter
+  // اندازه گرفته می‌شود، نه همه‌ی کلمات؛ سلول‌های پرمتن هزینه‌ی زیادی نمی‌سازند.
   double cellNoBreakWidth(TableCellData c, int ci, bool isFirstRow) {
     double widest = 0;
     for (final p in c.paragraphs) {
-      final double indent =
-          ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0) +
-          ((p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0);
-      final List<TextSpan> pieces = [];
+      final bool wholeParaIsBlank =
+          p.keepListMarkerVisible != true &&
+          p.spans.length == 1 &&
+          _isWhollyOneBlank(p.spans.first.content);
+      double lead =
+          (p.listMarker != null && p.listMarker!.isNotEmpty && !wholeParaIsBlank)
+          ? listMarkerLead(p)
+          : ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0);
+      lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
+
+      final List<List<TextSpan>> tokens = [];
+      final List<int> tokenChars = [];
+      List<TextSpan> pieces = [];
+      int chars = 0;
+      double fixedWidest = 0;
 
       void flush() {
         if (pieces.isEmpty) return;
-        final tp = TextPainter(
-          text: TextSpan(children: List<TextSpan>.of(pieces)),
-          textDirection: TextDirection.ltr,
-          textScaler: TextScaler.noScaling,
-          maxLines: 1,
-        )..layout();
-        if (tp.width + indent > widest) widest = tp.width + indent;
-        tp.dispose();
-        pieces.clear();
+        tokens.add(pieces);
+        tokenChars.add(chars);
+        pieces = [];
+        chars = 0;
+      }
+
+      void addText(String text, TextStyle style) {
+        final List<String> parts = text.split(breakingSpace);
+        for (int k = 0; k < parts.length; k++) {
+          if (k > 0) flush();
+          if (parts[k].isNotEmpty) {
+            pieces.add(TextSpan(text: parts[k], style: style));
+            chars += parts[k].length;
+          }
+        }
       }
 
       void addSpan(SpanData s) {
-        // اسپنِ {blk} محتوایش را در InnerSpans دارد؛ همان‌ها رندر می‌شوند.
+        // جای‌خالی قبل از innerSpans بررسی می‌شود: محتوای مخفی در innerSpans
+        // است ولی در صفحه فقط دکمه‌ی چشم دیده می‌شود.
+        if (s.type == "text" && s.content.contains("{blk}")) {
+          final TextStyle style = measureStyleFor(s);
+          int last = 0;
+          for (final m in blankRe.allMatches(s.content)) {
+            if (m.start > last) {
+              addText(s.content.substring(last, m.start), style);
+            }
+            flush();
+            if (kBlankIconWidth > fixedWidest) fixedWidest = kBlankIconWidth;
+            last = m.end;
+          }
+          if (last < s.content.length) {
+            addText(
+              s.content
+                  .substring(last)
+                  .replaceAll("{blk}", "")
+                  .replaceAll("{/blk}", ""),
+              style,
+            );
+          }
+          return;
+        }
         if (s.innerSpans.isNotEmpty) {
           for (final inner in s.innerSpans) {
             addSpan(inner);
@@ -3033,38 +3144,46 @@ Widget _buildTable(
           return;
         }
         if (s.type == "image") {
-          // 🐞 عکس برخلافِ کلمه قابلِ کوچک‌شدن است (با حفظِ نسبتِ ابعاد، در
-          // _buildLocalImage)، پس نباید کف بگذارد. قبلاً عرضِ کاملِ عکس کفِ
-          // ستون می‌شد و یک CommonTableِ تک‌عکسی (نمودارِ ص۸) روی گوشی به‌جای
-          // جاشدن در عرضِ صفحه اسکرولِ افقی می‌گرفت.
+          // عکس قابلِ کوچک‌شدن است (با حفظِ نسبت، در _buildLocalImage)، پس کف
+          // نمی‌گذارد؛ وگرنه یک جدولِ تک‌عکسی روی گوشی بی‌دلیل اسکرول می‌گرفت.
           flush();
           return;
         }
-        if (s.type != "text") return;
-        final String text = s.content
-            .replaceAll("{blk}", "")
-            .replaceAll("{/blk}", "");
-        if (text.isEmpty) return;
-        final TextStyle style = measureStyleFor(s);
-        // توکنی که از چند اسپن (مثلاً بخشی بولد) تشکیل شده یک‌جا اندازه
-        // گرفته می‌شود؛ هر فاصله‌ی سفید توکنِ جاری را می‌بندد.
-        final List<String> parts = text.split(breakingSpace);
-        for (int k = 0; k < parts.length; k++) {
-          if (k > 0) flush();
-          if (parts[k].isNotEmpty) {
-            pieces.add(TextSpan(text: parts[k], style: style));
-          }
+        if (s.type != "text" || s.content.isEmpty) return;
+        // کادرِ دورِ متن (مثلِ شماره‌ی تمرینِ «01» که از CompactTable آمده) یک
+        // WidgetSpanِ نشکستنی است: داخلِ سلول padding/margin ندارد، پس عرضش
+        // متن + دو برابرِ ضخامتِ بوردر است.
+        final String borderFlag = (s.hasBorders ?? "").toLowerCase().trim();
+        final bool inlineBox =
+            s.borders != null || borderFlag == "true" || borderFlag == "1";
+        if (inlineBox && s.content.trim().length <= 24) {
+          flush();
+          final double w =
+              measurePieces([
+                TextSpan(text: s.content.trim(), style: measureStyleFor(s)),
+              ]) +
+              2 * (s.borders?.width ?? 1.2);
+          if (w > fixedWidest) fixedWidest = w;
+          return;
         }
+        addText(s.content, measureStyleFor(s));
       }
 
       for (final s in p.spans) {
         addSpan(s);
       }
       flush();
+
+      final List<int> order = List<int>.generate(tokens.length, (i) => i)
+        ..sort((a, b) => tokenChars[b].compareTo(tokenChars[a]));
+      double paraWidest = fixedWidest;
+      for (final i in order.take(5)) {
+        final double w = measurePieces(tokens[i]);
+        if (w > paraWidest) paraWidest = w;
+      }
+      if (paraWidest + lead > widest) widest = paraWidest + lead;
     }
 
-    // padding و بوردر دقیقاً با همان قاعده‌ی ساختِ سلول (پایین‌تر) — Container
-    // عرضِ بوردرِ decoration را هم به padding اضافه می‌کند.
     final bool imageOnly =
         c.paragraphs.any((p) => p.spans.any((s) => s.type == "image")) &&
         !c.paragraphs.any(
@@ -3081,9 +3200,10 @@ Widget _buildTable(
         : null;
     final double border = (b?.left.width ?? 0) + (b?.right.width ?? 0);
     // ‎+2‎ برای گردکردنِ زیرپیکسلیِ Table؛ بدونِ آن گاهی همان توکنِ مرزی
-    // باز هم می‌شکند (همان حاشیه‌ای که چیپ‌های FlowTable هم دارند).
+    // باز هم می‌شکند.
     return widest + pad + border + 2.0;
   }
+
 
   // 🌟 برای جدولِ تک‌ردیفه، ارجاعِ نقشه‌ی عرضِ ستون‌ها را نگه می‌داریم تا
   // پایین‌تر — وقتی عرضِ واقعیِ ظرف را از LayoutBuilder گرفتیم — بتوانیم
@@ -3094,6 +3214,9 @@ Widget _buildTable(
   // (در اولین اجرای LayoutBuilder) اندازه گرفته و برای اجراهای بعدی نگه داشته
   // می‌شود.
   List<double>? singleRowFloors;
+  // 🐞 نقشه‌ی عرضِ ستون‌های هر ردیف که از مسیرِ Table رندر می‌شود (به‌ترتیبِ
+  // ردیف‌ها) — برای «کفِ عرضِ ستون» در جدول‌های درصدی (پایین‌تر).
+  final List<Map<int, TableColumnWidth>> tablePathColumnWidths = [];
 
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells = [];
@@ -3542,6 +3665,7 @@ Widget _buildTable(
             resolvedTableBorder = const TableBorder.symmetric();
         }
 
+        tablePathColumnWidths.add(columnWidths);
         rowWidgets.add(
           Table(
             columnWidths: columnWidths,
@@ -3927,6 +4051,146 @@ Widget _buildTable(
         },
       );
     }
+  }
+
+  // 🐞 کفِ عرضِ ستون برای جدول‌های درصدی (DottedTable، NormalTable، …) —
+  // Mindset 2 ص۵۱ تمرینِ ۰۱: ستون‌ها فقط با درصدِ سند (FlexColumnWidth) تقسیم
+  // می‌شدند، بی‌توجه به محتوا. روی صفحه‌ی باریک ستونِ ۷.۸٪ حدودِ ۲۳px می‌شد ولی
+  // «1:» + آیکونِ چشم ~۸۰px لازم دارد، پس روی هم می‌افتادند؛ و «technology» در
+  // ستونِ A جا نمی‌شد و فلاتر وسطِ کلمه می‌شکست («technolog|y»).
+  //
+  // همان قاعده‌ی CommonTable: هیچ ستونی از کفِ خودش (cellNoBreakWidth) باریک‌تر
+  // نمی‌شود.
+  //  - اگر سهمِ درصدیِ همه‌ی ستون‌ها از کفشان بیشتر است → دقیقاً رفتارِ قبلی
+  //    (هیچ تغییری؛ صفحه‌های عریض و جدول‌های جاداری که مشکلی نداشتند دست
+  //    نمی‌خورند).
+  //  - اگر مجموعِ کف‌ها جا می‌شود → ستون‌های کم‌جا کفشان را می‌گیرند و بقیه‌ی
+  //    عرض به نسبتِ درصدهای سند بینِ ستون‌های دیگر پخش می‌شود.
+  //  - اگر حتی کف‌ها هم جا نمی‌شوند → جدول با مجموعِ کف‌ها افقی اسکرول می‌شود
+  //    (روی موبایل با سایه‌ی لبه و فلش، بدونِ اسکرول‌بار).
+  // فقط وقتی همه‌ی ردیف‌ها از مسیرِ Table رد شده‌اند، تعدادِ ستون‌ها یکسان است،
+  // سلولِ ادغامی (colspan) نیست و همه‌ی ستون‌ها Flex هستند؛ جدول‌های
+  // horizontalScroll/Bordered/Outside مسیرهای خودشان را دارند.
+  final List<TableRowData> guardRows = tableSpan.tableRows;
+  final int guardCols = guardRows.isEmpty ? 0 : guardRows.first.cells.length;
+  final bool floorGuardEligible =
+      resolvedWidthMode != "natural" &&
+      resolvedWidthMode != "content" &&
+      !applyWrapFlow &&
+      !applyColumnStack &&
+      !explicitHorizontalScroll &&
+      !isBorderedTable &&
+      !isOutsideTable &&
+      guardCols > 1 &&
+      tablePathColumnWidths.length == guardRows.length &&
+      guardRows.every(
+        (r) =>
+            r.cells.length == guardCols &&
+            r.cells.every((c) => (c.colSpan ?? 1) <= 1 && (c.gridSpan ?? 1) <= 1),
+      ) &&
+      tablePathColumnWidths.every(
+        (m) => List<int>.generate(
+          guardCols,
+          (i) => i,
+        ).every((i) => m[i] is FlexColumnWidth),
+      );
+
+  if (floorGuardEligible) {
+    final List<double> weights = [
+      for (int ci = 0; ci < guardCols; ci++)
+        (tablePathColumnWidths.first[ci] as FlexColumnWidth).value,
+    ];
+    final double weightSum = weights.fold(0.0, (a, b) => a + b);
+    // کفِ هر ستون فقط وقتی لازم شد و فقط یک‌بار اندازه گرفته می‌شود.
+    final Map<int, double> floorCache = {};
+    double columnFloor(int ci) => floorCache.putIfAbsent(ci, () {
+      double f = 0;
+      for (int ri = 0; ri < guardRows.length; ri++) {
+        final double w = cellNoBreakWidth(guardRows[ri].cells[ci], ci, ri == 0);
+        if (w > f) f = w;
+      }
+      return f;
+    });
+    final Widget guardedTable = tableContainer;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double avail = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : canvasWidth;
+        // ⚠️ نقشه‌ها بینِ اجراها مشترک‌اند (مثلاً چرخشِ گوشی) → اول به درصدهای سند.
+        for (final m in tablePathColumnWidths) {
+          for (int ci = 0; ci < guardCols; ci++) {
+            m[ci] = FlexColumnWidth(weights[ci]);
+          }
+        }
+        if (weightSum <= 0) return guardedTable;
+
+        final List<double> share = [
+          for (int ci = 0; ci < guardCols; ci++) avail * weights[ci] / weightSum,
+        ];
+        // ستونِ پهن (≥۱۶۰px) عملاً هیچ‌وقت کمبود ندارد؛ اندازه‌گیری‌اش لازم نیست.
+        final List<double> floors = [
+          for (int ci = 0; ci < guardCols; ci++)
+            share[ci] >= 160 ? 0.0 : columnFloor(ci),
+        ];
+        bool violated = false;
+        for (int ci = 0; ci < guardCols; ci++) {
+          if (share[ci] + 0.5 < floors[ci]) violated = true;
+        }
+        if (!violated) return guardedTable; // رفتارِ قبلی، بی‌تغییر
+
+        final double floorSum = floors.fold(0.0, (a, b) => a + b);
+        final List<double> widths;
+        if (floorSum <= avail + 0.5) {
+          // «پرکردنِ آب»: ستون‌هایی که سهمشان از کفشان کمتر است کف را می‌گیرند،
+          // باقیِ عرض به نسبتِ درصدها بینِ بقیه؛ تا وقتی ستونِ تازه‌ای زیرِ کف نرود.
+          final Set<int> pinned = {};
+          List<double> w = List<double>.from(share);
+          for (int iter = 0; iter < guardCols; iter++) {
+            double pinnedSum = 0;
+            double freeWeight = 0;
+            for (int ci = 0; ci < guardCols; ci++) {
+              if (pinned.contains(ci)) {
+                pinnedSum += floors[ci];
+              } else {
+                freeWeight += weights[ci];
+              }
+            }
+            final double remaining = avail - pinnedSum;
+            bool changed = false;
+            for (int ci = 0; ci < guardCols; ci++) {
+              if (pinned.contains(ci)) {
+                w[ci] = floors[ci];
+                continue;
+              }
+              w[ci] = freeWeight > 0 ? remaining * weights[ci] / freeWeight : 0;
+              if (w[ci] + 0.5 < floors[ci]) {
+                pinned.add(ci);
+                changed = true;
+              }
+            }
+            if (!changed) break;
+          }
+          widths = w;
+        } else {
+          widths = floors;
+        }
+
+        for (final m in tablePathColumnWidths) {
+          for (int ci = 0; ci < guardCols; ci++) {
+            m[ci] = FixedColumnWidth(widths[ci]);
+          }
+        }
+        final double total = widths.fold(0.0, (a, b) => a + b);
+        if (total > avail + 0.5) {
+          return _HScrollBox(
+            child: SizedBox(width: total, child: guardedTable),
+          );
+        }
+        return SizedBox(width: avail, child: guardedTable);
+      },
+    );
   }
 
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
