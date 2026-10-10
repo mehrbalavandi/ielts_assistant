@@ -1656,11 +1656,19 @@ Widget _buildParagraph(
   // به پایین‌دست پاس داده می‌شود.
   KeyClaim? keyClaim,
 }) {
-  if (para.spans.isEmpty ||
-      (para.spans.length == 1 &&
-          para.spans.first.type == "text" &&
-          (para.spans.first.content == "\n" ||
-              (para.spans.first.content).trim().isEmpty))) {
+  // 🐞 پاراگرافِ «فقط‌شماره»ی لیست (Mindset 2 ص۵۳ تمرینِ ۰۶: ستونِ اولِ جدول فقط
+  // شماره‌ی خودکارِ ۱ تا ۶ دارد): متن ندارد ولی Word شماره‌اش را نشان می‌دهد،
+  // پس نباید مثلِ پاراگرافِ خالی کنار گذاشته شود. اکسترکتور برایش یک اسپنِ
+  // متنیِ خالی با فونت/اندازه‌ی واقعی می‌فرستد؛ مسیرِ عادیِ لیست (پایین‌تر)
+  // شماره را در کادرش می‌کشد و محتوای خالی ارتفاعی نمی‌گیرد.
+  final bool markerOnlyListItem =
+      para.listMarker != null && para.listMarker!.trim().isNotEmpty;
+  if (!markerOnlyListItem &&
+      (para.spans.isEmpty ||
+          (para.spans.length == 1 &&
+              para.spans.first.type == "text" &&
+              (para.spans.first.content == "\n" ||
+                  (para.spans.first.content).trim().isEmpty)))) {
     return const SizedBox.shrink();
   }
 
@@ -1952,10 +1960,14 @@ Widget _buildParagraph(
       textDirection: para.direction == "RTL"
           ? TextDirection.rtl
           : TextDirection.ltr,
-      child: FloatColumn(
-        children: blockElements,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-      ),
+      // پاراگرافِ «فقط‌شماره»ی لیست هیچ بلاکی ندارد؛ جعبه‌ی خالی امن‌تر از
+      // FloatColumnِ بی‌فرزند است (ارتفاعِ ردیف را خودِ شماره تعیین می‌کند).
+      child: blockElements.isEmpty
+          ? const SizedBox.shrink()
+          : FloatColumn(
+              children: blockElements,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+            ),
     ),
   );
   // 🌟 لیست‌ها: مارکر با تورفتگی معلق (hanging indent) مانند Word
@@ -2804,12 +2816,28 @@ Widget _buildTable(
             fontFamily = mapFontFamily(marker.substring(3));
           }
         }
+        // 🐞 همان سبکِ ارثیِ رندر (letterSpacingِ تم، …) — بدونِ آن اندازه کمی
+        // کمتر از واقعیت بود و آخرین کلمه‌ی چیپ‌های FlowTable گاهی به خطِ دوم
+        // می‌افتاد. noScaling مثلِ صفحه‌ی مطالعه.
         final tp = TextPainter(
           text: TextSpan(
             text: s.content,
-            style: TextStyle(fontSize: fontSize, fontFamily: fontFamily),
+            style: DefaultTextStyle.of(context).style.merge(
+              TextStyle(
+                fontSize: fontSize,
+                fontFamily: fontFamily,
+                fontWeight: s.markers.contains("b")
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+                fontStyle: s.markers.contains("i")
+                    ? FontStyle.italic
+                    : FontStyle.normal,
+                letterSpacing: s.letterSpacing,
+              ),
+            ),
           ),
           textDirection: TextDirection.ltr,
+          textScaler: TextScaler.noScaling,
           maxLines: 1,
         )..layout();
         width += tp.width;
@@ -2981,6 +3009,15 @@ Widget _buildTable(
   // دست‌نخورده می‌ماند.
   final RegExp breakingSpace = RegExp(r'[ \t\r\n\u2000-\u200A\u3000]');
 
+  // 🐞 کلمه با وجودِ کف باز هم می‌شکست (Mindset 2 ص۵۱: «technolog|y»): متنِ
+  // سلول داخلِ FloatColumn با `DefaultTextStyle.of(context).style` ترکیب و رندر
+  // می‌شود، و هر ویژگی‌ای که خودِ اسپن تعیین نکرده از تمِ اپ ارث می‌رسد —
+  // مهم‌ترینش letterSpacing=0.25ِ bodyMediumِ متریال ۳ (ThemeData() پیش‌فرض).
+  // اندازه‌گیری قبلاً با یک TextStyleِ خام بود و این فاصله را نمی‌دید؛ برای
+  // «technology» (۱۰ حرف) حدودِ ۲.۵px کم می‌آمد، بیشتر از حاشیه‌ی ۲pxِ کف. حالا
+  // پایه‌ی اندازه‌گیری دقیقاً همان سبکِ ارثیِ رندر است.
+  final TextStyle inheritedTextStyle = DefaultTextStyle.of(context).style;
+
   TextStyle measureStyleFor(SpanData s) {
     double fontSize = 14.0;
     String? fontFamily;
@@ -2994,13 +3031,13 @@ Widget _buildTable(
     }
     final bool subOrSup =
         s.markers.contains("sub") || s.markers.contains("sup");
-    return TextStyle(
+    return inheritedTextStyle.merge(TextStyle(
       fontSize: subOrSup ? fontSize * 0.75 : fontSize,
       fontFamily: fontFamily,
       fontWeight: s.markers.contains("b") ? FontWeight.bold : FontWeight.normal,
       fontStyle: s.markers.contains("i") ? FontStyle.italic : FontStyle.normal,
-      letterSpacing: s.letterSpacing,
-    );
+      letterSpacing: s.letterSpacing, // null → همان فاصله‌ی ارثیِ تم
+    ));
   }
 
   // عرضِ دکمه‌ی آیکونِ چشم (InteractiveBlankWord): margin ۴+۴، padding ۱۰+۱۰ و
@@ -3029,10 +3066,13 @@ Widget _buildTable(
     final tp = TextPainter(
       text: TextSpan(
         text: p.listMarker,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontFamily: fontFamily,
-          fontWeight: p.listMarkerBold ? FontWeight.bold : FontWeight.normal,
+        // Text(...)ِ شماره هم با DefaultTextStyle ترکیب می‌شود.
+        style: inheritedTextStyle.merge(
+          TextStyle(
+            fontSize: fontSize,
+            fontFamily: fontFamily,
+            fontWeight: p.listMarkerBold ? FontWeight.bold : FontWeight.normal,
+          ),
         ),
       ),
       textDirection: TextDirection.ltr,
