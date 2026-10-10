@@ -136,6 +136,12 @@ class ParagraphData {
   // پاراگراف ← استایلِ کاراکتریِ آن). null یعنی بدونِ پس‌زمینه/کادر.
   final String? listMarkerFill;
   final BorderDetail? listMarkerBorder;
+  // 🐞 هندسه‌ی شماره مثلِ Word (تورفتگیِ درستِ متنِ خطِ اول):
+  final double? listMarkerSize; // اندازه‌ی فونتِ شماره (pt)؛ null = از اولین اسپن
+  final double? listMarkerScale; // فشردگیِ افقی (w:w)؛ null = ۱
+  final String? listMarkerAlign; // "right" | "center"؛ null = left
+  final String? listSuffix; // "space" | "nothing"؛ null = tab
+  final double? listTabStop; // فاصله‌ی tab stopهای پیش‌فرض (pt)؛ null = ۳۶
   // 🐞 BlankWord3: شماره‌ی لیست بیرونِ {blk} دیده شود و فقط متن مخفی شود.
   final bool keepListMarkerVisible;
   final double? lineSpacing; // 🌟 ضریبِ فاصله‌ی خطوط (1.0 = تک، 1.5، ...)
@@ -164,6 +170,11 @@ class ParagraphData {
     this.listMarkerColor, // 🐞
     this.listMarkerFill, // 🐞
     this.listMarkerBorder, // 🐞
+    this.listMarkerSize, // 🐞
+    this.listMarkerScale, // 🐞
+    this.listMarkerAlign, // 🐞
+    this.listSuffix, // 🐞
+    this.listTabStop, // 🐞
     this.keepListMarkerVisible = false, // 🐞
     this.lineSpacing, // 🌟
   });
@@ -205,6 +216,11 @@ class ParagraphData {
       listMarkerBorder: json['ListMarkerBorder'] != null
           ? BorderDetail.fromJson(json['ListMarkerBorder']) // 🐞
           : null,
+      listMarkerSize: (json['ListMarkerSize'] as num?)?.toDouble(), // 🐞
+      listMarkerScale: (json['ListMarkerScale'] as num?)?.toDouble(), // 🐞
+      listMarkerAlign: json['ListMarkerAlign'], // 🐞
+      listSuffix: json['ListSuffix'], // 🐞
+      listTabStop: (json['ListTabStop'] as num?)?.toDouble(), // 🐞
       keepListMarkerVisible: json['KeepListMarkerVisible'] == true, // 🐞
     );
   }
@@ -242,6 +258,11 @@ class ParagraphData {
       listMarkerColor: listMarkerColor, // 🐞
       listMarkerFill: listMarkerFill, // 🐞
       listMarkerBorder: listMarkerBorder, // 🐞
+      listMarkerSize: listMarkerSize, // 🐞
+      listMarkerScale: listMarkerScale, // 🐞
+      listMarkerAlign: listMarkerAlign, // 🐞
+      listSuffix: listSuffix, // 🐞
+      listTabStop: listTabStop, // 🐞
       keepListMarkerVisible: keepListMarkerVisible, // 🐞
     );
   }

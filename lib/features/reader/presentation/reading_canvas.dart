@@ -1994,72 +1994,20 @@ Widget _buildParagraph(
 
     // 🌟 مدلِ hanging-indent وُرد: IndentLeft = جایی که خطوطِ wrap‌شده می‌نشینند،
     // IndentFirstLine = افستِ منفیِ خطِ اول (مارکر) نسبت به IndentLeft.
-    // نکته‌ی مهم: Word عرضِ مارکر را به همین مقدار محدود نمی‌کند — اگر شماره از
-    // این تنگنا بزرگ‌تر باشد، Word اجازه‌ی overflow می‌دهد، نه clip. پس اینجا هم
-    // حداقلِ عرضِ قابل‌خواندن (۱۶px) را تضمین می‌کنیم تا رقم هیچ‌وقت گم نشود؛
-    // این همان چیزی بود که در دورِ قبل باعثِ ناپدید شدنِ کاملِ شماره شد
-    // (IndentLeft واقعیِ Word برای برخی لیست‌ها فقط ~۱۰px بود).
-    final double indentLeft = para.indentLeft ?? 0.0;
-    final double hanging = -(para.indentFirstLine ?? 0.0);
-    final double rawMarkerWidth = hanging > 0 ? hanging : 18.0;
-
-    // 🌟 به‌جای تکیه بر overflow:visible (که رفتارش داخلِ SizedBoxِ تنگ همیشه
-    // قابل‌اتکا نیست)، عرضِ واقعیِ متنِ مارکر را با TextPainter اندازه می‌گیریم و
-    // جعبه را دقیقاً به همان اندازه (+ کمی حاشیه) می‌سازیم — این تضمین می‌کند
-    // که رقم هیچ‌وقت به هیچ دلیلی clip/ناپدید نشود.
-    // 🐞 رفع باگِ «نشانگرِ لیست با متنِ بعدش هم‌ترازِ عمودی نیست»: مارکر قبلاً
-    // fontSize هاردکدِ ۱۴ و height ۱.۴ داشت، ولی متنِ پاراگراف اندازه‌ی خودش
-    // (مثلاً sz:23 → ۱۱.۵) و height خودش (para.lineSpacing) را دارد. اختلافِ
-    // اندازه/ارتفاعِ خطْ باعث می‌شد baseline‌ها روی هم نیفتند (Word شماره را
-    // با همان اندازه‌ی متن می‌کشد، پس هم‌تراز است). حالا اندازه‌ی مارکر را از
-    // اولین اسپنِ متنیِ همین پاراگراف (اولین sz: که پیدا شود) و ارتفاعِ خط را
-    // برابرِ متن می‌گیریم؛ با CrossAxisAlignment.start این یعنی هم‌ترازیِ دقیق.
-    double markerFontSize = 14.0;
-    String? markerFontFamily; // 🐞 fontFamily مارکر را هم از متن می‌گیریم
-    for (final s in para.spans) {
-      if (s.type != "text") continue;
-      final szMarker = s.markers.firstWhere(
-        (m) => m.startsWith("sz:"),
-        orElse: () => "",
-      );
-      if (szMarker.isNotEmpty) {
-        final parsed = double.tryParse(szMarker.substring(3));
-        if (parsed != null) markerFontSize = parsed / 2;
-      }
-      final fnMarker = s.markers.firstWhere(
-        (m) => m.startsWith("fn:"),
-        orElse: () => "",
-      );
-      if (fnMarker.isNotEmpty) {
-        markerFontFamily = mapFontFamily(fnMarker.substring(3));
-      }
-      break; // فقط اولین اسپنِ متنی
-    }
-    // 🐞 رفع باگِ «شماره‌ی لیست بولد نمی‌شود» (ادامه): بولد بودن داده‌محور است
-    // (para.listMarkerBold)، ولی چون قبلاً fontFamily ست نمی‌شد، مارکر از فونتِ
-    // ambient ارث می‌برد که ممکن است بولدِ واقعی نداشته باشد؛ حالا همان فونتِ
-    // متن (که بولدش کار می‌کند) را می‌گذاریم تا مارکر هم دقیقاً مثلِ متن بولد شود.
-    // 🐞 Mindset 2 ص۵۳ تمرینِ ۰۶ (شماره‌ی بولد، regular دیده می‌شد): پاراگرافِ
-    // «فقط‌شماره» در JSONهای فعلی هیچ اسپنی ندارد، پس fontFamily نال می‌ماند و
-    // شماره با فونتِ سیستمیِ گوشی کشیده می‌شد. فونتِ سیستمیِ بعضی گوشی‌ها (مثلاً
-    // شیائومی) متغیر (variable) است و FontWeight.bold در فلاتر محورِ وزنِ آن را
-    // جابه‌جا نمی‌کند؛ نتیجه: شماره‌ی regular. حالا در نبودِ اسپن، فونتِ پیش‌فرضِ
-    // کتاب (همان پیش‌فرضِ mapFontFamily) استفاده می‌شود که وزنِ بولدِ واقعی دارد.
-    markerFontFamily ??= mapFontFamily('');
-    final TextStyle _markerStyle = TextStyle(
-      height: para.lineSpacing ?? 1.3,
-      fontSize: markerFontSize,
-      fontFamily: markerFontFamily,
-      fontWeight: para.listMarkerBold ? FontWeight.bold : FontWeight.normal,
-      // 🐞 رنگِ نشانگرِ خودکارِ لیست از سندخوانده می‌شود (rPrِ سطحِ numbering).
-      // اگر تعریف نشده باشد null می‌ماند و رنگِ پیش‌فرضِ تمِ متن اعمال می‌شود —
-      // پس روی لیست‌های بی‌رنگ هیچ تغییری نمی‌دهد.
-      color: _hexToColor(para.listMarkerColor),
+    // 🐞 تورفتگیِ لیست‌ها بیشتر از Word بود: جعبه‌ی شماره حداقل ۱۶px بود و همیشه
+    // ۴px فاصله‌ی ثابت هم بعدش می‌آمد؛ پس متنِ خطِ اول تقریباً همیشه ۴ تا ۱۲px
+    // دیرتر از Word شروع می‌شد (در سه کتاب ~۵۸۰۰ پاراگرافِ شماره‌دار). حالا محلِ
+    // شماره و شروعِ متن دقیقاً با قاعده‌ی Word حساب می‌شود (_wordListMarkerLayout):
+    // اگر شماره در hanging جا شود، متن دقیقاً از IndentLeft؛ وگرنه tab stopِ بعدی.
+    // شماره هرگز بریده نمی‌شود: ستونش همیشه دست‌کم به پهنای خودِ شماره است.
+    final layout = _wordListMarkerLayout(
+      para,
+      DefaultTextStyle.of(context).style,
     );
-    final TextPainter _tp = TextPainter(
-      text: TextSpan(text: para.listMarker!, style: _markerStyle),
-      textDirection: TextDirection.ltr,
-    )..layout();
+    // 🐞 بولد، رنگ، فونت و اندازه‌ی شماره همه در layout.style است (رجوع به
+    // _wordListMarkerLayout): بولد داده‌محور (listMarkerBold)، فونتِ پیش‌فرضِ کتاب
+    // در نبودِ اسپن (ص۵۳)، رنگ با قاعده‌ی Word.
+    final TextStyle _markerStyle = layout.style;
     // 🐞 پس‌زمینه/کادرِ شماره (قاعده‌ی Word: سطحِ numbering ← نشانه‌ی پایانِ
     // پاراگراف ← استایلِ کاراکتریِ آن). مثلاً Mindset 2 ص۱۱۷: شماره‌ی سفید داخلِ
     // کادرِ آبی. کادر فقط دورِ خودِ شماره است، نه کلِ پهنای تورفتگی.
@@ -2070,14 +2018,43 @@ Widget _buildParagraph(
         ? (_markerBdr.width ?? 1.0)
         : 0.0;
     const double _markerBoxPadH = 2.0;
-    final double _markerBoxExtra = _markerBoxed
-        ? 2 * (_markerBoxPadH + _markerBdrW)
-        : 0.0;
-    final double markerWidth = (_tp.width + 4.0 + _markerBoxExtra).clamp(
-      rawMarkerWidth.clamp(16.0, 60.0),
-      80.0,
+    final bool _markerScaled = (layout.scale - 1.0).abs() > 0.001;
+
+    // متنِ شماره. 🐞 فشردگیِ افقیِ Word (w:w، مثلاً ۸۴٪ در Mindset 2): فلاتر
+    // فشردگیِ افقیِ متن ندارد؛ FittedBox با BoxFit.fill داخلِ جعبه‌ای به پهنای
+    // فشرده و ارتفاعِ اصلی، فقط محورِ افقی را کوچک می‌کند.
+    Widget _markerGlyphs = Text(
+      para.listMarker!,
+      style: _markerStyle,
+      softWrap: false,
+      maxLines: 1,
     );
-    final double outerLeft = (indentLeft - markerWidth).clamp(0.0, 999.0);
+    if (_markerScaled) {
+      _markerGlyphs = SizedBox(
+        width: layout.rawTextWidth * layout.scale,
+        height: layout.textHeight,
+        child: FittedBox(
+          fit: BoxFit.fill,
+          alignment: Alignment.centerLeft,
+          child: _markerGlyphs,
+        ),
+      );
+    }
+    if (_markerBoxed) {
+      _markerGlyphs = Container(
+        padding: const EdgeInsets.symmetric(horizontal: _markerBoxPadH),
+        decoration: BoxDecoration(
+          color: _markerFill,
+          border: _markerBdr != null
+              ? Border.all(
+                  color: _docBorderColor(_markerBdr) ?? Colors.black,
+                  width: _markerBdrW,
+                )
+              : null,
+        ),
+        child: _markerGlyphs,
+      );
+    }
 
     // 🐞 فقط آیتم‌هایی که آیکونِ چشمِ متنِ مخفی دارند به هم‌ترازیِ baseline
     // نیاز دارند (بقیه با start درست‌اند). یک اسکنِ ارزانِ رشته‌ای — در برابرِ
@@ -2088,8 +2065,8 @@ Widget _buildParagraph(
 
     paragraphContent = Padding(
       padding: EdgeInsets.only(
-        left: rtl ? 0 : outerLeft,
-        right: rtl ? outerLeft : 0,
+        left: rtl ? 0 : layout.markerLeft,
+        right: rtl ? layout.markerLeft : 0,
       ),
       child: Row(
         textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
@@ -2113,45 +2090,26 @@ Widget _buildParagraph(
             : CrossAxisAlignment.start,
         textBaseline: _paraHasBlankIcon ? TextBaseline.alphabetic : null,
         children: [
+          // ستونِ شماره: از محلِ شماره تا شروعِ متن (بدونِ فاصله‌ی اضافه).
           SizedBox(
-            width: markerWidth,
-            child: _markerBoxed
-                // 🐞 شماره‌ی کادردار/رنگی: جعبه به اندازه‌ی خودِ شماره، در ابتدای
-                // خط (مثلِ چپ‌چینیِ حالتِ عادی).
+            width: layout.columnWidth,
+            child: (_markerBoxed || _markerScaled)
+                // جعبه به اندازه‌ی خودِ شماره، در ابتدای ستون.
                 ? Row(
                     mainAxisSize: MainAxisSize.min,
                     textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: _markerBoxPadH,
-                        ),
-                        decoration: BoxDecoration(
-                          color: _markerFill,
-                          border: _markerBdr != null
-                              ? Border.all(
-                                  color:
-                                      _docBorderColor(_markerBdr) ??
-                                      Colors.black,
-                                  width: _markerBdrW,
-                                )
-                              : null,
-                        ),
-                        child: Text(para.listMarker!, style: _markerStyle),
-                      ),
-                    ],
+                    children: [_markerGlyphs],
                   )
                 : Text(
                     para.listMarker!,
                     // 🐞 Word شماره‌ی لیست را در موقعیتِ (left−hanging) *چپ‌چین*
-                    // می‌گذارد؛ راست‌چینِ قبلی شماره را ته جعبه می‌بُرد و لیست تورفته
-                    // دیده می‌شد (مثلِ ۱،۲ ص۱۵ که کاربر flush می‌خواست). حالا چپ‌چین:
-                    // مارکرِ سطحِ پایه روی لبه‌ی چپ (flush) و سطوحِ عمیق‌تر تورفته.
+                    // می‌گذارد (مثلِ ۱،۲ ص۱۵ که کاربر flush می‌خواست).
                     textAlign: rtl ? TextAlign.right : TextAlign.left,
                     style: _markerStyle,
+                    softWrap: false,
+                    maxLines: 1,
                   ),
           ),
-          const SizedBox(width: 4),
           Expanded(child: paragraphContent),
         ],
       ),
@@ -3092,59 +3050,10 @@ Widget _buildTable(
   const double kBlankIconWidth = 44.0;
   final RegExp blankRe = RegExp(r'\{blk\}.*?\{/blk\}', dotAll: true);
 
-  // فضایی که شماره‌ی لیست می‌گیرد — دقیقاً همان فرمولِ _buildParagraph
-  // (کادرِ ثابت‌عرضِ شماره + ۴ فاصله + بیرون‌زدگیِ تورفتگی).
-  double listMarkerLead(ParagraphData p) {
-    double fontSize = 14.0;
-    String? fontFamily;
-    for (final s in p.spans) {
-      if (s.type != "text") continue;
-      for (final m in s.markers) {
-        if (m.startsWith("sz:")) {
-          final parsed = double.tryParse(m.substring(3));
-          if (parsed != null) fontSize = parsed / 2;
-        } else if (m.startsWith("fn:")) {
-          fontFamily = mapFontFamily(m.substring(3));
-        }
-      }
-      break; // فقط اولین اسپنِ متنی، مثلِ رندر
-    }
-    final tp = TextPainter(
-      text: TextSpan(
-        text: p.listMarker,
-        // Text(...)ِ شماره هم با DefaultTextStyle ترکیب می‌شود.
-        style: inheritedTextStyle.merge(
-          TextStyle(
-            fontSize: fontSize,
-            // 🐞 همان fallbackِ رندر: پاراگرافِ بی‌اسپن → فونتِ پیش‌فرضِ کتاب
-            fontFamily: fontFamily ?? mapFontFamily(''),
-            fontWeight: p.listMarkerBold ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-      textScaler: TextScaler.noScaling,
-      maxLines: 1,
-    )..layout();
-    final double hanging = -(p.indentFirstLine ?? 0.0);
-    final double raw = hanging > 0 ? hanging : 18.0;
-    // 🐞 همان فضای اضافه‌ی کادر/پس‌زمینه‌ی شماره که رندر می‌گیرد
-    final bool boxed =
-        _hexToColor(p.listMarkerFill) != null || p.listMarkerBorder != null;
-    final double boxExtra = boxed
-        ? 2 * (2.0 + (p.listMarkerBorder?.width ?? 0.0))
-        : 0.0;
-    final double markerWidth = (tp.width + 4.0 + boxExtra).clamp(
-      raw.clamp(16.0, 60.0),
-      80.0,
-    );
-    tp.dispose();
-    final double outerLeft = ((p.indentLeft ?? 0.0) - markerWidth).clamp(
-      0.0,
-      999.0,
-    );
-    return outerLeft + markerWidth + 4.0;
-  }
+  // فضایی که شماره‌ی لیست می‌گیرد = شروعِ متنِ خطِ اول — دقیقاً همان هندسه‌ی
+  // رندر (_wordListMarkerLayout، قاعده‌ی Word)، تا کفِ ستون و رندر واگرا نشوند.
+  double listMarkerLead(ParagraphData p) =>
+      _wordListMarkerLayout(p, inheritedTextStyle).textStart;
 
   double measurePieces(List<TextSpan> pieces) {
     final tp = TextPainter(
@@ -4651,6 +4560,122 @@ Widget _buildTable(
   }
 
   return defaultResult;
+}
+
+/// 🐞 هندسه‌ی شماره‌ی خودکارِ لیست، دقیقاً با قاعده‌ی Word. رندر (_buildParagraph)
+/// و اندازه‌گیریِ کفِ ستونِ جدول (listMarkerLead) هر دو از همین تابع می‌خوانند تا
+/// هرگز واگرا نشوند.
+///
+/// تورفتگیِ لیست‌ها در اپ بیشتر از Word بود (میانه‌ی ۶px، یعنی حدودِ ۴۰٪ بیشتر از
+/// hangingِ رایجِ ۱۴.۲pt): جعبه‌ی شماره حداقل ۱۶px بود و همیشه ۴px فاصله‌ی ثابت هم
+/// بعدش می‌آمد. قاعده‌ی Word:
+///  - شماره در نقطه‌ی IndentLeft + IndentFirstLine (یعنی left − hanging) شروع می‌شود؛
+///    با lvlJc=right/center، همان نقطه انتها/وسطِ شماره است.
+///  - بعد از شماره (w:suff):
+///    - tab (پیش‌فرض): اگر شماره در بازه‌ی hanging جا شد، متن دقیقاً از IndentLeft
+///      شروع می‌شود؛ وگرنه (یا اگر hanging نیست) از tab stopِ پیش‌فرضِ بعدی
+///      (هر ۳۶pt از ابتدای ناحیه‌ی متن).
+///    - space: درست بعد از شماره + یک فاصله.
+///    - nothing: چسبیده به شماره.
+/// عرضِ شماره با همان فونت، اندازه، وزن و فشردگیِ افقیِ (w:w) شماره در Word اندازه
+/// گرفته می‌شود؛ بدونِ فاصله‌ی حروفِ تم (Word چنین فاصله‌ای ندارد).
+({
+  TextStyle style,
+  double scale,
+  double rawTextWidth,
+  double textHeight,
+  double boxExtra,
+  double markerLeft,
+  double columnWidth,
+  double textStart,
+})
+_wordListMarkerLayout(ParagraphData para, TextStyle inherited) {
+  double fontSize = 14.0;
+  String? fontFamily;
+  for (final s in para.spans) {
+    if (s.type != "text") continue;
+    for (final m in s.markers) {
+      if (m.startsWith("sz:")) {
+        final parsed = double.tryParse(m.substring(3));
+        if (parsed != null) fontSize = parsed / 2;
+      } else if (m.startsWith("fn:")) {
+        fontFamily = mapFontFamily(m.substring(3));
+      }
+    }
+    break; // فقط اولین اسپنِ متنی
+  }
+  // اندازه‌ی خودِ شماره از سند (سطحِ numbering ← نشانه‌ی پایانِ پاراگراف ← استایل)
+  // اگر اکسترکتور فرستاده باشد؛ وگرنه اندازه‌ی اولین اسپن مثلِ قبل.
+  if ((para.listMarkerSize ?? 0) > 0) fontSize = para.listMarkerSize!;
+  // در نبودِ اسپن، فونتِ پیش‌فرضِ کتاب (بولدِ واقعی دارد؛ رجوع به ص۵۳).
+  fontFamily ??= mapFontFamily('');
+
+  final TextStyle style = TextStyle(
+    height: para.lineSpacing ?? 1.3,
+    fontSize: fontSize,
+    fontFamily: fontFamily,
+    fontWeight: para.listMarkerBold ? FontWeight.bold : FontWeight.normal,
+    color: _hexToColor(para.listMarkerColor),
+    letterSpacing: 0.0,
+  );
+  final TextStyle measured = inherited.merge(style);
+  final TextPainter tp = TextPainter(
+    text: TextSpan(text: para.listMarker ?? '', style: measured),
+    textDirection: TextDirection.ltr,
+    textScaler: TextScaler.noScaling,
+    maxLines: 1,
+  )..layout();
+  final double rawTextWidth = tp.width;
+  final double textHeight = tp.height;
+  tp.dispose();
+
+  final double scale =
+      (para.listMarkerScale ?? 1.0) > 0 ? (para.listMarkerScale ?? 1.0) : 1.0;
+  final bool boxed =
+      _hexToColor(para.listMarkerFill) != null || para.listMarkerBorder != null;
+  final double boxExtra = boxed
+      ? 2 * (2.0 + (para.listMarkerBorder?.width ?? 0.0))
+      : 0.0;
+  final double markerW = rawTextWidth * scale + boxExtra;
+
+  final double left = math.max(0.0, para.indentLeft ?? 0.0);
+  final double firstLine = para.indentFirstLine ?? 0.0;
+  final double anchor = math.max(0.0, left + firstLine);
+  double markerLeft = anchor;
+  if (para.listMarkerAlign == "right") {
+    markerLeft = math.max(0.0, anchor - markerW);
+  } else if (para.listMarkerAlign == "center") {
+    markerLeft = math.max(0.0, anchor - markerW / 2);
+  }
+  final double markerEnd = markerLeft + markerW;
+
+  final double tab = (para.listTabStop ?? 0) > 0 ? para.listTabStop! : 36.0;
+  double textStart;
+  if (para.listSuffix == "nothing") {
+    textStart = markerEnd;
+  } else if (para.listSuffix == "space") {
+    final TextPainter sp = TextPainter(
+      text: TextSpan(text: ' ', style: measured),
+      textDirection: TextDirection.ltr,
+      textScaler: TextScaler.noScaling,
+    )..layout();
+    textStart = markerEnd + sp.width;
+    sp.dispose();
+  } else if (firstLine < 0 && markerEnd <= left + 0.5) {
+    textStart = left; // شماره در hanging جا شد
+  } else {
+    textStart = ((markerEnd / tab).floor() + 1) * tab; // tab stopِ بعدی
+  }
+  return (
+    style: style,
+    scale: scale,
+    rawTextWidth: rawTextWidth,
+    textHeight: textHeight,
+    boxExtra: boxExtra,
+    markerLeft: markerLeft,
+    columnWidth: math.max(textStart - markerLeft, markerW),
+    textStart: math.max(textStart, markerEnd),
+  );
 }
 
 /// 🐞 حلِ «کفِ عرضِ ستون» برای هر جدولی که ردیف‌هایش جدا رندر می‌شوند (هر ردیف
