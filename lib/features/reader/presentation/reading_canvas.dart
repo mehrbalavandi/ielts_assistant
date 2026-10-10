@@ -3152,9 +3152,17 @@ Widget _buildTable(
           return;
         }
         if (s.type == "image") {
-          // عکس قابلِ کوچک‌شدن است (با حفظِ نسبت، در _buildLocalImage)، پس کف
-          // نمی‌گذارد؛ وگرنه یک جدولِ تک‌عکسی روی گوشی بی‌دلیل اسکرول می‌گرفت.
           flush();
+          // 🐞 درخواستِ کاربر: عکسِ سلولِ CommonTable (که با ابعادِ سند رندر می‌شود،
+          // verbatimCellImage) نباید برای جاشدن در عرضِ صفحه کوچک شود؛ مثلِ متن
+          // کف می‌گذارد و اگر جا نشد جدول اسکرولِ افقی می‌گیرد. قبلاً عکس کفی
+          // نداشت، پس جدولِ تک‌ردیفه‌ی «فقط‌عکس» تا عرضِ صفحه جمع می‌شد و عکس
+          // ریز دیده می‌شد، در حالی که سلولِ «عکس + متن» (به‌خاطرِ کفِ متن) اسکرول
+          // می‌گرفت. در جدول‌های دیگر عکس مثلِ قبل قابلِ کوچک‌شدن است.
+          if (cellGeometryFromDoc && (s.imageWidth ?? 0) > 0) {
+            final double w = s.imageWidth!.toDouble();
+            if (w > fixedWidest) fixedWidest = w;
+          }
           return;
         }
         if (s.type != "text" || s.content.isEmpty) return;
@@ -3262,6 +3270,7 @@ Widget _buildTable(
     for (final p in c.paragraphs) {
       if (p.listMarker != null && p.listMarker!.isNotEmpty) return null;
       final StringBuffer text = StringBuffer();
+      double imgWidest = 0;
       double fs = 0;
       double ls = 0.25; // letterSpacingِ تمِ متریال ۳ (bodyMedium)
       void scan(SpanData s) {
@@ -3272,6 +3281,14 @@ Widget _buildTable(
           return;
         }
         if (s.type != "text") {
+          // 🐞 عکسِ CommonTable کف دارد (رجوع به cellNoBreakWidth)؛ سقف هم باید
+          // آن را ببیند، وگرنه اندازه‌گیریِ دقیق بی‌جا رد می‌شد.
+          if (s.type == "image" &&
+              cellGeometryFromDoc &&
+              (s.imageWidth ?? 0) > 0 &&
+              s.imageWidth!.toDouble() > imgWidest) {
+            imgWidest = s.imageWidth!.toDouble();
+          }
           text.write(' ');
           return;
         }
@@ -3308,7 +3325,7 @@ Widget _buildTable(
       double lead = (p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0;
       lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
       lead += (p.indentFirstLine ?? 0) > 0 ? p.indentFirstLine! : 0.0;
-      final double w = longest * (fs * 1.05 + ls) + lead;
+      final double w = math.max(longest * (fs * 1.05 + ls), imgWidest) + lead;
       if (w > widest) widest = w;
     }
     final double hpad = cellGeometryFromDoc ? 5.76 : 8.0;
