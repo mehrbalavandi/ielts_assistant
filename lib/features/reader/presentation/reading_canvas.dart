@@ -3179,6 +3179,12 @@ Widget _buildTable(
           ? listMarkerLead(p)
           : ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0);
       lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
+      // 🐞 تورفتگیِ مثبتِ خطِ اول یک WidgetSpanِ ثابت‌عرض در ابتدای خط است
+      // (_buildParagraph)؛ اولین کلمه باید کنارش جا شود.
+      if (!(p.listMarker != null && p.listMarker!.isNotEmpty) &&
+          (p.indentFirstLine ?? 0) > 0) {
+        lead += p.indentFirstLine!;
+      }
 
       final List<List<TextSpan>> tokens = [];
       final List<int> tokenChars = [];
@@ -3259,6 +3265,45 @@ Widget _buildTable(
           if (w > fixedWidest) fixedWidest = w;
           return;
         }
+        // 🐞 لینکِ صوتی یک ویجتِ نشکستنی است (InlineAudioLink): margin ۴ +
+        // padding ۸+۸ + بوردرِ ۱+۱ + آیکونِ ۲۲ + فاصله‌ی ۸ + متن (۱۴، w600،
+        // فاصله‌ی حروفِ ۰.۵).
+        if (s.url != null && s.url!.startsWith("audio:")) {
+          flush();
+          final double w =
+              measurePieces([
+                TextSpan(
+                  text: s.content,
+                  style: inheritedTextStyle.merge(
+                    const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+              ]) +
+              4.0 + 16.0 + 2.0 + 22.0 + 8.0;
+          if (w > fixedWidest) fixedWidest = w;
+          return;
+        }
+        // 🐞 توکنِ کوتاهِ رنگی (همان شرطِ _isSafeHighlightToken در رندر) به‌صورتِ
+        // WidgetSpan با padding افقیِ ۲+۲ کشیده می‌شود: نشکستنی و ۴px پهن‌تر.
+        final String trimmedContent = s.content.trim();
+        if (!inlineBox &&
+            _hexToColor(s.fillColor) != null &&
+            trimmedContent.isNotEmpty &&
+            trimmedContent.length <= 20 &&
+            !trimmedContent.contains(' ')) {
+          flush();
+          final double w =
+              measurePieces([
+                TextSpan(text: s.content, style: measureStyleFor(s)),
+              ]) +
+              4.0;
+          if (w > fixedWidest) fixedWidest = w;
+          return;
+        }
         addText(s.content, measureStyleFor(s));
       }
 
@@ -3297,6 +3342,128 @@ Widget _buildTable(
     return widest + pad + border + 2.0;
   }
 
+  // ⚡ سقفِ ارزانِ کفِ یک سلول، بدونِ TextPainter: طولانی‌ترین کلمه (به حرف) ×
+  // (اندازه‌ی فونت + فاصله‌ی حروف) — هیچ حرفِ لاتینی پهن‌تر از ۱.۰۵em نیست — +
+  // تورفتگی + padding + بوردر. اگر همین سقف در عرضِ ستون جا شود، سلول قطعاً
+  // نمی‌شکند و اندازه‌گیریِ دقیق لازم نیست؛ پس جدول‌های جادار تقریباً هیچ
+  // هزینه‌ای نمی‌دهند. برای سلول‌های پیچیده (شماره‌ی لیست، آیکونِ چشم، کادرِ
+  // متن، لینکِ صوتی، توکنِ رنگی) null برمی‌گرداند یعنی «حتماً اندازه بگیر».
+  double? cellNoBreakUpperBound(TableCellData c, int ci, bool isFirstRow) {
+    double widest = 0;
+    for (final p in c.paragraphs) {
+      if (p.listMarker != null && p.listMarker!.isNotEmpty) return null;
+      final StringBuffer text = StringBuffer();
+      double fs = 0;
+      double ls = 0.25; // letterSpacingِ تمِ متریال ۳ (bodyMedium)
+      void scan(SpanData s) {
+        if (s.innerSpans.isNotEmpty && !s.content.contains("{blk}")) {
+          for (final inner in s.innerSpans) {
+            scan(inner);
+          }
+          return;
+        }
+        if (s.type != "text") {
+          text.write(' ');
+          return;
+        }
+        final String flag = (s.hasBorders ?? "").toLowerCase().trim();
+        if (s.content.contains("{blk}") ||
+            s.borders != null ||
+            flag == "true" ||
+            flag == "1" ||
+            (s.url != null && s.url!.startsWith("audio:")) ||
+            _hexToColor(s.fillColor) != null) {
+          fs = -1; // پیچیده
+          return;
+        }
+        double size = 14.0;
+        for (final m in s.markers) {
+          if (m.startsWith("sz:")) {
+            final parsed = double.tryParse(m.substring(3));
+            if (parsed != null) size = parsed / 2;
+          }
+        }
+        if (size > fs && fs >= 0) fs = size;
+        if ((s.letterSpacing ?? 0) > ls) ls = s.letterSpacing!;
+        text.write(s.content);
+      }
+
+      for (final s in p.spans) {
+        scan(s);
+        if (fs < 0) return null;
+      }
+      int longest = 0;
+      for (final t in text.toString().split(breakingSpace)) {
+        if (t.length > longest) longest = t.length;
+      }
+      double lead = (p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0;
+      lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
+      lead += (p.indentFirstLine ?? 0) > 0 ? p.indentFirstLine! : 0.0;
+      final double w = longest * (fs * 1.05 + ls) + lead;
+      if (w > widest) widest = w;
+    }
+    final double hpad = cellGeometryFromDoc ? 5.76 : 8.0;
+    final double pad = (c.paddingLeft ?? hpad) + (c.paddingRight ?? hpad);
+    final Border? b = (resolvedBorderMode == "cell")
+        ? cellBorderFrom(c.borders, isFirstRow, ci == 0)
+        : null;
+    final double border = (b?.left.width ?? 0) + (b?.right.width ?? 0);
+    return widest + pad + border + 2.0;
+  }
+
+  // کفِ بدونِ‌شکستنِ یک سلول برای مقایسه با عرضِ [available]: اگر سقفِ ارزان جا
+  // شود همان سقف (محافظه‌کارانه و بی‌هزینه)، وگرنه اندازه‌گیریِ دقیق.
+  double cellFloorAgainst(
+    TableCellData c,
+    int ci,
+    bool isFirstRow,
+    double available,
+  ) {
+    final double? bound = cellNoBreakUpperBound(c, ci, isFirstRow);
+    if (bound != null && bound <= available + 0.5) return bound;
+    return cellNoBreakWidth(c, ci, isFirstRow);
+  }
+
+  // 🐞 Mindset 2 ص۵۷ تمرین‌های ۰۳ و ۰۴: CommonTableِ چندردیفه فقط WidthPtِ سند
+  // + safety می‌گرفت و هیچ کفی نداشت؛ پس با وجودِ اسکرولِ افقی، کلمه‌های بلند
+  // («extraordinary»، «uncomfortable») وسطشان می‌شکستند. حالا همان کفِ جدولِ
+  // تک‌ردیفه این‌جا هم هست، با شبکه‌ی مشترکِ ستون‌ها تا ردیف‌ها هم‌تراز بمانند
+  // (حتی با سلولِ ادغامی، مثلِ سرستونِ «Newspapers» روی دو ستون).
+  List<List<double>>? computeMultiRowNaturalWidths() {
+    final rows = tableSpan.tableRows;
+    final List<List<double>> base = [
+      for (final row in rows)
+        [
+          for (int ci = 0; ci < row.cells.length; ci++)
+            naturalColumnPx(row.cells[ci], ci),
+        ],
+    ];
+    bool violated = false;
+    final List<List<double>> floors = [];
+    for (int r = 0; r < rows.length; r++) {
+      final List<double> f = [];
+      for (int ci = 0; ci < rows[r].cells.length; ci++) {
+        final double v = cellFloorAgainst(
+          rows[r].cells[ci],
+          ci,
+          r == 0,
+          base[r][ci],
+        );
+        if (v > base[r][ci] + 0.5) violated = true;
+        f.add(v);
+      }
+      floors.add(f);
+    }
+    if (!violated) return null;
+    return _solveColumnGrid(
+      docW: [
+        for (final row in rows) [for (final c in row.cells) c.widthPt],
+      ],
+      base: base,
+      floor: floors,
+    );
+  }
+
 
   // 🌟 برای جدولِ تک‌ردیفه، ارجاعِ نقشه‌ی عرضِ ستون‌ها را نگه می‌داریم تا
   // پایین‌تر — وقتی عرضِ واقعیِ ظرف را از LayoutBuilder گرفتیم — بتوانیم
@@ -3307,9 +3474,16 @@ Widget _buildTable(
   // (در اولین اجرای LayoutBuilder) اندازه گرفته و برای اجراهای بعدی نگه داشته
   // می‌شود.
   List<double>? singleRowFloors;
+  // 🐞 عرضِ کف‌دارِ ستون‌های جدولِ چندردیفه‌ی natural — یک‌بار محاسبه می‌شود (مستقل
+  // از عرضِ ظرف). null یعنی هیچ سلولی کمبود نداشت و هندسه‌ی قبلی دست نمی‌خورد.
+  bool multiRowFloorsDone = false;
+  List<List<double>>? multiRowWidths;
   // 🐞 نقشه‌ی عرضِ ستون‌های هر ردیف که از مسیرِ Table رندر می‌شود (به‌ترتیبِ
   // ردیف‌ها) — برای «کفِ عرضِ ستون» در جدول‌های درصدی (پایین‌تر).
   final List<Map<int, TableColumnWidth>> tablePathColumnWidths = [];
+  // 🐞 نقشه‌ی عرضِ ستونِ *هر* ردیف به‌ترتیبِ اندیسِ ردیف (برای کفِ عرضِ ستون در
+  // جدول‌های چندردیفه و جدول‌های دارای سلولِ ادغامی — _solveColumnGrid).
+  final List<Map<int, TableColumnWidth>> allRowColumnWidths = [];
 
   List<Widget> rowWidgets = [];
   List<List<Widget>> allGridCells = [];
@@ -3339,6 +3513,7 @@ Widget _buildTable(
     bool isImageRow = hasAnyImage && !hasAnyText;
 
     Map<int, TableColumnWidth> columnWidths = {};
+    allRowColumnWidths.add(columnWidths);
     if (tableSpan.tableRows.length == 1) singleRowColumnWidths = columnWidths;
 
     // تنظیمات داینامیک مرزها برای هر ردیف
@@ -3922,6 +4097,10 @@ Widget _buildTable(
   // استایل‌های خاصِ FigureTable و HBTable ست می‌کند، نه به‌عنوانِ پیش‌فرضِ
   // هر جدولِ ناشناخته‌ای.
   final bool explicitHorizontalScroll = strategy == "horizontalScroll";
+  // 🐞 برای کفِ عرضِ ستون (پایینِ تابع): جدولِ پیش از پیچیدن در اسکرولِ افقی، و
+  // عرضی که این مسیر برایش حدس زد (اگر پیچیده شد).
+  final Widget tableBeforeHScroll = tableContainer;
+  double? hScrollRenderWidth;
   if (!applyColumnStack && explicitHorizontalScroll) {
     int maxColumnCount = 0;
     for (final row in tableSpan.tableRows) {
@@ -3978,6 +4157,7 @@ Widget _buildTable(
         canvasWidth,
         canvasWidth * 3,
       );
+      hScrollRenderWidth = renderWidth;
       // 🐞 رفع کرش «Scrollbar's ScrollController has no ScrollPosition
       // attached»: بدون controllerِ صریح، Scrollbar به PrimaryScrollController
       // برمی‌گردد که به این SingleChildScrollViewِ افقیِ تودرتو وصل نیست.
@@ -4114,6 +4294,29 @@ Widget _buildTable(
               final double w = math.max(docW, floors[ci]);
               singleRowColumnWidths![ci] = FixedColumnWidth(w);
               tableWidth += w;
+            }
+          }
+          // 🐞 جدولِ چندردیفه: هیچ ستونی از کفِ بدونِ‌شکستنِ سلول‌هایش باریک‌تر
+          // نمی‌شود (computeMultiRowNaturalWidths). اگر کف‌ها جدول را از ظرف
+          // پهن‌تر کنند، همان اسکرولِ افقی/کوچک‌شدنِ یکنواختِ پایین اعمال می‌شود.
+          if (tableSpan.tableRows.length > 1 &&
+              allRowColumnWidths.length == tableSpan.tableRows.length) {
+            if (!multiRowFloorsDone) {
+              multiRowFloorsDone = true;
+              multiRowWidths = computeMultiRowNaturalWidths();
+            }
+            final List<List<double>>? widths = multiRowWidths;
+            if (widths != null) {
+              double widestRow = 0;
+              for (int r = 0; r < widths.length; r++) {
+                double rowW = 0;
+                for (int c = 0; c < widths[r].length; c++) {
+                  allRowColumnWidths[r][c] = FixedColumnWidth(widths[r][c]);
+                  rowW += widths[r][c];
+                }
+                if (rowW > widestRow) widestRow = rowW;
+              }
+              tableWidth = widestRow;
             }
           }
           if (tableWidth > avail + 0.5) {
@@ -4286,6 +4489,10 @@ Widget _buildTable(
     );
   }
 
+  // عرضی که مسیرِ پیش‌فرضِ پایین به خودِ جدول می‌دهد (null = همه‌ی عرضِ ظرف)؛
+  // کفِ عرضِ ستون (gridGuard) با همین عرض مقایسه می‌کند.
+  double? defaultTableWidth = hScrollRenderWidth;
+  Widget defaultResult = tableContainer;
   if (isBorderedTable && tableSpan.tableWidthPercent != null) {
     if (isLargeScreen) {
       Alignment tableAlign = Alignment.centerLeft;
@@ -4293,7 +4500,8 @@ Widget _buildTable(
       if (tableSpan.tableAlignment == "right") {
         tableAlign = Alignment.centerRight;
       }
-      return Align(
+      defaultTableWidth ??= canvasWidth * (tableSpan.tableWidthPercent! / 100);
+      defaultResult = Align(
         alignment: tableAlign,
         child: SizedBox(
           width: canvasWidth * (tableSpan.tableWidthPercent! / 100),
@@ -4302,15 +4510,332 @@ Widget _buildTable(
       );
     } else {
       if (tableSpan.tableWidthPercent! < 40) {
-        return Align(
+        defaultTableWidth ??= canvasWidth * 0.6;
+        defaultResult = Align(
           alignment: Alignment.center,
           child: SizedBox(width: canvasWidth * 0.6, child: tableContainer),
         );
       }
-      return tableContainer;
     }
   }
-  return tableContainer;
+
+  // 🐞 همان کف برای همه‌ی جدول‌های درصدی‌ای که مسیرِ بالا نمی‌پذیرد: سلولِ ادغامی
+  // (ColSpan)، ردیف‌هایی با تعدادِ سلولِ متفاوت، ستون‌های ثابت‌عرضِ کنارِ ستون‌های
+  // Flex (قاعده‌ی «ستونِ برچسبِ باریک»)، و جدول‌های Bordered/Outside/Figure (حتی
+  // وقتی مسیرِ horizontalScroll با یک عرضِ حدسی در اسکرول پیچیده‌شان). این‌ها
+  // قبلاً هیچ کفی نداشتند.
+  // با _solveColumnGrid: ستون‌ها هم‌تراز می‌مانند، هیچ سلولی از کفش باریک‌تر
+  // نمی‌شود و اضافه‌عرض تا جای ممکن از فضای اضافیِ ستون‌های دیگر گرفته می‌شود؛
+  // اگر جا نشد، اسکرولِ افقی. اگر هیچ سلولی کمبود نداشت، رفتارِ قبلی بی‌تغییر.
+  final bool gridGuardEligible =
+      !floorGuardEligible &&
+      resolvedWidthMode != "natural" &&
+      resolvedWidthMode != "content" &&
+      !applyWrapFlow &&
+      !applyColumnStack &&
+      guardRows.isNotEmpty &&
+      tablePathColumnWidths.length == guardRows.length &&
+      allRowColumnWidths.length == guardRows.length &&
+      guardRows.any((r) => r.cells.length > 1) &&
+      List<int>.generate(guardRows.length, (i) => i).every(
+        (r) =>
+            allRowColumnWidths[r].length == guardRows[r].cells.length &&
+            allRowColumnWidths[r].values.every(
+              (v) => v is FixedColumnWidth || v is FlexColumnWidth,
+            ),
+      );
+
+  if (gridGuardEligible) {
+    // جدولِ خام (پیش از پیچیدن در اسکرولِ حدسیِ horizontalScroll)؛ اگر کمبودی
+    // نبود، دقیقاً همان نتیجه‌ی پیش‌فرض (defaultResult) برمی‌گردد.
+    final Widget guardedTable = tableBeforeHScroll;
+    // نقشه‌ها بینِ اجراهای LayoutBuilder مشترک‌اند؛ هر اجرا از نسخه‌ی اصلی شروع می‌کند.
+    final List<Map<int, TableColumnWidth>> originals = [
+      for (final m in allRowColumnWidths) Map<int, TableColumnWidth>.of(m),
+    ];
+    final bool allPt = guardRows.every(
+      (r) => r.cells.every((c) => (c.widthPt ?? 0) > 0),
+    );
+    final List<List<double?>> docW = [
+      for (final r in guardRows)
+        [for (final c in r.cells) allPt ? c.widthPt : c.widthPercent],
+    ];
+    final Map<int, double> exactFloors = {};
+    double exactFloor(int r, int ci) => exactFloors.putIfAbsent(
+      r * 1000 + ci,
+      () => cellNoBreakWidth(guardRows[r].cells[ci], ci, r == 0),
+    );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double avail = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : canvasWidth;
+        for (int r = 0; r < guardRows.length; r++) {
+          allRowColumnWidths[r]
+            ..clear()
+            ..addAll(originals[r]);
+        }
+        // عرضی که مسیرِ پیش‌فرض واقعاً به جدول می‌دهد.
+        final double tableAvail = defaultTableWidth ?? avail;
+        // عرضِ فعلیِ هر سلول، همان‌طور که Table حساب می‌کند: ثابت‌ها عرضِ خودشان،
+        // Flexها سهمشان از باقیِ عرض.
+        final List<List<double>> base = [];
+        for (int r = 0; r < guardRows.length; r++) {
+          double fixedSum = 0, flexSum = 0;
+          for (final v in originals[r].values) {
+            if (v is FixedColumnWidth) fixedSum += v.value;
+            if (v is FlexColumnWidth) flexSum += v.value;
+          }
+          final double free = math.max(0.0, tableAvail - fixedSum);
+          base.add([
+            for (int ci = 0; ci < guardRows[r].cells.length; ci++)
+              () {
+                final TableColumnWidth v = originals[r][ci]!;
+                if (v is FixedColumnWidth) return v.value;
+                final double f = (v as FlexColumnWidth).value;
+                return flexSum > 0 ? free * f / flexSum : 0.0;
+              }(),
+          ]);
+        }
+        bool violated = false;
+        for (int r = 0; r < guardRows.length && !violated; r++) {
+          for (int ci = 0; ci < guardRows[r].cells.length; ci++) {
+            final double? bound = cellNoBreakUpperBound(
+              guardRows[r].cells[ci],
+              ci,
+              r == 0,
+            );
+            if (bound != null && bound <= base[r][ci] + 0.5) continue;
+            if (exactFloor(r, ci) > base[r][ci] + 0.5) {
+              violated = true;
+              break;
+            }
+          }
+        }
+        if (!violated) return defaultResult; // رفتارِ قبلی، بی‌تغییر
+
+        final List<List<double>> floors = [
+          for (int r = 0; r < guardRows.length; r++)
+            [
+              for (int ci = 0; ci < guardRows[r].cells.length; ci++)
+                exactFloor(r, ci),
+            ],
+        ];
+        final List<List<double>> widths = _solveColumnGrid(
+          docW: docW,
+          base: base,
+          floor: floors,
+          maxTotal: tableAvail,
+        );
+        double total = 0;
+        for (int r = 0; r < widths.length; r++) {
+          double rowW = 0;
+          for (int ci = 0; ci < widths[r].length; ci++) {
+            allRowColumnWidths[r][ci] = FixedColumnWidth(widths[r][ci]);
+            rowW += widths[r][ci];
+          }
+          if (rowW > total) total = rowW;
+        }
+        if (total > avail + 0.5) {
+          return _HScrollBox(
+            child: SizedBox(width: total, child: guardedTable),
+          );
+        }
+        return Align(
+          alignment: Alignment.centerLeft,
+          child: SizedBox(width: total, child: guardedTable),
+        );
+      },
+    );
+  }
+
+  return defaultResult;
+}
+
+/// 🐞 حلِ «کفِ عرضِ ستون» برای هر جدولی که ردیف‌هایش جدا رندر می‌شوند (هر ردیف
+/// یک Table با نقشه‌ی ستونِ خودش)، حتی با سلولِ ادغامی (ColSpan) یا ردیف‌هایی
+/// با تعدادِ سلولِ متفاوت. Mindset 2 ص۵۷: در جدول‌های چندردیفه هیچ کفی اعمال
+/// نمی‌شد و «extraordin|ary» با وجودِ اسکرولِ افقی می‌شکست.
+///
+/// روش: از هندسه‌ی خودِ سند ([docW]، عرضِ هر سلول) مرزهای عمودیِ مشترکِ همه‌ی
+/// ردیف‌ها ساخته می‌شود (یک «شبکه»). هر سلول یک بازه از ستون‌های شبکه است. عرضِ
+/// پایه‌ی هر ستونِ شبکه از عرضِ فعلیِ سلول‌ها ([base]) می‌آید؛ بعد هر سلولی که
+/// از کفش ([floor]) باریک‌تر است، کمبودش بینِ ستون‌های همان بازه (به نسبتِ عرضِ
+/// سند) پخش می‌شود — اول سلول‌های تک‌ستونه، بعد ادغامی‌ها. چون همه‌ی ردیف‌ها از
+/// همین شبکه می‌خوانند، ستون‌های ردیف‌ها هم‌تراز می‌مانند.
+///
+/// اگر [maxTotal] داده شود (جدول‌های درصدی)، اضافه‌عرض تا جای ممکن از «فضای
+/// اضافیِ» ستون‌های دیگر (عرض منهای کفِ خودشان) گرفته می‌شود تا جدول در ظرف
+/// جا شود؛ اگر نشد، جدول با همین عرض اسکرولِ افقی می‌گیرد.
+///
+/// اگر هندسه‌ی سند ناقص باشد (سلولی بدونِ عرض)، هر ردیف مستقل:
+/// عرض = بیشینه‌ی (پایه، کف).
+List<List<double>> _solveColumnGrid({
+  required List<List<double?>> docW,
+  required List<List<double>> base,
+  required List<List<double>> floor,
+  double? maxTotal,
+}) {
+  final int nRows = base.length;
+  bool gridOk = nRows > 0;
+  for (final row in docW) {
+    for (final d in row) {
+      if (d == null || d <= 0) gridOk = false;
+    }
+  }
+  if (!gridOk) {
+    return [
+      for (int r = 0; r < nRows; r++)
+        [
+          for (int c = 0; c < base[r].length; c++)
+            math.max(base[r][c], floor[r][c]),
+        ],
+    ];
+  }
+
+  // ۱) مرزهای شبکه (با رواداریِ ۱pt برای گردکردن‌های Word)
+  final List<double> raw = [0.0];
+  final List<List<double>> starts = [];
+  final List<List<double>> ends = [];
+  for (int r = 0; r < nRows; r++) {
+    double x = 0;
+    final List<double> st = [];
+    final List<double> en = [];
+    for (final d in docW[r]) {
+      st.add(x);
+      x += d!;
+      en.add(x);
+      raw.add(x);
+    }
+    starts.add(st);
+    ends.add(en);
+  }
+  raw.sort();
+  final List<double> bounds = [];
+  for (final x in raw) {
+    if (bounds.isEmpty || x - bounds.last > 1.0) bounds.add(x);
+  }
+  int idx(double x) {
+    int best = 0;
+    double bestD = double.infinity;
+    for (int i = 0; i < bounds.length; i++) {
+      final double d = (bounds[i] - x).abs();
+      if (d < bestD) {
+        bestD = d;
+        best = i;
+      }
+    }
+    return best;
+  }
+
+  final int k = math.max(1, bounds.length - 1);
+  final List<double> gridDoc = [
+    for (int i = 0; i < k; i++)
+      i + 1 < bounds.length ? (bounds[i + 1] - bounds[i]) : 1.0,
+  ];
+  final List<List<int>> cs = [];
+  final List<List<int>> ce = [];
+  for (int r = 0; r < nRows; r++) {
+    final List<int> a = [];
+    final List<int> b = [];
+    for (int c = 0; c < docW[r].length; c++) {
+      int s0 = idx(starts[r][c]);
+      int e0 = idx(ends[r][c]);
+      if (s0 >= k) s0 = k - 1;
+      if (e0 <= s0) e0 = s0 + 1;
+      if (e0 > k) e0 = k;
+      a.add(s0);
+      b.add(e0);
+    }
+    cs.add(a);
+    ce.add(b);
+  }
+  double spanDoc(int s0, int e0) {
+    double t = 0;
+    for (int i = s0; i < e0; i++) {
+      t += gridDoc[i];
+    }
+    return t <= 0 ? 1.0 : t;
+  }
+
+  // ۲) عرضِ پایه‌ی هر ستونِ شبکه: بیشینه‌ی برآوردِ سلول‌هایی که از آن می‌گذرند
+  final List<double> w = List<double>.filled(k, 0.0);
+  for (int r = 0; r < nRows; r++) {
+    for (int c = 0; c < base[r].length; c++) {
+      final double sd = spanDoc(cs[r][c], ce[r][c]);
+      for (int i = cs[r][c]; i < ce[r][c]; i++) {
+        final double est = base[r][c] * gridDoc[i] / sd;
+        if (est > w[i]) w[i] = est;
+      }
+    }
+  }
+
+  // ۳) اعمالِ کف‌ها: اول سلول‌های باریک‌تر (کم‌ستون‌تر)
+  final List<List<int>> order = [
+    for (int r = 0; r < nRows; r++)
+      for (int c = 0; c < base[r].length; c++) [r, c],
+  ]..sort((x, y) =>
+      (ce[x[0]][x[1]] - cs[x[0]][x[1]]).compareTo(ce[y[0]][y[1]] - cs[y[0]][y[1]]));
+  void enforce() {
+    for (final rc in order) {
+      final int r = rc[0], c = rc[1];
+      double sum = 0;
+      for (int i = cs[r][c]; i < ce[r][c]; i++) {
+        sum += w[i];
+      }
+      final double deficit = floor[r][c] - sum;
+      if (deficit > 0.01) {
+        final double sd = spanDoc(cs[r][c], ce[r][c]);
+        for (int i = cs[r][c]; i < ce[r][c]; i++) {
+          w[i] += deficit * gridDoc[i] / sd;
+        }
+      }
+    }
+  }
+
+  enforce();
+
+  // ۴) جمع‌کردن تا عرضِ ظرف (فقط جدول‌های درصدی)، بدونِ رفتن زیرِ هیچ کفی
+  if (maxTotal != null) {
+    final List<double> minW = List<double>.filled(k, 0.0);
+    for (int r = 0; r < nRows; r++) {
+      for (int c = 0; c < base[r].length; c++) {
+        if (ce[r][c] - cs[r][c] == 1 && floor[r][c] > minW[cs[r][c]]) {
+          minW[cs[r][c]] = floor[r][c];
+        }
+      }
+    }
+    for (int iter = 0; iter < 4; iter++) {
+      final double total = w.fold(0.0, (a, b) => a + b);
+      if (total <= maxTotal + 0.5) break;
+      double sumSlack = 0;
+      for (int i = 0; i < k; i++) {
+        sumSlack += math.max(0.0, w[i] - minW[i]);
+      }
+      if (sumSlack <= 0.5) break;
+      final double cut = math.min(total - maxTotal, sumSlack);
+      for (int i = 0; i < k; i++) {
+        final double slack = math.max(0.0, w[i] - minW[i]);
+        w[i] -= cut * slack / sumSlack;
+      }
+      enforce(); // سلول‌های ادغامی دوباره کفشان را بگیرند
+    }
+  }
+
+  return [
+    for (int r = 0; r < nRows; r++)
+      [
+        for (int c = 0; c < base[r].length; c++)
+          () {
+            double t = 0;
+            for (int i = cs[r][c]; i < ce[r][c]; i++) {
+              t += w[i];
+            }
+            return t;
+          }(),
+      ],
+  ];
 }
 
 List<InlineSpan> _buildStyledInteractiveText(
