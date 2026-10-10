@@ -40,6 +40,8 @@ class TextRenderEngine {
     String? translationFa, // 🌟 اضافه شد
     String? translationAr, // 🌟 اضافه شد
     List<SpanData>? innerSpans,
+    // 🌟 محتوای غنیِ جای‌خالی (جدول/عکس/…) — تا مودال با رندرِ صفحه ساخته شود.
+    List<ParagraphData>? hiddenParagraphs,
     GlobalKey? exactMatchKey, // 🌟 اضافه شد
     RegExp? interactivesPattern, // 🌟 اضافه شد: جستجوی سریع کلمات دیکشنری
     Map<String, InteractiveWord>? interactivesByText, // 🌟 اضافه شد
@@ -129,6 +131,7 @@ class TextRenderEngine {
             translationFa: translationFa,
             translationAr: translationAr,
             innerSpans: innerSpans,
+            hiddenParagraphs: hiddenParagraphs,
             parentMarkers: blankParentMarkers, // 🐞 برای خنثی‌سازی s/sub/sup
             listMarker: listMarker, // 🐞 برای prepend داخل مودال
             exactMatchKey: claimBlankKey
@@ -859,6 +862,9 @@ class InteractiveBlankWord extends StatelessWidget {
   final String? translationFa; // 🌟 ۲. ترجمه فارسی برای لمس طولانی
   final String? translationAr; // 🌟 ۳. ترجمه عربی برای لمس طولانی
   final List<SpanData>? innerSpans;
+  // 🌟 محتوای غنیِ جای‌خالی؛ وقتی پر است مودال با buildHiddenRichContent
+  // (همان رندرِ صفحه) ساخته می‌شود — جدول، عکس، لیست و … بی‌محدودیت.
+  final List<ParagraphData>? hiddenParagraphs;
   // 🐞 مارکرهای خودِ اسپنِ جای‌خالی (b/i/u/s/sub/sup/sz:/fn:…). برای این است
   // که بدانیم چه چیزی از قبل داخلِ textStyle «پخته» شده تا هنگامِ ساختنِ
   // استایلِ پایه‌ی InnerSpanها و شماره‌ی لیست همان را خنثی کنیم.
@@ -879,6 +885,7 @@ class InteractiveBlankWord extends StatelessWidget {
     this.translationFa,
     this.translationAr,
     this.innerSpans,
+    this.hiddenParagraphs,
     this.parentMarkers,
     this.exactMatchKey, // 🌟 دریافت فیلد
     this.listMarker,
@@ -958,6 +965,15 @@ class InteractiveBlankWord extends StatelessWidget {
   }
 
   void _showHiddenTextModal(BuildContext context, bool isDarkTheme) {
+    // 🌟 جوابِ مخفی با جدول/عکس/…: مسیرِ جدا که همان رندرِ صفحه را به کار
+    // می‌برد. جای‌خالی‌های فقط‌متنی (hiddenParagraphs == null) دقیقاً از همان
+    // مسیرِ قبلیِ پایین (بنر/بات‌شیت + هایلایتِ جستجو) می‌روند.
+    final List<ParagraphData>? richParas = hiddenParagraphs;
+    if (richParas != null && richParas.isNotEmpty) {
+      _showRichHiddenModal(context, isDarkTheme, richParas);
+      return;
+    }
+
     // 🌟 ۱. استخراج متن کامل برای محاسبه طول و بررسی کلمات تعاملی
     String fullText = hiddenText;
     if (innerSpans != null && innerSpans!.isNotEmpty) {
@@ -1604,5 +1620,96 @@ class InteractiveBlankWord extends StatelessWidget {
         },
       );
     }
+  }
+
+  /// 🌟 بات‌شیتِ جوابِ مخفیِ غنی (جدول، عکس، لیست، …). ظاهرِ کلی مثلِ
+  /// بات‌شیتِ متنی است (دستگیره، قابلِ کشیدن، لمسِ طولانی برای ترجمه)، ولی
+  /// محتوا با buildHiddenRichContent — یعنی همان _buildParagraphِ صفحه — ساخته
+  /// می‌شود، با عرضِ واقعیِ مودال تا جدول‌ها و عکس‌ها درست جا شوند.
+  void _showRichHiddenModal(
+    BuildContext context,
+    bool isDarkTheme,
+    List<ParagraphData> paragraphs,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetContext) {
+        return DraggableScrollableSheet(
+          // جدول و عکس معمولاً از متن بلندترند؛ از ابتدا بازتر از بات‌شیتِ متنی.
+          initialChildSize: 0.6,
+          minChildSize: 0.25,
+          maxChildSize: 0.92,
+          expand: false,
+          builder: (sheetContext, scrollController) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 5,
+                        margin: const EdgeInsets.only(bottom: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: LayoutBuilder(
+                        builder: (layoutContext, constraints) {
+                          // در تمِ تیره، محتوا روی یک «کاغذِ» روشن نشسته: رنگ‌های
+                          // جدول/متن/عکس از سند می‌آیند و برای صفحه‌ی روشن طراحی
+                          // شده‌اند (متنِ مشکی روی پس‌زمینه‌ی تیره دیده نمی‌شد).
+                          const double paperPad = 12;
+                          final double contentWidth = isDarkTheme
+                              ? constraints.maxWidth - paperPad * 2
+                              : constraints.maxWidth;
+                          Widget content = buildHiddenRichContent(
+                            layoutContext,
+                            paragraphs,
+                            contentWidth,
+                            interactives: interactives,
+                          );
+                          if (isDarkTheme) {
+                            content = Container(
+                              padding: const EdgeInsets.all(paperPad),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: content,
+                            );
+                          }
+                          return SingleChildScrollView(
+                            controller: scrollController,
+                            physics: const BouncingScrollPhysics(),
+                            child: TranslatableContentWrapper(
+                              originalContent: content,
+                              translationFa: translationFa,
+                              translationAr: translationAr,
+                              isDarkMode: isDarkTheme,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

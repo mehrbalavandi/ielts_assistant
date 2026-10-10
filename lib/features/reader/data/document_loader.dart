@@ -251,7 +251,25 @@ class DocumentLoader {
           .toList();
     }
 
-    final processedSpans = para.spans.map((span) {
+    final processedSpans = para.spans.map((original) {
+      // 🌟 پاراگراف‌های محتوای غنیِ جای‌خالی (مودالِ آیکونِ چشم) هم مثلِ
+      // سلول‌های جدول کلماتِ دیکشنریِ خودشان را می‌گیرند، تا داخلِ مودال هم
+      // قابلِ لمس باشند.
+      SpanData span = original;
+      final hidden = span.hiddenParagraphs;
+      if (hidden != null && hidden.isNotEmpty) {
+        span = span.copyWith(
+          hiddenParagraphs: hidden
+              .map(
+                (p) => _attachRelevantInteractives(
+                  p,
+                  sharedPattern,
+                  sharedByText,
+                ),
+              )
+              .toList(),
+        );
+      }
       if (span.type != 'table' || span.tableRows.isEmpty) return span;
       final newRows = span.tableRows.map((row) {
         final newCells = row.cells.map((cell) {

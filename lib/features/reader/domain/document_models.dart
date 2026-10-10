@@ -481,6 +481,10 @@ class SpanData {
   final List<String> markers;
   final List<TableRowData> tableRows;
   final List<SpanData> innerSpans;
+  // 🌟 محتوای غنیِ جای‌خالی (مودالِ آیکونِ چشم): پاراگراف‌های اصلیِ سند با همه‌ی
+  // جزئیات — جدول، عکس، لیست، رنگ — وقتی جوابِ مخفی چیزی جز متن هم دارد.
+  // null یعنی جای‌خالیِ فقط‌متنی (رفتارِ قبلیِ مودال با innerSpans).
+  final List<ParagraphData>? hiddenParagraphs;
 
   final String? fillColor;
   final String? textColor;
@@ -533,6 +537,7 @@ class SpanData {
     required this.markers,
     this.tableRows = const [],
     this.innerSpans = const [],
+    this.hiddenParagraphs,
     this.fillColor,
     this.textColor,
     this.letterSpacing,
@@ -568,6 +573,9 @@ class SpanData {
       markers: List<String>.from(json['Markers'] ?? []),
       tableRows: rowsList.map((e) => TableRowData.fromJson(e)).toList(),
       innerSpans: innerList.map((e) => SpanData.fromJson(e)).toList(),
+      hiddenParagraphs: (json['HiddenParagraphs'] as List?)
+          ?.map((e) => ParagraphData.fromJson(e as Map<String, dynamic>))
+          .toList(),
       fillColor: json['FillColor'],
       textColor: json['TextColor'],
       letterSpacing: (json['LetterSpacing'] as num?)?.toDouble(),
@@ -597,8 +605,12 @@ class SpanData {
   // 🌟 برای بازنویسیِ فقط tableRows (وقتی پاراگراف‌های داخل سلول‌های جدول
   // هم باید دیکشنری مشترک‌شان تزریق شود) بدون کپی دستیِ مستعدِ خطای بقیه‌ی
   // فیلدها.
-  SpanData copyWith({List<TableRowData>? tableRows}) {
+  SpanData copyWith({
+    List<TableRowData>? tableRows,
+    List<ParagraphData>? hiddenParagraphs,
+  }) {
     return SpanData(
+      hiddenParagraphs: hiddenParagraphs ?? this.hiddenParagraphs,
       type: type,
       content: content,
       url: url,

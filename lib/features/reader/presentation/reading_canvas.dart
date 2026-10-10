@@ -1479,6 +1479,62 @@ Color? _hexToColor(String? hexString) {
   }
 }
 
+/// 🌟 محتوای غنیِ جای‌خالی (مودالِ آیکونِ چشم) با *همان* رندرِ صفحه.
+///
+/// درخواستِ کاربر: هر چیزی که در حالتِ عادی نشان داده می‌شود — جدول، عکس، لیست،
+/// رنگ، بوردر، … — باید در جوابِ مخفی هم بی‌محدودیت قابلِ نمایش باشد. مودال قبلاً
+/// فقط اسپن‌های متنیِ تخت (innerSpans) را می‌شناخت. حالا وقتی اکسترکتور
+/// `HiddenParagraphs` فرستاده، هر پاراگراف دقیقاً با `_buildParagraph` (همان تابعی
+/// که صفحه را می‌سازد) رندر می‌شود؛ پس هر قابلیتی که صفحه دارد یا بعداً پیدا
+/// کند، خودبه‌خود در مودال هم هست.
+///
+/// [width] عرضِ واقعیِ ناحیه‌ی محتوای مودال است (جدول‌ها و عکس‌ها بر همین
+/// اساس جا می‌شوند). مقیاسِ فونتِ سیستم مثلِ صفحه‌ی مطالعه خنثی می‌شود تا
+/// اندازه‌گیری‌های جدول (که با noScaling انجام می‌شوند) با رندر یکی باشند.
+Widget buildHiddenRichContent(
+  BuildContext context,
+  List<ParagraphData> paragraphs,
+  double width, {
+  List<InteractiveWord> interactives = const [],
+}) {
+  final BookModel? activeBook = ProviderScope.containerOf(
+    context,
+    listen: false,
+  ).read(activeBookProvider);
+  final double screenWidth = MediaQuery.of(context).size.width;
+
+  // کلماتِ دیکشنری: هم آن‌هایی که به پاراگرافِ والد چسبیده (شاملِ متنِ مخفی)
+  // و هم آن‌هایی که document_loader به خودِ پاراگراف‌های مخفی داده است.
+  final Map<String, InteractiveWord> byText = {
+    for (final w in interactives) w.exactText: w,
+    for (final p in paragraphs)
+      for (final w in p.interactives) w.exactText: w,
+  };
+  final List<InteractiveWord> allInteractives = byText.values.toList();
+
+  return MediaQuery(
+    data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (int i = 0; i < paragraphs.length; i++)
+          _buildParagraph(
+            paragraphs[i],
+            width,
+            screenWidth,
+            context,
+            prevPara: i > 0 ? paragraphs[i - 1] : null,
+            nextPara: i < paragraphs.length - 1 ? paragraphs[i + 1] : null,
+            activeBook: activeBook,
+            pageInteractives: allInteractives,
+            keyClaim: KeyClaim(),
+          ),
+      ],
+    ),
+  );
+}
+
 Widget _buildParagraph(
   ParagraphData para,
   double canvasWidth,
@@ -3814,6 +3870,7 @@ List<InlineSpan> _buildStyledInteractiveText(
       translationFa: para.translationFa, // 🌟 حفظ پشتیبانی از ترجمه‌های دوزبانه
       translationAr: para.translationAr,
       innerSpans: span.innerSpans,
+      hiddenParagraphs: span.hiddenParagraphs, // 🌟 جدول/عکسِ داخلِ جوابِ مخفی
       // 🐞 مارکرهای جدید (s/sub/sup): خودِ مارکرهای این اسپن هم رد می‌شوند تا
       // مودال/بنرِ متنِ مخفی بداند چه چیزی از قبل داخلِ baseStyle اعمال شده و
       // بتواند آن را برای متنِ آشکارشده و شماره‌ی لیست خنثی کند.
