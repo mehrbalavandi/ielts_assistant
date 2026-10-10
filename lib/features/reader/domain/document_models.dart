@@ -132,6 +132,10 @@ class ParagraphData {
   // 🐞 شماره‌ی لیست بولد است؟ (از rPr سطحِ numbering در C#). null/false = عادی.
   final bool listMarkerBold;
   final String? listMarkerColor; // 🐞 رنگِ نشانگرِ خودکارِ لیست (هگز بدونِ #)
+  // 🐞 پس‌زمینه و کادرِ دورِ شماره (قاعده‌ی Word: سطحِ numbering ← نشانه‌ی پایانِ
+  // پاراگراف ← استایلِ کاراکتریِ آن). null یعنی بدونِ پس‌زمینه/کادر.
+  final String? listMarkerFill;
+  final BorderDetail? listMarkerBorder;
   // 🐞 BlankWord3: شماره‌ی لیست بیرونِ {blk} دیده شود و فقط متن مخفی شود.
   final bool keepListMarkerVisible;
   final double? lineSpacing; // 🌟 ضریبِ فاصله‌ی خطوط (1.0 = تک، 1.5، ...)
@@ -158,6 +162,8 @@ class ParagraphData {
     this.listMarker, // 🌟
     this.listMarkerBold = false, // 🐞
     this.listMarkerColor, // 🐞
+    this.listMarkerFill, // 🐞
+    this.listMarkerBorder, // 🐞
     this.keepListMarkerVisible = false, // 🐞
     this.lineSpacing, // 🌟
   });
@@ -195,6 +201,10 @@ class ParagraphData {
       listMarkerBold:
           json['ListMarkerBold'] == true, // 🐞 (null یا نبود = false)
       listMarkerColor: json['ListMarkerColor'], // 🐞
+      listMarkerFill: json['ListMarkerFill'], // 🐞
+      listMarkerBorder: json['ListMarkerBorder'] != null
+          ? BorderDetail.fromJson(json['ListMarkerBorder']) // 🐞
+          : null,
       keepListMarkerVisible: json['KeepListMarkerVisible'] == true, // 🐞
     );
   }
@@ -230,6 +240,8 @@ class ParagraphData {
       listMarker: listMarker, // 🌟
       listMarkerBold: listMarkerBold, // 🐞
       listMarkerColor: listMarkerColor, // 🐞
+      listMarkerFill: listMarkerFill, // 🐞
+      listMarkerBorder: listMarkerBorder, // 🐞
       keepListMarkerVisible: keepListMarkerVisible, // 🐞
     );
   }
