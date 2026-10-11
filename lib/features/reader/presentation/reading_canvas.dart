@@ -136,6 +136,9 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
+  // 🐞 اسکرولِ پیکسلی به نتیجه‌ی جستجو (رجوع به _ensureTargetVisible).
+  final ScrollOffsetController _scrollOffsetController =
+      ScrollOffsetController();
   final GlobalKey _targetParaKey = GlobalKey();
   // 🐞 نوارِ پلیرِ صوتی رویِ بالای لیست می‌نشیند (overlay)؛ برای اینکه پرش به
   // صفحه/نتیجه زیرِ آن پنهان نشود، ارتفاعِ واقعی‌اش را از همین کلید می‌خوانیم.
@@ -534,22 +537,6 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   GlobalKey get _exactMatchKey => _keyFor('exact');
   GlobalKey get _pageAnchorKey => _keyFor('anchor');
 
-  // 🌟 اسکرول دقیق — تلاش دوم.
-  //
-  // تلاش قبلی (خواندن/نوشتن مستقیم روی position.pixels نزدیک‌ترین
-  // Scrollable) کار نکرد: طبق لاگ واقعی از دستگاه، pixels همیشه ۰.۰
-  // خوانده می‌شد و افست‌های منفیِ محاسبه‌شده به minScrollExtent=0
-  // clamp می‌شدند — یعنی عملاً هیچ اسکرولی اتفاق نمی‌افتاد. علتش این
-  // است که ScrollablePositionedList موقعیت اسکرول را با منطق داخلی و
-  // سفارشی خودش (نه یک pixels خطی ساده) مدیریت می‌کند، پس دستکاری مستقیم
-  // ScrollPosition نزدیک‌ترین Scrollable قابل‌اعتماد نیست.
-  //
-  // راه‌حل: به‌جای دست‌کاری مستقیم اسکرول، فاصله‌ی هدف را نسبت به «بالای
-  // خودِ صفحه» اندازه می‌گیریم (این فاصله کاملاً مستقل از موقعیت فعلی
-  // اسکرول است و همیشه درست می‌ماند)، آن را به یک مقدار «alignment»
-  // تبدیل می‌کنیم، و کار نهایی اسکرول را کاملاً به خودِ پکیج
-  // (ItemScrollController.scrollTo) می‌سپاریم — همان API که خودِ پکیج
-  // برای اسکرول دقیق و انیمیت‌شده به یک آیتم طراحی کرده.
   /// ارتفاعِ ناحیه‌ای از بالای لیست که زیرِ نوارِ پلیرِ صوتی پنهان است (۰ اگر
   /// نوار نمایش داده نمی‌شود).
   double _topObstructionPx() {
@@ -621,101 +608,71 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     }
   }
 
-  bool _scrollToRenderContext(BuildContext targetContext, int pageIndex) {
+  /// 🐞 فاصله‌ی پیکسلیِ هدفِ جستجو از جایی که باید بنشیند (۱۵٪ از بالای لیست،
+  /// و دست‌کم ۱۶px زیرِ نوارِ پلیر)، در مختصاتِ خودِ لیست (پس زومِ صفحه اثری
+  /// ندارد). مثبت یعنی هدف پایین‌تر است و باید به پایین اسکرول کرد. null اگر هدف
+  /// یا صفحه‌اش هنوز ساخته نشده.
+  ///
+  /// مرجع، Scrollableِ خودِ لیست است (از روی لنگرِ صفحه)، نه نزدیک‌ترین
+  /// Scrollable به هدف — هدف ممکن است داخلِ یک جدولِ اسکرولِ افقی باشد.
+  double? _targetDeltaPx(BuildContext targetContext) {
     final RenderObject? targetRO = targetContext.findRenderObject();
-    if (targetRO == null ||
-        targetRO is! RenderBox ||
-        !targetRO.attached ||
-        !targetRO.hasSize) {
-      return false;
-    }
-
-    final RenderObject? pageRO = _pageAnchorKey.currentContext
-        ?.findRenderObject();
-    if (pageRO == null ||
-        pageRO is! RenderBox ||
-        !pageRO.attached ||
-        !pageRO.hasSize) {
-      return false;
-    }
-
-    final ScrollableState? scrollable = Scrollable.maybeOf(targetContext);
-    if (scrollable == null) return false;
-
-    final RenderObject? viewportRO = scrollable.context.findRenderObject();
-    if (viewportRO == null || viewportRO is! RenderBox || !viewportRO.hasSize) {
-      return false;
-    }
-
-    // فاصله‌ی هدف از بالای خودِ صفحه — مستقل از اسکرول فعلی
-    final Matrix4 transform = targetRO.getTransformTo(pageRO);
-    final double offsetWithinPage = MatrixUtils.transformPoint(
-      transform,
-      Offset.zero,
-    ).dy;
-
-    final double viewportHeight = viewportRO.size.height;
-    // جلوگیری از مخفی شدن زیر نوار بالا: ۱۵٪ از بالا، و اگر نوارِ پلیرِ صوتی
-    // نمایش داده می‌شود، دست‌کم ۱۶px زیرِ آن.
-    final double desiredAlignment = math.max(
-      0.15,
-      (_topObstructionPx() + 16.0) / viewportHeight,
-    );
-
-    // اگر alignment=0 یعنی «بالای آیتم روی بالای viewport»، برای اینکه
-    // نقطه‌ای offsetWithinPage پیکسل پایین‌تر از بالای آیتم دقیقاً روی
-    // ۱۵٪ از بالای viewport بنشیند، باید alignment را همین مقدار عقب برد:
-    final double alignment =
-        desiredAlignment - (offsetWithinPage / viewportHeight);
-
-    final int requestId = _scrollRequestId;
-    final DateTime startedAt = DateTime.now();
-    try {
-      _itemScrollController
-          .scrollTo(
-            index: pageIndex,
-            alignment: alignment,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOutCubic,
-          )
-          .then((_) {
-            // 🐞 تثبیت (رجوع به _scrollToPageTop)؛ alignment هر بار از نو از
-            // محلِ واقعیِ هدف در صفحه حساب می‌شود، چون صفحه ممکن است در این
-            // فاصله لود/بازچینی شده باشد.
-            _settleOn(
-              pageIndex,
-              () => _alignmentForTarget(desiredAlignment) ?? alignment,
-              requestId,
-              startedAt,
-            );
-          });
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-
-  /// alignmentی که هدفِ فعلیِ جستجو را روی [desiredAlignment] می‌نشاند، یا null
-  /// اگر هدف/صفحه هنوز ساخته نشده.
-  double? _alignmentForTarget(double desiredAlignment) {
-    final BuildContext? ctx =
-        _exactMatchKey.currentContext ?? _fallbackParaKey.currentContext;
-    final RenderObject? targetRO = ctx?.findRenderObject();
-    final RenderObject? pageRO = _pageAnchorKey.currentContext
-        ?.findRenderObject();
+    final BuildContext? pageCtx = _pageAnchorKey.currentContext;
     if (targetRO is! RenderBox ||
-        pageRO is! RenderBox ||
         !targetRO.attached ||
-        !pageRO.attached ||
         !targetRO.hasSize ||
-        !pageRO.hasSize) {
+        pageCtx == null) {
       return null;
     }
-    final double offsetWithinPage = MatrixUtils.transformPoint(
-      targetRO.getTransformTo(pageRO),
+    final ScrollableState? list = Scrollable.maybeOf(pageCtx);
+    final RenderObject? viewportRO = list?.context.findRenderObject();
+    if (viewportRO is! RenderBox || !viewportRO.hasSize) return null;
+    final double top = MatrixUtils.transformPoint(
+      targetRO.getTransformTo(viewportRO),
       Offset.zero,
     ).dy;
-    return desiredAlignment - offsetWithinPage / _viewportHeight();
+    final double vp = viewportRO.size.height;
+    final double desired = math.max(0.15 * vp, _topObstructionPx() + 16.0);
+    return top - desired;
+  }
+
+  Future<void> _nextFrame() {
+    final Completer<void> c = Completer<void>();
+    WidgetsBinding.instance.addPostFrameCallback((_) => c.complete());
+    WidgetsBinding.instance.scheduleFrame();
+    return c.future;
+  }
+
+  /// 🐞 صبر (فریم‌به‌فریم، حداکثر ۱.۲ ثانیه) تا صفحه‌ی مطالعه پایدار شود: هیچ
+  /// صفحه‌ای (مثلاً صفحه‌ی جستجو) رویش در حالِ بسته‌شدن نباشد، کیبورد بسته شده باشد
+  /// و ارتفاعِ ناحیه‌ی نمایش دو فریمِ پشتِ‌هم ثابت بماند. علت: تا کیبوردِ صفحه‌ی
+  /// جستجو بسته نشده، ناحیه‌ی نمایشِ زیرش کوچک‌تر است؛ اندازه‌گیری در آن لحظه
+  /// بعد از بسته‌شدنِ کیبورد غلط از آب درمی‌آمد.
+  Future<bool> _waitForStableViewport(int requestId) async {
+    double? lastH;
+    int stableFrames = 0;
+    final DateTime deadline = DateTime.now().add(
+      const Duration(milliseconds: 1200),
+    );
+    while (DateTime.now().isBefore(deadline)) {
+      await _nextFrame();
+      if (!mounted || requestId != _scrollRequestId) return false;
+      final ModalRoute<dynamic>? route = ModalRoute.of(context);
+      final bool covered =
+          route != null &&
+          (route.secondaryAnimation?.status ?? AnimationStatus.dismissed) !=
+              AnimationStatus.dismissed;
+      final double keyboard = View.of(context).viewInsets.bottom;
+      final double h = _viewportHeight();
+      if (!covered && keyboard == 0 && lastH != null && (h - lastH).abs() < 0.5) {
+        if (++stableFrames >= 2) return true;
+      } else {
+        stableFrames = 0;
+      }
+      lastH = h;
+    }
+    // بعد از مهلت، به‌هرحال اسکرول می‌کنیم (مثلاً اگر کیبوردی عمداً باز مانده).
+    return mounted && requestId == _scrollRequestId;
   }
 
   // 🌟 متد اسکرول دقیق به هدف جستجو.
@@ -734,52 +691,75 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   // دقیقاً با همان امضا یکی باشد. همچنین با _scrollRequestId، اگر کاربر
   // سریع چند بار روی بعدی/قبلی بزند، تلاش‌های قدیمی‌تر بی‌صدا لغو می‌شوند
   // تا انیمیشنِ یک هدفِ منسوخ، جای هدف تازه را نگیرد.
-  void _ensureTargetVisible({String? expectedSignature}) {
+  //
+  // 🐞 «جستجوی دوباره‌ی همان عبارت کمی پایین‌تر می‌نشست» (Mindset 2 ص۶۵،
+  // «text, »): اسکرول قبلاً با scrollTo/jumpTo و یک alignmentِ بزرگِ منفی انجام
+  // می‌شد (هدف در عمقِ یک صفحه‌ی بلند ⇒ مثلاً ۱.۴- برابرِ ارتفاعِ کادر). پکیج این
+  // alignment را به‌عنوانِ «لنگر»ی نسبی به ارتفاعِ کادر نگه می‌دارد؛ پس هر تغییرِ
+  // ارتفاعِ کادر محتوا را به اندازه‌ی alignment × تغییرِ ارتفاع جابه‌جا می‌کرد.
+  // جستجوی بعدی دقیقاً همین کار را می‌کند: کیبوردِ صفحه‌ی جستجو باز و بسته
+  // می‌شود و کادرِ زیرش کوچک و بزرگ؛ اسکرول هم وسطِ بسته‌شدنِ کیبورد حساب
+  // می‌شد. نتیجه بعد از بسته‌شدنِ کیبورد چند صد پیکسل بالاتر از صفحه می‌رفت.
+  // (جستجوی اول درست بود چون لیست هنوز لنگرِ نزدیکِ صفر داشت.)
+  //
+  // حالا: (۱) صبر تا صفحه پایدار شود (_waitForStableViewport)؛ (۲) فاصله‌ی
+  // *پیکسلیِ* واقعیِ هدف از جای مطلوب اندازه گرفته و دقیقاً همان‌قدر پیکسلی
+  // اسکرول می‌شود (scrollOffsetController) — هیچ لنگرِ نسبی‌ای تنظیم نمی‌شود؛
+  // (۳) بعد از انیمیشنِ اندازه‌ی صفحه‌ی تنبل یک‌بار دیگر اندازه و در صورتِ لزوم
+  // اصلاح (مگر کاربر صفحه را لمس کرده باشد).
+  Future<void> _ensureTargetVisible({String? expectedSignature}) async {
     final int myRequestId = ++_scrollRequestId;
-    int attempts = 0;
+    final DateTime startedAt = DateTime.now();
+    bool stale() =>
+        !mounted ||
+        myRequestId != _scrollRequestId ||
+        _lastPointerDownAt.isAfter(startedAt);
 
-    void tryScroll() {
-      if (!mounted) return;
-      if (myRequestId != _scrollRequestId) return;
+    if (!await _waitForStableViewport(myRequestId)) return;
 
+    BuildContext? currentTarget() {
       final bool targetIsBuilt =
           expectedSignature == null ||
           expectedSignature == _lastBuiltTargetSignature;
-
-      // این‌طور (چون exactMatchKey دیگر هرگز به چیزی وصل نمی‌شود):
-      final targetContext = targetIsBuilt
+      return targetIsBuilt
           ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
           : null;
-
-      bool handled = false;
-      if (targetContext != null && _lastBuiltTargetPageIndex != null) {
-        try {
-          handled = _scrollToRenderContext(
-            targetContext,
-            _lastBuiltTargetPageIndex!,
-          );
-        } catch (e) {
-          debugPrint("خطا در اسکرول: $e");
-        }
-      }
-
-      if (!handled) {
-        attempts++;
-        if (attempts < 20) {
-          // 🌟 در صورت پیدا نشدن، ۵۰ میلی‌ثانیه دیگر صبر می‌کند (تا سقف ۱ ثانیه)
-          Future.delayed(const Duration(milliseconds: 50), () {
-            if (myRequestId != _scrollRequestId) return;
-            tryScroll();
-          });
-        }
-      }
     }
 
-    // همیشه در فریم بعدی استارت می‌زنیم تا چرخه‌ی فعلیِ چیدمان تمام شود
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (myRequestId != _scrollRequestId) return;
-      tryScroll();
-    });
+    for (int attempt = 0; attempt < 20; attempt++) {
+      if (stale()) return;
+      final BuildContext? ctx = currentTarget();
+      final double? delta = ctx == null ? null : _targetDeltaPx(ctx);
+      if (delta == null) {
+        // صفحه/هدف هنوز ساخته نشده (لودِ تنبل) — ۵۰ms دیگر (تا سقفِ ۱ ثانیه).
+        await Future.delayed(const Duration(milliseconds: 50));
+        continue;
+      }
+      try {
+        if (delta.abs() > 1.0) {
+          await _scrollOffsetController.animateScroll(
+            offset: delta,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOutCubic,
+          );
+        }
+        // تثبیت: صبر تا انیمیشنِ اندازه‌ی صفحه‌ی تنبل تمام شود و دوباره اندازه.
+        await Future.delayed(const Duration(milliseconds: 260));
+        if (stale()) return;
+        final BuildContext? ctx2 = currentTarget();
+        final double? d2 = ctx2 == null ? null : _targetDeltaPx(ctx2);
+        if (d2 != null && d2.abs() > 1.5) {
+          await _scrollOffsetController.animateScroll(
+            offset: d2,
+            duration: const Duration(milliseconds: 150),
+            curve: Curves.easeOut,
+          );
+        }
+      } catch (e) {
+        debugPrint("خطا در اسکرول: $e");
+      }
+      return;
+    }
   }
 
   @override
@@ -1192,6 +1172,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                               itemCount: widget.pagedBookStore.pageCount,
                               itemScrollController: _itemScrollController,
                               itemPositionsListener: _itemPositionsListener,
+                              scrollOffsetController: _scrollOffsetController,
 
                               // ── کلید رفع پرش اولیه ───────────────────────────
                               // همیشه از index 0 شروع کن؛ jumpTo در initState
