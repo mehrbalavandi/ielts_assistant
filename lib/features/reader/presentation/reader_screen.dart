@@ -138,7 +138,15 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                   // بار باز می‌شد. حالا این‌جا فقط state تنظیم می‌شود (دقیقاً
                   // مثلِ نتایجِ متنی)؛ تنها همان listenerِ reading_canvas_screen.dart
                   // تصمیم می‌گیرد چه اتفاقی بیفتد (چه اسکرول به صفحه، چه بازکردنِ پلیر).
-                  ref.read(activeSearchProvider.notifier).state = session;
+                  // 🐞 «جستجوی دوباره‌ی همان عبارت و تپ روی همان نتیجه، فقط نارنجی
+                  // می‌کند و اسکرول نمی‌کند»: جلسه‌ی تازه با همان query و همان
+                  // currentIndex از نظرِ listenerِ اسکرول (reading_canvas) «بی‌تغییر»
+                  // بود و اسکرول اصلاً شروع نمی‌شد. jumpTrigger را بالا می‌بریم تا هر
+                  // تپ روی نتیجه، همیشه یک پرش باشد.
+                  final int prevTrigger =
+                      ref.read(activeSearchProvider)?.jumpTrigger ?? 0;
+                  ref.read(activeSearchProvider.notifier).state = session
+                      .copyWith(jumpTrigger: prevTrigger + 1);
                 }
               },
             ),
@@ -220,9 +228,10 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                                   Icons.keyboard_arrow_down,
                                   color: Colors.indigo,
                                 ),
-                                onPressed:
-                                    searchSession.currentIndex <
-                                        searchSession.results.length - 1
+                                // 🌟 چرخشی: بعد از آخرین نتیجه، اولین. jumpTrigger
+                                // تضمین می‌کند حتی با یک نتیجه (همان ایندکس)
+                                // دوباره به آن اسکرول شود.
+                                onPressed: searchSession.results.isNotEmpty
                                     ? () =>
                                           ref
                                               .read(
@@ -230,7 +239,11 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                                               )
                                               .state = searchSession.copyWith(
                                             currentIndex:
-                                                searchSession.currentIndex + 1,
+                                                (searchSession.currentIndex +
+                                                    1) %
+                                                searchSession.results.length,
+                                            jumpTrigger:
+                                                searchSession.jumpTrigger + 1,
                                           )
                                     : null,
                               ),
@@ -239,7 +252,8 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                                   Icons.keyboard_arrow_up,
                                   color: Colors.indigo,
                                 ),
-                                onPressed: searchSession.currentIndex > 0
+                                // 🌟 چرخشی: قبل از اولین نتیجه، آخرین.
+                                onPressed: searchSession.results.isNotEmpty
                                     ? () =>
                                           ref
                                               .read(
@@ -247,7 +261,14 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                                               )
                                               .state = searchSession.copyWith(
                                             currentIndex:
-                                                searchSession.currentIndex - 1,
+                                                (searchSession.currentIndex -
+                                                        1 +
+                                                        searchSession
+                                                            .results
+                                                            .length) %
+                                                searchSession.results.length,
+                                            jumpTrigger:
+                                                searchSession.jumpTrigger + 1,
                                           )
                                     : null,
                               ),

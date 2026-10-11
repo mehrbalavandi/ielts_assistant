@@ -137,6 +137,12 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
   final GlobalKey _targetParaKey = GlobalKey();
+  // 🐞 نوارِ پلیرِ صوتی رویِ بالای لیست می‌نشیند (overlay)؛ برای اینکه پرش به
+  // صفحه/نتیجه زیرِ آن پنهان نشود، ارتفاعِ واقعی‌اش را از همین کلید می‌خوانیم.
+  final GlobalKey _audioBarKey = GlobalKey();
+  // 🐞 آخرین لمسِ کاربر — اصلاحِ نهاییِ اسکرول (settle) اگر کاربر خودش شروع به
+  // اسکرول کرده باشد، انجام نمی‌شود تا صفحه زیرِ دستش جابه‌جا نشود.
+  DateTime _lastPointerDownAt = DateTime.fromMillisecondsSinceEpoch(0);
 
   // ── وضعیت zoom و شمارش انگشتان ─────────────────────────────────────────
   int _pointerCount = 0;
@@ -544,6 +550,77 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   // تبدیل می‌کنیم، و کار نهایی اسکرول را کاملاً به خودِ پکیج
   // (ItemScrollController.scrollTo) می‌سپاریم — همان API که خودِ پکیج
   // برای اسکرول دقیق و انیمیت‌شده به یک آیتم طراحی کرده.
+  /// ارتفاعِ ناحیه‌ای از بالای لیست که زیرِ نوارِ پلیرِ صوتی پنهان است (۰ اگر
+  /// نوار نمایش داده نمی‌شود).
+  double _topObstructionPx() {
+    final RenderObject? ro = _audioBarKey.currentContext?.findRenderObject();
+    if (ro is RenderBox && ro.hasSize) return ro.size.height;
+    return 0.0;
+  }
+
+  /// ارتفاعِ ناحیه‌ی نمایشِ لیست (برای تبدیلِ پیکسل به alignment).
+  double _viewportHeight() {
+    final RenderObject? ro = _viewerKey.currentContext?.findRenderObject();
+    if (ro is RenderBox && ro.hasSize) return ro.size.height;
+    return MediaQuery.of(context).size.height;
+  }
+
+  /// 🐞 «پرش به صفحه کمی پایین‌تر از ابتدای صفحه می‌نشست»: دو علت، هر دو
+  /// این‌جا رفع می‌شوند:
+  ///  ۱) نوارِ پلیرِ صوتی رویِ بالای لیست است؛ با alignment=0 ابتدای صفحه زیرِ
+  ///     آن پنهان می‌شد. حالا alignment ارتفاعِ نوار را کنار می‌گذارد.
+  ///  ۲) scrollTo برای مقصدِ نزدیک، یک offsetِ ثابت را از قبل حساب و تا آن‌جا
+  ///     انیمیت می‌کند؛ اگر حینِ انیمیشن ارتفاعِ صفحه‌ای بالاتر از مقصد عوض شود
+  ///     (لودِ تنبلِ صفحه: پلیس‌هولدرِ ۴۰۰px → ارتفاعِ واقعی)، مقصد جابه‌جا
+  ///     می‌شود. پس بعد از انیمیشن «تثبیت» می‌کنیم: jumpTo به همان نقطه (لیست را
+  ///     دورِ خودِ صفحه‌ی مقصد لنگر می‌کند، پس تغییرِ ارتفاعِ صفحه‌های بالاتر دیگر
+  ///     جابه‌جایش نمی‌کند) و یک‌بار دیگر بعد از انیمیشنِ اندازه‌ی صفحه‌ی تنبل.
+  Future<void> _scrollToPageTop(int index) async {
+    if (!_itemScrollController.isAttached) return;
+    final int myRequestId = ++_scrollRequestId;
+    final DateTime startedAt = DateTime.now();
+    double alignment() => _topObstructionPx() / _viewportHeight();
+    try {
+      await _itemScrollController.scrollTo(
+        index: index,
+        duration: const Duration(milliseconds: 450),
+        curve: Curves.easeInOutCubic,
+        alignment: alignment(),
+      );
+    } catch (_) {
+      return;
+    }
+    await _settleOn(index, alignment, myRequestId, startedAt);
+  }
+
+  /// تثبیتِ یک پرش (رجوع به _scrollToPageTop). [alignmentNow] هر بار از نو خوانده
+  /// می‌شود، چون ممکن است در این فاصله نوارِ پلیر ظاهر/پنهان یا صفحه لود شود.
+  Future<void> _settleOn(
+    int index,
+    double Function() alignmentNow,
+    int requestId,
+    DateTime startedAt,
+  ) async {
+    bool stale() =>
+        !mounted ||
+        requestId != _scrollRequestId ||
+        _lastPointerDownAt.isAfter(startedAt) ||
+        !_itemScrollController.isAttached;
+    if (stale()) return;
+    _itemScrollController.jumpTo(index: index, alignment: alignmentNow());
+    // صبر تا انیمیشنِ اندازه‌ی صفحه‌ی تنبل (AnimatedSize، ۲۰۰ms) تمام شود.
+    await Future.delayed(const Duration(milliseconds: 260));
+    if (stale()) return;
+    final double a = alignmentNow();
+    final pos = _itemPositionsListener.itemPositions.value
+        .where((p) => p.index == index)
+        .toList();
+    if (pos.isEmpty ||
+        (pos.first.itemLeadingEdge - a).abs() * _viewportHeight() > 1.5) {
+      _itemScrollController.jumpTo(index: index, alignment: a);
+    }
+  }
+
   bool _scrollToRenderContext(BuildContext targetContext, int pageIndex) {
     final RenderObject? targetRO = targetContext.findRenderObject();
     if (targetRO == null ||
@@ -578,7 +655,12 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     ).dy;
 
     final double viewportHeight = viewportRO.size.height;
-    const double desiredAlignment = 0.15; // جلوگیری از مخفی شدن زیر نوار بالا
+    // جلوگیری از مخفی شدن زیر نوار بالا: ۱۵٪ از بالا، و اگر نوارِ پلیرِ صوتی
+    // نمایش داده می‌شود، دست‌کم ۱۶px زیرِ آن.
+    final double desiredAlignment = math.max(
+      0.15,
+      (_topObstructionPx() + 16.0) / viewportHeight,
+    );
 
     // اگر alignment=0 یعنی «بالای آیتم روی بالای viewport»، برای اینکه
     // نقطه‌ای offsetWithinPage پیکسل پایین‌تر از بالای آیتم دقیقاً روی
@@ -586,17 +668,54 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     final double alignment =
         desiredAlignment - (offsetWithinPage / viewportHeight);
 
+    final int requestId = _scrollRequestId;
+    final DateTime startedAt = DateTime.now();
     try {
-      _itemScrollController.scrollTo(
-        index: pageIndex,
-        alignment: alignment,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOutCubic,
-      );
+      _itemScrollController
+          .scrollTo(
+            index: pageIndex,
+            alignment: alignment,
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOutCubic,
+          )
+          .then((_) {
+            // 🐞 تثبیت (رجوع به _scrollToPageTop)؛ alignment هر بار از نو از
+            // محلِ واقعیِ هدف در صفحه حساب می‌شود، چون صفحه ممکن است در این
+            // فاصله لود/بازچینی شده باشد.
+            _settleOn(
+              pageIndex,
+              () => _alignmentForTarget(desiredAlignment) ?? alignment,
+              requestId,
+              startedAt,
+            );
+          });
     } catch (e) {
       return false;
     }
     return true;
+  }
+
+  /// alignmentی که هدفِ فعلیِ جستجو را روی [desiredAlignment] می‌نشاند، یا null
+  /// اگر هدف/صفحه هنوز ساخته نشده.
+  double? _alignmentForTarget(double desiredAlignment) {
+    final BuildContext? ctx =
+        _exactMatchKey.currentContext ?? _fallbackParaKey.currentContext;
+    final RenderObject? targetRO = ctx?.findRenderObject();
+    final RenderObject? pageRO = _pageAnchorKey.currentContext
+        ?.findRenderObject();
+    if (targetRO is! RenderBox ||
+        pageRO is! RenderBox ||
+        !targetRO.attached ||
+        !pageRO.attached ||
+        !targetRO.hasSize ||
+        !pageRO.hasSize) {
+      return null;
+    }
+    final double offsetWithinPage = MatrixUtils.transformPoint(
+      targetRO.getTransformTo(pageRO),
+      Offset.zero,
+    ).dy;
+    return desiredAlignment - offsetWithinPage / _viewportHeight();
   }
 
   // 🌟 متد اسکرول دقیق به هدف جستجو.
@@ -720,12 +839,11 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     if (targetIndex >= 0 &&
         targetIndex < total &&
         _itemScrollController.isAttached) {
-      _itemScrollController.scrollTo(
-        index: targetIndex,
-        duration: const Duration(milliseconds: 450),
-        curve: Curves.easeInOutCubic,
-        alignment: 0.0,
-      );
+      // 🐞 دقیقاً ابتدای صفحه (زیرِ نوارِ پلیر، اگر هست) + تثبیت بعد از انیمیشن.
+      // صبرِ کوتاه تا کیبوردِ دیالوگ بسته شود و اندازه‌ی ناحیه‌ی نمایش ثابت شود.
+      await Future.delayed(const Duration(milliseconds: 120));
+      if (!mounted) return;
+      await _scrollToPageTop(targetIndex);
     }
   }
 
@@ -998,6 +1116,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                   );
                 },
                 onPointerDown: (e) {
+                  _lastPointerDownAt = DateTime.now();
                   _pointerCount++;
                   // فقط در لحظه لمس انگشت دوم rebuild لازم است
                   if (_pointerCount == 2) setState(() {});
@@ -1187,9 +1306,12 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
               top: 0,
               left: 0,
               right: 0,
-              child: AudioPlayerBar(
-                audioScripts: widget.audioScripts,
-                pagedBookStore: widget.pagedBookStore,
+              child: KeyedSubtree(
+                key: _audioBarKey,
+                child: AudioPlayerBar(
+                  audioScripts: widget.audioScripts,
+                  pagedBookStore: widget.pagedBookStore,
+                ),
               ),
             ),
           ],
