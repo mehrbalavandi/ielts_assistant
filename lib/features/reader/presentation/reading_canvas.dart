@@ -4,6 +4,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 // 🌟 برای زومِ دسکتاپ: PointerScrollEvent از gestures و HardwareKeyboard/
 // LogicalKeyboardKey از services می‌آیند. هیچ‌کدام در showـلیستِ صادراتیِ
@@ -608,32 +609,36 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     }
   }
 
-  /// 🐞 فاصله‌ی پیکسلیِ هدفِ جستجو از جایی که باید بنشیند (۱۵٪ از بالای لیست،
-  /// و دست‌کم ۱۶px زیرِ نوارِ پلیر)، در مختصاتِ خودِ لیست (پس زومِ صفحه اثری
-  /// ندارد). مثبت یعنی هدف پایین‌تر است و باید به پایین اسکرول کرد. null اگر هدف
-  /// یا صفحه‌اش هنوز ساخته نشده.
-  ///
-  /// مرجع، Scrollableِ خودِ لیست است (از روی لنگرِ صفحه)، نه نزدیک‌ترین
-  /// Scrollable به هدف — هدف ممکن است داخلِ یک جدولِ اسکرولِ افقی باشد.
-  double? _targetDeltaPx(BuildContext targetContext) {
+  /// فاصله‌ی عمودیِ هدف از بالای صفحه‌اش (لنگرِ صفحه) — فقط به چیدمانِ خودِ صفحه
+  /// بستگی دارد، نه به موقعیتِ اسکرول یا ارتفاعِ کادر. null اگر هنوز ساخته نشده.
+  double? _targetOffsetWithinPage(BuildContext targetContext) {
     final RenderObject? targetRO = targetContext.findRenderObject();
-    final BuildContext? pageCtx = _pageAnchorKey.currentContext;
+    final RenderObject? pageRO = _pageAnchorKey.currentContext
+        ?.findRenderObject();
     if (targetRO is! RenderBox ||
+        pageRO is! RenderBox ||
         !targetRO.attached ||
+        !pageRO.attached ||
         !targetRO.hasSize ||
-        pageCtx == null) {
+        !pageRO.hasSize) {
       return null;
     }
-    final ScrollableState? list = Scrollable.maybeOf(pageCtx);
-    final RenderObject? viewportRO = list?.context.findRenderObject();
-    if (viewportRO is! RenderBox || !viewportRO.hasSize) return null;
-    final double top = MatrixUtils.transformPoint(
-      targetRO.getTransformTo(viewportRO),
+    return MatrixUtils.transformPoint(
+      targetRO.getTransformTo(pageRO),
       Offset.zero,
     ).dy;
-    final double vp = viewportRO.size.height;
-    final double desired = math.max(0.15 * vp, _topObstructionPx() + 16.0);
-    return top - desired;
+  }
+
+  /// ارتفاعِ کادرِ خودِ لیست، همان مقداری که پکیج کسرهای itemLeadingEdge را با
+  /// آن می‌سازد.
+  double _listViewportDimension() {
+    final BuildContext? pageCtx = _pageAnchorKey.currentContext;
+    final ScrollableState? list = pageCtx == null
+        ? null
+        : Scrollable.maybeOf(pageCtx);
+    final ScrollPosition? pos = list?.position;
+    if (pos != null && pos.hasViewportDimension) return pos.viewportDimension;
+    return _viewportHeight();
   }
 
   Future<void> _nextFrame() {
@@ -702,11 +707,12 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   // می‌شد. نتیجه بعد از بسته‌شدنِ کیبورد چند صد پیکسل بالاتر از صفحه می‌رفت.
   // (جستجوی اول درست بود چون لیست هنوز لنگرِ نزدیکِ صفر داشت.)
   //
-  // حالا: (۱) صبر تا صفحه پایدار شود (_waitForStableViewport)؛ (۲) فاصله‌ی
-  // *پیکسلیِ* واقعیِ هدف از جای مطلوب اندازه گرفته و دقیقاً همان‌قدر پیکسلی
-  // اسکرول می‌شود (scrollOffsetController) — هیچ لنگرِ نسبی‌ای تنظیم نمی‌شود؛
-  // (۳) بعد از انیمیشنِ اندازه‌ی صفحه‌ی تنبل یک‌بار دیگر اندازه و در صورتِ لزوم
-  // اصلاح (مگر کاربر صفحه را لمس کرده باشد).
+  // حالا (قانونِ S-3): (۱) صبر تا صفحه پایدار شود (_waitForStableViewport)؛
+  // (۲) لیست دورِ صفحه‌ی هدف لنگر می‌شود، درست در جای فعلی‌اش (بی‌حرکت)؛
+  // (۳) اسکرولِ *پیکسلیِ* لازم = جای فعلیِ بالای صفحه + فاصله‌ی هدف از بالای
+  // صفحه − جای مطلوب (scrollOffsetController)؛ (۴) بعد از انیمیشنِ اندازه‌ی
+  // صفحه‌ی تنبل یک‌بار دیگر اندازه و در صورتِ لزوم اصلاح (مگر کاربر صفحه را
+  // لمس کرده باشد). لاگ‌های [SEARCH-SCROLL] فقط در حالتِ debug چاپ می‌شوند.
   Future<void> _ensureTargetVisible({String? expectedSignature}) async {
     final int myRequestId = ++_scrollRequestId;
     final DateTime startedAt = DateTime.now();
@@ -714,6 +720,9 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
         !mounted ||
         myRequestId != _scrollRequestId ||
         _lastPointerDownAt.isAfter(startedAt);
+    void log(String m) {
+      if (kDebugMode) debugPrint('[SEARCH-SCROLL] $m');
+    }
 
     if (!await _waitForStableViewport(myRequestId)) return;
 
@@ -726,16 +735,59 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
           : null;
     }
 
+    // 🐞 جستجوی دوباره در همان صفحه درست نمی‌نشست، ولی وقتی صفحه‌ی هدف دیده
+    // نمی‌شد (و اول jumpTo به آن انجام می‌شد) درست بود. پس هر دو مسیر یکی شدند:
+    // لیست همیشه اول دورِ صفحه‌ی هدف لنگر می‌شود — اگر صفحه دیده می‌شود، *درست
+    // در همان جایی که الان هست* (alignment = itemLeadingEdgeِ فعلیِ خودش)، پس
+    // چیزی روی صفحه تکان نمی‌خورد. بعد از آن، offset=0ِ لیست دقیقاً یعنی «بالای
+    // صفحه‌ی هدف همان‌جاست» و اسکرولِ لازم مستقیماً از دو عدد به دست می‌آید:
+    // جای فعلیِ بالای صفحه (از حسابِ خودِ پکیج) + فاصله‌ی هدف از بالای صفحه (فقط
+    // به چیدمانِ صفحه بستگی دارد). هیچ تبدیلِ مختصاتی تا کادر لازم نیست.
+    double desiredTop(double vp) =>
+        math.max(0.15 * vp, _topObstructionPx() + 16.0);
+
     for (int attempt = 0; attempt < 20; attempt++) {
       if (stale()) return;
+      final int? pageIndex = _lastBuiltTargetPageIndex;
       final BuildContext? ctx = currentTarget();
-      final double? delta = ctx == null ? null : _targetDeltaPx(ctx);
-      if (delta == null) {
+      final double? within = ctx == null ? null : _targetOffsetWithinPage(ctx);
+      if (pageIndex == null || within == null) {
         // صفحه/هدف هنوز ساخته نشده (لودِ تنبل) — ۵۰ms دیگر (تا سقفِ ۱ ثانیه).
         await Future.delayed(const Duration(milliseconds: 50));
         continue;
       }
+      final positions = _itemPositionsListener.itemPositions.value
+          .where((p) => p.index == pageIndex)
+          .toList();
+      if (positions.isEmpty) {
+        log('page $pageIndex not on screen → jumpTo top');
+        _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
+        await _nextFrame();
+        await _nextFrame();
+        continue;
+      }
+      final double leading = positions.first.itemLeadingEdge;
       try {
+        // لنگرِ دوباره دورِ صفحه‌ی هدف، بی‌حرکت.
+        _itemScrollController.jumpTo(index: pageIndex, alignment: leading);
+        await _nextFrame();
+        await _nextFrame();
+        if (stale()) return;
+        // بعد از لنگرِ دوباره، هر دو عدد را از نو می‌خوانیم (ممکن است در این دو
+        // فریم صفحه‌ای بالاتر لود شده یا هدف دوباره چیده شده باشد).
+        final posNow = _itemPositionsListener.itemPositions.value
+            .where((p) => p.index == pageIndex)
+            .toList();
+        final double leadingNow =
+            posNow.isEmpty ? leading : posNow.first.itemLeadingEdge;
+        final BuildContext? ctxNow = currentTarget();
+        final double withinNow =
+            (ctxNow == null ? null : _targetOffsetWithinPage(ctxNow)) ?? within;
+        final double vp = _listViewportDimension();
+        final double delta = leadingNow * vp + withinNow - desiredTop(vp);
+        log('page=$pageIndex leading=${leading.toStringAsFixed(3)}→'
+            '${leadingNow.toStringAsFixed(3)} vp=$vp within=$withinNow '
+            'bar=${_topObstructionPx()} delta=$delta');
         if (delta.abs() > 1.0) {
           await _scrollOffsetController.animateScroll(
             offset: delta,
@@ -747,16 +799,27 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
         await Future.delayed(const Duration(milliseconds: 260));
         if (stale()) return;
         final BuildContext? ctx2 = currentTarget();
-        final double? d2 = ctx2 == null ? null : _targetDeltaPx(ctx2);
-        if (d2 != null && d2.abs() > 1.5) {
-          await _scrollOffsetController.animateScroll(
-            offset: d2,
-            duration: const Duration(milliseconds: 150),
-            curve: Curves.easeOut,
-          );
+        final double? within2 = ctx2 == null
+            ? null
+            : _targetOffsetWithinPage(ctx2);
+        final pos2 = _itemPositionsListener.itemPositions.value
+            .where((p) => p.index == pageIndex)
+            .toList();
+        if (within2 != null && pos2.isNotEmpty) {
+          final double vp2 = _listViewportDimension();
+          final double d2 =
+              pos2.first.itemLeadingEdge * vp2 + within2 - desiredTop(vp2);
+          log('settle: delta=$d2');
+          if (d2.abs() > 1.5) {
+            await _scrollOffsetController.animateScroll(
+              offset: d2,
+              duration: const Duration(milliseconds: 150),
+              curve: Curves.easeOut,
+            );
+          }
         }
       } catch (e) {
-        debugPrint("خطا در اسکرول: $e");
+        log('error: $e');
       }
       return;
     }
