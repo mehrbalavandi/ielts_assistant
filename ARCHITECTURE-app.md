@@ -47,6 +47,7 @@ lib/
 **مرکزِ ثقلِ داده‌ی مطالعه.** یک کتابِ بازشده را نمایندگی می‌کند.
 
 - `ensureManifestLoaded()` — `index.json` را می‌خواند و نگاشت‌ها را می‌سازد.
+- `outline` — فهرستِ ساختاریِ کتاب (Unit ← مهارت، …) از `Outline`ِ index.json؛ ناوبرِ لبه‌ی چپ (`book_outline_navigator.dart`) از آن ساخته می‌شود. قانون‌های N در `RULES-rendering.md`.
   اگر شکلِ فایل قدیمی بود، به `DocumentLoader` فالبک می‌کند.
 - `getPage(index)` / `peekPage` / `prewarmAround` — بارگذاریِ تنبل با کش و
   eviction. صفحات هیچ‌وقت یک‌جا در حافظه نیستند.

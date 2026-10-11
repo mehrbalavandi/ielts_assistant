@@ -23,6 +23,7 @@ import 'package:ielts_assistant/core/text/document_text_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/audio/presentation/audio_player_bar.dart';
+import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
 import 'dart:math' as math;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -205,6 +206,10 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
 
   // 🌟 نشانِ معلقِ شماره‌ی صفحه (مثل تلگرام) + پرش به صفحه
   int _currentPage = 1;
+  // 🌟 اندیسِ صفحه‌ای که «خطِ خواندن» (۲۵٪ از بالای کادر) رویش است — ناوبرِ
+  // Unit/مهارت از روی آن بخشِ فعلی را روشن می‌کند (قانونِ N-3). ValueNotifier است
+  // تا با اسکرول فقط خودِ ناوبر rebuild شود، نه کلِ صفحه‌ی مطالعه.
+  final ValueNotifier<int?> _readingPageIndex = ValueNotifier<int?>(null);
   bool _showPageBadge = false;
   Timer? _badgeTimer;
 
@@ -462,6 +467,17 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
           .where((p) => p.itemTrailingEdge > 0)
           .reduce((min, p) => p.index < min.index ? p : min);
 
+      // 🌟 N-3: صفحه‌ای که خطِ خواندن (۲۵٪ از بالا) رویش است؛ اگر هیچ آیتمی آن
+      // خط را نپوشاند (فاصله‌ی بینِ صفحه‌ها)، همان بالاترین صفحه‌ی دیده‌شده.
+      int readingIndex = topItem.index;
+      for (final p in positions) {
+        if (p.itemLeadingEdge <= 0.25 && p.itemTrailingEdge > 0.25) {
+          readingIndex = p.index;
+          break;
+        }
+      }
+      _readingPageIndex.value = readingIndex;
+
       // 🌟 شماره‌ی صفحه‌ی جاری + نمایشِ نشان هنگام اسکرول (مثل تلگرام)
       // 🐞 دیگر «ایندکس + ۱» نیست: استخراج‌کننده می‌تواند شماره‌گذاری را از
       // عددِ دلخواه شروع کند، پس شماره‌ی واقعیِ صفحه از index.json خوانده
@@ -625,10 +641,9 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     }
   }
 
-  /// 🐞 لاگِ عیب‌یابیِ اسکرول به نتیجه‌ی جستجو. عمداً در هر حالتی (debug،
-  /// profile، release) چاپ می‌شود تا هر طور که برنامه اجرا شود دیده شود؛ بعد
-  /// از حلِ قطعیِ مشکل، این ثابت false می‌شود.
-  static const bool _kSearchScrollLog = true;
+  /// 🐞 لاگِ عیب‌یابیِ اسکرول به نتیجه‌ی جستجو. مشکل حل و خاموش شد؛ برای
+  /// عیب‌یابیِ دوباره true کنید (در هر حالتِ اجرا چاپ می‌شود).
+  static const bool _kSearchScrollLog = false;
   void _searchLog(String m) {
     if (_kSearchScrollLog) debugPrint('[SEARCH-SCROLL] $m');
   }
@@ -675,6 +690,43 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       targetRO.getTransformTo(pageRO),
       Offset.zero,
     ).dy;
+  }
+
+  /// 🌟 N-2: پرش به یک گره‌ی فهرستِ ساختاری (Unit، مهارت، …).
+  /// - تیترِ «بالای صفحه» (AtPageTop، یا اولین پاراگرافِ صفحه) ← همان پرشِ دقیقِ
+  ///   «رفتن به صفحه» (S-1/S-2).
+  /// - تیترِ وسطِ صفحه ← همان سازوکارِ «برو به متن»ِ پلیر: یک جلسه‌ی جستجوی بی‌عبارت
+  ///   (هایلایت ندارد، نوارِ جستجو را هم نشان نمی‌دهد) که خودِ پاراگراف را روی
+  ///   ۱۵٪ از بالا می‌نشاند (S-3).
+  void _goToOutlineEntry(OutlineEntry entry) {
+    final int? index = widget.pagedBookStore.indexForPageNumber(
+      entry.pageNumber,
+    );
+    if (index == null) return;
+    if (entry.atPageTop || entry.paraIndex == 0) {
+      _scrollToPageTop(index);
+      return;
+    }
+    final book = ref.read(activeBookProvider);
+    if (book == null) return;
+    final current = ref.read(activeSearchProvider);
+    ref.read(activeSearchProvider.notifier).state = SearchSession(
+      query: '',
+      results: [
+        SearchResult(
+          bookId: book.id,
+          bookTitle: book.title,
+          pageNumber: entry.pageNumber,
+          paraIndex: entry.paraIndex,
+          occurrenceIndex: 0,
+          paragraph: ParagraphData(spans: const [], interactives: const []),
+          matchedExcerpt: '',
+          query: '',
+        ),
+      ],
+      currentIndex: 0,
+      jumpTrigger: (current?.jumpTrigger ?? 0) + 1,
+    );
   }
 
   Future<void> _nextFrame() {
@@ -914,6 +966,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   void dispose() {
     _scrollPersistDebounce?.cancel();
     _badgeTimer?.cancel();
+    _readingPageIndex.dispose();
     HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
     _transformationController.removeListener(_onTransformChanged);
     _transformationController.dispose();
@@ -1422,6 +1475,23 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                 ),
               ),
             ),
+            // 🌟 ناوبرِ ساختاری (Unit/مهارت، …) در لبه‌ی چپ — فقط اگر index.json
+            // فهرستِ ساختاری داشته باشد (قانون‌های N-1 … N-6). Center فقط خودِ ناوبر
+            // را لمس‌پذیر می‌کند؛ بقیه‌ی ارتفاع لمس‌ها را به لیستِ زیرش می‌دهد.
+            if (_isReady && widget.pagedBookStore.outline.isNotEmpty)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: Center(
+                  child: BookOutlineNavigator(
+                    outline: widget.pagedBookStore.outline,
+                    readingPageIndex: _readingPageIndex,
+                    indexForPageNumber: widget.pagedBookStore.indexForPageNumber,
+                    onNavigate: _goToOutlineEntry,
+                  ),
+                ),
+              ),
             // 🐞 نوارِ کوچکِ پلیرِ صوتی حالا یک overlayِ مستقل است، نه
             // فرزندِ یک Column کنارِ محتوای اصلی — ظاهر/ناپدیدشدنش (وقتی
             // فایلی پخش/متوقف می‌شود) دیگر باعثِ جابه‌جاییِ محتوای کتاب

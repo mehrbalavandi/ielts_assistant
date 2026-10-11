@@ -45,6 +45,43 @@ class InteractiveWord {
 // 🐞 یک وقوعِ لینکِ صوتیِ داخلِ متن — سطحِ کتاب، از قبل توسطِ ابزارِ C#
 // محاسبه‌شده (AudioLinksIndex در index.json) تا فلاتر مجبور نباشد برای
 // ساختنِ پلی‌لیستِ کتاب، محتوای *همه‌ی* صفحات را زنده اسکن کند.
+/// 🌟 یک گره از فهرستِ ساختاریِ کتاب (index.json ← Outline).
+///
+/// اکسترکتور آن را از «سطحِ ساختارِ» Word (Outline Level) می‌سازد — قانونِ O-4ِ
+/// RULES-extraction.md. هیچ اسمِ خاصی (Unit، مهارت، فصل) این‌جا فرض نشده: سطحِ ۱
+/// هرچه باشد در منوی کشویی، و سطحِ ۲ در دکمه‌ها می‌آید (قانونِ N-1ِ
+/// RULES-rendering.md).
+class OutlineEntry {
+  final String title;
+  final int level; // یک‌مبنا: ۱ = بالاترین
+  final int pageNumber;
+  final int paraIndex; // اندیسِ پاراگرافِ بیرونیِ صفحه (مثلِ AudioLinkEntry)
+  final bool atPageTop; // true ⇒ پرش به بالای صفحه؛ false ⇒ به خودِ پاراگراف
+  final List<OutlineEntry> children;
+
+  const OutlineEntry({
+    required this.title,
+    required this.level,
+    required this.pageNumber,
+    required this.paraIndex,
+    this.atPageTop = false,
+    this.children = const [],
+  });
+
+  factory OutlineEntry.fromJson(Map<String, dynamic> json) {
+    return OutlineEntry(
+      title: (json['Title'] as String? ?? '').trim(),
+      level: (json['Level'] as num?)?.toInt() ?? 1,
+      pageNumber: (json['PageNumber'] as num?)?.toInt() ?? 0,
+      paraIndex: (json['ParaIndex'] as num?)?.toInt() ?? 0,
+      atPageTop: json['AtPageTop'] == true,
+      children: ((json['Children'] as List?) ?? const [])
+          .map((e) => OutlineEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
+
 class AudioLinkEntry {
   final int pageNumber;
   final int paraIndex;

@@ -178,6 +178,8 @@ class PagedBookStore {
   List<AudioScriptTrack> _audioScripts = const [];
   // 🐞 شاخصِ جدید: کجای متن دکمه‌ی صوتی هست.
   List<AudioLinkEntry> _audioLinksIndex = const [];
+  // 🌟 فهرستِ ساختاریِ کتاب (Unit ← مهارت، …)؛ خالی اگر index.json آن را ندارد.
+  List<OutlineEntry> _outline = const [];
   Map<int, int> _pageNumberToIndex = const {};
   // 🌟 عکسِ نگاشتِ بالا. لازم شد چون استخراج‌کننده‌ی سی‌شارپ حالا می‌تواند
   // شماره‌ی صفحه‌ها را از عددِ دلخواهِ کاربر شروع کند (مثلاً ۱۵)، پس دیگر
@@ -195,6 +197,7 @@ class PagedBookStore {
   int get pageCount => _pageCount;
   List<AudioScriptTrack> get audioScripts => _audioScripts;
   List<AudioLinkEntry> get audioLinksIndex => _audioLinksIndex;
+  List<OutlineEntry> get outline => _outline;
   List<String> get imageNames => _imageNames;
   bool get isManifestLoaded => _manifestLoaded;
 
@@ -340,6 +343,16 @@ class PagedBookStore {
       _audioLinksIndex = rawAudioLinks
           .map((e) => AudioLinkEntry.fromJson(e as Map<String, dynamic>))
           .toList();
+
+      // 🌟 فهرستِ ساختاری (قانونِ O-4ِ اکسترکتور). کتابِ قدیمی ندارد ← خالی.
+      try {
+        _outline = ((json['Outline'] as List?) ?? const [])
+            .map((e) => OutlineEntry.fromJson(e as Map<String, dynamic>))
+            .where((e) => e.title.isNotEmpty)
+            .toList();
+      } catch (_) {
+        _outline = const []; // فهرستِ خراب نباید بازشدنِ کتاب را متوقف کند
+      }
 
       _imageNames = const [];
 
