@@ -215,10 +215,26 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   String? _lastBuiltTargetSignature;
   int? _lastBuiltTargetPageIndex;
   int _scrollRequestId = 0;
-  // 🌟 جلوگیری از claim دوباره‌ی کلیدهای هدف اگر ScrollablePositionedList
-  // (به‌خاطر معماری دو-لیستیِ داخلی‌اش، مخصوصاً حین یک جهشِ بزرگ) برای
-  // همان pageIndex بیش از یک‌بار در همین build، itemBuilder صدا بزند
-  bool _targetKeyClaimedThisBuild = false;
+  /// 🐞 کلیدهای هدف (_exactMatchKey، _fallbackParaKey، _pageAnchorKey) فقط به
+  /// صفحه‌ی هدف در لیستِ **اصلیِ** ScrollablePositionedList داده می‌شوند.
+  ///
+  /// پکیج حینِ یک جهشِ بزرگ دو لیست را هم‌زمان می‌سازد (اصلی و ثانویه). یک
+  /// GlobalKey نمی‌تواند در هر دو باشد. قبلاً با پرچمِ «claim» حل می‌شد که فقط در
+  /// build()ِ همین صفحه صفر می‌شد. ولی پکیج آیتم‌ها را داخلِ یک LayoutBuilder
+  /// می‌سازد، یعنی در مرحله‌ی layout، و هر بار که اندازه‌ی لیست عوض شود (بسته‌شدنِ
+  /// کیبورد، باز شدنِ نوارِ جستجو) یا خودِ لیست jumpTo کند، آیتم‌ها بدونِ build()ِ
+  /// این صفحه از نو ساخته می‌شوند. پرچم هنوز «گرفته‌شده» بود و صفحه‌ی هدف **بدونِ
+  /// کلید** ساخته می‌شد: هدف گم می‌شد و اسکرول اصلاً انجام نمی‌شد (لاگِ
+  /// «lost target»). همین بود که جستجو در همان صفحه کار نمی‌کرد.
+  ///
+  /// حالا تصمیم به خودِ لیست بستگی دارد نه به زمان: FadeTransitionِ لیستِ اصلی
+  /// در پکیج همیشه ReverseAnimation است، و در لیستِ اصلی هر ایندکس فقط یک‌بار
+  /// هست.
+  static bool _isInPrimaryList(BuildContext itemContext) {
+    final FadeTransition? fade = itemContext
+        .findAncestorWidgetOfExactType<FadeTransition>();
+    return fade == null || fade.opacity is ReverseAnimation;
+  }
   String? _signatureFor(SearchResult? r) {
     if (r == null) return null;
     return '${r.pageNumber}:${r.paraIndex}:${r.occurrenceIndex}';
@@ -689,17 +705,19 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
               AnimationStatus.dismissed;
       final double keyboard = View.of(context).viewInsets.bottom;
       final double h = _viewportHeight();
-      if (!covered &&
-          keyboard == 0 &&
-          lastH != null &&
-          (h - lastH).abs() < 0.5) {
-        if (++stableFrames >= 2) return true;
+      if (!covered && keyboard == 0 && lastH != null && (h - lastH).abs() < 0.5) {
+        if (++stableFrames >= 2) {
+          _searchLog('viewport stable: h=${h.toStringAsFixed(1)}');
+          return true;
+        }
       } else {
         stableFrames = 0;
       }
       lastH = h;
     }
-    // بعد از مهلت، به‌هرحال اسکرول می‌کنیم (مثلاً اگر کیبوردی عمداً باز مانده).
+    // بعد از مهلت، به‌هرحال اسکرول می‌کنیم (مثلاً اگر کیبوردی عمداً باز مانده)؛
+    // حلقه‌ی بسته‌ی _ensureTargetVisible تغییرِ بعدیِ کادر را جبران می‌کند.
+    _searchLog('viewport wait timed out: h=${lastH?.toStringAsFixed(1)}');
     return mounted && requestId == _scrollRequestId;
   }
 
@@ -711,21 +729,20 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   // مورد انتظار یکی باشد. با _scrollRequestId هم درخواست‌های قدیمی‌تر (تپ‌های
   // سریعِ بعدی/قبلی) بی‌صدا لغو می‌شوند.
   //
-  // 🐞 قانونِ S-3 (دورِ چهارم) — «جستجو در همان صفحه به نتیجه نمی‌رود»:
-  //  ۱) صبر تا صفحه پایدار شود (صفحه‌ی جستجو و کیبورد کاملاً بسته).
+  // 🐞 قانونِ S-3:
+  //  ۱) صبر تا صفحه پایدار شود (صفحه‌ی جستجو و کیبورد بسته، ارتفاع ثابت).
   //  ۲) پیدا کردنِ هدف. اگر صفحه‌اش الان چیده نمی‌شود، اول پرش به بالای صفحه.
-  //  ۳) حلقه‌ی «اندازه بگیر ← اسکرول کن ← دوباره اندازه بگیر» (حداکثر ۴ دور):
-  //     جای هدف هر بار مستقیم از درختِ رندر خوانده می‌شود (_yInList)، نه از
-  //     itemPositionsِ پکیج — آن فقط با تغییرِ آفستِ اسکرول به‌روز می‌شود و
-  //     ممکن است کهنه باشد. هر خطایی هم که بماند، دورِ بعد اصلاح می‌شود.
-  //  ۴) در دورِ اول، لیست دورِ صفحه‌ی هدف لنگر می‌شود، درست در جای فعلی‌اش (بی‌
-  //     حرکت)، تا لودِ تنبلِ صفحه‌های بالاتر حینِ انیمیشن هدف را جابه‌جا نکند.
-  //     همراهِ این پرش یک setState هم زده می‌شود: itemBuilder کلیدهای هدف را
-  //     فقط در اولین ساختِ هر build() به صفحه می‌دهد (_targetKeyClaimedThisBuild)؛
-  //     پرشی که فقط لیست را از نو بسازد، کلیدها را از صفحه جدا می‌کرد و کلِ صفحه
-  //     از نو ساخته می‌شد.
+  //  ۳) حلقه‌ی بسته: جای هدف هر بار مستقیم از درختِ رندر خوانده می‌شود
+  //     (_yInList)، اختلافش با جای مطلوب پیکسلی اسکرول می‌شود، و دوباره اندازه
+  //     گرفته می‌شود. «تمام» فقط وقتی است که هدف سرِ جایش باشد *و* ارتفاعِ کادر
+  //     و کیبورد دو بارِ پشتِ‌هم ثابت مانده باشند؛ اگر کیبورد دیرتر بسته شود و
+  //     کادر بزرگ شود، همین حلقه دوباره اصلاح می‌کند.
+  //  ۴) در اولین اسکرول، لیست دورِ صفحه‌ی هدف در جای فعلی‌اش (بی‌حرکت) لنگر
+  //     می‌شود، تا لودِ تنبلِ صفحه‌های بالاتر حینِ انیمیشن هدف را جابه‌جا نکند.
   //  هر مرحله یک خطِ [SEARCH-SCROLL] چاپ می‌کند (رجوع به _searchLog).
   Future<void> _ensureTargetVisible({String? expectedSignature}) async {
+    // بازکردنِ کتاب بدونِ جستجو: کاری نیست.
+    if (expectedSignature == null && _lastBuiltTargetSignature == null) return;
     final int id = ++_scrollRequestId;
     final DateTime startedAt = DateTime.now();
     bool stale(String where) {
@@ -742,6 +759,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     }
 
     String f(double? v) => v == null ? 'null' : v.toStringAsFixed(1);
+    double keyboard() => View.of(context).viewInsets.bottom;
 
     _searchLog(
       '#$id start sig=$expectedSignature built=$_lastBuiltTargetSignature '
@@ -793,10 +811,11 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
           !jumpedToPage &&
           (ctx != null || attempt >= 10) &&
           _itemScrollController.isAttached) {
-        _searchLog('#$id page $pageIndex not laid out → jumpTo top');
+        _searchLog(
+          '#$id page $pageIndex not laid out (ctx=${ctx != null}) → jumpTo top',
+        );
         jumpedToPage = true;
         _itemScrollController.jumpTo(index: pageIndex, alignment: 0.0);
-        setState(() {});
         await _nextFrame();
         await _nextFrame();
         continue;
@@ -804,12 +823,24 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       await Future.delayed(const Duration(milliseconds: 50));
     }
 
-    // ── ۳) حلقه‌ی اندازه‌گیری و اسکرول ────────────────────────────────────
-    for (int round = 0; round < 4; round++) {
+    // ── ۳) حلقه‌ی بسته ─────────────────────────────────────────────────────
+    bool anchored = false;
+    double? lastVp;
+    double? lastKb;
+    int settledChecks = 0;
+    for (int round = 0; round < 16; round++) {
       if (stale('round $round')) return;
       final int? pageIndex = _lastBuiltTargetPageIndex;
-      final BuildContext? ctx = currentTarget();
-      final RenderBox? viewport = _listViewportBox();
+      BuildContext? ctx = currentTarget();
+      RenderBox? viewport = _listViewportBox();
+      // اگر هدف لحظه‌ای در دسترس نیست (مثلاً صفحه همین الان از نو ساخته شد)،
+      // چند فریم صبر — نه رها کردن.
+      for (int w = 0; w < 10 && (ctx == null || viewport == null); w++) {
+        await _nextFrame();
+        if (stale('round $round wait-target')) return;
+        ctx = currentTarget();
+        viewport = _listViewportBox();
+      }
       if (pageIndex == null || ctx == null || viewport == null) {
         _searchLog(
           '#$id round $round: lost target (ctx=${ctx != null} '
@@ -818,6 +849,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
         return;
       }
       final double vp = viewport.size.height;
+      final double kb = keyboard();
       final double? y = _yInList(ctx.findRenderObject(), viewport);
       final double? pageTop = _yInList(
         _pageAnchorKey.currentContext?.findRenderObject(),
@@ -829,62 +861,53 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       }
       final double desired = desiredTop(vp);
       final double err = y - desired;
-      // برای مقایسه: همان عدد از راهِ itemPositionsِ پکیج.
-      final pos = _itemPositionsListener.itemPositions.value
-          .where((p) => p.index == pageIndex)
-          .toList();
-      final double? within = _targetOffsetWithinPage(ctx);
       _searchLog(
-        '#$id round $round page=$pageIndex vp=${f(vp)} bar=${f(_topObstructionPx())} '
-        'y=${f(y)} desired=${f(desired)} err=${f(err)} | pageTop=${f(pageTop)} '
-        'within=${f(within)} splLeading='
-        '${pos.isEmpty ? 'none' : f(pos.first.itemLeadingEdge * vp)}',
+        '#$id round $round page=$pageIndex vp=${f(vp)} kb=${f(kb)} '
+        'bar=${f(_topObstructionPx())} y=${f(y)} desired=${f(desired)} '
+        'err=${f(err)} pageTop=${f(pageTop)}',
       );
+
+      final bool viewportSteady =
+          lastVp != null && (vp - lastVp).abs() < 0.5 && kb == lastKb;
+      lastVp = vp;
+      lastKb = kb;
       if (err.abs() <= 1.5) {
-        _searchLog('#$id done');
-        return;
+        // سرِ جایش است؛ ولی اگر کادر/کیبورد هنوز در حالِ تغییر است، باز هم
+        // نگاه می‌کنیم (۲ بارِ پشتِ‌هم ثابت = تمام).
+        settledChecks = viewportSteady ? settledChecks + 1 : 0;
+        if (settledChecks >= 2 && kb == 0) {
+          _searchLog('#$id done');
+          return;
+        }
+        await Future.delayed(const Duration(milliseconds: 80));
+        continue;
       }
+      settledChecks = 0;
       try {
-        if (round == 0 && _itemScrollController.isAttached) {
+        if (!anchored && _itemScrollController.isAttached) {
           // لنگرِ دوباره دورِ صفحه‌ی هدف، درست در جای فعلی‌اش (بی‌حرکت).
+          anchored = true;
           _itemScrollController.jumpTo(
             index: pageIndex,
             alignment: pageTop / vp,
           );
-          setState(() {});
           await _nextFrame();
           await _nextFrame();
-          if (stale('re-anchor')) return;
-          final BuildContext? c2 = currentTarget();
-          final RenderBox? v2 = _listViewportBox();
-          final double? y2 = (c2 == null || v2 == null)
-              ? null
-              : _yInList(c2.findRenderObject(), v2);
-          _searchLog('#$id re-anchored: y ${f(y)} → ${f(y2)}');
-          if (y2 == null) continue;
-          final double e2 = y2 - desiredTop(v2!.size.height);
-          await _scrollOffsetController.animateScroll(
-            offset: e2,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOutCubic,
-          );
-          // صبر تا انیمیشنِ اندازه‌ی صفحه‌ی تنبل (AnimatedSize، ۲۰۰ms) تمام شود.
-          await Future.delayed(const Duration(milliseconds: 260));
-        } else {
-          await _scrollOffsetController.animateScroll(
-            offset: err,
-            duration: const Duration(milliseconds: 150),
-            curve: Curves.easeOut,
-          );
-          await _nextFrame();
-          await _nextFrame();
+          continue; // دوباره اندازه و بعد اسکرول.
         }
+        await _scrollOffsetController.animateScroll(
+          offset: err,
+          duration: Duration(milliseconds: err.abs() > 120 ? 400 : 180),
+          curve: Curves.easeInOutCubic,
+        );
+        await _nextFrame();
+        await _nextFrame();
       } catch (e) {
         _searchLog('#$id error: $e');
         return;
       }
     }
-    _searchLog('#$id stopped after 4 rounds');
+    _searchLog('#$id stopped after 16 rounds');
   }
 
   @override
@@ -1007,8 +1030,6 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     _lastBuiltTargetPageIndex = activeTarget == null
         ? null
         : widget.pagedBookStore.indexForPageNumber(activeTarget.pageNumber);
-    _targetKeyClaimedThisBuild =
-        false; // 🌟 اضافه شد — شروع تازه برای این build
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {
@@ -1342,13 +1363,11 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                                 vertical: 24.0,
                               ),
                               itemBuilder: (context, pageIndex) {
-                                bool hasTarget =
+                                // 🐞 رجوع به _isInPrimaryList.
+                                final bool hasTarget =
                                     activeTarget != null &&
                                     pageIndex == _lastBuiltTargetPageIndex &&
-                                    !_targetKeyClaimedThisBuild; // 🌟 اضافه شد
-                                if (hasTarget)
-                                  _targetKeyClaimedThisBuild =
-                                      true; // 🌟 اضافه شد
+                                    _isInPrimaryList(context);
 
                                 Widget buildForPage(PageData page) {
                                   return RepaintBoundary(
