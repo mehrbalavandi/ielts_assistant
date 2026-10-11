@@ -3350,6 +3350,156 @@ Widget _buildTable(
     return cellNoBreakWidth(c, ci, isFirstRow);
   }
 
+  // 🐞 Mindset 2 ص۹۲ («borrow | money» با فضای خالیِ کنارش): وقتی متنِ یک سلول در
+  // عرضِ [colWidth] به چند خط می‌شکند، عرضی که واقعاً لازم است = پهن‌ترین *خط*، نه
+  // عرضِ ستون. این تابع با همان سبکِ رندر (G-3) می‌گوید:
+  //  - needed: پهن‌ترین خطِ سلول در این عرض + تورفتگی و حاشیه‌ها (برای سلولِ
+  //    نشکسته، همان عرضِ یک‌خطی‌اش)؛
+  //  - wrapped: آیا جمله‌ای شکسته (خطوطِ «\n»ِ خودِ سند حساب نیستند).
+  // null یعنی سلول چیزی دارد که این اندازه‌گیری دقیقش نمی‌کند (آیکونِ چشم، کادرِ
+  // متن، لینکِ صوتی، توکنِ رنگی، عکس، جدولِ تودرتو، تورفتگیِ خطِ اول)؛ آن ستون دست
+  // نمی‌خورد. ستونِ خالی: needed=0، wrapped=false.
+  ({double needed, bool wrapped})? cellLineFit(
+    TableCellData c,
+    int ci,
+    bool isFirstRow,
+    double colWidth,
+  ) {
+    final double hpad = cellGeometryFromDoc ? 5.76 : 8.0;
+    final double pad = (c.paddingLeft ?? hpad) + (c.paddingRight ?? hpad);
+    final Border? b = (resolvedBorderMode == "cell")
+        ? cellBorderFrom(c.borders, isFirstRow, ci == 0)
+        : null;
+    final double overhead =
+        pad + (b?.left.width ?? 0) + (b?.right.width ?? 0) + 2.0;
+    double widest = 0;
+    bool wrapped = false;
+    bool any = false;
+    for (final p in c.paragraphs) {
+      final bool hasMarker = p.listMarker != null && p.listMarker!.isNotEmpty;
+      if (!hasMarker && (p.indentFirstLine ?? 0) > 0) return null;
+      double lead = hasMarker
+          ? listMarkerLead(p)
+          : ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0);
+      lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
+      final List<InlineSpan> children = [];
+      final StringBuffer plain = StringBuffer();
+      for (final s in p.spans) {
+        if (s.type != "text") return null;
+        final String flag = (s.hasBorders ?? "").toLowerCase().trim();
+        if (s.innerSpans.isNotEmpty ||
+            s.content.contains("{blk}") ||
+            s.borders != null ||
+            flag == "true" ||
+            flag == "1" ||
+            (s.url != null && s.url!.startsWith("audio:")) ||
+            _hexToColor(s.fillColor) != null) {
+          return null;
+        }
+        children.add(TextSpan(text: s.content, style: measureStyleFor(s)));
+        plain.write(s.content);
+      }
+      if (children.isEmpty) {
+        if (hasMarker && lead > widest) widest = lead; // پاراگرافِ فقط‌شماره
+        continue;
+      }
+      any = true;
+      final double contentW = colWidth - overhead - lead;
+      if (contentW <= 0) return null;
+      final tp = TextPainter(
+        text: TextSpan(children: children),
+        textDirection: p.direction == "RTL"
+            ? TextDirection.rtl
+            : TextDirection.ltr,
+        textScaler: TextScaler.noScaling,
+      )..layout(maxWidth: contentW);
+      final lines = tp.computeLineMetrics();
+      tp.dispose();
+      final int hardLines = '\n'.allMatches(plain.toString()).length + 1;
+      if (lines.length > hardLines) wrapped = true;
+      for (final l in lines) {
+        if (l.width + lead > widest) widest = l.width + lead;
+      }
+    }
+    if (!any && widest == 0) return (needed: 0.0, wrapped: false);
+    // ‎+1‎: گردکردن؛ در این عرض شکستِ خطوط دقیقاً همان می‌ماند.
+    return (needed: widest + overhead + 1.0, wrapped: wrapped);
+  }
+
+  // عرضِ یک‌خطیِ سلول (هر پاراگراف در یک خط) + تورفتگی و حاشیه‌ها، و اینکه آیا
+  // **در Word** یک‌خطی است: متن بدونِ letterSpacingِ تمِ اپ (Word چنین فاصله‌ای
+  // ندارد) در عرضِ سند (WidthPt) جا می‌شود. null اگر سلول جای‌خالی دارد.
+  ({double width, bool oneLineInWord})? cellOneLine(
+    TableCellData c,
+    int ci,
+    bool isFirstRow,
+  ) {
+    final double hpad = cellGeometryFromDoc ? 5.76 : 8.0;
+    final double pad = (c.paddingLeft ?? hpad) + (c.paddingRight ?? hpad);
+    final Border? b = (resolvedBorderMode == "cell")
+        ? cellBorderFrom(c.borders, isFirstRow, ci == 0)
+        : null;
+    final double themeLs = inheritedTextStyle.letterSpacing ?? 0.0;
+    double widest = 0;
+    double widestWordLike = 0;
+    for (final p in c.paragraphs) {
+      if (p.spans.any((s) => s.content.contains("{blk}"))) return null;
+      final bool hasMarker = p.listMarker != null && p.listMarker!.isNotEmpty;
+      double lead = hasMarker
+          ? listMarkerLead(p)
+          : ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0);
+      lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
+      final double w = measureParagraphNaturalWidth(p) + lead;
+      int themeSpacedChars = 0;
+      for (final s in p.spans) {
+        if (s.type == "text" && s.letterSpacing == null) {
+          themeSpacedChars += s.content.length;
+        }
+      }
+      final double wordLike = w - themeLs * themeSpacedChars;
+      if (w > widest) widest = w;
+      if (wordLike > widestWordLike) widestWordLike = wordLike;
+    }
+    final double? wpt = c.widthPt;
+    return (
+      width: widest + pad + (b?.left.width ?? 0) + (b?.right.width ?? 0) + 2.0,
+      oneLineInWord: wpt != null && wpt > 0 && widestWordLike + pad <= wpt + 0.5,
+    );
+  }
+
+  // ⚡ سقفِ ارزانِ عرضِ یک‌خطیِ سلول بدونِ TextPainter: همه‌ی حروفِ هر پاراگراف ×
+  // (بزرگ‌ترین اندازه‌ی فونت × ۱.۰۵ + فاصله‌ی حروف) + تورفتگی (شماره‌ی لیست: ۸۰) +
+  // حاشیه‌ها. اگر همین در ستون جا شود، سلول قطعاً یک‌خطی است.
+  double oneLineUpperBound(TableCellData c, int ci, bool isFirstRow) {
+    double widest = 0;
+    for (final p in c.paragraphs) {
+      int chars = 0;
+      double fs = 0;
+      double ls = inheritedTextStyle.letterSpacing ?? 0.0;
+      for (final s in p.spans) {
+        if (s.type != "text") continue;
+        chars += s.content.length;
+        double size = 14.0;
+        for (final m in s.markers) {
+          if (m.startsWith("sz:")) {
+            final parsed = double.tryParse(m.substring(3));
+            if (parsed != null) size = parsed / 2;
+          }
+        }
+        if (size > fs) fs = size;
+        if ((s.letterSpacing ?? 0) > ls) ls = s.letterSpacing!;
+      }
+      double lead = (p.listMarker != null && p.listMarker!.isNotEmpty)
+          ? 80.0
+          : ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0);
+      lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
+      final double w = chars * (fs * 1.05 + ls) + lead;
+      if (w > widest) widest = w;
+    }
+    final double hpad = cellGeometryFromDoc ? 5.76 : 8.0;
+    return widest + (c.paddingLeft ?? hpad) + (c.paddingRight ?? hpad) + 8.0;
+  }
+
   // 🐞 Mindset 2 ص۵۷ تمرین‌های ۰۳ و ۰۴: CommonTableِ چندردیفه فقط WidthPtِ سند
   // + safety می‌گرفت و هیچ کفی نداشت؛ پس با وجودِ اسکرولِ افقی، کلمه‌های بلند
   // («extraordinary»، «uncomfortable») وسطشان می‌شکستند. حالا همان کفِ جدولِ
@@ -3369,12 +3519,16 @@ Widget _buildTable(
     for (int r = 0; r < rows.length; r++) {
       final List<double> f = [];
       for (int ci = 0; ci < rows[r].cells.length; ci++) {
-        final double v = cellFloorAgainst(
-          rows[r].cells[ci],
-          ci,
-          r == 0,
-          base[r][ci],
-        );
+        final TableCellData cell = rows[r].cells[ci];
+        double v = cellFloorAgainst(cell, ci, r == 0, base[r][ci]);
+        // 🐞 سلولی که در Word یک‌خطی است، در اپ هم یک‌خطی بماند (فاصله‌ی حروفِ تمِ
+        // اپ آن را کمی پهن‌تر از ستونِ Word می‌کند؛ رجوع به cellOneLine). ⚡ فقط
+        // وقتی سقفِ ارزانِ «همه‌ی حروف در یک خط» از عرضِ ستون بیشتر است اندازه
+        // گرفته می‌شود؛ سلول‌های کوتاه در ستون‌های جادار هزینه‌ای ندارند.
+        if (oneLineUpperBound(cell, ci, r == 0) > base[r][ci] + 0.5) {
+          final one = cellOneLine(cell, ci, r == 0);
+          if (one != null && one.oneLineInWord && one.width > v) v = one.width;
+        }
         if (v > base[r][ci] + 0.5) violated = true;
         f.add(v);
       }
@@ -3388,6 +3542,51 @@ Widget _buildTable(
       base: base,
       floor: floors,
     );
+  }
+
+  // 🐞 درخواستِ کاربر (Mindset 2 ص۹۲): اگر جمله‌ای در یک ستون شکست، ستون به اندازه‌ی
+  // فضای آزادشده جمع شود، ولی نه کمتر از بیشترین عرضی که ردیف‌های دیگرِ همان ستون
+  // لازم دارند. برای هر ستون: اگر دست‌کم یک سلولش شکسته، عرضِ تازه = بیشینه‌ی
+  // «عرضِ لازمِ» همه‌ی سلول‌های آن ستون (شکسته: پهن‌ترین خط؛ نشکسته: عرضِ یک‌خطی).
+  // ستونی که هیچ سلولش نشکسته، یا سلولِ «پیچیده» دارد (cellLineFit=null)، دست
+  // نمی‌خورد. فقط برای جدول‌های بدونِ سلولِ ادغامی با تعدادِ ستونِ یکسان.
+  List<List<double>>? computeMultiRowShrink(List<List<double>> widths) {
+    final rows = tableSpan.tableRows;
+    if (rows.isEmpty) return null;
+    final int cols = rows.first.cells.length;
+    if (!rows.every(
+      (r) =>
+          r.cells.length == cols &&
+          r.cells.every((c) => (c.colSpan ?? 1) <= 1 && (c.gridSpan ?? 1) <= 1),
+    )) {
+      return null;
+    }
+    final List<List<double>> out = [
+      for (final r in widths) List<double>.from(r),
+    ];
+    bool changed = false;
+    for (int ci = 0; ci < cols; ci++) {
+      final double colW = widths.first[ci];
+      if (widths.any((r) => (r[ci] - colW).abs() > 0.5)) continue;
+      bool anyWrapped = false;
+      bool simple = true;
+      double needed = 0;
+      for (int r = 0; r < rows.length; r++) {
+        final fit = cellLineFit(rows[r].cells[ci], ci, r == 0, colW);
+        if (fit == null) {
+          simple = false;
+          break;
+        }
+        if (fit.wrapped) anyWrapped = true;
+        if (fit.needed > needed) needed = fit.needed;
+      }
+      if (!simple || !anyWrapped || needed >= colW - 0.5) continue;
+      for (final r in out) {
+        r[ci] = needed;
+      }
+      changed = true;
+    }
+    return changed ? out : null;
   }
 
 
@@ -3404,6 +3603,9 @@ Widget _buildTable(
   // از عرضِ ظرف). null یعنی هیچ سلولی کمبود نداشت و هندسه‌ی قبلی دست نمی‌خورد.
   bool multiRowFloorsDone = false;
   List<List<double>>? multiRowWidths;
+  // 🐞 عرضِ ستون‌های جدولِ چندردیفه بعد از جمع‌شدنِ ستون‌های شکسته (یک‌بار).
+  bool multiRowShrinkDone = false;
+  List<List<double>>? multiRowShrunk;
   // 🐞 نقشه‌ی عرضِ ستون‌های هر ردیف که از مسیرِ Table رندر می‌شود (به‌ترتیبِ
   // ردیف‌ها) — برای «کفِ عرضِ ستون» در جدول‌های درصدی (پایین‌تر).
   final List<Map<int, TableColumnWidth>> tablePathColumnWidths = [];
@@ -4166,40 +4368,95 @@ Widget _buildTable(
               for (int ci = 0; ci < cells.length; ci++)
                 naturalColumnPx(cells[ci], ci),
             ];
+            // 🐞 Mindset 2 ص۹۲: سلولی که در Word یک‌خطی است (cellOneLine)، در اپ هم
+            // دست‌کم عرضِ یک‌خطیِ خودش را می‌گیرد. بدونِ این، فاصله‌ی حروفِ تمِ اپ
+            // (۰.۲۵px برای هر حرف) «borrow money» را از ستونِ Word پهن‌تر می‌کرد و
+            // جمله بی‌جهت می‌شکست.
+            final List<({double width, bool oneLineInWord})?> oneLines = [
+              for (int ci = 0; ci < cells.length; ci++)
+                cellOneLine(cells[ci], ci, true),
+            ];
             final List<double> safeNaturals = [
               for (int ci = 0; ci < cells.length; ci++)
-                math.max(naturals[ci], floors[ci]),
+                math.max(
+                  math.max(naturals[ci], floors[ci]),
+                  (oneLines[ci]?.oneLineInWord ?? false)
+                      ? oneLines[ci]!.width
+                      : 0.0,
+                ),
             ];
             final double sumSafe = safeNaturals.fold(0.0, (a, b) => a + b);
             final double sumFloors = floors.fold(0.0, (a, b) => a + b);
 
+            // 🐞 Mindset 2 ص۹۲: ستونی که متنش به چند خط شکسته، تا پهن‌ترین خطش جمع
+            // می‌شود (نه کمتر از کفش). در جدولِ تک‌ردیفه «ردیفِ دیگری» نیست که عرضِ
+            // بیشتری بخواهد. (برای جدولِ چندردیفه: shrinkWrappedColumns.)
+            double shrinkWrapped(int ci, double w) {
+              final fit = cellLineFit(cells[ci], ci, true, w);
+              if (fit == null || !fit.wrapped || fit.needed >= w - 0.5) return w;
+              return math.max(fit.needed, floors[ci]);
+            }
+
             if (sumSafe <= avail + 0.5) {
               // ۱) یک‌خطی با عرضِ سند
+              double fitted = 0;
               for (int ci = 0; ci < cells.length; ci++) {
-                singleRowColumnWidths![ci] = FixedColumnWidth(safeNaturals[ci]);
+                final double w = shrinkWrapped(ci, safeNaturals[ci]);
+                singleRowColumnWidths![ci] = FixedColumnWidth(w);
+                fitted += w;
               }
               return Align(
                 alignment: Alignment.centerLeft,
-                child: SizedBox(width: sumSafe, child: tableContainer),
+                child: SizedBox(width: fitted, child: tableContainer),
               );
             }
 
             if (sumFloors <= avail + 0.5) {
-              // ۲) جمع‌شده تا عرضِ ظرف، بدونِ شکستنِ هیچ کلمه‌ای
-              final List<double> deficits = [
+              // ۲) جمع‌شده تا عرضِ ظرف، بدونِ شکستنِ هیچ کلمه‌ای.
+              // 🐞 پخشِ عرضِ اضافه: اول تا جایی که هر سلول یک‌خطی شود، تا جمله‌ها
+              // بی‌جهت نشکنند؛ اگر باز هم ماند، به سمتِ عرضِ Word. قبلاً فقط به
+              // نسبتِ «کمبود از عرضِ Word» پخش می‌شد، پس ستونی که با کمی بیشتر
+              // یک‌خطی می‌شد می‌شکست و ستونِ دیگری فضای خالی می‌گرفت.
+              final List<double> desired = [
                 for (int ci = 0; ci < cells.length; ci++)
-                  safeNaturals[ci] - floors[ci], // همیشه ≥ ۰
+                  math.max(
+                    floors[ci],
+                    math.min(
+                      safeNaturals[ci],
+                      oneLines[ci]?.width ?? safeNaturals[ci],
+                    ),
+                  ),
               ];
-              final double sumDeficits = deficits.fold(0.0, (a, b) => a + b);
               final double extra = math.max(0.0, avail - sumFloors);
+              final List<double> needA = [
+                for (int ci = 0; ci < cells.length; ci++)
+                  desired[ci] - floors[ci],
+              ];
+              final double sumA = needA.fold(0.0, (a, b) => a + b);
+              final List<double> w = List<double>.from(floors);
+              if (sumA >= extra) {
+                for (int ci = 0; ci < cells.length; ci++) {
+                  if (sumA > 0) w[ci] += extra * needA[ci] / sumA;
+                }
+              } else {
+                final double extraB = extra - sumA;
+                final List<double> needB = [
+                  for (int ci = 0; ci < cells.length; ci++)
+                    safeNaturals[ci] - desired[ci],
+                ];
+                final double sumB = needB.fold(0.0, (a, b) => a + b);
+                for (int ci = 0; ci < cells.length; ci++) {
+                  w[ci] = desired[ci] +
+                      (sumB > 0
+                          ? math.min(needB[ci], extraB * needB[ci] / sumB)
+                          : 0.0);
+                }
+              }
               double fittedWidth = 0;
               for (int ci = 0; ci < cells.length; ci++) {
-                final double share = sumDeficits > 0
-                    ? extra * deficits[ci] / sumDeficits
-                    : extra / cells.length;
-                final double w = floors[ci] + share;
-                singleRowColumnWidths![ci] = FixedColumnWidth(w);
-                fittedWidth += w;
+                final double wf = shrinkWrapped(ci, w[ci]);
+                singleRowColumnWidths![ci] = FixedColumnWidth(wf);
+                fittedWidth += wf;
               }
               return Align(
                 alignment: Alignment.centerLeft,
@@ -4212,12 +4469,12 @@ Widget _buildTable(
 
             // ۳) هندسه‌ی خودِ سند (WidthPt بدونِ safety) + کف؛ این‌جا کفِ
             // اندازه‌گیری‌شده جای safetyِ حدسی را می‌گیرد، پس ستون‌ها بی‌دلیل
-            // از Word پهن‌تر نمی‌شوند.
+            // از Word پهن‌تر نمی‌شوند. ستونِ شکسته تا پهن‌ترین خطش جمع می‌شود.
             tableWidth = 0;
             for (int ci = 0; ci < cells.length; ci++) {
               final double? wpt = cells[ci].widthPt;
               final double docW = (wpt != null && wpt > 0) ? wpt : naturals[ci];
-              final double w = math.max(docW, floors[ci]);
+              final double w = shrinkWrapped(ci, math.max(docW, floors[ci]));
               singleRowColumnWidths![ci] = FixedColumnWidth(w);
               tableWidth += w;
             }
@@ -4231,7 +4488,21 @@ Widget _buildTable(
               multiRowFloorsDone = true;
               multiRowWidths = computeMultiRowNaturalWidths();
             }
-            final List<List<double>>? widths = multiRowWidths;
+            // ستونِ شکسته تا پهن‌ترین عرضِ لازمِ ردیف‌هایش جمع می‌شود.
+            if (!multiRowShrinkDone) {
+              multiRowShrinkDone = true;
+              multiRowShrunk = computeMultiRowShrink(
+                multiRowWidths ??
+                    [
+                      for (final row in tableSpan.tableRows)
+                        [
+                          for (int ci = 0; ci < row.cells.length; ci++)
+                            naturalColumnPx(row.cells[ci], ci),
+                        ],
+                    ],
+              );
+            }
+            final List<List<double>>? widths = multiRowShrunk ?? multiRowWidths;
             if (widths != null) {
               double widestRow = 0;
               for (int r = 0; r < widths.length; r++) {
