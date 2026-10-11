@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
@@ -57,7 +58,10 @@ OutlinePosition locateInOutline(
 /// N-5: برچسبِ کوتاهِ سطحِ ۱: «UNIT/01: …» ← «U1»، «Chapter 12» ← «C12»؛ بدونِ
 /// عدد ← دو حرفِ اول.
 String outlineShortLabel(String title, int index) {
-  final m = RegExp(r'^\s*([^\W\d_])\D*?0*(\d+)', unicode: true).firstMatch(title);
+  final m = RegExp(
+    r'^\s*([^\W\d_])\D*?0*(\d+)',
+    unicode: true,
+  ).firstMatch(title);
   if (m != null) return '${m.group(1)!.toUpperCase()}${m.group(2)}';
   final letters = title.replaceAll(RegExp(r'\s+'), '');
   if (letters.isEmpty) return '${index + 1}';
@@ -147,7 +151,9 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
               child: child,
             ),
           ),
-          child: _collapsed ? _buildCollapsed(context, pos) : _buildPanel(context, pos),
+          child: _collapsed
+              ? _buildCollapsed(context, pos)
+              : _buildPanel(context, pos),
         );
       },
     );
@@ -161,7 +167,9 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
         : (pos.child == null
               ? widget.outline[pos.top!]
               : widget.outline[pos.top!].children[pos.child!]);
-    final IconData? icon = current == null ? null : outlineSectionIcon(current.title);
+    final IconData? icon = current == null
+        ? null
+        : outlineSectionIcon(current.title);
     return Material(
       key: const ValueKey('collapsed'),
       color: scheme.primary.withOpacity(0.85),
@@ -189,7 +197,11 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                       color: scheme.onPrimary,
                     ),
                   ),
-                Icon(Icons.chevron_right_rounded, size: 18, color: scheme.onPrimary),
+                Icon(
+                  Icons.chevron_right_rounded,
+                  size: 18,
+                  color: scheme.onPrimary,
+                ),
               ],
             ),
           ),
@@ -275,7 +287,11 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                   SizedBox(
                     width: 24,
                     child: i == pos.top
-                        ? Icon(Icons.check_rounded, size: 18, color: scheme.primary)
+                        ? Icon(
+                            Icons.check_rounded,
+                            size: 18,
+                            color: scheme.primary,
+                          )
                         : null,
                   ),
                   Expanded(
@@ -284,7 +300,9 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontWeight: i == pos.top ? FontWeight.bold : FontWeight.normal,
+                        fontWeight: i == pos.top
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -315,7 +333,11 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                 ),
               ),
             ),
-            Icon(Icons.arrow_drop_down_rounded, size: 14, color: scheme.onPrimary),
+            Icon(
+              Icons.arrow_drop_down_rounded,
+              size: 14,
+              color: scheme.onPrimary,
+            ),
           ],
         ),
       ),
@@ -341,7 +363,9 @@ class _SectionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final IconData? icon = outlineSectionIcon(entry.title);
-    final Color fg = isCurrent ? scheme.primary : scheme.onPrimary.withOpacity(0.85);
+    final Color fg = isCurrent
+        ? scheme.primary
+        : scheme.onPrimary.withOpacity(0.85);
     final String title = outlineDisplayTitle(entry.title);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
