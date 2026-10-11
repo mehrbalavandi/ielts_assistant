@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 // LogicalKeyboardKey از services می‌آیند. هیچ‌کدام در showـلیستِ صادراتیِ
 // material نیستند، پس باید صریح import شوند.
 import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
@@ -659,6 +660,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       Offset.zero,
     ).dy;
   }
+
   Future<void> _nextFrame() {
     final Completer<void> c = Completer<void>();
     WidgetsBinding.instance.addPostFrameCallback((_) => c.complete());
@@ -687,7 +689,10 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
               AnimationStatus.dismissed;
       final double keyboard = View.of(context).viewInsets.bottom;
       final double h = _viewportHeight();
-      if (!covered && keyboard == 0 && lastH != null && (h - lastH).abs() < 0.5) {
+      if (!covered &&
+          keyboard == 0 &&
+          lastH != null &&
+          (h - lastH).abs() < 0.5) {
         if (++stableFrames >= 2) return true;
       } else {
         stableFrames = 0;
@@ -842,7 +847,10 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       try {
         if (round == 0 && _itemScrollController.isAttached) {
           // لنگرِ دوباره دورِ صفحه‌ی هدف، درست در جای فعلی‌اش (بی‌حرکت).
-          _itemScrollController.jumpTo(index: pageIndex, alignment: pageTop / vp);
+          _itemScrollController.jumpTo(
+            index: pageIndex,
+            alignment: pageTop / vp,
+          );
           setState(() {});
           await _nextFrame();
           await _nextFrame();
@@ -2384,8 +2392,7 @@ Widget _buildParagraph(
       para.borders!.val != 'nil';
 
   if (hasBgColor || showBorder) {
-    Color borderColor =
-        _docBorderColor(para.borders) ?? Colors.grey.shade600;
+    Color borderColor = _docBorderColor(para.borders) ?? Colors.grey.shade600;
     double borderWidth = para.borders?.width ?? 1.5;
     paragraphContent = Container(
       width: double.infinity,
@@ -3255,13 +3262,19 @@ Widget _buildTable(
     }
     final bool subOrSup =
         s.markers.contains("sub") || s.markers.contains("sup");
-    return inheritedTextStyle.merge(TextStyle(
-      fontSize: subOrSup ? fontSize * 0.75 : fontSize,
-      fontFamily: fontFamily,
-      fontWeight: s.markers.contains("b") ? FontWeight.bold : FontWeight.normal,
-      fontStyle: s.markers.contains("i") ? FontStyle.italic : FontStyle.normal,
-      letterSpacing: s.letterSpacing, // null → همان فاصله‌ی ارثیِ تم
-    ));
+    return inheritedTextStyle.merge(
+      TextStyle(
+        fontSize: subOrSup ? fontSize * 0.75 : fontSize,
+        fontFamily: fontFamily,
+        fontWeight: s.markers.contains("b")
+            ? FontWeight.bold
+            : FontWeight.normal,
+        fontStyle: s.markers.contains("i")
+            ? FontStyle.italic
+            : FontStyle.normal,
+        letterSpacing: s.letterSpacing, // null → همان فاصله‌ی ارثیِ تم
+      ),
+    );
   }
 
   // عرضِ دکمه‌ی آیکونِ چشم (InteractiveBlankWord): margin ۴+۴، padding ۱۰+۱۰ و
@@ -3304,7 +3317,9 @@ Widget _buildTable(
           p.spans.length == 1 &&
           _isWhollyOneBlank(p.spans.first.content);
       double lead =
-          (p.listMarker != null && p.listMarker!.isNotEmpty && !wholeParaIsBlank)
+          (p.listMarker != null &&
+              p.listMarker!.isNotEmpty &&
+              !wholeParaIsBlank)
           ? listMarkerLead(p)
           : ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0);
       lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
@@ -3420,7 +3435,11 @@ Widget _buildTable(
                   ),
                 ),
               ]) +
-              4.0 + 16.0 + 2.0 + 22.0 + 8.0;
+              4.0 +
+              16.0 +
+              2.0 +
+              22.0 +
+              8.0;
           if (w > fixedWidest) fixedWidest = w;
           return;
         }
@@ -3683,7 +3702,8 @@ Widget _buildTable(
     final double? wpt = c.widthPt;
     return (
       width: widest + pad + (b?.left.width ?? 0) + (b?.right.width ?? 0) + 2.0,
-      oneLineInWord: wpt != null && wpt > 0 && widestWordLike + pad <= wpt + 0.5,
+      oneLineInWord:
+          wpt != null && wpt > 0 && widestWordLike + pad <= wpt + 0.5,
     );
   }
 
@@ -3808,7 +3828,6 @@ Widget _buildTable(
     }
     return changed ? out : null;
   }
-
 
   // 🌟 برای جدولِ تک‌ردیفه، ارجاعِ نقشه‌ی عرضِ ستون‌ها را نگه می‌داریم تا
   // پایین‌تر — وقتی عرضِ واقعیِ ظرف را از LayoutBuilder گرفتیم — بتوانیم
@@ -3957,7 +3976,8 @@ Widget _buildTable(
             context,
             isImageCell: isImageCell,
             isInsideTableCell: true,
-            verbatimCellImage: cellGeometryFromDoc, // 🐞 CommonTable (نه NormalTable)
+            verbatimCellImage:
+                cellGeometryFromDoc, // 🐞 CommonTable (نه NormalTable)
             prevPara: pIndex > 0 ? cell.paragraphs[pIndex - 1] : null,
             nextPara: pIndex < cell.paragraphs.length - 1
                 ? cell.paragraphs[pIndex + 1]
@@ -4613,7 +4633,8 @@ Widget _buildTable(
             // بیشتری بخواهد. (برای جدولِ چندردیفه: shrinkWrappedColumns.)
             double shrinkWrapped(int ci, double w) {
               final fit = cellLineFit(cells[ci], ci, true, w);
-              if (fit == null || !fit.wrapped || fit.needed >= w - 0.5) return w;
+              if (fit == null || !fit.wrapped || fit.needed >= w - 0.5)
+                return w;
               return math.max(fit.needed, floors[ci]);
             }
 
@@ -4666,7 +4687,8 @@ Widget _buildTable(
                 ];
                 final double sumB = needB.fold(0.0, (a, b) => a + b);
                 for (int ci = 0; ci < cells.length; ci++) {
-                  w[ci] = desired[ci] +
+                  w[ci] =
+                      desired[ci] +
                       (sumB > 0
                           ? math.min(needB[ci], extraB * needB[ci] / sumB)
                           : 0.0);
@@ -4799,7 +4821,9 @@ Widget _buildTable(
       guardRows.every(
         (r) =>
             r.cells.length == guardCols &&
-            r.cells.every((c) => (c.colSpan ?? 1) <= 1 && (c.gridSpan ?? 1) <= 1),
+            r.cells.every(
+              (c) => (c.colSpan ?? 1) <= 1 && (c.gridSpan ?? 1) <= 1,
+            ),
       ) &&
       tablePathColumnWidths.every(
         (m) => List<int>.generate(
@@ -4840,7 +4864,8 @@ Widget _buildTable(
         if (weightSum <= 0) return guardedTable;
 
         final List<double> share = [
-          for (int ci = 0; ci < guardCols; ci++) avail * weights[ci] / weightSum,
+          for (int ci = 0; ci < guardCols; ci++)
+            avail * weights[ci] / weightSum,
         ];
         // ستونِ پهن (≥۱۶۰px) عملاً هیچ‌وقت کمبود ندارد؛ اندازه‌گیری‌اش لازم نیست.
         final List<double> floors = [
@@ -5137,8 +5162,9 @@ _wordListMarkerLayout(ParagraphData para, TextStyle inherited) {
   final double textHeight = tp.height;
   tp.dispose();
 
-  final double scale =
-      (para.listMarkerScale ?? 1.0) > 0 ? (para.listMarkerScale ?? 1.0) : 1.0;
+  final double scale = (para.listMarkerScale ?? 1.0) > 0
+      ? (para.listMarkerScale ?? 1.0)
+      : 1.0;
   final bool boxed =
       _hexToColor(para.listMarkerFill) != null || para.listMarkerBorder != null;
   final double boxExtra = boxed
@@ -5305,11 +5331,15 @@ List<List<double>> _solveColumnGrid({
   }
 
   // ۳) اعمالِ کف‌ها: اول سلول‌های باریک‌تر (کم‌ستون‌تر)
-  final List<List<int>> order = [
-    for (int r = 0; r < nRows; r++)
-      for (int c = 0; c < base[r].length; c++) [r, c],
-  ]..sort((x, y) =>
-      (ce[x[0]][x[1]] - cs[x[0]][x[1]]).compareTo(ce[y[0]][y[1]] - cs[y[0]][y[1]]));
+  final List<List<int>> order =
+      [
+        for (int r = 0; r < nRows; r++)
+          for (int c = 0; c < base[r].length; c++) [r, c],
+      ]..sort(
+        (x, y) => (ce[x[0]][x[1]] - cs[x[0]][x[1]]).compareTo(
+          ce[y[0]][y[1]] - cs[y[0]][y[1]],
+        ),
+      );
   void enforce() {
     for (final rc in order) {
       final int r = rc[0], c = rc[1];
