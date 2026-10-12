@@ -397,14 +397,58 @@ Future<void> openAudioSearchResult({
   }
 }
 
-class _AudioPlaylistSheet extends ConsumerWidget {
+class _AudioPlaylistSheet extends ConsumerStatefulWidget {
   final PagedBookStore pagedBookStore;
   const _AudioPlaylistSheet({required this.pagedBookStore});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_AudioPlaylistSheet> createState() =>
+      _AudioPlaylistSheetState();
+}
+
+class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
+  // 🌟 S-10: ارتفاعِ ثابتِ هر ردیف (ListTileِ یک‌خطی) تا جای هر آیتم دقیقاً
+  // معلوم باشد و بشود بدونِ ساختنِ همه‌ی ردیف‌ها مستقیم به آن پرید.
+  static const double _rowExtent = 56.0;
+  final ScrollController _scrollController = ScrollController();
+  bool _didInitialScroll = false;
+
+  PagedBookStore get pagedBookStore => widget.pagedBookStore;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  /// 🌟 S-10: با بازشدنِ پلی‌لیست، فایلِ در حالِ پخش — یا اگر چیزی پخش نمی‌شود،
+  /// آخرین فایلی که پخش شده — وسطِ فهرست دیده شود. فقط یک‌بار، تا اسکرولِ خودِ
+  /// کاربر را به هم نزند.
+  void _scrollToCurrentOnce(List<String> playlist, String? target) {
+    if (_didInitialScroll || playlist.isEmpty) return;
+    _didInitialScroll = true;
+    final int index = target == null ? -1 : playlist.indexOf(target);
+    if (index < 0) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_scrollController.hasClients) return;
+      final position = _scrollController.position;
+      final double offset =
+          index * _rowExtent - (position.viewportDimension - _rowExtent) / 2;
+      _scrollController.jumpTo(
+        offset.clamp(position.minScrollExtent, position.maxScrollExtent),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(audioPlayerProvider);
     final colors = _playerColors(context);
+    // فایلی که باید نشان داده شود: در حالِ پخش، وگرنه آخرین پخش‌شده.
+    final String? markedPath =
+        state.currentPath ??
+        ref.read(audioPlayerProvider.notifier).lastPlayedPath;
+    _scrollToCurrentOnce(state.playlist, markedPath);
 
     // 🐞 رفع اخطارِ «ListTile background color or ink splashes may be
     // invisible»: قبلاً این Containerِ بیرونی یک رنگِ توپُر داشت که بینِ
@@ -463,10 +507,14 @@ class _AudioPlaylistSheet extends ConsumerWidget {
                       ),
                     )
                   : ListView.builder(
+                      controller: _scrollController,
+                      itemExtent: _rowExtent,
                       itemCount: state.playlist.length,
                       itemBuilder: (context, index) {
                         final path = state.playlist[index];
-                        final bool isCurrent = state.currentPath == path;
+                        // 🌟 S-10: بعد از اجرای دوباره‌ی برنامه (چیزی در حالِ پخش
+                        // نیست) آخرین فایلِ پخش‌شده هم مثلِ فایلِ جاری علامت دارد.
+                        final bool isCurrent = markedPath == path;
                         return ListTile(
                           leading: Icon(
                             isCurrent && state.isPlaying

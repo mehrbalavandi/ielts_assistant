@@ -244,6 +244,9 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       await _player.stop();
 
       final lastPosMs = seekToMs ?? (_box.read('pos_$path') ?? 0);
+      // 🌟 S-10: آخرین فایلی که باز شد — پلی‌لیست بعد از بستن/بازکردنِ برنامه هم
+      // روی همین فایل باز می‌شود.
+      _box.write(_lastAudioKey, path);
 
       state = state.copyWith(
         currentPath: path,
@@ -275,6 +278,19 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       }
     } catch (e) {
       debugPrint("خطا در پخش فایل: $e");
+    }
+  }
+
+  static const String _lastAudioKey = 'last_audio_path';
+
+  /// 🌟 S-10: آخرین فایلی که پخش یا باز شد (حتی از اجرای قبلیِ برنامه)؛ null اگر
+  /// هنوز هیچ.
+  String? get lastPlayedPath {
+    try {
+      final v = _box.read(_lastAudioKey);
+      return v is String ? v : null;
+    } catch (_) {
+      return null;
     }
   }
 
