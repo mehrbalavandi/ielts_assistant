@@ -8,6 +8,8 @@ import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:ielts_assistant/features/update/app_update_provider.dart';
+import 'package:ielts_assistant/features/update/app_update_ui.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {
   /// 🗂️ قانونِ C-2: null = ویترینِ اصلی (اگر بیش از یک دسته هست، فهرستِ دسته‌ها؛
@@ -30,6 +32,14 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    // 🌟 U-1: یک‌بار در هر اجرا (فقط ویترینِ اصلی، نه صفحه‌ی هر دسته) نسخه‌ی تازه‌ی
+    // اپ روی سایت بررسی می‌شود.
+    if (widget.categoryKey == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) checkForAppUpdateOnStart(context, ref);
+      });
+    }
 
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   _openLastBook();
@@ -149,6 +159,19 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
         ),
         centerTitle: true,
         actions: [
+          // 🌟 U-4: تا وقتی نسخه‌ی تازه‌ای روی سایت هست، این دکمه دیده می‌شود.
+          if (ref.watch(
+            appUpdateProvider.select((s) => s.updateAvailable),
+          ))
+            IconButton(
+              tooltip: "نسخه‌ی جدیدِ برنامه",
+              onPressed: () => showAppUpdateDialog(context, ref),
+              icon: Badge(
+                smallSize: 8,
+                backgroundColor: Colors.amber,
+                child: const Icon(Icons.system_update_rounded),
+              ),
+            ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => ref.read(booksProvider.notifier).fetchBooks(),

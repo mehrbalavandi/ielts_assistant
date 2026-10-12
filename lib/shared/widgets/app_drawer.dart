@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
+import 'package:ielts_assistant/features/update/app_update_provider.dart';
+import 'package:ielts_assistant/features/update/app_update_ui.dart';
 // مسیر را تنظیم کنید
 
 class AppDrawer extends ConsumerWidget {
@@ -12,6 +14,7 @@ class AppDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lang = ref.watch(languageProvider);
+    final update = ref.watch(appUpdateProvider);
 
     return Drawer(
       child: Column(
@@ -56,6 +59,45 @@ class AppDrawer extends ConsumerWidget {
             onTap: () => ref.read(languageProvider.notifier).toggle(),
           ),
           const Divider(height: 1),
+
+          // 🌟 U-4: به‌روزرسانیِ برنامه از سایت. با نسخه‌ی تازه: علامت و پنجره‌ی
+          // دریافت؛ بدونِ آن: بررسیِ دستی و نمایشِ نسخه‌ی فعلی.
+          if (AppUpdateNotifier.platformName != null) ...[
+            ListTile(
+              leading: Badge(
+                isLabelVisible: update.updateAvailable,
+                smallSize: 8,
+                backgroundColor: Colors.amber,
+                child: const Icon(Icons.system_update_rounded),
+              ),
+              title: const Text("به‌روزرسانیِ برنامه"),
+              subtitle: Text(
+                update.updateAvailable
+                    ? "نسخه‌ی ${update.latest!.versionName} آماده‌ی دریافت است"
+                    : "نسخه‌ی فعلی: ${update.currentVersion ?? '—'} — برای بررسی بزنید",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: update.updateAvailable ? Colors.amber.shade900 : null,
+                  fontWeight: update.updateAvailable ? FontWeight.bold : null,
+                ),
+              ),
+              trailing: update.checking
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : null,
+              onTap: () {
+                if (update.updateAvailable) {
+                  showAppUpdateDialog(context, ref);
+                } else {
+                  checkForAppUpdateManually(context, ref);
+                }
+              },
+            ),
+            const Divider(height: 1),
+          ],
 
           ListTile(
             leading: const Icon(Icons.settings),

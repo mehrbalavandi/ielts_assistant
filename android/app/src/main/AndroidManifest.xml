@@ -51,5 +51,10 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
+        <!-- 🌟 بازکردنِ صفحه‌ی دریافتِ نسخه‌ی تازه در مرورگر (url_launcher، اندروید ۱۱+) — U-2 -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
     </queries>
 </manifest>
