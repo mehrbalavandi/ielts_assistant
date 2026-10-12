@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -397,6 +399,93 @@ Future<void> openAudioSearchResult({
   }
 }
 
+/// 🌟 S-11: نمایشگرِ صوتیِ متحرک (چهار میله که بالا و پایین می‌روند) برای فایلِ
+/// در حالِ پخش در پلی‌لیست. فقط یک AnimationController و یک CustomPaint — پس با
+/// هر فریم فقط همین چند پیکسل دوباره کشیده می‌شوند، نه کلِ ردیف. اگر کاربر در
+/// تنظیماتِ دستگاه انیمیشن‌ها را خاموش کرده باشد، میله‌ها ثابت می‌مانند.
+class _AudioMeter extends StatefulWidget {
+  final Color color;
+  const _AudioMeter({super.key, required this.color});
+
+  @override
+  State<_AudioMeter> createState() => _AudioMeterState();
+}
+
+class _AudioMeterState extends State<_AudioMeter>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.of(context).disableAnimations) {
+      _controller.stop();
+      _controller.value = 0.3;
+    } else if (!_controller.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: 'در حالِ پخش',
+      child: RepaintBoundary(
+        child: CustomPaint(
+          size: const Size(20, 18),
+          painter: _AudioMeterPainter(_controller, widget.color),
+        ),
+      ),
+    );
+  }
+}
+
+class _AudioMeterPainter extends CustomPainter {
+  final Animation<double> t;
+  final Color color;
+  _AudioMeterPainter(this.t, this.color) : super(repaint: t);
+
+  // هر میله با سرعت و فازِ خودش؛ جمعِ دو سینوس تا حرکت تکراری و مکانیکی دیده نشود.
+  static const List<double> _speeds = [1.0, 2.0, 1.0, 3.0];
+  static const List<double> _phases = [0.0, 1.7, 3.3, 0.9];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const int bars = 4;
+    final double gap = size.width * 0.12;
+    final double barW = (size.width - gap * (bars - 1)) / bars;
+    final paint = Paint()..color = color;
+    final double a = t.value * 2 * math.pi;
+    for (int i = 0; i < bars; i++) {
+      final double wave =
+          0.5 +
+          0.30 * math.sin(a * _speeds[i] + _phases[i]) +
+          0.20 * math.sin(a * (_speeds[i] + 1) + _phases[i] * 1.6);
+      final double h = size.height * (0.18 + 0.82 * wave.clamp(0.0, 1.0));
+      final double x = i * (barW + gap);
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(x, size.height - h, barW, h),
+          Radius.circular(barW / 2),
+        ),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_AudioMeterPainter old) => old.color != color;
+}
+
 class _AudioPlaylistSheet extends ConsumerStatefulWidget {
   final PagedBookStore pagedBookStore;
   const _AudioPlaylistSheet({required this.pagedBookStore});
@@ -515,12 +604,33 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                         // 🌟 S-10: بعد از اجرای دوباره‌ی برنامه (چیزی در حالِ پخش
                         // نیست) آخرین فایلِ پخش‌شده هم مثلِ فایلِ جاری علامت دارد.
                         final bool isCurrent = markedPath == path;
+                        final bool isPlayingRow = isCurrent && state.isPlaying;
                         return ListTile(
-                          leading: Icon(
-                            isCurrent && state.isPlaying
-                                ? Icons.pause_circle_filled_rounded
-                                : Icons.play_circle_fill_rounded,
-                            color: isCurrent ? colors.accent : colors.textMuted,
+                          // 🌟 S-11: فایلِ در حالِ پخش زمینه‌ی ملایمِ رنگِ تأکید
+                          // و به‌جای آیکون، نمایشگرِ صوتیِ متحرک دارد.
+                          tileColor: isPlayingRow
+                              ? colors.accent.withOpacity(0.10)
+                              : null,
+                          leading: SizedBox(
+                            width: 28,
+                            height: 28,
+                            child: Center(
+                              child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 200),
+                                child: isPlayingRow
+                                    ? _AudioMeter(
+                                        key: const ValueKey('meter'),
+                                        color: colors.accent,
+                                      )
+                                    : Icon(
+                                        Icons.play_circle_fill_rounded,
+                                        key: const ValueKey('icon'),
+                                        color: isCurrent
+                                            ? colors.accent
+                                            : colors.textMuted,
+                                      ),
+                              ),
+                            ),
                           ),
                           title: Text(
                             path.split('/').last,
