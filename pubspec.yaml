@@ -62,8 +62,6 @@ dependencies:
   just_audio_windows: ^0.2.3
   flutter_layout_grid: ^2.0.8
   url_launcher: ^6.3.2
-  # 🌟 نسخه/build numberِ خودِ اپ، برای بررسیِ نسخه‌ی تازه روی سایت (U-1)
-  package_info_plus: ^8.3.0
 
 dev_dependencies:
   flutter_test:
