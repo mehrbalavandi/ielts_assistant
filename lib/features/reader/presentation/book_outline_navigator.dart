@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
@@ -130,19 +131,91 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
   final GetStorage _box = GetStorage();
   bool _collapsed = false;
 
+  // N-9: «لمسِ بیرون جمع می‌کند». تا ناوبر باز است، همه‌ی اشاره‌گرهای صفحه از یک
+  // مسیرِ سراسری دیده می‌شوند (بدونِ اینکه لمس از لیست/آیکون‌ها گرفته شود).
+  bool _globalRouteAdded = false;
+  Offset? _downPosition;
+  bool _downOutside = false;
+  ModalRoute<dynamic>? _route;
+
   @override
   void initState() {
     super.initState();
     try {
       _collapsed = _box.read(_collapsedKey) == true;
     } catch (_) {}
+    _syncGlobalRoute();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _route = ModalRoute.of(context);
+  }
+
+  @override
+  void dispose() {
+    _removeGlobalRoute();
+    super.dispose();
   }
 
   void _setCollapsed(bool v) {
+    if (!mounted) return;
     setState(() => _collapsed = v);
+    _syncGlobalRoute();
     try {
       _box.write(_collapsedKey, v);
     } catch (_) {}
+  }
+
+  void _syncGlobalRoute() {
+    if (!_collapsed && !_globalRouteAdded) {
+      GestureBinding.instance.pointerRouter.addGlobalRoute(_onGlobalPointer);
+      _globalRouteAdded = true;
+    } else if (_collapsed) {
+      _removeGlobalRoute();
+    }
+  }
+
+  void _removeGlobalRoute() {
+    if (!_globalRouteAdded) return;
+    GestureBinding.instance.pointerRouter.removeGlobalRoute(_onGlobalPointer);
+    _globalRouteAdded = false;
+    _downPosition = null;
+  }
+
+  /// مستطیلِ خودِ ناوبر روی صفحه (با احتسابِ کوچک‌شدنِ FittedBox).
+  bool _containsGlobal(Offset position) {
+    final ro = context.findRenderObject();
+    if (ro is! RenderBox || !ro.attached || !ro.hasSize) return false;
+    final Rect rect = MatrixUtils.transformRect(
+      ro.getTransformTo(null),
+      Offset.zero & ro.size,
+    );
+    return rect.inflate(4).contains(position);
+  }
+
+  /// N-9: لمس (نه کشیدن/اسکرول) بیرونِ ناوبرِ باز ← جمع شود. فقط وقتی صفحه‌ی
+  /// مطالعه رویِ صفحه است: لمس داخلِ منوی Unit یا دیالوگِ «رفتن به صفحه» (که
+  /// route‌ِ جدا دارند) ناوبر را جمع نمی‌کند.
+  void _onGlobalPointer(PointerEvent event) {
+    if (!mounted || _collapsed) return;
+    if (event is PointerDownEvent) {
+      if (_route != null && !_route!.isCurrent) {
+        _downPosition = null;
+        return;
+      }
+      _downPosition = event.position;
+      _downOutside = !_containsGlobal(event.position);
+    } else if (event is PointerUpEvent) {
+      final Offset? down = _downPosition;
+      _downPosition = null;
+      if (down == null || !_downOutside) return;
+      if ((event.position - down).distance > kTouchSlop) return;
+      _setCollapsed(true);
+    } else if (event is PointerCancelEvent) {
+      _downPosition = null;
+    }
   }
 
   @override
