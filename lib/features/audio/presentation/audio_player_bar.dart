@@ -33,6 +33,8 @@ void _jumpToAudioLocation(WidgetRef ref, BuildContext context) {
     paragraph: ParagraphData(spans: const [], interactives: const []),
     matchedExcerpt: '',
     query: '',
+    // 🐞 S-8: روی خودِ دکمه‌ی همین فایل بنشین، نه بالای پاراگراف/جدول.
+    focusAudioLink: playerState.currentPath?.split('/').last,
   );
   final current = ref.read(activeSearchProvider);
   ref.read(activeSearchProvider.notifier).state = SearchSession(

@@ -219,6 +219,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   // و باقی‌مانده از هدف قبلی.
   String? _lastBuiltTargetSignature;
   int? _lastBuiltTargetPageIndex;
+  String? _lastBuiltFocusAudioLink;
   int _scrollRequestId = 0;
   /// 🐞 کلیدهای هدف (_exactMatchKey، _fallbackParaKey، _pageAnchorKey) فقط به
   /// صفحه‌ی هدف در لیستِ **اصلیِ** ScrollablePositionedList داده می‌شوند.
@@ -643,7 +644,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
 
   /// 🐞 لاگِ عیب‌یابیِ اسکرول به نتیجه‌ی جستجو. مشکل حل و خاموش شد؛ برای
   /// عیب‌یابیِ دوباره true کنید (در هر حالتِ اجرا چاپ می‌شود).
-  static const bool _kSearchScrollLog = false;
+  static const bool _kSearchScrollLog = true;
   void _searchLog(String m) {
     if (_kSearchScrollLog) debugPrint('[SEARCH-SCROLL] $m');
   }
@@ -690,6 +691,28 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       targetRO.getTransformTo(pageRO),
       Offset.zero,
     ).dy;
+  }
+
+  /// 🐞 S-8: اولین InlineAudioLinkِ فایلِ [fileName] داخلِ زیردرختِ [root]
+  /// (مقایسه با نامِ فایل، بی‌مسیر و بی‌حساسیت به حروف). دکمه‌ی داخلِ جدول یا
+  /// FloatColumn هم پیدا می‌شود چون WidgetSpanها المنتِ واقعی دارند؛ دکمه‌ی داخلِ
+  /// محتوای پنهانِ آیکونِ چشم در درخت نیست ← null.
+  static BuildContext? _findAudioLinkIn(BuildContext root, String fileName) {
+    String base(String s) => s.split('/').last.toLowerCase();
+    final String want = base(fileName);
+    BuildContext? found;
+    void visit(Element e) {
+      if (found != null) return;
+      final Widget w = e.widget;
+      if (w is InlineAudioLink && base(w.fileName) == want) {
+        found = e;
+        return;
+      }
+      e.visitChildren(visit);
+    }
+
+    root.visitChildElements(visit);
+    return found;
   }
 
   /// 🌟 N-2: پرش به یک گره‌ی فهرستِ ساختاری (Unit، مهارت، …).
@@ -815,7 +838,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
 
     _searchLog(
       '#$id start sig=$expectedSignature built=$_lastBuiltTargetSignature '
-      'page=$_lastBuiltTargetPageIndex',
+      'page=$_lastBuiltTargetPageIndex focusAudio=$_lastBuiltFocusAudioLink',
     );
     if (!await _waitForStableViewport(id)) {
       stale('wait-viewport');
@@ -827,9 +850,16 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       final bool targetIsBuilt =
           expectedSignature == null ||
           expectedSignature == _lastBuiltTargetSignature;
-      return targetIsBuilt
-          ? (_exactMatchKey.currentContext ?? _fallbackParaKey.currentContext)
-          : null;
+      if (!targetIsBuilt) return null;
+      final BuildContext? para = _fallbackParaKey.currentContext;
+      // 🐞 S-8: «برو به متن»ِ پلیر ← خودِ دکمه‌ی صوتیِ همین فایل داخلِ
+      // پاراگراف (اگر پیدا شد)؛ وگرنه مثلِ قبل.
+      final String? focus = _lastBuiltFocusAudioLink;
+      if (focus != null && para != null) {
+        final BuildContext? link = _findAudioLinkIn(para, focus);
+        if (link != null) return link;
+      }
+      return _exactMatchKey.currentContext ?? para;
     }
 
     double desiredTop(double vp) =>
@@ -1083,6 +1113,8 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     _lastBuiltTargetPageIndex = activeTarget == null
         ? null
         : widget.pagedBookStore.indexForPageNumber(activeTarget.pageNumber);
+    // 🐞 S-8: دکمه‌ی صوتی‌ای که «برو به متن» باید رویش بنشیند (اگر هست).
+    _lastBuiltFocusAudioLink = activeTarget?.focusAudioLink;
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
       if (next != null && next.results.isNotEmpty) {

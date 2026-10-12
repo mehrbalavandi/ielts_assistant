@@ -285,7 +285,10 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     if (currentIndex != -1 && currentIndex < state.playlist.length - 1) {
       // 🐞 از طریقِ دکمه‌ی بعدی → sequential (explicitLocation پاس داده
       // نمی‌شود، پس playFile خودش از firstOccurrence استفاده می‌کند)
-      playFile(state.playlist[currentIndex + 1]);
+      // 🐞 فایلِ بعدی همیشه از اول پخش می‌شود (seekToMs: 0)، نه از آخرین
+      // موقعیتِ ذخیره‌شده‌اش — همین برای «پخشِ پیوسته» هم که از همین متد
+      // می‌گذرد درست است.
+      playFile(state.playlist[currentIndex + 1], seekToMs: 0);
     } else {
       // اگر به آخر لیست رسیدیم توقف کن
       _player.stop();
@@ -297,7 +300,8 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     if (state.playlist.isEmpty || state.currentPath == null) return;
     int currentIndex = state.playlist.indexOf(state.currentPath!);
     if (currentIndex > 0) {
-      playFile(state.playlist[currentIndex - 1]);
+      // 🐞 فایلِ قبلی هم از اول، نه از موقعیتِ ذخیره‌شده.
+      playFile(state.playlist[currentIndex - 1], seekToMs: 0);
     } else if (currentIndex == 0) {
       _player.seek(Duration.zero); // اگر فایل اول بود، از اول پخشش کن
     }

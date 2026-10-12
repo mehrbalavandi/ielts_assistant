@@ -49,6 +49,10 @@ class SearchResult {
   // StartMsهایشان این‌جا جمع می‌شوند — برای این‌که هایلایتِ نتیجه‌ی جستجو
   // در متنِ اسکریپت، همه‌شان را با هم نشان بدهد، نه فقط اولی را.
   final List<int>? audioMatchTimestamps;
+  // 🐞 قانونِ S-8: برای پرشِ «برو به متن»ِ پلیر — اگر داده شود، اسکرول به جای
+  // بالای پاراگراف، روی خودِ دکمه‌ی صوتیِ همین فایل داخلِ پاراگراف می‌نشیند
+  // (پاراگراف می‌تواند یک جدولِ بلندِ تمرین باشد).
+  final String? focusAudioLink;
 
   SearchResult({
     required this.bookId,
@@ -63,6 +67,7 @@ class SearchResult {
     this.audioTrackName,
     this.matchedStartMs,
     this.audioMatchTimestamps,
+    this.focusAudioLink,
   });
 }
 
