@@ -206,6 +206,8 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
 
   // 🌟 نشانِ معلقِ شماره‌ی صفحه (مثل تلگرام) + پرش به صفحه
   int _currentPage = 1;
+  /// ارتفاعِ نوارِ کوچکِ پلیرِ صوتی (AudioPlayerBar، همراهِ خطِ پایینش) — رجوع به N-7.
+  static const double _kAudioBarHeight = 56.0;
   // 🌟 اندیسِ صفحه‌ای که «خطِ خواندن» (۲۵٪ از بالای کادر) رویش است — ناوبرِ
   // Unit/مهارت از روی آن بخشِ فعلی را روشن می‌کند (قانونِ N-3). ValueNotifier است
   // تا با اسکرول فقط خودِ ناوبر rebuild شود، نه کلِ صفحه‌ی مطالعه.
@@ -1065,6 +1067,10 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
         : MediaQuery.of(context).size.width - 24;
     final currentBook = ref.read(activeBookProvider);
     final searchSession = ref.watch(activeSearchProvider);
+    // 🐞 N-7: فقط باز/بسته‌شدنِ نوارِ پلیر (نه هر تیکِ پخش) این صفحه را rebuild می‌کند.
+    final bool audioBarVisible = ref.watch(
+      audioPlayerProvider.select((s) => s.currentPath != null),
+    );
 
     int initialIndex =
         _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
@@ -1510,17 +1516,27 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
             // 🌟 ناوبرِ ساختاری (Unit/مهارت، …) در لبه‌ی چپ — فقط اگر index.json
             // فهرستِ ساختاری داشته باشد (قانون‌های N-1 … N-6). Center فقط خودِ ناوبر
             // را لمس‌پذیر می‌کند؛ بقیه‌ی ارتفاع لمس‌ها را به لیستِ زیرش می‌دهد.
+            // 🐞 N-7: وقتی نوارِ پلیرِ صوتی بالای صفحه باز است، ناوبر نباید زیرِ آن
+            // برود: ناحیه‌ی ناوبر از زیرِ نوار شروع می‌شود (با همان انیمیشنِ باز و
+            // بسته‌شدنِ نوار جابه‌جا می‌شود) و اگر جا کم باشد (گوشیِ افقی، فونتِ
+            // بزرگ) ناوبر کوچک می‌شود تا کامل دیده شود، نه این‌که بیرون بزند.
             if (_isReady && widget.pagedBookStore.outline.isNotEmpty)
-              Positioned(
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 220),
+                curve: Curves.easeOutCubic,
                 left: 0,
-                top: 0,
-                bottom: 0,
+                top: audioBarVisible ? _kAudioBarHeight + 8 : 8,
+                bottom: 8,
                 child: Center(
-                  child: BookOutlineNavigator(
-                    outline: widget.pagedBookStore.outline,
-                    readingPageIndex: _readingPageIndex,
-                    indexForPageNumber: widget.pagedBookStore.indexForPageNumber,
-                    onNavigate: _goToOutlineEntry,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: BookOutlineNavigator(
+                      outline: widget.pagedBookStore.outline,
+                      readingPageIndex: _readingPageIndex,
+                      indexForPageNumber:
+                          widget.pagedBookStore.indexForPageNumber,
+                      onNavigate: _goToOutlineEntry,
+                    ),
                   ),
                 ),
               ),

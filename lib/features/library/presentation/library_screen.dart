@@ -122,6 +122,12 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     final List<BookModel> books = categoryKey != null
         ? (openGroup?.books ?? const [])
         : (groups.length == 1 ? groups.first.books : allBooks);
+    final BookCategoryGroup? singleGroup =
+        (categoryKey == null &&
+            groups.length == 1 &&
+            groups.first.key != 'other')
+        ? groups.first
+        : null;
     final String screenTitle = categoryKey == null
         ? "ویترین کتاب‌ها"
         : (openGroup?.title ?? "کتاب‌ها");
@@ -193,7 +199,11 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
               ),
             ),
 
-          if (openGroup?.description?.isNotEmpty ?? false)
+          // 🗂️ C-3: با فقط یک دسته، لایه‌ی دسته‌ها نشان داده نمی‌شود ولی نامِ همان
+          // دسته (و توضیحش) بالای کتاب‌ها می‌آید تا دسته‌بندی دیده شود.
+          if (singleGroup != null)
+            _buildCategoryHeader(context, singleGroup)
+          else if (openGroup?.description?.isNotEmpty ?? false)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
               child: Text(
@@ -424,6 +434,54 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
           ),
         );
       },
+    );
+  }
+
+  /// 🗂️ C-3: سربرگِ دسته وقتی فقط یک دسته هست.
+  Widget _buildCategoryHeader(BuildContext context, BookCategoryGroup group) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.fromLTRB(16, 14, 16, 0),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: scheme.primaryContainer.withOpacity(0.55),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.collections_bookmark_rounded,
+            color: scheme.onPrimaryContainer,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  group.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: scheme.onPrimaryContainer,
+                  ),
+                ),
+                if (group.description?.isNotEmpty ?? false) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    group.description!,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: scheme.onPrimaryContainer.withOpacity(0.8),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          _countChip(context, "${group.books.length} کتاب", scheme.primary),
+        ],
+      ),
     );
   }
 
