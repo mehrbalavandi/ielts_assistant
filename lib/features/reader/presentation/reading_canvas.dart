@@ -3719,13 +3719,24 @@ Widget _buildTable(
       for (final s in p.spans) {
         if (s.type != "text") return null;
         final String flag = (s.hasBorders ?? "").toLowerCase().trim();
+        // 🐞 Mindset 1 ص۱۷ تمرین ۰۱ («Is it big or» با زمینه‌ی رنگی): متنِ رنگیِ
+        // جمله‌ای (فاصله‌دار یا بلندتر از ۲۰ حرف) در رندر یک TextSpanِ عادی با
+        // backgroundColor است و عرضش دقیقاً اندازه‌گیری‌پذیر است؛ فقط «توکنِ کوتاهِ
+        // رنگی»ِ P-4 (جعبه‌ی WidgetSpan) سلول را پیچیده می‌کند. قبلاً هر متنِ رنگی
+        // ستون را از جمع‌شدن (T-15) معاف می‌کرد و فضای خالی می‌ماند.
+        final String trimmed = s.content.trim();
+        final bool isColorToken =
+            _hexToColor(s.fillColor) != null &&
+            trimmed.isNotEmpty &&
+            trimmed.length <= 20 &&
+            !trimmed.contains(' ');
         if (s.innerSpans.isNotEmpty ||
             s.content.contains("{blk}") ||
             s.borders != null ||
             flag == "true" ||
             flag == "1" ||
             (s.url != null && s.url!.startsWith("audio:")) ||
-            _hexToColor(s.fillColor) != null) {
+            isColorToken) {
           return null;
         }
         children.add(TextSpan(text: s.content, style: measureStyleFor(s)));
@@ -4769,8 +4780,34 @@ Widget _buildTable(
               final double sumA = needA.fold(0.0, (a, b) => a + b);
               final List<double> w = List<double>.from(floors);
               if (sumA >= extra) {
-                for (int ci = 0; ci < cells.length; ci++) {
-                  if (sumA > 0) w[ci] += extra * needA[ci] / sumA;
+                // 🐞 Mindset 1 ص۱۷ تمرین ۰۱ (T-5): وقتی جا برای یک‌خطی‌شدنِ *همه* نیست،
+                // قبلاً اضافه‌عرض به نسبتِ کمبود بینِ همه پخش می‌شد؛ هیچ ستونی به
+                // یک‌خطی نمی‌رسید و هر چهار جمله می‌شکستند (با فضای خالی کنارشان).
+                // حالا «ارزان‌ترین اول»: ستون‌هایی که با کمترین عرضِ اضافه یک‌خطی
+                // می‌شوند کامل یک‌خطی می‌شوند، تا بیشترین تعداد سلولِ یک‌خطی (مثلِ
+                // Word). باقیمانده بینِ ستون‌های شکسته به نسبتِ کمبودشان پخش می‌شود
+                // (شاید خطوطشان کمتر شود) و بعد shrinkWrapped فضای خالیِ آن‌ها را جمع
+                // می‌کند.
+                double left = extra;
+                final List<int> order =
+                    [for (int ci = 0; ci < cells.length; ci++) ci]..sort(
+                      (a, b) => needA[a].compareTo(needA[b]),
+                    );
+                for (final ci in order) {
+                  if (needA[ci] <= 0) continue;
+                  if (needA[ci] > left + 0.01) break; // بقیه هم گران‌ترند
+                  w[ci] = desired[ci];
+                  left -= needA[ci];
+                }
+                final List<double> rest = [
+                  for (int ci = 0; ci < cells.length; ci++)
+                    math.max(0.0, desired[ci] - w[ci]),
+                ];
+                final double sumRest = rest.fold(0.0, (a, b) => a + b);
+                if (left > 0 && sumRest > 0) {
+                  for (int ci = 0; ci < cells.length; ci++) {
+                    w[ci] += left * rest[ci] / sumRest;
+                  }
                 }
               } else {
                 final double extraB = extra - sumA;
@@ -4787,11 +4824,33 @@ Widget _buildTable(
                           : 0.0);
                 }
               }
+              final List<double> wf = [
+                for (int ci = 0; ci < cells.length; ci++)
+                  shrinkWrapped(ci, w[ci]),
+              ];
+              // دورِ دوم: جمع‌شدنِ ستون‌های شکسته جا آزاد می‌کند؛ اگر با آن جا
+              // ستونِ شکسته‌ی دیگری یک‌خطی می‌شود (باز ارزان‌ترین اول)، بشود.
+              double spare =
+                  avail - wf.fold(0.0, (double a, double b) => a + b);
+              final List<int> pending =
+                  [
+                    for (int ci = 0; ci < cells.length; ci++)
+                      if (desired[ci] - wf[ci] > 0.5) ci,
+                  ]..sort(
+                    (a, b) =>
+                        (desired[a] - wf[a]).compareTo(desired[b] - wf[b]),
+                  );
+              for (final ci in pending) {
+                final double need = desired[ci] - wf[ci];
+                if (need > spare + 0.01) break;
+                final double upgraded = shrinkWrapped(ci, desired[ci]);
+                spare -= upgraded - wf[ci];
+                wf[ci] = upgraded;
+              }
               double fittedWidth = 0;
               for (int ci = 0; ci < cells.length; ci++) {
-                final double wf = shrinkWrapped(ci, w[ci]);
-                singleRowColumnWidths![ci] = FixedColumnWidth(wf);
-                fittedWidth += wf;
+                singleRowColumnWidths![ci] = FixedColumnWidth(wf[ci]);
+                fittedWidth += wf[ci];
               }
               return Align(
                 alignment: Alignment.centerLeft,
