@@ -1181,7 +1181,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
 
-      // دکمه ریست زوم (فقط هنگام زوم) + نشانِ معلقِ شماره‌ی صفحه
+      // دکمه‌های بزرگ‌نمایی (دسکتاپ) و ریست زوم (فقط هنگام زوم)
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -1221,71 +1221,9 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
               tooltip: 'بازگشت به اندازه اصلی (Ctrl و ۰)',
               child: const Icon(Icons.zoom_out_map, color: Colors.white),
             ),
-          const SizedBox(height: 8),
-          // 🌟 نشانِ شماره‌ی صفحه؛ ضربه روی آن دیالوگِ «رفتن به صفحه» را باز
-          // می‌کند.
-          //
-          // 🐞 دو ایرادِ گزارش‌شده این‌جا اصلاح شد:
-          // ۱) «چشمک‌زدن»: قبلاً بینِ opacity صفر و یک می‌رفت، پس با هر مکثِ
-          //    کوتاهِ کاربر کامل محو و دوباره ظاهر می‌شد. حالا همیشه دیده
-          //    می‌شود و فقط بینِ «کم‌رنگ» و «پررنگ» جابه‌جا می‌شود — با
-          //    ترنزیشنِ کندتر (۴۰۰ms و easeOutCubic) که چشم را نمی‌زند.
-          //    IgnorePointer هم حذف شد، چون حالا همیشه قابلِ لمس است.
-          // ۲) ظاهر: FloatingActionButton.extended برای یک نشانِ اطلاعاتی
-          //    زیادی سنگین بود. حالا یک چیپِ قرصی‌شکلِ نیمه‌شفاف با حاشیه‌ی
-          //    نازک است که رویِ هر رنگِ صفحه می‌نشیند.
-          //
-          // 🌟 و برچسب: عدد دوم دیگر «تعدادِ کل صفحات» نیست بلکه شماره‌ی
-          // آخرین صفحه است — چون استخراج‌کننده می‌تواند شماره‌گذاری را از
-          // عددِ دلخواه شروع کند و «صفحه ۲۰ از ۱۲» بی‌معنی می‌شد.
-          AnimatedOpacity(
-            opacity: _showPageBadge ? 1.0 : 0.62,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeOutCubic,
-            child: Material(
-              color: Colors.black.withOpacity(0.62),
-              elevation: 2,
-              shadowColor: Colors.black45,
-              borderRadius: BorderRadius.circular(999),
-              clipBehavior: Clip.antiAlias,
-              child: InkWell(
-                onTap: _openJumpToPageDialog,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 9,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(999),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.22),
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.menu_book_rounded,
-                        size: 16,
-                        color: Colors.white70,
-                      ),
-                      const SizedBox(width: 7),
-                      Text(
-                        'صفحه $_currentPage از ${widget.pagedBookStore.lastPageNumber}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // 🌟 N-8: نشانِ معلقِ «صفحه x از y» که این‌جا بود حالا داخلِ ناوبرِ لبه‌ی
+          // چپ است (BookOutlineNavigator) — هم با دکمه‌ی «بستنِ همه‌ی پاسخ‌ها»
+          // هم‌پوشانی داشت و هم یک لایه‌ی معلقِ دیگر روی متن بود.
         ],
       ),
 
@@ -1521,7 +1459,9 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
             // برود: ناحیه‌ی ناوبر از زیرِ نوار شروع می‌شود (با همان انیمیشنِ باز و
             // بسته‌شدنِ نوار جابه‌جا می‌شود) و اگر جا کم باشد (گوشیِ افقی، فونتِ
             // بزرگ) ناوبر کوچک می‌شود تا کامل دیده شود، نه این‌که بیرون بزند.
-            if (_isReady && widget.pagedBookStore.outline.isNotEmpty)
+            // 🌟 N-8: ناوبر همیشه هست (شماره‌ی صفحه را دارد)؛ کتابِ بی‌فهرست فقط
+            // شماره‌ی صفحه را می‌بیند.
+            if (_isReady)
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 220),
                 curve: Curves.easeOutCubic,
@@ -1537,6 +1477,10 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                       indexForPageNumber:
                           widget.pagedBookStore.indexForPageNumber,
                       onNavigate: _goToOutlineEntry,
+                      currentPage: _currentPage,
+                      lastPage: widget.pagedBookStore.lastPageNumber,
+                      onPageTap: _openJumpToPageDialog,
+                      highlightPage: _showPageBadge,
                     ),
                   ),
                 ),

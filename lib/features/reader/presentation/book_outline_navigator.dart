@@ -98,12 +98,27 @@ class BookOutlineNavigator extends StatefulWidget {
   final int? Function(int pageNumber) indexForPageNumber;
   final void Function(OutlineEntry entry) onNavigate;
 
+  /// N-8: شماره‌ی صفحه‌ی فعلی و آخرین صفحه (نه «تعدادِ صفحات»؛ شماره‌گذاری می‌تواند
+  /// از عددِ دلخواه شروع شود) — جای نشانِ معلقِ قبلیِ «صفحه x از y».
+  final int currentPage;
+  final int lastPage;
+
+  /// لمسِ شماره‌ی صفحه ← دیالوگِ «رفتن به صفحه».
+  final VoidCallback onPageTap;
+
+  /// هنگامِ اسکرول (و ۲.۵ ثانیه بعدش) شماره‌ی صفحه پررنگ‌تر است، مثلِ نشانِ قبلی.
+  final bool highlightPage;
+
   const BookOutlineNavigator({
     super.key,
     required this.outline,
     required this.readingPageIndex,
     required this.indexForPageNumber,
     required this.onNavigate,
+    required this.currentPage,
+    required this.lastPage,
+    required this.onPageTap,
+    this.highlightPage = false,
   });
 
   @override
@@ -179,10 +194,10 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
         borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
         onTap: () => _setCollapsed(false),
         child: Tooltip(
-          message: 'نمایشِ فهرست',
+          message: 'نمایشِ فهرست — صفحه‌ی ${widget.currentPage}',
           child: SizedBox(
-            width: 22,
-            height: 64,
+            width: 24,
+            height: 76,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -197,6 +212,18 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                       color: scheme.onPrimary,
                     ),
                   ),
+                // N-8: شماره‌ی صفحه در حالتِ جمع‌شده هم دیده می‌شود.
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '${widget.currentPage}',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: scheme.onPrimary,
+                    ),
+                  ),
+                ),
                 Icon(
                   Icons.chevron_right_rounded,
                   size: 18,
@@ -226,7 +253,7 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildTopMenu(context, pos),
+            if (widget.outline.isNotEmpty) _buildTopMenu(context, pos),
             if (sections.isNotEmpty) ...[
               Container(
                 width: 28,
@@ -242,6 +269,15 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                   onTap: () => widget.onNavigate(sections[i]),
                 ),
             ],
+            // N-8: شماره‌ی صفحه (جای نشانِ معلقِ پایینِ صفحه).
+            if (widget.outline.isNotEmpty)
+              Container(
+                width: 28,
+                height: 1,
+                margin: const EdgeInsets.only(top: 5, bottom: 4),
+                color: scheme.onPrimary.withOpacity(0.35),
+              ),
+            _buildPageChip(context),
             InkWell(
               customBorder: const CircleBorder(),
               onTap: () => _setCollapsed(true),
@@ -258,6 +294,62 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// N-8: «۱۲ / ۱۵۹» در دو خط؛ لمس ← «رفتن به صفحه».
+  Widget _buildPageChip(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Tooltip(
+      message: 'صفحه ${widget.currentPage} از ${widget.lastPage} — رفتن به صفحه',
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(9),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: widget.onPageTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeOutCubic,
+            width: 40,
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: scheme.onPrimary.withOpacity(
+                widget.highlightPage ? 0.28 : 0.12,
+              ),
+              borderRadius: BorderRadius.circular(9),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '${widget.currentPage}',
+                    style: TextStyle(
+                      color: scheme.onPrimary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      height: 1.1,
+                    ),
+                  ),
+                ),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '/${widget.lastPage}',
+                    style: TextStyle(
+                      color: scheme.onPrimary.withOpacity(0.75),
+                      fontSize: 9,
+                      height: 1.1,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
