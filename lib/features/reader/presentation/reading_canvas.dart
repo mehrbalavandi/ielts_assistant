@@ -4830,8 +4830,9 @@ Widget _buildTable(
               ];
               // دورِ دوم: جمع‌شدنِ ستون‌های شکسته جا آزاد می‌کند؛ اگر با آن جا
               // ستونِ شکسته‌ی دیگری یک‌خطی می‌شود (باز ارزان‌ترین اول)، بشود.
-              double spare =
-                  avail - wf.fold(0.0, (double a, double b) => a + b);
+              // ⚠️ fold<double> صریح: بدونِ آن، چون نتیجه در «avail - …» به‌کار
+              // می‌رود، Dart نوعِ fold را num استنتاج می‌کرد و خطای نوع می‌داد.
+              double spare = avail - wf.fold<double>(0.0, (a, b) => a + b);
               final List<int> pending =
                   [
                     for (int ci = 0; ci < cells.length; ci++)
