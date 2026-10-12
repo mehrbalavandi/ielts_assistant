@@ -615,6 +615,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
               // ویترین بعدِ برگشت (بالاتر، didChangeAppLifecycleState)
               _launchPurchasePage(context);
             } else {
+              _launchPurchasePage(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("در حال انتقال به صفحه خرید...")),
               );
