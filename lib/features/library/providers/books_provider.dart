@@ -14,6 +14,14 @@ class BookModel {
   final String title;
   final String? folderName;
 
+  // --- 🗂️ دسته و ترتیبِ نمایش (از سرور؛ قانونِ C-1) ---
+  // null یعنی «سایر کتاب‌ها» (یا سرورِ قدیمی که هنوز دسته ندارد).
+  final String? categoryId;
+  final String? categoryTitle;
+  final String? categoryDescription;
+  final int? categorySort; // شماره‌ی ردیفِ دسته
+  final int? sortOrder; // شماره‌ی ردیفِ کتاب داخلِ دسته‌اش
+
   // --- 🌐 اطلاعات سرور (Remote) ---
   final Map<String, String> localPageVersions; // remotePagePath -> hash
   final String? sampleFilePath;
@@ -94,6 +102,11 @@ class BookModel {
     required this.id,
     required this.title,
     this.folderName,
+    this.categoryId,
+    this.categoryTitle,
+    this.categoryDescription,
+    this.categorySort,
+    this.sortOrder,
 
     this.localPageVersions = const {},
     this.sampleFilePath,
@@ -143,6 +156,11 @@ class BookModel {
       id: id,
       title: title,
       folderName: folderName,
+      categoryId: categoryId,
+      categoryTitle: categoryTitle,
+      categoryDescription: categoryDescription,
+      categorySort: categorySort,
+      sortOrder: sortOrder,
       localPageVersions: localPageVersions ?? this.localPageVersions,
       sampleFilePath: sampleFilePath,
       sampleVersion: sampleVersion,
@@ -175,10 +193,27 @@ class BookModel {
     );
   }
 
-  factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
+  factory BookModel.fromJson(Map<String, dynamic> json) {
+    // 🗂️ سرور: {"category": {id, title, description, sort_order} | null, "sort_order": n}
+    // ذخیره‌ی آفلاین هم با همین شکل نوشته می‌شود (toJson).
+    final Map<String, dynamic>? category = json['category'] is Map
+        ? Map<String, dynamic>.from(json['category'] as Map)
+        : null;
+    return BookModel._fromJson(json, category);
+  }
+
+  factory BookModel._fromJson(
+    Map<String, dynamic> json,
+    Map<String, dynamic>? category,
+  ) => BookModel(
     id: json['id']?.toString() ?? '',
     title: json['title'] ?? 'بدون عنوان',
     folderName: json['folder_name'],
+    categoryId: category?['id']?.toString(),
+    categoryTitle: (category?['title'] as String?)?.trim(),
+    categoryDescription: (category?['description'] as String?)?.trim(),
+    categorySort: (category?['sort_order'] as num?)?.toInt(),
+    sortOrder: (json['sort_order'] as num?)?.toInt(),
 
     localPageVersions:
         (json['localPageVersions'] as Map?)?.map(
@@ -216,6 +251,15 @@ class BookModel {
     'id': id,
     'title': title,
     'folder_name': folderName,
+    'category': categoryId == null
+        ? null
+        : {
+            'id': categoryId,
+            'title': categoryTitle,
+            'description': categoryDescription,
+            'sort_order': categorySort,
+          },
+    'sort_order': sortOrder,
     'localPageVersions': localPageVersions,
     'sample_file_path': sampleFilePath,
     'sample_version': sampleVersion,
@@ -244,15 +288,82 @@ class BookModel {
   };
 }
 
+/// 🗂️ قانونِ C-1: ترتیبِ نمایشِ کتاب‌ها — دسته‌ها به شماره‌ی ردیفِ دسته («سایر»
+/// آخر)، داخلِ هر دسته به شماره‌ی ردیفِ کتاب؛ نه ترتیبِ آپلود. برای مساوی‌ها
+/// ترتیبِ فعلی حفظ می‌شود (مرتب‌سازیِ پایدار).
+List<BookModel> sortBooksForCatalog(List<BookModel> books) {
+  final indexed = books.asMap().entries.toList();
+  int cmp(int a, int b) => a.compareTo(b);
+  indexed.sort((x, y) {
+    final a = x.value, b = y.value;
+    final int byOther = cmp(
+      a.categoryId == null ? 1 : 0,
+      b.categoryId == null ? 1 : 0,
+    );
+    if (byOther != 0) return byOther;
+    final int byCategory = cmp(a.categorySort ?? 0, b.categorySort ?? 0);
+    if (byCategory != 0) return byCategory;
+    final int byCategoryId = (a.categoryId ?? '').compareTo(b.categoryId ?? '');
+    if (byCategoryId != 0) return byCategoryId;
+    final int byRow = cmp(a.sortOrder ?? 1 << 30, b.sortOrder ?? 1 << 30);
+    if (byRow != 0) return byRow;
+    return cmp(x.key, y.key);
+  });
+  return [for (final e in indexed) e.value];
+}
+
+/// 🗂️ یک دسته با کتاب‌هایش (به ترتیبِ C-1). key = شناسه‌ی دسته یا 'other'.
+class BookCategoryGroup {
+  final String key;
+  final String title;
+  final String? description;
+  final List<BookModel> books;
+  const BookCategoryGroup({
+    required this.key,
+    required this.title,
+    required this.description,
+    required this.books,
+  });
+}
+
+/// 🗂️ گروه‌بندیِ کتاب‌ها بر اساسِ دسته، به ترتیبِ C-1.
+List<BookCategoryGroup> groupBooksForCatalog(List<BookModel> books) {
+  final List<BookCategoryGroup> groups = [];
+  final Map<String, List<BookModel>> byKey = {};
+  for (final b in sortBooksForCatalog(books)) {
+    final key = b.categoryId ?? 'other';
+    final list = byKey[key];
+    if (list != null) {
+      list.add(b);
+    } else {
+      final fresh = <BookModel>[b];
+      byKey[key] = fresh;
+      groups.add(
+        BookCategoryGroup(
+          key: key,
+          title: (b.categoryTitle?.isNotEmpty ?? false)
+              ? b.categoryTitle!
+              : 'سایر کتاب‌ها',
+          description: b.categoryDescription,
+          books: fresh,
+        ),
+      );
+    }
+  }
+  return groups;
+}
+
 class BooksNotifier extends Notifier<List<BookModel>> {
   @override
   List<BookModel> build() {
     final offlineData = StorageService.getOfflineBooks();
     List<BookModel> initialBooks = [];
     if (offlineData != null) {
-      initialBooks = offlineData
-          .map((e) => BookModel.fromJson(e as Map<String, dynamic>))
-          .toList();
+      initialBooks = sortBooksForCatalog(
+        offlineData
+            .map((e) => BookModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
     }
 
     Future.microtask(() => fetchBooks());
@@ -297,6 +408,9 @@ class BooksNotifier extends Notifier<List<BookModel>> {
           return freshBook;
         }).toList();
 
+        // 🗂️ C-1: ترتیبِ نمایش از شماره‌ی ردیف‌هاست (سرور هم همین را می‌فرستد؛
+        // این‌جا فقط برای اطمینان دوباره مرتب می‌شود).
+        mergedBooks = sortBooksForCatalog(mergedBooks);
         state = mergedBooks;
         StorageService.saveOfflineBooks(
           mergedBooks.map((b) => b.toJson()).toList(),

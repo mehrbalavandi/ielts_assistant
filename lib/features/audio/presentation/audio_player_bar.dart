@@ -256,6 +256,17 @@ class AudioPlayerBar extends ConsumerWidget {
                 ],
               ),
             ),
+            // 🌟 S-11: همان نمایشگرِ صوتیِ متحرکِ پلی‌لیست، وقتی واقعاً پخش می‌شود.
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: audioState.isPlaying
+                  ? const Padding(
+                      key: ValueKey('barMeter'),
+                      padding: EdgeInsets.symmetric(horizontal: 6),
+                      child: _AudioMeter(color: Colors.indigo),
+                    )
+                  : const SizedBox(key: ValueKey('barNoMeter'), width: 32),
+            ),
             IconButton(
               icon: const Icon(Icons.close, color: Colors.grey),
               onPressed: () =>

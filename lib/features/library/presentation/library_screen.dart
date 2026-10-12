@@ -10,7 +10,11 @@ import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {
-  const LibraryScreen({super.key});
+  /// 🗂️ قانونِ C-2: null = ویترینِ اصلی (اگر بیش از یک دسته هست، فهرستِ دسته‌ها؛
+  /// وگرنه مستقیم کتاب‌ها). غیرِ null = کتاب‌های همین دسته (شناسه یا 'other').
+  final String? categoryKey;
+
+  const LibraryScreen({super.key, this.categoryKey});
 
   @override
   ConsumerState<LibraryScreen> createState() => _LibraryScreenState();
@@ -103,8 +107,24 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
 
   @override
   Widget build(BuildContext context) {
-    final books = ref.watch(booksProvider);
+    final allBooks = ref.watch(booksProvider);
     final authState = ref.watch(authProvider);
+
+    // 🗂️ C-2: دسته‌ها (به ترتیبِ شماره‌ی ردیفِ دسته) و کتاب‌های هر دسته (به ترتیبِ
+    // شماره‌ی ردیفِ کتاب). با فقط یک دسته (یا سرورِ قدیمیِ بی‌دسته) لایه‌ی دسته
+    // اصلاً نشان داده نمی‌شود — یک لمسِ بی‌فایده کمتر.
+    final groups = groupBooksForCatalog(allBooks);
+    final String? categoryKey = widget.categoryKey;
+    final BookCategoryGroup? openGroup = categoryKey == null
+        ? null
+        : groups.where((g) => g.key == categoryKey).firstOrNull;
+    final bool showCategories = categoryKey == null && groups.length > 1;
+    final List<BookModel> books = categoryKey != null
+        ? (openGroup?.books ?? const [])
+        : (groups.length == 1 ? groups.first.books : allBooks);
+    final String screenTitle = categoryKey == null
+        ? "ویترین کتاب‌ها"
+        : (openGroup?.title ?? "کتاب‌ها");
     final width = MediaQuery.of(context).size.width;
 
     int crossAxisCount = switch (width) {
@@ -117,9 +137,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: const Text(
-          "ویترین کتاب‌ها",
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          screenTitle,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         actions: [
@@ -144,7 +164,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
             ),
         ],
       ),
-      drawer: const AppDrawer(),
+      // در صفحه‌ی یک دسته به‌جای منو، دکمه‌ی بازگشت.
+      drawer: categoryKey == null ? const AppDrawer() : null,
 
       body: Column(
         children: [
@@ -172,11 +193,24 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
               ),
             ),
 
+          if (openGroup?.description?.isNotEmpty ?? false)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
+              child: Text(
+                openGroup!.description!,
+                style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
+              ),
+            ),
+
           Expanded(
-            child: books.isEmpty
+            child: allBooks.isEmpty
                 ? const Center(
                     child: Text("درحال همگام‌سازی یا لیست خالی است..."),
                   )
+                : showCategories
+                ? _buildCategoryList(context, groups)
+                : books.isEmpty
+                ? const Center(child: Text("این دسته فعلاً کتابی ندارد."))
                 : GridView.builder(
                     padding: const EdgeInsets.all(16),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -288,6 +322,125 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                   ),
           ),
         ],
+      ),
+    );
+  }
+
+  /// 🗂️ C-2: فهرستِ دسته‌ها. هر کارت: عنوان، توضیح، تعدادِ کتاب‌ها و (اگر هست)
+  /// تعدادِ کتاب‌های خریده‌شده؛ لمس ← صفحه‌ی همان دسته.
+  Widget _buildCategoryList(
+    BuildContext context,
+    List<BookCategoryGroup> groups,
+  ) {
+    final scheme = Theme.of(context).colorScheme;
+    return ListView.separated(
+      padding: const EdgeInsets.all(16),
+      itemCount: groups.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      itemBuilder: (context, index) {
+        final group = groups[index];
+        final int purchased = group.books.where((b) => b.isPurchased).length;
+        return Card(
+          elevation: 3,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => LibraryScreen(categoryKey: group.key),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      color: scheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      Icons.collections_bookmark_rounded,
+                      color: scheme.onPrimaryContainer,
+                      size: 28,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          group.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        if (group.description?.isNotEmpty ?? false) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            group.description!,
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 12,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 4,
+                          children: [
+                            _countChip(
+                              context,
+                              "${group.books.length} کتاب",
+                              scheme.primary,
+                            ),
+                            if (purchased > 0)
+                              _countChip(
+                                context,
+                                "$purchased خریداری‌شده",
+                                Colors.green.shade700,
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.chevron_left_rounded, color: Colors.grey.shade500),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _countChip(BuildContext context, String text, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.10),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
