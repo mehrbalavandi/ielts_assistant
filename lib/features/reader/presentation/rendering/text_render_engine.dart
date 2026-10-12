@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
+import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart'; // برای دسترسی به TranslatableContentWrapper
 
@@ -922,38 +924,62 @@ class InteractiveBlankWord extends StatelessWidget {
         ? null // پس‌زمینه‌ی توپُر خودش کافی است؛ حاشیه لازم نیست
         : (hasAnyMatch ? Colors.yellowAccent.withOpacity(0.6) : null);
 
-    final Widget content = GestureDetector(
-      onTap: () => _showHiddenTextModal(context, isDarkTheme),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-        decoration: BoxDecoration(
-          color: buttonColor,
-          borderRadius: BorderRadius.circular(12),
-          border: borderColor != null
-              ? Border.all(color: borderColor, width: 2.0)
-              : null,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.visibility_rounded, size: 16, color: iconColor),
-            // 🌟 اگر بیش از یک موردِ یافت‌شده داخلِ همین جای‌خالی باشد، تعدادشان
-            // کنارِ آیکون نشان داده می‌شود
-            if (hiddenMatchCount > 1) ...[
-              const SizedBox(width: 4),
-              Text(
-                '$hiddenMatchCount',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: iconColor,
+    // 🌟 H-6: آیکون لنگرِ پاپ‌آپِ جواب هم هست. وقتی پاپ‌آپِ همین آیکون باز است،
+    // دکمه رنگِ اصلیِ تم و آیکونِ «چشمِ بسته» می‌گیرد تا معلوم باشد حباب مالِ
+    // کدام جای‌خالی است و لمسِ دوباره آن را می‌بندد (رنگِ نارنجیِ جستجو مقدم است).
+    // context بیرونی (نه context داخلِ لنگر) به نمایشِ جواب داده می‌شود: داخلِ لنگر
+    // با باز/بسته‌شدنِ پاپ‌آپ دوباره ساخته می‌شود و دیکشنریِ داخلِ حباب به یک
+    // context پایدار نیاز دارد.
+    final Widget content = AnswerPopupAnchor(
+      builder: (anchorContext, popup) {
+        final bool popupOpen = popup.isOpen && !hasActive;
+        final Color bg = popupOpen
+            ? Theme.of(anchorContext).colorScheme.primary
+            : buttonColor;
+        final Color fg = popupOpen ? Colors.white : iconColor;
+        return GestureDetector(
+          onTap: () => _showHiddenTextModal(context, isDarkTheme, popup),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 2.0,
+            ),
+            decoration: BoxDecoration(
+              color: bg,
+              borderRadius: BorderRadius.circular(12),
+              border: borderColor != null && !popupOpen
+                  ? Border.all(color: borderColor, width: 2.0)
+                  : null,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  popupOpen
+                      ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
+                  size: 16,
+                  color: fg,
                 ),
-              ),
-            ],
-          ],
-        ),
-      ),
+                // 🌟 اگر بیش از یک موردِ یافت‌شده داخلِ همین جای‌خالی باشد، تعدادشان
+                // کنارِ آیکون نشان داده می‌شود
+                if (hiddenMatchCount > 1) ...[
+                  const SizedBox(width: 4),
+                  Text(
+                    '$hiddenMatchCount',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: fg,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
     );
 
     // 🌟 این دقیقاً همان occurrence فعال جستجوست — با GlobalKey دقیق
@@ -964,13 +990,25 @@ class InteractiveBlankWord extends StatelessWidget {
     return content;
   }
 
-  void _showHiddenTextModal(BuildContext context, bool isDarkTheme) {
+  void _showHiddenTextModal(
+    BuildContext context,
+    bool isDarkTheme,
+    AnswerPopupHandle popup,
+  ) {
     // 🌟 جوابِ مخفی با جدول/عکس/…: مسیرِ جدا که همان رندرِ صفحه را به کار
     // می‌برد. جای‌خالی‌های فقط‌متنی (hiddenParagraphs == null) دقیقاً از همان
     // مسیرِ قبلیِ پایین (بنر/بات‌شیت + هایلایتِ جستجو) می‌روند.
     final List<ParagraphData>? richParas = hiddenParagraphs;
     if (richParas != null && richParas.isNotEmpty) {
-      _showRichHiddenModal(context, isDarkTheme, richParas);
+      // جوابِ جدول/عکس‌دار همیشه «بلند» حساب می‌شود (H-5).
+      _presentAnswer(
+        context,
+        isDarkTheme,
+        popup,
+        isShort: false,
+        rich: true,
+        body: (ctx) => _richAnswerBody(ctx, isDarkTheme, richParas),
+      );
       return;
     }
 
@@ -991,8 +1029,9 @@ class InteractiveBlankWord extends StatelessWidget {
             fullText.toLowerCase().contains(item.toString().toLowerCase()),
       );
     }
-    // 🌟 ۳. قانون طلایی: فقط در صورتی بنر بالا باز شود که متن کوتاه باشد و هیچ تعاملی درونش نباشد
-    final bool useTopBanner = textLength < 40 && !hasInteractiveWords;
+    // 🌟 ۳. H-5: «جوابِ کوتاه» = متنِ کمتر از ۴۰ نویسه بدونِ لغتِ دیکشنری (همان
+    // قانونِ قبلیِ بنر). کوتاه/بلند فقط تعیین می‌کند کدام تنظیمِ کاربر اعمال شود.
+    final bool isShortAnswer = textLength < 40 && !hasInteractiveWords;
 
     // 🐞 رفع بوردر گم‌شده + یکی‌سازی: قبلاً این بخش دو پیاده‌سازیِ تقریباً
     // یکسانِ موازی داشت (یکی همین‌جا برای بنرِ کوتاه با چکِ ضعیف‌ترِ
@@ -1436,314 +1475,199 @@ class InteractiveBlankWord extends StatelessWidget {
       return spans;
     }
 
-    if (useTopBanner) {
-      // 🚀 حالت بنر کشویی از بالا (Top Banner) برای متون کوتاه
-      showGeneralDialog(
-        context: context,
-        barrierDismissible: true,
-        barrierLabel: "TopPopup",
-        barrierColor: Colors.black45, // رنگ پس‌زمینه نیمه‌شفاف
-        transitionDuration: const Duration(milliseconds: 350),
-        pageBuilder: (context, animation, secondaryAnimation) {
-          return SafeArea(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    top: 16.0,
-                    left: 16.0,
-                    right: 16.0,
-                  ),
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 12,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TranslatableContentWrapper(
-                          originalContent: (() {
-                            // 🐞 toast هم مثلِ مودال: اگر پاراگرافِ تورفته باشد،
-                            // بلاکِ padding‌دار؛ وگرنه همان Text.richِ وسط‌چینِ قبلی.
-                            final List<Widget>? tBlocks = buildIndentedBlocks();
-                            if (tBlocks != null && tBlocks.isNotEmpty) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: tBlocks,
-                              );
-                            }
-                            return Text.rich(
-                              TextSpan(children: buildRevealedSpans()),
-                              textAlign: TextAlign.center,
-                            );
-                          })(),
-                          translationFa: translationFa,
-                          translationAr: translationAr,
-                          isDarkMode: isDarkTheme,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+    // 🌟 H-5/H-7: بدنه‌ی جواب یک‌بار تعریف می‌شود و هر سه ظرف (پاپ‌آپ، بنر، مودال)
+    // همان را می‌کشند — پس شماره‌ی لیست، تورفتگی، بوردر و هایلایتِ جستجو در هر سه
+    // یکسان است. (قبلاً بنر نسخه‌ی ساده‌تری داشت و شماره‌گذاریِ ردیفی را نمی‌دید.)
+    Widget buildTextBody(BuildContext _) {
+      final List<MapEntry<String, List<InlineSpan>>>? numberedGroups =
+          buildNumberedLineGroups();
+      final List<Widget>? indentedBlocks = buildIndentedBlocks();
+
+      // 🐞 رفع باگِ «هم‌ترازی خطوطِ برگشتی»: اگر این پاراگراف واقعاً چند
+      // آیتمِ اصلیِ Word ادغام‌شده است (numberedGroups != null)، به‌جای
+      // یک Text.rich تخت، هر آیتم را در Row جداگانه‌ی خودش با
+      // hanging-indentِ واقعی می‌سازیم؛ در غیرِ این‌صورت (بلانکِ عادی،
+      // مثلِ تمرین ۰۲) رفتارِ قبلی دست‌نخورده می‌ماند.
+      final Widget revealedContent;
+      if (numberedGroups != null && numberedGroups.isNotEmpty) {
+        double markerWidth = 24;
+        for (final entry in numberedGroups) {
+          final tp = TextPainter(
+            text: TextSpan(
+              text: entry.key,
+              style: neutralStyle.copyWith(fontWeight: FontWeight.bold),
             ),
-          );
-        },
-        transitionBuilder: (context, animation, secondaryAnimation, child) {
-          // 🌟 جادوی انیمیشن: لغزش از بیرونِ صفحه (بالا) به سمت داخل با افکت فنری
-          return SlideTransition(
-            position:
-                Tween<Offset>(
-                  begin: const Offset(
-                    0,
-                    -1.2,
-                  ), // از سقفِ خارج از تصویر شروع می‌شود
-                  end: Offset
-                      .zero, // در جایگاه تعیین‌شده (کمی پایین‌تر از سقف) می‌ایستد
-                ).animate(
-                  CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.easeOutBack, // افکت زیبای فنری در لحظه توقف
-                    reverseCurve: Curves.easeIn,
-                  ),
-                ),
-            child: child,
-          );
-        },
-      );
-    } else {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        builder: (context) {
-          // 🐞 یکی‌سازی: قبلاً اینجا ~۱۱۰ خط کدِ تقریباً یکسان با
-          // buildRevealedSpans() تکرار شده بود که مستقل از آن drift کرد
-          // (بوردر و شماره‌ی لیست را جدا اصلاح می‌کردیم و یکی‌شان جا
-          // می‌ماند). حالا هر دو مسیرِ مودال از همان تابعِ مشترک بالا
-          // استفاده می‌کنند تا این‌جور regressionها دیگر تکرار نشوند.
-          final List<MapEntry<String, List<InlineSpan>>>? numberedGroups =
-              buildNumberedLineGroups();
-          final List<Widget>? indentedBlocks = buildIndentedBlocks();
+            textDirection: TextDirection.ltr,
+          )..layout();
+          if (tp.width + 8 > markerWidth) markerWidth = tp.width + 8;
+        }
+        markerWidth = markerWidth.clamp(24, 64);
 
-          // 🐞 رفع باگِ «هم‌ترازی خطوطِ برگشتی»: اگر این پاراگراف واقعاً چند
-          // آیتمِ اصلیِ Word ادغام‌شده است (numberedGroups != null)، به‌جای
-          // یک Text.rich تخت، هر آیتم را در Row جداگانه‌ی خودش با
-          // hanging-indentِ واقعی می‌سازیم؛ در غیرِ این‌صورت (بلانکِ عادی،
-          // مثلِ تمرین ۰۲) رفتارِ قبلی دست‌نخورده می‌ماند.
-          final Widget revealedContent;
-          if (numberedGroups != null && numberedGroups.isNotEmpty) {
-            double markerWidth = 24;
-            for (final entry in numberedGroups) {
-              final tp = TextPainter(
-                text: TextSpan(
-                  text: entry.key,
-                  style: neutralStyle.copyWith(fontWeight: FontWeight.bold),
-                ),
-                textDirection: TextDirection.ltr,
-              )..layout();
-              if (tp.width + 8 > markerWidth) markerWidth = tp.width + 8;
-            }
-            markerWidth = markerWidth.clamp(24, 64);
-
-            revealedContent = Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (final entry in numberedGroups)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: markerWidth,
-                          child: Text(
-                            entry.key,
-                            style: neutralStyle.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: isDarkTheme
-                                  ? Colors.white
-                                  : Colors.black87,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text.rich(
-                            TextSpan(children: entry.value),
-                            textAlign: TextAlign.justify,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              ],
-            );
-          } else if (indentedBlocks != null && indentedBlocks.isNotEmpty) {
-            // 🐞 پاراگراف‌های تورفته (تمرین ۸ صفحه ۱۰): هر کدام بلاکِ جدا با
-            // padding واقعی — تورفتگی دقیقاً مثلِ سند، حتی برای خطوطِ wrap‌شده.
-            revealedContent = Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: indentedBlocks,
-            );
-          } else {
-            final List<InlineSpan> revealedSpans = buildRevealedSpans();
-            revealedContent = Text.rich(
-              TextSpan(children: revealedSpans),
-              textAlign: TextAlign.justify,
-            );
-          }
-          return DraggableScrollableSheet(
-            initialChildSize: 0.4,
-            minChildSize: 0.2,
-            maxChildSize: 0.8,
-            expand: false,
-            builder: (context, scrollController) {
-              return Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Container(
-                          width: 40,
-                          height: 5,
-                          margin: const EdgeInsets.only(bottom: 20),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          controller: scrollController,
-                          physics: const BouncingScrollPhysics(),
-
-                          // 🌟 قابلیت دوم: استفاده از Wrapper اختصاصی شما برای فعال‌سازی لمس طولانی و نمایش ترجمه پاراگراف
-                          child: TranslatableContentWrapper(
-                            originalContent: revealedContent,
-                            translationFa: translationFa,
-                            translationAr: translationAr,
-                            isDarkMode: isDarkTheme,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      );
-    }
-  }
-
-  /// 🌟 بات‌شیتِ جوابِ مخفیِ غنی (جدول، عکس، لیست، …). ظاهرِ کلی مثلِ
-  /// بات‌شیتِ متنی است (دستگیره، قابلِ کشیدن، لمسِ طولانی برای ترجمه)، ولی
-  /// محتوا با buildHiddenRichContent — یعنی همان _buildParagraphِ صفحه — ساخته
-  /// می‌شود، با عرضِ واقعیِ مودال تا جدول‌ها و عکس‌ها درست جا شوند.
-  void _showRichHiddenModal(
-    BuildContext context,
-    bool isDarkTheme,
-    List<ParagraphData> paragraphs,
-  ) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: isDarkTheme ? const Color(0xFF1E212A) : Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (sheetContext) {
-        return DraggableScrollableSheet(
-          // جدول و عکس معمولاً از متن بلندترند؛ از ابتدا بازتر از بات‌شیتِ متنی.
-          initialChildSize: 0.6,
-          minChildSize: 0.25,
-          maxChildSize: 0.92,
-          expand: false,
-          builder: (sheetContext, scrollController) {
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
-              child: Directionality(
-                textDirection: TextDirection.ltr,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+        revealedContent = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (final entry in numberedGroups)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Container(
-                        width: 40,
-                        height: 5,
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10),
+                    SizedBox(
+                      width: markerWidth,
+                      child: Text(
+                        entry.key,
+                        style: neutralStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isDarkTheme ? Colors.white : Colors.black87,
                         ),
                       ),
                     ),
                     Expanded(
-                      child: LayoutBuilder(
-                        builder: (layoutContext, constraints) {
-                          // در تمِ تیره، محتوا روی یک «کاغذِ» روشن نشسته: رنگ‌های
-                          // جدول/متن/عکس از سند می‌آیند و برای صفحه‌ی روشن طراحی
-                          // شده‌اند (متنِ مشکی روی پس‌زمینه‌ی تیره دیده نمی‌شد).
-                          const double paperPad = 12;
-                          final double contentWidth = isDarkTheme
-                              ? constraints.maxWidth - paperPad * 2
-                              : constraints.maxWidth;
-                          Widget content = buildHiddenRichContent(
-                            layoutContext,
-                            paragraphs,
-                            contentWidth,
-                            interactives: interactives,
-                          );
-                          if (isDarkTheme) {
-                            content = Container(
-                              padding: const EdgeInsets.all(paperPad),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: content,
-                            );
-                          }
-                          return SingleChildScrollView(
-                            controller: scrollController,
-                            physics: const BouncingScrollPhysics(),
-                            child: TranslatableContentWrapper(
-                              originalContent: content,
-                              translationFa: translationFa,
-                              translationAr: translationAr,
-                              isDarkMode: isDarkTheme,
-                            ),
-                          );
-                        },
+                      child: Text.rich(
+                        TextSpan(children: entry.value),
+                        textAlign: TextAlign.justify,
                       ),
                     ),
                   ],
                 ),
               ),
-            );
-          },
+          ],
+        );
+      } else if (indentedBlocks != null && indentedBlocks.isNotEmpty) {
+        // 🐞 پاراگراف‌های تورفته (تمرین ۸ صفحه ۱۰): هر کدام بلاکِ جدا با
+        // padding واقعی — تورفتگی دقیقاً مثلِ سند، حتی برای خطوطِ wrap‌شده.
+        revealedContent = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: indentedBlocks,
+        );
+      } else {
+        // جوابِ کوتاه وسط‌چین (مثلِ بنرِ قبلی)؛ جوابِ بلند تراز از دو طرف. عرضِ
+        // ثابت داده نمی‌شود تا حباب/بنر برای جوابِ کوتاه به اندازه‌ی خودِ متن باشد.
+        revealedContent = Text.rich(
+          TextSpan(children: buildRevealedSpans()),
+          textAlign: isShortAnswer ? TextAlign.center : TextAlign.justify,
+        );
+      }
+
+      // 🌟 لمسِ طولانی برای نمایشِ ترجمه‌ی پاراگراف
+      return TranslatableContentWrapper(
+        originalContent: revealedContent,
+        translationFa: translationFa,
+        translationAr: translationAr,
+        isDarkMode: isDarkTheme,
+      );
+    }
+
+    // 🌟 H-6: عرضِ حبابِ پاپ‌آپ برای جوابِ کوتاه = عرضِ متن (با فونتِ بولد، که
+    // پهن‌تر است، به‌علاوه‌ی حاشیه) — تا یک کلمه در حبابی تمام‌عرض گم نشود.
+    double? popupWidth;
+    if (isShortAnswer) {
+      final String marker = (listMarker != null && listMarker!.isNotEmpty)
+          ? '$listMarker  '
+          : '';
+      final tp = TextPainter(
+        text: TextSpan(
+          text: '$marker$fullText',
+          style: neutralStyle.copyWith(fontWeight: FontWeight.bold),
+        ),
+        textDirection: TextDirection.ltr,
+        textScaler: MediaQuery.textScalerOf(context),
+        maxLines: 1,
+      )..layout();
+      popupWidth = tp.width * 1.08 + 28 + 16; // پدینگِ حباب + جا برای جعبه‌های بوردردار
+      tp.dispose();
+    }
+
+    _presentAnswer(
+      context,
+      isDarkTheme,
+      popup,
+      isShort: isShortAnswer,
+      body: buildTextBody,
+      popupWidth: popupWidth,
+    );
+  }
+
+  /// 🌟 H-5: ظرفِ جواب طبقِ تنظیماتِ کاربر (کوتاه/بلند جدا). پیش از هر نمایش،
+  /// پاپ‌آپِ بازِ دیگر بسته می‌شود (داخلِ خودِ ظرف‌ها).
+  void _presentAnswer(
+    BuildContext context,
+    bool isDarkTheme,
+    AnswerPopupHandle popup, {
+    required bool isShort,
+    required WidgetBuilder body,
+    bool rich = false,
+    double? popupWidth,
+  }) {
+    AnswerDisplayMode mode;
+    try {
+      mode = ProviderScope.containerOf(
+        context,
+        listen: false,
+      ).read(answerDisplayProvider).modeFor(isShort: isShort);
+    } catch (_) {
+      // بیرون از ProviderScope (مثلاً تست): همان پیش‌فرض‌ها
+      mode = isShort
+          ? AnswerDisplayNotifier.defaultShort
+          : AnswerDisplayNotifier.defaultLong;
+    }
+    switch (mode) {
+      case AnswerDisplayMode.popup:
+        popup.toggle(
+          body: body,
+          isDarkTheme: isDarkTheme,
+          preferredWidth: popupWidth,
+        );
+      case AnswerDisplayMode.banner:
+        showAnswerBanner(context, isDarkTheme: isDarkTheme, body: body);
+      case AnswerDisplayMode.modal:
+        showAnswerSheet(
+          context,
+          isDarkTheme: isDarkTheme,
+          body: body,
+          rich: rich,
+        );
+    }
+  }
+
+  /// 🌟 بدنه‌ی جوابِ مخفیِ غنی (جدول، عکس، لیست، …): محتوا با
+  /// buildHiddenRichContent — یعنی همان _buildParagraphِ صفحه — ساخته می‌شود، با
+  /// عرضِ واقعیِ ظرف (مودال، بنر یا پاپ‌آپ) تا جدول‌ها و عکس‌ها درست جا شوند.
+  Widget _richAnswerBody(
+    BuildContext context,
+    bool isDarkTheme,
+    List<ParagraphData> paragraphs,
+  ) {
+    return LayoutBuilder(
+      builder: (layoutContext, constraints) {
+        // در تمِ تیره، محتوا روی یک «کاغذِ» روشن نشسته: رنگ‌های
+        // جدول/متن/عکس از سند می‌آیند و برای صفحه‌ی روشن طراحی
+        // شده‌اند (متنِ مشکی روی پس‌زمینه‌ی تیره دیده نمی‌شد).
+        const double paperPad = 12;
+        final double contentWidth = isDarkTheme
+            ? constraints.maxWidth - paperPad * 2
+            : constraints.maxWidth;
+        Widget content = buildHiddenRichContent(
+          layoutContext,
+          paragraphs,
+          contentWidth,
+          interactives: interactives,
+        );
+        if (isDarkTheme) {
+          content = Container(
+            padding: const EdgeInsets.all(paperPad),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: content,
+          );
+        }
+        return TranslatableContentWrapper(
+          originalContent: content,
+          translationFa: translationFa,
+          translationAr: translationAr,
+          isDarkMode: isDarkTheme,
         );
       },
     );
