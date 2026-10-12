@@ -1599,33 +1599,45 @@ class InteractiveBlankWord extends StatelessWidget {
     bool rich = false,
     double? popupWidth,
   }) {
-    AnswerDisplayMode mode;
+    AnswerDisplaySettings settings;
     try {
-      mode = ProviderScope.containerOf(
+      settings = ProviderScope.containerOf(
         context,
         listen: false,
-      ).read(answerDisplayProvider).modeFor(isShort: isShort);
+      ).read(answerDisplayProvider);
     } catch (_) {
       // بیرون از ProviderScope (مثلاً تست): همان پیش‌فرض‌ها
-      mode = isShort
-          ? AnswerDisplayNotifier.defaultShort
-          : AnswerDisplayNotifier.defaultLong;
+      settings = const AnswerDisplaySettings(
+        short: AnswerDisplayNotifier.defaultShort,
+        long: AnswerDisplayNotifier.defaultLong,
+      );
     }
-    switch (mode) {
+    // H-9: در حالتِ «چند پاپ‌آپ» بنر/مودال پاپ‌آپ‌های باز را نمی‌بندد (زیرِ آن‌ها
+    // می‌مانند و بعد از بستنِ بنر/مودال هنوز سرِ جایشان‌اند).
+    final bool closePopups = settings.singlePopup;
+    switch (settings.modeFor(isShort: isShort)) {
       case AnswerDisplayMode.popup:
         popup.toggle(
           body: body,
           isDarkTheme: isDarkTheme,
           preferredWidth: popupWidth,
+          direction: settings.popupDirection,
+          single: settings.singlePopup,
         );
       case AnswerDisplayMode.banner:
-        showAnswerBanner(context, isDarkTheme: isDarkTheme, body: body);
+        showAnswerBanner(
+          context,
+          isDarkTheme: isDarkTheme,
+          body: body,
+          closePopups: closePopups,
+        );
       case AnswerDisplayMode.modal:
         showAnswerSheet(
           context,
           isDarkTheme: isDarkTheme,
           body: body,
           rich: rich,
+          closePopups: closePopups,
         );
     }
   }

@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 
 // 🌟 قانون‌های H-5 تا H-7 (RULES-rendering.md): سه شیوه‌ی نمایشِ جوابِ پنهان —
 // پاپ‌آپِ چسبیده به آیکونِ چشم، بنرِ بالا، و مودالِ پایین. محتوا در هر سه یکی
@@ -14,9 +16,13 @@ const Color _kDarkSurface = Color(0xFF1E212A);
 Color answerSurfaceColor(bool isDarkTheme) =>
     isDarkTheme ? _kDarkSurface : Colors.white;
 
-/// هر پاپ‌آپِ بازی را می‌بندد. قبل از بازکردنِ بنر/مودال صدا زده می‌شود تا دو
-/// جواب هم‌زمان روی صفحه نباشند (H-6).
-void closeAnswerPopup() => _AnswerPopupAnchorState.closeCurrent();
+/// همه‌ی پاپ‌آپ‌های باز را می‌بندد (دکمه‌ی «بستنِ همه»، و در حالتِ «فقط یک
+/// پاپ‌آپ» قبل از بازکردنِ بنر/مودال — H-6، H-9).
+void closeAllAnswerPopups() => _AnswerPopupAnchorState.closeAll();
+
+/// H-9: تعدادِ پاپ‌آپ‌های بازی که در حالتِ «چند پاپ‌آپ هم‌زمان» باز شده‌اند؛ دکمه‌ی
+/// «بستنِ همه» به این گوش می‌دهد. در حالتِ «فقط یکی» همیشه صفر است.
+final ValueNotifier<int> answerPopupsOpenCount = ValueNotifier<int>(0);
 
 // ─────────────────────────────── مودال ───────────────────────────────
 
@@ -27,8 +33,9 @@ void showAnswerSheet(
   required bool isDarkTheme,
   required WidgetBuilder body,
   bool rich = false,
+  bool closePopups = true,
 }) {
-  closeAnswerPopup();
+  if (closePopups) closeAllAnswerPopups();
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -88,8 +95,9 @@ void showAnswerBanner(
   BuildContext context, {
   required bool isDarkTheme,
   required WidgetBuilder body,
+  bool closePopups = true,
 }) {
-  closeAnswerPopup();
+  if (closePopups) closeAllAnswerPopups();
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
@@ -157,10 +165,14 @@ abstract class AnswerPopupHandle {
   /// باز اگر بسته است، بسته اگر باز است (لمسِ دوباره‌ی همان آیکون).
   /// [preferredWidth]: عرضِ تخمینیِ جوابِ کوتاه تا حباب به اندازه‌ی متن باشد، نه
   /// تمام‌عرض (بدنه‌ها خودشان کشیده‌اند، پس اندازه‌ی ذاتیِ آن‌ها قابلِ اتکا نیست).
+  /// [direction]: H-8. [single]: H-9 — true یعنی پاپ‌آپ‌های دیگر بسته شوند و لمسِ
+  /// بیرون این یکی را ببندد؛ false یعنی کنارِ بقیه باز بماند.
   void toggle({
     required WidgetBuilder body,
     required bool isDarkTheme,
     double? preferredWidth,
+    AnswerPopupDirection direction = AnswerPopupDirection.auto,
+    bool single = true,
   });
 
   void close();
@@ -169,13 +181,16 @@ abstract class AnswerPopupHandle {
 /// 🌟 H-6: پاپ‌آپِ جواب، چسبیده به آیکونِ چشم (مثلِ حبابِ راهنمای دولینگو).
 ///
 /// ملاحظات:
-/// - **فقط یکی:** بازکردنِ هر پاپ‌آپ (یا بنر/مودال) پاپ‌آپِ قبلی را می‌بندد.
-/// - **بستن:** لمسِ بیرونِ حباب، لمسِ دوباره‌ی همان آیکون، دکمه‌ی برگشت (اول
-///   پاپ‌آپ بسته می‌شود، نه صفحه)، بیرون‌رفتنِ آیکون از کادرِ لیست با اسکرول،
-///   چرخشِ صفحه، و از بین رفتنِ خودِ آیکون (عوض‌شدنِ صفحه/کتاب).
+/// - **فقط یکی (پیش‌فرض، H-9):** بازکردنِ هر پاپ‌آپ (یا بنر/مودال) پاپ‌آپِ قبلی را
+///   می‌بندد. اگر کاربر در تنظیمات خاموشش کند، چند پاپ‌آپ کنارِ هم باز می‌مانند،
+///   لمسِ بیرون دیگر نمی‌بندد و دکمه‌ی «بستنِ همه» ظاهر می‌شود.
+/// - **بستن:** لمسِ بیرونِ حباب (فقط در حالتِ «یکی»)، لمسِ دوباره‌ی همان آیکون،
+///   دکمه‌ی برگشت (اول پاپ‌آپ‌ها بسته می‌شوند، نه صفحه)، بیرون‌رفتنِ آیکون از کادرِ
+///   لیست با اسکرول، چرخشِ صفحه، و از بین رفتنِ خودِ آیکون (عوض‌شدنِ صفحه/کتاب).
 /// - **کشیدن ≠ لمس:** شروعِ اسکرول پاپ‌آپ را نمی‌بندد؛ حباب با خودِ آیکون
 ///   حرکت می‌کند (CompositedTransformFollower، بدونِ تأخیرِ یک‌فریمی).
-/// - **جا:** زیرِ آیکون اگر جا هست، وگرنه بالایش؛ افقی داخلِ صفحه می‌ماند و
+/// - **جا (H-8):** طبقِ تنظیم بالا یا پایینِ آیکون (خودکار: زیر اگر جا هست)؛ اگر
+///   سمتِ انتخابی واقعاً جا ندارد، سمتِ دیگر؛ افقی داخلِ صفحه می‌ماند و
 ///   دُمِ حباب همیشه به خودِ آیکون اشاره می‌کند. بلندتر از جای موجود ← اسکرول.
 /// - **لایه:** با OverlayPortal روی همان صفحه کشیده می‌شود، پس دیکشنری/ترجمه‌ای
 ///   که از داخلِ حباب باز شود رویِ آن می‌آید و با بستنِ صفحه، حباب هم می‌رود.
@@ -210,10 +225,22 @@ class _PopupPlacement {
 class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     with SingleTickerProviderStateMixin
     implements AnswerPopupHandle {
-  /// پاپ‌آپِ بازِ فعلی در کلِ اپ (H-6: فقط یکی).
-  static _AnswerPopupAnchorState? _current;
+  /// همه‌ی پاپ‌آپ‌های بازِ اپ، به ترتیبِ باز شدن.
+  static final Set<_AnswerPopupAnchorState> _openAnchors = {};
 
-  static void closeCurrent() => _current?.close();
+  static void closeAll() {
+    for (final a in _openAnchors.toList()) {
+      a.close();
+    }
+  }
+
+  /// شمارنده‌ی دکمه‌ی «بستنِ همه». با تأخیرِ یک microtask، چون close از dispose
+  /// (وسطِ قفلِ درختِ ویجت) هم صدا زده می‌شود و آن‌جا setState مجاز نیست.
+  static void _syncCount() {
+    scheduleMicrotask(() {
+      answerPopupsOpenCount.value = _openAnchors.where((a) => !a._single).length;
+    });
+  }
 
   static const double _tailHeight = 10;
   static const double _tailWidth = 20;
@@ -231,6 +258,7 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
   );
 
   bool _open = false;
+  bool _single = true;
   WidgetBuilder? _body;
   bool _isDark = false;
   _PopupPlacement? _placement;
@@ -246,20 +274,34 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     required WidgetBuilder body,
     required bool isDarkTheme,
     double? preferredWidth,
+    AnswerPopupDirection direction = AnswerPopupDirection.auto,
+    bool single = true,
   }) {
     if (_open) {
       close();
     } else {
-      _show(body, isDarkTheme, preferredWidth);
+      _show(body, isDarkTheme, preferredWidth, direction, single);
     }
   }
 
-  void _show(WidgetBuilder body, bool isDarkTheme, double? preferredWidth) {
-    // H-6: قبل از بازکردن، پاپ‌آپِ قبلی (روی هر آیکونی) بسته می‌شود.
-    if (_current != null && !identical(_current, this)) _current!.close();
-    final placement = _computePlacement(preferredWidth);
+  void _show(
+    WidgetBuilder body,
+    bool isDarkTheme,
+    double? preferredWidth,
+    AnswerPopupDirection direction,
+    bool single,
+  ) {
+    // H-6/H-9: در حالتِ «فقط یکی»، قبل از بازکردن پاپ‌آپ‌های دیگر بسته می‌شوند.
+    if (single) {
+      for (final a in _openAnchors.toList()) {
+        if (!identical(a, this)) a.close();
+      }
+    }
+    final placement = _computePlacement(preferredWidth, direction);
     if (placement == null) return; // هنوز layout نشده
-    _current = this;
+    _openAnchors.add(this);
+    _single = single;
+    _syncCount();
     setState(() {
       _open = true;
       _body = body;
@@ -274,7 +316,8 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
   @override
   void close() {
     if (!_open) return;
-    if (identical(_current, this)) _current = null;
+    _openAnchors.remove(this);
+    _syncCount();
     _stopListening();
     if (!mounted) return;
     setState(() => _open = false);
@@ -290,7 +333,7 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
   @override
   void dispose() {
     // آیکون از درخت رفت (صفحه عوض شد، کتاب بسته شد، آیتمِ لیست دور ریخته شد).
-    if (identical(_current, this)) _current = null;
+    if (_openAnchors.remove(this)) _syncCount();
     _stopListening();
     _animOrNull?.dispose();
     super.dispose();
@@ -312,7 +355,10 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     );
   }
 
-  _PopupPlacement? _computePlacement(double? preferredWidth) {
+  _PopupPlacement? _computePlacement(
+    double? preferredWidth,
+    AnswerPopupDirection direction,
+  ) {
     final RenderBox? anchorBox = _anchorBox;
     final overlayRo = Overlay.of(context).context.findRenderObject();
     if (anchorBox == null || overlayRo is! RenderBox || !overlayRo.hasSize) {
@@ -344,7 +390,13 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     const double gap = _tailHeight + 4;
     final double spaceBelow = band.bottom - anchor.bottom - gap;
     final double spaceAbove = anchor.top - band.top - gap;
-    final bool below = spaceBelow >= 160 || spaceBelow >= spaceAbove;
+    // H-8: سمتِ انتخابیِ کاربر، مگر آن‌جا کمتر از ۱۲۰px جا باشد و سمتِ دیگر بیشتر.
+    final bool below = switch (direction) {
+      AnswerPopupDirection.auto => spaceBelow >= 160 || spaceBelow >= spaceAbove,
+      AnswerPopupDirection.below => spaceBelow >= 120 || spaceBelow >= spaceAbove,
+      AnswerPopupDirection.above =>
+        !(spaceAbove >= 120 || spaceAbove >= spaceBelow),
+    };
     final double maxHeight = (below ? spaceBelow : spaceAbove).clamp(
       90.0,
       screen.height * 0.6,
@@ -433,7 +485,9 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
   void _onOutsidePointerUp(PointerUpEvent e) {
     final Offset? down = _outsideDown;
     _outsideDown = null;
-    if (down == null || !_open) return;
+    // H-9: در حالتِ «چند پاپ‌آپ» لمسِ بیرون نمی‌بندد — وگرنه بازکردنِ دومی (که
+    // لمسی بیرونِ اولی است) اولی را می‌بست.
+    if (down == null || !_open || !_single) return;
     // کشیدن (اسکرول) لمس نیست؛ پاپ‌آپ می‌ماند و با آیکون حرکت می‌کند.
     if ((e.position - down).distance > kTouchSlop) return;
     // لمس روی خودِ آیکون را onTapِ آیکون (toggle) جواب می‌دهد، نه این‌جا؛ وگرنه
@@ -689,4 +743,71 @@ class _TailPainter extends CustomPainter {
   @override
   bool shouldRepaint(_TailPainter old) =>
       old.pointsUp != pointsUp || old.fill != fill || old.stroke != stroke;
+}
+
+/// 🌟 H-9: دکمه‌ی «بستنِ همه‌ی پاسخ‌ها». فقط وقتی دیده می‌شود که در حالتِ «چند
+/// پاپ‌آپ هم‌زمان» دست‌کم یک پاپ‌آپ باز باشد؛ تعدادشان روی دکمه می‌آید. پایینِ
+/// صفحه‌ی مطالعه، وسط (reading_canvas.dart).
+class AnswerPopupsCloseAllButton extends StatelessWidget {
+  const AnswerPopupsCloseAllButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: answerPopupsOpenCount,
+      builder: (context, count, _) {
+        final bool visible = count > 0;
+        final ColorScheme scheme = Theme.of(context).colorScheme;
+        return IgnorePointer(
+          ignoring: !visible,
+          child: AnimatedScale(
+            scale: visible ? 1 : 0.6,
+            duration: const Duration(milliseconds: 180),
+            curve: visible ? Curves.easeOutBack : Curves.easeIn,
+            child: AnimatedOpacity(
+              opacity: visible ? 1 : 0,
+              duration: const Duration(milliseconds: 150),
+              child: Material(
+                color: scheme.inverseSurface,
+                elevation: 4,
+                shape: const StadiumBorder(),
+                child: InkWell(
+                  customBorder: const StadiumBorder(),
+                  onTap: closeAllAnswerPopups,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.visibility_off_rounded,
+                            size: 18,
+                            color: scheme.onInverseSurface,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            // تعداد را هنگامِ محوشدن (۰) نگه نمی‌داریم؛ «۰» دیده نمی‌شود.
+                            'بستنِ همه‌ی پاسخ‌ها ($count)',
+                            style: TextStyle(
+                              color: scheme.onInverseSurface,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

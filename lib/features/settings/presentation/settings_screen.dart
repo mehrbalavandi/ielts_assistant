@@ -140,6 +140,70 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             value: answerDisplay.long,
             onChanged: answerNotifier.setLong,
           ),
+
+          // 🌟 H-8/H-9: تنظیماتِ خودِ پاپ‌آپ. وقتی هیچ‌کدام از دو بالا «پاپ‌آپ»
+          // نیست، کم‌رنگ می‌شود (ولی قابلِ تغییر می‌ماند تا بعداً آماده باشد).
+          const SizedBox(height: 24),
+          Opacity(
+            opacity:
+                (answerDisplay.short == AnswerDisplayMode.popup ||
+                    answerDisplay.long == AnswerDisplayMode.popup)
+                ? 1
+                : 0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  "پاپ‌آپ",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "جهتِ بازشدن نسبت به آیکونِ چشم",
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                ),
+                const SizedBox(height: 8),
+                SegmentedButton<AnswerPopupDirection>(
+                  segments: [
+                    for (final d in AnswerPopupDirection.values)
+                      ButtonSegment<AnswerPopupDirection>(
+                        value: d,
+                        icon: Icon(d.icon, size: 18),
+                        label: Text(d.label),
+                      ),
+                  ],
+                  selected: {answerDisplay.popupDirection},
+                  showSelectedIcon: false,
+                  onSelectionChanged: (s) =>
+                      answerNotifier.setPopupDirection(s.first),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  switch (answerDisplay.popupDirection) {
+                    AnswerPopupDirection.auto =>
+                      'زیرِ آیکون، مگر آن‌جا جا کم باشد؛ آن‌وقت بالای آن.',
+                    AnswerPopupDirection.above =>
+                      'بالای آیکون؛ فقط اگر بالا واقعاً جا نباشد (اولِ صفحه)، پایین.',
+                    AnswerPopupDirection.below =>
+                      'زیرِ آیکون؛ فقط اگر پایین واقعاً جا نباشد (تهِ صفحه)، بالا.',
+                  },
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                ),
+                const SizedBox(height: 8),
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text("هر بار فقط یک پاپ‌آپ"),
+                  subtitle: Text(
+                    answerDisplay.singlePopup
+                        ? "بازکردنِ پاسخِ تازه، پاپ‌آپِ قبلی را می‌بندد. لمسِ بیرونِ حباب هم آن را می‌بندد."
+                        : "چند پاسخ کنارِ هم باز می‌مانند؛ هرکدام با لمسِ دوباره‌ی آیکونش بسته می‌شود، و دکمه‌ی «بستنِ همه‌ی پاسخ‌ها» پایینِ صفحه همه را یکجا می‌بندد.",
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  value: answerDisplay.singlePopup,
+                  onChanged: answerNotifier.setSinglePopup,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -13,6 +13,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
@@ -1540,6 +1541,17 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                   ),
                 ),
               ),
+            // 🌟 H-9: دکمه‌ی «بستنِ همه‌ی پاسخ‌ها» — فقط وقتی چند پاپ‌آپِ جواب
+            // هم‌زمان مجاز است و دست‌کم یکی باز است (خودش پنهان/ظاهر می‌شود).
+            const Positioned(
+              left: 0,
+              right: 0,
+              bottom: 16,
+              child: SafeArea(
+                top: false,
+                child: Center(child: AnswerPopupsCloseAllButton()),
+              ),
+            ),
             // 🐞 نوارِ کوچکِ پلیرِ صوتی حالا یک overlayِ مستقل است، نه
             // فرزندِ یک Column کنارِ محتوای اصلی — ظاهر/ناپدیدشدنش (وقتی
             // فایلی پخش/متوقف می‌شود) دیگر باعثِ جابه‌جاییِ محتوای کتاب
