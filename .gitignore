@@ -93,3 +93,6 @@ assets/data/Cambridge_English_Mindset_For_Ielts_Level_3_ee125dbf68.docx
 assets/data/data.zip
 assets/data/index.json
 assets/data/مارکرها.docx
+
+# 🌟 فایل‌های کاریِ موقتِ enrich.py (پرامپت‌ها و dump)؛ حافظه‌ی ترجمه خودش در گیت می‌ماند
+assets/data/*/enrichment/batches/

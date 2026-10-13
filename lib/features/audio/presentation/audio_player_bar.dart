@@ -279,7 +279,12 @@ class AudioPlayerBar extends ConsumerWidget {
   }
 
   void _showFullPlayerModal(BuildContext context, WidgetRef ref) {
-    showCombinedPlayerModal(context, ref, audioScripts);
+    showCombinedPlayerModal(
+      context,
+      ref,
+      audioScripts,
+      pagedBookStore: pagedBookStore,
+    );
   }
 }
 
@@ -337,6 +342,8 @@ void showCombinedPlayerModal(
   // (که ممکن است با آن قاطی شود)، یک هایلایتِ کاملاً متفاوت (نشانه‌ی
   // «نتیجه‌ی جستجو») می‌گیرند.
   Set<int>? searchMatchTimestamps,
+  // 🌟 AS-1: برای کلمات تعاملیِ سطحِ کتاب داخلِ متنِ اسکریپت.
+  PagedBookStore? pagedBookStore,
 }) {
   showModalBottomSheet(
     context: context,
@@ -345,6 +352,7 @@ void showCombinedPlayerModal(
     builder: (ctx) => CombinedAudioSheet(
       audioScripts: audioScripts,
       searchMatchTimestamps: searchMatchTimestamps,
+      pagedBookStore: pagedBookStore,
     ),
   );
 }
@@ -406,6 +414,7 @@ Future<void> openAudioSearchResult({
       ref,
       pagedBookStore.audioScripts,
       searchMatchTimestamps: timestamps,
+      pagedBookStore: pagedBookStore,
     );
   }
 }
@@ -705,11 +714,16 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
 class CombinedAudioSheet extends ConsumerStatefulWidget {
   final List<AudioScriptTrack> audioScripts;
   final Set<int>? searchMatchTimestamps;
+  // 🌟 AS-1: منبعِ کلمات تعاملیِ سطحِ کتاب (index.json). پاراگراف‌های اسکریپت
+  // فهرستِ Interactivesِ خودشان را ندارند؛ بدونِ این، هیچ کلمه‌ای در اسکریپت
+  // تعاملی نمی‌شد.
+  final PagedBookStore? pagedBookStore;
 
   const CombinedAudioSheet({
     super.key,
     required this.audioScripts,
     this.searchMatchTimestamps,
+    this.pagedBookStore,
   });
 
   @override
@@ -1012,11 +1026,26 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                             ? _colors.onAccent
                             : (isSearchMatch ? _colors.onSearchMatch : null);
 
+                        // 🌟 AS-1: فهرستِ خودِ پاراگراف (قالبِ قدیم) اگر هست، وگرنه
+                        // کلمات تعاملیِ کلِ کتاب با همان الگوی آماده‌ی صفحه‌ها.
+                        final PagedBookStore? store = widget.pagedBookStore;
+                        final List<InteractiveWord>? bookWords =
+                            (para.interactives.isEmpty &&
+                                store != null &&
+                                store.interactives.isNotEmpty)
+                            ? store.interactives
+                            : null;
                         final List<InlineSpan>
                         rawSpans = TextRenderEngine.buildInteractiveText(
                           span.content,
-                          para.interactives,
+                          bookWords ?? para.interactives,
                           context,
+                          interactivesPattern: bookWords != null
+                              ? store?.interactivesPattern
+                              : null,
+                          interactivesByText: bookWords != null
+                              ? store?.interactivesByText
+                              : null,
                           styledBase.copyWith(
                             color: onHighlight ?? styledBase.color,
                             backgroundColor: highlightBg,

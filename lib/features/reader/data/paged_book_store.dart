@@ -198,6 +198,11 @@ class PagedBookStore {
   List<AudioScriptTrack> get audioScripts => _audioScripts;
   List<AudioLinkEntry> get audioLinksIndex => _audioLinksIndex;
   List<OutlineEntry> get outline => _outline;
+  // 🌟 G-4 / AS-1: کلمات تعاملیِ سطحِ کتاب (index.json) — برای اسکریپت‌های صوتی هم،
+  // که پاراگراف‌هایشان فهرستِ Interactivesِ خودشان را ندارند.
+  List<InteractiveWord> get interactives => _sharedInteractives;
+  RegExp? get interactivesPattern => _sharedPattern;
+  Map<String, InteractiveWord> get interactivesByText => _sharedByText;
   List<String> get imageNames => _imageNames;
   bool get isManifestLoaded => _manifestLoaded;
 
