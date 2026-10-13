@@ -1,8 +1,8 @@
 {
-  "generatedAt": "1405-07-21 11:32",
-  "total": 5732,
-  "translated": 418,
-  "pendingUnique": 4587,
+  "generatedAt": "1405-07-21 14:44",
+  "total": 5900,
+  "translated": 485,
+  "pendingUnique": 4667,
   "items": [
     {
       "page": 5,
@@ -201,8 +201,24 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "metal wood cloth",
-      "text": "{blk}metal\nwood\ncloth{/blk}"
+      "key": "metal",
+      "text": "metal"
+    },
+    {
+      "page": 6,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "wood",
+      "text": "wood"
+    },
+    {
+      "page": 6,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "cloth",
+      "text": "cloth"
     },
     {
       "page": 6,
@@ -217,8 +233,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "base tray",
-      "text": "{blk}base\ntray{/blk}"
+      "key": "base",
+      "text": "base"
+    },
+    {
+      "page": 6,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "tray",
+      "text": "tray"
     },
     {
       "page": 6,
@@ -233,8 +257,24 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "square triangle rectangular",
-      "text": "{blk}square\ntriangle\nrectangular{/blk}"
+      "key": "square",
+      "text": "square"
+    },
+    {
+      "page": 6,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "triangle",
+      "text": "triangle"
+    },
+    {
+      "page": 6,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "rectangular",
+      "text": "rectangular"
     },
     {
       "page": 6,
@@ -1025,8 +1065,24 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answer the pictures show the stages in the production of cherry jam. there are a number of processes involved, from picking the fruit from the tree to putting it into jars ready to sell. first, a sheet is spread on the ground under the tree and the tree is shaken by a mechanical arm to get the cherries down from the tree. then, the cherries are collected and transported by lorry to the processing plant. there the leaves and the stems are removed and then the stone is taken out with a metal spike. next, sugar, lemon juice and pectin are added to the cherries and the jam is cooked. after that, the quality of the jam is checked and then the jam is put into jars. a lid is put on top of the jars to keep the jam fresh. finally, a label is added and the jam is ready to be sold in the shops.",
-      "text": "{blk}Sample answer\nThe pictures show the stages in the production of cherry jam. There are a number of processes involved, from picking the fruit from the tree to putting it into jars ready to sell.\nFirst, a sheet is spread on the ground under the tree and the tree is shaken by a mechanical arm to get the cherries down from the tree. Then, the cherries are collected and transported by lorry to the processing plant. There the leaves and the stems are removed and then the stone is taken out with a metal spike. Next, sugar, lemon juice and pectin are added to the cherries and the jam is cooked. After that, the quality of the jam is checked and then the jam is put into jars. A lid is put on top of the jars to keep the jam fresh. Finally, a label is added and the jam is ready to be sold in the shops.{/blk}"
+      "key": "sample answer",
+      "text": "Sample answer"
+    },
+    {
+      "page": 8,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "the pictures show the stages in the production of cherry jam. there are a number of processes involved, from picking the fruit from the tree to putting it into jars ready to sell.",
+      "text": "The pictures show the stages in the production of cherry jam. There are a number of processes involved, from picking the fruit from the tree to putting it into jars ready to sell."
+    },
+    {
+      "page": 8,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "first, a sheet is spread on the ground under the tree and the tree is shaken by a mechanical arm to get the cherries down from the tree. then, the cherries are collected and transported by lorry to the processing plant. there the leaves and the stems are removed and then the stone is taken out with a metal spike. next, sugar, lemon juice and pectin are added to the cherries and the jam is cooked. after that, the quality of the jam is checked and then the jam is put into jars. a lid is put on top of the jars to keep the jam fresh. finally, a label is added and the jam is ready to be sold in the shops.",
+      "text": "First, a sheet is spread on the ground under the tree and the tree is shaken by a mechanical arm to get the cherries down from the tree. Then, the cherries are collected and transported by lorry to the processing plant. There the leaves and the stems are removed and then the stone is taken out with a metal spike. Next, sugar, lemon juice and pectin are added to the cherries and the jam is cooked. After that, the quality of the jam is checked and then the jam is put into jars. A lid is put on top of the jars to keep the jam fresh. Finally, a label is added and the jam is ready to be sold in the shops."
     },
     {
       "page": 8,
@@ -2577,8 +2633,48 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answers, but many others are possible 1: … because they are the most important people in my life. 2: … but we still get along very well. 3: … and she is going to move to a different city with her husband. 4: … so i don't spend as much time with him as i want to. 4 5: … even though he is quite a bit older.",
-      "text": "{blk}Sample answers, but many others are possible\n1:  … because they are the most important people in my life.\n2:  … but we still get along very well.\n3:  … and she is going to move to a different city with her husband.\n4:  … so I don't spend as much time with him as I want to. 4\n5:  … even though he is quite a bit older.{/blk}"
+      "key": "sample answers, but many others are possible",
+      "text": "Sample answers, but many others are possible"
+    },
+    {
+      "page": 15,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "… because they are the most important people in my life.",
+      "text": "… because they are the most important people in my life."
+    },
+    {
+      "page": 15,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "… but we still get along very well.",
+      "text": "… but we still get along very well."
+    },
+    {
+      "page": 15,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "… and she is going to move to a different city with her husband.",
+      "text": "… and she is going to move to a different city with her husband."
+    },
+    {
+      "page": 15,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "… so i don't spend as much time with him as i want to. 4",
+      "text": "… so I don't spend as much time with him as I want to. 4"
+    },
+    {
+      "page": 15,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "… even though he is quite a bit older.",
+      "text": "… even though he is quite a bit older."
     },
     {
       "page": 15,
@@ -4185,8 +4281,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "the following are shown on the campus maps: bus stop, students' union, recreation area, cafés, car parks, library, laboratories, squash courts, gym, halls of residence, tennis courts, football pitch, table tennis tables",
-      "text": "{blk}The following are shown on the campus maps:\nbus stop, Students' Union, recreation area, cafés, car parks, library, laboratories, squash courts, gym, halls of residence, tennis courts, football pitch, table tennis tables{/blk}"
+      "key": "the following are shown on the campus maps:",
+      "text": "The following are shown on the campus maps:"
+    },
+    {
+      "page": 23,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "bus stop, students' union, recreation area, cafés, car parks, library, laboratories, squash courts, gym, halls of residence, tennis courts, football pitch, table tennis tables",
+      "text": "bus stop, Students' Union, recreation area, cafés, car parks, library, laboratories, squash courts, gym, halls of residence, tennis courts, football pitch, table tennis tables"
     },
     {
       "page": 23,
@@ -4929,8 +5033,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "made, was and built are irregular. the infinitives are: expanded-expand, changed-change, developed-develop, moved-move, was-be, created-create, made-make, built-build, increased-increase",
-      "text": "{blk}Made, was and built are irregular. The infinitives are:\nexpanded-expand, changed-change, developed-develop, moved-move, was-be, created-create, made-make, built-build, increased-increase{/blk}"
+      "key": "made, was and built are irregular. the infinitives are:",
+      "text": "Made, was and built are irregular. The infinitives are:"
+    },
+    {
+      "page": 26,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "expanded-expand, changed-change, developed-develop, moved-move, was-be, created-create, made-make, built-build, increased-increase",
+      "text": "expanded-expand, changed-change, developed-develop, moved-move, was-be, created-create, made-make, built-build, increased-increase"
     },
     {
       "page": 26,
@@ -5545,8 +5657,32 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answer the maps show the changes to colwick arts centre between 2005 and the present day. we can see that the centre expanded and new facilities were added during this period. one of the major changes is that the outside area was developed. in 2005 there was an empty area of land outside the centre. trees were planted there and an outdoor exhibition area was made. the café was moved to the front of the arts centre and tables were added outside. inside, a central exhibition area was created. the information desk was moved to the front of the central area. in the past there were two galleries but now there is only one; however, a drama studio was built. in 2005 the concert hall and cinema were in the same space, whereas now they are separate. in addition, an extra meeting room was constructed. the toilets moved to the opposite side of the centre. so, it is clear that colwick arts centre is more attractive today and has better facilities than in 2005.",
-      "text": "{blk}Sample answer\nThe maps show the changes to Colwick Arts Centre between 2005 and the present day. We can see that the Centre expanded and new facilities were added during this period.\nOne of the major changes is that the outside area was developed. In 2005 there was an empty area of land outside the Centre. Trees were planted there and an outdoor exhibition area was made. The café was moved to the front of the Arts Centre and tables were added outside.\nInside, a central exhibition area was created. The information desk was moved to the front of the central area. In the past there were two galleries but now there is only one; however, a drama studio was built. In 2005 the concert hall and cinema were in the same space, whereas now they are separate. In addition, an extra meeting room was constructed. The toilets moved to the opposite side of the Centre.\nSo, it is clear that Colwick Arts Centre is more attractive today and has better facilities than in 2005.{/blk}"
+      "key": "the maps show the changes to colwick arts centre between 2005 and the present day. we can see that the centre expanded and new facilities were added during this period.",
+      "text": "The maps show the changes to Colwick Arts Centre between 2005 and the present day. We can see that the Centre expanded and new facilities were added during this period."
+    },
+    {
+      "page": 27,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "one of the major changes is that the outside area was developed. in 2005 there was an empty area of land outside the centre. trees were planted there and an outdoor exhibition area was made. the café was moved to the front of the arts centre and tables were added outside.",
+      "text": "One of the major changes is that the outside area was developed. In 2005 there was an empty area of land outside the Centre. Trees were planted there and an outdoor exhibition area was made. The café was moved to the front of the Arts Centre and tables were added outside."
+    },
+    {
+      "page": 27,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "inside, a central exhibition area was created. the information desk was moved to the front of the central area. in the past there were two galleries but now there is only one; however, a drama studio was built. in 2005 the concert hall and cinema were in the same space, whereas now they are separate. in addition, an extra meeting room was constructed. the toilets moved to the opposite side of the centre.",
+      "text": "Inside, a central exhibition area was created. The information desk was moved to the front of the central area. In the past there were two galleries but now there is only one; however, a drama studio was built. In 2005 the concert hall and cinema were in the same space, whereas now they are separate. In addition, an extra meeting room was constructed. The toilets moved to the opposite side of the Centre."
+    },
+    {
+      "page": 27,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "so, it is clear that colwick arts centre is more attractive today and has better facilities than in 2005.",
+      "text": "So, it is clear that Colwick Arts Centre is more attractive today and has better facilities than in 2005."
     },
     {
       "page": 28,
@@ -8913,8 +9049,32 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "the sentences all relate to the present and the past. a: the level was raised in the past and is still high in the present. b: they were not educated in the past, which affects their present. c: they became businesses in the past and they are still businesses.",
-      "text": "{blk}The sentences all relate to the present and the past.\na: The level was raised in the past and is still high in the present.\nb: They were not educated in the past, which affects their present.\nc: They became businesses in the past and they are still businesses.{/blk}"
+      "key": "the sentences all relate to the present and the past.",
+      "text": "The sentences all relate to the present and the past."
+    },
+    {
+      "page": 40,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "the level was raised in the past and is still high in the present.",
+      "text": "The level was raised in the past and is still high in the present."
+    },
+    {
+      "page": 40,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "they were not educated in the past, which affects their present.",
+      "text": "They were not educated in the past, which affects their present."
+    },
+    {
+      "page": 40,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "they became businesses in the past and they are still businesses.",
+      "text": "They became businesses in the past and they are still businesses."
     },
     {
       "page": 40,
@@ -9537,16 +9697,56 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "growth (n) increase (v, n) rise (v, n)",
-      "text": "{blk}growth (N)\nincrease (V, N)\nrise (V, N){/blk}"
+      "key": "growth (n)",
+      "text": "growth (N)"
     },
     {
       "page": 43,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "decline (v, n) decrease (v, n) drop (v, n) fall (v, n)",
-      "text": "{blk}decline (V, N)\ndecrease (V, N)\ndrop (V, N)\nfall (V, N){/blk}"
+      "key": "increase (v, n)",
+      "text": "increase (V, N)"
+    },
+    {
+      "page": 43,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "rise (v, n)",
+      "text": "rise (V, N)"
+    },
+    {
+      "page": 43,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "decline (v, n)",
+      "text": "decline (V, N)"
+    },
+    {
+      "page": 43,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "decrease (v, n)",
+      "text": "decrease (V, N)"
+    },
+    {
+      "page": 43,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "drop (v, n)",
+      "text": "drop (V, N)"
+    },
+    {
+      "page": 43,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "fall (v, n)",
+      "text": "fall (V, N)"
     },
     {
       "page": 43,
@@ -10401,8 +10601,32 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answer the data shows the literacy rate for both males and females in seven different regions of the world. the horizontal axis lists the regions and the vertical axis shows percentage. in all regions except two, there is a difference in the literacy rates of men and women. central asia and central/eastern europe have the highest percentage of citizens who can read and write. almost 100% of men and women are literate in those regions. the lowest literacy rates are in sub-saharan africa. in five out of the seven regions, there are different literacy rates for men and women. the greatest difference between men and women is found in south and west asia. in this region, about 80% of men are able to read and write, but only about 60% of women. overall, the difference between the most literate area and the least literate is about 30% for men and just over 40% for women. in conclusion, literacy rates vary between regions, with males having higher levels than females in most regions. (171 words)",
-      "text": "{blk}Sample answer\nThe data shows the literacy rate for both males and females in seven different regions of the world. The horizontal axis lists the regions and the vertical axis shows percentage. In all regions except two, there is a difference in the literacy rates of men and women.\nCentral Asia and Central/Eastern Europe have the highest percentage of citizens who can read and write. Almost 100% of men and women are literate in those regions. The lowest literacy rates are in Sub-Saharan Africa.\nIn five out of the seven regions, there are different literacy rates for men and women. The greatest difference between men and women is found in South and West Asia. In this region, about 80% of men are able to read and write, but only about 60% of women. Overall, the difference between the most literate area and the least literate is about 30% for men and just over 40% for women.\nIn conclusion, literacy rates vary between regions, with males having higher levels than females in most regions. (171 words){/blk}"
+      "key": "the data shows the literacy rate for both males and females in seven different regions of the world. the horizontal axis lists the regions and the vertical axis shows percentage. in all regions except two, there is a difference in the literacy rates of men and women.",
+      "text": "The data shows the literacy rate for both males and females in seven different regions of the world. The horizontal axis lists the regions and the vertical axis shows percentage. In all regions except two, there is a difference in the literacy rates of men and women."
+    },
+    {
+      "page": 45,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "central asia and central/eastern europe have the highest percentage of citizens who can read and write. almost 100% of men and women are literate in those regions. the lowest literacy rates are in sub-saharan africa.",
+      "text": "Central Asia and Central/Eastern Europe have the highest percentage of citizens who can read and write. Almost 100% of men and women are literate in those regions. The lowest literacy rates are in Sub-Saharan Africa."
+    },
+    {
+      "page": 45,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "in five out of the seven regions, there are different literacy rates for men and women. the greatest difference between men and women is found in south and west asia. in this region, about 80% of men are able to read and write, but only about 60% of women. overall, the difference between the most literate area and the least literate is about 30% for men and just over 40% for women.",
+      "text": "In five out of the seven regions, there are different literacy rates for men and women. The greatest difference between men and women is found in South and West Asia. In this region, about 80% of men are able to read and write, but only about 60% of women. Overall, the difference between the most literate area and the least literate is about 30% for men and just over 40% for women."
+    },
+    {
+      "page": 45,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "in conclusion, literacy rates vary between regions, with males having higher levels than females in most regions. (171 words)",
+      "text": "In conclusion, literacy rates vary between regions, with males having higher levels than females in most regions. (171 words)"
     },
     {
       "page": 45,
@@ -12561,14 +12785,6 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "describe a time when you learnt something new. you should say: • what you learnt • how you learnt it • what the result was and explain how you felt about learning something new.",
-      "text": "{blk}Describe a time when you learnt something new.\nYou should say:\n•  what you learnt\n•  how you learnt it\n•  what the result was\nand explain how you felt about learning something new.{/blk}"
-    },
-    {
-      "page": 54,
-      "unit": null,
-      "section": null,
-      "where": "table",
       "key": "describe a time when you learnt something new.",
       "text": "Describe a time when you learnt something new."
     },
@@ -14137,8 +14353,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "diagram 1: 1, 2, 5, 6 diagram 2: 3, 4, 7",
-      "text": "{blk}Diagram 1: 1, 2, 5, 6\nDiagram 2: 3, 4, 7{/blk}"
+      "key": "diagram 1: 1, 2, 5, 6",
+      "text": "Diagram 1: 1, 2, 5, 6"
+    },
+    {
+      "page": 62,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "diagram 2: 3, 4, 7",
+      "text": "Diagram 2: 3, 4, 7"
     },
     {
       "page": 62,
@@ -14561,8 +14785,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "coffee, land*, meat, oil, sand * when land means 'country', it is countable.",
-      "text": "{blk}coffee, land*, meat, oil, sand \n* When land means 'country', it is countable.{/blk}"
+      "key": "coffee, land*, meat, oil, sand",
+      "text": "coffee, land*, meat, oil, sand "
+    },
+    {
+      "page": 64,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "* when land means 'country', it is countable.",
+      "text": "* When land means 'country', it is countable."
     },
     {
       "page": 64,
@@ -14985,8 +15217,24 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "the sentences that should not be included are: it is not surprising that people in the uk like british food as fish and chips is the national dish. even my village has an indian restaurant!",
-      "text": "{blk}The sentences that should not be included are:\nIt is not surprising that people in the UK like British food as fish and chips is the national dish.\nEven my village has an Indian restaurant!{/blk}"
+      "key": "the sentences that should not be included are:",
+      "text": "The sentences that should not be included are:"
+    },
+    {
+      "page": 65,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "it is not surprising that people in the uk like british food as fish and chips is the national dish.",
+      "text": "It is not surprising that people in the UK like British food as fish and chips is the national dish."
+    },
+    {
+      "page": 65,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "even my village has an indian restaurant!",
+      "text": "Even my village has an Indian restaurant!"
     },
     {
       "page": 65,
@@ -15305,8 +15553,24 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answer the bar chart shows the percentage of the adult population who were overweight or obese between 1965 and 2015, while the pie chart shows the percentage of people who were a healthy weight, overweight, obese and severely obese in 2015. the rise in the number of people who are too heavy was gradual from 1965 to 1985. the first significant increase occurred between 1985 and 1995, from around 48% to almost 60%. in the next ten-year period there was a similar large rise. by 2005, approximately 70% of people weighed too much. the upward trend continued into the 21st century but at a slightly lower rate. the pie chart confirms that in 2015 over 70% of adults were too heavy, and it also gives more detail about how much they were overweight. only 6% of people were so overweight that their health was seriously at risk, i.e. severely obese. the remaining people were divided more or less equally between the other groups.",
-      "text": "{blk}Sample answer\nThe bar chart shows the percentage of the adult population who were overweight or obese between 1965 and 2015, while the pie chart shows the percentage of people who were a healthy weight, overweight, obese and severely obese in 2015. The rise in the number of people who are too heavy was gradual from 1965 to 1985. The first significant increase occurred between 1985 and 1995, from around 48% to almost 60%. In the next ten-year period there was a similar large rise. By 2005, approximately 70% of people weighed too much.\nThe upward trend continued into the 21st century but at a slightly lower rate.\nThe pie chart confirms that in 2015 over 70% of adults were too heavy, and it also gives more detail about how much they were overweight. Only 6% of people were so overweight that their health was seriously at risk, i.e. severely obese. The remaining people were divided more or less equally between the other groups.{/blk}"
+      "key": "the bar chart shows the percentage of the adult population who were overweight or obese between 1965 and 2015, while the pie chart shows the percentage of people who were a healthy weight, overweight, obese and severely obese in 2015. the rise in the number of people who are too heavy was gradual from 1965 to 1985. the first significant increase occurred between 1985 and 1995, from around 48% to almost 60%. in the next ten-year period there was a similar large rise. by 2005, approximately 70% of people weighed too much.",
+      "text": "The bar chart shows the percentage of the adult population who were overweight or obese between 1965 and 2015, while the pie chart shows the percentage of people who were a healthy weight, overweight, obese and severely obese in 2015. The rise in the number of people who are too heavy was gradual from 1965 to 1985. The first significant increase occurred between 1985 and 1995, from around 48% to almost 60%. In the next ten-year period there was a similar large rise. By 2005, approximately 70% of people weighed too much."
+    },
+    {
+      "page": 66,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "the upward trend continued into the 21st century but at a slightly lower rate.",
+      "text": "The upward trend continued into the 21st century but at a slightly lower rate."
+    },
+    {
+      "page": 66,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "the pie chart confirms that in 2015 over 70% of adults were too heavy, and it also gives more detail about how much they were overweight. only 6% of people were so overweight that their health was seriously at risk, i.e. severely obese. the remaining people were divided more or less equally between the other groups.",
+      "text": "The pie chart confirms that in 2015 over 70% of adults were too heavy, and it also gives more detail about how much they were overweight. Only 6% of people were so overweight that their health was seriously at risk, i.e. severely obese. The remaining people were divided more or less equally between the other groups."
     },
     {
       "page": 66,
@@ -18273,8 +18537,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "will - so what will the mall of the future look like? / it is predicted that this will happen more and more in the future. / some malls will only sell electrical items / some malls will only include expensive shops/the facilities malls will need to offer / malls will need to consider the environment too. / there will be more open-air malls / designers will have to make sure / they will also need to use more natural sources of heat and light / we will see more plants, trees / there will be 'virtual malls' / technology will be used within malls / the mall will go from strength to strength going to - in the future we are going to see 'fine dining' too / there are also going to be more apartments / mall owners are going to need to think of new ideas",
-      "text": "{blk}will - So what will the mall of the future look like? / It is predicted that this will happen more and more in the future. / Some malls will only sell electrical items / Some malls will only include expensive shops/the facilities malls will need to offer / Malls will need to consider the environment too. / There will be more open-air malls / designers will have to make sure / They will also need to use more natural sources of heat and light / We will see more plants, trees / there will be 'virtual malls' / technology will be used within malls / the mall will go from strength to strength\ngoing to - in the future we are going to see 'fine dining' too / There are also going to be more apartments / Mall owners are going to need to think of new ideas{/blk}"
+      "key": "will - so what will the mall of the future look like? / it is predicted that this will happen more and more in the future. / some malls will only sell electrical items / some malls will only include expensive shops/the facilities malls will need to offer / malls will need to consider the environment too. / there will be more open-air malls / designers will have to make sure / they will also need to use more natural sources of heat and light / we will see more plants, trees / there will be 'virtual malls' / technology will be used within malls / the mall will go from strength to strength",
+      "text": "will - So what will the mall of the future look like? / It is predicted that this will happen more and more in the future. / Some malls will only sell electrical items / Some malls will only include expensive shops/the facilities malls will need to offer / Malls will need to consider the environment too. / There will be more open-air malls / designers will have to make sure / They will also need to use more natural sources of heat and light / We will see more plants, trees / there will be 'virtual malls' / technology will be used within malls / the mall will go from strength to strength"
+    },
+    {
+      "page": 81,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "going to - in the future we are going to see 'fine dining' too / there are also going to be more apartments / mall owners are going to need to think of new ideas",
+      "text": "going to - in the future we are going to see 'fine dining' too / There are also going to be more apartments / Mall owners are going to need to think of new ideas"
     },
     {
       "page": 81,
@@ -19025,8 +19297,24 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "suggested answers advantages: 1,2,5,7 disadvantages: 3, 4, 6, 8",
-      "text": "{blk}Suggested answers\nAdvantages: 1,2,5,7\nDisadvantages: 3, 4, 6, 8{/blk}"
+      "key": "suggested answers",
+      "text": "Suggested answers"
+    },
+    {
+      "page": 86,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "advantages: 1,2,5,7",
+      "text": "Advantages: 1,2,5,7"
+    },
+    {
+      "page": 86,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "disadvantages: 3, 4, 6, 8",
+      "text": "Disadvantages: 3, 4, 6, 8"
     },
     {
       "page": 86,
@@ -19297,8 +19585,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample introduction more and more people are relying on debit and credit cards and also on their phones to pay for things in shops and online. if this trend continues, we might become a 'cashless society'. there are both advantages and disadvantages to this, as i will outline in this essay.",
-      "text": "{blk}Sample introduction\nMore and more people are relying on debit and credit cards and also on their phones to pay for things in shops and online. If this trend continues, we might become a 'cashless society'. There are both advantages and disadvantages to this, as I will outline in this essay.{/blk}"
+      "key": "sample introduction",
+      "text": "Sample introduction"
+    },
+    {
+      "page": 87,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "more and more people are relying on debit and credit cards and also on their phones to pay for things in shops and online. if this trend continues, we might become a 'cashless society'. there are both advantages and disadvantages to this, as i will outline in this essay.",
+      "text": "More and more people are relying on debit and credit cards and also on their phones to pay for things in shops and online. If this trend continues, we might become a 'cashless society'. There are both advantages and disadvantages to this, as I will outline in this essay."
     },
     {
       "page": 87,
@@ -19817,8 +20113,40 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answer in some countries a mall is known as a shopping centre. the main purpose of a mall was to shop. this is beginning to change and i believe that in the future, the main purpose of a mall will be for entertainment. more and more of us enjoy shopping online. it is safer than ever and much more convenient. many websites offer free next-day delivery. on sites like ebay and amazon, there is far more choice and there are also many discounts and special offers. obviously, this means that fewer shops will be needed. however, people still want to go out, meet their friends and have fun. a mall is a place which offers space to do that. if people have done their shopping online, the mall will have to offer other facilities to attract visitors. some malls already have cinemas and places to eat. however, as well as cheaper cafés and fast food chains, malls are beginning to offer better restaurants and places to eat. i believe this trend will continue. in addition, malls will offer all kinds of leisure facilities such as gyms, swimming pools, children's play areas, spas, and so on. there will be more live shows, including music, theatre and dance, and a range of exhibitions and special events. i believe malls have an important role in future society but they will have a different purpose from today. there will still be a few shops but most people will go to the mall to relax and enjoy themselves with their family and friends.",
-      "text": "{blk}Sample answer\nIn some countries a mall is known as a shopping centre. The main purpose of a mall was to shop. This is beginning to change and I believe that in the future, the main purpose of a mall will be for entertainment.\nMore and more of us enjoy shopping online. It is safer than ever and much more convenient. Many websites offer free next-day delivery. On sites like eBay and Amazon, there is far more choice and there are also many discounts and special offers. Obviously, this means that fewer shops will be needed. However, people still want to go out, meet their friends and have fun. A mall is a place which offers space to do that. If people have done their shopping online, the mall will have to offer other facilities to attract visitors.\nSome malls already have cinemas and places to eat. However, as well as cheaper cafés and fast food chains, malls are beginning to offer better restaurants and places to eat. I believe this trend will continue.\nIn addition, malls will offer all kinds of leisure facilities such as gyms, swimming pools, children's play areas, spas, and so on. There will be more live shows, including music, theatre and dance, and a range of exhibitions and special events.\nI believe malls have an important role in future society but they will have a different purpose from today. There will still be a few shops but most people will go to the mall to relax and enjoy themselves with their family and friends.{/blk}"
+      "key": "in some countries a mall is known as a shopping centre. the main purpose of a mall was to shop. this is beginning to change and i believe that in the future, the main purpose of a mall will be for entertainment.",
+      "text": "In some countries a mall is known as a shopping centre. The main purpose of a mall was to shop. This is beginning to change and I believe that in the future, the main purpose of a mall will be for entertainment."
+    },
+    {
+      "page": 89,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "more and more of us enjoy shopping online. it is safer than ever and much more convenient. many websites offer free next-day delivery. on sites like ebay and amazon, there is far more choice and there are also many discounts and special offers. obviously, this means that fewer shops will be needed. however, people still want to go out, meet their friends and have fun. a mall is a place which offers space to do that. if people have done their shopping online, the mall will have to offer other facilities to attract visitors.",
+      "text": "More and more of us enjoy shopping online. It is safer than ever and much more convenient. Many websites offer free next-day delivery. On sites like eBay and Amazon, there is far more choice and there are also many discounts and special offers. Obviously, this means that fewer shops will be needed. However, people still want to go out, meet their friends and have fun. A mall is a place which offers space to do that. If people have done their shopping online, the mall will have to offer other facilities to attract visitors."
+    },
+    {
+      "page": 89,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "some malls already have cinemas and places to eat. however, as well as cheaper cafés and fast food chains, malls are beginning to offer better restaurants and places to eat. i believe this trend will continue.",
+      "text": "Some malls already have cinemas and places to eat. However, as well as cheaper cafés and fast food chains, malls are beginning to offer better restaurants and places to eat. I believe this trend will continue."
+    },
+    {
+      "page": 89,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "in addition, malls will offer all kinds of leisure facilities such as gyms, swimming pools, children's play areas, spas, and so on. there will be more live shows, including music, theatre and dance, and a range of exhibitions and special events.",
+      "text": "In addition, malls will offer all kinds of leisure facilities such as gyms, swimming pools, children's play areas, spas, and so on. There will be more live shows, including music, theatre and dance, and a range of exhibitions and special events."
+    },
+    {
+      "page": 89,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "i believe malls have an important role in future society but they will have a different purpose from today. there will still be a few shops but most people will go to the mall to relax and enjoy themselves with their family and friends.",
+      "text": "I believe malls have an important role in future society but they will have a different purpose from today. There will still be a few shops but most people will go to the mall to relax and enjoy themselves with their family and friends."
     },
     {
       "page": 89,
@@ -21297,8 +21625,40 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample notes what kind of place? department store - 100 years old, famous, 4 floors, 30 departments where? centre of town - near car park, station what i like: jewellery department - rings, necklaces, gold why i like it: atmosphere - traditional, assistants friendly, helpful",
-      "text": "{blk}Sample notes\nWhat kind of place? department store - 100 years old, famous, 4 floors, 30 departments\nWhere? centre of town - near car park, station\nWhat I like: jewellery department - rings, necklaces, gold\nWhy I like it: atmosphere - traditional, assistants friendly, helpful{/blk}"
+      "key": "sample notes",
+      "text": "Sample notes"
+    },
+    {
+      "page": 96,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "what kind of place? department store - 100 years old, famous, 4 floors, 30 departments",
+      "text": "What kind of place? department store - 100 years old, famous, 4 floors, 30 departments"
+    },
+    {
+      "page": 96,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "where? centre of town - near car park, station",
+      "text": "Where? centre of town - near car park, station"
+    },
+    {
+      "page": 96,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "what i like: jewellery department - rings, necklaces, gold",
+      "text": "What I like: jewellery department - rings, necklaces, gold"
+    },
+    {
+      "page": 96,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "why i like it: atmosphere - traditional, assistants friendly, helpful",
+      "text": "Why I like it: atmosphere - traditional, assistants friendly, helpful"
     },
     {
       "page": 96,
@@ -23257,8 +23617,88 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "are saying - say explained - will explain people less active - people are less active go-went/used to go we playing - we play were walking - walked / used to walk do - did/ used to do are become - are becoming are not going - don't go took - takes i am agree - i agree",
-      "text": "{blk}are saying - say \nexplained - will explain\npeople less active - people are less active \ngo-went/used to go\nwe playing - we play \nwere walking - walked / used to walk\ndo - did/ used to do \nare become - are becoming\nare not going - don't go \ntook - takes \nI am agree - I agree{/blk}"
+      "key": "are saying - say",
+      "text": "are saying - say "
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "explained - will explain",
+      "text": "explained - will explain"
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "people less active - people are less active",
+      "text": "people less active - people are less active "
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "go-went/used to go",
+      "text": "go-went/used to go"
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "we playing - we play",
+      "text": "we playing - we play "
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "were walking - walked / used to walk",
+      "text": "were walking - walked / used to walk"
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "do - did/ used to do",
+      "text": "do - did/ used to do "
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "are become - are becoming",
+      "text": "are become - are becoming"
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "are not going - don't go",
+      "text": "are not going - don't go "
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "took - takes",
+      "text": "took - takes "
+    },
+    {
+      "page": 105,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "i am agree - i agree",
+      "text": "I am agree - I agree"
     },
     {
       "page": 105,
@@ -23785,8 +24225,32 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answer nowadays young people often spend their free time at home watching tv or playing computer games. very few do sports outside of school. this means that if they don't do exercise during school time, they will be unfit and suffer from health problems. i agree that children should do sports lessons at school. in this essay i will explain why. some people say that sports lessons are a waste of time. students have to prepare for exams and should spend all their time on academic work. this is what many people think in my country. in my opinion they are wrong. a healthy mind needs a healthy body. doing exercise every day makes you happy and relaxed. studying all the time can make you stressed. another reason for my opinion is that having an unfit generation will cause many problems for society. when today's children get older, unfortunately they may suffer from illnesses like heart disease. the government will have to spend a lot of money on doctors and hospitals. it is much better to create a fit and healthy adult population by getting children to do sports when they are still at school. in addition, sports teach people discipline and working as a team. this will help them in their future life. in conclusion, i can say that prevention is better than cure. children who do sports will be healthier, happier adults. they are more likely to continue with their active lifestyle when they grow up. in this way we can make a better society for the future. (263 words)",
-      "text": "{blk}Sample answer\nNowadays young people often spend their free time at home watching TV or playing computer games. Very few do sports outside of school. This means that if they don't do exercise during school time, they will be unfit and suffer from health problems. I agree that children should do sports lessons at school. In this essay I will explain why.\nSome people say that sports lessons are a waste of time. Students have to prepare for exams and should spend all their time on academic work. This is what many people think in my country. In my opinion they are wrong. A healthy mind needs a healthy body. Doing exercise every day makes you happy and relaxed. Studying all the time can make you stressed.\nAnother reason for my opinion is that having an unfit generation will cause many problems for society. When today's children get older, unfortunately they may suffer from illnesses like heart disease. The government will have to spend a lot of money on doctors and hospitals. It is much better to create a fit and healthy adult population by getting children to do sports when they are still at school. In addition, sports teach people discipline and working as a team. This will help them in their future life.\nIn conclusion, I can say that prevention is better than cure. Children who do sports will be healthier, happier adults. They are more likely to continue with their active lifestyle when they grow up. In this way we can make a better society for the future. (263 words){/blk}"
+      "key": "nowadays young people often spend their free time at home watching tv or playing computer games. very few do sports outside of school. this means that if they don't do exercise during school time, they will be unfit and suffer from health problems. i agree that children should do sports lessons at school. in this essay i will explain why.",
+      "text": "Nowadays young people often spend their free time at home watching TV or playing computer games. Very few do sports outside of school. This means that if they don't do exercise during school time, they will be unfit and suffer from health problems. I agree that children should do sports lessons at school. In this essay I will explain why."
+    },
+    {
+      "page": 108,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "some people say that sports lessons are a waste of time. students have to prepare for exams and should spend all their time on academic work. this is what many people think in my country. in my opinion they are wrong. a healthy mind needs a healthy body. doing exercise every day makes you happy and relaxed. studying all the time can make you stressed.",
+      "text": "Some people say that sports lessons are a waste of time. Students have to prepare for exams and should spend all their time on academic work. This is what many people think in my country. In my opinion they are wrong. A healthy mind needs a healthy body. Doing exercise every day makes you happy and relaxed. Studying all the time can make you stressed."
+    },
+    {
+      "page": 108,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "another reason for my opinion is that having an unfit generation will cause many problems for society. when today's children get older, unfortunately they may suffer from illnesses like heart disease. the government will have to spend a lot of money on doctors and hospitals. it is much better to create a fit and healthy adult population by getting children to do sports when they are still at school. in addition, sports teach people discipline and working as a team. this will help them in their future life.",
+      "text": "Another reason for my opinion is that having an unfit generation will cause many problems for society. When today's children get older, unfortunately they may suffer from illnesses like heart disease. The government will have to spend a lot of money on doctors and hospitals. It is much better to create a fit and healthy adult population by getting children to do sports when they are still at school. In addition, sports teach people discipline and working as a team. This will help them in their future life."
+    },
+    {
+      "page": 108,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "in conclusion, i can say that prevention is better than cure. children who do sports will be healthier, happier adults. they are more likely to continue with their active lifestyle when they grow up. in this way we can make a better society for the future. (263 words)",
+      "text": "In conclusion, I can say that prevention is better than cure. Children who do sports will be healthier, happier adults. They are more likely to continue with their active lifestyle when they grow up. In this way we can make a better society for the future. (263 words)"
     },
     {
       "page": 108,
@@ -27065,8 +27529,32 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "you don't have a private life. 2: people say bad things about you. 3: your family may suffer. 4: it is stressful.",
-      "text": "{blk}You don't have a private life.\n2:  People say bad things about you.\n3:  Your family may suffer.\n4:  It is stressful.{/blk}"
+      "key": "you don't have a private life.",
+      "text": "You don't have a private life."
+    },
+    {
+      "page": 125,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "people say bad things about you.",
+      "text": "People say bad things about you."
+    },
+    {
+      "page": 125,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "your family may suffer.",
+      "text": "Your family may suffer."
+    },
+    {
+      "page": 125,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "it is stressful.",
+      "text": "It is stressful."
     },
     {
       "page": 125,
@@ -27081,8 +27569,32 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "reporters follow you everywhere and take photos of you. 2: they even tell lies about you. 3: your children may have paparazzi following them. 4: some actors or singers are badly affected by the pressure.",
-      "text": "{blk}Reporters follow you everywhere and take photos of you.\n2:  They even tell lies about you.\n3:  Your children may have paparazzi following them.\n4:  Some actors or singers are badly affected by the pressure.{/blk}"
+      "key": "reporters follow you everywhere and take photos of you.",
+      "text": "Reporters follow you everywhere and take photos of you."
+    },
+    {
+      "page": 125,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "they even tell lies about you.",
+      "text": "They even tell lies about you."
+    },
+    {
+      "page": 125,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "your children may have paparazzi following them.",
+      "text": "Your children may have paparazzi following them."
+    },
+    {
+      "page": 125,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "some actors or singers are badly affected by the pressure.",
+      "text": "Some actors or singers are badly affected by the pressure."
     },
     {
       "page": 126,
@@ -27161,8 +27673,24 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answers famous people are often rich. jackie chan is worth $350 million. you might have a lot of fans. taylor swift gets thousands of fan letters a week. you can use your fame and money to help others. bill gates donates most of his money.",
-      "text": "{blk}Sample answers\nFamous people are often rich. Jackie Chan is worth $350 million. You might have a lot of fans. Taylor Swift gets thousands of fan letters a week.\nYou can use your fame and money to help others. Bill Gates donates most of his money.{/blk}"
+      "key": "sample answers",
+      "text": "Sample answers"
+    },
+    {
+      "page": 126,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "famous people are often rich. jackie chan is worth $350 million. you might have a lot of fans. taylor swift gets thousands of fan letters a week.",
+      "text": "Famous people are often rich. Jackie Chan is worth $350 million. You might have a lot of fans. Taylor Swift gets thousands of fan letters a week."
+    },
+    {
+      "page": 126,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "you can use your fame and money to help others. bill gates donates most of his money.",
+      "text": "You can use your fame and money to help others. Bill Gates donates most of his money."
     },
     {
       "page": 126,
@@ -27537,8 +28065,56 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample essay every year a list of the highest paid celebrities is published. some stars are paid hundreds of millions of dollars every year. some people think they deserve this money for their talent and hard work. i personally disagree. i don't believe anyone should have such excessive amounts of money. in this essay i will explain the reasons for my view. some people argue that the highest earning celebrities are special. they have a talent that few of us possess and they have worked incredibly hard to become the best. my view is that we all have our own skills and abilities and most of us work hard. just because someone's talent is for making things or teaching, why should they get paid so much less? it is true that we create the demand for celebrities that lets them become so wealthy. however, i think we are all paying too much for tickets to concerts and sporting events. this is unfair because people with low incomes don't have the opportunity to see these events in person. if celebrities earned less, more people would be able to afford to buy music and go to concerts. in addition, i think that it is bad for society that only singers, actors and sportsmen are valued. children no longer want to grow up to be train drivers, carpenters, plumbers or even teachers because they want a 'celebrity lifestyle' of expensive houses and private jets. to conclude, i strongly agree that famous people should have a lifestyle which is more similar to that of ordinary people. (261 words)",
-      "text": "{blk}Sample essay\nEvery year a list of the highest paid celebrities is published. Some stars are paid hundreds of millions of dollars every year. Some people think they deserve this money for their talent and hard work. I personally disagree. I don't believe anyone should have such excessive amounts of money. In this essay I will explain the reasons for my view.\nSome people argue that the highest earning celebrities are special.\nThey have a talent that few of us possess and they have worked incredibly hard to become the best. My view is that we all have our own skills and abilities and most of us work hard. Just because someone's talent is for making things or teaching, why should they get paid so much less?\nIt is true that we create the demand for celebrities that lets them become so wealthy. However, I think we are all paying too much for tickets to concerts and sporting events. This is unfair because people with low incomes don't have the opportunity to see these events in person. If celebrities earned less, more people would be able to afford to buy music and go to concerts.\nIn addition, I think that it is bad for society that only singers, actors and sportsmen are valued. Children no longer want to grow up to be train drivers, carpenters, plumbers or even teachers because they want a 'celebrity lifestyle' of expensive houses and private jets. To conclude, I strongly agree that famous people should have a lifestyle which is more similar to that of ordinary people.\n(261 words){/blk}"
+      "key": "sample essay",
+      "text": "Sample essay"
+    },
+    {
+      "page": 128,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "every year a list of the highest paid celebrities is published. some stars are paid hundreds of millions of dollars every year. some people think they deserve this money for their talent and hard work. i personally disagree. i don't believe anyone should have such excessive amounts of money. in this essay i will explain the reasons for my view.",
+      "text": "Every year a list of the highest paid celebrities is published. Some stars are paid hundreds of millions of dollars every year. Some people think they deserve this money for their talent and hard work. I personally disagree. I don't believe anyone should have such excessive amounts of money. In this essay I will explain the reasons for my view."
+    },
+    {
+      "page": 128,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "some people argue that the highest earning celebrities are special.",
+      "text": "Some people argue that the highest earning celebrities are special."
+    },
+    {
+      "page": 128,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "they have a talent that few of us possess and they have worked incredibly hard to become the best. my view is that we all have our own skills and abilities and most of us work hard. just because someone's talent is for making things or teaching, why should they get paid so much less?",
+      "text": "They have a talent that few of us possess and they have worked incredibly hard to become the best. My view is that we all have our own skills and abilities and most of us work hard. Just because someone's talent is for making things or teaching, why should they get paid so much less?"
+    },
+    {
+      "page": 128,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "it is true that we create the demand for celebrities that lets them become so wealthy. however, i think we are all paying too much for tickets to concerts and sporting events. this is unfair because people with low incomes don't have the opportunity to see these events in person. if celebrities earned less, more people would be able to afford to buy music and go to concerts.",
+      "text": "It is true that we create the demand for celebrities that lets them become so wealthy. However, I think we are all paying too much for tickets to concerts and sporting events. This is unfair because people with low incomes don't have the opportunity to see these events in person. If celebrities earned less, more people would be able to afford to buy music and go to concerts."
+    },
+    {
+      "page": 128,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "in addition, i think that it is bad for society that only singers, actors and sportsmen are valued. children no longer want to grow up to be train drivers, carpenters, plumbers or even teachers because they want a 'celebrity lifestyle' of expensive houses and private jets. to conclude, i strongly agree that famous people should have a lifestyle which is more similar to that of ordinary people.",
+      "text": "In addition, I think that it is bad for society that only singers, actors and sportsmen are valued. Children no longer want to grow up to be train drivers, carpenters, plumbers or even teachers because they want a 'celebrity lifestyle' of expensive houses and private jets. To conclude, I strongly agree that famous people should have a lifestyle which is more similar to that of ordinary people."
+    },
+    {
+      "page": 128,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "(261 words)",
+      "text": "(261 words)"
     },
     {
       "page": 128,
@@ -29865,8 +30441,16 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "(in a) dolphins' protection of humans might not be just automatic or instinctive: they may actively decide to help in certain situations. (in f) although we may never be sure why they help us...",
-      "text": "{blk}(in A) Dolphins' protection of humans might not be just automatic or instinctive: they may actively decide to help in certain situations.\n(in F) Although we may never be sure why they help us...{/blk}"
+      "key": "(in a) dolphins' protection of humans might not be just automatic or instinctive: they may actively decide to help in certain situations.",
+      "text": "(in A) Dolphins' protection of humans might not be just automatic or instinctive: they may actively decide to help in certain situations."
+    },
+    {
+      "page": 142,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "(in f) although we may never be sure why they help us...",
+      "text": "(in F) Although we may never be sure why they help us..."
     },
     {
       "page": 142,
@@ -31121,8 +31705,40 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "sample answer global warming, also known as climate change, is the rising of temperatures all over the world because of human activity. in this essay i will explain the main causes of global warming and also suggest some solutions. the earth's temperature is rising due to greenhouse gases, such as carbon dioxide, which get stuck in the air. one major cause is the increase in air pollution from burning fossil fuels like coal in factories and power stations. as the population grows, more energy is being used. also, nowadays everyone owns several devices, such as computers, tablets and phones. these have to be charged every day. another major problem is cutting down trees. trees use carbon dioxide and release oxygen so we need a lot of them. people have cut down trees to use the wood for different purposes. although global warming is a major problem, there are some solutions. one of these is to use clean or renewable energy sources. for instance, solar power uses the sun to generate energy; we can also use the power of the wind and waves instead of fossil fuels. we need to protect the rainforests. for every tree that is cut down we need to plant a new tree. we can all help in different ways. one of them is to use public transport when possible and only have one car per family. to sum up, humans have created the problem of global warming. therefore, humans must also try to solve the problem. we can all try to live a 'green' lifestyle by saving electricity and not buying things we don't need. (267 words)",
-      "text": "{blk}Sample answer\nGlobal warming, also known as climate change, is the rising of temperatures all over the world because of human activity. In this essay I will explain the main causes of global warming and also suggest some solutions.\nThe earth's temperature is rising due to greenhouse gases, such as carbon dioxide, which get stuck in the air. One major cause is the increase in air pollution from burning fossil fuels like coal in factories and power stations. As the population grows, more energy is being used. Also, nowadays everyone owns several devices, such as computers, tablets and phones. These have to be charged every day. Another major problem is cutting down trees. Trees use carbon dioxide and release oxygen so we need a lot of them. People have cut down trees to use the wood for different purposes.\nAlthough global warming is a major problem, there are some solutions. One of these is to use clean or renewable energy sources. For instance, solar power uses the sun to generate energy; we can also use the power of the wind and waves instead of fossil fuels. We need to protect the rainforests. For every tree that is cut down we need to plant a new tree. We can all help in different ways. One of them is to use public transport when possible and only have one car per family.\nTo sum up, humans have created the problem of global warming.\nTherefore, humans must also try to solve the problem. We can all try to live a 'green' lifestyle by saving electricity and not buying things we don't need. (267 words){/blk}"
+      "key": "global warming, also known as climate change, is the rising of temperatures all over the world because of human activity. in this essay i will explain the main causes of global warming and also suggest some solutions.",
+      "text": "Global warming, also known as climate change, is the rising of temperatures all over the world because of human activity. In this essay I will explain the main causes of global warming and also suggest some solutions."
+    },
+    {
+      "page": 148,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "the earth's temperature is rising due to greenhouse gases, such as carbon dioxide, which get stuck in the air. one major cause is the increase in air pollution from burning fossil fuels like coal in factories and power stations. as the population grows, more energy is being used. also, nowadays everyone owns several devices, such as computers, tablets and phones. these have to be charged every day. another major problem is cutting down trees. trees use carbon dioxide and release oxygen so we need a lot of them. people have cut down trees to use the wood for different purposes.",
+      "text": "The earth's temperature is rising due to greenhouse gases, such as carbon dioxide, which get stuck in the air. One major cause is the increase in air pollution from burning fossil fuels like coal in factories and power stations. As the population grows, more energy is being used. Also, nowadays everyone owns several devices, such as computers, tablets and phones. These have to be charged every day. Another major problem is cutting down trees. Trees use carbon dioxide and release oxygen so we need a lot of them. People have cut down trees to use the wood for different purposes."
+    },
+    {
+      "page": 148,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "although global warming is a major problem, there are some solutions. one of these is to use clean or renewable energy sources. for instance, solar power uses the sun to generate energy; we can also use the power of the wind and waves instead of fossil fuels. we need to protect the rainforests. for every tree that is cut down we need to plant a new tree. we can all help in different ways. one of them is to use public transport when possible and only have one car per family.",
+      "text": "Although global warming is a major problem, there are some solutions. One of these is to use clean or renewable energy sources. For instance, solar power uses the sun to generate energy; we can also use the power of the wind and waves instead of fossil fuels. We need to protect the rainforests. For every tree that is cut down we need to plant a new tree. We can all help in different ways. One of them is to use public transport when possible and only have one car per family."
+    },
+    {
+      "page": 148,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "to sum up, humans have created the problem of global warming.",
+      "text": "To sum up, humans have created the problem of global warming."
+    },
+    {
+      "page": 148,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "therefore, humans must also try to solve the problem. we can all try to live a 'green' lifestyle by saving electricity and not buying things we don't need. (267 words)",
+      "text": "Therefore, humans must also try to solve the problem. We can all try to live a 'green' lifestyle by saving electricity and not buying things we don't need. (267 words)"
     },
     {
       "page": 148,
@@ -33145,24 +33761,48 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "buy",
-      "text": "buy "
+      "key": "ttt",
+      "text": "ttt"
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "go",
-      "text": "go "
+      "key": "grammar",
+      "text": "GRAMMAR "
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "◉ matching headings tests your ability to",
-      "text": "◉ Matching headings tests your ability to "
+      "key": "◉ when you are asked",
+      "text": "◉ When you are asked"
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "the topi.",
+      "text": "The topi."
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "◉ when you",
+      "text": "◉ When you"
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "the topic sentence .",
+      "text": "The topic sentence ."
     },
     {
       "page": 159,
@@ -33177,96 +33817,64 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "fff",
-      "text": "fff"
+      "key": "the table shows the number of deep coal mines in the uk between 1913 and 2015.",
+      "text": "The table shows the number of deep coal mines in the UK between 1913 and 2015. "
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "hh",
-      "text": "hh"
+      "key": "read newspapers",
+      "text": "Read newspapers"
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "fff aspects",
-      "text": "fff aspects"
+      "key": "describe a place where you",
+      "text": "Describe a place where you "
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "dddd",
-      "text": "dddd "
+      "key": "and explain why you like shopping there so",
+      "text": "and explain why you like shopping there so"
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "good",
-      "text": "Good"
+      "key": "little",
+      "text": "little"
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "bad",
-      "text": "Bad"
+      "key": "lot",
+      "text": "lot"
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "bbb",
-      "text": "bbb"
+      "key": "many",
+      "text": "many"
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "◉ in part 2 you have to write an essay of about 250 words. there are different types of question in part 2, and .",
-      "text": "◉ In Part 2 you have to write an essay of about 250 words. There are different types of question in Part 2, and ."
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "aaa",
-      "text": "aaa"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "ccc",
-      "text": "ccc"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "it is important to listen carefully to the ending of words.",
-      "text": "It is important to listen carefully to the ending of words. "
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "◉ in this type of task you complete",
-      "text": "◉ In this type of task you complete "
+      "key": "it is important",
+      "text": "It is important "
     },
     {
       "page": 159,
@@ -33281,72 +33889,104 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "◉ when you are asked to speak on a",
-      "text": "◉ When you are asked to speak on a "
+      "key": "following a",
+      "text": "FOLLOWING A "
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "◉ when you are asked to speak",
-      "text": "◉ When you are asked to speak "
+      "key": "identifying",
+      "text": "IDENTIFYING "
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "if the statement agrees with the views in the text",
+      "text": "if the statement agrees with the views in the text"
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "if the statement contradicts the view of the writer",
+      "text": "if the statement contradicts the view of the writer"
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "if it is impossible to say what the writer thinks",
+      "text": "if it is impossible to say what the writer thinks"
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "talking",
+      "text": "TALKING "
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "lead-",
+      "text": "Lead-"
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "lexical",
+      "text": "LEXICAL"
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "read newspapers and",
+      "text": "Read newspapers and "
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "describe a place where",
+      "text": "Describe a place where "
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "and explain why you like .",
+      "text": "and explain why you like ."
+    },
+    {
+      "page": 159,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "k",
+      "text": "K"
     },
     {
       "page": 159,
       "unit": null,
       "section": null,
       "where": "page",
-      "key": "26 k",
-      "text": "26               K"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "a good selection",
-      "text": "a good selection"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "at the weekend",
-      "text": "at the weekend"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "shoes",
-      "text": "shoes"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "under one roof",
-      "text": "under one roof"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "walk",
-      "text": "walk"
-    },
-    {
-      "page": 159,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "picture",
-      "text": "picture"
+      "key": "ipa: ɪ ʊ ə ʌ æ ɑː ɒ ɔː ɜː iː uː eɪ aɪ ɔɪ aʊ əʊ ɪə eə ʊə θ ð ʃ ʒ ŋ tʃ dʒ ˈ ˌ ː",
+      "text": "IPA: ɪ ʊ ə ʌ æ ɑː ɒ ɔː ɜː iː uː eɪ aɪ ɔɪ aʊ əʊ ɪə eə ʊə θ ð ʃ ʒ ŋ tʃ dʒ ˈ ˌ ː"
     },
     {
       "page": 0,
