@@ -116,7 +116,10 @@ _PlayerColors _playerColors(BuildContext context) {
     barBg: scheme.surfaceContainerHighest,
     accent: accent,
     onAccent: Colors.black,
-    interactive: scheme.secondary,
+    // 🐞 AS-2: scheme.secondary در تمِ تیره رنگی کم‌اشباع و نزدیک به رنگِ متن است و کلماتِ
+    // تعاملی روی پس‌زمینه‌ی تیره دیده نمی‌شدند. حالا مثلِ accent با HSL به روشنی و
+    // اشباعِ همیشه-خوانا می‌رسد (همان فامِ secondary، پس با تمِ اپ هماهنگ می‌ماند).
+    interactive: vivid(scheme.secondary, lightness: 0.74, saturation: 0.9),
     searchMatch: searchMatch,
     onSearchMatch: Colors.black,
     textPrimary: scheme.onSurface,

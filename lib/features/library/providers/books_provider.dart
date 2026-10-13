@@ -770,6 +770,13 @@ class BooksNotifier extends Notifier<List<BookModel>> {
         id: b.id,
         title: b.title,
         folderName: b.folderName,
+        // 🐞 C-4: دسته و ترتیب هم باید بمانند. قبلاً این‌جا جا افتاده بودند، پس بعد از
+        // «آزادسازیِ فضا» کتاب تا رفرشِ بعدیِ ویترین به «سایر کتاب‌ها» می‌رفت.
+        categoryId: b.categoryId,
+        categoryTitle: b.categoryTitle,
+        categoryDescription: b.categoryDescription,
+        categorySort: b.categorySort,
+        sortOrder: b.sortOrder,
         sampleFilePath: b.sampleFilePath,
         sampleVersion: b.sampleVersion,
         sampleAudioFiles: b.sampleAudioFiles,

@@ -2388,9 +2388,11 @@
     },
     "the customer would like to ---": {
       "src": "The customer would like to ---",
-      "fa": "مشتری می‌خواهد ---",
-      "ar": "تريد الزبونة أن ---",
-      "terms": []
+      "fa": "مشتری می‌خواهد میز رزرو کند.",
+      "ar": "تريد الزبونة أن تحجز طاولة.",
+      "terms": [
+        "book a table"
+      ]
     },
     "book a table.": {
       "src": "book a table. ",
@@ -2426,8 +2428,8 @@
     },
     "the customer wants to buy ---": {
       "src": "The customer wants to buy ---",
-      "fa": "مشتری می‌خواهد بخرد ---",
-      "ar": "يريد الزبون أن يشتري ---",
+      "fa": "مشتری می‌خواهد گوشواره بخرد.",
+      "ar": "يريد الزبون أن يشتري أقراطًا.",
       "terms": []
     },
     "a necklace.": {
@@ -2596,8 +2598,8 @@
     },
     "no, no, it's the day after - the ---.": {
       "src": "No, no, it's the day after – the ---.",
-      "fa": "نه، نه، روزِ بعدش است؛ ---.",
-      "ar": "لا، لا، إنّه اليوم التالي – ---.",
+      "fa": "نه، نه، روزِ بعدش است؛ هفدهم.",
+      "ar": "لا، لا، إنّه اليوم التالي – السابع عشر.",
       "terms": []
     },
     "16th/17th": {
@@ -2608,8 +2610,8 @@
     },
     "the private room can seat up to --- people.": {
       "src": "The private room can seat up to --- people.",
-      "fa": "اتاقِ خصوصی گنجایشِ حداکثر --- نفر را دارد.",
-      "ar": "تتّسع الغرفة الخاصة لما يصل إلى --- شخصًا.",
+      "fa": "اتاقِ خصوصی گنجایشِ حداکثر 20 نفر را دارد.",
+      "ar": "تتّسع الغرفة الخاصة لما يصل إلى 20 شخصًا.",
       "terms": [
         "seat up to"
       ]
@@ -2640,8 +2642,8 @@
     },
     "the price of the earrings now is ---": {
       "src": "The price of the earrings now is ---",
-      "fa": "قیمتِ فعلیِ گوشواره‌ها --- است",
-      "ar": "سعر الأقراط الآن ---",
+      "fa": "قیمتِ فعلیِ گوشواره‌ها 20 پوند است.",
+      "ar": "سعر الأقراط الآن 20 جنيهًا.",
       "terms": []
     },
     "how much does the customer pay for the gift wrapping?": {

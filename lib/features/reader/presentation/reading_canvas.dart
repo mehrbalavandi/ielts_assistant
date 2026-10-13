@@ -3138,47 +3138,55 @@ Widget _buildTable(
   // قاعده‌ی تبدیلِ sz:/fn: که رندرِ واقعی استفاده می‌کند) و بیشینه‌ی همه‌ی
   // پاراگراف‌ها را ملاکِ عرضِ جدول قرار می‌دهیم — این‌طوری چه محرکِ عرض،
   // عکسِ نمودار باشد چه خودِ زیرنویس، جدول به‌اندازه‌ی کافی عریض می‌شود.
+  // عرضِ یک‌خطیِ [text] با سبکِ اسپنِ [s] (همان سبکِ ارثیِ رندر).
+  double measureSpanText(SpanData s, String text) {
+    if (text.isEmpty) return 0;
+    double fontSize = 14.0;
+    String? fontFamily;
+    for (final marker in s.markers) {
+      if (marker.startsWith("sz:")) {
+        final parsed = double.tryParse(marker.substring(3));
+        if (parsed != null) fontSize = parsed / 2;
+      } else if (marker.startsWith("fn:")) {
+        fontFamily = mapFontFamily(marker.substring(3));
+      }
+    }
+    // 🐞 همان سبکِ ارثیِ رندر (letterSpacingِ تم، …) — بدونِ آن اندازه کمی
+    // کمتر از واقعیت بود و آخرین کلمه‌ی چیپ‌های FlowTable گاهی به خطِ دوم
+    // می‌افتاد. noScaling مثلِ صفحه‌ی مطالعه.
+    final tp = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: DefaultTextStyle.of(context).style.merge(
+          TextStyle(
+            fontSize: fontSize,
+            fontFamily: fontFamily,
+            fontWeight: s.markers.contains("b")
+                ? FontWeight.bold
+                : FontWeight.normal,
+            fontStyle: s.markers.contains("i")
+                ? FontStyle.italic
+                : FontStyle.normal,
+            letterSpacing: s.letterSpacing,
+          ),
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+      textScaler: TextScaler.noScaling,
+      maxLines: 1,
+    )..layout();
+    final double w = tp.width;
+    tp.dispose();
+    return w;
+  }
+
   double measureParagraphNaturalWidth(ParagraphData p) {
     double width = 0;
     for (final s in p.spans) {
       if (s.type == "image" && s.imageWidth != null) {
         width += s.imageWidth!.toDouble();
       } else if (s.type == "text" && (s.content ?? '').isNotEmpty) {
-        double fontSize = 14.0;
-        String? fontFamily;
-        for (final marker in s.markers) {
-          if (marker.startsWith("sz:")) {
-            final parsed = double.tryParse(marker.substring(3));
-            if (parsed != null) fontSize = parsed / 2;
-          } else if (marker.startsWith("fn:")) {
-            fontFamily = mapFontFamily(marker.substring(3));
-          }
-        }
-        // 🐞 همان سبکِ ارثیِ رندر (letterSpacingِ تم، …) — بدونِ آن اندازه کمی
-        // کمتر از واقعیت بود و آخرین کلمه‌ی چیپ‌های FlowTable گاهی به خطِ دوم
-        // می‌افتاد. noScaling مثلِ صفحه‌ی مطالعه.
-        final tp = TextPainter(
-          text: TextSpan(
-            text: s.content,
-            style: DefaultTextStyle.of(context).style.merge(
-              TextStyle(
-                fontSize: fontSize,
-                fontFamily: fontFamily,
-                fontWeight: s.markers.contains("b")
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-                fontStyle: s.markers.contains("i")
-                    ? FontStyle.italic
-                    : FontStyle.normal,
-                letterSpacing: s.letterSpacing,
-              ),
-            ),
-          ),
-          textDirection: TextDirection.ltr,
-          textScaler: TextScaler.noScaling,
-          maxLines: 1,
-        )..layout();
-        width += tp.width;
+        width += measureSpanText(s, s.content);
       }
     }
     return width;
@@ -3800,20 +3808,45 @@ Widget _buildTable(
     double widest = 0;
     double widestWordLike = 0;
     for (final p in c.paragraphs) {
-      if (p.spans.any((s) => s.content.contains("{blk}"))) return null;
       final bool hasMarker = p.listMarker != null && p.listMarker!.isNotEmpty;
       double lead = hasMarker
           ? listMarkerLead(p)
           : ((p.indentLeft ?? 0) > 0 ? p.indentLeft! : 0.0);
       lead += (p.indentRight ?? 0) > 0 ? p.indentRight! : 0.0;
-      final double w = measureParagraphNaturalWidth(p) + lead;
+      // 🐞 T-32 (Mindset 1 ص۳۳ تمرینِ ۰۵: «4 [چشم]» در ستونِ چهارم به خطِ دوم می‌افتاد):
+      // سلولِ دارای جای‌خالی قبلاً اصلاً عرضِ یک‌خطی نداشت (null)، پس فقط کفِ «پهن‌ترین
+      // توکن» (۴۴pxِ دکمه) را می‌گرفت و «4 » کنارِ دکمه جا نمی‌شد. حالا در اپ هر جای‌خالی
+      // همان عرضِ دکمه است و متنِ دورش اندازه گرفته می‌شود؛ و «یک‌خطی در Word» با متنِ
+      // مخفی سنجیده می‌شود (Word جواب را نشان می‌دهد: «4 Areas»).
+      double appW = 0;
+      double wordW = 0;
       int themeSpacedChars = 0;
       for (final s in p.spans) {
-        if (s.type == "text" && s.letterSpacing == null) {
-          themeSpacedChars += s.content.length;
+        if (s.type == "image" && s.imageWidth != null) {
+          appW += s.imageWidth!.toDouble();
+          wordW += s.imageWidth!.toDouble();
+          continue;
+        }
+        if (s.type != "text" || s.content.isEmpty) continue;
+        if (s.content.contains("{blk}")) {
+          final int blanks = blankRe.allMatches(s.content).length;
+          appW +=
+              measureSpanText(s, s.content.replaceAll(blankRe, '')) +
+              blanks * kBlankIconWidth;
+          final String shown = s.content
+              .replaceAll("{blk}", "")
+              .replaceAll("{/blk}", "");
+          wordW += measureSpanText(s, shown);
+          if (s.letterSpacing == null) themeSpacedChars += shown.length;
+        } else {
+          final double w = measureSpanText(s, s.content);
+          appW += w;
+          wordW += w;
+          if (s.letterSpacing == null) themeSpacedChars += s.content.length;
         }
       }
-      final double wordLike = w - themeLs * themeSpacedChars;
+      final double w = appW + lead;
+      final double wordLike = wordW + lead - themeLs * themeSpacedChars;
       if (w > widest) widest = w;
       if (wordLike > widestWordLike) widestWordLike = wordLike;
     }

@@ -458,6 +458,12 @@ class TextRenderEngine {
         decorationStyle: baseStyle.decoration != null
             ? baseStyle.decorationStyle
             : TextDecorationStyle.dotted,
+        // 🐞 AS-2: زیرخطِ نقطه‌چینِ «قابلِ‌لمس» هم‌رنگِ خودِ کلمه است. قبلاً اگر پایه
+        // decorationColor داشت (صفحه‌ی اسکریپتِ صوتی: رنگِ متن)، زیرخط به رنگِ متنِ
+        // عادی کشیده می‌شد و کلمه از بقیه جدا نمی‌شد.
+        decorationColor: baseStyle.decoration != null
+            ? baseStyle.decorationColor
+            : interactiveColor,
       );
 
       if (wordMap == null || wordMap.every((v) => v == -1)) {
