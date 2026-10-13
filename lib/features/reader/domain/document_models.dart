@@ -3,6 +3,23 @@ enum ParaAlign { left, center, right, justify }
 enum ParaDir { ltr, rtl }
 
 // ۱. مدل کلمات تعاملی
+/// 🌟 W-1 (RULES-rendering.md): الگوی ترکیبیِ کلماتِ تعاملی که **فقط کلمه‌ی کامل** را
+/// تطبیق می‌دهد. قبل و بعدِ هر تطبیق حرف یا رقمِ لاتین نباید باشد؛ پس «gain» دیگر وسطِ
+/// «again» تعاملی نمی‌شود. همان مرزی است که اکسترکتور هنگامِ ساختنِ فهرستِ کلمات به کار
+/// می‌برد (`(?<![A-Za-z0-9])…(?![A-Za-z0-9])` در ContentEnrichment.BuildInteractives).
+/// کلمات به ترتیبِ طولِ نزولی می‌آیند تا در یک موقعیت، طولانی‌ترین ترکیب برنده شود؛ اگر
+/// طولانی‌تر مرزِ کلمه را رد کند، RegExp خودش کوتاه‌تر را امتحان می‌کند. null یعنی فهرست
+/// خالی است (الگوی خالی هر جایی را تطبیق می‌دهد).
+RegExp? buildInteractivesPattern(Iterable<InteractiveWord> words) {
+  final List<String> texts =
+      words.map((w) => w.exactText).where((t) => t.isNotEmpty).toSet().toList()
+        ..sort((a, b) => b.length.compareTo(a.length));
+  if (texts.isEmpty) return null;
+  return RegExp(
+    '(?<![A-Za-z0-9])(?:${texts.map(RegExp.escape).join('|')})(?![A-Za-z0-9])',
+  );
+}
+
 class InteractiveWord {
   final String exactText;
   final String translationFa;
@@ -375,9 +392,7 @@ class PageData {
       // چون از قبل بر اساس طول نزولی مرتب شده‌اند، در تساویِ موقعیت شروع،
       // اولین موردی که در | می‌آید (یعنی طولانی‌ترین) برنده می‌شود — دقیقاً
       // همان رفتار قبلی (leftmost, و در تساوی طولانی‌ترین کلمه).
-      pattern = RegExp(
-        nonEmptyWords.map((w) => RegExp.escape(w.exactText)).join('|'),
-      );
+      pattern = buildInteractivesPattern(nonEmptyWords); // W-1: کلمه‌ی کامل
     }
 
     final byText = <String, InteractiveWord>{

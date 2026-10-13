@@ -304,11 +304,7 @@ class PagedBookStore {
       final nonEmptyWords = interactivesList
           .where((w) => w.exactText.isNotEmpty)
           .toList();
-      _sharedPattern = nonEmptyWords.isNotEmpty
-          ? RegExp(
-              nonEmptyWords.map((w) => RegExp.escape(w.exactText)).join('|'),
-            )
-          : null;
+      _sharedPattern = buildInteractivesPattern(nonEmptyWords); // W-1
       _sharedByText = {for (final w in nonEmptyWords) w.exactText: w};
 
       // 🐞 اسکریپتِ صوتی: index.json فقط یک اشاره‌گر (مثلِ Pages) به هر
