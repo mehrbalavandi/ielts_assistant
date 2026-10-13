@@ -14,6 +14,9 @@ import 'package:flutter/services.dart';
 import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/translatable_content.dart';
+// TranslatableContentWrapper به فایلِ خودش رفت (TR-1)؛ export تا import‌های قبلی کار کنند.
+export 'package:ielts_assistant/features/reader/presentation/rendering/translatable_content.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
@@ -1222,7 +1225,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
               child: const Icon(Icons.zoom_out_map, color: Colors.white),
             ),
           // 🌟 N-8: نشانِ معلقِ «صفحه x از y» که این‌جا بود حالا داخلِ ناوبرِ لبه‌ی
-          // چپ است (BookOutlineNavigator) — هم با دکمه‌ی «بستنِ همه‌ی پاسخ‌ها»
+          // چپ است (BookOutlineNavigator) — هم با دکمه‌ی «بستنِ همه‌ی پاپ‌آپ‌ها»
           // هم‌پوشانی داشت و هم یک لایه‌ی معلقِ دیگر روی متن بود.
         ],
       ),
@@ -1485,7 +1488,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                   ),
                 ),
               ),
-            // 🌟 H-9: دکمه‌ی «بستنِ همه‌ی پاسخ‌ها» — فقط وقتی چند پاپ‌آپِ جواب
+            // 🌟 H-9: دکمه‌ی «بستنِ همه‌ی پاپ‌آپ‌ها» — فقط وقتی چند پاپ‌آپِ جواب
             // هم‌زمان مجاز است و دست‌کم یکی باز است (خودش پنهان/ظاهر می‌شود).
             const Positioned(
               left: 0,
@@ -1867,6 +1870,10 @@ Widget buildHiddenRichContent(
   List<ParagraphData> paragraphs,
   double width, {
   List<InteractiveWord> interactives = const [],
+  // TR-2: الگوی آماده‌ی کلماتِ کتاب؛ وقتی پاراگراف‌های پاسخ کلمه‌ی جداگانه‌ای
+  // ندارند (کتاب‌های تازه همه‌چیز را در سطحِ کتاب دارند) همین به کار می‌رود.
+  RegExp? interactivesPattern,
+  Map<String, InteractiveWord>? interactivesByText,
 }) {
   final BookModel? activeBook = ProviderScope.containerOf(
     context,
@@ -1882,6 +1889,11 @@ Widget buildHiddenRichContent(
       for (final w in p.interactives) w.exactText: w,
   };
   final List<InteractiveWord> allInteractives = byText.values.toList();
+  // الگوی آماده فقط وقتی معتبر است که همه‌ی کلمات همان کلماتِ الگو باشند.
+  final bool usePattern =
+      interactivesPattern != null &&
+      interactivesByText != null &&
+      byText.keys.every(interactivesByText.containsKey);
 
   // 🐞 حذفِ تورفتگیِ پایه‌ی جواب (همان قاعده‌ی مودالِ متنی، Mindset 2 ص۴۹ تمرین
   // ۱۱): در مودال متنِ سؤال نیست، پس تورفتگی‌ای که جواب را زیرِ سؤال می‌نشاند
@@ -1935,6 +1947,8 @@ Widget buildHiddenRichContent(
             nextPara: i < normalized.length - 1 ? normalized[i + 1] : null,
             activeBook: activeBook,
             pageInteractives: allInteractives,
+            interactivesPattern: usePattern ? interactivesPattern : null,
+            interactivesByText: usePattern ? interactivesByText : null,
             keyClaim: KeyClaim(),
           ),
       ],
@@ -6214,102 +6228,6 @@ class InlineAudioLink extends ConsumerWidget {
                 letterSpacing: 0.5,
               ),
               overflow: TextOverflow.ellipsis, // 🌟 اگر جا نبود نقطه‌چین می‌شود
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TranslatableContentWrapper extends ConsumerStatefulWidget {
-  final Widget originalContent;
-  final String? translationFa;
-  final String? translationAr;
-  final bool isDarkMode;
-  const TranslatableContentWrapper({
-    super.key,
-    required this.originalContent,
-    this.translationFa,
-    this.translationAr,
-    this.isDarkMode = false,
-  });
-  @override
-  ConsumerState<TranslatableContentWrapper> createState() =>
-      _TranslatableContentWrapperState();
-}
-
-class _TranslatableContentWrapperState
-    extends ConsumerState<TranslatableContentWrapper> {
-  bool _showTranslation = false;
-  @override
-  Widget build(BuildContext context) {
-    bool hasTranslation =
-        (widget.translationFa != null && widget.translationFa!.isNotEmpty) ||
-        (widget.translationAr != null && widget.translationAr!.isNotEmpty);
-    if (!hasTranslation) return widget.originalContent;
-
-    // 🌟 دوزبانه: بر اساس زبانِ انتخابی، ترجمه‌ی فارسی یا عربی را نشان بده
-    // (اگر ترجمه‌ی زبانِ انتخابی خالی بود، به زبانِ دیگر برگرد تا خالی نماند)
-    final lang = ref.watch(languageProvider);
-    final bool preferAr = lang == 'ar';
-    final String? primary = preferAr
-        ? widget.translationAr
-        : widget.translationFa;
-    final String? secondary = preferAr
-        ? widget.translationFa
-        : widget.translationAr;
-    final String finalTranslation = (primary?.isNotEmpty ?? false)
-        ? primary!
-        : (secondary ?? '');
-    Color bgColor = widget.isDarkMode
-        ? Colors.white.withOpacity(0.08)
-        : Colors.blue.withOpacity(0.05);
-    Color borderColor = widget.isDarkMode
-        ? Colors.orangeAccent
-        : Colors.blueAccent;
-    Color textColor = widget.isDarkMode
-        ? Colors.white.withOpacity(0.9)
-        : Colors.black87;
-
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onLongPress: () => setState(() => _showTranslation = !_showTranslation),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            widget.originalContent,
-            AnimatedCrossFade(
-              firstChild: const SizedBox(width: double.infinity, height: 0),
-              secondChild: Container(
-                margin: const EdgeInsets.only(top: 6, bottom: 6),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: bgColor,
-                  border: Border(
-                    right: BorderSide(color: borderColor, width: 3),
-                  ),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  finalTranslation,
-                  textAlign: TextAlign.right,
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    fontFamily: 'YekanBakh',
-                    fontSize: 14,
-                    height: 1.6,
-                    color: textColor,
-                  ),
-                ),
-              ),
-              crossFadeState: _showTranslation
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst,
-              duration: const Duration(milliseconds: 300),
-              sizeCurve: Curves.easeInOutCubic,
             ),
           ],
         ),

@@ -141,15 +141,39 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             onChanged: answerNotifier.setLong,
           ),
 
-          // 🌟 H-8/H-9: تنظیماتِ خودِ پاپ‌آپ. وقتی هیچ‌کدام از دو بالا «پاپ‌آپ»
-          // نیست، کم‌رنگ می‌شود (ولی قابلِ تغییر می‌ماند تا بعداً آماده باشد).
-          const SizedBox(height: 24),
+          // 🌟 TR-1: ترجمه‌ی پاراگراف با لمسِ طولانی.
+          const SizedBox(height: 32),
+          const Row(
+            children: [
+              Icon(Icons.translate_rounded, color: Colors.indigo),
+              SizedBox(width: 8),
+              Text(
+                "نمایشِ ترجمه",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "با لمسِ طولانی روی هر پاراگراف، ترجمه‌اش کجا باز شود؟ تا ترجمه باز است، خودِ پاراگراف رنگی می‌شود.",
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
+          const SizedBox(height: 16),
+          _AnswerModePicker(
+            title: "ترجمه‌ی پاراگراف",
+            hint: "داخلِ پنجره‌ی پاسخ‌ها، ترجمه همان‌جا زیرِ پاسخ باز می‌شود (دکمه‌ی ترجمه یا لمسِ طولانی).",
+            value: answerDisplay.translation,
+            onChanged: answerNotifier.setTranslation,
+            describe: (m) => m.translationDescription,
+          ),
+
+          // 🌟 H-8/H-9: تنظیماتِ خودِ پاپ‌آپ (مشترک بینِ پاسخ و ترجمه). وقتی هیچ‌کدام
+          // «پاپ‌آپ» نیست، کم‌رنگ می‌شود (ولی قابلِ تغییر می‌ماند تا بعداً آماده باشد).
+          const SizedBox(height: 32),
+          const Divider(),
+          const SizedBox(height: 16),
           Opacity(
-            opacity:
-                (answerDisplay.short == AnswerDisplayMode.popup ||
-                    answerDisplay.long == AnswerDisplayMode.popup)
-                ? 1
-                : 0.5,
+            opacity: answerDisplay.usesPopup ? 1 : 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -158,7 +182,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "جهتِ بازشدن نسبت به آیکونِ چشم",
+                  "برای پاسخ‌ها و ترجمه‌ها. جهتِ بازشدن نسبت به آیکونِ چشم یا پاراگراف",
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                 ),
                 const SizedBox(height: 8),
@@ -180,11 +204,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Text(
                   switch (answerDisplay.popupDirection) {
                     AnswerPopupDirection.auto =>
-                      'زیرِ آیکون، مگر آن‌جا جا کم باشد؛ آن‌وقت بالای آن.',
+                      'زیر، مگر آن‌جا جا کم باشد؛ آن‌وقت بالا.',
                     AnswerPopupDirection.above =>
-                      'بالای آیکون؛ فقط اگر بالا واقعاً جا نباشد (اولِ صفحه)، پایین.',
+                      'بالا؛ فقط اگر بالا واقعاً جا نباشد (اولِ صفحه)، پایین.',
                     AnswerPopupDirection.below =>
-                      'زیرِ آیکون؛ فقط اگر پایین واقعاً جا نباشد (تهِ صفحه)، بالا.',
+                      'پایین؛ فقط اگر پایین واقعاً جا نباشد (تهِ صفحه)، بالا.',
                   },
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                 ),
@@ -194,8 +218,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   title: const Text("هر بار فقط یک پاپ‌آپ"),
                   subtitle: Text(
                     answerDisplay.singlePopup
-                        ? "بازکردنِ پاسخِ تازه، پاپ‌آپِ قبلی را می‌بندد. لمسِ بیرونِ حباب هم آن را می‌بندد."
-                        : "چند پاسخ کنارِ هم باز می‌مانند؛ هرکدام با لمسِ دوباره‌ی آیکونش بسته می‌شود، و دکمه‌ی «بستنِ همه‌ی پاسخ‌ها» پایینِ صفحه همه را یکجا می‌بندد.",
+                        ? "بازکردنِ پاسخ یا ترجمه‌ی تازه، پاپ‌آپِ قبلی را می‌بندد. لمس یا کلیک هرجای بیرونِ حباب هم آن را می‌بندد."
+                        : "چند پاسخ و ترجمه کنارِ هم باز می‌مانند؛ هرکدام با لمسِ دوباره‌ی آیکونش (یا لمسِ طولانیِ دوباره‌ی پاراگراف) بسته می‌شود، و دکمه‌ی «بستنِ همه‌ی پاپ‌آپ‌ها» پایینِ صفحه همه را یکجا می‌بندد.",
                     style: const TextStyle(fontSize: 12),
                   ),
                   value: answerDisplay.singlePopup,
@@ -217,11 +241,15 @@ class _AnswerModePicker extends StatelessWidget {
   final AnswerDisplayMode value;
   final ValueChanged<AnswerDisplayMode> onChanged;
 
+  /// توضیحِ شیوه‌ی انتخاب‌شده (پیش‌فرض: توضیحِ نمایشِ پاسخ).
+  final String Function(AnswerDisplayMode mode)? describe;
+
   const _AnswerModePicker({
     required this.title,
     required this.hint,
     required this.value,
     required this.onChanged,
+    this.describe,
   });
 
   @override
@@ -247,7 +275,7 @@ class _AnswerModePicker extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          value.description,
+          describe?.call(value) ?? value.description,
           style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
         ),
       ],

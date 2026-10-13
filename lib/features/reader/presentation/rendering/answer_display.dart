@@ -9,6 +9,7 @@ import 'package:ielts_assistant/features/settings/providers/answer_display_provi
 // 🌟 قانون‌های H-5 تا H-7 (RULES-rendering.md): سه شیوه‌ی نمایشِ جوابِ پنهان —
 // پاپ‌آپِ چسبیده به آیکونِ چشم، بنرِ بالا، و مودالِ پایین. محتوا در هر سه یکی
 // است (همان سازنده‌ی بدنه از InteractiveBlankWord)؛ این فایل فقط «ظرف» است.
+// TR-1: ترجمه‌ی پاراگراف (لمسِ طولانی) هم از همین سه ظرف استفاده می‌کند.
 
 const Color _kDarkSurface = Color(0xFF1E212A);
 
@@ -24,28 +25,46 @@ void closeAllAnswerPopups() => _AnswerPopupAnchorState.closeAll();
 /// «بستنِ همه» به این گوش می‌دهد. در حالتِ «فقط یکی» همیشه صفر است.
 final ValueNotifier<int> answerPopupsOpenCount = ValueNotifier<int>(0);
 
+/// 🌟 TR-2: محتوای داخلِ یک ظرفِ پاسخ یا ترجمه (پاپ‌آپ، بنر، مودال). ترجمه‌ی
+/// پاراگراف‌های داخلِ آن به‌جای ظرفِ تازه، همان‌جا زیرِ متن باز می‌شود — ظرف روی ظرف
+/// نمی‌آید.
+class AnswerContainerScope extends InheritedWidget {
+  const AnswerContainerScope({super.key, required super.child});
+
+  static bool isInside(BuildContext context) =>
+      context.getInheritedWidgetOfExactType<AnswerContainerScope>() != null;
+
+  @override
+  bool updateShouldNotify(AnswerContainerScope oldWidget) => false;
+}
+
 // ─────────────────────────────── مودال ───────────────────────────────
 
 /// برگه‌ی پایینِ قابلِ کشیدن (همان ظاهرِ قبلی). [rich] = جوابِ جدول/عکس‌دار که
-/// از ابتدا بازتر است.
-void showAnswerSheet(
+/// از ابتدا بازتر است. [initialSize]: ارتفاعِ اولیه (کسری از صفحه)، برای ترجمه
+/// کوتاه‌تر. [barrierColor]: ترجمه پس‌زمینه را کم‌رنگ‌تر تیره می‌کند تا پاراگرافِ
+/// هایلایت‌شده دیده شود (TR-3). Future وقتی کامل می‌شود که برگه بسته شده باشد.
+Future<void> showAnswerSheet(
   BuildContext context, {
   required bool isDarkTheme,
   required WidgetBuilder body,
   bool rich = false,
   bool closePopups = true,
+  double? initialSize,
+  Color? barrierColor,
 }) {
   if (closePopups) closeAllAnswerPopups();
-  showModalBottomSheet(
+  return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
+    barrierColor: barrierColor,
     backgroundColor: answerSurfaceColor(isDarkTheme),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (sheetContext) {
       return DraggableScrollableSheet(
-        initialChildSize: rich ? 0.6 : 0.4,
+        initialChildSize: initialSize ?? (rich ? 0.6 : 0.4),
         minChildSize: rich ? 0.25 : 0.2,
         maxChildSize: rich ? 0.92 : 0.8,
         expand: false,
@@ -74,7 +93,7 @@ void showAnswerSheet(
                     child: SingleChildScrollView(
                       controller: scrollController,
                       physics: const BouncingScrollPhysics(),
-                      child: Builder(builder: body),
+                      child: AnswerContainerScope(child: Builder(builder: body)),
                     ),
                   ),
                 ],
@@ -91,27 +110,38 @@ void showAnswerSheet(
 
 /// کارتِ کشویی از بالا (همان انیمیشنِ فنریِ قبلی). حالا برای جوابِ بلند هم قابلِ
 /// استفاده است: حداکثر ۶۰٪ِ ارتفاعِ صفحه و بیشتر از آن اسکرول می‌شود.
-void showAnswerBanner(
+/// [onCardBottom]: بعد از اولین layout، لبه‌ی پایینِ نهاییِ کارت (مختصاتِ صفحه) را
+/// می‌دهد تا ترجمه بداند پاراگرافش زیرِ کارت مانده یا نه (TR-3).
+Future<void> showAnswerBanner(
   BuildContext context, {
   required bool isDarkTheme,
   required WidgetBuilder body,
   bool closePopups = true,
+  Color? barrierColor,
+  ValueChanged<double>? onCardBottom,
 }) {
   if (closePopups) closeAllAnswerPopups();
-  showGeneralDialog(
+  return showGeneralDialog<void>(
     context: context,
     barrierDismissible: true,
     barrierLabel: 'AnswerBanner',
-    barrierColor: Colors.black45,
+    barrierColor: barrierColor ?? Colors.black45,
     transitionDuration: const Duration(milliseconds: 350),
     pageBuilder: (dialogContext, animation, secondaryAnimation) {
       final double maxHeight = MediaQuery.sizeOf(dialogContext).height * 0.6;
+      final double topInset = MediaQuery.paddingOf(dialogContext).top;
       return SafeArea(
         child: Align(
           alignment: Alignment.topCenter,
           child: Material(
             color: Colors.transparent,
-            child: Container(
+            child: _HeightReporter(
+              // کارت با SlideTransition وارد می‌شود، پس جای فعلی‌اش هنوز نهایی
+              // نیست؛ لبه‌ی پایینِ نهایی = حاشیه‌ی امنِ بالا + ۱۶ + ارتفاعِ کارت.
+              onHeight: onCardBottom == null
+                  ? null
+                  : (h) => onCardBottom(topInset + h),
+              child: Container(
               margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
               constraints: BoxConstraints(maxHeight: maxHeight),
               decoration: BoxDecoration(
@@ -130,9 +160,10 @@ void showAnswerBanner(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(16.0),
                   physics: const BouncingScrollPhysics(),
-                  child: Builder(builder: body),
+                  child: AnswerContainerScope(child: Builder(builder: body)),
                 ),
               ),
+            ),
             ),
           ),
         ),
@@ -158,7 +189,8 @@ void showAnswerBanner(
 
 // ─────────────────────────────── پاپ‌آپ ───────────────────────────────
 
-/// کنترلِ پاپ‌آپِ یک آیکونِ چشم؛ [AnswerPopupAnchor] به builderش می‌دهد.
+/// کنترلِ پاپ‌آپِ یک لنگر (آیکونِ چشم یا پاراگرافِ ترجمه‌دار)؛ [AnswerPopupAnchor]
+/// به builderش می‌دهد.
 abstract class AnswerPopupHandle {
   bool get isOpen;
 
@@ -167,31 +199,43 @@ abstract class AnswerPopupHandle {
   /// تمام‌عرض (بدنه‌ها خودشان کشیده‌اند، پس اندازه‌ی ذاتیِ آن‌ها قابلِ اتکا نیست).
   /// [direction]: H-8. [single]: H-9 — true یعنی پاپ‌آپ‌های دیگر بسته شوند و لمسِ
   /// بیرون این یکی را ببندد؛ false یعنی کنارِ بقیه باز بماند.
+  /// [anchorRects]: TR-1 — مستطیل‌هایی در مختصاتِ خودِ لنگر که حباب به آن‌ها
+  /// می‌چسبد، به ترتیبِ ترجیح: اولی که سمتِ انتخابی‌اش دست‌کم ۱۲۰px جا دارد
+  /// انتخاب می‌شود (وگرنه آخری). null = کلِ لنگر (آیکونِ چشم).
+  /// [anchorTapToggles]: true = لمسِ خودِ لنگر را onTapِ آن جواب می‌دهد، پس «لمسِ
+  /// بیرون» آن را نادیده می‌گیرد (آیکونِ چشم). برای پاراگراف false است: لمسِ کوتاه
+  /// روی پاراگراف هم «بیرونِ حباب» است و آن را می‌بندد.
+  /// [accentColor]: رنگِ خطِ دورِ حباب (ترجمه: همان رنگِ هایلایتِ پاراگراف).
   void toggle({
     required WidgetBuilder body,
     required bool isDarkTheme,
     double? preferredWidth,
     AnswerPopupDirection direction = AnswerPopupDirection.auto,
     bool single = true,
+    List<Rect>? anchorRects,
+    bool anchorTapToggles = true,
+    Color? accentColor,
   });
 
   void close();
 }
 
-/// 🌟 H-6: پاپ‌آپِ جواب، چسبیده به آیکونِ چشم (مثلِ حبابِ راهنمای دولینگو).
+/// 🌟 H-6: پاپ‌آپِ جواب، چسبیده به آیکونِ چشم (مثلِ حبابِ راهنمای دولینگو). TR-1:
+/// پاپ‌آپِ ترجمه هم همین است، چسبیده به پاراگراف.
 ///
 /// ملاحظات:
 /// - **فقط یکی (پیش‌فرض، H-9):** بازکردنِ هر پاپ‌آپ (یا بنر/مودال) پاپ‌آپِ قبلی را
-///   می‌بندد. اگر کاربر در تنظیمات خاموشش کند، چند پاپ‌آپ کنارِ هم باز می‌مانند،
-///   لمسِ بیرون دیگر نمی‌بندد و دکمه‌ی «بستنِ همه» ظاهر می‌شود.
-/// - **بستن:** لمسِ بیرونِ حباب (فقط در حالتِ «یکی»)، لمسِ دوباره‌ی همان آیکون،
-///   دکمه‌ی برگشت (اول پاپ‌آپ‌ها بسته می‌شوند، نه صفحه)، بیرون‌رفتنِ آیکون از کادرِ
-///   لیست با اسکرول، چرخشِ صفحه، و از بین رفتنِ خودِ آیکون (عوض‌شدنِ صفحه/کتاب).
-/// - **کشیدن ≠ لمس:** شروعِ اسکرول پاپ‌آپ را نمی‌بندد؛ حباب با خودِ آیکون
+///   می‌بندد — جز پاپ‌آپی که این لنگر داخلِ خودش است (ترجمه‌ی داخلِ حبابِ پاسخ،
+///   حبابِ پاسخ را نمی‌بندد). اگر کاربر در تنظیمات خاموشش کند، چند پاپ‌آپ کنارِ
+///   هم باز می‌مانند، لمسِ بیرون دیگر نمی‌بندد و دکمه‌ی «بستنِ همه» ظاهر می‌شود.
+/// - **بستن:** لمسِ بیرونِ حباب (فقط در حالتِ «یکی»، H-10)، لمسِ دوباره‌ی همان
+///   آیکون، دکمه‌ی برگشت (اول پاپ‌آپ‌ها بسته می‌شوند، نه صفحه)، بیرون‌رفتنِ لنگر از
+///   کادرِ لیست با اسکرول، چرخشِ صفحه، و از بین رفتنِ خودِ لنگر (عوض‌شدنِ صفحه/کتاب).
+/// - **کشیدن ≠ لمس:** شروعِ اسکرول پاپ‌آپ را نمی‌بندد؛ حباب با خودِ لنگر
 ///   حرکت می‌کند (CompositedTransformFollower، بدونِ تأخیرِ یک‌فریمی).
-/// - **جا (H-8):** طبقِ تنظیم بالا یا پایینِ آیکون (خودکار: زیر اگر جا هست)؛ اگر
+/// - **جا (H-8):** طبقِ تنظیم بالا یا پایینِ لنگر (خودکار: زیر اگر جا هست)؛ اگر
 ///   سمتِ انتخابی واقعاً جا ندارد، سمتِ دیگر؛ افقی داخلِ صفحه می‌ماند و
-///   دُمِ حباب همیشه به خودِ آیکون اشاره می‌کند. بلندتر از جای موجود ← اسکرول.
+///   دُمِ حباب همیشه به خودِ لنگر اشاره می‌کند. بلندتر از جای موجود ← اسکرول.
 /// - **لایه:** با OverlayPortal روی همان صفحه کشیده می‌شود، پس دیکشنری/ترجمه‌ای
 ///   که از داخلِ حباب باز شود رویِ آن می‌آید و با بستنِ صفحه، حباب هم می‌رود.
 /// - صفحه قفل نمی‌شود (پس‌زمینه‌ی تیره ندارد): بقیه‌ی متن قابلِ خواندن و لمس است.
@@ -205,10 +249,12 @@ class AnswerPopupAnchor extends StatefulWidget {
 }
 
 class _PopupPlacement {
-  final bool below; // حباب زیرِ آیکون است (دُم رو به بالا)
+  final bool below; // حباب زیرِ لنگر است (دُم رو به بالا)
   final double maxWidth;
   final double maxHeight;
-  final double anchorX; // مرکزِ افقیِ آیکون در مختصاتِ Overlay
+  final double anchorX; // مرکزِ افقیِ مستطیلِ لنگر در مختصاتِ Overlay (جای دُم)
+  final double originX; // لبه‌ی چپِ خودِ لنگر در مختصاتِ Overlay
+  final Rect localRect; // مستطیلِ انتخاب‌شده، در مختصاتِ لنگر
   final Size screenSize; // اندازه‌ی Overlay
   final Size mediaSize; // اندازه‌ی صفحه هنگامِ باز شدن (برای تشخیصِ چرخش)
 
@@ -217,9 +263,23 @@ class _PopupPlacement {
     required this.maxWidth,
     required this.maxHeight,
     required this.anchorX,
+    required this.originX,
+    required this.localRect,
     required this.screenSize,
     required this.mediaSize,
   });
+}
+
+/// علامتِ ریشه‌ی حبابِ یک پاپ‌آپ در درختِ ویجت؛ لنگرهای داخلِ حباب با آن
+/// پاپ‌آپِ «والد»شان را پیدا می‌کنند (تا در حالتِ «فقط یکی» آن را نبندند).
+class _PopupOverlayMarker extends StatelessWidget {
+  const _PopupOverlayMarker({required this.owner, required this.child});
+
+  final _AnswerPopupAnchorState owner;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => child;
 }
 
 class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
@@ -242,12 +302,30 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     });
   }
 
+  /// لمس داخلِ حبابِ یکی از پاپ‌آپ‌های باز است؟ (لمس داخلِ حبابِ ترجمه‌ای که
+  /// داخلِ حبابِ پاسخ باز شده، برای حبابِ پاسخ «بیرون» حساب نمی‌شود.)
+  static bool _insideAnyBubble(Offset globalPosition) {
+    for (final a in _openAnchors) {
+      final ro = a._bubbleKey.currentContext?.findRenderObject();
+      if (ro is RenderBox && ro.attached && ro.hasSize) {
+        final Rect r = ro.localToGlobal(Offset.zero) & ro.size;
+        if (r.inflate(2).contains(globalPosition)) return true;
+      }
+    }
+    return false;
+  }
+
   static const double _tailHeight = 10;
   static const double _tailWidth = 20;
   static const double _screenMargin = 12;
 
   final OverlayPortalController _portal = OverlayPortalController();
   final LayerLink _link = LayerLink();
+  final GlobalKey _bubbleKey = GlobalKey();
+  // با بازشدن، PopScope دورِ لنگر اضافه می‌شود؛ این کلید زیردرختِ لنگر را (که برای
+  // ترجمه کلِ پاراگراف است) جابه‌جا می‌کند به‌جای این‌که از نو بسازد — حالتِ
+  // ویجت‌های داخلش (پاپ‌آپ‌های پاسخِ باز، صوت، …) از بین نمی‌رود.
+  final GlobalKey _targetKey = GlobalKey();
   // فقط با اولین بازشدن ساخته می‌شود: صفحه ده‌ها آیکونِ چشم دارد و بیشترشان
   // هرگز پاپ‌آپ باز نمی‌کنند (و ساختنش در dispose مجاز نیست).
   AnimationController? _animOrNull;
@@ -259,15 +337,27 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
 
   bool _open = false;
   bool _single = true;
+  bool _anchorTapToggles = true;
   WidgetBuilder? _body;
   bool _isDark = false;
+  Color? _accent;
   _PopupPlacement? _placement;
   final List<ScrollableState> _scrollables = [];
   bool _visibilityCheckScheduled = false;
+  ModalRoute<dynamic>? _route;
+  bool _pointerRouteAdded = false;
   Offset? _outsideDown;
+  int? _outsidePointer;
 
   @override
   bool get isOpen => _open;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // در رویدادِ لمس نمی‌شود ModalRoute.of صدا زد؛ این‌جا نگه داشته می‌شود.
+    _route = ModalRoute.of(context);
+  }
 
   @override
   void toggle({
@@ -276,12 +366,35 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     double? preferredWidth,
     AnswerPopupDirection direction = AnswerPopupDirection.auto,
     bool single = true,
+    List<Rect>? anchorRects,
+    bool anchorTapToggles = true,
+    Color? accentColor,
   }) {
     if (_open) {
       close();
     } else {
-      _show(body, isDarkTheme, preferredWidth, direction, single);
+      _show(
+        body,
+        isDarkTheme,
+        preferredWidth,
+        direction,
+        single,
+        anchorRects,
+        anchorTapToggles,
+        accentColor,
+      );
     }
+  }
+
+  /// پاپ‌آپ‌هایی که این لنگر داخلِ حبابشان است (والدها).
+  Set<_AnswerPopupAnchorState> _enclosingPopups() {
+    final Set<_AnswerPopupAnchorState> owners = {};
+    context.visitAncestorElements((e) {
+      final w = e.widget;
+      if (w is _PopupOverlayMarker) owners.add(w.owner);
+      return true;
+    });
+    return owners;
   }
 
   void _show(
@@ -290,27 +403,35 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     double? preferredWidth,
     AnswerPopupDirection direction,
     bool single,
+    List<Rect>? anchorRects,
+    bool anchorTapToggles,
+    Color? accentColor,
   ) {
-    // H-6/H-9: در حالتِ «فقط یکی»، قبل از بازکردن پاپ‌آپ‌های دیگر بسته می‌شوند.
+    // H-6/H-9: در حالتِ «فقط یکی»، قبل از بازکردن پاپ‌آپ‌های دیگر بسته می‌شوند —
+    // جز پاپ‌آپی که خودِ این لنگر داخلِ آن است (بستنش این لنگر را هم از بین می‌برد).
     if (single) {
+      final Set<_AnswerPopupAnchorState> keep = _enclosingPopups();
       for (final a in _openAnchors.toList()) {
-        if (!identical(a, this)) a.close();
+        if (!identical(a, this) && !keep.contains(a)) a.close();
       }
     }
-    final placement = _computePlacement(preferredWidth, direction);
+    final placement = _computePlacement(preferredWidth, direction, anchorRects);
     if (placement == null) return; // هنوز layout نشده
     _openAnchors.add(this);
     _single = single;
+    _anchorTapToggles = anchorTapToggles;
     _syncCount();
     setState(() {
       _open = true;
       _body = body;
       _isDark = isDarkTheme;
+      _accent = accentColor;
       _placement = placement;
     });
     _portal.show();
     _anim.forward();
     _listenToScrollables();
+    _addPointerRoute();
   }
 
   @override
@@ -319,6 +440,7 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     _openAnchors.remove(this);
     _syncCount();
     _stopListening();
+    _removePointerRoute();
     if (!mounted) return;
     setState(() => _open = false);
     // اگر وسطِ انیمیشنِ بستن دوباره باز شود، forward این Future را لغو می‌کند
@@ -332,9 +454,10 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
 
   @override
   void dispose() {
-    // آیکون از درخت رفت (صفحه عوض شد، کتاب بسته شد، آیتمِ لیست دور ریخته شد).
+    // لنگر از درخت رفت (صفحه عوض شد، کتاب بسته شد، آیتمِ لیست دور ریخته شد).
     if (_openAnchors.remove(this)) _syncCount();
     _stopListening();
+    _removePointerRoute();
     _animOrNull?.dispose();
     super.dispose();
   }
@@ -358,13 +481,14 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
   _PopupPlacement? _computePlacement(
     double? preferredWidth,
     AnswerPopupDirection direction,
+    List<Rect>? anchorRects,
   ) {
     final RenderBox? anchorBox = _anchorBox;
     final overlayRo = Overlay.of(context).context.findRenderObject();
     if (anchorBox == null || overlayRo is! RenderBox || !overlayRo.hasSize) {
       return null;
     }
-    final Rect anchor = _rectIn(anchorBox, overlayRo)!;
+    final Matrix4 toOverlay = anchorBox.getTransformTo(overlayRo);
     final Size screen = overlayRo.size;
     final EdgeInsets padding = MediaQuery.paddingOf(context);
     final double keyboard = MediaQuery.viewInsetsOf(context).bottom;
@@ -388,34 +512,47 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     }
 
     const double gap = _tailHeight + 4;
-    final double spaceBelow = band.bottom - anchor.bottom - gap;
-    final double spaceAbove = anchor.top - band.top - gap;
-    // H-8: سمتِ انتخابیِ کاربر، مگر آن‌جا کمتر از ۱۲۰px جا باشد و سمتِ دیگر بیشتر.
-    final bool below = switch (direction) {
-      AnswerPopupDirection.auto => spaceBelow >= 160 || spaceBelow >= spaceAbove,
-      AnswerPopupDirection.below => spaceBelow >= 120 || spaceBelow >= spaceAbove,
-      AnswerPopupDirection.above =>
-        !(spaceAbove >= 120 || spaceAbove >= spaceBelow),
-    };
-    final double maxHeight = (below ? spaceBelow : spaceAbove).clamp(
-      90.0,
-      screen.height * 0.6,
-    );
+    final List<Rect> candidates = (anchorRects == null || anchorRects.isEmpty)
+        ? [Offset.zero & anchorBox.size]
+        : anchorRects;
 
-    return _PopupPlacement(
-      below: below,
-      maxWidth: math.max(
-        _tailWidth + 40,
-        math.min(
-          math.min(screen.width - _screenMargin * 2, 420.0),
-          preferredWidth ?? double.infinity,
+    for (int i = 0; i < candidates.length; i++) {
+      final Rect local = candidates[i];
+      final Rect anchor = MatrixUtils.transformRect(toOverlay, local);
+      final double spaceBelow = band.bottom - anchor.bottom - gap;
+      final double spaceAbove = anchor.top - band.top - gap;
+      // H-8: سمتِ انتخابیِ کاربر، مگر آن‌جا کمتر از ۱۲۰px جا باشد و سمتِ دیگر بیشتر.
+      final bool below = switch (direction) {
+        AnswerPopupDirection.auto =>
+          spaceBelow >= 160 || spaceBelow >= spaceAbove,
+        AnswerPopupDirection.below =>
+          spaceBelow >= 120 || spaceBelow >= spaceAbove,
+        AnswerPopupDirection.above =>
+          !(spaceAbove >= 120 || spaceAbove >= spaceBelow),
+      };
+      final double space = below ? spaceBelow : spaceAbove;
+      // TR-1: پاراگرافِ بلند جا برای حباب نمی‌گذارد؛ آن‌وقت مستطیلِ بعدی (همان
+      // خطی که لمس شد) امتحان می‌شود.
+      if (space < 120 && i < candidates.length - 1) continue;
+
+      return _PopupPlacement(
+        below: below,
+        maxWidth: math.max(
+          _tailWidth + 40,
+          math.min(
+            math.min(screen.width - _screenMargin * 2, 420.0),
+            preferredWidth ?? double.infinity,
+          ),
         ),
-      ),
-      maxHeight: maxHeight,
-      anchorX: anchor.center.dx,
-      screenSize: screen,
-      mediaSize: MediaQuery.sizeOf(context),
-    );
+        maxHeight: space.clamp(90.0, screen.height * 0.6),
+        anchorX: anchor.center.dx,
+        originX: MatrixUtils.transformPoint(toOverlay, Offset.zero).dx,
+        localRect: local,
+        screenSize: screen,
+        mediaSize: MediaQuery.sizeOf(context),
+      );
+    }
+    return null;
   }
 
   ScrollableState? _nearestScrollable(Axis axis) {
@@ -463,13 +600,12 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     });
   }
 
-  /// مرکزِ آیکون هنوز داخلِ کادرِ همه‌ی لیست‌های والد هست؟
+  /// مرکزِ مستطیلِ لنگر هنوز داخلِ کادرِ همه‌ی لیست‌های والد هست؟
   bool _anchorStillVisible() {
     final RenderBox? anchorBox = _anchorBox;
     if (anchorBox == null) return false;
-    final Offset center = anchorBox.localToGlobal(
-      anchorBox.size.center(Offset.zero),
-    );
+    final Rect local = _placement?.localRect ?? (Offset.zero & anchorBox.size);
+    final Offset center = anchorBox.localToGlobal(local.center);
     for (final s in _scrollables) {
       if (!s.mounted) continue;
       final ro = s.context.findRenderObject();
@@ -480,24 +616,62 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     return true;
   }
 
-  // ───────── لمسِ بیرون ─────────
+  // ───────── لمسِ بیرون (H-10) ─────────
+  //
+  // 🐞 قبلاً یک Listenerِ شفافِ تمام‌صفحه داخلِ همان Overlay بود. لمس فقط وقتی به آن
+  // می‌رسید که hit-testِ Overlay واقعاً تا آن لایه پایین برود، و این همیشه برقرار
+  // نبود. حالا مثلِ BookOutlineNavigator (N-9) از مسیرِ سراسریِ GestureBinding
+  // گوش می‌دهیم: هر لمسی در اپ، مستقل از این‌که کدام ویجت آن را می‌گیرد، این‌جا
+  // دیده می‌شود. فقط تا وقتی پاپ‌آپ باز است ثبت است.
 
-  void _onOutsidePointerUp(PointerUpEvent e) {
-    final Offset? down = _outsideDown;
+  void _addPointerRoute() {
+    if (_pointerRouteAdded) return;
+    GestureBinding.instance.pointerRouter.addGlobalRoute(_onGlobalPointer);
+    _pointerRouteAdded = true;
+  }
+
+  void _removePointerRoute() {
+    if (!_pointerRouteAdded) return;
+    GestureBinding.instance.pointerRouter.removeGlobalRoute(_onGlobalPointer);
+    _pointerRouteAdded = false;
     _outsideDown = null;
+    _outsidePointer = null;
+  }
+
+  void _onGlobalPointer(PointerEvent e) {
     // H-9: در حالتِ «چند پاپ‌آپ» لمسِ بیرون نمی‌بندد — وگرنه بازکردنِ دومی (که
     // لمسی بیرونِ اولی است) اولی را می‌بست.
-    if (down == null || !_open || !_single) return;
-    // کشیدن (اسکرول) لمس نیست؛ پاپ‌آپ می‌ماند و با آیکون حرکت می‌کند.
-    if ((e.position - down).distance > kTouchSlop) return;
-    // لمس روی خودِ آیکون را onTapِ آیکون (toggle) جواب می‌دهد، نه این‌جا؛ وگرنه
-    // این‌جا می‌بست و onTap بلافاصله دوباره باز می‌کرد.
-    final RenderBox? anchorBox = _anchorBox;
-    if (anchorBox != null) {
-      final Rect a = anchorBox.localToGlobal(Offset.zero) & anchorBox.size;
-      if (a.inflate(4).contains(e.position)) return;
+    if (!_open || !_single) return;
+    if (e is PointerDownEvent) {
+      _outsideDown = null;
+      _outsidePointer = null;
+      // صفحه‌ی دیگری (دیکشنری، دیالوگ، مودالِ ترجمه) رویِ این صفحه باز است؛
+      // لمس‌های آن‌جا ربطی به این حباب ندارد.
+      if (_route != null && !_route!.isCurrent) return;
+      if (_insideAnyBubble(e.position)) return;
+      _outsideDown = e.position;
+      _outsidePointer = e.pointer;
+    } else if (e is PointerUpEvent) {
+      final Offset? down = _outsideDown;
+      if (down == null || e.pointer != _outsidePointer) return;
+      _outsideDown = null;
+      _outsidePointer = null;
+      // کشیدن (اسکرول) لمس نیست؛ پاپ‌آپ می‌ماند و با لنگر حرکت می‌کند.
+      if ((e.position - down).distance > kTouchSlop) return;
+      // لمس روی خودِ آیکون را onTapِ آیکون (toggle) جواب می‌دهد، نه این‌جا؛ وگرنه
+      // این‌جا می‌بست و onTap بلافاصله دوباره باز می‌کرد.
+      if (_anchorTapToggles) {
+        final RenderBox? anchorBox = _anchorBox;
+        if (anchorBox != null) {
+          final Rect a = anchorBox.localToGlobal(Offset.zero) & anchorBox.size;
+          if (a.inflate(4).contains(e.position)) return;
+        }
+      }
+      close();
+    } else if (e is PointerCancelEvent && e.pointer == _outsidePointer) {
+      _outsideDown = null;
+      _outsidePointer = null;
     }
-    close();
   }
 
   // ───────── ساخت ─────────
@@ -505,12 +679,13 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
   @override
   Widget build(BuildContext context) {
     Widget anchor = CompositedTransformTarget(
+      key: _targetKey,
       link: _link,
       child: Builder(builder: (ctx) => widget.builder(ctx, this)),
     );
     if (_open) {
       // دکمه‌ی برگشت اول پاپ‌آپ را می‌بندد. PopScope فقط برای پاپ‌آپِ باز در
-      // درخت است (نه برای صدها آیکونِ صفحه) تا ثبتِ مداوم در route هزینه نداشته باشد.
+      // درخت است (نه برای صدها لنگرِ صفحه) تا ثبتِ مداوم در route هزینه نداشته باشد.
       anchor = PopScope(
         canPop: false,
         onPopInvokedWithResult: (didPop, _) {
@@ -542,14 +717,17 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     }
 
     final Color surface = answerSurfaceColor(_isDark);
-    final Color border = _isDark ? Colors.white24 : Colors.black12;
+    final Color border =
+        _accent ?? (_isDark ? Colors.white24 : Colors.black12);
+    final double borderWidth = _accent != null ? 1.5 : 1;
 
     final Widget box = Container(
+      key: _bubbleKey,
       constraints: BoxConstraints(maxHeight: p.maxHeight),
       decoration: BoxDecoration(
         color: surface,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: border),
+        border: Border.all(color: border, width: borderWidth),
         boxShadow: const [
           BoxShadow(color: Colors.black26, blurRadius: 14, offset: Offset(0, 4)),
         ],
@@ -561,19 +739,24 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
             physics: const BouncingScrollPhysics(),
-            child: Builder(builder: body),
+            child: AnswerContainerScope(child: Builder(builder: body)),
           ),
         ),
       ),
     );
 
     final Widget tail = CustomPaint(
-      painter: _TailPainter(pointsUp: p.below, fill: surface, stroke: border),
+      painter: _TailPainter(
+        pointsUp: p.below,
+        fill: surface,
+        stroke: border,
+        strokeWidth: borderWidth,
+      ),
     );
 
-    // نوارِ تمام‌عرضی که لبه‌ی چپش لبه‌ی چپِ صفحه است و به آیکون می‌چسبد. حباب
+    // نوارِ تمام‌عرضی که لبه‌ی چپش لبه‌ی چپِ صفحه است و به لنگر می‌چسبد. حباب
     // داخلِ آن تا ۴۲۰px (جوابِ کوتاه: به اندازه‌ی تخمینیِ متن) چیده می‌شود، افقی داخلِ صفحه می‌ماند
-    // و دُم دقیقاً زیر/بالای مرکزِ آیکون است. جاهای خالیِ نوار لمس را رد می‌کنند.
+    // و دُم دقیقاً زیر/بالای مرکزِ مستطیلِ لنگر است. جاهای خالیِ نوار لمس را رد می‌کنند.
     final Widget strip = SizedBox(
       width: p.screenSize.width,
       height: p.maxHeight + _tailHeight,
@@ -601,45 +784,40 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
       reverseCurve: Curves.easeIn,
     );
 
-    return Stack(
-      children: [
-        // لایه‌ی شفافِ تمام‌صفحه فقط برای «لمسِ بیرون»: translucent است، پس
-        // لمس به متنِ زیر هم می‌رسد (مثلاً لمسِ آیکونِ دیگر همان لحظه آن را باز
-        // می‌کند و اسکرول هم کار می‌کند).
-        Positioned.fill(
-          child: Listener(
-            behavior: HitTestBehavior.translucent,
-            onPointerDown: (e) => _outsideDown = e.position,
-            onPointerUp: _onOutsidePointerUp,
-            onPointerCancel: (_) => _outsideDown = null,
-          ),
-        ),
-        Positioned(
-          left: 0,
-          top: 0,
-          child: CompositedTransformFollower(
-            link: _link,
-            showWhenUnlinked: false,
-            targetAnchor: p.below
-                ? Alignment.bottomCenter
-                : Alignment.topCenter,
-            followerAnchor: p.below ? Alignment.topLeft : Alignment.bottomLeft,
-            offset: Offset(-p.anchorX, p.below ? 2 : -2),
-            child: FadeTransition(
-              opacity: _anim,
-              child: ScaleTransition(
-                scale: Tween<double>(begin: 0.9, end: 1).animate(curved),
-                // بزرگ‌شدن از نوکِ دُم، یعنی از خودِ آیکون
-                alignment: Alignment(
-                  (p.anchorX / p.screenSize.width) * 2 - 1,
-                  p.below ? -1 : 1,
+    // لبه‌ی بالا/پایینِ مستطیلِ لنگر، در مختصاتِ خودِ لنگر (نقطه‌ی مرجعِ دنبال‌کننده
+    // گوشه‌ی بالا-چپِ لنگر است). جابه‌جاییِ افقیِ -originX لبه‌ی چپِ نوار را روی
+    // لبه‌ی چپِ صفحه می‌گذارد.
+    final double dy = p.below ? p.localRect.bottom + 2 : p.localRect.top - 2;
+
+    return _PopupOverlayMarker(
+      owner: this,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            child: CompositedTransformFollower(
+              link: _link,
+              showWhenUnlinked: false,
+              targetAnchor: Alignment.topLeft,
+              followerAnchor: p.below ? Alignment.topLeft : Alignment.bottomLeft,
+              offset: Offset(-p.originX, dy),
+              child: FadeTransition(
+                opacity: _anim,
+                child: ScaleTransition(
+                  scale: Tween<double>(begin: 0.9, end: 1).animate(curved),
+                  // بزرگ‌شدن از نوکِ دُم، یعنی از خودِ لنگر
+                  alignment: Alignment(
+                    (p.anchorX / p.screenSize.width) * 2 - 1,
+                    p.below ? -1 : 1,
+                  ),
+                  child: strip,
                 ),
-                child: strip,
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -707,11 +885,13 @@ class _TailPainter extends CustomPainter {
   final bool pointsUp;
   final Color fill;
   final Color stroke;
+  final double strokeWidth;
 
   const _TailPainter({
     required this.pointsUp,
     required this.fill,
     required this.stroke,
+    this.strokeWidth = 1,
   });
 
   @override
@@ -736,16 +916,47 @@ class _TailPainter extends CustomPainter {
       Paint()
         ..color = stroke
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 1,
+        ..strokeWidth = strokeWidth,
     );
   }
 
   @override
   bool shouldRepaint(_TailPainter old) =>
-      old.pointsUp != pointsUp || old.fill != fill || old.stroke != stroke;
+      old.pointsUp != pointsUp ||
+      old.fill != fill ||
+      old.stroke != stroke ||
+      old.strokeWidth != strokeWidth;
 }
 
-/// 🌟 H-9: دکمه‌ی «بستنِ همه‌ی پاسخ‌ها». فقط وقتی دیده می‌شود که در حالتِ «چند
+/// بعد از اولین layout، ارتفاعِ فرزند را گزارش می‌دهد (بنر ← لبه‌ی پایینِ کارت).
+class _HeightReporter extends StatefulWidget {
+  const _HeightReporter({required this.onHeight, required this.child});
+
+  final ValueChanged<double>? onHeight;
+  final Widget child;
+
+  @override
+  State<_HeightReporter> createState() => _HeightReporterState();
+}
+
+class _HeightReporterState extends State<_HeightReporter> {
+  bool _reported = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_reported && widget.onHeight != null) {
+      _reported = true;
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        final ro = context.findRenderObject();
+        if (ro is RenderBox && ro.hasSize) widget.onHeight!(ro.size.height);
+      });
+    }
+    return widget.child;
+  }
+}
+
+/// 🌟 H-9: دکمه‌ی «بستنِ همه‌ی پاپ‌آپ‌ها» (پاسخ و ترجمه). فقط وقتی دیده می‌شود که در حالتِ «چند
 /// پاپ‌آپ هم‌زمان» دست‌کم یک پاپ‌آپ باز باشد؛ تعدادشان روی دکمه می‌آید. پایینِ
 /// صفحه‌ی مطالعه، وسط (reading_canvas.dart).
 class AnswerPopupsCloseAllButton extends StatelessWidget {
@@ -792,7 +1003,7 @@ class AnswerPopupsCloseAllButton extends StatelessWidget {
                           const SizedBox(width: 8),
                           Text(
                             // تعداد را هنگامِ محوشدن (۰) نگه نمی‌داریم؛ «۰» دیده نمی‌شود.
-                            'بستنِ همه‌ی پاسخ‌ها ($count)',
+                            'بستنِ همه‌ی پاپ‌آپ‌ها ($count)',
                             style: TextStyle(
                               color: scheme.onInverseSurface,
                               fontWeight: FontWeight.w600,

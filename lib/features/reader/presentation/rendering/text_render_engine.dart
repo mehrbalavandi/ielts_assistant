@@ -134,6 +134,9 @@ class TextRenderEngine {
             translationAr: translationAr,
             innerSpans: innerSpans,
             hiddenParagraphs: hiddenParagraphs,
+            // TR-2: کلماتِ دیکشنری داخلِ پاسخ با همان جستجوی سریعِ صفحه
+            interactivesPattern: interactivesPattern,
+            interactivesByText: interactivesByText,
             parentMarkers: blankParentMarkers, // 🐞 برای خنثی‌سازی s/sub/sup
             listMarker: listMarker, // 🐞 برای prepend داخل مودال
             exactMatchKey: claimBlankKey
@@ -867,6 +870,10 @@ class InteractiveBlankWord extends StatelessWidget {
   // 🌟 محتوای غنیِ جای‌خالی؛ وقتی پر است مودال با buildHiddenRichContent
   // (همان رندرِ صفحه) ساخته می‌شود — جدول، عکس، لیست و … بی‌محدودیت.
   final List<ParagraphData>? hiddenParagraphs;
+  // 🌟 TR-2: الگوی آماده‌ی کلماتِ دیکشنریِ کتاب (همان که صفحه دارد). بدونِ آن،
+  // کلمات با جستجوی کندِ کلمه‌به‌کلمه پیدا می‌شدند.
+  final RegExp? interactivesPattern;
+  final Map<String, InteractiveWord>? interactivesByText;
   // 🐞 مارکرهای خودِ اسپنِ جای‌خالی (b/i/u/s/sub/sup/sz:/fn:…). برای این است
   // که بدانیم چه چیزی از قبل داخلِ textStyle «پخته» شده تا هنگامِ ساختنِ
   // استایلِ پایه‌ی InnerSpanها و شماره‌ی لیست همان را خنثی کنیم.
@@ -888,6 +895,8 @@ class InteractiveBlankWord extends StatelessWidget {
     this.translationAr,
     this.innerSpans,
     this.hiddenParagraphs,
+    this.interactivesPattern,
+    this.interactivesByText,
     this.parentMarkers,
     this.exactMatchKey, // 🌟 دریافت فیلد
     this.listMarker,
@@ -1020,13 +1029,14 @@ class InteractiveBlankWord extends StatelessWidget {
     int textLength = fullText.length;
 
     // 🌟 ۲. بررسی هوشمند: آیا این متن حاوی کلمه تعاملی (قابل کلیک) هست یا خیر؟
+    // 🐞 قبلاً item.toString() (یعنی «Instance of InteractiveWord») جستجو می‌شد و
+    // نتیجه همیشه false بود. حالا همان تطبیقِ صفحه: الگوی آماده، وگرنه exactText.
     bool hasInteractiveWords = false;
-    if (interactives != null && interactives!.isNotEmpty) {
-      // بررسی می‌کند آیا هیچ‌کدام از کلمات کلیدی تعاملی در این متن وجود دارند؟
-      // نکته: اگر مدل شما فیلد خاصی مثل .targetWord دارد، به جای item از آن استفاده کنید
-      hasInteractiveWords = interactives!.any(
-        (item) =>
-            fullText.toLowerCase().contains(item.toString().toLowerCase()),
+    if (interactivesPattern != null) {
+      hasInteractiveWords = interactivesPattern!.hasMatch(fullText);
+    } else if (interactives.isNotEmpty) {
+      hasInteractiveWords = interactives.any(
+        (w) => w.exactText.isNotEmpty && fullText.contains(w.exactText),
       );
     }
     // 🌟 ۳. H-5: «جوابِ کوتاه» = متنِ کمتر از ۴۰ نویسه بدونِ لغتِ دیکشنری (همان
@@ -1081,6 +1091,8 @@ class InteractiveBlankWord extends StatelessWidget {
         spanStyle,
         localHighlightMap: spanMapSlice,
         activeOccurrence: activeOcc,
+        interactivesPattern: interactivesPattern,
+        interactivesByText: interactivesByText,
         // 🐞 رفع باگ هایلایت جستجو: وقتی این مودال باز است یعنی این بلانک
         // از قبل «نتیجه‌ی فعالِ» جستجوست (وگرنه آیکون چشمِ نارنجی‌اش تپ
         // نمی‌شد)، پس همه‌ی occurrenceهای یافت‌شده‌ی داخلش باید نارنجی نشان
@@ -1417,6 +1429,8 @@ class InteractiveBlankWord extends StatelessWidget {
               ),
               localHighlightMap: lineMap,
               activeOccurrence: activeOcc,
+              interactivesPattern: interactivesPattern,
+              interactivesByText: interactivesByText,
               translationFa: translationFa,
               translationAr: translationAr,
               allMatchesActive: true,
@@ -1451,6 +1465,8 @@ class InteractiveBlankWord extends StatelessWidget {
           ),
           localHighlightMap: blankMap,
           activeOccurrence: activeOcc,
+          interactivesPattern: interactivesPattern,
+          interactivesByText: interactivesByText,
           translationFa: translationFa,
           translationAr: translationAr,
           allMatchesActive: true, // 🐞 همان دلیلِ بالا
@@ -1549,12 +1565,14 @@ class InteractiveBlankWord extends StatelessWidget {
         );
       }
 
-      // 🌟 لمسِ طولانی برای نمایشِ ترجمه‌ی پاراگراف
+      // 🌟 TR-2: ترجمه داخلِ همین ظرف، زیرِ پاسخ — با دکمه‌ی کوچکِ کنارِ متن یا
+      // لمسِ طولانی.
       return TranslatableContentWrapper(
         originalContent: revealedContent,
         translationFa: translationFa,
         translationAr: translationAr,
         isDarkMode: isDarkTheme,
+        toggle: TranslationToggle.side,
       );
     }
 
@@ -1575,6 +1593,10 @@ class InteractiveBlankWord extends StatelessWidget {
         maxLines: 1,
       )..layout();
       popupWidth = tp.width * 1.08 + 28 + 16; // پدینگِ حباب + جا برای جعبه‌های بوردردار
+      // TR-2: دکمه‌ی ترجمه کنارِ متن
+      if (TranslatableContentWrapper.hasAny(translationFa, translationAr)) {
+        popupWidth += kTranslateButtonSideWidth;
+      }
       tp.dispose();
     }
 
@@ -1664,6 +1686,8 @@ class InteractiveBlankWord extends StatelessWidget {
           paragraphs,
           contentWidth,
           interactives: interactives,
+          interactivesPattern: interactivesPattern,
+          interactivesByText: interactivesByText,
         );
         if (isDarkTheme) {
           content = Container(
@@ -1675,11 +1699,30 @@ class InteractiveBlankWord extends StatelessWidget {
             child: content,
           );
         }
+        // TR-2: ترجمه‌ی کلِ پاسخ. اگر پاراگرافِ والد ترجمه ندارد، ترجمه‌ی خودِ
+        // پاراگراف‌های پاسخ پشتِ هم (اکسترکتور به آن‌ها جدا ترجمه می‌دهد، G-7).
+        String? joined(String? Function(ParagraphData) pick) {
+          final parts = [
+            for (final p in paragraphs)
+              if ((pick(p) ?? '').trim().isNotEmpty) pick(p)!.trim(),
+          ];
+          return parts.isEmpty ? null : parts.join('\n');
+        }
+
+        final bool parentHas = TranslatableContentWrapper.hasAny(
+          translationFa,
+          translationAr,
+        );
         return TranslatableContentWrapper(
           originalContent: content,
-          translationFa: translationFa,
-          translationAr: translationAr,
+          translationFa: parentHas
+              ? translationFa
+              : joined((p) => p.translationFa),
+          translationAr: parentHas
+              ? translationAr
+              : joined((p) => p.translationAr),
           isDarkMode: isDarkTheme,
+          toggle: TranslationToggle.below,
         );
       },
     );

@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 
 // 🌟 قانونِ H-5 تا H-9 (RULES-rendering.md): کاربر خودش انتخاب می‌کند جوابِ
 // پنهانِ پشتِ آیکونِ چشم کجا نشان داده شود — جدا برای جواب‌های کوتاه و بلند.
+// TR-1: همین سه شیوه برای ترجمه‌ی پاراگراف (لمسِ طولانی) هم هست.
 
 /// سه شیوه‌ی نمایشِ جواب.
 enum AnswerDisplayMode {
@@ -35,6 +36,16 @@ enum AnswerDisplayMode {
       'کارتی از بالای صفحه پایین می‌آید؛ با لمسِ بیرون بسته می‌شود.',
     AnswerDisplayMode.modal =>
       'برگه‌ای از پایینِ صفحه بالا می‌آید و با کشیدن بزرگ‌تر می‌شود؛ مناسبِ جواب‌های طولانی.',
+  };
+
+  /// TR-1: توضیحِ همین شیوه برای ترجمه‌ی پاراگراف.
+  String get translationDescription => switch (this) {
+    AnswerDisplayMode.popup =>
+      'حبابی همان‌جا که لمس کردید باز می‌شود؛ با لمسِ بیرون یا لمسِ طولانیِ دوباره بسته می‌شود.',
+    AnswerDisplayMode.banner =>
+      'کارتی از بالای صفحه پایین می‌آید؛ اگر پاراگراف زیرِ آن بماند، صفحه کمی جابه‌جا می‌شود.',
+    AnswerDisplayMode.modal =>
+      'برگه‌ای از پایینِ صفحه بالا می‌آید؛ اگر پاراگراف زیرِ آن بماند، صفحه کمی جابه‌جا می‌شود.',
   };
 
   static AnswerDisplayMode parse(String? name, AnswerDisplayMode fallback) {
@@ -91,11 +102,16 @@ class AnswerDisplaySettings {
   /// چند پاپ‌آپ هم‌زمان باز می‌مانند و دکمه‌ی «بستنِ همه» ظاهر می‌شود.
   final bool singlePopup;
 
+  /// TR-1: ترجمه‌ی پاراگراف با لمسِ طولانی کجا نشان داده شود. (جهتِ پاپ‌آپ و
+  /// «فقط یک پاپ‌آپ» بین پاسخ‌ها و ترجمه‌ها مشترک است.)
+  final AnswerDisplayMode translation;
+
   const AnswerDisplaySettings({
     required this.short,
     required this.long,
     this.popupDirection = AnswerPopupDirection.auto,
     this.singlePopup = true,
+    this.translation = AnswerDisplayMode.popup,
   });
 
   AnswerDisplaySettings copyWith({
@@ -103,12 +119,20 @@ class AnswerDisplaySettings {
     AnswerDisplayMode? long,
     AnswerPopupDirection? popupDirection,
     bool? singlePopup,
+    AnswerDisplayMode? translation,
   }) => AnswerDisplaySettings(
     short: short ?? this.short,
     long: long ?? this.long,
     popupDirection: popupDirection ?? this.popupDirection,
     singlePopup: singlePopup ?? this.singlePopup,
+    translation: translation ?? this.translation,
   );
+
+  /// آیا هیچ‌کدام از سه نمایش (پاسخِ کوتاه، بلند، ترجمه) پاپ‌آپ است؟
+  bool get usesPopup =>
+      short == AnswerDisplayMode.popup ||
+      long == AnswerDisplayMode.popup ||
+      translation == AnswerDisplayMode.popup;
 
   AnswerDisplayMode modeFor({required bool isShort}) => isShort ? short : long;
 }
@@ -118,11 +142,15 @@ class AnswerDisplayNotifier extends Notifier<AnswerDisplaySettings> {
   static const String _longKey = 'answer_display_long';
   static const String _directionKey = 'answer_popup_direction';
   static const String _singleKey = 'answer_popup_single';
+  static const String _translationKey = 'translation_display';
 
   /// پیش‌فرض: کوتاه ← پاپ‌آپ (نزدیک‌ترین جا به خودِ سؤال)، بلند ← مودال (جا برای
   /// متنِ طولانی و جدول).
   static const AnswerDisplayMode defaultShort = AnswerDisplayMode.popup;
   static const AnswerDisplayMode defaultLong = AnswerDisplayMode.modal;
+
+  /// ترجمه ← پاپ‌آپ: کنارِ خودِ پاراگراف، بدونِ پوشاندنِ صفحه.
+  static const AnswerDisplayMode defaultTranslation = AnswerDisplayMode.popup;
 
   final GetStorage _box = GetStorage();
 
@@ -132,6 +160,10 @@ class AnswerDisplayNotifier extends Notifier<AnswerDisplaySettings> {
     long: AnswerDisplayMode.parse(_box.read(_longKey), defaultLong),
     popupDirection: AnswerPopupDirection.parse(_box.read(_directionKey)),
     singlePopup: _box.read<bool>(_singleKey) ?? true,
+    translation: AnswerDisplayMode.parse(
+      _box.read(_translationKey),
+      defaultTranslation,
+    ),
   );
 
   void setShort(AnswerDisplayMode mode) {
@@ -152,6 +184,11 @@ class AnswerDisplayNotifier extends Notifier<AnswerDisplaySettings> {
   void setSinglePopup(bool single) {
     state = state.copyWith(singlePopup: single);
     _box.write(_singleKey, single);
+  }
+
+  void setTranslation(AnswerDisplayMode mode) {
+    state = state.copyWith(translation: mode);
+    _box.write(_translationKey, mode.name);
   }
 }
 
