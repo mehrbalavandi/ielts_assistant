@@ -342,23 +342,18 @@ class TextRenderEngine {
     // مکرر تمام کلمات دیکشنری به ازای هر موقعیت از متن. این دقیقاً همان
     // معنای «leftmost match، در تساوی طولانی‌ترین کلمه» را حفظ می‌کند،
     // چون کلمات از قبل نزولی بر اساس طول در pattern چیده شده‌اند.
-    if (pattern != null && byText != null && byText.isNotEmpty) {
-      return _processDictionaryWordsFast(
-        content,
-        pattern,
-        byText,
-        context,
-        baseStyle,
-        interactiveColor,
-        localMap,
-        activeOcc,
-        exactMatchKey: exactMatchKey,
-        keyClaim: keyClaim,
-        allMatchesActive: allMatchesActive,
-      );
+    // 🐞 W-1: مسیرِ کندِ قدیمی (indexOf روی هر کلمه) حذف شد. «gain» را وسطِ «again»
+    // هم پیدا می‌کرد. اگر الگو از بیرون نیامده، همین‌جا یک‌بار برای همین فهرست
+    // ساخته و نگه داشته می‌شود؛ همه‌ی مسیرها فقط کلمه‌ی کامل را تطبیق می‌دهند.
+    RegExp? effectivePattern = pattern;
+    Map<String, InteractiveWord>? effectiveByText = byText;
+    if (effectivePattern == null ||
+        effectiveByText == null ||
+        effectiveByText.isEmpty) {
+      effectivePattern = _fallbackPattern(interactives);
+      effectiveByText = _fallbackByText(interactives);
     }
-
-    if (interactives.isEmpty) {
+    if (effectivePattern == null) {
       return applyMapToText(
         content,
         baseStyle,
@@ -369,100 +364,41 @@ class TextRenderEngine {
         allMatchesActive: allMatchesActive,
       );
     }
-
-    // ── مسیر قدیمی: فقط وقتی pattern/byText از بیرون پاس داده نشده باشد ──
-    // (fallback ایمنی؛ در استفاده‌ی عادی از داخل ReadingCanvas هیچ‌وقت
-    // به اینجا نمی‌رسیم چون همیشه pattern پاس داده می‌شود)
-    List<InlineSpan> spans = [];
-    String remainingText = content;
-
-    while (remainingText.isNotEmpty) {
-      int bestIndex = -1;
-      InteractiveWord? matchedWord;
-      for (var word in interactives) {
-        int index = remainingText.indexOf(word.exactText);
-        if (index != -1 && (bestIndex == -1 || index < bestIndex)) {
-          bestIndex = index;
-          matchedWord = word;
-        }
-      }
-
-      if (bestIndex != -1 && matchedWord != null) {
-        if (bestIndex > 0) {
-          spans.addAll(
-            applyMapToText(
-              remainingText.substring(0, bestIndex),
-              baseStyle,
-              localMap?.sublist(0, bestIndex),
-              activeOcc,
-              exactMatchKey: exactMatchKey,
-              keyClaim: keyClaim,
-              allMatchesActive: allMatchesActive,
-            ),
-          );
-        }
-
-        List<int>? wordMap;
-        if (localMap != null) {
-          wordMap = localMap.sublist(
-            bestIndex,
-            bestIndex + matchedWord.exactText.length,
-          );
-        }
-
-        TextStyle interactiveBaseStyle = baseStyle.copyWith(
-          color: interactiveColor,
-          decoration: baseStyle.decoration ?? TextDecoration.underline,
-          decorationStyle: baseStyle.decoration != null
-              ? baseStyle.decorationStyle
-              : TextDecorationStyle.dotted,
-        );
-
-        if (wordMap == null || wordMap.every((v) => v == -1)) {
-          spans.add(
-            TextSpan(
-              text: matchedWord.exactText,
-              style: interactiveBaseStyle,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => _showWordModal(context, matchedWord!),
-            ),
-          );
-        } else {
-          spans.addAll(
-            _sliceInteractiveWord(
-              matchedWord,
-              wordMap,
-              interactiveBaseStyle,
-              activeOcc,
-              context,
-              exactMatchKey: exactMatchKey,
-              keyClaim: keyClaim,
-              allMatchesActive: allMatchesActive,
-            ),
-          );
-        }
-
-        remainingText = remainingText.substring(
-          bestIndex + matchedWord.exactText.length,
-        );
-        localMap = localMap?.sublist(bestIndex + matchedWord.exactText.length);
-      } else {
-        spans.addAll(
-          applyMapToText(
-            remainingText,
-            baseStyle,
-            localMap,
-            activeOcc,
-            exactMatchKey: exactMatchKey,
-            keyClaim: keyClaim,
-            allMatchesActive: allMatchesActive,
-          ),
-        );
-        break;
-      }
-    }
-    return spans;
+    return _processDictionaryWordsFast(
+      content,
+      effectivePattern,
+      effectiveByText,
+      context,
+      baseStyle,
+      interactiveColor,
+      localMap,
+      activeOcc,
+      exactMatchKey: exactMatchKey,
+      keyClaim: keyClaim,
+      allMatchesActive: allMatchesActive,
+    );
   }
+
+  // W-1: الگوی ساخته‌شده برای فهرست‌هایی که الگوی آماده ندارند، به ازای همان
+  // نمونه‌ی فهرست (Expando: با دور ریخته شدنِ فهرست، این هم می‌رود).
+  static final Expando<RegExp> _fallbackPatterns = Expando<RegExp>();
+  static final Expando<Map<String, InteractiveWord>> _fallbackMaps =
+      Expando<Map<String, InteractiveWord>>();
+
+  static RegExp? _fallbackPattern(List<InteractiveWord> words) {
+    final RegExp? cached = _fallbackPatterns[words];
+    if (cached != null) return cached;
+    final RegExp? built = buildInteractivesPattern(words);
+    if (built != null) _fallbackPatterns[words] = built;
+    return built;
+  }
+
+  static Map<String, InteractiveWord> _fallbackByText(
+    List<InteractiveWord> words,
+  ) => _fallbackMaps[words] ??= {
+    for (final w in words)
+      if (w.exactText.isNotEmpty) w.exactText: w,
+  };
 
   // 🌟 نسخه‌ی سریع: یک عبور خطی روی متن با RegExp ترکیبی (pattern) که
   // همه‌ی کلمات دیکشنری صفحه را یک‌جا شامل می‌شود، به‌جای اسکن مکرر تمام
@@ -1035,9 +971,8 @@ class InteractiveBlankWord extends StatelessWidget {
     if (interactivesPattern != null) {
       hasInteractiveWords = interactivesPattern!.hasMatch(fullText);
     } else if (interactives.isNotEmpty) {
-      hasInteractiveWords = interactives.any(
-        (w) => w.exactText.isNotEmpty && fullText.contains(w.exactText),
-      );
+      hasInteractiveWords =
+          buildInteractivesPattern(interactives)?.hasMatch(fullText) ?? false;
     }
     // 🌟 ۳. H-5: «جوابِ کوتاه» = متنِ کمتر از ۴۰ نویسه بدونِ لغتِ دیکشنری (همان
     // قانونِ قبلیِ بنر). کوتاه/بلند فقط تعیین می‌کند کدام تنظیمِ کاربر اعمال شود.

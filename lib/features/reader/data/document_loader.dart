@@ -155,11 +155,7 @@ class DocumentLoader {
 
     // 🌟 این RegExp و این Map فقط یک‌بار برای کل کتاب ساخته می‌شوند (نه یک‌بار
     // به‌ازای هر صفحه مثل قبل) و بین همه‌ی صفحات به اشتراک گذاشته می‌شوند.
-    final RegExp? sharedPattern = nonEmptyWords.isEmpty
-        ? null
-        : RegExp(
-            nonEmptyWords.map((w) => RegExp.escape(w.exactText)).join('|'),
-          );
+    final RegExp? sharedPattern = buildInteractivesPattern(nonEmptyWords); // W-1
 
     final Map<String, InteractiveWord> sharedByText = {
       for (final w in nonEmptyWords) w.exactText: w,
