@@ -1259,6 +1259,3029 @@
       "terms": [
         "mental health"
       ]
+    },
+    "writing": {
+      "src": "WRITING",
+      "fa": "نوشتن (رایتینگ)",
+      "ar": "الكتابة",
+      "terms": []
+    },
+    "describe a process (writing part 1)": {
+      "src": "describe a process (Writing Part 1)",
+      "fa": "توصیفِ یک فرایند (رایتینگ، بخشِ 1)",
+      "ar": "وصف عملية (الكتابة، الجزء 1)",
+      "terms": [
+        "process"
+      ]
+    },
+    "use sequencing expressions to describe the order of stages in a process": {
+      "src": "use sequencing expressions to describe the order of stages in a process",
+      "fa": "به‌کار بردنِ عبارت‌های ترتیبی برای توصیفِ ترتیبِ مراحلِ یک فرایند",
+      "ar": "استخدام عبارات الترتيب لوصف تسلسل مراحل العملية",
+      "terms": [
+        "sequencing expressions",
+        "stage",
+        "process"
+      ]
+    },
+    "use the present simple passive to describe a process": {
+      "src": "use the present simple passive to describe a process",
+      "fa": "به‌کار بردنِ مجهولِ حالِ ساده (present simple passive) برای توصیفِ یک فرایند",
+      "ar": "استخدام المبني للمجهول في المضارع البسيط (present simple passive) لوصف عملية",
+      "terms": [
+        "present simple passive",
+        "process"
+      ]
+    },
+    "write an introduction and overview.": {
+      "src": "write an introduction and overview.",
+      "fa": "نوشتنِ مقدمه و نمای کلی.",
+      "ar": "كتابة مقدّمة وفقرة عامة موجزة (overview).",
+      "terms": [
+        "introduction",
+        "overview"
+      ]
+    },
+    "what foods do you eat at a family celebration? do you know how to prepare them? do you need any special equipment?": {
+      "src": "What foods do you eat at a family celebration? Do you know how to prepare them? Do you need any special equipment?",
+      "fa": "در جشن‌های خانوادگی چه غذاهایی می‌خورید؟ می‌دانید چطور آن‌ها را درست کنید؟ به وسیله‌ی خاصی نیاز دارید؟",
+      "ar": "ما الأطعمة التي تتناولونها في الاحتفالات العائلية؟ هل تعرفون كيف تُحضَّر؟ هل تحتاجون إلى أدوات خاصة؟",
+      "terms": [
+        "equipment"
+      ]
+    },
+    "in sri lanka, a family meal often includes stringhoppers. to make stringhoppers you need some special equipment. choose the best description of each piece of equipment.": {
+      "src": "In Sri Lanka, a family meal often includes stringhoppers. To make stringhoppers you need some special equipment. Choose the best description of each piece of equipment.",
+      "fa": "در سریلانکا، غذای خانوادگی اغلب استرینگ‌هاپر (نوعی رشته‌ی برنجیِ بخارپز) دارد. برای درست کردنِ استرینگ‌هاپر به وسایلِ خاصی نیاز دارید. بهترین توصیف را برای هر وسیله انتخاب کنید.",
+      "ar": "في سريلانكا، كثيرًا ما تتضمّن الوجبة العائلية «سترينغ هوبرز» (نوع من شعيرية الأرز المطهوّة على البخار). ولإعدادها تحتاج إلى أدوات خاصة. اختر أفضل وصف لكل أداة.",
+      "terms": [
+        "equipment"
+      ]
+    },
+    "stringhopper press b": {
+      "src": "Stringhopper press {blk}B{/blk}",
+      "fa": "پرسِ استرینگ‌هاپر: B",
+      "ar": "مكبس السترينغ هوبرز: B",
+      "terms": []
+    },
+    "it has two parts which are different in shape but the same size. it is made of a light material such as plastic.": {
+      "src": "It has two parts which are different in shape but the same size. It is made of a light material such as plastic.",
+      "fa": "دو قسمت دارد که شکلشان متفاوت ولی اندازه‌شان یکی است. از جنسی سبک مثلِ پلاستیک ساخته شده است.",
+      "ar": "له جزءان مختلفان في الشكل لكنهما متساويان في الحجم. وهو مصنوع من مادة خفيفة مثل البلاستيك.",
+      "terms": [
+        "material"
+      ]
+    },
+    "it's made of heavy metal and has two parts which are similar in shape. the centre is round and there are handles on each side. one part fits into the other.": {
+      "src": "It's made of heavy metal and has two parts which are similar in shape. The centre is round and there are handles on each side. One part fits into the other.",
+      "fa": "از فلزِ سنگین ساخته شده و دو قسمتِ هم‌شکل دارد. وسطش گرد است و دو طرفش دسته دارد. یک قسمت داخلِ قسمتِ دیگر جا می‌رود.",
+      "ar": "مصنوع من معدن ثقيل وله جزءان متشابهان في الشكل. وسطه دائري وله مقبضان على الجانبين. ويدخل أحد الجزأين في الآخر.",
+      "terms": [
+        "fit into"
+      ]
+    },
+    "it has two parts and one goes on top of the other. it is square in shape and made of wood.": {
+      "src": "It has two parts and one goes on top of the other. It is square in shape and made of wood.",
+      "fa": "دو قسمت دارد و یکی روی دیگری قرار می‌گیرد. مربعی‌شکل است و از چوب ساخته شده است.",
+      "ar": "له جزءان يوضع أحدهما فوق الآخر. وهو مربّع الشكل ومصنوع من الخشب.",
+      "terms": []
+    },
+    "stringhopper mats a": {
+      "src": "Stringhopper mats {blk}A{/blk}",
+      "fa": "حصیرهای استرینگ‌هاپر: A",
+      "ar": "حصائر السترينغ هوبرز: A",
+      "terms": []
+    },
+    "these are round shallow baskets made of thin pieces of wood. the wood is in a criss-cross pattern to form large holes.": {
+      "src": "These are round shallow baskets made of thin pieces of wood. The wood is in a criss-cross pattern to form large holes.",
+      "fa": "این‌ها سبدهای گرد و کم‌عمقی‌اند که از تکه‌های نازکِ چوب ساخته شده‌اند. چوب‌ها به‌شکلِ ضربدری روی هم قرار گرفته‌اند و سوراخ‌های بزرگی درست می‌کنند.",
+      "ar": "هذه سلال دائرية ضحلة مصنوعة من قطع رقيقة من الخشب. والخشب متشابك على شكل شبكة متقاطعة تشكّل ثقوبًا كبيرة.",
+      "terms": [
+        "shallow",
+        "criss-cross"
+      ]
+    },
+    "these are cloth triangles with very small holes in them.": {
+      "src": "These are cloth triangles with very small holes in them.",
+      "fa": "این‌ها پارچه‌های مثلثی‌شکلی‌اند با سوراخ‌های بسیار ریز.",
+      "ar": "هذه قطع قماش مثلّثة فيها ثقوب صغيرة جدًّا.",
+      "terms": []
+    },
+    "these are thick pieces of wood with rectangular holes in them.": {
+      "src": "These are thick pieces of wood with rectangular holes in them.",
+      "fa": "این‌ها تکه‌های ضخیمِ چوب‌اند با سوراخ‌های مستطیلی.",
+      "ar": "هذه قطع خشب سميكة فيها ثقوب مستطيلة.",
+      "terms": [
+        "rectangular"
+      ]
+    },
+    "stringhopper mats c": {
+      "src": "Stringhopper mats {blk}C{/blk}",
+      "fa": "حصیرهای استرینگ‌هاپر: C",
+      "ar": "حصائر السترينغ هوبرز: C",
+      "terms": []
+    },
+    "it is made of metal and the top and bottom are the same size and shape.": {
+      "src": "It is made of metal and the top and bottom are the same size and shape.",
+      "fa": "از فلز ساخته شده و بالا و پایینش هم‌اندازه و هم‌شکل‌اند.",
+      "ar": "مصنوع من المعدن، وأعلاه وأسفله متساويان في الحجم والشكل.",
+      "terms": []
+    },
+    "it is a metal machine with a wide base and a narrow tray on top.": {
+      "src": "It is a metal machine with a wide base and a narrow tray on top.",
+      "fa": "دستگاهی فلزی است با پایه‌ای پهن و سینیِ باریکی در بالا.",
+      "ar": "آلة معدنية لها قاعدة عريضة وصينية ضيّقة في الأعلى.",
+      "terms": []
+    },
+    "it is a machine made of metal with a wide tray at the top and a narrower base.": {
+      "src": "It is a machine made of metal with a wide tray at the top and a narrower base.",
+      "fa": "دستگاهی فلزی است با سینیِ پهنی در بالا و پایه‌ای باریک‌تر.",
+      "ar": "آلة مصنوعة من المعدن لها صينية عريضة في الأعلى وقاعدة أضيق.",
+      "terms": []
+    },
+    "complete the chart with words from exercise 2.": {
+      "src": "Complete the chart with words from exercise 2.",
+      "fa": "جدول را با کلمه‌هایی از تمرینِ 2 کامل کنید.",
+      "ar": "أكمل الجدول بكلمات من التمرين 2.",
+      "terms": []
+    },
+    "materials": {
+      "src": "Materials",
+      "fa": "جنس‌ها (مواد)",
+      "ar": "المواد",
+      "terms": []
+    },
+    "parts": {
+      "src": "Parts",
+      "fa": "قسمت‌ها",
+      "ar": "الأجزاء",
+      "terms": []
+    },
+    "shapes": {
+      "src": "Shapes",
+      "fa": "شکل‌ها",
+      "ar": "الأشكال",
+      "terms": []
+    },
+    "plastic": {
+      "src": "Plastic",
+      "fa": "پلاستیک",
+      "ar": "بلاستيك",
+      "terms": []
+    },
+    "metal": {
+      "src": "{blk}metal{/blk}",
+      "fa": "فلز",
+      "ar": "معدن",
+      "terms": []
+    },
+    "wood": {
+      "src": "{blk}wood{/blk}",
+      "fa": "چوب",
+      "ar": "خشب",
+      "terms": []
+    },
+    "cloth": {
+      "src": "{blk}cloth{/blk}",
+      "fa": "پارچه",
+      "ar": "قماش",
+      "terms": []
+    },
+    "handles": {
+      "src": "Handles",
+      "fa": "دسته‌ها",
+      "ar": "المقابض",
+      "terms": []
+    },
+    "base": {
+      "src": "{blk}base{/blk}",
+      "fa": "پایه",
+      "ar": "القاعدة",
+      "terms": []
+    },
+    "tray": {
+      "src": "{blk}tray{/blk}",
+      "fa": "سینی",
+      "ar": "الصينية",
+      "terms": []
+    },
+    "round": {
+      "src": "round",
+      "fa": "گرد",
+      "ar": "دائري",
+      "terms": []
+    },
+    "square": {
+      "src": "{blk}square{/blk}",
+      "fa": "مربع",
+      "ar": "مربّع",
+      "terms": []
+    },
+    "triangle": {
+      "src": "{blk}triangle{/blk}",
+      "fa": "مثلث",
+      "ar": "مثلّث",
+      "terms": []
+    },
+    "rectangular": {
+      "src": "{blk}rectangular{/blk}",
+      "fa": "مستطیلی",
+      "ar": "مستطيل",
+      "terms": [
+        "rectangular"
+      ]
+    },
+    "[[[[[[[[[[part 1: describing a process]": {
+      "src": "[[[[[[[[[[PART 1: DESCRIBING A PROCESS]",
+      "fa": "بخشِ 1: توصیفِ یک فرایند",
+      "ar": "الجزء 1: وصف عملية",
+      "terms": [
+        "process"
+      ]
+    },
+    "the pictures show the process of making stringhoppers.": {
+      "src": "The pictures show the process of making stringhoppers.",
+      "fa": "تصویرها فرایندِ درست کردنِ استرینگ‌هاپر را نشان می‌دهند.",
+      "ar": "تُظهر الصور عملية إعداد السترينغ هوبرز.",
+      "terms": [
+        "process"
+      ]
+    },
+    "match the short instructions to the pictures.": {
+      "src": "Match the short instructions to the pictures.",
+      "fa": "دستورالعمل‌های کوتاه را به تصویرها وصل کنید.",
+      "ar": "صِل التعليمات القصيرة بالصور.",
+      "terms": []
+    },
+    "1: c 2: b 3: f 4: a 5: d 6: e": {
+      "src": "1: {blk}c{/blk} 2: {blk}b{/blk} 3: {blk}f{/blk} 4: {blk}a{/blk} 5: {blk}d{/blk} 6: {blk}e{/blk}",
+      "fa": "1: c  2: b  3: f  4: a  5: d  6: e",
+      "ar": "1: c  2: b  3: f  4: a  5: d  6: e",
+      "terms": []
+    },
+    "tip 04": {
+      "src": "TIP 04",
+      "fa": "نکته 4",
+      "ar": "نصيحة 4",
+      "terms": []
+    },
+    "push through the stringhopper press onto the stringhopper mats": {
+      "src": "push through the stringhopper press onto the stringhopper mats",
+      "fa": "از پرسِ استرینگ‌هاپر روی حصیرهای استرینگ‌هاپر فشار دهید",
+      "ar": "اكبس العجين عبر مكبس السترينغ هوبرز على الحصائر",
+      "terms": []
+    },
+    "add water to the flour": {
+      "src": "add water to the flour",
+      "fa": "به آرد آب اضافه کنید",
+      "ar": "أضف الماء إلى الدقيق",
+      "terms": []
+    },
+    "put the rice into the grinder and grind into flour": {
+      "src": "put the rice into the grinder and grind into flour",
+      "fa": "برنج را داخلِ آسیاب بریزید و آرد کنید",
+      "ar": "ضع الأرز في المطحنة واطحنه حتى يصير دقيقًا",
+      "terms": [
+        "grind"
+      ]
+    },
+    "cook in a steamer": {
+      "src": "cook in a steamer",
+      "fa": "در بخارپز بپزید",
+      "ar": "اطهُه في قدر البخار",
+      "terms": [
+        "steamer"
+      ]
+    },
+    "serve with spicy curries": {
+      "src": "serve with spicy curries",
+      "fa": "با خورش‌های کاریِ تند سرو کنید",
+      "ar": "قدّمه مع أطباق الكاري الحارّة",
+      "terms": []
+    },
+    "mix well to form a dough": {
+      "src": "mix well to form a dough",
+      "fa": "خوب مخلوط کنید تا خمیر شود",
+      "ar": "اخلط جيدًا حتى يتكوّن العجين",
+      "terms": [
+        "dough"
+      ]
+    },
+    "◉ we use the present simple passive to describe a process.": {
+      "src": "◉ We use the present simple passive to describe a process.",
+      "fa": "◉ برای توصیفِ یک فرایند از مجهولِ حالِ ساده (present simple passive) استفاده می‌کنیم.",
+      "ar": "◉ نستخدم المبني للمجهول في المضارع البسيط (present simple passive) لوصف عملية.",
+      "terms": [
+        "present simple passive",
+        "process"
+      ]
+    },
+    "we make them with rice. → they are made with rice.": {
+      "src": "We make them with rice. → They are made with rice.",
+      "fa": "We make them with rice. (ما آن‌ها را با برنج درست می‌کنیم.) ← They are made with rice. (آن‌ها با برنج درست می‌شوند.)",
+      "ar": "We make them with rice. (نصنعها من الأرز.) ← They are made with rice. (تُصنع من الأرز.)",
+      "terms": []
+    },
+    "you mix it with water. → it is mixed with water.": {
+      "src": "You mix it with water. → It is mixed with water.",
+      "fa": "You mix it with water. (آن را با آب مخلوط می‌کنید.) ← It is mixed with water. (با آب مخلوط می‌شود.)",
+      "ar": "You mix it with water. (تخلطه بالماء.) ← It is mixed with water. (يُخلط بالماء.)",
+      "terms": []
+    },
+    "grammar focus: the present simple passive": {
+      "src": "GRAMMAR FOCUS: THE PRESENT SIMPLE PASSIVE",
+      "fa": "نکته‌ی دستوری: مجهولِ حالِ ساده (present simple passive)",
+      "ar": "التركيز على القواعد: المبني للمجهول في المضارع البسيط (present simple passive)",
+      "terms": [
+        "present simple passive"
+      ]
+    },
+    "complete the sentences about tea. use the verbs in brackets in the present simple passive.": {
+      "src": "Complete the sentences about tea. Use the verbs in brackets in the present simple passive.",
+      "fa": "جمله‌های مربوط به چای را کامل کنید. فعل‌های داخلِ پرانتز را به شکلِ مجهولِ حالِ ساده به کار ببرید.",
+      "ar": "أكمل الجمل المتعلّقة بالشاي. استخدم الأفعال الواردة بين القوسين في صيغة المبني للمجهول في المضارع البسيط.",
+      "terms": [
+        "present simple passive"
+      ]
+    },
+    "tea leaves are picked(pick) by hand.": {
+      "src": "Tea leaves {blk}are picked{/blk}(pick) by hand.",
+      "fa": "برگ‌های چای با دست چیده می‌شوند (are picked).",
+      "ar": "تُقطف أوراق الشاي باليد (are picked).",
+      "terms": []
+    },
+    "only the best leaves are used(use).": {
+      "src": "Only the best leaves {blk}are used{/blk}(use).",
+      "fa": "فقط از بهترین برگ‌ها استفاده می‌شود (are used).",
+      "ar": "لا تُستخدم إلا أفضل الأوراق (are used).",
+      "terms": []
+    },
+    "a lot of water is needed(need) to grow tea plants successfully.": {
+      "src": "A lot of water {blk}is needed{/blk}(need) to grow tea plants successfully.",
+      "fa": "برای پرورشِ موفقِ بوته‌های چای آبِ زیادی لازم است (is needed).",
+      "ar": "يلزم الكثير من الماء (is needed) لزراعة شجيرات الشاي بنجاح.",
+      "terms": []
+    },
+    "a lot of tea is grown(grow) in china and india.": {
+      "src": "A lot of tea {blk}is grown{/blk}(grow) in China and India.",
+      "fa": "مقدارِ زیادی چای در چین و هند کشت می‌شود (is grown).",
+      "ar": "يُزرع (is grown) الكثير من الشاي في الصين والهند.",
+      "terms": []
+    },
+    "grammar focus: sequencing words": {
+      "src": "GRAMMAR FOCUS: SEQUENCING WORDS",
+      "fa": "نکته‌ی دستوری: کلمه‌های ترتیبی",
+      "ar": "التركيز على القواعد: كلمات الترتيب",
+      "terms": [
+        "sequencing expressions"
+      ]
+    },
+    "complete the sentences about making stringhoppers with words from the box.": {
+      "src": "Complete the sentences about making stringhoppers with words from the box.",
+      "fa": "جمله‌های مربوط به درست کردنِ استرینگ‌هاپر را با کلمه‌های داخلِ کادر کامل کنید.",
+      "ar": "أكمل الجمل المتعلّقة بإعداد السترينغ هوبرز بكلمات من المربّع.",
+      "terms": []
+    },
+    "after": {
+      "src": "After",
+      "fa": "After (بعد از)",
+      "ar": "After (بعد)",
+      "terms": []
+    },
+    "finally": {
+      "src": "Finally",
+      "fa": "Finally (در پایان)",
+      "ar": "Finally (أخيرًا)",
+      "terms": []
+    },
+    "first": {
+      "src": "First",
+      "fa": "First (اول)",
+      "ar": "First (أولًا)",
+      "terms": []
+    },
+    "next": {
+      "src": "Next",
+      "fa": "Next (بعد)",
+      "ar": "Next (بعد ذلك)",
+      "terms": []
+    },
+    "the next stage": {
+      "src": "The next stage",
+      "fa": "The next stage (مرحله‌ی بعد)",
+      "ar": "The next stage (المرحلة التالية)",
+      "terms": [
+        "stage"
+      ]
+    },
+    "then": {
+      "src": "Then",
+      "fa": "Then (سپس)",
+      "ar": "Then (ثمّ)",
+      "terms": []
+    },
+    "first, the rice is put through a grinder.": {
+      "src": "{blk}First{/blk}, the rice is put through a grinder.",
+      "fa": "اول (First)، برنج داخلِ آسیاب ریخته می‌شود.",
+      "ar": "أولًا (First)، يوضع الأرز في المطحنة.",
+      "terms": []
+    },
+    "after that, water is added to the flour.": {
+      "src": "{blk}After{/blk} that, water is added to the flour.",
+      "fa": "بعد از (After) آن، به آرد آب اضافه می‌شود.",
+      "ar": "بعد (After) ذلك، يُضاف الماء إلى الدقيق.",
+      "terms": []
+    },
+    "then/ next it is mixed and made into a dough.": {
+      "src": "{blk}Then/ Next{/blk} it is mixed and made into a dough.",
+      "fa": "سپس/بعد (Then/Next) مخلوط می‌شود و به شکلِ خمیر درمی‌آید.",
+      "ar": "ثمّ/بعد ذلك (Then/Next) يُخلط ويُحوَّل إلى عجين.",
+      "terms": [
+        "dough"
+      ]
+    },
+    "the next stage is to push the dough through the stringhopper press.": {
+      "src": "{blk}The next stage{/blk} is to push the dough through the stringhopper press.",
+      "fa": "مرحله‌ی بعد (The next stage) این است که خمیر از پرسِ استرینگ‌هاپر رد شود.",
+      "ar": "المرحلة التالية (The next stage) هي كبس العجين عبر مكبس السترينغ هوبرز.",
+      "terms": [
+        "stage",
+        "dough"
+      ]
+    },
+    "next i then the stringhoppers are placed in a steamer.": {
+      "src": "{blk}Next I Then{/blk} the stringhoppers are placed in a steamer.",
+      "fa": "بعد/سپس (Next/Then) استرینگ‌هاپرها داخلِ بخارپز گذاشته می‌شوند.",
+      "ar": "بعد ذلك/ثمّ (Next/Then) توضع السترينغ هوبرز في قدر البخار.",
+      "terms": [
+        "steamer"
+      ]
+    },
+    "finally, they are served with spicy curries.": {
+      "src": "{blk}Finally{/blk}, they are served with spicy curries.",
+      "fa": "در پایان (Finally)، با خورش‌های کاریِ تند سرو می‌شوند.",
+      "ar": "أخيرًا (Finally)، تُقدَّم مع أطباق الكاري الحارّة.",
+      "terms": []
+    },
+    "tip 06": {
+      "src": "TIP 06",
+      "fa": "نکته 6",
+      "ar": "نصيحة 6",
+      "terms": []
+    },
+    "when describing the stages in a process, it is important to use sequencing expressions, for example first, then, next, to clearly show the order of the stages.": {
+      "src": "When describing the stages in a process, it is important to use sequencing expressions, for example first, then, next, to clearly show the order of the stages.",
+      "fa": "هنگامِ توصیفِ مراحلِ یک فرایند، مهم است که از عبارت‌های ترتیبی مثلِ first، then و next استفاده کنید تا ترتیبِ مراحل به‌روشنی معلوم شود.",
+      "ar": "عند وصف مراحل عملية ما، من المهمّ استخدام عبارات الترتيب، مثل first وthen وnext، لإظهار تسلسل المراحل بوضوح.",
+      "terms": [
+        "sequencing expressions",
+        "stage",
+        "process"
+      ]
+    },
+    "writing an introduction and overview": {
+      "src": "WRITING AN INTRODUCTION AND OVERVIEW",
+      "fa": "نوشتنِ مقدمه و نمای کلی",
+      "ar": "كتابة المقدّمة والنظرة العامة",
+      "terms": [
+        "introduction",
+        "overview"
+      ]
+    },
+    "which of these is an introduction and which is an overview?": {
+      "src": "Which of these is an introduction and which is an overview?",
+      "fa": "کدام‌یک از این‌ها مقدمه است و کدام نمای کلی؟",
+      "ar": "أيٌّ من هذين مقدّمة، وأيّهما نظرة عامة؟",
+      "terms": [
+        "introduction",
+        "overview"
+      ]
+    },
+    "there are six stages in the process of making stringhoppers, beginning with grinding the rice and making a dough and ending with using a steamer to cook the stringhoppers.": {
+      "src": "There are six stages in the process of making stringhoppers, beginning with grinding the rice and making a dough and ending with using a steamer to cook the stringhoppers.",
+      "fa": "فرایندِ درست کردنِ استرینگ‌هاپر شش مرحله دارد؛ با آسیاب کردنِ برنج و درست کردنِ خمیر شروع می‌شود و با پختنِ استرینگ‌هاپرها در بخارپز تمام می‌شود.",
+      "ar": "تمرّ عملية إعداد السترينغ هوبرز بستّ مراحل، تبدأ بطحن الأرز وصنع العجين، وتنتهي بطهي السترينغ هوبرز في قدر البخار.",
+      "terms": [
+        "stage",
+        "process",
+        "grind",
+        "dough",
+        "steamer"
+      ]
+    },
+    "overview": {
+      "src": "{blk}overview{/blk}",
+      "fa": "نمای کلی",
+      "ar": "نظرة عامة",
+      "terms": [
+        "overview"
+      ]
+    },
+    "the diagram demonstrates the process of preparing stringhoppers, a kind of noodle.": {
+      "src": "The diagram demonstrates the process of preparing stringhoppers, a kind of noodle.",
+      "fa": "نمودار فرایندِ آماده کردنِ استرینگ‌هاپر را نشان می‌دهد که نوعی رشته (نودل) است.",
+      "ar": "يوضّح المخطّط عملية تحضير السترينغ هوبرز، وهي نوع من الشعيرية (النودلز).",
+      "terms": [
+        "diagram",
+        "demonstrate",
+        "process"
+      ]
+    },
+    "introduction": {
+      "src": "{blk}introduction{/blk}",
+      "fa": "مقدمه",
+      "ar": "مقدّمة",
+      "terms": [
+        "introduction"
+      ]
+    },
+    "◉ in writing task 1 your answer should include an introduction and an overview. the introduction is usually the task question rewritten in your own words. the overview is a summary of the process.": {
+      "src": "◉ In Writing Task 1 your answer should include an introduction and an overview. The introduction is usually the task question rewritten in your own words. The overview is a summary of the process.",
+      "fa": "◉ در تسکِ 1 رایتینگ، پاسخِ شما باید مقدمه و نمای کلی داشته باشد. مقدمه معمولاً همان صورتِ سؤال است که با کلمه‌های خودتان بازنویسی شده است. نمای کلی خلاصه‌ای از فرایند است.",
+      "ar": "◉ في المهمّة الأولى من الكتابة يجب أن تتضمّن إجابتك مقدّمة ونظرة عامة. والمقدّمة عادةً هي سؤال المهمّة بعد إعادة صياغته بكلماتك الخاصة، أمّا النظرة العامة فهي ملخّص للعملية.",
+      "terms": [
+        "introduction",
+        "overview",
+        "summary",
+        "process"
+      ]
+    },
+    "which of these are not overviews?": {
+      "src": "Which of these are NOT overviews?",
+      "fa": "کدام‌یک از این‌ها نمای کلی نیستند؟",
+      "ar": "أيٌّ من هذه ليست نظرات عامة؟",
+      "terms": [
+        "overview"
+      ]
+    },
+    "a and d are not overviews": {
+      "src": "{blk}a and d are not overviews{/blk}",
+      "fa": "a و d نمای کلی نیستند.",
+      "ar": "a وd ليستا نظرتين عامّتين.",
+      "terms": [
+        "overview"
+      ]
+    },
+    "the process of making blue cheese can be seen in this series of pictures.": {
+      "src": "The process of making blue cheese can be seen in this series of pictures.",
+      "fa": "فرایندِ تهیه‌ی پنیرِ آبی (پنیرِ کپک‌دار) را می‌توان در این مجموعه تصویر دید.",
+      "ar": "يمكن رؤية عملية صنع الجبن الأزرق في هذه السلسلة من الصور.",
+      "terms": [
+        "process"
+      ]
+    },
+    "to make a perfect omelette you need fresh ingredients, the right equipment and the correct technique. you must also cook it for the correct amount of time and pay attention to the temperature.": {
+      "src": "To make a perfect omelette you need fresh ingredients, the right equipment and the correct technique. You must also cook it for the correct amount of time and pay attention to the temperature.",
+      "fa": "برای درست کردنِ یک املتِ عالی به مواد اولیه‌ی تازه، وسایلِ مناسب و روشِ درست نیاز دارید. همچنین باید آن را به مدتِ درست بپزید و به دما توجه کنید.",
+      "ar": "لإعداد عجّة مثالية تحتاج إلى مكوّنات طازجة والأدوات المناسبة والتقنية الصحيحة. ويجب أيضًا أن تطهوها المدّة المناسبة وأن تنتبه إلى درجة الحرارة.",
+      "terms": [
+        "ingredients",
+        "equipment",
+        "technique",
+        "pay attention to"
+      ]
+    },
+    "the production of tea involves a range of stages, from picking the leaves from the plant to drying and distributing it.": {
+      "src": "The production of tea involves a range of stages, from picking the leaves from the plant to drying and distributing it.",
+      "fa": "تولیدِ چای مراحلِ گوناگونی دارد؛ از چیدنِ برگ‌ها از بوته تا خشک کردن و توزیعِ آن.",
+      "ar": "يمرّ إنتاج الشاي بمجموعة من المراحل، من قطف الأوراق عن الشجيرة إلى تجفيفه وتوزيعه.",
+      "terms": [
+        "production",
+        "involve",
+        "a range of",
+        "stage",
+        "distribute"
+      ]
+    },
+    "the diagram shows the various stages in the process of making strawberry jam.": {
+      "src": "The diagram shows the various stages in the process of making strawberry jam.",
+      "fa": "نمودار مراحلِ مختلفِ فرایندِ درست کردنِ مربای توت‌فرنگی را نشان می‌دهد.",
+      "ar": "يبيّن المخطّط المراحل المختلفة لعملية صنع مربّى الفراولة.",
+      "terms": [
+        "diagram",
+        "stage",
+        "process"
+      ]
+    },
+    "the first stage is to pick the strawberries when they are ripe.": {
+      "src": "The first stage is to pick the strawberries when they are ripe.",
+      "fa": "مرحله‌ی اول این است که توت‌فرنگی‌ها را وقتی رسیده‌اند بچینیم.",
+      "ar": "المرحلة الأولى هي قطف الفراولة حين تنضج.",
+      "terms": [
+        "stage",
+        "ripe"
+      ]
+    },
+    "studying a model answer": {
+      "src": "STUDYING A MODEL ANSWER",
+      "fa": "بررسیِ یک پاسخِ نمونه",
+      "ar": "دراسة إجابة نموذجية",
+      "terms": [
+        "model answer"
+      ]
+    },
+    "study the essay opposite and find:": {
+      "src": "Study the essay opposite and find:",
+      "fa": "متنِ صفحه‌ی روبه‌رو را بررسی کنید و این موارد را در آن پیدا کنید:",
+      "ar": "ادرس المقال في الصفحة المقابلة وابحث فيه عمّا يلي:",
+      "terms": []
+    },
+    "the introduction": {
+      "src": "the introduction",
+      "fa": "مقدمه",
+      "ar": "المقدّمة",
+      "terms": [
+        "introduction"
+      ]
+    },
+    "the diagram demonstrates the process of preparing stringhoppers, a kind of noodle dish.": {
+      "src": "{blk}The diagram demonstrates the process of preparing stringhoppers, a kind of noodle dish.{/blk}",
+      "fa": "نمودار فرایندِ آماده کردنِ استرینگ‌هاپر را نشان می‌دهد که نوعی غذای رشته‌ای است.",
+      "ar": "يوضّح المخطّط عملية تحضير السترينغ هوبرز، وهي نوع من أطباق الشعيرية.",
+      "terms": [
+        "diagram",
+        "demonstrate",
+        "process"
+      ]
+    },
+    "the overview": {
+      "src": "the overview",
+      "fa": "نمای کلی",
+      "ar": "النظرة العامة",
+      "terms": [
+        "overview"
+      ]
+    },
+    "there are six main stages in the process, beginning with grinding the rice and making a dough and ending with using a steamer to cook the stringhoppers.": {
+      "src": "{blk}There are six main stages in the process, beginning with grinding the rice and making a dough and ending with using a steamer to cook the stringhoppers.{/blk}",
+      "fa": "این فرایند شش مرحله‌ی اصلی دارد؛ با آسیاب کردنِ برنج و درست کردنِ خمیر شروع می‌شود و با پختنِ استرینگ‌هاپرها در بخارپز تمام می‌شود.",
+      "ar": "لهذه العملية ستّ مراحل رئيسية، تبدأ بطحن الأرز وصنع العجين، وتنتهي بطهي السترينغ هوبرز في قدر البخار.",
+      "terms": [
+        "stage",
+        "process",
+        "grind",
+        "dough",
+        "steamer"
+      ]
+    },
+    "sequencing expressions": {
+      "src": "sequencing expressions",
+      "fa": "عبارت‌های ترتیبی",
+      "ar": "عبارات الترتيب",
+      "terms": [
+        "sequencing expressions"
+      ]
+    },
+    "first, next, after that, then, the final stage is": {
+      "src": "{blk}First, Next, After that, then, The final stage is{/blk}",
+      "fa": "First (اول)، Next (بعد)، After that (بعد از آن)، then (سپس)، The final stage is (مرحله‌ی آخر … است)",
+      "ar": "First (أولًا)، Next (بعد ذلك)، After that (بعد ذلك)، then (ثمّ)، The final stage is (المرحلة الأخيرة هي)",
+      "terms": [
+        "stage"
+      ]
+    },
+    "verbs in the present simple passive": {
+      "src": "verbs in the present simple passive",
+      "fa": "فعل‌های مجهولِ حالِ ساده",
+      "ar": "الأفعال المبنية للمجهول في المضارع البسيط",
+      "terms": [
+        "present simple passive"
+      ]
+    },
+    "is put, is mixed, (is) formed, is put, is pushed, are placed, are... cooked": {
+      "src": "{blk}is put, is mixed, (is) formed, is put, is pushed, are placed, are... cooked{/blk}",
+      "fa": "is put (گذاشته می‌شود)، is mixed (مخلوط می‌شود)، (is) formed (شکل داده می‌شود)، is put (گذاشته می‌شود)، is pushed (فشار داده می‌شود)، are placed (قرار داده می‌شوند)، are... cooked (پخته می‌شوند)",
+      "ar": "is put (يوضع)، is mixed (يُخلط)، (is) formed (يُشكَّل)، is put (يوضع)، is pushed (يُكبس)، are placed (توضع)، are... cooked (تُطهى)",
+      "terms": []
+    },
+    "descriptions of the equipment": {
+      "src": "descriptions of the equipment",
+      "fa": "توصیف‌های وسایل",
+      "ar": "أوصاف الأدوات",
+      "terms": [
+        "equipment"
+      ]
+    },
+    "a metal piece of equipment with two handles and holes in it; round baskets made of thin pieces of wood": {
+      "src": "{blk}a metal piece of equipment with two handles and holes in it; round baskets made of thin pieces of wood{/blk}",
+      "fa": "وسیله‌ای فلزی با دو دسته که سوراخ‌هایی دارد؛ سبدهای گردی که از تکه‌های نازکِ چوب ساخته شده‌اند",
+      "ar": "أداة معدنية لها مقبضان وفيها ثقوب؛ سلال دائرية مصنوعة من قطع رقيقة من الخشب",
+      "terms": [
+        "equipment"
+      ]
+    },
+    "vocabulary from the short instructions": {
+      "src": "vocabulary from the short instructions",
+      "fa": "واژه‌هایی از دستورالعمل‌های کوتاه",
+      "ar": "مفردات من التعليمات القصيرة",
+      "terms": []
+    },
+    "grind, rice, dough, steamer, grinder, flour, stringhopper press, stringhopper mats, cook, serve, spicy, curries": {
+      "src": "{blk}grind, rice, dough, steamer, grinder, flour, stringhopper press, stringhopper mats, cook, serve, spicy, curries{/blk}",
+      "fa": "grind (آسیاب کردن)، rice (برنج)، dough (خمیر)، steamer (بخارپز)، grinder (آسیاب)، flour (آرد)، stringhopper press (پرسِ استرینگ‌هاپر)، stringhopper mats (حصیرهای استرینگ‌هاپر)، cook (پختن)، serve (سرو کردن)، spicy (تند)، curries (خورش‌های کاری)",
+      "ar": "grind (يطحن)، rice (أرز)، dough (عجين)، steamer (قدر البخار)، grinder (مطحنة)، flour (دقيق)، stringhopper press (مكبس السترينغ هوبرز)، stringhopper mats (حصائر السترينغ هوبرز)، cook (يطهو)، serve (يقدّم)، spicy (حارّ)، curries (أطباق الكاري)",
+      "terms": [
+        "grind",
+        "dough",
+        "steamer"
+      ]
+    },
+    "in exercise 4": {
+      "src": "in exercise 4",
+      "fa": "در تمرینِ 4",
+      "ar": "في التمرين 4",
+      "terms": []
+    },
+    "model answer": {
+      "src": "MODEL ANSWER",
+      "fa": "پاسخِ نمونه",
+      "ar": "إجابة نموذجية",
+      "terms": [
+        "model answer"
+      ]
+    },
+    "the diagram demonstrates the process of preparing stringhoppers. a kind of noodle dish. there are six main stages in the process, beginning with grinding the rice and making a dough and ending with using a steamer to cook the stringhoppers.": {
+      "src": "The diagram demonstrates the process of preparing stringhoppers. a kind of noodle dish. There are six main stages in the process, beginning with grinding the rice and making a dough and ending with using a steamer to cook the stringhoppers.",
+      "fa": "نمودار فرایندِ آماده کردنِ استرینگ‌هاپر را نشان می‌دهد که نوعی غذای رشته‌ای است. این فرایند شش مرحله‌ی اصلی دارد؛ با آسیاب کردنِ برنج و درست کردنِ خمیر شروع می‌شود و با پختنِ استرینگ‌هاپرها در بخارپز تمام می‌شود.",
+      "ar": "يوضّح المخطّط عملية تحضير السترينغ هوبرز، وهي نوع من أطباق الشعيرية. ولهذه العملية ستّ مراحل رئيسية، تبدأ بطحن الأرز وصنع العجين، وتنتهي بطهي السترينغ هوبرز في قدر البخار.",
+      "terms": [
+        "diagram",
+        "demonstrate",
+        "process",
+        "stage",
+        "grind",
+        "dough",
+        "steamer"
+      ]
+    },
+    "first, the dry rice is put into a rice grinder to make it into flour. next, the flour is mixed with water and formed into dough. after that, the dough is put into a stringhopper press, which is a metal piece of equipment with two handles and holes in it. the dough is pushed through the holes and it comes out as thin noodles. the noodle 'nests' are placed onto individual stringhopper mats, which are round baskets made of thin pieces of wood. they are then cooked in a steamer until they are ready. the final stage is to serve the stringhoppers with a variety of spicy curries.": {
+      "src": "First, the dry rice is put into a rice grinder to make it into flour. Next, the flour is mixed with water and formed into dough. After that, the dough is put into a stringhopper press, which is a metal piece of equipment with two handles and holes in it. The dough is pushed through the holes and it comes out as thin noodles. The noodle 'nests' are placed onto individual stringhopper mats, which are round baskets made of thin pieces of wood. They are then cooked in a steamer until they are ready. The final stage is to serve the stringhoppers with a variety of spicy curries.",
+      "fa": "اول، برنجِ خشک داخلِ آسیابِ برنج ریخته می‌شود تا آرد شود. بعد، آرد با آب مخلوط می‌شود و به شکلِ خمیر درمی‌آید. بعد از آن، خمیر داخلِ پرسِ استرینگ‌هاپر گذاشته می‌شود که وسیله‌ای فلزی با دو دسته است و سوراخ‌هایی دارد. خمیر از سوراخ‌ها رد می‌شود و به شکلِ رشته‌های نازک بیرون می‌آید. «لانه‌های» رشته روی حصیرهای جداگانه‌ی استرینگ‌هاپر قرار داده می‌شوند که سبدهای گردی از تکه‌های نازکِ چوب‌اند. سپس آن‌ها در بخارپز پخته می‌شوند تا آماده شوند. مرحله‌ی آخر این است که استرینگ‌هاپرها با انواعِ خورش‌های کاریِ تند سرو شوند.",
+      "ar": "أولًا، يوضع الأرز الجافّ في مطحنة الأرز ليصير دقيقًا. بعد ذلك، يُخلط الدقيق بالماء ويُشكَّل عجينًا. ثمّ يوضع العجين في مكبس السترينغ هوبرز، وهو أداة معدنية لها مقبضان وفيها ثقوب. ويُكبس العجين عبر الثقوب فيخرج على هيئة شعيرية رقيقة. وتوضع «أعشاش» الشعيرية على حصائر السترينغ هوبرز المنفردة، وهي سلال دائرية مصنوعة من قطع رقيقة من الخشب. ثمّ تُطهى في قدر البخار حتى تنضج. والمرحلة الأخيرة هي تقديم السترينغ هوبرز مع تشكيلة من أطباق الكاري الحارّة.",
+      "terms": [
+        "dough",
+        "equipment",
+        "steamer",
+        "stage",
+        "a variety of"
+      ]
+    },
+    "look at the pictures, which show the process of making cherry jam. complete the sentences with a verb from the box in the correct form.": {
+      "src": "Look at the pictures, which show the process of making cherry jam. Complete the sentences with a verb from the box in the correct form.",
+      "fa": "به تصویرها که فرایندِ درست کردنِ مربای گیلاس را نشان می‌دهند نگاه کنید. جمله‌ها را با فعلی از داخلِ کادر و به شکلِ درست کامل کنید.",
+      "ar": "انظر إلى الصور التي تبيّن عملية صنع مربّى الكرز. أكمل الجمل بفعل من المربّع في الصيغة الصحيحة.",
+      "terms": [
+        "process"
+      ]
+    },
+    "add": {
+      "src": "add",
+      "fa": "اضافه کردن",
+      "ar": "يضيف",
+      "terms": []
+    },
+    "check": {
+      "src": "check",
+      "fa": "بررسی کردن",
+      "ar": "يفحص",
+      "terms": []
+    },
+    "collect": {
+      "src": "collect",
+      "fa": "جمع کردن",
+      "ar": "يجمع",
+      "terms": []
+    },
+    "cook": {
+      "src": "cook",
+      "fa": "پختن",
+      "ar": "يطهو",
+      "terms": []
+    },
+    "put": {
+      "src": "put",
+      "fa": "گذاشتن",
+      "ar": "يضع",
+      "terms": []
+    },
+    "remove": {
+      "src": "remove",
+      "fa": "جدا کردن، برداشتن",
+      "ar": "يزيل",
+      "terms": []
+    },
+    "shake": {
+      "src": "shake",
+      "fa": "تکان دادن",
+      "ar": "يهزّ",
+      "terms": []
+    },
+    "spread": {
+      "src": "spread",
+      "fa": "پهن کردن",
+      "ar": "يفرش، يبسط",
+      "terms": []
+    },
+    "stick": {
+      "src": "stick",
+      "fa": "چسباندن",
+      "ar": "يُلصق",
+      "terms": []
+    },
+    "take": {
+      "src": "take",
+      "fa": "بردن، درآوردن",
+      "ar": "يأخذ، يُخرج",
+      "terms": []
+    },
+    "wash": {
+      "src": "wash",
+      "fa": "شستن",
+      "ar": "يغسل",
+      "terms": []
+    },
+    "transport": {
+      "src": "transport",
+      "fa": "حمل کردن، جابه‌جا کردن",
+      "ar": "ينقل",
+      "terms": []
+    },
+    "a sheet is spread on the ground and the tree is shaken to get the cherries.": {
+      "src": "A sheet is {blk}spread{/blk} on the ground and the tree is {blk}shaken{/blk} to get the cherries.",
+      "fa": "پارچه‌ای روی زمین پهن می‌شود (is spread) و درخت تکان داده می‌شود (is shaken) تا گیلاس‌ها بریزند.",
+      "ar": "تُفرش (is spread) ملاءة على الأرض وتُهزّ (is shaken) الشجرة لإسقاط حبّات الكرز.",
+      "terms": []
+    },
+    "the cherries are collected and are transported / taken to the processing plant.": {
+      "src": "The cherries are {blk}collected{/blk} and are {blk}transported / taken{/blk} to the processing plant.",
+      "fa": "گیلاس‌ها جمع می‌شوند (are collected) و به کارخانه‌ی فراوری منتقل می‌شوند (are transported / taken).",
+      "ar": "يُجمع (are collected) الكرز ويُنقل (are transported / taken) إلى مصنع المعالجة.",
+      "terms": [
+        "processing plant"
+      ]
+    },
+    "the leaves and stems are removed": {
+      "src": "The leaves and stems are {blk}removed{/blk}",
+      "fa": "برگ‌ها و دم‌ها جدا می‌شوند (are removed).",
+      "ar": "تُزال (are removed) الأوراق والسيقان.",
+      "terms": [
+        "stem"
+      ]
+    },
+    "the cherries are washed": {
+      "src": "The cherries are {blk}washed{/blk} ",
+      "fa": "گیلاس‌ها شسته می‌شوند (are washed).",
+      "ar": "يُغسل الكرز (are washed).",
+      "terms": []
+    },
+    "the stone is taken out of the middle of the cherry.": {
+      "src": "The stone is {blk}taken out{/blk} of the middle of the cherry.",
+      "fa": "هسته از وسطِ گیلاس درآورده می‌شود (is taken out).",
+      "ar": "تُنزع (is taken out) النواة من وسط حبّة الكرز.",
+      "terms": []
+    },
+    "the cherries are cooked and extra ingredients are added.": {
+      "src": "The cherries are {blk}cooked{/blk} and extra ingredients are {blk}added{/blk}.",
+      "fa": "گیلاس‌ها پخته می‌شوند (are cooked) و مواد اولیه‌ی دیگر اضافه می‌شوند (are added).",
+      "ar": "يُطهى الكرز (are cooked) وتُضاف (are added) مكوّنات أخرى.",
+      "terms": []
+    },
+    "the quality of the jam is checked": {
+      "src": "The quality of the jam is {blk}checked{/blk}",
+      "fa": "کیفیتِ مربا بررسی می‌شود (is checked).",
+      "ar": "تُفحص (is checked) جودة المربّى.",
+      "terms": []
+    },
+    "the jam is put into jars.": {
+      "src": "The jam is {blk}put{/blk} into jars.",
+      "fa": "مربا داخلِ شیشه‌ها ریخته می‌شود (is put).",
+      "ar": "يوضع (is put) المربّى في البرطمانات.",
+      "terms": []
+    },
+    "a label is stuck on the jars.": {
+      "src": "A label is {blk}stuck{/blk} on the jars.",
+      "fa": "روی شیشه‌ها برچسب چسبانده می‌شود (is stuck).",
+      "ar": "يُلصق (is stuck) ملصق على البرطمانات.",
+      "terms": []
+    },
+    "[[[[[[[[[exam skills]": {
+      "src": "[[[[[[[[[EXAM SKILLS]",
+      "fa": "مهارت‌های آزمون",
+      "ar": "مهارات الامتحان",
+      "terms": []
+    },
+    "the pictures show the process of making cherry jam. describe the process.": {
+      "src": "The pictures show the process of making cherry jam. Describe the process.",
+      "fa": "تصویرها فرایندِ درست کردنِ مربای گیلاس را نشان می‌دهند. این فرایند را توصیف کنید.",
+      "ar": "تُظهر الصور عملية صنع مربّى الكرز. صِف هذه العملية.",
+      "terms": [
+        "process"
+      ]
+    },
+    "describe the process.": {
+      "src": "Describe the process.",
+      "fa": "فرایند را توصیف کنید.",
+      "ar": "صِف العملية.",
+      "terms": [
+        "process"
+      ]
+    },
+    "remember to:": {
+      "src": "Remember to:",
+      "fa": "یادتان باشد که:",
+      "ar": "تذكّر أن:",
+      "terms": []
+    },
+    "include an introduction and an overview": {
+      "src": "include an introduction and an overview",
+      "fa": "مقدمه و نمای کلی بنویسید",
+      "ar": "تكتب مقدّمة ونظرة عامة",
+      "terms": [
+        "introduction",
+        "overview"
+      ]
+    },
+    "use the present simple passive": {
+      "src": "use the present simple passive",
+      "fa": "از مجهولِ حالِ ساده استفاده کنید",
+      "ar": "تستخدم المبني للمجهول في المضارع البسيط",
+      "terms": [
+        "present simple passive"
+      ]
+    },
+    "use sequencing expressions": {
+      "src": "use sequencing expressions",
+      "fa": "از عبارت‌های ترتیبی استفاده کنید",
+      "ar": "تستخدم عبارات الترتيب",
+      "terms": [
+        "sequencing expressions"
+      ]
+    },
+    "write 150 words.": {
+      "src": "write 150 words.",
+      "fa": "150 کلمه بنویسید.",
+      "ar": "تكتب 150 كلمة.",
+      "terms": []
+    },
+    "sample answer": {
+      "src": "{blk}Sample answer{/blk}",
+      "fa": "پاسخِ نمونه",
+      "ar": "إجابة نموذجية",
+      "terms": []
+    },
+    "the pictures show the stages in the production of cherry jam. there are a number of processes involved, from picking the fruit from the tree to putting it into jars ready to sell.": {
+      "src": "{blk}The pictures show the stages in the production of cherry jam. There are a number of processes involved, from picking the fruit from the tree to putting it into jars ready to sell.{/blk}",
+      "fa": "تصویرها مراحلِ تولیدِ مربای گیلاس را نشان می‌دهند. این کار چند فرایند را در بر می‌گیرد؛ از چیدنِ میوه از درخت تا ریختنِ آن در شیشه‌ها و آماده کردنش برای فروش.",
+      "ar": "تُظهر الصور مراحل إنتاج مربّى الكرز. وتشمل هذه العملية عدّة إجراءات، من قطف الثمار عن الشجرة إلى تعبئتها في البرطمانات جاهزةً للبيع.",
+      "terms": [
+        "stage",
+        "production",
+        "process",
+        "involve"
+      ]
+    },
+    "first, a sheet is spread on the ground under the tree and the tree is shaken by a mechanical arm to get the cherries down from the tree. then, the cherries are collected and transported by lorry to the processing plant. there the leaves and the stems are removed and then the stone is taken out with a metal spike. next, sugar, lemon juice and pectin are added to the cherries and the jam is cooked. after that, the quality of the jam is checked and then the jam is put into jars. a lid is put on top of the jars to keep the jam fresh. finally, a label is added and the jam is ready to be sold in the shops.": {
+      "src": "{blk}First, a sheet is spread on the ground under the tree and the tree is shaken by a mechanical arm to get the cherries down from the tree. Then, the cherries are collected and transported by lorry to the processing plant. There the leaves and the stems are removed and then the stone is taken out with a metal spike. Next, sugar, lemon juice and pectin are added to the cherries and the jam is cooked. After that, the quality of the jam is checked and then the jam is put into jars. A lid is put on top of the jars to keep the jam fresh. Finally, a label is added and the jam is ready to be sold in the shops.{/blk}",
+      "fa": "اول، پارچه‌ای روی زمین و زیرِ درخت پهن می‌شود و درخت با یک بازوی مکانیکی تکان داده می‌شود تا گیلاس‌ها از درخت بریزند. سپس، گیلاس‌ها جمع می‌شوند و با کامیون به کارخانه‌ی فراوری منتقل می‌شوند. آن‌جا برگ‌ها و دم‌ها جدا می‌شوند و بعد هسته با یک میله‌ی فلزیِ نوک‌تیز درآورده می‌شود. بعد، شکر، آبلیمو و پکتین به گیلاس‌ها اضافه می‌شود و مربا پخته می‌شود. بعد از آن، کیفیتِ مربا بررسی می‌شود و سپس مربا داخلِ شیشه‌ها ریخته می‌شود. روی شیشه‌ها درپوش گذاشته می‌شود تا مربا تازه بماند. در پایان، برچسب زده می‌شود و مربا آماده‌ی فروش در فروشگاه‌هاست.",
+      "ar": "أولًا، تُفرش ملاءة على الأرض تحت الشجرة، وتُهزّ الشجرة بذراع آلية لإسقاط الكرز. ثمّ يُجمع الكرز ويُنقل بالشاحنة إلى مصنع المعالجة. وهناك تُزال الأوراق والسيقان، ثمّ تُنزع النواة بقضيب معدني مدبّب. بعد ذلك، يُضاف السكّر وعصير الليمون والبكتين إلى الكرز ويُطهى المربّى. ثمّ تُفحص جودة المربّى، ويُعبّأ بعدها في البرطمانات. ويوضع غطاء على البرطمانات للحفاظ على طزاجة المربّى. وأخيرًا، يُلصق عليها ملصق ويصبح المربّى جاهزًا للبيع في المتاجر.",
+      "terms": [
+        "mechanical",
+        "processing plant",
+        "stem"
+      ]
+    },
+    "tip 11": {
+      "src": "TIP 11",
+      "fa": "نکته 11",
+      "ar": "نصيحة 11",
+      "terms": []
+    },
+    "use the words on the pictures and diagrams in your answer. they are given to help you.": {
+      "src": "Use the words on the pictures and diagrams in your answer. They are given to help you.",
+      "fa": "از کلمه‌هایی که روی تصویرها و نمودارها آمده در پاسخِ خود استفاده کنید. این کلمه‌ها برای کمک به شما داده شده‌اند.",
+      "ar": "استخدم في إجابتك الكلمات المكتوبة على الصور والمخطّطات؛ فقد وُضعت لمساعدتك.",
+      "terms": [
+        "diagram"
+      ]
+    },
+    "listening": {
+      "src": "LISTENING",
+      "fa": "شنیدن (لیسنینگ)",
+      "ar": "الاستماع",
+      "terms": []
+    },
+    "identify the speakers in a conversation.": {
+      "src": "identify the speakers in a conversation.",
+      "fa": "گوینده‌ها را در یک گفت‌وگو تشخیص دهید.",
+      "ar": "تحديد المتحدّثين في محادثة.",
+      "terms": [
+        "identify"
+      ]
+    },
+    "listen for numbers": {
+      "src": "listen for numbers",
+      "fa": "به عددها گوش دهید",
+      "ar": "الاستماع إلى الأرقام",
+      "terms": []
+    },
+    "answer multiple-choice questions.": {
+      "src": "answer multiple-choice questions.",
+      "fa": "به سؤال‌های چندگزینه‌ای پاسخ دهید.",
+      "ar": "الإجابة عن أسئلة الاختيار من متعدّد.",
+      "terms": [
+        "multiple-choice question"
+      ]
+    },
+    "in section 1 of the listening test you will hear two people talking in everyday situations. tick two situations that could be in section 1 of the listening test.": {
+      "src": "In Section 1 of the Listening test you will hear two people talking in everyday situations. Tick TWO situations that could be in Section 1 of the Listening test.",
+      "fa": "در بخشِ 1 آزمونِ لیسنینگ، گفت‌وگوی دو نفر را در موقعیت‌های روزمره می‌شنوید. دو موقعیتی را که ممکن است در بخشِ 1 آزمونِ لیسنینگ بیاید علامت بزنید.",
+      "ar": "في القسم 1 من اختبار الاستماع ستسمع شخصين يتحدّثان في مواقف يومية. ضع علامة على موقفين يمكن أن يَرِدا في القسم 1 من اختبار الاستماع.",
+      "terms": []
+    },
+    "c, d": {
+      "src": "{blk}C, D{/blk}",
+      "fa": "C، D",
+      "ar": "C، D",
+      "terms": []
+    },
+    "discussing a course assignment": {
+      "src": "Discussing a course assignment",
+      "fa": "بحث درباره‌ی یک تکلیفِ درسی",
+      "ar": "مناقشة واجب دراسي",
+      "terms": [
+        "assignment"
+      ]
+    },
+    "describing changes in family life over time": {
+      "src": "Describing changes in family life over time",
+      "fa": "توصیفِ تغییراتِ زندگیِ خانوادگی در طولِ زمان",
+      "ar": "وصف التغيّرات في الحياة العائلية مع مرور الزمن",
+      "terms": []
+    },
+    "choosing a gift": {
+      "src": "Choosing a gift",
+      "fa": "انتخابِ هدیه",
+      "ar": "اختيار هديّة",
+      "terms": []
+    },
+    "arranging a birthday celebration": {
+      "src": "Arranging a birthday celebration",
+      "fa": "ترتیب دادنِ جشنِ تولد",
+      "ar": "ترتيب احتفال بعيد ميلاد",
+      "terms": []
+    },
+    "listen and match the conversations with two of the situations above.": {
+      "src": "Listen and match the conversations with two of the situations above.",
+      "fa": "گوش دهید و گفت‌وگوها را به دو مورد از موقعیت‌های بالا وصل کنید.",
+      "ar": "استمع وصِل المحادثتين باثنين من المواقف السابقة.",
+      "terms": []
+    },
+    "conversation 1: d conversation 2: c": {
+      "src": "Conversation 1: {blk}D{/blk} Conversation 2: {blk}C{/blk}",
+      "fa": "گفت‌وگوی 1: D  گفت‌وگوی 2: C",
+      "ar": "المحادثة 1: D  المحادثة 2: C",
+      "terms": []
+    },
+    "identifying the speakers": {
+      "src": "IDENTIFYING THE SPEAKERS",
+      "fa": "تشخیصِ گوینده‌ها",
+      "ar": "تحديد المتحدّثين",
+      "terms": [
+        "identify"
+      ]
+    },
+    "listen to the conversations again and pay attention to the speakers. for questions 1-4, write m for male and f for female next to the people.": {
+      "src": "Listen to the conversations again and pay attention to the speakers. For questions 1-4, write M for male and F for female next to the people.",
+      "fa": "دوباره به گفت‌وگوها گوش دهید و به گوینده‌ها دقت کنید. برای سؤال‌های 1 تا 4، کنارِ هر شخص برای مرد M و برای زن F بنویسید.",
+      "ar": "استمع إلى المحادثتين مرّة أخرى وانتبه إلى المتحدّثين. في الأسئلة 1–4 اكتب M للذكر وF للأنثى بجانب كل شخص.",
+      "terms": []
+    },
+    "male or female?": {
+      "src": "Male or female?",
+      "fa": "مرد یا زن؟",
+      "ar": "ذكر أم أنثى؟",
+      "terms": []
+    },
+    "information wanted": {
+      "src": "Information wanted",
+      "fa": "اطلاعاتِ مورد نیاز",
+      "ar": "المعلومات المطلوبة",
+      "terms": []
+    },
+    "conversation 1": {
+      "src": "Conversation 1",
+      "fa": "گفت‌وگوی 1",
+      "ar": "المحادثة 1",
+      "terms": []
+    },
+    "manager 1 m": {
+      "src": "manager 1 {blk}M{/blk}",
+      "fa": "مدیر: M",
+      "ar": "المدير: M",
+      "terms": []
+    },
+    "customer 2 f": {
+      "src": "customer 2 {blk}F{/blk}",
+      "fa": "مشتری: F",
+      "ar": "الزبونة: F",
+      "terms": []
+    },
+    "the customer would like to ---": {
+      "src": "The customer would like to ---",
+      "fa": "مشتری می‌خواهد ---",
+      "ar": "تريد الزبونة أن ---",
+      "terms": []
+    },
+    "book a table.": {
+      "src": "book a table. ",
+      "fa": "میز رزرو کند.",
+      "ar": "تحجز طاولة.",
+      "terms": [
+        "book a table"
+      ]
+    },
+    "order a meal.": {
+      "src": "order a meal.",
+      "fa": "غذا سفارش دهد.",
+      "ar": "تطلب وجبة.",
+      "terms": []
+    },
+    "conversation 2": {
+      "src": "Conversation 2",
+      "fa": "گفت‌وگوی 2",
+      "ar": "المحادثة 2",
+      "terms": []
+    },
+    "shop assistant 3 f": {
+      "src": "shop assistant 3 {blk}F{/blk}",
+      "fa": "فروشنده: F",
+      "ar": "البائعة: F",
+      "terms": []
+    },
+    "customer 4 m": {
+      "src": "customer 4 {blk}M{/blk}",
+      "fa": "مشتری: M",
+      "ar": "الزبون: M",
+      "terms": []
+    },
+    "the customer wants to buy ---": {
+      "src": "The customer wants to buy ---",
+      "fa": "مشتری می‌خواهد بخرد ---",
+      "ar": "يريد الزبون أن يشتري ---",
+      "terms": []
+    },
+    "a necklace.": {
+      "src": "a necklace.",
+      "fa": "یک گردنبند.",
+      "ar": "قلادة.",
+      "terms": []
+    },
+    "earrings.": {
+      "src": "earrings.",
+      "fa": "گوشواره.",
+      "ar": "أقراطًا.",
+      "terms": []
+    },
+    "◉ in section 1 of the listening test you will hear two speakers. in section 3, there will be two or three speakers. in each case the speakers' voices will sound different from each other to help you easily identify who is speaking. the answers could be given by any of the speakers. in section 1, there is normally one person who has to find out information from the other.": {
+      "src": "◉ In Section 1 of the Listening test you will hear two speakers. In Section 3, there will be two or three speakers. In each case the speakers' voices will sound different from each other to help you easily identify who is speaking. The answers could be given by any of the speakers. In Section 1, there is normally one person who has to find out information from the other.",
+      "fa": "◉ در بخشِ 1 آزمونِ لیسنینگ دو گوینده می‌شنوید. در بخشِ 3 دو یا سه گوینده خواهند بود. در هر دو حالت، صدای گوینده‌ها با هم فرق دارد تا راحت تشخیص دهید چه کسی صحبت می‌کند. پاسخ‌ها را ممکن است هر کدام از گوینده‌ها بدهند. در بخشِ 1 معمولاً یک نفر باید از دیگری اطلاعاتی بگیرد.",
+      "ar": "◉ في القسم 1 من اختبار الاستماع ستسمع متحدّثَين، وفي القسم 3 سيكون هناك متحدّثان أو ثلاثة. وفي كلتا الحالتين تختلف أصوات المتحدّثين بعضها عن بعض لتتمكّن بسهولة من معرفة من يتكلّم. وقد ترد الإجابات على لسان أيٍّ من المتحدّثين. وفي القسم 1 يكون هناك عادةً شخص عليه أن يحصل على معلومات من الآخر.",
+      "terms": [
+        "identify"
+      ]
+    },
+    "listen again and for questions 5 and 6, choose the correct answer, a or b.": {
+      "src": "Listen again and for questions 5 and 6, choose the correct answer, A or B.",
+      "fa": "دوباره گوش دهید و برای سؤال‌های 5 و 6 پاسخِ درست، A یا B، را انتخاب کنید.",
+      "ar": "استمع مرّة أخرى، واختر في السؤالين 5 و6 الإجابة الصحيحة، A أو B.",
+      "terms": []
+    },
+    "listening for numbers": {
+      "src": "LISTENING FOR NUMBERS",
+      "fa": "گوش دادن برای شنیدنِ عددها",
+      "ar": "الاستماع إلى الأرقام",
+      "terms": []
+    },
+    "listen and circle the number you hear in each pair.": {
+      "src": "Listen and circle the number you hear in each pair.",
+      "fa": "گوش دهید و در هر جفت، دورِ عددی را که می‌شنوید خط بکشید.",
+      "ar": "استمع وضع دائرة حول الرقم الذي تسمعه في كل زوج.",
+      "terms": []
+    },
+    "1st/3rd": {
+      "src": "1st/3rd",
+      "fa": "1st/3rd (اول/سوم)",
+      "ar": "1st/3rd (الأوّل/الثالث)",
+      "terms": []
+    },
+    "3rd": {
+      "src": "{blk}3rd{/blk}",
+      "fa": "3rd (سوم)",
+      "ar": "3rd (الثالث)",
+      "terms": []
+    },
+    "$ 10.5": {
+      "src": "{blk}$ 10.5{/blk}",
+      "fa": "10.5 دلار",
+      "ar": "10.5 دولار",
+      "terms": []
+    },
+    "6th/5th": {
+      "src": "6th/5th",
+      "fa": "6th/5th (ششم/پنجم)",
+      "ar": "6th/5th (السادس/الخامس)",
+      "terms": []
+    },
+    "6th": {
+      "src": "{blk}6th{/blk}",
+      "fa": "6th (ششم)",
+      "ar": "6th (السادس)",
+      "terms": []
+    },
+    "70": {
+      "src": "{blk}70{/blk}",
+      "fa": "70",
+      "ar": "70",
+      "terms": []
+    },
+    "19": {
+      "src": "{blk}19{/blk}",
+      "fa": "19",
+      "ar": "19",
+      "terms": []
+    },
+    "62": {
+      "src": "{blk}62{/blk}",
+      "fa": "62",
+      "ar": "62",
+      "terms": []
+    },
+    "£110": {
+      "src": "{blk}£110{/blk}",
+      "fa": "110 پوند",
+      "ar": "110 جنيهات إسترلينية",
+      "terms": []
+    },
+    "22nd/27th": {
+      "src": "22nd/27th",
+      "fa": "22nd/27th (بیست‌ودوم/بیست‌وهفتم)",
+      "ar": "22nd/27th (الثاني والعشرون/السابع والعشرون)",
+      "terms": []
+    },
+    "27th": {
+      "src": "{blk}27th{/blk}",
+      "fa": "27th (بیست‌وهفتم)",
+      "ar": "27th (السابع والعشرون)",
+      "terms": []
+    },
+    "◉ in section 1 of the listening test you need to listen for specific details. these details often include numbers.": {
+      "src": "◉ In Section 1 of the Listening test you need to listen for specific details. These details often include numbers.",
+      "fa": "◉ در بخشِ 1 آزمونِ لیسنینگ باید به جزئیاتِ مشخص گوش دهید. این جزئیات اغلب شاملِ عدد هستند.",
+      "ar": "◉ في القسم 1 من اختبار الاستماع عليك أن تنتبه إلى تفاصيل محدّدة، وكثيرًا ما تشمل هذه التفاصيل أرقامًا.",
+      "terms": []
+    },
+    "listen to the next part of conversation 1 and choose the correct answer.": {
+      "src": "Listen to the next part of conversation 1 and choose the correct answer.",
+      "fa": "به بخشِ بعدیِ گفت‌وگوی 1 گوش دهید و پاسخِ درست را انتخاب کنید.",
+      "ar": "استمع إلى الجزء التالي من المحادثة 1 واختر الإجابة الصحيحة.",
+      "terms": []
+    },
+    "how many people does the woman want to make the booking for?": {
+      "src": "How many people does the woman want to make the booking for?",
+      "fa": "زن می‌خواهد برای چند نفر رزرو کند؟",
+      "ar": "لكم شخصًا تريد المرأة أن تحجز؟",
+      "terms": []
+    },
+    "what is the date of the booking?": {
+      "src": "What is the date of the booking?",
+      "fa": "تاریخِ رزرو چیست؟",
+      "ar": "ما تاريخ الحجز؟",
+      "terms": []
+    },
+    "12th": {
+      "src": "12th",
+      "fa": "12th (دوازدهم)",
+      "ar": "12th (الثاني عشر)",
+      "terms": []
+    },
+    "16th": {
+      "src": "16th",
+      "fa": "16th (شانزدهم)",
+      "ar": "16th (السادس عشر)",
+      "terms": []
+    },
+    "17th": {
+      "src": "17th ",
+      "fa": "17th (هفدهم)",
+      "ar": "17th (السابع عشر)",
+      "terms": []
+    },
+    "you will usually hear all the numbers given in the options but only one will be correct. it is important to listen carefully for key phrases, so that you can choose the correct one.": {
+      "src": "You will usually hear all the numbers given in the options but only one will be correct. It is important to listen carefully for key phrases, so that you can choose the correct one.",
+      "fa": "معمولاً همه‌ی عددهایی را که در گزینه‌ها آمده می‌شنوید، ولی فقط یکی درست است. مهم است که با دقت به عبارت‌های کلیدی گوش دهید تا بتوانید گزینه‌ی درست را انتخاب کنید.",
+      "ar": "ستسمع عادةً كل الأرقام الواردة في الخيارات، لكنّ واحدًا منها فقط هو الصحيح. ومن المهمّ أن تستمع بانتباه إلى العبارات المفتاحية لتختار الصحيح.",
+      "terms": []
+    },
+    "look at the following phrases taken from the recording.": {
+      "src": "Look at the following phrases taken from the recording.",
+      "fa": "به عبارت‌های زیر که از فایلِ صوتی برداشته شده‌اند نگاه کنید.",
+      "ar": "انظر إلى العبارات التالية المأخوذة من التسجيل.",
+      "terms": []
+    },
+    "what number is missing?": {
+      "src": "What number is missing?",
+      "fa": "چه عددی جا افتاده است؟",
+      "ar": "ما الرقم الناقص؟",
+      "terms": []
+    },
+    "no, no, it's the day after - the ---.": {
+      "src": "No, no, it's the day after – the ---.",
+      "fa": "نه، نه، روزِ بعدش است؛ ---.",
+      "ar": "لا، لا، إنّه اليوم التالي – ---.",
+      "terms": []
+    },
+    "16th/17th": {
+      "src": "16th/17th",
+      "fa": "16th/17th (شانزدهم/هفدهم)",
+      "ar": "16th/17th (السادس عشر/السابع عشر)",
+      "terms": []
+    },
+    "the private room can seat up to --- people.": {
+      "src": "The private room can seat up to --- people.",
+      "fa": "اتاقِ خصوصی گنجایشِ حداکثر --- نفر را دارد.",
+      "ar": "تتّسع الغرفة الخاصة لما يصل إلى --- شخصًا.",
+      "terms": [
+        "seat up to"
+      ]
+    },
+    "20": {
+      "src": "{blk}20{/blk}",
+      "fa": "20",
+      "ar": "20",
+      "terms": []
+    },
+    "now listen to the rest of conversation 1 and choose the correct answer.": {
+      "src": "Now listen to the rest of conversation 1 and choose the correct answer.",
+      "fa": "حالا به بقیه‌ی گفت‌وگوی 1 گوش دهید و پاسخِ درست را انتخاب کنید.",
+      "ar": "استمع الآن إلى بقية المحادثة 1 واختر الإجابة الصحيحة.",
+      "terms": []
+    },
+    "how much is the total cost of the booking?": {
+      "src": "How much is the total cost of the booking?",
+      "fa": "هزینه‌ی کلِ رزرو چقدر است؟",
+      "ar": "كم التكلفة الإجمالية للحجز؟",
+      "terms": []
+    },
+    "listen to the second part of conversation 2 and answer the questions.": {
+      "src": "Listen to the second part of conversation 2 and answer the questions.",
+      "fa": "به بخشِ دومِ گفت‌وگوی 2 گوش دهید و به سؤال‌ها پاسخ دهید.",
+      "ar": "استمع إلى الجزء الثاني من المحادثة 2 وأجب عن الأسئلة.",
+      "terms": []
+    },
+    "the price of the earrings now is ---": {
+      "src": "The price of the earrings now is ---",
+      "fa": "قیمتِ فعلیِ گوشواره‌ها --- است",
+      "ar": "سعر الأقراط الآن ---",
+      "terms": []
+    },
+    "how much does the customer pay for the gift wrapping?": {
+      "src": "How much does the customer pay for the gift wrapping?",
+      "fa": "مشتری برای کادوپیچ کردن چقدر می‌پردازد؟",
+      "ar": "كم يدفع الزبون مقابل تغليف الهديّة؟",
+      "terms": [
+        "gift wrapping"
+      ]
+    },
+    "listen again and complete this part of the conversation.": {
+      "src": "Listen again and complete this part of the conversation.",
+      "fa": "دوباره گوش دهید و این بخش از گفت‌وگو را کامل کنید.",
+      "ar": "استمع مرّة أخرى وأكمل هذا الجزء من المحادثة.",
+      "terms": []
+    },
+    "customer": {
+      "src": "Customer",
+      "fa": "مشتری",
+      "ar": "الزبون",
+      "terms": []
+    },
+    "oh, really? so, how much are they?": {
+      "src": "Oh, really? So, how much are they?",
+      "fa": "اِ، واقعاً؟ خب، قیمتشان چقدر است؟",
+      "ar": "أوه، حقًّا؟ إذن، كم سعرها؟",
+      "terms": []
+    },
+    "assistant": {
+      "src": "Assistant",
+      "fa": "فروشنده",
+      "ar": "البائعة",
+      "terms": []
+    },
+    "well, they were 1 30 / thirty moment, so they're a little cheaper - only 2 20 / twenty pounds, but actually we've got a sale on at the pounds. so you can save 3 10 / ten pounds!": {
+      "src": "Well, they were 1 {blk}30 / thirty{/blk} moment, so they're a little cheaper - only 2 {blk}20 / twenty{/blk} pounds, but actually we've got a sale on at the pounds. So you can save 3 {blk}10 / ten{/blk} pounds!",
+      "fa": "خب، قیمتشان 30 پوند بود، ولی راستش الان حراج داریم، برای همین کمی ارزان‌ترند؛ فقط 20 پوند. پس می‌توانید 10 پوند صرفه‌جویی کنید!",
+      "ar": "حسنًا، كان سعرها 30 جنيهًا، لكن في الحقيقة لدينا تخفيضات في الوقت الحالي، لذا فهي أرخص قليلًا – 20 جنيهًا فقط. أي أنّك توفّر 10 جنيهات!",
+      "terms": []
+    },
+    "[[[[[[[[[[multiple-choice questions]": {
+      "src": "[[[[[[[[[[MULTIPLE-CHOICE QUESTIONS]",
+      "fa": "سؤال‌های چندگزینه‌ای",
+      "ar": "أسئلة الاختيار من متعدّد",
+      "terms": [
+        "multiple-choice question"
+      ]
+    },
+    "◉ in multiple-choice tasks, you choose the correct answer from three options, a, bor c.": {
+      "src": "◉ In multiple-choice tasks, you choose the correct answer from three options, A, Bor C.",
+      "fa": "◉ در تمرین‌های چندگزینه‌ای، پاسخِ درست را از میانِ سه گزینه‌ی A، B یا C انتخاب می‌کنید.",
+      "ar": "◉ في مهامّ الاختيار من متعدّد تختار الإجابة الصحيحة من بين ثلاثة خيارات: A أو B أو C.",
+      "terms": [
+        "multiple-choice question"
+      ]
+    },
+    "there are two types of multiple-choice question:": {
+      "src": "There are two types of multiple-choice question:",
+      "fa": "سؤال‌های چندگزینه‌ای دو نوع‌اند:",
+      "ar": "هناك نوعان من أسئلة الاختيار من متعدّد:",
+      "terms": [
+        "multiple-choice question"
+      ]
+    },
+    "a question followed by three possible options": {
+      "src": "a question followed by three possible options",
+      "fa": "سؤالی که پس از آن سه گزینه می‌آید",
+      "ar": "سؤال تليه ثلاثة خيارات محتملة",
+      "terms": []
+    },
+    "an unfinished statement followed by three possible endings": {
+      "src": "an unfinished statement followed by three possible endings",
+      "fa": "جمله‌ای ناتمام که پس از آن سه پایانِ ممکن می‌آید",
+      "ar": "عبارة غير مكتملة تليها ثلاث نهايات محتملة",
+      "terms": []
+    },
+    "match the words and phrases 1-5 to words and phrases a-e, which have a similar meaning.": {
+      "src": "Match the words and phrases 1-5 to words and phrases a-e, which have a similar meaning.",
+      "fa": "کلمه‌ها و عبارت‌های 1 تا 5 را به کلمه‌ها و عبارت‌های a تا e که معنای مشابهی دارند وصل کنید.",
+      "ar": "صِل الكلمات والعبارات 1–5 بالكلمات والعبارات a–e التي لها معنى مشابه.",
+      "terms": []
+    },
+    "a goodbye party": {
+      "src": "a goodbye party",
+      "fa": "مهمانیِ خداحافظی (a goodbye party)",
+      "ar": "حفلة وداع (a goodbye party)",
+      "terms": []
+    },
+    "a soccer game": {
+      "src": "a soccer game",
+      "fa": "مسابقه‌ی فوتبال (a soccer game)",
+      "ar": "مباراة كرة قدم (a soccer game)",
+      "terms": []
+    },
+    "e": {
+      "src": "{blk}e{/blk}",
+      "fa": "e",
+      "ar": "e",
+      "terms": []
+    },
+    "a celebration": {
+      "src": "a celebration",
+      "fa": "جشن (a celebration)",
+      "ar": "احتفال (a celebration)",
+      "terms": []
+    },
+    "brother and sister": {
+      "src": "brother and sister",
+      "fa": "خواهر و برادر (brother and sister)",
+      "ar": "أخ وأخت (brother and sister)",
+      "terms": []
+    },
+    "work in the same office": {
+      "src": "work in the same office",
+      "fa": "در یک اداره کار کردن (work in the same office)",
+      "ar": "العمل في المكتب نفسه (work in the same office)",
+      "terms": []
+    },
+    "members of the same family": {
+      "src": "members of the same family",
+      "fa": "اعضای یک خانواده (members of the same family)",
+      "ar": "أفراد العائلة نفسها (members of the same family)",
+      "terms": []
+    },
+    "colleagues": {
+      "src": "colleagues",
+      "fa": "همکاران (colleagues)",
+      "ar": "زملاء العمل (colleagues)",
+      "terms": [
+        "colleague"
+      ]
+    },
+    "a leaving party": {
+      "src": "a leaving party",
+      "fa": "مهمانیِ خداحافظی (a leaving party)",
+      "ar": "حفلة وداع (a leaving party)",
+      "terms": []
+    },
+    "a birthday party": {
+      "src": "a birthday party",
+      "fa": "جشنِ تولد (a birthday party)",
+      "ar": "حفلة عيد ميلاد (a birthday party)",
+      "terms": []
+    },
+    "a football match": {
+      "src": "a football match",
+      "fa": "مسابقه‌ی فوتبال (a football match)",
+      "ar": "مباراة كرة قدم (a football match)",
+      "terms": []
+    },
+    "the words in the questions and options (a, b, c) may not be the same as the words you hear on the recording. you need to listen for words with a similar meaning. it can sometimes help to rephrase the question in your own words before you listen.": {
+      "src": "The words in the questions and options (A, B, C) may not be the same as the words you hear on the recording. You need to listen for words with a similar meaning. It can sometimes help to rephrase the question in your own words before you listen.",
+      "fa": "ممکن است کلمه‌های سؤال‌ها و گزینه‌ها (A، B، C) با کلمه‌هایی که در فایلِ صوتی می‌شنوید یکی نباشند. باید به دنبالِ کلمه‌های هم‌معنا گوش دهید. گاهی کمک می‌کند که پیش از گوش دادن، سؤال را با کلمه‌های خودتان بازگو کنید.",
+      "ar": "قد لا تكون الكلمات الواردة في الأسئلة والخيارات (A وB وC) هي نفسها الكلمات التي تسمعها في التسجيل، لذا عليك أن تنتبه إلى الكلمات ذات المعنى المشابه. وقد يساعدك أحيانًا أن تعيد صياغة السؤال بكلماتك قبل الاستماع.",
+      "terms": [
+        "rephrase"
+      ]
+    },
+    "read questions 1-6 in the exam skills task below and match them with the topic areas in the box.": {
+      "src": "Read questions 1-6 in the Exam skills task below and match them with the topic areas in the box.",
+      "fa": "سؤال‌های 1 تا 6 را در تمرینِ «مهارت‌های آزمون» در پایین بخوانید و آن‌ها را به موضوع‌های داخلِ کادر وصل کنید.",
+      "ar": "اقرأ الأسئلة 1–6 في مهمّة «مهارات الامتحان» أدناه، وصِلها بالموضوعات الواردة في المربّع.",
+      "terms": []
+    },
+    "the relationship between the people": {
+      "src": "{blk}The relationship between the people{/blk}",
+      "fa": "رابطه‌ی میانِ افراد",
+      "ar": "العلاقة بين الأشخاص",
+      "terms": [
+        "relationship"
+      ]
+    },
+    "the type of event": {
+      "src": "{blk}The type of event{/blk}",
+      "fa": "نوعِ مراسم",
+      "ar": "نوع المناسبة",
+      "terms": []
+    },
+    "colour": {
+      "src": "{blk}Colour{/blk}",
+      "fa": "رنگ",
+      "ar": "اللون",
+      "terms": []
+    },
+    "the meaning of something": {
+      "src": "{blk}The meaning of something{/blk}",
+      "fa": "معنای یک چیز",
+      "ar": "معنى شيءٍ ما",
+      "terms": []
+    },
+    "food": {
+      "src": "{blk}Food{/blk}",
+      "fa": "غذا",
+      "ar": "الطعام",
+      "terms": []
+    },
+    "presents": {
+      "src": "{blk}Presents{/blk}",
+      "fa": "هدیه‌ها",
+      "ar": "الهدايا",
+      "terms": []
+    },
+    "listen to the conversation and choose the correct letter, a, b or c.": {
+      "src": "Listen to the conversation and choose the correct letter, A, B or C.",
+      "fa": "به گفت‌وگو گوش دهید و حرفِ درست، A، B یا C، را انتخاب کنید.",
+      "ar": "استمع إلى المحادثة واختر الحرف الصحيح، A أو B أو C.",
+      "terms": []
+    },
+    "who are the two speakers?": {
+      "src": "Who are the two speakers?",
+      "fa": "دو گوینده چه کسانی هستند؟",
+      "ar": "مَن المتحدّثان؟",
+      "terms": []
+    },
+    "good friends": {
+      "src": "good friends",
+      "fa": "دوستانِ صمیمی",
+      "ar": "صديقان مقرّبان",
+      "terms": []
+    },
+    "work colleagues": {
+      "src": "work colleagues",
+      "fa": "همکار",
+      "ar": "زميلا عمل",
+      "terms": [
+        "colleague"
+      ]
+    },
+    "family members": {
+      "src": "family members",
+      "fa": "اعضای خانواده",
+      "ar": "فردان من العائلة",
+      "terms": []
+    },
+    "the purse represents": {
+      "src": "The purse represents",
+      "fa": "کیفِ پول نمادِ … است",
+      "ar": "تمثّل المحفظة …",
+      "terms": [
+        "represent"
+      ]
+    },
+    "good health.": {
+      "src": "good health.",
+      "fa": "سلامتی.",
+      "ar": "الصحّة الجيدة.",
+      "terms": []
+    },
+    "good fortune.": {
+      "src": "good fortune.",
+      "fa": "خوش‌اقبالی.",
+      "ar": "حسن الحظّ.",
+      "terms": [
+        "good fortune"
+      ]
+    },
+    "wealth.": {
+      "src": "wealth.",
+      "fa": "ثروت.",
+      "ar": "الثروة.",
+      "terms": [
+        "wealth"
+      ]
+    },
+    "what food do guests": {
+      "src": "What food do guests",
+      "fa": "مهمان‌ها چه غذایی …",
+      "ar": "ما الطعام الذي يـ… الضيوف",
+      "terms": []
+    },
+    "tip 13": {
+      "src": "TIP 13",
+      "fa": "نکته 13",
+      "ar": "نصيحة 13",
+      "terms": []
+    },
+    "use the questions to help you to follow the recording. multiple-choice questions are in the same order as the information in the recording. you will hear the answer to question 2 before you hear the information which gives you the answer to question 3.": {
+      "src": "Use the questions to help you to follow the recording. Multiple-choice questions are in the same order as the information in the recording. You will hear the answer to question 2 before you hear the information which gives you the answer to question 3.",
+      "fa": "از سؤال‌ها کمک بگیرید تا فایلِ صوتی را دنبال کنید. سؤال‌های چندگزینه‌ای به همان ترتیبی می‌آیند که اطلاعات در فایلِ صوتی می‌آید. پاسخِ سؤالِ 2 را پیش از اطلاعاتی می‌شنوید که پاسخِ سؤالِ 3 را می‌دهد.",
+      "ar": "استعن بالأسئلة لتتابع التسجيل؛ فأسئلة الاختيار من متعدّد تأتي بترتيب المعلومات نفسه في التسجيل، وستسمع إجابة السؤال 2 قبل أن تسمع المعلومة التي تجيب عن السؤال 3.",
+      "terms": [
+        "multiple-choice question"
+      ]
+    },
+    "speaking": {
+      "src": "SPEAKING",
+      "fa": "صحبت کردن (اسپیکینگ)",
+      "ar": "المحادثة",
+      "terms": []
+    },
+    "use simple adjective-noun collocations relating to family": {
+      "src": "use simple adjective-noun collocations relating to family",
+      "fa": "به‌کار بردنِ هم‌آیندهای سادهِ صفت و اسم درباره‌ی خانواده",
+      "ar": "استخدام متلازمات بسيطة من الصفة والاسم تتعلّق بالعائلة",
+      "terms": [
+        "collocation"
+      ]
+    },
+    "answer simple questions about your family": {
+      "src": "answer simple questions about your family",
+      "fa": "پاسخ دادن به سؤال‌های ساده درباره‌ی خانواده‌تان",
+      "ar": "الإجابة عن أسئلة بسيطة عن عائلتك",
+      "terms": []
+    },
+    "give full answers to part 1 questions.": {
+      "src": "give full answers to Part 1 questions.",
+      "fa": "دادنِ پاسخ‌های کامل به سؤال‌های بخشِ 1.",
+      "ar": "تقديم إجابات كاملة عن أسئلة الجزء 1.",
+      "terms": []
+    },
+    "talk to a partner about these members of your family for 20 seconds each. try to keep talking for the full 20 seconds.": {
+      "src": "Talk to a partner about these members of your family for 20 seconds each. Try to keep talking for the full 20 seconds.",
+      "fa": "با هم‌گروهی‌تان درباره‌ی هر کدام از این اعضای خانواده‌تان 20 ثانیه صحبت کنید. سعی کنید تمامِ این 20 ثانیه را بی‌وقفه صحبت کنید.",
+      "ar": "تحدّث مع زميلك عن كلٍّ من أفراد عائلتك هؤلاء مدّة 20 ثانية. وحاول أن تواصل الكلام طوال الثواني العشرين كاملة.",
+      "terms": []
+    },
+    "example: sister my sister is my parents' daughter i other daughter.": {
+      "src": "Example: sister My sister is my parents' daughter I other daughter.",
+      "fa": "مثال: خواهر: خواهرم دخترِ پدر و مادرم است / دخترِ دیگرِ آن‌هاست.",
+      "ar": "مثال: أخت: أختي هي ابنة والديّ / ابنتهما الأخرى.",
+      "terms": []
+    },
+    "father": {
+      "src": "father",
+      "fa": "پدر",
+      "ar": "الأب",
+      "terms": []
+    },
+    "mother": {
+      "src": "mother",
+      "fa": "مادر",
+      "ar": "الأم",
+      "terms": []
+    },
+    "using adjectives and nouns to describe your family": {
+      "src": "USING ADJECTIVES AND NOUNS TO DESCRIBE YOUR FAMILY",
+      "fa": "به‌کار بردنِ صفت‌ها و اسم‌ها برای توصیفِ خانواده‌تان",
+      "ar": "استخدام الصفات والأسماء لوصف عائلتك",
+      "terms": []
+    },
+    "listen to hoi chin talking about her family and read the first part of what she says. which collocations does she use to describe her family?": {
+      "src": "Listen to Hoi Chin talking about her family and read the first part of what she says. Which collocations does she use to describe her family?",
+      "fa": "به صحبت‌های هوی چین درباره‌ی خانواده‌اش گوش دهید و بخشِ اولِ حرف‌هایش را بخوانید. برای توصیفِ خانواده‌اش از کدام هم‌آیندها استفاده می‌کند؟",
+      "ar": "استمع إلى هوي تشين وهي تتحدّث عن عائلتها، واقرأ الجزء الأول ممّا تقوله. ما المتلازمات التي تستخدمها لوصف عائلتها؟",
+      "terms": [
+        "collocation"
+      ]
+    },
+    "(not) a large family, a small family, a typical family, a close, happy family": {
+      "src": "{blk}(not) a large family, a small family, a typical family, a close, happy family{/blk}",
+      "fa": "(not) a large family ((نه) خانواده‌ی پرجمعیت)، a small family (خانواده‌ی کم‌جمعیت)، a typical family (خانواده‌ای معمولی)، a close, happy family (خانواده‌ای صمیمی و شاد)",
+      "ar": "(not) a large family ((ليست) عائلة كبيرة)، a small family (عائلة صغيرة)، a typical family (عائلة نموذجية)، a close, happy family (عائلة مترابطة وسعيدة)",
+      "terms": [
+        "typical"
+      ]
+    },
+    "examiner": {
+      "src": "Examiner",
+      "fa": "ممتحن",
+      "ar": "الممتحِن",
+      "terms": [
+        "examiner"
+      ]
+    },
+    "let's talk about family. so, tell me about your family": {
+      "src": "Let's talk about family. So, tell me about your family",
+      "fa": "بیایید درباره‌ی خانواده صحبت کنیم. خب، از خانواده‌تان بگویید.",
+      "ar": "لنتحدّث عن العائلة. حسنًا، حدّثيني عن عائلتك.",
+      "terms": []
+    },
+    "hoi chin": {
+      "src": "Hoi Chin",
+      "fa": "هوی چین",
+      "ar": "هوي تشين",
+      "terms": []
+    },
+    "my family? well, my family isn't a large family. it's quite a small family1 in fact - and quite a typical family for my country. just my parents, my older brother and me. so, i'm the baby of the family! i think we're a close, happy family. we do a lot of things together, particularly preparing food - and eating it of course!": {
+      "src": "My family? Well, my family isn't a large family. It's quite a small family1 in fact - and quite a typical family for my country. Just my parents, my older brother and me. So, I'm the baby of the family! I think we're a close, happy family. We do a lot of things together, particularly preparing food - and eating it of course!",
+      "fa": "خانواده‌ام؟ خب، خانواده‌ی ما پرجمعیت نیست. در واقع خانواده‌ی نسبتاً کوچکی است؛ و برای کشورِ من، خانواده‌ای کاملاً معمولی. فقط پدر و مادرم، برادرِ بزرگ‌ترم و من. پس من ته‌تغاریِ خانواده‌ام! فکر می‌کنم خانواده‌ای صمیمی و شاد هستیم. خیلی کارها را با هم انجام می‌دهیم، مخصوصاً آشپزی؛ و البته خوردنش!",
+      "ar": "عائلتي؟ حسنًا، عائلتي ليست كبيرة. إنّها في الواقع عائلة صغيرة نوعًا ما، وعائلة نموذجية تمامًا في بلدي: والداي وأخي الأكبر وأنا فقط. أي أنّني أصغر أفراد العائلة! أظنّ أنّنا عائلة مترابطة وسعيدة. نقوم بأشياء كثيرة معًا، ولا سيّما إعداد الطعام – وأكله بالطبع!",
+      "terms": [
+        "typical",
+        "the baby of the family"
+      ]
+    },
+    "◉ many words in english often 'go together' with other words. this is called 'collocation'. for example, we say a fast car, but we don't say a quick car.": {
+      "src": "◉ Many words in English often 'go together' with other words. This is called 'collocation'. For example, we say a fast car, but we don't say a quick car.",
+      "fa": "◉ در انگلیسی بسیاری از کلمه‌ها اغلب «با کلمه‌های دیگری همراه می‌شوند». به این «هم‌آیندی» (collocation) می‌گویند. مثلاً می‌گوییم a fast car (ماشینِ تندرو)، ولی نمی‌گوییم a quick car.",
+      "ar": "◉ كثير من الكلمات في الإنجليزية «تتلازم» عادةً مع كلمات أخرى، ويسمّى ذلك «التلازم اللفظي» (collocation). فمثلًا نقول a fast car (سيارة سريعة)، ولا نقول a quick car.",
+      "terms": [
+        "collocation"
+      ]
+    },
+    "it is a good idea to use collocations in the speaking test. this shows the examiner that you have a good vocabulary.": {
+      "src": "It is a good idea to use collocations in the Speaking test. This shows the examiner that you have a good vocabulary.",
+      "fa": "استفاده از هم‌آیندها در آزمونِ اسپیکینگ فکرِ خوبی است. این کار به ممتحن نشان می‌دهد که دایره‌ی واژگانِ خوبی دارید.",
+      "ar": "من الجيّد أن تستخدم المتلازمات اللفظية في اختبار المحادثة، فهذا يُظهر للممتحِن أنّ لديك حصيلة جيدة من المفردات.",
+      "terms": [
+        "collocation",
+        "examiner"
+      ]
+    },
+    "which adjective in the box can you not use in this sentence?": {
+      "src": "Which adjective in the box can you NOT use in this sentence?",
+      "fa": "کدام صفتِ داخلِ کادر را نمی‌توانید در این جمله به کار ببرید؟",
+      "ar": "أيّ صفة في المربّع لا يمكنك استخدامها في هذه الجملة؟",
+      "terms": []
+    },
+    "you can't say 'a best family'.": {
+      "src": "{blk}You can't say 'a best family'.{/blk}",
+      "fa": "نمی‌توان گفت 'a best family'.",
+      "ar": "لا يمكن أن نقول 'a best family'.",
+      "terms": []
+    },
+    "we are a family.": {
+      "src": "We are a family.",
+      "fa": "ما خانواده‌ای … هستیم.",
+      "ar": "نحن عائلة ….",
+      "terms": []
+    },
+    "best": {
+      "src": "best",
+      "fa": "بهترین",
+      "ar": "الأفضل",
+      "terms": []
+    },
+    "close": {
+      "src": "close",
+      "fa": "صمیمی",
+      "ar": "مترابطة",
+      "terms": []
+    },
+    "happy": {
+      "src": "happy",
+      "fa": "شاد",
+      "ar": "سعيدة",
+      "terms": []
+    },
+    "large": {
+      "src": "large",
+      "fa": "پرجمعیت",
+      "ar": "كبيرة",
+      "terms": []
+    },
+    "small": {
+      "src": "small",
+      "fa": "کم‌جمعیت",
+      "ar": "صغيرة",
+      "terms": []
+    },
+    "typical": {
+      "src": "typical",
+      "fa": "معمولی",
+      "ar": "نموذجية",
+      "terms": [
+        "typical"
+      ]
+    },
+    "with a partner, describe your family using the collocations in the box.": {
+      "src": "With a partner, describe your family using the collocations in the box.",
+      "fa": "با هم‌گروهی‌تان، با استفاده از هم‌آیندهای داخلِ کادر خانواده‌تان را توصیف کنید.",
+      "ar": "صِف عائلتك مع زميلك مستخدمًا المتلازمات الواردة في المربّع.",
+      "terms": [
+        "collocation"
+      ]
+    },
+    "tip 03": {
+      "src": "TIP 03",
+      "fa": "نکته 3",
+      "ar": "نصيحة 3",
+      "terms": []
+    },
+    "it is a good idea to make a list of useful words and add to the list as you meet new words when you read and listen, and also to write down words which go together.": {
+      "src": "It is a good idea to make a list of useful words and add to the list as you meet new words when you read and listen, and also to write down words which go together.",
+      "fa": "فکرِ خوبی است که فهرستی از کلمه‌های مفید درست کنید و هر بار که موقعِ خواندن و گوش دادن به کلمه‌ی تازه‌ای برمی‌خورید آن را به فهرست اضافه کنید؛ همچنین کلمه‌هایی را که با هم می‌آیند یادداشت کنید.",
+      "ar": "من الجيّد أن تُعِدّ قائمة بالكلمات المفيدة، وأن تضيف إليها كلّما صادفت كلمات جديدة في أثناء القراءة والاستماع، وأن تدوّن أيضًا الكلمات التي تتلازم معًا.",
+      "terms": []
+    },
+    "you may want to group words under headings to help you remember them.": {
+      "src": "You may want to group words under headings to help you remember them.",
+      "fa": "شاید بخواهید کلمه‌ها را زیرِ عنوان‌هایی دسته‌بندی کنید تا راحت‌تر به خاطرشان بسپارید.",
+      "ar": "وقد ترغب في تصنيف الكلمات تحت عناوين لتساعدك على تذكّرها.",
+      "terms": []
+    },
+    "sometimes, often, never, rarely and always": {
+      "src": "SOMETIMES, OFTEN, NEVER, RARELY AND ALWAYS",
+      "fa": "SOMETIMES (گاهی)، OFTEN (اغلب)، NEVER (هرگز)، RARELY (به‌ندرت) و ALWAYS (همیشه)",
+      "ar": "SOMETIMES (أحيانًا)، OFTEN (غالبًا)، NEVER (أبدًا)، RARELY (نادرًا) وALWAYS (دائمًا)",
+      "terms": []
+    },
+    "listen to a candidate talking about the things he does with his family. answer the questions.": {
+      "src": "Listen to a candidate talking about the things he does with his family. Answer the questions.",
+      "fa": "به صحبت‌های داوطلبی گوش دهید که درباره‌ی کارهایی که با خانواده‌اش انجام می‌دهد حرف می‌زند. به سؤال‌ها پاسخ دهید.",
+      "ar": "استمع إلى مترشّح يتحدّث عن الأشياء التي يفعلها مع عائلته، وأجب عن الأسئلة.",
+      "terms": [
+        "candidate"
+      ]
+    },
+    "how often does he go out with his family?": {
+      "src": "How often does he go out with his family?",
+      "fa": "او هر چند وقت یک بار با خانواده‌اش بیرون می‌رود؟",
+      "ar": "كم مرّة يخرج مع عائلته؟",
+      "terms": []
+    },
+    "once a week": {
+      "src": "{blk}once a week{/blk}",
+      "fa": "هفته‌ای یک بار",
+      "ar": "مرّة في الأسبوع",
+      "terms": []
+    },
+    "what days of the week does he go out with his family?": {
+      "src": "What days of the week does he go out with his family?",
+      "fa": "چه روزهایی از هفته با خانواده‌اش بیرون می‌رود؟",
+      "ar": "في أيّ أيام الأسبوع يخرج مع عائلته؟",
+      "terms": []
+    },
+    "on saturdays or sundays/ at weekends": {
+      "src": "{blk}on Saturdays or Sundays/ at weekends{/blk}",
+      "fa": "شنبه‌ها یا یکشنبه‌ها / آخرِ هفته‌ها",
+      "ar": "أيام السبت أو الأحد / في عطلات نهاية الأسبوع",
+      "terms": []
+    },
+    "where do they often go?": {
+      "src": "Where do they often go?",
+      "fa": "اغلب کجا می‌روند؟",
+      "ar": "إلى أين يذهبون غالبًا؟",
+      "terms": []
+    },
+    "to the beach": {
+      "src": "{blk}to the beach{/blk}",
+      "fa": "به ساحل",
+      "ar": "إلى الشاطئ",
+      "terms": []
+    },
+    "what do they usually do when they get to the park?": {
+      "src": "What do they usually do when they get to the park?",
+      "fa": "وقتی به پارک می‌رسند معمولاً چه کار می‌کنند؟",
+      "ar": "ماذا يفعلون عادةً حين يصلون إلى الحديقة؟",
+      "terms": []
+    },
+    "they usually go for a long walk.": {
+      "src": "{blk}They usually go for a long walk.{/blk}",
+      "fa": "معمولاً پیاده‌روی طولانی‌ای می‌کنند.",
+      "ar": "عادةً ما يتمشّون مسافة طويلة.",
+      "terms": []
+    },
+    "who sometimes comes with them?": {
+      "src": "Who sometimes comes with them?",
+      "fa": "چه کسی گاهی با آن‌ها می‌آید؟",
+      "ar": "مَن يأتي معهم أحيانًا؟",
+      "terms": []
+    },
+    "his cousin sometimes comes with them.": {
+      "src": "{blk}His cousin sometimes comes with them.{/blk}",
+      "fa": "عموزاده یا خاله‌زاده‌اش (cousin) گاهی با آن‌ها می‌آید.",
+      "ar": "يأتي ابن عمّه (cousin) معهم أحيانًا.",
+      "terms": []
+    },
+    "with a partner, use the questions above to discuss how often you do these things with your family.": {
+      "src": "With a partner, use the questions above to discuss how often you do these things with your family.",
+      "fa": "با هم‌گروهی‌تان، با استفاده از سؤال‌های بالا درباره‌ی این صحبت کنید که هر چند وقت یک بار این کارها را با خانواده‌تان انجام می‌دهید.",
+      "ar": "ناقش مع زميلك، مستعينًا بالأسئلة السابقة، كم مرّة تقوم بهذه الأشياء مع عائلتك.",
+      "terms": []
+    },
+    "eat out": {
+      "src": "eat out",
+      "fa": "بیرون غذا خوردن",
+      "ar": "تناول الطعام خارج المنزل",
+      "terms": [
+        "eat out"
+      ]
+    },
+    "go bowling": {
+      "src": "go bowling",
+      "fa": "بولینگ رفتن",
+      "ar": "الذهاب إلى البولينغ",
+      "terms": []
+    },
+    "go to the cinema": {
+      "src": "go to the cinema",
+      "fa": "سینما رفتن",
+      "ar": "الذهاب إلى السينما",
+      "terms": []
+    },
+    "[[[[[[[[[[answering part 1 questions]": {
+      "src": "[[[[[[[[[[ANSWERING PART 1 QUESTIONS]",
+      "fa": "پاسخ دادن به سؤال‌های بخشِ 1",
+      "ar": "الإجابة عن أسئلة الجزء 1",
+      "terms": []
+    },
+    "asks you about your likes and dislikes?": {
+      "src": "asks you about your likes and dislikes?",
+      "fa": "درباره‌ی چیزهایی که دوست دارید و دوست ندارید می‌پرسد؟",
+      "ar": "يسألك عمّا تحبّه وما لا تحبّه؟",
+      "terms": [
+        "likes and dislikes"
+      ]
+    },
+    "asks you about your personal preferences?": {
+      "src": "asks you about your personal preferences?",
+      "fa": "درباره‌ی ترجیح‌های شخصی‌تان می‌پرسد؟",
+      "ar": "يسألك عن تفضيلاتك الشخصية؟",
+      "terms": [
+        "preference"
+      ]
+    },
+    "asks you how regularly you do something?": {
+      "src": "asks you how regularly you do something?",
+      "fa": "می‌پرسد هر چند وقت یک بار کاری را انجام می‌دهید؟",
+      "ar": "يسألك كم مرّة تقوم بشيءٍ ما؟",
+      "terms": []
+    },
+    "asks you to talk about who you are like in your family?": {
+      "src": "asks you to talk about who you are like in your family?",
+      "fa": "از شما می‌خواهد بگویید در خانواده به چه کسی شبیه هستید؟",
+      "ar": "يطلب منك أن تتحدّث عمّن تشبهه في عائلتك؟",
+      "terms": []
+    },
+    "are you more similar to your mother or your father?": {
+      "src": "Are you more similar to your mother or your father?",
+      "fa": "بیشتر شبیهِ مادرتان هستید یا پدرتان؟",
+      "ar": "هل تشبه أمّك أكثر أم أباك؟",
+      "terms": []
+    },
+    "how often do you go out with your family?": {
+      "src": "How often do you go out with your family?",
+      "fa": "هر چند وقت یک بار با خانواده‌تان بیرون می‌روید؟",
+      "ar": "كم مرّة تخرج مع عائلتك؟",
+      "terms": []
+    },
+    "what do you enjoy doing with your family?": {
+      "src": "What do you enjoy doing with your family?",
+      "fa": "از انجامِ چه کارهایی با خانواده‌تان لذت می‌برید؟",
+      "ar": "ما الذي تستمتع بفعله مع عائلتك؟",
+      "terms": []
+    },
+    "do you prefer spending time with your family or your friends?": {
+      "src": "Do you prefer spending time with your family or your friends?",
+      "fa": "ترجیح می‌دهید وقتتان را با خانواده‌تان بگذرانید یا با دوستانتان؟",
+      "ar": "هل تفضّل قضاء الوقت مع عائلتك أم مع أصدقائك؟",
+      "terms": []
+    },
+    "now, ask and answer these questions with a partner.": {
+      "src": "Now, ask and answer these questions with a partner.",
+      "fa": "حالا این سؤال‌ها را با هم‌گروهی‌تان بپرسید و جواب دهید.",
+      "ar": "والآن اطرح هذه الأسئلة على زميلك وأجب عنها.",
+      "terms": []
+    },
+    "◉ in part 1 of the speaking test the examiner will ask you a few questions about yourself, for example about your family, your likes and dislikes, where you live.": {
+      "src": "◉ In Part 1 of the Speaking test the examiner will ask you a few questions about yourself, for example about your family, your likes and dislikes, where you live.",
+      "fa": "◉ در بخشِ 1 آزمونِ اسپیکینگ، ممتحن چند سؤال درباره‌ی خودتان می‌پرسد؛ مثلاً درباره‌ی خانواده‌تان، چیزهایی که دوست دارید و دوست ندارید، و جایی که زندگی می‌کنید.",
+      "ar": "◉ في الجزء 1 من اختبار المحادثة سيطرح عليك الممتحِن بعض الأسئلة عن نفسك، كأن يسألك عن عائلتك وعمّا تحبّه وما لا تحبّه وعن المكان الذي تعيش فيه.",
+      "terms": [
+        "examiner",
+        "likes and dislikes"
+      ]
+    },
+    "it is important to listen carefully to the questions that the examiner uses. make sure you answer the question that is asked.": {
+      "src": "It is important to listen carefully to the questions that the examiner uses. Make sure you answer the question that is asked.",
+      "fa": "مهم است که با دقت به سؤال‌هایی که ممتحن می‌پرسد گوش دهید. مطمئن شوید که به همان سؤالی که پرسیده شده پاسخ می‌دهید.",
+      "ar": "من المهمّ أن تستمع بانتباه إلى الأسئلة التي يطرحها الممتحِن، وأن تتأكّد من أنّك تجيب عن السؤال المطروح فعلًا.",
+      "terms": [
+        "examiner"
+      ]
+    },
+    "listen again to hoi chin talking about her family and giving more information. complete the notes below.": {
+      "src": "Listen again to Hoi Chin talking about her family and giving more information. Complete the notes below.",
+      "fa": "دوباره به صحبت‌های هوی چین درباره‌ی خانواده‌اش گوش دهید که اطلاعاتِ بیشتری می‌دهد. یادداشت‌های زیر را کامل کنید.",
+      "ar": "استمع مرّة أخرى إلى هوي تشين وهي تتحدّث عن عائلتها وتقدّم مزيدًا من المعلومات. أكمل الملاحظات أدناه.",
+      "terms": []
+    },
+    "her parents and 1 older der brother": {
+      "src": "Her parents and 1 older der brother",
+      "fa": "پدر و مادرش و برادرِ بزرگ‌ترش",
+      "ar": "والداها وأخوها الأكبر",
+      "terms": []
+    },
+    "they are a 2 close happy family.": {
+      "src": "They are a 2 {blk}close{/blk} happy family.",
+      "fa": "آن‌ها خانواده‌ای صمیمی و شاد هستند.",
+      "ar": "هم عائلة مترابطة وسعيدة.",
+      "terms": []
+    },
+    "they like preparing food and 3 eating it.": {
+      "src": "They like preparing food and 3 {blk}eating{/blk} it.",
+      "fa": "آن‌ها آشپزی کردن و خوردنِ غذا را دوست دارند.",
+      "ar": "يحبّون إعداد الطعام وأكله.",
+      "terms": []
+    },
+    "her father is a better 4 cook than her mother.": {
+      "src": "Her father is a better 4 {blk}cook{/blk} than her mother.",
+      "fa": "پدرش از مادرش آشپزِ بهتری است.",
+      "ar": "أبوها طبّاخ أفضل من أمّها.",
+      "terms": []
+    },
+    "her brother is getting 5 married next year.": {
+      "src": "Her brother is getting 5 {blk}married{/blk} next year.",
+      "fa": "برادرش سالِ آینده ازدواج می‌کند.",
+      "ar": "سيتزوّج أخوها العام المقبل.",
+      "terms": []
+    },
+    "hoi chin would like to have a 6 niece or 7 nephew one day.": {
+      "src": "Hoi Chin would like to have a 6 {blk}niece{/blk} or 7 {blk}nephew{/blk} one day.",
+      "fa": "هوی چین دوست دارد روزی برادرزاده‌ای داشته باشد، دختر (niece) یا پسر (nephew).",
+      "ar": "تودّ هوي تشين أن يكون لها يومًا ما ابنة أخ (niece) أو ابن أخ (nephew).",
+      "terms": []
+    },
+    "tell your partner what you remember about hoi chin's family. is your family similar or very different to hers?": {
+      "src": "Tell your partner what you remember about Hoi Chin's family. Is your family similar or very different to hers?",
+      "fa": "به هم‌گروهی‌تان بگویید از خانواده‌ی هوی چین چه چیزهایی یادتان مانده است. خانواده‌ی شما شبیهِ خانواده‌ی اوست یا خیلی با آن فرق دارد؟",
+      "ar": "أخبِر زميلك بما تتذكّره عن عائلة هوي تشين. هل عائلتك تشبه عائلتها أم تختلف عنها كثيرًا؟",
+      "terms": []
+    },
+    "extending your answers in speaking part 1": {
+      "src": "EXTENDING YOUR ANSWERS IN SPEAKING PART 1",
+      "fa": "گسترش دادنِ پاسخ‌ها در بخشِ 1 اسپیکینگ",
+      "ar": "توسيع إجاباتك في الجزء 1 من المحادثة",
+      "terms": [
+        "extend your answer"
+      ]
+    },
+    "listen to three students answering the question who are you most similar to in your family?": {
+      "src": "Listen to three students answering the question Who are you most similar to in your family?",
+      "fa": "به سه دانشجو گوش دهید که به این سؤال پاسخ می‌دهند: «در خانواده بیشتر شبیهِ چه کسی هستید؟»",
+      "ar": "استمع إلى ثلاثة طلّاب يجيبون عن السؤال: «مَن أكثر شخص تشبهه في عائلتك؟»",
+      "terms": []
+    },
+    "which student's answer was too short?": {
+      "src": "Which student's answer was too short?",
+      "fa": "پاسخِ کدام دانشجو خیلی کوتاه بود؟",
+      "ar": "أيّ طالب كانت إجابته قصيرة جدًّا؟",
+      "terms": []
+    },
+    "student b": {
+      "src": "{blk}Student B{/blk}",
+      "fa": "دانشجوی B",
+      "ar": "الطالب B",
+      "terms": []
+    },
+    "which student didn't answer the question?": {
+      "src": "Which student didn't answer the question?",
+      "fa": "کدام دانشجو به سؤال پاسخ نداد؟",
+      "ar": "أيّ طالب لم يُجب عن السؤال؟",
+      "terms": []
+    },
+    "student a": {
+      "src": "{blk}Student A{/blk}",
+      "fa": "دانشجوی A",
+      "ar": "الطالب A",
+      "terms": []
+    },
+    "which student's answer was the best?": {
+      "src": "Which student's answer was the best?",
+      "fa": "پاسخِ کدام دانشجو بهترین بود؟",
+      "ar": "أيّ طالب كانت إجابته الأفضل؟",
+      "terms": []
+    },
+    "student c": {
+      "src": "{blk}Student C{/blk}",
+      "fa": "دانشجوی C",
+      "ar": "الطالب C",
+      "terms": []
+    },
+    "◉ you can add information to your answer by adding a reason, extra details or combining information:": {
+      "src": "◉ You can add information to your answer by adding a reason, extra details or combining information:",
+      "fa": "◉ می‌توانید با آوردنِ دلیل، جزئیاتِ بیشتر یا ترکیبِ اطلاعات، به پاسخِ خود اطلاعات اضافه کنید:",
+      "ar": "◉ يمكنك أن تضيف معلومات إلى إجابتك بذكر سبب أو تفاصيل إضافية أو بالجمع بين المعلومات:",
+      "terms": []
+    },
+    "i don't see my grandparents very often because they live in the north of the country.": {
+      "src": "I don't see my grandparents very often because they live in the north of the country.",
+      "fa": "پدربزرگ و مادربزرگم را زیاد نمی‌بینم، چون در شمالِ کشور زندگی می‌کنند.",
+      "ar": "لا أرى جدّي وجدّتي كثيرًا لأنّهما يعيشان في شمال البلاد.",
+      "terms": []
+    },
+    "i don't see my family very often but i miss them very much.": {
+      "src": "I don't see my family very often but I miss them very much.",
+      "fa": "خانواده‌ام را زیاد نمی‌بینم، ولی خیلی دلم برایشان تنگ می‌شود.",
+      "ar": "لا أرى عائلتي كثيرًا، لكنّني أشتاق إليهم كثيرًا.",
+      "terms": []
+    },
+    "i have a twin brother, so i am very close to him.": {
+      "src": "I have a twin brother, so I am very close to him.",
+      "fa": "یک برادرِ دوقلو دارم، برای همین خیلی با او صمیمی‌ام.",
+      "ar": "لديّ أخ توأم، لذا أنا مقرّب منه جدًّا.",
+      "terms": [
+        "be close to"
+      ]
+    },
+    "i look very much like my father, although we have very different personalities.": {
+      "src": "I look very much like my father, although we have very different personalities.",
+      "fa": "خیلی شبیهِ پدرم هستم، هرچند شخصیت‌هایمان خیلی با هم فرق دارد.",
+      "ar": "أشبه أبي كثيرًا، مع أنّ شخصيّتينا مختلفتان جدًّا.",
+      "terms": [
+        "personality"
+      ]
+    },
+    "tip 08": {
+      "src": "TIP 08",
+      "fa": "نکته 8",
+      "ar": "نصيحة 8",
+      "terms": []
+    },
+    "in speaking part 1:": {
+      "src": "In Speaking Part 1:",
+      "fa": "در بخشِ 1 اسپیکینگ:",
+      "ar": "في الجزء 1 من المحادثة:",
+      "terms": []
+    },
+    "keep to the topic": {
+      "src": "keep to the topic",
+      "fa": "از موضوع خارج نشوید",
+      "ar": "التزم بالموضوع",
+      "terms": [
+        "keep to the topic"
+      ]
+    },
+    "extend your answers": {
+      "src": "extend your answers",
+      "fa": "پاسخ‌هایتان را گسترش دهید",
+      "ar": "وسّع إجاباتك",
+      "terms": [
+        "extend your answer"
+      ]
+    },
+    "don't speak too much": {
+      "src": "don't speak too much",
+      "fa": "بیش از حد صحبت نکنید",
+      "ar": "لا تُطِل الكلام كثيرًا",
+      "terms": []
+    },
+    "do not try to memorise answers to questions.": {
+      "src": "do not try to memorise answers to questions.",
+      "fa": "سعی نکنید پاسخِ سؤال‌ها را حفظ کنید.",
+      "ar": "لا تحاول حفظ إجابات الأسئلة عن ظهر قلب.",
+      "terms": [
+        "memorise"
+      ]
+    },
+    "in part 1 you need to give full answers to the questions, but don't talk for too long. three sentences is plenty. you have chances to speak for longer in parts 2 and 3.": {
+      "src": "In Part 1 you need to give full answers to the questions, but don't talk for too long. Three sentences is plenty. You have chances to speak for longer in Parts 2 and 3.",
+      "fa": "در بخشِ 1 باید به سؤال‌ها پاسخِ کامل بدهید، ولی زیادی طولش ندهید. سه جمله کافی است. در بخش‌های 2 و 3 فرصتِ صحبتِ طولانی‌تر را دارید.",
+      "ar": "في الجزء 1 عليك أن تقدّم إجابات كاملة عن الأسئلة، لكن لا تُطِل الحديث كثيرًا؛ فثلاث جمل تكفي، وستتاح لك فرص للكلام مدّة أطول في الجزأين 2 و3.",
+      "terms": []
+    },
+    "use one of the words in the box to help you complete the sentences with ideas of your own. try to use a different word from the box in each sentence.": {
+      "src": "Use one of the words in the box to help you complete the sentences with ideas of your own. Try to use a different word from the box in each sentence.",
+      "fa": "از یکی از کلمه‌های داخلِ کادر کمک بگیرید و جمله‌ها را با ایده‌های خودتان کامل کنید. سعی کنید در هر جمله کلمه‌ی متفاوتی از کادر به کار ببرید.",
+      "ar": "استعن بإحدى الكلمات الواردة في المربّع لتكمل الجمل بأفكارك الخاصة، وحاول أن تستخدم كلمة مختلفة من المربّع في كل جملة.",
+      "terms": []
+    },
+    "sample answers, but many others are possible": {
+      "src": "{blk}Sample answers, but many others are possible{/blk}",
+      "fa": "پاسخ‌های نمونه؛ ولی پاسخ‌های بسیار دیگری هم ممکن است",
+      "ar": "إجابات نموذجية، لكنّ إجابات كثيرة أخرى ممكنة",
+      "terms": []
+    },
+    "… because they are the most important people in my life.": {
+      "src": "{blk}… because they are the most important people in my life.{/blk}",
+      "fa": "… چون آن‌ها مهم‌ترین آدم‌های زندگیِ من هستند.",
+      "ar": "… لأنّهم أهمّ الناس في حياتي.",
+      "terms": []
+    },
+    "… but we still get along very well.": {
+      "src": "{blk}… but we still get along very well.{/blk}",
+      "fa": "… ولی هنوز خیلی خوب با هم کنار می‌آییم.",
+      "ar": "… لكنّنا ما زلنا على وفاق كبير.",
+      "terms": [
+        "get along"
+      ]
+    },
+    "… and she is going to move to a different city with her husband.": {
+      "src": "{blk}… and she is going to move to a different city with her husband.{/blk}",
+      "fa": "… و قرار است با همسرش به شهرِ دیگری برود.",
+      "ar": "… وستنتقل مع زوجها إلى مدينة أخرى.",
+      "terms": []
+    },
+    "… so i don't spend as much time with him as i want to. 4": {
+      "src": "{blk}… so I don't spend as much time with him as I want to. 4{/blk}",
+      "fa": "… برای همین آن‌قدر که دلم می‌خواهد با او وقت نمی‌گذرانم.",
+      "ar": "… لذا لا أقضي معه من الوقت قدر ما أريد.",
+      "terms": []
+    },
+    "… even though he is quite a bit older.": {
+      "src": "{blk}… even though he is quite a bit older.{/blk}",
+      "fa": "… با اینکه او کمی بزرگ‌تر است.",
+      "ar": "… مع أنّه أكبر منّي بعض الشيء.",
+      "terms": [
+        "even though"
+      ]
+    },
+    "also": {
+      "src": "also",
+      "fa": "also (همچنین)",
+      "ar": "also (أيضًا)",
+      "terms": []
+    },
+    "and": {
+      "src": "And",
+      "fa": "And (و)",
+      "ar": "And (و)",
+      "terms": []
+    },
+    "because": {
+      "src": "because",
+      "fa": "because (چون)",
+      "ar": "because (لأنّ)",
+      "terms": []
+    },
+    "but": {
+      "src": "but",
+      "fa": "but (ولی)",
+      "ar": "but (لكنّ)",
+      "terms": []
+    },
+    "so": {
+      "src": "so",
+      "fa": "so (برای همین)",
+      "ar": "so (لذا)",
+      "terms": []
+    },
+    "even though": {
+      "src": "even though",
+      "fa": "even though (با اینکه)",
+      "ar": "even though (مع أنّ)",
+      "terms": [
+        "even though"
+      ]
+    },
+    "i visit my parents every weekend ...": {
+      "src": "I visit my parents every weekend ...",
+      "fa": "هر آخرِ هفته به پدر و مادرم سر می‌زنم …",
+      "ar": "أزور والديّ كل عطلة نهاية أسبوع …",
+      "terms": []
+    },
+    "we have a large family...": {
+      "src": "We have a large family...",
+      "fa": "خانواده‌ی پرجمعیتی داریم …",
+      "ar": "لدينا عائلة كبيرة …",
+      "terms": []
+    },
+    "my sister is getting married next year...": {
+      "src": "My sister is getting married next year...",
+      "fa": "خواهرم سالِ آینده ازدواج می‌کند …",
+      "ar": "ستتزوّج أختي العام المقبل …",
+      "terms": []
+    },
+    "my father works very long hours, ...": {
+      "src": "My father works very long hours, ...",
+      "fa": "پدرم ساعت‌های خیلی طولانی کار می‌کند، …",
+      "ar": "يعمل أبي ساعات طويلة جدًّا، …",
+      "terms": []
+    },
+    "my brother likes the same things as me,": {
+      "src": "My brother likes the same things as me,",
+      "fa": "برادرم همان چیزهایی را دوست دارد که من دوست دارم، …",
+      "ar": "أخي يحبّ الأشياء نفسها التي أحبّها، …",
+      "terms": []
+    },
+    "pronunciation": {
+      "src": "PRONUNCIATION",
+      "fa": "تلفظ",
+      "ar": "النطق",
+      "terms": []
+    },
+    "what is the third person singular form of the words in the box?": {
+      "src": "What is the third person singular form of the words in the box?",
+      "fa": "شکلِ سومِ شخصِ مفردِ کلمه‌های داخلِ کادر چیست؟",
+      "ar": "ما صيغة الغائب المفرد للكلمات الواردة في المربّع؟",
+      "terms": []
+    },
+    "example: have - has she has a small family": {
+      "src": "Example: have - has She has a small family",
+      "fa": "مثال: have ← has: She has a small family (او خانواده‌ی کوچکی دارد)",
+      "ar": "مثال: have ← has: She has a small family (لديها عائلة صغيرة)",
+      "terms": []
+    },
+    "ask": {
+      "src": "ask",
+      "fa": "ask (پرسیدن)",
+      "ar": "ask (يسأل)",
+      "terms": []
+    },
+    "choose": {
+      "src": "choose",
+      "fa": "choose (انتخاب کردن)",
+      "ar": "choose (يختار)",
+      "terms": []
+    },
+    "enjoy": {
+      "src": "enjoy",
+      "fa": "enjoy (لذت بردن)",
+      "ar": "enjoy (يستمتع)",
+      "terms": []
+    },
+    "keep": {
+      "src": "keep",
+      "fa": "keep (نگه داشتن؛ مدام انجام دادن)",
+      "ar": "keep (يحتفظ؛ يواصل)",
+      "terms": []
+    },
+    "play": {
+      "src": "play",
+      "fa": "play (بازی کردن)",
+      "ar": "play (يلعب)",
+      "terms": []
+    },
+    "talk": {
+      "src": "talk",
+      "fa": "talk (صحبت کردن)",
+      "ar": "talk (يتحدّث)",
+      "terms": []
+    },
+    "want": {
+      "src": "want",
+      "fa": "want (خواستن)",
+      "ar": "want (يريد)",
+      "terms": []
+    },
+    "watch": {
+      "src": "watch",
+      "fa": "watch (تماشا کردن)",
+      "ar": "watch (يشاهد)",
+      "terms": []
+    },
+    "listen to the words and group them under /z/, /s/ or /ɪz/ according to how the end is pronounced.": {
+      "src": "Listen to the words and group them under /z/, /s/ or /ɪz/ according to how the end is pronounced.",
+      "fa": "به کلمه‌ها گوش دهید و آن‌ها را بر اساسِ تلفظِ پایانشان زیرِ /z/، /s/ یا /ɪz/ دسته‌بندی کنید.",
+      "ar": "استمع إلى الكلمات وصنّفها تحت /z/ أو /s/ أو /ɪz/ بحسب نطق نهايتها.",
+      "terms": []
+    },
+    "/s/: asks, keeps, talks, wants": {
+      "src": "/s/: {blk}asks, keeps, talks, wants{/blk}",
+      "fa": "/s/: asks، keeps، talks، wants",
+      "ar": "/s/: asks، keeps، talks، wants",
+      "terms": []
+    },
+    "/z/: enjoys, plays": {
+      "src": "/z/: {blk}enjoys, plays{/blk}",
+      "fa": "/z/: enjoys، plays",
+      "ar": "/z/: enjoys، plays",
+      "terms": []
+    },
+    "/ɪz/: chooses, watches": {
+      "src": "/ɪz/: {blk}chooses, watches{/blk}",
+      "fa": "/ɪz/: chooses، watches",
+      "ar": "/ɪz/: chooses، watches",
+      "terms": []
+    },
+    "listen and repeat the sentences. be careful of the pronunciation of verbs with 's' endings.": {
+      "src": "Listen and repeat the sentences. Be careful of the pronunciation of verbs with 's' endings.",
+      "fa": "گوش دهید و جمله‌ها را تکرار کنید. مراقبِ تلفظِ فعل‌هایی باشید که به «s» ختم می‌شوند.",
+      "ar": "استمع وكرّر الجمل. وانتبه إلى نطق الأفعال المنتهية بحرف «s».",
+      "terms": []
+    },
+    "is there anyone in your family who annoys you sometimes?": {
+      "src": "Is there anyone in your family who annoys you sometimes?",
+      "fa": "کسی در خانواده‌تان هست که گاهی اذیتتان کند؟",
+      "ar": "هل في عائلتك مَن يزعجك أحيانًا؟",
+      "terms": [
+        "annoy"
+      ]
+    },
+    "- my father watches football on tv and shouts a lot.": {
+      "src": "- My father watches football on TV and shouts a lot.",
+      "fa": "- پدرم از تلویزیون فوتبال تماشا می‌کند و خیلی داد می‌زند.",
+      "ar": "- أبي يشاهد كرة القدم على التلفاز ويصرخ كثيرًا.",
+      "terms": []
+    },
+    "- my brother plays on the computer all the time.": {
+      "src": "- My brother plays on the computer all the time.",
+      "fa": "- برادرم تمامِ وقت با کامپیوتر بازی می‌کند.",
+      "ar": "- أخي يلعب على الكمبيوتر طوال الوقت.",
+      "terms": []
+    },
+    "- my mother keeps telling me to tidy my room.": {
+      "src": "- My mother keeps telling me to tidy my room. ",
+      "fa": "- مادرم مدام به من می‌گوید اتاقم را مرتب کنم.",
+      "ar": "- أمّي لا تكفّ عن مطالبتي بترتيب غرفتي.",
+      "terms": []
+    },
+    "with a partner, ask and answer the following questions.": {
+      "src": "With a partner, ask and answer the following questions.",
+      "fa": "با هم‌گروهی‌تان سؤال‌های زیر را بپرسید و جواب دهید.",
+      "ar": "اطرح الأسئلة التالية على زميلك وأجب عنها.",
+      "terms": []
+    },
+    "what activities do different members of your family enjoy doing?": {
+      "src": "What activities do different members of your family enjoy doing?",
+      "fa": "اعضای مختلفِ خانواده‌تان از انجامِ چه فعالیت‌هایی لذت می‌برند؟",
+      "ar": "ما الأنشطة التي يستمتع بها أفراد عائلتك المختلفون؟",
+      "terms": []
+    },
+    "my father enjoys mending old cars. my mother enjoys running and reading books.": {
+      "src": "My father enjoys mending old cars. My mother enjoys running and reading books.",
+      "fa": "پدرم از تعمیرِ ماشین‌های قدیمی لذت می‌برد. مادرم از دویدن و کتاب خواندن لذت می‌برد.",
+      "ar": "يستمتع أبي بإصلاح السيارات القديمة، وتستمتع أمّي بالجري وقراءة الكتب.",
+      "terms": []
+    },
+    "what do your mother and father want you to do in the future?": {
+      "src": "What do your mother and father want you to do in the future?",
+      "fa": "پدر و مادرتان دوست دارند در آینده چه کاره شوید یا چه کار کنید؟",
+      "ar": "ماذا يريد منك أبوك وأمّك أن تفعل في المستقبل؟",
+      "terms": []
+    },
+    "what type of films do different members of your family watch?": {
+      "src": "What type of films do different members of your family watch?",
+      "fa": "اعضای مختلفِ خانواده‌تان چه نوع فیلم‌هایی تماشا می‌کنند؟",
+      "ar": "ما أنواع الأفلام التي يشاهدها أفراد عائلتك المختلفون؟",
+      "terms": []
+    },
+    "what do different members of your family talk to you about?": {
+      "src": "What do different members of your family talk to you about?",
+      "fa": "اعضای مختلفِ خانواده‌تان درباره‌ی چه چیزهایی با شما صحبت می‌کنند؟",
+      "ar": "عمَّ يتحدّث معك أفراد عائلتك المختلفون؟",
+      "terms": []
+    },
+    "with a partner, ask and answer the questions below about your family. try to talk for about 20 seconds for each question.": {
+      "src": "With a partner, ask and answer the questions below about your family. Try to talk for about 20 seconds for each question.",
+      "fa": "با هم‌گروهی‌تان سؤال‌های زیر را درباره‌ی خانواده‌تان بپرسید و جواب دهید. سعی کنید برای هر سؤال حدودِ 20 ثانیه صحبت کنید.",
+      "ar": "اطرح على زميلك الأسئلة التالية عن عائلتك وأجب عنها، وحاول أن تتحدّث نحو 20 ثانية عن كل سؤال.",
+      "terms": []
+    },
+    "do you come from a large family?": {
+      "src": "Do you come from a large family?",
+      "fa": "از خانواده‌ای پرجمعیت هستید؟",
+      "ar": "هل تنتمي إلى عائلة كبيرة؟",
+      "terms": []
+    },
+    "is there anything you usually do together with your family?": {
+      "src": "Is there anything you usually do together with your family?",
+      "fa": "کاری هست که معمولاً با خانواده‌تان با هم انجام دهید؟",
+      "ar": "هل هناك شيء تفعله عادةً مع عائلتك؟",
+      "terms": []
+    },
+    "how often do you see your grandparents?": {
+      "src": "How often do you see your grandparents?",
+      "fa": "هر چند وقت یک بار پدربزرگ و مادربزرگتان را می‌بینید؟",
+      "ar": "كم مرّة ترى جدّك وجدّتك؟",
+      "terms": []
+    },
+    "who do you like the most in your family?": {
+      "src": "Who do you like the most in your family?",
+      "fa": "در خانواده‌تان چه کسی را از همه بیشتر دوست دارید؟",
+      "ar": "مَن أكثر شخص تحبّه في عائلتك؟",
+      "terms": []
+    },
+    "would you like to spend more time with your family?": {
+      "src": "Would you like to spend more time with your family?",
+      "fa": "دوست دارید وقتِ بیشتری را با خانواده‌تان بگذرانید؟",
+      "ar": "هل تودّ أن تقضي وقتًا أطول مع عائلتك؟",
+      "terms": []
+    },
+    "when your partner is speaking, make notes about any interesting vocabulary (particularly collocations} that you hear. then, ask and answer the questions again.": {
+      "src": "When your partner is speaking, make notes about any interesting vocabulary (particularly collocations} that you hear. Then, ask and answer the questions again.",
+      "fa": "وقتی هم‌گروهی‌تان صحبت می‌کند، هر واژه‌ی جالبی را که می‌شنوید (به‌ویژه هم‌آیندها) یادداشت کنید. سپس دوباره سؤال‌ها را بپرسید و جواب دهید.",
+      "ar": "حين يتحدّث زميلك، دوّن أيّ مفردات لافتة تسمعها (ولا سيّما المتلازمات اللفظية). ثمّ اطرحا الأسئلة وأجيبا عنها مرّة أخرى.",
+      "terms": [
+        "collocation"
+      ]
+    },
+    "manager: good evening, willowtree hotel. how can i help?": {
+      "src": "Manager: Good evening, Willowtree Hotel. How can I help?",
+      "fa": "مدیر: عصرتان بخیر، هتلِ ویلوتری. در خدمتم.",
+      "ar": "المدير: مساء الخير، فندق ويلوتري. كيف يمكنني مساعدتك؟",
+      "terms": []
+    },
+    "customer: hello, i'd like to make a reservation in your restaurant for next saturday evening.": {
+      "src": "Customer: Hello, I'd like to make a reservation in your restaurant for next Saturday evening.",
+      "fa": "مشتری: سلام، می‌خواستم برای شنبه‌شبِ آینده در رستورانتان رزرو کنم.",
+      "ar": "الزبونة: مرحبًا، أودّ أن أحجز في مطعمكم مساء السبت القادم.",
+      "terms": [
+        "make a reservation"
+      ]
+    },
+    "manager: next saturday? if you hold on, i'll just check ... so... for how many people?": {
+      "src": "Manager: Next Saturday? If you hold on, I'll just check ... So... for how many people?",
+      "fa": "مدیر: شنبه‌ی آینده؟ اگر لطفاً گوشی دستتان باشد، الان بررسی می‌کنم … خب … برای چند نفر؟",
+      "ar": "المدير: السبت القادم؟ إن انتظرتِ قليلًا فسأتحقّق حالًا … إذن … لكم شخصًا؟",
+      "terms": [
+        "hold on"
+      ]
+    },
+    "customer: i need a table for 12 - it's my husband's 30th birthday, so we're having a celebration dinner.": {
+      "src": "Customer: I need a table for 12 - it's my husband's 30th birthday, so we're having a celebration dinner.",
+      "fa": "مشتری: یک میز برای 12 نفر می‌خواهم؛ تولدِ سی‌سالگیِ همسرم است، برای همین یک شامِ جشن داریم.",
+      "ar": "الزبونة: أحتاج إلى طاولة لـ12 شخصًا – إنّه عيد ميلاد زوجي الثلاثون، لذا سنقيم عشاءً احتفاليًّا.",
+      "terms": []
+    },
+    "sales assistant: good afternoon, can i help you?": {
+      "src": "Sales assistant: Good afternoon, can I help you?",
+      "fa": "فروشنده: عصرتان بخیر، کمکی از دستم برمی‌آید؟",
+      "ar": "البائعة: مساء الخير، هل يمكنني مساعدتك؟",
+      "terms": []
+    },
+    "customer: yes, i'm looking for a gift for my sister. she's going to be 18 next week. so i thought a piece of jewellery would be nice.": {
+      "src": "Customer: Yes, I'm looking for a gift for my sister. She's going to be 18 next week. So I thought a piece of jewellery would be nice.",
+      "fa": "مشتری: بله، دنبالِ هدیه‌ای برای خواهرم هستم. هفته‌ی بعد 18 ساله می‌شود. برای همین فکر کردم یک تکه جواهر چیزِ خوبی باشد.",
+      "ar": "الزبون: نعم، أبحث عن هديّة لأختي؛ ستبلغ 18 عامًا الأسبوع المقبل، لذا فكّرت أنّ قطعة مجوهرات ستكون مناسبة.",
+      "terms": []
+    },
+    "sales assistant: good idea! do you have anything particular in mind - a necklace, perhaps?": {
+      "src": "Sales assistant: Good idea! Do you have anything particular in mind - a necklace, perhaps?",
+      "fa": "فروشنده: فکرِ خوبی است! چیزِ خاصی در نظر دارید؟ مثلاً یک گردنبند؟",
+      "ar": "البائعة: فكرة جيدة! هل يدور في ذهنك شيء معيّن – قلادة مثلًا؟",
+      "terms": [
+        "have something in mind"
+      ]
+    },
+    "customer: mm, she has so many necklaces. i was thinking of a pair of earrings, possibly.": {
+      "src": "Customer: Mm, she has so many necklaces. I was thinking of a pair of earrings, possibly.",
+      "fa": "مشتری: اِم، او خیلی گردنبند دارد. داشتم به یک جفت گوشواره فکر می‌کردم، شاید.",
+      "ar": "الزبون: امم، لديها قلائد كثيرة. كنت أفكّر في زوج من الأقراط ربّما.",
+      "terms": []
+    },
+    "sales assistant: does she have a favourite colour?": {
+      "src": "Sales assistant: Does she have a favourite colour?",
+      "fa": "فروشنده: رنگِ موردِ علاقه‌ای دارد؟",
+      "ar": "البائعة: هل لديها لون مفضّل؟",
+      "terms": []
+    },
+    "customer: mm, she likes blue ....": {
+      "src": "Customer: Mm, she likes blue ....",
+      "fa": "مشتری: اِم، آبی دوست دارد ….",
+      "ar": "الزبون: امم، تحبّ الأزرق ….",
+      "terms": []
+    },
+    "a the 3rd b $10.50 c the 6th d 70 e 19 f 62 g £110 h the 27th": {
+      "src": "a the 3rd b $10.50 c the 6th d 70 e 19 f 62 g £110 h the 27th",
+      "fa": "a: سوم (the 3rd)  b: 10.50 دلار  c: ششم (the 6th)  d: 70  e: 19  f: 62  g: 110 پوند  h: بیست‌وهفتم (the 27th)",
+      "ar": "a: الثالث (the 3rd)  b: 10.50 دولار  c: السادس (the 6th)  d: 70  e: 19  f: 62  g: 110 جنيهات إسترلينية  h: السابع والعشرون (the 27th)",
+      "terms": []
+    },
+    "manager: so that's 12 people for the 16\".": {
+      "src": "Manager: So that's 12 people for the 16\".",
+      "fa": "مدیر: پس 12 نفر برای شانزدهم.",
+      "ar": "المدير: إذن 12 شخصًا يوم السادس عشر.",
+      "terms": []
+    },
+    "customer: no, no, it's the day after- the 17th - saturday the 17th, at eight o'clock.": {
+      "src": "Customer: NO, no, it's the day after- the 17th - Saturday the 17th, at eight o'clock.",
+      "fa": "مشتری: نه، نه، روزِ بعدش است؛ هفدهم، شنبه هفدهم، ساعتِ هشت.",
+      "ar": "الزبونة: لا، لا، إنّه اليوم التالي – السابع عشر – السبت السابع عشر، في الساعة الثامنة.",
+      "terms": []
+    },
+    "manager: ah, yes, of course. a party of 12 for the saturday ... ohi i'm sorry, but i'm afraid our main restaurant is fully booked that evening, but we do have a small room available for private hire. it can seat up to 20 people, so there would be plenty of space for 12 of you.": {
+      "src": "Manager: Ah, yes, of course. A party of 12 for the Saturday ... Ohi I'm sorry, but I'm afraid our main restaurant is fully booked that evening, but we do have a small room available for private hire. It can seat up to 20 people, so there would be plenty of space for 12 of you.",
+      "fa": "مدیر: آهان، بله، البته. یک گروهِ 12 نفره برای شنبه … اوه، متأسفم، ولی رستورانِ اصلی‌مان آن شب کاملاً رزرو شده است؛ البته یک اتاقِ کوچک داریم که برای مهمانی‌های خصوصی اجاره داده می‌شود. گنجایشِ حداکثر 20 نفر را دارد، پس برای 12 نفرِ شما جای کافی هست.",
+      "ar": "المدير: آه، نعم، بالطبع. مجموعة من 12 شخصًا يوم السبت … أوه، آسف، لكنّ مطعمنا الرئيسي محجوز بالكامل تلك الليلة. غير أنّ لدينا غرفة صغيرة متاحة للحجز الخاص، تتّسع لما يصل إلى 20 شخصًا، فسيكون هناك متّسع كافٍ لكم جميعًا.",
+      "terms": [
+        "fully booked",
+        "private hire",
+        "seat up to"
+      ]
+    },
+    "customer: that sounds perfect.": {
+      "src": "Customer: That sounds perfect.",
+      "fa": "مشتری: عالی به نظر می‌رسد.",
+      "ar": "الزبونة: يبدو هذا مثاليًّا.",
+      "terms": []
+    },
+    "manager: excellent. now we offer a set three-course menu for £23 per person and we can also supply you with a birthday cake at no extra charge. how does that sound?": {
+      "src": "Manager: Excellent. Now we offer a set three-course menu for £23 per person and we can also supply you with a birthday cake at no extra charge. How does that sound?",
+      "fa": "مدیر: عالی است. ما یک منوی ثابتِ سه‌وعده‌ای (پیش‌غذا، غذای اصلی، دسر) به قیمتِ نفری 23 پوند داریم و می‌توانیم کیکِ تولد را هم بدونِ هزینه‌ی اضافه برایتان آماده کنیم. نظرتان چیست؟",
+      "ar": "المدير: ممتاز. نقدّم قائمة ثابتة من ثلاثة أطباق (مقبّلات وطبق رئيسي وحلوى) بسعر 23 جنيهًا للشخص، ويمكننا أيضًا أن نوفّر لكم كعكة عيد ميلاد دون أيّ تكلفة إضافية. ما رأيك؟",
+      "terms": [
+        "at no extra charge"
+      ]
+    },
+    "customer: that sounds good. so how much would that cost in total?": {
+      "src": "Customer: That sounds good. So how much would that cost in total?",
+      "fa": "مشتری: خوب به نظر می‌رسد. خب، رویهم‌رفته چقدر می‌شود؟",
+      "ar": "الزبونة: يبدو جيدًا. إذن، كم ستكون التكلفة الإجمالية؟",
+      "terms": []
+    },
+    "manager: let me see - for the food and the room, that will come to £318.": {
+      "src": "Manager: Let me see - for the food and the room, that will come to £318.",
+      "fa": "مدیر: ببینم … برای غذا و اتاق، جمعاً 318 پوند می‌شود.",
+      "ar": "المدير: لحظة … مقابل الطعام والغرفة سيبلغ المجموع 318 جنيهًا.",
+      "terms": [
+        "come to"
+      ]
+    },
+    "customer: did you say three hundred and eighty pounds?": {
+      "src": "Customer: Did you say three hundred and eighty pounds?",
+      "fa": "مشتری: گفتید سیصد و هشتاد پوند؟",
+      "ar": "الزبونة: هل قلت ثلاثمئة وثمانين جنيهًا؟",
+      "terms": []
+    },
+    "manager: no, three hundred and eighteen.": {
+      "src": "Manager: No, three hundred and eighteen.",
+      "fa": "مدیر: نه، سیصد و هجده.",
+      "ar": "المدير: لا، ثلاثمئة وثمانية عشر.",
+      "terms": []
+    },
+    "customer: ok, i think i'd like to go ahead and make a booking.": {
+      "src": "Customer: OK, I think I'd like to go ahead and make a booking.",
+      "fa": "مشتری: باشه، فکر می‌کنم می‌خواهم قطعی‌اش کنم و رزرو کنم.",
+      "ar": "الزبونة: حسنًا، أظنّ أنّني أودّ المضيّ قُدمًا وإتمام الحجز.",
+      "terms": [
+        "go ahead"
+      ]
+    },
+    "manager: ok, i'll just take your details.": {
+      "src": "Manager: OK, I'll just take your details.",
+      "fa": "مدیر: بسیار خب، فقط مشخصاتتان را یادداشت می‌کنم.",
+      "ar": "المدير: حسنًا، سأدوّن بياناتك فقط.",
+      "terms": []
+    },
+    "customer: mm, she likes blue...": {
+      "src": "Customer: Mm, she likes blue...",
+      "fa": "مشتری: اِم، آبی دوست دارد …",
+      "ar": "الزبون: امم، تحبّ الأزرق …",
+      "terms": []
+    },
+    "sales assistant: what about this pair? they have some beautiful little blue stones.": {
+      "src": "Sales assistant: What about this pair? They have some beautiful little blue stones.",
+      "fa": "فروشنده: این جفت چطور است؟ چند سنگِ آبیِ کوچک و زیبا دارند.",
+      "ar": "البائعة: ما رأيك في هذا الزوج؟ فيه أحجار زرقاء صغيرة جميلة.",
+      "terms": []
+    },
+    "customer: mm... they're quite nice, i suppose.": {
+      "src": "Customer: Mm... They're quite nice, I suppose.",
+      "fa": "مشتری: اِم … به نظرم نسبتاً قشنگ‌اند.",
+      "ar": "الزبون: امم … جميلة نوعًا ما، على ما أظنّ.",
+      "terms": []
+    },
+    "sales assistant: they're silver, and they're handmade, so you won't find anything like them anywhere else.": {
+      "src": "Sales assistant: They're silver, and they're handmade, so you won't find anything like them anywhere else.",
+      "fa": "فروشنده: نقره‌اند و دست‌ساز، پس چیزی مثلِ آن‌ها را هیچ جای دیگری پیدا نمی‌کنید.",
+      "ar": "البائعة: إنّها من الفضّة ومصنوعة يدويًّا، فلن تجد مثلها في أيّ مكان آخر.",
+      "terms": []
+    },
+    "customer: oh, really? so, how much are they?": {
+      "src": "Customer: Oh, really? So, how much are they?",
+      "fa": "مشتری: اِ، واقعاً؟ خب، قیمتشان چقدر است؟",
+      "ar": "الزبون: أوه، حقًّا؟ إذن، كم سعرها؟",
+      "terms": []
+    },
+    "sales assistant: well, they were £30, but actually we've got a sale on at the moment, so they're a little cheaper - only £20. so you can save £10!": {
+      "src": "Sales assistant: Well, they were £30, but actually we've got a sale on at the moment, so they're a little cheaper - only £20. So you can save £10!",
+      "fa": "فروشنده: خب، قیمتشان 30 پوند بود، ولی راستش الان حراج داریم، برای همین کمی ارزان‌ترند؛ فقط 20 پوند. پس می‌توانید 10 پوند صرفه‌جویی کنید!",
+      "ar": "البائعة: حسنًا، كان سعرها 30 جنيهًا، لكن في الحقيقة لدينا تخفيضات في الوقت الحالي، لذا فهي أرخص قليلًا – 20 جنيهًا فقط. أي أنّك توفّر 10 جنيهات!",
+      "terms": []
+    },
+    "customer: great. i'll take them..": {
+      "src": "Customer: Great. I'll take them..",
+      "fa": "مشتری: عالی است. همین‌ها را برمی‌دارم.",
+      "ar": "الزبون: رائع. سآخذها.",
+      "terms": []
+    },
+    "sales assistant: and would you like me to giftwrap them for you?": {
+      "src": "Sales assistant: And would you like me to giftwrap them for you?",
+      "fa": "فروشنده: می‌خواهید برایتان کادوپیچشان کنم؟",
+      "ar": "البائعة: هل تريدني أن أغلّفها لك تغليف هدايا؟",
+      "terms": [
+        "gift wrapping"
+      ]
+    },
+    "customer: how much do you charge for that?": {
+      "src": "Customer: How much do you charge for that?",
+      "fa": "مشتری: برای این کار چقدر می‌گیرید؟",
+      "ar": "الزبون: كم تتقاضون مقابل ذلك؟",
+      "terms": []
+    },
+    "sales assistant: for £4 we give you a pretty box and your own choice of wrapping paper. or for £5 you can have our luxury wrapping service, which includes a silver box and silver ribbon. and if you would like a card to write your own personal message, that will be £2 extra.": {
+      "src": "Sales assistant: For £4 we give you a pretty box and your own choice of wrapping paper. Or for £5 you can have our luxury wrapping service, which includes a silver box and silver ribbon. And if you would like a card to write your own personal message, that will be £2 extra.",
+      "fa": "فروشنده: با 4 پوند یک جعبه‌ی قشنگ می‌دهیم و کاغذکادو را هم خودتان انتخاب می‌کنید. یا با 5 پوند می‌توانید از سرویسِ کادوپیچیِ لوکسِ ما استفاده کنید که یک جعبه‌ی نقره‌ای و روبانِ نقره‌ای دارد. و اگر کارتی بخواهید که پیامِ شخصیِ خودتان را رویش بنویسید، 2 پوند اضافه می‌شود.",
+      "ar": "البائعة: مقابل 4 جنيهات نعطيك علبة جميلة وتختار ورق التغليف بنفسك، أو مقابل 5 جنيهات يمكنك الحصول على خدمة التغليف الفاخرة، وتشمل علبة فضّية وشريطًا فضّيًّا. وإن أردت بطاقة تكتب عليها رسالتك الخاصة، فستكلّفك جنيهين إضافيين.",
+      "terms": []
+    },
+    "customer: well, it's a special birthday so i'll take the luxury option. but i already have a card, thank you.": {
+      "src": "Customer: Well, it's a special birthday so I'll take the luxury option. But I already have a card, thank you.",
+      "fa": "مشتری: خب، تولدِ خاصی است، پس گزینه‌ی لوکس را انتخاب می‌کنم. ولی کارت خودم دارم، ممنون.",
+      "ar": "الزبون: حسنًا، إنّه عيد ميلاد مميّز، لذا سأختار الخيار الفاخر. لكن لديّ بطاقة بالفعل، شكرًا.",
+      "terms": []
+    },
+    "sales assistant: that's fine. i'll do that for you now. and how would you like to pay - cash or card?": {
+      "src": "Sales assistant: That's fine. I'll do that for you now. And how would you like to pay - cash or card?",
+      "fa": "فروشنده: مشکلی نیست. همین الان برایتان انجامش می‌دهم. و چطور می‌خواهید پرداخت کنید، نقد یا کارت؟",
+      "ar": "البائعة: لا بأس. سأقوم بذلك لك الآن. وكيف تودّ أن تدفع – نقدًا أم بالبطاقة؟",
+      "terms": []
+    },
+    "sales assistant: well they were £30, but actually we've got a sale on at the moment, so they're a little cheaper - only £20. so you can save £10!": {
+      "src": "Sales assistant: Well they were £30, but actually we've got a sale on at the moment, so they're a little cheaper - only £20. So you can save £10!",
+      "fa": "فروشنده: خب، قیمتشان 30 پوند بود، ولی راستش الان حراج داریم، برای همین کمی ارزان‌ترند؛ فقط 20 پوند. پس می‌توانید 10 پوند صرفه‌جویی کنید!",
+      "ar": "البائعة: حسنًا، كان سعرها 30 جنيهًا، لكن في الحقيقة لدينا تخفيضات في الوقت الحالي، لذا فهي أرخص قليلًا – 20 جنيهًا فقط. أي أنّك توفّر 10 جنيهات!",
+      "terms": []
+    },
+    "mark: hi there, nam! you aren't still working on your history assignment, are you?": {
+      "src": "Mark: Hi there, Nam! You aren't still working on your history assignment, are you?",
+      "fa": "مارک: سلام، نام! هنوز داری روی تکلیفِ تاریخت کار می‌کنی؟",
+      "ar": "مارك: مرحبًا يا نام! لا تزال تعمل على واجب التاريخ، أليس كذلك؟",
+      "terms": [
+        "assignment"
+      ]
+    },
+    "nam: hi, victor! no, i'm taking a break. i'm looking at some photos, actually - a family celebration. do you want to see them?": {
+      "src": "Nam: Hi, Victor! No, I'm taking a break. I'm looking at some photos, actually - a family celebration. Do you want to see them?",
+      "fa": "نام: سلام، ویکتور! نه، دارم استراحت می‌کنم. راستش دارم چند تا عکس نگاه می‌کنم؛ عکس‌های یک جشنِ خانوادگی. می‌خواهی ببینی‌شان؟",
+      "ar": "نام: مرحبًا يا فيكتور! لا، آخذ استراحة. في الحقيقة أنظر إلى بعض الصور – احتفال عائلي. أتريد أن تراها؟",
+      "terms": [
+        "take a break"
+      ]
+    },
+    "mark: so, who's the cute baby in this picture here?": {
+      "src": "Mark: So, who's the cute baby in this picture here?",
+      "fa": "مارک: خب، این بچه‌ی بامزه‌ی توی این عکس کیست؟",
+      "ar": "مارك: إذن، مَن هذه الطفلة اللطيفة في هذه الصورة؟",
+      "terms": []
+    },
+    "nam: she's my niece - my brother's daughter. her name's tae-hee. she's one year old in this picture. it's a very important birthday in korea - we call it 'dol' or doljanchi. it's a very special celebration - in fact, i think it's probably more important than a wedding or a graduation! and we invite all our family and friends and sometimes our neighbours. here's a picture of the restaurant where we celebrated tae-hee's big day.": {
+      "src": "Nam: She's my niece - my brother's daughter. Her name's Tae-Hee. She's one year old in this picture. It's a very important birthday in Korea - we call it 'Dol' or Doljanchi. It's a very special celebration - in fact, I think it's probably more important than a wedding or a graduation! And we invite all our family and friends and sometimes our neighbours. Here's a picture of the restaurant where we celebrated Tae-Hee's big day.",
+      "fa": "نام: برادرزاده‌ام است؛ دخترِ برادرم. اسمش ته‌هی است. در این عکس یک‌ساله است. در کره تولدِ خیلی مهمی است؛ به آن «دول» یا «دول‌جانچی» می‌گوییم. جشنِ خیلی خاصی است؛ راستش فکر می‌کنم احتمالاً از عروسی یا جشنِ فارغ‌التحصیلی هم مهم‌تر است! همه‌ی فامیل و دوستانمان و گاهی همسایه‌هایمان را دعوت می‌کنیم. این هم عکسِ رستورانی که روزِ مهمِ ته‌هی را آن‌جا جشن گرفتیم.",
+      "ar": "نام: إنّها ابنة أخي. اسمها تاي-هي، وعمرها سنة واحدة في هذه الصورة. إنّه عيد ميلاد مهمّ جدًّا في كوريا – نسمّيه «دول» أو «دولجانتشي». إنّه احتفال مميّز جدًّا – بل أظنّ أنّه ربّما أهمّ من حفل الزفاف أو حفل التخرّج! وندعو إليه جميع أقاربنا وأصدقائنا وأحيانًا جيراننا. وهذه صورة المطعم الذي احتفلنا فيه بيوم تاي-هي الكبير.",
+      "terms": [
+        "graduation"
+      ]
+    },
+    "mark: what a lovely place - and a beautiful garden, too.": {
+      "src": "Mark: What a lovely place - and a beautiful garden, too.",
+      "fa": "مارک: چه جای قشنگی؛ باغِ زیبایی هم دارد.",
+      "ar": "مارك: يا له من مكان جميل – وحديقة رائعة أيضًا.",
+      "terms": []
+    },
+    "nam: yes, it's a perfect location for taking photographs. can you see me just there next to the trees?": {
+      "src": "Nam: Yes, it's a perfect location for taking photographs. Can you see me just there next to the trees?",
+      "fa": "نام: آره، جای فوق‌العاده‌ای برای عکس گرفتن است. من را آن‌جا کنارِ درخت‌ها می‌بینی؟",
+      "ar": "نام: نعم، إنّه مكان مثالي لالتقاط الصور. هل تراني هناك بجانب الأشجار؟",
+      "terms": []
+    },
+    "mark: ah yes, i like your hat! and i like the red and silver hat tae-hee's wearing too. it's really pretty.": {
+      "src": "Mark: Ah yes, I like your hat! And I like the red and silver hat Tae-Hee's wearing too. It's really pretty.",
+      "fa": "مارک: آهان، آره؛ کلاهت را دوست دارم! کلاهِ قرمز و نقره‌ایِ ته‌هی را هم دوست دارم. واقعاً قشنگ است.",
+      "ar": "مارك: آه نعم، تعجبني قبّعتك! وتعجبني أيضًا القبّعة الحمراء والفضّية التي ترتديها تاي-هي، إنّها جميلة حقًّا.",
+      "terms": []
+    },
+    "nam: yes, it's a traditional hat for a girl. baby boys wear a different one - all black. it looks very serious!": {
+      "src": "Nam: Yes, it's a traditional hat for a girl. Baby boys wear a different one - all black. It looks very serious!",
+      "fa": "نام: آره، کلاهِ سنتیِ دخترهاست. نوزادهای پسر کلاهِ دیگری می‌پوشند؛ تماماً سیاه. خیلی جدی به نظر می‌رسد!",
+      "ar": "نام: نعم، إنّها قبّعة تقليدية للبنات. أمّا الأطفال الذكور فيرتدون قبّعة مختلفة – سوداء بالكامل، وتبدو جادّة جدًّا!",
+      "terms": [
+        "traditional"
+      ]
+    },
+    "mark: that's a bit boring. black and silver would be more interesting. what's tae-hee wearing round her skirt?": {
+      "src": "Mark: That's a bit boring. Black and silver would be more interesting. What's Tae-Hee wearing round her skirt?",
+      "fa": "مارک: یک کم کسل‌کننده است. سیاه و نقره‌ای جالب‌تر می‌شد. ته‌هی دورِ دامنش چه بسته است؟",
+      "ar": "مارك: هذا مملّ بعض الشيء، الأسود والفضّي سيكونان أكثر إثارة للاهتمام. وما الذي ترتديه تاي-هي حول تنّورتها؟",
+      "terms": []
+    },
+    "nam: that's a little purse. boy babies wear this too. it's made of silk and it means good luck in our culture. and she's wearing a belt too. look - do you see? the belt means she will have a long life!": {
+      "src": "Nam: That's a little purse. Boy babies wear this too. It's made of silk and it means good luck in our culture. And she's wearing a belt too. Look - do you see? The belt means she will have a long life!",
+      "fa": "نام: آن یک کیفِ پولِ کوچک است. نوزادهای پسر هم این را می‌پوشند. از ابریشم ساخته شده و در فرهنگِ ما یعنی خوش‌شانسی. یک کمربند هم بسته است. ببین، می‌بینی؟ کمربند یعنی عمرِ طولانی خواهد داشت!",
+      "ar": "نام: هذه محفظة صغيرة، ويرتديها الأطفال الذكور أيضًا. إنّها مصنوعة من الحرير وتعني الحظّ السعيد في ثقافتنا. وترتدي حزامًا أيضًا – انظر، أتراه؟ الحزام يعني أنّها ستعيش عمرًا طويلًا!",
+      "terms": []
+    },
+    "mark: and what's this on the table there? it's very colourful.": {
+      "src": "Mark: And what's this on the table there? It's very colourful.",
+      "fa": "مارک: این روی میز چیست؟ خیلی رنگارنگ است.",
+      "ar": "مارك: وما هذا على الطاولة هناك؟ إنّه ملوّن جدًّا.",
+      "terms": []
+    },
+    "nam: it's rice cakes.": {
+      "src": "Nam: It's rice cakes.",
+      "fa": "نام: کیک‌های برنجی است.",
+      "ar": "نام: إنّها كعكات أرز.",
+      "terms": []
+    },
+    "mark: i've never seen anything like that before. it looks like a rainbow!": {
+      "src": "Mark: I've never seen anything like that before. It looks like a rainbow!",
+      "fa": "مارک: تا حالا چنین چیزی ندیده بودم. شبیهِ رنگین‌کمان است!",
+      "ar": "مارك: لم أرَ شيئًا كهذا من قبل. يبدو كقوس قزح!",
+      "terms": []
+    },
+    "nam: we always eat rice cakes at a baby's party. there are usually 12 different types of them on the table. look - this rice cake is completely orange in colour and this one here is bright green!": {
+      "src": "Nam: We always eat rice cakes at a baby's party. There are usually 12 different types of them on the table. Look - this rice cake is completely orange in colour and this one here is bright green!",
+      "fa": "نام: ما همیشه در مهمانیِ نوزاد کیکِ برنجی می‌خوریم. معمولاً 12 نوعِ مختلف از آن روی میز است. ببین، این کیکِ برنجی کاملاً نارنجی است و این یکی سبزِ روشن!",
+      "ar": "نام: نأكل دائمًا كعكات الأرز في حفلة الطفل، وعادةً ما يكون على الطاولة 12 نوعًا مختلفًا منها. انظر – هذه الكعكة برتقالية بالكامل، وهذه هنا خضراء زاهية!",
+      "terms": []
+    },
+    "mark: it looks like a vegetable!": {
+      "src": "Mark: It looks like a vegetable!",
+      "fa": "مارک: شبیهِ سبزی است!",
+      "ar": "مارك: تبدو كأنّها خضار!",
+      "terms": []
+    },
+    "nam: now, look - this is me with my brother's wife, mi-cha. we get on really well together.": {
+      "src": "Nam: Now, look - this is me with my brother's wife, Mi-Cha. We get on really well together.",
+      "fa": "نام: حالا ببین، این من هستم با زنِ برادرم، می‌چا. خیلی خوب با هم کنار می‌آییم.",
+      "ar": "نام: والآن انظر – هذا أنا مع زوجة أخي، مي-تشا. نحن على وفاق كبير.",
+      "terms": [
+        "get on well"
+      ]
+    },
+    "mark: what are you holding?": {
+      "src": "Mark: What are you holding?",
+      "fa": "مارک: چه چیزی دستت است؟",
+      "ar": "مارك: ما الذي تحمله؟",
+      "terms": []
+    },
+    "nam: oh, it's a little bag. all the guests get a gift bag at the end of the party. and inside there's a present from the baby's parents. it's really fun to open it because you don't know what you'll get. so it could be a candle, or some chocolates. guess what i got? you can see it in this next photo.": {
+      "src": "Nam: Oh, it's a little bag. All the guests get a gift bag at the end of the party. And inside there's a present from the baby's parents. It's really fun to open it because you don't know what you'll get. So it could be a candle, or some chocolates. Guess what I got? You can see it in this next photo.",
+      "fa": "نام: اوه، یک کیسه‌ی کوچک است. آخرِ مهمانی به همه‌ی مهمان‌ها یک کیسه‌ی هدیه می‌دهند. داخلش هدیه‌ای از طرفِ پدر و مادرِ نوزاد است. باز کردنش خیلی جذاب است، چون نمی‌دانی چه گیرت می‌آید. مثلاً ممکن است شمع باشد یا شکلات. حدس بزن من چه گرفتم؟ در عکسِ بعدی می‌بینی‌اش.",
+      "ar": "نام: أوه، إنّها كيس صغير. يحصل جميع الضيوف على كيس هدايا في نهاية الحفلة، وفي داخله هديّة من والدَي الطفل. ومن الممتع حقًّا فتحه لأنّك لا تعرف ما الذي ستحصل عليه؛ فقد تكون شمعة أو بعض الشوكولاتة. خمّن ماذا حصلت أنا؟ يمكنك أن تراه في الصورة التالية.",
+      "terms": []
+    },
+    "mark: it looks like a box of tea. but shouldn't it be the other way round - the baby gets the presents?": {
+      "src": "Mark: It looks like a box of tea. But shouldn't it be the other way round - the baby gets the presents?",
+      "fa": "مارک: شبیهِ یک جعبه چای است. ولی نباید برعکس باشد؟ یعنی نوزاد هدیه بگیرد؟",
+      "ar": "مارك: يبدو كعلبة شاي. لكن ألا ينبغي أن يكون العكس – أن يتلقّى الطفل الهدايا؟",
+      "terms": [
+        "the other way round"
+      ]
+    },
+    "nam: well, the baby receives money from the guests, so in a way you're right! and actually, i've got my present right here. so, why don't we open the box right now and have a cup of tea? then we can try to finish our assignments.": {
+      "src": "Nam: Well, the baby receives money from the guests, so in a way you're right! And actually, I've got my present right here. So, why don't we open the box right now and have a cup of tea? Then we can try to finish our assignments.",
+      "fa": "نام: خب، نوزاد از مهمان‌ها پول می‌گیرد، پس از یک جهت حق با توست! راستش هدیه‌ام همین‌جا پیشِ من است. پس چرا همین الان جعبه را باز نکنیم و یک فنجان چای نخوریم؟ بعدش می‌توانیم سعی کنیم تکلیف‌هایمان را تمام کنیم.",
+      "ar": "نام: حسنًا، الطفل يتلقّى المال من الضيوف، فأنت محقّ من ناحيةٍ ما! وفي الحقيقة هديّتي هنا معي. فلماذا لا نفتح العلبة الآن ونشرب كوبًا من الشاي؟ ثمّ نحاول إنهاء واجباتنا.",
+      "terms": [
+        "in a way"
+      ]
+    },
+    "mark: sounds good to me!": {
+      "src": "Mark: Sounds good to me!",
+      "fa": "مارک: به نظرم فکرِ خوبی است!",
+      "ar": "مارك: فكرة جيدة بالنسبة لي!",
+      "terms": []
+    },
+    "examiner: let's talk about family. so, tell me about your family.": {
+      "src": "Examiner: Let's talk about family. So, tell me about your family.",
+      "fa": "ممتحن: بیایید درباره‌ی خانواده صحبت کنیم. خب، از خانواده‌تان بگویید.",
+      "ar": "الممتحِن: لنتحدّث عن العائلة. حسنًا، حدّثيني عن عائلتك.",
+      "terms": [
+        "examiner"
+      ]
+    },
+    "hoi chin: my family? well, my family isn't a large family. it's quite a small family, in fact - and quite a typical family for my country. just my parents, my older brother and me. so, i'm the baby of the family! i think we're a close, happy family. we do a lot of things together, particularly preparing food - and eating it of course!": {
+      "src": "Hoi Chin: My family? Well, my family isn't a large family. It's quite a small family, in fact - and quite a typical family for my country. Just my parents, my older brother and me. So, I'm the baby of the family! I think we're a close, happy family. We do a lot of things together, particularly preparing food - and eating it of course!",
+      "fa": "هوی چین: خانواده‌ام؟ خب، خانواده‌ی ما پرجمعیت نیست. در واقع خانواده‌ی نسبتاً کوچکی است؛ و برای کشورِ من، خانواده‌ای کاملاً معمولی. فقط پدر و مادرم، برادرِ بزرگ‌ترم و من. پس من ته‌تغاریِ خانواده‌ام! فکر می‌کنم خانواده‌ای صمیمی و شاد هستیم. خیلی کارها را با هم انجام می‌دهیم، مخصوصاً آشپزی؛ و البته خوردنش!",
+      "ar": "هوي تشين: عائلتي؟ حسنًا، عائلتي ليست كبيرة. إنّها في الواقع عائلة صغيرة نوعًا ما، وعائلة نموذجية تمامًا في بلدي: والداي وأخي الأكبر وأنا فقط. أي أنّني أصغر أفراد العائلة! أظنّ أنّنا عائلة مترابطة وسعيدة. نقوم بأشياء كثيرة معًا، ولا سيّما إعداد الطعام – وأكله بالطبع!",
+      "terms": [
+        "typical",
+        "the baby of the family"
+      ]
+    },
+    "examiner: how often do you go out with your family?": {
+      "src": "Examiner: How often do you go out with your family?",
+      "fa": "ممتحن: هر چند وقت یک بار با خانواده‌تان بیرون می‌روید؟",
+      "ar": "الممتحِن: كم مرّة تخرج مع عائلتك؟",
+      "terms": [
+        "examiner"
+      ]
+    },
+    "candidate: sorry? can you repeat that?": {
+      "src": "Candidate: Sorry? Can you repeat that?",
+      "fa": "داوطلب: ببخشید؟ می‌شود تکرارش کنید؟",
+      "ar": "المترشّح: عفوًا؟ هل يمكنك أن تعيد السؤال؟",
+      "terms": [
+        "candidate"
+      ]
+    },
+    "candidate: well... we're a close family, we like spending a lot of time together. we try to go out once a week - usually at weekends - on saturdays or sundays. we all really like being in the fresh air so we often go for a long walk along the beach. we enjoy going early in the morning when it's quiet. we never go when it's crowded! we live near a big park, so we sometimes go there. we usually go for a long walk and sometimes have a barbecue by the lake. sometimes our cousin comes along too. he loves running around in the sunshine. he even enjoys swimming in the lake, so it's a good day out for him too!": {
+      "src": "Candidate: Well... we're a close family, we like spending a lot of time together. We try to go out once a week - usually at weekends - on Saturdays or Sundays. We all really like being in the fresh air so we often go for a long walk along the beach. We enjoy going early in the morning when it's quiet. We never go when it's crowded! We live near a big park, so we sometimes go there. We usually go for a long walk and sometimes have a barbecue by the lake. Sometimes our cousin comes along too. He loves running around in the sunshine. He even enjoys swimming in the lake, so it's a good day out for him too!",
+      "fa": "داوطلب: خب … ما خانواده‌ی صمیمی‌ای هستیم و دوست داریم وقتِ زیادی را با هم بگذرانیم. سعی می‌کنیم هفته‌ای یک بار بیرون برویم؛ معمولاً آخرِ هفته‌ها، شنبه‌ها یا یکشنبه‌ها. همه‌مان واقعاً دوست داریم در هوای آزاد باشیم، برای همین اغلب کنارِ ساحل پیاده‌روی طولانی‌ای می‌کنیم. دوست داریم صبحِ زود برویم که خلوت است. هیچ‌وقت وقتی شلوغ است نمی‌رویم! نزدیکِ یک پارکِ بزرگ زندگی می‌کنیم، برای همین گاهی آن‌جا می‌رویم. معمولاً پیاده‌روی طولانی‌ای می‌کنیم و گاهی کنارِ دریاچه کباب درست می‌کنیم. گاهی پسرعمویمان هم با ما می‌آید. عاشقِ این است که زیرِ آفتاب این‌طرف و آن‌طرف بدود. حتی شنا کردن در دریاچه را هم دوست دارد؛ پس برای او هم روزِ خوشی بیرون از خانه است!",
+      "ar": "المترشّح: حسنًا … نحن عائلة مترابطة ونحبّ قضاء وقت طويل معًا. نحاول أن نخرج مرّة في الأسبوع – عادةً في عطلة نهاية الأسبوع، يوم السبت أو الأحد. نحبّ جميعًا الهواء الطلق كثيرًا، لذا كثيرًا ما نتمشّى مسافة طويلة على الشاطئ. ونستمتع بالذهاب في الصباح الباكر حين يكون هادئًا، ولا نذهب أبدًا حين يكون مزدحمًا! نعيش قرب حديقة كبيرة، لذا نذهب إليها أحيانًا؛ وعادةً ما نتمشّى طويلًا، وأحيانًا نقيم حفلة شواء بجانب البحيرة. وأحيانًا يأتي معنا ابن عمّنا، فهو يحبّ الركض هنا وهناك تحت أشعّة الشمس، بل يستمتع حتى بالسباحة في البحيرة، فهو يوم ممتع له أيضًا!",
+      "terms": [
+        "candidate",
+        "a good day out"
+      ]
+    },
+    "hoi chin: my family? well, my family isn't a large family. it's quite asmall family in fact - and quite a typical family for my country. just my parents, my older brother and me. so, i'm the baby of the family! i think we're a close, happy family. we do a lot of things together, particularly preparing food - and eating it of course! yes, we spend a lot of time in the kitchen. my father's a very good cook - he's much better than my mother.": {
+      "src": "Hoi Chin: My family? Well, my family isn't a large family. It's quite asmall family in fact - and quite a typical family for my country. Just my parents, my older brother and me. So, I'm the baby of the family! I think we're a close, happy family. We do a lot of things together, particularly preparing food - and eating it of course! Yes, we spend a lot of time in the kitchen. My father's a very good cook - he's much better than my mother.",
+      "fa": "هوی چین: خانواده‌ام؟ خب، خانواده‌ی ما پرجمعیت نیست. در واقع خانواده‌ی نسبتاً کوچکی است؛ و برای کشورِ من، خانواده‌ای کاملاً معمولی. فقط پدر و مادرم، برادرِ بزرگ‌ترم و من. پس من ته‌تغاریِ خانواده‌ام! فکر می‌کنم خانواده‌ای صمیمی و شاد هستیم. خیلی کارها را با هم انجام می‌دهیم، مخصوصاً آشپزی؛ و البته خوردنش! بله، وقتِ زیادی را در آشپزخانه می‌گذرانیم. پدرم آشپزِ خیلی خوبی است؛ خیلی بهتر از مادرم.",
+      "ar": "هوي تشين: عائلتي؟ حسنًا، عائلتي ليست كبيرة. إنّها في الواقع عائلة صغيرة نوعًا ما، وعائلة نموذجية تمامًا في بلدي: والداي وأخي الأكبر وأنا فقط. أي أنّني أصغر أفراد العائلة! أظنّ أنّنا عائلة مترابطة وسعيدة. نقوم بأشياء كثيرة معًا، ولا سيّما إعداد الطعام – وأكله بالطبع! نعم، نقضي وقتًا طويلًا في المطبخ. أبي طبّاخ ماهر جدًّا – أفضل بكثير من أمّي.",
+      "terms": [
+        "typical",
+        "the baby of the family"
+      ]
+    },
+    "my brother's getting married next year, so i'm really looking forward to having a sister-in-law! and who knows? perhaps our family will get bigger in the future! i'd love to have a niece or a little nephew to take to the park one day. yes, i really want to be an aunt!": {
+      "src": "My brother's getting married next year, so I'm really looking forward to having a sister-in-law! And who knows? Perhaps our family will get bigger in the future! I'd love to have a niece or a little nephew to take to the park one day. Yes, I really want to be an aunt!",
+      "fa": "برادرم سالِ آینده ازدواج می‌کند، برای همین واقعاً مشتاقم زن‌برادر داشته باشم! و کسی چه می‌داند؟ شاید خانواده‌مان در آینده بزرگ‌تر شود! خیلی دوست دارم روزی برادرزاده‌ی کوچکی، دختر یا پسر، داشته باشم که به پارک ببرمش. بله، خیلی دلم می‌خواهد عمه شوم!",
+      "ar": "سيتزوّج أخي العام المقبل، لذا أتطلّع حقًّا إلى أن تكون لي زوجة أخ! ومن يدري؟ ربّما تكبر عائلتنا في المستقبل! أودّ كثيرًا أن تكون لي يومًا ما ابنة أخ أو ابن أخ صغير آخذه إلى الحديقة. نعم، أريد حقًّا أن أصبح عمّة!",
+      "terms": [
+        "look forward to"
+      ]
+    },
+    "student a: i get own really well with both of my sisters. the older one's at university in australia, so i don't see her very often any more. the younger one still lives at home though, and we spend all of our free time together.": {
+      "src": "Student A: I get own really well with both of my sisters. The older one's at university in Australia, so I don't see her very often any more. The younger one still lives at home though, and we spend all of our free time together.",
+      "fa": "دانشجوی A: با هر دو خواهرم خیلی خوب کنار می‌آیم. خواهرِ بزرگ‌ترم در استرالیا دانشگاه می‌رود، برای همین دیگر زیاد نمی‌بینمش. ولی خواهرِ کوچک‌ترم هنوز در خانه زندگی می‌کند و همه‌ی وقتِ آزادمان را با هم می‌گذرانیم.",
+      "ar": "الطالب A: أنا على وفاق كبير مع أختيّ كلتيهما. الكبرى تدرس في جامعة في أستراليا، لذا لم أعد أراها كثيرًا. أمّا الصغرى فما زالت تعيش في البيت، ونقضي معًا كل أوقات فراغنا.",
+      "terms": []
+    },
+    "student b: i'm a lot like my father. we look similar and have the same interests.": {
+      "src": "Student B: I'm a lot like my father. We look similar and have the same interests.",
+      "fa": "دانشجوی B: خیلی شبیهِ پدرم هستم. قیافه‌مان شبیهِ هم است و علاقه‌هایمان یکی است.",
+      "ar": "الطالب B: أشبه أبي كثيرًا؛ فنحن متشابهان في الشكل ولنا الاهتمامات نفسها.",
+      "terms": []
+    },
+    "student c: most people say that i'm similar to my father because we both have green eyes and black hair. however, i think that i'm more similar to my mother in character. we're both easy-going and calm, so i think it's a mixture of both.": {
+      "src": "Student C: Most people say that I'm similar to my father because we both have green eyes and black hair. However, I think that I'm more similar to my mother in character. We're both easy-going and calm, so I think it's a mixture of both.",
+      "fa": "دانشجوی C: بیشترِ مردم می‌گویند شبیهِ پدرم هستم، چون هر دو چشمِ سبز و موی سیاه داریم. ولی به نظرم از نظرِ اخلاق بیشتر شبیهِ مادرم هستم. هر دو آسان‌گیر و آرام هستیم؛ برای همین فکر می‌کنم ترکیبی از هر دو هستم.",
+      "ar": "الطالب C: يقول معظم الناس إنّني أشبه أبي لأنّ لكلينا عينين خضراوين وشعرًا أسود. لكنّني أظنّ أنّني أشبه أمّي أكثر في الطباع؛ فكلانا هادئ وسهل المعشر، لذا أظنّ أنّني مزيج من الاثنين.",
+      "terms": [
+        "easy-going"
+      ]
+    },
+    "asks, chooses, enjoys, keeps, plays, talks, wants, watches": {
+      "src": "asks, chooses, enjoys, keeps, plays, talks, wants, watches",
+      "fa": "asks، chooses، enjoys، keeps، plays، talks، wants، watches",
+      "ar": "asks، chooses، enjoys، keeps، plays، talks، wants، watches",
+      "terms": []
+    },
+    "examiner: is there anyone in your family who annoys you sometimes?": {
+      "src": "Examiner: Is there anyone in your family who annoys you sometimes?",
+      "fa": "ممتحن: کسی در خانواده‌تان هست که گاهی اذیتتان کند؟",
+      "ar": "الممتحِن: هل في عائلتك مَن يزعجك أحيانًا؟",
+      "terms": [
+        "examiner",
+        "annoy"
+      ]
+    },
+    "a: my father watches football on tv and shouts a lot.": {
+      "src": "A: My father watches football on TV and shouts a lot.",
+      "fa": "A: پدرم از تلویزیون فوتبال تماشا می‌کند و خیلی داد می‌زند.",
+      "ar": "A: أبي يشاهد كرة القدم على التلفاز ويصرخ كثيرًا.",
+      "terms": []
+    },
+    "b: my brother plays on the computer all the time.": {
+      "src": "B: My brother plays on the computer all the time.",
+      "fa": "B: برادرم تمامِ وقت با کامپیوتر بازی می‌کند.",
+      "ar": "B: أخي يلعب على الكمبيوتر طوال الوقت.",
+      "terms": []
+    },
+    "c: my mother keeps telling me to tidy my room.": {
+      "src": "C: My mother keeps telling me to tidy my room.",
+      "fa": "C: مادرم مدام به من می‌گوید اتاقم را مرتب کنم.",
+      "ar": "C: أمّي لا تكفّ عن مطالبتي بترتيب غرفتي.",
+      "terms": []
     }
   }
 }

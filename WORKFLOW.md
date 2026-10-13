@@ -69,13 +69,15 @@ C#. جزئیاتِ کامل در `tools/enrichment/ENRICHMENT-GUIDE.md`، بخش
 cd CustomLayoutGenerator\tools\enrichment
 python enrich.py status  "…\assets\data\Mindset 01"
 python enrich.py prepare "…\assets\data\Mindset 01" --unit "UNIT/02"
-:: فایلِ batches\batch_001.prompt.md را به هوش مصنوعی بدهید و پاسخ را در answer.json ذخیره کنید
+python enrich.py prepare "…\assets\data\Mindset 01" --unit "UNIT/02" --audio
+:: هر batches\batch_NNN.prompt.md را به هوش مصنوعی بدهید و پاسخ را در یک فایل ذخیره کنید
 python enrich.py merge   "…\assets\data\Mindset 01" batch_001 answer.json
 ```
 - **قواعد:** ترجمه و انتخابِ کلمات در خودِ پرامپت هست، پس کیفیت به حافظه‌ی آن هوش مصنوعی
   وابسته نیست.
 - **بررسیِ پاسخ:** `merge` پیش از نوشتن پاسخ را بررسی می‌کند. اگر ایرادی باشد، هیچ چیزی
   خراب نمی‌شود.
+- **واحد به واحد:** هر Unit را با اسکریپت‌های صوتیِ خودش (`--audio`) با هم ترجمه کنید.
 - **بعد از ادغام:** دوباره استخراج کنید (مرحله‌ی ۲) و `translations.json` و `lexicon.json` را
   commit کنید.
 

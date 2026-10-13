@@ -1365,6 +1365,1353 @@
       "books": [
         "Mindset 01"
       ]
+    },
+    "process": {
+      "headword": "process",
+      "forms": [
+        "process",
+        "processes"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈprəʊses/",
+      "pronounceFa": "پروسِس",
+      "pronounceAr": "بروسِس",
+      "translationFa": "فرایند",
+      "translationAr": "عملية",
+      "explanationFa": "در رایتینگِ تسکِ 1 گاهی نمودارِ یک فرایند (مثلاً تولیدِ یک محصول) را توصیف می‌کنید؛ این کار با مجهولِ حالِ ساده و کلمه‌های ترتیبی انجام می‌شود.",
+      "explanationAr": "في المهمّة الأولى من الكتابة قد يُطلب منك وصف مخطّط لعملية (مثل إنتاج سلعة)، ويكون ذلك بالمبني للمجهول في المضارع البسيط وكلمات الترتيب.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "sequencing expressions": {
+      "headword": "sequencing expressions",
+      "forms": [
+        "sequencing expressions",
+        "sequencing words"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈsiːkwənsɪŋ ɪkˈspreʃnz/",
+      "pronounceFa": "سیکوِنسینگ ایکسپرِشِنز",
+      "pronounceAr": "سيكوِنسِنغ إكسبريشنز",
+      "translationFa": "عبارت‌های ترتیبی (نشان‌دهنده‌ی ترتیبِ مراحل)",
+      "translationAr": "عبارات الترتيب (تبيّن تسلسل المراحل)",
+      "explanationFa": "کلمه‌هایی مثلِ First، Next، After that، Then و Finally که ترتیبِ مراحل را نشان می‌دهند؛ در توصیفِ فرایند در رایتینگِ تسکِ 1 ضروری‌اند.",
+      "explanationAr": "كلمات مثل First وNext وAfter that وThen وFinally تبيّن ترتيب المراحل، وهي ضرورية عند وصف عملية في المهمّة الأولى من الكتابة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "stage": {
+      "headword": "stage",
+      "forms": [
+        "stage",
+        "stages"
+      ],
+      "pos": "noun",
+      "ipa": "/steɪdʒ/",
+      "pronounceFa": "اِستِیج",
+      "pronounceAr": "ستيج",
+      "translationFa": "مرحله",
+      "translationAr": "مرحلة",
+      "explanationFa": "هم‌آیندهای رایج: the first/final stage، at this stage، in stages. در توصیفِ فرایند معمولاً می‌گوییم There are six stages in the process.",
+      "explanationAr": "من التراكيب الشائعة: the first/final stage وat this stage وin stages. وعند وصف عملية نقول عادةً There are six stages in the process.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "present simple passive": {
+      "headword": "present simple passive",
+      "forms": [
+        "present simple passive"
+      ],
+      "pos": "grammar term",
+      "ipa": "/ˌpreznt ˌsɪmpl ˈpæsɪv/",
+      "pronounceFa": "پرِزِنت سیمپِل پَسیو",
+      "pronounceAr": "بريزنت سيمبل باسِف",
+      "translationFa": "مجهولِ حالِ ساده",
+      "translationAr": "المبني للمجهول في المضارع البسيط",
+      "explanationFa": "ساختارِ am/is/are + قسمتِ سومِ فعل (It is mixed). وقتی انجام‌دهنده‌ی کار مهم نیست، مثلِ توصیفِ فرایند، از آن استفاده می‌شود.",
+      "explanationAr": "تركيبه am/is/are + التصريف الثالث للفعل (It is mixed)، ويُستخدم حين لا يهمّ الفاعل، كما في وصف العمليات.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "introduction": {
+      "headword": "introduction",
+      "forms": [
+        "introduction"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌɪntrəˈdʌkʃn/",
+      "pronounceFa": "اینتروداکشِن",
+      "pronounceAr": "إنترودَكشن",
+      "translationFa": "مقدمه",
+      "translationAr": "مقدّمة",
+      "explanationFa": "در رایتینگِ تسکِ 1، مقدمه معمولاً همان صورتِ سؤال است که با کلمه‌های خودتان بازنویسی شده (paraphrase).",
+      "explanationAr": "في المهمّة الأولى من الكتابة تكون المقدّمة عادةً إعادة صياغة لنصّ السؤال بكلماتك الخاصة (paraphrase).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "overview": {
+      "headword": "overview",
+      "forms": [
+        "overview",
+        "overviews"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈəʊvəvjuː/",
+      "pronounceFa": "اوورویو",
+      "pronounceAr": "أوفَرفيو",
+      "translationFa": "نمای کلی، جمع‌بندیِ کلی",
+      "translationAr": "نظرة عامة، ملخّص عام",
+      "explanationFa": "در رایتینگِ تسکِ 1 خلاصه‌ی مهم‌ترین ویژگی‌های نمودار یا فرایند است (مثلاً تعدادِ مراحل، از کجا شروع و به کجا ختم می‌شود)؛ نبودنش نمره‌ی Task Achievement را پایین می‌آورد.",
+      "explanationAr": "في المهمّة الأولى من الكتابة هي ملخّص لأهمّ سمات المخطّط أو العملية (كعدد المراحل وبدايتها ونهايتها)، وغيابها يخفض درجة Task Achievement.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "equipment": {
+      "headword": "equipment",
+      "forms": [
+        "equipment"
+      ],
+      "pos": "noun (uncountable)",
+      "ipa": "/ɪˈkwɪpmənt/",
+      "pronounceFa": "ایکوئیپمِنت",
+      "pronounceAr": "إكويبمنت",
+      "translationFa": "وسایل، تجهیزات",
+      "translationAr": "معدّات، أدوات",
+      "explanationFa": "غیرقابلِ شمارش است: equipments غلط است. برای یک وسیله بگویید a piece of equipment.",
+      "explanationAr": "اسم غير معدود، فلا يقال equipments. وللدلالة على أداة واحدة نقول a piece of equipment.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "material": {
+      "headword": "material",
+      "forms": [
+        "material",
+        "materials"
+      ],
+      "pos": "noun",
+      "ipa": "/məˈtɪəriəl/",
+      "pronounceFa": "مِتیریِل",
+      "pronounceAr": "ماتيريال",
+      "translationFa": "جنس، ماده (ای که چیزی از آن ساخته می‌شود)",
+      "translationAr": "مادّة (يُصنع منها الشيء)",
+      "explanationFa": "برای گفتنِ جنس از made of استفاده می‌شود: It is made of a light material such as plastic.",
+      "explanationAr": "للتعبير عن المادّة نستخدم made of: It is made of a light material such as plastic.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fit into": {
+      "headword": "fit into",
+      "forms": [
+        "fits into",
+        "fit into"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˈfɪt ˌɪntə/",
+      "pronounceFa": "فیت اینتو",
+      "pronounceAr": "فِت إنتو",
+      "translationFa": "داخلِ (چیزی) جا شدن",
+      "translationAr": "يدخل في (شيء) ويناسبه",
+      "explanationFa": "یعنی اندازه‌اش طوری است که داخلِ چیزِ دیگر قرار می‌گیرد: One part fits into the other.",
+      "explanationAr": "أي أنّ حجمه يسمح بأن يدخل في شيء آخر: One part fits into the other.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "shallow": {
+      "headword": "shallow",
+      "forms": [
+        "shallow"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈʃæləʊ/",
+      "pronounceFa": "شَلو",
+      "pronounceAr": "شالو",
+      "translationFa": "کم‌عمق",
+      "translationAr": "ضحل، قليل العمق",
+      "explanationFa": "متضادِ deep است: a shallow basket (سبدِ کم‌عمق)، shallow water (آبِ کم‌عمق).",
+      "explanationAr": "عكس deep: a shallow basket (سلّة ضحلة)، shallow water (ماء ضحل).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "criss-cross": {
+      "headword": "criss-cross",
+      "forms": [
+        "criss-cross"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈkrɪs krɒs/",
+      "pronounceFa": "کریس‌کراس",
+      "pronounceAr": "كريس كروس",
+      "translationFa": "ضربدری، متقاطع",
+      "translationAr": "متقاطع، على شكل شبكة",
+      "explanationFa": "الگویی از خط‌هایی که از روی هم رد می‌شوند: a criss-cross pattern.",
+      "explanationAr": "نمط من خطوط يتقاطع بعضها مع بعض: a criss-cross pattern.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "rectangular": {
+      "headword": "rectangular",
+      "forms": [
+        "rectangular"
+      ],
+      "pos": "adjective",
+      "ipa": "/rekˈtæŋɡjələ/",
+      "pronounceFa": "رِکتَنگیولِر",
+      "pronounceAr": "ريكتانغيولَر",
+      "translationFa": "مستطیلی، مستطیل‌شکل",
+      "translationAr": "مستطيل الشكل",
+      "explanationFa": "صفتِ rectangle (مستطیل) است؛ مثلِ round، square و triangular برای توصیفِ شکلِ اشیا در نمودارها به کار می‌رود.",
+      "explanationAr": "صفة من rectangle (مستطيل)، وتُستخدم مثل round وsquare وtriangular لوصف أشكال الأشياء في المخطّطات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "grind": {
+      "headword": "grind",
+      "forms": [
+        "grind",
+        "grinding"
+      ],
+      "pos": "verb (ground, ground)",
+      "ipa": "/ɡraɪnd/",
+      "pronounceFa": "گرایند",
+      "pronounceAr": "غرايند",
+      "translationFa": "آسیاب کردن، خرد کردن",
+      "translationAr": "يطحن",
+      "explanationFa": "فعلِ بی‌قاعده است: grind – ground – ground. در مجهول: The rice is ground into flour.",
+      "explanationAr": "فعل شاذّ: grind – ground – ground. وفي المبني للمجهول: The rice is ground into flour.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "steamer": {
+      "headword": "steamer",
+      "forms": [
+        "steamer"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈstiːmə/",
+      "pronounceFa": "اِستیمِر",
+      "pronounceAr": "ستيمَر",
+      "translationFa": "بخارپز (ظرفِ پختن با بخار)",
+      "translationAr": "قدر الطهي بالبخار",
+      "explanationFa": "از steam (بخار) ساخته شده است؛ فعلش هم steam است: The vegetables are steamed.",
+      "explanationAr": "مشتقّة من steam (بخار)، والفعل منها steam أيضًا: The vegetables are steamed.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "dough": {
+      "headword": "dough",
+      "forms": [
+        "dough"
+      ],
+      "pos": "noun",
+      "ipa": "/dəʊ/",
+      "pronounceFa": "دو",
+      "pronounceAr": "دو",
+      "translationFa": "خمیر",
+      "translationAr": "عجين",
+      "explanationFa": "حروفِ gh تلفظ نمی‌شوند. هم‌آیندِ رایج: make/form a dough (خمیر درست کردن).",
+      "explanationAr": "الحرفان gh لا يُنطقان. ومن التراكيب الشائعة: make/form a dough (يصنع عجينًا).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "diagram": {
+      "headword": "diagram",
+      "forms": [
+        "diagram",
+        "diagrams"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈdaɪəɡræm/",
+      "pronounceFa": "دایِگرَم",
+      "pronounceAr": "دايَغرام",
+      "translationFa": "نمودار، طرحِ نمایشی",
+      "translationAr": "مخطّط، رسم توضيحي",
+      "explanationFa": "در رایتینگِ تسکِ 1 برای تصویرِ یک فرایند یا دستگاه به کار می‌رود. مقدمه را می‌توان با The diagram shows/illustrates … شروع کرد.",
+      "explanationAr": "يُستخدم في المهمّة الأولى من الكتابة لرسم يوضّح عملية أو جهازًا، ويمكن أن تبدأ المقدّمة بـ The diagram shows/illustrates ….",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "demonstrate": {
+      "headword": "demonstrate",
+      "forms": [
+        "demonstrates",
+        "demonstrate"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈdemənstreɪt/",
+      "pronounceFa": "دِمِنستریت",
+      "pronounceAr": "ديمنستريت",
+      "translationFa": "نشان دادن، شرح دادن",
+      "translationAr": "يوضّح، يبيّن",
+      "explanationFa": "جایگزینِ رسمی‌ترِ shows است و برای تنوع در مقدمه‌ی رایتینگِ تسکِ 1 مفید است: The diagram demonstrates the process of …",
+      "explanationAr": "بديل أكثر رسمية لـ shows، ومفيد للتنويع في مقدّمة المهمّة الأولى من الكتابة: The diagram demonstrates the process of ….",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "summary": {
+      "headword": "summary",
+      "forms": [
+        "summary"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsʌməri/",
+      "pronounceFa": "سامِری",
+      "pronounceAr": "سامَري",
+      "translationFa": "خلاصه",
+      "translationAr": "ملخّص",
+      "explanationFa": "فعلش summarise است. نمای کلی (overview) در رایتینگِ تسکِ 1 خلاصه‌ای از کلِ نمودار است، نه جزئیات.",
+      "explanationAr": "الفعل منها summarise. والنظرة العامة (overview) في المهمّة الأولى من الكتابة ملخّص للمخطّط كلّه لا لتفاصيله.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ingredients": {
+      "headword": "ingredient",
+      "forms": [
+        "ingredients",
+        "ingredient"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪnˈɡriːdiənt/",
+      "pronounceFa": "اینگریدیِنت",
+      "pronounceAr": "إنغريدينت",
+      "translationFa": "ماده‌ی اولیه (ی غذا)",
+      "translationAr": "مكوّن (من مكوّنات الطعام)",
+      "explanationFa": "هر چیزی که در دستورِ غذا به کار می‌رود؛ معمولاً جمع می‌آید: fresh ingredients، extra ingredients are added.",
+      "explanationAr": "كلّ ما يدخل في وصفة الطعام، ويأتي غالبًا بصيغة الجمع: fresh ingredients وextra ingredients are added.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "technique": {
+      "headword": "technique",
+      "forms": [
+        "technique"
+      ],
+      "pos": "noun",
+      "ipa": "/tekˈniːk/",
+      "pronounceFa": "تِکنیک",
+      "pronounceAr": "تيكنيك",
+      "translationFa": "روش، فن",
+      "translationAr": "تقنية، أسلوب",
+      "explanationFa": "تکیه روی بخشِ دوم است (tech-NIQUE). هم‌آیندِ رایج: the correct technique، learn a technique.",
+      "explanationAr": "النبر على المقطع الثاني (tech-NIQUE). ومن التراكيب الشائعة: the correct technique وlearn a technique.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "pay attention to": {
+      "headword": "pay attention to",
+      "forms": [
+        "pay attention to"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌpeɪ əˈtenʃn tə/",
+      "pronounceFa": "پِی اِتِنشِن تو",
+      "pronounceAr": "بَي أتِنشن تو",
+      "translationFa": "توجه کردن به",
+      "translationAr": "ينتبه إلى",
+      "explanationFa": "فعلِ attention همیشه pay است (نه do یا make): pay attention to the temperature.",
+      "explanationAr": "الفعل المصاحب لـ attention هو pay دائمًا (لا do ولا make): pay attention to the temperature.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "production": {
+      "headword": "production",
+      "forms": [
+        "production"
+      ],
+      "pos": "noun",
+      "ipa": "/prəˈdʌkʃn/",
+      "pronounceFa": "پروداکشِن",
+      "pronounceAr": "برودَكشن",
+      "translationFa": "تولید",
+      "translationAr": "إنتاج",
+      "explanationFa": "اسمِ فعلِ produce است؛ در رایتینگِ تسکِ 1 رایج است: the production of tea، the stages in the production of …",
+      "explanationAr": "اسم من الفعل produce، وشائع في المهمّة الأولى من الكتابة: the production of tea وthe stages in the production of ….",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "involve": {
+      "headword": "involve",
+      "forms": [
+        "involves",
+        "involve",
+        "involved"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪnˈvɒlv/",
+      "pronounceFa": "این‌والو",
+      "pronounceAr": "إنفولف",
+      "translationFa": "در بر داشتن، شامل شدن",
+      "translationAr": "يتضمّن، يشمل",
+      "explanationFa": "برای نمای کلیِ فرایند مفید است: The process involves six stages. ساختارِ involve + -ing هم رایج است: It involves picking the leaves.",
+      "explanationAr": "مفيد في النظرة العامة للعملية: The process involves six stages. ويشيع أيضًا تركيب involve + -ing: It involves picking the leaves.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "a range of": {
+      "headword": "a range of",
+      "forms": [
+        "a range of"
+      ],
+      "pos": "phrase",
+      "ipa": "/ə ˈreɪndʒ əv/",
+      "pronounceFa": "اِ رِینج آو",
+      "pronounceAr": "أ رينج أوف",
+      "translationFa": "مجموعه‌ای از، انواعِ",
+      "translationAr": "مجموعة من، طائفة من",
+      "explanationFa": "برای چند چیزِ متفاوت از یک نوع به کار می‌رود و جایگزینِ رسمی‌ترِ many یا different است: a range of stages، a wide range of products.",
+      "explanationAr": "يُستخدم لعدّة أشياء مختلفة من نوع واحد، وهو بديل أكثر رسمية لـ many أو different: a range of stages وa wide range of products.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "distribute": {
+      "headword": "distribute",
+      "forms": [
+        "distributing",
+        "distribute",
+        "distributed"
+      ],
+      "pos": "verb",
+      "ipa": "/dɪˈstrɪbjuːt/",
+      "pronounceFa": "دیستریبیوت",
+      "pronounceAr": "دِستريبيوت",
+      "translationFa": "توزیع کردن، پخش کردن",
+      "translationAr": "يوزّع",
+      "explanationFa": "مرحله‌ی رایجِ آخرِ فرایندهای تولید است: The products are distributed to shops. اسمش distribution است.",
+      "explanationAr": "مرحلة شائعة في نهاية عمليات الإنتاج: The products are distributed to shops. والاسم منه distribution.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ripe": {
+      "headword": "ripe",
+      "forms": [
+        "ripe"
+      ],
+      "pos": "adjective",
+      "ipa": "/raɪp/",
+      "pronounceFa": "رایپ",
+      "pronounceAr": "رايب",
+      "translationFa": "رسیده (میوه)",
+      "translationAr": "ناضج (للفاكهة)",
+      "explanationFa": "متضادش unripe است. فعلِ «رسیدن» ripen است: The fruit ripens in summer.",
+      "explanationAr": "عكسه unripe، والفعل منه ripen: The fruit ripens in summer.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "model answer": {
+      "headword": "model answer",
+      "forms": [
+        "model answer"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmɒdl ˈɑːnsə/",
+      "pronounceFa": "مادِل اَنسِر",
+      "pronounceAr": "مودِل آنسَر",
+      "translationFa": "پاسخِ نمونه (الگو)",
+      "translationAr": "إجابة نموذجية",
+      "explanationFa": "پاسخی که به‌عنوانِ الگوی خوب داده می‌شود تا ساختار، واژگان و دستورِ آن را بررسی و تقلید کنید.",
+      "explanationAr": "إجابة تُقدَّم مثالًا جيدًا لتدرس بنيتها ومفرداتها وقواعدها وتحاكيها.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "a variety of": {
+      "headword": "a variety of",
+      "forms": [
+        "a variety of"
+      ],
+      "pos": "phrase",
+      "ipa": "/ə vəˈraɪəti əv/",
+      "pronounceFa": "اِ وِرایِتی آو",
+      "pronounceAr": "أ فَرايَتي أوف",
+      "translationFa": "انواعِ، گونه‌های مختلفِ",
+      "translationAr": "تشكيلة من، أنواع مختلفة من",
+      "explanationFa": "پس از آن اسمِ جمع می‌آید: a variety of spicy curries. مترادفِ a range of است.",
+      "explanationAr": "يليه اسم جمع: a variety of spicy curries، وهو مرادف لـ a range of.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "processing plant": {
+      "headword": "processing plant",
+      "forms": [
+        "processing plant"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈprəʊsesɪŋ plɑːnt/",
+      "pronounceFa": "پروسِسینگ پلَنت",
+      "pronounceAr": "بروسِسِنغ بلانت",
+      "translationFa": "کارخانه‌ی فراوری",
+      "translationAr": "مصنع المعالجة",
+      "explanationFa": "در این ترکیب plant به معنای «کارخانه» است، نه «گیاه». در نمودارهای تولید زیاد دیده می‌شود.",
+      "explanationAr": "كلمة plant في هذا التركيب تعني «مصنع» لا «نبات»، وتكثر في مخطّطات الإنتاج.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "stem": {
+      "headword": "stem",
+      "forms": [
+        "stems",
+        "stem"
+      ],
+      "pos": "noun",
+      "ipa": "/stem/",
+      "pronounceFa": "اِستِم",
+      "pronounceAr": "ستيم",
+      "translationFa": "ساقه، دم (میوه)",
+      "translationAr": "ساق، عُنق (الثمرة)",
+      "explanationFa": "بخشِ باریکی که برگ یا میوه را به گیاه وصل می‌کند: The leaves and stems are removed.",
+      "explanationAr": "الجزء الرفيع الذي يصل الورقة أو الثمرة بالنبات: The leaves and stems are removed.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "mechanical": {
+      "headword": "mechanical",
+      "forms": [
+        "mechanical"
+      ],
+      "pos": "adjective",
+      "ipa": "/məˈkænɪkl/",
+      "pronounceFa": "مِکَنیکِل",
+      "pronounceAr": "ميكانيكَل",
+      "translationFa": "مکانیکی، ماشینی",
+      "translationAr": "آلي، ميكانيكي",
+      "explanationFa": "یعنی با ماشین انجام می‌شود، نه با دست: a mechanical arm. متضادش by hand است.",
+      "explanationAr": "أي يتمّ بالآلة لا باليد: a mechanical arm، وعكسه by hand.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "multiple-choice question": {
+      "headword": "multiple-choice question",
+      "forms": [
+        "multiple-choice questions",
+        "multiple-choice question",
+        "multiple-choice tasks"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmʌltɪpl ˈtʃɔɪs ˈkwestʃən/",
+      "pronounceFa": "مالتیپِل چویس کوئسچِن",
+      "pronounceAr": "مَلتِبل تشويس كويستشن",
+      "translationFa": "سؤالِ چندگزینه‌ای",
+      "translationAr": "سؤال الاختيار من متعدّد",
+      "explanationFa": "در آیلتس معمولاً سه گزینه (A، B، C) دارد. گزینه‌ها اغلب با کلمه‌های مترادف بیان می‌شوند، نه همان کلمه‌های فایلِ صوتی یا متن.",
+      "explanationAr": "له في آيلتس عادةً ثلاثة خيارات (A وB وC)، وكثيرًا ما تُصاغ الخيارات بمرادفات لا بالكلمات نفسها الواردة في التسجيل أو النص.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "assignment": {
+      "headword": "assignment",
+      "forms": [
+        "assignment",
+        "assignments"
+      ],
+      "pos": "noun",
+      "ipa": "/əˈsaɪnmənt/",
+      "pronounceFa": "اِساینمِنت",
+      "pronounceAr": "أسايْنمنت",
+      "translationFa": "تکلیف (درسی)، پروژه",
+      "translationAr": "واجب دراسي، مهمّة",
+      "explanationFa": "کاری که استاد به دانشجو می‌دهد؛ در بخشِ 3 لیسنینگ (گفت‌وگوی دانشگاهی) زیاد شنیده می‌شود: hand in an assignment.",
+      "explanationAr": "عمل يكلّف به الأستاذ الطالب، ويكثر في القسم 3 من الاستماع (محادثة جامعية): hand in an assignment.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "book a table": {
+      "headword": "book a table",
+      "forms": [
+        "book a table"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌbʊk ə ˈteɪbl/",
+      "pronounceFa": "بوک اِ تِیبِل",
+      "pronounceAr": "بوك أ تيبل",
+      "translationFa": "میز رزرو کردن (در رستوران)",
+      "translationAr": "يحجز طاولة (في مطعم)",
+      "explanationFa": "در این‌جا book فعل و به معنای «رزرو کردن» است؛ موقعیتی رایج در بخشِ 1 لیسنینگ. اسمش booking است: make a booking.",
+      "explanationAr": "كلمة book هنا فعل بمعنى «يحجز»، وهو موقف شائع في القسم 1 من الاستماع. والاسم منه booking: make a booking.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "seat up to": {
+      "headword": "seat up to",
+      "forms": [
+        "seat up to"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˈsiːt ˌʌp tə/",
+      "pronounceFa": "سیت آپ تو",
+      "pronounceAr": "سيت أب تو",
+      "translationFa": "گنجایشِ حداکثر … نفر را داشتن",
+      "translationAr": "يتّسع لما يصل إلى",
+      "explanationFa": "در این‌جا seat فعل است، یعنی «جا دادن (برای نشستن)»: The room can seat up to 20 people. یعنی حداکثر 20 نفر.",
+      "explanationAr": "كلمة seat هنا فعل بمعنى «يتّسع لجلوس»: The room can seat up to 20 people، أي 20 شخصًا كحدّ أقصى.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "gift wrapping": {
+      "headword": "gift wrapping",
+      "forms": [
+        "gift wrapping",
+        "giftwrap"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈɡɪft ˌræpɪŋ/",
+      "pronounceFa": "گیفت رَپینگ",
+      "pronounceAr": "غِفت رابِنغ",
+      "translationFa": "کادوپیچ، بسته‌بندیِ هدیه",
+      "translationAr": "تغليف الهدايا",
+      "explanationFa": "حرفِ w در wrap تلفظ نمی‌شود. فعلش gift-wrap است: Would you like it gift-wrapped?",
+      "explanationAr": "حرف w في wrap لا يُنطق، والفعل منه gift-wrap: Would you like it gift-wrapped?",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "colleague": {
+      "headword": "colleague",
+      "forms": [
+        "colleagues",
+        "colleague"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkɒliːɡ/",
+      "pronounceFa": "کالیگ",
+      "pronounceAr": "كولِيغ",
+      "translationFa": "همکار",
+      "translationAr": "زميل (في العمل)",
+      "explanationFa": "هم‌معنای people you work with و work colleagues است؛ در سؤال‌های چندگزینه‌ایِ لیسنینگ اغلب به جای همان عبارتِ فایلِ صوتی می‌آید.",
+      "explanationAr": "مرادف لـ people you work with ولـ work colleagues، وكثيرًا ما يحلّ في خيارات الاستماع محلّ العبارة الواردة في التسجيل.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "rephrase": {
+      "headword": "rephrase",
+      "forms": [
+        "rephrase"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌriːˈfreɪz/",
+      "pronounceFa": "ری‌فرِیز",
+      "pronounceAr": "ريفريز",
+      "translationFa": "با کلمه‌های دیگر بیان کردن، بازگو کردن",
+      "translationAr": "يعيد صياغة",
+      "explanationFa": "مترادفِ paraphrase است. پیش‌وندِ re- یعنی «دوباره». در لیسنینگ و ریدینگ پاسخ اغلب به‌صورتِ بازگوشده‌ی سؤال می‌آید.",
+      "explanationAr": "مرادف لـ paraphrase، والبادئة re- تعني «مرّة أخرى». وفي الاستماع والقراءة كثيرًا ما تأتي الإجابة بصياغة مختلفة عن السؤال.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "represent": {
+      "headword": "represent",
+      "forms": [
+        "represents",
+        "represent"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌreprɪˈzent/",
+      "pronounceFa": "رِپری‌زِنت",
+      "pronounceAr": "ريبريزنت",
+      "translationFa": "نمادِ (چیزی) بودن، نشان دادن",
+      "translationAr": "يرمز إلى، يمثّل",
+      "explanationFa": "یعنی نشانه‌ی چیزی بودن: The purse represents good fortune. معنای دیگرش «نمایندگی کردن» است: She represents her country.",
+      "explanationAr": "أي أن يكون رمزًا لشيء: The purse represents good fortune. ومن معانيه أيضًا «يمثّل غيره»: She represents her country.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "good fortune": {
+      "headword": "good fortune",
+      "forms": [
+        "good fortune"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɡʊd ˈfɔːtʃuːn/",
+      "pronounceFa": "گود فورچون",
+      "pronounceAr": "غود فورتشون",
+      "translationFa": "خوش‌اقبالی، بختِ خوب",
+      "translationAr": "حسن الحظّ",
+      "explanationFa": "مترادفِ رسمی‌ترِ good luck است. fortune به‌تنهایی معنای «ثروتِ کلان» هم دارد: make a fortune.",
+      "explanationAr": "مرادف أكثر رسمية لـ good luck، وكلمة fortune وحدها تعني أيضًا «ثروة طائلة»: make a fortune.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "wealth": {
+      "headword": "wealth",
+      "forms": [
+        "wealth"
+      ],
+      "pos": "noun",
+      "ipa": "/welθ/",
+      "pronounceFa": "وِلث",
+      "pronounceAr": "ويلث",
+      "translationFa": "ثروت",
+      "translationAr": "ثروة",
+      "explanationFa": "غیرقابلِ شمارش است و صفتش wealthy (ثروتمند) است. در گزینه‌های لیسنینگ با good fortune فرق دارد: ثروت ≠ خوش‌اقبالی.",
+      "explanationAr": "اسم غير معدود، والصفة منه wealthy (ثريّ). ويختلف في خيارات الاستماع عن good fortune: الثروة ≠ حسن الحظّ.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "collocation": {
+      "headword": "collocation",
+      "forms": [
+        "collocations",
+        "collocation"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌkɒləˈkeɪʃn/",
+      "pronounceFa": "کالِکِیشِن",
+      "pronounceAr": "كولوكيشن",
+      "translationFa": "هم‌آیند (کلمه‌هایی که معمولاً با هم می‌آیند)",
+      "translationAr": "متلازمة لفظية (كلمات تأتي معًا عادةً)",
+      "explanationFa": "مثلاً a close family و heavy rain درست‌اند ولی a near family و strong rain نه. به‌کار بردنِ درستِ آن‌ها نمره‌ی Lexical Resource را در رایتینگ و اسپیکینگ بالا می‌برد.",
+      "explanationAr": "مثل a close family وheavy rain، فهي صحيحة بخلاف a near family وstrong rain. واستخدامها الصحيح يرفع درجة Lexical Resource في الكتابة والمحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "typical": {
+      "headword": "typical",
+      "forms": [
+        "typical"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtɪpɪkl/",
+      "pronounceFa": "تیپیکِل",
+      "pronounceAr": "تِبِكَل",
+      "translationFa": "معمولی، نمونه‌وار، متداول",
+      "translationAr": "نموذجي، معتاد",
+      "explanationFa": "یعنی ویژگی‌های رایجِ یک گروه را دارد: a typical family for my country. با حرفِ اضافه‌ی of هم می‌آید: It's typical of him.",
+      "explanationAr": "أي يحمل السمات المعتادة لمجموعة ما: a typical family for my country، ويأتي أيضًا مع of: It's typical of him.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "examiner": {
+      "headword": "examiner",
+      "forms": [
+        "examiner"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪɡˈzæmɪnə/",
+      "pronounceFa": "ایگزَمینِر",
+      "pronounceAr": "إغزامِنَر",
+      "translationFa": "ممتحن، آزمون‌گیرنده",
+      "translationAr": "الممتحِن",
+      "explanationFa": "کسی که در آزمونِ اسپیکینگ با شما مصاحبه می‌کند و نمره می‌دهد. شرکت‌کننده‌ی آزمون candidate نام دارد.",
+      "explanationAr": "الشخص الذي يحاورك في اختبار المحادثة ويقيّمك، أمّا المتقدّم للاختبار فيسمّى candidate.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "the baby of the family": {
+      "headword": "the baby of the family",
+      "forms": [
+        "the baby of the family"
+      ],
+      "pos": "idiom",
+      "ipa": "/ðə ˈbeɪbi əv ðə ˈfæməli/",
+      "pronounceFa": "دِ بِیبی آو دِ فَمیلی",
+      "pronounceAr": "ذا بيبي أوف ذا فاميلي",
+      "translationFa": "کوچک‌ترین فرزندِ خانواده، ته‌تغاری",
+      "translationAr": "أصغر أفراد العائلة، آخر العنقود",
+      "explanationFa": "به کوچک‌ترین فرزند گفته می‌شود، حتی اگر بزرگسال باشد. در اسپیکینگِ بخشِ 1 برای صحبت درباره‌ی خانواده طبیعی و مفید است.",
+      "explanationAr": "يُطلق على أصغر الأبناء حتى لو كان بالغًا، وهو تعبير طبيعي ومفيد للحديث عن العائلة في الجزء 1 من المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "candidate": {
+      "headword": "candidate",
+      "forms": [
+        "candidate",
+        "candidates"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkændɪdət/",
+      "pronounceFa": "کَندیدِت",
+      "pronounceAr": "كانديدَت",
+      "translationFa": "داوطلب، شرکت‌کننده (ی آزمون)",
+      "translationAr": "مترشّح، متقدّم (للاختبار)",
+      "explanationFa": "در آیلتس به کسی که آزمون می‌دهد گفته می‌شود. معنای دیگرش «نامزد (انتخابات یا شغل)» است.",
+      "explanationAr": "يُطلق في آيلتس على من يؤدّي الاختبار، ومن معانيه أيضًا «مرشّح (في انتخابات أو لوظيفة)».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "eat out": {
+      "headword": "eat out",
+      "forms": [
+        "eat out"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌiːt ˈaʊt/",
+      "pronounceFa": "ایت اوت",
+      "pronounceAr": "إيت أوت",
+      "translationFa": "بیرون (در رستوران) غذا خوردن",
+      "translationAr": "يتناول الطعام خارج المنزل",
+      "explanationFa": "یعنی غذا خوردن در رستوران به جای خانه: We eat out once a week. در اسپیکینگِ بخشِ 1 برای صحبت درباره‌ی عادت‌ها مفید است.",
+      "explanationAr": "أي الأكل في مطعم بدلًا من البيت: We eat out once a week، ومفيد في الجزء 1 من المحادثة للحديث عن العادات.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "likes and dislikes": {
+      "headword": "likes and dislikes",
+      "forms": [
+        "likes and dislikes"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌlaɪks ən dɪsˈlaɪks/",
+      "pronounceFa": "لایکس اَند دیس‌لایکس",
+      "pronounceAr": "لايكس آند دِسلايكس",
+      "translationFa": "چیزهایی که (کسی) دوست دارد و دوست ندارد",
+      "translationAr": "ما يحبّه المرء وما يكرهه",
+      "explanationFa": "در این‌جا likes و dislikes اسم‌اند. از موضوع‌های رایجِ بخشِ 1 اسپیکینگ است.",
+      "explanationAr": "كلمتا likes وdislikes هنا اسمان، وهو من الموضوعات الشائعة في الجزء 1 من المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "preference": {
+      "headword": "preference",
+      "forms": [
+        "preferences",
+        "preference"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈprefrəns/",
+      "pronounceFa": "پرِفرِنس",
+      "pronounceAr": "بريفرَنس",
+      "translationFa": "ترجیح، اولویت (ی شخصی)",
+      "translationAr": "تفضيل",
+      "explanationFa": "اسمِ prefer است. ساختارِ رایج: have a preference for something. سؤال‌هایی مثلِ Do you prefer …? درباره‌ی ترجیح‌هاست.",
+      "explanationAr": "اسم من الفعل prefer، ومن تراكيبه الشائعة have a preference for something. والأسئلة مثل Do you prefer …? تسأل عن التفضيلات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "extend your answer": {
+      "headword": "extend your answer",
+      "forms": [
+        "extend your answers",
+        "extending your answers"
+      ],
+      "pos": "collocation",
+      "ipa": "/ɪkˌstend jɔːr ˈɑːnsə/",
+      "pronounceFa": "ایکستِند یور اَنسِر",
+      "pronounceAr": "إكستيند يور آنسَر",
+      "translationFa": "پاسخ را گسترش دادن (با دلیل و جزئیات)",
+      "translationAr": "يوسّع إجابته (بذكر سبب وتفاصيل)",
+      "explanationFa": "در بخشِ 1 اسپیکینگ یعنی به پاسخِ کوتاه دلیل یا جزئیات اضافه کنید (because، but، so)؛ پاسخِ یک‌کلمه‌ای نمره‌ی Fluency را پایین می‌آورد.",
+      "explanationAr": "في الجزء 1 من المحادثة يعني أن تضيف إلى الإجابة القصيرة سببًا أو تفصيلًا (because وbut وso)، فالإجابة المكوّنة من كلمة واحدة تخفض درجة الطلاقة (Fluency).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "personality": {
+      "headword": "personality",
+      "forms": [
+        "personalities",
+        "personality"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌpɜːsəˈnæləti/",
+      "pronounceFa": "پِرسِنَلِتی",
+      "pronounceAr": "بيرسونالِتي",
+      "translationFa": "شخصیت",
+      "translationAr": "شخصية",
+      "explanationFa": "برای مقایسه‌ی ظاهر و اخلاق مفید است: I look like my father, although we have very different personalities.",
+      "explanationAr": "مفيد للمقارنة بين الشكل والطباع: I look like my father, although we have very different personalities.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "keep to the topic": {
+      "headword": "keep to the topic",
+      "forms": [
+        "keep to the topic"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌkiːp tə ðə ˈtɒpɪk/",
+      "pronounceFa": "کیپ تو دِ تاپیک",
+      "pronounceAr": "كيب تو ذا توبِك",
+      "translationFa": "از موضوع خارج نشدن",
+      "translationAr": "يلتزم بالموضوع",
+      "explanationFa": "یعنی فقط درباره‌ی همان چیزی که پرسیده شده صحبت کنید. مترادف: stay on topic. متضاد: go off the topic.",
+      "explanationAr": "أي أن تتحدّث عمّا سُئلت عنه فقط. ومرادفه stay on topic، وعكسه go off the topic.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "memorise": {
+      "headword": "memorise",
+      "forms": [
+        "memorise",
+        "memorize"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈmeməraɪz/",
+      "pronounceFa": "مِمورایز",
+      "pronounceAr": "ميموَرايز",
+      "translationFa": "حفظ کردن، از بر کردن",
+      "translationAr": "يحفظ عن ظهر قلب",
+      "explanationFa": "املای بریتانیایی memorise و آمریکایی memorize است. ممتحن پاسخِ ازبرشده را تشخیص می‌دهد و بابتش نمره نمی‌دهد.",
+      "explanationAr": "التهجئة البريطانية memorise والأمريكية memorize. والممتحِن يكتشف الإجابة المحفوظة ولا يمنحها درجة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "get along": {
+      "headword": "get along",
+      "forms": [
+        "get along"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡet əˈlɒŋ/",
+      "pronounceFa": "گِت اِلانگ",
+      "pronounceAr": "غيت ألونغ",
+      "translationFa": "با هم کنار آمدن، رابطه‌ی خوبی داشتن",
+      "translationAr": "يتوافق مع، تكون بينهما علاقة طيّبة",
+      "explanationFa": "معمولاً با with می‌آید: I get along very well with my brother. مترادفِ بریتانیایی: get on (with).",
+      "explanationAr": "يأتي عادةً مع with: I get along very well with my brother، ومرادفه البريطاني get on (with).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "even though": {
+      "headword": "even though",
+      "forms": [
+        "even though"
+      ],
+      "pos": "conjunction",
+      "ipa": "/ˌiːvn ˈðəʊ/",
+      "pronounceFa": "ایوِن دُو",
+      "pronounceAr": "إيفِن ذو",
+      "translationFa": "با اینکه، هرچند",
+      "translationAr": "مع أنّ، رغم أنّ",
+      "explanationFa": "قوی‌ترِ although است و پس از آن جمله‌ی کامل می‌آید: We get along well, even though he is older. با even if (حتی اگر) فرق دارد.",
+      "explanationAr": "أقوى من although، وتليه جملة كاملة: We get along well, even though he is older. ويختلف عن even if (حتى لو).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "annoy": {
+      "headword": "annoy",
+      "forms": [
+        "annoys",
+        "annoy",
+        "annoyed",
+        "annoying"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈnɔɪ/",
+      "pronounceFa": "اِنوی",
+      "pronounceAr": "أنوي",
+      "translationFa": "اذیت کردن، کلافه کردن",
+      "translationAr": "يزعج",
+      "explanationFa": "صفت‌هایش: annoyed (کلافه، برای آدم) و annoying (آزاردهنده، برای چیز یا کس): I'm annoyed. / It's annoying.",
+      "explanationAr": "صفتاه: annoyed (منزعج، للشخص) وannoying (مزعج، للشيء أو الشخص المسبِّب): I'm annoyed. / It's annoying.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "make a reservation": {
+      "headword": "make a reservation",
+      "forms": [
+        "make a reservation"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌmeɪk ə ˌrezəˈveɪʃn/",
+      "pronounceFa": "مِیک اِ رِزِروِیشِن",
+      "pronounceAr": "ميك أ ريزرفيشن",
+      "translationFa": "رزرو کردن",
+      "translationAr": "يحجز",
+      "explanationFa": "فعلش همیشه make است (نه do). مترادف: make a booking / book. در بخشِ 1 لیسنینگ زیاد می‌آید.",
+      "explanationAr": "الفعل المصاحب له make دائمًا (لا do)، ومرادفه make a booking أو book، ويكثر في القسم 1 من الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "hold on": {
+      "headword": "hold on",
+      "forms": [
+        "hold on"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌhəʊld ˈɒn/",
+      "pronounceFa": "هولد آن",
+      "pronounceAr": "هولد أون",
+      "translationFa": "(پشتِ تلفن) صبر کردن، گوشی دستتان باشد",
+      "translationAr": "ينتظر قليلًا (على الهاتف)",
+      "explanationFa": "در مکالمه‌ی تلفنی یعنی «لحظه‌ای منتظر بمانید»: Hold on, I'll just check. معنای دیگرش «محکم نگه داشتن» است.",
+      "explanationAr": "في المكالمات الهاتفية يعني «انتظر لحظة»: Hold on, I'll just check، ومن معانيه أيضًا «يتمسّك بقوّة».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "have something in mind": {
+      "headword": "have something in mind",
+      "forms": [
+        "in mind"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌhæv ˌsʌmθɪŋ ɪn ˈmaɪnd/",
+      "pronounceFa": "هَو سام‌تینگ این مایند",
+      "pronounceAr": "هاف سَمثِنغ إن مايند",
+      "translationFa": "چیزی در نظر داشتن",
+      "translationAr": "يدور في ذهنه شيء، يفكّر في شيء معيّن",
+      "explanationFa": "فروشنده‌ها زیاد می‌پرسند: Do you have anything particular in mind? یعنی «چیزِ خاصی در نظر دارید؟»",
+      "explanationAr": "يكثر أن يسأل البائعون: Do you have anything particular in mind? أي «هل تفكّر في شيء معيّن؟»",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fully booked": {
+      "headword": "fully booked",
+      "forms": [
+        "fully booked"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˌfʊli ˈbʊkt/",
+      "pronounceFa": "فولی بوکت",
+      "pronounceAr": "فولي بوكت",
+      "translationFa": "کاملاً رزروشده، جای خالی ندارد",
+      "translationAr": "محجوز بالكامل",
+      "explanationFa": "برای رستوران، هتل یا پرواز به کار می‌رود: The restaurant is fully booked that evening.",
+      "explanationAr": "يُقال عن المطعم أو الفندق أو الرحلة: The restaurant is fully booked that evening.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "private hire": {
+      "headword": "private hire",
+      "forms": [
+        "private hire"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpraɪvət ˈhaɪə/",
+      "pronounceFa": "پرایوِت هایِر",
+      "pronounceAr": "برايفِت هايَر",
+      "translationFa": "اجاره‌ی اختصاصی (برای یک گروه یا مراسم)",
+      "translationAr": "الحجز الخاص، الاستئجار الخاص",
+      "explanationFa": "در انگلیسیِ بریتانیایی hire یعنی «اجاره». a room available for private hire یعنی اتاقی که می‌شود برای مراسمِ خصوصی اجاره کرد.",
+      "explanationAr": "كلمة hire في الإنجليزية البريطانية تعني «استئجار»، وa room available for private hire غرفة يمكن استئجارها لمناسبة خاصة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "at no extra charge": {
+      "headword": "at no extra charge",
+      "forms": [
+        "at no extra charge"
+      ],
+      "pos": "phrase",
+      "ipa": "/ət ˌnəʊ ˌekstrə ˈtʃɑːdʒ/",
+      "pronounceFa": "اَت نو اِکسترا چارج",
+      "pronounceAr": "آت نو إكسترا تشارج",
+      "translationFa": "بدونِ هزینه‌ی اضافه",
+      "translationAr": "دون تكلفة إضافية",
+      "explanationFa": "یعنی رایگان و بدونِ اینکه به قیمت اضافه شود؛ در لیسنینگ مراقب باشید این مبلغ را در جمعِ کل حساب نکنید.",
+      "explanationAr": "أي مجّانًا دون أن يُضاف إلى السعر، فانتبه في الاستماع إلى عدم حسابه في المجموع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "come to": {
+      "headword": "come to (an amount)",
+      "forms": [
+        "will come to"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˈkʌm tə/",
+      "pronounceFa": "کام تو",
+      "pronounceAr": "كَم تو",
+      "translationFa": "جمعاً شدن (مبلغ)",
+      "translationAr": "يبلغ مجموعه",
+      "explanationFa": "برای جمعِ کلِ یک صورت‌حساب: That will come to £318. در لیسنینگ اغلب پیش از عددِ نهایی می‌آید.",
+      "explanationAr": "يُستخدم لمجموع الفاتورة: That will come to £318، وكثيرًا ما يسبق الرقم النهائي في الاستماع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "go ahead": {
+      "headword": "go ahead",
+      "forms": [
+        "go ahead"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡəʊ əˈhed/",
+      "pronounceFa": "گو اِهِد",
+      "pronounceAr": "غو أهيد",
+      "translationFa": "اقدام کردن، کاری را قطعی کردن",
+      "translationAr": "يمضي قُدمًا (في أمر)",
+      "explanationFa": "یعنی تصمیم گرفتن و انجامِ کاری که درباره‌اش صحبت شده: I'd like to go ahead and make a booking. به‌تنهایی یعنی «بفرمایید».",
+      "explanationAr": "أي أن يقرّر تنفيذ ما جرى الحديث عنه: I'd like to go ahead and make a booking، وتعني وحدها «تفضّل».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "take a break": {
+      "headword": "take a break",
+      "forms": [
+        "taking a break",
+        "take a break"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌteɪk ə ˈbreɪk/",
+      "pronounceFa": "تِیک اِ برِیک",
+      "pronounceAr": "تيك أ بريك",
+      "translationFa": "استراحت کردن، دست از کار کشیدن (موقتاً)",
+      "translationAr": "يأخذ استراحة",
+      "explanationFa": "فعلِ همراهِ break در این معنا take یا have است (نه do): I'm taking a break.",
+      "explanationAr": "الفعل المصاحب لـ break بهذا المعنى take أو have (لا do): I'm taking a break.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "graduation": {
+      "headword": "graduation",
+      "forms": [
+        "graduation"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌɡrædʒuˈeɪʃn/",
+      "pronounceFa": "گرَجوئِیشِن",
+      "pronounceAr": "غراجويشن",
+      "translationFa": "فارغ‌التحصیلی؛ جشنِ فارغ‌التحصیلی",
+      "translationAr": "التخرّج؛ حفل التخرّج",
+      "explanationFa": "فعلش graduate (from) است: She graduated from university last year.",
+      "explanationAr": "الفعل منه graduate (from): She graduated from university last year.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "traditional": {
+      "headword": "traditional",
+      "forms": [
+        "traditional"
+      ],
+      "pos": "adjective",
+      "ipa": "/trəˈdɪʃənl/",
+      "pronounceFa": "تِرِدیشِنِل",
+      "pronounceAr": "ترَديشنَل",
+      "translationFa": "سنتی",
+      "translationAr": "تقليدي",
+      "explanationFa": "اسمش tradition است. در اسپیکینگ برای صحبت درباره‌ی جشن‌ها و آداب مفید است: a traditional hat، traditional food.",
+      "explanationAr": "الاسم منه tradition، ومفيد في المحادثة للحديث عن الاحتفالات والعادات: a traditional hat وtraditional food.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "get on well": {
+      "headword": "get on well (with)",
+      "forms": [
+        "get on really well",
+        "get on well"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡet ɒn ˈwel/",
+      "pronounceFa": "گِت آن وِل",
+      "pronounceAr": "غيت أون ويل",
+      "translationFa": "با هم خوب کنار آمدن",
+      "translationAr": "يكون على وفاق مع",
+      "explanationFa": "انگلیسیِ بریتانیایی است و مترادفِ get along: I get on really well with my sister-in-law.",
+      "explanationAr": "تعبير بريطاني مرادف لـ get along: I get on really well with my sister-in-law.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "the other way round": {
+      "headword": "the other way round",
+      "forms": [
+        "the other way round"
+      ],
+      "pos": "idiom",
+      "ipa": "/ði ˌʌðə weɪ ˈraʊnd/",
+      "pronounceFa": "دِ آدِر وِی راند",
+      "pronounceAr": "ذي أذَر وي راوند",
+      "translationFa": "برعکس",
+      "translationAr": "العكس",
+      "explanationFa": "یعنی وضعیتِ عکسِ آنچه گفته شد: Shouldn't it be the other way round? معادلِ آمریکایی: the other way around.",
+      "explanationAr": "أي الوضع المعاكس لما قيل: Shouldn't it be the other way round? والمقابل الأمريكي the other way around.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in a way": {
+      "headword": "in a way",
+      "forms": [
+        "in a way"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ə ˈweɪ/",
+      "pronounceFa": "این اِ وِی",
+      "pronounceAr": "إن أ وي",
+      "translationFa": "از یک جهت، به نوعی",
+      "translationAr": "من ناحيةٍ ما، بشكلٍ ما",
+      "explanationFa": "برای پذیرفتنِ بخشی از حرفِ کسی: In a way, you're right. در اسپیکینگ برای بیانِ نظرِ متعادل مفید است.",
+      "explanationAr": "يُستخدم للموافقة الجزئية على كلام أحد: In a way, you're right، ومفيد في المحادثة للتعبير عن رأي متوازن.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "a good day out": {
+      "headword": "a good day out",
+      "forms": [
+        "a good day out"
+      ],
+      "pos": "phrase",
+      "ipa": "/ə ˌɡʊd deɪ ˈaʊt/",
+      "pronounceFa": "اِ گود دِی اوت",
+      "pronounceAr": "أ غود داي أوت",
+      "translationFa": "یک روزِ خوش بیرون از خانه (گردش)",
+      "translationAr": "يوم نزهة ممتع",
+      "explanationFa": "a day out یعنی یک روز گردش و تفریح بیرون از خانه؛ ترکیبی طبیعی برای اسپیکینگ: It's a good day out for the whole family.",
+      "explanationAr": "a day out يعني يومًا للنزهة والترفيه خارج البيت، وهو تعبير طبيعي للمحادثة: It's a good day out for the whole family.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "look forward to": {
+      "headword": "look forward to",
+      "forms": [
+        "looking forward to",
+        "look forward to"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌlʊk ˈfɔːwəd tə/",
+      "pronounceFa": "لوک فورود تو",
+      "pronounceAr": "لوك فوروَد تو",
+      "translationFa": "مشتاقانه منتظرِ (چیزی) بودن",
+      "translationAr": "يتطلّع إلى",
+      "explanationFa": "to در این‌جا حرفِ اضافه است، پس پس از آن اسم یا فعلِ ing‌دار می‌آید: I'm looking forward to having a sister-in-law.",
+      "explanationAr": "كلمة to هنا حرف جرّ، فيليها اسم أو فعل بصيغة ing: I'm looking forward to having a sister-in-law.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "easy-going": {
+      "headword": "easy-going",
+      "forms": [
+        "easy-going"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌiːzi ˈɡəʊɪŋ/",
+      "pronounceFa": "ایزی‌گوئینگ",
+      "pronounceAr": "إيزي غوينغ",
+      "translationFa": "آسان‌گیر، خونسرد",
+      "translationAr": "سهل المعشر، هادئ الطبع",
+      "explanationFa": "برای توصیفِ شخصیت: کسی که زود ناراحت یا نگران نمی‌شود. در اسپیکینگ از صفت‌های ساده‌ای مثلِ nice بهتر است.",
+      "explanationAr": "لوصف الشخصية: من لا ينزعج أو يقلق بسرعة، وهو أفضل في المحادثة من صفات بسيطة مثل nice.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
     }
   }
 }
