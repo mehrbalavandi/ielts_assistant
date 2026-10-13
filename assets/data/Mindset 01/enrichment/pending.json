@@ -1,8 +1,8 @@
 {
-  "generatedAt": "1405-07-21 16:16",
-  "total": 5900,
+  "generatedAt": "1405-07-21 17:15",
+  "total": 5879,
   "translated": 1107,
-  "pendingUnique": 4218,
+  "pendingUnique": 4200,
   "items": [
     {
       "page": 17,
@@ -1082,7 +1082,7 @@
       "section": null,
       "where": "table",
       "key": "she thought the visit to germany would make her feel homesick and sad.",
-      "text": "She thought the visit to Germany would make her feel homesick and sad."
+      "text": "She thought the visit to Germany would make her feel {blk}homesick and sad{/blk}."
     },
     {
       "page": 22,
@@ -1114,7 +1114,7 @@
       "section": null,
       "where": "table",
       "key": "the girl and her family tried hard to make brigitte feel at home / feel welcome.",
-      "text": "The girl and her family tried hard to make Brigitte feel at home / feel welcome."
+      "text": "The girl and her family tried hard to make Brigitte {blk}feel at home / feel welcome{/blk}."
     },
     {
       "page": 23,
@@ -1281,56 +1281,8 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "students' union",
-      "text": "STUDENTS' UNION"
-    },
-    {
-      "page": 23,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "main reception",
-      "text": "MAIN RECEPTION"
-    },
-    {
-      "page": 23,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "footbal pich",
-      "text": "FOOTBAL PICH"
-    },
-    {
-      "page": 23,
-      "unit": null,
-      "section": null,
-      "where": "table",
       "key": "sunnyhills university today",
       "text": "Sunnyhills University today"
-    },
-    {
-      "page": 23,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "squash courts/gym",
-      "text": "SQUASH COURTS/GYM"
-    },
-    {
-      "page": 23,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "table tennis tables",
-      "text": "TABLE TENNIS TABLES"
-    },
-    {
-      "page": 23,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "laboratoriespond",
-      "text": "LABORATORIESPOND"
     },
     {
       "page": 24,
@@ -1610,7 +1562,7 @@
       "section": null,
       "where": "table",
       "key": "the bus stop is in the top right-hand corner.",
-      "text": "The bus stop is in the top right-hand corner."
+      "text": "The bus stop {blk}is in the top right-hand corner{/blk}."
     },
     {
       "page": 24,
@@ -1618,7 +1570,7 @@
       "section": null,
       "where": "table",
       "key": "the recreation area is next to the laboratories (and the scott library).",
-      "text": "The recreation area is next to the laboratories (and the Scott Library)."
+      "text": "The recreation area {blk}is next to the laboratories (and the Scott Library){/blk}."
     },
     {
       "page": 24,
@@ -1626,7 +1578,7 @@
       "section": null,
       "where": "table",
       "key": "the table tennis tables are in front of / next to the scott library.",
-      "text": "The table tennis tables are in front of / next to the Scott Library."
+      "text": "The table tennis tables {blk}are in front of / next to the Scott Library{/blk}."
     },
     {
       "page": 24,
@@ -1634,7 +1586,7 @@
       "section": null,
       "where": "table",
       "key": "the students' union is between the gym and the bus stop.",
-      "text": "The Students' Union is between the gym and the bus stop."
+      "text": "The Students' Union {blk}is between the gym and the bus stop{/blk}."
     },
     {
       "page": 25,
@@ -1938,7 +1890,7 @@
       "section": null,
       "where": "table",
       "key": "relocated",
-      "text": "relocated"
+      "text": "{blk}relocated{/blk}"
     },
     {
       "page": 25,
@@ -2425,6 +2377,38 @@
       "unit": null,
       "section": null,
       "where": "table",
+      "key": "the maps show the changes to colwick arts centre between 2005 and the present day. we can see that the centre expanded and new facilities were added during this period.",
+      "text": "The maps show the changes to Colwick Arts Centre between 2005 and the present day. We can see that the Centre expanded and new facilities were added during this period."
+    },
+    {
+      "page": 27,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "one of the major changes is that the outside area was developed. in 2005 there was an empty area of land outside the centre. trees were planted there and an outdoor exhibition area was made. the café was moved to the front of the arts centre and tables were added outside.",
+      "text": "One of the major changes is that the outside area was developed. In 2005 there was an empty area of land outside the Centre. Trees were planted there and an outdoor exhibition area was made. The café was moved to the front of the Arts Centre and tables were added outside."
+    },
+    {
+      "page": 27,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "inside, a central exhibition area was created. the information desk was moved to the front of the central area. in the past there were two galleries but now there is only one; however, a drama studio was built. in 2005 the concert hall and cinema were in the same space, whereas now they are separate. in addition, an extra meeting room was constructed. the toilets moved to the opposite side of the centre.",
+      "text": "Inside, a central exhibition area was created. The information desk was moved to the front of the central area. In the past there were two galleries but now there is only one; however, a drama studio was built. In 2005 the concert hall and cinema were in the same space, whereas now they are separate. In addition, an extra meeting room was constructed. The toilets moved to the opposite side of the Centre."
+    },
+    {
+      "page": 27,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "so, it is clear that colwick arts centre is more attractive today and has better facilities than in 2005.",
+      "text": "So, it is clear that Colwick Arts Centre is more attractive today and has better facilities than in 2005."
+    },
+    {
+      "page": 27,
+      "unit": null,
+      "section": null,
+      "where": "table",
       "key": "build",
       "text": "build"
     },
@@ -2489,112 +2473,8 @@
       "unit": null,
       "section": null,
       "where": "table",
-      "key": "snack bar",
-      "text": "SNACK BAR"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "meeting room",
-      "text": "MEETING ROOM"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "toilet",
-      "text": "TOILET"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "concert hall/cinema",
-      "text": "CONCERT HALL/CINEMA"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "information desk",
-      "text": "INFORMATION DESK"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "gallery",
-      "text": "GALLERY"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "wasteland",
-      "text": "WASTELAND"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
       "key": "today",
       "text": "Today"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "drama studio",
-      "text": "DRAMA STUDIO"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "cinema",
-      "text": "CINEMA"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "central exhibition area",
-      "text": "CENTRAL EXHIBITION AREA"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "concert hall",
-      "text": "CONCERT HALL"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "stage",
-      "text": "STAGE"
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "outdoor exhibition and performance area",
-      "text": "OUTDOOR EXHIBITION AND PERFORMANCE AREA"
     },
     {
       "page": 27,
@@ -2627,38 +2507,6 @@
       "where": "table",
       "key": "use prepositions to explain where things are/were.",
       "text": "use prepositions to explain where things are/were."
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "the maps show the changes to colwick arts centre between 2005 and the present day. we can see that the centre expanded and new facilities were added during this period.",
-      "text": "The maps show the changes to Colwick Arts Centre between 2005 and the present day. We can see that the Centre expanded and new facilities were added during this period."
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "one of the major changes is that the outside area was developed. in 2005 there was an empty area of land outside the centre. trees were planted there and an outdoor exhibition area was made. the café was moved to the front of the arts centre and tables were added outside.",
-      "text": "One of the major changes is that the outside area was developed. In 2005 there was an empty area of land outside the Centre. Trees were planted there and an outdoor exhibition area was made. The café was moved to the front of the Arts Centre and tables were added outside."
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "inside, a central exhibition area was created. the information desk was moved to the front of the central area. in the past there were two galleries but now there is only one; however, a drama studio was built. in 2005 the concert hall and cinema were in the same space, whereas now they are separate. in addition, an extra meeting room was constructed. the toilets moved to the opposite side of the centre.",
-      "text": "Inside, a central exhibition area was created. The information desk was moved to the front of the central area. In the past there were two galleries but now there is only one; however, a drama studio was built. In 2005 the concert hall and cinema were in the same space, whereas now they are separate. In addition, an extra meeting room was constructed. The toilets moved to the opposite side of the Centre."
-    },
-    {
-      "page": 27,
-      "unit": null,
-      "section": null,
-      "where": "table",
-      "key": "so, it is clear that colwick arts centre is more attractive today and has better facilities than in 2005.",
-      "text": "So, it is clear that Colwick Arts Centre is more attractive today and has better facilities than in 2005."
     },
     {
       "page": 28,
@@ -2738,7 +2586,7 @@
       "section": null,
       "where": "table",
       "key": "travel and transport: harbour, bus stop, railway station",
-      "text": "Travel and transport: harbour, bus stop, railway station"
+      "text": "Travel and transport: harbour, {blk}bus stop, railway station{/blk}"
     },
     {
       "page": 28,
@@ -2746,7 +2594,7 @@
       "section": null,
       "where": "table",
       "key": "sports and leisure: sports centre, restaurant",
-      "text": "Sports and leisure: sports centre, restaurant"
+      "text": "Sports and leisure: {blk}sports centre, restaurant{/blk}"
     },
     {
       "page": 28,
@@ -3322,7 +3170,7 @@
       "section": null,
       "where": "table",
       "key": "blythe road",
-      "text": "Blythe Road"
+      "text": "{blk}Blythe Road{/blk}"
     },
     {
       "page": 30,
@@ -3546,7 +3394,7 @@
       "section": null,
       "where": "table",
       "key": "bike/cycle/cycling (tour)",
-      "text": "bike/cycle/cycling (tour)"
+      "text": "{blk}bike/cycle/cycling (tour){/blk}"
     },
     {
       "page": 31,
@@ -3554,7 +3402,7 @@
       "section": null,
       "where": "table",
       "key": "(by) email",
-      "text": "(by) email"
+      "text": "{blk}(by) email{/blk}"
     },
     {
       "page": 31,
@@ -3562,7 +3410,7 @@
       "section": null,
       "where": "table",
       "key": "8/eight",
-      "text": "8/eight"
+      "text": "{blk}8/eight{/blk}"
     },
     {
       "page": 31,
@@ -3570,7 +3418,7 @@
       "section": null,
       "where": "table",
       "key": "22 barkway street",
-      "text": "22 Barkway Street"
+      "text": "{blk}22 Barkway Street{/blk}"
     },
     {
       "page": 31,
@@ -3586,7 +3434,7 @@
       "section": null,
       "where": "table",
       "key": "15/fifteen (dollars)",
-      "text": "15/fifteen (dollars)"
+      "text": "{blk}15/fifteen (dollars){/blk}"
     },
     {
       "page": 31,
@@ -3787,6 +3635,14 @@
       "where": "table",
       "key": "art gallery",
       "text": "art gallery"
+    },
+    {
+      "page": 33,
+      "unit": null,
+      "section": null,
+      "where": "table",
+      "key": "cinema",
+      "text": "cinema"
     },
     {
       "page": 33,
