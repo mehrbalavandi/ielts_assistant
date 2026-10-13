@@ -1,0 +1,1264 @@
+{
+  "schema": 1,
+  "book": "Mindset 01",
+  "note": "کلید = متنِ نرمال‌شده‌ی پاراگراف (ContentEnrichment.Normalize). src فقط برای بازبینی است.",
+  "entries": {
+    "unit/01: relationships": {
+      "src": "UNIT/01: RELATIONSHIPS",
+      "fa": "درس 1: روابط",
+      "ar": "الوحدة 1: العلاقات",
+      "terms": [
+        "relationship"
+      ]
+    },
+    "reading": {
+      "src": "READING",
+      "fa": "خواندن (ریدینگ)",
+      "ar": "القراءة",
+      "terms": []
+    },
+    "in this unit you will learn how to": {
+      "src": "IN THIS UNIT YOU WILL\nLEARN HOW TO",
+      "fa": "در این درس یاد می‌گیرید\nچگونه:",
+      "ar": "في هذه الوحدة ستتعلّم\nكيف:",
+      "terms": []
+    },
+    "answer questions using up to three words": {
+      "src": "answer questions using up to three words",
+      "fa": "با حداکثر سه کلمه به سؤال‌ها پاسخ دهید",
+      "ar": "تُجيب عن الأسئلة مستخدمًا ثلاث كلمات كحدّ أقصى",
+      "terms": []
+    },
+    "identify key words in a question": {
+      "src": "identify key words in a question",
+      "fa": "کلمات کلیدیِ یک سؤال را تشخیص دهید",
+      "ar": "تُحدِّد الكلمات المفتاحية في السؤال",
+      "terms": [
+        "identify",
+        "key word"
+      ]
+    },
+    "scan a text to find specific information.": {
+      "src": "scan a text to find specific information.",
+      "fa": "متن را برای یافتنِ اطلاعاتِ مشخص، سریع مرور کنید (اسکن کنید).",
+      "ar": "تتصفّح النص سريعًا للعثور على معلومات محدّدة.",
+      "terms": [
+        "scan",
+        "specific information"
+      ]
+    },
+    "lead-in": {
+      "src": "Lead-in",
+      "fa": "پیش‌درآمد",
+      "ar": "تمهيد",
+      "terms": []
+    },
+    "in pairs, explain the words in the box.": {
+      "src": "In pairs, explain the words in the box.",
+      "fa": "دو نفری، کلماتِ داخلِ کادر را توضیح دهید.",
+      "ar": "اعملوا في أزواج، واشرحوا الكلمات الموجودة في المربّع.",
+      "terms": []
+    },
+    "example: sister: my sister is my parents' daughter / other daughter.": {
+      "src": "Example: sister: My sister is my parents' daughter / other daughter.",
+      "fa": "مثال: خواهر: خواهرم دخترِ پدر و مادرم است / دخترِ دیگرِ آن‌هاست.",
+      "ar": "مثال: أخت: أختي هي ابنة والديّ / ابنتهما الأخرى.",
+      "terms": []
+    },
+    "brother : my brother is my parents' son.": {
+      "src": "brother : {blk}My brother is my parents' son.{/blk}",
+      "fa": "برادر: برادرم پسرِ پدر و مادرم است.",
+      "ar": "أخ: أخي هو ابن والديّ.",
+      "terms": []
+    },
+    "cousin : my cousin is my aunt or uncle's son or daughter.": {
+      "src": "cousin : {blk}My cousin is my aunt or uncle's son or daughter.{/blk}",
+      "fa": "عموزاده / خاله‌زاده: پسر یا دخترِ عمو، دایی، عمه یا خاله‌ام است.",
+      "ar": "ابن العمّ أو الخال: هو ابن أو ابنة عمّي أو خالي أو عمّتي أو خالتي.",
+      "terms": []
+    },
+    "father-in-law: my father-in-law is my husband or wife's father.": {
+      "src": "father-in-law: {blk}My father-in-law is my husband or wife's father.{/blk}",
+      "fa": "پدرشوهر / پدرزن: پدرِ همسرم (شوهر یا زنم) است.",
+      "ar": "الحمو: هو والد زوجي أو زوجتي.",
+      "terms": []
+    },
+    "grandfather : my grandfather is my mother or father's father.": {
+      "src": "grandfather : {blk}My grandfather is my mother or father's father.{/blk}",
+      "fa": "پدربزرگ: پدرِ مادر یا پدرم است.",
+      "ar": "الجدّ: هو والد أمّي أو أبي.",
+      "terms": []
+    },
+    "uncle : my uncle is my mother or father's brother.": {
+      "src": "uncle : {blk}My uncle is my mother or father's brother.{/blk}",
+      "fa": "عمو / دایی: برادرِ پدر یا مادرم است.",
+      "ar": "العمّ / الخال: هو أخو أبي أو أمّي.",
+      "terms": []
+    },
+    "aunt : my aunt is my mother or father's sister.": {
+      "src": "aunt : {blk}My aunt is my mother or father's sister.{/blk}",
+      "fa": "عمه / خاله: خواهرِ پدر یا مادرم است.",
+      "ar": "العمّة / الخالة: هي أخت أبي أو أمّي.",
+      "terms": []
+    },
+    "nephew : my nephew is my brother or sister's son.": {
+      "src": "nephew : {blk}My nephew is my brother or sister's son.{/blk}",
+      "fa": "برادرزاده / خواهرزاده (پسر): پسرِ برادر یا خواهرم است.",
+      "ar": "ابن الأخ / ابن الأخت: هو ابن أخي أو أختي.",
+      "terms": []
+    },
+    "niece : my niece is my brother or sister's daughter.": {
+      "src": "niece : {blk}My niece is my brother or sister's daughter.{/blk}",
+      "fa": "برادرزاده / خواهرزاده (دختر): دخترِ برادر یا خواهرم است.",
+      "ar": "ابنة الأخ / ابنة الأخت: هي ابنة أخي أو أختي.",
+      "terms": []
+    },
+    "great-aunt : my great-aunt is my grandmother or grandfather's sister.": {
+      "src": "great-aunt : {blk}My great-aunt is my grandmother or grandfather's sister.{/blk}",
+      "fa": "عمه یا خاله‌ی پدر و مادر: خواهرِ پدربزرگ یا مادربزرگم است.",
+      "ar": "عمّة الأب أو الأمّ (أو خالتهما): هي أخت جدّي أو جدّتي.",
+      "terms": []
+    },
+    "grandmother : my grandmother is my mother or father's mother.": {
+      "src": "grandmother : {blk}My grandmother is my mother or father's mother.{/blk}",
+      "fa": "مادربزرگ: مادرِ مادر یا پدرم است.",
+      "ar": "الجدّة: هي والدة أمّي أو أبي.",
+      "terms": []
+    },
+    "sister": {
+      "src": "sister",
+      "fa": "خواهر",
+      "ar": "أخت",
+      "terms": []
+    },
+    "brother": {
+      "src": "brother",
+      "fa": "برادر",
+      "ar": "أخ",
+      "terms": []
+    },
+    "cousin": {
+      "src": "cousin",
+      "fa": "عموزاده / خاله‌زاده",
+      "ar": "ابن العمّ أو الخال (أو ابنتهما)",
+      "terms": []
+    },
+    "father-in-law": {
+      "src": "father-in-law",
+      "fa": "پدرشوهر / پدرزن",
+      "ar": "الحمو (والد الزوج أو الزوجة)",
+      "terms": []
+    },
+    "grandfather": {
+      "src": "grandfather",
+      "fa": "پدربزرگ",
+      "ar": "الجدّ",
+      "terms": []
+    },
+    "uncle": {
+      "src": "uncle",
+      "fa": "عمو / دایی",
+      "ar": "العمّ / الخال",
+      "terms": []
+    },
+    "aunt": {
+      "src": "aunt",
+      "fa": "عمه / خاله",
+      "ar": "العمّة / الخالة",
+      "terms": []
+    },
+    "nephew": {
+      "src": "nephew",
+      "fa": "برادرزاده / خواهرزاده (پسر)",
+      "ar": "ابن الأخ / ابن الأخت",
+      "terms": []
+    },
+    "niece": {
+      "src": "niece",
+      "fa": "برادرزاده / خواهرزاده (دختر)",
+      "ar": "ابنة الأخ / ابنة الأخت",
+      "terms": []
+    },
+    "great-aunt": {
+      "src": "great-aunt",
+      "fa": "عمه یا خاله‌ی پدر و مادر",
+      "ar": "عمّة الأب أو الأمّ (أو خالتهما)",
+      "terms": []
+    },
+    "grandmother": {
+      "src": "grandmother",
+      "fa": "مادربزرگ",
+      "ar": "الجدّة",
+      "terms": []
+    },
+    "tell your partner who you live with. which other family members are you close to?": {
+      "src": "Tell your partner who you live with. Which other family members are you close to?",
+      "fa": "به هم‌گروهی‌تان بگویید با چه کسانی زندگی می‌کنید. با کدام یک از دیگر اعضای خانواده‌تان صمیمی هستید؟",
+      "ar": "أخبِر زميلك بمَن تعيش معهم. ومَن مِن أفراد عائلتك الآخرين تشعر بقربٍ منهم؟",
+      "terms": [
+        "be close to"
+      ]
+    },
+    "you are going to read about some advantages of living in an extended family (i.e. not just parents and children living together). which of the following advantages do you think are the most important?": {
+      "src": "You are going to read about some advantages of living in an extended family (i.e. not just parents and children living together). Which of the following advantages do you think are the most important?",
+      "fa": "قرار است درباره‌ی برخی از مزایای زندگی در یک خانواده‌ی گسترده بخوانید (یعنی خانواده‌ای که در آن فقط پدر و مادر و فرزندان با هم زندگی نمی‌کنند). به نظرِ شما کدام یک از مزایای زیر از همه مهم‌تر است؟",
+      "ar": "ستقرأ عن بعض مزايا العيش في أسرة ممتدّة (أي أسرة لا يقتصر أفرادها على الوالدين والأبناء الذين يعيشون معًا). برأيك، أيّ المزايا التالية هي الأهمّ؟",
+      "terms": [
+        "advantage",
+        "extended family"
+      ]
+    },
+    "2, 3, 4 and 5 are mentioned in the text.": {
+      "src": "{blk}2, 3, 4 and 5 are mentioned in the text.{/blk}",
+      "fa": "موارد 2، 3، 4 و 5 در متن ذکر شده‌اند.",
+      "ar": "ذُكرت النقاط 2 و3 و4 و5 في النص.",
+      "terms": []
+    },
+    "older people are fun to live with.": {
+      "src": "Older people are fun to live with.",
+      "fa": "زندگی با افرادِ مسن‌تر لذت‌بخش و سرگرم‌کننده است.",
+      "ar": "العيش مع كبار السنّ ممتع.",
+      "terms": []
+    },
+    "older people are patient and experienced.": {
+      "src": "Older people are patient and experienced.",
+      "fa": "افرادِ مسن‌تر صبور و باتجربه‌اند.",
+      "ar": "كبار السنّ صبورون وذوو خبرة.",
+      "terms": [
+        "patient",
+        "experienced"
+      ]
+    },
+    "you can save money by living together.": {
+      "src": "You can save money by living together.",
+      "fa": "با زندگی کردن در کنارِ هم می‌توانید پس‌انداز کنید.",
+      "ar": "يمكنكم توفير المال بالعيش معًا.",
+      "terms": [
+        "save money"
+      ]
+    },
+    "grandparents are not as busy as parents.": {
+      "src": "Grandparents are not as busy as parents.",
+      "fa": "پدربزرگ‌ها و مادربزرگ‌ها به اندازه‌ی پدر و مادرها سرشان شلوغ نیست.",
+      "ar": "الأجداد ليسوا مشغولين بقدر الآباء.",
+      "terms": []
+    },
+    "children get plenty of love and attention.": {
+      "src": "Children get plenty of love and attention.",
+      "fa": "بچه‌ها محبت و توجهِ فراوانی دریافت می‌کنند.",
+      "ar": "يحظى الأطفال بالكثير من الحبّ والاهتمام.",
+      "terms": [
+        "plenty of",
+        "attention"
+      ]
+    },
+    "read the text quickly and check which are mentioned. ignore the highlighted words.": {
+      "src": "Read the text quickly and check which are mentioned. Ignore the highlighted words.",
+      "fa": "متن را سریع بخوانید و ببینید کدام موارد در آن ذکر شده‌اند. به کلماتِ رنگی توجه نکنید.",
+      "ar": "اقرأ النص بسرعة وتحقّق من النقاط المذكورة فيه. وتجاهَل الكلمات المظلَّلة.",
+      "terms": []
+    },
+    "tip 02": {
+      "src": "TIP 02",
+      "fa": "نکته 2",
+      "ar": "نصيحة 2",
+      "terms": []
+    },
+    "don't worry if you don't know a word in the text. you can often guess the meaning by reading the other words in the sentence. and you may not need to know the meaning to answer the questions.": {
+      "src": "Don't worry if you don't know a word in the text. You can often guess the meaning by reading the other words in the sentence. And you may not need to know the meaning to answer the questions.",
+      "fa": "اگر معنای کلمه‌ای از متن را نمی‌دانید، نگران نباشید. اغلب می‌توانید با خواندنِ کلماتِ دیگرِ جمله، معنای آن را حدس بزنید. ضمن اینکه شاید برای پاسخ دادن به سؤال‌ها اصلاً لازم نباشد معنایش را بدانید.",
+      "ar": "لا تقلق إذا لم تعرف معنى كلمة في النص؛ فغالبًا يمكنك تخمين معناها من خلال قراءة الكلمات الأخرى في الجملة. وقد لا تحتاج أصلًا إلى معرفة معناها للإجابة عن الأسئلة.",
+      "terms": [
+        "guess the meaning"
+      ]
+    },
+    "blood is thicker than water": {
+      "src": "BLOOD IS THICKER THAN WATER",
+      "fa": "خون از آب غلیظ‌تر است",
+      "ar": "الدمّ لا يصير ماءً",
+      "terms": [
+        "blood is thicker than water"
+      ]
+    },
+    "blood is thicker than water. this means that family is more important than anyone else. many young people, though, spend more time with their friends than with their family. they value their friends' opinions more and enjoy their company. when it's time to visit grandma or go to a cousin's wedding, teenagers often prefer to be left at home. but are they missing out?": {
+      "src": "Blood is thicker than water. This means that family is more important than anyone else. Many young people, though, spend more time with their friends than with their family. They value their friends' opinions more and enjoy their company. When it's time to visit grandma or go to a cousin's wedding, teenagers often prefer to be left at home. But are they missing out?",
+      "fa": "خون از آب غلیظ‌تر است؛ یعنی خانواده از هر کس دیگری مهم‌تر است. با این حال، بسیاری از جوانان بیشتر از خانواده، با دوستانشان وقت می‌گذرانند. آن‌ها برای نظرِ دوستانشان ارزشِ بیشتری قائل‌اند و از همنشینی با آن‌ها لذت می‌برند. وقتی موقعِ دیدنِ مادربزرگ یا رفتن به عروسیِ پسرعمو یا دخترخاله می‌رسد، نوجوانان اغلب ترجیح می‌دهند در خانه بمانند. اما آیا با این کار چیزی را از دست نمی‌دهند؟",
+      "ar": "الدمّ لا يصير ماءً؛ أي إنّ العائلة أهمّ من أيّ أحدٍ آخر. ومع ذلك، يقضي كثير من الشباب مع أصدقائهم وقتًا أطول ممّا يقضونه مع عائلاتهم؛ فهم يقدّرون آراء أصدقائهم أكثر ويستمتعون بصحبتهم. وعندما يحين وقت زيارة الجدّة أو حضور زفاف أحد أبناء العمومة، غالبًا ما يفضّل المراهقون البقاء في البيت. ولكن، ألا يفوتهم بذلك شيءٌ ثمين؟",
+      "terms": [
+        "blood is thicker than water",
+        "value",
+        "enjoy someone's company",
+        "teenager",
+        "miss out"
+      ]
+    },
+    "in asia, the middle east, south america and sub-saharan africa over 40% of children live in families with other adults such as aunts, uncles and grandparents in addition to their parents. in south africa, it is almost 70%. on the other hand, in europe, australia and north america, less than 25% of children live in extended families. is the lack of close contact with relatives putting some children at a disadvantage?": {
+      "src": "In Asia, the Middle East, South America and Sub-Saharan Africa over 40% of children live in families with other adults such as aunts, uncles and grandparents in addition to their parents. In South Africa, it is almost 70%. On the other hand, in Europe, Australia and North America, less than 25% of children live in extended families. Is the lack of close contact with relatives putting some children at a disadvantage?",
+      "fa": "در آسیا، خاورمیانه، آمریکای جنوبی و آفریقای جنوبِ صحرا، بیش از 40% کودکان علاوه بر پدر و مادرشان، با بزرگسالانِ دیگری مثلِ عمه و خاله، عمو و دایی و پدربزرگ و مادربزرگ زندگی می‌کنند. در آفریقای جنوبی این رقم تقریباً به 70% می‌رسد. در مقابل، در اروپا، استرالیا و آمریکای شمالی کمتر از 25% کودکان در خانواده‌های گسترده زندگی می‌کنند. آیا نبودِ ارتباطِ نزدیک با خویشاوندان، برخی کودکان را در موقعیتِ نامساعدی قرار می‌دهد؟",
+      "ar": "في آسيا والشرق الأوسط وأمريكا الجنوبية وأفريقيا جنوب الصحراء الكبرى، يعيش أكثر من 40% من الأطفال في أسرٍ تضمّ بالغين آخرين، كالعمّات والخالات والأعمام والأخوال والأجداد، إلى جانب والديهم. وفي جنوب أفريقيا تبلغ هذه النسبة نحو 70%. في المقابل، يعيش أقلّ من 25% من الأطفال في أسرٍ ممتدّة في أوروبا وأستراليا وأمريكا الشمالية. فهل يضع غياب التواصل الوثيق مع الأقارب بعض الأطفال في وضعٍ غير مؤاتٍ؟",
+      "terms": [
+        "in addition to",
+        "on the other hand",
+        "extended family",
+        "lack of",
+        "close contact",
+        "relative",
+        "at a disadvantage"
+      ]
+    },
+    "the people they live with have a great influence on the way children grow up. those who live with their extended family have many advantages. they usually get lots of love and attention. grandparents often have more time to read to children and play with them. as they are often retired, they are not always busy and stressed as many parents are. they have learnt to be patient and they have already handled most of the problems children and young people face.": {
+      "src": "The people they live with have a great influence on the way children grow up. Those who live with their extended family have many advantages. They usually get lots of love and attention. Grandparents often have more time to read to children and play with them. As they are often retired, they are not always busy and stressed as many parents are. They have learnt to be patient and they have already handled most of the problems children and young people face.",
+      "fa": "کسانی که کودکان با آن‌ها زندگی می‌کنند، تأثیرِ زیادی بر نحوه‌ی بزرگ شدنشان دارند. کودکانی که با خانواده‌ی گسترده‌شان زندگی می‌کنند، از مزایای زیادی برخوردارند. آن‌ها معمولاً محبت و توجهِ فراوانی دریافت می‌کنند. پدربزرگ‌ها و مادربزرگ‌ها اغلب وقتِ بیشتری دارند تا برای بچه‌ها کتاب بخوانند و با آن‌ها بازی کنند. از آنجا که آن‌ها اغلب بازنشسته‌اند، مثلِ بسیاری از پدر و مادرها همیشه پرمشغله و تحتِ فشار نیستند. آن‌ها صبوری را آموخته‌اند و پیش از این، با بیشترِ مشکلاتی که کودکان و نوجوانان با آن روبه‌رو می‌شوند دست‌وپنجه نرم کرده‌اند.",
+      "ar": "للأشخاص الذين يعيش معهم الأطفال تأثيرٌ كبير في طريقة نشأتهم. فمَن يعيشون مع أسرهم الممتدّة يتمتّعون بمزايا كثيرة؛ إذ يحظون عادةً بالكثير من الحبّ والاهتمام. وغالبًا ما يكون لدى الأجداد وقتٌ أطول للقراءة للأطفال واللعب معهم. ولأنّهم غالبًا متقاعدون، فهم ليسوا دائمًا مشغولين ومتوتّرين كما هو حال كثير من الآباء. لقد تعلّموا الصبر، وسبق لهم أن تعاملوا مع معظم المشكلات التي يواجهها الأطفال والشباب.",
+      "terms": [
+        "influence",
+        "grow up",
+        "extended family",
+        "advantage",
+        "attention",
+        "retired",
+        "stressed",
+        "patient",
+        "handle"
+      ]
+    },
+    "young people whose grandparents live far away can gain some of these advantages by keeping in close contact by phone, email, letters and visits. it is nice to know there is someone you can go to if you have a problem. as the italian proverb says, 'se non sta andando bene chiamare la nonna.'- 'if things aren't going well, call your grandmother.\"": {
+      "src": "Young people whose grandparents live far away can gain some of these advantages by keeping in close contact by phone, email, letters and visits. It is nice to know there is someone you can go to if you have a problem. As the Italian proverb says, 'Se non sta andando bene chiamare la nonna.'- 'If things aren't going well, call your grandmother.\"",
+      "fa": "جوانانی که پدربزرگ و مادربزرگشان دور از آن‌ها زندگی می‌کنند، می‌توانند با حفظِ ارتباطِ نزدیک از طریقِ تلفن، ایمیل، نامه و دیدار، بخشی از این مزایا را به دست آورند. خوب است بدانید کسی هست که اگر مشکلی داشتید، بتوانید سراغش بروید. همان‌طور که ضرب‌المثلی ایتالیایی می‌گوید: «Se non sta andando bene chiamare la nonna»؛ یعنی «اگر اوضاع خوب پیش نمی‌رود، به مادربزرگت زنگ بزن.»",
+      "ar": "يمكن للشباب الذين يعيش أجدادهم بعيدًا عنهم أن ينالوا بعض هذه المزايا بالحفاظ على تواصلٍ وثيق معهم عبر الهاتف والبريد الإلكتروني والرسائل والزيارات. ومن الجميل أن تعرف أنّ هناك مَن يمكنك اللجوء إليه إذا واجهتك مشكلة. وكما يقول المثل الإيطالي: «Se non sta andando bene chiamare la nonna»، أي: «إذا لم تكن الأمور على ما يرام، فاتّصل بجدّتك».",
+      "terms": [
+        "gain",
+        "advantage",
+        "close contact",
+        "proverb"
+      ]
+    },
+    "it is good for children to grow up to understand the needs of older people: they may become more caring and less selfish if they spend time helping their grandparents. children learn about the past from grandparents' stories. sometimes they feel closer to their grandparents than to their parents.": {
+      "src": "It is good for children to grow up to understand the needs of older people: they may become more caring and less selfish if they spend time helping their grandparents. Children learn about the past from grandparents' stories. Sometimes they feel closer to their grandparents than to their parents.",
+      "fa": "برای کودکان خوب است که با درکِ نیازهای سالمندان بزرگ شوند: اگر وقتشان را صرفِ کمک به پدربزرگ و مادربزرگشان کنند، ممکن است دلسوزتر و کمتر خودخواه شوند. کودکان از قصه‌های پدربزرگ و مادربزرگ درباره‌ی گذشته یاد می‌گیرند. گاهی آن‌ها احساس می‌کنند به پدربزرگ و مادربزرگشان نزدیک‌ترند تا به پدر و مادرشان.",
+      "ar": "من الجيّد أن ينشأ الأطفال وهم يفهمون احتياجات كبار السنّ؛ فقد يصبحون أكثر اهتمامًا بالآخرين وأقلّ أنانيةً إذا قضوا وقتًا في مساعدة أجدادهم. ويتعلّم الأطفال عن الماضي من حكايات الأجداد. وأحيانًا يشعرون بأنّهم أقرب إلى أجدادهم منهم إلى آبائهم.",
+      "terms": [
+        "grow up",
+        "caring",
+        "selfish"
+      ]
+    },
+    "friends are important to young people, but friends come and go. your family is always on your side. grandparents won't be there forever. appreciate them while you can.": {
+      "src": "Friends are important to young people, but friends come and go. Your family is always on your side. Grandparents won't be there forever. Appreciate them while you can.",
+      "fa": "دوستان برای جوانان مهم‌اند، اما دوستان می‌آیند و می‌روند. خانواده‌تان همیشه پشتِ شماست. پدربزرگ و مادربزرگ برای همیشه کنارتان نخواهند بود. تا فرصت دارید قدرشان را بدانید.",
+      "ar": "الأصدقاء مهمّون للشباب، لكنّ الأصدقاء يأتون ويذهبون، أمّا عائلتك فهي دائمًا في صفّك. لن يبقى أجدادك معك إلى الأبد، فقدِّرهم ما دمتَ قادرًا على ذلك.",
+      "terms": [
+        "come and go",
+        "on your side",
+        "appreciate"
+      ]
+    },
+    "young adults often feel that living alone will be exciting, but they forget that it can also be lonely. by remaining with the family during this stage of their lives, they can avoid this. they can also save money for their education and future.": {
+      "src": "Young adults often feel that living alone will be exciting, but they forget that it can also be lonely. By remaining with the family during this stage of their lives, they can avoid this. They can also save money for their education and future.",
+      "fa": "جوانان اغلب خیال می‌کنند تنها زندگی کردن هیجان‌انگیز خواهد بود، اما فراموش می‌کنند که می‌تواند احساسِ تنهایی هم به همراه داشته باشد. آن‌ها با ماندن در کنارِ خانواده در این مرحله از زندگی‌شان، می‌توانند از این وضعیت دوری کنند. همچنین می‌توانند برای تحصیل و آینده‌شان پس‌انداز کنند.",
+      "ar": "كثيرًا ما يظنّ الشباب أنّ العيش بمفردهم سيكون مثيرًا، لكنّهم ينسون أنّه قد يكون موحشًا أيضًا. وبالبقاء مع العائلة في هذه المرحلة من حياتهم يمكنهم تجنّب ذلك، كما يمكنهم ادّخار المال لتعليمهم ومستقبلهم.",
+      "terms": [
+        "lonely",
+        "remain",
+        "avoid",
+        "save money"
+      ]
+    },
+    "vocabulary": {
+      "src": "VOCABULARY",
+      "fa": "واژگان",
+      "ar": "المفردات",
+      "terms": []
+    },
+    "match the highlighted words from the text with their meanings. start with words you already know. use the context (the sentence it is in and other words around it) to work out the meaning of the other words.": {
+      "src": "Match the highlighted words from the text with their meanings. Start with words you already know. Use the context (the sentence it is in and other words around it) to work out the meaning of the other words.",
+      "fa": "کلماتِ رنگیِ متن را با معنی‌شان جفت کنید. از کلماتی شروع کنید که از قبل می‌دانید. برای فهمیدنِ معنای بقیه‌ی کلمات، از بافتِ متن (جمله‌ای که کلمه در آن آمده و کلماتِ اطرافش) کمک بگیرید.",
+      "ar": "طابِق الكلمات المظلَّلة في النص مع معانيها. ابدأ بالكلمات التي تعرفها مسبقًا، واستعِن بالسياق (الجملة التي ترد فيها الكلمة والكلمات المحيطة بها) لاستنتاج معاني الكلمات الأخرى.",
+      "terms": [
+        "context",
+        "work out"
+      ]
+    },
+    "value h": {
+      "src": "value {blk}h{/blk}",
+      "fa": "ارزش قائل شدن: h",
+      "ar": "يُقدِّر (يرى أهمّية الشيء): h",
+      "terms": [
+        "value"
+      ]
+    },
+    "(have an) influence g": {
+      "src": "(have an) influence {blk}g{/blk}",
+      "fa": "تأثیر (داشتن): g",
+      "ar": "(يكون له) تأثير: g",
+      "terms": [
+        "influence"
+      ]
+    },
+    "stressed a": {
+      "src": "stressed {blk}a{/blk}",
+      "fa": "تحتِ فشار، مضطرب: a",
+      "ar": "متوتِّر: a",
+      "terms": [
+        "stressed"
+      ]
+    },
+    "handled b": {
+      "src": "handled {blk}b{/blk}",
+      "fa": "از پسِ (چیزی) برآمد، با (آن) کنار آمد: b",
+      "ar": "تعامَلَ مع: b",
+      "terms": [
+        "handle"
+      ]
+    },
+    "selfish f": {
+      "src": "selfish {blk}f{/blk}",
+      "fa": "خودخواه: f",
+      "ar": "أناني: f",
+      "terms": [
+        "selfish"
+      ]
+    },
+    "gain c": {
+      "src": "gain {blk}c{/blk}",
+      "fa": "به دست آوردن: c",
+      "ar": "يكسب، ينال: c",
+      "terms": [
+        "gain"
+      ]
+    },
+    "proverb e": {
+      "src": "proverb {blk}e{/blk}",
+      "fa": "ضرب‌المثل: e",
+      "ar": "مَثَل: e",
+      "terms": [
+        "proverb"
+      ]
+    },
+    "appreciate d": {
+      "src": "appreciate {blk}d{/blk}",
+      "fa": "قدر دانستن، قدردان بودن: d",
+      "ar": "يُقدِّر، يمتنّ لـ: d",
+      "terms": [
+        "appreciate"
+      ]
+    },
+    "worried; not able to relax": {
+      "src": "worried; not able to relax",
+      "fa": "نگران؛ ناتوان از آرام گرفتن",
+      "ar": "قلِق؛ غير قادر على الاسترخاء",
+      "terms": []
+    },
+    "dealt with, had experience of": {
+      "src": "dealt with, had experience of",
+      "fa": "با (چیزی) کنار آمد؛ تجربه‌اش را داشت",
+      "ar": "تعامَلَ مع (شيء)؛ مرَّ بتجربته",
+      "terms": [
+        "deal with"
+      ]
+    },
+    "get (something positive)": {
+      "src": "get (something positive)",
+      "fa": "به دست آوردن (چیزی مثبت)",
+      "ar": "الحصول على (شيء إيجابي)",
+      "terms": []
+    },
+    "be grateful for": {
+      "src": "be grateful for",
+      "fa": "سپاسگزارِ (چیزی) بودن",
+      "ar": "أن تكون ممتنًّا لـ",
+      "terms": [
+        "be grateful for"
+      ]
+    },
+    "a well-known phrase giving advice": {
+      "src": "a well-known phrase giving advice",
+      "fa": "عبارتی مشهور که پندی در خود دارد",
+      "ar": "عبارة مشهورة تقدّم نصيحة",
+      "terms": [
+        "well-known"
+      ]
+    },
+    "caring only about yourself and not other people": {
+      "src": "caring only about yourself and not other people",
+      "fa": "کسی که فقط به فکرِ خودش است، نه دیگران",
+      "ar": "مَن لا يهتمّ إلّا بنفسه دون الآخرين",
+      "terms": []
+    },
+    "(have an) effect (on)": {
+      "src": "(have an) effect (on)",
+      "fa": "اثر (داشتن بر)",
+      "ar": "(أن يكون له) أثر (في)",
+      "terms": []
+    },
+    "believe something is important": {
+      "src": "believe something is important",
+      "fa": "باور داشتن به مهم بودنِ چیزی",
+      "ar": "أن تؤمن بأهمّية شيءٍ ما",
+      "terms": []
+    },
+    "[[[[[[[[[[short-answer questions]": {
+      "src": "[[[[[[[[[[SHORT-ANSWER QUESTIONS]",
+      "fa": "سؤال‌های پاسخ کوتاه",
+      "ar": "أسئلة الإجابات القصيرة",
+      "terms": [
+        "short-answer questions"
+      ]
+    },
+    "◉ in this type of task you have to answer questions using up to three words, or up to two words and/or a number. the instructions tell you how many words you can use. short-answer questions test if you can find the right part of the text quickly and understand the information.": {
+      "src": "◉ In this type of task you have to answer questions using up to three words, or up to two words and/or a number. The instructions tell you how many words you can use. Short-answer questions test if you can find the right part of the text quickly and understand the information.",
+      "fa": "◉ در این نوع تمرین باید با حداکثر سه کلمه، یا حداکثر دو کلمه و/یا یک عدد، به سؤال‌ها پاسخ دهید. دستورالعمل به شما می‌گوید از چند کلمه می‌توانید استفاده کنید. سؤال‌های پاسخ کوتاه می‌سنجند که آیا می‌توانید بخشِ درستِ متن را سریع پیدا کنید و اطلاعاتش را بفهمید.",
+      "ar": "◉ في هذا النوع من المهامّ، عليك أن تجيب عن الأسئلة مستخدمًا ثلاث كلمات كحدّ أقصى، أو كلمتين كحدّ أقصى و/أو رقمًا. وتوضّح لك التعليمات عدد الكلمات المسموح به. وتختبر أسئلة الإجابات القصيرة قدرتك على العثور على الجزء الصحيح من النص بسرعة وفهم المعلومات الواردة فيه.",
+      "terms": [
+        "short-answer questions"
+      ]
+    },
+    "finding information": {
+      "src": "FINDING INFORMATION",
+      "fa": "پیدا کردنِ اطلاعات",
+      "ar": "العثور على المعلومات",
+      "terms": []
+    },
+    "to practise finding information quickly, have a race with your partner to find the following phrases in the text. they are not in order.": {
+      "src": "To practise finding information quickly, have a race with your partner to find the following phrases in the text. They are not in order.",
+      "fa": "برای تمرینِ پیدا کردنِ سریعِ اطلاعات، با هم‌گروهی‌تان مسابقه بدهید و عبارت‌های زیر را در متن پیدا کنید. این عبارت‌ها به ترتیب نیامده‌اند.",
+      "ar": "للتدرّب على العثور على المعلومات بسرعة، تسابَق مع زميلك في إيجاد العبارات التالية في النص. وهي ليست مرتّبة.",
+      "terms": []
+    },
+    "to find information quickly, don't read every word. don't try to say the words. move your eyes quickly across and down the text. use your finger if you find it useful.": {
+      "src": "{blk}To find information quickly, don't read every word. Don't try to say the words. Move your eyes quickly across and down the text. Use your finger if you find it useful.{/blk}",
+      "fa": "برای پیدا کردنِ سریعِ اطلاعات، همه‌ی کلمات را نخوانید. سعی نکنید کلمات را (حتی در ذهن) به زبان بیاورید. چشمانتان را سریع در عرض و طولِ متن حرکت دهید. اگر برایتان مفید است، از انگشتتان کمک بگیرید.",
+      "ar": "للعثور على المعلومات بسرعة، لا تقرأ كلّ كلمة، ولا تحاول نطق الكلمات. حرّك عينيك بسرعة عبر النص ومن أعلاه إلى أسفله. واستعِن بإصبعك إن وجدتَ ذلك مفيدًا.",
+      "terms": []
+    },
+    "grandparents' stories": {
+      "src": "grandparents' stories",
+      "fa": "قصه‌های پدربزرگ و مادربزرگ",
+      "ar": "حكايات الأجداد",
+      "terms": []
+    },
+    "paragraph d": {
+      "src": "{blk}paragraph D{/blk}",
+      "fa": "پاراگراف D",
+      "ar": "الفقرة D",
+      "terms": []
+    },
+    "cousin's wedding": {
+      "src": "cousin's wedding",
+      "fa": "عروسیِ پسرعمو یا دخترخاله",
+      "ar": "زفاف أحد أبناء العمومة",
+      "terms": []
+    },
+    "paragraph a": {
+      "src": "{blk}paragraph A{/blk}",
+      "fa": "پاراگراف A",
+      "ar": "الفقرة A",
+      "terms": []
+    },
+    "young adults": {
+      "src": "young adults",
+      "fa": "جوانان",
+      "ar": "الشباب",
+      "terms": []
+    },
+    "paragraph e": {
+      "src": "{blk}paragraph E{/blk}",
+      "fa": "پاراگراف E",
+      "ar": "الفقرة E",
+      "terms": []
+    },
+    "extended family": {
+      "src": "extended family",
+      "fa": "خانواده‌ی گسترده",
+      "ar": "الأسرة الممتدّة",
+      "terms": [
+        "extended family"
+      ]
+    },
+    "paragraph b": {
+      "src": "{blk}paragraph B{/blk}",
+      "fa": "پاراگراف B",
+      "ar": "الفقرة B",
+      "terms": []
+    },
+    "come and go": {
+      "src": "come and go",
+      "fa": "می‌آیند و می‌روند",
+      "ar": "يأتون ويذهبون",
+      "terms": [
+        "come and go"
+      ]
+    },
+    "paragraph g": {
+      "src": "{blk}paragraph G{/blk}",
+      "fa": "پاراگراف G",
+      "ar": "الفقرة G",
+      "terms": []
+    },
+    "italian proverb": {
+      "src": "Italian proverb",
+      "fa": "ضرب‌المثلِ ایتالیایی",
+      "ar": "المثل الإيطالي",
+      "terms": [
+        "proverb"
+      ]
+    },
+    "paragraph f": {
+      "src": "{blk}paragraph F{/blk}",
+      "fa": "پاراگراف F",
+      "ar": "الفقرة F",
+      "terms": []
+    },
+    "how did you do this? can you explain to another student how to find information quickly?": {
+      "src": "How did you do this? Can you explain to another student how to find information quickly?",
+      "fa": "این کار را چطور انجام دادید؟ می‌توانید برای هم‌کلاسیِ دیگری توضیح دهید که چطور می‌شود اطلاعات را سریع پیدا کرد؟",
+      "ar": "كيف فعلتَ ذلك؟ هل يمكنك أن تشرح لطالبٍ آخر كيف يعثر على المعلومات بسرعة؟",
+      "terms": []
+    },
+    "identifying the key words in a question": {
+      "src": "IDENTIFYING THE KEY WORDS IN A QUESTION",
+      "fa": "تشخیصِ کلماتِ کلیدیِ سؤال",
+      "ar": "تحديد الكلمات المفتاحية في السؤال",
+      "terms": [
+        "identify",
+        "key word"
+      ]
+    },
+    "◉ before you look for the answer to a question, it helps if you find the key words - the most important words - in the question. this will help you find the information you need.": {
+      "src": "◉ Before you look for the answer to a question, it helps if you find the key words - the most important words - in the question. This will help you find the information you need.",
+      "fa": "◉ پیش از آنکه دنبالِ پاسخِ سؤالی بگردید، بهتر است کلماتِ کلیدیِ آن - یعنی مهم‌ترین کلماتش - را پیدا کنید. این کار کمک می‌کند اطلاعاتِ مورد نیازتان را پیدا کنید.",
+      "ar": "◉ قبل أن تبحث عن إجابة سؤالٍ ما، من المفيد أن تحدّد الكلمات المفتاحية فيه - أي أهمّ كلماته؛ فهذا يساعدك على العثور على المعلومات التي تحتاجها.",
+      "terms": [
+        "key word"
+      ]
+    },
+    "example: what do young people often think about older family members?": {
+      "src": "Example: What do young people often think about older family members?",
+      "fa": "مثال: جوانان اغلب درباره‌ی اعضای مسن‌ترِ خانواده چه فکری می‌کنند؟",
+      "ar": "مثال: ما الذي يظنّه الشباب غالبًا في أفراد العائلة الأكبر سنًّا؟",
+      "terms": []
+    },
+    "identify the key words in these questions.": {
+      "src": "Identify the key words in these questions.",
+      "fa": "کلماتِ کلیدیِ این سؤال‌ها را مشخص کنید.",
+      "ar": "حدِّد الكلمات المفتاحية في هذه الأسئلة.",
+      "terms": [
+        "identify",
+        "key word"
+      ]
+    },
+    "what percentage of children live in extended families in asia, the middle east, south america and sub-saharan africa?": {
+      "src": "What percentage of children live in extended families in Asia, the Middle East, South America and Sub-Saharan Africa?",
+      "fa": "چند درصد از کودکان در آسیا، خاورمیانه، آمریکای جنوبی و آفریقای جنوبِ صحرا در خانواده‌های گسترده زندگی می‌کنند؟",
+      "ar": "ما نسبة الأطفال الذين يعيشون في أسرٍ ممتدّة في آسيا والشرق الأوسط وأمريكا الجنوبية وأفريقيا جنوب الصحراء الكبرى؟",
+      "terms": [
+        "percentage",
+        "extended family"
+      ]
+    },
+    "percentage/children/ extended families / asia, the middle east, south america, sub-saharan africa": {
+      "src": "{blk}percentage/children/ extended families / Asia, the Middle East, South America, Sub-Saharan Africa{/blk}",
+      "fa": "درصد / کودکان / خانواده‌های گسترده / آسیا، خاورمیانه، آمریکای جنوبی، آفریقای جنوبِ صحرا",
+      "ar": "النسبة / الأطفال / الأسر الممتدّة / آسيا، الشرق الأوسط، أمريكا الجنوبية، أفريقيا جنوب الصحراء الكبرى",
+      "terms": [
+        "percentage",
+        "extended family"
+      ]
+    },
+    "why are grandparents often less busy and stressed than parents?": {
+      "src": "Why are grandparents often less busy and stressed than parents?",
+      "fa": "چرا پدربزرگ‌ها و مادربزرگ‌ها اغلب کمتر از پدر و مادرها پرمشغله و تحتِ فشارند؟",
+      "ar": "لماذا يكون الأجداد غالبًا أقلّ انشغالًا وتوتّرًا من الآباء؟",
+      "terms": [
+        "stressed"
+      ]
+    },
+    "grandparents/less busy/stressed/parents": {
+      "src": "{blk}grandparents/less busy/stressed/parents{/blk}",
+      "fa": "پدربزرگ و مادربزرگ / کم‌مشغله‌تر / تحتِ فشار / پدر و مادر",
+      "ar": "الأجداد / أقلّ انشغالًا / متوتّرون / الآباء",
+      "terms": [
+        "stressed"
+      ]
+    },
+    "what do young adults often think living alone will be like?": {
+      "src": "What do young adults often think living alone will be like?",
+      "fa": "جوانان اغلب خیال می‌کنند تنها زندگی کردن چطور خواهد بود؟",
+      "ar": "كيف يظنّ الشباب غالبًا أنّ العيش بمفردهم سيكون؟",
+      "terms": []
+    },
+    "young adults/think/living alone": {
+      "src": "young adults/think/living alone",
+      "fa": "جوانان / خیال می‌کنند / تنها زندگی کردن",
+      "ar": "الشباب / يظنّون / العيش بمفردهم",
+      "terms": []
+    },
+    "scanning a text": {
+      "src": "SCANNING A TEXT",
+      "fa": "اسکن کردنِ متن",
+      "ar": "تصفُّح النص (القراءة المسحية)",
+      "terms": [
+        "scan"
+      ]
+    },
+    "◉ when you are answering a question:": {
+      "src": "◉ When you are answering a question:",
+      "fa": "◉ وقتی به یک سؤال پاسخ می‌دهید:",
+      "ar": "◉ عندما تجيب عن سؤال:",
+      "terms": []
+    },
+    "decide on the key words in the question and think of words with a similar meaning.": {
+      "src": "Decide on the key words in the question and think of words with a similar meaning.",
+      "fa": "کلماتِ کلیدیِ سؤال را مشخص کنید و به کلماتی با معنای مشابه فکر کنید.",
+      "ar": "حدِّد الكلمات المفتاحية في السؤال، وفكِّر في كلماتٍ ذات معنى مشابه.",
+      "terms": [
+        "key word"
+      ]
+    },
+    "move your eyes quickly across and down the text, looking for the key words, or words that mean the same. don't read every word. this is called 'scanning'": {
+      "src": "Move your eyes quickly across and down the text, looking for the key words, or words that mean the same. Don't read every word. This is called 'scanning'",
+      "fa": "چشمانتان را سریع در عرض و طولِ متن حرکت دهید و دنبالِ کلماتِ کلیدی یا کلماتی با همان معنا بگردید. همه‌ی کلمات را نخوانید. به این کار «اسکن کردن» می‌گویند.",
+      "ar": "حرّك عينيك بسرعة عبر النص ومن أعلاه إلى أسفله، باحثًا عن الكلمات المفتاحية أو عن كلماتٍ تحمل المعنى نفسه. لا تقرأ كلّ كلمة. وهذا ما يُسمّى «القراءة المسحية».",
+      "terms": [
+        "key word",
+        "scan"
+      ]
+    },
+    "if the text has headings, use them to help you decide which part of the text to look at first.": {
+      "src": "If the text has headings, use them to help you decide which part of the text to look at first.",
+      "fa": "اگر متن تیتر دارد، از تیترها کمک بگیرید تا تصمیم بگیرید اول سراغِ کدام قسمتِ متن بروید.",
+      "ar": "إذا كان للنص عناوين، فاستعِن بها لتقرّر أيّ جزءٍ منه تنظر إليه أوّلًا.",
+      "terms": []
+    },
+    "when you find a key word, read the text around it to make sure you have found the right information.": {
+      "src": "When you find a key word, read the text around it to make sure you have found the right information.",
+      "fa": "وقتی یک کلمه‌ی کلیدی را پیدا کردید، متنِ اطرافش را بخوانید تا مطمئن شوید اطلاعاتِ درست را پیدا کرده‌اید.",
+      "ar": "عندما تجد كلمةً مفتاحية، اقرأ النص المحيط بها لتتأكّد من أنّك وجدتَ المعلومة الصحيحة.",
+      "terms": [
+        "key word"
+      ]
+    },
+    "answer the questions in exercise 5. follow the advice in the box.": {
+      "src": "Answer the questions in exercise 5. Follow the advice in the box.",
+      "fa": "به سؤال‌های تمرینِ 5 پاسخ دهید. توصیه‌های داخلِ کادر را به کار ببرید.",
+      "ar": "أجِب عن أسئلة التمرين 5، واتّبع النصائح الواردة في المربّع.",
+      "terms": []
+    },
+    "over 40%": {
+      "src": "{blk}over 40%{/blk}",
+      "fa": "بیش از 40%",
+      "ar": "أكثر من 40%",
+      "terms": []
+    },
+    "they are often retired.": {
+      "src": "{blk}They are often retired.{/blk}",
+      "fa": "آن‌ها اغلب بازنشسته‌اند.",
+      "ar": "لأنّهم غالبًا متقاعدون.",
+      "terms": [
+        "retired"
+      ]
+    },
+    "(they think it will be) exciting.": {
+      "src": "(They think it will be) exciting.",
+      "fa": "(خیال می‌کنند) هیجان‌انگیز (خواهد بود).",
+      "ar": "(يظنّون أنّه سيكون) مثيرًا.",
+      "terms": []
+    },
+    "read this exam task and the answers to the questions. what is wrong with the answers? match the answers 1-4 with the advice a-d below.": {
+      "src": "Read this exam task and the answers to the questions. What is wrong with the answers? Match the answers 1-4 with the advice a-d below.",
+      "fa": "این تمرینِ آزمون و پاسخ‌های سؤال‌هایش را بخوانید. پاسخ‌ها چه ایرادی دارند؟ پاسخ‌های 1 تا 4 را با توصیه‌های a تا d در پایین جفت کنید.",
+      "ar": "اقرأ مهمّة الاختبار هذه وإجابات أسئلتها. ما الخطأ في الإجابات؟ طابِق الإجابات 1-4 مع النصائح a-d أدناه.",
+      "terms": []
+    },
+    "answer these questions. choose no more than two words and/or a number from the passage for each answer.": {
+      "src": "Answer these questions. Choose NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.",
+      "fa": "به این سؤال‌ها پاسخ دهید. برای هر پاسخ، حداکثر دو کلمه و/یا یک عدد از متن انتخاب کنید.",
+      "ar": "أجِب عن هذه الأسئلة. اختر لكلّ إجابة ما لا يزيد على كلمتين و/أو رقم من النص.",
+      "terms": [
+        "no more than",
+        "passage"
+      ]
+    },
+    "b": {
+      "src": "{blk}b{/blk}",
+      "fa": "b",
+      "ar": "b",
+      "terms": []
+    },
+    "d": {
+      "src": "{blk}d{/blk}",
+      "fa": "d",
+      "ar": "d",
+      "terms": []
+    },
+    "a": {
+      "src": "{blk}a{/blk}",
+      "fa": "a",
+      "ar": "a",
+      "terms": []
+    },
+    "c": {
+      "src": "{blk}c{/blk}",
+      "fa": "c",
+      "ar": "c",
+      "terms": []
+    },
+    "question 1 what percentage of children in south africa live with their extended family?": {
+      "src": "Question 1 What percentage of children in South Africa live with their extended family?",
+      "fa": "سؤال 1: چند درصد از کودکان در آفریقای جنوبی با خانواده‌ی گسترده‌شان زندگی می‌کنند؟",
+      "ar": "السؤال 1: ما نسبة الأطفال في جنوب أفريقيا الذين يعيشون مع أسرهم الممتدّة؟",
+      "terms": [
+        "percentage",
+        "extended family"
+      ]
+    },
+    "answer 1: 20%": {
+      "src": "Answer 1: 20%",
+      "fa": "پاسخ 1: 20%",
+      "ar": "الإجابة 1: 20%",
+      "terms": []
+    },
+    "question 2 what helps children in extended families learn about the past?": {
+      "src": "Question 2 What helps children in extended families learn about the past?",
+      "fa": "سؤال 2: چه چیزی به کودکانِ خانواده‌های گسترده کمک می‌کند درباره‌ی گذشته یاد بگیرند؟",
+      "ar": "السؤال 2: ما الذي يساعد الأطفال في الأسر الممتدّة على التعرّف إلى الماضي؟",
+      "terms": [
+        "extended family"
+      ]
+    },
+    "answer 2: grandparents storys": {
+      "src": "Answer 2: grandparents storys",
+      "fa": "پاسخ 2: grandparents storys (قصه‌های پدربزرگ و مادربزرگ، با املای نادرست)",
+      "ar": "الإجابة 2: grandparents storys (حكايات الأجداد، بتهجئةٍ خاطئة)",
+      "terms": []
+    },
+    "question 3 what negative word can describe how it sometimes feels to live alone?": {
+      "src": "Question 3 What negative word can describe how it sometimes feels to live alone?",
+      "fa": "سؤال 3: چه کلمه‌ی منفی‌ای می‌تواند حسی را که گاهی تنها زندگی کردن دارد، توصیف کند؟",
+      "ar": "السؤال 3: ما الكلمة السلبية التي يمكن أن تصف الشعور الذي يرافق العيش بمفردك أحيانًا؟",
+      "terms": []
+    },
+    "answer 3: living alone can be lonely.": {
+      "src": "Answer 3: Living alone can be lonely.",
+      "fa": "پاسخ 3: تنها زندگی کردن می‌تواند احساسِ تنهایی به همراه داشته باشد.",
+      "ar": "الإجابة 3: قد يكون العيش بمفردك موحشًا.",
+      "terms": [
+        "lonely"
+      ]
+    },
+    "question 4 according to the italian proverb, who should you phone when you have a problem?": {
+      "src": "Question 4 According to the Italian proverb, who should you phone when you have a problem?",
+      "fa": "سؤال 4: طبقِ ضرب‌المثلِ ایتالیایی، وقتی مشکلی دارید باید به چه کسی زنگ بزنید؟",
+      "ar": "السؤال 4: وفقًا للمثل الإيطالي، بمَن يجب أن تتّصل عندما تواجهك مشكلة؟",
+      "terms": [
+        "according to",
+        "proverb"
+      ]
+    },
+    "answer 4: your gran": {
+      "src": "Answer 4: your gran",
+      "fa": "پاسخ 4: مامان‌بزرگت (your gran)",
+      "ar": "الإجابة 4: جدّتك (your gran)",
+      "terms": []
+    },
+    "don't write more than the number of words you are given.": {
+      "src": "Don't write more than the number of words you are given.",
+      "fa": "بیشتر از تعدادِ کلماتی که تعیین شده، ننویسید.",
+      "ar": "لا تكتب أكثر من عدد الكلمات المحدَّد لك.",
+      "terms": []
+    },
+    "you mustn't write full sentences.": {
+      "src": "You mustn't write full sentences.",
+      "fa": "نباید جمله‌ی کامل بنویسید.",
+      "ar": "يجب ألّا تكتب جملًا كاملة.",
+      "terms": []
+    },
+    "make sure that you use the correct information when you answer a question.": {
+      "src": "Make sure that you use the correct information when you answer a question.",
+      "fa": "مطمئن شوید هنگامِ پاسخ دادن به سؤال، از اطلاعاتِ درست استفاده می‌کنید.",
+      "ar": "تأكّد من أنّك تستخدم المعلومات الصحيحة عندما تجيب عن السؤال.",
+      "terms": []
+    },
+    "don't change words in the text. remember, the instructions tell you to choose words from the text.": {
+      "src": "Don't change words in the text. Remember, the instructions tell you to choose words from the text.",
+      "fa": "کلماتِ متن را تغییر ندهید. یادتان باشد که دستورالعمل از شما می‌خواهد کلمات را از خودِ متن انتخاب کنید.",
+      "ar": "لا تغيّر كلمات النص. وتذكّر أنّ التعليمات تطلب منك اختيار الكلمات من النص.",
+      "terms": []
+    },
+    "be careful with spelling. you can lose marks if your spelling is wrong.": {
+      "src": "Be careful with spelling. You can lose marks if your spelling is wrong.",
+      "fa": "مراقبِ املای کلمات باشید. اگر املای کلمه‌ای غلط باشد، ممکن است نمره از دست بدهید.",
+      "ar": "انتبِه إلى التهجئة؛ فقد تخسر درجاتٍ إذا كانت تهجئتك خاطئة.",
+      "terms": [
+        "lose marks"
+      ]
+    },
+    "tip 07": {
+      "src": "TIP 07",
+      "fa": "نکته 7",
+      "ar": "نصيحة 7",
+      "terms": []
+    },
+    "some grammar words (e.g. a, the, some) can be omitted in order to get the right number of words.": {
+      "src": "Some grammar words (e.g. a, the, some) can be omitted in order to get the right number of words.",
+      "fa": "برای رسیدن به تعدادِ درستِ کلمات، می‌توان برخی کلماتِ دستوری (مثلِ a، the و some) را حذف کرد.",
+      "ar": "يمكن حذف بعض الكلمات النحوية (مثل a وthe وsome) للوصول إلى العدد الصحيح من الكلمات.",
+      "terms": [
+        "omit",
+        "in order to"
+      ]
+    },
+    "now correct the answers in exercise 7.": {
+      "src": "Now correct the answers in exercise 7.",
+      "fa": "حالا پاسخ‌های تمرینِ 7 را اصلاح کنید.",
+      "ar": "صحِّح الآن الإجابات في التمرين 7.",
+      "terms": []
+    },
+    "lonely": {
+      "src": "{blk}lonely{/blk}",
+      "fa": "تنهایی‌آور (احساسِ تنهایی)",
+      "ar": "موحِش (الشعور بالوحدة)",
+      "terms": [
+        "lonely"
+      ]
+    },
+    "your grandmother": {
+      "src": "{blk}your grandmother{/blk}",
+      "fa": "مادربزرگت",
+      "ar": "جدّتك",
+      "terms": []
+    },
+    "grammar focus: tenses": {
+      "src": "GRAMMAR FOCUS: TENSES",
+      "fa": "نکته‌ی دستوری: زمان‌های فعل",
+      "ar": "التركيز على القواعد: أزمنة الأفعال",
+      "terms": []
+    },
+    "answer these questions.": {
+      "src": "Answer these questions.",
+      "fa": "به این سؤال‌ها پاسخ دهید.",
+      "ar": "أجِب عن هذه الأسئلة.",
+      "terms": []
+    },
+    "what tense are most of the verbs in the text?": {
+      "src": "What tense are most of the verbs in the text?",
+      "fa": "بیشترِ فعل‌های متن در چه زمانی هستند؟",
+      "ar": "في أيّ زمنٍ ترد معظم الأفعال في النص؟",
+      "terms": []
+    },
+    "present simple": {
+      "src": "{blk}present simple{/blk}",
+      "fa": "حالِ ساده (present simple)",
+      "ar": "المضارع البسيط (present simple)",
+      "terms": []
+    },
+    "choose the correct reason for the choice of tense.": {
+      "src": "Choose the correct reason for the choice of tense.",
+      "fa": "دلیلِ درستِ انتخابِ این زمان را انتخاب کنید.",
+      "ar": "اختر السبب الصحيح لاستخدام هذا الزمن.",
+      "terms": []
+    },
+    "the verbs describe events which are happening now.": {
+      "src": "The verbs describe events which are happening now.",
+      "fa": "فعل‌ها رویدادهایی را توصیف می‌کنند که همین حالا در حالِ وقوع‌اند.",
+      "ar": "تصف الأفعال أحداثًا تقع الآن.",
+      "terms": []
+    },
+    "the verbs describe things that are generally true.": {
+      "src": "The verbs describe things that are generally true.",
+      "fa": "فعل‌ها چیزهایی را توصیف می‌کنند که به‌طور کلی درست‌اند.",
+      "ar": "تصف الأفعال أمورًا صحيحةً بشكلٍ عام.",
+      "terms": [
+        "generally"
+      ]
+    },
+    "the verbs give the writer's opinion.": {
+      "src": "The verbs give the writer's opinion.",
+      "fa": "فعل‌ها نظرِ نویسنده را بیان می‌کنند.",
+      "ar": "تعبّر الأفعال عن رأي الكاتب.",
+      "terms": []
+    },
+    "grammar focus: adverbs of frequency": {
+      "src": "GRAMMAR FOCUS: ADVERBS OF FREQUENCY",
+      "fa": "نکته‌ی دستوری: قیدهای تکرار",
+      "ar": "التركيز على القواعد: ظروف التكرار",
+      "terms": [
+        "adverb of frequency"
+      ]
+    },
+    "identify the frequency adverbs in these sentences from the text.": {
+      "src": "Identify the frequency adverbs in these sentences from the text.",
+      "fa": "قیدهای تکرارِ این جمله‌های متن را مشخص کنید.",
+      "ar": "حدِّد ظروف التكرار في هذه الجمل المأخوذة من النص.",
+      "terms": [
+        "identify",
+        "adverb of frequency"
+      ]
+    },
+    "your family is always on your side.": {
+      "src": "Your family is always on your side.",
+      "fa": "خانواده‌تان همیشه پشتِ شماست.",
+      "ar": "عائلتك دائمًا في صفّك.",
+      "terms": [
+        "on your side"
+      ]
+    },
+    "always": {
+      "src": "{blk}always{/blk}",
+      "fa": "always (همیشه)",
+      "ar": "always (دائمًا)",
+      "terms": []
+    },
+    "teenagers often prefer to be left at home.": {
+      "src": "Teenagers often prefer to be left at home.",
+      "fa": "نوجوانان اغلب ترجیح می‌دهند در خانه بمانند.",
+      "ar": "غالبًا ما يفضّل المراهقون البقاء في البيت.",
+      "terms": [
+        "teenager"
+      ]
+    },
+    "often": {
+      "src": "{blk}often{/blk}",
+      "fa": "often (اغلب)",
+      "ar": "often (غالبًا)",
+      "terms": []
+    },
+    "as they are often retired, they are not always busy...": {
+      "src": "As they are often retired, they are not always busy...",
+      "fa": "از آنجا که آن‌ها اغلب بازنشسته‌اند، همیشه پرمشغله نیستند...",
+      "ar": "لأنّهم غالبًا متقاعدون، فهم ليسوا مشغولين دائمًا...",
+      "terms": [
+        "retired"
+      ]
+    },
+    "often; (not) always": {
+      "src": "{blk}often; (not) always{/blk}",
+      "fa": "often (اغلب)؛ (not) always ((نه) همیشه)",
+      "ar": "often (غالبًا)؛ (not) always ((ليس) دائمًا)",
+      "terms": []
+    },
+    "they usually get lots of love and attention.": {
+      "src": "They usually get lots of love and attention.",
+      "fa": "آن‌ها معمولاً محبت و توجهِ زیادی دریافت می‌کنند.",
+      "ar": "يحظون عادةً بالكثير من الحبّ والاهتمام.",
+      "terms": [
+        "attention"
+      ]
+    },
+    "usually": {
+      "src": "{blk}usually{/blk}",
+      "fa": "usually (معمولاً)",
+      "ar": "usually (عادةً)",
+      "terms": []
+    },
+    "sometimes they feel closer to their grandparents than to their parents.": {
+      "src": "Sometimes they feel closer to their grandparents than to their parents.",
+      "fa": "گاهی احساس می‌کنند به پدربزرگ و مادربزرگشان نزدیک‌ترند تا به پدر و مادرشان.",
+      "ar": "يشعرون أحيانًا بأنّهم أقرب إلى أجدادهم منهم إلى آبائهم.",
+      "terms": []
+    },
+    "sometimes": {
+      "src": "{blk}Sometimes{/blk}",
+      "fa": "Sometimes (گاهی)",
+      "ar": "Sometimes (أحيانًا)",
+      "terms": []
+    },
+    "◉ grandparents often have more time to read to children.": {
+      "src": "◉ Grandparents often have more time to read to children.",
+      "fa": "◉ پدربزرگ‌ها و مادربزرگ‌ها اغلب وقتِ بیشتری برای کتاب خواندن برای بچه‌ها دارند.",
+      "ar": "◉ غالبًا ما يكون لدى الأجداد وقتٌ أطول للقراءة للأطفال.",
+      "terms": []
+    },
+    "often is an adverb of frequency. it gives us an idea of how often something happens. the present simple tells us about regular events, and adverbs of frequency are common with this tense.": {
+      "src": "Often is an adverb of frequency. It gives us an idea of how often something happens. The present simple tells us about regular events, and adverbs of frequency are common with this tense.",
+      "fa": "often یک قیدِ تکرار است و نشان می‌دهد کاری هر چند وقت یک‌بار اتفاق می‌افتد. زمانِ حالِ ساده درباره‌ی رویدادهای همیشگی و تکرارشونده است و قیدهای تکرار در این زمان رایج‌اند.",
+      "ar": "often ظرفُ تكرار؛ إذ يعطينا فكرةً عن عدد مرّات حدوث أمرٍ ما. ويُخبرنا المضارع البسيط عن الأحداث المتكرّرة بانتظام، وظروف التكرار شائعة مع هذا الزمن.",
+      "terms": [
+        "adverb of frequency"
+      ]
+    },
+    "study the position of the frequency adverbs in the sentences in exercise 10. with a partner, work out some rules on the position of frequency adverbs.": {
+      "src": "Study the position of the frequency adverbs in the sentences in exercise 10. With a partner, work out some rules on the position of frequency adverbs.",
+      "fa": "به جایگاهِ قیدهای تکرار در جمله‌های تمرینِ 10 دقت کنید. به همراهِ هم‌گروهی‌تان چند قاعده درباره‌ی جایگاهِ قیدهای تکرار پیدا کنید.",
+      "ar": "ادرُس موقع ظروف التكرار في جمل التمرين 10، واستنتِج مع زميلك بعض القواعد حول موقعها.",
+      "terms": [
+        "adverb of frequency",
+        "work out"
+      ]
+    },
+    "the frequency adverb is usually between the subject and the verb. (i often cook). when the verb is 'to be', the adverb comes after the verb. (it is always cold.) some frequency adverbs can also start a sentence. (sometimes i watch tv.)": {
+      "src": "{blk}The frequency adverb is usually between the subject and the verb. (I often cook). When the verb is 'to be', the adverb comes after the verb. (It is always cold.) Some frequency adverbs can also start a sentence. (Sometimes I watch TV.){/blk}",
+      "fa": "قیدِ تکرار معمولاً بینِ فاعل و فعل می‌آید (I often cook = من اغلب آشپزی می‌کنم). وقتی فعل «to be» است، قید بعد از فعل می‌آید (It is always cold = هوا همیشه سرد است). برخی قیدهای تکرار می‌توانند در ابتدای جمله هم بیایند (Sometimes I watch TV = گاهی تلویزیون تماشا می‌کنم).",
+      "ar": "يقع ظرف التكرار عادةً بين الفاعل والفعل (I often cook = غالبًا ما أطبخ). وعندما يكون الفعل «to be» يأتي الظرف بعده (It is always cold = الجوّ باردٌ دائمًا). ويمكن لبعض ظروف التكرار أيضًا أن تأتي في بداية الجملة (Sometimes I watch TV = أحيانًا أشاهد التلفاز).",
+      "terms": [
+        "adverb of frequency"
+      ]
+    },
+    "[[[[[[[[[[exam skills]": {
+      "src": "[[[[[[[[[[EXAM SKILLS]",
+      "fa": "مهارت‌های آزمون",
+      "ar": "مهارات الاختبار",
+      "terms": []
+    },
+    "read the passage and answer the questions below.": {
+      "src": "Read the passage and answer the questions below.",
+      "fa": "متن را بخوانید و به سؤال‌های زیر پاسخ دهید.",
+      "ar": "اقرأ النص وأجِب عن الأسئلة أدناه.",
+      "terms": [
+        "passage"
+      ]
+    },
+    "social media and the meaning of friendship": {
+      "src": "SOCIAL MEDIA AND THE MEANING OF FRIENDSHIP",
+      "fa": "شبکه‌های اجتماعی و معنای دوستی",
+      "ar": "وسائل التواصل الاجتماعي ومعنى الصداقة",
+      "terms": [
+        "social media"
+      ]
+    },
+    "there have been a lot of scientific studies into what makes a friendship. it seems today that ideas of what friendship is are also changing. a study in 1993 at the university of oxford showed that people could only maintain 150 relationships. however, with the explosion of social media since then, many people now have over 300 people who they think of as friends. some people think that these friends are not real friends, but others believe that social media has helped us to expand and keep our friendships because we have more time and opportunities.": {
+      "src": "There have been a lot of scientific studies into what makes a friendship. It seems today that ideas of what friendship is are also changing. A study in 1993 at the University of Oxford showed that people could only maintain 150 relationships. However, with the explosion of social media since then, many people now have over 300 people who they think of as friends. Some people think that these friends are not real friends, but others believe that social media has helped us to expand and keep our friendships because we have more time and opportunities.",
+      "fa": "پژوهش‌های علمیِ زیادی درباره‌ی اینکه دوستی از چه چیزی شکل می‌گیرد انجام شده است. به نظر می‌رسد امروزه تصورِ ما از خودِ دوستی هم در حالِ تغییر است. پژوهشی که در سال 1993 در دانشگاه آکسفورد انجام شد نشان داد که آدم‌ها فقط می‌توانند 150 رابطه را حفظ کنند. اما با گسترشِ انفجاریِ شبکه‌های اجتماعی از آن زمان تاکنون، بسیاری از افراد اکنون بیش از 300 نفر را دوستِ خود می‌دانند. برخی معتقدند این دوستان، دوستانِ واقعی نیستند، اما برخی دیگر بر این باورند که شبکه‌های اجتماعی به ما کمک کرده‌اند دوستی‌هایمان را گسترش دهیم و حفظ کنیم، چون زمان و فرصت‌های بیشتری داریم.",
+      "ar": "أُجريت دراساتٌ علمية كثيرة حول مقوّمات الصداقة، ويبدو أنّ مفهوم الصداقة نفسه آخذٌ في التغيّر اليوم. فقد أظهرت دراسةٌ أُجريت عام 1993 في جامعة أكسفورد أنّ الناس لا يستطيعون الحفاظ إلّا على 150 علاقة. ولكن مع الانتشار الهائل لوسائل التواصل الاجتماعي منذ ذلك الحين، صار لدى كثيرٍ من الناس اليوم أكثر من 300 شخص يعدّونهم أصدقاء. ويرى بعضهم أنّ هؤلاء ليسوا أصدقاء حقيقيين، بينما يعتقد آخرون أنّ وسائل التواصل الاجتماعي ساعدتنا على توسيع صداقاتنا والحفاظ عليها، لأنّ لدينا وقتًا وفرصًا أكثر.",
+      "terms": [
+        "maintain",
+        "relationship",
+        "explosion",
+        "social media",
+        "expand",
+        "opportunity"
+      ]
+    },
+    "another change from the past is that people don't stay in the place where they were born. they go to different cities and countries for education and jobs. people are in general more geographically mobile nowadays. this means that we have more chances to meet and make friends with people from different cultures and different backgrounds. people still often make friends at college who remain friends for life, but": {
+      "src": "Another change from the past is that people don't stay in the place where they were born. They go to different cities and countries for education and jobs. People are in general more geographically mobile nowadays. This means that we have more chances to meet and make friends with people from different cultures and different backgrounds. People still often make friends at college who remain friends for life, but",
+      "fa": "تغییرِ دیگری که نسبت به گذشته رخ داده این است که آدم‌ها در جایی که به دنیا آمده‌اند نمی‌مانند. آن‌ها برای تحصیل و کار به شهرها و کشورهای مختلف می‌روند. امروزه مردم به‌طور کلی از نظرِ جغرافیایی جابه‌جایی بیشتری دارند. این یعنی فرصت‌های بیشتری داریم تا با آدم‌هایی از فرهنگ‌ها و پیشینه‌های مختلف آشنا و دوست شویم. مردم هنوز هم اغلب در دانشگاه دوستانی پیدا می‌کنند که تا آخرِ عمر دوستشان باقی می‌مانند، اما",
+      "ar": "ومن التغيّرات الأخرى مقارنةً بالماضي أنّ الناس لا يبقون في المكان الذي وُلدوا فيه، بل ينتقلون إلى مدنٍ وبلدانٍ مختلفة للدراسة والعمل. فالناس اليوم عمومًا أكثر تنقّلًا جغرافيًّا، وهذا يعني أنّ لدينا فرصًا أكثر للتعرّف إلى أشخاصٍ من ثقافاتٍ وخلفياتٍ مختلفة ومصادقتهم. وما زال الناس كثيرًا ما يكوّنون في الجامعة صداقاتٍ تدوم مدى الحياة، لكنّ",
+      "terms": [
+        "in general",
+        "geographically mobile",
+        "background",
+        "remain",
+        "for life"
+      ]
+    },
+    "making new friends at work is more difficult. people now have less security at work and this also means that they find it harder to build new relationships.": {
+      "src": "making new friends at work is more difficult. People now have less security at work and this also means that they find it harder to build new relationships.",
+      "fa": "دوست پیدا کردن در محیطِ کار دشوارتر است. امروزه مردم امنیتِ شغلیِ کمتری دارند و این هم به آن معناست که برقرار کردنِ رابطه‌های تازه برایشان سخت‌تر است.",
+      "ar": "تكوين صداقاتٍ جديدة في العمل أصعب؛ فالناس اليوم يتمتّعون بأمانٍ وظيفي أقلّ، وهذا يعني أيضًا أنّهم يجدون صعوبةً أكبر في بناء علاقاتٍ جديدة.",
+      "terms": [
+        "security",
+        "build relationships"
+      ]
+    },
+    "as people get older, they sometimes also have less free time. they become busier with their jobs and families and have less time to spend with friends. friendships can be very different when we are at different ages. young children often choose their friends because of convenience, for example, they go to the same school, they live near each other or their parents are friends. as we get older, friendships are more connected with having similar interests and opinions.": {
+      "src": "As people get older, they sometimes also have less free time. They become busier with their jobs and families and have less time to spend with friends. Friendships can be very different when we are at different ages. Young children often choose their friends because of convenience, for example, they go to the same school, they live near each other or their parents are friends. As we get older, friendships are more connected with having similar interests and opinions.",
+      "fa": "همچنین با بالا رفتنِ سن، گاهی وقتِ آزادِ آدم‌ها کمتر می‌شود. سرشان با کار و خانواده شلوغ‌تر می‌شود و وقتِ کمتری برای گذراندن با دوستانشان دارند. دوستی‌ها در سنینِ مختلف می‌توانند بسیار متفاوت باشند. کودکانِ خردسال اغلب دوستانشان را به خاطرِ راحتی و در دسترس بودن انتخاب می‌کنند؛ مثلاً به یک مدرسه می‌روند، نزدیکِ هم زندگی می‌کنند یا پدر و مادرهایشان با هم دوست‌اند. هرچه بزرگ‌تر می‌شویم، دوستی‌ها بیشتر به داشتنِ علایق و دیدگاه‌های مشابه گره می‌خورند.",
+      "ar": "ومع تقدّم الناس في العمر، يقلّ وقت فراغهم أحيانًا أيضًا؛ إذ ينشغلون أكثر بأعمالهم وعائلاتهم، ويقلّ الوقت الذي يقضونه مع أصدقائهم. وقد تختلف الصداقات كثيرًا باختلاف مراحل العمر؛ فالأطفال الصغار غالبًا ما يختارون أصدقاءهم بدافع السهولة والقرب، كأن يذهبوا إلى المدرسة نفسها، أو يسكنوا بالقرب من بعضهم، أو يكون آباؤهم أصدقاء. وكلّما كبرنا، ارتبطت الصداقات أكثر بتشابه الاهتمامات والآراء.",
+      "terms": [
+        "convenience",
+        "be connected with"
+      ]
+    },
+    "one thing is definitely true though, it doesn't matter how old we are or how many friends we have on social media, friendship is good for our health. people who spend time with friends have fewer mental health problems and are generally happier and in a better physical state of health than people who spend their free time alone.": {
+      "src": "One thing is definitely true though, it doesn't matter how old we are or how many friends we have on social media, friendship is good for our health. People who spend time with friends have fewer mental health problems and are generally happier and in a better physical state of health than people who spend their free time alone.",
+      "fa": "اما یک چیز قطعاً درست است: فرقی نمی‌کند چند سال داریم یا چند دوست در شبکه‌های اجتماعی داریم؛ دوستی برای سلامتی‌مان مفید است. کسانی که با دوستانشان وقت می‌گذرانند، مشکلاتِ سلامتِ روانِ کمتری دارند و در مجموع شادتر و از نظرِ جسمی سالم‌تر از کسانی هستند که اوقاتِ فراغتشان را تنها می‌گذرانند.",
+      "ar": "لكنّ أمرًا واحدًا صحيحٌ بالتأكيد: مهما كان عمرنا أو عدد أصدقائنا على وسائل التواصل الاجتماعي، فإنّ الصداقة مفيدةٌ لصحّتنا. فالذين يقضون وقتًا مع أصدقائهم يعانون مشكلاتٍ أقلّ في الصحّة النفسية، وهم عمومًا أكثر سعادةً وفي حالٍ صحّية بدنية أفضل من الذين يقضون أوقات فراغهم بمفردهم.",
+      "terms": [
+        "social media",
+        "mental health",
+        "generally"
+      ]
+    },
+    "answer the questions below. choose no more than three words from the passage foreach answer.": {
+      "src": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage foreach answer.",
+      "fa": "به سؤال‌های زیر پاسخ دهید. برای هر پاسخ حداکثر سه کلمه از متن انتخاب کنید.",
+      "ar": "أجِب عن الأسئلة أدناه. اختر لكلّ إجابة ما لا يزيد على ثلاث كلمات من النص.",
+      "terms": [
+        "no more than",
+        "passage"
+      ]
+    },
+    "what has enabled people to have more friends than in the past, according to some people?": {
+      "src": "What has enabled people to have more friends than in the past, according to some people?",
+      "fa": "به گفته‌ی برخی، چه چیزی باعث شده آدم‌ها نسبت به گذشته دوستانِ بیشتری داشته باشند؟",
+      "ar": "بحسب بعض الناس، ما الذي مكّن الناس من امتلاك أصدقاء أكثر ممّا كان في الماضي؟",
+      "terms": [
+        "enable",
+        "according to"
+      ]
+    },
+    "social media": {
+      "src": "{blk}social media{/blk}",
+      "fa": "شبکه‌های اجتماعی",
+      "ar": "وسائل التواصل الاجتماعي",
+      "terms": [
+        "social media"
+      ]
+    },
+    "what phrase does the writer use to describe people who don't stay in the same place?": {
+      "src": "What phrase does the writer use to describe people who don't stay in the same place?",
+      "fa": "نویسنده برای توصیفِ کسانی که در یک جا نمی‌مانند، از چه عبارتی استفاده می‌کند؟",
+      "ar": "ما العبارة التي يستخدمها الكاتب لوصف الأشخاص الذين لا يبقون في المكان نفسه؟",
+      "terms": []
+    },
+    "geographically mobile": {
+      "src": "{blk}geographically mobile{/blk}",
+      "fa": "دارای جابه‌جاییِ جغرافیایی",
+      "ar": "متنقِّلون جغرافيًّا",
+      "terms": [
+        "geographically mobile"
+      ]
+    },
+    "what work-related problem do people have that makes them less likely to form friendships?": {
+      "src": "What work-related problem do people have that makes them less likely to form friendships?",
+      "fa": "مردم با چه مشکلِ کاری‌ای روبه‌رو هستند که احتمالِ دوست شدنشان را کمتر می‌کند؟",
+      "ar": "ما المشكلة المتعلّقة بالعمل التي يواجهها الناس وتجعلهم أقلّ ميلًا إلى تكوين صداقات؟",
+      "terms": [
+        "work-related",
+        "be likely to",
+        "form friendships"
+      ]
+    },
+    "less security": {
+      "src": "{blk}less security{/blk}",
+      "fa": "امنیتِ (شغلیِ) کمتر",
+      "ar": "أمانٌ (وظيفي) أقلّ",
+      "terms": [
+        "security"
+      ]
+    },
+    "what frequently influences the friendships of young children?": {
+      "src": "What frequently influences the friendships of young children?",
+      "fa": "چه چیزی اغلب بر دوستی‌های کودکانِ خردسال تأثیر می‌گذارد؟",
+      "ar": "ما الذي يؤثّر كثيرًا في صداقات الأطفال الصغار؟",
+      "terms": [
+        "influence"
+      ]
+    },
+    "convenience": {
+      "src": "{blk}convenience{/blk}",
+      "fa": "راحتی و در دسترس بودن",
+      "ar": "السهولة والقرب",
+      "terms": [
+        "convenience"
+      ]
+    },
+    "what are people with friends less likely to suffer from?": {
+      "src": "What are people with friends less likely to suffer from?",
+      "fa": "کسانی که دوست دارند، کمتر احتمال دارد از چه چیزی رنج ببرند؟",
+      "ar": "ممّا يقلّ احتمال أن يعاني أصحاب الأصدقاء؟",
+      "terms": [
+        "be likely to",
+        "suffer from"
+      ]
+    },
+    "mental health problems": {
+      "src": "{blk}mental health problems{/blk}",
+      "fa": "مشکلاتِ سلامتِ روان",
+      "ar": "مشكلات الصحّة النفسية",
+      "terms": [
+        "mental health"
+      ]
+    }
+  }
+}
