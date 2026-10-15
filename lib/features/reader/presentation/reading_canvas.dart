@@ -20,6 +20,7 @@ import 'package:ielts_assistant/features/reader/presentation/rendering/interacti
 export 'package:ielts_assistant/features/reader/presentation/rendering/translatable_content.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
+import 'package:ielts_assistant/features/study/domain/study_item.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
@@ -2387,9 +2388,27 @@ Widget _buildParagraph(
 
   flushText();
 
+  // 🌟 ST-4: پاراگرافِ متن‌دارِ خودِ صفحه (نه داخلِ پاسخ‌ها) را می‌شود به مرور افزود.
+  // پاراگراف‌های داخلِ جدول اندیسِ پاراگرافِ جدول را دارند (همان جایی که «رفتن به
+  // متن» به آن می‌رود).
+  StudyPassageRef? studyRef;
+  if (activeBook != null && audioPageNumber != null && audioParaIndex != null) {
+    final String? excerpt = StudyPassageRef.excerptOf(para);
+    if (excerpt != null) {
+      studyRef = StudyPassageRef(
+        bookId: activeBook.id,
+        bookTitle: activeBook.title,
+        pageNumber: audioPageNumber,
+        paraIndex: audioParaIndex,
+        excerpt: excerpt,
+      );
+    }
+  }
+
   Widget paragraphContent = TranslatableContentWrapper(
     translationFa: para.translationFa,
     translationAr: para.translationAr,
+    study: studyRef,
     originalContent: Directionality(
       textDirection: para.direction == "RTL"
           ? TextDirection.rtl

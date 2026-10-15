@@ -6,6 +6,7 @@ import 'package:ielts_assistant/features/settings/providers/answer_display_provi
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/interactive_color.dart';
+import 'package:ielts_assistant/features/study/presentation/study_controls.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart'; // برای دسترسی به TranslatableContentWrapper
 
 // 🌟 رفع مشکل اسکرول نادقیق جستجو:
@@ -752,7 +753,8 @@ class TextRenderEngine {
         final String meaningLabel = ar ? 'المعنى' : 'معنی';
         final String explainLabel = ar ? 'الشرح' : 'توضیح';
 
-        return Padding(
+        // اسکرول‌پذیر: با نوارِ «مرور» روی گوشیِ افقی ممکن است جا کم بیاید.
+        return SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Directionality(
             textDirection: TextDirection.rtl,
@@ -798,7 +800,10 @@ class TextRenderEngine {
                   "$explainLabel: $explanation",
                   style: const TextStyle(fontSize: 14),
                 ),
-                const SizedBox(height: 24),
+                // 🌟 ST-3: افزودن به واژه‌های مرور (اهمیت، وضعیت، یادداشت).
+                const SizedBox(height: 16),
+                WordStudyBar(word: word),
+                const SizedBox(height: 16),
               ],
             ),
           ),

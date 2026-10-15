@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
+import 'package:ielts_assistant/features/study/presentation/study_review_screen.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_ui.dart';
@@ -57,6 +58,26 @@ class AppDrawer extends ConsumerWidget {
             ),
             trailing: const Icon(Icons.swap_horiz),
             onTap: () => ref.read(languageProvider.notifier).toggle(),
+          ),
+          const Divider(height: 1),
+
+          // 🌟 ST-5: «مرورِ من» برای همه‌ی کتاب‌ها (رفتن به متن فقط از داخلِ خودِ کتاب).
+          ListTile(
+            leading: const Icon(Icons.bookmarks_rounded),
+            title: const Text("مرورِ من"),
+            subtitle: const Text(
+              "واژه‌ها و تمرین‌هایی که برای مرور نگه داشته‌اید",
+              style: TextStyle(fontSize: 12),
+            ),
+            onTap: () {
+              final NavigatorState navigator = Navigator.of(context);
+              navigator.pop();
+              navigator.push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const StudyReviewScreen(),
+                ),
+              );
+            },
           ),
           const Divider(height: 1),
 

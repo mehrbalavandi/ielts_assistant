@@ -6,6 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
+import 'package:ielts_assistant/features/study/domain/study_item.dart';
+import 'package:ielts_assistant/features/study/presentation/study_controls.dart';
+import 'package:ielts_assistant/features/study/providers/study_provider.dart';
 
 // 🌟 قانون‌های TR-1 تا TR-4 (RULES-rendering.md): ترجمه‌ی پاراگراف با لمسِ طولانی.
 //
@@ -17,6 +20,9 @@ import 'package:ielts_assistant/features/settings/providers/language_provider.da
 //   در بنر و مودال اگر پاراگراف زیرِ ظرف بماند، صفحه کمی جابه‌جا می‌شود.
 // - **داخلِ ظرفِ پاسخ (TR-2):** ظرف روی ظرف باز نمی‌شود؛ ترجمه همان‌جا زیرِ متن
 //   باز و بسته می‌شود (با لمسِ طولانی یا دکمه‌ی کوچکِ ترجمه).
+// - **مرورِ من (ST-4):** همان ظرفِ لمسِ طولانی نوارِ «افزودن به مرور» (اهمیت،
+//   یادداشت) را هم دارد؛ پس پاراگرافِ بی‌ترجمه هم لمسِ طولانی دارد. پاراگرافِ
+//   ذخیره‌شده نوارِ باریکی به رنگِ اهمیتش در سمتِ راست می‌گیرد.
 
 /// رنگِ هایلایت/خطِ دورِ ترجمه (همان رنگ‌های قبلیِ کادرِ ترجمه).
 Color translationAccent(bool isDark) =>
@@ -43,6 +49,10 @@ class TranslatableContentWrapper extends ConsumerStatefulWidget {
   /// فقط داخلِ ظرفِ پاسخ معنا دارد (TR-2).
   final TranslationToggle toggle;
 
+  /// ST-4: این پاراگرافِ صفحه را می‌شود به مرور افزود (null داخلِ ظرف‌ها،
+  /// اسکریپتِ صوتی و پاراگراف‌های بی‌متن).
+  final StudyPassageRef? study;
+
   const TranslatableContentWrapper({
     super.key,
     required this.originalContent,
@@ -50,6 +60,7 @@ class TranslatableContentWrapper extends ConsumerStatefulWidget {
     this.translationAr,
     this.isDarkMode = false,
     this.toggle = TranslationToggle.none,
+    this.study,
   });
 
   /// آیا برای این دو ترجمه چیزی برای نمایش هست؟
@@ -84,18 +95,24 @@ class _TranslatableContentWrapperState
 
   @override
   Widget build(BuildContext context) {
-    if (!TranslatableContentWrapper.hasAny(
+    final bool hasTranslation = TranslatableContentWrapper.hasAny(
       widget.translationFa,
       widget.translationAr,
-    )) {
-      return widget.originalContent;
-    }
-    final String translation = _translation();
+    );
+    final bool inside = AnswerContainerScope.isInside(context);
+    final StudyPassageRef? study = inside ? null : widget.study;
+    if (!hasTranslation && study == null) return widget.originalContent;
+
+    final String translation = hasTranslation ? _translation() : '';
     final Color accent = translationAccent(widget.isDarkMode);
 
-    if (AnswerContainerScope.isInside(context)) {
-      return _buildInline(translation, accent);
-    }
+    if (inside) return _buildInline(translation, accent);
+
+    // ST-4: پاراگرافِ ذخیره‌شده — نوارِ رنگِ اهمیت در سمتِ راست.
+    final String? studyId = study?.id;
+    final StudyImportance? saved = studyId == null
+        ? null
+        : ref.watch(studyProvider.select((m) => m[studyId]?.importance));
 
     // TR-1: روی صفحه — لنگرِ پاپ‌آپ همان پاراگراف است.
     return AnswerPopupAnchor(
@@ -113,6 +130,7 @@ class _TranslatableContentWrapperState
                 _SourceHighlight(
                   active: popup.isOpen || _sheetOpen,
                   color: accent,
+                  savedColor: saved?.color,
                   child: widget.originalContent,
                 ),
               ],
@@ -120,6 +138,45 @@ class _TranslatableContentWrapperState
           ),
         );
       },
+    );
+  }
+
+  /// بدنه‌ی ظرفِ لمسِ طولانی: ترجمه (اگر هست) و نوارِ «مرورِ من» (اگر این پاراگراف
+  /// قابلِ ذخیره است). [card]: بنر/مودال (کادرِ ترجمه)؛ وگرنه پاپ‌آپ (متنِ ساده).
+  Widget _body(String translation, Color accent, {required bool card}) {
+    final bool isDark = widget.isDarkMode;
+    final StudyPassageRef? study = widget.study;
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (translation.isNotEmpty)
+            card
+                ? _TranslationCard(
+                    text: translation,
+                    isDark: isDark,
+                    accent: accent,
+                  )
+                : _TranslationText(text: translation, isDark: isDark),
+          if (study != null) ...[
+            if (translation.isNotEmpty)
+              card
+                  ? const SizedBox(height: 8)
+                  : Divider(
+                      height: 14,
+                      color: isDark ? Colors.white24 : Colors.black12,
+                    ),
+            PassageStudyBar(
+              passage: study,
+              translationFa: widget.translationFa,
+              translationAr: widget.translationAr,
+              isDark: isDark,
+            ),
+          ],
+        ],
+      ),
     );
   }
 
@@ -151,7 +208,7 @@ class _TranslatableContentWrapperState
           ),
         ];
         popup.toggle(
-          body: (_) => _TranslationText(text: translation, isDark: isDark),
+          body: (_) => _body(translation, accent, card: false),
           isDarkTheme: isDark,
           direction: settings.popupDirection,
           single: settings.singlePopup,
@@ -167,11 +224,7 @@ class _TranslatableContentWrapperState
           isDarkTheme: isDark,
           closePopups: settings.singlePopup,
           barrierColor: Colors.black12,
-          body: (_) => _TranslationCard(
-            text: translation,
-            isDark: isDark,
-            accent: accent,
-          ),
+          body: (_) => _body(translation, accent, card: true),
           onCardBottom: _revealBelowBanner,
         ).whenComplete(_onSheetClosed);
       case AnswerDisplayMode.modal:
@@ -184,11 +237,7 @@ class _TranslatableContentWrapperState
           closePopups: settings.singlePopup,
           initialSize: sheetSize,
           barrierColor: Colors.black12,
-          body: (_) => _TranslationCard(
-            text: translation,
-            isDark: isDark,
-            accent: accent,
-          ),
+          body: (_) => _body(translation, accent, card: true),
         ).whenComplete(_onSheetClosed);
         final double screenH = MediaQuery.sizeOf(context).height;
         SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -248,6 +297,7 @@ class _TranslatableContentWrapperState
   // ───────── داخلِ ظرفِ پاسخ: درجا ─────────
 
   Widget _buildInline(String translation, Color accent) {
+    if (translation.isEmpty) return widget.originalContent;
     void flip() => setState(() => _inlineOpen = !_inlineOpen);
 
     final Widget source = _SourceHighlight(
@@ -320,12 +370,16 @@ class _SourceHighlight extends StatelessWidget {
     required this.color,
     required this.child,
     this.showBar = true,
+    this.savedColor,
   });
 
   final bool active;
   final Color color;
   final Widget child;
   final bool showBar;
+
+  /// ST-4: پاراگرافِ «در مرور» — نوارِ همیشگی در سمتِ راست، به رنگِ اهمیت.
+  final Color? savedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -361,6 +415,21 @@ class _SourceHighlight extends StatelessWidget {
                     color: color,
                     borderRadius: BorderRadius.circular(2),
                   ),
+                ),
+              ),
+            ),
+          ),
+        if (savedColor != null)
+          Positioned(
+            right: -6,
+            top: 0,
+            bottom: 0,
+            child: IgnorePointer(
+              child: Container(
+                width: 3,
+                decoration: BoxDecoration(
+                  color: savedColor,
+                  borderRadius: BorderRadius.circular(2),
                 ),
               ),
             ),

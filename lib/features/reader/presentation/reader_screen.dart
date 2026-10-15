@@ -6,6 +6,7 @@ import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart
 import 'package:ielts_assistant/features/audio/presentation/audio_player_bar.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/search/presentation/book_search_delegate.dart';
+import 'package:ielts_assistant/features/study/presentation/study_review_screen.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   const ReaderScreen({super.key});
@@ -115,6 +116,14 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
               icon: const Icon(Icons.queue_music_rounded),
               tooltip: 'پلی‌لیستِ کتاب',
               onPressed: () => showBookAudioPlaylist(context, pagedBookStore),
+            ),
+            // 🌟 ST-5: «مرورِ من» — واژه‌ها و تمرین‌های ذخیره‌شده؛ از این‌جا «رفتن به
+            // متن» برای همین کتاب فعال است.
+            IconButton(
+              icon: const Icon(Icons.bookmarks_rounded),
+              tooltip: 'مرورِ من',
+              onPressed: () =>
+                  openStudyReview(context, currentBookId: activeBook.id),
             ),
             // 🌟 دکمه‌ی تعویضِ زبانِ محتوا از این‌جا به دراور منتقل شد
             // (shared/widgets/app_drawer.dart) — کارِ همیشگی‌ای نیست که
