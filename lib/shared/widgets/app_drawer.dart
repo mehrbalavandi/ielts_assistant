@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
 import 'package:ielts_assistant/features/study/presentation/study_review_screen.dart';
+import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
+import 'package:ielts_assistant/features/backup/backup_service.dart';
+import 'package:ielts_assistant/features/shop/presentation/my_orders_screen.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_ui.dart';
@@ -80,6 +83,55 @@ class AppDrawer extends ConsumerWidget {
             },
           ),
           const Divider(height: 1),
+
+          // 🌟 PAY-3: وضعیتِ خریدها (به‌ویژه کارت‌به‌کارت‌های منتظرِ بررسی).
+          if (ref.watch(authProvider) == AuthState.authenticated) ...[
+            ListTile(
+              leading: const Icon(Icons.receipt_long_rounded),
+              title: const Text("سفارش‌های من"),
+              onTap: () {
+                final NavigatorState navigator = Navigator.of(context);
+                navigator.pop();
+                navigator.push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const MyOrdersScreen(),
+                  ),
+                );
+              },
+            ),
+            // 🌟 BK-1..3: پشتیبانِ سرور — آخرین زمان و «الان».
+            Builder(
+              builder: (context) {
+                final BackupState b = ref.watch(backupProvider);
+                final DateTime? at = b.lastSyncAt;
+                final String when = at == null
+                    ? 'هنوز پشتیبان‌گیری نشده'
+                    : 'آخرین بار: ${at.hour.toString().padLeft(2, '0')}:${at.minute.toString().padLeft(2, '0')} — ${at.year}/${at.month}/${at.day}';
+                return ListTile(
+                  leading: b.syncing
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Icon(
+                          b.lastError == null
+                              ? Icons.cloud_done_rounded
+                              : Icons.cloud_off_rounded,
+                        ),
+                  title: const Text("پشتیبان‌گیریِ الان"),
+                  subtitle: Text(
+                    b.lastError ?? "مرورِ من و تنظیمات روی سرور — $when",
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  onTap: b.syncing
+                      ? null
+                      : () => ref.read(backupProvider.notifier).syncNow(),
+                );
+              },
+            ),
+            const Divider(height: 1),
+          ],
 
           // 🌟 U-4: به‌روزرسانیِ برنامه از سایت. با نسخه‌ی تازه: علامت و پنجره‌ی
           // دریافت؛ بدونِ آن: بررسیِ دستی و نمایشِ نسخه‌ی فعلی.

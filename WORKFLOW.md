@@ -31,8 +31,11 @@ assets/data/Mindset 01/
    ```bat
    flutter clean
    flutter pub get
+   dart run build_runner build -d
    flutter analyze
    ```
+   `build_runner` فایل‌های تولیدی (`*.g.dart`: پایگاهِ داده‌ی drift و providerهای
+   riverpod) را می‌سازد؛ بعد از هر تغییر در جدول‌های `lib/core/db/` لازم است.
 3. **C#:** CustomLayoutGenerator را در Visual Studio باز کنید و Build بزنید.
 4. **سایت:** `composer install`، بعد `php artisan migrate`. اگر کامپیوتر تازه است، کلِ
    `SETUP-backend.md`.

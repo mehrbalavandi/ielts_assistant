@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
+import 'package:ielts_assistant/features/backup/backup_service.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
@@ -71,6 +73,45 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
           appBar: AppBar(
             title: const Text('مرورِ من'),
             actions: [
+              // 🌟 BK-1: پشتیبان‌گیریِ دستی (فقط با حسابِ واردشده).
+              if (ref.watch(authProvider) == AuthState.authenticated)
+                Builder(
+                  builder: (context) {
+                    final BackupState b = ref.watch(backupProvider);
+                    return IconButton(
+                      tooltip: b.lastError ?? 'پشتیبان‌گیری روی سرور',
+                      onPressed: b.syncing
+                          ? null
+                          : () async {
+                              final bool ok = await ref
+                                  .read(backupProvider.notifier)
+                                  .syncNow();
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    ok
+                                        ? '«مرورِ من» روی سرور ذخیره شد.'
+                                        : (ref.read(backupProvider).lastError ??
+                                              'پشتیبان‌گیری ناموفق بود.'),
+                                  ),
+                                ),
+                              );
+                            },
+                      icon: b.syncing
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : Icon(
+                              b.lastError == null
+                                  ? Icons.cloud_done_outlined
+                                  : Icons.cloud_off_rounded,
+                            ),
+                    );
+                  },
+                ),
               PopupMenuButton<_Sort>(
                 tooltip: 'مرتب‌سازی',
                 icon: const Icon(Icons.sort_rounded),

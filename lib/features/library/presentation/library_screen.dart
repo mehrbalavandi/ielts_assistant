@@ -1,13 +1,13 @@
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/auth/presentation/login_screen.dart';
+import 'package:ielts_assistant/features/backup/backup_service.dart';
+import 'package:ielts_assistant/features/shop/presentation/purchase_sheet.dart';
 import 'package:ielts_assistant/features/reader/presentation/reader_screen.dart';
 import 'package:ielts_assistant/shared/widgets/app_drawer.dart';
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:ielts_assistant/features/update/app_update_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_ui.dart';
 
@@ -38,6 +38,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     if (widget.categoryKey == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) checkForAppUpdateOnStart(context, ref);
+        // 🌟 BK-1..3: با هر بازشدنِ اپ — ثبتِ دستگاه و پشتیبانِ «مرورِ من»/تنظیمات.
+        if (mounted) ref.read(backupProvider.notifier).onAppStart();
       });
     }
 
@@ -61,41 +63,6 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     if (state == AppLifecycleState.resumed && _awaitingPurchaseReturn) {
       _awaitingPurchaseReturn = false;
       ref.read(booksProvider.notifier).fetchBooks();
-    }
-  }
-
-  // 🌟 فقط برای حالت دیباگ: هدایت به سایتِ خرید (همان base_url ذخیره‌شده در
-  // StorageService) در مرورگرِ بیرونی؛ برگشت از آن توسط didChangeAppLifecycleState
-  // بالا رصد و باعثِ رفرشِ ویترین می‌شود.
-  Future<void> _launchPurchasePage(BuildContext context) async {
-    final baseUrl = StorageService.getBaseUrl();
-    if (baseUrl == null || baseUrl.isEmpty) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("آدرس سایت (base_url) هنوز تنظیم نشده است."),
-        ),
-      );
-      return;
-    }
-
-    final uri = Uri.tryParse(baseUrl);
-    if (uri == null) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("آدرس سایت نامعتبر است: $baseUrl")),
-      );
-      return;
-    }
-
-    _awaitingPurchaseReturn = true;
-    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
-    if (!launched) {
-      _awaitingPurchaseReturn = false;
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("امکان باز کردن $baseUrl وجود نداشت.")),
-      );
     }
   }
 
@@ -844,14 +811,14 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                 context,
                 MaterialPageRoute(builder: (_) => const LoginScreen()),
               );
-            } else if (kDebugMode) {
-              // 🌟 فقط برای حالت دیباگ: هدایت به سایتِ خرید + رفرشِ خودکارِ
-              // ویترین بعدِ برگشت (بالاتر، didChangeAppLifecycleState)
-              _launchPurchasePage(context);
             } else {
-              _launchPurchasePage(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("در حال انتقال به صفحه خرید...")),
+              // 🌟 PAY-2/3: خرید از داخلِ اپ — درگاه (در مرورگر) یا کارت‌به‌کارت.
+              // با برگشت از مرورگر ویترین تازه می‌شود (didChangeAppLifecycleState).
+              showPurchaseSheet(
+                context,
+                ref,
+                book,
+                onLeftForPayment: () => _awaitingPurchaseReturn = true,
               );
             }
           },

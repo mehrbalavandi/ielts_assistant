@@ -19,6 +19,19 @@ class StorageService {
 
   static Future<void> removeToken() async {
     await _box.remove(_tokenKey);
+    await _box.remove(_userKey);
+  }
+
+  // --- 🌟 AUTH-1: کاربرِ واردشده (id، نام، موبایل، …) ---
+  static const String _userKey = 'auth_user';
+
+  static Map<String, dynamic>? getUser() {
+    final Object? v = _box.read(_userKey);
+    return v is Map ? Map<String, dynamic>.from(v) : null;
+  }
+
+  static Future<void> saveUser(Map<String, dynamic> user) async {
+    await _box.write(_userKey, user);
   }
 
   // --- مدیریت آدرس سرور ---
