@@ -1,9 +1,17 @@
 {
-  "generatedAt": "1405-07-23 21:53",
-  "total": 5879,
-  "translated": 1950,
-  "pendingUnique": 3489,
+  "generatedAt": "1405-07-23 22:37",
+  "total": 5860,
+  "translated": 1949,
+  "pendingUnique": 3478,
   "items": [
+    {
+      "page": 14,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "SPEAKING",
+      "where": "table",
+      "key": "her parents and 1 older brother",
+      "text": "Her parents and 1 older brother"
+    },
     {
       "page": 37,
       "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
@@ -1481,54 +1489,6 @@
       "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
       "section": "WRITING",
       "where": "table",
-      "key": "not in employment, education or training",
-      "text": "Not in employment, education or training"
-    },
-    {
-      "page": 42,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "in employment",
-      "text": "In employment"
-    },
-    {
-      "page": 42,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "other education and training",
-      "text": "Other education and training"
-    },
-    {
-      "page": 42,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "employer-funded training",
-      "text": "Employer-funded training"
-    },
-    {
-      "page": 42,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "work-based learning",
-      "text": "Work-based learning"
-    },
-    {
-      "page": 42,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "full-time education",
-      "text": "Full-time education"
-    },
-    {
-      "page": 42,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
       "key": "new entrants to primary teacher training programmes 2007 - present",
       "text": "New entrants to primary teacher training programmes 2007 - present"
     },
@@ -2451,54 +2411,6 @@
       "where": "table",
       "key": "literacy rate by region and gender 2011",
       "text": "Literacy rate by region and gender 2011"
-    },
-    {
-      "page": 45,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "central asia",
-      "text": "Central Asia"
-    },
-    {
-      "page": 45,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "central/eastern europe",
-      "text": "Central/Eastern Europe"
-    },
-    {
-      "page": 45,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "east asia/pacific",
-      "text": "East Asia/Pacific"
-    },
-    {
-      "page": 45,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "latin america/caribbean",
-      "text": "Latin America/Caribbean"
-    },
-    {
-      "page": 45,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "arab states",
-      "text": "Arab states"
-    },
-    {
-      "page": 45,
-      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "sub-saharan africa",
-      "text": "Sub-Saharan Africa"
     },
     {
       "page": 45,
@@ -3746,7 +3658,7 @@
       "section": "LISTENING",
       "where": "table",
       "key": "the title of the course the student wants to do is food photography.",
-      "text": "The title of the course the student wants to do is Food Photography."
+      "text": "The title of the course the student wants to do is {blk}Food Photography{/blk}."
     },
     {
       "page": 49,
