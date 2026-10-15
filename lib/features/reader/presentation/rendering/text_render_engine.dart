@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,6 +45,14 @@ class TextRenderEngine {
     int? activeOccurrence,
     String? translationFa, // 🌟 اضافه شد
     String? translationAr, // 🌟 اضافه شد
+    // 🌟 TR-5: ترجمه‌ی پاسخِ هر جای خالیِ پاراگراف (G-8ِ اکسترکتور) + تعدادِ کلِ
+    // جای‌خالی‌های پاراگراف و اندیسِ اولین جای‌خالیِ همین متن. وقتی paragraphBlankCount
+    // داده شده، آیکونِ چشم فقط ترجمه‌ی پاسخِ خودش را می‌گیرد؛ ترجمه‌ی کلِ جمله فقط اگر
+    // پاراگراف یک جای خالی دارد (وگرنه جواب‌های دیگر را لو می‌داد).
+    List<String>? blanksFa,
+    List<String>? blanksAr,
+    int? paragraphBlankCount,
+    int blankIndexStart = 0,
     List<SpanData>? innerSpans,
     // 🌟 محتوای غنیِ جای‌خالی (جدول/عکس/…) — تا مودال با رندرِ صفحه ساخته شود.
     List<ParagraphData>? hiddenParagraphs,
@@ -82,8 +92,20 @@ class TextRenderEngine {
     final RegExp blankRegex = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
     final matches = blankRegex.allMatches(content);
     int currentIndex = 0;
+    int blankIndex = blankIndexStart;
+
+    /// TR-5: ترجمه‌ای که پنجره‌ی همین جای خالی نشان می‌دهد.
+    String? blankTranslation(List<String>? perBlank, String? whole, int i) {
+      if (paragraphBlankCount == null) return whole; // مسیرهای قدیمی/داخلِ پاسخ
+      if (perBlank != null && i < perBlank.length) {
+        final String t = perBlank[i].trim();
+        return t.isEmpty ? null : t;
+      }
+      return paragraphBlankCount <= 1 ? whole : null;
+    }
 
     for (final match in matches) {
+      final int thisBlank = blankIndex++;
       if (match.start > currentIndex) {
         var slice = localHighlightMap?.sublist(currentIndex, match.start);
         spans.addAll(
@@ -132,8 +154,8 @@ class TextRenderEngine {
             interactives: interactives,
             blankMap: blankMapSlice, // 🌟 ارسال برش دقیق به دکمه
             activeOcc: activeOccurrence,
-            translationFa: translationFa,
-            translationAr: translationAr,
+            translationFa: blankTranslation(blanksFa, translationFa, thisBlank),
+            translationAr: blankTranslation(blanksAr, translationAr, thisBlank),
             innerSpans: innerSpans,
             hiddenParagraphs: hiddenParagraphs,
             // TR-2: کلماتِ دیکشنری داخلِ پاسخ با همان جستجوی سریعِ صفحه
@@ -1561,6 +1583,25 @@ class InteractiveBlankWord extends StatelessWidget {
       // TR-2: دکمه‌ی ترجمه کنارِ متن
       if (TranslatableContentWrapper.hasAny(translationFa, translationAr)) {
         popupWidth += kTranslateButtonSideWidth;
+        // 🐞 TR-5: حباب آن‌قدر پهن باشد که ترجمه‌ی بازشده کلمه‌به‌کلمه زیرِ هم نیفتد
+        // (ستونِ باریک): عرضِ یک‌خطیِ ترجمه + کادرش، حداکثر ۲۸۰ (و ۸۵٪ِ صفحه).
+        final String longer = [translationFa ?? '', translationAr ?? '']
+            .reduce((a, b) => a.length >= b.length ? a : b);
+        final trp = TextPainter(
+          text: TextSpan(
+            text: longer,
+            style: const TextStyle(fontFamily: 'YekanBakh', fontSize: 14),
+          ),
+          textDirection: TextDirection.rtl,
+          textScaler: MediaQuery.textScalerOf(context),
+          maxLines: 1,
+        )..layout();
+        final double cap = math.min(
+          280.0,
+          MediaQuery.sizeOf(context).width * 0.85,
+        );
+        popupWidth = math.max(popupWidth, math.min(trp.width + 24 + 3 + 28, cap));
+        trp.dispose();
       }
       tp.dispose();
     }

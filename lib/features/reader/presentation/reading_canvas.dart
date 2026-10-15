@@ -2167,9 +2167,19 @@ Widget _buildParagraph(
     );
   }
 
+  // 🌟 TR-5: شمارشِ جای‌خالی‌های این پاراگراف (به ترتیبِ متن)، تا هر آیکونِ چشم ترجمه‌ی
+  // پاسخِ خودش را بگیرد (blanksFa/Ar)، نه ترجمه‌ی کلِ جمله.
+  final RegExp blankPattern = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
+  final int paragraphBlankCount = para.spans
+      .where((sp) => sp.type == "text")
+      .fold(0, (n, sp) => n + blankPattern.allMatches(sp.content).length);
+  int blanksBefore = 0;
+
   for (var span in para.spans) {
     if (span.type == "text") {
       String content = span.content; // ✅ هندل کردن حالت Null
+      final int blankIndexStart = blanksBefore;
+      blanksBefore += blankPattern.allMatches(content).length;
 
       List<int>? localMap;
       if (rootHighlightMap != null &&
@@ -2198,6 +2208,8 @@ Widget _buildParagraph(
           audioParaIndex: audioParaIndex, // 🐞 اضافه شد
           keyClaim: keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
           surfaceColor: surfaceColor, // W-2
+          paragraphBlankCount: paragraphBlankCount, // TR-5
+          blankIndexStart: blankIndexStart, // TR-5
         ),
       );
       mapOffset.value += content.length;
@@ -5743,6 +5755,9 @@ List<InlineSpan> _buildStyledInteractiveText(
   KeyClaim? keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
   // W-2: پس‌زمینه‌ی ظرفِ این پاراگراف (سلول/جدول)؛ null = صفحه‌ی سفید.
   Color? surfaceColor,
+  // TR-5: تعدادِ جای‌خالی‌های کلِ پاراگراف و اندیسِ اولین جای‌خالیِ همین اسپن.
+  int? paragraphBlankCount,
+  int blankIndexStart = 0,
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -5895,6 +5910,11 @@ List<InlineSpan> _buildStyledInteractiveText(
       activeOccurrence: activeOccurrence,
       translationFa: para.translationFa, // 🌟 حفظ پشتیبانی از ترجمه‌های دوزبانه
       translationAr: para.translationAr,
+      // TR-5: ترجمه‌ی پاسخِ هر جای خالی
+      blanksFa: para.blanksFa,
+      blanksAr: para.blanksAr,
+      paragraphBlankCount: paragraphBlankCount,
+      blankIndexStart: blankIndexStart,
       innerSpans: span.innerSpans,
       hiddenParagraphs: span.hiddenParagraphs, // 🌟 جدول/عکسِ داخلِ جوابِ مخفی
       // 🐞 مارکرهای جدید (s/sub/sup): خودِ مارکرهای این اسپن هم رد می‌شوند تا

@@ -393,6 +393,12 @@
       "ar": "(يكون له) تأثير: g",
       "terms": [
         "influence"
+      ],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
       ]
     },
     "stressed a": {
@@ -1322,7 +1328,13 @@
       "src": "Stringhopper press {blk}B{/blk}",
       "fa": "پرسِ استرینگ‌هاپر: B",
       "ar": "مكبس السترينغ هوبرز: B",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "it has two parts which are different in shape but the same size. it is made of a light material such as plastic.": {
       "src": "It has two parts which are different in shape but the same size. It is made of a light material such as plastic.",
@@ -1350,7 +1362,13 @@
       "src": "Stringhopper mats {blk}A{/blk}",
       "fa": "حصیرهای استرینگ‌هاپر: A",
       "ar": "حصائر السترينغ هوبرز: A",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "these are round shallow baskets made of thin pieces of wood. the wood is in a criss-cross pattern to form large holes.": {
       "src": "These are round shallow baskets made of thin pieces of wood. The wood is in a criss-cross pattern to form large holes.",
@@ -1379,7 +1397,13 @@
       "src": "Stringhopper mats {blk}C{/blk}",
       "fa": "حصیرهای استرینگ‌هاپر: C",
       "ar": "حصائر السترينغ هوبرز: C",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "it is made of metal and the top and bottom are the same size and shape.": {
       "src": "It is made of metal and the top and bottom are the same size and shape.",
@@ -1517,7 +1541,33 @@
       "src": "1: {blk}c{/blk} 2: {blk}b{/blk} 3: {blk}f{/blk} 4: {blk}a{/blk} 5: {blk}d{/blk} 6: {blk}e{/blk}",
       "fa": "1: c  2: b  3: f  4: a  5: d  6: e",
       "ar": "1: c  2: b  3: f  4: a  5: d  6: e",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "tip 04": {
       "src": "TIP 04",
@@ -1608,25 +1658,49 @@
       "src": "Tea leaves {blk}are picked{/blk}(pick) by hand.",
       "fa": "برگ‌های چای با دست چیده می‌شوند (are picked).",
       "ar": "تُقطف أوراق الشاي باليد (are picked).",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "چیده می‌شوند",
+          "ar": "تُقطف"
+        }
+      ]
     },
     "only the best leaves are used(use).": {
       "src": "Only the best leaves {blk}are used{/blk}(use).",
       "fa": "فقط از بهترین برگ‌ها استفاده می‌شود (are used).",
       "ar": "لا تُستخدم إلا أفضل الأوراق (are used).",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "استفاده می‌شوند",
+          "ar": "تُستخدم"
+        }
+      ]
     },
     "a lot of water is needed(need) to grow tea plants successfully.": {
       "src": "A lot of water {blk}is needed{/blk}(need) to grow tea plants successfully.",
       "fa": "برای پرورشِ موفقِ بوته‌های چای آبِ زیادی لازم است (is needed).",
       "ar": "يلزم الكثير من الماء (is needed) لزراعة شجيرات الشاي بنجاح.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "لازم است",
+          "ar": "يُحتاج إليه"
+        }
+      ]
     },
     "a lot of tea is grown(grow) in china and india.": {
       "src": "A lot of tea {blk}is grown{/blk}(grow) in China and India.",
       "fa": "مقدارِ زیادی چای در چین و هند کشت می‌شود (is grown).",
       "ar": "يُزرع (is grown) الكثير من الشاي في الصين والهند.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "کشت می‌شود",
+          "ar": "يُزرع"
+        }
+      ]
     },
     "grammar focus: sequencing words": {
       "src": "GRAMMAR FOCUS: SEQUENCING WORDS",
@@ -1684,13 +1758,25 @@
       "src": "{blk}First{/blk}, the rice is put through a grinder.",
       "fa": "اول (First)، برنج داخلِ آسیاب ریخته می‌شود.",
       "ar": "أولًا (First)، يوضع الأرز في المطحنة.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "اول",
+          "ar": "أولاً"
+        }
+      ]
     },
     "after that, water is added to the flour.": {
       "src": "{blk}After{/blk} that, water is added to the flour.",
       "fa": "بعد از (After) آن، به آرد آب اضافه می‌شود.",
       "ar": "بعد (After) ذلك، يُضاف الماء إلى الدقيق.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "بعد از",
+          "ar": "بعد"
+        }
+      ]
     },
     "then/ next it is mixed and made into a dough.": {
       "src": "{blk}Then/ Next{/blk} it is mixed and made into a dough.",
@@ -1698,6 +1784,12 @@
       "ar": "ثمّ/بعد ذلك (Then/Next) يُخلط ويُحوَّل إلى عجين.",
       "terms": [
         "dough"
+      ],
+      "blanks": [
+        {
+          "fa": "سپس / بعد",
+          "ar": "ثمّ / بعد ذلك"
+        }
       ]
     },
     "the next stage is to push the dough through the stringhopper press.": {
@@ -1707,6 +1799,12 @@
       "terms": [
         "stage",
         "dough"
+      ],
+      "blanks": [
+        {
+          "fa": "مرحله‌ی بعد",
+          "ar": "المرحلة التالية"
+        }
       ]
     },
     "next i then the stringhoppers are placed in a steamer.": {
@@ -1715,13 +1813,25 @@
       "ar": "بعد ذلك/ثمّ (Next/Then) توضع السترينغ هوبرز في قدر البخار.",
       "terms": [
         "steamer"
+      ],
+      "blanks": [
+        {
+          "fa": "بعد / سپس",
+          "ar": "بعد ذلك / ثمّ"
+        }
       ]
     },
     "finally, they are served with spicy curries.": {
       "src": "{blk}Finally{/blk}, they are served with spicy curries.",
       "fa": "در پایان (Finally)، با خورش‌های کاریِ تند سرو می‌شوند.",
       "ar": "أخيرًا (Finally)، تُقدَّم مع أطباق الكاري الحارّة.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "در آخر",
+          "ar": "أخيرًا"
+        }
+      ]
     },
     "tip 06": {
       "src": "TIP 06",
@@ -2110,7 +2220,17 @@
       "src": "A sheet is {blk}spread{/blk} on the ground and the tree is {blk}shaken{/blk} to get the cherries.",
       "fa": "پارچه‌ای روی زمین پهن می‌شود (is spread) و درخت تکان داده می‌شود (is shaken) تا گیلاس‌ها بریزند.",
       "ar": "تُفرش (is spread) ملاءة على الأرض وتُهزّ (is shaken) الشجرة لإسقاط حبّات الكرز.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "پهن می‌شود",
+          "ar": "تُفرش"
+        },
+        {
+          "fa": "تکان داده می‌شود",
+          "ar": "تُهزّ"
+        }
+      ]
     },
     "the cherries are collected and are transported / taken to the processing plant.": {
       "src": "The cherries are {blk}collected{/blk} and are {blk}transported / taken{/blk} to the processing plant.",
@@ -2118,6 +2238,16 @@
       "ar": "يُجمع (are collected) الكرز ويُنقل (are transported / taken) إلى مصنع المعالجة.",
       "terms": [
         "processing plant"
+      ],
+      "blanks": [
+        {
+          "fa": "جمع می‌شوند",
+          "ar": "تُجمع"
+        },
+        {
+          "fa": "منتقل می‌شوند / برده می‌شوند",
+          "ar": "تُنقل / تؤخذ"
+        }
       ]
     },
     "the leaves and stems are removed": {
@@ -2126,43 +2256,89 @@
       "ar": "تُزال (are removed) الأوراق والسيقان.",
       "terms": [
         "stem"
+      ],
+      "blanks": [
+        {
+          "fa": "جدا می‌شوند",
+          "ar": "تُزال"
+        }
       ]
     },
     "the cherries are washed": {
       "src": "The cherries are {blk}washed{/blk} ",
       "fa": "گیلاس‌ها شسته می‌شوند (are washed).",
       "ar": "يُغسل الكرز (are washed).",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "شسته می‌شوند",
+          "ar": "تُغسل"
+        }
+      ]
     },
     "the stone is taken out of the middle of the cherry.": {
       "src": "The stone is {blk}taken out{/blk} of the middle of the cherry.",
       "fa": "هسته از وسطِ گیلاس درآورده می‌شود (is taken out).",
       "ar": "تُنزع (is taken out) النواة من وسط حبّة الكرز.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "درآورده می‌شود",
+          "ar": "تُنزع"
+        }
+      ]
     },
     "the cherries are cooked and extra ingredients are added.": {
       "src": "The cherries are {blk}cooked{/blk} and extra ingredients are {blk}added{/blk}.",
       "fa": "گیلاس‌ها پخته می‌شوند (are cooked) و مواد اولیه‌ی دیگر اضافه می‌شوند (are added).",
       "ar": "يُطهى الكرز (are cooked) وتُضاف (are added) مكوّنات أخرى.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "پخته می‌شوند",
+          "ar": "تُطهى"
+        },
+        {
+          "fa": "اضافه می‌شوند",
+          "ar": "تُضاف"
+        }
+      ]
     },
     "the quality of the jam is checked": {
       "src": "The quality of the jam is {blk}checked{/blk}",
       "fa": "کیفیتِ مربا بررسی می‌شود (is checked).",
       "ar": "تُفحص (is checked) جودة المربّى.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "بررسی می‌شود",
+          "ar": "تُفحص"
+        }
+      ]
     },
     "the jam is put into jars.": {
       "src": "The jam is {blk}put{/blk} into jars.",
       "fa": "مربا داخلِ شیشه‌ها ریخته می‌شود (is put).",
       "ar": "يوضع (is put) المربّى في البرطمانات.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "ریخته می‌شود",
+          "ar": "تُوضع"
+        }
+      ]
     },
     "a label is stuck on the jars.": {
       "src": "A label is {blk}stuck{/blk} on the jars.",
       "fa": "روی شیشه‌ها برچسب چسبانده می‌شود (is stuck).",
       "ar": "يُلصق (is stuck) ملصق على البرطمانات.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "چسبانده می‌شود",
+          "ar": "تُلصق"
+        }
+      ]
     },
     "[[[[[[[[[exam skills]": {
       "src": "[[[[[[[[[EXAM SKILLS]",
@@ -2340,7 +2516,17 @@
       "src": "Conversation 1: {blk}D{/blk} Conversation 2: {blk}C{/blk}",
       "fa": "گفت‌وگوی 1: D  گفت‌وگوی 2: C",
       "ar": "المحادثة 1: D  المحادثة 2: C",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "identifying the speakers": {
       "src": "IDENTIFYING THE SPEAKERS",
@@ -2418,7 +2604,13 @@
       "src": "shop assistant 3 {blk}F{/blk}",
       "fa": "فروشنده: F",
       "ar": "البائعة: F",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "customer 4 m": {
       "src": "customer 4 {blk}M{/blk}",
@@ -2682,7 +2874,21 @@
       "src": "Well, they were 1 {blk}30 / thirty{/blk} moment, so they're a little cheaper - only 2 {blk}20 / twenty{/blk} pounds, but actually we've got a sale on at the pounds. So you can save 3 {blk}10 / ten{/blk} pounds!",
       "fa": "خب، قیمتشان 30 پوند بود، ولی راستش الان حراج داریم، برای همین کمی ارزان‌ترند؛ فقط 20 پوند. پس می‌توانید 10 پوند صرفه‌جویی کنید!",
       "ar": "حسنًا، كان سعرها 30 جنيهًا، لكن في الحقيقة لدينا تخفيضات في الوقت الحالي، لذا فهي أرخص قليلًا – 20 جنيهًا فقط. أي أنّك توفّر 10 جنيهات!",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "[[[[[[[[[[multiple-choice questions]": {
       "src": "[[[[[[[[[[MULTIPLE-CHOICE QUESTIONS]",
@@ -3325,31 +3531,65 @@
       "src": "They are a 2 {blk}close{/blk} happy family.",
       "fa": "آن‌ها خانواده‌ای صمیمی و شاد هستند.",
       "ar": "هم عائلة مترابطة وسعيدة.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "صمیمی",
+          "ar": "مترابطة"
+        }
+      ]
     },
     "they like preparing food and 3 eating it.": {
       "src": "They like preparing food and 3 {blk}eating{/blk} it.",
       "fa": "آن‌ها آشپزی کردن و خوردنِ غذا را دوست دارند.",
       "ar": "يحبّون إعداد الطعام وأكله.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "خوردن",
+          "ar": "أكل"
+        }
+      ]
     },
     "her father is a better 4 cook than her mother.": {
       "src": "Her father is a better 4 {blk}cook{/blk} than her mother.",
       "fa": "پدرش از مادرش آشپزِ بهتری است.",
       "ar": "أبوها طبّاخ أفضل من أمّها.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "آشپز",
+          "ar": "طبّاخ"
+        }
+      ]
     },
     "her brother is getting 5 married next year.": {
       "src": "Her brother is getting 5 {blk}married{/blk} next year.",
       "fa": "برادرش سالِ آینده ازدواج می‌کند.",
       "ar": "سيتزوّج أخوها العام المقبل.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "ازدواج کردن",
+          "ar": "يتزوّج"
+        }
+      ]
     },
     "hoi chin would like to have a 6 niece or 7 nephew one day.": {
       "src": "Hoi Chin would like to have a 6 {blk}niece{/blk} or 7 {blk}nephew{/blk} one day.",
       "fa": "هوی چین دوست دارد روزی برادرزاده‌ای داشته باشد، دختر (niece) یا پسر (nephew).",
       "ar": "تودّ هوي تشين أن يكون لها يومًا ما ابنة أخ (niece) أو ابن أخ (nephew).",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "دختر برادر/خواهر",
+          "ar": "ابنة الأخ/الأخت"
+        },
+        {
+          "fa": "پسر برادر/خواهر",
+          "ar": "ابن الأخ/الأخت"
+        }
+      ]
     },
     "tell your partner what you remember about hoi chin's family. is your family similar or very different to hers?": {
       "src": "Tell your partner what you remember about Hoi Chin's family. Is your family similar or very different to hers?",
@@ -4415,7 +4655,25 @@
       "src": "A: {blk}treehouse{/blk} B: {blk}shipping container homes{/blk} C: {blk}igloo{/blk} D: {blk}houseboat{/blk}",
       "fa": "A: خانه‌ی درختی  B: خانه‌های کانتینری  C: ایگلو  D: خانه‌قایق",
       "ar": "A: بيت على الشجرة  B: بيوت من حاويات الشحن  C: إغلو  D: بيت عائم",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "خانه‌ی درختی",
+          "ar": "بيت الشجرة"
+        },
+        {
+          "fa": "خانه‌های کانتینری",
+          "ar": "بيوت الحاويات"
+        },
+        {
+          "fa": "ایگلو (خانه‌ی یخی)",
+          "ar": "الإيغلو (بيت الجليد)"
+        },
+        {
+          "fa": "خانه‌قایق",
+          "ar": "القارب المنزلي"
+        }
+      ]
     },
     "skimming and scanning a text": {
       "src": "SKIMMING AND SCANNING A TEXT",
@@ -4876,6 +5134,12 @@
       "terms": [
         "transparent",
         "suit everyone"
+      ],
+      "blanks": [
+        {
+          "fa": "به کارِ همه بیاید / مناسبِ همه باشد",
+          "ar": "يناسب الجميع"
+        }
       ]
     },
     "the designer of the smallest house hopes to draw attention to the lack of houses all over the world.": {
@@ -4885,19 +5149,37 @@
       "terms": [
         "draw attention to",
         "lack of"
+      ],
+      "blanks": [
+        {
+          "fa": "جلبِ توجه کند",
+          "ar": "يلفت الانتباه"
+        }
       ]
     },
     "people who stay in igloos sometimes protect themselves from the cold by making use of reindeer skins.": {
       "src": "People who stay in igloos sometimes protect themselves from the cold by making use of {blk}reindeer skins{/blk}.",
       "fa": "کسانی که در ایگلو اقامت می‌کنند گاهی با استفاده از پوستِ گوزنِ شمالی خود را از سرما حفظ می‌کنند.",
       "ar": "يحمي المقيمون في الإغلو أنفسهم أحيانًا من البرد باستخدام جلود الرنّة.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "پوستِ گوزنِ شمالی",
+          "ar": "جلود الرنّة"
+        }
+      ]
     },
     "people who have busy lives would find a holiday in a treehouse ideal.": {
       "src": "People who have {blk}busy lives{/blk} would find a holiday in a treehouse ideal.",
       "fa": "کسانی که زندگیِ پرمشغله‌ای دارند، تعطیلات در خانه‌ی درختی را ایدئال می‌دانند.",
       "ar": "مَن كانت حياتهم مزدحمة سيجدون العطلة في بيت على الشجرة مثالية.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "زندگیِ پرمشغله",
+          "ar": "حياة مزدحمة"
+        }
+      ]
     },
     "◉ how to do sentence completion questions": {
       "src": "◉ How to do sentence completion questions",
@@ -5123,31 +5405,61 @@
       "src": "Farid now {blk}shares{/blk} (share) a flat with some other students.",
       "fa": "فرید حالا با چند دانشجوی دیگر هم‌خانه است (shares).",
       "ar": "يتشارك (shares) فريد الآن شقّة مع بعض الطلّاب الآخرين.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "شریک است / با هم زندگی می‌کند",
+          "ar": "يتشارك"
+        }
+      ]
     },
     "last year he lived (live) at home with his parents.": {
       "src": "Last year he {blk}lived{/blk} (live) at home with his parents.",
       "fa": "پارسال با پدر و مادرش در خانه زندگی می‌کرد (lived).",
       "ar": "في العام الماضي عاش (lived) في البيت مع والديه.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "زندگی می‌کرد",
+          "ar": "عاش"
+        }
+      ]
     },
     "once i stayed (stay) on a campsite next to a lake in italy.": {
       "src": "Once I {blk}stayed{/blk} (stay) on a campsite next to a lake in Italy.",
       "fa": "یک بار در کمپی کنارِ دریاچه‌ای در ایتالیا اقامت کردم (stayed).",
       "ar": "أقمتُ (stayed) مرّة في مخيّم بجانب بحيرة في إيطاليا.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "اقامت کردم",
+          "ar": "أقمت"
+        }
+      ]
     },
     "my flat has (have) two balconies.": {
       "src": "My flat {blk}has{/blk} (have) two balconies.",
       "fa": "آپارتمانِ من دو بالکن دارد (has).",
       "ar": "لشقّتي (has) شرفتان.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "دارد",
+          "ar": "فيها"
+        }
+      ]
     },
     "in 2014 we moved (move) into our new house.": {
       "src": "In 2014 we {blk}moved{/blk} (move) into our new house.",
       "fa": "در سالِ 2014 به خانه‌ی جدیدمان نقل‌مکان کردیم (moved).",
       "ar": "في عام 2014 انتقلنا (moved) إلى بيتنا الجديد.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "نقل‌مکان کردیم",
+          "ar": "انتقلنا"
+        }
+      ]
     },
     "home from home": {
       "src": "HOME FROM HOME",
@@ -5213,7 +5525,13 @@
       "src": "The writer's mother often cooks {blk}roast chicken{/blk}.",
       "fa": "مادرِ نویسنده اغلب مرغِ بریان می‌پزد.",
       "ar": "كثيرًا ما تطهو والدة الكاتبة الدجاج المشويّ.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "مرغِ بریان",
+          "ar": "الدجاج المشوي"
+        }
+      ]
     },
     "she thought the visit to germany would make her feel homesick and sad.": {
       "src": "She thought the visit to Germany would make her feel {blk}homesick and sad{/blk}.",
@@ -5221,25 +5539,49 @@
       "ar": "ظنّت أنّ الرحلة إلى ألمانيا ستجعلها تشعر بالحنين إلى الوطن والحزن.",
       "terms": [
         "homesick"
+      ],
+      "blanks": [
+        {
+          "fa": "دلتنگ و غمگین",
+          "ar": "حنين إلى الوطن وحزن"
+        }
       ]
     },
     "brigitte came to pick up the girl with her parents.": {
       "src": "Brigitte came to pick up the girl with {blk}her parents{/blk}.",
       "fa": "بریژیت با پدر و مادرش برای بردنِ دختر آمد.",
       "ar": "جاءت بريجيت مع والديها لاصطحاب الفتاة.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "پدر و مادرش",
+          "ar": "والديها"
+        }
+      ]
     },
     "the schmitt family's pets' names are ping and pong.": {
       "src": "The Schmitt family's pets' names are {blk}Ping and Pong{/blk}.",
       "fa": "اسمِ حیوان‌های خانگیِ خانواده‌ی اشمیت پینگ و پونگ است.",
       "ar": "اسما الحيوانين الأليفين لعائلة شميت بينغ وبونغ.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "پینگ و پونگ",
+          "ar": "بينغ وبونغ"
+        }
+      ]
     },
     "from her bedroom the girl could see a forest.": {
       "src": "From her bedroom the girl could see a {blk}forest{/blk}.",
       "fa": "دختر از اتاق‌خوابش یک جنگل را می‌دید.",
       "ar": "كانت الفتاة ترى من غرفة نومها غابة.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "جنگل",
+          "ar": "غابة"
+        }
+      ]
     },
     "the girl and her family tried hard to make brigitte feel at home / feel welcome.": {
       "src": "The girl and her family tried hard to make Brigitte {blk}feel at home / feel welcome{/blk}.",
@@ -5247,6 +5589,12 @@
       "ar": "بذلت الفتاة وعائلتها جهدًا كبيرًا لتشعر بريجيت بأنّها في بيتها / بأنّها مرحَّب بها.",
       "terms": [
         "feel at home"
+      ],
+      "blanks": [
+        {
+          "fa": "احساسِ راحتی کند / حس کند خوش‌آمده",
+          "ar": "يشعر بالراحة / بالترحيب"
+        }
       ]
     },
     "describe changes over time as shown on a map": {
@@ -5540,7 +5888,13 @@
       "src": "The tennis courts were {blk}next to{/blk} the football pitch.",
       "fa": "زمین‌های تنیس کنارِ (next to) زمینِ فوتبال بودند.",
       "ar": "كانت ملاعب التنس بجانب (next to) ملعب كرة القدم.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "کنارِ",
+          "ar": "بجانب"
+        }
+      ]
     },
     "the founder's building was in the middle of the campus.": {
       "src": "The Founder's Building was in the middle {blk}of{/blk} the campus.",
@@ -5548,6 +5902,12 @@
       "ar": "كان مبنى المؤسّس في وسط (in the middle of) الحرم الجامعي.",
       "terms": [
         "campus"
+      ],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
       ]
     },
     "the scott library was between the halls of residence and the football pitch.": {
@@ -5556,13 +5916,25 @@
       "ar": "كانت مكتبة سكوت بين (between) السكن الجامعي وملعب كرة القدم.",
       "terms": [
         "halls of residence"
+      ],
+      "blanks": [
+        {
+          "fa": "بینِ",
+          "ar": "بين"
+        }
       ]
     },
     "the cafe was opposite the football pitch.": {
       "src": "The cafe was {blk}opposite{/blk} the football pitch.",
       "fa": "کافه روبه‌روی (opposite) زمینِ فوتبال بود.",
       "ar": "كان المقهى مقابل (opposite) ملعب كرة القدم.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "روبه‌روی",
+          "ar": "مقابل"
+        }
+      ]
     },
     "there were two car parks on the campus.": {
       "src": "There were two car parks {blk}on{/blk} the campus.",
@@ -5570,6 +5942,12 @@
       "ar": "كان في (on) الحرم الجامعي موقفان للسيارات.",
       "terms": [
         "campus"
+      ],
+      "blanks": [
+        {
+          "fa": "در",
+          "ar": "في"
+        }
       ]
     },
     "the gym was in the bottom right-hand corner of the campus.": {
@@ -5579,19 +5957,37 @@
       "terms": [
         "right-hand corner",
         "campus"
+      ],
+      "blanks": [
+        {
+          "fa": "در",
+          "ar": "في"
+        }
       ]
     },
     "the watson building was to/on the left of the founder's building.": {
       "src": "The Watson Building was {blk}to/on{/blk} the left of the Founder's Building.",
       "fa": "ساختمانِ واتسون در سمتِ چپِ (to/on the left of) ساختمانِ مؤسس بود.",
       "ar": "كان مبنى واتسون إلى يسار (to/on the left of) مبنى المؤسّس.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "در سمتِ (چپِ)",
+          "ar": "على (يسار)"
+        }
+      ]
     },
     "the main reception was part of the watson building.": {
       "src": "The main reception was part {blk}of{/blk} the Watson Building.",
       "fa": "پذیرشِ اصلی بخشی از (part of) ساختمانِ واتسون بود.",
       "ar": "كان مكتب الاستقبال الرئيسي جزءًا من (part of) مبنى واتسون.",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "complete the sentences to describe the map of the campus today to your partner. you can use the expressions in the box.": {
       "src": "Complete the sentences to describe the map of the campus today to your partner. You can use the expressions in the box.",
@@ -6556,19 +6952,37 @@
       "src": "Travel and transport: harbour, {blk}bus stop, railway station{/blk}",
       "fa": "سفر و حمل‌ونقل: بندر، ایستگاهِ اتوبوس، ایستگاهِ قطار",
       "ar": "السفر والمواصلات: الميناء، موقف الحافلات، محطّة القطار",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "ایستگاهِ اتوبوس، ایستگاهِ قطار",
+          "ar": "موقف الحافلات، محطة القطار"
+        }
+      ]
     },
     "sports and leisure: sports centre, restaurant": {
       "src": "Sports and leisure: {blk}sports centre, restaurant{/blk}",
       "fa": "ورزش و اوقاتِ فراغت: مرکزِ ورزشی، رستوران",
       "ar": "الرياضة والترفيه: المركز الرياضي، المطعم",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "مرکزِ ورزشی، رستوران",
+          "ar": "المركز الرياضي، المطعم"
+        }
+      ]
     },
     "arts and culture: museum": {
       "src": "Arts and culture: {blk}museum{/blk}",
       "fa": "هنر و فرهنگ: موزه",
       "ar": "الفنون والثقافة: المتحف",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "موزه",
+          "ar": "المتحف"
+        }
+      ]
     },
     "money: bank": {
       "src": "Money: {blk}bank{/blk}",
@@ -6580,13 +6994,25 @@
       "src": "Conversation 1: {blk}sports centre{/blk}",
       "fa": "گفت‌وگوی 1: مرکزِ ورزشی",
       "ar": "المحادثة 1: المركز الرياضي",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "مرکزِ ورزشی",
+          "ar": "المركز الرياضي"
+        }
+      ]
     },
     "conversation 2: bank": {
       "src": "Conversation 2: {blk}bank{/blk}",
       "fa": "گفت‌وگوی 2: بانک",
       "ar": "المحادثة 2: المصرف",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "بانک",
+          "ar": "البنك"
+        }
+      ]
     },
     "spelling names": {
       "src": "SPELLING NAMES",
@@ -6624,13 +7050,25 @@
       "src": "What is the man's name? James {blk}Clarke{/blk}",
       "fa": "اسمِ آن مرد چیست؟ جیمز Clarke",
       "ar": "ما اسم الرجل؟ جيمس Clarke",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "what is his address? waddington road": {
       "src": "What is his address? {blk}Waddington{/blk} Road",
       "fa": "نشانی‌اش چیست؟ خیابانِ Waddington",
       "ar": "ما عنوانه؟ طريق Waddington",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "◉ in section 1 of the listening test you may have to write the name of a person, a place or a website. usually the names will be spelled for you. you need to know the letters of the english alphabet so that you can write the words correctly. if you don't, your answer will be wrong. you will hear the spelling once only.": {
       "src": "◉ In Section 1 of the Listening test you may have to write the name of a person, a place or a website. Usually the names will be spelled for you. You need to know the letters of the English alphabet so that you can write the words correctly. If you don't, your answer will be wrong. You will hear the spelling once only.",
@@ -7378,19 +7816,57 @@
       "src": "A: {blk}cinema{/blk} B: {blk}art gallery{/blk} C: {blk}shopping mall{/blk}",
       "fa": "A: سینما  B: نگارخانه‌ی هنری  C: مرکزِ خرید",
       "ar": "A: السينما  B: معرض الفنون  C: المركز التجاري",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "سینما",
+          "ar": "السينما"
+        },
+        {
+          "fa": "گالریِ هنری",
+          "ar": "المعرض الفني"
+        },
+        {
+          "fa": "مرکزِ خرید",
+          "ar": "مركز التسوّق"
+        }
+      ]
     },
     "d: harbour e: stadium f: swimming pool": {
       "src": "D: {blk}harbour{/blk} E: {blk}stadium{/blk} F: {blk}swimming pool{/blk} ",
       "fa": "D: بندر  E: ورزشگاه  F: استخرِ شنا",
       "ar": "D: الميناء  E: الملعب  F: حوض السباحة",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "بندر",
+          "ar": "الميناء"
+        },
+        {
+          "fa": "ورزشگاه",
+          "ar": "الملعب"
+        },
+        {
+          "fa": "استخرِ شنا",
+          "ar": "المسبح"
+        }
+      ]
     },
     "g: library h: town hall": {
       "src": "G: {blk}library {/blk}H: {blk}town hall{/blk}",
       "fa": "G: کتابخانه  H: ساختمانِ شهرداری",
       "ar": "G: المكتبة  H: مبنى البلدية",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "کتابخانه",
+          "ar": "المكتبة"
+        },
+        {
+          "fa": "ساختمانِ شهرداری",
+          "ar": "مبنى البلدية"
+        }
+      ]
     },
     "town hall h": {
       "src": "town hall H",
@@ -7842,6 +8318,16 @@
       "ar": "أنا من مدينة حديثة جدًّا، ترى فيها في كل مكان مباني شاهقة (tall) ومتعدّدة الطوابق (high-rise).",
       "terms": [
         "high-rise"
+      ],
+      "blanks": [
+        {
+          "fa": "بلند",
+          "ar": "عالية"
+        },
+        {
+          "fa": "چندطبقه / بلندمرتبه",
+          "ar": "شاهقة"
+        }
       ]
     },
     "in summer it's very wet and uncomfortable in my town. it's very hot and humid.": {
@@ -7850,6 +8336,16 @@
       "ar": "في الصيف يكون الجوّ في مدينتي رطبًا جدًّا وغير مريح؛ فهو حارّ (hot) ورطب (humid) جدًّا.",
       "terms": [
         "humid"
+      ],
+      "blanks": [
+        {
+          "fa": "گرم",
+          "ar": "حارّ"
+        },
+        {
+          "fa": "شرجی",
+          "ar": "رطب"
+        }
       ]
     },
     "there's usually a light breeze from the sea, so it's very cool and mild.": {
@@ -7858,6 +8354,16 @@
       "ar": "عادةً ما تهبّ نسمة خفيفة من البحر، لذا يكون الجوّ منعشًا (cool) ومعتدلًا (mild) جدًّا.",
       "terms": [
         "mild"
+      ],
+      "blanks": [
+        {
+          "fa": "خنک",
+          "ar": "معتدل البرودة"
+        },
+        {
+          "fa": "معتدل",
+          "ar": "لطيف"
+        }
       ]
     },
     "there's a lot of rubbish on the streets. it's quite dirty and polluted.": {
@@ -7866,6 +8372,16 @@
       "ar": "في الشوارع الكثير من القمامة؛ فالمدينة متّسخة (dirty) وملوَّثة (polluted) إلى حدّ ما.",
       "terms": [
         "polluted"
+      ],
+      "blanks": [
+        {
+          "fa": "کثیف",
+          "ar": "قذرة"
+        },
+        {
+          "fa": "آلوده",
+          "ar": "ملوّثة"
+        }
       ]
     },
     "there's a great atmosphere in my city, especially at night. it's very lively and exciting.": {
@@ -7875,6 +8391,16 @@
       "terms": [
         "lively",
         "atmosphere"
+      ],
+      "blanks": [
+        {
+          "fa": "پرجنب‌وجوش / سرزنده",
+          "ar": "مفعمة بالحيوية"
+        },
+        {
+          "fa": "هیجان‌انگیز",
+          "ar": "مثيرة"
+        }
       ]
     },
     "it is a good idea to use pairs of words with similar meaning when you talk about your home town.": {
@@ -8413,13 +8939,33 @@
       "src": "Speaker 1 {blk}b{/blk} Speaker 2 {blk}a{/blk}",
       "fa": "گوینده‌ی 1: b  گوینده‌ی 2: a",
       "ar": "المتحدّث 1: b  المتحدّث 2: a",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "speaker 3 d speaker 4 c": {
       "src": "Speaker 3 {blk}d{/blk} Speaker 4 {blk}c{/blk}",
       "fa": "گوینده‌ی 3: d  گوینده‌ی 4: c",
       "ar": "المتحدّث 3: d  المتحدّث 4: c",
-      "terms": []
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
     },
     "now ask and answer questions a-d with a partner.": {
       "src": "Now ask and answer questions a-d with a partner.",

@@ -178,6 +178,10 @@ class ParagraphData {
 
   final String? translationFa;
   final String? translationAr;
+  // 🌟 TR-5 (G-8ِ اکسترکتور): ترجمه‌ی پاسخِ هر جای خالی، به ترتیبِ {blk}ها در متنِ
+  // پاراگراف. رشته‌ی خالی = آن پاسخ ترجمه ندارد. null = داده‌ای نیست.
+  final List<String>? blanksFa;
+  final List<String>? blanksAr;
   final List<InteractiveWord> interactives;
   // 🌟 لیست‌ها (numbering که در C# به مارکر آماده تبدیل شده)
   final String? listType; // "ordered" | "bullet"  (null اگر لیست نباشد)
@@ -216,6 +220,8 @@ class ParagraphData {
     this.audioTrackName,
     this.translationFa,
     this.translationAr,
+    this.blanksFa,
+    this.blanksAr,
     required this.interactives,
     this.listType, // 🌟
     this.listLevel = 0, // 🌟
@@ -255,6 +261,8 @@ class ParagraphData {
       audioTrackName: json['AudioTrackName'] as String?,
       translationFa: json['translationFa'],
       translationAr: json['translationAr'],
+      blanksFa: (json['blanksFa'] as List?)?.map((e) => '${e ?? ''}').toList(),
+      blanksAr: (json['blanksAr'] as List?)?.map((e) => '${e ?? ''}').toList(),
       interactives: interactivesList
           .map((e) => InteractiveWord.fromJson(e))
           .toList(),
@@ -303,6 +311,8 @@ class ParagraphData {
       audioTrackName: audioTrackName,
       translationFa: translationFa,
       translationAr: translationAr,
+      blanksFa: blanksFa,
+      blanksAr: blanksAr,
       interactives: interactives ?? this.interactives,
       lineSpacing: lineSpacing, // 🌟
       listType: listType, // 🌟
