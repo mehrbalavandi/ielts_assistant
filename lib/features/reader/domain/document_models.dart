@@ -294,6 +294,13 @@ class ParagraphData {
     List<SpanData>? spans,
     List<InteractiveWord>? interactives,
     double? indentLeft, // 🌟 برای حذفِ تورفتگیِ پایه‌ی جواب در مودال
+    // 🌟 RM-2: حالتِ «خوانا» فاصله‌ها و اندازه‌ها را عوض می‌کند
+    double? indentRight,
+    double? indentFirstLine,
+    double? spaceBefore,
+    double? spaceAfter,
+    double? lineSpacing,
+    double? listMarkerSize,
   }) {
     return ParagraphData(
       spans: spans ?? this.spans,
@@ -301,11 +308,11 @@ class ParagraphData {
       alignment: alignment,
       fillColor: fillColor,
       borders: borders,
-      spaceBefore: spaceBefore,
-      spaceAfter: spaceAfter,
+      spaceBefore: spaceBefore ?? this.spaceBefore,
+      spaceAfter: spaceAfter ?? this.spaceAfter,
       indentLeft: indentLeft ?? this.indentLeft,
-      indentRight: indentRight,
-      indentFirstLine: indentFirstLine,
+      indentRight: indentRight ?? this.indentRight,
+      indentFirstLine: indentFirstLine ?? this.indentFirstLine,
       startMs: startMs,
       endMs: endMs,
       audioTrackName: audioTrackName,
@@ -314,7 +321,7 @@ class ParagraphData {
       blanksFa: blanksFa,
       blanksAr: blanksAr,
       interactives: interactives ?? this.interactives,
-      lineSpacing: lineSpacing, // 🌟
+      lineSpacing: lineSpacing ?? this.lineSpacing, // 🌟
       listType: listType, // 🌟
       listLevel: listLevel, // 🌟
       listMarker: listMarker, // 🌟
@@ -322,7 +329,7 @@ class ParagraphData {
       listMarkerColor: listMarkerColor, // 🐞
       listMarkerFill: listMarkerFill, // 🐞
       listMarkerBorder: listMarkerBorder, // 🐞
-      listMarkerSize: listMarkerSize, // 🐞
+      listMarkerSize: listMarkerSize ?? this.listMarkerSize, // 🐞
       listMarkerScale: listMarkerScale, // 🐞
       listMarkerAlign: listMarkerAlign, // 🐞
       listSuffix: listSuffix, // 🐞
@@ -704,6 +711,10 @@ class SpanData {
   SpanData copyWith({
     List<TableRowData>? tableRows,
     List<ParagraphData>? hiddenParagraphs,
+    // 🌟 RM-2: حالتِ «خوانا»
+    List<String>? markers,
+    List<SpanData>? innerSpans,
+    String? responsiveStrategy,
   }) {
     return SpanData(
       hiddenParagraphs: hiddenParagraphs ?? this.hiddenParagraphs,
@@ -712,9 +723,9 @@ class SpanData {
       url: url,
       imageWidth: imageWidth,
       imageHeight: imageHeight,
-      markers: markers,
+      markers: markers ?? this.markers,
       tableRows: tableRows ?? this.tableRows,
-      innerSpans: innerSpans,
+      innerSpans: innerSpans ?? this.innerSpans,
       fillColor: fillColor,
       textColor: textColor,
       letterSpacing: letterSpacing,
@@ -729,7 +740,7 @@ class SpanData {
       floatPosition: floatPosition,
       tableWidthPercent: tableWidthPercent,
       borderWidth: borderWidth,
-      responsiveStrategy: responsiveStrategy,
+      responsiveStrategy: responsiveStrategy ?? this.responsiveStrategy,
       layoutDirection: layoutDirection,
       layoutReflow: layoutReflow,
       borderMode: borderMode,

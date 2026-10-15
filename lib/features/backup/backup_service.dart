@@ -14,6 +14,7 @@ import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
+import 'package:ielts_assistant/features/settings/providers/reading_mode_provider.dart';
 import 'package:ielts_assistant/features/study/data/study_rows.dart';
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
 import 'package:ielts_assistant/features/study/providers/study_provider.dart';
@@ -217,6 +218,8 @@ class BackupNotifier extends Notifier<BackupState> {
     'app_lang',
     'playback_mode',
     'outline_nav_collapsed',
+    ReadingAppearanceNotifier.modeKey,
+    ReadingAppearanceNotifier.scaleKey,
   ];
 
   /// جای مطالعه‌ی هر کتاب هم (scroll_page_/scroll_align_)؛ موقعیتِ فایل‌های صوتی نه،
@@ -252,6 +255,7 @@ class BackupNotifier extends Notifier<BackupState> {
         ref.invalidate(answerDisplayProvider);
         ref.invalidate(audioStartProvider);
         ref.invalidate(languageProvider);
+        ref.invalidate(readingAppearanceProvider);
         await _box.write(pushedKey, jsonEncode(_collectSettings()));
         return;
       }

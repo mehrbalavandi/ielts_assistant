@@ -1,0 +1,236 @@
+import 'dart:math' as math;
+
+import 'package:flutter/foundation.dart';
+import 'package:ielts_assistant/features/reader/domain/document_models.dart';
+
+// 🌟 RM-2: حالتِ «خوانا» = تبدیلِ داده‌ی صفحه پیش از رندر، نه یک رندرکننده‌ی دوم.
+// رندرکننده‌ی فعلی کاملاً از روی داده (مارکرهای sz:/fn:، ResponsiveStrategy، فاصله‌ها)
+// تصمیم می‌گیرد؛ پس همین‌جا داده عوض می‌شود و همه‌چیزِ دیگر — جای‌خالی‌ها، ترجمه،
+// دیکشنری، جستجو، صوت، «مرورِ من» — بی‌تغییر کار می‌کند. متنِ پاراگراف‌ها و ترتیب و
+// تعدادشان دست نمی‌خورد (جستجو و «رفتن به متن» به اندیسِ پاراگراف وابسته‌اند).
+//
+// چه عوض می‌شود:
+// - اندازه‌ی متن: متنِ عادیِ کتاب (۱۱٫۵pt) ← ۱۵px × ضریبِ کاربر؛ تیترها نسبتِ خود را با
+//   توانِ ۰٫۷۵ نگه می‌دارند (درشت ولی نه غول‌پیکر)، بینِ ۰٫۸۵ و ۱٫۹ برابرِ متنِ عادی.
+// - فونت: همه‌ی متنِ لاتین Source Sans 3 (فونتِ اصلیِ خودِ کتاب)؛ فونت‌های نمادین
+//   (Wingdings، Symbol، ایموجی) و فارسی همان می‌مانند.
+// - فاصله‌ی خطوط حداقل ۱٫۵؛ فاصله‌ی پیش/پس از پاراگراف حداکثر ۱۴.
+// - گوشی (عرضِ ≤ ۶۰۰): تورفتگی‌ها ۶۰٪ (حداکثر ۲۴)، و جدول‌های چندستونه:
+//   · یک ردیفِ کوتاه (برچسب‌ها، واژه‌ها) ← «چیپ»‌هایی که به خطِ بعد می‌روند (wrap)
+//   · جدولِ داده‌ای با سرستون ← ردیف‌به‌ردیف، هر ردیف یک کارت (stackRows)
+//   · بقیه (صفحه‌آرایی، متن کنارِ عکس) ← ستون‌به‌ستون زیرِ هم (stack)
+//   جدولِ تک‌ستونه، نشانِ شماره‌ی تمرین (CompactTable) و جدول‌هایی که خودشان از قبل
+//   استکی/جریانی‌اند دست نمی‌خورند.
+
+@immutable
+class ReadableOptions {
+  final double fontScale;
+
+  /// گوشی (عرضِ ≤ ۶۰۰)، همان آستانه‌ی isLargeScreenِ رندرکننده‌ی جدول.
+  final bool narrow;
+
+  const ReadableOptions({required this.fontScale, required this.narrow});
+
+  @override
+  bool operator ==(Object other) =>
+      other is ReadableOptions &&
+      other.fontScale == fontScale &&
+      other.narrow == narrow;
+
+  @override
+  int get hashCode => Object.hash(fontScale, narrow);
+}
+
+/// اندازه‌ی متنِ عادیِ کتاب (pt) — مرجعِ مقیاس.
+const double _kBookBodyPt = 11.5;
+
+/// اندازه‌ی متنِ عادی در حالتِ خوانا (px) با ضریبِ ۱.
+const double kReadableBodyPx = 15.0;
+
+final Expando<_Cached> _cache = Expando<_Cached>('readablePage');
+
+class _Cached {
+  _Cached(this.options, this.page);
+  final ReadableOptions options;
+  final PageData page;
+}
+
+/// نسخه‌ی «خوانا»ی صفحه (برای هر صفحه و هر تنظیم یک‌بار ساخته و نگه داشته می‌شود).
+PageData readablePage(PageData page, ReadableOptions options) {
+  final _Cached? c = _cache[page];
+  if (c != null && c.options == options) return c.page;
+  final PageData out = PageData(
+    pageNumber: page.pageNumber,
+    paragraphs: [
+      for (final p in page.paragraphs) _ReadableTransform(options).paragraph(p),
+    ],
+    interactives: page.interactives,
+    interactivesPattern: page.interactivesPattern,
+    interactivesByText: page.interactivesByText,
+  );
+  _cache[page] = _Cached(options, out);
+  return out;
+}
+
+class _ReadableTransform {
+  _ReadableTransform(this.o);
+
+  final ReadableOptions o;
+
+  double get _base => kReadableBodyPx * o.fontScale;
+
+  double _size(double pt) {
+    final double v = _base * math.pow(pt / _kBookBodyPt, 0.75).toDouble();
+    return v.clamp(_base * 0.85, _base * 1.9).toDouble();
+  }
+
+  String _szMarker(double px) => 'sz:${(px * 2).toStringAsFixed(1)}';
+
+  double? _indent(double? v, {double cap = 24}) {
+    if (v == null || !o.narrow) return v;
+    final double s = v * 0.6;
+    return s.clamp(-cap, cap).toDouble();
+  }
+
+  ParagraphData paragraph(ParagraphData p) {
+    return p.copyWith(
+      spans: [for (final s in p.spans) span(s)],
+      lineSpacing: math.max(p.lineSpacing ?? 1.3, 1.5),
+      spaceBefore: math.min(p.spaceBefore, 14.0),
+      spaceAfter: math.min(p.spaceAfter, 14.0),
+      indentLeft: _indent(p.indentLeft),
+      indentRight: _indent(p.indentRight, cap: 12),
+      indentFirstLine: _indent(p.indentFirstLine),
+      // اندازه‌ی شماره هم مثلِ متن (رندرکننده pt را مستقیم px می‌گیرد).
+      listMarkerSize: p.listMarkerSize == null
+          ? null
+          : _size(p.listMarkerSize!),
+    );
+  }
+
+  SpanData span(SpanData s) {
+    if (s.type == 'text') {
+      return s.copyWith(
+        markers: _markers(s.markers),
+        innerSpans: [for (final i in s.innerSpans) span(i)],
+        hiddenParagraphs: s.hiddenParagraphs == null
+            ? null
+            : [for (final p in s.hiddenParagraphs!) paragraph(p)],
+      );
+    }
+    if (s.type == 'table' || s.type == 'layout') {
+      final List<TableRowData> rows = [
+        for (final r in s.tableRows)
+          r.copyWith(
+            cells: [
+              for (final c in r.cells)
+                c.copyWith(
+                  paragraphs: [for (final p in c.paragraphs) paragraph(p)],
+                ),
+            ],
+          ),
+      ];
+      final String? strategy = o.narrow ? _tableStrategy(s) : null;
+      return s.copyWith(tableRows: rows, responsiveStrategy: strategy);
+    }
+    return s;
+  }
+
+  List<String> _markers(List<String> markers) {
+    final List<String> out = [];
+    bool hasSize = false;
+    for (final String m in markers) {
+      if (m.startsWith('sz:')) {
+        final double? halfPt = double.tryParse(m.substring(3));
+        if (halfPt != null) {
+          out.add(_szMarker(_size(halfPt / 2)));
+          hasSize = true;
+          continue;
+        }
+      } else if (m.startsWith('fn:') && !_keepFont(m.substring(3))) {
+        out.add('fn:Source Sans 3');
+        continue;
+      }
+      out.add(m);
+    }
+    if (!hasSize) out.add(_szMarker(_base));
+    return out;
+  }
+
+  /// فونت‌هایی که نماد یا خطِ فارسی‌اند و جایگزینی خرابشان می‌کند.
+  static bool _keepFont(String name) {
+    final String n = name.toLowerCase();
+    return n.contains('wingdings') ||
+        n.contains('webdings') ||
+        n.contains('symbol') ||
+        n.contains('emoji') ||
+        n.contains('zar') ||
+        n.contains('titr') ||
+        n.contains('yekan') ||
+        n.contains('tahoma');
+  }
+
+  // ───────── جدول روی گوشی ─────────
+
+  String? _tableStrategy(SpanData t) {
+    final String current = t.responsiveStrategy ?? '';
+    if (current == 'stack' ||
+        current == 'wrap' ||
+        t.layoutReflow == 'stack' ||
+        t.layoutReflow == 'merge') {
+      return null;
+    }
+    final String style = (t.tableStyleId ?? t.tableStyleName ?? '')
+        .toLowerCase()
+        .replaceAll(' ', '');
+    if (style.contains('compacttable') ||
+        style.contains('multicolumntable') ||
+        style.contains('columnstack')) {
+      return null;
+    }
+    final List<TableRowData> rows = t.tableRows;
+    if (rows.isEmpty) return null;
+    final int cols = rows.fold(0, (m, r) => math.max(m, r.cells.length));
+    if (cols <= 1) return null;
+
+    if (rows.length == 1 && rows.first.cells.every(_shortTextCell)) {
+      return 'wrap';
+    }
+    final TableRowData first = rows.first;
+    final bool headerRow =
+        first.isHeader ||
+        first.cells.every((c) => c.isHeaderCell) ||
+        first.cells.every(_boldShortCell);
+    if (rows.length >= 3 && headerRow) return 'stackRows';
+    return 'stack';
+  }
+
+  static String _cellText(TableCellData c) => c.paragraphs
+      .expand((p) => p.spans)
+      .where((s) => s.type == 'text')
+      .map((s) => s.content.replaceAll(RegExp(r'\{/?blk\}'), ''))
+      .join(' ')
+      .trim();
+
+  static bool _onlyText(TableCellData c) => c.paragraphs.every(
+    (p) => p.spans.every((s) => s.type == 'text'),
+  );
+
+  /// برچسب یا واژه‌ی کوتاه (چیپ).
+  static bool _shortTextCell(TableCellData c) {
+    if (!_onlyText(c)) return false;
+    final String t = _cellText(c);
+    return t.isNotEmpty && t.length <= 30;
+  }
+
+  /// سلولِ سرستونِ بی‌علامت: کوتاه و تماماً بولد.
+  static bool _boldShortCell(TableCellData c) {
+    if (!_onlyText(c)) return false;
+    final String t = _cellText(c);
+    if (t.isEmpty || t.length > 40) return false;
+    return c.paragraphs
+        .expand((p) => p.spans)
+        .where((s) => s.content.trim().isNotEmpty)
+        .every((s) => s.markers.contains('b'));
+  }
+}

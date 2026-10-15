@@ -21,6 +21,8 @@ export 'package:ielts_assistant/features/reader/presentation/rendering/translata
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
+import 'package:ielts_assistant/features/settings/providers/reading_mode_provider.dart';
+import 'package:ielts_assistant/features/reader/readable/readable_transform.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
@@ -223,6 +225,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   bool _holdReadingAnchor = false;
   int _reflowRequestId = 0;
   double? _lastCanvasWidth;
+  ReadingAppearance? _lastAppearance;
   /// ارتفاعِ نوارِ کوچکِ پلیرِ صوتی (AudioPlayerBar، همراهِ خطِ پایینش) — رجوع به N-7.
   static const double _kAudioBarHeight = 56.0;
   // 🌟 اندیسِ صفحه‌ای که «خطِ خواندن» (۲۵٪ از بالای کادر) رویش است — ناوبرِ
@@ -1188,13 +1191,22 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     double canvasWidth = MediaQuery.of(context).size.width > 800
         ? 760.0
         : MediaQuery.of(context).size.width - 24;
-    // 🌟 S-11: نقطه‌ی مطالعه بعد از چرخش/تغییرِ عرض سرِ جایش بماند.
+    // 🌟 RM-1/RM-2: حالتِ «خوانا» و اندازه‌ی متن.
+    final ReadingAppearance appearance = ref.watch(readingAppearanceProvider);
+    final ReadableOptions readableOptions = ReadableOptions(
+      fontScale: appearance.fontScale,
+      narrow: MediaQuery.sizeOf(context).width <= 600,
+    );
+    // 🌟 S-11: نقطه‌ی مطالعه بعد از چرخش/تغییرِ عرض — و بعد از عوض‌شدنِ حالتِ نمایش
+    // یا اندازه‌ی متن (همه‌ی صفحه‌ها دوباره چیده می‌شوند) — سرِ جایش بماند.
     if (_isReady &&
-        _lastCanvasWidth != null &&
-        (canvasWidth - _lastCanvasWidth!).abs() > 0.5) {
+        ((_lastCanvasWidth != null &&
+                (canvasWidth - _lastCanvasWidth!).abs() > 0.5) ||
+            (_lastAppearance != null && _lastAppearance != appearance))) {
       _onCanvasWidthChanged();
     }
     _lastCanvasWidth = canvasWidth;
+    _lastAppearance = appearance;
     final currentBook = ref.read(activeBookProvider);
     final searchSession = ref.watch(activeSearchProvider);
     // 🐞 N-7: فقط باز/بسته‌شدنِ نوارِ پلیر (نه هر تیکِ پخش) این صفحه را rebuild می‌کند.
@@ -1531,7 +1543,11 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                                 Widget buildForPage(PageData page) {
                                   return RepaintBoundary(
                                     child: BookPageWidget(
-                                      page: page,
+                                      // 🌟 RM-2: حالتِ خوانا = همان صفحه با داده‌ی تبدیل‌شده
+                                      page: appearance.readable
+                                          ? readablePage(page, readableOptions)
+                                          : page,
+                                      readable: appearance.readable,
                                       activeTarget: activeTarget,
                                       searchSession: searchSession,
                                       canvasWidth: canvasWidth,
@@ -1655,6 +1671,8 @@ class BookPageWidget extends ConsumerStatefulWidget {
   final SearchSession? searchSession;
   final double canvasWidth;
   final double screenWidth;
+  // 🌟 RM-2: حالتِ «خوانا» (حاشیه‌ی کارتِ صفحه کمتر)
+  final bool readable;
   final GlobalKey? targetKey;
   final GlobalKey? exactMatchKey; // 🌟 اضافه شد
   final GlobalKey? pageAnchorKey; // 🌟 اضافه شد
@@ -1676,6 +1694,7 @@ class BookPageWidget extends ConsumerStatefulWidget {
     this.pageAnchorKey, // 🌟 اضافه شد
     this.bookAudioPlaylist = const [],
     this.bookAudioFirstOccurrence = const {},
+    this.readable = false,
   });
 
   @override
@@ -1711,7 +1730,10 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         old.targetKey != widget.targetKey ||
         old.exactMatchKey != widget.exactMatchKey ||
         old.pageAnchorKey != widget.pageAnchorKey ||
-        old.bookAudioPlaylist != widget.bookAudioPlaylist) {
+        old.bookAudioPlaylist != widget.bookAudioPlaylist ||
+        // 🌟 RM-2: حالتِ خوانا/کتاب یا اندازه‌ی متن ← داده‌ی دیگری از صفحه
+        !identical(old.page, widget.page) ||
+        old.readable != widget.readable) {
       // 🌟 اضافه شد
       _cachedWidgets = null;
     }
@@ -1817,7 +1839,10 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         // 🌟 N-11: برچسبِ «PAGE n» بالای هر صفحه حذف شد؛ شماره‌ی صفحه فقط در ناوبرِ
         // لبه‌ی چپ است (N-8، N-10). فاصله‌ی بینِ صفحه‌ها همان حاشیه‌ی پایینِ کارتِ صفحه است.
         Container(
-          margin: const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
+          // RM-2: در حالتِ خوانا کارتِ صفحه تقریباً تمام‌عرض است (جای بیشتر برای متن).
+          margin: widget.readable
+              ? const EdgeInsets.only(bottom: 16.0, left: 2.0, right: 2.0)
+              : const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
           padding: const EdgeInsets.all(12.0),
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -2981,8 +3006,12 @@ Widget _buildTable(
   final bool isMultiColumnMerge =
       tableSpan.layoutReflow == "merge" ||
       rawStyle.contains("multicolumntable");
+  // 🌟 RM-2: «stackRows» (فقط حالتِ خوانا روی گوشی) — جدولِ داده‌ای با سرستون،
+  // ردیف‌به‌ردیف و هر ردیف یک کارت؛ بقیه‌ی رفتارهای استک همان است.
+  final bool stackByRows = strategy == "stackRows";
   final bool isColumnStack =
       strategy == "stack" ||
+      stackByRows ||
       tableSpan.layoutReflow == "stack" ||
       isMultiColumnMerge ||
       rawStyle.contains("columnstack");
@@ -4607,7 +4636,27 @@ Widget _buildTable(
     }
   }
 
-  if (applyColumnStack && allGridCells.isNotEmpty) {
+  if (applyColumnStack && allGridCells.isNotEmpty && stackByRows) {
+    // RM-2: هر ردیف یک کارت (سلول‌ها زیرِ هم)، ردیفِ سرستون با زمینه‌ی کم‌رنگ؛
+    // ارتباطِ «سرستون ← مقدار» در جدول‌های داده‌ای حفظ می‌شود.
+    for (int r = 0; r < allGridCells.length; r++) {
+      rowWidgets.add(
+        Container(
+          margin: const EdgeInsets.only(bottom: 10.0),
+          decoration: BoxDecoration(
+            color: r == 0 ? Colors.blueGrey.withOpacity(0.06) : null,
+            border: Border.all(color: Colors.blueGrey.withOpacity(0.25)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: allGridCells[r],
+          ),
+        ),
+      );
+    }
+  } else if (applyColumnStack && allGridCells.isNotEmpty) {
     int maxCols = allGridCells.fold(
       0,
       (max, rowCells) => rowCells.length > max ? rowCells.length : max,

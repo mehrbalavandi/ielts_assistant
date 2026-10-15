@@ -5,6 +5,7 @@ import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
+import 'package:ielts_assistant/features/settings/presentation/reading_appearance_sheet.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -107,6 +108,23 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: const Text("ذخیره آدرس سرور", style: TextStyle(fontSize: 16)),
           ),
 
+          const SizedBox(height: 32),
+          const Divider(),
+          const SizedBox(height: 16),
+
+          // 🌟 RM-1: شیوه‌ی نمایشِ کتاب و اندازه‌ی متن
+          const Row(
+            children: [
+              Icon(Icons.text_fields_rounded, color: Colors.indigo),
+              SizedBox(width: 8),
+              Text(
+                "شیوه‌ی نمایشِ کتاب",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          const ReadingAppearanceControls(),
           const SizedBox(height: 32),
           const Divider(),
           const SizedBox(height: 16),

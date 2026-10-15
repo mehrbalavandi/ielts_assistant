@@ -7,6 +7,7 @@ import 'package:ielts_assistant/features/audio/presentation/audio_player_bar.dar
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/search/presentation/book_search_delegate.dart';
 import 'package:ielts_assistant/features/study/presentation/study_review_screen.dart';
+import 'package:ielts_assistant/features/settings/presentation/reading_appearance_sheet.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   const ReaderScreen({super.key});
@@ -116,6 +117,12 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
               icon: const Icon(Icons.queue_music_rounded),
               tooltip: 'پلی‌لیستِ کتاب',
               onPressed: () => showBookAudioPlaylist(context, pagedBookStore),
+            ),
+            // 🌟 RM-1: «Aa» — مطابقِ کتاب / خوانا و اندازه‌ی متن
+            IconButton(
+              icon: const Icon(Icons.text_fields_rounded),
+              tooltip: 'شیوه‌ی نمایش و اندازه‌ی متن',
+              onPressed: () => showReadingAppearanceSheet(context),
             ),
             // 🌟 ST-5: «مرورِ من» — واژه‌ها و تمرین‌های ذخیره‌شده؛ از این‌جا «رفتن به
             // متن» برای همین کتاب فعال است.
