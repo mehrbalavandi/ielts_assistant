@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
+import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -63,6 +64,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final answerDisplay = ref.watch(answerDisplayProvider);
     final answerNotifier = ref.read(answerDisplayProvider.notifier);
+    final audioStart = ref.watch(audioStartProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text("تنظیمات سیستم")),
@@ -227,6 +229,50 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
               ],
             ),
+          ),
+
+          // 🌟 AU-1: فایلِ صوتی از ابتدا یا از آخرین نقطه.
+          const SizedBox(height: 32),
+          const Divider(),
+          const SizedBox(height: 16),
+          const Row(
+            children: [
+              Icon(Icons.headphones_rounded, color: Colors.indigo),
+              SizedBox(width: 8),
+              Text(
+                "پخشِ فایل‌های صوتی",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "وقتی فایلی را از متن یا فهرستِ پخش باز می‌کنید، از کجا پخش شود؟ «قبلی/بعدی» و پخشِ پیوسته همیشه از ابتدای فایل است.",
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
+          const SizedBox(height: 12),
+          SegmentedButton<AudioStartMode>(
+            segments: const [
+              ButtonSegment<AudioStartMode>(
+                value: AudioStartMode.resume,
+                icon: Icon(Icons.history_rounded, size: 18),
+                label: Text("از آخرین نقطه"),
+              ),
+              ButtonSegment<AudioStartMode>(
+                value: AudioStartMode.fromStart,
+                icon: Icon(Icons.replay_rounded, size: 18),
+                label: Text("از ابتدا"),
+              ),
+            ],
+            selected: {audioStart},
+            showSelectedIcon: false,
+            onSelectionChanged: (s) =>
+                ref.read(audioStartProvider.notifier).set(s.first),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            audioStart.description,
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
           ),
         ],
       ),

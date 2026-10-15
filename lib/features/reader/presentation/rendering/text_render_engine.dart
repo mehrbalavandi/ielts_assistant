@@ -5,6 +5,7 @@ import 'package:ielts_assistant/features/settings/providers/language_provider.da
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/interactive_color.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart'; // برای دسترسی به TranslatableContentWrapper
 
 // 🌟 رفع مشکل اسکرول نادقیق جستجو:
@@ -445,6 +446,9 @@ class TextRenderEngine {
         wordMap = localMap.sublist(match.start, match.end);
       }
 
+      final bool hasOwnDecoration =
+          baseStyle.decoration != null &&
+          baseStyle.decoration != TextDecoration.none;
       TextStyle interactiveBaseStyle = baseStyle.copyWith(
         color: interactiveColor,
         // 🐞 قبلاً همیشه decoration را به‌طورِ اجباری underline/dotted
@@ -454,14 +458,19 @@ class TextRenderEngine {
         // «قابلِ‌کلیک‌بودن» پیش‌فرض اعمال می‌شود؛ اگر خودِ کلمه از قبل
         // decorationِ واقعی (مثلاً زیرخطِ خودِ Word) داشته باشد، همان حفظ
         // می‌شود.
-        decoration: baseStyle.decoration ?? TextDecoration.underline,
-        decorationStyle: baseStyle.decoration != null
+        // W-2: TextDecoration.none (صفحه همیشه decoration را مقدار می‌دهد، حتی
+        // وقتی Word زیرخطی ندارد) هم «بی‌decoration» است؛ وگرنه زیرخطِ نقطه‌چین در
+        // صفحه هیچ‌وقت کشیده نمی‌شد و کلمه فقط با رنگ جدا می‌شد.
+        decoration: hasOwnDecoration
+            ? baseStyle.decoration
+            : TextDecoration.underline,
+        decorationStyle: hasOwnDecoration
             ? baseStyle.decorationStyle
             : TextDecorationStyle.dotted,
         // 🐞 AS-2: زیرخطِ نقطه‌چینِ «قابلِ‌لمس» هم‌رنگِ خودِ کلمه است. قبلاً اگر پایه
         // decorationColor داشت (صفحه‌ی اسکریپتِ صوتی: رنگِ متن)، زیرخط به رنگِ متنِ
         // عادی کشیده می‌شد و کلمه از بقیه جدا نمی‌شد.
-        decorationColor: baseStyle.decoration != null
+        decorationColor: hasOwnDecoration
             ? baseStyle.decorationColor
             : interactiveColor,
       );
@@ -1368,6 +1377,11 @@ class InteractiveBlankWord extends StatelessWidget {
                 fontSize: textStyle.fontSize ?? 16.0,
                 height: 1.6,
               ),
+              // W-2: رنگِ کلمه‌ی تعاملی متناسب با زمینه‌ی ظرف (روشن/تیره).
+              interactiveColor: interactiveColorOn(
+                answerSurfaceColor(isDarkTheme),
+                textColor: isDarkTheme ? Colors.white : Colors.black87,
+              ),
               localHighlightMap: lineMap,
               activeOccurrence: activeOcc,
               interactivesPattern: interactivesPattern,
@@ -1403,6 +1417,11 @@ class InteractiveBlankWord extends StatelessWidget {
             color: isDarkTheme ? Colors.white : Colors.black87,
             fontSize: textStyle.fontSize ?? 16.0,
             height: 1.6,
+          ),
+          // W-2
+          interactiveColor: interactiveColorOn(
+            answerSurfaceColor(isDarkTheme),
+            textColor: isDarkTheme ? Colors.white : Colors.black87,
           ),
           localHighlightMap: blankMap,
           activeOccurrence: activeOcc,

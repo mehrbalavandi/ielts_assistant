@@ -1,9 +1,6 @@
 #include "flutter_window.h"
 
-#include <flutter/standard_method_codec.h>
-
 #include <optional>
-#include <string>
 
 #include "flutter/generated_plugin_registrant.h"
 
@@ -28,36 +25,6 @@ bool FlutterWindow::OnCreate() {
     return false;
   }
   RegisterPlugins(flutter_controller_->engine());
-
-  // U-1: app version for the in-app update check (replaces package_info_plus).
-  // FLUTTER_VERSION ("1.0.0+5") and FLUTTER_VERSION_BUILD (5) come from pubspec
-  // through runner/CMakeLists.txt.
-  app_info_channel_ =
-      std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
-          flutter_controller_->engine()->messenger(), "ielts_assistant/app_info",
-          &flutter::StandardMethodCodec::GetInstance());
-  app_info_channel_->SetMethodCallHandler(
-      [](const flutter::MethodCall<flutter::EncodableValue>& call,
-         std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>>
-             result) {
-        if (call.method_name() != "getAppInfo") {
-          result->NotImplemented();
-          return;
-        }
-#if defined(FLUTTER_VERSION) && defined(FLUTTER_VERSION_BUILD)
-        const std::string full = FLUTTER_VERSION;
-        const std::string version = full.substr(0, full.find('+'));
-        flutter::EncodableMap info{
-            {flutter::EncodableValue("version"),
-             flutter::EncodableValue(version)},
-            {flutter::EncodableValue("buildNumber"),
-             flutter::EncodableValue(std::to_string(FLUTTER_VERSION_BUILD))},
-        };
-        result->Success(flutter::EncodableValue(info));
-#else
-        result->Error("UNAVAILABLE", "FLUTTER_VERSION is not defined");
-#endif
-      });
   SetChildContent(flutter_controller_->view()->GetNativeWindow());
 
   flutter_controller_->engine()->SetNextFrameCallback([&]() {
@@ -73,8 +40,6 @@ bool FlutterWindow::OnCreate() {
 }
 
 void FlutterWindow::OnDestroy() {
-  // The channel uses the engine's messenger, so it must go before the engine.
-  app_info_channel_ = nullptr;
   if (flutter_controller_) {
     flutter_controller_ = nullptr;
   }

@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 // 🌟 قانونِ U-1 تا U-4 (RULES-rendering.md): اپ از خودِ سایت توزیع می‌شود، نه از
 // فروشگاه. با هر اجرا یک‌بار از سرور (/api/app/latest) آخرین نسخه‌ی همین سکو پرسیده
@@ -92,9 +92,6 @@ class AppUpdateState {
 class AppUpdateNotifier extends Notifier<AppUpdateState> {
   static const String _dismissedKey = 'update_dismissed_build';
 
-  /// کانالِ بومیِ «نسخه‌ی اپ» (اندروید: MainActivity.kt، ویندوز: flutter_window.cpp).
-  static const MethodChannel _channel = MethodChannel('ielts_assistant/app_info');
-
   @override
   AppUpdateState build() => const AppUpdateState();
 
@@ -113,11 +110,11 @@ class AppUpdateNotifier extends Notifier<AppUpdateState> {
     if (platform == null || state.checking) return false;
     state = state.copyWith(checking: true);
     try {
-      // نسخه از کدِ بومیِ خودِ اپ (MainActivity.kt / flutter_window.cpp)، نه از
-      // package_info_plus — آن پکیج Build را بدونِ دسترسی به dl.google.com می‌شکست.
-      final info = await _channel.invokeMapMethod<String, dynamic>('getAppInfo');
-      final String version = info?['version']?.toString() ?? '';
-      final int? build = int.tryParse(info?['buildNumber']?.toString() ?? '');
+      // نسخه و build number از package_info_plus (اندروید: versionName/versionCode؛
+      // ویندوز: منابعِ فایلِ exe که از pubspec ساخته می‌شوند).
+      final info = await PackageInfo.fromPlatform();
+      final String version = info.version;
+      final int? build = int.tryParse(info.buildNumber.trim());
       // بدونِ شماره‌ی build مقایسه بی‌معناست (هر نسخه‌ای «تازه» دیده می‌شد).
       if (build == null || build <= 0) {
         state = state.copyWith(checking: false);

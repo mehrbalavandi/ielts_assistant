@@ -15,9 +15,11 @@ import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/translatable_content.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/interactive_color.dart';
 // TranslatableContentWrapper به فایلِ خودش رفت (TR-1)؛ export تا import‌های قبلی کار کنند.
 export 'package:ielts_assistant/features/reader/presentation/rendering/translatable_content.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
+import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
@@ -210,6 +212,16 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
 
   // 🌟 نشانِ معلقِ شماره‌ی صفحه (مثل تلگرام) + پرش به صفحه
   int _currentPage = 1;
+
+  // 🌟 S-11: لنگرِ نقطه‌ی مطالعه برای چرخشِ دستگاه / تغییرِ عرضِ پنجره. صفحه‌ای که
+  // خطِ خواندن رویش است و این‌که خطِ خواندن چه کسری از ارتفاعِ همان صفحه پایین‌تر از
+  // بالای آن است. با هر اسکرول به‌روز می‌شود، جز وقتی که در حالِ برگرداندنِ همین
+  // لنگر بعد از تغییرِ عرض هستیم (_holdReadingAnchor).
+  int _anchorIndex = 0;
+  double _anchorFraction = 0.0;
+  bool _holdReadingAnchor = false;
+  int _reflowRequestId = 0;
+  double? _lastCanvasWidth;
   /// ارتفاعِ نوارِ کوچکِ پلیرِ صوتی (AudioPlayerBar، همراهِ خطِ پایینش) — رجوع به N-7.
   static const double _kAudioBarHeight = 56.0;
   // 🌟 اندیسِ صفحه‌ای که «خطِ خواندن» (۲۵٪ از بالای کادر) رویش است — ناوبرِ
@@ -474,24 +486,68 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
           .where((p) => p.itemTrailingEdge > 0)
           .reduce((min, p) => p.index < min.index ? p : min);
 
-      // 🌟 N-3: صفحه‌ای که خطِ خواندن (۲۵٪ از بالا) رویش است؛ اگر هیچ آیتمی آن
-      // خط را نپوشاند (فاصله‌ی بینِ صفحه‌ها)، همان بالاترین صفحه‌ی دیده‌شده.
+      // 🌟 N-10: بخشی از بالای لیست که زیرِ نوارِ پلیرِ صوتی پنهان است، جزوِ
+      // «دیده‌شده» حساب نمی‌شود (نوارِ جستجو پایینِ Scaffold است و خودِ لیست را
+      // کوتاه می‌کند، پس جدا لازم نیست). positions کسری از ارتفاعِ لیست‌اند.
+      final double vh = _viewportHeight();
+      final double topCut = vh > 0
+          ? (_topObstructionPx() / vh).clamp(0.0, 0.9)
+          : 0.0;
+
+      // 🌟 N-3: صفحه‌ای که خطِ خواندن (۲۵٪ از بالای ناحیه‌ی دیده‌شده) رویش است؛ اگر
+      // هیچ آیتمی آن خط را نپوشاند (فاصله‌ی بینِ صفحه‌ها)، همان بالاترین صفحه.
+      final double readingLine = topCut + (1 - topCut) * 0.25;
       int readingIndex = topItem.index;
       for (final p in positions) {
-        if (p.itemLeadingEdge <= 0.25 && p.itemTrailingEdge > 0.25) {
+        if (p.itemLeadingEdge <= readingLine &&
+            p.itemTrailingEdge > readingLine) {
           readingIndex = p.index;
           break;
         }
       }
       _readingPageIndex.value = readingIndex;
 
+      // 🌟 S-11: لنگرِ نقطه‌ی مطالعه (برای چرخش). در حینِ برگرداندنِ لنگر دست نمی‌خورد،
+      // وگرنه چیدمانِ تازه (با عرضِ جدید) لنگرِ قدیمی را پاک می‌کرد.
+      if (!_holdReadingAnchor) {
+        for (final p in positions) {
+          if (p.index != readingIndex) continue;
+          final double h = p.itemTrailingEdge - p.itemLeadingEdge;
+          if (h > 0) {
+            _anchorIndex = p.index;
+            _anchorFraction = ((readingLine - p.itemLeadingEdge) / h).clamp(
+              0.0,
+              1.0,
+            );
+          }
+          break;
+        }
+      }
+
+      // 🌟 N-10: صفحه‌ی جاری = صفحه‌ای که بیشترین سهم از ناحیه‌ی دیده‌شده را دارد
+      // (در برابرِ دو صفحه یعنی «بیش از نیمی»). قبلاً بالاترین صفحه‌ای بود که حتی
+      // یک خطش دیده می‌شد، پس شماره تا محوِ کاملِ صفحه‌ی قبلی عوض نمی‌شد. در تساوی،
+      // صفحه‌ی بالاتر.
+      int currentIndex = topItem.index;
+      double bestShare = -1;
+      for (final p in positions) {
+        final double share =
+            math.min(p.itemTrailingEdge, 1.0) -
+            math.max(p.itemLeadingEdge, topCut);
+        if (share > bestShare + 1e-6 ||
+            ((share - bestShare).abs() <= 1e-6 && p.index < currentIndex)) {
+          bestShare = share;
+          currentIndex = p.index;
+        }
+      }
+
       // 🌟 شماره‌ی صفحه‌ی جاری + نمایشِ نشان هنگام اسکرول (مثل تلگرام)
       // 🐞 دیگر «ایندکس + ۱» نیست: استخراج‌کننده می‌تواند شماره‌گذاری را از
       // عددِ دلخواه شروع کند، پس شماره‌ی واقعیِ صفحه از index.json خوانده
       // می‌شود. فالبکِ index+1 برای کتاب‌های قدیمی رفتارِ قبلی را نگه می‌دارد.
       final newPage =
-          widget.pagedBookStore.pageNumberForIndex(topItem.index) ??
-          (topItem.index + 1);
+          widget.pagedBookStore.pageNumberForIndex(currentIndex) ??
+          (currentIndex + 1);
       if (newPage != _currentPage) {
         // 🐞 رفع باگِ گزارش‌شده‌ی «پرش حینِ اسکرول»: با لودِ تنبل، وقتی
         // یک صفحه هنوز در کش نیست، _LazyPage یک پلیس‌هولدرِ ارتفاعِ‌ثابت
@@ -503,7 +559,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
         // از قبل در کش است — یعنی از مسیرِ سریعِ peekPage رد می‌شود، نه
         // پلیس‌هولدر. await نمی‌شود چون قرار است در پس‌زمینه، همزمان با
         // ادامه‌ی اسکرولِ کاربر، انجام شود.
-        widget.pagedBookStore.prewarmAround(topItem.index);
+        widget.pagedBookStore.prewarmAround(currentIndex);
       }
       if (newPage != _currentPage || !_showPageBadge) {
         setState(() {
@@ -590,6 +646,68 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     final RenderObject? ro = _viewerKey.currentContext?.findRenderObject();
     if (ro is RenderBox && ro.hasSize) return ro.size.height;
     return MediaQuery.of(context).size.height;
+  }
+
+  /// 🌟 S-11: خطِ خواندن (کسری از ارتفاعِ لیست): ۲۵٪ پایین‌تر از بالای ناحیه‌ای که
+  /// زیرِ نوارِ پلیر نیست — همان خطِ N-3.
+  double _readingLineFraction() {
+    final double vh = _viewportHeight();
+    final double topCut = vh > 0
+        ? (_topObstructionPx() / vh).clamp(0.0, 0.9)
+        : 0.0;
+    return topCut + (1 - topCut) * 0.25;
+  }
+
+  /// 🌟 S-11: عرضِ صفحه عوض شد (چرخشِ گوشی، تغییرِ اندازه‌ی پنجره): همه‌ی صفحه‌ها
+  /// دوباره چیده می‌شوند و ارتفاعشان عوض می‌شود. لیست فقط بالای یک صفحه را ثابت نگه
+  /// می‌دارد، پس نقطه‌ی مطالعه داخلِ صفحه‌های بلند خیلی جابه‌جا می‌شد. حالا همان کسر از
+  /// همان صفحه دوباره زیرِ خطِ خواندن می‌آید: یک‌بار بلافاصله بعد از چیدمانِ تازه، یک‌بار
+  /// فریمِ بعد، و یک‌بار بعد از انیمیشنِ اندازه‌ی صفحه‌های تنبل. اگر کاربر در این فاصله
+  /// صفحه را لمس کند، برگرداندن رها می‌شود.
+  void _onCanvasWidthChanged() {
+    _holdReadingAnchor = true;
+    final int requestId = ++_reflowRequestId;
+    final DateTime startedAt = DateTime.now();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _restoreReadingAnchor(requestId, startedAt),
+    );
+  }
+
+  Future<void> _restoreReadingAnchor(int requestId, DateTime startedAt) async {
+    bool stale() =>
+        !mounted ||
+        requestId != _reflowRequestId ||
+        _lastPointerDownAt.isAfter(startedAt) ||
+        !_itemScrollController.isAttached;
+    try {
+      for (int pass = 0; pass < 3; pass++) {
+        if (stale()) return;
+        final double line = _readingLineFraction();
+        final List<ItemPosition> pos = _itemPositionsListener
+            .itemPositions
+            .value
+            .where((p) => p.index == _anchorIndex)
+            .toList();
+        if (pos.isEmpty) {
+          // صفحه‌ی لنگر بیرون از کادر افتاده: اول بالایش را روی خطِ خواندن بیاور.
+          _itemScrollController.jumpTo(index: _anchorIndex, alignment: line);
+        } else {
+          final double h = pos.first.itemTrailingEdge - pos.first.itemLeadingEdge;
+          final double target = line - _anchorFraction * h;
+          if ((pos.first.itemLeadingEdge - target).abs() * _viewportHeight() >
+              1.0) {
+            _itemScrollController.jumpTo(index: _anchorIndex, alignment: target);
+          }
+        }
+        if (pass == 0) {
+          await WidgetsBinding.instance.endOfFrame;
+        } else {
+          await Future.delayed(const Duration(milliseconds: 260));
+        }
+      }
+    } finally {
+      if (requestId == _reflowRequestId) _holdReadingAnchor = false;
+    }
   }
 
   /// 🐞 «پرش به صفحه کمی پایین‌تر از ابتدای صفحه می‌نشست»: دو علت، هر دو
@@ -1069,6 +1187,13 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     double canvasWidth = MediaQuery.of(context).size.width > 800
         ? 760.0
         : MediaQuery.of(context).size.width - 24;
+    // 🌟 S-11: نقطه‌ی مطالعه بعد از چرخش/تغییرِ عرض سرِ جایش بماند.
+    if (_isReady &&
+        _lastCanvasWidth != null &&
+        (canvasWidth - _lastCanvasWidth!).abs() > 0.5) {
+      _onCanvasWidthChanged();
+    }
+    _lastCanvasWidth = canvasWidth;
     final currentBook = ref.read(activeBookProvider);
     final searchSession = ref.watch(activeSearchProvider);
     // 🐞 N-7: فقط باز/بسته‌شدنِ نوارِ پلیر (نه هر تیکِ پخش) این صفحه را rebuild می‌کند.
@@ -1688,7 +1813,8 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
           widget.pageAnchorKey, // 🌟 لنگر ثابت برای اندازه‌گیری مستقل از اسکرول
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildPageDivider(widget.page.pageNumber),
+        // 🌟 N-11: برچسبِ «PAGE n» بالای هر صفحه حذف شد؛ شماره‌ی صفحه فقط در ناوبرِ
+        // لبه‌ی چپ است (N-8، N-10). فاصله‌ی بینِ صفحه‌ها همان حاشیه‌ی پایینِ کارتِ صفحه است.
         Container(
           margin: const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
           padding: const EdgeInsets.all(12.0),
@@ -1747,38 +1873,6 @@ List<int> _buildOccurrenceMap(String fullText, String query) {
     matchIndex = nText.indexOf(nQuery, matchIndex + nQuery.length);
   }
   return map;
-}
-
-Widget _buildPageDivider(int pageNumber) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 16.0, left: 8.0, right: 8.0),
-    child: Row(
-      children: [
-        Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              "PAGE $pageNumber",
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade600,
-                letterSpacing: 1.2,
-              ),
-            ),
-          ),
-        ),
-        Expanded(child: Divider(color: Colors.grey.shade400, thickness: 1.0)),
-      ],
-    ),
-  );
 }
 
 String mapFontFamily(String rawFontName) {
@@ -1990,6 +2084,8 @@ Widget _buildParagraph(
   // KeyClaim مشترک برای کل پاراگراف (نه یکی جدا به ازای هر اسپن) از اینجا
   // به پایین‌دست پاس داده می‌شود.
   KeyClaim? keyClaim,
+  // W-2: پس‌زمینه‌ی ظرف (سلول/جدولِ رنگی) برای رنگِ کلماتِ تعاملی.
+  Color? surfaceColor,
 }) {
   // 🐞 پاراگرافِ «فقط‌شماره»ی لیست (Mindset 2 ص۵۳ تمرینِ ۰۶: ستونِ اولِ جدول فقط
   // شماره‌ی خودکارِ ۱ تا ۶ دارد): متن ندارد ولی Word شماره‌اش را نشان می‌دهد،
@@ -2100,6 +2196,7 @@ Widget _buildParagraph(
           audioPageNumber: audioPageNumber, // 🐞 اضافه شد
           audioParaIndex: audioParaIndex, // 🐞 اضافه شد
           keyClaim: keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
+          surfaceColor: surfaceColor, // W-2
         ),
       );
       mapOffset.value += content.length;
@@ -2281,6 +2378,8 @@ Widget _buildParagraph(
           audioPageNumber: audioPageNumber, // 🐞 اضافه شد
           audioParaIndex: audioParaIndex, // 🐞 اضافه شد
           keyClaim: keyClaim, // 🐞 مشترک بین پاراگراف و همه‌ی سلول‌های جدولش
+          // W-2: جدولِ داخلِ پاراگرافِ رنگی (یا سلولِ رنگی) همان زمینه را دارد.
+          surfaceColor: _hexToColor(para.fillColor) ?? surfaceColor,
         ),
       );
     }
@@ -2792,8 +2891,12 @@ Widget _buildTable(
   int? audioPageNumber,
   int? audioParaIndex,
   KeyClaim? keyClaim, // 🐞 مشترک بین پاراگراف مادر و همه‌ی سلول‌های این جدول
+  // W-2: پس‌زمینه‌ی بیرونِ جدول (پاراگراف/سلولِ والد)؛ null = صفحه.
+  Color? surfaceColor,
 }) {
   final bool isLargeScreen = screenWidth > 600;
+  // W-2: زمینه‌ی خودِ جدول؛ سلول‌های بی‌رنگ همین را دارند.
+  final Color? tableSurface = _hexToColor(tableSpan.fillColor) ?? surfaceColor;
   final String rawStyle =
       (tableSpan.tableStyleId ?? tableSpan.tableStyleName ?? "")
           .toLowerCase()
@@ -4146,6 +4249,8 @@ Widget _buildTable(
             audioPageNumber: audioPageNumber, // 🐞 اضافه شد
             audioParaIndex: audioParaIndex, // 🐞 اضافه شد
             keyClaim: keyClaim, // 🐞 همان claim مشترکِ کل پاراگراف/جدول
+            // W-2: سلولِ رنگی (مثلِ سرآغازِ SPEAKING) ← وگرنه زمینه‌ی جدول.
+            surfaceColor: _hexToColor(cell.fillColor) ?? tableSurface,
           ),
         );
       }
@@ -5617,6 +5722,8 @@ List<InlineSpan> _buildStyledInteractiveText(
   int? audioPageNumber,
   int? audioParaIndex,
   KeyClaim? keyClaim, // 🐞 مشترک بین همه‌ی اسپن‌های همین پاراگراف
+  // W-2: پس‌زمینه‌ی ظرفِ این پاراگراف (سلول/جدول)؛ null = صفحه‌ی سفید.
+  Color? surfaceColor,
 }) {
   double fontSize = 14.0;
   String? fontFamily;
@@ -5629,15 +5736,19 @@ List<InlineSpan> _buildStyledInteractiveText(
     }
   }
 
-  Color? effectiveBgColor =
-      _hexToColor(span.fillColor) ?? _hexToColor(para.fillColor);
-  Color interactiveColor = Colors.blue;
-  if (effectiveBgColor != null) {
-    interactiveColor = effectiveBgColor.computeLuminance() < 0.4
-        ? Colors.lightBlueAccent
-        : Colors.blue.shade900;
-  }
+  // 🌟 W-2: رنگِ کلمه‌ی تعاملی از پس‌زمینه‌ی واقعی (اسپن ← پاراگراف ← سلول/جدول ←
+  // صفحه) و رنگِ متنِ همین اسپن. قبلاً فقط پس‌زمینه‌ی اسپن/پاراگراف دیده می‌شد و
+  // سلولِ آبیِ سرآغازِ SPEAKING آبیِ پیش‌فرض را می‌گرفت.
+  final Color effectiveBgColor =
+      _hexToColor(span.fillColor) ??
+      _hexToColor(para.fillColor) ??
+      surfaceColor ??
+      Colors.white;
   Color? customTextColor = _hexToColor(span.textColor);
+  final Color interactiveColor = interactiveColorOn(
+    effectiveBgColor,
+    textColor: customTextColor ?? Colors.black87,
+  );
   bool isAudioLink = span.url != null && span.url!.startsWith("audio:");
   if (isAudioLink) customTextColor = interactiveColor;
 
@@ -6180,7 +6291,11 @@ class InlineAudioLink extends ConsumerWidget {
       }
     } else {
       final box = GetStorage();
-      currentPosMs = box.read(storagePosKey) ?? 0;
+      // AU-1: در حالتِ «از ابتدا» فایلِ دیگر از صفر شروع می‌شود؛ پیشرفتِ قبلی نشان
+      // داده نمی‌شود تا گمراه نکند.
+      currentPosMs = ref.watch(audioStartProvider) == AudioStartMode.resume
+          ? (box.read(storagePosKey) ?? 0)
+          : 0;
       currentDurMs = box.read(storageDurKey) ?? 0;
     }
 

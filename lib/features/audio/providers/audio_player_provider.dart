@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 
 part 'audio_player_provider.g.dart';
 
@@ -243,7 +244,14 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       }
       await _player.stop();
 
-      final lastPosMs = seekToMs ?? (_box.read('pos_$path') ?? 0);
+      // 🌟 AU-1: فایلی که تازه باز می‌شود، طبقِ تنظیمات از آخرین نقطه یا از ابتدا.
+      // (همان فایلی که الان در پلیر است بالاتر برگشت داده شد: توقف/پخشِ دوباره‌اش
+      // همیشه ادامه می‌دهد. قبلی/بعدی هم seekToMs: 0 می‌فرستند.)
+      final int lastPosMs =
+          seekToMs ??
+          (AudioStartNotifier.read() == AudioStartMode.resume
+              ? (_box.read('pos_$path') ?? 0)
+              : 0);
       // 🌟 S-10: آخرین فایلی که باز شد — پلی‌لیست بعد از بستن/بازکردنِ برنامه هم
       // روی همین فایل باز می‌شود.
       _box.write(_lastAudioKey, path);
