@@ -15,12 +15,18 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 // - فونت: همه‌ی متنِ لاتین Source Sans 3 (فونتِ اصلیِ خودِ کتاب)؛ فونت‌های نمادین
 //   (Wingdings، Symbol، ایموجی) و فارسی همان می‌مانند.
 // - فاصله‌ی خطوط حداقل ۱٫۵؛ فاصله‌ی پیش/پس از پاراگراف حداکثر ۱۴.
+// - جدول‌های «واژه‌ای» (همه‌ی سلول‌ها کوتاه، مثلِ کادرِ best/close/happy): عرضِ ستون‌های
+//   سند هم‌پای متن بزرگ می‌شود تا واژه‌ها نشکنند؛ چیدمانِ جدول همان کتاب می‌ماند.
 // - گوشی (عرضِ ≤ ۶۰۰): تورفتگی‌ها ۶۰٪ (حداکثر ۲۴)، و جدول‌های چندستونه:
-//   · یک ردیفِ کوتاه (برچسب‌ها، واژه‌ها) ← «چیپ»‌هایی که به خطِ بعد می‌روند (wrap)
-//   · جدولِ داده‌ای با سرستون ← ردیف‌به‌ردیف، هر ردیف یک کارت (stackRows)
-//   · بقیه (صفحه‌آرایی، متن کنارِ عکس) ← ستون‌به‌ستون زیرِ هم (stack)
-//   جدولِ تک‌ستونه، نشانِ شماره‌ی تمرین (CompactTable) و جدول‌هایی که خودشان از قبل
-//   استکی/جریانی‌اند دست نمی‌خورند.
+//   · جدولِ واژه‌ای ← همان جدولِ کتاب (نه چیپ‌های جدا، نه فهرستِ عمودی)
+//   · جدولِ داده‌ای با سرستون (≥۳ ردیف) ← ردیف‌به‌ردیف، هر ردیف یک کارت (stackRows)
+//   · بقیه (صفحه‌آرایی: شماره‌ی تمرین | متن | نکته، گفت‌وگو: Examiner | متن، جمله | کادر)
+//     ← «ردیفی» (rowFlow): ترتیبِ خواندن همان ترتیبِ Word است (ردیف‌به‌ردیف)؛ سلولِ اولِ
+//     باریک (شماره، برچسبِ گوینده) کنارِ بقیه‌ی ردیف می‌ماند و سلول‌های دیگر زیرِ هم
+//     می‌آیند؛ سلول‌های خالی حذف می‌شوند. دیگر هیچ جدولی ستون‌به‌ستون (همه‌ی شماره‌ها
+//     با هم، بعد همه‌ی متن‌ها) چیده نمی‌شود.
+//   جدولِ تک‌ستونه، نشانِ شماره‌ی تمرین (CompactTable)، جدولِ جریانی (wrap) و متنِ
+//   چندستونی (MultiColumnTable / layoutReflow) دست نمی‌خورند.
 
 @immutable
 class ReadableOptions {
@@ -119,6 +125,9 @@ class _ReadableTransform {
       );
     }
     if (s.type == 'table' || s.type == 'layout') {
+      final bool wordGrid = _isWordGrid(s);
+      // جدولِ واژه‌ای: عرضِ ستون‌ها به نسبتِ بزرگ‌شدنِ متن (۱۱٫۵pt ← ۱۵px × ضریب).
+      final double widthScale = wordGrid ? _base / _kBookBodyPt : 1.0;
       final List<TableRowData> rows = [
         for (final r in s.tableRows)
           r.copyWith(
@@ -126,11 +135,14 @@ class _ReadableTransform {
               for (final c in r.cells)
                 c.copyWith(
                   paragraphs: [for (final p in c.paragraphs) paragraph(p)],
+                  widthPt: (c.widthPt == null || widthScale == 1.0)
+                      ? null
+                      : c.widthPt! * widthScale,
                 ),
             ],
           ),
       ];
-      final String? strategy = o.narrow ? _tableStrategy(s) : null;
+      final String? strategy = o.narrow ? _tableStrategy(s, wordGrid) : null;
       return s.copyWith(tableRows: rows, responsiveStrategy: strategy);
     }
     return s;
@@ -172,20 +184,16 @@ class _ReadableTransform {
 
   // ───────── جدول روی گوشی ─────────
 
-  String? _tableStrategy(SpanData t) {
+  /// null = راهبردِ خودِ کتاب بماند.
+  String? _tableStrategy(SpanData t, bool wordGrid) {
     final String current = t.responsiveStrategy ?? '';
-    if (current == 'stack' ||
-        current == 'wrap' ||
-        t.layoutReflow == 'stack' ||
-        t.layoutReflow == 'merge') {
-      return null;
-    }
+    // متنِ چندستونی (merge) و جدولِ جریانیِ خودِ کتاب. ColumnStackTable (layoutReflow
+    // = stack) دست می‌خورد: کتاب آن را ستون‌به‌ستون زیرِ هم می‌چیند، خوانا ردیفی.
+    if (t.layoutReflow == 'merge' || current == 'wrap') return null;
     final String style = (t.tableStyleId ?? t.tableStyleName ?? '')
         .toLowerCase()
         .replaceAll(' ', '');
-    if (style.contains('compacttable') ||
-        style.contains('multicolumntable') ||
-        style.contains('columnstack')) {
+    if (style.contains('compacttable') || style.contains('multicolumntable')) {
       return null;
     }
     final List<TableRowData> rows = t.tableRows;
@@ -193,8 +201,12 @@ class _ReadableTransform {
     final int cols = rows.fold(0, (m, r) => math.max(m, r.cells.length));
     if (cols <= 1) return null;
 
-    if (rows.length == 1 && rows.first.cells.every(_shortTextCell)) {
-      return 'wrap';
+    // کادرِ واژه‌ها همان جدولِ کتاب؛ اگر کتاب خودش «زیرِ هم» خواسته بود، گرید
+    // (هر مقدارِ ناشناخته برای رندرکننده یعنی جدولِ معمولی).
+    if (wordGrid) {
+      return (current == 'stack' || style.contains('columnstack'))
+          ? 'grid'
+          : null;
     }
     final TableRowData first = rows.first;
     final bool headerRow =
@@ -202,7 +214,24 @@ class _ReadableTransform {
         first.cells.every((c) => c.isHeaderCell) ||
         first.cells.every(_boldShortCell);
     if (rows.length >= 3 && headerRow) return 'stackRows';
-    return 'stack';
+    return 'rowFlow';
+  }
+
+  /// جدولِ واژه‌ای: دست‌کم دو ستون، همه‌ی سلول‌ها فقط متنِ کوتاه (یا خالی).
+  static bool _isWordGrid(SpanData t) {
+    if (t.tableRows.isEmpty) return false;
+    final int cols = t.tableRows.fold(0, (m, r) => math.max(m, r.cells.length));
+    if (cols <= 1) return false;
+    bool any = false;
+    for (final r in t.tableRows) {
+      for (final c in r.cells) {
+        if (!_onlyText(c)) return false;
+        final String text = _cellText(c);
+        if (text.length > 30) return false;
+        if (text.isNotEmpty) any = true;
+      }
+    }
+    return any;
   }
 
   static String _cellText(TableCellData c) => c.paragraphs
@@ -215,13 +244,6 @@ class _ReadableTransform {
   static bool _onlyText(TableCellData c) => c.paragraphs.every(
     (p) => p.spans.every((s) => s.type == 'text'),
   );
-
-  /// برچسب یا واژه‌ی کوتاه (چیپ).
-  static bool _shortTextCell(TableCellData c) {
-    if (!_onlyText(c)) return false;
-    final String t = _cellText(c);
-    return t.isNotEmpty && t.length <= 30;
-  }
 
   /// سلولِ سرستونِ بی‌علامت: کوتاه و تماماً بولد.
   static bool _boldShortCell(TableCellData c) {

@@ -172,7 +172,7 @@ class BookSearchEngine {
     String query,
     List<BookModel> availableBooks,
   ) async {
-    String safeQuery = query.trim();
+    String safeQuery = normalizeQuery(query);
     if (safeQuery.length < 3) return [];
 
     await _ensureIsolateReady();
@@ -349,7 +349,7 @@ Future<List<SearchResult>> _performSearch(
   Map<String, List<PageData>> cache,
   Map<String, List<AudioScriptTrack>> audioScriptsCache,
 ) async {
-  String lowerQuery = _normalizeText(query);
+  String lowerQuery = _normalizeText(normalizeQuery(query));
   List<SearchResult> results = [];
 
   for (var book in books) {

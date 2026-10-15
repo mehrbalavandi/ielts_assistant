@@ -203,6 +203,10 @@ class ParagraphData {
   // 🐞 BlankWord3: شماره‌ی لیست بیرونِ {blk} دیده شود و فقط متن مخفی شود.
   final bool keepListMarkerVisible;
   final double? lineSpacing; // 🌟 ضریبِ فاصله‌ی خطوط (1.0 = تک، 1.5، ...)
+  // 🌟 B-8 (T-25): این پاراگراف یک جدولِ سطحِ صفحه است و فاصله‌ی بالایش (spaceBefore)
+  // از خودِ سند آمده (پاراگراف‌های خالیِ فاصله‌اندازِ Word)؛ پس رندرکننده حاشیه‌ی
+  // پیش‌فرضِ ۱۲px بالا/پایینِ جدول را اضافه نمی‌کند. false = JSONِ قدیمی.
+  final bool tableSpacingFromDoc;
 
   ParagraphData({
     required this.spans,
@@ -237,6 +241,7 @@ class ParagraphData {
     this.listTabStop, // 🐞
     this.keepListMarkerVisible = false, // 🐞
     this.lineSpacing, // 🌟
+    this.tableSpacingFromDoc = false,
   });
 
   factory ParagraphData.fromJson(Map<String, dynamic> json) {
@@ -284,6 +289,7 @@ class ParagraphData {
       listSuffix: json['ListSuffix'], // 🐞
       listTabStop: (json['ListTabStop'] as num?)?.toDouble(), // 🐞
       keepListMarkerVisible: json['KeepListMarkerVisible'] == true, // 🐞
+      tableSpacingFromDoc: json['TableSpacingFromDoc'] == true,
     );
   }
 
@@ -335,6 +341,7 @@ class ParagraphData {
       listSuffix: listSuffix, // 🐞
       listTabStop: listTabStop, // 🐞
       keepListMarkerVisible: keepListMarkerVisible, // 🐞
+      tableSpacingFromDoc: tableSpacingFromDoc,
     );
   }
 }
@@ -553,10 +560,10 @@ class TableCellData {
     );
   }
 
-  TableCellData copyWith({List<ParagraphData>? paragraphs}) {
+  TableCellData copyWith({List<ParagraphData>? paragraphs, double? widthPt}) {
     return TableCellData(
       widthPercent: widthPercent,
-      widthPt: widthPt,
+      widthPt: widthPt ?? this.widthPt,
       paragraphs: paragraphs ?? this.paragraphs,
       fillColor: fillColor,
       vAlign: vAlign,

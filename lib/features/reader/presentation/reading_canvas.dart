@@ -1879,10 +1879,125 @@ bool _isWhollyOneBlank(String? content) {
   return '{blk}'.allMatches(t).length == 1;
 }
 
+// ───────── RM-2: چیدمانِ «ردیفی» (rowFlow) ─────────
+
+/// سلولی که نه متن دارد، نه عکس، نه جدولِ تودرتو.
+bool _isBlankCell(TableCellData c) => c.paragraphs.every(
+  (p) => p.spans.every(
+    (s) => s.type == "text" && s.content.trim().isEmpty,
+  ),
+);
+
+/// عرضِ طبیعیِ محتوای یک سلول (برای ستونِ کناریِ باریک): متن/عکس و جدولِ تودرتوی
+/// کوچک (مثلِ جعبه‌ی شماره‌ی تمرین)، به‌اضافه‌ی padding.
+double _naturalCellWidth(
+  TableCellData c,
+  double Function(ParagraphData) measure,
+) {
+  double w = 0;
+  for (final p in c.paragraphs) {
+    double pw = measure(p);
+    for (final s in p.spans) {
+      if (s.type != "table" && s.type != "layout") continue;
+      for (final r in s.tableRows) {
+        double rw = 0;
+        for (final ic in r.cells) {
+          rw += _naturalCellWidth(ic, measure) + 2; // + بوردر
+        }
+        pw = math.max(pw, rw);
+      }
+    }
+    w = math.max(w, pw);
+  }
+  return w + (c.paddingLeft ?? 8.0) + (c.paddingRight ?? 8.0) + 4.0;
+}
+
+/// هر ردیفِ سند یک بلوک، به ترتیبِ خواندنِ Word. اگر سلولِ اولِ همه‌ی ردیف‌ها باریک
+/// است (یا خالی)، ستونِ کناری با عرضِ ثابت می‌شود و بقیه‌ی سلول‌های ردیف کنارش زیرِ هم
+/// می‌آیند — مثلِ «۰۲ | تمرین | نکته» یا «Examiner | متن». سلول‌های خالی حذف می‌شوند.
+void _assembleRowFlow({
+  required List<Widget> rowWidgets,
+  required List<List<Widget>> grid,
+  required List<TableRowData> rows,
+  required double leadLimit,
+  required double Function(ParagraphData) measure,
+  Border? border,
+}) {
+  bool useLead = true;
+  bool anyLead = false;
+  double leadWidth = 0;
+  for (final r in rows) {
+    if (r.cells.length < 2) {
+      useLead = false;
+      break;
+    }
+    final TableCellData c0 = r.cells.first;
+    if (_isBlankCell(c0)) continue;
+    final double w = _naturalCellWidth(c0, measure);
+    if (w > leadLimit) {
+      useLead = false;
+      break;
+    }
+    anyLead = true;
+    leadWidth = math.max(leadWidth, w);
+  }
+  useLead = useLead && anyLead;
+
+  final List<Widget> blocks = [];
+  for (int r = 0; r < grid.length && r < rows.length; r++) {
+    final List<Widget> cells = grid[r];
+    final List<TableCellData> data = rows[r].cells;
+    final List<Widget> rest = [
+      for (int i = useLead ? 1 : 0; i < cells.length; i++)
+        if (i >= data.length || !_isBlankCell(data[i])) cells[i],
+    ];
+    final bool leadBlank =
+        !useLead || data.isEmpty || _isBlankCell(data.first);
+    if (rest.isEmpty && leadBlank) continue;
+
+    final Widget body = rest.isEmpty
+        ? const SizedBox.shrink()
+        : (rest.length == 1
+              ? rest.first
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: rest,
+                ));
+    final Widget row = useLead
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: leadWidth,
+                child: leadBlank ? const SizedBox.shrink() : cells.first,
+              ),
+              Expanded(child: body),
+            ],
+          )
+        : body;
+    blocks.add(
+      border == null
+          ? row
+          : DecoratedBox(
+              decoration: BoxDecoration(border: border),
+              child: row,
+            ),
+    );
+  }
+  for (int i = 0; i < blocks.length; i++) {
+    rowWidgets.add(
+      i == blocks.length - 1
+          ? blocks[i]
+          : Padding(padding: const EdgeInsets.only(bottom: 8.0), child: blocks[i]),
+    );
+  }
+}
+
 List<int> _buildOccurrenceMap(String fullText, String query) {
   TextSearchMapper mapper = TextSearchMapper(fullText);
   String nText = _normalizeText(mapper.cleanText);
-  String nQuery = _normalizeText(query);
+  String nQuery = _normalizeText(normalizeQuery(query));
   List<int> map = List.filled(fullText.length, -1);
   if (nQuery.isEmpty) return map;
 
@@ -2408,6 +2523,8 @@ Widget _buildParagraph(
           activeBook,
           pageInteractives,
           isNestedTable: isInsideTableCell,
+          // T-25: فاصله‌ی بالای جدول از خودِ سند آمده (spaceBeforeِ همین پاراگراف).
+          spacingFromDoc: para.tableSpacingFromDoc && !isInsideTableCell,
           exactMatchKey: exactMatchKey, // 🌟 انتقال به جدول
           interactivesPattern: interactivesPattern, // 🌟 اضافه شد
           interactivesByText: interactivesByText, // 🌟 اضافه شد
@@ -2939,6 +3056,7 @@ Widget _buildTable(
   BookModel? activeBook,
   List<InteractiveWord> pageInteractives, {
   bool isNestedTable = false,
+  bool spacingFromDoc = false,
   GlobalKey? exactMatchKey,
   RegExp? interactivesPattern,
   Map<String, InteractiveWord>? interactivesByText,
@@ -3009,12 +3127,20 @@ Widget _buildTable(
   // 🌟 RM-2: «stackRows» (فقط حالتِ خوانا روی گوشی) — جدولِ داده‌ای با سرستون،
   // ردیف‌به‌ردیف و هر ردیف یک کارت؛ بقیه‌ی رفتارهای استک همان است.
   final bool stackByRows = strategy == "stackRows";
+  // 🌟 RM-2: «rowFlow» (فقط حالتِ خوانا روی گوشی) — جدولِ صفحه‌آرایی ردیف‌به‌ردیف (ترتیبِ
+  // خواندنِ Word)؛ سلولِ اولِ باریک (شماره‌ی تمرین، نامِ گوینده) کنارِ بقیه‌ی ردیف.
+  final bool flowByRows = strategy == "rowFlow";
+  // RM-2: «grid» = حالتِ خوانا این جدول (کادرِ واژه‌ها) را صریحاً گرید می‌خواهد، حتی
+  // اگر استایلش ColumnStackTable باشد.
+  final bool forceGrid = strategy == "grid";
   final bool isColumnStack =
-      strategy == "stack" ||
+      !forceGrid &&
+      (strategy == "stack" ||
       stackByRows ||
+      flowByRows ||
       tableSpan.layoutReflow == "stack" ||
       isMultiColumnMerge ||
-      rawStyle.contains("columnstack");
+      rawStyle.contains("columnstack"));
   final bool isDotted =
       strategy == "collapseToCards" ||
       borderVal == "dotted" ||
@@ -4341,7 +4467,7 @@ Widget _buildTable(
       // ستونِ اول حذف می‌کند تا خط‌ها دوتایی نشوند) این‌جا غلط است و باید
       // هر چهار ضلع کشیده شود.
       final Border? _cellBorder = (resolvedBorderMode == "cell")
-          ? (applyWrapFlow
+          ? ((applyWrapFlow || (flowByRows && applyColumnStack))
                 ? cellBorderFrom(cell.borders, true, true)
                 : cellBorderFrom(cell.borders, rowIndex == 0, i == 0))
           : null;
@@ -4636,7 +4762,18 @@ Widget _buildTable(
     }
   }
 
-  if (applyColumnStack && allGridCells.isNotEmpty && stackByRows) {
+  if (applyColumnStack && allGridCells.isNotEmpty && flowByRows) {
+    _assembleRowFlow(
+      rowWidgets: rowWidgets,
+      grid: allGridCells,
+      rows: tableSpan.tableRows,
+      leadLimit: math.min(120.0, canvasWidth * 0.32),
+      measure: measureParagraphNaturalWidth,
+      border: (resolvedBorderMode != "none" && !hideBorders)
+          ? Border.all(color: defaultBorderColor, width: defaultBorderWidth)
+          : null,
+    );
+  } else if (applyColumnStack && allGridCells.isNotEmpty && stackByRows) {
     // RM-2: هر ردیف یک کارت (سلول‌ها زیرِ هم)، ردیفِ سرستون با زمینه‌ی کم‌رنگ؛
     // ارتباطِ «سرستون ← مقدار» در جدول‌های داده‌ای حفظ می‌شود.
     for (int r = 0; r < allGridCells.length; r++) {
@@ -4736,9 +4873,20 @@ Widget _buildTable(
   // راهِ حل: وقتی بوردرِ بیرونی اعمال می‌شود، margin از کانتینرِ داخلی
   // برداشته و به خودِ کانتینرِ بوردردار داده می‌شود تا بوردر دقیقاً دورِ
   // ردیف‌ها بچسبد و فاصله بیرونِ آن بماند.
+  // 🌟 T-25: در Word جدول خودش هیچ فاصله‌ی بالا/پایینی ندارد؛ فاصله‌ی بینِ دو جدول
+  // همان پاراگراف‌های خالیِ (معمولاً ۱pt) بینشان است. اکسترکتورِ تازه (B-8) ارتفاعِ
+  // آن‌ها را در spaceBeforeِ پاراگرافِ بعدی می‌گذارد، پس این‌جا حاشیه‌ی ثابتِ ۱۲px
+  // (که بینِ دو جدول ۲۴px می‌شد) فقط برای JSONِ قدیمی می‌ماند. جای نوارِ اسکرولِ
+  // افقیِ دسکتاپ همچنان رزرو می‌شود.
   final EdgeInsets tableOuterMargin = isNestedTable
       ? EdgeInsets.only(top: 2.0, bottom: nestedBottomMargin)
-      : const EdgeInsets.symmetric(vertical: 12.0);
+      : (spacingFromDoc
+            ? EdgeInsets.only(
+                bottom: (willScrollHorizontally && _isDesktopPlatform)
+                    ? 14.0
+                    : 0.0,
+              )
+            : const EdgeInsets.symmetric(vertical: 12.0));
   // 🐞 در حالتِ استکیِ معمولی (ColumnStackTable روی صفحهٔ باریک) هر ستون
   // خودش جعبهٔ بوردردارِ مستقل می‌گیرد، پس این wrapِ بیرونی نباید اجرا شود —
   // وگرنه یک کادرِ اضافه هم دورِ کلِ ستون‌های از‌قبل‌کادردار کشیده می‌شد.

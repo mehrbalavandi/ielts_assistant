@@ -210,6 +210,7 @@ class _TranslatableContentWrapperState
         popup.toggle(
           body: (_) => _body(translation, accent, card: false),
           isDarkTheme: isDark,
+          preferredWidth: _popupWidth(translation),
           direction: settings.popupDirection,
           single: settings.singlePopup,
           anchorRects: rects,
@@ -244,6 +245,29 @@ class _TranslatableContentWrapperState
           if (mounted) _revealAboveSheet(screenH * (1 - sheetSize));
         });
     }
+  }
+
+  /// TR-6: عرضِ حباب به اندازه‌ی محتوا، نه تمام‌عرض: ترجمه‌ی کوتاه («بندر») حبابِ
+  /// باریک می‌گیرد؛ ترجمه‌ی بلند حداکثر ۳۶۰px تا خطِ فارسی خوانا بماند (روی گوشیِ
+  /// افقی و تبلت، حباب دیگر نیمی از صفحه را نمی‌پوشاند). نوارِ «مرورِ من» هم جا
+  /// می‌خواهد (در حالتِ ذخیره‌شده ستاره‌ها و دکمه‌ها؛ اگر جا نشد خودش می‌شکند).
+  double _popupWidth(String translation) {
+    double w = 0;
+    if (translation.isNotEmpty) {
+      final TextPainter tp = TextPainter(
+        text: TextSpan(text: translation, style: _kTranslationStyle),
+        textDirection: TextDirection.rtl,
+        maxLines: 1,
+      )..layout();
+      w = tp.width;
+    }
+    final StudyPassageRef? study = widget.study;
+    if (study != null) {
+      final bool saved = ref.read(studyProvider)[study.id] != null;
+      w = math.max(w, saved ? 280.0 : 160.0);
+    }
+    // padding‌ِ حباب (۱۴+۱۴) و کمی جا برای گردکردنِ اندازه‌ی متن
+    return (w + 34).clamp(140.0, 360.0).toDouble();
   }
 
   void _onSheetClosed() {
@@ -439,6 +463,12 @@ class _SourceHighlight extends StatelessWidget {
   }
 }
 
+const TextStyle _kTranslationStyle = TextStyle(
+  fontFamily: 'YekanBakh',
+  fontSize: 14,
+  height: 1.6,
+);
+
 /// متنِ ترجمه، راست‌به‌چپ (بدنه‌ی پاپ‌آپ).
 class _TranslationText extends StatelessWidget {
   const _TranslationText({required this.text, required this.isDark});
@@ -453,10 +483,7 @@ class _TranslationText extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.start,
-        style: TextStyle(
-          fontFamily: 'YekanBakh',
-          fontSize: 14,
-          height: 1.6,
+        style: _kTranslationStyle.copyWith(
           color: isDark ? Colors.white.withOpacity(0.9) : Colors.black87,
         ),
       ),

@@ -143,7 +143,8 @@ Future<void> showAnswerBanner(
                   : (h) => onCardBottom(topInset + h),
               child: Container(
               margin: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-              constraints: BoxConstraints(maxHeight: maxHeight),
+              // TR-6: روی صفحه‌ی عریض (گوشیِ افقی، تبلت) کارت تمام‌عرض نمی‌شود.
+              constraints: BoxConstraints(maxHeight: maxHeight, maxWidth: 560),
               decoration: BoxDecoration(
                 color: answerSurfaceColor(isDarkTheme),
                 borderRadius: BorderRadius.circular(16),

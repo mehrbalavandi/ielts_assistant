@@ -55,6 +55,13 @@ String extractFullText(ParagraphData para) {
   return sb.toString();
 }
 
+/// 🐞 S-13: عبارتِ جستجو همیشه از همین‌جا رد می‌شود — هم در موتورِ جستجو (یافتن) و هم
+/// در نقشه‌ی هایلایت (نارنجی‌کردن). فاصله‌ی ابتدا/انتها حذف و فاصله‌های پشتِ‌هم یکی
+/// می‌شوند. قبلاً موتور trim می‌کرد ولی هایلایت عبارتِ خام را می‌گرفت؛ پس «collocation »
+/// (با فاصله در انتها) collocations را پیدا می‌کرد ولی هیچ‌چیز نارنجی نمی‌شد.
+String normalizeQuery(String query) =>
+    query.trim().replaceAll(RegExp(r'\s+'), ' ');
+
 /// نرمال‌سازیِ متن برای مقایسه‌ی جستجو: lowercase + یکسان‌سازیِ حروفِ عربی/فارسی
 /// + تبدیلِ نیم‌فاصله (ZWNJ) به فاصله.
 String normalizeText(String text) {

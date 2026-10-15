@@ -201,7 +201,9 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
                 close(
                   context,
                   SearchSession(
-                    query: query,
+                    // 🐞 S-13: همان عبارتی که واقعاً جستجو شد (بی‌فاصله‌ی اضافه)، نه
+                    // متنِ خامِ کادر — وگرنه هایلایتِ نارنجی با نتیجه‌ها هم‌خوان نبود.
+                    query: debouncedQuery,
                     results: bookResults,
                     currentIndex: tappedIndex,
                   ),
