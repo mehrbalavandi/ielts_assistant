@@ -4445,6 +4445,2158 @@
       "books": [
         "Mindset 01"
       ]
+    },
+    "main idea": {
+      "headword": "main idea",
+      "forms": [
+        "main ideas",
+        "main idea"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmeɪn aɪˈdɪə/",
+      "pronounceFa": "مِین آیدیِه",
+      "pronounceAr": "مين آيديا",
+      "translationFa": "ایده‌ی اصلی",
+      "translationAr": "الفكرة الرئيسية",
+      "explanationFa": "پیامِ کلیِ یک پاراگراف یا متن؛ در ریدینگ معمولاً در جمله‌ی اولِ پاراگراف است و بسیاری از سؤال‌ها به آن مربوط‌اند.",
+      "explanationAr": "الرسالة العامة لفقرة أو نص، وتأتي في القراءة غالبًا في الجملة الأولى من الفقرة، وتتعلّق بها أسئلة كثيرة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "blended learning": {
+      "headword": "blended learning",
+      "forms": [
+        "blended learning"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌblendɪd ˈlɜːnɪŋ/",
+      "pronounceFa": "بلِندید لِرنینگ",
+      "pronounceAr": "بلِندِد لِرنِنغ",
+      "translationFa": "آموزشِ ترکیبی (حضوری و آنلاین)",
+      "translationAr": "التعلّم المدمج",
+      "explanationFa": "ترکیبِ کلاسِ حضوری با آموزشِ آنلاین؛ اصطلاحی رایج در متن‌های آموزشیِ آیلتس. blended یعنی «آمیخته».",
+      "explanationAr": "الجمع بين الصف الحضوري والتعليم عبر الإنترنت، وهو مصطلح شائع في نصوص التعليم في آيلتس.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "lifelong learning": {
+      "headword": "lifelong learning",
+      "forms": [
+        "lifelong learning"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌlaɪflɒŋ ˈlɜːnɪŋ/",
+      "pronounceFa": "لایف‌لانگ لِرنینگ",
+      "pronounceAr": "لايفلونغ لِرنِنغ",
+      "translationFa": "یادگیریِ مادام‌العمر",
+      "translationAr": "التعلّم مدى الحياة",
+      "explanationFa": "ادامه‌ی یادگیری در همه‌ی دوران‌های زندگی، حتی پس از بازنشستگی؛ lifelong یعنی «در تمامِ عمر».",
+      "explanationAr": "مواصلة التعلّم في كل مراحل الحياة حتى بعد التقاعد، وlifelong تعني «طوال العمر».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "primary education": {
+      "headword": "primary education",
+      "forms": [
+        "primary education"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpraɪməri edʒuˈkeɪʃn/",
+      "pronounceFa": "پرایمِری اِجوکِیشن",
+      "pronounceAr": "برايمري إيجوكيشن",
+      "translationFa": "آموزشِ ابتدایی (دبستان)",
+      "translationAr": "التعليم الابتدائي",
+      "explanationFa": "مرحله‌ی اولِ تحصیل (حدودِ 5 تا 11 سالگی در بریتانیا)؛ پس از آن secondary education و سپس higher education می‌آید.",
+      "explanationAr": "المرحلة الأولى من التعليم (من 5 إلى 11 سنة تقريبًا في بريطانيا)، يليها التعليم الثانوي ثم التعليم العالي.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "qualification": {
+      "headword": "qualification",
+      "forms": [
+        "qualification",
+        "qualifications"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌkwɒlɪfɪˈkeɪʃn/",
+      "pronounceFa": "کوالیفیکِیشن",
+      "pronounceAr": "كواليفيكيشن",
+      "translationFa": "مدرک، صلاحیتِ تحصیلی یا حرفه‌ای",
+      "translationAr": "مؤهّل",
+      "explanationFa": "مدرکی که نشان می‌دهد دوره یا آزمونی را گذرانده‌اید؛ با get / gain a qualification می‌آید. معنایش از degree (مدرکِ دانشگاهی) کلی‌تر است.",
+      "explanationAr": "شهادة تُثبت إتمام دورة أو اجتياز اختبار، وتأتي مع get / gain a qualification، وهي أعمّ من degree (الشهادة الجامعية).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "retirement": {
+      "headword": "retirement",
+      "forms": [
+        "retirement"
+      ],
+      "pos": "noun",
+      "ipa": "/rɪˈtaɪəmənt/",
+      "pronounceFa": "ریتایِرمِنت",
+      "pronounceAr": "ريتايرمِنت",
+      "translationFa": "بازنشستگی",
+      "translationAr": "التقاعد",
+      "explanationFa": "دوره‌ای که فرد پس از پایانِ زندگیِ کاری‌اش دارد؛ فعلش retire و صفتِ آدمِ بازنشسته retired است.",
+      "explanationAr": "المرحلة التي تلي انتهاء الحياة المهنية، والفعل retire والصفة retired.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "seminar": {
+      "headword": "seminar",
+      "forms": [
+        "seminar",
+        "seminars"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsemɪnɑː/",
+      "pronounceFa": "سِمینا",
+      "pronounceAr": "سِمينا",
+      "translationFa": "سمینار، کلاسِ بحثِ گروهی",
+      "translationAr": "ندوة، حلقة نقاش",
+      "explanationFa": "در دانشگاه‌های بریتانیا جلسه‌ی کوچکی که دانشجویان با استاد درباره‌ی موضوعی بحث می‌کنند؛ در برابرِ lecture (سخنرانیِ استاد).",
+      "explanationAr": "في الجامعات البريطانية جلسة صغيرة يناقش فيها الطلاب موضوعًا مع المحاضر، في مقابل lecture (المحاضرة).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "globalisation": {
+      "headword": "globalisation",
+      "forms": [
+        "globalisation",
+        "globalization"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌɡləʊbəlaɪˈzeɪʃn/",
+      "pronounceFa": "گلوبِلایزِیشن",
+      "pronounceAr": "غلوبالايزيشن",
+      "translationFa": "جهانی‌شدن",
+      "translationAr": "العولمة",
+      "explanationFa": "افزایشِ ارتباطِ اقتصادها و فرهنگ‌های جهان؛ موضوعی پرتکرار در رایتینگ و اسپیکینگِ آیلتس. صفت: global، globalised.",
+      "explanationAr": "تزايد الترابط بين اقتصادات العالم وثقافاته، وهو موضوع متكرّر في كتابة آيلتس ومحادثته. الصفة: global وglobalised.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "distance learning": {
+      "headword": "distance learning",
+      "forms": [
+        "distance learning"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈdɪstəns ˌlɜːnɪŋ/",
+      "pronounceFa": "دیستِنس لِرنینگ",
+      "pronounceAr": "دِستَنس لِرنِنغ",
+      "translationFa": "آموزشِ از راهِ دور",
+      "translationAr": "التعلّم عن بُعد",
+      "explanationFa": "تحصیل بدونِ حضور در محلِ دانشگاه، از طریقِ اینترنت یا مکاتبه؛ با study by distance learning می‌آید.",
+      "explanationAr": "الدراسة دون الحضور إلى الجامعة، عبر الإنترنت أو المراسلة، وتأتي في عبارة study by distance learning.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "developing countries": {
+      "headword": "developing countries",
+      "forms": [
+        "developing countries",
+        "developing country"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/dɪˌveləpɪŋ ˈkʌntriz/",
+      "pronounceFa": "دیوِلِپینگ کانتریز",
+      "pronounceAr": "ديفِلوبِنغ كانتريز",
+      "translationFa": "کشورهای در حالِ توسعه",
+      "translationAr": "الدول النامية",
+      "explanationFa": "کشورهایی که اقتصاد و صنعتشان هنوز در حالِ رشد است؛ در برابرِ developed countries (کشورهای توسعه‌یافته). در رایتینگِ آیلتس زیاد به کار می‌رود.",
+      "explanationAr": "بلدان لا يزال اقتصادها وصناعتها في طور النمو، في مقابل developed countries (الدول المتقدّمة)، وتكثر في كتابة آيلتس.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "benefit from": {
+      "headword": "benefit from",
+      "forms": [
+        "benefit from",
+        "benefitted from",
+        "benefited from",
+        "benefits from"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˈbenɪfɪt frəm/",
+      "pronounceFa": "بِنِفیت فرِم",
+      "pronounceAr": "بِنِفِت فروم",
+      "translationFa": "سود بردن از، بهره‌مند شدن از",
+      "translationAr": "يستفيد من",
+      "explanationFa": "با حرفِ اضافه‌ی from می‌آید: Universities benefit from international students. اسمِ benefit یعنی «سود، مزیت».",
+      "explanationAr": "يأتي مع حرف الجر from، والاسم benefit يعني «فائدة، ميزة».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "the elite": {
+      "headword": "the elite",
+      "forms": [
+        "the elite",
+        "elite"
+      ],
+      "pos": "noun",
+      "ipa": "/ði eɪˈliːt/",
+      "pronounceFa": "دی اِیلیت",
+      "pronounceAr": "ذي إيليت",
+      "translationFa": "نخبگان، قشرِ ممتاز",
+      "translationAr": "النخبة",
+      "explanationFa": "گروهِ کوچکی که از نظرِ ثروت، قدرت یا مهارت برترند؛ معمولاً با the می‌آید و فعلِ جمع می‌گیرد.",
+      "explanationAr": "فئة صغيرة متفوّقة في الثروة أو السلطة أو المهارة، وتأتي عادةً مع the.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "access to": {
+      "headword": "access to",
+      "forms": [
+        "access to"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈækses tə/",
+      "pronounceFa": "اَکسِس تو",
+      "pronounceAr": "أكسِس تو",
+      "translationFa": "دسترسی به",
+      "translationAr": "الوصول إلى، إمكانية الحصول على",
+      "explanationFa": "با have / get / gain access to something می‌آید: have access to education. حرفِ اضافه همیشه to است.",
+      "explanationAr": "يأتي مع have / get / gain access to، وحرف الجر دائمًا to.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "rural areas": {
+      "headword": "rural areas",
+      "forms": [
+        "rural areas",
+        "rural area"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌrʊərəl ˈeəriəz/",
+      "pronounceFa": "روئِرِل اِریِز",
+      "pronounceAr": "رورال إيرياز",
+      "translationFa": "مناطقِ روستایی",
+      "translationAr": "المناطق الريفية",
+      "explanationFa": "rural یعنی «روستایی» و متضادش urban (شهری) است؛ مقایسه‌ی rural و urban در رایتینگِ آیلتس رایج است.",
+      "explanationAr": "rural تعني «ريفي» وعكسها urban (حضري)، والمقارنة بينهما شائعة في كتابة آيلتس.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "reliable": {
+      "headword": "reliable",
+      "forms": [
+        "reliable"
+      ],
+      "pos": "adjective",
+      "ipa": "/rɪˈlaɪəbl/",
+      "pronounceFa": "ریلایِبِل",
+      "pronounceAr": "ريلايَبل",
+      "translationFa": "قابلِ اعتماد، مطمئن",
+      "translationAr": "موثوق",
+      "explanationFa": "برای آدم، دستگاه یا اطلاعاتی که می‌شود به آن تکیه کرد: a reliable internet connection. متضاد: unreliable.",
+      "explanationAr": "يُقال لشخص أو جهاز أو معلومة يمكن الاعتماد عليها، وعكسها unreliable.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "westernisation": {
+      "headword": "westernisation",
+      "forms": [
+        "westernisation",
+        "westernization"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌwestənaɪˈzeɪʃn/",
+      "pronounceFa": "وِستِنایزِیشن",
+      "pronounceAr": "وِسترنايزيشن",
+      "translationFa": "غربی‌شدن، غرب‌گرایی",
+      "translationAr": "التغريب",
+      "explanationFa": "پذیرفتنِ شیوه‌ی زندگی و فرهنگِ غربی؛ پسوندِ -isation از صفت یا اسم، اسمِ فرایند می‌سازد (مثلِ globalisation).",
+      "explanationAr": "تبنّي نمط الحياة والثقافة الغربيين، واللاحقة -isation تكوّن اسم عملية (مثل globalisation).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in other words": {
+      "headword": "in other words",
+      "forms": [
+        "in other words"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˌʌðə ˈwɜːdz/",
+      "pronounceFa": "این اَدِر وِردز",
+      "pronounceAr": "إن أذَر وِردز",
+      "translationFa": "به عبارتِ دیگر",
+      "translationAr": "بعبارة أخرى",
+      "explanationFa": "برای بازگویی یا توضیحِ ساده‌ترِ جمله‌ی قبل؛ در رایتینگ و اسپیکینگ برای روشن کردنِ ایده مفید است.",
+      "explanationAr": "تُستخدم لإعادة صياغة الجملة السابقة أو شرحها ببساطة، وهي مفيدة في الكتابة والمحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "enrich": {
+      "headword": "enrich",
+      "forms": [
+        "enrich",
+        "enriches",
+        "enriched"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪnˈrɪtʃ/",
+      "pronounceFa": "اینریچ",
+      "pronounceAr": "إنرِتش",
+      "translationFa": "غنی کردن، پربارتر کردن",
+      "translationAr": "يُثري",
+      "explanationFa": "یعنی بهتر و پرمحتواتر کردن، نه لزوماً ثروتمند کردن: Travel enriches our lives.",
+      "explanationAr": "تعني جعل الشيء أفضل وأغنى قيمةً، لا بالضرورة أغنى مالًا.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "due to": {
+      "headword": "due to",
+      "forms": [
+        "due to"
+      ],
+      "pos": "preposition",
+      "ipa": "/ˈdjuː tə/",
+      "pronounceFa": "دیو تو",
+      "pronounceAr": "ديو تو",
+      "translationFa": "به دلیلِ، به علتِ",
+      "translationAr": "بسبب",
+      "explanationFa": "پس از آن اسم یا گروهِ اسمی می‌آید، نه جمله: due to globalisation. هم‌معنا: because of.",
+      "explanationAr": "يتبعها اسم أو مركّب اسمي لا جملة، ومرادفها because of.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "compete for": {
+      "headword": "compete for",
+      "forms": [
+        "competing for",
+        "compete for",
+        "competes for"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/kəmˈpiːt fə/",
+      "pronounceFa": "کِمپیت فُر",
+      "pronounceAr": "كَمبيت فور",
+      "translationFa": "برای به دست آوردنِ (چیزی) رقابت کردن",
+      "translationAr": "يتنافس على",
+      "explanationFa": "compete for something = برای چیزی؛ compete with someone = با کسی. اسم: competition.",
+      "explanationAr": "compete for = على شيء، وcompete with = مع شخص، والاسم competition.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "emphasis on": {
+      "headword": "emphasis on",
+      "forms": [
+        "emphasis on"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈemfəsɪs ɒn/",
+      "pronounceFa": "اِمفِسیس آن",
+      "pronounceAr": "إمفاسِس أون",
+      "translationFa": "تأکید بر",
+      "translationAr": "التركيز على، التأكيد على",
+      "explanationFa": "با put / place emphasis on یا there is more emphasis on می‌آید؛ فعلش emphasise است (بدونِ on).",
+      "explanationAr": "تأتي مع put / place emphasis on، والفعل emphasise يأتي دون on.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "customer care": {
+      "headword": "customer care",
+      "forms": [
+        "customer care"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈkʌstəmə keə/",
+      "pronounceFa": "کاستِمِر کِر",
+      "pronounceAr": "كاستَمَر كير",
+      "translationFa": "خدماتِ مشتریان، رسیدگی به مشتری",
+      "translationAr": "خدمة العملاء",
+      "explanationFa": "توجه و کمکِ یک سازمان به مشتریانش؛ هم‌معنا: customer service.",
+      "explanationAr": "اهتمام المؤسسة بعملائها ومساعدتهم، ومرادفها customer service.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "settle in": {
+      "headword": "settle in",
+      "forms": [
+        "settle in",
+        "settling in",
+        "settled in"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌsetl ˈɪn/",
+      "pronounceFa": "سِتِل این",
+      "pronounceAr": "سِتل إن",
+      "translationFa": "جا افتادن، به محیطِ تازه عادت کردن",
+      "translationAr": "يستقرّ ويعتاد على مكان جديد",
+      "explanationFa": "برای کسی که تازه به خانه، شهر، کار یا مدرسه‌ی جدید رفته و کم‌کم راحت می‌شود.",
+      "explanationAr": "يُقال لمن انتقل حديثًا إلى بيت أو مدينة أو عمل أو مدرسة جديدة وبدأ يرتاح فيها.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "publicity material": {
+      "headword": "publicity material",
+      "forms": [
+        "publicity material"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/pʌbˈlɪsəti məˌtɪəriəl/",
+      "pronounceFa": "پابلیسیتی مِتیریِل",
+      "pronounceAr": "بَبلِسِتي ماتيريال",
+      "translationFa": "اقلامِ تبلیغاتی (بروشور، پوستر و...)",
+      "translationAr": "المواد الترويجية",
+      "explanationFa": "بروشور، پوستر و هر چیزی که برای معرفی و تبلیغِ یک سازمان یا رویداد تهیه می‌شود؛ publicity یعنی «تبلیغات، شهرت».",
+      "explanationAr": "الكتيّبات والملصقات وكل ما يُعدّ للتعريف بمؤسسة أو حدث والترويج له.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "overseas": {
+      "headword": "overseas",
+      "forms": [
+        "overseas"
+      ],
+      "pos": "adjective / adverb",
+      "ipa": "/ˌəʊvəˈsiːz/",
+      "pronounceFa": "اُوِرسیز",
+      "pronounceAr": "أوفَرسيز",
+      "translationFa": "خارجی، خارج از کشور",
+      "translationAr": "أجنبي، في الخارج",
+      "explanationFa": "هم‌معنای abroad (فقط قید) و foreign (فقط صفت)؛ overseas هر دو نقش را دارد: overseas students، study overseas.",
+      "explanationAr": "مرادف abroad (ظرف فقط) وforeign (صفة فقط)، أمّا overseas فتؤدّي الدورين.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "abroad": {
+      "headword": "abroad",
+      "forms": [
+        "abroad"
+      ],
+      "pos": "adverb",
+      "ipa": "/əˈbrɔːd/",
+      "pronounceFa": "اِبرُد",
+      "pronounceAr": "أبرود",
+      "translationFa": "خارج از کشور، به خارج",
+      "translationAr": "في الخارج، إلى الخارج",
+      "explanationFa": "قید است و حرفِ اضافه نمی‌گیرد: go abroad (نه go to abroad).",
+      "explanationAr": "ظرف لا يأخذ حرف جر: go abroad وليس go to abroad.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "disrupt": {
+      "headword": "disrupt",
+      "forms": [
+        "disrupting",
+        "disrupt",
+        "disrupted",
+        "disruption"
+      ],
+      "pos": "verb",
+      "ipa": "/dɪsˈrʌpt/",
+      "pronounceFa": "دیسراپت",
+      "pronounceAr": "دِسرَبت",
+      "translationFa": "مختل کردن، بر هم زدن",
+      "translationAr": "يُخلّ بـ، يعطّل",
+      "explanationFa": "یعنی جلوی روندِ عادیِ چیزی را گرفتن: disrupt family life. هم‌معنای غیررسمی‌تر: disturb.",
+      "explanationAr": "تعني إعاقة السير الطبيعي لشيء: disrupt family life، ومرادفها الأقل رسمية disturb.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "attend": {
+      "headword": "attend",
+      "forms": [
+        "attending",
+        "attend",
+        "attended"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈtend/",
+      "pronounceFa": "اِتِند",
+      "pronounceAr": "أتِند",
+      "translationFa": "حضور یافتن در، رفتن به (کلاس، مدرسه)",
+      "translationAr": "يحضر، يلتحق بـ",
+      "explanationFa": "بدونِ حرفِ اضافه می‌آید: attend a college (نه attend to). رسمی‌ترِ go to است.",
+      "explanationAr": "يأتي دون حرف جر: attend a college، وهو أكثر رسمية من go to.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "valuable": {
+      "headword": "valuable",
+      "forms": [
+        "valuable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈvæljuəbl/",
+      "pronounceFa": "وَلیوئِبِل",
+      "pronounceAr": "فاليوَبل",
+      "translationFa": "ارزشمند، باارزش",
+      "translationAr": "قيّم، ثمين",
+      "explanationFa": "هم برای چیزِ گران‌قیمت و هم برای چیزِ بسیار مفید: a valuable opportunity. با invaluable (بسیار ارزشمند) اشتباه نشود.",
+      "explanationAr": "يُقال للشيء الثمين وللشيء المفيد جدًا: a valuable opportunity، ولا تُخلط مع invaluable (لا يُقدَّر بثمن).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "aspect": {
+      "headword": "aspect",
+      "forms": [
+        "aspects",
+        "aspect"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈæspekt/",
+      "pronounceFa": "اَسپِکت",
+      "pronounceAr": "أسبِكت",
+      "translationFa": "جنبه",
+      "translationAr": "جانب",
+      "explanationFa": "یک قسمت یا ویژگی از یک موقعیت یا موضوع: most aspects of our lives؛ در رایتینگ برای بررسیِ جنبه‌های مختلفِ یک موضوع مفید است.",
+      "explanationAr": "جزء أو سمة من موقف أو موضوع: most aspects of our lives، ومفيدة في الكتابة لتناول جوانب الموضوع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "internationally recognised": {
+      "headword": "internationally recognised",
+      "forms": [
+        "internationally recognised",
+        "internationally recognized"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˌɪntəˌnæʃnəli ˈrekəɡnaɪzd/",
+      "pronounceFa": "اینتِرنَشنِلی رِکِگنایزد",
+      "pronounceAr": "إنترناشونالي ريكَغنايزد",
+      "translationFa": "معتبر در سطحِ بین‌المللی",
+      "translationAr": "معترف به دوليًا",
+      "explanationFa": "برای مدرک یا گواهی‌ای که در کشورهای دیگر هم پذیرفته می‌شود؛ recognise در این‌جا یعنی «به رسمیت شناختن».",
+      "explanationAr": "يُقال لشهادة مقبولة في بلدان أخرى، وrecognise هنا بمعنى «يعترف رسميًا».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "world-class": {
+      "headword": "world-class",
+      "forms": [
+        "world-class"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌwɜːld ˈklɑːs/",
+      "pronounceFa": "وِرلد کلاس",
+      "pronounceAr": "وِرلد كلاس",
+      "translationFa": "در سطحِ جهانی، طرازِ اول",
+      "translationAr": "عالمي المستوى",
+      "explanationFa": "یعنی در میانِ بهترین‌های جهان: world-class universities؛ پیش از اسم با خط‌تیره نوشته می‌شود.",
+      "explanationAr": "أي من بين أفضل ما في العالم، ويُكتب بشرطة قبل الاسم.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "workplace": {
+      "headword": "workplace",
+      "forms": [
+        "workplace",
+        "workplaces"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈwɜːkpleɪs/",
+      "pronounceFa": "وِرک‌پلِیس",
+      "pronounceAr": "وِركبليس",
+      "translationFa": "محیطِ کار، محلِ کار",
+      "translationAr": "بيئة العمل، مكان العمل",
+      "explanationFa": "جایی که مردم در آن کار می‌کنند، یا به‌طورِ کلی دنیای کار: education and the workplace.",
+      "explanationAr": "المكان الذي يعمل فيه الناس، أو عالم العمل عمومًا.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "dramatically": {
+      "headword": "dramatically",
+      "forms": [
+        "dramatically"
+      ],
+      "pos": "adverb",
+      "ipa": "/drəˈmætɪkli/",
+      "pronounceFa": "دِرِمَتیکلی",
+      "pronounceAr": "دراماتيكلي",
+      "translationFa": "به‌شدت، به‌طورِ چشمگیر",
+      "translationAr": "بشكل كبير، بشكل لافت",
+      "explanationFa": "در توصیفِ نمودار (رایتینگ بخشِ 1) برای تغییرِ بزرگ و ناگهانی: rose / fell dramatically. هم‌معنا: sharply، significantly.",
+      "explanationAr": "يُستخدم في وصف الرسوم البيانية (الكتابة، الجزء 1) للتغيّر الكبير المفاجئ، ومرادفاه sharply وsignificantly.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "lecturer": {
+      "headword": "lecturer",
+      "forms": [
+        "lecturers",
+        "lecturer"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈlektʃərə/",
+      "pronounceFa": "لِکچِرِر",
+      "pronounceAr": "لِكتشَرَر",
+      "translationFa": "مدرسِ دانشگاه، استاد",
+      "translationAr": "محاضر جامعي",
+      "explanationFa": "در بریتانیا به مدرسِ دانشگاه lecturer می‌گویند؛ professor بالاترین رتبه‌ی استادی است.",
+      "explanationAr": "في بريطانيا يُسمّى مدرّس الجامعة lecturer، أمّا professor فأعلى رتبة أكاديمية.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "part-time": {
+      "headword": "part-time",
+      "forms": [
+        "part-time"
+      ],
+      "pos": "adjective / adverb",
+      "ipa": "/ˌpɑːt ˈtaɪm/",
+      "pronounceFa": "پارت تایم",
+      "pronounceAr": "بارت تايم",
+      "translationFa": "پاره‌وقت",
+      "translationAr": "بدوام جزئي",
+      "explanationFa": "متضادِ full-time (تمام‌وقت)؛ هم برای کار و هم برای تحصیل: work part-time، a part-time course.",
+      "explanationAr": "عكس full-time (بدوام كامل)، ويُقال للعمل والدراسة معًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "relate to": {
+      "headword": "relate to",
+      "forms": [
+        "relate to",
+        "relates to",
+        "related to"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/rɪˈleɪt tə/",
+      "pronounceFa": "ریلِیت تو",
+      "pronounceAr": "ريليت تو",
+      "translationFa": "مربوط بودن به",
+      "translationAr": "يتعلّق بـ، يرتبط بـ",
+      "explanationFa": "با to می‌آید: Questions often relate to the main ideas. صفتِ آن be related to است.",
+      "explanationAr": "يأتي مع to، والصفة be related to.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "well-off": {
+      "headword": "well-off",
+      "forms": [
+        "well-off"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌwel ˈɒf/",
+      "pronounceFa": "وِل آف",
+      "pronounceAr": "وِل أوف",
+      "translationFa": "مرفه، پولدار",
+      "translationAr": "ميسور الحال",
+      "explanationFa": "هم‌معنای rich، اما مؤدبانه‌تر؛ متضاد: poor یا less well-off.",
+      "explanationAr": "مرادف rich لكنه ألطف، وعكسه poor أو less well-off.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "value for money": {
+      "headword": "value for money",
+      "forms": [
+        "value for money"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌvæljuː fə ˈmʌni/",
+      "pronounceFa": "وَلیو فُر مانی",
+      "pronounceAr": "فاليو فور ماني",
+      "translationFa": "ارزشِ پولی که بابتش داده می‌شود",
+      "translationAr": "يستحقّ ثمنه، قيمة مقابل المال",
+      "explanationFa": "good value for money یعنی «ارزشِ قیمتش را دارد»؛ poor value for money یعنی «گران‌تر از ارزشش».",
+      "explanationAr": "good value for money أي «يستحقّ ثمنه»، وpoor value for money أي «أغلى من قيمته».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "committed to": {
+      "headword": "committed to",
+      "forms": [
+        "committed to"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/kəˈmɪtɪd tə/",
+      "pronounceFa": "کِمیتید تو",
+      "pronounceAr": "كَمِتِد تو",
+      "translationFa": "متعهد به، وفادار به",
+      "translationAr": "ملتزم بـ، مخلص لـ",
+      "explanationFa": "یعنی کسی که با تمامِ وجود برای کار یا آدم‌هایی تلاش می‌کند: committed to their students. اسم: commitment.",
+      "explanationAr": "أي من يبذل جهده بإخلاص لعمل أو لأشخاص، والاسم commitment.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "present perfect": {
+      "headword": "present perfect",
+      "forms": [
+        "present perfect"
+      ],
+      "pos": "noun phrase (grammar)",
+      "ipa": "/ˌpreznt ˈpɜːfɪkt/",
+      "pronounceFa": "پرِزِنت پِرفیکت",
+      "pronounceAr": "بريزنت بيرفكت",
+      "translationFa": "زمانِ حالِ کامل (ماضیِ نقلی)",
+      "translationAr": "المضارع التامّ",
+      "explanationFa": "have/has + اسمِ مفعول؛ برای کاری که در گذشته شروع شده و نتیجه‌اش هنوز در حال دیده می‌شود: Globalisation has affected our lives.",
+      "explanationAr": "have/has + التصريف الثالث، لحدث بدأ في الماضي وما زالت نتيجته قائمة في الحاضر.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "work-based learning": {
+      "headword": "work-based learning",
+      "forms": [
+        "work-based learning"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌwɜːk beɪst ˈlɜːnɪŋ/",
+      "pronounceFa": "وِرک بِیست لِرنینگ",
+      "pronounceAr": "وِرك بيست لِرنِنغ",
+      "translationFa": "آموزشِ مبتنی بر کار (یادگیری در محیطِ کار)",
+      "translationAr": "التعلّم القائم على العمل",
+      "explanationFa": "یادگیری‌ای که با کارِ واقعی در محلِ کار همراه است؛ پسوندِ -based یعنی «مبتنی بر»: work-based، home-based.",
+      "explanationAr": "تعلّم يقترن بعمل فعلي في مكان العمل، واللاحقة -based تعني «قائم على».",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "trend": {
+      "headword": "trend",
+      "forms": [
+        "trend",
+        "trends"
+      ],
+      "pos": "noun",
+      "ipa": "/trend/",
+      "pronounceFa": "ترِند",
+      "pronounceAr": "ترِند",
+      "translationFa": "روند، گرایش",
+      "translationAr": "توجّه، اتّجاه",
+      "explanationFa": "جهتِ کلیِ تغییر؛ در رایتینگ بخشِ 1 بسیار پرکاربرد: an upward / downward trend، a trend towards something.",
+      "explanationAr": "الاتجاه العام للتغيّر، ويكثر في الكتابة الجزء 1: an upward / downward trend.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "school leaver": {
+      "headword": "school leaver",
+      "forms": [
+        "school leavers",
+        "school leaver"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈskuːl ˌliːvə/",
+      "pronounceFa": "اِسکول لیوِر",
+      "pronounceAr": "سكول ليفَر",
+      "translationFa": "فارغ‌التحصیلِ مدرسه (کسی که تازه مدرسه را تمام کرده)",
+      "translationAr": "خرّيج المدرسة حديثًا",
+      "explanationFa": "اصطلاحِ بریتانیایی برای جوانی که تازه مدرسه را تمام کرده و وارد کار یا دانشگاه می‌شود.",
+      "explanationAr": "مصطلح بريطاني لشابّ أنهى المدرسة لتوّه ويتّجه إلى العمل أو الجامعة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "apprenticeship": {
+      "headword": "apprenticeship",
+      "forms": [
+        "apprenticeships",
+        "apprenticeship"
+      ],
+      "pos": "noun",
+      "ipa": "/əˈprentɪʃɪp/",
+      "pronounceFa": "اِپرِنتیس‌شیپ",
+      "pronounceAr": "أبرِنتيسشِب",
+      "translationFa": "کارآموزی، شاگردی (یادگیریِ حرفه کنارِ استادکار)",
+      "translationAr": "التلمذة المهنية",
+      "explanationFa": "دوره‌ای که فرد در آن با کار کردن کنارِ فردی ماهر، حرفه‌ای را یاد می‌گیرد؛ به خودِ کارآموز apprentice می‌گویند.",
+      "explanationAr": "مدة يتعلّم فيها الشخص حرفة بالعمل مع شخص ماهر، ويُسمّى المتدرّب apprentice.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "trade": {
+      "headword": "trade",
+      "forms": [
+        "trades"
+      ],
+      "pos": "noun",
+      "ipa": "/treɪd/",
+      "pronounceFa": "ترِید",
+      "pronounceAr": "تريد",
+      "translationFa": "حرفه‌ی فنی، پیشه (مثلِ بنّایی و برق‌کاری)",
+      "translationAr": "حِرفة يدوية",
+      "explanationFa": "این‌جا یعنی شغلِ مهارتیِ دستی، نه «تجارت»: builders, electricians and other trades.",
+      "explanationAr": "هنا بمعنى المهنة اليدوية الماهرة لا «التجارة».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in practice": {
+      "headword": "in practice",
+      "forms": [
+        "in practice"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˈpræktɪs/",
+      "pronounceFa": "این پرَکتیس",
+      "pronounceAr": "إن براكتِس",
+      "translationFa": "در عمل",
+      "translationAr": "في الواقع، عمليًا",
+      "explanationFa": "برای نشان دادنِ فرقِ واقعیت با برنامه یا نظریه؛ معمولاً پس از in theory می‌آید.",
+      "explanationAr": "لبيان الفرق بين الواقع والخطة أو النظرية، وتأتي غالبًا بعد in theory.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "vocational": {
+      "headword": "vocational",
+      "forms": [
+        "vocational"
+      ],
+      "pos": "adjective",
+      "ipa": "/vəʊˈkeɪʃənl/",
+      "pronounceFa": "وُکِیشِنِل",
+      "pronounceAr": "فوكيشنال",
+      "translationFa": "حرفه‌ای، فنی‌وحرفه‌ای",
+      "translationAr": "مهني",
+      "explanationFa": "برای آموزش یا مدرکی که مهارتِ یک شغلِ مشخص را یاد می‌دهد: vocational training؛ در برابرِ academic.",
+      "explanationAr": "يُقال للتعليم أو المؤهّل الذي يعلّم مهارات مهنة محدّدة، في مقابل academic.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "practical skills": {
+      "headword": "practical skills",
+      "forms": [
+        "practical skills"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpræktɪkl ˈskɪlz/",
+      "pronounceFa": "پرَکتیکِل اِسکیلز",
+      "pronounceAr": "براكتيكال سكِلز",
+      "translationFa": "مهارت‌های عملی",
+      "translationAr": "المهارات العملية",
+      "explanationFa": "مهارت‌هایی که با انجام دادنِ کار به دست می‌آیند، نه فقط با خواندن؛ در برابرِ theoretical knowledge.",
+      "explanationAr": "مهارات تُكتسب بالممارسة لا بالقراءة فقط، في مقابل theoretical knowledge.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "practical experience": {
+      "headword": "practical experience",
+      "forms": [
+        "practical experience"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpræktɪkl ɪkˈspɪəriəns/",
+      "pronounceFa": "پرَکتیکِل ایکسپیریِنس",
+      "pronounceAr": "براكتيكال إكسبيريَنس",
+      "translationFa": "تجربه‌ی عملی",
+      "translationAr": "الخبرة العملية",
+      "explanationFa": "تجربه‌ای که از انجام دادنِ واقعیِ کار به دست می‌آید؛ کارفرمایان معمولاً آن را می‌خواهند.",
+      "explanationAr": "خبرة تأتي من ممارسة العمل فعليًا، ويطلبها أصحاب العمل عادةً.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "partnership": {
+      "headword": "partnership",
+      "forms": [
+        "partnerships",
+        "partnership"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈpɑːtnəʃɪp/",
+      "pronounceFa": "پارتنِرشیپ",
+      "pronounceAr": "بارتنرشِب",
+      "translationFa": "همکاری، مشارکت",
+      "translationAr": "شراكة",
+      "explanationFa": "همکاریِ رسمیِ دو سازمان برای هدفی مشترک: a partnership between universities and companies.",
+      "explanationAr": "تعاون رسمي بين مؤسستين لهدف مشترك.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "doctorate": {
+      "headword": "doctorate",
+      "forms": [
+        "doctorate"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈdɒktərət/",
+      "pronounceFa": "داکتِرِت",
+      "pronounceAr": "دوكتَرَت",
+      "translationFa": "مدرکِ دکترا",
+      "translationAr": "الدكتوراه",
+      "explanationFa": "بالاترین مدرکِ دانشگاهی (PhD)؛ پیش از آن bachelor's (کارشناسی) و master's (ارشد) می‌آیند.",
+      "explanationAr": "أعلى شهادة جامعية (PhD)، يسبقها البكالوريوس والماجستير.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "mentor": {
+      "headword": "mentor",
+      "forms": [
+        "mentors",
+        "mentor"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmentɔː/",
+      "pronounceFa": "مِنتُر",
+      "pronounceAr": "مِنتور",
+      "translationFa": "راهنما، مربیِ باتجربه",
+      "translationAr": "مرشد، موجّه",
+      "explanationFa": "فردِ باتجربه‌ای که در مدتی طولانی به فردِ تازه‌کار مشاوره و راهنمایی می‌دهد؛ کمی با coach (مربیِ مهارتی) فرق دارد.",
+      "explanationAr": "شخص ذو خبرة يقدّم النصح والتوجيه لمبتدئ على مدى طويل، ويختلف قليلًا عن coach (المدرّب).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "face to face": {
+      "headword": "face to face",
+      "forms": [
+        "face to face",
+        "face-to-face"
+      ],
+      "pos": "adjective / adverb",
+      "ipa": "/ˌfeɪs tə ˈfeɪs/",
+      "pronounceFa": "فِیس تو فِیس",
+      "pronounceAr": "فيس تو فيس",
+      "translationFa": "حضوری، رو در رو",
+      "translationAr": "وجهًا لوجه، حضوري",
+      "explanationFa": "در آموزش، در برابرِ online: face-to-face classes. پیش از اسم معمولاً با خط‌تیره نوشته می‌شود.",
+      "explanationAr": "في التعليم يقابل online، ويُكتب عادةً بشرطات قبل الاسم.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "line graph": {
+      "headword": "line graph",
+      "forms": [
+        "line graph",
+        "line graphs"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈlaɪn ɡrɑːf/",
+      "pronounceFa": "لاین گراف",
+      "pronounceAr": "لاين غراف",
+      "translationFa": "نمودارِ خطی",
+      "translationAr": "رسم بياني خطّي",
+      "explanationFa": "نموداری که تغییرِ مقدارها را در طولِ زمان با یک یا چند خط نشان می‌دهد؛ از انواعِ رایجِ رایتینگ بخشِ 1.",
+      "explanationAr": "رسم يبيّن تغيّر القيم بمرور الوقت بخط أو أكثر، وهو من الأنواع الشائعة في الكتابة الجزء 1.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "pie chart": {
+      "headword": "pie chart",
+      "forms": [
+        "pie chart",
+        "pie charts"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈpaɪ tʃɑːt/",
+      "pronounceFa": "پای چارت",
+      "pronounceAr": "باي تشارت",
+      "translationFa": "نمودارِ دایره‌ای",
+      "translationAr": "رسم بياني دائري",
+      "explanationFa": "دایره‌ای که به بخش‌هایی (مثلِ برش‌های کیک) تقسیم شده و سهمِ هر بخش از کل را نشان می‌دهد؛ با کسرها توصیف می‌شود: a third، a quarter.",
+      "explanationAr": "دائرة مقسّمة إلى أجزاء تبيّن حصّة كل جزء من الكل، وتوصف بالكسور مثل a third وa quarter.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "bar chart": {
+      "headword": "bar chart",
+      "forms": [
+        "bar chart",
+        "bar charts"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈbɑː tʃɑːt/",
+      "pronounceFa": "بار چارت",
+      "pronounceAr": "بار تشارت",
+      "translationFa": "نمودارِ میله‌ای",
+      "translationAr": "رسم بياني بالأعمدة",
+      "explanationFa": "نموداری با میله‌های افقی یا عمودی برای مقایسه‌ی مقدارها؛ در رایتینگ بخشِ 1 بیشتر برای مقایسه به کار می‌رود.",
+      "explanationAr": "رسم بأعمدة أفقية أو رأسية لمقارنة القيم، ويُستخدم في الكتابة الجزء 1 للمقارنة غالبًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "over time": {
+      "headword": "over time",
+      "forms": [
+        "over time"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌəʊvə ˈtaɪm/",
+      "pronounceFa": "اُوِر تایم",
+      "pronounceAr": "أوفَر تايم",
+      "translationFa": "در طولِ زمان، به‌مرور",
+      "translationAr": "بمرور الوقت",
+      "explanationFa": "برای تغییری که در دوره‌ای از زمان رخ می‌دهد؛ با overtime (اضافه‌کار) اشتباه نشود.",
+      "explanationAr": "للتغيّر الذي يحدث خلال مدة زمنية، ولا تُخلط مع overtime (العمل الإضافي).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "graduate": {
+      "headword": "graduate",
+      "forms": [
+        "graduates",
+        "graduate"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈɡrædʒuət/",
+      "pronounceFa": "گرَجوئِت",
+      "pronounceAr": "غراجوِيت",
+      "translationFa": "فارغ‌التحصیلِ دانشگاه",
+      "translationAr": "خرّيج جامعي",
+      "explanationFa": "در بریتانیا معمولاً یعنی کسی که مدرکِ دانشگاهی گرفته؛ فعلش graduate با تلفظِ /ˈɡrædʒueɪt/ است.",
+      "explanationAr": "في بريطانيا يعني غالبًا من حصل على شهادة جامعية، والفعل graduate يُلفظ /ˈɡrædʒueɪt/.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "participation": {
+      "headword": "participation",
+      "forms": [
+        "participation"
+      ],
+      "pos": "noun",
+      "ipa": "/pɑːˌtɪsɪˈpeɪʃn/",
+      "pronounceFa": "پارتیسیپِیشن",
+      "pronounceAr": "بارتِسِبيشن",
+      "translationFa": "مشارکت، شرکت",
+      "translationAr": "مشاركة",
+      "explanationFa": "با in می‌آید: participation in education. فعل: participate in.",
+      "explanationAr": "يأتي مع in، والفعل participate in.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "full-time": {
+      "headword": "full-time",
+      "forms": [
+        "full-time"
+      ],
+      "pos": "adjective / adverb",
+      "ipa": "/ˌfʊl ˈtaɪm/",
+      "pronounceFa": "فول تایم",
+      "pronounceAr": "فول تايم",
+      "translationFa": "تمام‌وقت",
+      "translationAr": "بدوام كامل",
+      "explanationFa": "متضادِ part-time؛ برای کار یا تحصیل: full-time education، work full-time.",
+      "explanationAr": "عكس part-time، ويُقال للعمل والدراسة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "decline": {
+      "headword": "decline",
+      "forms": [
+        "decline",
+        "declined"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/dɪˈklaɪn/",
+      "pronounceFa": "دیکلاین",
+      "pronounceAr": "دِكلاين",
+      "translationFa": "کاهش یافتن؛ کاهش",
+      "translationAr": "ينخفض؛ انخفاض",
+      "explanationFa": "هم فعل و هم اسم؛ در توصیفِ نمودار رسمی‌تر از fall است: a decline in numbers.",
+      "explanationAr": "فعل واسم، وفي وصف الرسوم أكثر رسمية من fall: a decline in numbers.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "decrease": {
+      "headword": "decrease",
+      "forms": [
+        "decrease",
+        "decreased"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/dɪˈkriːs/ (v), /ˈdiːkriːs/ (n)",
+      "pronounceFa": "دیکریس (فعل)، دیکریس (اسم، با تکیه روی هجای اول)",
+      "pronounceAr": "دِكريس (فعل)، ديكريس (اسم)",
+      "translationFa": "کم شدن؛ کاهش",
+      "translationAr": "يتناقص؛ تناقص",
+      "explanationFa": "متضادِ increase؛ در فعل تکیه روی هجای دوم و در اسم روی هجای اول است.",
+      "explanationAr": "عكس increase، والنبر في الفعل على المقطع الثاني وفي الاسم على الأول.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "drop": {
+      "headword": "drop",
+      "forms": [
+        "drop",
+        "dropped"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/drɒp/",
+      "pronounceFa": "دراپ",
+      "pronounceAr": "دروب",
+      "translationFa": "افت کردن؛ افت",
+      "translationAr": "يهبط؛ هبوط",
+      "explanationFa": "در توصیفِ نمودار برای کاهشِ معمولاً ناگهانی: a sharp drop؛ گذشته: dropped (با دو p).",
+      "explanationAr": "في وصف الرسوم للانخفاض المفاجئ غالبًا: a sharp drop، والماضي dropped بحرفي p.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "growth": {
+      "headword": "growth",
+      "forms": [
+        "growth"
+      ],
+      "pos": "noun",
+      "ipa": "/ɡrəʊθ/",
+      "pronounceFa": "گرُوث",
+      "pronounceAr": "غروث",
+      "translationFa": "رشد",
+      "translationAr": "نموّ",
+      "explanationFa": "فقط اسم است (فعلش grow)؛ با in می‌آید: growth in numbers.",
+      "explanationAr": "اسم فقط (والفعل grow)، ويأتي مع in.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "steady": {
+      "headword": "steady",
+      "forms": [
+        "steady",
+        "steadily"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈstedi/",
+      "pronounceFa": "اِستِدی",
+      "pronounceAr": "ستيدي",
+      "translationFa": "پیوسته، یکنواخت",
+      "translationAr": "ثابت، مطّرد",
+      "explanationFa": "برای تغییری که آرام و منظم ادامه دارد: a steady rise؛ قیدش steadily است.",
+      "explanationAr": "لتغيّر مستمرّ بانتظام وهدوء: a steady rise، والظرف steadily.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "upward trend": {
+      "headword": "upward trend",
+      "forms": [
+        "upward trend"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌʌpwəd ˈtrend/",
+      "pronounceFa": "آپوِرد ترِند",
+      "pronounceAr": "أبوَرد ترِند",
+      "translationFa": "روندِ صعودی",
+      "translationAr": "اتّجاه تصاعدي",
+      "explanationFa": "یعنی افزایشِ کلی در طولِ زمان؛ متضاد: downward trend. برای جمله‌ی overview در رایتینگ بخشِ 1 مناسب است.",
+      "explanationAr": "أي زيادة عامة بمرور الوقت، وعكسها downward trend، ومناسبة لجملة النظرة العامة في الكتابة الجزء 1.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "gradually": {
+      "headword": "gradually",
+      "forms": [
+        "gradually"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈɡrædʒuəli/",
+      "pronounceFa": "گرَجوئِلی",
+      "pronounceAr": "غراجوَلي",
+      "translationFa": "به‌تدریج، کم‌کم",
+      "translationAr": "تدريجيًا",
+      "explanationFa": "برای تغییرِ آهسته؛ در برابرِ sharply یا dramatically. صفت: gradual.",
+      "explanationAr": "للتغيّر البطيء، في مقابل sharply وdramatically، والصفة gradual.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "throughout the period": {
+      "headword": "throughout the period",
+      "forms": [
+        "throughout the period"
+      ],
+      "pos": "phrase",
+      "ipa": "/θruːˌaʊt ðə ˈpɪəriəd/",
+      "pronounceFa": "ثروآوت دِ پیریِد",
+      "pronounceAr": "ثروآوت ذَ بيريَد",
+      "translationFa": "در سراسرِ دوره",
+      "translationAr": "طوال الفترة",
+      "explanationFa": "عبارتی پرکاربرد در توصیفِ نمودار برای چیزی که از ابتدا تا انتهای بازه‌ی زمانی ادامه دارد.",
+      "explanationAr": "عبارة شائعة في وصف الرسوم لما يستمرّ من بداية المدة إلى نهايتها.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "age group": {
+      "headword": "age group",
+      "forms": [
+        "age group",
+        "age groups"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈeɪdʒ ɡruːp/",
+      "pronounceFa": "اِیج گروپ",
+      "pronounceAr": "إيدج غروب",
+      "translationFa": "گروهِ سنی",
+      "translationAr": "فئة عمرية",
+      "explanationFa": "افرادی که سنشان در یک بازه است؛ در توصیفِ داده‌های رایتینگ بخشِ 1 پرکاربرد: the 18–24 age group.",
+      "explanationAr": "أشخاص ضمن نطاق عمري واحد، وتكثر في وصف البيانات في الكتابة الجزء 1.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "category": {
+      "headword": "category",
+      "forms": [
+        "category",
+        "categories"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkætəɡəri/",
+      "pronounceFa": "کَتِگِری",
+      "pronounceAr": "كاتيغوري",
+      "translationFa": "دسته، گروه",
+      "translationAr": "فئة",
+      "explanationFa": "گروهی از چیزها یا افراد با ویژگیِ مشترک؛ در نمودارها هر ستون یا برش یک category است.",
+      "explanationAr": "مجموعة من الأشياء أو الأشخاص ذوي سمة مشتركة، وفي الرسوم يمثّل كل عمود أو جزء فئة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "unemployed": {
+      "headword": "unemployed",
+      "forms": [
+        "unemployed"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌʌnɪmˈplɔɪd/",
+      "pronounceFa": "آنیمپلوید",
+      "pronounceAr": "أنِمبلويد",
+      "translationFa": "بیکار",
+      "translationAr": "عاطل عن العمل",
+      "explanationFa": "اسمش unemployment (بیکاری) است؛ the unemployed یعنی «بیکاران». هم‌معنا: out of work.",
+      "explanationAr": "الاسم unemployment (البطالة)، وthe unemployed تعني «العاطلون»، ومرادفها out of work.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "overall": {
+      "headword": "overall",
+      "forms": [
+        "overall"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˌəʊvərˈɔːl/",
+      "pronounceFa": "اُوِرال",
+      "pronounceAr": "أوفَرول",
+      "translationFa": "در مجموع، به‌طورِ کلی",
+      "translationAr": "إجمالًا، بشكل عام",
+      "explanationFa": "رایج‌ترین شروع برای جمله‌ی overview در رایتینگ بخشِ 1: Overall, the numbers have not changed much.",
+      "explanationAr": "أشيع بداية لجملة النظرة العامة في الكتابة الجزء 1.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "figures": {
+      "headword": "figures",
+      "forms": [
+        "figures",
+        "figure"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈfɪɡəz/",
+      "pronounceFa": "فیگِرز",
+      "pronounceAr": "فيغَرز",
+      "translationFa": "ارقام، اعداد",
+      "translationAr": "أرقام",
+      "explanationFa": "در توصیفِ داده‌ها figure یعنی «عدد، رقم»: the 1990 figures. معنای دیگرش «اندام» یا «شخصیت» است.",
+      "explanationAr": "في وصف البيانات تعني figure «رقم»، ولها معانٍ أخرى مثل «قوام» أو «شخصية».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "refer to": {
+      "headword": "refer to",
+      "forms": [
+        "refer to",
+        "refers to",
+        "referred to"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/rɪˈfɜː tə/",
+      "pronounceFa": "ریفِر تو",
+      "pronounceAr": "ريفَر تو",
+      "translationFa": "اشاره کردن به، مربوط بودن به",
+      "translationAr": "يشير إلى",
+      "explanationFa": "با to می‌آید و گذشته‌اش referred (با دو r) است.",
+      "explanationAr": "يأتي مع to، وماضيه referred بحرفي r.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "employment": {
+      "headword": "employment",
+      "forms": [
+        "employment"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪmˈplɔɪmənt/",
+      "pronounceFa": "ایمپلویمِنت",
+      "pronounceAr": "إمبلويمَنت",
+      "translationFa": "اشتغال، شغل",
+      "translationAr": "توظيف، عمل",
+      "explanationFa": "اسمِ غیرقابلِ‌شمارش: find employment؛ متضاد: unemployment. employer = کارفرما، employee = کارمند.",
+      "explanationAr": "اسم غير معدود: find employment، وعكسه unemployment. employer = صاحب العمل، employee = الموظف.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "out of work": {
+      "headword": "out of work",
+      "forms": [
+        "out of work"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌaʊt əv ˈwɜːk/",
+      "pronounceFa": "آوت آو وِرک",
+      "pronounceAr": "آوت أوف وِرك",
+      "translationFa": "بیکار",
+      "translationAr": "عاطل عن العمل",
+      "explanationFa": "هم‌معنای غیررسمی‌ترِ unemployed؛ برای پرهیز از تکرار در رایتینگ مفید است.",
+      "explanationAr": "مرادف أقل رسمية لـ unemployed، ومفيد لتجنّب التكرار في الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "axis": {
+      "headword": "axis",
+      "forms": [
+        "axes",
+        "axis"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈæksɪs/ (pl. /ˈæksiːz/)",
+      "pronounceFa": "اَکسیس (جمع: اَکسیز)",
+      "pronounceAr": "أكسِس (الجمع: أكسيز)",
+      "translationFa": "محور (نمودار)",
+      "translationAr": "محور (الرسم البياني)",
+      "explanationFa": "جمعش axes است؛ the vertical axis (محورِ عمودی) و the horizontal axis (محورِ افقی).",
+      "explanationAr": "جمعه axes، ومنه the vertical axis (المحور الرأسي) وthe horizontal axis (الأفقي).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "literate": {
+      "headword": "literate",
+      "forms": [
+        "literate"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈlɪtərət/",
+      "pronounceFa": "لیتِرِت",
+      "pronounceAr": "لِتَرَت",
+      "translationFa": "باسواد",
+      "translationAr": "متعلّم، يعرف القراءة والكتابة",
+      "explanationFa": "کسی که می‌تواند بخواند و بنویسد؛ متضاد: illiterate. اسم: literacy.",
+      "explanationAr": "من يستطيع القراءة والكتابة، وعكسه illiterate، والاسم literacy.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "literacy rate": {
+      "headword": "literacy rate",
+      "forms": [
+        "literacy rate",
+        "literacy rates"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈlɪtərəsi reɪt/",
+      "pronounceFa": "لیتِرِسی رِیت",
+      "pronounceAr": "لِتَرَسي ريت",
+      "translationFa": "نرخِ سواد",
+      "translationAr": "معدّل معرفة القراءة والكتابة",
+      "explanationFa": "درصدِ افرادِ باسوادِ یک جامعه؛ rate در توصیفِ داده یعنی «نرخ»: birth rate، unemployment rate.",
+      "explanationAr": "نسبة المتعلّمين في مجتمع، وrate في البيانات تعني «معدّل».",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in conclusion": {
+      "headword": "in conclusion",
+      "forms": [
+        "in conclusion"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn kənˈkluːʒn/",
+      "pronounceFa": "این کِنکلوژِن",
+      "pronounceAr": "إن كَنكلوجن",
+      "translationFa": "در نتیجه‌گیری، در پایان",
+      "translationAr": "ختامًا، في الختام",
+      "explanationFa": "برای شروعِ جمله یا پاراگرافِ پایانی در رایتینگ؛ هم‌معنا: To sum up.",
+      "explanationAr": "لبدء الجملة أو الفقرة الختامية في الكتابة، ومرادفها To sum up.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "vary": {
+      "headword": "vary",
+      "forms": [
+        "vary",
+        "varies",
+        "varied"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈveəri/",
+      "pronounceFa": "وِری",
+      "pronounceAr": "فيري",
+      "translationFa": "متفاوت بودن، تغییر کردن",
+      "translationAr": "يتفاوت، يختلف",
+      "explanationFa": "برای مقدارهایی که از جایی به جای دیگر فرق دارند: rates vary between regions. صفت: various، variable.",
+      "explanationAr": "للقيم التي تختلف من مكان لآخر، والصفتان various وvariable.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "synonym": {
+      "headword": "synonym",
+      "forms": [
+        "synonyms",
+        "synonym"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsɪnənɪm/",
+      "pronounceFa": "سینِنیم",
+      "pronounceAr": "سِنونِم",
+      "translationFa": "مترادف، هم‌معنا",
+      "translationAr": "مرادف",
+      "explanationFa": "کلمه‌ای با معنای مشابه (begin = start)؛ در آیلتس گوینده یا متن معمولاً به‌جای کلماتِ سؤال از مترادف استفاده می‌کند. متضاد: antonym.",
+      "explanationAr": "كلمة بمعنى مشابه، وفي آيلتس يستخدم المتحدّث أو النص غالبًا مرادفات لكلمات السؤال. عكسها antonym.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "construction": {
+      "headword": "construction",
+      "forms": [
+        "construction"
+      ],
+      "pos": "noun",
+      "ipa": "/kənˈstrʌkʃn/",
+      "pronounceFa": "کِنستراکشن",
+      "pronounceAr": "كَنستراكشن",
+      "translationFa": "ساخت‌وساز، صنعتِ ساختمان",
+      "translationAr": "البناء والتشييد",
+      "explanationFa": "هم به صنعتِ ساختمان‌سازی و هم به عملِ ساختن اشاره دارد؛ فعلش construct است.",
+      "explanationAr": "تشير إلى صناعة البناء وإلى عملية البناء نفسها، والفعل construct.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "leisure": {
+      "headword": "leisure",
+      "forms": [
+        "leisure"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈleʒə/",
+      "pronounceFa": "لِژِر",
+      "pronounceAr": "ليجَر",
+      "translationFa": "اوقاتِ فراغت، تفریح",
+      "translationAr": "الترفيه، وقت الفراغ",
+      "explanationFa": "تلفظِ بریتانیایی «لِژِر» است؛ leisure time و leisure activities در اسپیکینگ پرکاربردند.",
+      "explanationAr": "تُلفظ بريطانيًا «ليجَر»، وتكثر عبارتا leisure time وleisure activities في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "retail": {
+      "headword": "retail",
+      "forms": [
+        "retail"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈriːteɪl/",
+      "pronounceFa": "ریتِیل",
+      "pronounceAr": "ريتيل",
+      "translationFa": "خرده‌فروشی",
+      "translationAr": "البيع بالتجزئة",
+      "explanationFa": "فروشِ کالا به مصرف‌کننده در فروشگاه؛ در برابرِ wholesale (عمده‌فروشی).",
+      "explanationAr": "بيع السلع للمستهلك في المتاجر، في مقابل wholesale (البيع بالجملة).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "catering": {
+      "headword": "catering",
+      "forms": [
+        "catering"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkeɪtərɪŋ/",
+      "pronounceFa": "کِیتِرینگ",
+      "pronounceAr": "كيتَرِنغ",
+      "translationFa": "پذیرایی، تهیه‌ی غذا (برای مراسم و سازمان‌ها)",
+      "translationAr": "التموين، تقديم الطعام",
+      "explanationFa": "کارِ تهیه و سرو غذا در هتل، رستوران یا مراسم؛ hotel and catering نامِ رایجِ این حوزه‌ی شغلی است.",
+      "explanationAr": "عمل إعداد الطعام وتقديمه في الفنادق والمطاعم والمناسبات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "information technology": {
+      "headword": "information technology",
+      "forms": [
+        "information technology"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɪnfəˌmeɪʃn tekˈnɒlədʒi/",
+      "pronounceFa": "اینفِرمِیشن تِکنالِجی",
+      "pronounceAr": "إنفورميشن تِكنولوجي",
+      "translationFa": "فناوریِ اطلاعات (IT)",
+      "translationAr": "تكنولوجيا المعلومات",
+      "explanationFa": "به‌اختصار IT؛ information غیرقابلِ شمارش است و هرگز informations نمی‌شود.",
+      "explanationAr": "اختصارها IT، وinformation غير معدودة ولا تُجمع أبدًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "store assistant": {
+      "headword": "store assistant",
+      "forms": [
+        "store assistant"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈstɔːr əˌsɪstənt/",
+      "pronounceFa": "اِستُر اِسیستِنت",
+      "pronounceAr": "ستور أسِستَنت",
+      "translationFa": "فروشنده‌ی فروشگاه",
+      "translationAr": "مساعد مبيعات في متجر",
+      "explanationFa": "کسی که در فروشگاه به مشتریان کمک می‌کند و می‌فروشد؛ در بریتانیا shop assistant هم می‌گویند.",
+      "explanationAr": "من يساعد الزبائن ويبيع في المتجر، ويُقال في بريطانيا أيضًا shop assistant.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "textiles": {
+      "headword": "textiles",
+      "forms": [
+        "textiles"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtekstaɪlz/",
+      "pronounceFa": "تِکستایلز",
+      "pronounceAr": "تِكستايلز",
+      "translationFa": "منسوجات؛ رشته‌ی نساجی و طراحیِ پارچه",
+      "translationAr": "المنسوجات",
+      "explanationFa": "هم به پارچه‌ها و هم به رشته‌ی تحصیلیِ ساخت و طراحیِ پارچه گفته می‌شود.",
+      "explanationAr": "تُطلق على الأقمشة وعلى تخصّص صناعتها وتصميمها.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "cruise ship": {
+      "headword": "cruise ship",
+      "forms": [
+        "cruise ship"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈkruːz ʃɪp/",
+      "pronounceFa": "کروز شیپ",
+      "pronounceAr": "كروز شِب",
+      "translationFa": "کشتیِ تفریحی",
+      "translationAr": "سفينة سياحية",
+      "explanationFa": "کشتیِ بزرگی که مسافران با آن برای تفریح به چند بندر سفر می‌کنند؛ go on a cruise یعنی «به سفرِ دریاییِ تفریحی رفتن».",
+      "explanationAr": "سفينة كبيرة يسافر بها الركّاب للترفيه بين عدّة موانئ.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "take place": {
+      "headword": "take place",
+      "forms": [
+        "takes place",
+        "take place",
+        "took place"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌteɪk ˈpleɪs/",
+      "pronounceFa": "تِیک پلِیس",
+      "pronounceAr": "تيك بليس",
+      "translationFa": "برگزار شدن، رخ دادن",
+      "translationAr": "يُقام، يحدث",
+      "explanationFa": "برای رویدادِ برنامه‌ریزی‌شده؛ مجهول ندارد (نه is taken place). هم‌معنا: be held.",
+      "explanationAr": "للحدث المخطّط له، ولا يأتي مبنيًا للمجهول، ومرادفه be held.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "recording": {
+      "headword": "recording",
+      "forms": [
+        "recording"
+      ],
+      "pos": "noun",
+      "ipa": "/rɪˈkɔːdɪŋ/",
+      "pronounceFa": "ریکُردینگ",
+      "pronounceAr": "ريكوردِنغ",
+      "translationFa": "فایلِ صوتی ضبط‌شده",
+      "translationAr": "التسجيل الصوتي",
+      "explanationFa": "در آزمونِ لیسنینگ به متنی که پخش می‌شود recording می‌گویند؛ هر فایل فقط یک بار پخش می‌شود.",
+      "explanationAr": "في اختبار الاستماع يُسمّى ما يُبثّ recording، ويُشغَّل مرة واحدة فقط.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "uncountable": {
+      "headword": "uncountable",
+      "forms": [
+        "uncountable"
+      ],
+      "pos": "adjective (grammar)",
+      "ipa": "/ʌnˈkaʊntəbl/",
+      "pronounceFa": "آنکاونتِبِل",
+      "pronounceAr": "أنكاونتَبل",
+      "translationFa": "غیرقابلِ شمارش",
+      "translationAr": "غير معدود",
+      "explanationFa": "اسمی که جمع بسته نمی‌شود و با a نمی‌آید: information، advice، equipment.",
+      "explanationAr": "اسم لا يُجمع ولا يأتي مع a، مثل information وadvice وequipment.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be held": {
+      "headword": "be held",
+      "forms": [
+        "is held",
+        "be held",
+        "was held",
+        "are held"
+      ],
+      "pos": "verb phrase (passive)",
+      "ipa": "/bi ˈheld/",
+      "pronounceFa": "بی هِلد",
+      "pronounceAr": "بي هِلد",
+      "translationFa": "برگزار شدن",
+      "translationAr": "يُعقد، يُقام",
+      "explanationFa": "مجهولِ hold برای رویدادها و جلسات؛ هم‌معنای take place. در لیسنینگ اغلب به‌جای takes place شنیده می‌شود.",
+      "explanationAr": "المبني للمجهول من hold للفعاليات والاجتماعات، ومرادفه take place.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "duration": {
+      "headword": "duration",
+      "forms": [
+        "duration"
+      ],
+      "pos": "noun",
+      "ipa": "/djuˈreɪʃn/",
+      "pronounceFa": "دیورِیشن",
+      "pronounceAr": "ديوريشن",
+      "translationFa": "مدت، طولِ زمان",
+      "translationAr": "المدّة",
+      "explanationFa": "رسمی‌ترِ length؛ the duration of the course. هم‌معناهایش در لیسنینگ: how long it lasts، length.",
+      "explanationAr": "أكثر رسمية من length، ومرادفاتها في الاستماع how long it lasts وlength.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "hands-on": {
+      "headword": "hands-on",
+      "forms": [
+        "hands-on"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌhændz ˈɒn/",
+      "pronounceFa": "هَندز آن",
+      "pronounceAr": "هاندز أون",
+      "translationFa": "عملی، همراه با تجربه‌ی مستقیم",
+      "translationAr": "عملي، تطبيقي",
+      "explanationFa": "یعنی با انجام دادنِ خودِ کار، نه فقط تماشا یا خواندن: a hands-on session. هم‌معنا: practical.",
+      "explanationAr": "أي بممارسة العمل نفسه لا بمشاهدته أو القراءة عنه، ومرادفها practical.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "consonant": {
+      "headword": "consonant",
+      "forms": [
+        "consonants",
+        "consonant"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkɒnsənənt/",
+      "pronounceFa": "کانسِنِنت",
+      "pronounceAr": "كونسَنَنت",
+      "translationFa": "صامت، حرفِ بی‌صدا",
+      "translationAr": "حرف ساكن (صامت)",
+      "explanationFa": "صداهایی مثلِ /s/، /t/، /p/؛ در برابرِ vowel (مصوت). فارسی‌زبانان در کلماتی مثلِ student پیش از دو صامت «اِ» اضافه می‌کنند (اِستیودنت) که باید از آن پرهیز کرد.",
+      "explanationAr": "أصوات مثل /s/ و/t/ و/p/ في مقابل vowel (الصائت)، ويضيف بعض المتعلّمين همزة قبل الساكنين في كلمات مثل student فينبغي تجنّب ذلك.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "emergency services": {
+      "headword": "emergency services",
+      "forms": [
+        "emergency services"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ɪˈmɜːdʒənsi ˌsɜːvɪsɪz/",
+      "pronounceFa": "ایمِرجِنسی سِرویسیز",
+      "pronounceAr": "إمِرجَنسي سِرفِسِز",
+      "translationFa": "خدماتِ امدادی (پلیس، آتش‌نشانی، اورژانس)",
+      "translationAr": "خدمات الطوارئ",
+      "explanationFa": "سازمان‌هایی که به حوادث و مشکلاتِ فوری رسیدگی می‌کنند؛ همیشه جمع به کار می‌رود.",
+      "explanationAr": "المؤسسات التي تتعامل مع الحوادث والمشكلات العاجلة، وتُستخدم دائمًا بصيغة الجمع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "research and development": {
+      "headword": "research and development",
+      "forms": [
+        "research and development"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/rɪˌsɜːtʃ ən dɪˈveləpmənt/",
+      "pronounceFa": "ریسِرچ اَند دیوِلِپمِنت",
+      "pronounceAr": "ريسيرتش آند ديفِلوبمَنت",
+      "translationFa": "پژوهش و توسعه (R&D)",
+      "translationAr": "البحث والتطوير",
+      "explanationFa": "بخشی از علم یا صنعت که روی کشف و ساختِ محصولات و روش‌های تازه کار می‌کند؛ به‌اختصار R&D.",
+      "explanationAr": "قطاع في العلم أو الصناعة يعمل على اكتشاف منتجات وأساليب جديدة وتطويرها، واختصاره R&D.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "embarrassed": {
+      "headword": "embarrassed",
+      "forms": [
+        "embarrassed"
+      ],
+      "pos": "adjective",
+      "ipa": "/ɪmˈbærəst/",
+      "pronounceFa": "ایمبَرِست",
+      "pronounceAr": "إمبارَست",
+      "translationFa": "خجالت‌زده، شرمنده",
+      "translationAr": "محرَج",
+      "explanationFa": "احساسِ آدم را توصیف می‌کند؛ embarrassing (خجالت‌آور) برای موقعیت است. املایش دو r و دو s دارد.",
+      "explanationAr": "تصف شعور الشخص، أمّا embarrassing (محرِج) فتصف الموقف، وتُكتب بحرفي r وحرفي s.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "challenging": {
+      "headword": "challenging",
+      "forms": [
+        "challenging"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtʃælɪndʒɪŋ/",
+      "pronounceFa": "چَلِنجینگ",
+      "pronounceAr": "تشالِنجِنغ",
+      "translationFa": "چالش‌برانگیز (دشوار ولی جذاب)",
+      "translationAr": "صعب ومحفّز",
+      "explanationFa": "برای کاری که دشوار است ولی انگیزه می‌دهد؛ مثبت‌تر از difficult. در اسپیکینگ برای توصیفِ کار یا تحصیل عالی است.",
+      "explanationAr": "لعمل صعب لكنه محفّز، وهي أكثر إيجابية من difficult، وممتازة في المحادثة لوصف العمل أو الدراسة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fascinated": {
+      "headword": "fascinated",
+      "forms": [
+        "fascinated"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈfæsɪneɪtɪd/",
+      "pronounceFa": "فَسینِیتید",
+      "pronounceAr": "فاسِنيتِد",
+      "translationFa": "مجذوب، شیفته",
+      "translationAr": "مفتون، منبهر",
+      "explanationFa": "با by یا with می‌آید: I was fascinated by it. صفتِ موقعیت: fascinating (بسیار جالب).",
+      "explanationAr": "تأتي مع by أو with، وصفة الموقف fascinating (شائق جدًا).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "thrilled": {
+      "headword": "thrilled",
+      "forms": [
+        "thrilled"
+      ],
+      "pos": "adjective",
+      "ipa": "/θrɪld/",
+      "pronounceFa": "ثریلد",
+      "pronounceAr": "ثرِلد",
+      "translationFa": "بسیار هیجان‌زده و خوشحال",
+      "translationAr": "مبتهج جدًا",
+      "explanationFa": "قوی‌تر از happy یا pleased؛ برای احساسِ آدم. thrilling برای چیزی که هیجان ایجاد می‌کند.",
+      "explanationAr": "أقوى من happy وpleased، وتصف الشعور، أمّا thrilling فلما يثير الحماس.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "amazed": {
+      "headword": "amazed",
+      "forms": [
+        "amazed"
+      ],
+      "pos": "adjective",
+      "ipa": "/əˈmeɪzd/",
+      "pronounceFa": "اِمِیزد",
+      "pronounceAr": "أميزد",
+      "translationFa": "شگفت‌زده، حیرت‌زده",
+      "translationAr": "مندهش",
+      "explanationFa": "احساسِ آدم را توصیف می‌کند؛ amazing (شگفت‌انگیز) برای چیز یا موقعیت است.",
+      "explanationAr": "تصف شعور الشخص، أمّا amazing (مدهش) فتصف الشيء أو الموقف.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "general knowledge": {
+      "headword": "general knowledge",
+      "forms": [
+        "general knowledge"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌdʒenrəl ˈnɒlɪdʒ/",
+      "pronounceFa": "جِنِرِل نالِج",
+      "pronounceAr": "جِنرَل نولِدج",
+      "translationFa": "اطلاعاتِ عمومی",
+      "translationAr": "المعلومات العامة",
+      "explanationFa": "دانستنی‌های کلی درباره‌ی موضوع‌های مختلف؛ در اسپیکینگِ آیلتس اطلاعاتِ عمومیِ شما نمره ندارد، فقط زبانتان.",
+      "explanationAr": "معارف عامة في موضوعات متنوعة، ولا تُقيَّم في محادثة آيلتس بل تُقيَّم اللغة فقط.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "close-up": {
+      "headword": "close-up",
+      "forms": [
+        "close-up"
+      ],
+      "pos": "adjective / noun",
+      "ipa": "/ˈkləʊs ʌp/",
+      "pronounceFa": "کلُوس آپ",
+      "pronounceAr": "كلوس أب",
+      "translationFa": "نمای نزدیک (عکس)",
+      "translationAr": "لقطة مقرّبة",
+      "explanationFa": "عکسی که از فاصله‌ی خیلی نزدیک گرفته شده؛ close در این‌جا با s تلفظ می‌شود (کلُوس)، نه z.",
+      "explanationAr": "صورة ملتقطة من مسافة قريبة جدًا، وتُلفظ close هنا بـ s لا z.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fluently": {
+      "headword": "fluently",
+      "forms": [
+        "fluently"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈfluːəntli/",
+      "pronounceFa": "فلوئِنتلی",
+      "pronounceAr": "فلوَنتلي",
+      "translationFa": "روان، سلیس",
+      "translationAr": "بطلاقة",
+      "explanationFa": "یکی از چهار معیارِ نمره‌ی اسپیکینگ fluency (روانی) است: صحبت بدونِ مکث‌های طولانی. صفت: fluent.",
+      "explanationAr": "من معايير تقييم المحادثة الأربعة الطلاقة fluency، أي الحديث دون توقّفات طويلة، والصفة fluent.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "education system": {
+      "headword": "education system",
+      "forms": [
+        "education system",
+        "education systems"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌedʒuˈkeɪʃn ˌsɪstəm/",
+      "pronounceFa": "اِجوکِیشن سیستِم",
+      "pronounceAr": "إيجوكيشن سِستَم",
+      "translationFa": "نظامِ آموزشی",
+      "translationAr": "النظام التعليمي",
+      "explanationFa": "ساختارِ کلیِ مدارس، دانشگاه‌ها و قوانینِ آموزشیِ یک کشور؛ موضوعِ رایجِ رایتینگِ بخشِ 2.",
+      "explanationAr": "البنية العامة للمدارس والجامعات وقوانين التعليم في بلد ما، وموضوع شائع في الكتابة الجزء 2.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "proud of": {
+      "headword": "proud of",
+      "forms": [
+        "proud of"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˈpraʊd əv/",
+      "pronounceFa": "پراود آو",
+      "pronounceAr": "براود أوف",
+      "translationFa": "مفتخر به، سربلند از",
+      "translationAr": "فخور بـ",
+      "explanationFa": "با of می‌آید: proud of myself؛ اسمش pride است.",
+      "explanationAr": "يأتي مع of، والاسم pride.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "participant": {
+      "headword": "participant",
+      "forms": [
+        "participants",
+        "participant"
+      ],
+      "pos": "noun",
+      "ipa": "/pɑːˈtɪsɪpənt/",
+      "pronounceFa": "پارتیسیپِنت",
+      "pronounceAr": "بارتِسِبَنت",
+      "translationFa": "شرکت‌کننده",
+      "translationAr": "مشارك",
+      "explanationFa": "کسی که در دوره، مسابقه یا پژوهشی شرکت می‌کند؛ فعل: participate in، اسمِ عمل: participation.",
+      "explanationAr": "من يشارك في دورة أو مسابقة أو بحث، والفعل participate in والاسم participation.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "department store": {
+      "headword": "department store",
+      "forms": [
+        "department store",
+        "department stores"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/dɪˈpɑːtmənt stɔː/",
+      "pronounceFa": "دیپارتمِنت اِستُر",
+      "pronounceAr": "ديبارتمَنت ستور",
+      "translationFa": "فروشگاهِ بزرگِ چندبخشی",
+      "translationAr": "متجر كبير متعدّد الأقسام",
+      "explanationFa": "فروشگاهِ بزرگی که در بخش‌های جداگانه انواعِ کالا می‌فروشد؛ هر بخش department نام دارد.",
+      "explanationAr": "متجر كبير يبيع أنواعًا مختلفة من السلع في أقسام منفصلة، ويُسمّى كل قسم department.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "refreshments": {
+      "headword": "refreshments",
+      "forms": [
+        "refreshments"
+      ],
+      "pos": "noun",
+      "ipa": "/rɪˈfreʃmənts/",
+      "pronounceFa": "ریفرِش‌مِنتس",
+      "pronounceAr": "ريفرِشمَنتس",
+      "translationFa": "نوشیدنی و خوراکیِ سبک (پذیرایی)",
+      "translationAr": "المرطّبات والوجبات الخفيفة",
+      "explanationFa": "نوشیدنی و خوراکیِ سبکی که در جلسه، سفر یا رویداد ارائه می‌شود؛ معمولاً جمع به کار می‌رود.",
+      "explanationAr": "مشروبات ووجبات خفيفة تُقدَّم في اجتماع أو رحلة أو فعالية، وتُستخدم عادةً بصيغة الجمع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "come true": {
+      "headword": "come true",
+      "forms": [
+        "come true"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌkʌm ˈtruː/",
+      "pronounceFa": "کام ترو",
+      "pronounceAr": "كَم ترو",
+      "translationFa": "به حقیقت پیوستن",
+      "translationAr": "يتحقّق",
+      "explanationFa": "برای رؤیا، آرزو یا پیش‌بینی: My dream will come true. در اسپیکینگ برای صحبت درباره‌ی برنامه‌های آینده مفید است.",
+      "explanationAr": "يُقال للحلم أو الأمنية أو التوقّع، ومفيد في المحادثة عند الحديث عن الخطط المستقبلية.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "keep your balance": {
+      "headword": "keep your balance",
+      "forms": [
+        "keep my balance",
+        "keep your balance",
+        "keep their balance"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌkiːp jə ˈbæləns/",
+      "pronounceFa": "کیپ یور بَلِنس",
+      "pronounceAr": "كيب يور بالَنس",
+      "translationFa": "تعادلِ خود را حفظ کردن",
+      "translationAr": "يحافظ على توازنه",
+      "explanationFa": "متضادِ lose your balance (تعادل را از دست دادن)؛ ضمیر با فاعل عوض می‌شود: keep my / her balance.",
+      "explanationAr": "عكس lose your balance، ويتغيّر الضمير بحسب الفاعل.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "camera angle": {
+      "headword": "camera angle",
+      "forms": [
+        "camera angles",
+        "camera angle"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈkæmərə ˌæŋɡl/",
+      "pronounceFa": "کَمِرا اَنگِل",
+      "pronounceAr": "كاميرا أنغل",
+      "translationFa": "زاویه‌ی دوربین",
+      "translationAr": "زاوية التصوير",
+      "explanationFa": "جهت و جایی که دوربین از آن تصویر می‌گیرد: close-up، wide-angle، from above.",
+      "explanationAr": "الاتجاه والموضع الذي تلتقط منه الكاميرا الصورة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
     }
   }
 }
