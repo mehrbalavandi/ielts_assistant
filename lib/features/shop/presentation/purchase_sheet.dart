@@ -350,6 +350,31 @@ class _CardTransferScreenState extends ConsumerState<CardTransferScreen> {
               'مبلغِ ${formatToman(widget.order.amount)} را به کارتِ زیر واریز کنید، بعد مشخصاتِ واریز را بفرستید.',
               style: const TextStyle(height: 1.8),
             ),
+            // 🌟 PAY-5: مبلغ «تومانِ شناسه» دارد؛ باید دقیقاً همان واریز شود.
+            if ((widget.order.amountSuffix ?? 0) > 0)
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.amber.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.info_outline_rounded, color: Colors.amber.shade900, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'لطفاً دقیقاً همین مبلغ را واریز کنید، نه عددِ رُند. '
+                        '${widget.order.amountSuffix} تومانِ آخر شناسه‌ی سفارشِ شماست و '
+                        'باعث می‌شود واریزتان زودتر تأیید شود.',
+                        style: const TextStyle(fontSize: 13, height: 1.7),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.all(18),
@@ -408,10 +433,20 @@ class _CardTransferScreenState extends ConsumerState<CardTransferScreen> {
             const SizedBox(height: 8),
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('مبلغ'),
-              trailing: Text(
-                formatToman(widget.order.amount),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              title: const Text('مبلغِ دقیق'),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    formatToman(widget.order.amount),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                    tooltip: 'کپیِ مبلغ',
+                    onPressed: () => _copy('${widget.order.amount}', 'مبلغ'),
+                    icon: const Icon(Icons.copy_rounded, size: 20),
+                  ),
+                ],
               ),
               subtitle: Text('سفارشِ شماره‌ی ${widget.order.id}'),
             ),

@@ -55,6 +55,9 @@ class OrderInfo {
   final int id;
   final String bookTitle;
   final int amount;
+
+  /// 🌟 PAY-5: «تومانِ شناسه»ی کارت‌به‌کارت (بخشی از amount)؛ null برای درگاه.
+  final int? amountSuffix;
   final String method; // gateway | card
   final String status;
   final String statusLabel;
@@ -66,6 +69,7 @@ class OrderInfo {
     required this.id,
     required this.bookTitle,
     required this.amount,
+    this.amountSuffix,
     required this.method,
     required this.status,
     required this.statusLabel,
@@ -78,6 +82,7 @@ class OrderInfo {
     id: (j['id'] as num).toInt(),
     bookTitle: (j['book_title'] as String?) ?? '',
     amount: (j['amount'] as num?)?.toInt() ?? 0,
+    amountSuffix: (j['amount_suffix'] as num?)?.toInt(),
     method: (j['method'] as String?) ?? 'gateway',
     status: (j['status'] as String?) ?? '',
     statusLabel: (j['status_label'] as String?) ?? '',
