@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/core/db/app_database.dart';
+import 'package:ielts_assistant/core/device/device_identity.dart';
+import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
@@ -58,7 +59,6 @@ class BackupState {
 class BackupNotifier extends Notifier<BackupState> {
   static const String _ownerKey = 'backup_user_id';
   static const String _lastSyncKey = 'backup_last_sync_ms';
-  static const String _deviceIdKey = 'device_id';
   static const int _chunk = 400;
 
   final GetStorage _box = GetStorage();
@@ -277,37 +277,26 @@ class BackupNotifier extends Notifier<BackupState> {
 
   // ───────── دستگاه (BK-3) ─────────
 
-  String _deviceId() {
-    final String? existing = _box.read<String>(_deviceIdKey);
-    if (existing != null && existing.isNotEmpty) return existing;
-    final Random r = Random.secure();
-    final String id = List.generate(
-      16,
-      (_) => r.nextInt(256).toRadixString(16).padLeft(2, '0'),
-    ).join();
-    _box.write(_deviceIdKey, id);
-    return id;
-  }
-
   Future<void> _touchDevice() async {
     if (kIsWeb || !_loggedIn) return;
     try {
       final PackageInfo info = await PackageInfo.fromPlatform();
       final String os = Platform.operatingSystemVersion;
-      await ref.read(dioProvider).post(
+      final Response<dynamic> res = await ref.read(dioProvider).post(
         '/api/devices',
         data: {
-          'device_id': _deviceId(),
-          'platform': Platform.isAndroid
-              ? 'android'
-              : Platform.isWindows
-              ? 'windows'
-              : Platform.operatingSystem,
+          // 🌟 DEV-1: همان شناسه‌ی سخت‌افزاری که توکن به آن گره خورده (DeviceIdentity).
+          ...DeviceIdentity.loginFields(),
           'app_version': info.version,
           'build_number': int.tryParse(info.buildNumber),
           'os_version': os.length > 64 ? os.substring(0, 64) : os,
         },
       );
+      // 🌟 DEV-4: هر ثبتِ دستگاه مجوزِ آفلاین را هم تمدید می‌کند.
+      final Object? body = res.data;
+      if (body is Map && body['license'] != null) {
+        await LicenseService.save(body['license']);
+      }
     } catch (e) {
       debugPrint('backup: device touch failed: $e');
     }

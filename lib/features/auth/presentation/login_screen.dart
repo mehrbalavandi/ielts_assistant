@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
+import 'package:ielts_assistant/features/auth/presentation/device_limit_dialog.dart';
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 
@@ -133,7 +134,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _busy = true;
       _error = null;
     });
-    final OtpVerifyResult r = await ref
+    OtpVerifyResult r = await ref
         .read(authProvider.notifier)
         .verifyOtp(
           _mobile!,
@@ -142,6 +143,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           lastName: _registered ? null : _lastController.text.trim(),
         );
     if (!mounted) return;
+    // 🌟 DEV-2: حساب روی دستگاهِ دیگری فعال است ← جدا کردنِ یکی و ورود (یا توضیح).
+    if (r.deviceLimit != null) {
+      r = await _resolveDeviceLimit(r);
+      if (!mounted) return;
+    }
     if (r.ok) {
       ref.read(booksProvider.notifier).fetchBooks();
       Navigator.pop(context);
@@ -171,19 +177,33 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     });
     await _applyServerUrl();
     // 🌟 رمز و ایمیل فقط به سرور ارسال شده و هرگز در گوشی ذخیره نمی‌شوند
-    final bool ok = await ref
+    OtpVerifyResult r = await ref
         .read(authProvider.notifier)
         .login(email, password);
     if (!mounted) return;
-    if (ok) {
+    if (r.deviceLimit != null) {
+      r = await _resolveDeviceLimit(r);
+      if (!mounted) return;
+    }
+    if (r.ok) {
       ref.read(booksProvider.notifier).fetchBooks();
       Navigator.pop(context);
     } else {
       setState(() {
         _busy = false;
-        _error = 'ایمیل یا رمز عبور اشتباه است.';
+        _error = r.message.isEmpty ? 'ورود ممکن نشد.' : r.message;
       });
     }
+  }
+
+  /// 🌟 DEV-2: پنجره‌ی «این حساب روی دستگاهِ دیگری فعال است». اگر کاربر دستگاهی را جدا کرد،
+  /// نتیجه‌ی ورودِ موفق برمی‌گردد؛ وگرنه همان پیامِ سقفِ دستگاه به‌عنوانِ خطا.
+  Future<OtpVerifyResult> _resolveDeviceLimit(OtpVerifyResult r) async {
+    final OtpVerifyResult? replaced = await showDeviceLimitDialog(
+      context,
+      r.deviceLimit!,
+    );
+    return replaced ?? OtpVerifyResult(ok: false, message: r.message);
   }
 
   InputDecoration _decoration(String label, {String? hint}) => InputDecoration(

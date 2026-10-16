@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/auth/presentation/my_devices_screen.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
 import 'package:ielts_assistant/features/study/presentation/study_review_screen.dart';
@@ -95,6 +96,20 @@ class AppDrawer extends ConsumerWidget {
                 navigator.push(
                   MaterialPageRoute<void>(
                     builder: (_) => const MyOrdersScreen(),
+                  ),
+                );
+              },
+            ),
+            // 🌟 DEV-2: دستگاه‌هایی که حساب رویشان فعال است، و جدا کردنِ دستگاهِ قبلی.
+            ListTile(
+              leading: const Icon(Icons.devices_rounded),
+              title: const Text("دستگاه‌های من"),
+              onTap: () {
+                final NavigatorState navigator = Navigator.of(context);
+                navigator.pop();
+                navigator.push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const MyDevicesScreen(),
                   ),
                 );
               },

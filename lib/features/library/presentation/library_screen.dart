@@ -75,7 +75,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     if (!mounted) return;
     final books = ref.read(booksProvider);
     final book = books.where((e) => e.id == lastBookId).firstOrNull;
-    if (book == null) return;
+    // 🌟 DEV-4: کتابی که الان باز نمی‌شود (مثلاً مجوزِ آفلاینش تمام شده) خودکار باز نشود.
+    if (book == null || !book.canOpenReader) return;
     ref.read(activeBookProvider.notifier).state = book;
     Navigator.pushReplacement(
       context,
@@ -225,9 +226,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                       final book = books[index];
 
                       // 🌟 بررسی اینکه آیا کاربر اصلاً شرایط رفتن به بوم نقاشی را دارد یا خیر
-                      bool canOpenCanvas =
-                          (book.isPurchased && book.isJsonDownloaded) ||
-                          (!book.isPurchased && book.isSampleDownloaded);
+                      // 🌟 DEV-4: نسخه‌ی کامل فقط با مجوزِ معتبرِ این دستگاه (BookModel.canOpenReader).
+                      bool canOpenCanvas = book.canOpenReader;
 
                       return GestureDetector(
                         // 🌟 کتابِ آماده ← مطالعه؛ وگرنه ← صفحه‌ی جزئیات (SF-1)، تا کاربر

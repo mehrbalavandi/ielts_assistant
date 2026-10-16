@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/core/device/device_identity.dart';
+import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
+import 'package:ielts_assistant/features/auth/data/device_models.dart';
 import 'package:ielts_assistant/features/backup/backup_service.dart';
 
 enum AuthState { initial, authenticated, unauthenticated }
@@ -35,17 +38,21 @@ class OtpRequestResult {
   });
 }
 
-/// 🌟 AUTH-1: نتیجه‌ی تأییدِ کد.
+/// 🌟 AUTH-1: نتیجه‌ی ورود (کدِ پیامکی، ایمیل، یا جایگزینیِ دستگاه).
 @immutable
 class OtpVerifyResult {
   final bool ok;
   final String message;
   final bool needsProfile;
 
+  /// 🌟 DEV-2: سقفِ دستگاه پر است — دستگاه‌های فعال و (اگر مجاز است) بلیتِ جایگزینی.
+  final DeviceRoster? deviceLimit;
+
   const OtpVerifyResult({
     required this.ok,
     required this.message,
     this.needsProfile = false,
+    this.deviceLimit,
   });
 }
 
@@ -75,6 +82,9 @@ class AuthNotifier extends Notifier<AuthState> {
     if (data['user'] is Map) {
       await StorageService.saveUser(Map<String, dynamic>.from(data['user']));
     }
+    // 🌟 DEV-4: مجوزِ آفلاینِ همین دستگاه (کاربرِ قبلیِ این دستگاه، اگر بود، دیگر معتبر نیست).
+    await LicenseService.clear();
+    await LicenseService.save(data['license']);
     state = AuthState.authenticated;
     // پشتیبان: ثبتِ دستگاه، بازگرداندن/فرستادنِ «مرورِ من» و تنظیمات (BK-1..3).
     ref.read(backupProvider.notifier).onLogin();
@@ -85,7 +95,11 @@ class AuthNotifier extends Notifier<AuthState> {
     try {
       final res = await ref
           .read(dioProvider)
-          .post('/api/auth/otp/request', data: {'mobile': mobile});
+          .post(
+            '/api/auth/otp/request',
+            // 🌟 DEV-1: سرور نسخه‌های بی‌شناسه‌ی دستگاه را پیش از فرستادنِ پیامک رد می‌کند.
+            data: {'mobile': mobile, 'device_id': DeviceIdentity.id},
+          );
       final Map<String, dynamic> d = Map<String, dynamic>.from(res.data);
       return OtpRequestResult(
         ok: d['success'] == true,
@@ -133,50 +147,101 @@ class AuthNotifier extends Notifier<AuthState> {
               'code': code,
               if (firstName != null) 'first_name': firstName,
               if (lastName != null) 'last_name': lastName,
-              'device_name': defaultTargetPlatform.name,
+              // 🌟 DEV-1: ثبتِ همین دستگاه (شناسه‌ی سخت‌افزاری، نام، سکو)
+              ...DeviceIdentity.loginFields(),
             },
           );
-      final Map<String, dynamic> d = Map<String, dynamic>.from(res.data);
-      if (d['success'] == true && d['token'] is String) {
-        await _signedIn(d);
-        return OtpVerifyResult(ok: true, message: (d['message'] as String?) ?? '');
-      }
-      return OtpVerifyResult(ok: false, message: (d['message'] as String?) ?? '');
+      return _loginResult(res.data);
     } on DioException catch (e) {
-      final Object? data = e.response?.data;
+      return _loginError(e);
+    }
+  }
+
+  /// پاسخِ موفقِ ورود (۲۰۰/۲۰۱).
+  Future<OtpVerifyResult> _loginResult(Object? body) async {
+    final Map<String, dynamic> d = Map<String, dynamic>.from(body as Map);
+    if (d['success'] == true && d['token'] is String) {
+      await _signedIn(d);
+      return OtpVerifyResult(ok: true, message: (d['message'] as String?) ?? '');
+    }
+    return OtpVerifyResult(ok: false, message: (d['message'] as String?) ?? '');
+  }
+
+  /// خطای ورود؛ ۴۰۹ = سقفِ دستگاه (DEV-2)، ۴۲۶ = نسخه‌ی قدیمی، ۴۲۲ = نام لازم است.
+  OtpVerifyResult _loginError(DioException e) {
+    final Object? data = e.response?.data;
+    if (e.response?.statusCode == 409 &&
+        data is Map &&
+        data['reason'] == 'device_limit') {
+      final DeviceRoster roster = DeviceRoster.fromJson(data);
       return OtpVerifyResult(
         ok: false,
-        needsProfile: data is Map && data['needs_profile'] == true,
-        message: _message(e, 'ورود ممکن نشد.'),
+        message: roster.message,
+        deviceLimit: roster,
       );
+    }
+    return OtpVerifyResult(
+      ok: false,
+      needsProfile: data is Map && data['needs_profile'] == true,
+      message: _message(e, 'ورود ممکن نشد.'),
+    );
+  }
+
+  /// 🌟 DEV-2: بعد از ۴۰۹، یکی از دستگاه‌های فعال آزاد و همین دستگاه وارد می‌شود.
+  Future<OtpVerifyResult> replaceDevice(String ticket, int releaseDeviceId) async {
+    try {
+      final res = await ref
+          .read(dioProvider)
+          .post(
+            '/api/auth/device/replace',
+            data: {'ticket': ticket, 'release_device_id': releaseDeviceId},
+          );
+      return _loginResult(res.data);
+    } on DioException catch (e) {
+      return _loginError(e);
     }
   }
 
   // 🌟 مرحله ۲: لاگین، دریافت توکن و تغییر وضعیت (حساب‌های قدیمیِ ایمیلی)
-  Future<bool> login(String email, String password) async {
+  Future<OtpVerifyResult> login(String email, String password) async {
     try {
       final response = await ref
           .read(dioProvider)
-          .post('/api/login', data: {'email': email, 'password': password});
-      if (response.statusCode == 200 && response.data['success'] == true) {
-        await _signedIn(Map<String, dynamic>.from(response.data));
-        return true;
-      } else {
-        return false;
-      }
+          .post(
+            '/api/login',
+            data: {
+              'email': email,
+              'password': password,
+              ...DeviceIdentity.loginFields(),
+            },
+          );
+      return _loginResult(response.data);
     } on DioException catch (e) {
-      debugPrint(_message(e, 'خطایی در ورود رخ داد'));
-      state = AuthState.initial;
-      return false;
+      if (e.response?.statusCode == 401) {
+        return const OtpVerifyResult(
+          ok: false,
+          message: 'ایمیل یا رمز عبور اشتباه است.',
+        );
+      }
+      return _loginError(e);
     }
   }
 
   Future<void> logout() async {
     // توکن روی سرور هم باطل می‌شود (اگر در دسترس باشد)؛ داده‌های محلی می‌مانند.
+    // 🌟 DEV-2: دستگاه در حساب ثبت می‌ماند (ورودِ دوباره با همین دستگاه آزاد است)؛ برای
+    // جداکردنِ دستگاه از حساب «دستگاه‌های من» ← «جدا کردن».
     try {
       await ref.read(dioProvider).post('/api/logout');
     } catch (_) {}
+    await endSessionLocally();
+  }
+
+  /// خروجِ محلی بی‌تماس با سرور (DEV-1: سرور خودش گفته نشست تمام است).
+  /// مجوزِ آفلاین هم پاک می‌شود، پس نسخه‌ی کامل تا ورودِ دوباره باز نمی‌شود.
+  Future<void> endSessionLocally() async {
     await StorageService.removeToken();
+    await LicenseService.clear();
     state = AuthState.unauthenticated;
   }
 }

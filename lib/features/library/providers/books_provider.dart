@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
+import 'package:ielts_assistant/core/network/session_events.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 
 class BookModel {
@@ -112,10 +114,23 @@ class BookModel {
   bool get hasAnyMainUpdate =>
       hasJsonUpdate || hasAudioUpdate || hasImagesUpdate;
 
+  /// 🌟 DEV-4: نسخه‌ی کامل فقط با خرید **و** مجوزِ آفلاینِ معتبرِ همین دستگاه و همین کاربر
+  /// باز می‌شود (LicenseService). isPurchased به‌تنهایی کافی نیست، چون در فایلِ ذخیره‌ی
+  /// اپ است و قابلِ دست‌کاری.
+  LicenseStatus get licenseStatus => LicenseService.status(id);
+  bool get mainUnlocked => isPurchased && LicenseService.allows(id);
+
+  /// خریده شده و دانلود شده، ولی مجوزِ این دستگاه الان معتبر نیست (آفلاینِ طولانی، ساعتِ عقب، …).
+  bool get mainLocked => isPurchased && isJsonDownloaded && !mainUnlocked;
+
+  /// کتاب همین حالا در صفحه‌ی مطالعه باز می‌شود (نسخه‌ی کاملِ مجاز، یا نمونه برای خریدارنشده).
+  bool get canOpenReader =>
+      (mainUnlocked && isJsonDownloaded) || (!isPurchased && isSampleDownloaded);
+
   // 🌟 مسیردهی هوشمند و امن برای بوم نقاشی
   String get activeJsonPath {
-    // ۱. اگر کاربر لاگین است، کتاب را خریده و فایل اصلی را دارد:
-    if (isPurchased && isJsonDownloaded) {
+    // ۱. اگر کاربر لاگین است، کتاب را خریده، مجوزِ این دستگاه معتبر است و فایل اصلی را دارد:
+    if (mainUnlocked && isJsonDownloaded) {
       return localJsonPath!;
     }
     // ۲. در غیر این صورت، حتی اگر فایل اصلی را در حافظه داشت، فقط نسخه نمونه را به او نشان بده:
@@ -198,6 +213,8 @@ class BookModel {
     String? localCoverPath,
     String? localCoverVersion,
     bool clearLocalCover = false,
+    // 🌟 DEV-1: محتوای کامل از دستگاه پاک شد (دستگاه از حساب جدا شده) — نمونه می‌ماند.
+    bool clearMain = false,
   }) {
     return BookModel(
       id: id,
@@ -208,7 +225,9 @@ class BookModel {
       categoryDescription: categoryDescription,
       categorySort: categorySort,
       sortOrder: sortOrder,
-      localPageVersions: localPageVersions ?? this.localPageVersions,
+      localPageVersions: clearMain
+          ? const {}
+          : (localPageVersions ?? this.localPageVersions),
       sampleFilePath: sampleFilePath,
       sampleVersion: sampleVersion,
       sampleAudioFiles: sampleAudioFiles,
@@ -228,14 +247,18 @@ class BookModel {
           localSampleAudioVersion ?? this.localSampleAudioVersion,
       localSampleImagesVersion:
           localSampleImagesVersion ?? this.localSampleImagesVersion,
-      localJsonPath: localJsonPath ?? this.localJsonPath,
-      localJsonVersion: localJsonVersion ?? this.localJsonVersion,
-      localAudioVersion: localAudioVersion ?? this.localAudioVersion,
-      localImagesVersion: localImagesVersion ?? this.localImagesVersion,
+      localJsonPath: clearMain ? null : (localJsonPath ?? this.localJsonPath),
+      localJsonVersion: clearMain ? 0 : (localJsonVersion ?? this.localJsonVersion),
+      localAudioVersion: clearMain
+          ? 0
+          : (localAudioVersion ?? this.localAudioVersion),
+      localImagesVersion: clearMain
+          ? 0
+          : (localImagesVersion ?? this.localImagesVersion),
 
       isDownloading: isDownloading ?? this.isDownloading,
       downloadProgress: downloadProgress ?? this.downloadProgress,
-      isPurchased: isPurchased ?? this.isPurchased,
+      isPurchased: clearMain ? false : (isPurchased ?? this.isPurchased),
       isPaused: isPaused ?? this.isPaused,
       serverHasSample: serverHasSample,
       price: price,
@@ -483,6 +506,25 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       if (response.statusCode == 200) {
         final rawData = response.data;
         List<dynamic> dataList = [];
+
+        // 🌟 DEV-1/4: سرور می‌گوید نشستِ این دستگاه تمام است (دستگاه جدا شده، توکنِ کپی‌شده،
+        // توکنِ نسخه‌ی قدیمی) ← SessionGuard. وگرنه مجوزِ آفلاین تمدید می‌شود — پیش از
+        // state = …، تا کارت‌ها با مجوزِ تازه ساخته شوند.
+        if (rawData is Map) {
+          final Object? session = rawData['session'];
+          // bound=false: توکنِ نسخه‌ی قدیمیِ اپ (بی‌دستگاه) — یک‌بار خروج تا با ورودِ دوباره
+          // دستگاه ثبت شود و مجوز بگیرد.
+          if (session is Map &&
+              (session['valid'] == false || session['bound'] == false)) {
+            SessionEvents.emit(
+              (session['reason'] ?? 'invalid_token').toString(),
+              session['message']?.toString(),
+            );
+          }
+          if (rawData['license'] != null) {
+            await LicenseService.save(rawData['license']);
+          }
+        }
 
         if (rawData is Map<String, dynamic> && rawData.containsKey('data')) {
           dataList = rawData['data'];
@@ -984,6 +1026,52 @@ class BooksNotifier extends Notifier<List<BookModel>> {
       );
     }).toList();
 
+    await StorageService.saveOfflineBooks(
+      state.map((b) => b.toJson()).toList(),
+    );
+  }
+
+  /// 🌟 DEV-1: این دستگاه از حساب جدا شد ← محتوای کاملِ همه‌ی کتاب‌ها از دستگاه پاک می‌شود.
+  /// فقط پوشه‌ی sample/ (نمونه‌ی رایگان) و جلدها می‌مانند. دانلودهای در جریان هم متوقف می‌شوند.
+  Future<void> wipePurchasedContent() async {
+    for (final CancelToken t in _zipCancelTokens.values) {
+      if (!t.isCancelled) t.cancel('device-released');
+    }
+    _zipCancelTokens.clear();
+    _userPaused.clear();
+
+    final Directory docs = await getApplicationDocumentsDirectory();
+    for (final BookModel book in state) {
+      final Directory folder = Directory(
+        '${docs.path}/${book.folderName ?? book.id}',
+      );
+      try {
+        if (await folder.exists()) {
+          await for (final FileSystemEntity e in folder.list()) {
+            final String name = e.uri.pathSegments
+                .where((p) => p.isNotEmpty)
+                .last;
+            if (name == 'sample') continue;
+            await e.delete(recursive: true);
+          }
+        }
+        // فایلِ نیمه‌دانلودِ نسخه‌ی کامل
+        final File part = File(await _zipPartPath(book, false));
+        if (await part.exists()) await part.delete();
+      } catch (e) {
+        debugPrint('wipe ${book.id}: $e');
+      }
+    }
+
+    state = [
+      for (final BookModel b in state)
+        b.copyWith(
+          clearMain: true,
+          isDownloading: false,
+          isPaused: false,
+          downloadProgress: 0,
+        ),
+    ];
     await StorageService.saveOfflineBooks(
       state.map((b) => b.toJson()).toList(),
     );

@@ -20,10 +20,15 @@
 
 ```
 lib/
-  main.dart                    فقط bootstrap (GetStorage + runApp)
-  app/app.dart                 ویجتِ ریشه: تم، زبان‌ها، صفحه‌ی شروع
+  main.dart                    فقط bootstrap (GetStorage، شناسه‌ی دستگاه، مجوز، runApp)
+  app/app.dart                 ویجتِ ریشه: تم، زبان‌ها، صفحه‌ی شروع، SessionGuard
+  app/app_messenger.dart       کلیدهای سراسریِ پیام و ناوبری
   core/                        بی‌طرف نسبت به فیچرها، بدونِ وابستگی به UI
-    network/dio_provider.dart      نمونه‌ی Dio + baseURL
+    network/dio_provider.dart      نمونه‌ی Dio + baseURL + هدرهای توکن و X-Device-Id
+    network/session_events.dart    خبرِ «نشستِ این دستگاه تمام است» (DEV-1)
+    device/device_identity.dart    شناسه‌ی سخت‌افزاریِ دستگاه (DEV-1)
+    license/license_service.dart   مجوزِ آفلاینِ امضاشده؛ تنها کلیدِ نسخه‌ی کامل (DEV-3)
+    license/license_public_key.dart  کلیدِ عمومیِ Ed25519 (از php artisan license:keygen)
     storage/storage_service.dart   GetStorage: توکن، آدرس سرور، آخرین کتاب
     text/document_text_utils.dart  استخراج و نرمال‌سازیِ متن + TextSearchMapper
   features/
@@ -125,6 +130,13 @@ lib/
 `library_screen._openBookForReading` → ست‌کردنِ `activeBookProvider` →
 `ReaderScreen` → `_ensureBookLoaded` می‌سازد `PagedBookStore` →
 `ReadingCanvas` → `_LazyPage` → `getPage` → `_buildParagraph`/`_buildTable`
+
+**دستگاه و مجوز (DEV):**
+`main` → `DeviceIdentity.init` + `LicenseService.init` → هر درخواست هدرِ
+`X-Device-Id` → ورود (`device_id` …) → توکن + `license` → `fetchBooks` مجوز را
+تمدید می‌کند → `BookModel.mainUnlocked` تصمیم می‌گیرد نسخه‌ی کامل باز شود یا نه.
+پایانِ نشست: ۴۰۱/`session.valid=false` → `SessionEvents` → `SessionGuard`
+(خروج؛ برای دستگاهِ جداشده `wipePurchasedContent`).
 
 **دانلود:**
 `downloadBookZip` → `zipInfo` از لاراول → استریم در `.part` →

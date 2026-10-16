@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/app/app.dart';
+import 'package:ielts_assistant/core/device/device_identity.dart';
+import 'package:ielts_assistant/core/license/license_service.dart';
 
 /// نقطه‌ی ورودِ برنامه — فقط راه‌اندازیِ اولیه.
 /// 🌟 خودِ ویجتِ ریشه به app/app.dart منتقل شد: main.dart جای «چه چیزی قبل از
@@ -9,5 +11,9 @@ import 'package:ielts_assistant/app/app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  // 🌟 DEV-1/4: شناسه‌ی دستگاه پیش از اولین درخواستِ شبکه، و وارسیِ مجوزِ آفلاینِ ذخیره‌شده
+  // پیش از اولین نمایشِ ویترین.
+  await DeviceIdentity.init();
+  await LicenseService.init();
   runApp(const ProviderScope(child: IeltsAssistantApp()));
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/auth/presentation/login_screen.dart';
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
@@ -192,6 +193,10 @@ class BookActionSection extends ConsumerWidget {
 
     // --- ۲. حالت کتاب خریداری شده (نسخه اصلی) ---
     if (book.isPurchased) {
+      // 🌟 DEV-4: دانلود شده ولی مجوزِ آفلاینِ این دستگاه الان معتبر نیست.
+      if (book.mainLocked) {
+        return _LicenseLocked(book: book, fontSize: fs);
+      }
       if (book.isJsonDownloaded) {
         // 🌟 تغییر از isDownloaded به isJsonDownloaded
         return Column(
@@ -442,6 +447,89 @@ class BookPrice extends StatelessWidget {
               '${book.discount}٪',
               style: TextStyle(fontSize: fs - 3, color: Colors.white, fontWeight: FontWeight.bold),
             ),
+          ),
+      ],
+    );
+  }
+}
+
+/// 🌟 DEV-4: کتابِ خریده‌شده‌ای که روی دستگاه هست ولی مجوزِ آفلاینِ این دستگاه معتبر نیست
+/// (مدتی آفلاین بوده، ساعت عقب است، یا از حساب خارج شده). «بررسیِ دوباره» ویترین را
+/// رفرش می‌کند که مجوز را هم تمدید می‌کند.
+class _LicenseLocked extends ConsumerStatefulWidget {
+  const _LicenseLocked({required this.book, required this.fontSize});
+
+  final BookModel book;
+  final double fontSize;
+
+  @override
+  ConsumerState<_LicenseLocked> createState() => _LicenseLockedState();
+}
+
+class _LicenseLockedState extends ConsumerState<_LicenseLocked> {
+  bool _busy = false;
+
+  Future<void> _retry() async {
+    setState(() => _busy = true);
+    await ref.read(booksProvider.notifier).fetchBooks();
+    if (!mounted) return;
+    setState(() => _busy = false);
+    final LicenseStatus st = LicenseService.status(widget.book.id);
+    if (st != LicenseStatus.valid) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(LicenseService.message(st))),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double fs = widget.fontSize;
+    final bool loggedOut = ref.watch(authProvider) != AuthState.authenticated;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Tooltip(
+          message: LicenseService.message(widget.book.licenseStatus),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.lock_clock_outlined, size: fs + 3, color: Colors.orange.shade800),
+              const SizedBox(width: 4),
+              Flexible(
+                child: Text(
+                  'نیاز به تمدیدِ مجوز',
+                  style: TextStyle(fontSize: fs, color: Colors.orange.shade900),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 2),
+        if (loggedOut)
+          ElevatedButton.icon(
+            icon: Icon(Icons.login, size: fs + 3),
+            label: Text('ورود', style: TextStyle(fontSize: fs)),
+            style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 2)),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const LoginScreen()),
+            ),
+          )
+        else
+          ElevatedButton.icon(
+            icon: _busy
+                ? SizedBox(
+                    width: fs,
+                    height: fs,
+                    child: const CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Icon(Icons.sync, size: fs + 3),
+            label: Text('بررسیِ دوباره', style: TextStyle(fontSize: fs)),
+            style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 2)),
+            onPressed: _busy ? null : _retry,
           ),
       ],
     );
