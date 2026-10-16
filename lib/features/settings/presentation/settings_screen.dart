@@ -6,6 +6,7 @@ import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/reading_appearance_sheet.dart';
+import 'package:ielts_assistant/features/settings/presentation/word_card_settings.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -186,6 +187,23 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             onChanged: answerNotifier.setTranslation,
             describe: (m) => m.translationDescription,
           ),
+
+          // 🌟 W-3: فیلدهای پنجره‌ی دیکشنری (کلماتِ تعاملی).
+          const SizedBox(height: 32),
+          const Divider(),
+          const SizedBox(height: 16),
+          const Row(
+            children: [
+              Icon(Icons.menu_book_rounded, color: Colors.indigo),
+              SizedBox(width: 8),
+              Text(
+                "پنجره‌ی دیکشنری",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          const WordCardControls(),
 
           // 🌟 H-8/H-9: تنظیماتِ خودِ پاپ‌آپ (مشترک بینِ پاسخ و ترجمه). وقتی هیچ‌کدام
           // «پاپ‌آپ» نیست، کم‌رنگ می‌شود (ولی قابلِ تغییر می‌ماند تا بعداً آماده باشد).

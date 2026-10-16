@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:archive/archive.dart';
@@ -57,6 +58,35 @@ class BookModel {
   // موقتاً متوقف است و فایلِ نیمه‌کاره روی دیسک نگه داشته شده تا با
   // ادامه‌دادن، از همان‌جا (نه از صفر) دنبال شود.
   final bool isPaused;
+
+  // --- 🛍️ SF-1: معرفی در ویترین (از سرور؛ برای حالتِ آفلاین هم ذخیره می‌شود) ---
+  /// null = سرورِ قدیمی که has_sample نمی‌فرستد (آن‌وقت وجودِ مسیرِ نمونه ملاک است).
+  final bool? serverHasSample;
+  final int price;
+  final int discount;
+  final int finalPrice;
+  final String? description;
+  final String? author;
+  final String? publisher;
+  final String? level;
+  final int? pageCount;
+  final int? audioCount;
+
+  /// نشانیِ نسبی یا مطلقِ جلد و نسخه‌اش (با جلدِ تازه عوض می‌شود).
+  final String? coverUrl;
+  final String? coverVersion;
+
+  /// جلدِ دانلودشده روی همین دستگاه و نسخه‌اش (آفلاین).
+  final String? localCoverPath;
+  final String? localCoverVersion;
+
+  /// دکمه‌ی «دریافت نمونه» فقط وقتی فعال است که نمونه واقعاً روی سرور هست.
+  bool get hasSample =>
+      serverHasSample ?? (sampleFilePath?.trim().isNotEmpty ?? false);
+  bool get hasLocalCover =>
+      localCoverPath != null && File(localCoverPath!).existsSync();
+  bool get hasDiscount => discount > 0 && finalPrice < price;
+  bool get isFree => price <= 0;
 
   // 🌟 هوش تشخیص آپدیت و دانلود (دقیقاً مطابق سناریوی شما)
   bool get isSampleDownloaded =>
@@ -135,6 +165,20 @@ class BookModel {
     this.isDownloading = false,
     this.downloadProgress = 0.0,
     this.isPaused = false,
+    this.serverHasSample,
+    this.price = 0,
+    this.discount = 0,
+    this.finalPrice = 0,
+    this.description,
+    this.author,
+    this.publisher,
+    this.level,
+    this.pageCount,
+    this.audioCount,
+    this.coverUrl,
+    this.coverVersion,
+    this.localCoverPath,
+    this.localCoverVersion,
   });
 
   BookModel copyWith({
@@ -151,6 +195,9 @@ class BookModel {
     double? downloadProgress,
     bool? isPurchased,
     bool? isPaused,
+    String? localCoverPath,
+    String? localCoverVersion,
+    bool clearLocalCover = false,
   }) {
     return BookModel(
       id: id,
@@ -190,6 +237,24 @@ class BookModel {
       downloadProgress: downloadProgress ?? this.downloadProgress,
       isPurchased: isPurchased ?? this.isPurchased,
       isPaused: isPaused ?? this.isPaused,
+      serverHasSample: serverHasSample,
+      price: price,
+      discount: discount,
+      finalPrice: finalPrice,
+      description: description,
+      author: author,
+      publisher: publisher,
+      level: level,
+      pageCount: pageCount,
+      audioCount: audioCount,
+      coverUrl: coverUrl,
+      coverVersion: coverVersion,
+      localCoverPath: clearLocalCover
+          ? null
+          : (localCoverPath ?? this.localCoverPath),
+      localCoverVersion: clearLocalCover
+          ? null
+          : (localCoverVersion ?? this.localCoverVersion),
     );
   }
 
@@ -245,7 +310,32 @@ class BookModel {
     localImagesVersion: json['localImagesVersion'] ?? 0,
 
     isPurchased: json['isPurchased'] == true || json['is_purchased'] == true,
+
+    serverHasSample: json['has_sample'] is bool ? json['has_sample'] as bool : null,
+    price: _asInt(json['price']) ?? 0,
+    discount: _asInt(json['discount']) ?? 0,
+    finalPrice: _asInt(json['final_price']) ?? _asInt(json['price']) ?? 0,
+    description: _asText(json['description']),
+    author: _asText(json['author']),
+    publisher: _asText(json['publisher']),
+    level: _asText(json['level']),
+    pageCount: _asInt(json['page_count']),
+    audioCount: _asInt(json['audio_count']),
+    coverUrl: _asText(json['cover_url']),
+    coverVersion: _asText(json['cover_version']),
+    localCoverPath: json['localCoverPath'] as String?,
+    localCoverVersion: json['localCoverVersion'] as String?,
   );
+
+  /// MySQL گاهی عدد را رشته برمی‌گرداند؛ هر دو پذیرفته می‌شود.
+  static int? _asInt(Object? v) => v is num
+      ? v.round()
+      : (v is String ? num.tryParse(v)?.round() : null);
+
+  static String? _asText(Object? v) {
+    final String t = (v ?? '').toString().trim();
+    return t.isEmpty ? null : t;
+  }
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -285,6 +375,21 @@ class BookModel {
     'localImagesVersion': localImagesVersion,
 
     'is_purchased': isPurchased,
+
+    'has_sample': serverHasSample,
+    'price': price,
+    'discount': discount,
+    'final_price': finalPrice,
+    'description': description,
+    'author': author,
+    'publisher': publisher,
+    'level': level,
+    'page_count': pageCount,
+    'audio_count': audioCount,
+    'cover_url': coverUrl,
+    'cover_version': coverVersion,
+    'localCoverPath': localCoverPath,
+    'localCoverVersion': localCoverVersion,
   };
 }
 
@@ -403,6 +508,9 @@ class BooksNotifier extends Notifier<List<BookModel>> {
               localJsonVersion: existingBook.localJsonVersion,
               localAudioVersion: existingBook.localAudioVersion,
               localImagesVersion: existingBook.localImagesVersion,
+              // 🛍️ SF-1: جلدِ دانلودشده می‌ماند؛ اگر نسخه‌اش عوض شده، _syncCovers تازه‌اش می‌کند.
+              localCoverPath: existingBook.localCoverPath,
+              localCoverVersion: existingBook.localCoverVersion,
             );
           }
           return freshBook;
@@ -415,10 +523,92 @@ class BooksNotifier extends Notifier<List<BookModel>> {
         StorageService.saveOfflineBooks(
           mergedBooks.map((b) => b.toJson()).toList(),
         );
+        // 🛍️ SF-1: جلدها برای حالتِ آفلاین روی دستگاه ذخیره می‌شوند.
+        unawaited(_syncCovers());
       }
     } catch (e) {
       debugPrint("Fetch Books Error: $e");
     }
+  }
+
+  bool _syncingCovers = false;
+
+  /// 🛍️ SF-1: جلدِ هر کتاب یک‌بار دانلود و روی دستگاه نگه داشته می‌شود (ویترینِ آفلاین).
+  /// فقط وقتی دوباره گرفته می‌شود که نسخه‌اش روی سرور عوض شده یا فایل پاک شده باشد؛ تا
+  /// جلدِ تازه کامل نرسیده، جلدِ قبلی نمایش داده می‌شود. جلدی که از سرور حذف شده، از
+  /// دستگاه هم پاک می‌شود.
+  Future<void> _syncCovers() async {
+    if (_syncingCovers) return;
+    _syncingCovers = true;
+    bool changed = false;
+    try {
+      final dio = ref.read(dioProvider);
+      final docs = await getApplicationDocumentsDirectory();
+      final Directory dir = Directory('${docs.path}/covers');
+      await dir.create(recursive: true);
+
+      for (final BookModel b in List<BookModel>.of(state)) {
+        if (b.coverUrl == null || b.coverVersion == null) {
+          if (b.localCoverPath != null) {
+            await _deleteQuietly(b.localCoverPath!);
+            _setCover(b.id, null, null);
+            changed = true;
+          }
+          continue;
+        }
+        if (b.localCoverVersion == b.coverVersion && b.hasLocalCover) continue;
+
+        final String safe = b.coverVersion!.replaceAll(RegExp(r'[^A-Za-z0-9]'), '');
+        final String path = '${dir.path}/${b.id}_$safe';
+        final String part = '$path.part';
+        try {
+          final res = await dio.download(
+            b.coverUrl!,
+            part,
+            options: Options(receiveTimeout: const Duration(seconds: 30)),
+          );
+          if (res.statusCode == 200 && await File(part).length() > 0) {
+            await File(part).rename(path);
+            if (b.localCoverPath != null && b.localCoverPath != path) {
+              await _deleteQuietly(b.localCoverPath!);
+            }
+            _setCover(b.id, path, b.coverVersion);
+            changed = true;
+          } else {
+            await _deleteQuietly(part);
+          }
+        } catch (e) {
+          debugPrint('Cover download failed for ${b.id}: $e');
+          await _deleteQuietly(part);
+        }
+      }
+    } catch (e) {
+      debugPrint('Cover sync error: $e');
+    } finally {
+      _syncingCovers = false;
+      if (changed) {
+        StorageService.saveOfflineBooks(state.map((b) => b.toJson()).toList());
+      }
+    }
+  }
+
+  void _setCover(String id, String? path, String? version) {
+    state = [
+      for (final b in state)
+        if (b.id == id)
+          (path == null
+              ? b.copyWith(clearLocalCover: true)
+              : b.copyWith(localCoverPath: path, localCoverVersion: version))
+        else
+          b,
+    ];
+  }
+
+  Future<void> _deleteQuietly(String path) async {
+    try {
+      final f = File(path);
+      if (await f.exists()) await f.delete();
+    } catch (_) {}
   }
 
   String _dirOf(String p) {

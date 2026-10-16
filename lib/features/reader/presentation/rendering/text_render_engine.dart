@@ -3,6 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/features/settings/providers/word_card_provider.dart';
+import 'package:ielts_assistant/features/settings/presentation/word_card_settings.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
@@ -756,81 +758,172 @@ class TextRenderEngine {
   static void _showWordModal(BuildContext context, InteractiveWord word) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (ctx) {
-        // 🌟 دوزبانه: بر اساس زبانِ انتخابی، فیلدهای عربی یا فارسی (با fallback)
-        final lang = ProviderScope.containerOf(
-          context,
-          listen: false,
-        ).read(languageProvider);
-        final bool ar = lang == 'ar';
-        String pick(String arabic, String farsi) => ar
-            ? (arabic.isNotEmpty ? arabic : farsi)
-            : (farsi.isNotEmpty ? farsi : arabic);
-        final String pronounce = pick(word.pronounceAr, word.pronounceFa);
-        final String translation = pick(word.translationAr, word.translationFa);
-        final String explanation = pick(word.explanationAr, word.explanationFa);
-        final String meaningLabel = ar ? 'المعنى' : 'معنی';
-        final String explainLabel = ar ? 'الشرح' : 'توضیح';
+      // 🌟 W-3: Consumer تا تغییرِ فیلدها از دکمه‌ی «تنظیم» همین‌جا دیده شود.
+      builder: (ctx) => Consumer(
+        builder: (ctx, ref, _) {
+          // 🌟 دوزبانه: فقط فیلدهای مشترک و فیلدهای زبانِ فعال (با fallback به زبانِ
+          // دیگر فقط وقتی محتوای زبانِ فعال خالی است).
+          final String lang = ref.watch(languageProvider);
+          final bool ar = lang == 'ar';
+          final WordCardFields fields = ref.watch(wordCardProvider);
+          String pick(String arabic, String farsi) => ar
+              ? (arabic.isNotEmpty ? arabic : farsi)
+              : (farsi.isNotEmpty ? farsi : arabic);
+          bool on(WordField faField, WordField arField) =>
+              fields.shows(ar ? arField : faField);
 
-        // اسکرول‌پذیر: با نوارِ «مرور» روی گوشیِ افقی ممکن است جا کم بیاید.
-        return SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          final String pronounce = on(WordField.pronounceFa, WordField.pronounceAr)
+              ? pick(word.pronounceAr, word.pronounceFa)
+              : '';
+          final String translation =
+              on(WordField.translationFa, WordField.translationAr)
+              ? pick(word.translationAr, word.translationFa)
+              : '';
+          final String explanation =
+              on(WordField.explanationFa, WordField.explanationAr)
+              ? pick(word.explanationAr, word.explanationFa)
+              : '';
+          final String cefr = fields.shows(WordField.cefr) ? word.cefrLevel : '';
+          final String ipa = fields.shows(WordField.ipa) ? word.ipa : '';
+          final String pos = fields.shows(WordField.pos)
+              ? localizedPos(word.pos, lang)
+              : '';
+          // شکلِ پایه فقط وقتی با خودِ کلمه‌ی متن فرق دارد (missed ← miss out).
+          final String headword =
+              fields.shows(WordField.headword) &&
+                  word.headword.isNotEmpty &&
+                  word.headword.toLowerCase() != word.exactText.toLowerCase()
+              ? word.headword
+              : '';
+          final String meaningLabel = ar ? 'المعنى' : 'معنی';
+          final String explainLabel = ar ? 'الشرح' : 'توضیح';
+          final String baseLabel = ar ? 'الصيغة الأساسية' : 'شکلِ پایه';
+          final Color muted = Theme.of(ctx).brightness == Brightness.dark
+              ? Colors.white60
+              : Colors.grey.shade700;
+
+          return SafeArea(
+            child: SingleChildScrollView(
+              // اسکرول‌پذیر: با نوارِ «مرور» روی گوشیِ افقی ممکن است جا کم بیاید.
+              padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      word.exactText,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            word.exactText,
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.right,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        if (cefr.isNotEmpty)
+                          Container(
+                            margin: const EdgeInsetsDirectional.only(start: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.orange.shade100,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              cefr,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ),
+                        IconButton(
+                          tooltip: ar ? 'الحقول المعروضة' : 'فیلدهای نمایش',
+                          visualDensity: VisualDensity.compact,
+                          icon: Icon(Icons.tune_rounded, size: 20, color: muted),
+                          onPressed: () => showWordCardSettingsSheet(ctx),
+                        ),
+                      ],
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
+                    if (headword.isNotEmpty)
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(text: '$baseLabel: '),
+                            TextSpan(
+                              text: headword,
+                              style: const TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        style: TextStyle(color: muted, fontSize: 13),
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.orange.shade100,
-                        borderRadius: BorderRadius.circular(12),
+                    if (ipa.isNotEmpty || pos.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Wrap(
+                          spacing: 10,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            if (ipa.isNotEmpty)
+                              Text(
+                                ipa,
+                                textDirection: TextDirection.ltr,
+                                style: TextStyle(color: muted, fontSize: 15),
+                              ),
+                            if (pos.isNotEmpty)
+                              Text(
+                                pos,
+                                style: TextStyle(
+                                  color: muted,
+                                  fontSize: 13,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
-                      child: Text(
-                        word.cefrLevel,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                    if (pronounce.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(pronounce, style: TextStyle(color: muted)),
                       ),
-                    ),
+                    if (translation.isNotEmpty || explanation.isNotEmpty)
+                      const Divider(),
+                    if (translation.isNotEmpty)
+                      Text(
+                        "$meaningLabel: $translation",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    if (explanation.isNotEmpty) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        "$explainLabel: $explanation",
+                        style: const TextStyle(fontSize: 14, height: 1.6),
+                      ),
+                    ],
+                    // 🌟 ST-3: افزودن به واژه‌های مرور (اهمیت، وضعیت، یادداشت).
+                    const SizedBox(height: 16),
+                    WordStudyBar(word: word),
+                    const SizedBox(height: 8),
                   ],
                 ),
-                const SizedBox(height: 8),
-                Text(pronounce, style: const TextStyle(color: Colors.grey)),
-                const Divider(),
-                Text(
-                  "$meaningLabel: $translation",
-                  style: const TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  "$explainLabel: $explanation",
-                  style: const TextStyle(fontSize: 14),
-                ),
-                // 🌟 ST-3: افزودن به واژه‌های مرور (اهمیت، وضعیت، یادداشت).
-                const SizedBox(height: 16),
-                WordStudyBar(word: word),
-                const SizedBox(height: 16),
-              ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/auth/presentation/login_screen.dart';
 import 'package:ielts_assistant/features/backup/backup_service.dart';
-import 'package:ielts_assistant/features/shop/presentation/purchase_sheet.dart';
+import 'package:ielts_assistant/features/library/presentation/book_actions.dart';
+import 'package:ielts_assistant/features/library/presentation/book_details_screen.dart';
 import 'package:ielts_assistant/features/reader/presentation/reader_screen.dart';
 import 'package:ielts_assistant/shared/widgets/app_drawer.dart';
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
@@ -26,7 +27,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     with WidgetsBindingObserver {
   // 🌟 فقط برای حالت دیباگ: وقتی true باشد یعنی کاربر برای خرید به مرورگر
   // بیرونی فرستاده شده و منتظریم برگردد تا ویترین را دوباره fetch کنیم.
-  bool _awaitingPurchaseReturn = false;
+  // (پرچمش حالا purchaseReturnPending در book_actions.dart است تا صفحه‌ی جزئیات هم آن را بگذارد.)
 
   @override
   void initState() {
@@ -60,8 +61,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     // 🌟 فقط برای حالت دیباگ: وقتی از صفحه‌ی خریدِ بیرونی برمی‌گردیم (اپ
     // resume می‌شود)، یک‌بار ویترین را رفرش می‌کنیم. با فلگ گارد شده تا
     // resumeهای معمولی (مثلاً باز کردن اپ از نو) باعث فچ اضافه نشوند.
-    if (state == AppLifecycleState.resumed && _awaitingPurchaseReturn) {
-      _awaitingPurchaseReturn = false;
+    if (state == AppLifecycleState.resumed && purchaseReturnPending) {
+      purchaseReturnPending = false;
       ref.read(booksProvider.notifier).fetchBooks();
     }
   }
@@ -229,12 +230,11 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                           (!book.isPurchased && book.isSampleDownloaded);
 
                       return GestureDetector(
+                        // 🌟 کتابِ آماده ← مطالعه؛ وگرنه ← صفحه‌ی جزئیات (SF-1)، تا کاربر
+                        // پیش از دانلودِ نمونه یا خرید کتاب را بشناسد.
                         onTap: canOpenCanvas
-                            ? () {
-                                // 🌟 انتقال به صفحه مطالعه با ضربه روی هر جای کارت (در صورت آماده بودن فایل)
-                                _openBookForReading(context, ref, book);
-                              }
-                            : null,
+                            ? () => openBookForReading(context, ref, book)
+                            : () => _openDetails(context, book),
                         child: Card(
                           elevation: 4,
                           shape: RoundedRectangleBorder(
@@ -247,18 +247,32 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                                 child: Stack(
                                   fit: StackFit.expand,
                                   children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueGrey.shade100,
-                                        borderRadius:
-                                            const BorderRadius.vertical(
-                                              top: Radius.circular(12),
-                                            ),
+                                    // 🛍️ SF-1: جلد از فایلِ ذخیره‌شده روی دستگاه (آفلاین)
+                                    BookCover(
+                                      book: book,
+                                      borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(12),
                                       ),
-                                      child: const Icon(
-                                        Icons.menu_book_rounded,
-                                        size: 50,
-                                        color: Colors.blueGrey,
+                                    ),
+                                    // 🛍️ جزئیاتِ کتاب، حتی وقتی لمسِ کارت کتاب را باز می‌کند
+                                    Positioned(
+                                      top: 4,
+                                      left: 4,
+                                      child: Material(
+                                        color: Colors.black38,
+                                        shape: const CircleBorder(),
+                                        child: InkWell(
+                                          customBorder: const CircleBorder(),
+                                          onTap: () => _openDetails(context, book),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(5),
+                                            child: Icon(
+                                              Icons.info_outline_rounded,
+                                              size: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     if (book.isPurchased)
@@ -302,17 +316,17 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
+                              if (!book.isPurchased)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 2),
+                                  child: BookPrice(book: book),
+                                ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 6.0,
                                   vertical: 4.0,
                                 ),
-                                child: _buildActionSection(
-                                  context,
-                                  ref,
-                                  book,
-                                  authState,
-                                ),
+                                child: BookActionSection(book: book),
                               ),
                             ],
                           ),
@@ -475,6 +489,13 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     );
   }
 
+  void _openDetails(BuildContext context, BookModel book) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => BookDetailsScreen(bookId: book.id)),
+    );
+  }
+
   Widget _countChip(BuildContext context, String text, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -490,344 +511,6 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
           fontWeight: FontWeight.bold,
         ),
       ),
-    );
-  }
-
-  /// 🌟 تنها مسیرِ رفتن به صفحه‌ی مطالعه. علتِ یک‌کاسه‌کردنش: بعد از بازگشت
-  /// باید ویترین رفرش شود (وضعیتِ دانلود/آپدیت/خرید ممکن است در حینِ مطالعه
-  /// عوض شده باشد) و قبلاً چهار جای مختلف Navigator.push می‌کردند — هر
-  /// کدام که یادش می‌رفت، یک مسیرِ بی‌رفرش می‌ماند.
-  /// await روی push لازم است: تا وقتی صفحه‌ی مطالعه باز است این Future
-  /// تمام نمی‌شود و درست در لحظه‌ی pop ادامه پیدا می‌کند.
-  Future<void> _openBookForReading(
-    BuildContext context,
-    WidgetRef ref,
-    BookModel book,
-  ) async {
-    StorageService.saveLastBookId(book.id);
-    ref.read(activeBookProvider.notifier).state = book;
-
-    await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const ReaderScreen()),
-    );
-
-    if (!context.mounted) return;
-    await ref.read(booksProvider.notifier).fetchBooks();
-  }
-
-  /// تأییدِ حذفِ محتوای دانلودشده. اگر همین کتاب همین حالا باز باشد،
-  /// activeBook هم پاک می‌شود تا صفحه‌ی مطالعه به فایل‌هایی که دیگر وجود
-  /// ندارند اشاره نکند.
-  Future<void> _confirmDeleteBook(
-    BuildContext context,
-    WidgetRef ref,
-    BookModel book,
-  ) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('حذف محتوای دانلودشده'),
-        content: Text(
-          'محتوای دانلودشده‌ی «${book.title}» از این دستگاه پاک شود؟ '
-          'خودِ کتاب در کتابخانه می‌ماند و هر زمان بخواهید دوباره قابل دانلود است.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('انصراف'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('حذف', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed != true) return;
-
-    if (ref.read(activeBookProvider)?.id == book.id) {
-      ref.read(activeBookProvider.notifier).state = null;
-    }
-    await ref.read(booksProvider.notifier).deleteDownloadedBook(book);
-  }
-
-  Widget _buildActionSection(
-    BuildContext context,
-    WidgetRef ref,
-    BookModel book,
-    AuthState authState,
-  ) {
-    // --- ۱. حالت در حال دانلود ---
-    if (book.isDownloading) {
-      // 🐞 مقدارِ سنتینلِ -1 یعنی هنوز حجمِ آرشیو معلوم نیست (سرور دارد
-      // آرشیو را آماده می‌کند) — به‌جایِ نوارِ پیشرفتِ ثابت‌روی‌صفر (که از
-      // «هیچ اتفاقی نمی‌افتد» قابلِ‌تشخیص نبود و باعثِ همان حسِ «مکثِ
-      // عجیب، بعد پرشدنِ ناگهانی» می‌شد)، یک اسپینرِ نامعین با برچسبِ
-      // روشن نشان می‌دهیم.
-      if (book.downloadProgress < 0) {
-        return const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 14,
-              height: 14,
-              child: CircularProgressIndicator(strokeWidth: 2),
-            ),
-            SizedBox(width: 8),
-            Text("در حال آماده‌سازی…", style: TextStyle(fontSize: 11)),
-          ],
-        );
-      }
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          LinearProgressIndicator(
-            value: book.downloadProgress,
-            color: Colors.indigo,
-          ),
-          const SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "${(book.downloadProgress * 100).toStringAsFixed(0)}%",
-                style: const TextStyle(fontSize: 11),
-              ),
-              const SizedBox(width: 6),
-              // 🌟 مکث: فایلِ نیمه‌دانلودشده نگه داشته می‌شود تا بعداً از
-              // همان‌جا ادامه پیدا کند، نه از صفر.
-              InkWell(
-                onTap: () =>
-                    ref.read(booksProvider.notifier).pauseZipDownload(book),
-                child: const Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Icon(Icons.pause_circle_outline, size: 20),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-    }
-
-    // --- ۱.۵ حالت مکث‌شده ---
-    if (book.isPaused) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          LinearProgressIndicator(
-            value: book.downloadProgress,
-            color: Colors.orange,
-          ),
-          const SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "متوقف شده • ${(book.downloadProgress * 100).toStringAsFixed(0)}%",
-                style: const TextStyle(fontSize: 11),
-              ),
-              const SizedBox(width: 6),
-              InkWell(
-                onTap: () => ref
-                    .read(booksProvider.notifier)
-                    .resumeZipDownload(book, isSample: !book.isPurchased),
-                child: const Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Icon(
-                    Icons.play_circle_outline,
-                    size: 20,
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () => _confirmDeleteBook(context, ref, book),
-                child: const Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Icon(
-                    Icons.delete_outline,
-                    size: 20,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-    }
-
-    // --- ۲. حالت کتاب خریداری شده (نسخه اصلی) ---
-    if (book.isPurchased) {
-      if (book.isJsonDownloaded) {
-        // 🌟 تغییر از isDownloaded به isJsonDownloaded
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 14,
-              ),
-              // «کامل» در برابرِ «نمونه» بود، ولی وقتی کتاب خریداری شده کاربر
-              // اصلاً نسخه‌ی دیگری نمی‌بیند که با آن مقایسه کند.
-              label: const Text("مطالعه کتاب", style: TextStyle(fontSize: 11)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black87,
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-              ),
-              onPressed: () => _openBookForReading(context, ref, book),
-            ),
-            // 🌟 حذفِ محتوای دانلودشده — برای آزادکردنِ فضای دستگاه؛ خودِ
-            // کتاب در کتابخانه می‌ماند و هر وقت خواستید دوباره دانلود می‌شود.
-            SizedBox(height: 1.0),
-            OutlinedButton.icon(
-              icon: const Icon(
-                Icons.delete_outline,
-                size: 14,
-                color: Colors.red,
-              ),
-              // 🌟 عبارتِ قبلی توضیحِ عملیات بود، نه نتیجه‌اش — و در عرضِ
-              // باریکِ کارت هم می‌شکست. «آزادسازی فضا» همان کار را از دیدِ
-              // کاربر توصیف می‌کند و کوتاه‌تر است.
-              label: const Text(
-                "آزادسازی فضا",
-                style: TextStyle(fontSize: 11, color: Colors.red),
-              ),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-              ),
-              onPressed: () => _confirmDeleteBook(context, ref, book),
-            ),
-            // نمایش دکمه آپدیت فقط در صورت وجود نسخه جدید برای فایل‌های اصلی
-            if (book
-                .hasAnyMainUpdate) // 🌟 تغییر از hasAnyUpdate به hasAnyMainUpdate
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 1.0),
-                  ElevatedButton.icon(
-                    icon: const Icon(Icons.sync, size: 14),
-                    label: const Text(
-                      "به‌روزرسانی محتوا",
-                      style: TextStyle(fontSize: 11),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade50,
-                      foregroundColor: Colors.blue.shade900,
-                      padding: const EdgeInsets.symmetric(horizontal: 2),
-                    ),
-                    onPressed: () => ref
-                        .read(booksProvider.notifier)
-                        .downloadBookZip(
-                          book,
-                          isSample: false,
-                        ), // 🌟 دانلودِ یکجا به‌صورت ZIP
-                  ),
-                ],
-              ),
-          ],
-        );
-      }
-      return ElevatedButton.icon(
-        icon: const Icon(Icons.cloud_download, size: 14),
-        label: const Text("دانلود کتاب", style: TextStyle(fontSize: 11)),
-        onPressed: () => ref
-            .read(booksProvider.notifier)
-            .downloadBookZip(book, isSample: false),
-      );
-    }
-
-    // --- ۳. حالت مهمان / نسخه نمونه ---
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        if (book.isSampleDownloaded) ...[
-          // 🌟 تغییر از isDownloaded به isSampleDownloaded
-          OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-              side: const BorderSide(color: Colors.indigo),
-            ),
-            onPressed: () => _openBookForReading(context, ref, book),
-            child: const Text(
-              "مطالعه نمونه",
-              style: TextStyle(fontSize: 11, color: Colors.indigo),
-            ),
-          ),
-          // نمایش آپدیت برای نسخه نمونه
-          if (book.hasAnySampleUpdate) // 🌟 تشخیص آپدیت برای فایل‌های نمونه
-            OutlinedButton.icon(
-              icon: const Icon(Icons.sync, size: 12),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-                foregroundColor: Colors.orange,
-              ),
-              onPressed: () => ref
-                  .read(booksProvider.notifier)
-                  .downloadBookZip(book, isSample: true),
-              // هم‌زبان با «به‌روزرسانی محتوا»ی نسخه‌ی اصلی
-              label: const Text(
-                "به‌روزرسانی نمونه",
-                style: TextStyle(fontSize: 11),
-              ),
-            ),
-        ] else
-          OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-            ),
-            onPressed: () => ref
-                .read(booksProvider.notifier)
-                .downloadBookZip(book, isSample: true),
-            child: const Text("دریافت نمونه", style: TextStyle(fontSize: 11)),
-          ),
-
-        const SizedBox(height: 4),
-
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange.shade700,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-          ),
-          onPressed: () {
-            if (authState == AuthState.unauthenticated) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(
-                    "برای خرید ابتدا باید وارد حساب کاربری خود شوید.",
-                  ),
-                ),
-              );
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-              );
-            } else {
-              // 🌟 PAY-2/3: خرید از داخلِ اپ — درگاه (در مرورگر) یا کارت‌به‌کارت.
-              // با برگشت از مرورگر ویترین تازه می‌شود (didChangeAppLifecycleState).
-              showPurchaseSheet(
-                context,
-                ref,
-                book,
-                onLeftForPayment: () => _awaitingPurchaseReturn = true,
-              );
-            }
-          },
-          child: const Text(
-            "خرید کتاب",
-            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ],
     );
   }
 }

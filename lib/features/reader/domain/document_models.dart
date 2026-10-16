@@ -29,6 +29,11 @@ class InteractiveWord {
   final String explanationFa;
   final String explanationAr;
   final String cefrLevel;
+  // 🌟 W-3: فیلدهای تازه‌ی دیکشنریِ مشترک (اکسترکتورِ G-4). خالی = JSONِ قدیمی.
+  final String ipa;
+  final String pos;
+  final String headword;
+  final String lexiconId;
 
   InteractiveWord({
     required this.exactText,
@@ -39,6 +44,10 @@ class InteractiveWord {
     required this.explanationFa,
     required this.explanationAr,
     required this.cefrLevel,
+    this.ipa = '',
+    this.pos = '',
+    this.headword = '',
+    this.lexiconId = '',
   });
 
   factory InteractiveWord.fromJson(Map<String, dynamic> json) {
@@ -51,6 +60,10 @@ class InteractiveWord {
       explanationFa: json['explanationFa'] ?? '',
       explanationAr: json['explanationAr'] ?? '',
       cefrLevel: json['cefrLevel'] ?? '',
+      ipa: json['ipa'] ?? '',
+      pos: json['pos'] ?? '',
+      headword: json['headword'] ?? '',
+      lexiconId: json['lexiconId'] ?? '',
     );
   }
 }
