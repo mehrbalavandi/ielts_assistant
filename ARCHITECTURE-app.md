@@ -138,6 +138,10 @@ lib/
 پایانِ نشست: ۴۰۱/`session.valid=false` → `SessionEvents` → `SessionGuard`
 (خروج؛ برای دستگاهِ جداشده `wipePurchasedContent`).
 
+**مرورِ من (ST):** `studyProvider` (drift، جدولِ `study_items`؛ فیلدهای اضافه در ستونِ JSONِ
+`extra`) ← پشتیبان (`backup_service`) ← «مرورِ آماده»ِ سایت (`syncShared`). قالبِ یکسانِ
+واژه/نکته‌ی بیرون از کتاب و پرامپتِ هوش مصنوعی: `STUDY-ITEMS.md`.
+
 **دانلود:**
 `downloadBookZip` → `zipInfo` از لاراول → استریم در `.part` →
 `_extractBookZip` → `_finishZipDownload` (ثبتِ نسخه‌ها)

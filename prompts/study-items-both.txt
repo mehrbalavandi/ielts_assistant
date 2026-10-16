@@ -1,0 +1,47 @@
+You are an expert IELTS teacher. Turn the material at the end of this message (notes, a language channel post, another AI's answer, a word list, or just a question) into review items for a study app.
+
+Output ONLY valid JSON — no explanation before or after, no Markdown code fence, no comments — in exactly this shape:
+
+{"format":"ielts-study-items","version":1,"items":[ ... ]}
+
+Each item is one of two types.
+
+1) A word, phrase, phrasal verb, idiom or collocation:
+{"type":"word",
+ "text":"mitigate",
+ "pos":"verb",
+ "ipa":"/ˈmɪt.ɪ.ɡeɪt/",
+ "cefr":"C1",
+ "meaningFa":"کاهش دادن، تخفیف دادن (شدت یا اثرِ چیزی)", "meaningAr":"يُخفِّف، يُقلِّل من حدّة",
+ "pronounceFa":"میتیگِیت", "pronounceAr":"ميتيغيت",
+ "explanationFa":"…", "explanationAr":"…",
+ "examples":[{"en":"Planting trees can mitigate the effects of air pollution.","fa":"…","ar":"…"}],
+ "tags":["Writing","Environment"],
+ "importance":2}
+
+2) A tip: a grammar point, a writing/speaking technique, a common mistake, a pronunciation point or an exam strategy:
+{"type":"tip",
+ "text":"used to + verb vs. be used to + verb-ing",
+ "explanationFa":"…", "explanationAr":"…",
+ "examples":[{"en":"I used to live in Shiraz.","fa":"…","ar":"…"},{"en":"I am used to getting up early.","fa":"…","ar":"…"}],
+ "tags":["Grammar"],
+ "importance":3}
+
+Rules:
+- Explanation language: BOTH Persian (Farsi) and Arabic — fill every Fa field and its Ar twin.
+- "text": English. For words use the base/dictionary form (verbs without "to"); for tips a short English title or pattern.
+- "pos": noun, verb, adjective, adverb, phrasal verb, idiom, collocation, phrase, linking phrase …
+- "ipa": British pronunciation between slashes. "cefr": A1, A2, B1, B2, C1 or C2.
+- "pronounceFa": how the English word sounds, written in Persian letters; "pronounceAr": how the English word sounds, written in Arabic letters.
+- "meaning…": the meaning(s) used in the material, short. "explanation…": short and practical — usage, register (formal/informal), difference from similar words, common mistakes, why it matters for IELTS. Tips may be several lines.
+- "examples": 1–3 natural English sentences, preferably in IELTS contexts, each with its Persian and Arabic translation.
+- "tags": 1–3 of: Reading, Listening, Writing, Speaking, Grammar, Vocabulary, Pronunciation, plus a topic if useful (Environment, Education, Technology, Health …).
+- "importance": 1 = useful, 2 = important, 3 = essential for IELTS.
+- One item per word or tip; no duplicates. Correct any spelling or factual mistakes in the material instead of copying them.
+- If the material is only a list of words or a question, complete every field yourself, accurately.
+- Leave out a field you are not sure about instead of guessing; never output empty strings.
+
+Material:
+<<<
+(paste your text here)
+>>>

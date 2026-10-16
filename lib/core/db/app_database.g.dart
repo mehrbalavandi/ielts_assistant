@@ -198,6 +198,16 @@ class $StudyItemsTable extends StudyItems
     requiredDuringInsert: false,
     defaultValue: const Constant(''),
   );
+  static const VerificationMeta _extraMeta = const VerificationMeta('extra');
+  @override
+  late final GeneratedColumn<String> extra = GeneratedColumn<String>(
+    'extra',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
   static const VerificationMeta _createdMsMeta = const VerificationMeta(
     'createdMs',
   );
@@ -267,6 +277,7 @@ class $StudyItemsTable extends StudyItems
     importance,
     status,
     note,
+    extra,
     createdMs,
     updatedMs,
     deleted,
@@ -407,6 +418,12 @@ class $StudyItemsTable extends StudyItems
         note.isAcceptableOrUnknown(data['note']!, _noteMeta),
       );
     }
+    if (data.containsKey('extra')) {
+      context.handle(
+        _extraMeta,
+        extra.isAcceptableOrUnknown(data['extra']!, _extraMeta),
+      );
+    }
     if (data.containsKey('created_ms')) {
       context.handle(
         _createdMsMeta,
@@ -512,6 +529,10 @@ class $StudyItemsTable extends StudyItems
         DriftSqlType.string,
         data['${effectivePrefix}note'],
       )!,
+      extra: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}extra'],
+      )!,
       createdMs: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}created_ms'],
@@ -555,6 +576,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
   final int importance;
   final String status;
   final String note;
+  final String extra;
   final int createdMs;
   final int updatedMs;
   final bool deleted;
@@ -577,6 +599,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
     required this.importance,
     required this.status,
     required this.note,
+    required this.extra,
     required this.createdMs,
     required this.updatedMs,
     required this.deleted,
@@ -606,6 +629,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
     map['importance'] = Variable<int>(importance);
     map['status'] = Variable<String>(status);
     map['note'] = Variable<String>(note);
+    map['extra'] = Variable<String>(extra);
     map['created_ms'] = Variable<int>(createdMs);
     map['updated_ms'] = Variable<int>(updatedMs);
     map['deleted'] = Variable<bool>(deleted);
@@ -636,6 +660,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
       importance: Value(importance),
       status: Value(status),
       note: Value(note),
+      extra: Value(extra),
       createdMs: Value(createdMs),
       updatedMs: Value(updatedMs),
       deleted: Value(deleted),
@@ -666,6 +691,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
       importance: serializer.fromJson<int>(json['importance']),
       status: serializer.fromJson<String>(json['status']),
       note: serializer.fromJson<String>(json['note']),
+      extra: serializer.fromJson<String>(json['extra']),
       createdMs: serializer.fromJson<int>(json['createdMs']),
       updatedMs: serializer.fromJson<int>(json['updatedMs']),
       deleted: serializer.fromJson<bool>(json['deleted']),
@@ -693,6 +719,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
       'importance': serializer.toJson<int>(importance),
       'status': serializer.toJson<String>(status),
       'note': serializer.toJson<String>(note),
+      'extra': serializer.toJson<String>(extra),
       'createdMs': serializer.toJson<int>(createdMs),
       'updatedMs': serializer.toJson<int>(updatedMs),
       'deleted': serializer.toJson<bool>(deleted),
@@ -718,6 +745,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
     int? importance,
     String? status,
     String? note,
+    String? extra,
     int? createdMs,
     int? updatedMs,
     bool? deleted,
@@ -740,6 +768,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
     importance: importance ?? this.importance,
     status: status ?? this.status,
     note: note ?? this.note,
+    extra: extra ?? this.extra,
     createdMs: createdMs ?? this.createdMs,
     updatedMs: updatedMs ?? this.updatedMs,
     deleted: deleted ?? this.deleted,
@@ -780,6 +809,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
           : this.importance,
       status: data.status.present ? data.status.value : this.status,
       note: data.note.present ? data.note.value : this.note,
+      extra: data.extra.present ? data.extra.value : this.extra,
       createdMs: data.createdMs.present ? data.createdMs.value : this.createdMs,
       updatedMs: data.updatedMs.present ? data.updatedMs.value : this.updatedMs,
       deleted: data.deleted.present ? data.deleted.value : this.deleted,
@@ -807,6 +837,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
           ..write('importance: $importance, ')
           ..write('status: $status, ')
           ..write('note: $note, ')
+          ..write('extra: $extra, ')
           ..write('createdMs: $createdMs, ')
           ..write('updatedMs: $updatedMs, ')
           ..write('deleted: $deleted, ')
@@ -834,6 +865,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
     importance,
     status,
     note,
+    extra,
     createdMs,
     updatedMs,
     deleted,
@@ -860,6 +892,7 @@ class StudyItemRow extends DataClass implements Insertable<StudyItemRow> {
           other.importance == this.importance &&
           other.status == this.status &&
           other.note == this.note &&
+          other.extra == this.extra &&
           other.createdMs == this.createdMs &&
           other.updatedMs == this.updatedMs &&
           other.deleted == this.deleted &&
@@ -884,6 +917,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
   final Value<int> importance;
   final Value<String> status;
   final Value<String> note;
+  final Value<String> extra;
   final Value<int> createdMs;
   final Value<int> updatedMs;
   final Value<bool> deleted;
@@ -907,6 +941,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
     this.importance = const Value.absent(),
     this.status = const Value.absent(),
     this.note = const Value.absent(),
+    this.extra = const Value.absent(),
     this.createdMs = const Value.absent(),
     this.updatedMs = const Value.absent(),
     this.deleted = const Value.absent(),
@@ -931,6 +966,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
     this.importance = const Value.absent(),
     this.status = const Value.absent(),
     this.note = const Value.absent(),
+    this.extra = const Value.absent(),
     required int createdMs,
     required int updatedMs,
     this.deleted = const Value.absent(),
@@ -959,6 +995,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
     Expression<int>? importance,
     Expression<String>? status,
     Expression<String>? note,
+    Expression<String>? extra,
     Expression<int>? createdMs,
     Expression<int>? updatedMs,
     Expression<bool>? deleted,
@@ -983,6 +1020,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
       if (importance != null) 'importance': importance,
       if (status != null) 'status': status,
       if (note != null) 'note': note,
+      if (extra != null) 'extra': extra,
       if (createdMs != null) 'created_ms': createdMs,
       if (updatedMs != null) 'updated_ms': updatedMs,
       if (deleted != null) 'deleted': deleted,
@@ -1009,6 +1047,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
     Value<int>? importance,
     Value<String>? status,
     Value<String>? note,
+    Value<String>? extra,
     Value<int>? createdMs,
     Value<int>? updatedMs,
     Value<bool>? deleted,
@@ -1033,6 +1072,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
       importance: importance ?? this.importance,
       status: status ?? this.status,
       note: note ?? this.note,
+      extra: extra ?? this.extra,
       createdMs: createdMs ?? this.createdMs,
       updatedMs: updatedMs ?? this.updatedMs,
       deleted: deleted ?? this.deleted,
@@ -1095,6 +1135,9 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
     if (note.present) {
       map['note'] = Variable<String>(note.value);
     }
+    if (extra.present) {
+      map['extra'] = Variable<String>(extra.value);
+    }
     if (createdMs.present) {
       map['created_ms'] = Variable<int>(createdMs.value);
     }
@@ -1133,6 +1176,7 @@ class StudyItemsCompanion extends UpdateCompanion<StudyItemRow> {
           ..write('importance: $importance, ')
           ..write('status: $status, ')
           ..write('note: $note, ')
+          ..write('extra: $extra, ')
           ..write('createdMs: $createdMs, ')
           ..write('updatedMs: $updatedMs, ')
           ..write('deleted: $deleted, ')
@@ -1173,6 +1217,7 @@ typedef $$StudyItemsTableCreateCompanionBuilder =
       Value<int> importance,
       Value<String> status,
       Value<String> note,
+      Value<String> extra,
       required int createdMs,
       required int updatedMs,
       Value<bool> deleted,
@@ -1198,6 +1243,7 @@ typedef $$StudyItemsTableUpdateCompanionBuilder =
       Value<int> importance,
       Value<String> status,
       Value<String> note,
+      Value<String> extra,
       Value<int> createdMs,
       Value<int> updatedMs,
       Value<bool> deleted,
@@ -1296,6 +1342,11 @@ class $$StudyItemsTableFilterComposer
 
   ColumnFilters<String> get note => $composableBuilder(
     column: $table.note,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get extra => $composableBuilder(
+    column: $table.extra,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1414,6 +1465,11 @@ class $$StudyItemsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get extra => $composableBuilder(
+    column: $table.extra,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get createdMs => $composableBuilder(
     column: $table.createdMs,
     builder: (column) => ColumnOrderings(column),
@@ -1511,6 +1567,9 @@ class $$StudyItemsTableAnnotationComposer
   GeneratedColumn<String> get note =>
       $composableBuilder(column: $table.note, builder: (column) => column);
 
+  GeneratedColumn<String> get extra =>
+      $composableBuilder(column: $table.extra, builder: (column) => column);
+
   GeneratedColumn<int> get createdMs =>
       $composableBuilder(column: $table.createdMs, builder: (column) => column);
 
@@ -1572,6 +1631,7 @@ class $$StudyItemsTableTableManager
                 Value<int> importance = const Value.absent(),
                 Value<String> status = const Value.absent(),
                 Value<String> note = const Value.absent(),
+                Value<String> extra = const Value.absent(),
                 Value<int> createdMs = const Value.absent(),
                 Value<int> updatedMs = const Value.absent(),
                 Value<bool> deleted = const Value.absent(),
@@ -1595,6 +1655,7 @@ class $$StudyItemsTableTableManager
                 importance: importance,
                 status: status,
                 note: note,
+                extra: extra,
                 createdMs: createdMs,
                 updatedMs: updatedMs,
                 deleted: deleted,
@@ -1620,6 +1681,7 @@ class $$StudyItemsTableTableManager
                 Value<int> importance = const Value.absent(),
                 Value<String> status = const Value.absent(),
                 Value<String> note = const Value.absent(),
+                Value<String> extra = const Value.absent(),
                 required int createdMs,
                 required int updatedMs,
                 Value<bool> deleted = const Value.absent(),
@@ -1643,6 +1705,7 @@ class $$StudyItemsTableTableManager
                 importance: importance,
                 status: status,
                 note: note,
+                extra: extra,
                 createdMs: createdMs,
                 updatedMs: updatedMs,
                 deleted: deleted,

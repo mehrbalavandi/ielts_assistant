@@ -113,9 +113,9 @@ void removeStudyItemWithUndo(
   m?.showSnackBar(
     SnackBar(
       content: Text(
-        item.kind == StudyKind.word
-            ? '«${item.text}» از مرور حذف شد'
-            : 'از مرور حذف شد',
+        item.kind == StudyKind.passage
+            ? 'از مرور حذف شد'
+            : '«${item.text}» از مرور حذف شد',
       ),
       action: SnackBarAction(
         label: 'برگرداندن',

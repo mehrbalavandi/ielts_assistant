@@ -6,7 +6,7 @@ import 'package:ielts_assistant/features/study/domain/study_item.dart';
 
 StudyItem studyItemFromRow(StudyItemRow r) => StudyItem(
   id: r.id,
-  kind: r.kind == 'word' ? StudyKind.word : StudyKind.passage,
+  kind: StudyKind.parse(r.kind),
   bookId: r.bookId,
   bookTitle: r.bookTitle,
   pageNumber: r.pageNumber,
@@ -24,7 +24,7 @@ StudyItem studyItemFromRow(StudyItemRow r) => StudyItem(
   note: r.note,
   createdAt: DateTime.fromMillisecondsSinceEpoch(r.createdMs),
   updatedAt: DateTime.fromMillisecondsSinceEpoch(r.updatedMs),
-);
+).withExtra(StudyItem.decodeExtra(r.extra)); // 🌟 ST-7
 
 StudyItemsCompanion studyItemToCompanion(
   StudyItem i, {
@@ -48,6 +48,7 @@ StudyItemsCompanion studyItemToCompanion(
   importance: Value(i.importance.level),
   status: Value(i.status.name),
   note: Value(i.note),
+  extra: Value(i.extraJson), // 🌟 ST-7
   createdMs: Value(i.createdAt.millisecondsSinceEpoch),
   updatedMs: Value(i.updatedAt.millisecondsSinceEpoch),
   deleted: Value(deleted),

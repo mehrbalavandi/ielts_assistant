@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 
@@ -6,8 +8,67 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 // هر مورد یک «عکس» از داده‌ی همان لحظه را نگه می‌دارد (ترجمه، تلفظ، گزیده‌ی متن)
 // تا صفحه‌ی مرور بدونِ بازکردنِ کتاب هم کامل باشد.
 
-/// نوعِ موردِ مرور.
-enum StudyKind { word, passage }
+/// نوعِ موردِ مرور. tip (ST-7) = نکته‌ی دستوری، نوشتاری، گفتاری، … بیرون از متنِ کتاب.
+enum StudyKind {
+  word,
+  passage,
+  tip;
+
+  static StudyKind parse(Object? v) => StudyKind.values.firstWhere(
+    (e) => e.name == v,
+    orElse: () => StudyKind.passage,
+  );
+}
+
+/// 🌟 ST-7: مورد از کجا آمده.
+/// book = از متنِ کتاب؛ user = خودِ کاربر (دستی یا واردکردن از هوش مصنوعی)؛
+/// admin = «مرورِ آماده»ِ سایت (خودکار).
+enum StudySource {
+  book('از کتاب', Icons.menu_book_rounded),
+  user('خودم', Icons.person_rounded),
+  admin('آماده', Icons.campaign_rounded);
+
+  const StudySource(this.label, this.icon);
+  final String label;
+  final IconData icon;
+}
+
+/// 🌟 ST-7: جمله‌ی نمونه با ترجمه.
+@immutable
+class StudyExample {
+  final String en;
+  final String fa;
+  final String ar;
+
+  const StudyExample(this.en, {this.fa = '', this.ar = ''});
+
+  Map<String, String> toJson() => {
+    'en': en,
+    if (fa.isNotEmpty) 'fa': fa,
+    if (ar.isNotEmpty) 'ar': ar,
+  };
+
+  static StudyExample? fromJson(Object? raw) {
+    if (raw is String) {
+      return raw.trim().isEmpty ? null : StudyExample(raw.trim());
+    }
+    if (raw is! Map) return null;
+    final String en = (raw['en'] ?? '').toString().trim();
+    if (en.isEmpty) return null;
+    return StudyExample(
+      en,
+      fa: (raw['fa'] ?? '').toString().trim(),
+      ar: (raw['ar'] ?? '').toString().trim(),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is StudyExample && other.en == en && other.fa == fa && other.ar == ar;
+
+  @override
+  int get hashCode => Object.hash(en, fa, ar);
+}
 
 /// سطحِ اهمیت (ST-2). عدد همان چیزی است که ذخیره می‌شود.
 enum StudyImportance {
@@ -69,6 +130,21 @@ class StudyItem {
   final DateTime createdAt;
   final DateTime updatedAt;
 
+  // ── 🌟 ST-7: فیلدهای اضافه (ستونِ extra، کلیدِ «x» در JSON) ──
+  final String pos;
+  final String ipa;
+  final List<StudyExample> examples;
+  final List<String> tags;
+
+  /// null = از روی bookId (کتاب یا خودم).
+  final StudySource? _source;
+
+  /// شناسه‌ی «مرورِ آماده» در سایت (فقط source=admin).
+  final int? sharedId;
+
+  /// منبعی که کاربر/ادمین نوشته (مثلاً «کانالِ …»).
+  final String origin;
+
   const StudyItem({
     required this.id,
     required this.kind,
@@ -89,10 +165,32 @@ class StudyItem {
     this.note = '',
     required this.createdAt,
     required this.updatedAt,
-  });
+    this.pos = '',
+    this.ipa = '',
+    this.examples = const [],
+    this.tags = const [],
+    StudySource? source,
+    this.sharedId,
+    this.origin = '',
+  }) : _source = source;
+
+  StudySource get source =>
+      _source ?? (bookId.isNotEmpty ? StudySource.book : StudySource.user);
+
+  /// موردی که کاربر خودش ساخته و می‌تواند همه‌ی فیلدهایش را ویرایش کند.
+  bool get editable => source == StudySource.user;
 
   /// شناسه‌ی واژه: خودِ واژه (کوچک‌شده)، مستقل از کتاب — یک واژه یک‌بار.
-  static String wordId(String text) => 'w|${text.trim().toLowerCase()}';
+  static String wordId(String text) => 'w|${_norm(text)}';
+
+  /// 🌟 ST-7: شناسه‌ی نکته: چکیده‌ی عنوان (کوچک‌شده) — یک نکته یک‌بار.
+  static String tipId(String text) => 't|${_fnv1a(_norm(text))}';
+
+  static String _norm(String s) =>
+      s.trim().toLowerCase().replaceAll(RegExp(r'\s+'), ' ');
+
+  static String idFor(StudyKind kind, String text) =>
+      kind == StudyKind.tip ? tipId(text) : wordId(text);
 
   /// شناسه‌ی متن: کتاب + صفحه + پاراگرافِ سطحِ صفحه + چکیده‌ی متن (پاراگراف‌های داخلِ
   /// یک جدول همه یک اندیسِ پاراگراف دارند).
@@ -124,6 +222,8 @@ class StudyItem {
       cefrLevel: w.cefrLevel,
       createdAt: now,
       updatedAt: now,
+      pos: w.pos,
+      ipa: w.ipa,
     );
   }
 
@@ -136,7 +236,91 @@ class StudyItem {
     StudyImportance? importance,
     WordStatus? status,
     String? note,
+  }) => withContent(
+    importance: importance,
+    status: status,
+    note: note,
+    updatedAt: DateTime.now(),
+  );
+
+  /// 🌟 ST-7: نسخه‌ای با محتوای تازه (ویرایشِ موردِ خودم، به‌روزرسانیِ «مرورِ آماده»). فیلدی
+  /// که داده نشود همان می‌ماند. updatedAt داده نشود ← همان قبلی.
+  StudyItem withContent({
+    String? text,
+    String? translationFa,
+    String? translationAr,
+    String? pronounceFa,
+    String? pronounceAr,
+    String? explanationFa,
+    String? explanationAr,
+    String? cefrLevel,
+    String? pos,
+    String? ipa,
+    List<StudyExample>? examples,
+    List<String>? tags,
+    String? origin,
+    StudyImportance? importance,
+    WordStatus? status,
+    String? note,
+    DateTime? updatedAt,
   }) => StudyItem(
+    id: id,
+    kind: kind,
+    bookId: bookId,
+    bookTitle: bookTitle,
+    pageNumber: pageNumber,
+    paraIndex: paraIndex,
+    text: text ?? this.text,
+    translationFa: translationFa ?? this.translationFa,
+    translationAr: translationAr ?? this.translationAr,
+    pronounceFa: pronounceFa ?? this.pronounceFa,
+    pronounceAr: pronounceAr ?? this.pronounceAr,
+    explanationFa: explanationFa ?? this.explanationFa,
+    explanationAr: explanationAr ?? this.explanationAr,
+    cefrLevel: cefrLevel ?? this.cefrLevel,
+    importance: importance ?? this.importance,
+    status: status ?? this.status,
+    note: note ?? this.note,
+    createdAt: createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    pos: pos ?? this.pos,
+    ipa: ipa ?? this.ipa,
+    examples: examples ?? this.examples,
+    tags: tags ?? this.tags,
+    source: _source,
+    sharedId: sharedId,
+    origin: origin ?? this.origin,
+  );
+
+  /// 🌟 ST-7: فیلدهای اضافه به‌صورتِ Map (کلیدِ «x» در JSON؛ ستونِ extra در پایگاهِ داده).
+  Map<String, dynamic> extraMap() => {
+    if (pos.isNotEmpty) 'pos': pos,
+    if (ipa.isNotEmpty) 'ipa': ipa,
+    if (examples.isNotEmpty) 'ex': [for (final StudyExample e in examples) e.toJson()],
+    if (tags.isNotEmpty) 'tags': tags,
+    if (_source != null) 'src': _source.name,
+    if (sharedId != null) 'sid': sharedId,
+    if (origin.isNotEmpty) 'from': origin,
+  };
+
+  String get extraJson {
+    final Map<String, dynamic> m = extraMap();
+    return m.isEmpty ? '' : jsonEncode(m);
+  }
+
+  static Map<String, dynamic> decodeExtra(Object? raw) {
+    if (raw is Map) return Map<String, dynamic>.from(raw);
+    if (raw is String && raw.isNotEmpty) {
+      try {
+        final Object? m = jsonDecode(raw);
+        if (m is Map) return Map<String, dynamic>.from(m);
+      } catch (_) {}
+    }
+    return const {};
+  }
+
+  /// سازنده با فیلدهای اضافه از Map (ردیفِ پایگاهِ داده یا JSONِ سرور).
+  StudyItem withExtra(Map<String, dynamic> x) => StudyItem(
     id: id,
     kind: kind,
     bookId: bookId,
@@ -151,11 +335,29 @@ class StudyItem {
     explanationFa: explanationFa,
     explanationAr: explanationAr,
     cefrLevel: cefrLevel,
-    importance: importance ?? this.importance,
-    status: status ?? this.status,
-    note: note ?? this.note,
+    importance: importance,
+    status: status,
+    note: note,
     createdAt: createdAt,
-    updatedAt: DateTime.now(),
+    updatedAt: updatedAt,
+    pos: (x['pos'] ?? '').toString(),
+    ipa: (x['ipa'] ?? '').toString(),
+    examples: [
+      for (final Object? e in (x['ex'] as List? ?? const []))
+        ?StudyExample.fromJson(e),
+    ],
+    tags: [
+      for (final Object? t in (x['tags'] as List? ?? const []))
+        if (t != null && t.toString().trim().isNotEmpty) t.toString().trim(),
+    ],
+    source: switch (x['src']) {
+      'user' => StudySource.user,
+      'admin' => StudySource.admin,
+      'book' => StudySource.book,
+      _ => null,
+    },
+    sharedId: (x['sid'] as num?)?.toInt(),
+    origin: (x['from'] ?? '').toString(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -178,6 +380,7 @@ class StudyItem {
     if (note.isNotEmpty) 'note': note,
     'created': createdAt.millisecondsSinceEpoch,
     'updated': updatedAt.millisecondsSinceEpoch,
+    if (extraMap().isNotEmpty) 'x': extraMap(),
   };
 
   static StudyItem? fromJson(Object? raw) {
@@ -191,7 +394,7 @@ class StudyItem {
         DateTime.fromMillisecondsSinceEpoch((j[k] as num?)?.toInt() ?? 0);
     return StudyItem(
       id: id,
-      kind: j['kind'] == 'word' ? StudyKind.word : StudyKind.passage,
+      kind: StudyKind.parse(j['kind']),
       bookId: s('bookId'),
       bookTitle: s('bookTitle'),
       pageNumber: (j['page'] as num?)?.toInt(),
@@ -209,7 +412,7 @@ class StudyItem {
       note: s('note'),
       createdAt: t('created'),
       updatedAt: t('updated'),
-    );
+    ).withExtra(decodeExtra(j['x']));
   }
 }
 

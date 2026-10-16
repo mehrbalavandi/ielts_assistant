@@ -114,6 +114,8 @@ class BackupNotifier extends Notifier<BackupState> {
       final Object? owner = _box.read(_ownerKey);
       if (owner != null && owner.toString() != uid) {
         await db.clearStudyItems();
+        // 🌟 ST-7: «مرورِ آماده» هم با پایگاهِ داده پاک شد؛ از اول گرفته شود.
+        await _box.remove(StudyNotifier.sharedCursorKey);
       }
       await _box.write(_ownerKey, uid);
 
@@ -153,6 +155,8 @@ class BackupNotifier extends Notifier<BackupState> {
 
       await ref.read(studyProvider.notifier).reload();
       await _syncSettings(dio, uid, restoreFromServer: firstSyncForAccount);
+      // 🌟 ST-7: بعد از پشتیبان (که حذف‌های کاربر را آورده)، «مرورِ آماده»ِ سایت.
+      unawaited(ref.read(studyProvider.notifier).syncShared());
 
       final DateTime now = DateTime.now();
       await _box.write(_lastSyncKey, now.millisecondsSinceEpoch);
@@ -222,6 +226,9 @@ class BackupNotifier extends Notifier<BackupState> {
     ReadingAppearanceNotifier.modeKey,
     ReadingAppearanceNotifier.scaleKey,
     WordCardNotifier.storageKey,
+    // 🌟 ST-7: دریافتِ «مرورِ آماده» روشن/خاموش، و موردهای آماده‌ای که کاربر حذف کرده.
+    StudyNotifier.sharedEnabledKey,
+    StudyNotifier.sharedDismissedKey,
   ];
 
   /// جای مطالعه‌ی هر کتاب هم (scroll_page_/scroll_align_)؛ موقعیتِ فایل‌های صوتی نه،

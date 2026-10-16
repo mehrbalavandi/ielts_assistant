@@ -16,7 +16,7 @@ part 'app_database.g.dart';
 @DataClassName('StudyItemRow')
 class StudyItems extends Table {
   TextColumn get id => text()();
-  TextColumn get kind => text()(); // word | passage
+  TextColumn get kind => text()(); // word | passage | tip
   TextColumn get bookId => text().withDefault(const Constant(''))();
   TextColumn get bookTitle => text().withDefault(const Constant(''))();
   IntColumn get pageNumber => integer().nullable()();
@@ -33,6 +33,10 @@ class StudyItems extends Table {
   IntColumn get importance => integer().withDefault(const Constant(2))();
   TextColumn get status => text().withDefault(const Constant('fresh'))();
   TextColumn get note => text().withDefault(const Constant(''))();
+  // 🌟 ST-7 (schema 2): فیلدهای اضافه به‌صورتِ JSON — نوعِ کلمه، IPA، مثال‌ها، برچسب‌ها،
+  // منبع (کتاب/خودم/آماده) و شناسه‌ی «مرورِ آماده». یک ستونِ JSON به‌جای چند ستون، تا
+  // فیلدِ تازه بی‌مهاجرتِ پایگاهِ داده اضافه شود (StudyItem.extraJson).
+  TextColumn get extra => text().withDefault(const Constant(''))();
   IntColumn get createdMs => integer()();
   IntColumn get updatedMs => integer()();
   BoolColumn get deleted => boolean().withDefault(const Constant(false))();
@@ -48,7 +52,16 @@ class AppDatabase extends _$AppDatabase {
     : super(executor ?? driftDatabase(name: 'ielts_assistant'));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) => m.createAll(),
+    onUpgrade: (m, from, to) async {
+      // 1 ← 2: ستونِ extra (ST-7).
+      if (from < 2) await m.addColumn(studyItems, studyItems.extra);
+    },
+  );
 
   // ───────── «مرورِ من» ─────────
 
