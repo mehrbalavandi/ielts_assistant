@@ -38,7 +38,9 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
-    // ✅
+    // ✅ کلیدِ امضای نسخه‌ی release (از android/key.properties؛ در گیت نیست).
+    // 🌟 DEV-1: هرگز عوض نشود — ANDROID_ID و در نتیجه شناسه‌ی دستگاهِ کاربران به همین کلید
+    // بسته است؛ با کلیدِ تازه همه‌ی گوشی‌ها «دستگاهِ تازه» می‌شوند (WORKFLOW.md بخشِ ۶).
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"] as String
