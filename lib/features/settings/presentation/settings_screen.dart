@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
+import 'package:ielts_assistant/features/library/presentation/library_screen.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/reading_appearance_sheet.dart';
@@ -35,7 +36,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('آدرس سرور با موفقیت ذخیره شد')),
       );
-      Navigator.pop(context);
+      // 🐞 بارِ اولِ اجرا (هنوز آدرسی نبود) همین صفحه ریشه است: pop صفحه را خالی و سیاه
+      // می‌کرد و باید اپ را بست و دوباره باز کرد. حالا ویترین جایش می‌نشیند.
+      final NavigatorState nav = Navigator.of(context);
+      if (nav.canPop()) {
+        nav.pop();
+      } else {
+        nav.pushReplacement(
+          MaterialPageRoute<void>(builder: (_) => const LibraryScreen()),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('لطفاً آدرس سرور را وارد کنید')),

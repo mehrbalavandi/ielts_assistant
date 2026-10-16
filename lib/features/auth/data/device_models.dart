@@ -12,6 +12,10 @@ class AccountDevice {
   final DateTime? lastSeenAt;
   final bool current;
 
+  /// 🌟 DEV-5: شناسه‌ی کوتاه (h1-… سخت‌افزاری، r1-… تصادفی) و نوعِ ساخت.
+  final String shortId;
+  final String? buildMode;
+
   const AccountDevice({
     required this.id,
     required this.label,
@@ -20,7 +24,15 @@ class AccountDevice {
     this.activatedAt,
     this.lastSeenAt,
     this.current = false,
+    this.shortId = '',
+    this.buildMode,
   });
+
+  /// برای نمایش: «h1-3fa9c2 · debug».
+  String get idLine => [
+    if (shortId.isNotEmpty) shortId,
+    if (buildMode != null && buildMode != 'release') buildMode!,
+  ].join(' · ');
 
   factory AccountDevice.fromJson(Map<dynamic, dynamic> j) => AccountDevice(
     id: (j['id'] as num).toInt(),
@@ -30,6 +42,8 @@ class AccountDevice {
     activatedAt: DateTime.tryParse(j['activated_at']?.toString() ?? '')?.toLocal(),
     lastSeenAt: DateTime.tryParse(j['last_seen_at']?.toString() ?? '')?.toLocal(),
     current: j['current'] == true,
+    shortId: (j['short_id'] ?? '').toString(),
+    buildMode: j['build_mode']?.toString(),
   );
 }
 

@@ -85,6 +85,7 @@ class AuthNotifier extends Notifier<AuthState> {
     // 🌟 DEV-4: مجوزِ آفلاینِ همین دستگاه (کاربرِ قبلیِ این دستگاه، اگر بود، دیگر معتبر نیست).
     await LicenseService.clear();
     await LicenseService.save(data['license']);
+    DeviceIdentity.forgetPreviousFallback(); // 🌟 DEV-5
     state = AuthState.authenticated;
     // پشتیبان: ثبتِ دستگاه، بازگرداندن/فرستادنِ «مرورِ من» و تنظیمات (BK-1..3).
     ref.read(backupProvider.notifier).onLogin();

@@ -51,6 +51,14 @@ android {
     }
 
     buildTypes {
+        // 🌟 DEV-5: نسخه‌ی debug (flutter run) هم با همان کلیدِ release امضا می‌شود.
+        // ANDROID_ID (و در نتیجه شناسه‌ی دستگاه در محدودیتِ دستگاه) به کلیدِ امضا بسته است؛ با
+        // کلیدِ debugِ جدا، یک گوشی با flutter run و با APKِ سایت دو «دستگاه» حساب می‌شد و به
+        // سقفِ دستگاه می‌خورد. مزیتِ دیگر: نصبِ debug روی نسخه‌ی سایت (و برعکس) دیگر حذفِ برنامه
+        // و پاک‌شدنِ داده‌ها را لازم ندارد.
+        debug {
+            signingConfig = signingConfigs.getByName("release")
+        }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.

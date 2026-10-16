@@ -49,13 +49,38 @@ class DeviceIdentity {
       ? 'windows'
       : Platform.operatingSystem;
 
+  /// 🌟 DEV-5: نوعِ ساخت. روی اندروید ANDROID_ID به کلیدِ امضا بسته است؛ پس اگر debug و release
+  /// با دو کلیدِ متفاوت امضا شوند، یک گوشی دو دستگاه حساب می‌شود (build.gradle.kts هر دو را
+  /// با کلیدِ release امضا می‌کند تا این پیش نیاید). سرور و پنل این را نشان می‌دهند.
+  static String get buildMode => kReleaseMode
+      ? 'release'
+      : kProfileMode
+      ? 'profile'
+      : 'debug';
+
+  /// شناسه‌ی کوتاه برای نمایش (همان که پنل و «دستگاه‌های من» نشان می‌دهند).
+  static String get shortId => _id.length > 9 ? _id.substring(0, 9) : _id;
+
+  /// 🌟 DEV-5: شناسه‌ی تصادفیِ قبلیِ همین دستگاه (r1-…) وقتی حالا شناسه‌ی سخت‌افزاری داریم؛
+  /// سرور همان ردیف را به شناسه‌ی تازه منتقل می‌کند تا جای دیگری از سقفِ دستگاه گرفته نشود.
+  static String? _previousFallback;
+
   /// مشخصاتی که هنگامِ ورود فرستاده می‌شود (OtpAuth/AuthController و DeviceService سرور).
   static Map<String, Object?> loginFields() => {
     'device_id': _id,
     'device_name': _model.isEmpty ? platform : _model,
     'platform': platform,
     'model': _model,
+    'build_mode': buildMode,
+    'previous_device_id': ?_previousFallback,
   };
+
+  /// بعد از ورودِ موفق با شناسه‌ی سخت‌افزاری، شناسه‌ی تصادفیِ قدیمی دیگر لازم نیست.
+  static void forgetPreviousFallback() {
+    if (_previousFallback == null) return;
+    _previousFallback = null;
+    GetStorage().remove(_fallbackKey);
+  }
 
   static Future<void> init() async {
     if (_id.isNotEmpty) return;
@@ -85,6 +110,8 @@ class DeviceIdentity {
       );
       _id = 'h1-${d.toString().substring(0, 40)}';
       _hardwareBound = true;
+      final String? stored = GetStorage().read<String>(_fallbackKey);
+      if (stored != null && stored.startsWith('r1-')) _previousFallback = stored;
     } else {
       _id = _fallbackId();
       _hardwareBound = false;

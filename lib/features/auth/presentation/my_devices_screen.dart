@@ -165,6 +165,7 @@ class _MyDevicesScreenState extends ConsumerState<MyDevicesScreen> {
                           'فعال از ${shortDate(d.activatedAt)}',
                           'آخرین استفاده ${shortDate(d.lastSeenAt)}',
                           if (d.appVersion != null) 'نسخه‌ی ${d.appVersion}',
+                          if (d.idLine.isNotEmpty) d.idLine,
                         ].join(' • '),
                       ),
                       trailing: r.canRelease

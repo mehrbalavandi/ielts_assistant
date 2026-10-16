@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/core/device/device_identity.dart';
 import 'package:ielts_assistant/features/auth/data/device_models.dart';
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
 
@@ -108,13 +109,34 @@ class _DeviceLimitDialogState extends ConsumerState<_DeviceLimitDialog> {
                         : Icons.phone_android_rounded,
                   ),
                   title: Text(d.label),
-                  subtitle: Text('آخرین استفاده: ${shortDate(d.lastSeenAt)}'),
+                  subtitle: Text(
+                    [
+                      'آخرین استفاده: ${shortDate(d.lastSeenAt)}',
+                      if (d.idLine.isNotEmpty) 'شناسه: ${d.idLine}',
+                    ].join('\n'),
+                  ),
                   trailing: canReplace
                       ? TextButton(
                           onPressed: _busy ? null : () => _replace(d),
                           child: const Text('جدا کردن'),
                         )
                       : null,
+                ),
+              ),
+            // 🌟 DEV-5: شناسه‌ی همین دستگاه، تا معلوم شود دستگاهِ فهرست واقعاً دیگری است یا نه.
+            Text(
+              'این دستگاه: ${DeviceIdentity.shortId}'
+              '${DeviceIdentity.buildMode == 'release' ? '' : ' · ${DeviceIdentity.buildMode}'}',
+              textDirection: TextDirection.rtl,
+              style: hint,
+            ),
+            if (r.devices.any((d) => d.label.contains(DeviceIdentity.model) && DeviceIdentity.model.isNotEmpty))
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  'اگر دستگاهِ بالا همین گوشیِ شماست (مثلاً برنامه را حذف و نسخه‌ی دیگری نصب کرده‌اید)، '
+                  'آن را جدا کنید تا همین نصب جایش را بگیرد.',
+                  style: hint,
                 ),
               ),
             const SizedBox(height: 4),
