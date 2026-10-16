@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/app/app_messenger.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
@@ -30,7 +31,16 @@ class IeltsAssistantApp extends ConsumerWidget {
       navigatorKey: appNavigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        appBarTheme: const AppBarTheme(backgroundColor: Colors.indigo),
+        // 🌟 UI-1: نوارِ بالای همه‌ی صفحه‌ها مثلِ صفحه‌ی مطالعه: پس‌زمینه‌ی آبی، عنوان و آیکون‌های
+        // سفید، نوارِ وضعیتِ گوشی با آیکون‌های روشن. (TabBarهای داخلِ AppBar رنگِ سفید را خودشان
+        // می‌گیرند: appBarTabBar در lib/app/app_theme.dart.)
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.indigo,
+          foregroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.white),
+          actionsIconTheme: IconThemeData(color: Colors.white),
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
       ),
       home: initialScreen,
     );

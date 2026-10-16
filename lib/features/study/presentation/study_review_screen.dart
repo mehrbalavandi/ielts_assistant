@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/app/app_theme.dart';
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/backup/backup_service.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
@@ -48,6 +49,23 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
   late bool _onlyThisBook = widget.currentBookId != null;
   _Sort _sort = _Sort.importance;
 
+  // 🌟 ST-9: جستجو در همه‌ی فیلدهای موردها (هر سه زبانه).
+  bool _searching = false;
+  final TextEditingController _search = TextEditingController();
+  String _query = '';
+
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
+
+  void _closeSearch() => setState(() {
+    _searching = false;
+    _search.clear();
+    _query = '';
+  });
+
   List<StudyItem> _filtered(Iterable<StudyItem> all, StudyKind kind) {
     final List<StudyItem> out = [
       for (final StudyItem i in all)
@@ -55,7 +73,8 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
             (_importance == null || i.importance == _importance) &&
             (kind != StudyKind.word || _status == null || i.status == _status) &&
             (_source == null || i.source == _source) &&
-            (!_onlyThisBook || i.bookId == widget.currentBookId))
+            (!_onlyThisBook || i.bookId == widget.currentBookId) &&
+            (_query.isEmpty || studySearchText(i).contains(_query)))
           i,
     ];
     out.sort((a, b) {
@@ -187,8 +206,35 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('مرورِ من'),
-            actions: [
+            title: _searching
+                ? TextField(
+                    controller: _search,
+                    autofocus: true,
+                    style: const TextStyle(color: Colors.white, fontSize: 17),
+                    cursorColor: Colors.white,
+                    textInputAction: TextInputAction.search,
+                    decoration: const InputDecoration(
+                      hintText: 'جستجو در «مرورِ من»…',
+                      hintStyle: TextStyle(color: Colors.white70),
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (v) => setState(() => _query = normalizeStudyQuery(v)),
+                  )
+                : const Text('مرورِ من'),
+            actions: _searching
+                ? [
+                    IconButton(
+                      tooltip: 'بستنِ جستجو',
+                      onPressed: _closeSearch,
+                      icon: const Icon(Icons.close_rounded),
+                    ),
+                  ]
+                : [
+              IconButton(
+                tooltip: 'جستجو',
+                onPressed: () => setState(() => _searching = true),
+                icon: const Icon(Icons.search_rounded),
+              ),
               // 🌟 BK-1: پشتیبان‌گیریِ دستی (فقط با حسابِ واردشده).
               if (ref.watch(authProvider) == AuthState.authenticated)
                 Builder(
@@ -276,7 +322,7 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
                 ],
               ),
             ],
-            bottom: TabBar(
+            bottom: appBarTabBar(
               isScrollable: true,
               tabAlignment: TabAlignment.start,
               tabs: [
@@ -318,7 +364,7 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
                             empty: all.values.any(
                                   (i) => i.kind == StudyKind.word,
                                 )
-                                ? 'با این فیلترها واژه‌ای نیست.'
+                                ? (_query.isNotEmpty ? 'واژه‌ای با «${_search.text.trim()}» پیدا نشد.' : 'با این فیلترها واژه‌ای نیست.')
                                 : 'هنوز واژه‌ای اضافه نکرده‌اید.\nروی هر کلمه‌ی رنگی در متن بزنید و «افزودن به واژه‌های مرور» را انتخاب کنید، یا با «افزودن» واژه‌ای از بیرونِ کتاب بنویسید.',
                             builder: (i) => _WordCard(item: i),
                           ),
@@ -328,14 +374,14 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
                     _list(
                       tips,
                       empty: all.values.any((i) => i.kind == StudyKind.tip)
-                          ? 'با این فیلترها نکته‌ای نیست.'
+                          ? (_query.isNotEmpty ? 'نکته‌ای با «${_search.text.trim()}» پیدا نشد.' : 'با این فیلترها نکته‌ای نیست.')
                           : 'نکته‌های دستوری، نوشتاری و گفتاری این‌جا جمع می‌شوند.\nبا «افزودن» یک نکته بنویسید یا جوابِ یک هوش مصنوعی را وارد کنید. نکته‌های آماده‌ی سایت هم خودکار می‌آیند.',
                       builder: (i) => _TipCard(item: i),
                     ),
                     _list(
                       passages,
                       empty: all.values.any((i) => i.kind == StudyKind.passage)
-                          ? 'با این فیلترها موردی نیست.'
+                          ? (_query.isNotEmpty ? 'موردی با «${_search.text.trim()}» پیدا نشد.' : 'با این فیلترها موردی نیست.')
                           : 'هنوز متن یا تمرینی اضافه نکرده‌اید.\nروی هر پاراگراف یا صورتِ تمرین در کتاب لمسِ طولانی کنید و «افزودن به مرور» را بزنید.',
                       builder: (i) => _PassageCard(
                         item: i,
@@ -1052,3 +1098,41 @@ class _DismissedSheetState extends State<_DismissedSheet> {
     );
   }
 }
+
+// ───────── 🌟 ST-9: جستجو ─────────
+
+/// یکسان‌سازی برای جستجو: کوچک‌حرف، ی/ک عربی ← فارسی، بی‌اعراب و نیم‌فاصله، فاصله‌های یکسان.
+String normalizeStudyQuery(String s) => s
+    .toLowerCase()
+    .replaceAll('ي', 'ی')
+    .replaceAll('ى', 'ی')
+    .replaceAll('ك', 'ک')
+    .replaceAll('ة', 'ه')
+    .replaceAll(RegExp('[\u064B-\u065F\u0670\u200c\u200f\u200e]'), '')
+    .replaceAll(RegExp(r'\s+'), ' ')
+    .trim();
+
+/// همه‌ی متن‌های قابلِ جستجوی یک مورد (هر دو زبان، مثال‌ها، برچسب‌ها، یادداشت، کتاب)؛
+/// یک‌بار برای هر نسخه‌ی مورد ساخته و نگه داشته می‌شود.
+String studySearchText(StudyItem i) =>
+    _searchCache[i] ??= normalizeStudyQuery(
+      [
+        i.text,
+        i.translationFa,
+        i.translationAr,
+        i.pronounceFa,
+        i.pronounceAr,
+        i.explanationFa,
+        i.explanationAr,
+        i.note,
+        i.pos,
+        i.ipa,
+        i.cefrLevel,
+        i.bookTitle,
+        i.origin,
+        ...i.tags,
+        for (final StudyExample e in i.examples) ...[e.en, e.fa, e.ar],
+      ].join(' \u0001 '),
+    );
+
+final Expando<String> _searchCache = Expando<String>('studySearch');

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/app/app_theme.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
 import 'package:ielts_assistant/features/study/presentation/study_controls.dart';
@@ -183,6 +184,7 @@ class _StudyItemEditorScreenState extends ConsumerState<StudyItemEditorScreen> {
           ),
           actions: [
             TextButton.icon(
+              style: appBarTextButtonStyle, // 🌟 UI-1
               onPressed: _save,
               icon: const Icon(Icons.check_rounded),
               label: const Text('ذخیره'),
