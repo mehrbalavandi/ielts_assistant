@@ -58,6 +58,7 @@ app.*.map.json
 # !assets/some_folder/keep-this-file.ext
 assets/data/Mindset 01/*
 !assets/data/Mindset 01/Mindset1- *.docx
+!assets/data/Mindset 01/audio/output/
 # 🌟 غنی‌سازی (G-2، G-5): حافظه‌ی ترجمه و گزارشِ بی‌ترجمه‌ها در گیت می‌مانند
 !assets/data/Mindset 01/enrichment/
 # !assets/data/Mindset 01/Mindset1- Audio Scripts.docx
