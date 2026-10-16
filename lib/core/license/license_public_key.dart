@@ -7,4 +7,4 @@
 // تا وقتی خالی است:
 // - نسخه‌ی debug: مجوز وارسی نمی‌شود (برای توسعه).
 // - نسخه‌ی release: نسخه‌ی کاملِ کتاب‌ها باز نمی‌شود — عمداً، تا نسخه‌ی بی‌قفل منتشر نشود.
-const String kLicensePublicKey = '';
+const String kLicensePublicKey = 'YeaDuFgIV1J6sFsYGE6OFlUK4dHFi1q3HH3NceZsOg4=';
