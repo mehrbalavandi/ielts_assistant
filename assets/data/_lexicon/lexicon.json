@@ -6597,6 +6597,2238 @@
       "books": [
         "Mindset 01"
       ]
+    },
+    "locate": {
+      "headword": "locate",
+      "forms": [
+        "locate",
+        "locating",
+        "located"
+      ],
+      "pos": "verb",
+      "ipa": "/ləʊˈkeɪt/",
+      "pronounceFa": "لُکِیت",
+      "pronounceAr": "لوكيت",
+      "translationFa": "پیدا کردن (جای چیزی)، مکان‌یابی کردن",
+      "translationAr": "تحديد موقع (شيء)، العثور على",
+      "explanationFa": "در ریدینگ یعنی پیدا کردنِ سریعِ جای اطلاعات در متن: locate information. با be located (واقع بودن) فرق دارد.",
+      "explanationAr": "في القراءة يعني العثور بسرعة على مكان المعلومة في النص: locate information، ويختلف عن be located (يقع).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "gapped sentence": {
+      "headword": "gapped sentence",
+      "forms": [
+        "gapped sentences",
+        "gapped sentence"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɡæpt ˈsentəns/",
+      "pronounceFa": "گَپت سِنتِنس",
+      "pronounceAr": "غابت سِنتِنس",
+      "translationFa": "جمله‌ی جای‌خالی‌دار",
+      "translationAr": "جملة ناقصة (فيها فراغ)",
+      "explanationFa": "جمله‌ای که یک یا چند کلمه‌اش حذف شده و باید با کلمه‌ای از متن کامل شود؛ همان نوعِ سؤالِ sentence completion در آیلتس.",
+      "explanationAr": "جملة حُذفت منها كلمة أو أكثر ويجب إكمالها بكلمة من النص، وهي نوع أسئلة sentence completion في آيلتس.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "countable": {
+      "headword": "countable",
+      "forms": [
+        "countable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈkaʊntəbl/",
+      "pronounceFa": "کائونتِبِل",
+      "pronounceAr": "كاونتَبِل",
+      "translationFa": "قابل‌شمارش (اسم)",
+      "translationAr": "معدود (اسم)",
+      "explanationFa": "اسمِ قابل‌شمارش جمع بسته می‌شود و با a/an، many و fewer می‌آید: many apples، fewer people. مقابلِ uncountable.",
+      "explanationAr": "الاسم المعدود يُجمع ويُستخدم مع a/an وmany وfewer: many apples، fewer people. عكسه uncountable.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "culture shock": {
+      "headword": "culture shock",
+      "forms": [
+        "culture shock"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈkʌltʃə ʃɒk/",
+      "pronounceFa": "کالچِر شاک",
+      "pronounceAr": "كالتشَر شوك",
+      "translationFa": "شوکِ فرهنگی",
+      "translationAr": "الصدمة الثقافية",
+      "explanationFa": "احساسِ سردرگمی و ناراحتی هنگامِ رویارویی با فرهنگی ناآشنا؛ موضوعی رایج در ریدینگ و اسپیکینگِ آیلتس درباره‌ی سفر و مهاجرت.",
+      "explanationAr": "الشعور بالارتباك والانزعاج عند مواجهة ثقافة غير مألوفة، وهو موضوع شائع في قراءة آيلتس ومحادثته عن السفر والهجرة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "widely": {
+      "headword": "widely",
+      "forms": [
+        "widely"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈwaɪdli/",
+      "pronounceFa": "وایدلی",
+      "pronounceAr": "وايدلي",
+      "translationFa": "به‌طورِ گسترده، در جاهای زیاد",
+      "translationAr": "على نطاق واسع",
+      "explanationFa": "معمولاً پیش از اسمِ مفعول می‌آید: widely eaten، widely used، widely available؛ در رایتینگِ آکادمیک بسیار پرکاربرد است.",
+      "explanationAr": "يأتي غالبًا قبل اسم المفعول: widely eaten، widely used، widely available، وهو شائع جدًّا في الكتابة الأكاديمية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "end up with": {
+      "headword": "end up with",
+      "forms": [
+        "end up with",
+        "ended up with",
+        "ends up with"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌend ˈʌp wɪð/",
+      "pronounceFa": "اِند آپ ویذ",
+      "pronounceAr": "إند آب وِذ",
+      "translationFa": "آخرش به (چیزی) رسیدن، سرانجام (چیزی) نصیب شدن",
+      "translationAr": "ينتهي به الأمر إلى، يحصل في النهاية على",
+      "explanationFa": "برای نتیجه‌ای که برنامه‌ریزی نشده بود: you will end up with nothing (آخرش دستتان خالی می‌ماند).",
+      "explanationAr": "لنتيجة لم تكن مخطّطًا لها: you will end up with nothing (سينتهي بك الأمر بلا شيء).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "get used to": {
+      "headword": "get used to",
+      "forms": [
+        "get used to",
+        "got used to",
+        "getting used to"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɡet ˈjuːst tə/",
+      "pronounceFa": "گِت یوست تو",
+      "pronounceAr": "غِت يوست تو",
+      "translationFa": "عادت کردن به",
+      "translationAr": "يعتاد على",
+      "explanationFa": "پس از آن اسم یا فعلِ ing‌دار می‌آید: get used to eating with chopsticks. با used to + مصدر (عادتِ گذشته) فرق دارد.",
+      "explanationAr": "يليه اسم أو فعل بصيغة ing: get used to eating with chopsticks، ويختلف عن used to + المصدر (عادة في الماضي).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "live on": {
+      "headword": "live on",
+      "forms": [
+        "live on",
+        "lives on",
+        "lived on"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˈlɪv ɒn/",
+      "pronounceFa": "لیو آن",
+      "pronounceAr": "لِف أون",
+      "translationFa": "با (غذا یا پولِ خاصی) زندگی گذراندن، فقط (چیزی) خوردن",
+      "translationAr": "يعيش على، يقتات على",
+      "explanationFa": "یعنی فقط یا بیشتر همان را خوردن یا با همان پول سر کردن: live on junk food، live on £50 a week.",
+      "explanationAr": "يعني أن يأكل ذلك الطعام وحده تقريبًا أو يدبّر أمره بذلك المال: live on junk food، live on £50 a week.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "junk food": {
+      "headword": "junk food",
+      "forms": [
+        "junk food"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈdʒʌŋk fuːd/",
+      "pronounceFa": "جانک فود",
+      "pronounceAr": "جانك فود",
+      "translationFa": "غذای ناسالم، هله‌هوله",
+      "translationAr": "الأطعمة غير الصحية (الوجبات السريعة)",
+      "explanationFa": "غذای پرچرب، پرشکر و کم‌ارزش؛ در رایتینگِ Task 2 درباره‌ی سلامت و چاقیِ کودکان زیاد به کار می‌رود. غیرقابل‌شمارش است.",
+      "explanationAr": "طعام غني بالدهون والسكر وقليل القيمة الغذائية، ويُستخدم كثيرًا في مقالات Task 2 عن الصحة وسمنة الأطفال. وهو غير معدود.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "identity": {
+      "headword": "identity",
+      "forms": [
+        "identity"
+      ],
+      "pos": "noun",
+      "ipa": "/aɪˈdentəti/",
+      "pronounceFa": "آیدِنتِتی",
+      "pronounceAr": "آيدِنتِتي",
+      "translationFa": "هویت",
+      "translationAr": "الهوية",
+      "explanationFa": "در متن‌های فرهنگی: cultural identity، national identity، part of your identity. واژه‌ای پرکاربرد در بحث‌های جهانی‌شدن.",
+      "explanationAr": "في النصوص الثقافية: cultural identity، national identity، part of your identity، وهي كلمة شائعة في نقاشات العولمة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fizzy drink": {
+      "headword": "fizzy drink",
+      "forms": [
+        "fizzy drink",
+        "fizzy drinks"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌfɪzi ˈdrɪŋk/",
+      "pronounceFa": "فیزی دِرینک",
+      "pronounceAr": "فيزي درِنك",
+      "translationFa": "نوشابه‌ی گازدار",
+      "translationAr": "مشروب غازي",
+      "explanationFa": "اصطلاحِ بریتانیایی؛ در آمریکایی soda یا soft drink گفته می‌شود. در بحث‌های سلامت و قندِ زیاد رایج است.",
+      "explanationAr": "تعبير بريطاني، ويُقال في الأمريكية soda أو soft drink، وهو شائع في نقاشات الصحة والسكر الزائد.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "vegetarian": {
+      "headword": "vegetarian",
+      "forms": [
+        "vegetarian",
+        "vegetarians",
+        "vegetarianism"
+      ],
+      "pos": "noun / adjective",
+      "ipa": "/ˌvedʒəˈteəriən/",
+      "pronounceFa": "وِجِتِریِن",
+      "pronounceAr": "فيجِتيريَن",
+      "translationFa": "گیاه‌خوار؛ گیاهی",
+      "translationAr": "نباتي",
+      "explanationFa": "کسی که گوشت نمی‌خورد؛ vegetarianism یعنی «گیاه‌خواری». vegan سخت‌گیرانه‌تر است و هیچ فرآورده‌ی حیوانی نمی‌خورد.",
+      "explanationAr": "من لا يأكل اللحم، وvegetarianism تعني «النظام النباتي». أمّا vegan فأكثر تشدّدًا ولا يأكل أي منتج حيواني.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "concept": {
+      "headword": "concept",
+      "forms": [
+        "concept",
+        "concepts"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkɒnsept/",
+      "pronounceFa": "کانسِپت",
+      "pronounceAr": "كونسِبت",
+      "translationFa": "مفهوم، ایده",
+      "translationAr": "مفهوم، فكرة",
+      "explanationFa": "واژه‌ای آکادمیک برای «ایده‌ی کلی»: the concept of …؛ در رایتینگ به جای idea رسمی‌تر است.",
+      "explanationAr": "كلمة أكاديمية للفكرة العامة: the concept of …، وهي أكثر رسمية من idea في الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ethical": {
+      "headword": "ethical",
+      "forms": [
+        "ethical"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈeθɪkl/",
+      "pronounceFa": "اِثیکِل",
+      "pronounceAr": "إثِكَل",
+      "translationFa": "اخلاقی",
+      "translationAr": "أخلاقي",
+      "explanationFa": "مربوط به درست و نادرستِ اخلاقی: ethical reasons، ethical issues؛ در بحث‌های گیاه‌خواری و آزمایش روی حیوانات رایج است.",
+      "explanationAr": "متعلّق بالصواب والخطأ أخلاقيًّا: ethical reasons، ethical issues، وشائع في نقاشات النباتية والتجارب على الحيوانات.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "equate to": {
+      "headword": "equate to",
+      "forms": [
+        "equates to",
+        "equate to",
+        "equated to"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/iˈkweɪt tə/",
+      "pronounceFa": "ایکوِیت تو",
+      "pronounceAr": "إيكويت تو",
+      "translationFa": "برابر بودن با، به معنای (چیزی) بودن",
+      "translationAr": "يعادل، يساوي",
+      "explanationFa": "رسمی و آکادمیک: meat equates to prosperity (گوشت نشانه‌ی رفاه است). در رایتینگ برای مقایسه‌ی ارقام هم می‌آید.",
+      "explanationAr": "تعبير رسمي أكاديمي: meat equates to prosperity (اللحم يعادل الرخاء)، ويأتي في الكتابة لمقارنة الأرقام أيضًا.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "prosperity": {
+      "headword": "prosperity",
+      "forms": [
+        "prosperity"
+      ],
+      "pos": "noun",
+      "ipa": "/prɒˈsperəti/",
+      "pronounceFa": "پراسپِرِتی",
+      "pronounceAr": "بروسبيرِتي",
+      "translationFa": "رفاه، رونق",
+      "translationAr": "الرخاء، الازدهار",
+      "explanationFa": "وضعِ ثروت و موفقیتِ مالی؛ economic prosperity در متن‌های اقتصادی آیلتس رایج است. صفتش prosperous است.",
+      "explanationAr": "حالة الثراء والنجاح المالي، وeconomic prosperity شائعة في نصوص الاقتصاد في آيلتس. والصفة prosperous.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "alien to": {
+      "headword": "alien to",
+      "forms": [
+        "alien to"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˈeɪliən tə/",
+      "pronounceFa": "اِیلیِن تو",
+      "pronounceAr": "إيليَن تو",
+      "translationFa": "ناآشنا و غریب برای",
+      "translationAr": "غريب على",
+      "explanationFa": "یعنی چیزی که برای کسی کاملاً ناآشنا یا ناسازگار با فرهنگش است: the idea is alien to them.",
+      "explanationAr": "أي ما هو غير مألوف تمامًا لشخص أو لا يتّفق مع ثقافته: the idea is alien to them.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "can't face": {
+      "headword": "can't face",
+      "forms": [
+        "can't face"
+      ],
+      "pos": "phrase",
+      "ipa": "/kɑːnt ˈfeɪs/",
+      "pronounceFa": "کانت فِیس",
+      "pronounceAr": "كانت فيس",
+      "translationFa": "تحملِ (چیزی) را نداشتن، دل و دماغِ (چیزی) را نداشتن",
+      "translationAr": "لا يطيق، لا يحتمل",
+      "explanationFa": "محاوره‌ای؛ یعنی حوصله یا توانِ رویارویی با چیزی را نداشتن: I can't face breakfast so early. در اسپیکینگ طبیعی به نظر می‌رسد.",
+      "explanationAr": "تعبير عامّي يعني عدم القدرة على مواجهة شيء أو تحمّله: I can't face breakfast so early، ويبدو طبيعيًّا في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "evidence": {
+      "headword": "evidence",
+      "forms": [
+        "evidence"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈevɪdəns/",
+      "pronounceFa": "اِویدِنس",
+      "pronounceAr": "إفِدَنس",
+      "translationFa": "شاهد، مدرک",
+      "translationAr": "دليل، أدلّة",
+      "explanationFa": "غیرقابل‌شمارش است (an evidence نادرست است): a piece of evidence. در ریدینگ یعنی بخشی از متن که پاسخ را تأیید می‌کند.",
+      "explanationAr": "اسم غير معدود (لا يُقال an evidence): a piece of evidence. وفي القراءة يعني جزء النص الذي يؤكّد الإجابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "takeaway": {
+      "headword": "takeaway",
+      "forms": [
+        "takeaway",
+        "takeaways"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈteɪkəweɪ/",
+      "pronounceFa": "تِیکِوِی",
+      "pronounceAr": "تيكوَي",
+      "translationFa": "غذای بیرون‌بر؛ رستورانِ بیرون‌بر",
+      "translationAr": "وجبة جاهزة (سفري)، مطعم وجبات جاهزة",
+      "explanationFa": "بریتانیایی؛ در آمریکایی takeout. هم به خودِ غذا و هم به مغازه گفته می‌شود: a Chinese takeaway.",
+      "explanationAr": "تعبير بريطاني، وفي الأمريكية takeout، ويُطلق على الوجبة نفسها وعلى المحل: a Chinese takeaway.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "special diet": {
+      "headword": "special diet",
+      "forms": [
+        "special diet",
+        "special diets"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌspeʃl ˈdaɪət/",
+      "pronounceFa": "اِسپِشِل دایِت",
+      "pronounceAr": "سبيشَل دايَت",
+      "translationFa": "رژیمِ غذاییِ خاص",
+      "translationAr": "نظام غذائي خاص",
+      "explanationFa": "diet در این‌جا یعنی «آنچه معمولاً می‌خورید»، نه فقط رژیمِ لاغری: be on a special diet، a healthy diet.",
+      "explanationAr": "diet هنا تعني «ما تأكله عادةً» وليس حمية التخسيس فقط: be on a special diet، a healthy diet.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "play an important role": {
+      "headword": "play an important role",
+      "forms": [
+        "plays an important role",
+        "play an important role",
+        "have an important role to play"
+      ],
+      "pos": "phrase",
+      "ipa": "/pleɪ ən ɪmˌpɔːtnt ˈrəʊl/",
+      "pronounceFa": "پلِی اِن ایمپورتِنت رول",
+      "pronounceAr": "بلَي أن إمبورتَنت رول",
+      "translationFa": "نقشِ مهمی داشتن",
+      "translationAr": "يؤدّي دورًا مهمًّا",
+      "explanationFa": "هم‌آیندی بسیار پرکاربرد در رایتینگ: play an important/key/major role in + اسم. شکلِ دیگرش: have an important role to play.",
+      "explanationAr": "متلازمة شائعة جدًّا في الكتابة: play an important/key/major role in + اسم، وصيغتها الأخرى: have an important role to play.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "cookery": {
+      "headword": "cookery",
+      "forms": [
+        "cookery"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkʊkəri/",
+      "pronounceFa": "کوکِری",
+      "pronounceAr": "كوكَري",
+      "translationFa": "آشپزی (به‌عنوانِ مهارت یا موضوع)",
+      "translationAr": "فنّ الطبخ",
+      "explanationFa": "بریتانیایی و کمی رسمی‌تر از cooking؛ بیشتر در ترکیب می‌آید: cookery show، cookery book، cookery course.",
+      "explanationAr": "تعبير بريطاني أكثر رسمية قليلًا من cooking، ويأتي غالبًا في تراكيب: cookery show، cookery book، cookery course.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "sophisticated": {
+      "headword": "sophisticated",
+      "forms": [
+        "sophisticated"
+      ],
+      "pos": "adjective",
+      "ipa": "/səˈfɪstɪkeɪtɪd/",
+      "pronounceFa": "سِفیستیکِیتید",
+      "pronounceAr": "سَفِستِكيتِد",
+      "translationFa": "پیچیده و پیشرفته؛ شیک و باسلیقه",
+      "translationAr": "راقٍ، متطوّر ومعقّد",
+      "explanationFa": "برای غذا یعنی ظریف و استادانه؛ برای فناوری یعنی پیشرفته: sophisticated technology. واژه‌ای پرکاربرد در ریدینگ.",
+      "explanationAr": "للطعام يعني راقيًا ومتقنًا، وللتقنية يعني متطوّرًا: sophisticated technology، وهي كلمة شائعة في القراءة.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "cuisine": {
+      "headword": "cuisine",
+      "forms": [
+        "cuisine",
+        "cuisines"
+      ],
+      "pos": "noun",
+      "ipa": "/kwɪˈziːn/",
+      "pronounceFa": "کوئیزین",
+      "pronounceAr": "كويزين",
+      "translationFa": "آشپزی (سبکِ غذاییِ یک کشور یا منطقه)",
+      "translationAr": "المطبخ (أسلوب طهي بلد أو منطقة)",
+      "explanationFa": "برای سبکِ غذاییِ یک فرهنگ: French cuisine، local cuisine. در اسپیکینگ به جای food رسمی‌تر و دقیق‌تر است.",
+      "explanationAr": "لأسلوب الطعام في ثقافة ما: French cuisine، local cuisine، وهي أدقّ وأكثر رسمية من food في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "recipe": {
+      "headword": "recipe",
+      "forms": [
+        "recipe",
+        "recipes"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈresəpi/",
+      "pronounceFa": "رِسِپی",
+      "pronounceAr": "ريسَبي",
+      "translationFa": "دستورِ پخت",
+      "translationAr": "وصفة طبخ",
+      "explanationFa": "تلفظش سه‌هجایی است (رِ-سِ-پی). follow a recipe یعنی «طبقِ دستور پختن». با receipt (رسید) اشتباه نشود.",
+      "explanationAr": "تُنطق بثلاثة مقاطع (رِ-سَ-بي). follow a recipe يعني «اتّباع الوصفة». لا تخلطوا بينها وبين receipt (إيصال).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "instant success": {
+      "headword": "instant success",
+      "forms": [
+        "instant success"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɪnstənt səkˈses/",
+      "pronounceFa": "اینستِنت سِکسِس",
+      "pronounceAr": "إنستَنت سَكسيس",
+      "translationFa": "موفقیتِ فوری",
+      "translationAr": "نجاح فوري",
+      "explanationFa": "برای چیزی که بلافاصله پس از عرضه محبوب شد: The book was an instant success.",
+      "explanationAr": "لشيء نال الشعبية فور طرحه: The book was an instant success.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "bad temper": {
+      "headword": "bad temper",
+      "forms": [
+        "bad temper"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌbæd ˈtempə/",
+      "pronounceFa": "بَد تِمپِر",
+      "pronounceAr": "باد تِمبَر",
+      "translationFa": "بدخلقی، زودعصبانی بودن",
+      "translationAr": "سرعة الغضب، سوء الطبع",
+      "explanationFa": "have a bad temper یعنی زود از کوره در رفتن؛ صفتش bad-tempered است. lose your temper یعنی «عصبانی شدن».",
+      "explanationAr": "have a bad temper تعني سرعة الغضب، والصفة bad-tempered، وlose your temper تعني «يفقد أعصابه».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "foul language": {
+      "headword": "foul language",
+      "forms": [
+        "foul language"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌfaʊl ˈlæŋɡwɪdʒ/",
+      "pronounceFa": "فائول لَنگوِیج",
+      "pronounceAr": "فاول لانغويج",
+      "translationFa": "فحاشی، زبانِ زشت",
+      "translationAr": "الألفاظ البذيئة",
+      "explanationFa": "foul یعنی زننده و ناخوشایند؛ این‌جا یعنی حرف‌های رکیک. در متن‌های رسمی به جای swearing می‌آید.",
+      "explanationAr": "foul تعني كريهًا، وهنا تعني الكلام البذيء، وتأتي في النصوص الرسمية بدلًا من swearing.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "working-class": {
+      "headword": "working-class",
+      "forms": [
+        "working-class",
+        "working class"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌwɜːkɪŋ ˈklɑːs/",
+      "pronounceFa": "وِرکینگ کلاس",
+      "pronounceAr": "وِركِنغ كلاس",
+      "translationFa": "(از) طبقه‌ی کارگر",
+      "translationAr": "من الطبقة العاملة",
+      "explanationFa": "برای طبقه‌ی اجتماعی؛ در مقابلِ middle-class. پیش از اسم با خط‌تیره نوشته می‌شود: a working-class family.",
+      "explanationAr": "للطبقة الاجتماعية، ومقابلها middle-class، وتُكتب بشرطة قبل الاسم: a working-class family.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "lose weight": {
+      "headword": "lose weight",
+      "forms": [
+        "lost weight",
+        "lose weight",
+        "losing weight"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌluːz ˈweɪt/",
+      "pronounceFa": "لوز وِیت",
+      "pronounceAr": "لوز ويت",
+      "translationFa": "وزن کم کردن",
+      "translationAr": "يخسر الوزن، ينقص وزنه",
+      "explanationFa": "متضادش put on weight یا gain weight است. با lose می‌آید، نه loose (گشاد).",
+      "explanationAr": "عكسها put on weight أو gain weight، وتُكتب lose لا loose (فضفاض).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "competitive": {
+      "headword": "competitive",
+      "forms": [
+        "competitive"
+      ],
+      "pos": "adjective",
+      "ipa": "/kəmˈpetətɪv/",
+      "pronounceFa": "کِمپِتِتیو",
+      "pronounceAr": "كَمبيتَتِف",
+      "translationFa": "رقابتی",
+      "translationAr": "تنافسي",
+      "explanationFa": "هم برای موقعیت (a competitive element/market) و هم برای آدم (She's very competitive). اسمش competition است.",
+      "explanationAr": "يُستخدم للموقف (a competitive element/market) وللشخص (She's very competitive)، والاسم competition.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "contestant": {
+      "headword": "contestant",
+      "forms": [
+        "contestant",
+        "contestants"
+      ],
+      "pos": "noun",
+      "ipa": "/kənˈtestənt/",
+      "pronounceFa": "کِنتِستِنت",
+      "pronounceAr": "كَنتيستَنت",
+      "translationFa": "شرکت‌کننده (در مسابقه)",
+      "translationAr": "متسابق",
+      "explanationFa": "برای شرکت‌کننده‌ی مسابقه‌های تلویزیونی؛ عمومی‌ترش participant یا competitor است.",
+      "explanationAr": "للمشارك في المسابقات التلفزيونية، والأعمّ participant أو competitor.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "eliminate": {
+      "headword": "eliminate",
+      "forms": [
+        "eliminated",
+        "eliminate",
+        "eliminates"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪˈlɪmɪneɪt/",
+      "pronounceFa": "ایلیمینِیت",
+      "pronounceAr": "إليمِنيت",
+      "translationFa": "حذف کردن، کنار گذاشتن",
+      "translationAr": "يستبعد، يُقصي؛ يزيل",
+      "explanationFa": "در مسابقه یعنی «حذف شدن» (be eliminated)؛ در متن‌های آکادمیک یعنی «از بین بردن»: eliminate poverty.",
+      "explanationAr": "في المسابقات يعني «يُستبعد» (be eliminated)، وفي النصوص الأكاديمية يعني «يقضي على»: eliminate poverty.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ready-made": {
+      "headword": "ready-made",
+      "forms": [
+        "ready-made"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌredi ˈmeɪd/",
+      "pronounceFa": "رِدی مِید",
+      "pronounceAr": "ريدي ميد",
+      "translationFa": "آماده، از پیش ساخته‌شده",
+      "translationAr": "جاهز، معدّ مسبقًا",
+      "explanationFa": "برای غذا یا جنسی که آماده خریده می‌شود: ready-made meals. نزدیک به ready meal در انگلیسیِ بریتانیایی.",
+      "explanationAr": "للطعام أو السلع التي تُشترى جاهزة: ready-made meals، وقريب من ready meal في الإنجليزية البريطانية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "not necessarily": {
+      "headword": "not necessarily",
+      "forms": [
+        "not necessarily",
+        "doesn't necessarily",
+        "don't necessarily"
+      ],
+      "pos": "adverb phrase",
+      "ipa": "/nɒt ˌnesəˈserəli/",
+      "pronounceFa": "نات نِسِسِرِلی",
+      "pronounceAr": "نوت نيسَسيرَلي",
+      "translationFa": "لزوماً نه، الزاماً نه",
+      "translationAr": "ليس بالضرورة",
+      "explanationFa": "برای ردِ نتیجه‌گیریِ خودکار در رایتینگ مفید است: more shows doesn't necessarily mean more cooking.",
+      "explanationAr": "مفيد في الكتابة لنفي الاستنتاج التلقائي: more shows doesn't necessarily mean more cooking.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "influential": {
+      "headword": "influential",
+      "forms": [
+        "influential"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌɪnfluˈenʃl/",
+      "pronounceFa": "اینفلوئِنشِل",
+      "pronounceAr": "إنفلوإنشَل",
+      "translationFa": "اثرگذار، بانفوذ",
+      "translationAr": "مؤثّر، ذو نفوذ",
+      "explanationFa": "صفتِ influence؛ the most influential show یعنی پراثرترین برنامه. تکیه روی هجای سوم است.",
+      "explanationAr": "صفة influence، وthe most influential show تعني أكثر البرامج تأثيرًا، والنبر على المقطع الثالث.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "rather than": {
+      "headword": "rather than",
+      "forms": [
+        "rather than"
+      ],
+      "pos": "conjunction",
+      "ipa": "/ˈrɑːðə ðən/",
+      "pronounceFa": "راذِر ذِن",
+      "pronounceAr": "راذَر ذَن",
+      "translationFa": "به جای، نه اینکه",
+      "translationAr": "بدلًا من",
+      "explanationFa": "برای مقابل نهادنِ دو چیز هم‌نقش: quick meals rather than restaurant-style food. در رایتینگ رسمی‌تر از instead of است.",
+      "explanationAr": "للمقابلة بين عنصرين متماثلين: quick meals rather than restaurant-style food، وهي أكثر رسمية من instead of في الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "on a regular basis": {
+      "headword": "on a regular basis",
+      "forms": [
+        "on a regular basis"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɒn ə ˌreɡjələ ˈbeɪsɪs/",
+      "pronounceFa": "آن اِ رِگیولِر بِیسیس",
+      "pronounceAr": "أون أ ريغيولَر بيسِس",
+      "translationFa": "به‌طورِ منظم",
+      "translationAr": "بانتظام",
+      "explanationFa": "شکلِ رسمی‌ترِ regularly؛ در رایتینگ برای تنوعِ واژگانی مفید است: on a daily/weekly basis هم رایج است.",
+      "explanationAr": "صيغة أكثر رسمية لـ regularly، ومفيدة لتنويع المفردات في الكتابة، وon a daily/weekly basis شائعة أيضًا.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "curriculum": {
+      "headword": "curriculum",
+      "forms": [
+        "curriculum"
+      ],
+      "pos": "noun",
+      "ipa": "/kəˈrɪkjələm/",
+      "pronounceFa": "کِریکیولِم",
+      "pronounceAr": "كَريكيولَم",
+      "translationFa": "برنامه‌ی درسی",
+      "translationAr": "المنهج الدراسي",
+      "explanationFa": "مجموعه‌ی درس‌هایی که در مدرسه یا دانشگاه آموزش داده می‌شود: the school curriculum. موضوعِ رایجِ رایتینگِ آموزشی.",
+      "explanationAr": "مجموعة المواد التي تُدرَّس في المدرسة أو الجامعة: the school curriculum، وموضوع شائع في مقالات التعليم.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ensure": {
+      "headword": "ensure",
+      "forms": [
+        "ensure",
+        "ensures",
+        "ensured"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪnˈʃɔː/",
+      "pronounceFa": "اینشور",
+      "pronounceAr": "إنشور",
+      "translationFa": "تضمین کردن، اطمینان حاصل کردن",
+      "translationAr": "يضمن، يتأكّد من",
+      "explanationFa": "ensure that + جمله؛ رسمی‌تر از make sure. با insure (بیمه کردن) اشتباه نشود.",
+      "explanationAr": "ensure that + جملة، وهي أكثر رسمية من make sure. لا تخلطوا بينها وبين insure (يؤمّن).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "where relevant": {
+      "headword": "where relevant",
+      "forms": [
+        "where relevant"
+      ],
+      "pos": "phrase",
+      "ipa": "/weə ˈreləvənt/",
+      "pronounceFa": "وِر رِلِوِنت",
+      "pronounceAr": "وير ريلَفَنت",
+      "translationFa": "هرجا مرتبط و لازم باشد",
+      "translationAr": "حيثما كان ذلك مناسبًا",
+      "explanationFa": "بخشی از دستورِ ثابتِ رایتینگِ Task 1: make comparisons where relevant؛ یعنی فقط مقایسه‌های معنادار را بیاورید.",
+      "explanationAr": "جزء من التعليمات الثابتة في المهمّة الأولى من الكتابة: make comparisons where relevant، أي اذكروا المقارنات المفيدة فقط.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "proportion": {
+      "headword": "proportion",
+      "forms": [
+        "proportion",
+        "proportions"
+      ],
+      "pos": "noun",
+      "ipa": "/prəˈpɔːʃn/",
+      "pronounceFa": "پرِپورشِن",
+      "pronounceAr": "بروبورشَن",
+      "translationFa": "نسبت، سهم",
+      "translationAr": "نسبة",
+      "explanationFa": "در رایتینگِ Task 1 برای بخشی از کل: the highest proportion of people، a tiny proportion. جایگزینِ خوبی برای percentage.",
+      "explanationAr": "في المهمّة الأولى من الكتابة لجزء من الكل: the highest proportion of people، a tiny proportion، وبديل جيد لـ percentage.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "approximately": {
+      "headword": "approximately",
+      "forms": [
+        "approximately"
+      ],
+      "pos": "adverb",
+      "ipa": "/əˈprɒksɪmətli/",
+      "pronounceFa": "اِپراکسیمِتلی",
+      "pronounceAr": "أبروكسِمَتلي",
+      "translationFa": "تقریباً",
+      "translationAr": "تقريبًا",
+      "explanationFa": "در رایتینگِ Task 1 وقتی عددِ دقیق معلوم نیست: approximately a quarter. هم‌معناهایش around و about‌اند.",
+      "explanationAr": "في المهمّة الأولى من الكتابة حين لا يكون الرقم الدقيق معروفًا: approximately a quarter، ومرادفاتها around وabout.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "official language": {
+      "headword": "official language",
+      "forms": [
+        "official languages",
+        "official language"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/əˌfɪʃl ˈlæŋɡwɪdʒ/",
+      "pronounceFa": "اِفیشِل لَنگوِیج",
+      "pronounceAr": "أفيشَل لانغويج",
+      "translationFa": "زبانِ رسمی",
+      "translationAr": "اللغة الرسمية",
+      "explanationFa": "زبانی که دولت و نهادهای رسمی به کار می‌برند؛ در جدول‌ها و متن‌های جغرافیاییِ آیلتس رایج است.",
+      "explanationAr": "اللغة التي تستخدمها الحكومة والمؤسسات الرسمية، وشائعة في جداول آيلتس ونصوصه الجغرافية.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "market share": {
+      "headword": "market share",
+      "forms": [
+        "market share"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmɑːkɪt ˈʃeə/",
+      "pronounceFa": "مارکیت شِر",
+      "pronounceAr": "ماركِت شير",
+      "translationFa": "سهمِ بازار",
+      "translationAr": "الحصة السوقية",
+      "explanationFa": "درصدی از کلِ فروشِ بازار که به یک شرکت می‌رسد؛ در نمودارهای Task 1 رایج است: have the biggest market share.",
+      "explanationAr": "نسبة ما تحصل عليه شركة من مجمل مبيعات السوق، وشائعة في مخطّطات المهمّة الأولى: have the biggest market share.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "national dish": {
+      "headword": "national dish",
+      "forms": [
+        "national dish"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌnæʃnəl ˈdɪʃ/",
+      "pronounceFa": "نَشنِل دیش",
+      "pronounceAr": "ناشنَل دِش",
+      "translationFa": "غذای ملی",
+      "translationAr": "الطبق الوطني",
+      "explanationFa": "dish این‌جا یعنی «غذای پخته‌شده»، نه «بشقاب»؛ در اسپیکینگ برای معرفیِ غذای کشورتان مفید است.",
+      "explanationAr": "dish هنا تعني «طبقًا مطهوًّا» لا «صحنًا»، ومفيدة في المحادثة للتعريف بطعام بلدك.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "popularity": {
+      "headword": "popularity",
+      "forms": [
+        "popularity"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌpɒpjuˈlærəti/",
+      "pronounceFa": "پاپیولَرِتی",
+      "pronounceAr": "بوبيولارَتي",
+      "translationFa": "محبوبیت",
+      "translationAr": "الشعبية",
+      "explanationFa": "اسمِ popular؛ هم‌آیندهایش: grow/increase in popularity، gain popularity. در توصیفِ روندها مفید است.",
+      "explanationAr": "اسم popular، ومن متلازماتها: grow/increase in popularity، gain popularity، ومفيدة في وصف الاتّجاهات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "interpret": {
+      "headword": "interpret",
+      "forms": [
+        "interpret",
+        "interprets",
+        "interpreted"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪnˈtɜːprɪt/",
+      "pronounceFa": "اینتِرپریت",
+      "pronounceAr": "إنتيربرِت",
+      "translationFa": "تفسیر کردن",
+      "translationAr": "يفسّر",
+      "explanationFa": "در رایتینگ Task 1 یعنی معنا دادن به داده‌ها، نه فقط تکرارِ عددها: interpret the data.",
+      "explanationAr": "في المهمّة الأولى من الكتابة يعني إعطاء البيانات معنى لا مجرّد تكرار الأرقام: interpret the data.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "onwards": {
+      "headword": "onwards",
+      "forms": [
+        "onwards"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈɒnwədz/",
+      "pronounceFa": "آنوِردز",
+      "pronounceAr": "أونوَردز",
+      "translationFa": "به بعد",
+      "translationAr": "فصاعدًا",
+      "explanationFa": "from 1960 onwards یعنی «از 1960 به بعد»؛ در توصیفِ روندِ زمانیِ نمودارها پرکاربرد است.",
+      "explanationAr": "from 1960 onwards تعني «من 1960 فصاعدًا»، وشائعة في وصف الاتّجاهات الزمنية في المخطّطات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "remain stable": {
+      "headword": "remain stable",
+      "forms": [
+        "remained stable",
+        "remain stable",
+        "remains stable"
+      ],
+      "pos": "phrase",
+      "ipa": "/rɪˌmeɪn ˈsteɪbl/",
+      "pronounceFa": "ریمِین اِستِیبِل",
+      "pronounceAr": "ريمين ستيبَل",
+      "translationFa": "ثابت ماندن",
+      "translationAr": "يظلّ مستقرًّا",
+      "explanationFa": "برای رقمی که تغییرِ زیادی نمی‌کند؛ هم‌معنا با level off و remain steady. در Task 1 بسیار پرکاربرد است.",
+      "explanationAr": "لرقم لا يتغيّر كثيرًا، ومرادفاتها level off وremain steady، وشائعة جدًّا في المهمّة الأولى.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "overweight": {
+      "headword": "overweight",
+      "forms": [
+        "overweight"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌəʊvəˈweɪt/",
+      "pronounceFa": "اووِروِیت",
+      "pronounceAr": "أوفَرويت",
+      "translationFa": "دارای اضافه‌وزن",
+      "translationAr": "زائد الوزن",
+      "explanationFa": "مؤدبانه‌تر از fat است؛ در متن‌های سلامت در کنارِ obese (چاقِ مفرط) می‌آید.",
+      "explanationAr": "أكثر تهذيبًا من fat، ويأتي في نصوص الصحة إلى جانب obese (سمين بإفراط).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "obese": {
+      "headword": "obese",
+      "forms": [
+        "obese",
+        "obesity"
+      ],
+      "pos": "adjective",
+      "ipa": "/əʊˈbiːs/",
+      "pronounceFa": "اوبیس",
+      "pronounceAr": "أوبيس",
+      "translationFa": "چاق (از نظرِ پزشکی)",
+      "translationAr": "بدين، مصاب بالسمنة",
+      "explanationFa": "اصطلاحِ پزشکی برای چاقیِ زیاد؛ اسمش obesity است: childhood obesity، موضوعِ رایجِ رایتینگ.",
+      "explanationAr": "مصطلح طبي للسمنة الشديدة، واسمه obesity: childhood obesity، موضوع شائع في الكتابة.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "significant": {
+      "headword": "significant",
+      "forms": [
+        "significant"
+      ],
+      "pos": "adjective",
+      "ipa": "/sɪɡˈnɪfɪkənt/",
+      "pronounceFa": "سیگنیفیکِنت",
+      "pronounceAr": "سِغنيفِكَنت",
+      "translationFa": "چشمگیر، قابلِ‌توجه",
+      "translationAr": "كبير، ملحوظ",
+      "explanationFa": "در Task 1: a significant increase/drop؛ رسمی‌تر از big. قیدش significantly است.",
+      "explanationAr": "في المهمّة الأولى: a significant increase/drop، وهي أكثر رسمية من big، والظرف significantly.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "gradual": {
+      "headword": "gradual",
+      "forms": [
+        "gradual"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈɡrædʒuəl/",
+      "pronounceFa": "گرَجوئِل",
+      "pronounceAr": "غراجوال",
+      "translationFa": "تدریجی",
+      "translationAr": "تدريجي",
+      "explanationFa": "صفتِ gradually؛ a gradual rise/decline. مقابلش sharp یا sudden است.",
+      "explanationAr": "صفة gradually: a gradual rise/decline، وعكسها sharp أو sudden.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "occur": {
+      "headword": "occur",
+      "forms": [
+        "occurred",
+        "occur",
+        "occurs"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈkɜː/",
+      "pronounceFa": "اِکِر",
+      "pronounceAr": "أكير",
+      "translationFa": "رخ دادن",
+      "translationAr": "يحدث",
+      "explanationFa": "رسمی‌ترِ happen؛ گذشته‌اش با دو r است: occurred. در توصیفِ نمودار: the biggest rise occurred in …",
+      "explanationAr": "أكثر رسمية من happen، وماضيه بحرفي r: occurred. وفي وصف المخطّطات: the biggest rise occurred in …",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "confirm": {
+      "headword": "confirm",
+      "forms": [
+        "confirms",
+        "confirm",
+        "confirmed"
+      ],
+      "pos": "verb",
+      "ipa": "/kənˈfɜːm/",
+      "pronounceFa": "کِنفِرم",
+      "pronounceAr": "كَنفيرم",
+      "translationFa": "تأیید کردن",
+      "translationAr": "يؤكّد",
+      "explanationFa": "در Task 1 برای ربط دادنِ دو نمودار: The pie chart confirms that …",
+      "explanationAr": "في المهمّة الأولى للربط بين مخطّطين: The pie chart confirms that …",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "at risk": {
+      "headword": "at risk",
+      "forms": [
+        "at risk"
+      ],
+      "pos": "phrase",
+      "ipa": "/ət ˈrɪsk/",
+      "pronounceFa": "اِت ریسک",
+      "pronounceAr": "أت رِسك",
+      "translationFa": "در خطر",
+      "translationAr": "في خطر",
+      "explanationFa": "be at risk of + اسم/فعلِ ing: be at risk of losing their jobs. در متن‌های سلامت و محیط زیست رایج است.",
+      "explanationAr": "be at risk of + اسم أو فعل بصيغة ing: be at risk of losing their jobs، وشائعة في نصوص الصحة والبيئة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "more or less": {
+      "headword": "more or less",
+      "forms": [
+        "more or less"
+      ],
+      "pos": "adverb phrase",
+      "ipa": "/ˌmɔːr ɔː ˈles/",
+      "pronounceFa": "مور اُ لِس",
+      "pronounceAr": "مور أو ليس",
+      "translationFa": "کم‌وبیش، تقریباً",
+      "translationAr": "تقريبًا، إلى حدّ ما",
+      "explanationFa": "برای تقریب: more or less equally. در Task 1 برای پرهیز از ادعای دقیق مفید است.",
+      "explanationAr": "للتقريب: more or less equally، ومفيدة في المهمّة الأولى لتجنّب الادّعاء الدقيق.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "apart from": {
+      "headword": "apart from",
+      "forms": [
+        "apart from"
+      ],
+      "pos": "preposition",
+      "ipa": "/əˈpɑːt frəm/",
+      "pronounceFa": "اِپارت فرِم",
+      "pronounceAr": "أبارت فرَم",
+      "translationFa": "جز، به‌جز؛ علاوه بر",
+      "translationAr": "باستثناء؛ إضافةً إلى",
+      "explanationFa": "دو معنا دارد: «به‌جز» (= except) و «علاوه بر» (= in addition to)؛ معنا از بافت معلوم می‌شود.",
+      "explanationAr": "لها معنيان: «باستثناء» (= except) و«إضافةً إلى» (= in addition to)، ويُعرف المعنى من السياق.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "matching task": {
+      "headword": "matching task",
+      "forms": [
+        "matching tasks",
+        "matching task"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈmætʃɪŋ tɑːsk/",
+      "pronounceFa": "مَچینگ تَسک",
+      "pronounceAr": "ماتشِنغ تاسك",
+      "translationFa": "تمرینِ جورکردنی (تطبیق)",
+      "translationAr": "مهمّة المطابقة",
+      "explanationFa": "نوعی سؤالِ آیلتس که باید فهرستی از گزینه‌ها را با سؤال‌ها جفت کنید؛ معمولاً همه‌ی گزینه‌ها استفاده نمی‌شوند.",
+      "explanationAr": "نوع من أسئلة آيلتس تطابق فيه قائمة خيارات مع الأسئلة، وغالبًا لا تُستخدم كل الخيارات.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "distractor": {
+      "headword": "distractor",
+      "forms": [
+        "distractors",
+        "distractor"
+      ],
+      "pos": "noun",
+      "ipa": "/dɪˈstræktə/",
+      "pronounceFa": "دیستِرَکتِر",
+      "pronounceAr": "دِستراكتَر",
+      "translationFa": "گزینه‌ی انحرافی",
+      "translationAr": "خيار مشتّت (مضلِّل)",
+      "explanationFa": "گزینه‌ای که در فایلِ صوتی یا متن ذکر می‌شود ولی پاسخ نیست؛ گوینده معمولاً بعد اصلاحش می‌کند یا ردش می‌کند.",
+      "explanationAr": "خيار يُذكر في التسجيل أو النص لكنه ليس الإجابة، وغالبًا ما يصحّحه المتحدّث أو يرفضه لاحقًا.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "classification task": {
+      "headword": "classification task",
+      "forms": [
+        "classification tasks",
+        "classification task"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌklæsɪfɪˈkeɪʃn tɑːsk/",
+      "pronounceFa": "کلَسیفیکِیشِن تَسک",
+      "pronounceAr": "كلاسِفِكيشَن تاسك",
+      "translationFa": "تمرینِ دسته‌بندی",
+      "translationAr": "مهمّة التصنيف",
+      "explanationFa": "نوعی سؤالِ آیلتس که چند گزاره را باید در سه یا چند دسته (A، B، C) قرار دهید؛ هر حرف را می‌توان چند بار به کار برد.",
+      "explanationAr": "نوع من أسئلة آيلتس تضع فيه عبارات في ثلاث فئات أو أكثر (A، B، C)، ويمكن استخدام الحرف أكثر من مرة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "roast": {
+      "headword": "roast",
+      "forms": [
+        "roast",
+        "roasted"
+      ],
+      "pos": "adjective / verb",
+      "ipa": "/rəʊst/",
+      "pronounceFa": "روست",
+      "pronounceAr": "روست",
+      "translationFa": "بریان، کباب‌شده در فر",
+      "translationAr": "مشويّ في الفرن، محمّص",
+      "explanationFa": "پختن در فر یا روی آتش با حرارتِ خشک، معمولاً برای گوشت و سبزی: roast chicken، roast potatoes. با grill و bake فرق دارد.",
+      "explanationAr": "الطهي في الفرن أو على النار بحرارة جافة، غالبًا للّحم والخضار: roast chicken، roast potatoes، ويختلف عن grill وbake.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "spicy": {
+      "headword": "spicy",
+      "forms": [
+        "spicy"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈspaɪsi/",
+      "pronounceFa": "اِسپایسی",
+      "pronounceAr": "سبايسي",
+      "translationFa": "تند، پرادویه",
+      "translationAr": "حارّ، كثير التوابل",
+      "explanationFa": "برای غذای پرادویه یا فلفلی؛ hot هم به همین معنا به کار می‌رود. too spicy for me در اسپیکینگ طبیعی است.",
+      "explanationAr": "للطعام الكثير التوابل أو الفلفل، وتُستخدم hot بالمعنى نفسه، وtoo spicy for me طبيعية في المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "seafood": {
+      "headword": "seafood",
+      "forms": [
+        "seafood"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsiːfuːd/",
+      "pronounceFa": "سی‌فود",
+      "pronounceAr": "سي فود",
+      "translationFa": "غذاهای دریایی",
+      "translationAr": "المأكولات البحرية",
+      "explanationFa": "غیرقابل‌شمارش است (seafoods نادرست است)؛ ماهی و صدف و میگو را در بر می‌گیرد.",
+      "explanationAr": "اسم غير معدود (لا يُقال seafoods)، ويشمل السمك والمحار والروبيان.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "specialise in": {
+      "headword": "specialise in",
+      "forms": [
+        "specialises in",
+        "specialise in",
+        "specialised in",
+        "specialising in"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˈspeʃəlaɪz ɪn/",
+      "pronounceFa": "اِسپِشِلایز این",
+      "pronounceAr": "سبيشَلايز إن",
+      "translationFa": "تخصص داشتن در",
+      "translationAr": "يتخصّص في",
+      "explanationFa": "املای بریتانیایی با s و آمریکایی با z است (specialize). برای رستوران، شرکت یا رشته‌ی تحصیلی به کار می‌رود.",
+      "explanationAr": "تُكتب في البريطانية بـ s وفي الأمريكية بـ z (specialize)، وتُستخدم للمطعم أو الشركة أو مجال الدراسة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "low-cost": {
+      "headword": "low-cost",
+      "forms": [
+        "low-cost"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌləʊ ˈkɒst/",
+      "pronounceFa": "لو کاست",
+      "pronounceAr": "لو كوست",
+      "translationFa": "کم‌هزینه، ارزان",
+      "translationAr": "منخفض التكلفة",
+      "explanationFa": "مترادفِ رسمی‌ترِ cheap؛ در لیسنینگ معمولاً به جای cheap شنیده می‌شود: low-cost airline.",
+      "explanationAr": "مرادف أكثر رسمية لـ cheap، ويُسمع في الاستماع غالبًا بدلًا منها: low-cost airline.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fashionable": {
+      "headword": "fashionable",
+      "forms": [
+        "fashionable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈfæʃnəbl/",
+      "pronounceFa": "فَشنِبِل",
+      "pronounceAr": "فاشنَبَل",
+      "translationFa": "مُد روز، شیک و باب",
+      "translationAr": "عصري، رائج",
+      "explanationFa": "برای چیزی که در زمانی خاص محبوب است: make healthy eating fashionable. متضادش old-fashioned است.",
+      "explanationAr": "لما هو رائج في وقت معيّن: make healthy eating fashionable، وعكسه old-fashioned.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "budget": {
+      "headword": "budget",
+      "forms": [
+        "budget"
+      ],
+      "pos": "adjective / noun",
+      "ipa": "/ˈbʌdʒɪt/",
+      "pronounceFa": "باجیت",
+      "pronounceAr": "باجِت",
+      "translationFa": "ارزان‌قیمت، اقتصادی؛ بودجه",
+      "translationAr": "اقتصادي، رخيص؛ ميزانية",
+      "explanationFa": "پیش از اسم یعنی «ارزان»: a budget meal، budget hotel. به‌عنوانِ اسم یعنی «بودجه»: on a tight budget.",
+      "explanationAr": "قبل الاسم يعني «رخيصًا»: a budget meal، budget hotel، وكاسم يعني «ميزانية»: on a tight budget.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "overpriced": {
+      "headword": "overpriced",
+      "forms": [
+        "overpriced"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌəʊvəˈpraɪst/",
+      "pronounceFa": "اووِرپرایست",
+      "pronounceAr": "أوفَربرايست",
+      "translationFa": "گران‌تر از ارزشِ واقعی",
+      "translationAr": "مُبالَغ في سعره",
+      "explanationFa": "فقط «گران» نیست، یعنی ارزشِ پولش را ندارد؛ متضادش value for money است.",
+      "explanationAr": "لا تعني «غاليًا» فقط، بل أنه لا يستحق ثمنه، وعكسها value for money.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "unappetising": {
+      "headword": "unappetising",
+      "forms": [
+        "unappetising"
+      ],
+      "pos": "adjective",
+      "ipa": "/ʌnˈæpɪtaɪzɪŋ/",
+      "pronounceFa": "آنَپیتایزینگ",
+      "pronounceAr": "أنابِتايزِنغ",
+      "translationFa": "بی‌اشتها‌کننده، بدمزه به نظر",
+      "translationAr": "غير مشهٍّ",
+      "explanationFa": "برای غذایی که ظاهر یا بویش اشتها را کور می‌کند؛ متضادِ appetising و mouth-watering.",
+      "explanationAr": "لطعام يسدّ مظهره أو رائحته الشهية، وعكسه appetising وmouth-watering.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "mouth-watering": {
+      "headword": "mouth-watering",
+      "forms": [
+        "mouth-watering"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈmaʊθ wɔːtərɪŋ/",
+      "pronounceFa": "مائوث وُتِرینگ",
+      "pronounceAr": "ماوث ووتَرِنغ",
+      "translationFa": "آب‌دهان‌راه‌انداز، بسیار اشتهابرانگیز",
+      "translationAr": "يسيل له اللعاب",
+      "explanationFa": "صفتی توصیفی و قوی به جای delicious؛ در اسپیکینگ برای تنوعِ واژگان امتیاز دارد.",
+      "explanationAr": "صفة وصفية قوية بدلًا من delicious، وتمنح نقاطًا لتنويع المفردات في المحادثة.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "old-fashioned": {
+      "headword": "old-fashioned",
+      "forms": [
+        "old-fashioned"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌəʊld ˈfæʃnd/",
+      "pronounceFa": "اولد فَشِند",
+      "pronounceAr": "أولد فاشَند",
+      "translationFa": "قدیمی، از مُد افتاده",
+      "translationAr": "قديم الطراز",
+      "explanationFa": "هم بی‌طرف (روشِ قدیمی) و هم منفی (از مُد افتاده) به کار می‌رود؛ هم‌معنای traditional در بافتِ مثبت.",
+      "explanationAr": "تُستخدم بمعنى محايد (الطريقة القديمة) أو سلبي (عتيق)، وتقارب traditional في السياق الإيجابي.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "contemporary": {
+      "headword": "contemporary",
+      "forms": [
+        "contemporary"
+      ],
+      "pos": "adjective",
+      "ipa": "/kənˈtemprəri/",
+      "pronounceFa": "کِنتِمپرِری",
+      "pronounceAr": "كَنتيمبرَري",
+      "translationFa": "امروزی، معاصر",
+      "translationAr": "معاصر، عصري",
+      "explanationFa": "رسمی‌ترِ modern؛ contemporary art، contemporary style. متضادِ traditional.",
+      "explanationAr": "أكثر رسمية من modern: contemporary art، contemporary style، وعكسها traditional.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "street food": {
+      "headword": "street food",
+      "forms": [
+        "street food"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈstriːt fuːd/",
+      "pronounceFa": "اِستریت فود",
+      "pronounceAr": "ستريت فود",
+      "translationFa": "غذای خیابانی",
+      "translationAr": "طعام الشارع",
+      "explanationFa": "غذایی که در دکه‌ها و گاری‌های کنارِ خیابان فروخته می‌شود؛ موضوعی رایج در اسپیکینگ درباره‌ی سفر و غذا.",
+      "explanationAr": "طعام يُباع في الأكشاك والعربات على جوانب الشوارع، وموضوع شائع في المحادثة عن السفر والطعام.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "stall": {
+      "headword": "stall",
+      "forms": [
+        "stalls",
+        "stall"
+      ],
+      "pos": "noun",
+      "ipa": "/stɔːl/",
+      "pronounceFa": "اِستال",
+      "pronounceAr": "ستول",
+      "translationFa": "دکه، غرفه (ی فروش)",
+      "translationAr": "كشك، بسطة",
+      "explanationFa": "میز یا غرفه‌ی کوچکِ فروش در بازار یا خیابان: market stall، food stall.",
+      "explanationAr": "طاولة أو كشك صغير للبيع في السوق أو الشارع: market stall، food stall.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "skilful": {
+      "headword": "skilful",
+      "forms": [
+        "skilful",
+        "skillful"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈskɪlfl/",
+      "pronounceFa": "اِسکیلفِل",
+      "pronounceAr": "سكِلفَل",
+      "translationFa": "ماهر، کاربلد",
+      "translationAr": "ماهر",
+      "explanationFa": "املای بریتانیایی با یک l در وسط (skilful) و آمریکایی skillful است؛ هم‌معنا با skilled.",
+      "explanationAr": "تُكتب في البريطانية skilful وفي الأمريكية skillful، وترادف skilled.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "expertise": {
+      "headword": "expertise",
+      "forms": [
+        "expertise"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌekspɜːˈtiːz/",
+      "pronounceFa": "اِکسپِرتیز",
+      "pronounceAr": "إكسبيرتيز",
+      "translationFa": "تخصص، مهارتِ تخصصی",
+      "translationAr": "خبرة، تخصّص",
+      "explanationFa": "غیرقابل‌شمارش است؛ expertise in something. با expert (متخصص) هم‌خانواده است و تکیه روی هجای آخر است.",
+      "explanationAr": "اسم غير معدود: expertise in something، من عائلة expert (خبير)، والنبر على المقطع الأخير.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "highly trained": {
+      "headword": "highly trained",
+      "forms": [
+        "highly trained"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˌhaɪli ˈtreɪnd/",
+      "pronounceFa": "هایلی تِرِیند",
+      "pronounceAr": "هايلي ترَيند",
+      "translationFa": "بسیار آموزش‌دیده و ماهر",
+      "translationAr": "مدرَّب تدريبًا عاليًا",
+      "explanationFa": "highly پیش از صفت‌های مفعولی یعنی «بسیار»: highly skilled، highly qualified، highly recommended.",
+      "explanationAr": "highly قبل صفات المفعول تعني «جدًّا»: highly skilled، highly qualified، highly recommended.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "flexible": {
+      "headword": "flexible",
+      "forms": [
+        "flexible"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈfleksəbl/",
+      "pronounceFa": "فلِکسِبِل",
+      "pronounceAr": "فليكسَبَل",
+      "translationFa": "انعطاف‌پذیر، منعطف",
+      "translationAr": "مرن",
+      "explanationFa": "هم برای آدم و برنامه (flexible working hours) و هم برای جنس؛ اسمش flexibility است.",
+      "explanationAr": "يُستخدم للأشخاص والخطط (flexible working hours) وللمواد، والاسم flexibility.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "strictly": {
+      "headword": "strictly",
+      "forms": [
+        "strictly"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈstrɪktli/",
+      "pronounceFa": "اِستریکتلی",
+      "pronounceAr": "ستريكتلي",
+      "translationFa": "دقیقاً، با سخت‌گیری",
+      "translationAr": "بدقّة، بصرامة",
+      "explanationFa": "follow the rules/recipe strictly؛ همچنین strictly speaking یعنی «اگر دقیق بگوییم».",
+      "explanationAr": "follow the rules/recipe strictly، وstrictly speaking تعني «بالمعنى الدقيق».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "recognised": {
+      "headword": "recognised",
+      "forms": [
+        "recognised",
+        "recognized"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈrekəɡnaɪzd/",
+      "pronounceFa": "رِکِگنایزد",
+      "pronounceAr": "ريكَغنايزد",
+      "translationFa": "شناخته‌شده و معتبر",
+      "translationAr": "معترَف به، معروف",
+      "explanationFa": "یعنی کسی یا چیزی که اعتبار و شهرتش پذیرفته شده: recognised across the country، a recognised qualification.",
+      "explanationAr": "أي من نال اعترافًا وشهرة مقبولة: recognised across the country، a recognised qualification.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "regional": {
+      "headword": "regional",
+      "forms": [
+        "regional"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈriːdʒənl/",
+      "pronounceFa": "ریجِنِل",
+      "pronounceAr": "ريجَنَل",
+      "translationFa": "منطقه‌ای، محلی",
+      "translationAr": "إقليمي، محلّي",
+      "explanationFa": "صفتِ region؛ regional cooking/accent/differences. در متن‌های جغرافیایی پرکاربرد است.",
+      "explanationAr": "صفة region: regional cooking/accent/differences، وشائعة في النصوص الجغرافية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "adapt": {
+      "headword": "adapt",
+      "forms": [
+        "adapted",
+        "adapt",
+        "adapts"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈdæpt/",
+      "pronounceFa": "اِدَپت",
+      "pronounceAr": "أدابت",
+      "translationFa": "تطبیق دادن، سازگار کردن",
+      "translationAr": "يكيّف، يتكيّف",
+      "explanationFa": "adapt something to (تطبیق دادنِ چیزی با) و adapt to (سازگار شدن با): adapt to a new culture. با adopt (پذیرفتن) اشتباه نشود.",
+      "explanationAr": "adapt something to (تكييف شيء مع) وadapt to (التكيّف مع): adapt to a new culture. لا تخلطوا بينها وبين adopt (يتبنّى).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "preparation time": {
+      "headword": "preparation time",
+      "forms": [
+        "preparation time"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌprepəˈreɪʃn taɪm/",
+      "pronounceFa": "پرِپِرِیشِن تایم",
+      "pronounceAr": "بريبَريشَن تايم",
+      "translationFa": "زمانِ آمادگی",
+      "translationAr": "وقت التحضير",
+      "explanationFa": "در بخشِ 2 اسپیکینگ یک دقیقه زمانِ آمادگی دارید تا یادداشت بنویسید؛ بهتر است کلمه‌های کلیدی بنویسید، نه جمله‌ی کامل.",
+      "explanationAr": "في الجزء 2 من المحادثة لديك دقيقة واحدة للتحضير وكتابة الملاحظات، والأفضل كتابة كلمات مفتاحية لا جمل كاملة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "toppings": {
+      "headword": "toppings",
+      "forms": [
+        "toppings",
+        "topping"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtɒpɪŋz/",
+      "pronounceFa": "تاپینگز",
+      "pronounceAr": "توبِنغز",
+      "translationFa": "مواد رویه (ی پیتزا یا غذا)",
+      "translationAr": "الإضافات (فوق البيتزا أو الطعام)",
+      "explanationFa": "آنچه روی پیتزا، بستنی یا کیک ریخته می‌شود: pizza toppings.",
+      "explanationAr": "ما يوضع فوق البيتزا أو المثلّجات أو الكعك: pizza toppings.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "convenient": {
+      "headword": "convenient",
+      "forms": [
+        "convenient"
+      ],
+      "pos": "adjective",
+      "ipa": "/kənˈviːniənt/",
+      "pronounceFa": "کِنوینیِنت",
+      "pronounceAr": "كَنفينيَنت",
+      "translationFa": "راحت، مناسب، دم‌دستی",
+      "translationAr": "مريح، ملائم",
+      "explanationFa": "برای چیزی که در وقت یا زحمت صرفه‌جویی می‌کند: convenient food/location. اسمش convenience است.",
+      "explanationAr": "لما يوفّر الوقت أو الجهد: convenient food/location، والاسم convenience.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "texture": {
+      "headword": "texture",
+      "forms": [
+        "texture"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtekstʃə/",
+      "pronounceFa": "تِکسچِر",
+      "pronounceAr": "تيكستشَر",
+      "translationFa": "بافت",
+      "translationAr": "القوام، الملمس",
+      "explanationFa": "حسِّ یک غذا یا جنس زیرِ دندان یا دست: smooth/crunchy texture. در توصیفِ غذا در اسپیکینگ دقیق‌تر از taste است.",
+      "explanationAr": "إحساس الطعام أو المادة عند المضغ أو اللمس: smooth/crunchy texture، وهي أدقّ من taste في وصف الطعام.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "chewy": {
+      "headword": "chewy",
+      "forms": [
+        "chewy"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtʃuːi/",
+      "pronounceFa": "چوئی",
+      "pronounceAr": "تشوي",
+      "translationFa": "سخت‌جو، لاستیکی (غذا)",
+      "translationAr": "صعب المضغ، مطّاطي",
+      "explanationFa": "از فعلِ chew (جویدن)؛ برای غذایی که باید زیاد جویده شود. too chewy معمولاً منفی است.",
+      "explanationAr": "من الفعل chew (يمضغ)، لطعام يحتاج إلى مضغ كثير، وtoo chewy سلبية غالبًا.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "task card": {
+      "headword": "task card",
+      "forms": [
+        "task card"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈtɑːsk kɑːd/",
+      "pronounceFa": "تَسک کارد",
+      "pronounceAr": "تاسك كارد",
+      "translationFa": "کارتِ تسک (کارتِ موضوعِ بخشِ 2)",
+      "translationAr": "بطاقة المهمّة",
+      "explanationFa": "کارتی که در بخشِ 2 اسپیکینگ به شما داده می‌شود: یک موضوع و چند نکته که باید به همه‌شان بپردازید.",
+      "explanationAr": "البطاقة التي تُعطى لك في الجزء 2 من المحادثة، وفيها موضوع وعدّة نقاط عليك تغطيتها كلها.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "remind of": {
+      "headword": "remind of",
+      "forms": [
+        "reminds her of",
+        "reminds me of",
+        "remind me of",
+        "reminds us of"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/rɪˈmaɪnd əv/",
+      "pronounceFa": "ریمایند آو",
+      "pronounceAr": "ريمايند أوف",
+      "translationFa": "(کسی را) یادِ (چیزی) انداختن",
+      "translationAr": "يذكّر (شخصًا) بـ",
+      "explanationFa": "ساختار: remind somebody of something؛ It reminds me of home. با remember (به یاد آوردن) فرق دارد.",
+      "explanationAr": "التركيب: remind somebody of something: It reminds me of home، ويختلف عن remember (يتذكّر).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "make notes": {
+      "headword": "make notes",
+      "forms": [
+        "make notes",
+        "making notes"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌmeɪk ˈnəʊts/",
+      "pronounceFa": "مِیک نوتس",
+      "pronounceAr": "ميك نوتس",
+      "translationFa": "یادداشت برداشتن",
+      "translationAr": "يدوّن ملاحظات",
+      "explanationFa": "هم‌معنا با take notes؛ در بخشِ 2 اسپیکینگ و لیسنینگ مهارتی کلیدی است: make notes on the topic.",
+      "explanationAr": "ترادف take notes، وهي مهارة أساسية في الجزء 2 من المحادثة وفي الاستماع: make notes on the topic.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "juicy": {
+      "headword": "juicy",
+      "forms": [
+        "juicy"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈdʒuːsi/",
+      "pronounceFa": "جوسی",
+      "pronounceAr": "جوسي",
+      "translationFa": "آبدار",
+      "translationAr": "كثير العصارة",
+      "explanationFa": "برای میوه یا گوشتِ پرآب و خوشمزه: a juicy steak؛ صفتی توصیفی که در اسپیکینگ خوب است.",
+      "explanationAr": "للفاكهة أو اللحم الطريّ الكثير العصارة: a juicy steak، وصفة وصفية جيدة في المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "take it in turns": {
+      "headword": "take it in turns",
+      "forms": [
+        "take it in turns"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌteɪk ɪt ɪn ˈtɜːnz/",
+      "pronounceFa": "تِیک ایت این تِرنز",
+      "pronounceAr": "تيك إت إن تيرنز",
+      "translationFa": "به نوبت انجام دادن",
+      "translationAr": "يتناوب",
+      "explanationFa": "بریتانیایی؛ take it in turns to do something. شکلِ دیگرش take turns است.",
+      "explanationAr": "تعبير بريطاني: take it in turns to do something، وصيغته الأخرى take turns.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "to sum up": {
+      "headword": "to sum up",
+      "forms": [
+        "to sum up"
+      ],
+      "pos": "phrase",
+      "ipa": "/tə ˌsʌm ˈʌp/",
+      "pronounceFa": "تو سام آپ",
+      "pronounceAr": "تو سام أب",
+      "translationFa": "در جمع‌بندی، خلاصه اینکه",
+      "translationAr": "خلاصة القول",
+      "explanationFa": "برای شروعِ نتیجه‌گیری در اسپیکینگ و رایتینگ؛ هم‌معنا با in conclusion و in summary.",
+      "explanationAr": "لبدء الخاتمة في المحادثة والكتابة، وترادف in conclusion وin summary.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "keep track of": {
+      "headword": "keep track of",
+      "forms": [
+        "keep track of"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌkiːp ˈtræk əv/",
+      "pronounceFa": "کیپ تِرَک آو",
+      "pronounceAr": "كيب تراك أوف",
+      "translationFa": "رشته‌ی (چیزی) را از دست ندادن، دنبال کردن",
+      "translationAr": "يتابع، لا يفقد أثر",
+      "explanationFa": "یعنی همیشه بدانید کجای کار هستید: keep track of your spending/talk. متضادش lose track of است.",
+      "explanationAr": "أي أن تعرف دائمًا أين أنت: keep track of your spending/talk، وعكسها lose track of.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "relating to": {
+      "headword": "relating to",
+      "forms": [
+        "relating to"
+      ],
+      "pos": "phrase",
+      "ipa": "/rɪˈleɪtɪŋ tə/",
+      "pronounceFa": "ریلِیتینگ تو",
+      "pronounceAr": "ريليتِنغ تو",
+      "translationFa": "مربوط به",
+      "translationAr": "المتعلّق بـ",
+      "explanationFa": "شکلِ رسمیِ about پس از اسم: information relating to the task. هم‌خانواده‌ی relate to.",
+      "explanationAr": "صيغة رسمية لـ about بعد الاسم: information relating to the task، من عائلة relate to.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "filling": {
+      "headword": "filling",
+      "forms": [
+        "filling"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈfɪlɪŋ/",
+      "pronounceFa": "فیلینگ",
+      "pronounceAr": "فِلِنغ",
+      "translationFa": "سیرکننده",
+      "translationAr": "مُشبِع",
+      "explanationFa": "برای غذایی که زود آدم را سیر می‌کند: a filling meal. به‌عنوانِ اسم یعنی «مواد داخلِ غذا» (pie filling).",
+      "explanationAr": "لطعام يُشبع سريعًا: a filling meal، وكاسم تعني «الحشوة» (pie filling).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "economical": {
+      "headword": "economical",
+      "forms": [
+        "economical"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌiːkəˈnɒmɪkl/",
+      "pronounceFa": "ایکِنامیکِل",
+      "pronounceAr": "إيكَنومِكَل",
+      "translationFa": "به‌صرفه، کم‌خرج",
+      "translationAr": "اقتصادي، موفّر",
+      "explanationFa": "یعنی پول یا انرژی کمی مصرف می‌کند؛ با economic (مربوط به اقتصاد) فرق دارد: economic growth.",
+      "explanationAr": "أي يستهلك القليل من المال أو الطاقة، ويختلف عن economic (متعلّق بالاقتصاد): economic growth.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "occasion": {
+      "headword": "occasion",
+      "forms": [
+        "occasion",
+        "occasions"
+      ],
+      "pos": "noun",
+      "ipa": "/əˈkeɪʒn/",
+      "pronounceFa": "اِکِیژِن",
+      "pronounceAr": "أكيجَن",
+      "translationFa": "مناسبت؛ موقعیت",
+      "translationAr": "مناسبة",
+      "explanationFa": "a special occasion رویدادی مثلِ تولد یا عروسی است؛ موضوعِ رایجِ بخشِ 2 اسپیکینگ. املا: یک c دوتایی و یک s.",
+      "explanationAr": "a special occasion حدث مثل عيد ميلاد أو زفاف، وموضوع شائع في الجزء 2 من المحادثة. الإملاء: حرفا c وحرف s واحد.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "take ages": {
+      "headword": "take ages",
+      "forms": [
+        "takes ages",
+        "take ages",
+        "took ages"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌteɪk ˈeɪdʒɪz/",
+      "pronounceFa": "تِیک اِیجیز",
+      "pronounceAr": "تيك إيجِز",
+      "translationFa": "کلی طول کشیدن",
+      "translationAr": "يستغرق دهرًا (وقتًا طويلًا جدًّا)",
+      "explanationFa": "محاوره‌ای و مبالغه‌آمیز برای «خیلی طول کشیدن»: It takes ages to bake potatoes. در اسپیکینگ طبیعی است ولی در رایتینگ نه.",
+      "explanationAr": "تعبير عامّي مبالغ فيه لـ«يستغرق وقتًا طويلًا»: It takes ages to bake potatoes، طبيعي في المحادثة لا في الكتابة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "food critic": {
+      "headword": "food critic",
+      "forms": [
+        "food critic"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈfuːd ˌkrɪtɪk/",
+      "pronounceFa": "فود کریتیک",
+      "pronounceAr": "فود كرِتِك",
+      "translationFa": "منتقدِ غذا",
+      "translationAr": "ناقد الطعام",
+      "explanationFa": "کسی که رستوران‌ها را ارزیابی می‌کند و درباره‌شان می‌نویسد؛ critic (منتقد) با criticism (انتقاد) و critical هم‌خانواده است.",
+      "explanationAr": "من يقيّم المطاعم ويكتب عنها، وcritic (ناقد) من عائلة criticism (نقد) وcritical.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "recommendation": {
+      "headword": "recommendation",
+      "forms": [
+        "recommendations",
+        "recommendation"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌrekəmenˈdeɪʃn/",
+      "pronounceFa": "رِکِمِندِیشِن",
+      "pronounceAr": "ريكَمِنديشَن",
+      "translationFa": "پیشنهاد، توصیه",
+      "translationAr": "توصية",
+      "explanationFa": "اسمِ recommend؛ make a recommendation. املا: یک c و دو m.",
+      "explanationAr": "اسم recommend: make a recommendation. الإملاء: حرف c واحد وحرفا m.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "word of warning": {
+      "headword": "word of warning",
+      "forms": [
+        "word of warning"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌwɜːd əv ˈwɔːnɪŋ/",
+      "pronounceFa": "وِرد آو وُرنینگ",
+      "pronounceAr": "وورد أوف وورنِنغ",
+      "translationFa": "یک هشدار، یک تذکر",
+      "translationAr": "كلمة تحذير",
+      "explanationFa": "برای شروعِ هشدارِ کوتاه و دوستانه: A word of warning, it gets very busy at weekends.",
+      "explanationAr": "لبدء تحذير قصير وودّي: A word of warning, it gets very busy at weekends.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "on a budget": {
+      "headword": "on a budget",
+      "forms": [
+        "on a budget"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɒn ə ˈbʌdʒɪt/",
+      "pronounceFa": "آن اِ باجیت",
+      "pronounceAr": "أون أ باجِت",
+      "translationFa": "با بودجه‌ی محدود",
+      "translationAr": "بميزانية محدودة",
+      "explanationFa": "برای کسی که باید کم خرج کند: travel on a budget. شکلِ قوی‌ترش on a tight budget است.",
+      "explanationAr": "لمن عليه أن يقتصد في الإنفاق: travel on a budget، والصيغة الأقوى on a tight budget.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "food for thought": {
+      "headword": "food for thought",
+      "forms": [
+        "food for thought"
+      ],
+      "pos": "idiom",
+      "ipa": "/ˌfuːd fə ˈθɔːt/",
+      "pronounceFa": "فود فِر ثات",
+      "pronounceAr": "فود فَر ثوت",
+      "translationFa": "چیزی برای فکر کردن، مایه‌ی تأمل",
+      "translationAr": "ما يدعو إلى التفكير",
+      "explanationFa": "اصطلاح برای ایده یا اطلاعاتی که باید درباره‌اش فکر کرد: give someone food for thought. این‌جا بازیِ کلامی با موضوعِ غذاست.",
+      "explanationAr": "تعبير لفكرة أو معلومة تستحق التأمّل: give someone food for thought، وهنا تلاعب لفظي بموضوع الطعام.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "tend to": {
+      "headword": "tend to",
+      "forms": [
+        "tend to",
+        "tends to",
+        "tended to"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˈtend tə/",
+      "pronounceFa": "تِند تو",
+      "pronounceAr": "تِند تو",
+      "translationFa": "معمولاً (کاری را) کردن، گرایش داشتن به",
+      "translationAr": "يميل إلى",
+      "explanationFa": "tend to + مصدر برای عادت یا گرایشِ کلی؛ در رایتینگ برای کلی‌گویی محتاطانه عالی است: People tend to cook less.",
+      "explanationAr": "tend to + المصدر للعادة أو الميل العام، وممتازة في الكتابة للتعميم الحذر: People tend to cook less.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "tricky": {
+      "headword": "tricky",
+      "forms": [
+        "tricky"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtrɪki/",
+      "pronounceFa": "تریکی",
+      "pronounceAr": "ترِكي",
+      "translationFa": "دشوار و نیازمندِ دقت",
+      "translationAr": "صعب، يحتاج إلى مهارة",
+      "explanationFa": "محاوره‌ایِ difficult برای کاری که مهارت یا دقت می‌خواهد: Chopsticks can be tricky to use.",
+      "explanationAr": "بديل عامّي لـ difficult لعمل يحتاج إلى مهارة أو دقّة: Chopsticks can be tricky to use.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "that said": {
+      "headword": "that said",
+      "forms": [
+        "that said"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌðæt ˈsed/",
+      "pronounceFa": "ذَت سِد",
+      "pronounceAr": "ذات سيد",
+      "translationFa": "با این حال، با وجودِ این",
+      "translationAr": "ومع ذلك",
+      "explanationFa": "عبارتِ ربط برای آوردنِ نکته‌ی مخالف پس از جمله‌ی قبل؛ هم‌معنا با having said that و however.",
+      "explanationAr": "أداة ربط لذكر نقطة مخالفة بعد الجملة السابقة، وترادف having said that وhowever.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "form the basis of": {
+      "headword": "form the basis of",
+      "forms": [
+        "forms the basis of",
+        "form the basis of"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌfɔːm ðə ˈbeɪsɪs əv/",
+      "pronounceFa": "فُرم ذِ بِیسیس آو",
+      "pronounceAr": "فورم ذَ بيسِس أوف",
+      "translationFa": "پایه و اساسِ (چیزی) بودن",
+      "translationAr": "يشكّل أساس",
+      "explanationFa": "هم‌آیندی آکادمیک: Beef forms the basis of many meals. در رایتینگ به جای is the main part of.",
+      "explanationAr": "متلازمة أكاديمية: Beef forms the basis of many meals، وتُستخدم في الكتابة بدلًا من is the main part of.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "originally": {
+      "headword": "originally",
+      "forms": [
+        "originally"
+      ],
+      "pos": "adverb",
+      "ipa": "/əˈrɪdʒənəli/",
+      "pronounceFa": "اِریجِنِلی",
+      "pronounceAr": "أوريجَنَلي",
+      "translationFa": "در اصل، در ابتدا",
+      "translationAr": "في الأصل",
+      "explanationFa": "برای منشأ یا وضعِ اولیه: These snacks are originally from north-west China.",
+      "explanationAr": "للأصل أو الحالة الأولى: These snacks are originally from north-west China.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "sociable": {
+      "headword": "sociable",
+      "forms": [
+        "sociable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈsəʊʃəbl/",
+      "pronounceFa": "سوشِبِل",
+      "pronounceAr": "سوشَبَل",
+      "translationFa": "اجتماعی، دورهمی",
+      "translationAr": "اجتماعي، ودود",
+      "explanationFa": "برای آدمِ معاشرتی یا فعالیتی که آدم‌ها را دورِ هم جمع می‌کند؛ با social (مربوط به جامعه) فرق دارد.",
+      "explanationAr": "للشخص المحبّ للمخالطة أو لنشاط يجمع الناس، ويختلف عن social (متعلّق بالمجتمع).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "highlight": {
+      "headword": "highlight",
+      "forms": [
+        "highlights",
+        "highlight"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈhaɪlaɪt/",
+      "pronounceFa": "هایلایت",
+      "pronounceAr": "هايلايت",
+      "translationFa": "بهترین یا جالب‌ترین بخش",
+      "translationAr": "أبرز ما في، أهمّ لحظة",
+      "explanationFa": "one of the highlights of the trip؛ به‌عنوانِ فعل یعنی «برجسته کردن»: highlight the main features.",
+      "explanationAr": "one of the highlights of the trip، وكفعل تعني «يُبرز»: highlight the main features.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "run out of": {
+      "headword": "run out of",
+      "forms": [
+        "run out of",
+        "ran out of",
+        "running out of"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌrʌn ˈaʊt əv/",
+      "pronounceFa": "ران آوت آو",
+      "pronounceAr": "ران آوت أوف",
+      "translationFa": "تمام کردن، کم آوردن",
+      "translationAr": "ينفد منه",
+      "explanationFa": "run out of time/money/milk یعنی دیگر چیزی از آن نمانده؛ در اسپیکینگ: Sorry, we've run out of time.",
+      "explanationAr": "run out of time/money/milk تعني لم يبقَ منه شيء، وفي المحادثة: Sorry, we've run out of time.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "unlike": {
+      "headword": "unlike",
+      "forms": [
+        "unlike"
+      ],
+      "pos": "preposition",
+      "ipa": "/ʌnˈlaɪk/",
+      "pronounceFa": "آنلایک",
+      "pronounceAr": "أنلايك",
+      "translationFa": "برخلافِ",
+      "translationAr": "على خلاف",
+      "explanationFa": "برای مقایسه و تضاد: Unlike most countries, we fry the rice first. در رایتینگِ مقایسه‌ای پرکاربرد است.",
+      "explanationAr": "للمقارنة والتضادّ: Unlike most countries, we fry the rice first، وشائعة في الكتابة المقارِنة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "starter": {
+      "headword": "starter",
+      "forms": [
+        "starter"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈstɑːtə/",
+      "pronounceFa": "اِستارتِر",
+      "pronounceAr": "ستارتَر",
+      "translationFa": "پیش‌غذا",
+      "translationAr": "المقبّلات",
+      "explanationFa": "بریتانیایی؛ در آمریکایی appetizer. ترتیبِ وعده: starter، main course، dessert.",
+      "explanationAr": "تعبير بريطاني، وفي الأمريكية appetizer. ترتيب الوجبة: starter، main course، dessert.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "waste": {
+      "headword": "waste",
+      "forms": [
+        "waste"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/weɪst/",
+      "pronounceFa": "وِیست",
+      "pronounceAr": "ويست",
+      "translationFa": "هدر دادن؛ زباله، اتلاف",
+      "translationAr": "يهدر؛ نفايات، هدر",
+      "explanationFa": "waste food/time/money؛ food waste موضوعِ رایجِ رایتینگِ محیط زیست است.",
+      "explanationAr": "waste food/time/money، وfood waste موضوع شائع في مقالات البيئة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be fond of": {
+      "headword": "be fond of",
+      "forms": [
+        "fond of"
+      ],
+      "pos": "phrase",
+      "ipa": "/bi ˈfɒnd əv/",
+      "pronounceFa": "بی فاند آو",
+      "pronounceAr": "بي فوند أوف",
+      "translationFa": "علاقه داشتن به",
+      "translationAr": "مولع بـ",
+      "explanationFa": "پس از آن اسم یا فعلِ ing‌دار می‌آید: She's very fond of cooking. جایگزینِ خوبی برای like در اسپیکینگ.",
+      "explanationAr": "يليها اسم أو فعل بصيغة ing: She's very fond of cooking، وبديل جيد لـ like في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "cheer up": {
+      "headword": "cheer up",
+      "forms": [
+        "cheered me up",
+        "cheer up",
+        "cheers me up",
+        "cheered up"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌtʃɪər ˈʌp/",
+      "pronounceFa": "چیر آپ",
+      "pronounceAr": "تشير أب",
+      "translationFa": "(کسی را) سرحال آوردن، حالِ کسی را خوب کردن",
+      "translationAr": "يُبهج، يرفع المعنويات",
+      "explanationFa": "cheer somebody up یعنی کسی را از ناراحتی درآوردن؛ Cheer up! یعنی «غصه نخور!».",
+      "explanationAr": "cheer somebody up تعني إخراج أحد من حزنه، وCheer up! تعني «ابتهج!».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
     }
   }
 }
