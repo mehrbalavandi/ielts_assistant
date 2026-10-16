@@ -30,7 +30,7 @@ Future<void> openStudyReview(BuildContext context, {String? currentBookId}) {
 
 enum _Sort { importance, recent }
 
-enum _Menu { refreshShared, toggleShared }
+enum _Menu { refreshShared, toggleShared, dismissed }
 
 class StudyReviewScreen extends ConsumerStatefulWidget {
   const StudyReviewScreen({super.key, this.currentBookId});
@@ -86,6 +86,8 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
             ),
           ),
         );
+      case _Menu.dismissed:
+        await _showDismissed();
       case _Menu.toggleShared:
         final bool on = !n.sharedEnabled;
         await n.setSharedEnabled(on);
@@ -100,6 +102,31 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
         );
     }
     if (mounted) setState(() {});
+  }
+
+  /// 🌟 ST-8: فهرستِ موردهای آماده‌ای که کاربر حذف کرده، با «برگرداندن» (تکی یا همه).
+  Future<void> _showDismissed() async {
+    final StudyNotifier n = ref.read(studyProvider.notifier);
+    final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+    final List<String>? ids = await showModalBottomSheet<List<String>>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (ctx) => _DismissedSheet(items: n.dismissedShared),
+    );
+    if (ids == null || ids.isEmpty) return;
+    final int? back = await n.restoreDismissed(ids);
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(
+          back == null
+              ? 'اتصال به سایت برقرار نشد؛ دوباره امتحان کنید.'
+              : back == 0
+              ? 'این موردها دیگر در «مرورِ آماده»ِ سایت نیستند.'
+              : '$back مورد به «مرورِ من» برگشت.',
+        ),
+      ),
+    );
   }
 
   void _showAddMenu(BuildContext context) {
@@ -227,6 +254,18 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
                       contentPadding: EdgeInsets.zero,
                       leading: Icon(Icons.campaign_rounded),
                       title: Text('دریافتِ موردهای آماده‌ی سایت'),
+                    ),
+                  ),
+                  // 🌟 ST-8: موردهای آماده‌ای که حذف شده‌اند و می‌شود برشان گرداند.
+                  PopupMenuItem(
+                    value: _Menu.dismissed,
+                    enabled: ref.read(studyProvider.notifier).dismissedShared.isNotEmpty,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(Icons.restore_from_trash_rounded),
+                      title: Text(
+                        'موردهای آماده‌ی حذف‌شده (${ref.read(studyProvider.notifier).dismissedShared.length})',
+                      ),
                     ),
                   ),
                   CheckedPopupMenuItem(
@@ -940,6 +979,76 @@ class _ItemActions extends ConsumerWidget {
         const Spacer(),
         if (trailing != null) trailing!,
       ],
+    );
+  }
+}
+
+/// 🌟 ST-8: انتخابِ موردهای آماده‌ی حذف‌شده برای برگرداندن. نتیجه: شناسه‌های انتخاب‌شده.
+class _DismissedSheet extends StatefulWidget {
+  const _DismissedSheet({required this.items});
+
+  final List<(String, String, bool)> items;
+
+  @override
+  State<_DismissedSheet> createState() => _DismissedSheetState();
+}
+
+class _DismissedSheetState extends State<_DismissedSheet> {
+  late final Set<String> _selected = {for (final (String id, _, _) in widget.items) id};
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SafeArea(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                child: Text(
+                  'موردهای آماده‌ی سایت که حذف کرده‌اید. انتخاب‌شده‌ها دوباره به «مرورِ من» برمی‌گردند '
+                  '(با محتوای امروزِ سایت).',
+                  style: TextStyle(color: Colors.grey.shade700, height: 1.7, fontSize: 13),
+                ),
+              ),
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (final (String id, String title, bool tip) in widget.items)
+                      CheckboxListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
+                        value: _selected.contains(id),
+                        onChanged: (v) => setState(
+                          () => v == true ? _selected.add(id) : _selected.remove(id),
+                        ),
+                        secondary: Icon(
+                          tip ? Icons.lightbulb_outline_rounded : Icons.translate_rounded,
+                          size: 20,
+                        ),
+                        title: Text(title, textDirection: TextDirection.ltr),
+                      ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: FilledButton.icon(
+                  onPressed: _selected.isEmpty
+                      ? null
+                      : () => Navigator.pop(context, _selected.toList()),
+                  icon: const Icon(Icons.restore_rounded),
+                  label: Text('برگرداندنِ ${_selected.length} مورد'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

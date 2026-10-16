@@ -115,6 +115,9 @@ void removeStudyItemWithUndo(
       content: Text(
         item.kind == StudyKind.passage
             ? 'از مرور حذف شد'
+            : item.source == StudySource.admin
+            // 🌟 ST-8
+            ? '«${item.text}» حذف شد. بعداً هم از منوی «مرورِ من» ← «موردهای آماده‌ی حذف‌شده» برمی‌گردد.'
             : '«${item.text}» از مرور حذف شد',
       ),
       action: SnackBarAction(

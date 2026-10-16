@@ -229,6 +229,7 @@ class BackupNotifier extends Notifier<BackupState> {
     // 🌟 ST-7: دریافتِ «مرورِ آماده» روشن/خاموش، و موردهای آماده‌ای که کاربر حذف کرده.
     StudyNotifier.sharedEnabledKey,
     StudyNotifier.sharedDismissedKey,
+    StudyNotifier.sharedDismissedTitlesKey,
   ];
 
   /// جای مطالعه‌ی هر کتاب هم (scroll_page_/scroll_align_)؛ موقعیتِ فایل‌های صوتی نه،

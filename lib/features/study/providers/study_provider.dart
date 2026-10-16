@@ -29,8 +29,15 @@ class StudyNotifier extends Notifier<Map<String, StudyItem>> {
   static const String sharedCursorKey = 'shared_study_cursor';
   static const String sharedDismissedKey = 'shared_study_dismissed';
 
+  /// 🌟 ST-8: عنوانِ موردهای آماده‌ی حذف‌شده (id ← متن)، برای فهرستِ «برگرداندن».
+  static const String sharedDismissedTitlesKey = 'shared_study_dismissed_titles';
+
   final GetStorage _box = GetStorage();
   bool _sharedRunning = false;
+
+  /// 🌟 ST-8: موردهایی که کاربر همین حالا برگردانده؛ با زمانِ «الان» و dirty نوشته می‌شوند تا
+  /// بر سنگِ قبرِ قدیمی‌شان در پشتیبانِ سرور (و دستگاه‌های دیگر) غلبه کنند.
+  final Set<String> _revive = {};
 
   @override
   Map<String, StudyItem> build() {
@@ -96,7 +103,7 @@ class StudyNotifier extends Notifier<Map<String, StudyItem>> {
     state = LinkedHashMap.of(state)..remove(id);
     _write(cur.copyWith(), deleted: true);
     // موردِ «آماده»ای که کاربر حذف کرده، با همگام‌سازیِ بعدی دوباره نیاید.
-    if (cur.source == StudySource.admin) _setDismissed(id, true);
+    if (cur.source == StudySource.admin) _setDismissed(id, true, title: cur.text);
   }
 
   // ───────── 🌟 ST-7: موردهای خودِ کاربر ─────────
@@ -179,11 +186,66 @@ class StudyNotifier extends Notifier<Map<String, StudyItem>> {
       if (e != null) e.toString(),
   };
 
-  void _setDismissed(String id, bool on) {
+  void _setDismissed(String id, bool on, {String? title}) {
     final Set<String> d = _dismissed;
     if (on ? d.add(id) : d.remove(id)) {
       _box.write(sharedDismissedKey, d.toList());
     }
+    final Map<String, dynamic> titles = _dismissedTitles;
+    if (on && title != null) {
+      titles[id] = title;
+    } else if (!on) {
+      titles.remove(id);
+    }
+    _box.write(sharedDismissedTitlesKey, titles);
+  }
+
+  Map<String, dynamic> get _dismissedTitles {
+    final Object? raw = _box.read(sharedDismissedTitlesKey);
+    return raw is Map ? Map<String, dynamic>.from(raw) : <String, dynamic>{};
+  }
+
+  /// 🌟 ST-8: موردهای آماده‌ای که کاربر حذف کرده: (شناسه، عنوان، نکته است؟). عنوانِ موردهایی
+  /// که پیش از این نسخه حذف شده‌اند از خودِ شناسه ساخته می‌شود (واژه) یا «نکته».
+  List<(String, String, bool)> get dismissedShared {
+    final Map<String, dynamic> titles = _dismissedTitles;
+    return [
+      for (final String id in _dismissed)
+        (
+          id,
+          (titles[id] as String?) ??
+              (id.startsWith('w|') ? id.substring(2) : 'نکته'),
+          id.startsWith('t|'),
+        ),
+    ]..sort((a, b) => a.$2.toLowerCase().compareTo(b.$2.toLowerCase()));
+  }
+
+  /// 🌟 ST-8: برگرداندنِ موردهای آماده‌ی حذف‌شده — از فهرستِ «حذف‌شده‌ها» بیرون می‌آیند و خوراکِ
+  /// سایت از اول گرفته می‌شود تا دوباره در «مرورِ من» بنشینند. نتیجه: تعدادِ برگشته، یا null
+  /// اگر به سایت وصل نشد (فهرست همان‌طور می‌ماند).
+  Future<int?> restoreDismissed(Iterable<String> ids) async {
+    final List<String> list = ids.toList();
+    if (list.isEmpty) return 0;
+    if (!sharedEnabled) await _box.write(sharedEnabledKey, true);
+    final Set<String> before = _dismissed;
+    final Map<String, dynamic> titlesBefore = _dismissedTitles;
+    for (final String id in list) {
+      _setDismissed(id, false);
+    }
+    final int? cursor = _box.read<int>(sharedCursorKey);
+    await _box.remove(sharedCursorKey);
+    _revive.addAll(list);
+    final int? added = await syncShared();
+    _revive.removeAll(list);
+    if (added == null) {
+      // نشد: همه‌چیز مثلِ قبل، تا دفعه‌ی بعد دوباره امتحان شود.
+      await _box.write(sharedDismissedKey, before.toList());
+      await _box.write(sharedDismissedTitlesKey, titlesBefore);
+      if (cursor != null) await _box.write(sharedCursorKey, cursor);
+      return null;
+    }
+    ref.read(backupProvider.notifier).scheduleSync();
+    return list.where(state.containsKey).length;
   }
 
   /// با شروعِ اپ، بعد از هر پشتیبان‌گیری و با «به‌روزرسانی» در صفحه‌ی مرور. فقط تغییرهای
@@ -254,11 +316,25 @@ class StudyNotifier extends Notifier<Map<String, StudyItem>> {
 
         final StudyItemRow? row = await _db.studyItemById(item.id);
         if (row == null) {
-          await _db.upsertStudyItem(studyItemToCompanion(item, dirty: false));
+          final bool revive = _revive.contains(item.id);
+          await _db.upsertStudyItem(
+            revive
+                ? studyItemToCompanion(item.withContent(updatedAt: DateTime.now()))
+                : studyItemToCompanion(item, dirty: false),
+          );
           added++;
           continue;
         }
-        if (row.deleted) continue;
+        if (row.deleted) {
+          // 🌟 ST-8: سنگِ قبرِ موردی که دیگر در «حذف‌شده‌ها» نیست (کاربر برش گردانده، یا ادمین
+          // دوباره منتشرش کرده) ← زنده می‌شود. زمانِ «الان» و dirty تا بر سنگِ قبرِ پشتیبانِ
+          // سرور هم غلبه کند.
+          await _db.upsertStudyItem(
+            studyItemToCompanion(item.withContent(updatedAt: DateTime.now())),
+          );
+          added++;
+          continue;
+        }
         final StudyItem local = studyItemFromRow(row);
         if (local.source != StudySource.admin) continue;
         final StudyItem merged = local.withContent(
