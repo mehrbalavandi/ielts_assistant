@@ -7,7 +7,7 @@
 ## چه شد
 - **درسِ 4 (FOOD AND DRINK):** هر 619 پاراگرافِ متنِ کتاب و هر 60 پاراگرافِ متنِ فایل‌های
   صوتیِ Mindset_L1_32 تا L1_39 ترجمه شدند، با ترجمه‌ی پاسخِ جای‌خالی‌ها (`blanks`).
-- **دیکشنری:** 141 مدخلِ تازه، مثلاً `culture shock`، `junk food`، `market share`،
+- **دیکشنری:** 120 مدخلِ تازه، مثلاً `culture shock`، `junk food`، `market share`،
   `remain stable`، `distractor`، `classification task`، `task card` و `food for thought`.
 - **جمله‌های نادرستِ تمرین‌های «Correct the errors»:** خودِ جمله‌ی انگلیسی می‌ماند و معنایش داخلِ
   پرانتز می‌آید، چون خطای دستوری در ترجمه دیده نمی‌شود.
