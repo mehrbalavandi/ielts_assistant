@@ -11809,6 +11809,1863 @@
       "books": [
         "Mindset 01"
       ]
+    },
+    "true/false/not given": {
+      "headword": "True / False / Not Given",
+      "forms": [
+        "True/False/Not Given",
+        "TRUE / FALSE / NOT GIVEN"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/truː fɔːls nɒt ˈɡɪvn/",
+      "pronounceFa": "تْرو فُلس نات گیوِن",
+      "pronounceAr": "ترو فولس نوت غِفن",
+      "translationFa": "درست / نادرست / داده نشده (نوعی سؤالِ ریدینگِ آیلتس)",
+      "translationAr": "صحيح / خطأ / غير مذكور (نوع من أسئلة القراءة في آيلتس)",
+      "explanationFa": "False یعنی متن خلافِ گزاره را می‌گوید؛ Not Given یعنی متن اصلاً چیزی درباره‌اش نمی‌گوید. فقط بر پایه‌ی متن پاسخ دهید، نه دانسته‌های خودتان. (در ریدینگِ General و گاهی Academic، شکلِ Yes/No/Not Given برای نظرِ نویسنده است.)",
+      "explanationAr": "False تعني أن النص يقول عكس العبارة؛ وNot Given تعني أن النص لا يقول عنها شيئاً. أجيبوا وفق النص فقط لا معرفتكم. (وصيغة Yes/No/Not Given تخصّ رأي الكاتب.)",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "not given": {
+      "headword": "Not Given",
+      "forms": [
+        "Not Given"
+      ],
+      "pos": "phrase",
+      "ipa": "/nɒt ˈɡɪvn/",
+      "pronounceFa": "نات گیوِن",
+      "pronounceAr": "نوت غِفن",
+      "translationFa": "داده نشده (اطلاعاتش در متن نیست)",
+      "translationAr": "غير مذكور (المعلومة ليست في النص)",
+      "explanationFa": "پاسخِ Not Given یعنی متن نه تأییدش می‌کند نه ردش. رایج‌ترین اشتباه: انتخابِ False وقتی متن فقط چیزی نگفته است.",
+      "explanationAr": "إجابة Not Given تعني أن النص لا يؤكّدها ولا ينفيها. والخطأ الشائع: اختيار False حين لا يقول النص شيئاً.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "martial arts": {
+      "headword": "martial arts",
+      "forms": [
+        "martial arts"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmɑːʃl ˈɑːts/",
+      "pronounceFa": "ماشِل آتس",
+      "pronounceAr": "مارشَل آرتس",
+      "translationFa": "هنرهای رزمی",
+      "translationAr": "الفنون القتالية",
+      "explanationFa": "نامِ کلیِ ورزش‌هایی مثلِ کاراته، تکواندو، جودو و ووشو؛ با فعلِ do می‌آید: do martial arts.",
+      "explanationAr": "اسم عام لرياضات مثل الكاراتيه والتايكوندو والجودو والووشو، وتأتي مع do: do martial arts.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "team sport": {
+      "headword": "team sport",
+      "forms": [
+        "team sport",
+        "team sports"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈtiːm spɔːt/",
+      "pronounceFa": "تیم اِسپُت",
+      "pronounceAr": "تيم سبورت",
+      "translationFa": "ورزشِ تیمی",
+      "translationAr": "رياضة جماعية",
+      "explanationFa": "در برابرِ individual sport (ورزشِ انفرادی)؛ در اسپیکینگ برای توصیفِ ورزشِ موردِ علاقه مفید است.",
+      "explanationAr": "في مقابل individual sport (رياضة فردية)، ومفيدة لوصف الرياضة المفضّلة في المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "score goals": {
+      "headword": "score goals",
+      "forms": [
+        "score goals",
+        "score a goal",
+        "scored a goal"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌskɔː ˈɡəʊlz/",
+      "pronounceFa": "اِسکُ گُلز",
+      "pronounceAr": "سكور غولز",
+      "translationFa": "گل زدن",
+      "translationAr": "يسجّل الأهداف",
+      "explanationFa": "هم‌آیندِ درست score است، نه make یا hit: score a goal. score به‌عنوانِ اسم یعنی «امتیاز / نتیجه».",
+      "explanationAr": "الفعل الملازم هو score لا make أو hit: score a goal، وscore كاسم تعني «النتيجة».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "tackle": {
+      "headword": "tackle",
+      "forms": [
+        "tackle",
+        "tackles"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈtækl/",
+      "pronounceFa": "تَکِل",
+      "pronounceAr": "تاكَل",
+      "translationFa": "تکل کردن (در ورزش)؛ (مشکلی را) حل کردن",
+      "translationAr": "يعرقل (في الرياضة)؛ يعالج (مشكلة)",
+      "explanationFa": "در رایتینگ معنای دیگرش پرکاربرد است: tackle a problem (به مشکلی رسیدگی کردن)، مثلاً tackle pollution.",
+      "explanationAr": "في الكتابة يشيع معناها الآخر: tackle a problem (يعالج مشكلة)، مثل tackle pollution.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "goalkeeper": {
+      "headword": "goalkeeper",
+      "forms": [
+        "goalkeeper"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈɡəʊlkiːpə/",
+      "pronounceFa": "گُل‌کیپِ",
+      "pronounceAr": "غولكيبَ",
+      "translationFa": "دروازه‌بان",
+      "translationAr": "حارس المرمى",
+      "explanationFa": "در گفتارِ بریتانیایی کوتاهش keeper هم گفته می‌شود.",
+      "explanationAr": "ويقال لها اختصاراً keeper في الإنجليزية البريطانية المحكية.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "racket": {
+      "headword": "racket",
+      "forms": [
+        "racket",
+        "rackets"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈrækɪt/",
+      "pronounceFa": "رَکیت",
+      "pronounceAr": "راكِت",
+      "translationFa": "راکت",
+      "translationAr": "مضرب (التنس ونحوه)",
+      "explanationFa": "راکتِ تنیس و بدمینتون؛ برای تنیسِ روی میز بیشتر bat یا paddle می‌گویند.",
+      "explanationAr": "مضرب التنس والريشة الطائرة؛ أما كرة الطاولة فيقال لمضربها غالباً bat أو paddle.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fed up with": {
+      "headword": "fed up with",
+      "forms": [
+        "fed up with"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌfed ˈʌp wɪð/",
+      "pronounceFa": "فِد آپ وید",
+      "pronounceAr": "فَد آب وِذ",
+      "translationFa": "به ستوه آمده از، خسته و دلزده از",
+      "translationAr": "ضجر من، سئم من",
+      "explanationFa": "غیررسمی و طبیعی برای اسپیکینگ؛ مترادف‌هایش: tired of، bored of/with، sick of.",
+      "explanationAr": "غير رسمية وطبيعية في المحادثة، ومرادفاتها: tired of وbored of/with وsick of.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "inflatable": {
+      "headword": "inflatable",
+      "forms": [
+        "inflatable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ɪnˈfleɪtəbl/",
+      "pronounceFa": "اینفلِیتِبِل",
+      "pronounceAr": "إنفلَيتَبَل",
+      "translationFa": "بادی، قابلِ باد کردن",
+      "translationAr": "قابل للنفخ",
+      "explanationFa": "از فعلِ inflate (باد کردن) با پسوندِ able ساخته شده است: an inflatable boat.",
+      "explanationAr": "مشتقة من الفعل inflate (ينفخ) مع اللاحقة able: an inflatable boat.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "national sport": {
+      "headword": "national sport",
+      "forms": [
+        "national sport"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌnæʃnəl ˈspɔːt/",
+      "pronounceFa": "نَشنِل اِسپُت",
+      "pronounceAr": "ناشنَل سبورت",
+      "translationFa": "ورزشِ ملی",
+      "translationAr": "الرياضة الوطنية",
+      "explanationFa": "مثلِ national dish (غذای ملی)؛ در اسپیکینگ برای حرف زدن از کشورتان مفید است.",
+      "explanationAr": "مثل national dish (الطبق الوطني)، ومفيدة للحديث عن بلدك في المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "on horseback": {
+      "headword": "on horseback",
+      "forms": [
+        "on horseback"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɒn ˈhɔːsbæk/",
+      "pronounceFa": "آن هُسبَک",
+      "pronounceAr": "أون هورسباك",
+      "translationFa": "سوار بر اسب",
+      "translationAr": "على ظهر الخيل",
+      "explanationFa": "در متن با بازنویسیِ on horses (در خلاصه) آمده است؛ نمونه‌ای از paraphrase در سؤالِ summary completion.",
+      "explanationAr": "جاءت في الملخّص بإعادة صياغة on horses، وهي مثال على paraphrase في أسئلة summary completion.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "get hold of": {
+      "headword": "get hold of",
+      "forms": [
+        "get hold of"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɡet ˈhəʊld əv/",
+      "pronounceFa": "گِت هُلد اُو",
+      "pronounceAr": "غَت هولد أوف",
+      "translationFa": "به دست گرفتن، چنگ زدن به؛ (چیزی را) پیدا کردن",
+      "translationAr": "يمسك بـ، يحصل على",
+      "explanationFa": "دو معنا دارد: گرفتنِ فیزیکی (get hold of the ball) و پیدا کردن یا تماس گرفتن (get hold of a ticket / someone).",
+      "explanationAr": "لها معنيان: الإمساك الفعلي (get hold of the ball) والحصول على شيء أو التواصل مع شخص (get hold of a ticket / someone).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "championship": {
+      "headword": "championship",
+      "forms": [
+        "championship",
+        "championships"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtʃæmpiənʃɪp/",
+      "pronounceFa": "چَمپیِنشیپ",
+      "pronounceAr": "تشامبيَنشِب",
+      "translationFa": "مسابقاتِ قهرمانی",
+      "translationAr": "بطولة",
+      "explanationFa": "هم‌آیندها: hold a championship (برگزار کردن)، win the world championship. champion یعنی «قهرمان».",
+      "explanationAr": "من تلازماتها: hold a championship (يقيم بطولة) وwin the world championship، وchampion تعني «البطل».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "switch between": {
+      "headword": "switch between",
+      "forms": [
+        "switch quickly between",
+        "switch between"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˈswɪtʃ bɪˌtwiːn/",
+      "pronounceFa": "سوییچ بیتوین",
+      "pronounceAr": "سوِتش بِتوين",
+      "translationFa": "میانِ (دو چیز) جابه‌جا شدن",
+      "translationAr": "يتنقّل بين",
+      "explanationFa": "در خلاصه‌ی متن با change rapidly بازنویسی شده است. هم‌آیندِ دیگر: switch from ... to ...",
+      "explanationAr": "أُعيدت صياغتها في الملخّص بـ change rapidly، ومن تلازماتها الأخرى: switch from ... to ...",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "familiar to": {
+      "headword": "familiar to",
+      "forms": [
+        "familiar to"
+      ],
+      "pos": "phrase",
+      "ipa": "/fəˈmɪliə tə/",
+      "pronounceFa": "فِمیلیِ تِ",
+      "pronounceAr": "فَميليَ تو",
+      "translationFa": "برای (کسی) آشنا",
+      "translationAr": "مألوف لـ",
+      "explanationFa": "دقت کنید: something is familiar to you (برای شما آشناست)، ولی you are familiar with something (شما با آن آشنایید).",
+      "explanationAr": "انتبهوا: something is familiar to you (الشيء مألوف لك)، بينما you are familiar with something (أنت ملمّ به).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in detail": {
+      "headword": "in detail",
+      "forms": [
+        "in detail"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˈdiːteɪl/",
+      "pronounceFa": "این دیتِیل",
+      "pronounceAr": "إن ديتَيل",
+      "translationFa": "با جزئیات، دقیق",
+      "translationAr": "بالتفصيل",
+      "explanationFa": "در ریدینگ: اول اسکن برای یافتنِ جای اطلاعات، بعد read in detail (خواندنِ دقیق) همان بخش.",
+      "explanationAr": "في القراءة: امسح أولاً لإيجاد مكان المعلومة، ثم read in detail (اقرأ بدقّة) ذلك الجزء.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "waste time": {
+      "headword": "waste time",
+      "forms": [
+        "waste time"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌweɪst ˈtaɪm/",
+      "pronounceFa": "وِیست تایم",
+      "pronounceAr": "وَيست تايم",
+      "translationFa": "وقت هدر دادن",
+      "translationAr": "يضيّع الوقت",
+      "explanationFa": "پس از آن فعلِ ing می‌آید: waste time reading the whole text. اسمش: a waste of time.",
+      "explanationAr": "يليها فعل بـ ing: waste time reading the whole text، والاسم منها: a waste of time.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "initial": {
+      "headword": "initial",
+      "forms": [
+        "initial"
+      ],
+      "pos": "adjective",
+      "ipa": "/ɪˈnɪʃl/",
+      "pronounceFa": "اینیشِل",
+      "pronounceAr": "إنِشَل",
+      "translationFa": "اولیه، نخستین",
+      "translationAr": "أوّلي، ابتدائي",
+      "explanationFa": "رسمی‌ترِ first است؛ قیدش initially (در ابتدا) در رایتینگِ توصیفِ نمودار پرکاربرد است.",
+      "explanationAr": "أكثر رسمية من first، والظرف منها initially (في البداية) شائع في وصف الرسوم البيانية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "summary completion": {
+      "headword": "summary completion",
+      "forms": [
+        "summary completion"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈsʌməri kəmˌpliːʃn/",
+      "pronounceFa": "سامِری کِمپلیشِن",
+      "pronounceAr": "سامَري كَمبليشَن",
+      "translationFa": "کامل کردنِ خلاصه (نوعی سؤالِ ریدینگِ آیلتس)",
+      "translationAr": "إكمال الملخّص (نوع من أسئلة القراءة في آيلتس)",
+      "explanationFa": "یا کلمه را از متن برمی‌دارید یا از یک فهرست. اول نوعِ کلمه‌ی لازم (اسم، فعل، صفت) را از جمله حدس بزنید؛ خلاصه معمولاً متن را بازنویسی می‌کند.",
+      "explanationAr": "إما أن تأخذ الكلمة من النص أو من قائمة. خمّن أولاً نوع الكلمة المطلوبة (اسم، فعل، صفة) من الجملة؛ فالملخّص يعيد صياغة النص عادةً.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "comparative": {
+      "headword": "comparative",
+      "forms": [
+        "comparatives",
+        "comparative"
+      ],
+      "pos": "noun / adjective",
+      "ipa": "/kəmˈpærətɪv/",
+      "pronounceFa": "کِمپَرِتیو",
+      "pronounceAr": "كَمبارَتِف",
+      "translationFa": "صفتِ تفضیلی (مثلِ faster، more exciting)",
+      "translationAr": "صيغة المقارنة (مثل faster وmore exciting)",
+      "explanationFa": "صفتِ یک‌هجایی ‌er می‌گیرد و صفتِ بلند more؛ هرگز هر دو با هم (more faster غلط است). صفتِ عالی superlative نام دارد.",
+      "explanationAr": "الصفة أحادية المقطع تأخذ er والطويلة more، ولا تجتمعان أبداً (more faster خطأ). وصيغة التفضيل العليا تسمّى superlative.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "military": {
+      "headword": "military",
+      "forms": [
+        "military"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈmɪlətri/",
+      "pronounceFa": "میلِتری",
+      "pronounceAr": "مِلَتري",
+      "translationFa": "نظامی",
+      "translationAr": "عسكري",
+      "explanationFa": "هم صفت است (military training) و هم اسم (the military = ارتش). در موضوع‌های رایتینگِ خدمتِ سربازی هم می‌آید.",
+      "explanationAr": "صفة (military training) واسم (the military = الجيش)، وتأتي في موضوعات الكتابة عن الخدمة العسكرية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "obstacle": {
+      "headword": "obstacle",
+      "forms": [
+        "obstacles",
+        "obstacle"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈɒbstəkl/",
+      "pronounceFa": "آبستِکِل",
+      "pronounceAr": "أوبستَكَل",
+      "translationFa": "مانع",
+      "translationAr": "عائق",
+      "explanationFa": "هم مانعِ فیزیکی و هم مجازی: overcome obstacles (بر موانع غلبه کردن). مترادفش barrier است.",
+      "explanationAr": "العائق المادي والمجازي معاً: overcome obstacles (يتغلّب على العوائق)، ومرادفها barrier.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "philosophy": {
+      "headword": "philosophy",
+      "forms": [
+        "philosophy"
+      ],
+      "pos": "noun",
+      "ipa": "/fəˈlɒsəfi/",
+      "pronounceFa": "فِلاسِفی",
+      "pronounceAr": "فَلوسَفي",
+      "translationFa": "فلسفه، نگرش و اصولِ فکری",
+      "translationAr": "فلسفة، منهج فكري",
+      "explanationFa": "علاوه بر رشته‌ی دانشگاهی، به «نگرش و اصولِ یک فرد یا سازمان» هم می‌گویند: my philosophy of life.",
+      "explanationAr": "إضافة إلى التخصّص الجامعي، تعني «منهج فرد أو مؤسسة ومبادئه»: my philosophy of life.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "strict rules": {
+      "headword": "strict rules",
+      "forms": [
+        "strict rules"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌstrɪkt ˈruːlz/",
+      "pronounceFa": "اِستریکت رولز",
+      "pronounceAr": "سترِكت رولز",
+      "translationFa": "قوانینِ سفت‌وسخت",
+      "translationAr": "قواعد صارمة",
+      "explanationFa": "هم‌آیندِ رایج؛ همچنین strict parents/teacher. متضاد: relaxed rules.",
+      "explanationAr": "تلازم شائع، ومثلها strict parents/teacher، وضدّها relaxed rules.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "make excuses": {
+      "headword": "make excuses",
+      "forms": [
+        "make excuses"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌmeɪk ɪkˈskjuːsɪz/",
+      "pronounceFa": "مِیک ایکسکیوسیز",
+      "pronounceAr": "مَيك إكسكيوسِز",
+      "translationFa": "بهانه آوردن",
+      "translationAr": "يختلق الأعذار",
+      "explanationFa": "با make می‌آید، نه do یا say. excuse (اسم) با تلفظِ «ایکسکیوس» و excuse (فعل) با «ایکسکیوز» است.",
+      "explanationAr": "تأتي مع make لا do أو say. والاسم excuse يُنطق «إكسكيوس» والفعل «إكسكيوز».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "humility": {
+      "headword": "humility",
+      "forms": [
+        "humility"
+      ],
+      "pos": "noun",
+      "ipa": "/hjuːˈmɪləti/",
+      "pronounceFa": "هیومیلِتی",
+      "pronounceAr": "هيومِلَتي",
+      "translationFa": "فروتنی، تواضع",
+      "translationAr": "التواضع",
+      "explanationFa": "صفتش humble است؛ متضادش arrogance (تکبر).",
+      "explanationAr": "الصفة منها humble، وضدّها arrogance (الغرور).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "show off": {
+      "headword": "show off",
+      "forms": [
+        "show off",
+        "showing off"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌʃəʊ ˈɒf/",
+      "pronounceFa": "شُ آف",
+      "pronounceAr": "شو أوف",
+      "translationFa": "خودنمایی کردن",
+      "translationAr": "يتباهى، يستعرض",
+      "explanationFa": "معنای منفی دارد؛ اسمش show-off (آدمِ خودنما) است.",
+      "explanationAr": "لها دلالة سلبية، والاسم منها show-off (الشخص المتباهي).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "state of mind": {
+      "headword": "state of mind",
+      "forms": [
+        "state of mind"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌsteɪt əv ˈmaɪnd/",
+      "pronounceFa": "اِستِیت اُو مایند",
+      "pronounceAr": "ستَيت أوف مايند",
+      "translationFa": "حالتِ ذهنی، نگرش",
+      "translationAr": "حالة ذهنية",
+      "explanationFa": "وقتی می‌گوییم چیزی a state of mind است، یعنی بیشتر به نگرشِ آدم بستگی دارد تا به شرایطِ بیرونی.",
+      "explanationAr": "عندما نقول إن شيئاً a state of mind فنعني أنه يعتمد على موقف الإنسان أكثر من الظروف الخارجية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "barrier": {
+      "headword": "barrier",
+      "forms": [
+        "barriers",
+        "barrier"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈbæriə/",
+      "pronounceFa": "بَریِ",
+      "pronounceAr": "باريَ",
+      "translationFa": "مانع، سد",
+      "translationAr": "حاجز",
+      "explanationFa": "در رایتینگ پرکاربرد است: language barrier (مانعِ زبانی)، barriers to education.",
+      "explanationAr": "شائعة في الكتابة: language barrier (حاجز اللغة) وbarriers to education.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "interact with": {
+      "headword": "interact with",
+      "forms": [
+        "interact with"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɪntərˈækt wɪð/",
+      "pronounceFa": "اینتِرَکت وید",
+      "pronounceAr": "إنتَراكت وِذ",
+      "translationFa": "تعامل داشتن با",
+      "translationAr": "يتفاعل مع",
+      "explanationFa": "اسمش interaction و صفتش interactive است (مثلِ کلماتِ تعاملیِ همین اپ).",
+      "explanationAr": "الاسم منها interaction والصفة interactive.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be concerned with": {
+      "headword": "be concerned with",
+      "forms": [
+        "is concerned with",
+        "be concerned with"
+      ],
+      "pos": "phrase",
+      "ipa": "/bi kənˈsɜːnd wɪð/",
+      "pronounceFa": "بی کِنسِند وید",
+      "pronounceAr": "بي كَنسيرند وِذ",
+      "translationFa": "درباره‌ی (چیزی) بودن، با (چیزی) سروکار داشتن",
+      "translationAr": "يُعنى بـ، يتعلّق بـ",
+      "explanationFa": "با with یعنی «درباره‌ی ... بودن»، ولی be concerned about یعنی «نگرانِ ... بودن».",
+      "explanationAr": "مع with تعني «يتعلّق بـ»، أما be concerned about فتعني «يقلق بشأن».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "self-development": {
+      "headword": "self-development",
+      "forms": [
+        "self-development"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌself dɪˈveləpmənt/",
+      "pronounceFa": "سِلف دیوِلِپمِنت",
+      "pronounceAr": "سَلف ديفَلَبمَنت",
+      "translationFa": "خودسازی، رشدِ فردی",
+      "translationAr": "تطوير الذات",
+      "explanationFa": "مترادف: personal development (که در خلاصه به کار رفته است).",
+      "explanationAr": "مرادفها: personal development (المستخدمة في الملخّص).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "self-expression": {
+      "headword": "self-expression",
+      "forms": [
+        "self-expression"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌself ɪkˈspreʃn/",
+      "pronounceFa": "سِلف ایکسپرِشِن",
+      "pronounceAr": "سَلف إكسبرَشَن",
+      "translationFa": "ابرازِ خود، بیانِ احساسات و شخصیت",
+      "translationAr": "التعبير عن الذات",
+      "explanationFa": "فعلش express yourself است؛ در موضوع‌های هنر و آموزش در رایتینگ مفید است.",
+      "explanationAr": "الفعل منها express yourself، ومفيدة في موضوعات الفن والتعليم في الكتابة.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "founder": {
+      "headword": "founder",
+      "forms": [
+        "founder"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈfaʊndə/",
+      "pronounceFa": "فاوندِ",
+      "pronounceAr": "فاوندَ",
+      "translationFa": "بنیان‌گذار",
+      "translationAr": "المؤسّس",
+      "explanationFa": "از فعلِ found (بنیان نهادن) است، نه find: found - founded - founded.",
+      "explanationAr": "من الفعل found (يؤسّس) لا find: found - founded - founded.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "conflict with": {
+      "headword": "conflict with",
+      "forms": [
+        "conflicts with",
+        "conflict with"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/kənˈflɪkt wɪð/",
+      "pronounceFa": "کِنفلیکت وید",
+      "pronounceAr": "كَنفلِكت وِذ",
+      "translationFa": "در تضاد بودن با، ناسازگار بودن با",
+      "translationAr": "يتعارض مع",
+      "explanationFa": "در نقشِ فعل تکیه روی بخشِ دوم است (con-FLICT) و در نقشِ اسم روی بخشِ اول (CON-flict = درگیری).",
+      "explanationAr": "كفعل يقع النبر على المقطع الثاني (con-FLICT)، وكاسم على الأول (CON-flict = صراع).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "similarity": {
+      "headword": "similarity",
+      "forms": [
+        "similarities",
+        "similarity"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌsɪməˈlærəti/",
+      "pronounceFa": "سیمِلَرِتی",
+      "pronounceAr": "سِمَلارَتي",
+      "translationFa": "شباهت",
+      "translationAr": "تشابه، وجه شبه",
+      "explanationFa": "در برابرِ difference؛ در مقایسه‌ی دو نمودار در رایتینگ: There are several similarities between...",
+      "explanationAr": "في مقابل difference، وفي مقارنة رسمين بيانيين: There are several similarities between...",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "contradict": {
+      "headword": "contradict",
+      "forms": [
+        "contradicts",
+        "contradict"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌkɒntrəˈdɪkt/",
+      "pronounceFa": "کانتْرِدیکت",
+      "pronounceAr": "كونترَدِكت",
+      "translationFa": "در تناقض بودن با، نقض کردن",
+      "translationAr": "يناقض",
+      "explanationFa": "در سؤال‌های True/False/Not Given یعنی پاسخِ False: متن خلافِ گزاره را می‌گوید. اسمش contradiction است.",
+      "explanationAr": "في أسئلة True/False/Not Given تعني الإجابة False: يقول النص عكس العبارة. والاسم منها contradiction.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "latecomer": {
+      "headword": "latecomer",
+      "forms": [
+        "latecomers",
+        "latecomer"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈleɪtkʌmə/",
+      "pronounceFa": "لِیت‌کامِ",
+      "pronounceAr": "لَيتكامَ",
+      "translationFa": "کسی که دیر می‌آید",
+      "translationAr": "المتأخّر في الحضور",
+      "explanationFa": "در متن با بازنویسیِ arrive on time آمده است (did not allow latecomers ≈ had to arrive on time).",
+      "explanationAr": "وردت في النص بإعادة صياغة arrive on time (did not allow latecomers ≈ had to arrive on time).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "adaptability": {
+      "headword": "adaptability",
+      "forms": [
+        "adaptability"
+      ],
+      "pos": "noun",
+      "ipa": "/əˌdæptəˈbɪləti/",
+      "pronounceFa": "اِدَپتِبیلِتی",
+      "pronounceAr": "أدابتَبِلَتي",
+      "translationFa": "سازگاری، انعطاف‌پذیری",
+      "translationAr": "القدرة على التكيّف",
+      "explanationFa": "از adapt + able + ity ساخته شده است؛ مهارتی که در موضوع‌های کار و آموزش در رایتینگ زیاد ذکر می‌شود.",
+      "explanationAr": "مركّبة من adapt + able + ity، وهي مهارة تُذكر كثيراً في موضوعات العمل والتعليم.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "creativity": {
+      "headword": "creativity",
+      "forms": [
+        "creativity"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌkriːeɪˈtɪvəti/",
+      "pronounceFa": "کْریِیتیوِتی",
+      "pronounceAr": "كريإيتِفَتي",
+      "translationFa": "خلاقیت",
+      "translationAr": "الإبداع",
+      "explanationFa": "صفتش creative و فعلش create است؛ در موضوع‌های آموزش و هنر پرکاربرد است: encourage creativity.",
+      "explanationAr": "الصفة creative والفعل create، وشائعة في موضوعات التعليم والفن: encourage creativity.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "overcome": {
+      "headword": "overcome",
+      "forms": [
+        "overcoming",
+        "overcome"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌəʊvəˈkʌm/",
+      "pronounceFa": "اُوِکام",
+      "pronounceAr": "أوفَركام",
+      "translationFa": "غلبه کردن بر، پشتِ سر گذاشتن",
+      "translationAr": "يتغلّب على",
+      "explanationFa": "بی‌حرفِ اضافه می‌آید: overcome barriers/difficulties (نه overcome on). گذشته: overcame - overcome.",
+      "explanationAr": "تأتي بلا حرف جرّ: overcome barriers/difficulties. والماضي: overcame - overcome.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "discipline": {
+      "headword": "discipline",
+      "forms": [
+        "discipline"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈdɪsəplɪn/",
+      "pronounceFa": "دیسِپلین",
+      "pronounceAr": "دِسَبلِن",
+      "translationFa": "انضباط؛ رشته (ی ورزشی یا علمی)",
+      "translationAr": "الانضباط؛ تخصّص أو فرع (رياضي أو علمي)",
+      "explanationFa": "دو معنای پرکاربرد: «انضباط» (sports teach discipline) و «رشته» (the values of the discipline).",
+      "explanationAr": "لها معنيان شائعان: «الانضباط» (sports teach discipline) و«التخصّص» (the values of the discipline).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "occasionally": {
+      "headword": "occasionally",
+      "forms": [
+        "occasionally"
+      ],
+      "pos": "adverb",
+      "ipa": "/əˈkeɪʒnəli/",
+      "pronounceFa": "اِکِیژنِلی",
+      "pronounceAr": "أكَيجنَلي",
+      "translationFa": "گاه‌گاهی، هرازگاهی",
+      "translationAr": "أحياناً، من حين لآخر",
+      "explanationFa": "قیدِ تکرار، کم‌تر از sometimes. در ریدینگ این قیدها معنای گزاره را عوض می‌کنند و جوابِ True/False را تعیین می‌کنند.",
+      "explanationAr": "ظرف تكرار أقل من sometimes. وفي القراءة تغيّر هذه الظروف معنى العبارة وتحدّد إجابة True/False.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "signpost": {
+      "headword": "signpost",
+      "forms": [
+        "signpost"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈsaɪnpəʊst/",
+      "pronounceFa": "ساین‌پُست",
+      "pronounceAr": "ساينبوست",
+      "translationFa": "(در نوشتن) با عبارت‌های راهنما ترتیب و مسیرِ ایده‌ها را نشان دادن",
+      "translationAr": "يُرشد القارئ (بعبارات تبيّن تسلسل الأفكار)",
+      "explanationFa": "یعنی خواننده را با عبارت‌هایی مثلِ Firstly، On the other hand، To sum up راهنمایی کنید. معنای اصلی‌اش «تابلوی راهنمای جاده» است.",
+      "explanationAr": "أي إرشاد القارئ بعبارات مثل Firstly وOn the other hand وTo sum up. ومعناها الأصلي «لافتة الطريق».",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "go for a run": {
+      "headword": "go for a run",
+      "forms": [
+        "go for a run"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌɡəʊ fər ə ˈrʌn/",
+      "pronounceFa": "گُ فِر اِ ران",
+      "pronounceAr": "غو فور أ ران",
+      "translationFa": "به دویدن رفتن، یک دور دویدن",
+      "translationAr": "الذهاب للجري",
+      "explanationFa": "go + فعلِ ing (go running، go swimming) یا go for a + اسم (go for a run/walk/swim). go for running غلط است.",
+      "explanationAr": "go + فعل بـ ing (go running وgo swimming) أو go for a + اسم (go for a run/walk/swim). أما go for running فخطأ.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "join a club": {
+      "headword": "join a club",
+      "forms": [
+        "join a club",
+        "join a gym"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌdʒɔɪn ə ˈklʌb/",
+      "pronounceFa": "جُین اِ کلاب",
+      "pronounceAr": "جوين أ كلاب",
+      "translationFa": "عضوِ باشگاه شدن",
+      "translationAr": "الانضمام إلى نادٍ",
+      "explanationFa": "join بی‌حرفِ اضافه می‌آید: join a club/gym/team. join to و join for غلط‌اند.",
+      "explanationAr": "تأتي join بلا حرف جرّ: join a club/gym/team. أما join to وjoin for فخطأ.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "the main reason": {
+      "headword": "the main reason",
+      "forms": [
+        "the main reason"
+      ],
+      "pos": "phrase",
+      "ipa": "/ðə ˌmeɪn ˈriːzn/",
+      "pronounceFa": "دِ مِین ریزِن",
+      "pronounceAr": "ذا مَين ريزَن",
+      "translationFa": "دلیلِ اصلی",
+      "translationAr": "السبب الرئيسي",
+      "explanationFa": "برای برجسته کردنِ مهم‌ترین نکته در رایتینگ: The main reason why ... is that ... (پس از آن that، نه because).",
+      "explanationAr": "لإبراز أهم نقطة في الكتابة: The main reason why ... is that ... (يليها that لا because).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "physical activity": {
+      "headword": "physical activity",
+      "forms": [
+        "physical activities",
+        "physical activity"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌfɪzɪkl ækˈtɪvəti/",
+      "pronounceFa": "فیزیکِل اَکتیوِتی",
+      "pronounceAr": "فِزِكَل أكتِفَتي",
+      "translationFa": "فعالیتِ بدنی",
+      "translationAr": "النشاط البدني",
+      "explanationFa": "رسمی‌ترِ exercise است و در رایتینگِ موضوعِ سلامت پرکاربرد: lack of physical activity (کم‌تحرکی).",
+      "explanationAr": "أكثر رسمية من exercise، وشائعة في الكتابة عن الصحة: lack of physical activity (قلّة النشاط).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "compared with": {
+      "headword": "compared with",
+      "forms": [
+        "compared with",
+        "compared to"
+      ],
+      "pos": "phrase",
+      "ipa": "/kəmˈpeəd wɪð/",
+      "pronounceFa": "کِمپِد وید",
+      "pronounceAr": "كَمبَيرد وِذ",
+      "translationFa": "در مقایسه با",
+      "translationAr": "مقارنةً بـ",
+      "explanationFa": "در رایتینگِ نمودار و مقایسه‌ی گذشته و حال پرکاربرد است؛ compared to هم درست است.",
+      "explanationAr": "شائعة في وصف الرسوم والمقارنة بين الماضي والحاضر، وcompared to صحيحة أيضاً.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "nowadays": {
+      "headword": "nowadays",
+      "forms": [
+        "nowadays",
+        "Nowadays"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈnaʊədeɪz/",
+      "pronounceFa": "ناوِدِیز",
+      "pronounceAr": "ناوَدَيز",
+      "translationFa": "امروزه، این روزها",
+      "translationAr": "في هذه الأيام",
+      "explanationFa": "برای مقایسه‌ی حال با گذشته؛ آغازِ رایجِ جمله‌ی اولِ مقدمه در رایتینگ. یک کلمه است (نه now a days).",
+      "explanationAr": "للمقارنة بين الحاضر والماضي، وبداية شائعة لجملة المقدّمة في الكتابة. وهي كلمة واحدة (لا now a days).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "pace of life": {
+      "headword": "pace of life",
+      "forms": [
+        "pace of life"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpeɪs əv ˈlaɪf/",
+      "pronounceFa": "پِیس اُو لایف",
+      "pronounceAr": "بَيس أوف لايف",
+      "translationFa": "آهنگ و سرعتِ زندگی",
+      "translationAr": "إيقاع الحياة",
+      "explanationFa": "در مقایسه‌ی شهر و روستا یا گذشته و حال پرکاربرد است: the fast pace of life in big cities.",
+      "explanationAr": "شائعة في المقارنة بين المدينة والريف أو الماضي والحاضر: the fast pace of life in big cities.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "firstly": {
+      "headword": "firstly",
+      "forms": [
+        "Firstly",
+        "firstly"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈfɜːstli/",
+      "pronounceFa": "فِستلی",
+      "pronounceAr": "فيرستلي",
+      "translationFa": "اول اینکه، نخست",
+      "translationAr": "أولاً",
+      "explanationFa": "زنجیره‌ی Firstly, Secondly, Thirdly, Finally برای ترتیبِ نکته‌ها در رایتینگ؛ زیاده‌روی در آن مکانیکی به نظر می‌رسد.",
+      "explanationAr": "سلسلة Firstly وSecondly وThirdly وFinally لترتيب النقاط في الكتابة، والإفراط فيها يبدو آلياً.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "take part in": {
+      "headword": "take part in",
+      "forms": [
+        "taking part in",
+        "take part in",
+        "took part in"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌteɪk ˈpɑːt ɪn/",
+      "pronounceFa": "تِیک پات این",
+      "pronounceAr": "تَيك بارت إن",
+      "translationFa": "شرکت کردن در",
+      "translationAr": "يشارك في",
+      "explanationFa": "مترادفِ participate in است؛ اسمش participation.",
+      "explanationAr": "مرادف participate in، والاسم منها participation.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "talent": {
+      "headword": "talent",
+      "forms": [
+        "talent",
+        "talents"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtælənt/",
+      "pronounceFa": "تَلِنت",
+      "pronounceAr": "تالَنت",
+      "translationFa": "استعداد",
+      "translationAr": "موهبة",
+      "explanationFa": "با for می‌آید: a talent for music. صفتش talented است.",
+      "explanationAr": "تأتي مع for: a talent for music، والصفة منها talented.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "get into trouble": {
+      "headword": "get into trouble",
+      "forms": [
+        "getting into trouble",
+        "get into trouble"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌɡet ɪntə ˈtrʌbl/",
+      "pronounceFa": "گِت اینتِ تْرابِل",
+      "pronounceAr": "غَت إنتو ترابَل",
+      "translationFa": "به دردسر افتادن، کارِ خلاف کردن",
+      "translationAr": "يقع في المتاعب",
+      "explanationFa": "در بحث‌های نوجوانان و جرم در رایتینگ مفید است: keep young people from getting into trouble.",
+      "explanationAr": "مفيدة في الكتابة عن الشباب والجريمة: keep young people from getting into trouble.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "imagination": {
+      "headword": "imagination",
+      "forms": [
+        "imaginations",
+        "imagination"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪˌmædʒɪˈneɪʃn/",
+      "pronounceFa": "ایمَجینِیشِن",
+      "pronounceAr": "إماجِنَيشَن",
+      "translationFa": "تخیل، قوه‌ی تخیل",
+      "translationAr": "الخيال",
+      "explanationFa": "هم‌آیند: use your imagination. صفت‌ها: imaginative (خلاق) و imaginary (خیالی، غیرواقعی).",
+      "explanationAr": "من تلازماتها: use your imagination. والصفتان: imaginative (مبدع) وimaginary (خيالي، غير حقيقي).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "balance": {
+      "headword": "balance",
+      "forms": [
+        "balance"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈbæləns/",
+      "pronounceFa": "بَلِنس",
+      "pronounceAr": "بالَنس",
+      "translationFa": "تعادل، توازن",
+      "translationAr": "التوازن",
+      "explanationFa": "در نتیجه‌گیریِ مقاله‌های دوطرفه پرکاربرد است: we need a balance between... هم‌آیند: work-life balance.",
+      "explanationAr": "شائعة في خاتمة المقالات ذات الجانبين: we need a balance between...، ومن تلازماتها work-life balance.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "compulsory": {
+      "headword": "compulsory",
+      "forms": [
+        "compulsory"
+      ],
+      "pos": "adjective",
+      "ipa": "/kəmˈpʌlsəri/",
+      "pronounceFa": "کِمپالسِری",
+      "pronounceAr": "كَمبالسَري",
+      "translationFa": "اجباری",
+      "translationAr": "إلزامي",
+      "explanationFa": "متضادش optional (اختیاری) است؛ در موضوع‌های آموزش در رایتینگ زیاد می‌آید: compulsory subjects.",
+      "explanationAr": "ضدّها optional (اختياري)، وتكثر في موضوعات التعليم: compulsory subjects.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "unfit": {
+      "headword": "unfit",
+      "forms": [
+        "unfit"
+      ],
+      "pos": "adjective",
+      "ipa": "/ʌnˈfɪt/",
+      "pronounceFa": "آن‌فیت",
+      "pronounceAr": "أنفِت",
+      "translationFa": "بی‌آمادگیِ جسمانی، ناورزیده",
+      "translationAr": "غير لائق بدنياً",
+      "explanationFa": "متضادِ fit (ورزیده، سرحال)؛ اسمش fitness است: improve your fitness.",
+      "explanationAr": "ضدّ fit (لائق بدنياً)، والاسم منها fitness: improve your fitness.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "medical care": {
+      "headword": "medical care",
+      "forms": [
+        "medical care"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmedɪkl ˈkeə/",
+      "pronounceFa": "مِدیکِل کِ",
+      "pronounceAr": "مَدِكَل كَيَ",
+      "translationFa": "مراقبتِ پزشکی، درمان",
+      "translationAr": "الرعاية الطبية",
+      "explanationFa": "مترادف: healthcare. در موضوع‌های هزینه‌های دولت در رایتینگ پرکاربرد است.",
+      "explanationAr": "مرادفها healthcare، وشائعة في موضوعات الإنفاق الحكومي في الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "well-being": {
+      "headword": "well-being",
+      "forms": [
+        "well-being"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌwel ˈbiːɪŋ/",
+      "pronounceFa": "وِل بیینگ",
+      "pronounceAr": "وَل بيينغ",
+      "translationFa": "سلامت و رفاه (جسمی و روانی)",
+      "translationAr": "العافية، الرفاه",
+      "explanationFa": "mental well-being یعنی سلامتِ روان؛ واژه‌ی آکادمیکِ پرکاربرد در موضوعِ سلامت.",
+      "explanationAr": "mental well-being تعني الصحة النفسية، وهي كلمة أكاديمية شائعة في موضوع الصحة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "waste of time": {
+      "headword": "a waste of time",
+      "forms": [
+        "a waste of time",
+        "waste of valuable study time"
+      ],
+      "pos": "phrase",
+      "ipa": "/ə ˌweɪst əv ˈtaɪm/",
+      "pronounceFa": "اِ وِیست اُو تایم",
+      "pronounceAr": "أ وَيست أوف تايم",
+      "translationFa": "هدر دادنِ وقت، اتلافِ وقت",
+      "translationAr": "مضيعة للوقت",
+      "explanationFa": "شکلِ اسمیِ waste time؛ در رایتینگ برای بیانِ دیدگاهِ مخالف: Some people say that ... is a waste of time.",
+      "explanationAr": "الصيغة الاسمية لـ waste time، وفي الكتابة لعرض الرأي المعاكس: Some people say that ... is a waste of time.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "academic": {
+      "headword": "academic",
+      "forms": [
+        "academic"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌækəˈdemɪk/",
+      "pronounceFa": "اَکِدِمیک",
+      "pronounceAr": "أكَدَمِك",
+      "translationFa": "درسی، علمی، آکادمیک",
+      "translationAr": "أكاديمي، دراسي",
+      "explanationFa": "academic subjects در برابرِ practical/vocational subjects؛ نامِ نسخه‌ی Academicِ آیلتس هم از همین است.",
+      "explanationAr": "academic subjects في مقابل practical/vocational subjects، ومنها اسم نسخة Academic من آيلتس.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "heart disease": {
+      "headword": "heart disease",
+      "forms": [
+        "heart disease"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈhɑːt dɪˌziːz/",
+      "pronounceFa": "هات دیزیز",
+      "pronounceAr": "هارت ديزيز",
+      "translationFa": "بیماریِ قلبی",
+      "translationAr": "أمراض القلب",
+      "explanationFa": "در موضوع‌های تغذیه و ورزش در رایتینگ پرکاربرد است؛ disease برای بیماری‌های مشخص، illness کلی‌تر است.",
+      "explanationAr": "شائعة في موضوعات التغذية والرياضة، وdisease للأمراض المحدّدة بينما illness أعمّ.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "prevention is better than cure": {
+      "headword": "prevention is better than cure",
+      "forms": [
+        "prevention is better than cure"
+      ],
+      "pos": "proverb",
+      "ipa": "/prɪˌvenʃn ɪz ˌbetə ðən ˈkjʊə/",
+      "pronounceFa": "پریوِنشِن ایز بِتِ دِن کیوِ",
+      "pronounceAr": "بريفَنشَن إز بَتَ ذان كيوَ",
+      "translationFa": "پیشگیری بهتر از درمان است",
+      "translationAr": "الوقاية خير من العلاج",
+      "explanationFa": "ضرب‌المثلی مناسب برای جمع‌بندیِ مقاله‌های سلامت؛ در رایتینگ یک‌بار و به‌جا به کار ببرید.",
+      "explanationAr": "مثل مناسب لخاتمة مقالات الصحة، استخدموه مرة واحدة وفي موضعه.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "lifestyle": {
+      "headword": "lifestyle",
+      "forms": [
+        "lifestyle"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈlaɪfstaɪl/",
+      "pronounceFa": "لایف‌اِستایل",
+      "pronounceAr": "لايفستايل",
+      "translationFa": "سبکِ زندگی",
+      "translationAr": "نمط الحياة",
+      "explanationFa": "هم‌آیندها: an active/healthy/sedentary lifestyle (سبکِ زندگیِ فعال/سالم/کم‌تحرک).",
+      "explanationAr": "من تلازماتها: an active/healthy/sedentary lifestyle (نمط حياة نشيط/صحي/خامل).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "punctuation": {
+      "headword": "punctuation",
+      "forms": [
+        "punctuation"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌpʌŋktʃuˈeɪʃn/",
+      "pronounceFa": "پانکچوئِیشِن",
+      "pronounceAr": "بانكتشوإيشَن",
+      "translationFa": "نشانه‌گذاری (نقطه، ویرگول و...)",
+      "translationAr": "علامات الترقيم",
+      "explanationFa": "بخشی از معیارِ grammatical range and accuracy در رایتینگ است.",
+      "explanationAr": "جزء من معيار grammatical range and accuracy في الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "follow directions": {
+      "headword": "follow directions",
+      "forms": [
+        "follow directions"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌfɒləʊ dəˈrekʃnz/",
+      "pronounceFa": "فالُ دِرِکشِنز",
+      "pronounceAr": "فولو دَرَكشَنز",
+      "translationFa": "مسیرنمایی را دنبال کردن",
+      "translationAr": "يتّبع الإرشادات",
+      "explanationFa": "directions اینجا یعنی «آدرس و راهنماییِ مسیر»؛ ask for / give directions.",
+      "explanationAr": "directions هنا تعني «إرشادات الطريق»: ask for / give directions.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "give directions": {
+      "headword": "give directions",
+      "forms": [
+        "giving directions",
+        "giving someone directions",
+        "give directions"
+      ],
+      "pos": "collocation",
+      "ipa": "/ˌɡɪv dəˈrekʃnz/",
+      "pronounceFa": "گیو دِرِکشِنز",
+      "pronounceAr": "غِف دَرَكشَنز",
+      "translationFa": "آدرس دادن، راه را نشان دادن",
+      "translationAr": "يُرشد إلى الطريق",
+      "explanationFa": "در لیسنینگِ بخشِ 2 (برچسب‌گذاریِ نقشه) پرکاربرد است؛ directions همیشه جمع است.",
+      "explanationAr": "شائعة في الجزء 2 من الاستماع (تسمية الخرائط)، وdirections بصيغة الجمع دائماً.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "label a map": {
+      "headword": "label a map",
+      "forms": [
+        "label a map",
+        "labelling a map"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌleɪbl ə ˈmæp/",
+      "pronounceFa": "لِیبِل اِ مَپ",
+      "pronounceAr": "لَيبَل أ ماب",
+      "translationFa": "برچسب‌گذاریِ نقشه (نوعی سؤالِ لیسنینگ)",
+      "translationAr": "وضع التسميات على الخريطة (نوع من أسئلة الاستماع)",
+      "explanationFa": "پیش از پخش، نقشه را بررسی کنید: نقطه‌ی شروع، جهت‌ها و عارضه‌هایی مثلِ پل و میدان. پاسخ‌ها به ترتیبِ فایل می‌آیند.",
+      "explanationAr": "قبل التسجيل افحصوا الخريطة: نقطة البداية والاتجاهات والمعالم كالجسر والدوّار. والإجابات بترتيب التسجيل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "straight ahead": {
+      "headword": "straight ahead",
+      "forms": [
+        "straight ahead"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˌstreɪt əˈhed/",
+      "pronounceFa": "اِستْرِیت اِهِد",
+      "pronounceAr": "ستريت أهَد",
+      "translationFa": "مستقیم (به جلو)",
+      "translationAr": "إلى الأمام مباشرة",
+      "explanationFa": "مترادفِ straight on (بریتانیایی) در آدرس دادن: go straight ahead until you reach the bridge.",
+      "explanationAr": "مرادف straight on (البريطانية) في إعطاء الاتجاهات: go straight ahead until you reach the bridge.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "go past": {
+      "headword": "go past",
+      "forms": [
+        "go past"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡəʊ ˈpɑːst/",
+      "pronounceFa": "گُ پاست",
+      "pronounceAr": "غو باست",
+      "translationFa": "از کنارِ (جایی) رد شدن",
+      "translationAr": "يمرّ بجانب",
+      "explanationFa": "در آدرس دادن: go past the bank. مترادف: pass. past اینجا حرفِ اضافه است، نه «گذشته».",
+      "explanationAr": "في إعطاء الاتجاهات: go past the bank، ومرادفها pass، وpast هنا حرف جرّ لا «الماضي».",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "roundabout": {
+      "headword": "roundabout",
+      "forms": [
+        "roundabout",
+        "mini-roundabout"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈraʊndəbaʊt/",
+      "pronounceFa": "راوندِباوت",
+      "pronounceAr": "راوندَباوت",
+      "translationFa": "میدان (فلکه)",
+      "translationAr": "دوّار",
+      "explanationFa": "بریتانیایی است (آمریکایی: traffic circle)؛ در نقشه‌های لیسنینگِ آیلتس زیاد می‌آید: take the second exit at the roundabout.",
+      "explanationAr": "بريطانية (وبالأمريكية traffic circle)، وتكثر في خرائط استماع آيلتس: take the second exit at the roundabout.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "traffic lights": {
+      "headword": "traffic lights",
+      "forms": [
+        "traffic lights"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈtræfɪk laɪts/",
+      "pronounceFa": "تْرَفیک لایتس",
+      "pronounceAr": "ترافِك لايتس",
+      "translationFa": "چراغِ راهنمایی",
+      "translationAr": "إشارات المرور",
+      "explanationFa": "در آدرس دادن معمولاً جمع می‌آید: turn left at the traffic lights؛ گاهی کوتاه the lights.",
+      "explanationAr": "تأتي غالباً بالجمع في الاتجاهات: turn left at the traffic lights، واختصاراً the lights.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "pond": {
+      "headword": "pond",
+      "forms": [
+        "pond"
+      ],
+      "pos": "noun",
+      "ipa": "/pɒnd/",
+      "pronounceFa": "پاند",
+      "pronounceAr": "بوند",
+      "translationFa": "برکه، آبگیرِ کوچک",
+      "translationAr": "بركة",
+      "explanationFa": "کوچک‌تر از lake (دریاچه)؛ در نقشه‌های پارک در لیسنینگ زیاد می‌آید.",
+      "explanationAr": "أصغر من lake (البحيرة)، وتكثر في خرائط الحدائق في الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "zebra crossing": {
+      "headword": "zebra crossing",
+      "forms": [
+        "zebra crossing"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌzebrə ˈkrɒsɪŋ/",
+      "pronounceFa": "زِبرِ کراسینگ",
+      "pronounceAr": "زيبرا كروسِنغ",
+      "translationFa": "خط‌کشیِ عابرِ پیاده",
+      "translationAr": "ممرّ المشاة",
+      "explanationFa": "بریتانیایی است (آمریکایی: crosswalk)؛ zebra را بریتانیایی‌ها «زِبرا» با e کوتاه می‌گویند.",
+      "explanationAr": "بريطانية (وبالأمريكية crosswalk)، وينطق البريطانيون zebra بـ e قصيرة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "crossroads": {
+      "headword": "crossroads",
+      "forms": [
+        "crossroads"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkrɒsrəʊdz/",
+      "pronounceFa": "کراس‌رُدز",
+      "pronounceAr": "كروسرودز",
+      "translationFa": "چهارراه، تقاطع",
+      "translationAr": "تقاطع الطرق",
+      "explanationFa": "با اینکه به s ختم می‌شود، مفرد است: a crossroads. go straight over the crossroads.",
+      "explanationAr": "مع أنها تنتهي بـ s فهي مفردة: a crossroads. go straight over the crossroads.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "give someone a lift": {
+      "headword": "give someone a lift",
+      "forms": [
+        "give Melissa a lift",
+        "give someone a lift",
+        "give you a lift"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌɡɪv ˌsʌmwʌn ə ˈlɪft/",
+      "pronounceFa": "گیو سام‌وان اِ لیفت",
+      "pronounceAr": "غِف سموان أ لِفت",
+      "translationFa": "کسی را با ماشین (مجانی) رساندن",
+      "translationAr": "يُوصل شخصاً بسيارته",
+      "explanationFa": "بریتانیایی است (آمریکایی: give someone a ride)؛ lift اینجا «آسانسور» نیست.",
+      "explanationAr": "بريطانية (وبالأمريكية give someone a ride)، وlift هنا ليست «المصعد».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "distract": {
+      "headword": "distract",
+      "forms": [
+        "distract"
+      ],
+      "pos": "verb",
+      "ipa": "/dɪˈstrækt/",
+      "pronounceFa": "دیستْرَکت",
+      "pronounceAr": "دِسترَكت",
+      "translationFa": "حواس (کسی) را پرت کردن",
+      "translationAr": "يُشتّت انتباه",
+      "explanationFa": "با from می‌آید: distract you from the correct answer. distractor (گزینه‌ی انحرافی) از همین فعل است.",
+      "explanationAr": "تأتي مع from: distract you from the correct answer، ومنها distractor (المشتِّت).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "surgery": {
+      "headword": "surgery",
+      "forms": [
+        "surgery"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsɜːdʒəri/",
+      "pronounceFa": "سِجِری",
+      "pronounceAr": "سيرجَري",
+      "translationFa": "مطب، درمانگاهِ پزشک (بریتانیایی)؛ جراحی",
+      "translationAr": "عيادة الطبيب (بريطانية)؛ الجراحة",
+      "explanationFa": "در انگلیسیِ بریتانیایی the surgery یعنی «مطبِ پزشکِ عمومی یا دندانپزشک»؛ در لیسنینگ با معنای «جراحی» اشتباه نکنید.",
+      "explanationAr": "في الإنجليزية البريطانية the surgery تعني «عيادة الطبيب العام أو طبيب الأسنان»، فلا تخلطوها بمعنى «الجراحة» في الاستماع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "instead of": {
+      "headword": "instead of",
+      "forms": [
+        "Instead of",
+        "instead of"
+      ],
+      "pos": "preposition",
+      "ipa": "/ɪnˈsted əv/",
+      "pronounceFa": "اینستِد اُو",
+      "pronounceAr": "إنستَد أوف",
+      "translationFa": "به‌جای",
+      "translationAr": "بدلاً من",
+      "explanationFa": "پس از آن اسم یا فعلِ ing می‌آید: instead of turning left. در لیسنینگ اغلب نشانه‌ی گزینه‌ی انحرافی است.",
+      "explanationAr": "يليها اسم أو فعل بـ ing: instead of turning left، وكثيراً ما تدلّ على مشتِّت في الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "drive along": {
+      "headword": "drive along",
+      "forms": [
+        "Drive along",
+        "drive along"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌdraɪv əˈlɒŋ/",
+      "pronounceFa": "دْرایو اِلانگ",
+      "pronounceAr": "درايف ألونغ",
+      "translationFa": "در امتدادِ (خیابانی) راندن",
+      "translationAr": "يقود على امتداد",
+      "explanationFa": "along یعنی «در طولِ»: walk along the river. در آدرس دادن پرکاربرد است.",
+      "explanationAr": "along تعني «على امتداد»: walk along the river، وشائعة في إعطاء الاتجاهات.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "weak form": {
+      "headword": "weak form",
+      "forms": [
+        "weak forms",
+        "weak form"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈwiːk fɔːm/",
+      "pronounceFa": "ویک فُم",
+      "pronounceAr": "ويك فورم",
+      "translationFa": "شکلِ ضعیف (تلفظِ کوتاه‌شده‌ی کلمه‌های دستوری)",
+      "translationAr": "الصيغة الضعيفة (النطق المخفّف للكلمات النحوية)",
+      "explanationFa": "کلمه‌هایی مثلِ to، and، of، for در جمله با صدای ə (شوا) و کوتاه گفته می‌شوند: /tə/، /ən/. به روانیِ اسپیکینگ و فهمِ لیسنینگ کمک می‌کند.",
+      "explanationAr": "تُنطق كلمات مثل to وand وof وfor في الجملة بصوت ə (شوا) مختصرة: /tə/ و/ən/، وهذا يساعد على طلاقة المحادثة وفهم الاستماع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "assess": {
+      "headword": "assess",
+      "forms": [
+        "assess"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈses/",
+      "pronounceFa": "اِسِس",
+      "pronounceAr": "أسَس",
+      "translationFa": "ارزیابی کردن",
+      "translationAr": "يقيّم",
+      "explanationFa": "اسمش assessment است؛ assess your own performance یعنی خودارزیابی.",
+      "explanationAr": "الاسم منها assessment، وassess your own performance تعني التقييم الذاتي.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "amusing": {
+      "headword": "amusing",
+      "forms": [
+        "amusing"
+      ],
+      "pos": "adjective",
+      "ipa": "/əˈmjuːzɪŋ/",
+      "pronounceFa": "اِمیوزینگ",
+      "pronounceAr": "أميوزِنغ",
+      "translationFa": "سرگرم‌کننده، خنده‌دار",
+      "translationAr": "مسلٍّ، طريف",
+      "explanationFa": "صفتِ ing برای چیزی است که سرگرم می‌کند؛ amused احساسِ آدم است. نرم‌ترِ funny است.",
+      "explanationAr": "الصفة بـ ing للشيء المسلّي، وamused لشعور الشخص، وهي ألطف من funny.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "miserable": {
+      "headword": "miserable",
+      "forms": [
+        "miserable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈmɪzrəbl/",
+      "pronounceFa": "میزرِبِل",
+      "pronounceAr": "مِزرَبَل",
+      "translationFa": "بدبخت و غمگین؛ ناخوشایند و دلگیر",
+      "translationAr": "بائس، كئيب",
+      "explanationFa": "هم برای حالِ آدم (I feel miserable) و هم برای هوا و شرایط (miserable weather) به کار می‌رود.",
+      "explanationAr": "تُستخدم لحال الإنسان (I feel miserable) وللطقس والظروف (miserable weather).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "exhausting": {
+      "headword": "exhausting",
+      "forms": [
+        "exhausting"
+      ],
+      "pos": "adjective",
+      "ipa": "/ɪɡˈzɔːstɪŋ/",
+      "pronounceFa": "ایگزُستینگ",
+      "pronounceAr": "إغزوستِنغ",
+      "translationFa": "طاقت‌فرسا، بسیار خسته‌کننده",
+      "translationAr": "مُنهِك",
+      "explanationFa": "صفتِ ing برای چیزی است که خسته می‌کند؛ exhausted حالِ آدم است. قوی‌ترِ tiring است.",
+      "explanationAr": "الصفة بـ ing للشيء المُتعِب، وexhausted لحال الشخص، وهي أقوى من tiring.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "harmful": {
+      "headword": "harmful",
+      "forms": [
+        "harmful"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈhɑːmfl/",
+      "pronounceFa": "هامفِل",
+      "pronounceAr": "هارمفَل",
+      "translationFa": "زیان‌آور، مضر",
+      "translationAr": "ضارّ",
+      "explanationFa": "با to می‌آید: harmful to your health. متضاد: harmless (بی‌خطر).",
+      "explanationAr": "تأتي مع to: harmful to your health، وضدّها harmless (غير ضارّ).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "hopeless": {
+      "headword": "hopeless",
+      "forms": [
+        "hopeless"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈhəʊpləs/",
+      "pronounceFa": "هُپلِس",
+      "pronounceAr": "هوبلَس",
+      "translationFa": "افتضاح، بسیار ناشی (در کاری)؛ ناامیدکننده",
+      "translationAr": "فاشل تماماً (في شيء)؛ ميؤوس منه",
+      "explanationFa": "در گفتار: I'm hopeless at sport (در ورزش افتضاحم). متضادِ excellent at.",
+      "explanationAr": "في الكلام: I'm hopeless at sport (أنا فاشل في الرياضة)، وضدّها excellent at.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "stressful": {
+      "headword": "stressful",
+      "forms": [
+        "stressful"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈstresfl/",
+      "pronounceFa": "اِسترِسفِل",
+      "pronounceAr": "سترَسفَل",
+      "translationFa": "پراسترس، تنش‌زا",
+      "translationAr": "مُرهِق نفسياً، مسبّب للتوتر",
+      "explanationFa": "برای موقعیت به کار می‌رود (a stressful job)؛ برای آدم stressed.",
+      "explanationAr": "تُستخدم للموقف (a stressful job)، أما للشخص فـ stressed.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "take up": {
+      "headword": "take up",
+      "forms": [
+        "take up"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌteɪk ˈʌp/",
+      "pronounceFa": "تِیک آپ",
+      "pronounceAr": "تَيك آب",
+      "translationFa": "(سرگرمی یا ورزشی را) شروع کردن",
+      "translationAr": "يبدأ (هواية أو رياضة)",
+      "explanationFa": "در اسپیکینگِ بخشِ 2 پرکاربرد است: a hobby I'd like to take up. معنای دیگرش «جا یا وقت گرفتن» است: it takes up a lot of time.",
+      "explanationAr": "شائعة في الجزء 2 من المحادثة: a hobby I'd like to take up، ومعناها الآخر «يشغل مكاناً أو وقتاً»: it takes up a lot of time.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "give myself a challenge": {
+      "headword": "give yourself a challenge",
+      "forms": [
+        "give myself a challenge"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌɡɪv maɪˌself ə ˈtʃælɪndʒ/",
+      "pronounceFa": "گیو مای‌سِلف اِ چَلِنج",
+      "pronounceAr": "غِف مايسَلف أ تشالَنج",
+      "translationFa": "خود را به چالش کشیدن",
+      "translationAr": "يتحدّى نفسه",
+      "explanationFa": "مشابهِ challenge yourself؛ دلیلِ خوبی برای شروعِ کارِ تازه در اسپیکینگ است.",
+      "explanationAr": "تشبه challenge yourself، وهي سبب جيد لبدء أمر جديد في المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fall over": {
+      "headword": "fall over",
+      "forms": [
+        "fall over"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌfɔːl ˈəʊvə/",
+      "pronounceFa": "فُل اُوِ",
+      "pronounceAr": "فول أوفَ",
+      "translationFa": "زمین خوردن، افتادن",
+      "translationAr": "يسقط أرضاً",
+      "explanationFa": "وقتی کسی در حالِ ایستادن یا راه رفتن تعادلش را از دست می‌دهد و می‌افتد؛ fall down هم نزدیک است.",
+      "explanationAr": "عندما يفقد المرء توازنه وهو واقف أو يمشي فيسقط، وتقاربها fall down.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "hiking": {
+      "headword": "hiking",
+      "forms": [
+        "hiking"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈhaɪkɪŋ/",
+      "pronounceFa": "هایکینگ",
+      "pronounceAr": "هايكِنغ",
+      "translationFa": "کوهپیمایی، پیاده‌رویِ طولانی در طبیعت",
+      "translationAr": "المشي لمسافات طويلة في الطبيعة",
+      "explanationFa": "با go می‌آید: go hiking. فعالیتی رایج برای پاسخ به سؤال‌های اوقاتِ فراغت در اسپیکینگ.",
+      "explanationAr": "تأتي مع go: go hiking، ونشاط شائع للإجابة عن أسئلة أوقات الفراغ في المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "follow-up questions": {
+      "headword": "follow-up questions",
+      "forms": [
+        "FOLLOW-UP QUESTIONS",
+        "follow-up questions"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈfɒləʊ ʌp ˌkwestʃənz/",
+      "pronounceFa": "فالُ آپ کوِسچِنز",
+      "pronounceAr": "فولو آب كوَستشَنز",
+      "translationFa": "سؤال‌های تکمیلی (پس از صحبتِ بخشِ 2)",
+      "translationAr": "أسئلة المتابعة (بعد حديث الجزء 2)",
+      "explanationFa": "ممتحن پس از صحبتِ دودقیقه‌ای یکی دو سؤالِ کوتاه می‌پرسد؛ با دو سه جمله پاسخ دهید.",
+      "explanationAr": "يطرح الممتحن بعد حديث الدقيقتين سؤالاً أو اثنين قصيرين؛ أجيبوا بجملتين أو ثلاث.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "tempting": {
+      "headword": "tempting",
+      "forms": [
+        "tempting"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtemptɪŋ/",
+      "pronounceFa": "تِمپتینگ",
+      "pronounceAr": "تَمبتِنغ",
+      "translationFa": "وسوسه‌انگیز",
+      "translationAr": "مُغرٍ",
+      "explanationFa": "از فعلِ tempt (وسوسه کردن)؛ اسمش temptation است. در موضوعِ خرید و غذا به کار می‌رود: a tempting offer.",
+      "explanationAr": "من الفعل tempt (يُغري)، والاسم منها temptation، وتُستخدم في موضوع التسوّق والطعام: a tempting offer.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "on offer": {
+      "headword": "on offer",
+      "forms": [
+        "on offer"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɒn ˈɒfə/",
+      "pronounceFa": "آن آفِ",
+      "pronounceAr": "أون أوفَ",
+      "translationFa": "موجود و قابلِ استفاده؛ (در فروشگاه) با تخفیف",
+      "translationAr": "متاح، معروض؛ (في المتجر) بسعر مخفّض",
+      "explanationFa": "the activities we have on offer یعنی فعالیت‌هایی که ارائه می‌دهیم. در فروشگاهِ بریتانیایی on offer یعنی «حراج».",
+      "explanationAr": "the activities we have on offer تعني الأنشطة التي نقدّمها، وفي المتاجر البريطانية on offer تعني «بتخفيض».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "permitted": {
+      "headword": "permitted",
+      "forms": [
+        "permitted"
+      ],
+      "pos": "adjective",
+      "ipa": "/pəˈmɪtɪd/",
+      "pronounceFa": "پِمیتید",
+      "pronounceAr": "بَرمِتِد",
+      "translationFa": "مجاز",
+      "translationAr": "مسموح به",
+      "explanationFa": "رسمی‌ترِ allowed است؛ در لیسنینگِ بخشِ 2 (قوانینِ یک مکان) زیاد شنیده می‌شود: Swimming isn't permitted here.",
+      "explanationAr": "أكثر رسمية من allowed، وتُسمع كثيراً في الجزء 2 من الاستماع (قواعد مكان ما): Swimming isn't permitted here.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "point out": {
+      "headword": "point out",
+      "forms": [
+        "point out"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌpɔɪnt ˈaʊt/",
+      "pronounceFa": "پُینت آوت",
+      "pronounceAr": "بوينت آوت",
+      "translationFa": "اشاره کردن به، خاطرنشان کردن",
+      "translationAr": "يشير إلى، يلفت النظر إلى",
+      "explanationFa": "هم برای نشان دادنِ چیزی با دست و هم برای گفتنِ نکته‌ای: It is worth pointing out that... (در رایتینگ).",
+      "explanationAr": "لإظهار شيء باليد أو لذكر ملاحظة: It is worth pointing out that... (في الكتابة).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "feature": {
+      "headword": "feature",
+      "forms": [
+        "feature"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈfiːtʃə/",
+      "pronounceFa": "فیچِ",
+      "pronounceAr": "فيتشَ",
+      "translationFa": "داشتن (به‌عنوانِ بخشِ مهم)، در خود جا دادن",
+      "translationAr": "يتضمّن (كعنصر بارز)، يضمّ",
+      "explanationFa": "در نقشِ فعل: The centre will feature... (یکی از بخش‌های برجسته‌اش ... است). در نقشِ اسم یعنی «ویژگی».",
+      "explanationAr": "كفعل: The centre will feature... (سيضمّ عنصراً بارزاً)، وكاسم تعني «ميزة».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
     }
   }
 }
