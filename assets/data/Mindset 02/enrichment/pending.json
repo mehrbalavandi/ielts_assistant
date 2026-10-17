@@ -1,8 +1,8 @@
 {
-  "generatedAt": "1405-07-25 22:14",
-  "total": 5248,
-  "translated": 720,
-  "pendingUnique": 4096,
+  "generatedAt": "1405-07-25 23:09",
+  "total": 5711,
+  "translated": 1172,
+  "pendingUnique": 4140,
   "items": [
     {
       "page": 1,
@@ -4081,14 +4081,6 @@
       "unit": "UNIT/01: THE MAN-MADE ENVIRONMENT",
       "section": "SPEAKING",
       "where": "table",
-      "key": "ask and answer these questions with a partner.",
-      "text": "Ask and answer these questions with a partner."
-    },
-    {
-      "page": 18,
-      "unit": "UNIT/01: THE MAN-MADE ENVIRONMENT",
-      "section": "SPEAKING",
-      "where": "table",
       "key": "would you recommend your house/apartment to another person?",
       "text": "Would you recommend your house/apartment to another person?"
     },
@@ -4187,14 +4179,6 @@
       "where": "table",
       "key": "parks",
       "text": "parks"
-    },
-    {
-      "page": 19,
-      "unit": "UNIT/01: THE MAN-MADE ENVIRONMENT",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "restaurants",
-      "text": "restaurants"
     },
     {
       "page": 19,
@@ -4835,30 +4819,6 @@
       "where": "table",
       "key": "boxing",
       "text": "{blk}Boxing{/blk}"
-    },
-    {
-      "page": 21,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "READING",
-      "where": "table",
-      "key": "basketball",
-      "text": "{blk}Basketball{/blk}"
-    },
-    {
-      "page": 21,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "READING",
-      "where": "table",
-      "key": "tennis",
-      "text": "{blk}Tennis{/blk}"
-    },
-    {
-      "page": 21,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "READING",
-      "where": "table",
-      "key": "football",
-      "text": "{blk}Football{/blk}"
     },
     {
       "page": 21,
@@ -6513,14 +6473,6 @@
       "unit": "UNIT/02: LEISURE AND RECREATION",
       "section": "WRITING",
       "where": "table",
-      "key": "grammar focus: comparatives",
-      "text": "GRAMMAR FOCUS: COMPARATIVES"
-    },
-    {
-      "page": 29,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "WRITING",
-      "where": "table",
       "key": "read this sentence from the sample answer and underline the comparative form.",
       "text": "Read this sentence from the sample answer and underline the comparative form."
     },
@@ -6731,14 +6683,6 @@
       "where": "table",
       "key": "athlete",
       "text": "Athlete"
-    },
-    {
-      "page": 30,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "WRITING",
-      "where": "table",
-      "key": "sport",
-      "text": "Sport"
     },
     {
       "page": 30,
@@ -7061,22 +7005,6 @@
       "text": "{blk}flyover{/blk}"
     },
     {
-      "page": 32,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "LISTENING",
-      "where": "table",
-      "key": "traffic lights",
-      "text": "{blk}traffic lights{/blk}"
-    },
-    {
-      "page": 32,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "LISTENING",
-      "where": "table",
-      "key": "roundabout",
-      "text": "{blk}roundabout{/blk}"
-    },
-    {
       "page": 33,
       "unit": "UNIT/02: LEISURE AND RECREATION",
       "section": "LISTENING",
@@ -7123,14 +7051,6 @@
       "where": "table",
       "key": "when you get there, go straight across.",
       "text": "When you get there, go straight across."
-    },
-    {
-      "page": 33,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "LISTENING",
-      "where": "table",
-      "key": "crossroads",
-      "text": "{blk}crossroads{/blk}"
     },
     {
       "page": 33,
@@ -7227,14 +7147,6 @@
       "where": "table",
       "key": "badminton",
       "text": "badminton"
-    },
-    {
-      "page": 34,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "LISTENING",
-      "where": "table",
-      "key": "table tennis",
-      "text": "table tennis"
     },
     {
       "page": 34,
@@ -7595,14 +7507,6 @@
       "where": "table",
       "key": "match the photos with the activities in the box.",
       "text": "Match the photos with the activities in the box."
-    },
-    {
-      "page": 35,
-      "unit": "UNIT/02: LEISURE AND RECREATION",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "hiking",
-      "text": "hiking"
     },
     {
       "page": 35,
@@ -9937,14 +9841,6 @@
       "unit": "UNIT/03: THE NEWS AND MEDIA",
       "section": "WRITING",
       "where": "table",
-      "key": "thirdly",
-      "text": "{blk}Thirdly{/blk}"
-    },
-    {
-      "page": 48,
-      "unit": "UNIT/03: THE NEWS AND MEDIA",
-      "section": "WRITING",
-      "where": "table",
       "key": "then/after that",
       "text": "{blk}Then/After That{/blk}"
     },
@@ -10059,14 +9955,6 @@
       "where": "table",
       "key": "first line",
       "text": "first line"
-    },
-    {
-      "page": 48,
-      "unit": "UNIT/03: THE NEWS AND MEDIA",
-      "section": "WRITING",
-      "where": "table",
-      "key": "write",
-      "text": "write"
     },
     {
       "page": 48,
@@ -11753,14 +11641,6 @@
       "unit": "UNIT/03: THE NEWS AND MEDIA",
       "section": "SPEAKING",
       "where": "table",
-      "key": "brilliant",
-      "text": "brilliant"
-    },
-    {
-      "page": 57,
-      "unit": "UNIT/03: THE NEWS AND MEDIA",
-      "section": "SPEAKING",
-      "where": "table",
       "key": "delightful",
       "text": "delightful"
     },
@@ -11899,14 +11779,6 @@
       "where": "table",
       "key": "dreadful",
       "text": "dreadful"
-    },
-    {
-      "page": 57,
-      "unit": "UNIT/03: THE NEWS AND MEDIA",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "harmful",
-      "text": "harmful"
     },
     {
       "page": 57,
@@ -13705,30 +13577,6 @@
       "unit": "UNIT/04: TRAVEL AND TRANSPORT",
       "section": "WRITING",
       "where": "table",
-      "key": "bridge",
-      "text": "{blk}bridge  {/blk}"
-    },
-    {
-      "page": 67,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "river",
-      "text": "{blk}river  {/blk}"
-    },
-    {
-      "page": 67,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "pond",
-      "text": "{blk}pond  {/blk}"
-    },
-    {
-      "page": 67,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "WRITING",
-      "where": "table",
       "key": "church",
       "text": "{blk}church  {/blk}"
     },
@@ -14395,14 +14243,6 @@
       "where": "table",
       "key": "to summarise, in conclusion, to conclude",
       "text": "{blk}to summarise, in conclusion, to conclude{/blk}"
-    },
-    {
-      "page": 70,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "WRITING",
-      "where": "table",
-      "key": "in addition",
-      "text": "in addition"
     },
     {
       "page": 70,
@@ -15849,14 +15689,6 @@
       "unit": "UNIT/04: TRAVEL AND TRANSPORT",
       "section": "SPEAKING",
       "where": "table",
-      "key": "h",
-      "text": "{blk}H{/blk}"
-    },
-    {
-      "page": 77,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "SPEAKING",
-      "where": "table",
       "key": "◉ you need to use the correct sequencing words during the long turn so that the examiner can understand what happened from beginning to end.",
       "text": "◉ You need to use the correct sequencing words during the long turn so that the examiner can understand what happened from beginning to end."
     },
@@ -15889,24 +15721,8 @@
       "unit": "UNIT/04: TRAVEL AND TRANSPORT",
       "section": "SPEAKING",
       "where": "table",
-      "key": "before",
-      "text": "before"
-    },
-    {
-      "page": 78,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "SPEAKING",
-      "where": "table",
       "key": "in order to",
       "text": "in order to"
-    },
-    {
-      "page": 78,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "now",
-      "text": "now"
     },
     {
       "page": 78,
@@ -16339,14 +16155,6 @@
       "where": "table",
       "key": "the candidate took around 5-10seconds to answer each question.",
       "text": "{blk}The candidate took around 5-10seconds to answer each question.{/blk}"
-    },
-    {
-      "page": 79,
-      "unit": "UNIT/04: TRAVEL AND TRANSPORT",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "share your ideas with a partner.",
-      "text": "share your ideas with a partner."
     },
     {
       "page": 79,
@@ -18371,14 +18179,6 @@
       "where": "table",
       "key": "cost to maintain",
       "text": "cost to maintain"
-    },
-    {
-      "page": 88,
-      "unit": "UNIT/05: BUSINESS AND WORK",
-      "section": "WRITING",
-      "where": "table",
-      "key": "dangerous",
-      "text": "dangerous"
     },
     {
       "page": 88,
@@ -21121,14 +20921,6 @@
       "unit": "UNIT/06: THE NATURAL ENVIRONMENT",
       "section": "READING",
       "where": "table",
-      "key": "not given",
-      "text": "NOT GIVEN"
-    },
-    {
-      "page": 100,
-      "unit": "UNIT/06: THE NATURAL ENVIRONMENT",
-      "section": "READING",
-      "where": "table",
       "key": "if it is impossible to say what the writer thinks",
       "text": "if it is impossible to say what the writer thinks"
     },
@@ -21923,14 +21715,6 @@
       "where": "table",
       "key": "poachers",
       "text": "poachers"
-    },
-    {
-      "page": 104,
-      "unit": "UNIT/06: THE NATURAL ENVIRONMENT",
-      "section": "READING",
-      "where": "table",
-      "key": "strange",
-      "text": "strange"
     },
     {
       "page": 104,
@@ -29833,14 +29617,6 @@
       "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
       "section": "READING",
       "where": "table",
-      "key": "change",
-      "text": "change"
-    },
-    {
-      "page": 143,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "READING",
-      "where": "table",
       "key": "order",
       "text": "order"
     },
@@ -29915,30 +29691,6 @@
       "where": "table",
       "key": "using the tips in exercise 7, read the texts and then decide if these statements agree with the information given in them.",
       "text": "Using the tips in exercise 7, read the texts and then decide if these statements agree with the information given in them."
-    },
-    {
-      "page": 143,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "READING",
-      "where": "table",
-      "key": "if the statement agrees with the information",
-      "text": "if the statement agrees with the information"
-    },
-    {
-      "page": 143,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "READING",
-      "where": "table",
-      "key": "if the statement contradicts the information",
-      "text": "if the statement contradicts the information"
-    },
-    {
-      "page": 143,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "READING",
-      "where": "table",
-      "key": "if there is no information on this",
-      "text": "if there is no information on this"
     },
     {
       "page": 143,
@@ -31088,14 +30840,6 @@
       "page": 152,
       "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
       "section": "LISTENING",
-      "where": "page",
-      "key": "[[[[[[[[[[summary completion]",
-      "text": "[[[[[[[[[[SUMMARY COMPLETION]"
-    },
-    {
-      "page": 152,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "LISTENING",
       "where": "table",
       "key": "◉ in the listening test you may have to complete a summary with words from the recording. you may need to write up to three words and/or a number in each gap. before you listen, you need to look at the summary and gaps and think about:",
       "text": "◉ In the Listening test you may have to complete a summary with words from the recording. You may need to write up to three words and/or a number in each gap. Before you listen, you need to look at the summary and gaps and think about:"
@@ -31555,14 +31299,6 @@
       "where": "table",
       "key": "encourage students to give their ideas and offer to use their own 2 cooking skills.",
       "text": "Encourage students to give their ideas and offer to use their own 2 {blk}cooking{/blk} skills."
-    },
-    {
-      "page": 154,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "LISTENING",
-      "where": "table",
-      "key": "agrees",
-      "text": "Agrees"
     },
     {
       "page": 154,
@@ -32425,14 +32161,6 @@
       "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
       "section": "SPEAKING",
       "where": "table",
-      "key": "exhausting",
-      "text": "exhausting"
-    },
-    {
-      "page": 160,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "SPEAKING",
-      "where": "table",
       "key": "memorable",
       "text": "memorable"
     },
@@ -32443,22 +32171,6 @@
       "where": "table",
       "key": "mysterious",
       "text": "mysterious"
-    },
-    {
-      "page": 160,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "peaceful",
-      "text": "peaceful"
-    },
-    {
-      "page": 160,
-      "unit": "UNIT/08: FESTIVALS AND TRADITIONS",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "serious",
-      "text": "serious"
     },
     {
       "page": 160,
@@ -32771,6 +32483,646 @@
       "where": "page",
       "key": "ipa: ɪ ʊ ə ʌ æ ɑː ɒ ɔː ɜː iː uː eɪ aɪ ɔɪ aʊ əʊ ɪə eə ʊə θ ð ʃ ʒ ŋ tʃ dʒ ˈ ˌ ː",
       "text": "IPA: ɪ ʊ ə ʌ æ ɑː ɒ ɔː ɜː iː uː eɪ aɪ ɔɪ aʊ əʊ ɪə eə ʊə θ ð ʃ ʒ ŋ tʃ dʒ ˈ ˌ ː"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_11.mp3",
+      "where": "audio",
+      "key": "hoi chin: my family? well, my family isn't a large family. it's quite a",
+      "text": "Hoi Chin: My family? Well, my family isn't a large family. It's quite a"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_11.mp3",
+      "where": "audio",
+      "key": "small family in fact - and quite a typical family for my country. just my parents, my older brother and me. so, i'm the baby of the family! i think we're a close, happy family. we do a lot of things together, particularly preparing food - and eating it of course! yes, we spend a lot of time in the kitchen. my father's a very good cook - he's much better than my mother.",
+      "text": "small family in fact - and quite a typical family for my country. Just my parents, my older brother and me. So, I'm the baby of the family! I think we're a close, happy family. We do a lot of things together, particularly preparing food - and eating it of course! Yes, we spend a lot of time in the kitchen. My father's a very good cook - he's much better than my mother."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_43.mp3",
+      "where": "audio",
+      "key": "callingall fans of sam west! this famous adventure writer will be in westfield shopping centre tomorrow in bookworms bookshop on the first floor. he will be signing copies of his latest book, timed out. he is expected to get there at quarter past two and will stay until half past three. get there as soon as you can because queues will start to form as early as noon. don't miss this great opportunity to meet everyone's favourite writer!",
+      "text": "Callingall fans of Sam West! This famous adventure writer will be in Westfield shopping centre tomorrow in Bookworms Bookshop on the first floor. He will be signing copies of his latest book, Timed Out. He is expected to get there at quarter past two and will stay until half past three. Get there as soon as you can because queues will start to form as early as noon. Don't miss this great opportunity to meet everyone's favourite writer!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_59.mp3",
+      "where": "audio",
+      "key": "justin bieber's rise to fame is an interesting story. he was interested in music from a very early age and he taught himself how to play a whole selection of musical instruments, which i think is rare in youngsters these days. like a lot of teenagers who want to be pop stars, he learnt the guitar. but, whereas very few of those teenagers put in the effort needed to be successful, bieber, on the other hand, not only learnt how to play the piano as well, but also mastered the drums and even the trumpet! one day he hopes to learn the violin.",
+      "text": "Justin Bieber's rise to fame is an interesting story. He was interested in music from a very early age and he taught himself how to play a whole selection of musical instruments, which I think is rare in youngsters these days. Like a lot of teenagers who want to be pop stars, he learnt the guitar. But, whereas very few of those teenagers put in the effort needed to be successful, Bieber, on the other hand, not only learnt how to play the piano as well, but also mastered the drums and even the trumpet! One day he hopes to learn the violin."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_59.mp3",
+      "where": "audio",
+      "key": "he was clearly gifted, and his mother used to arrange for him to take part in local competitions. he came second in one, and his mother posted his performance on youtube. she kept posting other clips of him singing, and soon these attracted a number of fans who started following him, though at this point he still hadn't found fame. his big break came when a music executive came across these videos by accident when he was looking for a performance by a different artist. he immediately recognised bieber's talent and gave the teenager a contract with his recording company. his first record was a worldwide hit. he shot to fame in just two years and is now a global superstar, one of the most well-known performers the world has ever seen.",
+      "text": "He was clearly gifted, and his mother used to arrange for him to take part in local competitions. He came second in one, and his mother posted his performance on YouTube. She kept posting other clips of him singing, and soon these attracted a number of fans who started following him, though at this point he still hadn't found fame. His big break came when a music executive came across these videos by accident when he was looking for a performance by a different artist. He immediately recognised Bieber's talent and gave the teenager a contract with his recording company. His first record was a worldwide hit. He shot to fame in just two years and is now a global superstar, one of the most well-known performers the world has ever seen."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_60.mp3",
+      "where": "audio",
+      "key": "a: i wouldn't like to be famous. i would hate people to recognise me all the time. you would always be followed by journalists and never able to have a private life. being followed on a good day, when you've been to the hairdresser and are wearing your best jeans, is perhaps acceptable, but can you imagine how it would make you feel on a bad day?",
+      "text": "A: I wouldn't like to be famous. I would hate people to recognise me all the time. You would always be followed by journalists and never able to have a private life. Being followed on a good day, when you've been to the hairdresser and are wearing your best jeans, is perhaps acceptable, but can you imagine how it would make you feel on a bad day?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_60.mp3",
+      "where": "audio",
+      "key": "b: i would love to be famous. i would adore all the attention and the special treatment. everywhere i went, people would know my name and i wouldn't need to queue any more. the best part, though, would be meeting other famous people. i can imagine that would be so interesting. they would come to my private yacht and i would visit their mansions.",
+      "text": "B: I would love to be famous. I would adore all the attention and the special treatment. Everywhere I went, people would know my name and I wouldn't need to queue any more. The best part, though, would be meeting other famous people. I can imagine that would be so interesting. They would come to my private yacht and I would visit their mansions."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "interviewer: so, you've been a famous singer for over three decades now. what advice would you give to someone wanting to become famous?",
+      "text": "Interviewer: So, you've been a famous singer for over three decades now. What advice would you give to someone wanting to become famous?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "celebrity: well, my first piece of advice is - don't try and become famous. instead focus on being good at something. choose something you enjoy and then work hard at doing well in that area.",
+      "text": "Celebrity: Well, my first piece of advice is - don't try and become famous. Instead focus on being good at something. Choose something you enjoy and then work hard at doing well in that area."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "interviewer: what did you do to become such a successful singer?",
+      "text": "Interviewer: What did you do to become such a successful singer?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "celebrity: well, a good way to be the best is to learn from the",
+      "text": "Celebrity: Well, a good way to be the best is to learn from the"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "experts. find people you admire in your area of interest. try to get as close to them as possible. observe them carefully. if possible, talk to them. ask lots of questions. don't copy them, but try to learn from them. and don't be afraid to experiment, try something new.",
+      "text": "experts. Find people you admire in your area of interest. Try to get as close to them as possible. Observe them carefully. If possible, talk to them. Ask lots of questions. Don't copy them, but try to learn from them. And don't be afraid to experiment, try something new."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "interviewer: being the best is one thing, but how did you get yourself known?",
+      "text": "Interviewer: Being the best is one thing, but how did you get yourself known?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "celebrity: getting yourself known is indeed another skill you must",
+      "text": "Celebrity: Getting yourself known is indeed another skill you must"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "work on. one thing is for sure, nobody is going to come to you. you have to make opportunities for yourself. you have a product to sell and the product is you. it's much easier to do that these days, especially with the internet around. many people use social media for this.",
+      "text": "work on. One thing is for sure, nobody is going to come to you. You have to make opportunities for yourself. You have a product to sell and the product is you. It's much easier to do that these days, especially with the internet around. Many people use social media for this."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "interviewer: any other piece of advice?",
+      "text": "Interviewer: Any other piece of advice?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "celebrity: yes, the last thing i would say is, if you want to be really successful in something, you will most likely experience a certain amount of failure. people who fail at some point often say that the experience has been a great lesson and helped them on the road to success. try to learn from these moments instead of being frightened of them. in fact, some of the most successful people have often failed countless times before reaching their end goal. what makes them successful, is that they kept on trying regardless.",
+      "text": "Celebrity: Yes, the last thing I would say is, if you want to be really successful in something, you will most likely experience a certain amount of failure. People who fail at some point often say that the experience has been a great lesson and helped them on the road to success. Try to learn from these moments instead of being frightened of them. In fact, some of the most successful people have often failed countless times before reaching their end goal. What makes them successful, is that they kept on trying regardless."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_62.mp3",
+      "where": "audio",
+      "key": "if you're going to take film-making seriously, you need to learn how to get the best from your camcorder. many people use camcorders these days, to make short videos of their friends and family, and often people just use the automatic functions. these work well enough for those types of occasion, but if you want to take a more professional approach for the production of your short film, you should have some knowledge of the camcorder's manual functions too.",
+      "text": "If you're going to take film-making seriously, you need to learn how to get the best from your camcorder. Many people use camcorders these days, to make short videos of their friends and family, and often people just use the automatic functions. These work well enough for those types of occasion, but if you want to take a more professional approach for the production of your short film, you should have some knowledge of the camcorder's manual functions too."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_62.mp3",
+      "where": "audio",
+      "key": "in this tutorial i will start by discussing three of the most basic functions: the focus, the iris and the zoom. the focus control is usually the manual focus ring at the front of the lens, well certainly with professional cameras. it's a particularly useful function if used correctly. the ring turns anti-clockwise for a more distant focus and clockwise for a closer focus.",
+      "text": "In this tutorial I will start by discussing three of the most basic functions: the focus, the iris and the zoom. The focus control is usually the manual focus ring at the front of the lens, well certainly with professional cameras. It's a particularly useful function if used correctly. The ring turns anti-clockwise for a more distant focus and clockwise for a closer focus."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_62.mp3",
+      "where": "audio",
+      "key": "next, i will talk about the iris ring. this is also located on the lens. it manages how much light appears through the lens, through the adjustable opening called the aperture. as you let more light into the shot, it naturally becomes brighter.",
+      "text": "Next, I will talk about the iris ring. This is also located on the lens. It manages how much light appears through the lens, through the adjustable opening called the aperture. As you let more light into the shot, it naturally becomes brighter."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_62.mp3",
+      "where": "audio",
+      "key": "finally, i will talk about the zoom function. many people use this function and it's often over-used! used in moderation, however, this very popular feature can be a really useful tool. it moves your perspective closer or further away from your chosen subject. i would advise, however, that whilst shooting a long zoom, you use a tripod.",
+      "text": "Finally, I will talk about the zoom function. Many people use this function and it's often over-used! Used in moderation, however, this very popular feature can be a really useful tool. It moves your perspective closer or further away from your chosen subject. I would advise, however, that whilst shooting a long zoom, you use a tripod."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "so welcome to film-makers' club. i hope you're excited at the thought of making a film and that you're bursting with great ideas. i've put you all into groups, so here's what you're going to do. now you might think the first thing that you need to do is to come up with an idea for a story, but even before that you need to think about what type of film you want to make.",
+      "text": "So welcome to Film-makers' Club. I hope you're excited at the thought of making a film and that you're bursting with great ideas. I've put you all into groups, so here's what you're going to do. Now you might think the first thing that you need to do is to come up with an idea for a story, but even before that you need to think about what type of film you want to make."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "remember that a film is really a story in pictures. there are lots of ways of telling a story. so choose a style of film that suits the talents of the group. if you have talented artists, but no good writers, or actors, you might want to make your film in the style of a cartoon or someother kind of animation. last year a group made an excellent film using lego bricks.",
+      "text": "Remember that a film is really a story in pictures. There are lots of ways of telling a story. So choose a style of film that suits the talents of the group. If you have talented artists, but no good writers, or actors, you might want to make your film in the style of a cartoon or someother kind of animation. Last year a group made an excellent film using Lego bricks."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "so having decided that, you can start to think of your idea for the story. think about the movies you like to watch. what is it that makes them interesting? is it the characters, the plot? as regards plot, my advice is - don't be too ambitious, don't make it complicated. keep it simple-the simplest ideas are often the ones that work the best. initially you just need to find the basic concept. you can fill in the details later. it's a good idea to keep a notebook in your pocket and carry it everywhere. you never know when a great idea will suddenly come to you! and the more ideas, the better, in my opinion.",
+      "text": "So having decided that, you can start to think of your idea for the story. Think about the movies you like to watch. What is it that makes them interesting? Is it the characters, the plot? As regards plot, my advice is - don't be too ambitious, don't make it complicated. Keep it simple-the simplest ideas are often the ones that work the best. Initially you just need to find the basic concept. You can fill in the details later. It's a good idea to keep a notebook in your pocket and carry it everywhere. You never know when a great idea will suddenly come to you! And the more ideas, the better, in my opinion."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "the next stage is to write the screenplay-for this you need to divide the story up into a series of scenes. for each scene, the screenplay should begin with a short description of where it takes place and the time of day, that is day or night. then the rest consists of the script - the lines the actors will speak, and it should also describe the camera movements, and give directions to the actors about how they should move.",
+      "text": "The next stage is to write the screenplay-for this you need to divide the story up into a series of scenes. For each scene, the screenplay should begin with a short description of where it takes place and the time of day, that is day or night. Then the rest consists of the script - the lines the actors will speak, and it should also describe the camera movements, and give directions to the actors about how they should move."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "before you can start filming, you need to prepare a storyboard of your film to help everyone involved to imagine the scenes clearly and to understand what you are trying to achieve. this is similar to a comic-book version of your film, but without speech balloons.",
+      "text": "Before you can start filming, you need to prepare a storyboard of your film to help everyone involved to imagine the scenes clearly and to understand what you are trying to achieve. This is similar to a comic-book version of your film, but without speech balloons."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "and at this point you need to appoint a director. this is a major role and it's vital that he or she is a good communicator, as they are the key link between the actors and the rest of the team. this person will have responsibility for the creative side of the project. he or she will have the final say in the choice of the main actors and in directing the action of the film.",
+      "text": "And at this point you need to appoint a director. This is a major role and it's vital that he or she is a good communicator, as they are the key link between the actors and the rest of the team. This person will have responsibility for the creative side of the project. He or she will have the final say in the choice of the main actors and in directing the action of the film."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "that brings me to the next stage-casting your film-finding the actors. don't just rely on your friends. be creative! perhaps you could advertise on social media. or if your film needs a doctor, perhaps you could ask one from the localhospital if they could spare a couple of hours for you?",
+      "text": "That brings me to the next stage-casting your film-finding the actors. Don't just rely on your friends. Be creative! Perhaps you could advertise on social media. Or if your film needs a doctor, perhaps you could ask one from the localhospital if they could spare a couple of hours for you?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "and then before filming finally starts, you will need to assign other jobs, such as director of photography - in your case this will be the person who operates the camera; someone in charge of sound and music, and someone in charge of costumes and props (including furniture and any other objects needed) and also someone to look after hair and make-up. but we'll look at these roles in more detail in our next session.",
+      "text": "And then before filming finally starts, you will need to assign other jobs, such as director of photography - in your case this will be the person who operates the camera; someone in charge of sound and music, and someone in charge of costumes and props (including furniture and any other objects needed) and also someone to look after hair and make-up. But we'll look at these roles in more detail in our next session."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_64.mp3",
+      "where": "audio",
+      "key": "well, for this task i'd like to talk about bill gates. he's the brilliant computer programmer who created microsoft and the windows operating system. i first saw bill gates on television in 2001. he was talking about windows xp, which came out that year. i remember thinking that he is the richest man in the world, but if you look at him, you'd never know that. he just looks like a typical computer programmer.",
+      "text": "Well, for this task I'd like to talk about Bill Gates. He's the brilliant computer programmer who created Microsoft and the Windows operating system. I first saw Bill Gates on television in 2001. He was talking about Windows XP, which came out that year. I remember thinking that he is the richest man in the world, but if you look at him, you'd never know that. He just looks like a typical computer programmer."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_64.mp3",
+      "where": "audio",
+      "key": "i like bill gates because he's responsible for bringing computers to millions of family homes around the world with his windows operating system. this made computers easier to use for everyone and also at a price that many families could afford.",
+      "text": "I like Bill Gates because he's responsible for bringing computers to millions of family homes around the world with his Windows operating system. This made computers easier to use for everyone and also at a price that many families could afford."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_64.mp3",
+      "where": "audio",
+      "key": "i also like him because he was the world's youngest self-made billionaire at the time. if he could do it, i like to i think i could do it too. finally, i admire him because he's very generous and uses his money to help people. he has given away a huge amount of his money to charity, and i believe he plans to give most of it away in the end. i think this is an excellent idea and i hope this can show other rich and powerful people that they should also help others.",
+      "text": "I also like him because he was the world's youngest self-made billionaire at the time. If he could do it, I like to I think I could do it too. Finally, I admire him because he's very generous and uses his money to help people. He has given away a huge amount of his money to charity, and I believe he plans to give most of it away in the end. I think this is an excellent idea and I hope this can show other rich and powerful people that they should also help others."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_65.mp3",
+      "where": "audio",
+      "key": "well, the famous person i'm going to describe is david beckham. he was a footballer who played for manchester united, and he also played for england. i first saw him play for united when i was only seven, so that was probably in about 2002. i remember it as one of the most exciting days in my life!",
+      "text": "Well, the famous person I'm going to describe is David Beckham. He was a footballer who played for Manchester United, and he also played for England. I first saw him play for United when I was only seven, so that was probably in about 2002. I remember it as one of the most exciting days in my life!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_65.mp3",
+      "where": "audio",
+      "key": "david beckham became famous because he was a very talented footballer. his speciality was scoring amazing goals from free kicks. but he wasn't well-known only for his football skills. he became even more famous when he married a pop star - victoria, one of the spice girls. and another reason for his fame was his good looks and his style. i think almost every boy in the world wanted to have a david beckham haircut! i know i did.",
+      "text": "David Beckham became famous because he was a very talented footballer. His speciality was scoring amazing goals from free kicks. But he wasn't well-known only for his football skills. He became even more famous when he married a pop star - Victoria, one of the Spice Girls. And another reason for his fame was his good looks and his style. I think almost every boy in the world wanted to have a David Beckham haircut! I know I did."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_65.mp3",
+      "where": "audio",
+      "key": "i adored him as a boy because i was mad about football and he was my hero. the reason why i still like him is that in spite of his fame he behaves like a normal guy. i heard a story from someone whose car was broken down in the middle of the countryside. and then a car stopped and a man got out and asked him if he needed a push. it was david beckham!",
+      "text": "I adored him as a boy because I was mad about football and he was my hero. The reason why I still like him is that in spite of his fame he behaves like a normal guy. I heard a story from someone whose car was broken down in the middle of the countryside. And then a car stopped and a man got out and asked him if he needed a push. It was David Beckham!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "speaker 1",
+      "text": "Speaker 1"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "this creature is found in the mountains of central africa. it has black hair all over its body, which is much thicker than that of other members of the species. this means that it can live in colder temperatures. there are only about 900 of these apes in the wild. a lot of the green plants they eat have been destroyed, and they have also been killed in the past for their fur.",
+      "text": "This creature is found in the mountains of Central Africa. It has black hair all over its body, which is much thicker than that of other members of the species. This means that it can live in colder temperatures. There are only about 900 of these apes in the wild. A lot of the green plants they eat have been destroyed, and they have also been killed in the past for their fur."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "speaker 2",
+      "text": "Speaker 2"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "this creature lives in the ocean from australia up to japan. many of them are quite small, with a body that grows up to five centimetres long, and they have long tentacles, or arms. its name comes from the bright blue rings that show up when it's frightened. you need to be careful in the sea around them as they are very poisonous.",
+      "text": "This creature lives in the ocean from Australia up to Japan. Many of them are quite small, with a body that grows up to five centimetres long, and they have long tentacles, or arms. Its name comes from the bright blue rings that show up when it's frightened. You need to be careful in the sea around them as they are very poisonous."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "speaker 3",
+      "text": "Speaker 3"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "these creatures live mainly in desert areas and can survive in both mountains and valleys. their tails help them to balance when they are climbing or sleeping in trees. their black and yellow coats help them to hide in the places where they live. unfortunately, there are only about 250 of these beautiful big cats left in the wild today.",
+      "text": "These creatures live mainly in desert areas and can survive in both mountains and valleys. Their tails help them to balance when they are climbing or sleeping in trees. Their black and yellow coats help them to hide in the places where they live. Unfortunately, there are only about 250 of these beautiful big cats left in the wild today."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "speaker 4",
+      "text": "Speaker 4"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_66.mp3",
+      "where": "audio",
+      "key": "this strange-looking animal lives in wet areas and comes from the area south of the tropics in china. there are very few in the wild now. as you can see, it has antlers like most deer, but it has a neck like a camel and hooves or feet like a cow. they eat mainly grass and live partly on land and partly in water.",
+      "text": "This strange-looking animal lives in wet areas and comes from the area south of the tropics in China. There are very few in the wild now. As you can see, it has antlers like most deer, but it has a neck like a camel and hooves or feet like a cow. They eat mainly grass and live partly on land and partly in water."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "hello everyone. today i'm going to talk about a project i've done about the mountain gorilla. i think it's a truly fascinating animal. they originate in africa - central africa, in fact.",
+      "text": "Hello everyone. Today I'm going to talk about a project I've done about the mountain gorilla. I think it's a truly fascinating animal. They originate in Africa - Central Africa, in fact."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "so now i'm going to talk a little about where they live. as you can probably guess, and as you can see in this first photo, their name reflects the environment they live in-tropical mountain forests.",
+      "text": "So now I'm going to talk a little about where they live. As you can probably guess, and as you can see in this first photo, their name reflects the environment they live in-tropical mountain forests."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "now just like all other apes, they build nests out of leaves. but they",
+      "text": "Now just like all other apes, they build nests out of leaves. But they"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "don't make their nests high up as other species do mountain",
+      "text": "don't make their nests high up as other species do mountain"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "gorillas make them on the ground instead. and they sleep wherever they end their day and they rarely sleep in the same bed twice! so, i'll move on to talk about the physical features of the mountain gorilla. in other words, what it looks like. so here are some more photographs on screen for you all to have a look at. this gorilla here on the left is a male gorilla. we know that he's an older male gorilla because of the colour of his coat. as you can see, his coat is grey. he's called a silverback. younger male gorillas are called blackbacks. and there's an obvious reason for that! yes, a young adult male has a black coat. as he gets older, his coat turns from black to grey.",
+      "text": "gorillas make them on the ground instead. And they sleep wherever they end their day and they rarely sleep in the same bed twice! So, I'll move on to talk about the physical features of the mountain gorilla. In other words, what it looks like. So here are some more photographs on screen for you all to have a look at. This gorilla here on the left is a male gorilla. We know that he's an older male gorilla because of the colour of his coat. As you can see, his coat is grey. He's called a silverback. Younger male gorillas are called blackbacks. And there's an obvious reason for that! Yes, a young adult male has a black coat. As he gets older, his coat turns from black to grey."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "next, i'm going to tell you a little about the diet of the mountain gorilla. interestingly, mountain gorillas are herbivores. in other words, they survive on a diet of plants. as you can see from this next picture, this gorilla is eating leaves. they also eat fruit and flowers. they occasionally eat insects too, but only when they're very hungry! and it might interest you to know that mountain gorillas very rarely drink water, even though they live in a very warm climate. it appears they get all the water they need from plants.",
+      "text": "Next, I'm going to tell you a little about the diet of the mountain gorilla. Interestingly, mountain gorillas are herbivores. In other words, they survive on a diet of plants. As you can see from this next picture, this gorilla is eating leaves. They also eat fruit and flowers. They occasionally eat insects too, but only when they're very hungry! And it might interest you to know that mountain gorillas very rarely drink water, even though they live in a very warm climate. It appears they get all the water they need from plants."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "i'd like to conclude by talking about some of the threats that mountain gorillas face. they are in serious danger of disappearing from our world altogether. let's have a look at two reasons why they're in such danger. and both of these reasons are connected to human activity. firstly, people are damaging the mountain forests where these gorillas live. they're cutting down the trees to build farms and towns. mountain gorillas live in close family groups and this means that it's difficult for them to get enough to eat in the small areas they now have to live in. secondly, gorillas are also suffering as a result of hunting. sadly, some people find and kill them to sell. so it's a very sad situation indeed for these beautiful animals.",
+      "text": "I'd like to conclude by talking about some of the threats that mountain gorillas face. They are in serious danger of disappearing from our world altogether. Let's have a look at two reasons why they're in such danger. And both of these reasons are connected to human activity. Firstly, people are damaging the mountain forests where these gorillas live. They're cutting down the trees to build farms and towns. Mountain gorillas live in close family groups and this means that it's difficult for them to get enough to eat in the small areas they now have to live in. Secondly, gorillas are also suffering as a result of hunting. Sadly, some people find and kill them to sell. So it's a very sad situation indeed for these beautiful animals."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_68.mp3",
+      "where": "audio",
+      "key": "good morning, everyone. in today's lecture i want to talk to you about a very unpopular animal here in britain. in fact, you could say that it's one of our least loved animals! it's called the american bullfrog and yes, it does in fact come from america - the east of america, to be exact - and it was brought to britain in the early 19th century, so you could say that it's been here for quite a long time. it wasn't brought here on purpose - it actually arrived in a big container of aquatic plants. in other words, it was accidentally introduced into britain.",
+      "text": "Good morning, everyone. In today's lecture I want to talk to you about a very unpopular animal here in Britain. In fact, you could say that it's one of our least loved animals! It's called the American bullfrog and yes, it does in fact come from America - the east of America, to be exact - and it was brought to Britain in the early 19th century, so you could say that it's been here for quite a long time. It wasn't brought here on purpose - it actually arrived in a big container of aquatic plants. In other words, it was accidentally introduced into Britain."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_68.mp3",
+      "where": "audio",
+      "key": "now, i'll tell you a little about its appearance. the american bullfrog is a very large - and ugly - species of frog. and when i say it's large, i mean large. interestingly, female american bullfrogs are usually much larger than the males. in fact, they can weigh up to 750 grams, whereas the males only go up to about 600 grams. take a look at its head - it's really broad and flat, isn't it? and you can see its mouth -just here - that's quite large too.",
+      "text": "Now, I'll tell you a little about its appearance. The American bullfrog is a very large - and ugly - species of frog. And when I say it's large, I mean large. Interestingly, female American bullfrogs are usually much larger than the males. In fact, they can weigh up to 750 grams, whereas the males only go up to about 600 grams. Take a look at its head - it's really broad and flat, isn't it? And you can see its mouth -just here - that's quite large too."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_68.mp3",
+      "where": "audio",
+      "key": "now, both the male and the female american bullfrogs have green or brown bodies and have dark spots on the top. but there's one important difference between them - the male's throat is yellow but the female has a white one instead. and the other difference is their eardrums, here just behind their eyes. those of the male are much larger than the female's.",
+      "text": "Now, both the male and the female American bullfrogs have green or brown bodies and have dark spots on the top. But there's one important difference between them - the male's throat is yellow but the female has a white one instead. And the other difference is their eardrums, here just behind their eyes. Those of the male are much larger than the female's."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_68.mp3",
+      "where": "audio",
+      "key": "so, let's move on to why we so dislike the american bullfrog. well, this is because it has threatened our own native species of frogs. firstly, it breeds very quickly indeed. for example, female bullfrogs can lay up to 25,000 eggs every single season. and secondly, the american bullfrog is very greedy. in fact, they eat just about anything they can put into their mouths! as well as other frogs, they eat insects, fish and have even been known to eat birds and snakes! so, in other words, they eat the food sources of our own native species. thirdly, they carry a disease that is dangerous to other frogs. and finally, they don't just damage our natural world, they cause financial damage too. around £100,000 has been spent monitoring the american bullfrog in the wild.",
+      "text": "So, let's move on to why we so dislike the American bullfrog. Well, this is because it has threatened our own native species of frogs. Firstly, it breeds very quickly indeed. For example, female bullfrogs can lay up to 25,000 eggs every single season. And secondly, the American bullfrog is very greedy. In fact, they eat just about anything they can put into their mouths! As well as other frogs, they eat insects, fish and have even been known to eat birds and snakes! So, in other words, they eat the food sources of our own native species. Thirdly, they carry a disease that is dangerous to other frogs. And finally, they don't just damage our natural world, they cause financial damage too. Around £100,000 has been spent monitoring the American bullfrog in the wild."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_68.mp3",
+      "where": "audio",
+      "key": "so, as scientists, we can learn a lesson from this about the dangers of introducing any living species into a new environment.",
+      "text": "So, as scientists, we can learn a lesson from this about the dangers of introducing any living species into a new environment."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "ok everyone, i think we're ready to make a start. now, when you think of a dangerous animal, what do you think of? a tiger perhaps? or maybe a leopard? most people think that all dangerous animals live on land, but in fact, some of the most dangerous animals on the planet live in our seas and oceans. i'm going to talk today about one of these - the box jellyfish.",
+      "text": "OK everyone, I think we're ready to make a start. Now, when you think of a dangerous animal, what do you think of? A tiger perhaps? Or maybe a leopard? Most people think that all dangerous animals live on land, but in fact, some of the most dangerous animals on the planet live in our seas and oceans. I'm going to talk today about one of these - the box jellyfish."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "there are different types of box jellyfish, and they are found in warm coastal seas anywhere from the indian ocean to as far north as japan, but the most dangerous ones are found in the oceans around australia.",
+      "text": "There are different types of box jellyfish, and they are found in warm coastal seas anywhere from the Indian Ocean to as far north as Japan, but the most dangerous ones are found in the oceans around Australia."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "ok, so now let's examine what these box jellyfish look like. there are no prizes for guessing why it's called a box jellyfish! you can see that it's shaped like a box or a cube, with four sides and rounded corners.",
+      "text": "OK, so now let's examine what these box jellyfish look like. There are no prizes for guessing why it's called a box jellyfish! You can see that it's shaped like a box or a cube, with four sides and rounded corners."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "and you can also see that its body is light blue.",
+      "text": "And you can also see that its body is light blue."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "so, let's take a look at the tentacles of the box jellyfish more closely.",
+      "text": "So, let's take a look at the tentacles of the box jellyfish more closely."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "it's got 15 of these growing from each of the four corners of the box. now, you may be surprised to learn that these tentacles can grow to a length of three metres! and another surprising thing is its large number of eyes, that's six eyes on each of its four sides, so 24 altogether.",
+      "text": "It's got 15 of these growing from each of the four corners of the box. Now, you may be surprised to learn that these tentacles can grow to a length of three metres! And another surprising thing is its large number of eyes, that's six eyes on each of its four sides, so 24 altogether."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "so now let's move on to talk about the sting of a box jellyfish. what is it? well, a jellyfish has a lot of tentacles, and each tentacle has thousands of cells which can produce a poison. if the tentacles come into contact with a fish, or a person, they stick to their skin. if the tentacles are very long, they are in contact with a lot of the body, giving a bad sting which hurts terribly. this can be dangerous to the victim.",
+      "text": "So now let's move on to talk about the sting of a box jellyfish. What is it? Well, a jellyfish has a lot of tentacles, and each tentacle has thousands of cells which can produce a poison. If the tentacles come into contact with a fish, or a person, they stick to their skin. If the tentacles are very long, they are in contact with a lot of the body, giving a bad sting which hurts terribly. This can be dangerous to the victim."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "there are two ways that people can die as the result of a jellyfish sting. firstly, a very severe sting can cause a person to have a heart attack. this can happen within minutes. secondly, sometimes a swimmer goes into shock and can't make it back to the beach because they are in such extreme pain. if they're in the water alone, they'll die.",
+      "text": "There are two ways that people can die as the result of a jellyfish sting. Firstly, a very severe sting can cause a person to have a heart attack. This can happen within minutes. Secondly, sometimes a swimmer goes into shock and can't make it back to the beach because they are in such extreme pain. If they're in the water alone, they'll die."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "and now i'd like to conclude with advice on how to help someone who has been stung by a box jellyfish. if they have had a heart attack, of course the most important thing is to try to revive them first of all.",
+      "text": "And now I'd like to conclude with advice on how to help someone who has been stung by a box jellyfish. If they have had a heart attack, of course the most important thing is to try to revive them first of all."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_69.mp3",
+      "where": "audio",
+      "key": "and then, the best thing to help is vinegar. yes, the same vinegar you use when you're cooking! many australian beaches keep bottles of it near the jellyfish warning signs. you should pour a bottle over the tentacles for 30 seconds, and then the tentacles can be removed. however, if you get stung and don't have any vinegar, you should pour seawater on the skin. this will help to ease the pain before you can get further medical help.",
+      "text": "And then, the best thing to help is vinegar. Yes, the same vinegar you use when you're cooking! Many Australian beaches keep bottles of it near the jellyfish warning signs. You should pour a bottle over the tentacles for 30 seconds, and then the tentacles can be removed. However, if you get stung and don't have any vinegar, you should pour seawater on the skin. This will help to ease the pain before you can get further medical help."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "examiner: what can governments do to prevent illegal hunting?",
+      "text": "Examiner: What can governments do to prevent illegal hunting?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "student 1: there are two things the government can do to prevent illegal hunting. the first is to be more serious about punishing hunters, for example...",
+      "text": "Student 1: There are two things the government can do to prevent illegal hunting. The first is to be more serious about punishing hunters, for example..."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "examiner: should the government provide more money for zoos?",
+      "text": "Examiner: Should the government provide more money for zoos?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "student 2: they definitely should. it seems to me that zoos need money now more than ever. many of them have very old facilities for the animals....",
+      "text": "Student 2: They definitely should. It seems to me that zoos need money now more than ever. Many of them have very old facilities for the animals...."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "examiner: how might we be able to protect wildlife in the future?",
+      "text": "Examiner: How might we be able to protect wildlife in the future?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "student 3: well, in the future, it might be a good idea to use technology to track where wild animals are...",
+      "text": "Student 3: Well, in the future, it might be a good idea to use technology to track where wild animals are..."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "examiner: is there any difference in how children learn about wildlife now than in the past?",
+      "text": "Examiner: is there any difference in how children learn about wildlife now than in the past?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "student 4: there's a big difference, i think. in the past, we used to go on more field trips to places to see wild animals, but now we mostly just see them on the internet.",
+      "text": "Student 4: There's a big difference, I think. In the past, we used to go on more field trips to places to see wild animals, but now we mostly just see them on the internet."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_71.mp3",
+      "where": "audio",
+      "key": "examiner: what should be done to people caught hunting illegally?",
+      "text": "Examiner: What should be done to people caught hunting illegally?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_71.mp3",
+      "where": "audio",
+      "key": "student: well, if you ask me, i think people caught hunting should pay all the money they made to charities that help to protect animals. and the same for people caught buying these animal products. for example, i read that the government in kenya took money from people who were caught buying animals' furs. the reason why is that it will help charities better protect wild animals, and hopefully make hunting more difficult.",
+      "text": "Student: Well, if you ask me, I think people caught hunting should pay all the money they made to charities that help to protect animals. And the same for people caught buying these animal products. For example, I read that the government in Kenya took money from people who were caught buying animals' furs. The reason why is that it will help charities better protect wild animals, and hopefully make hunting more difficult."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_71.mp3",
+      "where": "audio",
+      "key": "examiner: is there anything we as individuals can do to prevent hunting?",
+      "text": "Examiner: Is there anything we as individuals can do to prevent hunting?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_71.mp3",
+      "where": "audio",
+      "key": "student: yes, there are many things we can do, and perhaps the most important one is to stop buying things made from animals.",
+      "text": "Student: Yes, there are many things we can do, and perhaps the most important one is to stop buying things made from animals."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_71.mp3",
+      "where": "audio",
+      "key": "a good reason for this is that it might cause the demand for things made from animals to drop. for instance, many of the world's most famous fashion designers have stopped using real animal fur in their clothes.",
+      "text": "A good reason for this is that it might cause the demand for things made from animals to drop. For instance, many of the world's most famous fashion designers have stopped using real animal fur in their clothes."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_71.mp3",
+      "where": "audio",
+      "key": "examiner: will there be more or less hunting in the future?",
+      "text": "Examiner: Will there be more or less hunting in the future?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_71.mp3",
+      "where": "audio",
+      "key": "student: in my opinion, there will be less hunting in the future. the reason for this is that many of our animals are already close to becoming extinct, so when they are gone, there will be nothing left to hunt. by way of example, the white rhino in africa was hunted for many years, but now there are almost no white rhinos left to hunt.",
+      "text": "Student: In my opinion, there will be less hunting in the future. The reason for this is that many of our animals are already close to becoming extinct, so when they are gone, there will be nothing left to hunt. By way of example, the white rhino in Africa was hunted for many years, but now there are almost no white rhinos left to hunt."
     }
   ]
 }
