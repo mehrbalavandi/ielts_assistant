@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/core/app_config/app_config.dart';
+import 'package:ielts_assistant/shared/widgets/app_notice_banner.dart';
 import 'package:ielts_assistant/features/auth/presentation/login_screen.dart';
 import 'package:ielts_assistant/features/backup/backup_service.dart';
 import 'package:ielts_assistant/features/library/presentation/book_actions.dart';
@@ -41,6 +43,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
         if (mounted) checkForAppUpdateOnStart(context, ref);
         // 🌟 BK-1..3: با هر بازشدنِ اپ — ثبتِ دستگاه و پشتیبانِ «مرورِ من»/تنظیمات.
         if (mounted) ref.read(backupProvider.notifier).onAppStart();
+        // 🌟 SITE-3/4/7: اطلاعیه، حالتِ تعمیر و روش‌های ورود از پنلِ سایت
+        if (mounted) ref.read(appConfigProvider.notifier).refresh();
       });
     }
 
@@ -167,6 +171,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
 
       body: Column(
         children: [
+          // 🌟 SITE-3/4: حالتِ تعمیر یا اطلاعیه‌ی ادمین
+          if (categoryKey == null) const AppNoticeBanner(),
           // 🌟 نوار هشدار وضعیت مهمان / آفلاین
           if (authState == AuthState.unauthenticated)
             Container(

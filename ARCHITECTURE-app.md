@@ -30,6 +30,7 @@ lib/
     license/license_service.dart   مجوزِ آفلاینِ امضاشده؛ تنها کلیدِ نسخه‌ی کامل (DEV-3)
     license/license_public_key.dart  کلیدِ عمومیِ Ed25519 (از php artisan license:keygen)
     storage/storage_service.dart   GetStorage: توکن، آدرس سرور، آخرین کتاب
+    app_config/app_config.dart     تنظیماتِ پنلِ سایت برای اپ: روش‌های ورود، اطلاعیه، تعمیر، پیوندها (SITE-2..7)
     text/document_text_utils.dart  استخراج و نرمال‌سازیِ متن + TextSearchMapper
   features/
     auth/       ورود
@@ -39,6 +40,7 @@ lib/
     search/     موتورِ جستجو + دلیگیتِ UI
     settings/   تنظیمات + زبانِ محتوا
   shared/widgets/app_drawer.dart
+  shared/widgets/app_notice_banner.dart   نوارِ اطلاعیه/تعمیر (SITE-3)
 ```
 
 قاعده‌ی تصمیم برای فایلِ جدید: متعلق به یک فیچر ⇒ `features/<name>/`؛

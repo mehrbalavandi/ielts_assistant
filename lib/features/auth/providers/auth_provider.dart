@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/core/app_config/app_config.dart';
 import 'package:ielts_assistant/core/device/device_identity.dart';
 import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
@@ -73,6 +74,19 @@ class AuthNotifier extends Notifier<AuthState> {
       return 'تعدادِ درخواست‌ها زیاد بود؛ چند دقیقه‌ی دیگر دوباره امتحان کنید.';
     }
     final Object? data = e.response?.data;
+    // 🌟 SITE-2: روش در پنل خاموش شده/ثبت‌نام بسته است ← تنظیماتِ اپ هم تازه شود.
+    if (data is Map &&
+        (data['reason'] == 'method_disabled' || data['reason'] == 'registration_closed')) {
+      ref.read(appConfigProvider.notifier).refresh();
+    }
+    // خطاهای فرم (۴۲۲ِ لاراول): اولین خطای هر فیلد، هر کدام در یک خط
+    if (data is Map && data['errors'] is Map) {
+      final List<String> lines = [
+        for (final Object? v in (data['errors'] as Map).values)
+          if (v is List && v.isNotEmpty) v.first.toString(),
+      ];
+      if (lines.isNotEmpty) return lines.join('\n');
+    }
     if (data is Map && data['message'] is String) return data['message'] as String;
     return e.response == null ? 'اتصال به سرور برقرار نشد.' : fallback;
   }
@@ -225,6 +239,45 @@ class AuthNotifier extends Notifier<AuthState> {
         );
       }
       return _loginError(e);
+    }
+  }
+
+  /// 🌟 SITE-2: ساختنِ حساب با ایمیل (اگر در پنلِ سایت روشن باشد).
+  Future<OtpVerifyResult> registerEmail({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await ref
+          .read(dioProvider)
+          .post(
+            '/api/register',
+            data: {
+              'first_name': firstName,
+              'last_name': lastName,
+              'email': email,
+              'password': password,
+              ...DeviceIdentity.loginFields(),
+            },
+          );
+      return _loginResult(response.data);
+    } on DioException catch (e) {
+      return _loginError(e);
+    }
+  }
+
+  /// 🌟 SITE-6: لینکِ ساختنِ رمزِ تازه به ایمیل (رمز در سایت عوض می‌شود).
+  Future<String> forgotPassword(String email) async {
+    try {
+      final res = await ref
+          .read(dioProvider)
+          .post('/api/password/forgot', data: {'email': email});
+      return (res.data is Map ? res.data['message'] : null)?.toString() ??
+          'لینکِ ساختنِ رمزِ تازه فرستاده شد.';
+    } on DioException catch (e) {
+      return _message(e, 'فرستادنِ لینک ممکن نشد.');
     }
   }
 

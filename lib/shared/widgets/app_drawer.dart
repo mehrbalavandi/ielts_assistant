@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/core/app_config/app_config.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ielts_assistant/features/auth/presentation/my_devices_screen.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/settings_screen.dart';
@@ -195,6 +197,31 @@ class AppDrawer extends ConsumerWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
+          ),
+
+          // 🌟 SITE-5: پشتیبانی و صفحه‌های سایت (پیوندها و متن‌ها از پنلِ سایت)
+          Builder(
+            builder: (context) {
+              final Map<String, String> links = ref.watch(appConfigProvider).links;
+              Widget link(IconData icon, String title, String? url) => url == null
+                  ? const SizedBox.shrink()
+                  : ListTile(
+                      leading: Icon(icon),
+                      title: Text(title),
+                      dense: true,
+                      onTap: () {
+                        Navigator.pop(context);
+                        launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                      },
+                    );
+              return Column(
+                children: [
+                  link(Icons.support_agent_rounded, 'پشتیبانی و تماس با ما', links['contact']),
+                  link(Icons.gavel_rounded, 'قوانین و مقررات', links['terms']),
+                  link(Icons.privacy_tip_outlined, 'حریمِ خصوصی', links['privacy']),
+                ],
               );
             },
           ),
