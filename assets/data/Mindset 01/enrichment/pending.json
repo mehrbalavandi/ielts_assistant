@@ -1,8 +1,8 @@
 {
-  "generatedAt": "1405-07-25 09:04",
-  "total": 5620,
-  "translated": 3346,
-  "pendingUnique": 2150,
+  "generatedAt": "1405-07-25 10:57",
+  "total": 5617,
+  "translated": 3327,
+  "pendingUnique": 2165,
   "items": [
     {
       "page": 14,
@@ -99,6 +99,134 @@
       "where": "table",
       "key": "can you put the stages a - f in the correct order?",
       "text": "Can you put the stages A - F in the correct order?"
+    },
+    {
+      "page": 59,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "i thought i knew where my mouth was, but my first few attempts were a disaster. there was food everywhere!",
+      "text": "I thought I knew where my mouth was, but my first few attempts were a disaster. There was food everywhere!"
+    },
+    {
+      "page": 59,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "a lot of people grow their own vegetables and keep chickens.",
+      "text": "A lot of people grow their own vegetables and keep chickens."
+    },
+    {
+      "page": 59,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "in china, when we are offered something, we say 'no thanks'... in other countries, though, 'no' means no'",
+      "text": "In China, when we are offered something, we say 'No thanks'... In other countries, though, 'no' means no'"
+    },
+    {
+      "page": 61,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "nowadays tv chefs are famous for all sorts of different reasons. gordon ramsay, for example, is an interesting tv chef. he is famous for having a bad temper and using foul language. in his tv show, hell's kitchen, he shouts at his staff when they make mistakes because he wants all the food at his restaurants to be perfect. he has many restaurants in different countries. jamie oliver is a good-looking, working-class boy who made healthy eating fashionable. he believes children should eat healthy food and he worked with the government to make school meals healthier. his style of cooking is quick, easy and fun.",
+      "text": "Nowadays TV chefs are famous for all sorts of different reasons. Gordon Ramsay, for example, is an interesting TV chef. He is famous for having a bad temper and using foul language. In his TV show, Hell's Kitchen, he shouts at his staff when they make mistakes because he wants all the food at his restaurants to be perfect. He has many restaurants in different countries. Jamie Oliver is a good-looking, working-class boy who made healthy eating fashionable. He believes children should eat healthy food and he worked with the government to make school meals healthier. His style of cooking is quick, easy and fun."
+    },
+    {
+      "page": 62,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "changed the style of cooking on some of their programmes - c",
+      "text": "Changed the style of cooking on some of their programmes - {blk}C{/blk}"
+    },
+    {
+      "page": 62,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "one of the first tv chefs - e",
+      "text": "One of the first TV chefs - {blk}E{/blk}"
+    },
+    {
+      "page": 62,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "helped to get children eating healthy food - b",
+      "text": "Helped to get children eating healthy food - {blk}B{/blk}"
+    },
+    {
+      "page": 62,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "the kinder of two judges - a",
+      "text": "The kinder of two judges - {blk}A{/blk}"
+    },
+    {
+      "page": 62,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "cooked food that was not very good for you - f",
+      "text": "Cooked food that was not very good for you - {blk}F{/blk}"
+    },
+    {
+      "page": 62,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "is very rude to the kitchen workers - d",
+      "text": "Is very rude to the kitchen workers - {blk}D{/blk}"
+    },
+    {
+      "page": 62,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "READING",
+      "where": "table",
+      "key": "showed people that cooking foreign dishes need not be difficult - e",
+      "text": "Showed people that cooking foreign dishes need not be difficult - {blk}E{/blk}"
+    },
+    {
+      "page": 64,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "WRITING",
+      "where": "table",
+      "key": "the 1 pie chart shows which type of takeaway food is the most popular in the uk, while the 2 bar chart shows how many indian restaurants existed in the uk between 3 1960 and 4 2015. we can see that 5 chinese and indian takeaways are the favourites, and that the number of indian restaurants in the uk 6 increased/rose/grew steadily during this period.",
+      "text": "The 1 {blk}pie{/blk} chart shows which type of takeaway food is the most popular in the UK, while the 2 {blk}bar{/blk} chart shows how many Indian restaurants existed in the UK between 3 {blk}1960{/blk} and 4 {blk}2015{/blk}. We can see that 5 {blk}Chinese{/blk} and Indian takeaways are the favourites, and that the number of Indian restaurants in the UK 6 {blk}increased/rose/grew{/blk} steadily during this period."
+    },
+    {
+      "page": 64,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "WRITING",
+      "where": "table",
+      "key": "a 1% - a tiny proportion",
+      "text": "{blk}a 1% - a tiny proportion{/blk}"
+    },
+    {
+      "page": 65,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "WRITING",
+      "where": "table",
+      "key": "animal",
+      "text": "animal"
+    },
+    {
+      "page": 66,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "WRITING",
+      "where": "table",
+      "key": "the pie chart shows that chinese and indian takeaways are much more popular than all the others, at 34% and 26%. there are another two types that quite a lot of people like. these are italian at 10% and british at 9%. it is not surprising that people in the uk like british food as fish and chips is the national dish. greek, japanese and mexican were only chosen by 1% of people.",
+      "text": "The pie chart shows that Chinese and Indian takeaways are much more popular than all the others, at 34% and 26%. There are another two types that quite a lot of people like. These are Italian at 10% and British at 9%. It is not surprising that people in the UK like British food as fish and chips is the national dish. Greek, Japanese and Mexican were only chosen by 1% of people."
+    },
+    {
+      "page": 68,
+      "unit": "UNIT/04: FOOD AND DRINK",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "label the different ways of preparing food with verbs from the box.",
+      "text": "Label the different ways of preparing food with verbs from the box."
     },
     {
       "page": 79,
@@ -15467,14 +15595,6 @@
       "where": "table",
       "key": "and explain how people feel about this animal.",
       "text": "and explain how people feel about this animal."
-    },
-    {
-      "page": 156,
-      "unit": "UNIT/08: NATURAL WORLD",
-      "section": "SPEAKING",
-      "where": "table",
-      "key": "animal",
-      "text": "Animal"
     },
     {
       "page": 156,
