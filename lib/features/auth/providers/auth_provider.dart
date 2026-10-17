@@ -8,6 +8,7 @@ import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/auth/data/device_models.dart';
 import 'package:ielts_assistant/features/backup/backup_service.dart';
+import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 
 enum AuthState { initial, authenticated, unauthenticated }
 
@@ -297,6 +298,8 @@ class AuthNotifier extends Notifier<AuthState> {
     await StorageService.removeToken();
     await LicenseService.clear();
     state = AuthState.unauthenticated;
+    // 🌟 DEV-6: ویترین حالتِ مهمان بگیرد (نه «خریداری شده» + «نیاز به تمدیدِ مجوز»).
+    await ref.read(booksProvider.notifier).onSignedOut();
   }
 }
 

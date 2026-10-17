@@ -493,9 +493,25 @@ class BooksNotifier extends Notifier<List<BookModel>> {
             .toList(),
       );
     }
+    // 🌟 DEV-6: بی‌حساب (خارج‌شده) هیچ کتابی «خریداری‌شده» نیست، حتی اگر فهرستِ ذخیره‌شده از
+    // نشستِ قبلی مانده باشد؛ وگرنه کارت هم «خریداری شده» و هم «نیاز به تمدیدِ مجوز» می‌گفت.
+    final String? token = StorageService.getToken();
+    if (token == null || token.isEmpty) {
+      initialBooks = [for (final BookModel b in initialBooks) b.copyWith(isPurchased: false)];
+    }
 
     Future.microtask(() => fetchBooks());
     return initialBooks;
+  }
+
+  /// 🌟 DEV-6: خروج از حساب ← ویترین فوراً حالتِ مهمان می‌گیرد: خریدها دیگر «خریداری شده»
+  /// نیستند (برچسب و «نیاز به تمدیدِ مجوز» نمی‌آیند) و کتاب مثلِ ویترینِ مهمان قیمت و نمونه دارد.
+  /// فایل‌های دانلودشده سرِ جایشان می‌مانند (مسیرها حفظ می‌شوند) و با ورودِ دوباره، سرور خرید را
+  /// برمی‌گرداند و همان‌ها بی‌دانلودِ دوباره باز می‌شوند. بعد از سرور هم تازه می‌شود (اگر آنلاین).
+  Future<void> onSignedOut() async {
+    state = [for (final BookModel b in state) b.copyWith(isPurchased: false)];
+    await StorageService.saveOfflineBooks(state.map((b) => b.toJson()).toList());
+    unawaited(fetchBooks());
   }
 
   Future<void> fetchBooks() async {
