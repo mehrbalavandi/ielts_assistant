@@ -180,6 +180,8 @@ class PagedBookStore {
   List<AudioLinkEntry> _audioLinksIndex = const [];
   // 🌟 فهرستِ ساختاریِ کتاب (Unit ← مهارت، …)؛ خالی اگر index.json آن را ندارد.
   List<OutlineEntry> _outline = const [];
+  // 🌟 N-12: بخشِ Sampleِ index.json (فقط در نسخه‌ی نمونه‌ای که اکسترکتور هم‌زمان ساخته).
+  SampleInfo? _sample;
   Map<int, int> _pageNumberToIndex = const {};
   // 🌟 عکسِ نگاشتِ بالا. لازم شد چون استخراج‌کننده‌ی سی‌شارپ حالا می‌تواند
   // شماره‌ی صفحه‌ها را از عددِ دلخواهِ کاربر شروع کند (مثلاً ۱۵)، پس دیگر
@@ -198,6 +200,22 @@ class PagedBookStore {
   List<AudioScriptTrack> get audioScripts => _audioScripts;
   List<AudioLinkEntry> get audioLinksIndex => _audioLinksIndex;
   List<OutlineEntry> get outline => _outline;
+
+  /// 🌟 N-12: مشخصاتِ نسخه‌ی نمونه؛ null برای کتابِ کامل (و نمونه‌های قدیمیِ بی این بخش).
+  SampleInfo? get sample => _sample;
+
+  /// این کتاب به‌صورتِ نسخه‌ی نمونه باز شده؟ (با یا بدونِ بخشِ Sample در index.json)
+  bool get isSample =>
+      _sample != null ||
+      (book.isSampleDownloaded && book.activeJsonPath == book.localSamplePath);
+
+  /// صفحه‌ی [pageNumber] (مثلاً ابتدای یک Unit در Outline) در این نسخه نیست چون خریداری
+  /// نشده — نه این‌که اصلاً وجود ندارد.
+  bool isLockedPage(int pageNumber) {
+    if (!isSample || _pageNumberToIndex.containsKey(pageNumber)) return false;
+    final SampleInfo? s = _sample;
+    return s == null || s.isLockedPage(pageNumber);
+  }
   // 🌟 G-4 / AS-1: کلمات تعاملیِ سطحِ کتاب (index.json) — برای اسکریپت‌های صوتی هم،
   // که پاراگراف‌هایشان فهرستِ Interactivesِ خودشان را ندارند.
   List<InteractiveWord> get interactives => _sharedInteractives;
@@ -354,6 +372,7 @@ class PagedBookStore {
       } catch (_) {
         _outline = const []; // فهرستِ خراب نباید بازشدنِ کتاب را متوقف کند
       }
+      _sample = SampleInfo.fromJson(json['Sample']);
 
       _imageNames = const [];
 

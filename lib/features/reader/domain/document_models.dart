@@ -112,6 +112,46 @@ class OutlineEntry {
   }
 }
 
+/// 🌟 N-12: بخشِ «Sample»ِ index.jsonِ نسخه‌ی نمونه (قانونِ SM-5ِ اکسترکتور): نمونه کدام
+/// Unit است و کلِ کتاب از کدام صفحه تا کدام صفحه است. index.jsonِ نمونه فقط صفحه‌های همان
+/// Unit را دارد، ولی Outlineِ کامل را — پس ناوبر همه‌ی Unitها را نشان می‌دهد و برای بقیه
+/// پیامِ «خریداری نشده» می‌دهد.
+class SampleInfo {
+  final String title;
+  final int firstPage;
+  final int lastPage;
+  final int bookFirstPage;
+  final int bookLastPage;
+
+  const SampleInfo({
+    required this.title,
+    required this.firstPage,
+    required this.lastPage,
+    required this.bookFirstPage,
+    required this.bookLastPage,
+  });
+
+  static SampleInfo? fromJson(Object? json) {
+    if (json is! Map) return null;
+    int n(Object? v, int fallback) => v is num ? v.toInt() : fallback;
+    final int first = n(json['FirstPage'], 0);
+    final int last = n(json['LastPage'], first);
+    return SampleInfo(
+      title: (json['Title'] ?? '').toString().trim(),
+      firstPage: first,
+      lastPage: last,
+      bookFirstPage: n(json['BookFirstPage'], first),
+      bookLastPage: n(json['BookLastPage'], last),
+    );
+  }
+
+  /// این شماره‌ی صفحه جزءِ کتاب هست ولی جزءِ نمونه نیست.
+  bool isLockedPage(int pageNumber) =>
+      pageNumber >= bookFirstPage &&
+      pageNumber <= bookLastPage &&
+      (pageNumber < firstPage || pageNumber > lastPage);
+}
+
 class AudioLinkEntry {
   final int pageNumber;
   final int paraIndex;

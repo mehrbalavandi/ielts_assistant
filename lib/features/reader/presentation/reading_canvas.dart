@@ -33,6 +33,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/audio/presentation/audio_player_bar.dart';
 import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
+import 'package:ielts_assistant/features/reader/presentation/sample_lock_dialog.dart';
 import 'dart:math' as math;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -853,7 +854,13 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     final int? index = widget.pagedBookStore.indexForPageNumber(
       entry.pageNumber,
     );
-    if (index == null) return;
+    if (index == null) {
+      // 🌟 N-12: Unit/بخشی بیرون از نسخه‌ی نمونه ← «خریداری نشده».
+      if (widget.pagedBookStore.isLockedPage(entry.pageNumber)) {
+        _showNotInSample(title: entry.title);
+      }
+      return;
+    }
     if (entry.atPageTop || entry.paraIndex == 0) {
       _scrollToPageTop(index);
       return;
@@ -1131,6 +1138,29 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     super.dispose();
   }
 
+  /// N-12: سطرِ توضیحِ بالای منوی Unitها در نسخه‌ی نمونه.
+  String _sampleNote() {
+    final SampleInfo? s = widget.pagedBookStore.sample;
+    if (s != null && s.title.isNotEmpty) {
+      return 'نسخه‌ی نمونه: فقط «${outlineDisplayTitle(s.title)}» — بقیه‌ی درس‌ها با خریدِ کتاب';
+    }
+    return 'نسخه‌ی نمونه — بقیه‌ی درس‌ها با خریدِ کتاب';
+  }
+
+  /// 🌟 N-12: پیامِ «این بخش خریداری نشده» (نسخه‌ی نمونه) + دکمه‌ی خرید.
+  void _showNotInSample({String? title, int? pageNumber}) {
+    final BookModel? book = ref.read(activeBookProvider);
+    if (book == null || !mounted) return;
+    showNotInSampleDialog(
+      context,
+      ref,
+      book: book,
+      sample: widget.pagedBookStore.sample,
+      title: title,
+      pageNumber: pageNumber,
+    );
+  }
+
   // 🌟 دیالوگِ «رفتن به صفحه» (مثل PDF‌خوان‌ها)
   Future<void> _openJumpToPageDialog() async {
     final total = widget.pagedBookStore.pageCount;
@@ -1150,6 +1180,10 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: 'شماره‌ای بین $firstPage تا $lastPage',
+              // N-12: در نسخه‌ی نمونه یادآوری که بقیه‌ی کتاب خریداری نشده
+              helperText: widget.pagedBookStore.isSample
+                  ? 'نسخه‌ی نمونه: فقط صفحه‌های $firstPage تا $lastPage'
+                  : null,
               border: const OutlineInputBorder(),
             ),
             onSubmitted: (v) => Navigator.pop(context, int.tryParse(v)),
@@ -1171,6 +1205,16 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     // 🐞 قبلاً مستقیم `n - 1` به‌عنوانِ ایندکس استفاده می‌شد، که فقط وقتی
     // درست است که صفحات از ۱ شروع شوند. حالا شماره → ایندکس از همان نگاشتی
     // خوانده می‌شود که جستجو هم از آن استفاده می‌کند.
+    // 🌟 N-12: صفحه‌ای از کتاب که در نسخه‌ی نمونه نیست ← «خریداری نشده».
+    if (n != null && widget.pagedBookStore.isLockedPage(n)) {
+      final SampleInfo? s = widget.pagedBookStore.sample;
+      if (s != null) {
+        await Future.delayed(const Duration(milliseconds: 120));
+        _showNotInSample(pageNumber: n);
+        return;
+      }
+    }
+
     final int targetIndex =
         (n == null ? null : widget.pagedBookStore.indexForPageNumber(n)) ??
         ((n != null && n >= 1 && n <= total) ? n - 1 : -1);
@@ -1626,6 +1670,15 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                       lastPage: widget.pagedBookStore.lastPageNumber,
                       onPageTap: _openJumpToPageDialog,
                       highlightPage: _showPageBadge,
+                      // 🌟 N-12: نسخه‌ی نمونه — همه‌ی Unitها، با قفل برای خریداری‌نشده‌ها
+                      isLocked: widget.pagedBookStore.isSample
+                          ? (e) => widget.pagedBookStore.isLockedPage(
+                              e.pageNumber,
+                            )
+                          : null,
+                      sampleNote: widget.pagedBookStore.isSample
+                          ? _sampleNote()
+                          : null,
                     ),
                   ),
                 ),

@@ -16,6 +16,9 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 //  • پایین: دکمه‌ی جمع‌کردن؛ جمع‌شده فقط یک زبانه‌ی باریک می‌ماند تا متن را
 //    نپوشاند. وضعیت ذخیره می‌شود.
 //
+// 🌟 N-12: در نسخه‌ی نمونه همه‌ی Unitها در منو هستند؛ آن‌هایی که در نمونه نیستند قفل دارند
+// و انتخابشان (در reading_canvas) پیامِ «خریداری نشده» می‌دهد.
+//
 // هیچ اسمِ خاصی (Unit، Reading، …) فرض نشده: عنوان‌ها از Outlineِ index.json
 // می‌آیند (قانونِ O-4ِ اکسترکتور). فقط برای چهار مهارتِ رایجِ آیلتس آیکونِ آشنا
 // گذاشته شده؛ هر بخشِ دیگری با حرفِ اولش نشان داده می‌شود.
@@ -110,6 +113,14 @@ class BookOutlineNavigator extends StatefulWidget {
   /// هنگامِ اسکرول (و ۲.۵ ثانیه بعدش) شماره‌ی صفحه پررنگ‌تر است، مثلِ نشانِ قبلی.
   final bool highlightPage;
 
+  /// 🌟 N-12: در نسخه‌ی نمونه، گره‌ای که صفحه‌اش در نمونه نیست (خریداری نشده). در منو با
+  /// قفل نشان داده می‌شود ولی انتخاب‌شدنی می‌ماند — onNavigate پیامِ «خریداری نشده» می‌دهد.
+  final bool Function(OutlineEntry entry)? isLocked;
+
+  /// 🌟 N-12: سطرِ توضیحِ بالای منوی Unitها در نسخه‌ی نمونه (مثلاً «نسخه‌ی نمونه: Unit/01»)؛
+  /// null برای کتابِ کامل.
+  final String? sampleNote;
+
   const BookOutlineNavigator({
     super.key,
     required this.outline,
@@ -120,6 +131,8 @@ class BookOutlineNavigator extends StatefulWidget {
     required this.lastPage,
     required this.onPageTap,
     this.highlightPage = false,
+    this.isLocked,
+    this.sampleNote,
   });
 
   @override
@@ -440,8 +453,39 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
       position: PopupMenuPosition.under,
       offset: const Offset(4, 0),
       constraints: const BoxConstraints(maxWidth: 320),
-      onSelected: (i) => widget.onNavigate(widget.outline[i]),
+      onSelected: (i) {
+        if (i >= 0) widget.onNavigate(widget.outline[i]);
+      },
       itemBuilder: (context) => [
+        // 🌟 N-12: سطرِ توضیحِ نسخه‌ی نمونه (انتخاب‌نشدنی)
+        if (widget.sampleNote != null)
+          PopupMenuItem<int>(
+            value: -1,
+            enabled: false,
+            height: 36,
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.auto_stories_outlined,
+                    size: 16,
+                    color: scheme.tertiary,
+                  ),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      widget.sampleNote!,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         for (int i = 0; i < widget.outline.length; i++)
           PopupMenuItem<int>(
             value: i,
@@ -457,6 +501,12 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                             size: 18,
                             color: scheme.primary,
                           )
+                        : (widget.isLocked?.call(widget.outline[i]) ?? false)
+                        ? Icon(
+                            Icons.lock_outline_rounded,
+                            size: 16,
+                            color: scheme.outline,
+                          )
                         : null,
                   ),
                   Expanded(
@@ -468,6 +518,10 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                         fontWeight: i == pos.top
                             ? FontWeight.bold
                             : FontWeight.normal,
+                        // N-12: Unitِ خریداری‌نشده کم‌رنگ‌تر
+                        color: (widget.isLocked?.call(widget.outline[i]) ?? false)
+                            ? scheme.onSurface.withOpacity(0.5)
+                            : null,
                       ),
                     ),
                   ),

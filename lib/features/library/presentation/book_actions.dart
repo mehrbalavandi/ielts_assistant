@@ -41,6 +41,28 @@ Future<void> openBookForReading(
   await ref.read(booksProvider.notifier).fetchBooks();
 }
 
+/// 🌟 شروعِ خریدِ یک کتاب — تنها مسیر، تا دکمه‌ی «خرید کتاب»ِ ویترین و پیامِ «خریداری نشده»ِ
+/// نسخه‌ی نمونه (N-10) یک رفتار داشته باشند: کاربرِ واردنشده به صفحه‌ی ورود می‌رود؛ بقیه
+/// پنجره‌ی خرید (PAY-2/3: درگاه در مرورگر یا کارت‌به‌کارت) را می‌بینند. با برگشت از مرورگر
+/// ویترین تازه می‌شود (didChangeAppLifecycleState).
+void startBookPurchase(BuildContext context, WidgetRef ref, BookModel book) {
+  if (ref.read(authProvider) == AuthState.unauthenticated) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("برای خرید ابتدا باید وارد حساب کاربری خود شوید."),
+      ),
+    );
+    Navigator.push(context, MaterialPageRoute(builder: (_) => LoginScreen()));
+    return;
+  }
+  showPurchaseSheet(
+    context,
+    ref,
+    book,
+    onLeftForPayment: () => purchaseReturnPending = true,
+  );
+}
+
 /// تأییدِ حذفِ محتوای دانلودشده. اگر همین کتاب همین حالا باز باشد،
 /// activeBook هم پاک می‌شود تا صفحه‌ی مطالعه به فایل‌هایی که دیگر وجود
 /// ندارند اشاره نکند.
@@ -88,7 +110,7 @@ class BookActionSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AuthState authState = ref.watch(authProvider);
+    ref.watch(authProvider); // با ورود/خروج دکمه‌ها از نو ساخته شوند
     final double fs = fontSize;
     // --- ۱. حالت در حال دانلود ---
     if (book.isDownloading) {
@@ -339,30 +361,7 @@ class BookActionSection extends ConsumerWidget {
             foregroundColor: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: 2),
           ),
-          onPressed: () {
-            if (authState == AuthState.unauthenticated) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    "برای خرید ابتدا باید وارد حساب کاربری خود شوید.",
-                  ),
-                ),
-              );
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => LoginScreen()),
-              );
-            } else {
-              // 🌟 PAY-2/3: خرید از داخلِ اپ — درگاه (در مرورگر) یا کارت‌به‌کارت.
-              // با برگشت از مرورگر ویترین تازه می‌شود (didChangeAppLifecycleState).
-              showPurchaseSheet(
-                context,
-                ref,
-                book,
-                onLeftForPayment: () => purchaseReturnPending = true,
-              );
-            }
-          },
+          onPressed: () => startBookPurchase(context, ref, book),
           child: Text(
             "خرید کتاب",
             style: TextStyle(fontSize: fs, fontWeight: FontWeight.bold),
