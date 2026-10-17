@@ -92,9 +92,18 @@ class OrderInfo {
   );
 
   bool get isPaid => status == 'paid';
+  // 🌟 PAY-7: کارت‌به‌کارتِ لغوشده (مثلاً لغوِ خودکارِ مهلت) هم رسید می‌پذیرد؛ شاید کاربر واریز
+  // کرده و رسید را دیر فرستاده. ادمین بررسی می‌کند.
   bool get canSendReceipt =>
       method == 'card' &&
-      (status == 'pending' || status == 'awaiting_review' || status == 'rejected');
+      (status == 'pending' ||
+          status == 'awaiting_review' ||
+          status == 'rejected' ||
+          isAutoCanceled);
+
+  /// 🌟 PAY-7: لغوشده چون مهلتِ پرداخت تمام شد (نه چون سفارشِ تازه‌تری جایش را گرفت).
+  bool get isAutoCanceled =>
+      status == 'canceled' && (adminNote ?? '').startsWith('لغوِ خودکار');
 }
 
 /// پاسخِ ساختنِ سفارش.

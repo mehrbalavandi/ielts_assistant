@@ -75,7 +75,8 @@ class _MyOrdersScreenState extends ConsumerState<MyOrdersScreen> {
                 );
               }
               final List<OrderInfo> orders = (snap.data ?? const [])
-                  .where((o) => o.status != 'canceled')
+                  // لغوشده‌ها پنهان‌اند، جز کارت‌به‌کارت (شاید واریز شده و رسیدش مانده — PAY-7)
+                  .where((o) => o.status != 'canceled' || (o.method == 'card' && o.isAutoCanceled))
                   .toList();
               if (orders.isEmpty) {
                 return ListView(
@@ -133,12 +134,16 @@ class _MyOrdersScreenState extends ConsumerState<MyOrdersScreen> {
                               fontSize: 12,
                             ),
                           ),
-                          if (o.status == 'rejected' &&
+                          if ((o.status == 'rejected' || o.status == 'canceled') &&
                               (o.adminNote ?? '').isNotEmpty) ...[
                             const SizedBox(height: 6),
                             Text(
-                              'دلیل: ${o.adminNote}',
-                              style: const TextStyle(color: Colors.red),
+                              o.status == 'canceled'
+                                  ? '${o.adminNote} اگر واریز کرده‌اید، رسید را بفرستید.'
+                                  : 'دلیل: ${o.adminNote}',
+                              style: TextStyle(
+                                color: o.status == 'canceled' ? Colors.grey.shade700 : Colors.red,
+                              ),
                             ),
                           ],
                           if (o.canSendReceipt && o.status != 'awaiting_review')
