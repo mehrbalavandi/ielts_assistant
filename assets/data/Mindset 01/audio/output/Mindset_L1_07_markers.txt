@@ -1,0 +1,2 @@
+[300]Customer:[3440] Oh,[3520] really?[4320] So,[5200] how[5640] much[5900] are[6020] they?[6160]
+Sales[6380] assistant:[7160] Well[7580] they[7940] were[9100] £30,[9100] but[10040] actually[10540] we've[10800] got[10980] a[11100] sale[11540] on[11720] at[11820] the[11940] moment,[12440] so[12680] they're[12940] a[13020] little[13400] cheaper[14020] -[14020] only[15100] £20.[15100] So[15960] you[16160] can[16320] save[16640] £10![16640]

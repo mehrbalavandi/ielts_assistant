@@ -1,0 +1,8 @@
+[260]Customer:[1720] That[2640] sounds[2940] perfect.[3840]
+Manager:[4200] Excellent.[5160] Now[5740] we[5980] offer[6360] a[6540] set[6920] three-course[7660] menu[8020] for[8540] £23[8540] per[9440] person[10220] and[10840] we[11000] can[11160] also[11500] supply[12000] you[12180] with[12340] a[12400] birthday[12980] cake[13460] at[13560] no[13700] extra[14080] charge.[14880] How[15180] does[15300] that[15520] sound?[15920]
+Customer:[16340] That[16540] sounds[16920] good.[17700] So[18500] how[18920] much[19200] would[19340] that[19580] cost[20020] in[20160] total?[20740]
+Manager:[21380] Let[21520] me[21780] see[23220] -[23220] for[24280] the[24500] food[25220] and[25480] the[25700] room,[26460] that[26860] will[27060] come[27400] to[27700] £318.[27700]
+Customer:[30420] Did[31120] you[31280] say[31520] three[31920] hundred[32340] and[32500] eighty[32880] pounds?[33520]
+Manager:[34020] No,[34160] three[34600] hundred[35000] and[35120] eighteen.[35740]
+Customer:[36960] OK,[37380] I[37920] think[38260] I'd[38380] like[38520] to[38600] go[38720] ahead[39120] and[39280] make[39500] a[39540] booking.[40100]
+Manager:[40440] OK,[40660] I'll[41460] just[41780] take[42080] your[42200] details.[42820]

@@ -1,0 +1,4 @@
+[220]Examiner:[2060] Is[2940] there[3200] anyone[3640] in[3760] your[3980] family[4600] who[4880] annoys[5420] you[5600] sometimes?[6740]
+A:[7120] My[7360] father[7800] watches[8300] football[8760] on[8920] TV[9260] and[9600] shouts[10080] a[10160] lot.[10640]
+B:[11160] My[11880] brother[12400] plays[12840] on[13000] the[13140] computer[13860] all[14200] the[14340] time.[14780]
+C:[15300] My[16000] mother[16340] keeps[16620] telling[16960] me[17060] to[17220] tidy[17600] my[17760] room.[18000]

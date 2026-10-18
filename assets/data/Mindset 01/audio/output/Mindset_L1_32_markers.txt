@@ -1,0 +1,8 @@
+[220]Mike:[1520] So,[3000] what[3380] type[3640] of[3760] meal[4060] do[4180] you[4300] think[4500] we[4620] should[4800] have[5020] at[5100] the[5200] party,[5540] Jane?[5800]
+Jane:[6220] I[6580] don't[6760] know,[7020] Mike.[7920] Do[8440] you[8580] have[8800] any[9000] ideas?[9920]
+Mike:[10340] What[10460] do[10520] you[10660] think[10920] about[11300] preparing[11960] a[12080] Mexican[12720] meal?[13080]
+Jane:[13480] I[13600] really[13940] like[14300] Mexican[14880] food[15340] and[15700] we[16020] could[16180] have[16340] some[16540] fun[16900] Mexican[17480] party[17840] games,[18460] but[19040] I[19380] think[19580] it[19700] might[19900] be[20040] too[20360] spicy[20920] for[21120] some[21420] people.[21940]
+Mike:[22420] That's[22780] true.[23380] We[23780] could[24000] have[24240] pizza.[24920] Everybody[25660] likes[25980] pizza.[26540]
+Jane:[26820] Hmm,[27640] I[28260] think[28480] we[28580] should[28800] have[29020] something[29560] healthier.[30140]
+Mike:[30760] I[30780] know![31180] We[31460] could[31640] have[31840] salad[32400] and[32660] roast[33000] chicken.[33320]
+Jane:[33600] That[33960] sounds[34180] like[34360] a[34420] good[34640] idea.[35440] And[36200] it's[36380] fairly[36840] simple[37200] to[37300] prepare.[38280] Let's[38880] do[39000] that.[39360]
