@@ -1059,8 +1059,13 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                         // همیشه نشان داده می‌شود — کاربر باید هر لحظه (چه
                         // در حالِ پخش چه مکث‌کرده) بداند دقیقاً رویِ کدام
                         // کلمه است.
+                        // 🌟 AS-5: متنِ گفته‌نشده (برچسبِ گوینده، NotSpoken) هیچ‌وقت
+                        // هایلایت نمی‌شود؛ بازه‌اش (سکوت یا صدای بی‌متن) بی‌هایلایت
+                        // می‌گذرد. خودِ پاراگراف در این بازه فعال می‌ماند تا کادر
+                        // زودتر رویِ سطرِ بعد بنشیند.
                         final bool isActiveWord =
                             paraIsActive &&
+                            !span.unspoken &&
                             span.startMs != null &&
                             span.endMs != null &&
                             currentPosMs >= span.startMs! &&
@@ -1178,7 +1183,10 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                         // کلماتِ دیکشنری نیستند) اضافه می‌شود، تا رفتارِ
                         // «لمس برای دیدنِ معنی» رویِ کلماتِ دیکشنری دست‌نخورده
                         // بماند.
-                        final int? seekMs = span.startMs;
+                        // 🌟 AS-5: لمسِ برچسبِ گفته‌نشده → شروعِ همان سطر (پایانِ برچسب)
+                        final int? seekMs = span.unspoken
+                            ? (span.endMs ?? span.startMs)
+                            : span.startMs;
                         if (seekMs == null) {
                           richSpans.addAll(rawSpans);
                         } else {

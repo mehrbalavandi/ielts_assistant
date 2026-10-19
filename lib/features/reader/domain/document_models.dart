@@ -690,6 +690,9 @@ class SpanData {
   // مشخص شده باشد) — از AudioScripts (نه محتوای معمولیِ صفحات) می‌آید.
   final int? startMs;
   final int? endMs;
+  // 🌟 AS-5 (A-2ِ اکسترکتور): در فایلِ صوتی خوانده نمی‌شود (برچسبِ گوینده، استایلِ
+  // NotSpoken). زمانش هست ولی هیچ‌وقت هایلایت نمی‌شود.
+  final bool unspoken;
 
   SpanData({
     required this.type,
@@ -722,6 +725,7 @@ class SpanData {
     this.widthMode,
     this.startMs,
     this.endMs,
+    this.unspoken = false,
   });
 
   factory SpanData.fromJson(Map<String, dynamic> json) {
@@ -762,6 +766,7 @@ class SpanData {
       widthMode: json['WidthMode'],
       startMs: json['StartMs'] as int?,
       endMs: json['EndMs'] as int?,
+      unspoken: json['Unspoken'] == true,
     );
   }
 
@@ -807,6 +812,7 @@ class SpanData {
       widthMode: widthMode,
       startMs: startMs,
       endMs: endMs,
+      unspoken: unspoken,
     );
   }
 }
