@@ -355,18 +355,32 @@ class BookActionSection extends ConsumerWidget {
 
         SizedBox(height: 4),
 
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange.shade700,
-            foregroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 2),
+        // 🛍️ SF-4: کتابی که هنوز محتوای اصلی ندارد خریدنی نیست.
+        if (book.hasContent)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange.shade700,
+              foregroundColor: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 2),
+            ),
+            onPressed: () => startBookPurchase(context, ref, book),
+            child: Text(
+              "خرید کتاب",
+              style: TextStyle(fontSize: fs, fontWeight: FontWeight.bold),
+            ),
+          )
+        else
+          OutlinedButton.icon(
+            style: OutlinedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 2),
+            ),
+            onPressed: null,
+            icon: Icon(Icons.hourglass_top_rounded, size: fs + 2),
+            label: Text(
+              "در حالِ آماده‌سازی",
+              style: TextStyle(fontSize: fs),
+            ),
           ),
-          onPressed: () => startBookPurchase(context, ref, book),
-          child: Text(
-            "خرید کتاب",
-            style: TextStyle(fontSize: fs, fontWeight: FontWeight.bold),
-          ),
-        ),
       ],
     );
   }

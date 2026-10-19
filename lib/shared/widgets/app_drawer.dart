@@ -10,6 +10,8 @@ import 'package:ielts_assistant/features/study/presentation/study_review_screen.
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
 import 'package:ielts_assistant/features/backup/backup_service.dart';
 import 'package:ielts_assistant/features/shop/presentation/my_orders_screen.dart';
+import 'package:ielts_assistant/features/feedback/presentation/feedback_screen.dart';
+import 'package:ielts_assistant/features/auth/presentation/login_screen.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_ui.dart';
@@ -82,6 +84,34 @@ class AppDrawer extends ConsumerWidget {
                 MaterialPageRoute<void>(
                   builder: (_) => const StudyReviewScreen(),
                 ),
+              );
+            },
+          ),
+          const Divider(height: 1),
+
+          // 🌟 FB-1: انتقادات و پیشنهادات / گزارشِ ایراد (با تصویر). مهمان اول وارد می‌شود.
+          ListTile(
+            leading: const Icon(Icons.feedback_outlined),
+            title: const Text("انتقادات و پیشنهادات"),
+            onTap: () {
+              final NavigatorState navigator = Navigator.of(context);
+              final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+              final bool signedIn =
+                  ref.read(authProvider) == AuthState.authenticated;
+              navigator.pop();
+              if (!signedIn) {
+                messenger.showSnackBar(
+                  const SnackBar(
+                    content: Text('برای فرستادنِ پیام و دیدنِ پاسخ، اول وارد حساب شوید.'),
+                  ),
+                );
+                navigator.push(
+                  MaterialPageRoute<void>(builder: (_) => const LoginScreen()),
+                );
+                return;
+              }
+              navigator.push(
+                MaterialPageRoute<void>(builder: (_) => const FeedbackScreen()),
               );
             },
           ),

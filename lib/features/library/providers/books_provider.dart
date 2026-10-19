@@ -64,6 +64,9 @@ class BookModel {
   // --- 🛍️ SF-1: معرفی در ویترین (از سرور؛ برای حالتِ آفلاین هم ذخیره می‌شود) ---
   /// null = سرورِ قدیمی که has_sample نمی‌فرستد (آن‌وقت وجودِ مسیرِ نمونه ملاک است).
   final bool? serverHasSample;
+
+  /// 🛍️ SF-4: محتوای اصلی روی سرور هست؛ null = سرورِ قدیمی (خریدنی فرض می‌شود).
+  final bool? serverHasContent;
   final int price;
   final int discount;
   final int finalPrice;
@@ -85,6 +88,9 @@ class BookModel {
   /// دکمه‌ی «دریافت نمونه» فقط وقتی فعال است که نمونه واقعاً روی سرور هست.
   bool get hasSample =>
       serverHasSample ?? (sampleFilePath?.trim().isNotEmpty ?? false);
+
+  /// 🛍️ SF-4: کتابِ بی‌محتوا خریدنی نیست («در حالِ آماده‌سازی»).
+  bool get hasContent => serverHasContent ?? true;
   bool get hasLocalCover =>
       localCoverPath != null && File(localCoverPath!).existsSync();
   bool get hasDiscount => discount > 0 && finalPrice < price;
@@ -181,6 +187,7 @@ class BookModel {
     this.downloadProgress = 0.0,
     this.isPaused = false,
     this.serverHasSample,
+    this.serverHasContent,
     this.price = 0,
     this.discount = 0,
     this.finalPrice = 0,
@@ -261,6 +268,7 @@ class BookModel {
       isPurchased: clearMain ? false : (isPurchased ?? this.isPurchased),
       isPaused: isPaused ?? this.isPaused,
       serverHasSample: serverHasSample,
+      serverHasContent: serverHasContent,
       price: price,
       discount: discount,
       finalPrice: finalPrice,
@@ -335,6 +343,7 @@ class BookModel {
     isPurchased: json['isPurchased'] == true || json['is_purchased'] == true,
 
     serverHasSample: json['has_sample'] is bool ? json['has_sample'] as bool : null,
+    serverHasContent: json['has_content'] is bool ? json['has_content'] as bool : null,
     price: _asInt(json['price']) ?? 0,
     discount: _asInt(json['discount']) ?? 0,
     finalPrice: _asInt(json['final_price']) ?? _asInt(json['price']) ?? 0,
@@ -400,6 +409,7 @@ class BookModel {
     'is_purchased': isPurchased,
 
     'has_sample': serverHasSample,
+    'has_content': serverHasContent,
     'price': price,
     'discount': discount,
     'final_price': finalPrice,
@@ -1064,6 +1074,22 @@ class BooksNotifier extends Notifier<List<BookModel>> {
         images: b.images,
         imagesVersion: b.imagesVersion,
         isPurchased: b.isPurchased,
+        // 🐞 معرفیِ ویترین (SF-1/SF-4) هم بماند؛ قبلاً تا رفرشِ بعدی قیمت و جلد و … گم می‌شد.
+        serverHasSample: b.serverHasSample,
+        serverHasContent: b.serverHasContent,
+        price: b.price,
+        discount: b.discount,
+        finalPrice: b.finalPrice,
+        description: b.description,
+        author: b.author,
+        publisher: b.publisher,
+        level: b.level,
+        pageCount: b.pageCount,
+        audioCount: b.audioCount,
+        coverUrl: b.coverUrl,
+        coverVersion: b.coverVersion,
+        localCoverPath: b.localCoverPath,
+        localCoverVersion: b.localCoverVersion,
         // همه‌ی مقادیرِ محلی عمداً به حالتِ «دانلودنشده» برمی‌گردند
       );
     }).toList();
