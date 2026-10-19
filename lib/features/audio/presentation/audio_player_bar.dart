@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/audio/providers/audio_script_text_scale_provider.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
@@ -746,6 +747,66 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
     return "$minutes:$seconds";
   }
 
+  /// 🌟 AS-3: اندازه‌ی Word (pt) ← px در صفحه‌ی اسکریپت. متنِ عادیِ کتاب (۱۱٫۵pt) همان
+  /// [base] می‌شود؛ تیترها نسبتشان را با توانِ ۰٫۷۵ نگه می‌دارند (مثلِ حالتِ «خوانا»).
+  /// قبلاً pt مستقیم px گرفته می‌شد و متنِ ۱۱٫۵pt روی گوشی ریز بود.
+  static double _scriptFontSize(double pt, double base) {
+    final double v = base * math.pow(pt / 11.5, 0.75).toDouble();
+    return v.clamp(base * 0.85, base * 1.9).toDouble();
+  }
+
+  /// 🌟 AS-4: شماره/بولتِ خودکارِ Word (ListMarker) با تورفتگیِ آویزان: شماره در ستونِ
+  /// خودش و متن کنارش، تا سطرهای بعدی زیرِ متن بیایند نه زیرِ شماره. پاراگرافِ بی‌شماره‌ای
+  /// که در Word تورفتگی دارد (ادامه‌ی همان بند، مثلِ «Candidate 1: …» زیرِ «1 Examiner: …»)
+  /// به اندازه‌ی همین ستون جلو می‌رود تا با متنِ بند هم‌تراز باشد.
+  Widget _withListLayout(
+    ParagraphData para,
+    Widget text,
+    double fontSize, {
+    required bool trackHasList,
+  }) {
+    final double column = fontSize * 1.7;
+    final String? marker = para.listMarker?.trim();
+    final bool rtl = para.direction == "RTL";
+    if (marker != null && marker.isNotEmpty) {
+      return Directionality(
+        textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(minWidth: column),
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(end: fontSize * 0.35),
+                child: Text(
+                  marker,
+                  style: TextStyle(
+                    color: _colors.textPrimary,
+                    fontSize: fontSize,
+                    height: 1.5,
+                    fontWeight: para.listMarkerBold
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(child: text),
+          ],
+        ),
+      );
+    }
+    if (trackHasList && (para.indentLeft ?? 0) >= 18) {
+      return Padding(
+        padding: rtl
+            ? EdgeInsets.only(right: column)
+            : EdgeInsets.only(left: column),
+        child: text,
+      );
+    }
+    return text;
+  }
+
   Widget _buildSmallCircleButton({
     required String label,
     required bool isActive,
@@ -796,6 +857,15 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
         break;
       }
     }
+    // 🌟 AS-3/AS-4
+    final double textScale = ref.watch(audioScriptTextScaleProvider);
+    final AudioScriptTextScaleNotifier scaleNotifier = ref.read(
+      audioScriptTextScaleProvider.notifier,
+    );
+    final double baseFontSize = kAudioScriptBodyPx * textScale;
+    final bool trackHasList = paragraphs.any(
+      (p) => p.listMarker != null && p.listMarker!.trim().isNotEmpty,
+    );
 
     // 🐞 کدام پاراگراف الان فعال است؟ یعنی حداقل یک اسپنِ داخلش بازه‌ی
     // زمانیِ StartMs تا EndMs، لحظه‌ی فعلی را در بر می‌گیرد. مهم: از < استفاده
@@ -894,6 +964,35 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                // 🌟 AS-3: کوچک/بزرگ‌کردنِ متنِ اسکریپت
+                IconButton(
+                  icon: Icon(
+                    Icons.text_decrease_rounded,
+                    color: scaleNotifier.canDecrease
+                        ? _colors.textSecondary
+                        : _colors.textMuted.withOpacity(0.4),
+                    size: 20,
+                  ),
+                  tooltip: 'متنِ کوچک‌تر',
+                  visualDensity: VisualDensity.compact,
+                  onPressed: scaleNotifier.canDecrease
+                      ? scaleNotifier.decrease
+                      : null,
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.text_increase_rounded,
+                    color: scaleNotifier.canIncrease
+                        ? _colors.textSecondary
+                        : _colors.textMuted.withOpacity(0.4),
+                    size: 20,
+                  ),
+                  tooltip: 'متنِ بزرگ‌تر',
+                  visualDensity: VisualDensity.compact,
+                  onPressed: scaleNotifier.canIncrease
+                      ? scaleNotifier.increase
+                      : null,
+                ),
                 if (audioState.targetLocation != null)
                   // 🐞 «برو به متن»: کاربر را به دقیقاً همان صفحه/پاراگرافی
                   // می‌برد که یا اولین وقوعِ این فایل در کتاب است (اگر با
@@ -947,7 +1046,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                     itemCount: paragraphs.length,
                     itemScrollController: _itemScrollController,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
+                      horizontal: 14,
                       vertical: 4,
                     ),
                     itemBuilder: (context, index) {
@@ -988,8 +1087,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                             TextRenderEngine.applySpanStyle(
                               TextStyle(
                                 color: _colors.textSecondary,
-                                fontSize: 15,
-                                height: 1.6,
+                                fontSize: baseFontSize,
+                                height: 1.5,
                               ),
                               span,
                               true, // isDarkTheme
@@ -1014,7 +1113,13 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                             fontFamily = mapFontFamily(marker.substring(3));
                           } else if (marker.startsWith("sz:")) {
                             final parsed = double.tryParse(marker.substring(3));
-                            if (parsed != null) fontSize = parsed / 2;
+                            // 🌟 AS-3: نیم‌پوینتِ Word ← pt ← px نسبت به متنِ عادی
+                            if (parsed != null) {
+                              fontSize = _scriptFontSize(
+                                parsed / 2,
+                                baseFontSize,
+                              );
+                            }
                           }
                         }
                         final TextStyle styledBase = baseStyle.copyWith(
@@ -1100,8 +1205,14 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
                       Widget englishContent = AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        padding: const EdgeInsets.all(12),
+                        // 🌟 AS-3: فاصله‌ی پاراگراف‌ها کم شد (قبلاً ۴+۱۲ از هر طرف ≈ ۳۲px
+                        // بینِ دو پاراگراف)؛ حالا ≈ ۱۴px، و کادرِ پاراگرافِ فعال هنوز
+                        // دورِ متن جا دارد.
+                        margin: const EdgeInsets.symmetric(vertical: 1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: paraIsActive
                               ? _colors.accent.withOpacity(0.08)
@@ -1126,11 +1237,16 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                                 ]
                               : null,
                         ),
-                        child: Text.rich(
-                          TextSpan(children: richSpans),
-                          textAlign: para.direction == "RTL"
-                              ? TextAlign.right
-                              : TextAlign.left,
+                        child: _withListLayout(
+                          para,
+                          Text.rich(
+                            TextSpan(children: richSpans),
+                            textAlign: para.direction == "RTL"
+                                ? TextAlign.right
+                                : TextAlign.left,
+                          ),
+                          baseFontSize,
+                          trackHasList: trackHasList,
                         ),
                       );
 
