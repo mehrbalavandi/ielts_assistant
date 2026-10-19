@@ -31318,6 +31318,98 @@
       "terms": [
         "crossroads"
       ]
+    },
+    "manager: so that's 12 people for the 16th.": {
+      "src": "Manager: So that's 12 people for the 16th.",
+      "fa": "مدیر: پس 12 نفر برای شانزدهم.",
+      "ar": "المدير: إذن 12 شخصًا يوم السادس عشر.",
+      "terms": []
+    },
+    "customer: no, no, it's the day after the 17th - saturday the 17th, at eight o'clock.": {
+      "src": "Customer: No, no, it's the day after the 17th - Saturday the 17th, at eight o'clock.",
+      "fa": "مشتری: نه، نه، روزِ بعدش است؛ هفدهم، شنبه هفدهم، ساعتِ هشت.",
+      "ar": "الزبونة: لا، لا، إنّه اليوم التالي – السابع عشر – السبت السابع عشر، في الساعة الثامنة.",
+      "terms": []
+    },
+    "manager: ah, yes, of course. a party of 12 for the saturday ... oh, i'm sorry, but i'm afraid our main restaurant is fully booked that evening, but we do have a small room available for private hire. it can seat up to 20 people, so there would be plenty of space for 12 of you.": {
+      "src": "Manager: Ah, yes, of course. A party of 12 for the Saturday ... Oh, I'm sorry, but I'm afraid our main restaurant is fully booked that evening, but we do have a small room available for private hire. It can seat up to 20 people, so there would be plenty of space for 12 of you.",
+      "fa": "مدیر: آهان، بله، البته. یک گروهِ 12 نفره برای شنبه … اوه، متأسفم، ولی رستورانِ اصلی‌مان آن شب کاملاً رزرو شده است؛ البته یک اتاقِ کوچک داریم که برای مهمانی‌های خصوصی اجاره داده می‌شود. گنجایشِ حداکثر 20 نفر را دارد، پس برای 12 نفرِ شما جای کافی هست.",
+      "ar": "المدير: آه، نعم، بالطبع. مجموعة من 12 شخصًا يوم السبت … أوه، آسف، لكنّ مطعمنا الرئيسي محجوز بالكامل تلك الليلة. غير أنّ لدينا غرفة صغيرة متاحة للحجز الخاص، تتّسع لما يصل إلى 20 شخصًا، فسيكون هناك متّسع كافٍ لكم جميعًا.",
+      "terms": [
+        "fully booked",
+        "private hire",
+        "seat up to"
+      ]
+    },
+    "customer: great. i'll take them.": {
+      "src": "Customer: Great. I'll take them.",
+      "fa": "مشتری: عالی است. همین‌ها را برمی‌دارم.",
+      "ar": "الزبون: رائع. سآخذها.",
+      "terms": []
+    },
+    "hoi chin: my family? well, my family isn't a large family. it's quite a small family in fact - and quite a typical family for my country. just my parents, my older brother and me. so, i'm the baby of the family! i think we're a close, happy family. we do a lot of things together, particularly preparing food - and eating it of course! yes, we spend a lot of time in the kitchen. my father's a very good cook - he's much better than my mother.": {
+      "src": "Hoi Chin: My family? Well, my family isn't a large family. It's quite a small family in fact - and quite a typical family for my country. Just my parents, my older brother and me. So, I'm the baby of the family! I think we're a close, happy family. We do a lot of things together, particularly preparing food - and eating it of course! Yes, we spend a lot of time in the kitchen. My father's a very good cook - he's much better than my mother.",
+      "fa": "هوی چین: خانواده‌ام؟ خب، خانواده‌ی ما پرجمعیت نیست. در واقع خانواده‌ی نسبتاً کوچکی است؛ و برای کشورِ من، خانواده‌ای کاملاً معمولی. فقط پدر و مادرم، برادرِ بزرگ‌ترم و من. پس من ته‌تغاریِ خانواده‌ام! فکر می‌کنم خانواده‌ای صمیمی و شاد هستیم. خیلی کارها را با هم انجام می‌دهیم، مخصوصاً آشپزی؛ و البته خوردنش! بله، وقتِ زیادی را در آشپزخانه می‌گذرانیم. پدرم آشپزِ خیلی خوبی است؛ خیلی بهتر از مادرم.",
+      "ar": "هوي تشين: عائلتي؟ حسنًا، عائلتي ليست كبيرة. إنّها في الواقع عائلة صغيرة نوعًا ما، وعائلة نموذجية تمامًا في بلدي: والداي وأخي الأكبر وأنا فقط. أي أنّني أصغر أفراد العائلة! أظنّ أنّنا عائلة مترابطة وسعيدة. نقوم بأشياء كثيرة معًا، ولا سيّما إعداد الطعام – وأكله بالطبع! نعم، نقضي وقتًا طويلًا في المطبخ. أبي طبّاخ ماهر جدًّا – أفضل بكثير من أمّي.",
+      "terms": [
+        "typical",
+        "the baby of the family"
+      ]
+    },
+    "a: well, i thought it was pretty reasonable. in fact i couldn't believe it when the bill arrived. £40, including a tip. that'sonly £20 per person. you can't get steak for less than £15 anywhere in town.": {
+      "src": "A: Well, I thought it was pretty reasonable. In fact I couldn't believe it when the bill arrived. £40, including a tip. That'sonly £20 per person. You can't get steak for less than £15 anywhere in town.",
+      "fa": "A: خب، به نظرِ من قیمتش کاملاً معقول بود. راستش وقتی صورت‌حساب آمد باورم نمی‌شد. 40 پوند، با انعام. یعنی فقط نفری 20 پوند. هیچ جای شهر نمی‌توانی استیک را کمتر از 15 پوند بخوری.",
+      "ar": "A: أمّا أنا فوجدته معقول السعر. في الحقيقة لم أصدّق حين وصلت الفاتورة: 40 جنيهًا شاملةً البقشيش، أي 20 جنيهًا فقط للشخص. لا يمكنك أن تأكل شريحة لحم بأقلّ من 15 جنيهًا في أيّ مكان في المدينة.",
+      "terms": [
+        "reasonable"
+      ]
+    },
+    "darren: so, the next one starts on 1st of september? i think i could do that.": {
+      "src": "Darren: So, the next one starts on 1st of September? I think I could do that.",
+      "fa": "دارن: پس دوره‌ی بعدی اولِ سپتامبر شروع می‌شود؟ فکر کنم بتوانم بیایم.",
+      "ar": "دارن: إذن، الدورة التالية تبدأ في الأوّل من سبتمبر؟ أظنّ أنّني أستطيع ذلك.",
+      "terms": []
+    },
+    "jon: so i take it you went electric!": {
+      "src": "Jon: So I take it you went electric!",
+      "fa": "جان: پس حدس می‌زنم برقی را انتخاب کردی!",
+      "ar": "جون: إذن أفترض أنّك اخترتِ الكهربائية!",
+      "terms": []
+    },
+    "many things have changed over the years in my home town.": {
+      "src": " Many things have changed over the years in my home town.",
+      "fa": "در طولِ این سال‌ها چیزهای زیادی در زادگاهم تغییر کرده است.",
+      "ar": "تغيّرت أشياء كثيرة في مدينتي على مرّ السنين.",
+      "terms": [
+        "home town"
+      ]
+    },
+    "graham: of course, everybody knows about noodles and dumplings, but i doubt many people know how many different types there are! one of the highlights for me was learning how to make fresh noodles with a chef from northern china. the recipe of egg, salt and wheat flour is quite simple, but to make the noodles by hand you need to be quite a skilful chef.": {
+      "src": "Graham: Of course, everybody knows about noodles and dumplings, but I doubt many people know how many different types there are! One of the highlights for me was learning how to make fresh noodles with a chef from Northern China. The recipe of egg, salt and wheat flour is quite simple, but to make the noodles by hand you need to be quite a skilful chef.",
+      "fa": "گراهام: البته همه نودل و دامپلینگ را می‌شناسند، اما شک دارم خیلی‌ها بدانند چقدر انواعِ مختلف دارند! یکی از بهترین لحظه‌ها برای من یاد گرفتنِ درست کردنِ نودلِ تازه با یک سرآشپز از شمالِ چین بود. دستورِ پختش، یعنی تخم‌مرغ، نمک و آردِ گندم، نسبتاً ساده است، اما برای درست کردنِ نودل با دست باید سرآشپزِ نسبتاً ماهری باشید.",
+      "ar": "غراهام: بالطبع، الجميع يعرف النودلز والزلابية، لكنني أشكّ في أن كثيرين يعرفون كم نوعًا مختلفًا منها هناك! ومن أبرز ما في الرحلة بالنسبة إليّ تعلّم صنع النودلز الطازجة مع طاهٍ من شمال الصين. فالوصفة - البيض والملح وطحين القمح - بسيطة إلى حدّ ما، لكن لصنع النودلز يدويًّا يجب أن تكون طاهيًا ماهرًا إلى حدّ ما.",
+      "terms": [
+        "highlight",
+        "recipe",
+        "skilful"
+      ]
+    },
+    "melissa: thanks for offering to drive us all to the concert. it's really kind of you and makes getting there much easier. i don't live far from you at all. first, you need to turn right onto maple avenue and drive to the bottom of the road, passing the supermarket on your left. then, you need to turn left at the traffic lights and then take a sharp right onto main street. you can also go straight on here, past the surgery, but i usually drive down main street. follow this road until you reach a roundabout - you'll pass a park and some shops on your right. when you get to the roundabout, take the first turning on the left, onto silver street. as you approach the crossroads here, my house is the first on the corner.": {
+      "src": "Melissa: Thanks for offering to drive us all to the concert. It's really kind of you and makes getting there much easier. I don't live far from you at all. First, you need to turn right onto Maple Avenue and drive to the bottom of the road, passing the supermarket on your left. Then, you need to turn left at the traffic lights and then take a sharp right onto Main Street. You can also go straight on here, past the surgery, but I usually drive down Main Street. Follow this road until you reach a roundabout - you'll pass a park and some shops on your right. When you get to the roundabout, take the first turning on the left, onto Silver Street. As you approach the crossroads here, my house is the first on the corner.",
+      "fa": "ملیسا: ممنون که پیشنهاد دادی همه‌ی ما را با ماشین به کنسرت ببری. واقعاً لطف داری و رفتن به آنجا را خیلی راحت‌تر می‌کند. اصلاً از تو دور زندگی نمی‌کنم. اول باید به راست، به بلوارِ میپل بپیچی و تا تهِ خیابان بروی و از کنارِ سوپرمارکت که سمتِ چپت است رد شوی. بعد باید سرِ چراغِ راهنمایی به چپ بپیچی و بعد تند به راست، به خیابانِ اصلی. اینجا می‌توانی مستقیم هم بروی، از کنارِ درمانگاه، ولی من معمولاً از خیابانِ اصلی می‌روم. این خیابان را ادامه بده تا به یک میدان برسی - از کنارِ یک پارک و چند مغازه در سمتِ راستت رد می‌شوی. وقتی به میدان رسیدی، اولین خروجی سمتِ چپ را بگیر، به خیابانِ سیلور. وقتی به چهارراهِ آنجا نزدیک می‌شوی، خانه‌ی من اولین خانه سرِ نبش است.",
+      "ar": "ميليسا: شكراً لأنكِ عرضتِ أن تُقلّينا جميعاً بالسيارة إلى الحفل الموسيقي. هذا لطف منكِ حقاً ويجعل الوصول أسهل بكثير. أنا لا أسكن بعيداً عنكِ أبداً. أولاً، عليكِ أن تنعطفي يميناً إلى جادّة مابل وتقودي حتى آخر الطريق، مروراً بالمتجر الكبير على يساركِ. ثم عليكِ أن تنعطفي يساراً عند إشارات المرور ثم يميناً بحدّة إلى الشارع الرئيسي. ويمكنكِ أيضاً أن تمضي مباشرة هنا مروراً بالعيادة، لكنني عادةً أقود في الشارع الرئيسي. تابعي هذا الطريق حتى تصلي إلى دوّار - ستمرّين بحديقة وبعض المتاجر على يمينكِ. وعندما تصلين إلى الدوّار، خذي أول منعطف إلى اليسار، إلى شارع سيلفر. وعندما تقتربين من التقاطع هناك، يكون بيتي الأول عند الزاوية.",
+      "terms": [
+        "traffic lights",
+        "surgery",
+        "roundabout",
+        "crossroads"
+      ]
+    },
+    "look at the map with a partner and discuss the different things you can see on the map.": {
+      "src": "Look at the map with a partner and discuss the different things you can see on the map.",
+      "fa": "با هم‌گروهی‌تان به نقشه نگاه کنید و درباره‌ی چیزهای مختلفی که روی نقشه می‌بینید گفت‌وگو کنید.",
+      "ar": "انظروا إلى الخريطة مع زميلكم وناقشوا الأشياء المختلفة التي ترونها عليها.",
+      "terms": []
     }
   }
 }
