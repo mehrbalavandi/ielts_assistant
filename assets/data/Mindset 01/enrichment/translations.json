@@ -31118,6 +31118,206 @@
       "fa": "from: من اهلِ لندنم.",
       "ar": "from: أنا من لندن.",
       "terms": []
+    },
+    "what does the woman complain about?": {
+      "src": "What does the woman complain about?",
+      "fa": "زن از چه چیزی شکایت می‌کند؟",
+      "ar": "مِمَّ تشتكي المرأة؟",
+      "terms": []
+    },
+    "there is an unusual sport which describes itself as a 'classic mix of brains and brawn'. the game, called 'chess boxing', involves a round of chess and then a round of boxing, then another of chess, and so on. there is one minute between rounds. the first chess boxing world championship took place in 2003 in amsterdam and was won by a dutchman, iepe rubingh. since then, it has become more popular, particularly in germany, the uk, india and russia. it is a difficult sport, as players need to be very good at two very different activities and be able to switch quickly between the two.": {
+      "src": "There is an unusual sport which describes itself as a 'classic mix of brains and brawn'. The game, called 'chess boxing', involves a round of chess and then a round of boxing, then another of chess, and so on. There is one minute between rounds. The first chess boxing world championship took place in 2003 in Amsterdam and was won by a Dutchman, Iepe Rubingh. Since then, it has become more popular, particularly in Germany, the UK, India and Russia. It is a difficult sport, as players need to be very good at two very different activities and be able to switch quickly between the two.",
+      "fa": "ورزشِ غیرمعمولی هست که خودش را «ترکیبی کلاسیک از مغز و زور» توصیف می‌کند. این بازی که «شطرنج‌بوکس» نام دارد، شاملِ یک راند شطرنج و بعد یک راند بوکس، سپس دوباره شطرنج و به همین ترتیب است. بینِ راندها یک دقیقه فاصله است. نخستین مسابقاتِ قهرمانیِ جهانیِ شطرنج‌بوکس در سالِ 2003 در آمستردام برگزار شد و یک هلندی به نامِ ایپه روبینگ برنده شد. از آن زمان این ورزش محبوب‌تر شده است، به‌ویژه در آلمان، بریتانیا، هند و روسیه. ورزشِ دشواری است، چون بازیکنان باید در دو فعالیتِ بسیار متفاوت بسیار ماهر باشند و بتوانند به‌سرعت میانِ آن دو جابه‌جا شوند.",
+      "ar": "هناك رياضة غير مألوفة تصف نفسها بأنها «مزيج كلاسيكي من العقل والعضلات». فهذه اللعبة المسمّاة «ملاكمة الشطرنج» تتضمّن جولة شطرنج ثم جولة ملاكمة، ثم جولة شطرنج أخرى، وهكذا. وبين الجولات دقيقة واحدة. وقد أُقيمت أول بطولة عالم لملاكمة الشطرنج عام 2003 في أمستردام، وفاز بها هولندي هو إيبه روبينغ. ومنذ ذلك الحين ازدادت شعبيتها، لا سيّما في ألمانيا والمملكة المتحدة والهند وروسيا. وهي رياضة صعبة، إذ يحتاج اللاعبون إلى البراعة في نشاطين مختلفين جداً والقدرة على التنقّل بسرعة بينهما.",
+      "terms": [
+        "involve",
+        "championship",
+        "take place",
+        "switch between"
+      ]
+    },
+    "when answering true/false/not given questions you must scan the text to find the information as quickly as possible, as you also need time to read a few sentences in detail.": {
+      "src": "When answering True/False/Not Given questions you must scan the text to find the information as quickly as possible, as you also need time to read a few sentences in detail.",
+      "fa": "وقتی به پرسش‌های True/False/Not Given پاسخ می‌دهید، باید متن را اسکن کنید تا هرچه سریع‌تر اطلاعات را پیدا کنید، چون وقت هم لازم دارید تا چند جمله را با دقت بخوانید.",
+      "ar": "عند الإجابة عن أسئلة True/False/Not Given يجب أن تمسحوا النص للعثور على المعلومة بأسرع ما يمكن، لأنكم تحتاجون أيضاً إلى وقت لقراءة بضع جمل بالتفصيل.",
+      "terms": [
+        "not given",
+        "scan",
+        "in detail"
+      ]
+    },
+    "iepe rubingh invented chess boxing. not given": {
+      "src": "Iepe Rubingh invented chess boxing. {blk}Not Given{/blk}",
+      "fa": "ایپه روبینگ شطرنج‌بوکس را ابداع کرد. داده نشده (Not Given)",
+      "ar": "إيبه روبينغ اخترع ملاكمة الشطرنج. غير مذكور (Not Given)",
+      "terms": [
+        "not given"
+      ],
+      "blanks": [
+        {
+          "fa": "داده نشده",
+          "ar": "غير مذكور"
+        }
+      ]
+    },
+    "iepe rubingh is from germany. false": {
+      "src": "Iepe Rubingh is from Germany. {blk}False{/blk}",
+      "fa": "ایپه روبینگ اهلِ آلمان است. نادرست (False)",
+      "ar": "إيبه روبينغ من ألمانيا. خطأ (False)",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "نادرست",
+          "ar": "خطأ"
+        }
+      ]
+    },
+    "parkour was developed in france in the 1980s by raymond belle and later by his son david belle and his friends. it is based on military obstacle course training. the aim is to get from one point to another in any way you can, and express yourself while doing so. there are no limits on how you move in parkour: running, climbing, swinging, jumping, rolling and any other types of movement are possible. parkour is more of a philosophy or set of ideas than a sport. it is a new way of seeing the environment and finding ways to go over, under, around, across or through obstacles.": {
+      "src": "Parkour was developed in France in the 1980s by Raymond Belle and later by his son David Belle and his friends. It is based on military obstacle course training. The aim is to get from one point to another in any way you can, and express yourself while doing so. There are no limits on how you move in parkour: running, climbing, swinging, jumping, rolling and any other types of movement are possible. Parkour is more of a philosophy or set of ideas than a sport. It is a new way of seeing the environment and finding ways to go over, under, around, across or through obstacles.",
+      "fa": "پارکور در دهه‌ی 1980 در فرانسه به دستِ ریمون بل و بعدها پسرش داوید بل و دوستانش پدید آمد. پایه‌ی آن تمرین‌های مسیرِ موانعِ نظامی است. هدف این است که به هر شکلی که می‌توانید از یک نقطه به نقطه‌ی دیگر برسید و در همین حال خودتان را بیان کنید. در پارکور هیچ محدودیتی برای نحوه‌ی حرکت نیست: دویدن، بالا رفتن، تاب خوردن، پریدن، غلت زدن و هر نوع حرکتِ دیگری ممکن است. پارکور بیشتر یک فلسفه یا مجموعه‌ای از ایده‌هاست تا یک ورزش. راهِ تازه‌ای برای دیدنِ محیط و یافتنِ راه‌هایی برای رد شدن از روی، زیر، کنار، عرض یا درونِ موانع است.",
+      "ar": "نشأ الباركور في فرنسا في الثمانينيات على يد ريمون بيل، ثم ابنه دافيد بيل وأصدقائه. وهو يقوم على تدريبات مسارات العوائق العسكرية. والهدف هو الانتقال من نقطة إلى أخرى بأيّ طريقة ممكنة، والتعبير عن الذات أثناء ذلك. ولا حدود لطريقة الحركة في الباركور: الجري والتسلّق والتأرجح والقفز والتدحرج وأيّ نوع آخر من الحركة ممكن. والباركور فلسفة أو مجموعة أفكار أكثر منه رياضة. إنه طريقة جديدة لرؤية البيئة وإيجاد طرق للمرور فوق العوائق أو تحتها أو حولها أو عبرها أو من خلالها.",
+      "terms": [
+        "military",
+        "obstacle",
+        "philosophy"
+      ]
+    },
+    "parkour can be done alone or in groups. the most famous group of traceurs (people who do parkour) were the yamakasi, a group made up of david belle and his friends and cousins. they formed in the late 1980s and became popular during the 1990s and 2000s after appearing in several films, documentaries and advertisements. in the yamakasi, there were strict rules. members had to arrive on time and they were not allowed to complain or make excuses. they valued humility, so they were not allowed to show off or compete with other members.": {
+      "src": "Parkour can be done alone or in groups. The most famous group of traceurs (people who do parkour) were the Yamakasi, a group made up of David Belle and his friends and cousins. They formed in the late 1980s and became popular during the 1990s and 2000s after appearing in several films, documentaries and advertisements. In the Yamakasi, there were strict rules. Members had to arrive on time and they were not allowed to complain or make excuses. They valued humility, so they were not allowed to show off or compete with other members.",
+      "fa": "پارکور را می‌توان به‌تنهایی یا گروهی انجام داد. مشهورترین گروهِ تراسورها (کسانی که پارکور کار می‌کنند) یاماکاسی بود، گروهی متشکل از داوید بل و دوستان و پسرعموهایش. آن‌ها در اواخرِ دهه‌ی 1980 گرد هم آمدند و در دهه‌های 1990 و 2000 پس از حضور در چند فیلم، مستند و آگهیِ تبلیغاتی مشهور شدند. در یاماکاسی قوانینِ سفت‌وسختی بود. اعضا باید سرِ وقت می‌آمدند و اجازه نداشتند شکایت کنند یا بهانه بیاورند. آن‌ها برای فروتنی ارزش قائل بودند، پس اجازه نداشتند خودنمایی کنند یا با دیگر اعضا رقابت کنند.",
+      "ar": "يمكن ممارسة الباركور منفرداً أو ضمن مجموعات. وأشهر مجموعة من الترايسور (ممارسي الباركور) كانت «ياماكاسي»، وهي مجموعة تتكوّن من دافيد بيل وأصدقائه وأبناء عمومته. تشكّلت في أواخر الثمانينيات واشتهرت في التسعينيات والألفية الثانية بعد ظهورها في عدد من الأفلام والوثائقيات والإعلانات. وكانت في ياماكاسي قواعد صارمة؛ فعلى الأعضاء الحضور في الموعد، ولا يُسمح لهم بالتذمّر أو اختلاق الأعذار. وكانوا يقدّرون التواضع، فلم يكن مسموحاً لهم بالتباهي أو منافسة الأعضاء الآخرين.",
+      "terms": [
+        "strict rules",
+        "on time",
+        "make excuses",
+        "humility",
+        "show off"
+      ]
+    },
+    "parkour is a 'state of mind'. it is about getting over mental as well as physical barriers. it teaches people to touch the world and interact with it. it is about understanding what it means to be human. the organisation parkour.net believes that parkour can never be a competitive sport. it is an art and is concerned with self-development. they say you can't ask, 'who is the best at parkour?' raymond belle's advice is: 'if two roads open up before you, always take the more difficult one. because you know you can travel the easy one.'": {
+      "src": "Parkour is a 'state of mind'. It is about getting over mental as well as physical barriers. It teaches people to touch the world and interact with it. It is about understanding what it means to be human. The organisation Parkour.net believes that parkour can never be a competitive sport. It is an art and is concerned with self-development. They say you can't ask, 'Who is the best at parkour?' Raymond Belle's advice is: ‘If two roads open up before you, always take the more difficult one. Because you know you can travel the easy one.’",
+      "fa": "پارکور یک «حالتِ ذهنی» است. درباره‌ی گذشتن از موانعِ ذهنی و نیز جسمی است. به آدم‌ها یاد می‌دهد جهان را لمس کنند و با آن تعامل داشته باشند. درباره‌ی فهمیدنِ معنای انسان بودن است. سازمانِ Parkour.net معتقد است که پارکور هرگز نمی‌تواند ورزشی رقابتی باشد. پارکور یک هنر است و با خودسازی سروکار دارد. آن‌ها می‌گویند نمی‌توان پرسید: «چه کسی در پارکور بهترین است؟» توصیه‌ی ریمون بل این است: «اگر دو راه پیشِ رویت باز شد، همیشه دشوارتر را انتخاب کن. چون می‌دانی که راهِ آسان را می‌توانی بروی.»",
+      "ar": "الباركور «حالة ذهنية»، فهو يتعلّق بتجاوز الحواجز الذهنية والجسدية معاً. وهو يعلّم الناس أن يلمسوا العالم ويتفاعلوا معه، ويتعلّق بفهم معنى أن تكون إنساناً. وترى منظمة Parkour.net أن الباركور لا يمكن أبداً أن يكون رياضة تنافسية؛ إنه فنّ ويُعنى بتطوير الذات. ويقولون إنه لا يمكنك أن تسأل: «من الأفضل في الباركور؟» ونصيحة ريمون بيل هي: «إذا انفتح أمامك طريقان، فاختر دائماً الأصعب، لأنك تعرف أنك تستطيع سلوك السهل.»",
+      "terms": [
+        "state of mind",
+        "barrier",
+        "interact with",
+        "competitive",
+        "be concerned with",
+        "self-development"
+      ]
+    },
+    "are tenses used correctly? not always": {
+      "src": "Are tenses used correctly? {blk}Not always{/blk}",
+      "fa": "آیا زمان‌های فعل درست به کار رفته‌اند؟ نه همیشه",
+      "ar": "هل استُخدمت الأزمنة بشكل صحيح؟ ليس دائماً",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "نه همیشه",
+          "ar": "ليس دائماً"
+        }
+      ]
+    },
+    "there are points for and against this idea": {
+      "src": "{blk}There are points for and against this idea{/blk}",
+      "fa": "نکاتی در موافقت و مخالفت با این ایده وجود دارد",
+      "ar": "هناك نقاط مؤيّدة لهذه الفكرة وأخرى معارضة لها",
+      "terms": [
+        "for and against"
+      ],
+      "blanks": [
+        {
+          "fa": "نکاتی در موافقت و مخالفت با این ایده وجود دارد",
+          "ar": "هناك نقاط مؤيّدة لهذه الفكرة وأخرى معارضة لها"
+        }
+      ]
+    },
+    "6 in addition, they need time to play freely and use their imaginations. they can get to know themselves and their likes and dislikes during this time. it is 7 also important to give them time to relax, watch tv, read and be with their parents, grandparents and siblings.": {
+      "src": "6 {blk}In addition{/blk}, they need time to play freely and use their imaginations. They can get to know themselves and their likes and dislikes during this time. It is 7 {blk}also{/blk} important to give them time to relax, watch TV, read and be with their parents, grandparents and siblings.",
+      "fa": "علاوه بر این، بچه‌ها به وقت نیاز دارند تا آزادانه بازی کنند و از قوه‌ی تخیلشان استفاده کنند. در این زمان می‌توانند خودشان و چیزهایی را که دوست دارند و دوست ندارند بشناسند. همچنین مهم است به آن‌ها وقت بدهیم تا استراحت کنند، تلویزیون ببینند، کتاب بخوانند و با پدر و مادر، پدربزرگ و مادربزرگ و خواهر و برادرهایشان باشند.",
+      "ar": "إضافةً إلى ذلك، يحتاج الأطفال إلى وقت ليلعبوا بحرية ويستخدموا خيالهم، إذ يمكنهم في هذا الوقت أن يتعرّفوا إلى أنفسهم وإلى ما يحبّونه وما لا يحبّونه. ومن المهم أيضاً أن نمنحهم وقتاً للاسترخاء ومشاهدة التلفاز والقراءة والبقاء مع آبائهم وأجدادهم وإخوتهم.",
+      "terms": [
+        "in addition",
+        "imagination",
+        "likes and dislikes"
+      ],
+      "blanks": [
+        {
+          "fa": "علاوه بر این",
+          "ar": "إضافةً إلى ذلك"
+        },
+        {
+          "fa": "همچنین",
+          "ar": "أيضاً"
+        }
+      ]
+    },
+    "each picture illustrates a word or phrase used to give directions.": {
+      "src": "Each picture illustrates a word or phrase used to give directions.",
+      "fa": "هر تصویر کلمه یا عبارتی را نشان می‌دهد که برای آدرس دادن به کار می‌رود.",
+      "ar": "كلّ صورة توضّح كلمة أو عبارة تُستخدم لوصف الاتجاهات.",
+      "terms": [
+        "give directions"
+      ]
+    },
+    "match the pictures with the words in the box.": {
+      "src": "Match the pictures with the words in the box.",
+      "fa": "تصویرها را با کلمه‌های داخلِ کادر جفت کنید.",
+      "ar": "صِلوا الصور بالكلمات الموجودة في المربّع.",
+      "terms": []
+    },
+    "look at the map with a partner and discuss the different things you can see look on the map.": {
+      "src": "Look at the map with a partner and discuss the different things you can see Look on the map.",
+      "fa": "با هم‌گروهی‌تان به نقشه نگاه کنید و درباره‌ی چیزهای مختلفی که روی نقشه می‌بینید گفت‌وگو کنید.",
+      "ar": "انظروا إلى الخريطة مع زميلكم وناقشوا الأشياء المختلفة التي ترونها عليها.",
+      "terms": []
+    },
+    "complete the sentences with your own ideas. you can use the activities in the box, or you can choose your own. practise saying them with a partner.": {
+      "src": "Complete the sentences with your own ideas. You can use the activities in the box, or you can choose your own. Practise saying them with a partner.",
+      "fa": "جمله‌ها را با ایده‌های خودتان کامل کنید. می‌توانید از فعالیت‌های داخلِ کادر استفاده کنید یا فعالیت‌های دیگری را خودتان انتخاب کنید. گفتنِ جمله‌ها را با هم‌گروهی‌تان تمرین کنید.",
+      "ar": "أكملوا الجمل بأفكاركم الخاصة. يمكنكم استخدام الأنشطة الموجودة في المربّع أو اختيار أنشطة أخرى بأنفسكم. تدرّبوا على قولها مع زميلكم.",
+      "terms": []
+    },
+    "melissa: thanks for offering to drive us all to the concert. it's reallykind of you and makes getting there much easier. i don't live far from you at all. first, you need to turn right onto maple avenue and drive to the bottom of the road, passing the supermarket on your left. then, you need to turn left at the traffic lights and then take a sharp right onto main street. you can also go straight on here, past the surgery, but i usually drive down main street. follow this road until you reach a roundabout - you'll pass a park and some shops on your right. when you get to the roundabout, take the first turning on the left, onto silver street. as you approach the crossroads here, my house is the first on the corner.": {
+      "src": "Melissa: Thanks for offering to drive us all to the concert. It's reallykind of you and makes getting there much easier. I don't live far from you at all. First, you need to turn right onto Maple Avenue and drive to the bottom of the road, passing the supermarket on your left. Then, you need to turn left at the traffic lights and then take a sharp right onto Main Street. You can also go straight on here, past the surgery, but I usually drive down Main Street. Follow this road until you reach a roundabout - you'll pass a park and some shops on your right. When you get to the roundabout, take the first turning on the left, onto Silver Street. As you approach the crossroads here, my house is the first on the corner.",
+      "fa": "ملیسا: ممنون که پیشنهاد دادی همه‌ی ما را با ماشین به کنسرت ببری. واقعاً لطف داری و رفتن به آنجا را خیلی راحت‌تر می‌کند. اصلاً از تو دور زندگی نمی‌کنم. اول باید به راست، به بلوارِ میپل بپیچی و تا تهِ خیابان بروی و از کنارِ سوپرمارکت که سمتِ چپت است رد شوی. بعد باید سرِ چراغِ راهنمایی به چپ بپیچی و بعد تند به راست، به خیابانِ اصلی. اینجا می‌توانی مستقیم هم بروی، از کنارِ درمانگاه، ولی من معمولاً از خیابانِ اصلی می‌روم. این خیابان را ادامه بده تا به یک میدان برسی - از کنارِ یک پارک و چند مغازه در سمتِ راستت رد می‌شوی. وقتی به میدان رسیدی، اولین خروجی سمتِ چپ را بگیر، به خیابانِ سیلور. وقتی به چهارراهِ آنجا نزدیک می‌شوی، خانه‌ی من اولین خانه سرِ نبش است.",
+      "ar": "ميليسا: شكراً لأنكِ عرضتِ أن تُقلّينا جميعاً بالسيارة إلى الحفل الموسيقي. هذا لطف منكِ حقاً ويجعل الوصول أسهل بكثير. أنا لا أسكن بعيداً عنكِ أبداً. أولاً، عليكِ أن تنعطفي يميناً إلى جادّة مابل وتقودي حتى آخر الطريق، مروراً بالمتجر الكبير على يساركِ. ثم عليكِ أن تنعطفي يساراً عند إشارات المرور ثم يميناً بحدّة إلى الشارع الرئيسي. ويمكنكِ أيضاً أن تمضي مباشرة هنا مروراً بالعيادة، لكنني عادةً أقود في الشارع الرئيسي. تابعي هذا الطريق حتى تصلي إلى دوّار - ستمرّين بحديقة وبعض المتاجر على يمينكِ. وعندما تصلين إلى الدوّار، خذي أول منعطف إلى اليسار، إلى شارع سيلفر. وعندما تقتربين من التقاطع هناك، يكون بيتي الأول عند الزاوية.",
+      "terms": [
+        "traffic lights",
+        "surgery",
+        "roundabout",
+        "crossroads"
+      ]
+    },
+    "melissa: sorry, i've just remembered, i told sarah you would collect her on the way. forget the route i just gave you, i'll give you another set of directions. this route might even be easier. again, you need to turn right onto maple avenue, and go up to the lights. instead of turning left here, turn right, with the park on your left. then after the zebra crossing, take the first turning on your left onto new road. drive along new road until you reach the bridge. sarah's house is the second house after the bridge. that's on the right; there are shops on the left. once you've picked up sarah, take the first turning on the left, onto silver street, and go straight ahead until you reach the roundabout. go straight ahead at the roundabout and then take the first turning on the right, oak avenue. my house is number 1. it's on the corner.": {
+      "src": "Melissa: Sorry, I've just remembered, I told Sarah you would collect her on the way. Forget the route I just gave you, I'll give you another set of directions. This route might even be easier. Again, you need to turn right onto Maple Avenue, and go up to the lights. Instead of turning left here, turn right, with the park on your left. Then after the zebra crossing, take the first turning on your left onto New Road. Drive along New Road until you reach the bridge. Sarah's house is the second house after the bridge. That's on the right; there are shops on the left. Once you've picked up Sarah, take the first turning on the left, onto Silver Street, and go straight ahead until you reach the roundabout. Go straight ahead at the roundabout and then take the first turning on the right, Oak Avenue. My house is number 1. It's on the corner.",
+      "fa": "ملیسا: ببخشید، همین الان یادم آمد، به سارا گفته‌ام که سرِ راه دنبالش می‌روی. مسیری را که همین الان گفتم فراموش کن، یک آدرسِ دیگر به تو می‌دهم. این مسیر شاید حتی آسان‌تر هم باشد. باز هم باید به راست، به بلوارِ میپل بپیچی و تا چراغ بروی. اینجا به‌جای پیچیدن به چپ، به راست بپیچ، طوری که پارک سمتِ چپت باشد. بعد از خط‌کشیِ عابرِ پیاده، اولین خیابانِ سمتِ چپ را بگیر، به جاده‌ی نیو. در جاده‌ی نیو برو تا به پل برسی. خانه‌ی سارا دومین خانه بعد از پل است. سمتِ راست است؛ سمتِ چپ مغازه هست. وقتی سارا را سوار کردی، اولین خیابانِ سمتِ چپ را بگیر، به خیابانِ سیلور، و مستقیم برو تا به میدان برسی. در میدان مستقیم برو و بعد اولین خیابانِ سمتِ راست را بگیر، بلوارِ اوک. خانه‌ی من پلاکِ 1 است. سرِ نبش است.",
+      "ar": "ميليسا: آسفة، تذكّرت للتوّ أنني أخبرت سارة بأنكِ ستمرّين بها لتأخذيها في الطريق. انسَي الطريق الذي وصفته لكِ للتوّ، سأعطيكِ إرشادات أخرى، وقد يكون هذا الطريق أسهل. ومرة أخرى عليكِ أن تنعطفي يميناً إلى جادّة مابل وتصعدي حتى الإشارة. وبدلاً من الانعطاف يساراً هنا، انعطفي يميناً بحيث تكون الحديقة على يساركِ. ثم بعد ممرّ المشاة، خذي أول منعطف إلى اليسار إلى طريق نيو. قودي على طول طريق نيو حتى تصلي إلى الجسر. بيت سارة هو البيت الثاني بعد الجسر، وهو على اليمين؛ وعلى اليسار متاجر. وبعد أن تأخذي سارة، خذي أول منعطف إلى اليسار إلى شارع سيلفر، وامضي مباشرة حتى تصلي إلى الدوّار. امضي مباشرة عند الدوّار ثم خذي أول منعطف إلى اليمين، جادّة أوك. بيتي رقم 1، وهو عند الزاوية.",
+      "terms": [
+        "instead of",
+        "zebra crossing",
+        "drive along",
+        "straight ahead",
+        "roundabout"
+      ]
+    },
+    "if you like racket sports, just behind the beach you can practise badminton in the large building. that's quite popular in the evenings.. we also have some outdoor tennis courts. we used to have basketball in the building too, but now you can play it on the court behind the building. and if these activities make you hungry, the path from there takes you straight to the café and dining hall.": {
+      "src": "If you like racket sports, just behind the beach you can practise badminton in the large building. That's quite popular in the evenings.. We also have some outdoor tennis courts. We used to have basketball in the building too, but now you can play it on the court behind the building. And if these activities make you hungry, the path from there takes you straight to the café and dining hall.",
+      "fa": "اگر ورزش‌های راکتی دوست دارید، درست پشتِ ساحل می‌توانید در ساختمانِ بزرگ بدمینتون تمرین کنید. عصرها خیلی طرفدار دارد. چند زمینِ تنیسِ روباز هم داریم. قبلاً بسکتبال هم در همان ساختمان بود، ولی حالا می‌توانید آن را در زمینِ پشتِ ساختمان بازی کنید. و اگر این فعالیت‌ها گرسنه‌تان کرد، مسیرِ آنجا شما را مستقیم به کافه و سالنِ غذاخوری می‌برد.",
+      "ar": "إذا كنتم تحبّون رياضات المضرب، فيمكنكم خلف الشاطئ مباشرة ممارسة الريشة الطائرة في المبنى الكبير، وهي شائعة جداً في المساء. ولدينا أيضاً بعض ملاعب التنس المكشوفة. وكانت كرة السلة تُلعب في المبنى أيضاً، لكن يمكنكم الآن لعبها في الملعب خلف المبنى. وإذا جعلتكم هذه الأنشطة جائعين، فالممرّ من هناك يأخذكم مباشرة إلى المقهى وقاعة الطعام.",
+      "terms": [
+        "racket",
+        "used to"
+      ]
+    },
+    "and finally, let's turn our attention back to this area here, where the paths meet and form a crossroads. this path leading to the east end of the farm will take our visitors to the area which houses the farm animals. children will be able to watch the animals being fed and cared for, and in some instances they will be able to feed the animals themselves. the sheep will be in this first area on the right here, directly opposite the pigs, and the goats will go at the very end there. we haven't quite decided on the other areas yet.": {
+      "src": "And finally, let's turn our attention back to this area here, where the paths meet and form a crossroads. This path leading to the east end of the farm will take our visitors to the area which houses the farm animals. Children will be able to watch the animals being fed and cared for, and in some instances they will be able to feed the animals themselves. The sheep will be in this first area on the right here, directly opposite the pigs, and the goats will go at the very end there. We haven't quite decided on the other areas yet.",
+      "fa": "و در آخر، بیایید دوباره به این محوطه برگردیم، جایی که مسیرها به هم می‌رسند و یک چهارراه می‌سازند. این مسیر که به انتهای شرقیِ مزرعه می‌رود، بازدیدکنندگان را به محوطه‌ای می‌برد که حیواناتِ مزرعه در آن نگهداری می‌شوند. بچه‌ها می‌توانند تماشا کنند که به حیوانات غذا داده می‌شود و از آن‌ها مراقبت می‌شود و گاهی خودشان هم می‌توانند به حیوانات غذا بدهند. گوسفندها در همین محوطه‌ی اولِ سمتِ راست خواهند بود، درست روبه‌روی خوک‌ها، و بزها درست در انتهای آنجا. هنوز درباره‌ی محوطه‌های دیگر کاملاً تصمیم نگرفته‌ایم.",
+      "ar": "وأخيراً، لنعد بانتباهنا إلى هذه المنطقة هنا، حيث تلتقي الممرّات وتشكّل تقاطعاً. فهذا الممرّ المؤدّي إلى الطرف الشرقي من المزرعة سيأخذ زوّارنا إلى المنطقة التي تضمّ حيوانات المزرعة. وسيتمكّن الأطفال من مشاهدة الحيوانات وهي تُطعَم ويُعتنى بها، وفي بعض الحالات سيتمكّنون من إطعامها بأنفسهم. وستكون الخراف في هذه المنطقة الأولى على اليمين هنا، مقابل الخنازير مباشرة، والماعز في الطرف الأخير هناك. ولم نقرّر بعدُ بشأن المناطق الأخرى.",
+      "terms": [
+        "crossroads"
+      ]
     }
   }
 }
