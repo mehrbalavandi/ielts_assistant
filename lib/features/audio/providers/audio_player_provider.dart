@@ -350,6 +350,12 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     _box.write('playback_mode', nextMode.index); // ذخیره در حافظه
   }
 
+  /// 🌟 SET-1: «تنظیماتِ پیش‌فرض» — رفتارِ پایانِ فایل به حالتِ اول برمی‌گردد.
+  void resetPlaybackMode() {
+    _box.remove('playback_mode');
+    state = state.copyWith(playbackMode: PlaybackMode.values.first);
+  }
+
   // مدیریت A-B Repeat
   void setPointA() {
     if (state.pointB != null) {

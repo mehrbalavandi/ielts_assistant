@@ -497,7 +497,7 @@ class BooksNotifier extends Notifier<List<BookModel>> {
     // نشستِ قبلی مانده باشد؛ وگرنه کارت هم «خریداری شده» و هم «نیاز به تمدیدِ مجوز» می‌گفت.
     final String? token = StorageService.getToken();
     if (token == null || token.isEmpty) {
-      initialBooks = [for (final BookModel b in initialBooks) b.copyWith(isPurchased: false)];
+      initialBooks = [for (final BookModel b in initialBooks) _asSignedOut(b)];
     }
 
     Future.microtask(() => fetchBooks());
@@ -509,12 +509,27 @@ class BooksNotifier extends Notifier<List<BookModel>> {
   /// فایل‌های دانلودشده سرِ جایشان می‌مانند (مسیرها حفظ می‌شوند) و با ورودِ دوباره، سرور خرید را
   /// برمی‌گرداند و همان‌ها بی‌دانلودِ دوباره باز می‌شوند. بعد از سرور هم تازه می‌شود (اگر آنلاین).
   Future<void> onSignedOut() async {
-    state = [for (final BookModel b in state) b.copyWith(isPurchased: false)];
+    state = [for (final BookModel b in state) _asSignedOut(b)];
     await StorageService.saveOfflineBooks(state.map((b) => b.toJson()).toList());
     unawaited(fetchBooks());
   }
 
-  Future<void> fetchBooks() async {
+  /// 🌟 DEV-6/DEV-7: بی‌حساب، کتاب «خریداری‌شده» نیست — جز در مهلتِ بعد از خروج که مجوزِ همین
+  /// دستگاه هنوز اجازه می‌دهد (کتابِ دانلودشده بی‌اینترنت هم باز می‌شود).
+  BookModel _asSignedOut(BookModel b) => b.copyWith(
+    isPurchased: b.isPurchased &&
+        LicenseService.inSignedOutGrace &&
+        LicenseService.allows(b.id),
+  );
+
+  /// 🌟 C-6: درخواستِ هم‌زمانِ دوم (برگشت به ویترین + فراخوانیِ صریح) همان درخواستِ در جریان
+  /// را می‌گیرد، نه یک درخواستِ تازه.
+  Future<void>? _fetching;
+
+  Future<void> fetchBooks() =>
+      _fetching ??= _fetchBooks().whenComplete(() => _fetching = null);
+
+  Future<void> _fetchBooks() async {
     try {
       final dio = ref.read(dioProvider);
       final response = await dio.get('/api/books');
@@ -551,6 +566,17 @@ class BooksNotifier extends Notifier<List<BookModel>> {
         List<BookModel> freshBooks = dataList
             .map((json) => BookModel.fromJson(json))
             .toList();
+        // 🌟 DEV-7: مهمان در مهلتِ بعد از خروج — سرور «خریده‌نشده» می‌گوید، ولی مجوزِ همین دستگاه
+        // هنوز اجازه می‌دهد.
+        final String? tokenNow = StorageService.getToken();
+        if (tokenNow == null || tokenNow.isEmpty) {
+          freshBooks = [
+            for (final BookModel b in freshBooks)
+              LicenseService.inSignedOutGrace && LicenseService.allows(b.id)
+                  ? b.copyWith(isPurchased: true)
+                  : b,
+          ];
+        }
 
         List<BookModel> mergedBooks = freshBooks.map((freshBook) {
           final existingBook = state

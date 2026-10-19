@@ -14,7 +14,8 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 //  • زیرش: یک دکمه به‌ازای هر فرزندِ گره‌ی فعلیِ سطحِ ۱ (در Mindset: چهار مهارت).
 //    دکمه‌ی بخشی که الان در حالِ خواندنش هستید روشن است.
 //  • پایین: دکمه‌ی جمع‌کردن؛ جمع‌شده فقط یک زبانه‌ی باریک می‌ماند تا متن را
-//    نپوشاند. وضعیت ذخیره می‌شود.
+//    نپوشاند. 🌟 N-13: با هر بار ورود به صفحه‌ی مطالعه جمع‌شده شروع می‌شود (وضعیت ذخیره
+//    نمی‌شود)، و زبانه‌ی جمع‌شده برچسبِ Unit (U1)، آیکونِ مهارت و شماره‌ی صفحه را دارد.
 //
 // 🌟 N-12: در نسخه‌ی نمونه همه‌ی Unitها در منو هستند؛ آن‌هایی که در نمونه نیستند قفل دارند
 // و انتخابشان (در reading_canvas) پیامِ «خریداری نشده» می‌دهد.
@@ -140,9 +141,8 @@ class BookOutlineNavigator extends StatefulWidget {
 }
 
 class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
-  static const String _collapsedKey = 'outline_nav_collapsed';
-  final GetStorage _box = GetStorage();
-  bool _collapsed = false;
+  // 🌟 N-13: هر بار که صفحه‌ی مطالعه باز می‌شود، ناوبر بسته است.
+  bool _collapsed = true;
 
   // N-9: «لمسِ بیرون جمع می‌کند». تا ناوبر باز است، همه‌ی اشاره‌گرهای صفحه از یک
   // مسیرِ سراسری دیده می‌شوند (بدونِ اینکه لمس از لیست/آیکون‌ها گرفته شود).
@@ -154,8 +154,9 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
   @override
   void initState() {
     super.initState();
+    // کلیدِ قدیمیِ «وضعیتِ ذخیره‌شده» دیگر خوانده نمی‌شود؛ پاکش کن.
     try {
-      _collapsed = _box.read(_collapsedKey) == true;
+      GetStorage().remove('outline_nav_collapsed');
     } catch (_) {}
     _syncGlobalRoute();
   }
@@ -176,9 +177,6 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
     if (!mounted) return;
     setState(() => _collapsed = v);
     _syncGlobalRoute();
-    try {
-      _box.write(_collapsedKey, v);
-    } catch (_) {}
   }
 
   void _syncGlobalRoute() {
@@ -283,21 +281,30 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
           message: 'نمایشِ فهرست — صفحه‌ی ${widget.currentPage}',
           child: SizedBox(
             width: 24,
-            height: 76,
+            height: pos.top != null && icon != null ? 92 : 76,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (icon != null)
-                  Icon(icon, size: 14, color: scheme.onPrimary)
-                else if (pos.top != null)
-                  Text(
-                    outlineShortLabel(widget.outline[pos.top!].title, pos.top!),
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
-                      color: scheme.onPrimary,
+                // 🌟 N-13: برچسبِ Unit (U1) همیشه، و زیرش آیکونِ مهارت
+                if (pos.top != null)
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      outlineShortLabel(
+                        widget.outline[pos.top!].title,
+                        pos.top!,
+                      ),
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        color: scheme.onPrimary,
+                      ),
                     ),
                   ),
+                if (icon != null) ...[
+                  if (pos.top != null) const SizedBox(height: 3),
+                  Icon(icon, size: 14, color: scheme.onPrimary),
+                ],
                 // N-8: شماره‌ی صفحه در حالتِ جمع‌شده هم دیده می‌شود.
                 FittedBox(
                   fit: BoxFit.scaleDown,

@@ -7,10 +7,10 @@ import 'package:get_storage/get_storage.dart';
 // ابتدای فایل‌اند، مستقل از این تنظیم. دکمه‌ی پخش/توقفِ پلیر هم همیشه ادامه می‌دهد.
 
 enum AudioStartMode {
-  /// از آخرین نقطه‌ی شنیده‌شده‌ی همان فایل (پیش‌فرض؛ رفتارِ قبلی).
+  /// از آخرین نقطه‌ی شنیده‌شده‌ی همان فایل.
   resume('از آخرین نقطه', 'هر فایل از جایی که آخرین بار شنیده‌اید ادامه پیدا می‌کند.'),
 
-  /// همیشه از ابتدای فایل.
+  /// همیشه از ابتدای فایل (🌟 SET-1: پیش‌فرض).
   fromStart('از ابتدا', 'هر بار که فایلی را باز می‌کنید، از ثانیه‌ی صفر پخش می‌شود.');
 
   const AudioStartMode(this.label, this.description);
@@ -19,7 +19,7 @@ enum AudioStartMode {
 
   static AudioStartMode parse(Object? v) => AudioStartMode.values.firstWhere(
     (m) => m.name == v,
-    orElse: () => AudioStartMode.resume,
+    orElse: () => AudioStartMode.fromStart,
   );
 }
 
@@ -31,7 +31,7 @@ class AudioStartNotifier extends Notifier<AudioStartMode> {
     try {
       return AudioStartMode.parse(GetStorage().read(storageKey));
     } catch (_) {
-      return AudioStartMode.resume;
+      return AudioStartMode.fromStart;
     }
   }
 
@@ -43,6 +43,14 @@ class AudioStartNotifier extends Notifier<AudioStartMode> {
     try {
       GetStorage().write(storageKey, mode.name);
     } catch (_) {}
+  }
+
+  /// 🌟 SET-1: «تنظیماتِ پیش‌فرض».
+  void reset() {
+    try {
+      GetStorage().remove(storageKey);
+    } catch (_) {}
+    state = read();
   }
 }
 

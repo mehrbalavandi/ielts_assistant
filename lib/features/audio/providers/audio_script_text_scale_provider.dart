@@ -29,6 +29,12 @@ class AudioScriptTextScaleNotifier extends Notifier<double> {
   bool get canDecrease => state > minScale + 0.001;
   bool get canIncrease => state < maxScale - 0.001;
 
+  /// 🌟 SET-1: «تنظیماتِ پیش‌فرض».
+  void reset() {
+    _box.remove(key);
+    state = 1.0;
+  }
+
   void decrease() => _set(state - step);
   void increase() => _set(state + step);
 

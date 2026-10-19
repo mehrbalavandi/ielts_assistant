@@ -144,10 +144,9 @@ class AnswerDisplayNotifier extends Notifier<AnswerDisplaySettings> {
   static const String _singleKey = 'answer_popup_single';
   static const String _translationKey = 'translation_display';
 
-  /// پیش‌فرض: کوتاه ← پاپ‌آپ (نزدیک‌ترین جا به خودِ سؤال)، بلند ← مودال (جا برای
-  /// متنِ طولانی و جدول).
+  /// 🌟 SET-1: پیش‌فرضِ همه پاپ‌آپ است (نزدیک‌ترین جا به خودِ سؤال)؛ قبلاً جوابِ بلند مودال بود.
   static const AnswerDisplayMode defaultShort = AnswerDisplayMode.popup;
-  static const AnswerDisplayMode defaultLong = AnswerDisplayMode.modal;
+  static const AnswerDisplayMode defaultLong = AnswerDisplayMode.popup;
 
   /// ترجمه ← پاپ‌آپ: کنارِ خودِ پاراگراف، بدونِ پوشاندنِ صفحه.
   static const AnswerDisplayMode defaultTranslation = AnswerDisplayMode.popup;
@@ -189,6 +188,15 @@ class AnswerDisplayNotifier extends Notifier<AnswerDisplaySettings> {
   void setTranslation(AnswerDisplayMode mode) {
     state = state.copyWith(translation: mode);
     _box.write(_translationKey, mode.name);
+  }
+
+  /// 🌟 SET-1: «تنظیماتِ پیش‌فرض» — مقدارهای ذخیره‌شده پاک می‌شوند (نه نوشتنِ پیش‌فرضِ فعلی)،
+  /// تا اگر پیش‌فرض‌ها در نسخه‌ی بعد عوض شد، همین کاربر هم پیش‌فرضِ تازه را بگیرد.
+  void reset() {
+    for (final String k in [_shortKey, _longKey, _directionKey, _singleKey, _translationKey]) {
+      _box.remove(k);
+    }
+    state = build();
   }
 }
 

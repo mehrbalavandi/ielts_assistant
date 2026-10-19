@@ -286,17 +286,25 @@ class AuthNotifier extends Notifier<AuthState> {
     // توکن روی سرور هم باطل می‌شود (اگر در دسترس باشد)؛ داده‌های محلی می‌مانند.
     // 🌟 DEV-2: دستگاه در حساب ثبت می‌ماند (ورودِ دوباره با همین دستگاه آزاد است)؛ برای
     // جداکردنِ دستگاه از حساب «دستگاه‌های من» ← «جدا کردن».
+    // 🌟 DEV-7: مجوز پاک نمی‌شود؛ کتاب‌های خریده‌شده‌ی دانلودشده تا مهلتِ بعد از خروج (gd روزِ
+    // مجوز) روی همین دستگاه باز می‌مانند — حتی اگر کاربر بی‌اینترنت اشتباهی خارج شده باشد.
+    final String? uid = StorageService.getUser()?['id']?.toString();
     try {
       await ref.read(dioProvider).post('/api/logout');
     } catch (_) {}
-    await endSessionLocally();
+    await endSessionLocally(keepLicenseFor: uid);
   }
 
   /// خروجِ محلی بی‌تماس با سرور (DEV-1: سرور خودش گفته نشست تمام است).
   /// مجوزِ آفلاین هم پاک می‌شود، پس نسخه‌ی کامل تا ورودِ دوباره باز نمی‌شود.
-  Future<void> endSessionLocally() async {
+  /// [keepLicenseFor]: فقط برای خروج به دستِ خودِ کاربر (DEV-7).
+  Future<void> endSessionLocally({String? keepLicenseFor}) async {
     await StorageService.removeToken();
-    await LicenseService.clear();
+    if (keepLicenseFor != null) {
+      await LicenseService.markSignedOut(keepLicenseFor);
+    } else {
+      await LicenseService.clear();
+    }
     state = AuthState.unauthenticated;
     // 🌟 DEV-6: ویترین حالتِ مهمان بگیرد (نه «خریداری شده» + «نیاز به تمدیدِ مجوز»).
     await ref.read(booksProvider.notifier).onSignedOut();
