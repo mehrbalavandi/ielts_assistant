@@ -1,8 +1,8 @@
 {
-  "generatedAt": "1405-07-27 20:06",
+  "generatedAt": "1405-07-27 21:33",
   "total": 5609,
-  "translated": 4537,
-  "pendingUnique": 1047,
+  "translated": 4536,
+  "pendingUnique": 1048,
   "items": [
     {
       "page": 46,
@@ -7763,6 +7763,14 @@
       "where": "table",
       "key": "will zoos continue to be important in the future?",
       "text": "Will zoos continue to be important in the future?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_24.mp3",
+      "where": "audio",
+      "key": "ourrrr family bought an apartment in the middle of town.",
+      "text": "Ourrrr family bought an apartment in the middle of town."
     },
     {
       "page": 0,
