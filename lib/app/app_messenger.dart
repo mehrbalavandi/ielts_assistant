@@ -7,3 +7,8 @@ final GlobalKey<ScaffoldMessengerState> appMessengerKey =
 
 /// برای بستنِ صفحه‌های باز (مثلاً صفحه‌ی مطالعه) پیش از پاک‌شدنِ محتوا (DEV-1).
 final GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
+/// 🌟 C-6: برگشت به ویترین از هر صفحه‌ای (RouteAware.didPopNext) فهرستِ کتاب‌ها را تازه می‌کند.
+/// فقط صفحه‌ها (PageRoute)، نه دیالوگ و برگه‌های پایینِ خودِ ویترین.
+final RouteObserver<PageRoute<dynamic>> appRouteObserver =
+    RouteObserver<PageRoute<dynamic>>();

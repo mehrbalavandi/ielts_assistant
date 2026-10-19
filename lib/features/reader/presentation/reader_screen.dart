@@ -51,6 +51,48 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     });
   }
 
+  // 🌟 N-14: پیامِ «خرید انجام شد» فقط یک‌بار در هر بازکردنِ نمونه.
+  bool _purchaseNoticeShown = false;
+
+  /// 🌟 N-14: کتابی که به‌صورتِ نمونه باز است همین حالا خریده شد (برگشت از درگاه، یا تأییدِ
+  /// رسیدِ کارت‌به‌کارت). نسخه‌ی باز هنوز نمونه است؛ کاربر یا دانلودِ نسخه‌ی کامل را از ویترین
+  /// شروع می‌کند، یا فعلاً نمونه را ادامه می‌دهد.
+  Future<void> _onPurchasedWhileReadingSample(BookModel book) async {
+    final bool? download = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          icon: const Icon(Icons.check_circle_rounded, color: Colors.green),
+          title: const Text('خرید انجام شد'),
+          content: Text(
+            '«${book.title}» خریداری شد. صفحه‌ی باز هنوز نسخه‌ی نمونه است؛ برای مطالعه‌ی '
+            'همه‌ی درس‌ها نسخه‌ی کامل را دانلود کنید.',
+            style: const TextStyle(height: 1.6),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('بعداً'),
+            ),
+            FilledButton.icon(
+              icon: const Icon(Icons.cloud_download_outlined, size: 18),
+              onPressed: () => Navigator.pop(ctx, true),
+              label: const Text('دانلودِ نسخه‌ی کامل'),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (download != true || !mounted) return;
+    // برگشت به ویترین (پخشِ صوت هم بسته می‌شود) و شروعِ دانلود؛ کارتِ کتاب پیشرفت را نشان می‌دهد.
+    ref.read(audioPlayerProvider.notifier).stopAndClear();
+    ref.read(activeSearchProvider.notifier).state = null;
+    final BooksNotifier books = ref.read(booksProvider.notifier);
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    books.downloadBookZip(book, isSample: false);
+  }
+
   @override
   void dispose() {
     // 🐞 با بسته‌شدنِ صفحه‌ی کتاب، ایزوله‌ی دائمیِ decode هم باید کشته شود.
@@ -70,6 +112,18 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
 
     _ensureBookLoaded(activeBook);
     final pagedBookStore = _pagedBookStore!;
+
+    // 🌟 N-14: نمونه باز است (کتاب هنگامِ بازشدن خریده‌نشده بود) و فهرستِ تازه‌ی کتاب‌ها
+    // می‌گوید حالا خریده شده.
+    ref.listen<List<BookModel>>(booksProvider, (prev, next) {
+      if (_purchaseNoticeShown || activeBook.isPurchased) return;
+      final BookModel? now = next.where((b) => b.id == activeBook.id).firstOrNull;
+      if (now == null || !now.isPurchased) return;
+      _purchaseNoticeShown = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _onPurchasedWhileReadingSample(now);
+      });
+    });
 
     // 🐞 باگی که کاربر گرفت: قبلاً هم canPop و هم منطقِ دکمه‌ی back فقط
     // `searchSession != null` را چک می‌کردند، ولی نوارِ جستجو با شرطِ

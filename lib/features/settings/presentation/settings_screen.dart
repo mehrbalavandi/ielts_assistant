@@ -6,6 +6,10 @@ import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/library/presentation/library_screen.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
+import 'package:ielts_assistant/features/settings/providers/reading_mode_provider.dart';
+import 'package:ielts_assistant/features/settings/providers/word_card_provider.dart';
+import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/audio/providers/audio_script_text_scale_provider.dart';
 import 'package:ielts_assistant/features/settings/presentation/reading_appearance_sheet.dart';
 import 'package:ielts_assistant/features/settings/presentation/word_card_settings.dart';
 
@@ -320,8 +324,65 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             audioStart.description,
             style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
           ),
+
+          // 🌟 SET-1: برگشت به تنظیماتِ پیش‌فرض (آدرسِ سرور و زبان دست نمی‌خورند)
+          const SizedBox(height: 32),
+          const Divider(),
+          const SizedBox(height: 16),
+          OutlinedButton.icon(
+            icon: const Icon(Icons.settings_backup_restore_rounded),
+            label: const Text("بازگشت به تنظیماتِ پیش‌فرض"),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            onPressed: _confirmResetDefaults,
+          ),
+          const SizedBox(height: 6),
+          Text(
+            "شیوه‌ی نمایشِ کتاب، نمایشِ پاسخ‌ها و ترجمه، کارتِ واژه، پخشِ صوت و اندازه‌ی متنِ "
+            "اسکریپتِ صوتی. آدرسِ سرور و زبان عوض نمی‌شوند.",
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
         ],
       ),
+    );
+  }
+
+  /// 🌟 SET-1
+  Future<void> _confirmResetDefaults() async {
+    final bool? ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('بازگشت به تنظیماتِ پیش‌فرض'),
+        content: const Text(
+          'همه‌ی تنظیماتِ نمایش و پخش به حالتِ پیش‌فرض برمی‌گردند: پاسخ‌ها و ترجمه در پاپ‌آپ، '
+          'پخشِ صوت از ابتدای فایل، نمایشِ «مطابقِ کتاب». ادامه می‌دهید؟',
+          style: TextStyle(height: 1.6),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('انصراف'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('بازگشت به پیش‌فرض'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !mounted) return;
+    ref.read(answerDisplayProvider.notifier).reset();
+    ref.read(audioStartProvider.notifier).reset();
+    ref.read(readingAppearanceProvider.notifier).reset();
+    ref.read(wordCardProvider.notifier).reset();
+    ref.read(audioScriptTextScaleProvider.notifier).reset();
+    ref.read(audioPlayerProvider.notifier).resetPlaybackMode();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('تنظیمات به حالتِ پیش‌فرض برگشت.')),
     );
   }
 }

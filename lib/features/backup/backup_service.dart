@@ -12,6 +12,7 @@ import 'package:ielts_assistant/core/device/device_identity.dart';
 import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
+import 'package:ielts_assistant/features/audio/providers/audio_script_text_scale_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
@@ -222,7 +223,7 @@ class BackupNotifier extends Notifier<BackupState> {
     AudioStartNotifier.storageKey,
     'app_lang',
     'playback_mode',
-    'outline_nav_collapsed',
+    AudioScriptTextScaleNotifier.key, // AS-3
     ReadingAppearanceNotifier.modeKey,
     ReadingAppearanceNotifier.scaleKey,
     WordCardNotifier.storageKey,
@@ -267,6 +268,7 @@ class BackupNotifier extends Notifier<BackupState> {
         ref.invalidate(languageProvider);
         ref.invalidate(readingAppearanceProvider);
         ref.invalidate(wordCardProvider);
+        ref.invalidate(audioScriptTextScaleProvider);
         await _box.write(pushedKey, jsonEncode(_collectSettings()));
         return;
       }

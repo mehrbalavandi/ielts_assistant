@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ielts_assistant/app/app_messenger.dart';
+import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/core/app_config/app_config.dart';
 import 'package:ielts_assistant/shared/widgets/app_notice_banner.dart';
@@ -26,7 +28,7 @@ class LibraryScreen extends ConsumerStatefulWidget {
 }
 
 class _LibraryScreenState extends ConsumerState<LibraryScreen>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, RouteAware {
   // 🌟 فقط برای حالت دیباگ: وقتی true باشد یعنی کاربر برای خرید به مرورگر
   // بیرونی فرستاده شده و منتظریم برگردد تا ویترین را دوباره fetch کنیم.
   // (پرچمش حالا purchaseReturnPending در book_actions.dart است تا صفحه‌ی جزئیات هم آن را بگذارد.)
@@ -54,7 +56,22 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final ModalRoute<dynamic>? route = ModalRoute.of(context);
+    if (route is PageRoute) appRouteObserver.subscribe(this, route);
+  }
+
+  /// 🌟 C-6: از هر صفحه‌ای (مطالعه، جزئیات، تنظیمات، ورود، خرید، …) که به ویترین برگردیم،
+  /// فهرستِ کتاب‌ها یک‌بار دیگر از سرور گرفته می‌شود.
+  @override
+  void didPopNext() {
+    ref.read(booksProvider.notifier).fetchBooks();
+  }
+
+  @override
   void dispose() {
+    appRouteObserver.unsubscribe(this);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -162,7 +179,25 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
             IconButton(
               icon: const Icon(Icons.logout),
               tooltip: "خروج از حساب",
-              onPressed: () => ref.read(authProvider.notifier).logout(),
+              onPressed: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                await ref.read(authProvider.notifier).logout();
+                // 🌟 DEV-7: کتاب‌های خریده‌شده‌ی دانلودشده تا مهلتِ بعد از خروج باز می‌مانند.
+                final DateTime? until = LicenseService.signedOutUntil;
+                if (until != null && DateTime.now().isBefore(until)) {
+                  final int days = (until.difference(DateTime.now()).inHours / 24)
+                      .ceil();
+                  messenger.showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 6),
+                      content: Text(
+                        'از حساب خارج شدید. کتاب‌های خریداری‌شده‌ای که دانلود کرده‌اید تا $days '
+                        'روزِ دیگر روی همین دستگاه باز می‌شوند؛ برای ادامه دوباره وارد شوید.',
+                      ),
+                    ),
+                  );
+                }
+              },
             ),
         ],
       ),

@@ -76,6 +76,13 @@ class ReadingAppearanceNotifier extends Notifier<ReadingAppearance> {
     _box.write(modeKey, mode.name);
   }
 
+  /// 🌟 SET-1: «تنظیماتِ پیش‌فرض».
+  void reset() {
+    _box.remove(modeKey);
+    _box.remove(scaleKey);
+    state = const ReadingAppearance();
+  }
+
   void setFontScale(double scale) {
     final double s = (scale.clamp(minScale, maxScale) * 20).round() / 20;
     if (s == state.fontScale) return;

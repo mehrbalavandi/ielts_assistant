@@ -29,6 +29,7 @@ class IeltsAssistantApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: appMessengerKey,
       navigatorKey: appNavigatorKey,
+      navigatorObservers: [appRouteObserver], // 🌟 C-6
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         // 🌟 UI-1: نوارِ بالای همه‌ی صفحه‌ها مثلِ صفحه‌ی مطالعه: پس‌زمینه‌ی آبی، عنوان و آیکون‌های
