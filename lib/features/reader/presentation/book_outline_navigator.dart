@@ -16,6 +16,7 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 //  • پایین: دکمه‌ی جمع‌کردن؛ جمع‌شده فقط یک زبانه‌ی باریک می‌ماند تا متن را
 //    نپوشاند. 🌟 N-13: با هر بار ورود به صفحه‌ی مطالعه جمع‌شده شروع می‌شود (وضعیت ذخیره
 //    نمی‌شود)، و زبانه‌ی جمع‌شده برچسبِ Unit (U1)، آیکونِ مهارت و شماره‌ی صفحه را دارد.
+//    🌟 N-15: لمسِ دکمه‌ی یک مهارت پس از پرش ناوبر را جمع می‌کند؛ انتخابِ Unit نه.
 //
 // 🌟 N-12: در نسخه‌ی نمونه همه‌ی Unitها در منو هستند؛ آن‌هایی که در نمونه نیستند قفل دارند
 // و انتخابشان (در reading_canvas) پیامِ «خریداری نشده» می‌دهد.
@@ -359,7 +360,12 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                   entry: sections[i],
                   index: i,
                   isCurrent: pos.child == i,
-                  onTap: () => widget.onNavigate(sections[i]),
+                  // 🌟 N-15: انتخابِ مهارت ناوبر را می‌بندد (متن دیده شود). انتخابِ Unit از
+                  // منوی بالا نمی‌بندد، تا بشود بلافاصله مهارتِ دلخواهِ همان Unit را زد.
+                  onTap: () {
+                    widget.onNavigate(sections[i]);
+                    _setCollapsed(true);
+                  },
                 ),
             ],
             // N-8: شماره‌ی صفحه (جای نشانِ معلقِ پایینِ صفحه).
