@@ -43,6 +43,16 @@ class IeltsAssistantApp extends ConsumerWidget {
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
       ),
+      // 🌟 UI-2: رابطِ کاربری فارسی است، پس همه‌ی اپ — صفحه‌ها، دیالوگ‌ها، برگه‌های پایین،
+      // پیام‌ها (SnackBar) و منوی کناری — راست‌به‌چپ است. این‌جا، بالای Navigator، است تا
+      // هر route و Overlayِ تازه هم بی‌آنکه کسی یادش باشد همین جهت را بگیرد. متنِ انگلیسیِ
+      // کتاب استثناست و خودش چپ‌به‌راست اعلام می‌شود (ReadingCanvas در reader_screen، شیتِ
+      // اسکریپتِ صوتی، …). متنی که زبانش معلوم نیست: AutoDirectionText
+      // (lib/core/text/text_direction.dart).
+      builder: (context, child) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: child ?? const SizedBox.shrink(),
+      ),
       home: initialScreen,
     );
   }

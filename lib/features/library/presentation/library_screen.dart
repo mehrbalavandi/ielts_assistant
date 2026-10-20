@@ -15,6 +15,7 @@ import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/update/app_update_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_ui.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {
   /// 🗂️ قانونِ C-2: null = ویترینِ اصلی (اگر بیش از یک دسته هست، فهرستِ دسته‌ها؛
@@ -143,7 +144,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: Text(
+        title: AutoDirectionText(
           screenTitle,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -239,7 +240,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
           else if (openGroup?.description?.isNotEmpty ?? false)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
-              child: Text(
+              child: AutoDirectionText(
                 openGroup!.description!,
                 style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
               ),
@@ -346,7 +347,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
+                                child: AutoDirectionText(
                                   book.title,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -430,7 +431,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        AutoDirectionText(
                           group.title,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
@@ -441,7 +442,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                         ),
                         if (group.description?.isNotEmpty ?? false) ...[
                           const SizedBox(height: 4),
-                          Text(
+                          AutoDirectionText(
                             group.description!,
                             style: TextStyle(
                               color: Colors.grey.shade600,
@@ -504,7 +505,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AutoDirectionText(
                   group.title,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -513,7 +514,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
                 ),
                 if (group.description?.isNotEmpty ?? false) ...[
                   const SizedBox(height: 4),
-                  Text(
+                  AutoDirectionText(
                     group.description!,
                     style: TextStyle(
                       fontSize: 12,

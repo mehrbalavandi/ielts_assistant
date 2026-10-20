@@ -36,6 +36,7 @@ import 'package:ielts_assistant/features/reader/presentation/book_outline_naviga
 import 'package:ielts_assistant/features/reader/presentation/sample_lock_dialog.dart';
 import 'dart:math' as math;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 class MapOffset {
   int value = 0;
@@ -1142,7 +1143,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   String _sampleNote() {
     final SampleInfo? s = widget.pagedBookStore.sample;
     if (s != null && s.title.isNotEmpty) {
-      return 'نسخه‌ی نمونه: فقط «${outlineDisplayTitle(s.title)}» — بقیه‌ی درس‌ها با خریدِ کتاب';
+      return 'نسخه‌ی نمونه: فقط «${bidiIsolate(outlineDisplayTitle(s.title))}» — بقیه‌ی درس‌ها با خریدِ کتاب';
     }
     return 'نسخه‌ی نمونه — بقیه‌ی درس‌ها با خریدِ کتاب';
   }

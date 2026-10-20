@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/core/device/device_identity.dart';
 import 'package:ielts_assistant/features/auth/data/device_models.dart';
 import 'package:ielts_assistant/features/auth/providers/auth_provider.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 DEV-2: ورود موفق بود ولی حساب روی دستگاهِ دیگری فعال است (۴۰۹ِ سرور).
 // - اگر کاربر مجاز است (هر N روز یک‌بار)، یکی از دستگاه‌ها را جدا می‌کند و همین دستگاه وارد
@@ -45,7 +46,7 @@ class _DeviceLimitDialogState extends ConsumerState<_DeviceLimitDialog> {
         child: AlertDialog(
           title: const Text('جدا کردنِ دستگاه'),
           content: Text(
-            '«${d.label}» از حسابِ شما جدا می‌شود و این دستگاه جایش را می‌گیرد.\n\n'
+            '«${bidiIsolate(d.label)}» از حسابِ شما جدا می‌شود و این دستگاه جایش را می‌گیرد.\n\n'
             '• محتوای کاملِ کتاب‌ها در اولین اتصالِ آن دستگاه از رویش پاک می‌شود.\n'
             '• تا ${r.cooldownDays} روزِ دیگر نمی‌توانید دوباره دستگاهی را جدا کنید.',
             style: const TextStyle(height: 1.7),

@@ -4,6 +4,7 @@ import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
 import 'package:ielts_assistant/features/study/providers/study_provider.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 ST-2 تا ST-4: کنترل‌های «مرورِ من» که هم در صفحه (پاپ‌آپ/بنر/مودالِ لمسِ
 // طولانی، پنجره‌ی دیکشنری) و هم در صفحه‌ی مرور به کار می‌روند.
@@ -117,8 +118,8 @@ void removeStudyItemWithUndo(
             ? 'از مرور حذف شد'
             : item.source == StudySource.admin
             // 🌟 ST-8
-            ? '«${item.text}» حذف شد. بعداً هم از منوی «مرورِ من» ← «موردهای آماده‌ی حذف‌شده» برمی‌گردد.'
-            : '«${item.text}» از مرور حذف شد',
+            ? '«${bidiIsolate(item.text)}» حذف شد. بعداً هم از منوی «مرورِ من» ← «موردهای آماده‌ی حذف‌شده» برمی‌گردد.'
+            : '«${bidiIsolate(item.text)}» از مرور حذف شد',
       ),
       action: SnackBarAction(
         label: 'برگرداندن',

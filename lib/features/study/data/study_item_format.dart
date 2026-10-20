@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 ST-7: قالبِ یکسانِ «موردِ مرور» برای واژه‌ها و نکته‌های بیرون از کتاب‌ها.
 //
@@ -113,7 +114,7 @@ class StudyItemFormat {
     final StudyKind? kind =
         _typeAliases[(raw['type'] ?? 'word').toString().trim().toLowerCase()];
     if (kind == null) {
-      return (null, 'نوعِ «${raw['type']}» شناخته نیست (word یا tip).');
+      return (null, 'نوعِ «${bidiIsolate('${raw['type']}')}» شناخته نیست (word یا tip).');
     }
     final String text = str('text', ['word', 'title']).replaceAll(RegExp(r'\s+'), ' ');
     if (text.isEmpty) return (null, 'فیلدِ text خالی است.');

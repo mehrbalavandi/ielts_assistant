@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/shop/data/shop_api.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 PAY-2، PAY-3: پنجره‌ی خرید — «پرداختِ اینترنتی» (درگاه در مرورگر؛ برگشت به اپ
 // ویترین را تازه می‌کند) یا «کارت‌به‌کارت» (مشخصاتِ کارت، بعد ارسالِ رسید).
@@ -131,7 +132,7 @@ class _PurchaseSheetState extends ConsumerState<_PurchaseSheet> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'خریدِ «${widget.book.title}»',
+                  'خریدِ «${bidiIsolate(widget.book.title)}»',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 4),

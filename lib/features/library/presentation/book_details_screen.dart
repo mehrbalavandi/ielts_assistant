@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/library/presentation/book_actions.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🛍️ SF-1: جزئیاتِ کتاب پیش از دانلودِ نمونه یا خرید — جلد، نویسنده، ناشر، سطح، تعدادِ
 // صفحه و فایلِ صوتی، قیمت و توضیح. همه از دادهٔ ذخیره‌شدهٔ ویترین می‌آید، پس آفلاین هم
@@ -43,7 +44,11 @@ class BookDetailsScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: Text(book.title, maxLines: 1, overflow: TextOverflow.ellipsis),
+        title: AutoDirectionText(
+          book.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         actions: [
           IconButton(
             tooltip: 'به‌روزرسانیِ اطلاعات',
@@ -87,6 +92,8 @@ class BookDetailsScreen extends ConsumerWidget {
               const SizedBox(height: 8),
               SelectableText(
                 book.description!,
+                textDirection: textDirectionOf(book.description!),
+                textAlign: textAlignToStartOf(context),
                 style: const TextStyle(fontSize: 14, height: 1.8),
               ),
             ],
@@ -123,7 +130,7 @@ class _Info extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        AutoDirectionText(
           book.title,
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
@@ -152,7 +159,7 @@ class _Info extends StatelessWidget {
                 const SizedBox(width: 8),
                 SizedBox(width: 96, child: Text(name, style: label)),
                 Expanded(
-                  child: Text(
+                  child: AutoDirectionText(
                     value,
                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),

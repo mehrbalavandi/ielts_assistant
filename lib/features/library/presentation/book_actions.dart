@@ -10,6 +10,7 @@ import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/presentation/reader_screen.dart';
 import 'package:ielts_assistant/features/shop/data/shop_api.dart';
 import 'package:ielts_assistant/features/shop/presentation/purchase_sheet.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 کارهای هر کتاب (مطالعه، دانلود، مکث، به‌روزرسانی، آزادسازیِ فضا، نمونه، خرید) — یک‌جا،
 // تا کارتِ ویترین و صفحه‌ی جزئیاتِ کتاب (SF-1) دقیقاً یک رفتار داشته باشند.
@@ -76,7 +77,7 @@ Future<void> confirmDeleteBook(
     builder: (ctx) => AlertDialog(
       title: const Text('حذف محتوای دانلودشده'),
       content: Text(
-        'محتوای دانلودشده‌ی «${book.title}» از این دستگاه پاک شود؟ '
+        'محتوای دانلودشده‌ی «${bidiIsolate(book.title)}» از این دستگاه پاک شود؟ '
         'خودِ کتاب در کتابخانه می‌ماند و هر زمان بخواهید دوباره قابل دانلود است.',
       ),
       actions: [

@@ -619,7 +619,11 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                         style: TextStyle(color: colors.textMuted),
                       ),
                     )
-                  : ListView.builder(
+                  // 🌟 UI-2: سرعنوانِ فارسیِ برگه راست‌به‌چپ است (جهتِ اپ)، ولی فهرستِ نامِ
+                  // فایل‌ها انگلیسی است و چپ‌به‌راست می‌ماند.
+                  : Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: ListView.builder(
                       controller: _scrollController,
                       itemExtent: _rowExtent,
                       itemCount: state.playlist.length,
@@ -701,6 +705,7 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                           },
                         );
                       },
+                    ),
                     ),
             ),
           ],
@@ -921,7 +926,11 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
         break;
     }
 
-    return Container(
+    // 🌟 UI-2: اسکریپت و کنترل‌های پخش انگلیسی/جهت‌دارند (نوارِ پیشرفت از چپ پر می‌شود)،
+    // پس کلِ برگه چپ‌به‌راست است؛ متن‌های فارسیِ آن خودشان راست‌به‌چپ اعلام می‌شوند.
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Container(
       height: MediaQuery.of(context).size.height * 0.92,
       decoration: BoxDecoration(
         // 🐞 پولیشِ ظاهری: به‌جای رنگِ تخت، یک گرادیانِ ملایم برای عمق و
@@ -955,6 +964,10 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                   child: Text(
                     audioState.currentPath?.split('/').last ??
                         "(متن صوتی)", // = Audioscript
+                    textDirection: audioState.currentPath == null
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
+                    textAlign: TextAlign.left,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -1039,6 +1052,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                 ? Center(
                     child: Text(
                       "هیچ متن صوتی همگام‌سازی شده‌ای برای این بخش یافت نشد.",
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: _colors.textMuted),
                     ),
                   )
@@ -1515,6 +1530,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           ),
         ],
       ),
+    ),
     );
   }
 }

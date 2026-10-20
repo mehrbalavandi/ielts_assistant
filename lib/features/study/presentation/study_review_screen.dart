@@ -13,6 +13,7 @@ import 'package:ielts_assistant/features/study/presentation/study_controls.dart'
 import 'package:ielts_assistant/features/study/presentation/study_import_screen.dart';
 import 'package:ielts_assistant/features/study/presentation/study_item_editor.dart';
 import 'package:ielts_assistant/features/study/providers/study_provider.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 ST-5: صفحه‌ی «مرورِ من» — زبانه‌های واژه‌ها، نکته‌ها (ST-7)، متن‌ها و تمرین‌ها؛ فیلترِ
 // اهمیت، منبع (کتاب / خودم / آماده)، وضعیتِ واژه و کتاب، مرتب‌سازی، و «رفتن به متن» برای
@@ -364,7 +365,7 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
                             empty: all.values.any(
                                   (i) => i.kind == StudyKind.word,
                                 )
-                                ? (_query.isNotEmpty ? 'واژه‌ای با «${_search.text.trim()}» پیدا نشد.' : 'با این فیلترها واژه‌ای نیست.')
+                                ? (_query.isNotEmpty ? 'واژه‌ای با «${bidiIsolate(_search.text.trim())}» پیدا نشد.' : 'با این فیلترها واژه‌ای نیست.')
                                 : 'هنوز واژه‌ای اضافه نکرده‌اید.\nروی هر کلمه‌ی رنگی در متن بزنید و «افزودن به واژه‌های مرور» را انتخاب کنید، یا با «افزودن» واژه‌ای از بیرونِ کتاب بنویسید.',
                             builder: (i) => _WordCard(item: i),
                           ),
@@ -374,14 +375,14 @@ class _StudyReviewScreenState extends ConsumerState<StudyReviewScreen> {
                     _list(
                       tips,
                       empty: all.values.any((i) => i.kind == StudyKind.tip)
-                          ? (_query.isNotEmpty ? 'نکته‌ای با «${_search.text.trim()}» پیدا نشد.' : 'با این فیلترها نکته‌ای نیست.')
+                          ? (_query.isNotEmpty ? 'نکته‌ای با «${bidiIsolate(_search.text.trim())}» پیدا نشد.' : 'با این فیلترها نکته‌ای نیست.')
                           : 'نکته‌های دستوری، نوشتاری و گفتاری این‌جا جمع می‌شوند.\nبا «افزودن» یک نکته بنویسید یا جوابِ یک هوش مصنوعی را وارد کنید. نکته‌های آماده‌ی سایت هم خودکار می‌آیند.',
                       builder: (i) => _TipCard(item: i),
                     ),
                     _list(
                       passages,
                       empty: all.values.any((i) => i.kind == StudyKind.passage)
-                          ? (_query.isNotEmpty ? 'موردی با «${_search.text.trim()}» پیدا نشد.' : 'با این فیلترها موردی نیست.')
+                          ? (_query.isNotEmpty ? 'موردی با «${bidiIsolate(_search.text.trim())}» پیدا نشد.' : 'با این فیلترها موردی نیست.')
                           : 'هنوز متن یا تمرینی اضافه نکرده‌اید.\nروی هر پاراگراف یا صورتِ تمرین در کتاب لمسِ طولانی کنید و «افزودن به مرور» را بزنید.',
                       builder: (i) => _PassageCard(
                         item: i,

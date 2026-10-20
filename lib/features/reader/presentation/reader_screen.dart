@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart';
@@ -66,7 +67,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
           icon: const Icon(Icons.check_circle_rounded, color: Colors.green),
           title: const Text('خرید انجام شد'),
           content: Text(
-            '«${book.title}» خریداری شد. صفحه‌ی باز هنوز نسخه‌ی نمونه است؛ برای مطالعه‌ی '
+            '«${bidiIsolate(book.title)}» خریداری شد. صفحه‌ی باز هنوز نسخه‌ی نمونه است؛ برای مطالعه‌ی '
             'همه‌ی درس‌ها نسخه‌ی کامل را دانلود کنید.',
             style: const TextStyle(height: 1.6),
           ),
@@ -161,7 +162,10 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
           foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          title: Text(activeBook.title, style: const TextStyle(fontSize: 16)),
+          title: AutoDirectionText(
+            activeBook.title,
+            style: const TextStyle(fontSize: 16),
+          ),
           actions: [
             // 🐞 دسترسیِ مستقل به پلی‌لیستِ کتاب: قبلاً این دکمه فقط داخلِ
             // نوارِ کوچکِ پلیر بود که تا پخش‌نشدنِ حداقل یک فایل، اصلاً نشان
@@ -388,10 +392,16 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
             if (pagedBookStore.pageCount == 0) {
               return const Center(child: Text("داده‌ای یافت نشد."));
             }
-            return ReadingCanvas(
-              pagedBookStore: pagedBookStore,
-              audioScripts: pagedBookStore.audioScripts,
-              precomputedAudioLinksIndex: pagedBookStore.audioLinksIndex,
+            // 🌟 UI-2: اپ راست‌به‌چپ است ولی خودِ کتاب انگلیسی است؛ صفحه‌ها، ناوبر، نوارِ
+            // پلیر و پاپ‌آپ‌های پاسخ (OverlayPortal) همین جهت را می‌گیرند. بخش‌های فارسیِ
+            // داخلِ کتاب (ترجمه، کارتِ واژه، دیالوگِ «رفتن به صفحه») خودشان راست‌به‌چپ‌اند.
+            return Directionality(
+              textDirection: TextDirection.ltr,
+              child: ReadingCanvas(
+                pagedBookStore: pagedBookStore,
+                audioScripts: pagedBookStore.audioScripts,
+                precomputedAudioLinksIndex: pagedBookStore.audioLinksIndex,
+              ),
             );
           },
         ),

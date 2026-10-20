@@ -5,6 +5,7 @@ import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:ielts_assistant/core/network/dio_provider.dart';
 import 'package:ielts_assistant/core/network/session_events.dart';
 import 'package:ielts_assistant/features/auth/data/device_models.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 DEV-2: «دستگاه‌های من» — دستگاه‌هایی که این حساب رویشان فعال است، سقفِ دستگاه، و جدا
 // کردنِ یک دستگاه (مثلاً گوشیِ قبلی). جدا کردن هر N روز یک‌بار ممکن است (سرور). جدا کردنِ
@@ -51,7 +52,7 @@ class _MyDevicesScreenState extends ConsumerState<MyDevicesScreen> {
               ? 'از حساب خارج می‌شوید و محتوای کاملِ کتاب‌ها از همین دستگاه پاک می‌شود '
                     '(نمونه‌ها می‌مانند). جای این دستگاه برای دستگاهِ تازه خالی می‌شود.\n\n'
                     'تا ${r.cooldownDays} روزِ دیگر نمی‌توانید دوباره دستگاهی را جدا کنید.'
-              : '«${d.label}» از حساب جدا می‌شود و محتوای کاملِ کتاب‌ها در اولین اتصالش از '
+              : '«${bidiIsolate(d.label)}» از حساب جدا می‌شود و محتوای کاملِ کتاب‌ها در اولین اتصالش از '
                     'رویش پاک می‌شود. اگر آنلاین نشود، با تمام‌شدنِ مجوزِ آفلاین قفل می‌شود.\n\n'
                     'تا ${r.cooldownDays} روزِ دیگر نمی‌توانید دوباره دستگاهی را جدا کنید.',
           style: const TextStyle(height: 1.7),
@@ -158,7 +159,7 @@ class _MyDevicesScreenState extends ConsumerState<MyDevicesScreen> {
                             : Icons.phone_android_rounded,
                         color: d.current ? Colors.indigo : null,
                       ),
-                      title: Text(d.label),
+                      title: AutoDirectionText(d.label),
                       subtitle: Text(
                         [
                           if (d.current) 'همین دستگاه',

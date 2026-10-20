@@ -4,6 +4,7 @@ import 'package:ielts_assistant/features/library/presentation/book_actions.dart'
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 N-12 (RULES-rendering.md): در نسخه‌ی نمونه همه‌ی Unitها در ناوبر هستند؛ انتخابِ Unit
 // یا صفحه‌ای که در نمونه نیست به این پیام می‌رسد — «خریداری نشده» + دکمه‌ی خرید.
@@ -19,12 +20,12 @@ Future<void> showNotInSampleDialog(
   int? pageNumber,
 }) async {
   final String what = title != null
-      ? '«${outlineDisplayTitle(title)}»'
+      ? '«${bidiIsolate(outlineDisplayTitle(title))}»'
       : 'صفحه‌ی ${pageNumber ?? ''}';
   final String? has = sample == null
       ? null
       : (sample.title.isNotEmpty
-            ? 'نسخه‌ی نمونه فقط «${outlineDisplayTitle(sample.title)}» '
+            ? 'نسخه‌ی نمونه فقط «${bidiIsolate(outlineDisplayTitle(sample.title))}» '
                   '(صفحه‌های ${sample.firstPage} تا ${sample.lastPage}) را دارد.'
             : 'نسخه‌ی نمونه فقط صفحه‌های ${sample.firstPage} تا ${sample.lastPage} را دارد.');
   final bool purchased = book.isPurchased;

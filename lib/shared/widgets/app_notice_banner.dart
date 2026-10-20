@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/core/app_config/app_config.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 SITE-3/4: نوارِ «حالتِ تعمیر» یا اطلاعیه‌ی ادمین (پنلِ سایت ← اطلاعیه و تعمیر)، بالای کتابخانه.
 
@@ -31,7 +32,7 @@ class AppNoticeBanner extends ConsumerWidget {
           Icon(icon, color: fg, size: 20),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(notice.text, style: TextStyle(color: fg, fontSize: 13, height: 1.6)),
+            child: AutoDirectionText(notice.text, style: TextStyle(color: fg, fontSize: 13, height: 1.6)),
           ),
         ],
       ),
