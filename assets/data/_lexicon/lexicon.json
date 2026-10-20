@@ -728,7 +728,8 @@
     "avoid": {
       "headword": "avoid",
       "forms": [
-        "avoid"
+        "avoid",
+        "avoiding"
       ],
       "pos": "verb",
       "ipa": "/əˈvɔɪd/",
@@ -12127,7 +12128,8 @@
     "waste time": {
       "headword": "waste time",
       "forms": [
-        "waste time"
+        "waste time",
+        "waste their time"
       ],
       "pos": "collocation",
       "ipa": "/ˌweɪst ˈtaɪm/",
@@ -12830,7 +12832,8 @@
       "headword": "get into trouble",
       "forms": [
         "getting into trouble",
-        "get into trouble"
+        "get into trouble",
+        "got into trouble"
       ],
       "pos": "phrase",
       "ipa": "/ˌɡet ɪntə ˈtrʌbl/",
@@ -13663,6 +13666,4426 @@
       "explanationFa": "در نقشِ فعل: The centre will feature... (یکی از بخش‌های برجسته‌اش ... است). در نقشِ اسم یعنی «ویژگی».",
       "explanationAr": "كفعل: The centre will feature... (سيضمّ عنصراً بارزاً)، وكاسم تعني «ميزة».",
       "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "writer's views": {
+      "headword": "the writer's views",
+      "forms": [
+        "writer's views",
+        "writer's personal view"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ðə ˈraɪtəz vjuːz/",
+      "pronounceFa": "دِ رایتِز ویوز",
+      "pronounceAr": "ذَ رايتَز فيوز",
+      "translationFa": "دیدگاه‌های نویسنده",
+      "translationAr": "آراء الكاتب",
+      "explanationFa": "در ریدینگِ آیلتس تمرینِ Yes/No/Not Given دیدگاه‌های نویسنده را می‌سنجد، نه واقعیت‌ها را؛ نظرِ نویسنده معمولاً از کلمه‌های ارزشی (مثلِ waste their time) فهمیده می‌شود.",
+      "explanationAr": "في قراءة آيلتس تختبر مهمّة Yes/No/Not Given آراء الكاتب لا الحقائق، وغالبًا ما يُستدلّ على الرأي من كلمات تقييمية مثل waste their time.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "first conditional": {
+      "headword": "first conditional",
+      "forms": [
+        "first conditional"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌfɜːst kənˈdɪʃənl/",
+      "pronounceFa": "فِرست کِندیشِنِل",
+      "pronounceAr": "فِرست كَنديشَنَل",
+      "translationFa": "شرطیِ نوعِ اول",
+      "translationAr": "الشرط من النوع الأول",
+      "explanationFa": "ساختار: If + حالِ ساده، will/won't + مصدر؛ برای نتیجه‌ی محتملِ یک شرطِ واقعی در آینده: If you post daily, you will get more views.",
+      "explanationAr": "البنية: If + المضارع البسيط، ثم will/won't + المصدر؛ للتعبير عن نتيجة محتملة لشرط واقعي في المستقبل.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "search engine": {
+      "headword": "search engine",
+      "forms": [
+        "search engines",
+        "search engine"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsɜːtʃ ˌendʒɪn/",
+      "pronounceFa": "سِرچ اِنجین",
+      "pronounceAr": "سيرتش إنجِن",
+      "translationFa": "موتورِ جست‌وجو",
+      "translationAr": "محرّك بحث",
+      "explanationFa": "برنامه‌ای مثلِ گوگل که صفحه‌های وب را جست‌وجو می‌کند. فعلِ رایج با آن: use a search engine.",
+      "explanationAr": "برنامج مثل غوغل يبحث في صفحات الويب، ويُقال: use a search engine.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "factual": {
+      "headword": "factual",
+      "forms": [
+        "factual"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈfæktʃuəl/",
+      "pronounceFa": "فَکچوئِل",
+      "pronounceAr": "فاكتشوأل",
+      "translationFa": "واقعی، مبتنی بر واقعیت",
+      "translationAr": "واقعي، قائم على الحقائق",
+      "explanationFa": "صفتِ fact؛ factual information یعنی اطلاعاتِ واقعی در برابرِ opinion (نظر). در ریدینگ تشخیصِ factual از opinion مهم است.",
+      "explanationAr": "صفة من fact؛ factual information أي معلومات واقعية في مقابل الرأي (opinion).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "purpose": {
+      "headword": "purpose",
+      "forms": [
+        "purpose"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈpɜːpəs/",
+      "pronounceFa": "پِرپِس",
+      "pronounceAr": "بيربَس",
+      "translationFa": "هدف، منظور",
+      "translationAr": "غرض، هدف",
+      "explanationFa": "سؤالِ «What is the purpose of the passage?» هدفِ کلیِ نویسنده را می‌پرسد؛ با خواندنِ اجمالی (skim) پاسخ داده می‌شود.",
+      "explanationAr": "سؤال «What is the purpose of the passage?» يسأل عن الهدف العامّ للكاتب، ويُجاب عنه بالقراءة السريعة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "current affairs": {
+      "headword": "current affairs",
+      "forms": [
+        "current affairs"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌkʌrənt əˈfeəz/",
+      "pronounceFa": "کارِنت اِفِرز",
+      "pronounceAr": "كارَنت أفيرز",
+      "translationFa": "رویدادهای روز، مسائلِ جاری",
+      "translationAr": "الشؤون الجارية",
+      "explanationFa": "همیشه جمع است: news and current affairs (اخبار و رویدادهای روز)؛ موضوعِ رایجِ اسپیکینگ.",
+      "explanationAr": "تأتي دائمًا بصيغة الجمع: news and current affairs؛ وهي موضوع شائع في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "raise money": {
+      "headword": "raise money",
+      "forms": [
+        "raising money",
+        "raise money"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌreɪz ˈmʌni/",
+      "pronounceFa": "رِیز مانی",
+      "pronounceAr": "ريز ماني",
+      "translationFa": "جمع‌آوریِ پول (برای خیریه)",
+      "translationAr": "جمع المال (لعمل خيري)",
+      "explanationFa": "هم‌آیندِ رایج: raise money for (a) charity. با rise (بالا رفتن، بی‌مفعول) اشتباه نشود.",
+      "explanationAr": "تلازم شائع: raise money for (a) charity، ولا يُخلط مع rise (يرتفع) الذي لا يأخذ مفعولًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "specialist": {
+      "headword": "specialist",
+      "forms": [
+        "specialist"
+      ],
+      "pos": "adjective / noun",
+      "ipa": "/ˈspeʃəlɪst/",
+      "pronounceFa": "اِسپِشِلیست",
+      "pronounceAr": "سبيشَليست",
+      "translationFa": "تخصصی؛ متخصص",
+      "translationAr": "متخصّص",
+      "explanationFa": "به‌عنوانِ صفت: a specialist subject (موضوعی تخصصی که مخاطبِ محدودی دارد)؛ به‌عنوانِ اسم: a specialist in…",
+      "explanationAr": "صفةً: a specialist subject (موضوع متخصّص)، واسمًا: a specialist in…",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "particular to": {
+      "headword": "particular to",
+      "forms": [
+        "particular to"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/pəˈtɪkjələ tə/",
+      "pronounceFa": "پِتیکیوله تو",
+      "pronounceAr": "بَتيكيولَ تو",
+      "translationFa": "مخصوصِ، ویژه‌ی",
+      "translationAr": "خاصّ بـ",
+      "explanationFa": "یعنی فقط در یک جا یا گروه وجود دارد: a custom particular to one country. مترادف: specific to.",
+      "explanationAr": "أي موجود في مكان أو فئة واحدة فقط، ومرادفه specific to.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "upload": {
+      "headword": "upload",
+      "forms": [
+        "upload"
+      ],
+      "pos": "verb",
+      "ipa": "/ʌpˈləʊd/",
+      "pronounceFa": "آپلود",
+      "pronounceAr": "أبلود",
+      "translationFa": "بارگذاری کردن",
+      "translationAr": "يرفع (ملفًّا)",
+      "explanationFa": "فرستادنِ فایل به اینترنت؛ متضاد: download. ساختار: upload a video to/onto a site.",
+      "explanationAr": "إرسال ملف إلى الإنترنت، وعكسه download: upload a video to a site.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "release": {
+      "headword": "release",
+      "forms": [
+        "release"
+      ],
+      "pos": "verb",
+      "ipa": "/rɪˈliːs/",
+      "pronounceFa": "ریلیس",
+      "pronounceAr": "ريليس",
+      "translationFa": "منتشر کردن، عرضه کردن",
+      "translationAr": "يُصدر، يطرح",
+      "explanationFa": "برای فیلم، آهنگ، آلبوم و محصول: release a video/album. معنای دیگرش «آزاد کردن» است.",
+      "explanationAr": "يُستخدم للأفلام والأغاني والمنتجات: release an album، ومن معانيه أيضًا «يُطلق سراح».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "advertisement": {
+      "headword": "advertisement",
+      "forms": [
+        "advertisements",
+        "advertisement",
+        "adverts",
+        "advert"
+      ],
+      "pos": "noun",
+      "ipa": "/ədˈvɜːtɪsmənt/",
+      "pronounceFa": "اِدوِرتیسمِنت",
+      "pronounceAr": "أدفيرتِسمَنت",
+      "translationFa": "آگهی، تبلیغ",
+      "translationAr": "إعلان",
+      "explanationFa": "advert (و ad) شکلِ کوتاه‌تر و غیررسمی‌اند؛ advertisement قابلِ شمارش است، ولی advertising (صنعتِ تبلیغات) غیرقابلِ شمارش.",
+      "explanationAr": "advert وad صيغتان أقصر، وadvertisement معدودة بينما advertising (صناعة الإعلان) غير معدودة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "platform": {
+      "headword": "platform",
+      "forms": [
+        "platform"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈplætfɔːm/",
+      "pronounceFa": "پلَتفُرم",
+      "pronounceAr": "بلاتفورم",
+      "translationFa": "بستر، پلتفرم (آنلاین)",
+      "translationAr": "منصّة",
+      "explanationFa": "در اینجا سرویس یا سایتی که محتوا روی آن منتشر می‌شود: a social media platform. معنای دیگر: سکوی ایستگاهِ قطار.",
+      "explanationAr": "هنا الخدمة أو الموقع الذي يُنشر عليه المحتوى، ومن معانيها أيضًا رصيف محطة القطار.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "earn money": {
+      "headword": "earn money",
+      "forms": [
+        "earn money"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌɜːn ˈmʌni/",
+      "pronounceFa": "اِرن مانی",
+      "pronounceAr": "إيرن ماني",
+      "translationFa": "پول درآوردن، کسبِ درآمد",
+      "translationAr": "يكسب المال",
+      "explanationFa": "earn برای پولی است که از کار به دست می‌آید؛ در رایتینگ مترادفی رسمی‌تر برای make money است.",
+      "explanationAr": "earn للمال المكتسب من العمل، وهي بديل أكثر رسمية لـ make money في الكتابة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "achieve fame": {
+      "headword": "achieve fame",
+      "forms": [
+        "achieve fame",
+        "achieved fame"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/əˌtʃiːv ˈfeɪm/",
+      "pronounceFa": "اِچیو فِیم",
+      "pronounceAr": "أتشيف فيم",
+      "translationFa": "به شهرت رسیدن",
+      "translationAr": "يحقّق الشهرة",
+      "explanationFa": "هم‌آیندِ رسمی برای become famous؛ مشابه: find fame، shoot to fame (ناگهان مشهور شدن).",
+      "explanationAr": "تلازم رسمي بمعنى become famous، ومثله find fame وshoot to fame (الشهرة المفاجئة).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "entertaining content": {
+      "headword": "entertaining content",
+      "forms": [
+        "entertaining content"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌentəˈteɪnɪŋ ˈkɒntent/",
+      "pronounceFa": "اِنتِتِینینگ کانتِنت",
+      "pronounceAr": "إنتَتينينغ كونتِنت",
+      "translationFa": "محتوای سرگرم‌کننده",
+      "translationAr": "محتوى مسلٍّ",
+      "explanationFa": "content در اینجا اسم و به معنای مطالب و ویدیوهای منتشرشده است (تکیه روی هجای اول)؛ post content یعنی محتوا منتشر کردن.",
+      "explanationAr": "content هنا اسم بمعنى المواد المنشورة (والنبر على المقطع الأول)، وpost content أي ينشر المحتوى.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "advertising": {
+      "headword": "advertising",
+      "forms": [
+        "advertising"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈædvətaɪzɪŋ/",
+      "pronounceFa": "اَدوِتایزینگ",
+      "pronounceAr": "أدفَتايزنغ",
+      "translationFa": "تبلیغات (صنعت/کارِ تبلیغ)",
+      "translationAr": "الإعلان (صناعة الإعلان)",
+      "explanationFa": "غیرقابلِ شمارش است: through advertising؛ برای یک آگهی از an advertisement/advert استفاده کنید.",
+      "explanationAr": "اسم غير معدود: through advertising، أمّا الإعلان الواحد فهو an advertisement.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "trending": {
+      "headword": "trending",
+      "forms": [
+        "trending"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtrendɪŋ/",
+      "pronounceFa": "تِرِندینگ",
+      "pronounceAr": "ترندنغ",
+      "translationFa": "پرطرفدار در این لحظه، ترند",
+      "translationAr": "رائج، شائع حاليًّا",
+      "explanationFa": "موضوعی که همین حالا در شبکه‌های اجتماعی بسیار درباره‌اش صحبت می‌شود؛ مرتبط با trend (روند) در تسکِ 1 رایتینگ.",
+      "explanationAr": "موضوع يكثر الحديث عنه الآن على وسائل التواصل، ويرتبط بكلمة trend (اتّجاه) في المهمّة الأولى من الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "extract": {
+      "headword": "extract",
+      "forms": [
+        "extracts",
+        "extract"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈekstrækt/",
+      "pronounceFa": "اِکستْرَکت",
+      "pronounceAr": "إكستراكت",
+      "translationFa": "قطعه، بُرش (از متن، فیلم یا موسیقی)",
+      "translationAr": "مقتطف، مقطع",
+      "explanationFa": "اسم با تکیه روی هجای اول (EXtract)؛ فعلش با تکیه روی هجای دوم (exTRACT) به معنای «بیرون کشیدن» است.",
+      "explanationAr": "الاسم بنبر على المقطع الأول، والفعل exTRACT بنبر على الثاني ومعناه «يستخرج».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "dream of": {
+      "headword": "dream of",
+      "forms": [
+        "dreamed of",
+        "dreamt of",
+        "dream of"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈdriːm əv/",
+      "pronounceFa": "دریم اُو",
+      "pronounceAr": "دريم أوف",
+      "translationFa": "آرزوی چیزی را داشتن",
+      "translationAr": "يحلم بـ",
+      "explanationFa": "dream of/about + اسم یا -ing: I've always dreamed of being famous. گذشته: dreamed یا dreamt.",
+      "explanationAr": "dream of + اسم أو -ing، والماضي dreamed أو dreamt.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "at least": {
+      "headword": "at least",
+      "forms": [
+        "at least"
+      ],
+      "pos": "phrase",
+      "ipa": "/ət ˈliːst/",
+      "pronounceFa": "اَت لیست",
+      "pronounceAr": "أت ليست",
+      "translationFa": "دست‌کم، حداقل",
+      "translationAr": "على الأقل",
+      "explanationFa": "هم برای مقدار (at least 250 words) و هم برای محدود کردنِ ادعا (online at least = دست‌کم در فضای مجازی) به کار می‌رود.",
+      "explanationAr": "تُستخدم للكمية (at least 250 words) ولتقييد الادعاء (online at least).",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "matching features": {
+      "headword": "matching features",
+      "forms": [
+        "matching features"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmætʃɪŋ ˈfiːtʃəz/",
+      "pronounceFa": "مَچینگ فیچِرز",
+      "pronounceAr": "ماتشنغ فيتشَرز",
+      "translationFa": "جور کردنِ ویژگی‌ها",
+      "translationAr": "مطابقة السمات",
+      "explanationFa": "نوعی سؤالِ ریدینگ: جمله‌ها را با فهرستی از افراد، مکان‌ها یا چیزها جور می‌کنید؛ سؤال‌ها به ترتیبِ متن نیستند و یک گزینه ممکن است چند بار بیاید.",
+      "explanationAr": "نوع من أسئلة القراءة تُطابَق فيه العبارات مع قائمة أشخاص أو أماكن أو أشياء، ولا تأتي الأسئلة بترتيب النص وقد يتكرّر الخيار.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "instructions": {
+      "headword": "instructions",
+      "forms": [
+        "instructions"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪnˈstrʌkʃnz/",
+      "pronounceFa": "اینستْراکشِنز",
+      "pronounceAr": "إنستراكشَنز",
+      "translationFa": "دستورالعمل‌ها",
+      "translationAr": "التعليمات",
+      "explanationFa": "در آزمون همیشه اول دستورالعمل را بخوانید: حدِ کلمه (NO MORE THAN TWO WORDS) و نوعِ پاسخ در آن آمده است.",
+      "explanationAr": "في الاختبار اقرؤوا التعليمات أولًا، ففيها حدّ الكلمات ونوع الإجابة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "more than once": {
+      "headword": "more than once",
+      "forms": [
+        "more than once"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌmɔː ðən ˈwʌns/",
+      "pronounceFa": "مُر دِن وانس",
+      "pronounceAr": "مور ذَن وانس",
+      "translationFa": "بیش از یک بار",
+      "translationAr": "أكثر من مرّة",
+      "explanationFa": "عبارتِ «You may choose any option more than once» یعنی یک گزینه ممکن است پاسخِ چند سؤال باشد و بعضی گزینه‌ها اصلاً به کار نروند.",
+      "explanationAr": "عبارة «You may choose any option more than once» تعني أن خيارًا واحدًا قد يكون جوابًا لعدّة أسئلة.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "underline": {
+      "headword": "underline",
+      "forms": [
+        "underline"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌʌndəˈlaɪn/",
+      "pronounceFa": "آندِلاین",
+      "pronounceAr": "أندَلاين",
+      "translationFa": "زیرِ چیزی خط کشیدن",
+      "translationAr": "يضع خطًّا تحت",
+      "explanationFa": "راهبردِ رایجِ آزمون: underline the key words در سؤال و متن، تا اطلاعاتِ مربوط سریع‌تر پیدا شود.",
+      "explanationAr": "استراتيجية شائعة: underline the key words في السؤال والنص لإيجاد المعلومات بسرعة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "task type": {
+      "headword": "task type",
+      "forms": [
+        "task type"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈtɑːsk taɪp/",
+      "pronounceFa": "تَسک تایپ",
+      "pronounceAr": "تاسك تايب",
+      "translationFa": "نوعِ تمرین/سؤال",
+      "translationAr": "نوع المهمّة",
+      "explanationFa": "در آیلتس هر task type (مثلِ matching features یا flow-chart completion) راهبردِ خودش را دارد.",
+      "explanationAr": "لكل نوع مهمّة في آيلتس استراتيجيته الخاصة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "twice as many": {
+      "headword": "twice as many",
+      "forms": [
+        "twice as many"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌtwaɪs əz ˈmeni/",
+      "pronounceFa": "تْوایس اَز مِنی",
+      "pronounceAr": "تْوايس أز ميني",
+      "translationFa": "دو برابر (تعداد)",
+      "translationAr": "ضعف العدد",
+      "explanationFa": "ساختارِ مقایسه: twice as many + اسمِ جمع + as؛ برای غیرقابلِ شمارش twice as much. در تسکِ 1 رایتینگ کاربرد دارد.",
+      "explanationAr": "بنية مقارنة: twice as many + جمع + as، ومع غير المعدود twice as much، وهي مفيدة في المهمّة الأولى من الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "population": {
+      "headword": "population",
+      "forms": [
+        "population"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌpɒpjuˈleɪʃn/",
+      "pronounceFa": "پاپیولِیشِن",
+      "pronounceAr": "بوبيوليشَن",
+      "translationFa": "جمعیت",
+      "translationAr": "السكان",
+      "explanationFa": "با فعلِ مفرد یا جمع می‌آید: over 70% of the population have/has…؛ برای بزرگی/کوچکی: a large/small population (نه many).",
+      "explanationAr": "يأتي مع فعل مفرد أو جمع، ويُقال a large population لا many population.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "not at all": {
+      "headword": "not at all",
+      "forms": [
+        "not at all"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌnɒt ət ˈɔːl/",
+      "pronounceFa": "نات اَت اُل",
+      "pronounceAr": "نوت أت أول",
+      "translationFa": "اصلاً، به هیچ وجه",
+      "translationAr": "إطلاقًا، على الإطلاق",
+      "explanationFa": "برای تأکید بر منفی: It is not at all enjoyable. در پاسخ به تشکر هم یعنی «خواهش می‌کنم».",
+      "explanationAr": "لتوكيد النفي، وتُقال أيضًا ردًّا على الشكر بمعنى «لا شكر على واجب».",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "claim": {
+      "headword": "claim",
+      "forms": [
+        "claims",
+        "claim"
+      ],
+      "pos": "noun",
+      "ipa": "/kleɪm/",
+      "pronounceFa": "کلِیم",
+      "pronounceAr": "كليم",
+      "translationFa": "ادعا",
+      "translationAr": "ادّعاء",
+      "explanationFa": "در دستورِ سؤال‌های Yes/No/Not Given: agree with the claims of the writer؛ یعنی آنچه نویسنده می‌گوید درست است، نه لزوماً واقعیت.",
+      "explanationAr": "في تعليمات أسئلة Yes/No/Not Given: agree with the claims of the writer، أي ما يقوله الكاتب لا الحقيقة بالضرورة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "consider": {
+      "headword": "consider",
+      "forms": [
+        "considers",
+        "consider"
+      ],
+      "pos": "verb",
+      "ipa": "/kənˈsɪdə/",
+      "pronounceFa": "کِنسیدِر",
+      "pronounceAr": "كَنسيدَر",
+      "translationFa": "دانستن، به حساب آوردن؛ در نظر گرفتن",
+      "translationAr": "يَعُدّ، يعتبر؛ يأخذ بعين الاعتبار",
+      "explanationFa": "consider somebody (to be) + صفت: She considers herself well known. معنای دیگر: consider the opposite opinion (دیدگاهِ مخالف را در نظر گرفتن).",
+      "explanationAr": "consider somebody (to be) + صفة، ومن معانيها أيضًا consider the opposite opinion.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "worth the effort": {
+      "headword": "worth the effort",
+      "forms": [
+        "worth the effort"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˌwɜːθ ði ˈefət/",
+      "pronounceFa": "وِرث دی اِفِت",
+      "pronounceAr": "ويرث ذي إيفَت",
+      "translationFa": "به زحمتش می‌ارزد",
+      "translationAr": "يستحقّ الجهد",
+      "explanationFa": "ساختار: (not) worth the effort / worth + -ing (It's worth trying). در اسپیکینگ برای ارزیابیِ یک کار مفید است.",
+      "explanationAr": "البنية: (not) worth the effort أو worth + -ing، وهي مفيدة لتقييم الأمور في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "aim to": {
+      "headword": "aim to",
+      "forms": [
+        "aiming to",
+        "aim to"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈeɪm tə/",
+      "pronounceFa": "اِیم تو",
+      "pronounceAr": "إيم تو",
+      "translationFa": "هدف داشتن، قصد داشتن",
+      "translationAr": "يهدف إلى",
+      "explanationFa": "aim to + مصدر (I'm aiming to become famous) یا aim at + -ing؛ اسمش: aim (هدف).",
+      "explanationAr": "aim to + المصدر أو aim at + -ing، والاسم aim (هدف).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "clause": {
+      "headword": "clause",
+      "forms": [
+        "clauses",
+        "clause"
+      ],
+      "pos": "noun",
+      "ipa": "/klɔːz/",
+      "pronounceFa": "کلُز",
+      "pronounceAr": "كلوز",
+      "translationFa": "بند، جمله‌واره",
+      "translationAr": "جملة فرعية، عبارة",
+      "explanationFa": "بخشی از جمله که فاعل و فعل دارد؛ جمله‌ی شرطی دو clause دارد: if clause و result clause.",
+      "explanationAr": "جزء من الجملة له فاعل وفعل، وللجملة الشرطية جزءان: if clause وresult clause.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "result clause": {
+      "headword": "result clause",
+      "forms": [
+        "result clauses",
+        "result clause"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/rɪˈzʌlt klɔːz/",
+      "pronounceFa": "ریزالت کلُز",
+      "pronounceAr": "ريزالت كلوز",
+      "translationFa": "بندِ نتیجه (جوابِ شرط)",
+      "translationAr": "جملة جواب الشرط",
+      "explanationFa": "در شرطیِ نوعِ اول، بندِ نتیجه will/won't (یا should، can، may) + مصدر دارد.",
+      "explanationAr": "في الشرط من النوع الأول تحتوي جملة الجواب على will/won't (أو should وcan وmay) + المصدر.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "if clause": {
+      "headword": "if clause",
+      "forms": [
+        "if clause"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈɪf klɔːz/",
+      "pronounceFa": "ایف کلُز",
+      "pronounceAr": "إف كلوز",
+      "translationFa": "بندِ شرط",
+      "translationAr": "جملة الشرط",
+      "explanationFa": "بخشی که با If شروع می‌شود؛ در شرطیِ نوعِ اول فعلش حالِ ساده است، نه will. اگر اول بیاید، پس از آن ویرگول می‌آید.",
+      "explanationAr": "الجزء الذي يبدأ بـ If، وفعله في الشرط الأول مضارع بسيط لا will، وتتبعه فاصلة إذا جاء أولًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "present tense": {
+      "headword": "present tense",
+      "forms": [
+        "present tense"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpreznt ˈtens/",
+      "pronounceFa": "پرِزِنت تِنس",
+      "pronounceAr": "بريزَنت تينس",
+      "translationFa": "زمانِ حال",
+      "translationAr": "زمن المضارع",
+      "explanationFa": "در if clauseِ شرطیِ نوعِ اول، با اینکه معنا آینده است، فعل در زمانِ حال می‌آید: If it rains, …",
+      "explanationAr": "في جملة الشرط من النوع الأول يأتي الفعل في المضارع رغم أن المعنى مستقبلي.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "play a role": {
+      "headword": "play a role",
+      "forms": [
+        "playing a role",
+        "play a role"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌpleɪ ə ˈrəʊl/",
+      "pronounceFa": "پلِی اِ رُول",
+      "pronounceAr": "بلي أ رول",
+      "translationFa": "نقش داشتن، نقش ایفا کردن",
+      "translationAr": "يؤدّي دورًا",
+      "explanationFa": "هم‌آیندِ پرکاربردِ رایتینگ: play an important role in + اسم/‌-ing.",
+      "explanationAr": "تلازم شائع في الكتابة: play an important role in + اسم أو -ing.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "loyalty": {
+      "headword": "loyalty",
+      "forms": [
+        "loyalty"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈlɔɪəlti/",
+      "pronounceFa": "لُویِلتی",
+      "pronounceAr": "لويَلتي",
+      "translationFa": "وفاداری",
+      "translationAr": "الوفاء، الولاء",
+      "explanationFa": "loyalty to someone؛ صفتش loyal است. مترادف: faithfulness.",
+      "explanationAr": "loyalty to someone، والصفة loyal، ومرادفها faithfulness.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "faithful": {
+      "headword": "faithful",
+      "forms": [
+        "faithfully",
+        "faithful"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈfeɪθfl/",
+      "pronounceFa": "فِیثفُل",
+      "pronounceAr": "فيثفُل",
+      "translationFa": "وفادار",
+      "translationAr": "وفيّ",
+      "explanationFa": "a faithful dog/friend؛ قیدش faithfully (با وفاداری). Yours faithfully پایانِ نامه‌ی رسمی است.",
+      "explanationAr": "a faithful dog، والظرف faithfully، وYours faithfully ختام الرسائل الرسمية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ceremony": {
+      "headword": "ceremony",
+      "forms": [
+        "ceremony"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈserəməni/",
+      "pronounceFa": "سِرِمِنی",
+      "pronounceAr": "سيرَمَني",
+      "translationFa": "مراسم، آیین",
+      "translationAr": "احتفال، مراسم",
+      "explanationFa": "هم‌آیندها: hold a ceremony (برگزار کردن)، a wedding/graduation ceremony.",
+      "explanationAr": "تلازمات: hold a ceremony، وa wedding/graduation ceremony.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "commemorate": {
+      "headword": "commemorate",
+      "forms": [
+        "commemorate"
+      ],
+      "pos": "verb",
+      "ipa": "/kəˈmeməreɪt/",
+      "pronounceFa": "کِمِمِرِیت",
+      "pronounceAr": "كَميمَريت",
+      "translationFa": "گرامی داشتنِ یاد، بزرگداشت",
+      "translationAr": "يحيي ذكرى",
+      "explanationFa": "رسمی است؛ برای یادبودِ یک فرد یا رویداد. در متن با formally remembered بازنویسی شده است (paraphrase).",
+      "explanationAr": "فعل رسمي لإحياء ذكرى شخص أو حدث، وأُعيدت صياغته في الأسئلة بـ formally remembered.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "reject": {
+      "headword": "reject",
+      "forms": [
+        "rejected",
+        "rejects",
+        "reject"
+      ],
+      "pos": "verb",
+      "ipa": "/rɪˈdʒekt/",
+      "pronounceFa": "ریجِکت",
+      "pronounceAr": "ريجكت",
+      "translationFa": "طرد کردن، نپذیرفتن؛ رد کردن",
+      "translationAr": "يرفض، ينبذ",
+      "explanationFa": "در متن، مادر بچه‌اش را نپذیرفت؛ سؤال آن را با was not wanted بازنویسی کرده است. reject an idea یعنی ایده‌ای را رد کردن.",
+      "explanationAr": "في النص رفضت الأم صغيرها، وأعاد السؤال صياغتها بـ was not wanted، وreject an idea أي يرفض فكرة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "raise": {
+      "headword": "raise",
+      "forms": [
+        "was raised by",
+        "raised by"
+      ],
+      "pos": "verb",
+      "ipa": "/reɪz/",
+      "pronounceFa": "رِیز",
+      "pronounceAr": "ريز",
+      "translationFa": "بزرگ کردن، پرورش دادن",
+      "translationAr": "يربّي",
+      "explanationFa": "raise a child = bring up a child. raise معانیِ دیگری هم دارد (raise money، raise your hand).",
+      "explanationAr": "raise a child بمعنى bring up، ولها معانٍ أخرى مثل raise money.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "attendance": {
+      "headword": "attendance",
+      "forms": [
+        "attendance"
+      ],
+      "pos": "noun",
+      "ipa": "/əˈtendəns/",
+      "pronounceFa": "اِتِندِنس",
+      "pronounceAr": "أتيندَنس",
+      "translationFa": "تعدادِ حاضران/بازدیدکنندگان؛ حضور",
+      "translationAr": "عدد الحضور، الحضور",
+      "explanationFa": "increase attendance at the zoo یعنی تعدادِ بازدیدکنندگان را بیشتر کردن؛ از فعلِ attend.",
+      "explanationAr": "increase attendance أي زيادة عدد الزوّار، وهي من الفعل attend.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "revenue": {
+      "headword": "revenue",
+      "forms": [
+        "revenue"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈrevənjuː/",
+      "pronounceFa": "رِوِنیو",
+      "pronounceAr": "ريفَنيو",
+      "translationFa": "درآمد (یک سازمان)",
+      "translationAr": "إيرادات",
+      "explanationFa": "درآمدِ کلِ یک شرکت یا سازمان؛ در تسکِ 1 رایتینگ رایج است. در سؤال با profits بازنویسی شده است.",
+      "explanationAr": "دخل الشركة أو المؤسسة الإجمالي، وشائعة في المهمّة الأولى من الكتابة، وأعيدت صياغتها بـ profits.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "substantial": {
+      "headword": "substantial",
+      "forms": [
+        "substantial"
+      ],
+      "pos": "adjective",
+      "ipa": "/səbˈstænʃl/",
+      "pronounceFa": "سِبستَنشِل",
+      "pronounceAr": "سَبستانشَل",
+      "translationFa": "قابلِ توجه، زیاد",
+      "translationAr": "كبير، معتبر",
+      "explanationFa": "substantial amounts of money = large amounts؛ صفتی آکادمیک برای رایتینگ، رسمی‌تر از big.",
+      "explanationAr": "substantial amounts of money أي مبالغ كبيرة، وهي صفة أكاديمية أرسم من big.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in the wild": {
+      "headword": "in the wild",
+      "forms": [
+        "in the wild"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ðə ˈwaɪld/",
+      "pronounceFa": "این دِ وایلد",
+      "pronounceAr": "إن ذَ وايلد",
+      "translationFa": "در طبیعت، در حیاتِ وحش",
+      "translationAr": "في البرّية",
+      "explanationFa": "در برابرِ in captivity (در اسارت، مثلاً در باغ‌وحش): live in the wild.",
+      "explanationAr": "في مقابل in captivity (في الأسر)، ويُقال live in the wild.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "defend": {
+      "headword": "defend",
+      "forms": [
+        "defend"
+      ],
+      "pos": "verb",
+      "ipa": "/dɪˈfend/",
+      "pronounceFa": "دیفِند",
+      "pronounceAr": "ديفيند",
+      "translationFa": "دفاع کردن",
+      "translationAr": "يدافع",
+      "explanationFa": "defend yourself / defend somebody against something؛ اسمش defence. در رایتینگ: defend an opinion.",
+      "explanationAr": "defend yourself أو defend somebody against something، والاسم defence.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "feel guilty": {
+      "headword": "feel guilty",
+      "forms": [
+        "felt guilty",
+        "feel guilty"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌfiːl ˈɡɪlti/",
+      "pronounceFa": "فیل گیلتی",
+      "pronounceAr": "فيل غيلتي",
+      "translationFa": "احساسِ گناه کردن",
+      "translationAr": "يشعر بالذنب",
+      "explanationFa": "ساختار: feel guilty about something / about doing something.",
+      "explanationAr": "البنية: feel guilty about something أو about doing something.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "orphaned": {
+      "headword": "orphaned",
+      "forms": [
+        "orphaned"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈɔːfənd/",
+      "pronounceFa": "اُرفِند",
+      "pronounceAr": "أورفَند",
+      "translationFa": "یتیم‌شده",
+      "translationAr": "يتيم",
+      "explanationFa": "از orphan (یتیم)؛ orphaned cubs یعنی توله‌هایی که مادرشان را از دست داده‌اند.",
+      "explanationAr": "من orphan، وorphaned cubs أي أشبال فقدت أمّها.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "bring up": {
+      "headword": "bring up",
+      "forms": [
+        "brought them up",
+        "brought up",
+        "bring up"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌbrɪŋ ˈʌp/",
+      "pronounceFa": "برینگ آپ",
+      "pronounceAr": "برينغ أب",
+      "translationFa": "بزرگ کردن، تربیت کردن",
+      "translationAr": "يربّي",
+      "explanationFa": "فعلِ عبارتیِ جداشدنی: bring a child up / bring up a child. معنای دیگر: مطرح کردنِ موضوعی.",
+      "explanationAr": "فعل مركّب قابل للفصل: bring a child up، ومن معانيه أيضًا طرح موضوع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "foster parents": {
+      "headword": "foster parents",
+      "forms": [
+        "foster parents"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈfɒstə ˌpeərənts/",
+      "pronounceFa": "فاستِر پِرِنتس",
+      "pronounceAr": "فوستَر بيرَنتس",
+      "translationFa": "والدینِ سرپرست (غیرِ واقعی)",
+      "translationAr": "الوالدان الحاضنان",
+      "explanationFa": "کسانی که موقتاً یا برای مدتی از کودکی که فرزندِ خودشان نیست مراقبت می‌کنند؛ foster a child.",
+      "explanationAr": "من يرعون طفلًا ليس ابنهم، والفعل foster a child.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "star in": {
+      "headword": "star in",
+      "forms": [
+        "starred in",
+        "star in"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈstɑːr ɪn/",
+      "pronounceFa": "اِستار این",
+      "pronounceAr": "ستار إن",
+      "translationFa": "بازیگرِ اصلیِ فیلمی بودن",
+      "translationAr": "يقوم ببطولة",
+      "explanationFa": "star in a film/movie؛ گذشته‌اش starred (با دو r).",
+      "explanationAr": "star in a film، والماضي starred بحرفي r.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "foundation": {
+      "headword": "foundation",
+      "forms": [
+        "foundation"
+      ],
+      "pos": "noun",
+      "ipa": "/faʊnˈdeɪʃn/",
+      "pronounceFa": "فاوندِیشِن",
+      "pronounceAr": "فاونديشَن",
+      "translationFa": "بنیاد، مؤسسه‌ی خیریه",
+      "translationAr": "مؤسسة",
+      "explanationFa": "سازمانی که برای هدفی خیریه یا علمی پول فراهم می‌کند؛ معنای دیگر: پِی و اساس (the foundation of…).",
+      "explanationAr": "منظمة تموّل غرضًا خيريًّا أو علميًّا، ومن معانيها أيضًا الأساس.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "wildlife": {
+      "headword": "wildlife",
+      "forms": [
+        "wildlife"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈwaɪldlaɪf/",
+      "pronounceFa": "وایلدلایف",
+      "pronounceAr": "وايلدلايف",
+      "translationFa": "حیاتِ وحش",
+      "translationAr": "الحياة البرّية",
+      "explanationFa": "غیرقابلِ شمارش: protect wildlife. موضوعِ رایجِ رایتینگ درباره‌ی محیط‌زیست.",
+      "explanationAr": "اسم غير معدود: protect wildlife، وموضوع شائع في كتابة البيئة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "inspire": {
+      "headword": "inspire",
+      "forms": [
+        "inspire"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪnˈspaɪə/",
+      "pronounceFa": "اینسپایِر",
+      "pronounceAr": "إنسبايَر",
+      "translationFa": "الهام بخشیدن، انگیزه دادن",
+      "translationAr": "يُلهم",
+      "explanationFa": "inspire someone (to do something)؛ صفت: inspiring، اسم: inspiration.",
+      "explanationAr": "inspire someone (to do something)، والصفة inspiring والاسم inspiration.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "celebrity": {
+      "headword": "celebrity",
+      "forms": [
+        "celebrities",
+        "celebrity"
+      ],
+      "pos": "noun",
+      "ipa": "/səˈlebrəti/",
+      "pronounceFa": "سِلِبرِتی",
+      "pronounceAr": "سَليبرَتي",
+      "translationFa": "آدمِ مشهور، سلبریتی",
+      "translationAr": "شخص مشهور، نجم",
+      "explanationFa": "قابلِ شمارش است (a celebrity، celebrities)؛ در رایتینگ مترادف‌هایش: famous people، stars، well-known figures.",
+      "explanationAr": "اسم معدود، ومن مرادفاته في الكتابة famous people وstars.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in their memory": {
+      "headword": "in someone's memory",
+      "forms": [
+        "in their memory",
+        "in his memory",
+        "in her memory"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ðeə ˈmeməri/",
+      "pronounceFa": "این دِر مِمِری",
+      "pronounceAr": "إن ذير ميمَري",
+      "translationFa": "به یادِ کسی، برای بزرگداشتِ کسی",
+      "translationAr": "تخليدًا لذكرى",
+      "explanationFa": "items created in their memory یعنی چیزهایی که برای یادبودِ آن‌ها ساخته شده؛ مشابه: in memory of.",
+      "explanationAr": "items created in their memory أي أشياء صُنعت تخليدًا لذكراهم، ومثلها in memory of.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in the end": {
+      "headword": "in the end",
+      "forms": [
+        "in the end"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ði ˈend/",
+      "pronounceFa": "این دی اِند",
+      "pronounceAr": "إن ذي إند",
+      "translationFa": "در نهایت",
+      "translationAr": "في النهاية",
+      "explanationFa": "یعنی «سرانجام، پس از همه‌چیز»؛ با at the end (of) (در پایانِ چیزی) فرق دارد.",
+      "explanationAr": "أي «في نهاية المطاف»، ويختلف عن at the end of (في نهاية شيء).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "profit": {
+      "headword": "profit",
+      "forms": [
+        "profits",
+        "profit"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈprɒfɪt/",
+      "pronounceFa": "پرافیت",
+      "pronounceAr": "بروفِت",
+      "translationFa": "سود",
+      "translationAr": "ربح",
+      "explanationFa": "make a profit / make large profits؛ متضاد: loss. revenue کلِ درآمد است و profit درآمد منهای هزینه.",
+      "explanationAr": "make a profit، وعكسها loss، والفرق أن revenue الإيراد كله وprofit الإيراد بعد التكاليف.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "care for": {
+      "headword": "care for",
+      "forms": [
+        "cared for",
+        "care for"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˈkeə fə/",
+      "pronounceFa": "کِر فُر",
+      "pronounceAr": "كير فور",
+      "translationFa": "مراقبت کردن از",
+      "translationAr": "يعتني بـ",
+      "explanationFa": "care for = look after؛ با care about (اهمیت دادن به) فرق دارد.",
+      "explanationAr": "care for بمعنى look after، وتختلف عن care about (يهتمّ بأمر).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "formally": {
+      "headword": "formally",
+      "forms": [
+        "formally"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈfɔːməli/",
+      "pronounceFa": "فُرمِلی",
+      "pronounceAr": "فورمَلي",
+      "translationFa": "به‌طورِ رسمی",
+      "translationAr": "رسميًّا",
+      "explanationFa": "is formally remembered بازنویسیِ a ceremony to commemorate him در متن است؛ نمونه‌ای از paraphrase در ریدینگ.",
+      "explanationAr": "is formally remembered إعادة صياغة لـ a ceremony to commemorate him في النص.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "reading passage": {
+      "headword": "reading passage",
+      "forms": [
+        "reading passage"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈriːdɪŋ ˌpæsɪdʒ/",
+      "pronounceFa": "ریدینگ پَسیج",
+      "pronounceAr": "ريدنغ باسِج",
+      "translationFa": "متنِ ریدینگ",
+      "translationAr": "نص القراءة",
+      "explanationFa": "در آیلتسِ آکادمیک سه reading passage با حدودِ 40 سؤال دارید.",
+      "explanationAr": "في آيلتس الأكاديمي ثلاثة نصوص قراءة فيها نحو 40 سؤالًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "repetition": {
+      "headword": "repetition",
+      "forms": [
+        "repetition",
+        "repeating"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌrepəˈtɪʃn/",
+      "pronounceFa": "رِپِتیشِن",
+      "pronounceAr": "ريبَتيشَن",
+      "translationFa": "تکرار",
+      "translationAr": "التكرار",
+      "explanationFa": "تکرارِ زیادِ کلمه‌ها در رایتینگ نمره‌ی Lexical Resource را پایین می‌آورد؛ از مترادف و ضمیر استفاده کنید.",
+      "explanationAr": "التكرار الكثير في الكتابة يخفض درجة Lexical Resource، فاستخدموا المرادفات والضمائر.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "develop a paragraph": {
+      "headword": "develop a paragraph",
+      "forms": [
+        "develop a paragraph"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/dɪˌveləp ə ˈpærəɡrɑːf/",
+      "pronounceFa": "دیوِلِپ اِ پَرِگراف",
+      "pronounceAr": "ديفيلَب أ باراغراف",
+      "translationFa": "بسط دادنِ پاراگراف",
+      "translationAr": "تطوير الفقرة",
+      "explanationFa": "یعنی نکته‌ی اصلی را با توضیح، شواهد و مثال گسترش دادن؛ پاراگرافِ بسط‌یافته نمره‌ی Task Response را بالا می‌برد.",
+      "explanationAr": "أي توسيع النقطة الرئيسية بالشرح والأدلة والأمثلة، وهو يرفع درجة Task Response.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "specific support": {
+      "headword": "specific support",
+      "forms": [
+        "specific support"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/spəˌsɪfɪk səˈpɔːt/",
+      "pronounceFa": "اِسپِسیفیک سِپُرت",
+      "pronounceAr": "سبَسيفِك سَبورت",
+      "translationFa": "پشتیبانیِ مشخص (مثال یا شاهدِ دقیق)",
+      "translationAr": "دعم محدّد",
+      "explanationFa": "مثالی واقعی و مشخص (یک فرد، رویداد یا آمار) که نکته‌ی اصلی را ثابت می‌کند، نه جمله‌ای کلی.",
+      "explanationAr": "مثال واقعي محدّد (شخص أو حدث أو إحصاء) يُثبت النقطة الرئيسية، لا جملة عامّة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "blogger": {
+      "headword": "blogger",
+      "forms": [
+        "blogger"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈblɒɡə/",
+      "pronounceFa": "بلاگِر",
+      "pronounceAr": "بلوغَر",
+      "translationFa": "وبلاگ‌نویس",
+      "translationAr": "مدوِّن",
+      "explanationFa": "کسی که blog (وبلاگ) می‌نویسد؛ فعل: blog (blogging).",
+      "explanationAr": "من يكتب مدوّنة (blog)، والفعل blog.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "paparazzi": {
+      "headword": "paparazzi",
+      "forms": [
+        "paparazzi"
+      ],
+      "pos": "noun (plural)",
+      "ipa": "/ˌpæpəˈrætsi/",
+      "pronounceFa": "پَپِرَتسی",
+      "pronounceAr": "بابَراتسي",
+      "translationFa": "پاپاراتزی‌ها (عکاس‌هایی که سلبریتی‌ها را تعقیب می‌کنند)",
+      "translationAr": "مصوّرو المشاهير المتطفّلون",
+      "explanationFa": "کلمه‌ای ایتالیایی و جمع است؛ مفردش paparazzo است و فعلِ جمع می‌گیرد: The paparazzi follow her.",
+      "explanationAr": "كلمة إيطالية بصيغة الجمع، ومفردها paparazzo، وتأخذ فعلًا جمعًا.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "media": {
+      "headword": "media",
+      "forms": [
+        "media"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmiːdiə/",
+      "pronounceFa": "میدیا",
+      "pronounceAr": "ميديا",
+      "translationFa": "رسانه‌ها",
+      "translationAr": "وسائل الإعلام",
+      "explanationFa": "the media = روزنامه، تلویزیون، رادیو و اینترنت؛ هم با فعلِ مفرد و هم جمع می‌آید. social media هم یک نوعِ آن است.",
+      "explanationAr": "the media الصحف والتلفاز والإذاعة والإنترنت، ويأتي مع فعل مفرد أو جمع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fortune": {
+      "headword": "fortune",
+      "forms": [
+        "fortune"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈfɔːtʃuːn/",
+      "pronounceFa": "فُرچون",
+      "pronounceAr": "فورتشون",
+      "translationFa": "ثروت (هنگفت)",
+      "translationAr": "ثروة",
+      "explanationFa": "make a fortune = ثروتِ زیادی به دست آوردن؛ معنای دیگر: بخت (good fortune).",
+      "explanationAr": "make a fortune أي يجمع ثروة طائلة، ومن معانيها أيضًا الحظّ.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "reporter": {
+      "headword": "reporter",
+      "forms": [
+        "reporters",
+        "reporter"
+      ],
+      "pos": "noun",
+      "ipa": "/rɪˈpɔːtə/",
+      "pronounceFa": "ریپُرتِر",
+      "pronounceAr": "ريبورتَر",
+      "translationFa": "خبرنگار",
+      "translationAr": "مراسل صحفي",
+      "explanationFa": "مترادف: journalist؛ reporter بیشتر کسی است که خبرِ رویدادها را گزارش می‌دهد.",
+      "explanationAr": "مرادفها journalist، وreporter غالبًا من ينقل أخبار الأحداث.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "talented": {
+      "headword": "talented",
+      "forms": [
+        "talented"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtæləntɪd/",
+      "pronounceFa": "تَلِنتید",
+      "pronounceAr": "تالَنتِد",
+      "translationFa": "بااستعداد",
+      "translationAr": "موهوب",
+      "explanationFa": "صفتِ talent؛ a talented footballer/singer. مترادفِ قوی‌تر: gifted.",
+      "explanationAr": "صفة من talent، ومرادفها الأقوى gifted.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "wealthy": {
+      "headword": "wealthy",
+      "forms": [
+        "wealthy"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈwelθi/",
+      "pronounceFa": "وِلثی",
+      "pronounceAr": "ويلثي",
+      "translationFa": "ثروتمند",
+      "translationAr": "ثريّ",
+      "explanationFa": "مترادفِ رسمی‌ترِ rich؛ اسمش wealth. در رایتینگ برای پرهیز از تکرارِ rich مفید است.",
+      "explanationAr": "مرادف أرسم لـ rich، والاسم wealth، ومفيد لتجنّب التكرار في الكتابة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "essay title": {
+      "headword": "essay title",
+      "forms": [
+        "essay title"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈeseɪ ˌtaɪtl/",
+      "pronounceFa": "اِسِی تایتِل",
+      "pronounceAr": "إيسي تايتَل",
+      "translationFa": "عنوانِ مقاله (صورتِ سؤالِ رایتینگ)",
+      "translationAr": "عنوان المقالة",
+      "explanationFa": "در تسکِ 2 رایتینگ، essay title را با دقت بخوانید و نوعِ سؤال (agree/disagree، advantages/disadvantages) را تشخیص دهید.",
+      "explanationAr": "في المهمّة الثانية اقرؤوا عنوان المقالة بعناية وحدّدوا نوع السؤال.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "good cause": {
+      "headword": "good cause",
+      "forms": [
+        "good causes",
+        "good cause"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɡʊd ˈkɔːz/",
+      "pronounceFa": "گود کُز",
+      "pronounceAr": "غود كوز",
+      "translationFa": "کارِ خیر، هدفِ نیک",
+      "translationAr": "قضية خيّرة",
+      "explanationFa": "سازمان یا هدفی خیریه که ارزشِ حمایت دارد: help good causes، raise money for a good cause.",
+      "explanationAr": "هدف أو منظمة خيرية تستحقّ الدعم: raise money for a good cause.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "charity": {
+      "headword": "charity",
+      "forms": [
+        "charity"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtʃærəti/",
+      "pronounceFa": "چَرِتی",
+      "pronounceAr": "تشارَتي",
+      "translationFa": "خیریه، مؤسسه‌ی خیریه",
+      "translationAr": "جمعية خيرية، عمل خيري",
+      "explanationFa": "give money to charity (بدونِ a) یعنی به امورِ خیریه پول دادن؛ a charity یک مؤسسه‌ی خیریه است.",
+      "explanationAr": "give money to charity دون أداة تعني التبرّع للأعمال الخيرية، وa charity جمعية خيرية.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in this way": {
+      "headword": "in this way",
+      "forms": [
+        "in this way"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˈðɪs weɪ/",
+      "pronounceFa": "این دیس وِی",
+      "pronounceAr": "إن ذِس وي",
+      "translationFa": "به این ترتیب، از این راه",
+      "translationAr": "بهذه الطريقة",
+      "explanationFa": "عبارتِ ربطِ رایتینگ برای نشان دادنِ نتیجه‌ی آنچه گفته شد؛ مشابه: as a result.",
+      "explanationAr": "عبارة ربط في الكتابة لبيان نتيجة ما سبق، ومثلها as a result.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "make a difference": {
+      "headword": "make a difference",
+      "forms": [
+        "make a real difference",
+        "make a difference"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌmeɪk ə ˈdɪfrəns/",
+      "pronounceFa": "مِیک اِ دیفرِنس",
+      "pronounceAr": "ميك أ ديفرَنس",
+      "translationFa": "تأثیرِ مثبت گذاشتن، تغییر ایجاد کردن",
+      "translationAr": "يُحدث فرقًا",
+      "explanationFa": "make a (real/big) difference to/in something؛ با make (نه do) می‌آید.",
+      "explanationAr": "make a (real) difference in something، وتأتي مع make لا do.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "rewrite": {
+      "headword": "rewrite",
+      "forms": [
+        "rewrite"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌriːˈraɪt/",
+      "pronounceFa": "ری‌رایت",
+      "pronounceAr": "ري رايت",
+      "translationFa": "بازنویسی کردن",
+      "translationAr": "يعيد كتابة",
+      "explanationFa": "پیشوندِ re- یعنی «دوباره»: rewrite، rephrase، reread. در تمرینِ واژگانِ رایتینگ زیاد می‌آید.",
+      "explanationAr": "البادئة re- تعني «مجدّدًا»: rewrite وrephrase وreread.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "positive aspect": {
+      "headword": "positive aspect",
+      "forms": [
+        "positive aspects",
+        "positive aspect"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpɒzətɪv ˈæspekt/",
+      "pronounceFa": "پازِتیو اَسپِکت",
+      "pronounceAr": "بوزَتِف آسبكت",
+      "translationFa": "جنبه‌ی مثبت",
+      "translationAr": "جانب إيجابي",
+      "explanationFa": "مترادفِ advantage و benefit برای پرهیز از تکرار در مقاله‌های advantages/disadvantages.",
+      "explanationAr": "مرادف لـ advantage وbenefit لتجنّب التكرار في مقالات المزايا والعيوب.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "negative aspect": {
+      "headword": "negative aspect",
+      "forms": [
+        "negative aspects",
+        "negative aspect"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌneɡətɪv ˈæspekt/",
+      "pronounceFa": "نِگِتیو اَسپِکت",
+      "pronounceAr": "نيغَتِف آسبكت",
+      "translationFa": "جنبه‌ی منفی",
+      "translationAr": "جانب سلبي",
+      "explanationFa": "مترادفِ disadvantage و drawback؛ the negative aspect of something.",
+      "explanationAr": "مرادف لـ disadvantage وdrawback: the negative aspect of something.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "private life": {
+      "headword": "private life",
+      "forms": [
+        "private life"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpraɪvət ˈlaɪf/",
+      "pronounceFa": "پرایوِت لایف",
+      "pronounceAr": "برايفَت لايف",
+      "translationFa": "زندگیِ خصوصی",
+      "translationAr": "الحياة الخاصة",
+      "explanationFa": "در برابرِ public life؛ موضوعِ رایجِ مقاله‌های شهرت. اسمِ مرتبط: privacy.",
+      "explanationAr": "في مقابل public life، وموضوع شائع في مقالات الشهرة، والاسم المرتبط privacy.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be affected by": {
+      "headword": "be affected by",
+      "forms": [
+        "badly affected by",
+        "affected by"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/bi əˈfektɪd baɪ/",
+      "pronounceFa": "بی اِفِکتید بای",
+      "pronounceAr": "بي أفيكتِد باي",
+      "translationFa": "تحتِ تأثیر قرار گرفتن",
+      "translationAr": "يتأثّر بـ",
+      "explanationFa": "affect فعل است و effect اسم: The pressure affects them / has an effect on them.",
+      "explanationAr": "affect فعل وeffect اسم: The pressure affects them أو has an effect on them.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "pronoun": {
+      "headword": "pronoun",
+      "forms": [
+        "pronouns",
+        "pronoun"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈprəʊnaʊn/",
+      "pronounceFa": "پرُناون",
+      "pronounceAr": "برونَاون",
+      "translationFa": "ضمیر",
+      "translationAr": "ضمير",
+      "explanationFa": "he، she، it، they، one، ours…؛ در رایتینگ برای پرهیز از تکرار و افزایشِ انسجام (cohesion) به کار می‌رود.",
+      "explanationAr": "مثل he وit وone وours، وتُستخدم في الكتابة لتجنّب التكرار وتحقيق الترابط.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "specific examples": {
+      "headword": "specific examples",
+      "forms": [
+        "specific examples",
+        "specific example"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/spəˌsɪfɪk ɪɡˈzɑːmplz/",
+      "pronounceFa": "اِسپِسیفیک ایگزامپِلز",
+      "pronounceAr": "سبَسيفِك إغزامبَلز",
+      "translationFa": "مثال‌های مشخص",
+      "translationAr": "أمثلة محدّدة",
+      "explanationFa": "در برابرِ مثالِ کلی؛ نامِ یک فرد، یک رویداد یا آماری دقیق. دستورِ تسکِ 2: include any relevant examples.",
+      "explanationAr": "في مقابل المثال العامّ: اسم شخص أو حدث أو إحصاء دقيق.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "criticise": {
+      "headword": "criticise",
+      "forms": [
+        "criticised",
+        "criticise",
+        "criticize"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈkrɪtɪsaɪz/",
+      "pronounceFa": "کریتیسایز",
+      "pronounceAr": "كريتِسايز",
+      "translationFa": "انتقاد کردن",
+      "translationAr": "ينتقد",
+      "explanationFa": "املای بریتانیایی -ise و آمریکایی -ize؛ criticise someone for something؛ اسم: criticism.",
+      "explanationAr": "الإملاء البريطاني -ise والأمريكي -ize، والاسم criticism.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "overwork": {
+      "headword": "overwork",
+      "forms": [
+        "overwork"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌəʊvəˈwɜːk/",
+      "pronounceFa": "اُوِروِرک",
+      "pronounceAr": "أوفَروِرك",
+      "translationFa": "کارِ بیش از حد",
+      "translationAr": "الإفراط في العمل",
+      "explanationFa": "پیشوندِ over- یعنی «بیش از حد»: overwork، overused، overpriced. become ill due to overwork.",
+      "explanationAr": "البادئة over- تعني «أكثر من اللازم»: overwork وoverused.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in public view": {
+      "headword": "in public view",
+      "forms": [
+        "in public view"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˌpʌblɪk ˈvjuː/",
+      "pronounceFa": "این پابلیک ویو",
+      "pronounceAr": "إن بابلِك فيو",
+      "translationFa": "در معرضِ دیدِ عموم",
+      "translationAr": "تحت أنظار العامّة",
+      "explanationFa": "مشابه: in the public eye (همیشه زیرِ نگاهِ مردم و رسانه‌ها بودن).",
+      "explanationAr": "ومثلها in the public eye.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be worth": {
+      "headword": "be worth",
+      "forms": [
+        "is worth"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/bi ˈwɜːθ/",
+      "pronounceFa": "بی وِرث",
+      "pronounceAr": "بي ويرث",
+      "translationFa": "دارایی داشتن به ارزشِ…؛ ارزیدن",
+      "translationAr": "تبلغ ثروته…؛ يساوي",
+      "explanationFa": "He is worth $350 million یعنی دارایی‌اش این مقدار است؛ worth پس از خود مستقیم مبلغ یا -ing می‌گیرد.",
+      "explanationAr": "He is worth $350 million أي تبلغ ثروته هذا المبلغ، وتأخذ worth بعدها المبلغ أو -ing مباشرة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "donate": {
+      "headword": "donate",
+      "forms": [
+        "donates",
+        "donate"
+      ],
+      "pos": "verb",
+      "ipa": "/dəʊˈneɪt/",
+      "pronounceFa": "دُنِیت",
+      "pronounceAr": "دونيت",
+      "translationFa": "اهدا کردن، بخشیدن",
+      "translationAr": "يتبرّع",
+      "explanationFa": "donate money to charity؛ اسم: donation. رسمی‌تر از give.",
+      "explanationAr": "donate money to charity، والاسم donation، وهي أرسم من give.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "replace": {
+      "headword": "replace",
+      "forms": [
+        "replace"
+      ],
+      "pos": "verb",
+      "ipa": "/rɪˈpleɪs/",
+      "pronounceFa": "ریپلِیس",
+      "pronounceAr": "ريبليس",
+      "translationFa": "جایگزین کردن",
+      "translationAr": "يستبدل",
+      "explanationFa": "replace A with B یعنی B را به جای A گذاشتن؛ در دستورِ تمرین‌ها زیاد می‌آید.",
+      "explanationAr": "replace A with B أي يضع B مكان A، وتكثر في تعليمات التمارين.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "protect from": {
+      "headword": "protect from",
+      "forms": [
+        "protect people from",
+        "protect from"
+      ],
+      "pos": "verb",
+      "ipa": "/prəˈtekt frəm/",
+      "pronounceFa": "پرُتِکت فرام",
+      "pronounceAr": "بروتِكت فروم",
+      "translationFa": "محافظت کردن در برابرِ",
+      "translationAr": "يحمي من",
+      "explanationFa": "protect somebody/something from (یا against) something؛ اسم: protection.",
+      "explanationAr": "protect somebody from (أو against) something، والاسم protection.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ban": {
+      "headword": "ban",
+      "forms": [
+        "banning",
+        "banned",
+        "ban"
+      ],
+      "pos": "verb",
+      "ipa": "/bæn/",
+      "pronounceFa": "بَن",
+      "pronounceAr": "بان",
+      "translationFa": "ممنوع کردن",
+      "translationAr": "يحظر، يمنع",
+      "explanationFa": "ban something / ban somebody from doing something؛ رسمی‌تر و قوی‌تر از not allow. اسمش هم ban است.",
+      "explanationAr": "ban something أو ban somebody from doing something، وهي أقوى من not allow، والاسم ban أيضًا.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "strongly agree": {
+      "headword": "strongly agree",
+      "forms": [
+        "strongly agree"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌstrɒŋli əˈɡriː/",
+      "pronounceFa": "اِسترانگلی اِگری",
+      "pronounceAr": "سترونغلي أغري",
+      "translationFa": "کاملاً موافق بودن",
+      "translationAr": "يوافق بشدّة",
+      "explanationFa": "برای پاسخ به سؤالِ To what extent… درجه‌ی موافقت را روشن نشان می‌دهد؛ مقابل: strongly disagree.",
+      "explanationAr": "توضّح درجة الموافقة في أسئلة To what extent…، وعكسها strongly disagree.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "strongly disagree": {
+      "headword": "strongly disagree",
+      "forms": [
+        "strongly disagree"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌstrɒŋli ˌdɪsəˈɡriː/",
+      "pronounceFa": "اِسترانگلی دیسِگری",
+      "pronounceAr": "سترونغلي ديسَغري",
+      "translationFa": "کاملاً مخالف بودن",
+      "translationAr": "يعارض بشدّة",
+      "explanationFa": "در مقدمه‌ی مقاله‌ی agree/disagree نظرِ قاطع را بیان می‌کند؛ نرم‌ترش: I tend to disagree.",
+      "explanationAr": "تعبّر عن رأي حاسم في مقدّمة المقالة، والأخفّ منها I tend to disagree.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "have the right to": {
+      "headword": "have the right to",
+      "forms": [
+        "have the right to"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/hæv ðə ˈraɪt tə/",
+      "pronounceFa": "هَو دِ رایت تو",
+      "pronounceAr": "هاف ذَ رايت تو",
+      "translationFa": "حق داشتن که…",
+      "translationAr": "له الحقّ في",
+      "explanationFa": "have the right to + مصدر (have the right to privacy با اسم هم می‌آید)؛ عبارتِ پرکاربرد در مقاله‌های اجتماعی.",
+      "explanationAr": "have the right to + المصدر أو الاسم (the right to privacy)، شائعة في المقالات الاجتماعية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "opposite opinion": {
+      "headword": "opposite opinion",
+      "forms": [
+        "opposite opinion"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɒpəzɪt əˈpɪnjən/",
+      "pronounceFa": "آپِزیت اِپینیِن",
+      "pronounceAr": "أوبَزِت أبينيَن",
+      "translationFa": "دیدگاهِ مخالف",
+      "translationAr": "الرأي المخالف",
+      "explanationFa": "در مقاله‌ی agree/disagree اشاره‌ی کوتاه به opposite opinion و رد کردنِ آن، استدلال را قوی‌تر و متعادل‌تر نشان می‌دهد.",
+      "explanationAr": "في مقالة الموافقة والمعارضة، الإشارة الموجزة إلى الرأي المخالف ثم ردّه تجعل الحجّة أقوى.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "acknowledge": {
+      "headword": "acknowledge",
+      "forms": [
+        "acknowledges",
+        "acknowledge"
+      ],
+      "pos": "verb",
+      "ipa": "/əkˈnɒlɪdʒ/",
+      "pronounceFa": "اِکنالیج",
+      "pronounceAr": "أكنولِج",
+      "translationFa": "پذیرفتن، تصدیق کردن",
+      "translationAr": "يعترف بـ، يُقرّ بـ",
+      "explanationFa": "در رایتینگ برای پذیرفتنِ نظرِ مخالف پیش از رد کردنش: While I acknowledge that…, I believe…",
+      "explanationAr": "يُستخدم في الكتابة للإقرار بالرأي المخالف قبل ردّه: While I acknowledge that…",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "opposing argument": {
+      "headword": "opposing argument",
+      "forms": [
+        "opposing arguments",
+        "opposing argument"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/əˌpəʊzɪŋ ˈɑːɡjumənt/",
+      "pronounceFa": "اِپُوزینگ آرگیومِنت",
+      "pronounceAr": "أبوزنغ آرغيومَنت",
+      "translationFa": "استدلالِ مخالف",
+      "translationAr": "الحجّة المخالفة",
+      "explanationFa": "استدلالِ طرفِ مقابل؛ در رایتینگ با عبارت‌هایی مثلِ Some people argue that… معرفی می‌شود.",
+      "explanationAr": "حجّة الطرف الآخر، وتُقدَّم في الكتابة بعبارات مثل Some people argue that…",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "restate": {
+      "headword": "restate",
+      "forms": [
+        "restate"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌriːˈsteɪt/",
+      "pronounceFa": "ری‌اِستِیت",
+      "pronounceAr": "ري ستيت",
+      "translationFa": "دوباره بیان کردن (با کلماتِ دیگر)",
+      "translationAr": "يعيد التأكيد/الصياغة",
+      "explanationFa": "در نتیجه‌گیریِ مقاله نظرتان را restate کنید، اما با کلماتی متفاوت از مقدمه.",
+      "explanationAr": "في خاتمة المقالة أعيدوا ذكر رأيكم بكلمات مختلفة عن المقدّمة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fair on": {
+      "headword": "fair on",
+      "forms": [
+        "fair on"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˈfeər ɒn/",
+      "pronounceFa": "فِر آن",
+      "pronounceAr": "فير أون",
+      "translationFa": "منصفانه در حقِ",
+      "translationAr": "عادل بحقّ",
+      "explanationFa": "It is not fair on/to someone؛ on در انگلیسیِ بریتانیایی رایج است. متضاد: unfair.",
+      "explanationAr": "It is not fair on/to someone، وon شائعة في الإنجليزية البريطانية، والعكس unfair.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "particularly": {
+      "headword": "particularly",
+      "forms": [
+        "particularly"
+      ],
+      "pos": "adverb",
+      "ipa": "/pəˈtɪkjələli/",
+      "pronounceFa": "پِتیکیولِلی",
+      "pronounceAr": "بَتيكيولَلي",
+      "translationFa": "به‌ویژه",
+      "translationAr": "خاصّةً، ولا سيّما",
+      "explanationFa": "برای برجسته کردنِ یک نمونه: particularly important ones. مترادف: especially، in particular.",
+      "explanationAr": "لإبراز مثال بعينه، ومرادفاتها especially وin particular.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "royal family": {
+      "headword": "royal family",
+      "forms": [
+        "royal family"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌrɔɪəl ˈfæməli/",
+      "pronounceFa": "رُویِل فَمِلی",
+      "pronounceAr": "رويَل فامَلي",
+      "translationFa": "خانواده‌ی سلطنتی",
+      "translationAr": "العائلة المالكة",
+      "explanationFa": "the British royal family؛ اسمِ مرتبط: royalty (اعضای خانواده‌ی سلطنتی).",
+      "explanationAr": "the British royal family، والاسم المرتبط royalty.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "disagree with": {
+      "headword": "disagree with",
+      "forms": [
+        "disagree with"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌdɪsəˈɡriː wɪð/",
+      "pronounceFa": "دیسِگری ویذ",
+      "pronounceAr": "ديسَغري وِذ",
+      "translationFa": "مخالف بودن با",
+      "translationAr": "يختلف مع، يعارض",
+      "explanationFa": "disagree with someone/something؛ disagree about a topic. پس از آن that-clause هم می‌آید: I disagree that…",
+      "explanationAr": "disagree with someone/something، وقد تتبعها that-clause.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "far too much": {
+      "headword": "far too much",
+      "forms": [
+        "far too much"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌfɑː tuː ˈmʌtʃ/",
+      "pronounceFa": "فار تو ماچ",
+      "pronounceAr": "فار تو ماتش",
+      "translationFa": "خیلی بیش از حد",
+      "translationAr": "أكثر من اللازم بكثير",
+      "explanationFa": "far برای تأکید بر too می‌آید: far too much money، far too many people.",
+      "explanationAr": "far تؤكّد too: far too much money، وfar too many people.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "deserve": {
+      "headword": "deserve",
+      "forms": [
+        "deserve"
+      ],
+      "pos": "verb",
+      "ipa": "/dɪˈzɜːv/",
+      "pronounceFa": "دیزِرو",
+      "pronounceAr": "ديزيرف",
+      "translationFa": "سزاوار بودن، لیاقت داشتن",
+      "translationAr": "يستحقّ",
+      "explanationFa": "deserve something / deserve to do something؛ در زمانِ استمراری به کار نمی‌رود.",
+      "explanationAr": "deserve something أو deserve to do something، ولا تُستخدم في الزمن المستمر.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "excessive": {
+      "headword": "excessive",
+      "forms": [
+        "excessive"
+      ],
+      "pos": "adjective",
+      "ipa": "/ɪkˈsesɪv/",
+      "pronounceFa": "ایکسِسیو",
+      "pronounceAr": "إكسيسِف",
+      "translationFa": "گزاف، بیش از حد",
+      "translationAr": "مفرط",
+      "explanationFa": "صفتی آکادمیک برای too much: excessive amounts of money؛ از exceed (فراتر رفتن).",
+      "explanationAr": "صفة أكاديمية بمعنى too much، من الفعل exceed.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "argue": {
+      "headword": "argue",
+      "forms": [
+        "argue"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈɑːɡjuː/",
+      "pronounceFa": "آرگیو",
+      "pronounceAr": "آرغيو",
+      "translationFa": "استدلال کردن",
+      "translationAr": "يحتجّ، يجادل",
+      "explanationFa": "Some people argue that… برای معرفیِ دیدگاهِ دیگران در رایتینگ؛ معنای دیگر: دعوا کردن (argue with someone).",
+      "explanationAr": "Some people argue that… لعرض آراء الآخرين، ومن معانيها أيضًا يتشاجر.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "possess": {
+      "headword": "possess",
+      "forms": [
+        "possess"
+      ],
+      "pos": "verb",
+      "ipa": "/pəˈzes/",
+      "pronounceFa": "پِزِس",
+      "pronounceAr": "بَزيس",
+      "translationFa": "داشتن، دارا بودن",
+      "translationAr": "يمتلك",
+      "explanationFa": "رسمی‌ترِ have: possess a talent/skill؛ اسم: possession.",
+      "explanationAr": "أرسم من have: possess a talent، والاسم possession.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "incredibly": {
+      "headword": "incredibly",
+      "forms": [
+        "incredibly"
+      ],
+      "pos": "adverb",
+      "ipa": "/ɪnˈkredəbli/",
+      "pronounceFa": "اینکرِدِبلی",
+      "pronounceAr": "إنكريدَبلي",
+      "translationFa": "به‌طرزِ باورنکردنی، بی‌نهایت",
+      "translationAr": "بشكل مذهل، للغاية",
+      "explanationFa": "قیدِ تأکید پیش از صفت یا قید: incredibly hard/difficult؛ قوی‌تر از very.",
+      "explanationAr": "ظرف تأكيد قبل الصفة أو الظرف، أقوى من very.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "demand": {
+      "headword": "demand",
+      "forms": [
+        "demand"
+      ],
+      "pos": "noun",
+      "ipa": "/dɪˈmɑːnd/",
+      "pronounceFa": "دیماند",
+      "pronounceAr": "ديماند",
+      "translationFa": "تقاضا",
+      "translationAr": "الطلب",
+      "explanationFa": "create/increase demand for something؛ متضادش در اقتصاد: supply (عرضه).",
+      "explanationAr": "create demand for something، ومقابلها في الاقتصاد supply.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "low income": {
+      "headword": "low income",
+      "forms": [
+        "low incomes",
+        "low income"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌləʊ ˈɪnkʌm/",
+      "pronounceFa": "لُو اینکام",
+      "pronounceAr": "لو إنكام",
+      "translationFa": "درآمدِ کم",
+      "translationAr": "الدخل المنخفض",
+      "explanationFa": "people on/with low incomes؛ صفتِ مرکب: low-income families.",
+      "explanationAr": "people on/with low incomes، والصفة المركّبة low-income families.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "no longer": {
+      "headword": "no longer",
+      "forms": [
+        "no longer"
+      ],
+      "pos": "adverb",
+      "ipa": "/nəʊ ˈlɒŋɡə/",
+      "pronounceFa": "نُو لانگِر",
+      "pronounceAr": "نو لونغَر",
+      "translationFa": "دیگر … نه",
+      "translationAr": "لم يعد",
+      "explanationFa": "پیش از فعلِ اصلی می‌آید: Children no longer want…؛ معادلِ not … any more، اما رسمی‌تر.",
+      "explanationAr": "تأتي قبل الفعل الرئيسي، وتعادل not … any more لكنها أرسم.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "to conclude": {
+      "headword": "to conclude",
+      "forms": [
+        "to conclude"
+      ],
+      "pos": "phrase",
+      "ipa": "/tə kənˈkluːd/",
+      "pronounceFa": "تو کِنکلود",
+      "pronounceAr": "تو كَنكلود",
+      "translationFa": "در پایان، در نتیجه‌گیری",
+      "translationAr": "ختامًا",
+      "explanationFa": "عبارتِ شروعِ نتیجه‌گیری در مقاله؛ مترادف: In conclusion، To sum up.",
+      "explanationAr": "عبارة لبدء الخاتمة، ومرادفاتها In conclusion وTo sum up.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "essential workers": {
+      "headword": "essential workers",
+      "forms": [
+        "essential workers"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ɪˌsenʃl ˈwɜːkəz/",
+      "pronounceFa": "ایسِنشِل وِرکِرز",
+      "pronounceAr": "إسينشَل ويركَرز",
+      "translationFa": "کارکنانِ ضروری (مشاغلِ حیاتی)",
+      "translationAr": "العاملون الأساسيون",
+      "explanationFa": "مثلِ پرستار، معلم و پلیس که جامعه بدونِ آن‌ها نمی‌چرخد؛ در مقاله‌های حقوق و درآمد مفید است.",
+      "explanationAr": "مثل الممرّضين والمعلّمين والشرطة، ومفيدة في مقالات الأجور.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "salary": {
+      "headword": "salary",
+      "forms": [
+        "salaries",
+        "salary"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsæləri/",
+      "pronounceFa": "سَلِری",
+      "pronounceAr": "سالَري",
+      "translationFa": "حقوق (ماهانه/سالانه)",
+      "translationAr": "الراتب",
+      "explanationFa": "receive/earn a salary؛ salary معمولاً سالانه و ثابت است، ولی wage دستمزدِ ساعتی یا هفتگی است.",
+      "explanationAr": "receive a salary، والراتب ثابت سنوي غالبًا بخلاف wage الأجر بالساعة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "reward": {
+      "headword": "reward",
+      "forms": [
+        "reward"
+      ],
+      "pos": "verb",
+      "ipa": "/rɪˈwɔːd/",
+      "pronounceFa": "ریوُرد",
+      "pronounceAr": "ريوورد",
+      "translationFa": "پاداش دادن",
+      "translationAr": "يكافئ",
+      "explanationFa": "reward someone for something؛ اسمش هم reward است. صفت: rewarding (رضایت‌بخش).",
+      "explanationAr": "reward someone for something، والاسم reward، والصفة rewarding (مُجزٍ).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "supply and demand": {
+      "headword": "supply and demand",
+      "forms": [
+        "supply and demand"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/səˌplaɪ ənd dɪˈmɑːnd/",
+      "pronounceFa": "سِپلای اِند دیماند",
+      "pronounceAr": "سَبلاي أند ديماند",
+      "translationFa": "عرضه و تقاضا",
+      "translationAr": "العرض والطلب",
+      "explanationFa": "ترتیبِ ثابت دارد (نه demand and supply)؛ It is a case of supply and demand.",
+      "explanationAr": "ترتيبها ثابت (لا demand and supply).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "flow-chart": {
+      "headword": "flow-chart",
+      "forms": [
+        "flow-charts",
+        "flow-chart",
+        "flowchart"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈfləʊ tʃɑːt/",
+      "pronounceFa": "فلُو چارت",
+      "pronounceAr": "فلو تشارت",
+      "translationFa": "فلوچارت، نمودارِ گردشی",
+      "translationAr": "مخطّط سير العمليات",
+      "explanationFa": "نموداری با کادر و پیکان که مراحلِ یک فرایند را نشان می‌دهد؛ در لیسنینگ و ریدینگِ آیلتس سؤالِ تکمیلی دارد.",
+      "explanationAr": "مخطّط بمربّعات وأسهم يوضّح مراحل عملية، وله أسئلة إكمال في الاستماع والقراءة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "flow-chart completion": {
+      "headword": "flow-chart completion",
+      "forms": [
+        "flow-chart completion"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈfləʊ tʃɑːt kəmˌpliːʃn/",
+      "pronounceFa": "فلُو چارت کِمپلیشِن",
+      "pronounceAr": "فلو تشارت كَمبليشَن",
+      "translationFa": "تکمیلِ فلوچارت",
+      "translationAr": "إكمال مخطّط سير العمليات",
+      "explanationFa": "نوعی سؤالِ آیلتس: جاهای خالیِ فلوچارت را با کلمه‌هایی از متن/فایلِ صوتی یا از فهرستِ گزینه‌ها پر می‌کنید؛ پاسخ‌ها به ترتیب‌اند.",
+      "explanationAr": "نوع من أسئلة آيلتس تُملأ فيه فراغات المخطّط بكلمات من النص أو التسجيل أو من قائمة، والإجابات بالترتيب.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "music executive": {
+      "headword": "music executive",
+      "forms": [
+        "music executive"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈmjuːzɪk ɪɡˌzekjətɪv/",
+      "pronounceFa": "میوزیک ایگزِکیوتیو",
+      "pronounceAr": "ميوزِك إغزيكيوتِف",
+      "translationFa": "مدیرِ اجرایی در صنعتِ موسیقی",
+      "translationAr": "مدير تنفيذي في صناعة الموسيقى",
+      "explanationFa": "executive یعنی مدیرِ ارشدِ یک شرکت؛ در اینجا کسی در شرکتِ ضبطِ موسیقی که هنرمندانِ تازه را کشف می‌کند.",
+      "explanationAr": "executive مدير كبير في شركة، وهنا شخص في شركة تسجيل يكتشف المواهب.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "superstar": {
+      "headword": "superstar",
+      "forms": [
+        "superstar"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsuːpəstɑː/",
+      "pronounceFa": "سوپِراِستار",
+      "pronounceAr": "سوبَرستار",
+      "translationFa": "سوپراستار، ستاره‌ی بزرگ",
+      "translationAr": "نجم كبير",
+      "explanationFa": "a global superstar؛ پیشوندِ super- یعنی «فوق‌العاده».",
+      "explanationAr": "a global superstar، والبادئة super- تعني «فائق».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "lead to": {
+      "headword": "lead to",
+      "forms": [
+        "led you to",
+        "lead to"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈliːd tə/",
+      "pronounceFa": "لید تو",
+      "pronounceAr": "ليد تو",
+      "translationFa": "منجر شدن به؛ کسی را به کاری واداشتن",
+      "translationAr": "يؤدّي إلى؛ يدفع إلى",
+      "explanationFa": "lead to + اسم (lead to problems) یا lead someone to do something؛ گذشته: led.",
+      "explanationAr": "lead to + اسم أو lead someone to do something، والماضي led.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "gap": {
+      "headword": "gap",
+      "forms": [
+        "gaps",
+        "gap"
+      ],
+      "pos": "noun",
+      "ipa": "/ɡæp/",
+      "pronounceFa": "گَپ",
+      "pronounceAr": "غاب",
+      "translationFa": "جای خالی",
+      "translationAr": "الفراغ",
+      "explanationFa": "fill the gaps / fill in the gaps یعنی جاهای خالی را پر کردن؛ در دستورِ تمرین‌های تکمیلی زیاد می‌آید.",
+      "explanationAr": "fill the gaps أي يملأ الفراغات، وتكثر في تعليمات تمارين الإكمال.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "grammatical form": {
+      "headword": "grammatical form",
+      "forms": [
+        "grammatical forms",
+        "grammatical form"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ɡrəˌmætɪkl ˈfɔːm/",
+      "pronounceFa": "گرِمَتیکِل فُرم",
+      "pronounceAr": "غرَماتِكَل فورم",
+      "translationFa": "نوع/شکلِ دستوری",
+      "translationAr": "الصيغة النحوية",
+      "explanationFa": "پیش از شنیدن، با نگاه به کلمه‌های قبل و بعدِ جای خالی، grammatical form (اسم، فعل، صفت، جمع/مفرد) را پیش‌بینی کنید.",
+      "explanationAr": "توقّعوا الصيغة النحوية قبل الاستماع بالنظر إلى الكلمات قبل الفراغ وبعده.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "missing word": {
+      "headword": "missing word",
+      "forms": [
+        "missing words",
+        "missing word"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌmɪsɪŋ ˈwɜːd/",
+      "pronounceFa": "میسینگ وِرد",
+      "pronounceAr": "مِسِنغ ويرد",
+      "translationFa": "کلمه‌ی جاافتاده",
+      "translationAr": "الكلمة الناقصة",
+      "explanationFa": "کلمه‌ای که باید در جای خالی بنویسید؛ املای درستِ آن در لیسنینگ اهمیت دارد.",
+      "explanationAr": "الكلمة التي تُكتب في الفراغ، والتهجئة الصحيحة مهمّة في الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "recognise": {
+      "headword": "recognise",
+      "forms": [
+        "recognise",
+        "recognize"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈrekəɡnaɪz/",
+      "pronounceFa": "رِکِگنایز",
+      "pronounceAr": "ريكَغنايز",
+      "translationFa": "شناختن، به جا آوردن",
+      "translationAr": "يتعرّف على",
+      "explanationFa": "املای بریتانیایی recognise و آمریکایی recognize؛ هر دو در آیلتس پذیرفته‌اند. اسم: recognition.",
+      "explanationAr": "الإملاء البريطاني recognise والأمريكي recognize، وكلاهما مقبول في آيلتس.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "journalist": {
+      "headword": "journalist",
+      "forms": [
+        "journalists",
+        "journalist"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈdʒɜːnəlɪst/",
+      "pronounceFa": "جِرنِلیست",
+      "pronounceAr": "جيرنَلِست",
+      "translationFa": "روزنامه‌نگار",
+      "translationAr": "صحفي",
+      "explanationFa": "کسی که برای روزنامه، مجله یا رسانه‌ای خبری می‌نویسد؛ اسمِ رشته: journalism.",
+      "explanationAr": "من يكتب لصحيفة أو وسيلة إعلام، واسم المجال journalism.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "acceptable": {
+      "headword": "acceptable",
+      "forms": [
+        "acceptable"
+      ],
+      "pos": "adjective",
+      "ipa": "/əkˈseptəbl/",
+      "pronounceFa": "اِکسِپتِبِل",
+      "pronounceAr": "أكسيبتَبَل",
+      "translationFa": "قابلِ قبول",
+      "translationAr": "مقبول",
+      "explanationFa": "پسوندِ -able صفت می‌سازد (accept + able)؛ متضاد: unacceptable.",
+      "explanationAr": "اللاحقة -able تصنع صفة (accept + able)، والعكس unacceptable.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "special treatment": {
+      "headword": "special treatment",
+      "forms": [
+        "special treatment"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌspeʃl ˈtriːtmənt/",
+      "pronounceFa": "اِسپِشِل تریتمِنت",
+      "pronounceAr": "سبيشَل تريتمَنت",
+      "translationFa": "رفتارِ ویژه، امتیازِ خاص",
+      "translationAr": "معاملة خاصة",
+      "explanationFa": "get/receive special treatment؛ treatment در بافتِ پزشکی «درمان» هم معنا می‌دهد.",
+      "explanationAr": "get special treatment، ولكلمة treatment معنى «العلاج» في السياق الطبي.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "mansion": {
+      "headword": "mansion",
+      "forms": [
+        "mansions",
+        "mansion"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmænʃn/",
+      "pronounceFa": "مَنشِن",
+      "pronounceAr": "مانشَن",
+      "translationFa": "عمارتِ مجلل، کاخ",
+      "translationAr": "قصر، دارة فخمة",
+      "explanationFa": "خانه‌ای بسیار بزرگ و گران؛ در توصیفِ سبکِ زندگیِ سلبریتی‌ها رایج است.",
+      "explanationAr": "بيت كبير جدًّا وباهظ، شائع في وصف حياة المشاهير.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fill the gaps": {
+      "headword": "fill the gaps",
+      "forms": [
+        "fill the gaps",
+        "fill in the gaps"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌfɪl ðə ˈɡæps/",
+      "pronounceFa": "فیل دِ گَپس",
+      "pronounceAr": "فِل ذَ غابس",
+      "translationFa": "جاهای خالی را پر کردن",
+      "translationAr": "يملأ الفراغات",
+      "explanationFa": "دستورِ رایجِ تمرین‌های تکمیلی؛ مترادف: complete the gaps.",
+      "explanationAr": "تعليمات شائعة في تمارين الإكمال، ومرادفها complete the gaps.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "as much as possible": {
+      "headword": "as much as possible",
+      "forms": [
+        "as much as possible"
+      ],
+      "pos": "phrase",
+      "ipa": "/əz ˌmʌtʃ əz ˈpɒsəbl/",
+      "pronounceFa": "اَز ماچ اَز پاسیبِل",
+      "pronounceAr": "أز ماتش أز بوسَبَل",
+      "translationFa": "تا جایی که ممکن است",
+      "translationAr": "قدر الإمكان",
+      "explanationFa": "ساختارِ as … as possible: as soon as possible، as close as possible.",
+      "explanationAr": "بنية as … as possible: as soon as possible، وas close as possible.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "market yourself": {
+      "headword": "market yourself",
+      "forms": [
+        "market yourself"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˈmɑːkɪt jəˌself/",
+      "pronounceFa": "مارکیت یُرسِلف",
+      "pronounceAr": "ماركِت يورسيلف",
+      "translationFa": "خودتان را بازاریابی/معرفی کنید",
+      "translationAr": "يسوّق نفسه",
+      "explanationFa": "market در اینجا فعل است (بازاریابی کردن)؛ market a product. در فایلِ صوتی با sell yourself بازنویسی شده است.",
+      "explanationAr": "market هنا فعل بمعنى يسوّق: market a product، وأعيدت صياغتها بـ sell yourself.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "learn from": {
+      "headword": "learn from",
+      "forms": [
+        "learn from"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈlɜːn frəm/",
+      "pronounceFa": "لِرن فرام",
+      "pronounceAr": "ليرن فروم",
+      "translationFa": "درس گرفتن از",
+      "translationAr": "يتعلّم من",
+      "explanationFa": "learn from your mistakes/experience؛ در پاسخ‌های اسپیکینگ درباره‌ی شکست و موفقیت پرکاربرد است.",
+      "explanationAr": "learn from your mistakes/experience، شائعة في المحادثة عن الفشل والنجاح.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "subject matter": {
+      "headword": "subject matter",
+      "forms": [
+        "subject matter"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsʌbdʒɪkt ˌmætə/",
+      "pronounceFa": "سابجِکت مَتِر",
+      "pronounceAr": "سابجِكت ماتَر",
+      "translationFa": "موضوع، محتوا",
+      "translationAr": "الموضوع، المادّة",
+      "explanationFa": "موضوعِ کلیِ یک متن، فیلم یا گفت‌وگو؛ رسمی‌تر از topic.",
+      "explanationAr": "الموضوع العامّ لنص أو فيلم، وأرسم من topic.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "approach": {
+      "headword": "approach",
+      "forms": [
+        "approach"
+      ],
+      "pos": "noun",
+      "ipa": "/əˈprəʊtʃ/",
+      "pronounceFa": "اِپرُوچ",
+      "pronounceAr": "أبروتش",
+      "translationFa": "روش، رویکرد",
+      "translationAr": "نهج، طريقة",
+      "explanationFa": "an approach to + اسم/‌-ing (an approach to handling…)؛ to در اینجا حرفِ اضافه است. فعلش یعنی «نزدیک شدن».",
+      "explanationAr": "an approach to + اسم أو -ing، وto هنا حرف جرّ، والفعل approach بمعنى يقترب.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "technical language": {
+      "headword": "technical language",
+      "forms": [
+        "technical language"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌteknɪkl ˈlæŋɡwɪdʒ/",
+      "pronounceFa": "تِکنیکِل لَنگوِیج",
+      "pronounceAr": "تكنِكَل لانغوِج",
+      "translationFa": "زبانِ فنی، اصطلاحاتِ تخصصی",
+      "translationAr": "اللغة التقنية",
+      "explanationFa": "در آیلتس لازم نیست همه‌ی اصطلاحاتِ فنی را بدانید؛ روی کلمه‌های آشنا و نوعِ کلمه‌ی جاافتاده تمرکز کنید.",
+      "explanationAr": "لا يلزم في آيلتس فهم كل المصطلحات التقنية، فركّزوا على الكلمات المألوفة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "get the best from": {
+      "headword": "get the best from",
+      "forms": [
+        "get the best from",
+        "getting the best from"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌɡet ðə ˈbest frəm/",
+      "pronounceFa": "گِت دِ بِست فرام",
+      "pronounceAr": "غيت ذَ بيست فروم",
+      "translationFa": "بهترین استفاده را بردن از",
+      "translationAr": "يستفيد أقصى استفادة من",
+      "explanationFa": "مشابه: get the most out of / make the most of something.",
+      "explanationAr": "ومثلها get the most out of وmake the most of.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "camcorder": {
+      "headword": "camcorder",
+      "forms": [
+        "camcorders",
+        "camcorder"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkæmkɔːdə/",
+      "pronounceFa": "کَمکُردِر",
+      "pronounceAr": "كامكوردَر",
+      "translationFa": "دوربینِ فیلم‌برداریِ دستی",
+      "translationAr": "كاميرا فيديو محمولة",
+      "explanationFa": "ترکیبی از camera و recorder؛ دوربینی برای ضبطِ ویدیو.",
+      "explanationAr": "مركّبة من camera وrecorder، وهي كاميرا لتسجيل الفيديو.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "automatic function": {
+      "headword": "automatic function",
+      "forms": [
+        "automatic functions",
+        "automatic function"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɔːtəˌmætɪk ˈfʌŋkʃn/",
+      "pronounceFa": "اُتِمَتیک فانکشِن",
+      "pronounceAr": "أوتوماتِك فانكشَن",
+      "translationFa": "کارکردِ خودکار",
+      "translationAr": "الوظيفة التلقائية",
+      "explanationFa": "در برابرِ manual function (کارکردِ دستی)؛ function در اینجا یعنی قابلیتِ یک دستگاه.",
+      "explanationAr": "في مقابل manual function، وfunction هنا خاصية في الجهاز.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "manual": {
+      "headword": "manual",
+      "forms": [
+        "manual"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈmænjuəl/",
+      "pronounceFa": "مَنیوئِل",
+      "pronounceAr": "مانيوأل",
+      "translationFa": "دستی",
+      "translationAr": "يدوي",
+      "explanationFa": "متضادِ automatic: manual controls؛ manual work یعنی کارِ یدی. به‌عنوانِ اسم: دفترچه‌ی راهنما.",
+      "explanationAr": "عكس automatic، وmanual work عمل يدوي، وكاسم: دليل الاستخدام.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "depending on": {
+      "headword": "depending on",
+      "forms": [
+        "depending on"
+      ],
+      "pos": "preposition",
+      "ipa": "/dɪˈpendɪŋ ɒn/",
+      "pronounceFa": "دیپِندینگ آن",
+      "pronounceAr": "ديبيندنغ أون",
+      "translationFa": "بسته به",
+      "translationAr": "تبعًا لـ",
+      "explanationFa": "depending on + اسم یا whether…: depending on whether the object is closer or further away.",
+      "explanationAr": "depending on + اسم أو whether…",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "focus ring": {
+      "headword": "focus ring",
+      "forms": [
+        "focus ring"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈfəʊkəs rɪŋ/",
+      "pronounceFa": "فُوکِس رینگ",
+      "pronounceAr": "فوكَس رينغ",
+      "translationFa": "حلقه‌ی فوکوس",
+      "translationAr": "حلقة التركيز",
+      "explanationFa": "حلقه‌ای روی لنز که با چرخاندنش تصویر واضح می‌شود؛ turn the focus ring clockwise/anti-clockwise.",
+      "explanationAr": "حلقة على العدسة تُدار لتوضيح الصورة.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "adjustable": {
+      "headword": "adjustable",
+      "forms": [
+        "adjustable"
+      ],
+      "pos": "adjective",
+      "ipa": "/əˈdʒʌstəbl/",
+      "pronounceFa": "اِجاستِبِل",
+      "pronounceAr": "أجاستَبَل",
+      "translationFa": "قابلِ تنظیم",
+      "translationAr": "قابل للضبط",
+      "explanationFa": "از adjust (تنظیم کردن) + -able؛ an adjustable opening/seat.",
+      "explanationAr": "من adjust + -able: an adjustable seat.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "aperture": {
+      "headword": "aperture",
+      "forms": [
+        "aperture"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈæpətʃə/",
+      "pronounceFa": "اَپِچِر",
+      "pronounceAr": "آبَتشَر",
+      "translationFa": "دهانه‌ی لنز (دیافراگم)",
+      "translationAr": "فتحة العدسة",
+      "explanationFa": "اصطلاحِ فنیِ عکاسی؛ در متن خودش با an adjustable opening توضیح داده شده است: به توضیحِ داخلِ متن تکیه کنید.",
+      "explanationAr": "مصطلح تقني في التصوير، شُرح في النص بـ an adjustable opening.",
+      "cefrLevel": "C2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "lens": {
+      "headword": "lens",
+      "forms": [
+        "lens"
+      ],
+      "pos": "noun",
+      "ipa": "/lenz/",
+      "pronounceFa": "لِنز",
+      "pronounceAr": "لينز",
+      "translationFa": "عدسی، لنز",
+      "translationAr": "عدسة",
+      "explanationFa": "جمعش lenses است؛ هم برای دوربین و هم عینک (contact lenses).",
+      "explanationAr": "جمعها lenses، وتُستخدم للكاميرا والنظّارات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "exposure": {
+      "headword": "exposure",
+      "forms": [
+        "exposure"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪkˈspəʊʒə/",
+      "pronounceFa": "ایکسپُوژِر",
+      "pronounceAr": "إكسبوجَر",
+      "translationFa": "نوردهی (در عکاسی)؛ در معرض قرار گرفتن",
+      "translationAr": "التعريض للضوء؛ التعرّض",
+      "explanationFa": "در عکاسی مقدارِ نوری که به حسگر می‌رسد؛ معنای عمومی: exposure to the sun/media.",
+      "explanationAr": "في التصوير كمية الضوء الواصلة إلى المستشعر، وعمومًا exposure to the media.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "therefore": {
+      "headword": "therefore",
+      "forms": [
+        "therefore"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈðeəfɔː/",
+      "pronounceFa": "دِرفُر",
+      "pronounceAr": "ذيرفور",
+      "translationFa": "بنابراین، به همین دلیل",
+      "translationAr": "لذلك",
+      "explanationFa": "عبارتِ ربطِ رسمی برای نتیجه؛ در رایتینگ رسمی‌تر از so است.",
+      "explanationAr": "أداة ربط رسمية للنتيجة، وأرسم من so في الكتابة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "over-used": {
+      "headword": "over-used",
+      "forms": [
+        "over-used",
+        "overused"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌəʊvəˈjuːzd/",
+      "pronounceFa": "اُوِریوزد",
+      "pronounceAr": "أوفَر يوزد",
+      "translationFa": "بیش از حد استفاده‌شده",
+      "translationAr": "مُفرَط في استخدامه",
+      "explanationFa": "پیشوندِ over- یعنی «بیش از حد»؛ an over-used word یعنی کلمه‌ای که زیادی تکرار شده است.",
+      "explanationAr": "البادئة over- تعني «أكثر من اللازم»، وan over-used word كلمة مستهلكة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "tripod": {
+      "headword": "tripod",
+      "forms": [
+        "tripod"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtraɪpɒd/",
+      "pronounceFa": "ترایپاد",
+      "pronounceAr": "ترايبود",
+      "translationFa": "سه‌پایه",
+      "translationAr": "حامل ثلاثي القوائم",
+      "explanationFa": "پیشوندِ tri- یعنی «سه» (tripod، triangle).",
+      "explanationAr": "البادئة tri- تعني «ثلاثة».",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "panic": {
+      "headword": "panic",
+      "forms": [
+        "panic"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈpænɪk/",
+      "pronounceFa": "پَنیک",
+      "pronounceAr": "بانِك",
+      "translationFa": "دستپاچه شدن، وحشت کردن",
+      "translationAr": "يذعر",
+      "explanationFa": "Don't panic! گذشته‌اش panicked (با k). در آزمون: آرام بمانید و به سؤال‌های بعدی بروید.",
+      "explanationAr": "Don't panic!، والماضي panicked.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "focus on": {
+      "headword": "focus on",
+      "forms": [
+        "focus on"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈfəʊkəs ɒn/",
+      "pronounceFa": "فُوکِس آن",
+      "pronounceAr": "فوكَس أون",
+      "translationFa": "تمرکز کردن روی",
+      "translationAr": "يركّز على",
+      "explanationFa": "focus on + اسم/‌-ing؛ مترادف: concentrate on.",
+      "explanationAr": "focus on + اسم أو -ing، ومرادفها concentrate on.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "lecture": {
+      "headword": "lecture",
+      "forms": [
+        "lecture"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈlektʃə/",
+      "pronounceFa": "لِکچِر",
+      "pronounceAr": "ليكتشَر",
+      "translationFa": "سخنرانی (آموزشی)",
+      "translationAr": "محاضرة",
+      "explanationFa": "بخشِ 4 لیسنینگِ آیلتس معمولاً یک lecture یا تک‌گوییِ دانشگاهی است. give/attend a lecture.",
+      "explanationAr": "الجزء 4 من استماع آيلتس عادةً محاضرة جامعية.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "plot": {
+      "headword": "plot",
+      "forms": [
+        "plot"
+      ],
+      "pos": "noun",
+      "ipa": "/plɒt/",
+      "pronounceFa": "پلات",
+      "pronounceAr": "بلوت",
+      "translationFa": "پیرنگ، خطِ داستان",
+      "translationAr": "حبكة",
+      "explanationFa": "رشته‌ی رویدادهای یک داستان یا فیلم؛ a simple/complicated plot.",
+      "explanationAr": "سلسلة أحداث القصة أو الفيلم: a simple plot.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "at all times": {
+      "headword": "at all times",
+      "forms": [
+        "at all times"
+      ],
+      "pos": "phrase",
+      "ipa": "/ət ˌɔːl ˈtaɪmz/",
+      "pronounceFa": "اَت اُل تایمز",
+      "pronounceAr": "أت أول تايمز",
+      "translationFa": "همیشه، در همه حال",
+      "translationAr": "في كل الأوقات",
+      "explanationFa": "رسمی‌ترِ always؛ در فایلِ صوتی با carry it everywhere بازنویسی شده است.",
+      "explanationAr": "أرسم من always، وأعيدت صياغتها في التسجيل بـ carry it everywhere.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "screenplay": {
+      "headword": "screenplay",
+      "forms": [
+        "screenplay"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈskriːnpleɪ/",
+      "pronounceFa": "اِسکرین‌پلِی",
+      "pronounceAr": "سكرين بلي",
+      "translationFa": "فیلم‌نامه",
+      "translationAr": "سيناريو",
+      "explanationFa": "متنِ کاملِ فیلم شاملِ صحنه‌ها، دیالوگ‌ها و دستورها؛ نویسنده‌اش screenwriter است.",
+      "explanationAr": "النصّ الكامل للفيلم بمشاهده وحواره، وكاتبه screenwriter.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "scene": {
+      "headword": "scene",
+      "forms": [
+        "scenes",
+        "scene"
+      ],
+      "pos": "noun",
+      "ipa": "/siːn/",
+      "pronounceFa": "سین",
+      "pronounceAr": "سين",
+      "translationFa": "صحنه",
+      "translationAr": "مشهد",
+      "explanationFa": "با seen هم‌آواست (/siːn/)؛ در لیسنینگ به املا دقت کنید.",
+      "explanationAr": "تُنطق مثل seen، فانتبهوا للتهجئة في الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "location": {
+      "headword": "location",
+      "forms": [
+        "location"
+      ],
+      "pos": "noun",
+      "ipa": "/ləʊˈkeɪʃn/",
+      "pronounceFa": "لُوکِیشِن",
+      "pronounceAr": "لوكيشَن",
+      "translationFa": "محل، مکانِ فیلم‌برداری",
+      "translationAr": "الموقع، مكان التصوير",
+      "explanationFa": "در سینما on location یعنی فیلم‌برداری در مکانِ واقعی، نه استودیو.",
+      "explanationAr": "في السينما on location أي التصوير في مكان حقيقي لا في الاستوديو.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "storyboard": {
+      "headword": "storyboard",
+      "forms": [
+        "storyboard"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈstɔːribɔːd/",
+      "pronounceFa": "استُوری‌بُرد",
+      "pronounceAr": "ستوري بورد",
+      "translationFa": "استوری‌بورد، فیلم‌نامه‌ی مصور",
+      "translationAr": "لوحة القصة المصوّرة",
+      "explanationFa": "مجموعه‌ای از طرح‌های پشتِ‌سرِهم که صحنه‌های فیلم را پیش از فیلم‌برداری نشان می‌دهد.",
+      "explanationAr": "سلسلة رسومات توضّح مشاهد الفيلم قبل تصويره.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be in control of": {
+      "headword": "be in control of",
+      "forms": [
+        "in control of"
+      ],
+      "pos": "phrase",
+      "ipa": "/bi ɪn kənˈtrəʊl əv/",
+      "pronounceFa": "بی این کِنترُول اُو",
+      "pronounceAr": "بي إن كَنترول أوف",
+      "translationFa": "کنترل/مسئولیتِ چیزی را داشتن",
+      "translationAr": "يتحكّم في، مسؤول عن",
+      "explanationFa": "در فایلِ صوتی با have responsibility for بازنویسی شده است؛ متضاد: out of control.",
+      "explanationAr": "أعيدت صياغتها في التسجيل بـ have responsibility for، وعكسها out of control.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "cast": {
+      "headword": "cast",
+      "forms": [
+        "cast"
+      ],
+      "pos": "verb",
+      "ipa": "/kɑːst/",
+      "pronounceFa": "کاست",
+      "pronounceAr": "كاست",
+      "translationFa": "بازیگر انتخاب کردن (برای فیلم/نمایش)",
+      "translationAr": "يختار الممثلين",
+      "explanationFa": "cast a film / cast someone as…؛ اسمِ the cast یعنی همه‌ی بازیگرانِ فیلم. casting یعنی فرایندِ انتخابِ بازیگر.",
+      "explanationAr": "cast a film، والاسم the cast مجموع الممثلين، وcasting عملية الاختيار.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "tense": {
+      "headword": "tense",
+      "forms": [
+        "tenses",
+        "appropriate tense"
+      ],
+      "pos": "noun",
+      "ipa": "/tens/",
+      "pronounceFa": "تِنس",
+      "pronounceAr": "تينس",
+      "translationFa": "زمانِ دستوری",
+      "translationAr": "الزمن النحوي",
+      "explanationFa": "در اسپیکینگِ بخشِ 3 زمان را با سؤال هماهنگ کنید: گذشته (used to)، حال، آینده (will) یا شرطی (would).",
+      "explanationAr": "في الجزء 3 وافقوا الزمن مع السؤال: الماضي أو الحاضر أو المستقبل أو الشرط.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be famous for": {
+      "headword": "be famous for",
+      "forms": [
+        "famous for"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/bi ˈfeɪməs fə/",
+      "pronounceFa": "بی فِیمِس فُر",
+      "pronounceAr": "بي فيمَس فور",
+      "translationFa": "به‌خاطرِ چیزی مشهور بودن",
+      "translationAr": "مشهور بـ",
+      "explanationFa": "famous for + اسم/‌-ing؛ famous as + نقش (famous as an actor).",
+      "explanationAr": "famous for + اسم أو -ing، وfamous as + دور.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "humanitarian": {
+      "headword": "humanitarian",
+      "forms": [
+        "humanitarian"
+      ],
+      "pos": "adjective",
+      "ipa": "/hjuːˌmænɪˈteəriən/",
+      "pronounceFa": "هیومَنیتِریِن",
+      "pronounceAr": "هيومانيتيريَن",
+      "translationFa": "بشردوستانه",
+      "translationAr": "إنساني",
+      "explanationFa": "humanitarian work/aid یعنی کار یا کمکی برای کاهشِ رنجِ مردم؛ با human (انسانی) فرق دارد.",
+      "explanationAr": "humanitarian work/aid عمل لتخفيف معاناة الناس، وتختلف عن human.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "generous": {
+      "headword": "generous",
+      "forms": [
+        "generous"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈdʒenərəs/",
+      "pronounceFa": "جِنِرِس",
+      "pronounceAr": "جينَرَس",
+      "translationFa": "سخاوتمند",
+      "translationAr": "كريم، سخيّ",
+      "explanationFa": "generous with money/time؛ اسم: generosity. متضاد: mean / selfish.",
+      "explanationAr": "generous with money، والاسم generosity، والعكس mean.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "charming": {
+      "headword": "charming",
+      "forms": [
+        "charming"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈtʃɑːmɪŋ/",
+      "pronounceFa": "چارمینگ",
+      "pronounceAr": "تشارمنغ",
+      "translationFa": "جذاب، دلنشین",
+      "translationAr": "ساحر، جذّاب",
+      "explanationFa": "برای شخصیت و رفتار (نه فقط ظاهر)؛ اسم: charm.",
+      "explanationAr": "للشخصية والسلوك لا للمظهر فقط، والاسم charm.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "admire": {
+      "headword": "admire",
+      "forms": [
+        "admire"
+      ],
+      "pos": "verb",
+      "ipa": "/ədˈmaɪə/",
+      "pronounceFa": "اِدمایِر",
+      "pronounceAr": "أدمايَر",
+      "translationFa": "تحسین کردن",
+      "translationAr": "يُعجب بـ",
+      "explanationFa": "admire someone for something؛ اسم: admiration. موضوعِ رایجِ کارتِ بخشِ 2 اسپیکینگ.",
+      "explanationAr": "admire someone for something، والاسم admiration، وموضوع شائع في بطاقة الجزء 2.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "come out": {
+      "headword": "come out",
+      "forms": [
+        "came out",
+        "come out"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌkʌm ˈaʊt/",
+      "pronounceFa": "کام اَوت",
+      "pronounceAr": "كام آوت",
+      "translationFa": "عرضه/منتشر شدن",
+      "translationAr": "يصدر، يُطرح",
+      "explanationFa": "برای کتاب، فیلم، آلبوم و محصول: The film came out in 2001. مترادف: be released.",
+      "explanationAr": "للكتب والأفلام والمنتجات، ومرادفها be released.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be responsible for": {
+      "headword": "be responsible for",
+      "forms": [
+        "responsible for"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/bi rɪˈspɒnsəbl fə/",
+      "pronounceFa": "بی ریسپانسِبِل فُر",
+      "pronounceAr": "بي ريسبونسَبَل فور",
+      "translationFa": "مسئول/عاملِ چیزی بودن",
+      "translationAr": "مسؤول عن",
+      "explanationFa": "responsible for + اسم/‌-ing؛ هم به معنای «وظیفه‌ی چیزی را داشتن» و هم «باعثِ چیزی بودن».",
+      "explanationAr": "responsible for + اسم أو -ing، بمعنى المكلّف بشيء أو المتسبّب فيه.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "self-made": {
+      "headword": "self-made",
+      "forms": [
+        "self-made"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌself ˈmeɪd/",
+      "pronounceFa": "سِلف مِید",
+      "pronounceAr": "سيلف ميد",
+      "translationFa": "خودساخته",
+      "translationAr": "عصامي",
+      "explanationFa": "a self-made millionaire/billionaire: کسی که بدونِ ارثیه و با تلاشِ خودش ثروتمند شده است.",
+      "explanationAr": "a self-made millionaire: من أصبح ثريًّا بجهده لا بالميراث.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "connecting words": {
+      "headword": "connecting words",
+      "forms": [
+        "connecting words"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/kəˈnektɪŋ wɜːdz/",
+      "pronounceFa": "کِنِکتینگ وِردز",
+      "pronounceAr": "كَنيكتنغ ويردز",
+      "translationFa": "کلمه‌های ربط",
+      "translationAr": "أدوات الربط",
+      "explanationFa": "مثلِ and، because، so، who، whose؛ پاسخ‌های اسپیکینگ را بلندتر و پیوسته‌تر می‌کنند و نمره‌ی Fluency and Coherence را بالا می‌برند.",
+      "explanationAr": "مثل and وbecause وso وwho، تجعل الإجابات أطول وأكثر ترابطًا وترفع درجة الطلاقة والترابط.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in spite of": {
+      "headword": "in spite of",
+      "forms": [
+        "in spite of"
+      ],
+      "pos": "preposition",
+      "ipa": "/ɪn ˈspaɪt əv/",
+      "pronounceFa": "این اِسپایت اُو",
+      "pronounceAr": "إن سبايت أوف",
+      "translationFa": "با وجودِ، به‌رغمِ",
+      "translationAr": "على الرغم من",
+      "explanationFa": "پس از آن اسم یا -ing می‌آید، نه جمله: in spite of his fame؛ مترادف: despite (بدونِ of).",
+      "explanationAr": "يتبعها اسم أو -ing لا جملة، ومرادفها despite بدون of.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "speciality": {
+      "headword": "speciality",
+      "forms": [
+        "speciality",
+        "specialty"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌspeʃiˈæləti/",
+      "pronounceFa": "اِسپِشی‌اَلِتی",
+      "pronounceAr": "سبيشي آلَتي",
+      "translationFa": "تخصص، کارِ ویژه",
+      "translationAr": "تخصّص، ما يبرع فيه",
+      "explanationFa": "املای بریتانیایی speciality و آمریکایی specialty؛ برای غذای ویژه‌ی یک رستوران هم به کار می‌رود.",
+      "explanationAr": "الإملاء البريطاني speciality والأمريكي specialty، وتُستخدم أيضًا للطبق المميّز في مطعم.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "free kick": {
+      "headword": "free kick",
+      "forms": [
+        "free kicks",
+        "free kick"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌfriː ˈkɪk/",
+      "pronounceFa": "فری کیک",
+      "pronounceAr": "فري كِك",
+      "translationFa": "ضربه‌ی آزاد",
+      "translationAr": "ركلة حرّة",
+      "explanationFa": "اصطلاحِ فوتبال؛ score from a free kick.",
+      "explanationAr": "مصطلح كروي: score from a free kick.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "good looks": {
+      "headword": "good looks",
+      "forms": [
+        "good looks"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌɡʊd ˈlʊks/",
+      "pronounceFa": "گود لوکس",
+      "pronounceAr": "غود لوكس",
+      "translationFa": "ظاهرِ خوب، زیبایی",
+      "translationAr": "الوسامة، الجمال",
+      "explanationFa": "همیشه جمع است: his good looks؛ صفت: good-looking.",
+      "explanationAr": "تأتي بالجمع دائمًا: his good looks، والصفة good-looking.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be mad about": {
+      "headword": "be mad about",
+      "forms": [
+        "mad about"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/bi ˈmæd əˌbaʊt/",
+      "pronounceFa": "بی مَد اِباوت",
+      "pronounceAr": "بي ماد أباوت",
+      "translationFa": "دیوانه‌ی چیزی بودن، عاشقِ چیزی بودن",
+      "translationAr": "مولع بـ",
+      "explanationFa": "غیررسمی و مناسبِ اسپیکینگ: I was mad about football. مترادف: crazy about, really keen on.",
+      "explanationAr": "عبارة غير رسمية مناسبة للمحادثة، ومرادفها crazy about.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "break down": {
+      "headword": "break down",
+      "forms": [
+        "broken down",
+        "broke down",
+        "break down"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌbreɪk ˈdaʊn/",
+      "pronounceFa": "برِیک داون",
+      "pronounceAr": "بريك داون",
+      "translationFa": "خراب شدن (ماشین/دستگاه)",
+      "translationAr": "يتعطّل",
+      "explanationFa": "My car broke down / had broken down؛ اسمش breakdown است.",
+      "explanationAr": "My car broke down، والاسم breakdown.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "make a suggestion": {
+      "headword": "make a suggestion",
+      "forms": [
+        "make a suggestion"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌmeɪk ə səˈdʒestʃən/",
+      "pronounceFa": "مِیک اِ سِجِسچِن",
+      "pronounceAr": "ميك أ سَجيستشَن",
+      "translationFa": "پیشنهاد دادن",
+      "translationAr": "يقدّم اقتراحًا",
+      "explanationFa": "با make (نه do یا give). عبارت‌های مفید: It would be great if… / …could be a good idea.",
+      "explanationAr": "تأتي مع make لا do، ومن العبارات المفيدة It would be great if…",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "give an opinion": {
+      "headword": "give an opinion",
+      "forms": [
+        "give an opinion"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌɡɪv ən əˈpɪnjən/",
+      "pronounceFa": "گیو اِن اِپینیِن",
+      "pronounceAr": "غِف أن أبينيَن",
+      "translationFa": "نظر دادن",
+      "translationAr": "يُبدي رأيًا",
+      "explanationFa": "عبارت‌های مفید: I think… / In my view… / Personally, I believe…",
+      "explanationAr": "عبارات مفيدة: I think… وIn my view…",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "charity work": {
+      "headword": "charity work",
+      "forms": [
+        "charity work"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈtʃærəti wɜːk/",
+      "pronounceFa": "چَرِتی وِرک",
+      "pronounceAr": "تشارَتي ويرك",
+      "translationFa": "کارِ خیریه",
+      "translationAr": "العمل الخيري",
+      "explanationFa": "do charity work؛ غیرقابلِ شمارش است.",
+      "explanationAr": "do charity work، وهي غير معدودة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "advertise": {
+      "headword": "advertise",
+      "forms": [
+        "advertise"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈædvətaɪz/",
+      "pronounceFa": "اَدوِتایز",
+      "pronounceAr": "أدفَتايز",
+      "translationFa": "تبلیغ کردن؛ آگهی دادن",
+      "translationAr": "يُعلن عن",
+      "explanationFa": "advertise a product / advertise on social media؛ اسم‌ها: advertisement، advertising.",
+      "explanationAr": "advertise a product، والأسماء advertisement وadvertising.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "rise to fame": {
+      "headword": "rise to fame",
+      "forms": [
+        "rise to fame"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌraɪz tə ˈfeɪm/",
+      "pronounceFa": "رایز تو فِیم",
+      "pronounceAr": "رايز تو فيم",
+      "translationFa": "رسیدن به شهرت، صعود به شهرت",
+      "translationAr": "الصعود إلى الشهرة",
+      "explanationFa": "rise در اینجا اسم است: his rise to fame/power؛ مشابه: shoot to fame (ناگهان مشهور شدن).",
+      "explanationAr": "rise هنا اسم: his rise to fame، ومثلها shoot to fame.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "teach yourself": {
+      "headword": "teach yourself",
+      "forms": [
+        "taught himself",
+        "taught herself",
+        "teach yourself"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌtiːtʃ jəˈself/",
+      "pronounceFa": "تیچ یُرسِلف",
+      "pronounceAr": "تيتش يورسيلف",
+      "translationFa": "خودآموزی کردن، خودش یاد گرفتن",
+      "translationAr": "يعلّم نفسه بنفسه",
+      "explanationFa": "teach yourself (how) to do something؛ صفتِ مرتبط: self-taught.",
+      "explanationAr": "teach yourself to do something، والصفة المرتبطة self-taught.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "put in the effort": {
+      "headword": "put in the effort",
+      "forms": [
+        "put in the effort"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌpʊt ɪn ði ˈefət/",
+      "pronounceFa": "پوت این دی اِفِت",
+      "pronounceAr": "بوت إن ذي إيفَت",
+      "translationFa": "تلاشِ لازم را به خرج دادن",
+      "translationAr": "يبذل الجهد",
+      "explanationFa": "put in (a lot of) effort / time؛ مشابه: make an effort.",
+      "explanationAr": "put in effort/time، ومثلها make an effort.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "master": {
+      "headword": "master",
+      "forms": [
+        "mastered"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈmɑːstə/",
+      "pronounceFa": "ماستِر",
+      "pronounceAr": "ماستَر",
+      "translationFa": "استاد شدن در، کاملاً یاد گرفتن",
+      "translationAr": "يُتقن",
+      "explanationFa": "master a skill/language یعنی در مهارتی کاملاً ماهر شدن.",
+      "explanationAr": "master a skill أي يُتقن مهارة تمامًا.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "gifted": {
+      "headword": "gifted",
+      "forms": [
+        "gifted"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈɡɪftɪd/",
+      "pronounceFa": "گیفتید",
+      "pronounceAr": "غِفتِد",
+      "translationFa": "بااستعدادِ ذاتی، نابغه",
+      "translationAr": "موهوب بالفطرة",
+      "explanationFa": "قوی‌ترِ talented؛ a gifted child/musician.",
+      "explanationAr": "أقوى من talented: a gifted child.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "attract": {
+      "headword": "attract",
+      "forms": [
+        "attracted",
+        "attract"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈtrækt/",
+      "pronounceFa": "اِترَکت",
+      "pronounceAr": "أتراكت",
+      "translationFa": "جذب کردن",
+      "translationAr": "يجذب",
+      "explanationFa": "attract fans/visitors/attention؛ صفت: attractive، اسم: attraction.",
+      "explanationAr": "attract fans/visitors، والصفة attractive والاسم attraction.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "big break": {
+      "headword": "big break",
+      "forms": [
+        "big break"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌbɪɡ ˈbreɪk/",
+      "pronounceFa": "بیگ برِیک",
+      "pronounceAr": "بِغ بريك",
+      "translationFa": "فرصتِ طلایی، نقطه‌ی عطف",
+      "translationAr": "الفرصة الكبرى",
+      "explanationFa": "فرصتی که مسیرِ شغلیِ کسی را ناگهان موفق می‌کند: get your big break.",
+      "explanationAr": "الفرصة التي تُطلق مسيرة شخص فجأة: get your big break.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "come across": {
+      "headword": "come across",
+      "forms": [
+        "came across",
+        "come across"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌkʌm əˈkrɒs/",
+      "pronounceFa": "کام اِکراس",
+      "pronounceAr": "كام أكروس",
+      "translationFa": "تصادفی پیدا کردن، برخوردن به",
+      "translationAr": "يصادف، يعثر على",
+      "explanationFa": "come across something by accident؛ جدانشدنی است: came across these videos (نه came these videos across).",
+      "explanationAr": "come across something by accident، وهو فعل غير قابل للفصل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "by accident": {
+      "headword": "by accident",
+      "forms": [
+        "by accident"
+      ],
+      "pos": "phrase",
+      "ipa": "/baɪ ˈæksɪdənt/",
+      "pronounceFa": "بای اَکسیدِنت",
+      "pronounceAr": "باي أكسِدَنت",
+      "translationFa": "تصادفی، اتفاقی",
+      "translationAr": "بالمصادفة",
+      "explanationFa": "متضاد: on purpose (عمداً)؛ مترادف: by chance.",
+      "explanationAr": "عكسها on purpose، ومرادفها by chance.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "shoot to fame": {
+      "headword": "shoot to fame",
+      "forms": [
+        "shot to fame",
+        "shoot to fame"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌʃuːt tə ˈfeɪm/",
+      "pronounceFa": "شوت تو فِیم",
+      "pronounceAr": "شوت تو فيم",
+      "translationFa": "ناگهان مشهور شدن",
+      "translationAr": "يقفز إلى الشهرة فجأة",
+      "explanationFa": "shoot (گذشته: shot) در اینجا یعنی «به‌سرعت بالا رفتن»؛ عبارتی رسانه‌ای برای شهرتِ سریع.",
+      "explanationAr": "shoot (الماضي shot) هنا بمعنى يرتفع بسرعة، عبارة إعلامية للشهرة السريعة.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "decade": {
+      "headword": "decade",
+      "forms": [
+        "decades",
+        "decade"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈdekeɪd/",
+      "pronounceFa": "دِکِید",
+      "pronounceAr": "ديكيد",
+      "translationFa": "دهه (ده سال)",
+      "translationAr": "عقد (عشر سنوات)",
+      "explanationFa": "در تسکِ 1 رایتینگ رایج است: over the past decade / three decades.",
+      "explanationAr": "شائعة في المهمّة الأولى: over the past decade.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "piece of advice": {
+      "headword": "piece of advice",
+      "forms": [
+        "piece of advice"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpiːs əv ədˈvaɪs/",
+      "pronounceFa": "پیس اُو اِدوایس",
+      "pronounceAr": "بيس أوف أدفايس",
+      "translationFa": "یک توصیه",
+      "translationAr": "نصيحة واحدة",
+      "explanationFa": "advice غیرقابلِ شمارش است؛ برای «یک توصیه» بگویید a piece of advice، نه an advice.",
+      "explanationAr": "advice غير معدودة، فيُقال a piece of advice لا an advice.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "area of interest": {
+      "headword": "area of interest",
+      "forms": [
+        "area of interest"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌeəriə əv ˈɪntrəst/",
+      "pronounceFa": "اِریا اُو اینترِست",
+      "pronounceAr": "إيريا أوف إنترَست",
+      "translationFa": "حوزه‌ی موردِ علاقه",
+      "translationAr": "مجال الاهتمام",
+      "explanationFa": "در اسپیکینگ و رایتینگِ دانشگاهی رایج است: my main area of interest is…",
+      "explanationAr": "شائعة في المحادثة والكتابة الأكاديمية: my main area of interest is…",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "as close as possible": {
+      "headword": "as close as possible",
+      "forms": [
+        "as close to them as possible",
+        "as close as possible"
+      ],
+      "pos": "phrase",
+      "ipa": "/əz ˈkləʊs əz ˈpɒsəbl/",
+      "pronounceFa": "اَز کلُوس اَز پاسیبِل",
+      "pronounceAr": "أز كلوس أز بوسَبَل",
+      "translationFa": "تا جایی که ممکن است نزدیک",
+      "translationAr": "أقرب ما يمكن",
+      "explanationFa": "ساختارِ as + صفت + as possible؛ get as close to someone as possible.",
+      "explanationAr": "بنية as + صفة + as possible.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "observe": {
+      "headword": "observe",
+      "forms": [
+        "observe"
+      ],
+      "pos": "verb",
+      "ipa": "/əbˈzɜːv/",
+      "pronounceFa": "اِبزِرو",
+      "pronounceAr": "أبزيرف",
+      "translationFa": "با دقت تماشا کردن، مشاهده کردن",
+      "translationAr": "يراقب، يلاحظ",
+      "explanationFa": "رسمی‌ترِ watch carefully؛ اسم: observation.",
+      "explanationAr": "أرسم من watch carefully، والاسم observation.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "experiment": {
+      "headword": "experiment",
+      "forms": [
+        "experiment"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪkˈsperɪment/",
+      "pronounceFa": "ایکسپِریمِنت",
+      "pronounceAr": "إكسبيريمَنت",
+      "translationFa": "آزمایش کردن، چیزهای تازه امتحان کردن",
+      "translationAr": "يجرّب",
+      "explanationFa": "experiment with something؛ اسمش هم experiment (آزمایش) است.",
+      "explanationAr": "experiment with something، والاسم experiment.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "get yourself known": {
+      "headword": "get yourself known",
+      "forms": [
+        "get yourself known",
+        "getting yourself known"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌɡet jəˌself ˈnəʊn/",
+      "pronounceFa": "گِت یُرسِلف نُون",
+      "pronounceAr": "غيت يورسيلف نون",
+      "translationFa": "خود را به دیگران شناساندن",
+      "translationAr": "يعرّف الناس بنفسه",
+      "explanationFa": "ساختارِ get + مفعول + اسمِ مفعول (get yourself noticed/known)؛ در فلوچارت با market yourself بازنویسی شده است.",
+      "explanationAr": "بنية get + مفعول + اسم مفعول، وأعيدت صياغتها في المخطّط بـ market yourself.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "work on": {
+      "headword": "work on",
+      "forms": [
+        "work on"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˈwɜːk ɒn/",
+      "pronounceFa": "وِرک آن",
+      "pronounceAr": "ويرك أون",
+      "translationFa": "روی چیزی کار کردن (برای بهبود)",
+      "translationAr": "يعمل على تحسين",
+      "explanationFa": "work on a skill/your pronunciation؛ مشابه: work at.",
+      "explanationAr": "work on a skill، ومثلها work at.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "for sure": {
+      "headword": "for sure",
+      "forms": [
+        "for sure"
+      ],
+      "pos": "phrase",
+      "ipa": "/fə ˈʃʊə/",
+      "pronounceFa": "فُر شور",
+      "pronounceAr": "فور شور",
+      "translationFa": "قطعاً، به‌طورِ مسلم",
+      "translationAr": "بالتأكيد",
+      "explanationFa": "غیررسمی و مناسبِ اسپیکینگ: One thing is for sure… یعنی یک چیز مسلم است.",
+      "explanationAr": "غير رسمية ومناسبة للمحادثة: One thing is for sure…",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "most likely": {
+      "headword": "most likely",
+      "forms": [
+        "most likely"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˌməʊst ˈlaɪkli/",
+      "pronounceFa": "مُوست لایکلی",
+      "pronounceAr": "موست لايكلي",
+      "translationFa": "به احتمالِ زیاد",
+      "translationAr": "على الأرجح",
+      "explanationFa": "برای پیش‌بینیِ محتاطانه در اسپیکینگِ بخشِ 3: People will most likely…",
+      "explanationAr": "للتنبّؤ الحذر في الجزء 3: People will most likely…",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "failure": {
+      "headword": "failure",
+      "forms": [
+        "failure"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈfeɪljə/",
+      "pronounceFa": "فِیلیِر",
+      "pronounceAr": "فيليَر",
+      "translationFa": "شکست",
+      "translationAr": "الفشل",
+      "explanationFa": "اسمِ fail؛ experience failure. متضاد: success.",
+      "explanationAr": "اسم من fail، وعكسه success.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "at some point": {
+      "headword": "at some point",
+      "forms": [
+        "at some point"
+      ],
+      "pos": "phrase",
+      "ipa": "/ət ˈsʌm pɔɪnt/",
+      "pronounceFa": "اَت سام پُوینت",
+      "pronounceAr": "أت سام بوينت",
+      "translationFa": "در مقطعی، زمانی",
+      "translationAr": "في مرحلة ما",
+      "explanationFa": "برای زمانی نامشخص در گذشته یا آینده؛ مشابه: at some stage.",
+      "explanationAr": "لوقت غير محدّد في الماضي أو المستقبل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "countless": {
+      "headword": "countless",
+      "forms": [
+        "countless"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈkaʊntləs/",
+      "pronounceFa": "کاونتلِس",
+      "pronounceAr": "كاونتلَس",
+      "translationFa": "بی‌شمار",
+      "translationAr": "لا يُحصى",
+      "explanationFa": "countless times/people یعنی آن‌قدر زیاد که شمردنی نیست؛ پسوندِ -less یعنی «بدون».",
+      "explanationAr": "countless times أي مرّات لا تُعدّ، واللاحقة -less تعني «بدون».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "end goal": {
+      "headword": "end goal",
+      "forms": [
+        "end goal"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌend ˈɡəʊl/",
+      "pronounceFa": "اِند گُول",
+      "pronounceAr": "إند غول",
+      "translationFa": "هدفِ نهایی",
+      "translationAr": "الهدف النهائي",
+      "explanationFa": "reach/achieve your end goal؛ مترادف: ultimate goal.",
+      "explanationAr": "reach your end goal، ومرادفها ultimate goal.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "keep on": {
+      "headword": "keep on",
+      "forms": [
+        "kept on",
+        "keep on"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌkiːp ˈɒn/",
+      "pronounceFa": "کیپ آن",
+      "pronounceAr": "كيب أون",
+      "translationFa": "ادامه دادن",
+      "translationAr": "يواصل",
+      "explanationFa": "keep (on) + -ing: They kept on trying. با on تأکیدِ بیشتری بر تکرار دارد.",
+      "explanationAr": "keep (on) + -ing، وon تؤكّد الاستمرار.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "regardless": {
+      "headword": "regardless",
+      "forms": [
+        "regardless"
+      ],
+      "pos": "adverb",
+      "ipa": "/rɪˈɡɑːdləs/",
+      "pronounceFa": "ریگاردلِس",
+      "pronounceAr": "ريغاردلَس",
+      "translationFa": "در هر حال، بی‌توجه به شرایط",
+      "translationAr": "بغضّ النظر، مهما حدث",
+      "explanationFa": "در پایانِ جمله: kept trying regardless؛ با of: regardless of age (صرفِ نظر از سن).",
+      "explanationAr": "في آخر الجملة أو مع of: regardless of age.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "take something seriously": {
+      "headword": "take something seriously",
+      "forms": [
+        "take film-making seriously"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/ˌteɪk ˌsʌmθɪŋ ˈsɪəriəsli/",
+      "pronounceFa": "تِیک سامثینگ سیریِسلی",
+      "pronounceAr": "تيك سامثنغ سيريَسلي",
+      "translationFa": "چیزی را جدی گرفتن",
+      "translationAr": "يأخذ الأمر بجدّية",
+      "explanationFa": "مفعول میانِ take و seriously می‌آید: take your studies seriously.",
+      "explanationAr": "يأتي المفعول بين take وseriously: take your studies seriously.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "tutorial": {
+      "headword": "tutorial",
+      "forms": [
+        "tutorial"
+      ],
+      "pos": "noun",
+      "ipa": "/tjuːˈtɔːriəl/",
+      "pronounceFa": "تیوتُریِل",
+      "pronounceAr": "تيوتوريَل",
+      "translationFa": "درسِ آموزشی؛ کلاسِ گروهیِ کوچک",
+      "translationAr": "درس تعليمي",
+      "explanationFa": "در دانشگاه‌های بریتانیا، کلاسِ کوچک با استاد؛ در اینترنت، ویدیو/متنِ آموزشیِ گام‌به‌گام.",
+      "explanationAr": "في الجامعة حصّة صغيرة مع أستاذ، وعلى الإنترنت درس تعليمي خطوة بخطوة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "anti-clockwise": {
+      "headword": "anti-clockwise",
+      "forms": [
+        "anti-clockwise"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˌænti ˈklɒkwaɪz/",
+      "pronounceFa": "اَنتی کلاک‌وایز",
+      "pronounceAr": "أنتي كلوكوايز",
+      "translationFa": "خلافِ جهتِ عقربه‌های ساعت",
+      "translationAr": "عكس اتّجاه عقارب الساعة",
+      "explanationFa": "بریتانیایی anti-clockwise و آمریکایی counterclockwise؛ در توصیفِ فرایند و نقشه کاربرد دارد.",
+      "explanationAr": "البريطانية anti-clockwise والأمريكية counterclockwise.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "clockwise": {
+      "headword": "clockwise",
+      "forms": [
+        "clockwise"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈklɒkwaɪz/",
+      "pronounceFa": "کلاک‌وایز",
+      "pronounceAr": "كلوكوايز",
+      "translationFa": "در جهتِ عقربه‌های ساعت",
+      "translationAr": "باتّجاه عقارب الساعة",
+      "explanationFa": "turn something clockwise؛ پسوندِ -wise یعنی «در جهتِ».",
+      "explanationAr": "turn something clockwise، واللاحقة -wise تعني «باتّجاه».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in moderation": {
+      "headword": "in moderation",
+      "forms": [
+        "in moderation"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˌmɒdəˈreɪʃn/",
+      "pronounceFa": "این مادِرِیشِن",
+      "pronounceAr": "إن مودَريشَن",
+      "translationFa": "با اعتدال، به اندازه",
+      "translationAr": "باعتدال",
+      "explanationFa": "در موضوع‌های سلامت و غذا هم رایج است: eat junk food in moderation.",
+      "explanationAr": "شائعة أيضًا في موضوعات الصحة: eat junk food in moderation.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "perspective": {
+      "headword": "perspective",
+      "forms": [
+        "perspective"
+      ],
+      "pos": "noun",
+      "ipa": "/pəˈspektɪv/",
+      "pronounceFa": "پِسپِکتیو",
+      "pronounceAr": "بَسبيكتِف",
+      "translationFa": "زاویه‌ی دید؛ دیدگاه",
+      "translationAr": "المنظور؛ وجهة النظر",
+      "explanationFa": "در عکاسی زاویه‌ی دیدِ دوربین؛ در رایتینگ: from a different perspective (از دیدگاهی دیگر).",
+      "explanationAr": "في التصوير زاوية الرؤية، وفي الكتابة from a different perspective.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "be bursting with": {
+      "headword": "be bursting with",
+      "forms": [
+        "bursting with"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/bi ˈbɜːstɪŋ wɪð/",
+      "pronounceFa": "بی بِرستینگ ویذ",
+      "pronounceAr": "بي بيرستنغ وِذ",
+      "translationFa": "لبریز بودن از",
+      "translationAr": "مفعم بـ",
+      "explanationFa": "bursting with ideas/energy یعنی پر از ایده یا انرژی؛ عبارتی پرشور برای اسپیکینگ.",
+      "explanationAr": "bursting with ideas أي مفعم بالأفكار.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "come up with": {
+      "headword": "come up with",
+      "forms": [
+        "come up with"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌkʌm ˈʌp wɪð/",
+      "pronounceFa": "کام آپ ویذ",
+      "pronounceAr": "كام أب وِذ",
+      "translationFa": "به فکرِ چیزی رسیدن، ایده دادن",
+      "translationAr": "يبتكر، يتوصّل إلى",
+      "explanationFa": "come up with an idea/solution/plan؛ فعلِ عبارتیِ پرکاربرد در اسپیکینگ.",
+      "explanationAr": "come up with an idea/solution، فعل مركّب شائع في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "suit": {
+      "headword": "suit",
+      "forms": [
+        "suits the talents"
+      ],
+      "pos": "verb",
+      "ipa": "/suːt/",
+      "pronounceFa": "سوت",
+      "pronounceAr": "سوت",
+      "translationFa": "مناسبِ … بودن، جور بودن با",
+      "translationAr": "يناسب",
+      "explanationFa": "suit someone/something (بدونِ حرفِ اضافه): a style that suits the group.",
+      "explanationAr": "suit someone دون حرف جرّ: a style that suits the group.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "animation": {
+      "headword": "animation",
+      "forms": [
+        "animation"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌænɪˈmeɪʃn/",
+      "pronounceFa": "اَنیمِیشِن",
+      "pronounceAr": "أنيميشَن",
+      "translationFa": "پویانمایی، انیمیشن",
+      "translationAr": "الرسوم المتحرّكة",
+      "explanationFa": "فیلمی که با تصاویرِ کشیده‌شده یا مدل ساخته می‌شود؛ animated film.",
+      "explanationAr": "فيلم يُصنع بالرسوم أو النماذج: animated film.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "as regards": {
+      "headword": "as regards",
+      "forms": [
+        "as regards"
+      ],
+      "pos": "preposition",
+      "ipa": "/əz rɪˈɡɑːdz/",
+      "pronounceFa": "اَز ریگاردز",
+      "pronounceAr": "أز ريغاردز",
+      "translationFa": "درباره‌ی، در موردِ",
+      "translationAr": "فيما يتعلّق بـ",
+      "explanationFa": "رسمی است؛ برای معرفیِ موضوع: As regards plot, … مترادف: regarding، with regard to.",
+      "explanationAr": "رسمية لتقديم موضوع، ومرادفاتها regarding وwith regard to.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "ambitious": {
+      "headword": "ambitious",
+      "forms": [
+        "ambitious"
+      ],
+      "pos": "adjective",
+      "ipa": "/æmˈbɪʃəs/",
+      "pronounceFa": "اَمبیشِس",
+      "pronounceAr": "أمبيشَس",
+      "translationFa": "بلندپرواز، جاه‌طلب",
+      "translationAr": "طموح",
+      "explanationFa": "برای آدم مثبت (an ambitious student) و برای طرح یعنی «زیادی بزرگ و دشوار» (too ambitious).",
+      "explanationAr": "إيجابية للأشخاص، وللمشاريع تعني «كبيرة وصعبة أكثر من اللازم».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "complicated": {
+      "headword": "complicated",
+      "forms": [
+        "complicated"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈkɒmplɪkeɪtɪd/",
+      "pronounceFa": "کامپلیکِیتید",
+      "pronounceAr": "كومبلِكيتِد",
+      "translationFa": "پیچیده",
+      "translationAr": "معقّد",
+      "explanationFa": "متضاد: simple؛ مترادفِ رسمی‌تر: complex.",
+      "explanationAr": "عكسها simple، ومرادفها الأرسم complex.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "initially": {
+      "headword": "initially",
+      "forms": [
+        "initially"
+      ],
+      "pos": "adverb",
+      "ipa": "/ɪˈnɪʃəli/",
+      "pronounceFa": "اینیشِلی",
+      "pronounceAr": "إنيشَلي",
+      "translationFa": "در ابتدا",
+      "translationAr": "في البداية",
+      "explanationFa": "رسمی‌ترِ at first؛ در توصیفِ فرایند و نمودار مفید است.",
+      "explanationAr": "أرسم من at first، ومفيدة في وصف العمليات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "fill in": {
+      "headword": "fill in",
+      "forms": [
+        "fill in"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌfɪl ˈɪn/",
+      "pronounceFa": "فیل این",
+      "pronounceAr": "فِل إن",
+      "translationFa": "پر کردن، تکمیل کردن (جزئیات/فرم)",
+      "translationAr": "يملأ، يُكمل",
+      "explanationFa": "fill in the details / fill in a form؛ در دستورِ تمرین: fill in the gaps.",
+      "explanationAr": "fill in the details أو fill in a form.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "divide into": {
+      "headword": "divide into",
+      "forms": [
+        "divide the story up into",
+        "divide into"
+      ],
+      "pos": "verb",
+      "ipa": "/dɪˈvaɪd ˈɪntə/",
+      "pronounceFa": "دیواید اینتو",
+      "pronounceAr": "ديفايد إنتو",
+      "translationFa": "تقسیم کردن به",
+      "translationAr": "يقسّم إلى",
+      "explanationFa": "divide something (up) into parts؛ در تسکِ 1 رایتینگ: The process can be divided into three stages.",
+      "explanationAr": "divide something into parts، ومفيدة في وصف المراحل.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "consist of": {
+      "headword": "consist of",
+      "forms": [
+        "consists of",
+        "consist of"
+      ],
+      "pos": "verb",
+      "ipa": "/kənˈsɪst əv/",
+      "pronounceFa": "کِنسیست اُو",
+      "pronounceAr": "كَنسِست أوف",
+      "translationFa": "تشکیل شدن از",
+      "translationAr": "يتكوّن من",
+      "explanationFa": "هرگز مجهول نمی‌شود (نه is consisted of)؛ مترادف: be made up of.",
+      "explanationAr": "لا تُستخدم بالمبني للمجهول، ومرادفها be made up of.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "script": {
+      "headword": "script",
+      "forms": [
+        "script"
+      ],
+      "pos": "noun",
+      "ipa": "/skrɪpt/",
+      "pronounceFa": "اِسکریپت",
+      "pronounceAr": "سكريبت",
+      "translationFa": "متنِ نمایش/فیلم",
+      "translationAr": "النصّ",
+      "explanationFa": "متنِ دیالوگ‌های فیلم یا نمایش؛ audio script یعنی متنِ فایلِ صوتی.",
+      "explanationAr": "نص الحوار في الفيلم أو المسرحية، وaudio script نص التسجيل الصوتي.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "involved": {
+      "headword": "involved",
+      "forms": [
+        "involved"
+      ],
+      "pos": "adjective",
+      "ipa": "/ɪnˈvɒlvd/",
+      "pronounceFa": "اینوالود",
+      "pronounceAr": "إنفولفد",
+      "translationFa": "درگیر، دخیل",
+      "translationAr": "مشارك، معنيّ",
+      "explanationFa": "وقتی پس از اسم می‌آید: everyone involved (همه‌ی افرادِ درگیر)؛ be involved in something.",
+      "explanationAr": "بعد الاسم: everyone involved، وbe involved in something.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "appoint": {
+      "headword": "appoint",
+      "forms": [
+        "appoint"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈpɔɪnt/",
+      "pronounceFa": "اِپُوینت",
+      "pronounceAr": "أبوينت",
+      "translationFa": "منصوب کردن",
+      "translationAr": "يعيّن",
+      "explanationFa": "appoint someone (as) director؛ اسم: appointment (انتصاب؛ وقتِ ملاقات).",
+      "explanationAr": "appoint someone as director، والاسم appointment.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "vital": {
+      "headword": "vital",
+      "forms": [
+        "vital"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈvaɪtl/",
+      "pronounceFa": "وایتِل",
+      "pronounceAr": "فايتَل",
+      "translationFa": "حیاتی، بسیار ضروری",
+      "translationAr": "حيوي، بالغ الأهمية",
+      "explanationFa": "قوی‌ترِ important: It is vital that…؛ مترادف: essential، crucial.",
+      "explanationAr": "أقوى من important، ومرادفاتها essential وcrucial.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "communicator": {
+      "headword": "communicator",
+      "forms": [
+        "communicator"
+      ],
+      "pos": "noun",
+      "ipa": "/kəˈmjuːnɪkeɪtə/",
+      "pronounceFa": "کِمیونیکِیتِر",
+      "pronounceAr": "كَميونِكيتَر",
+      "translationFa": "ارتباط‌گر، کسی که خوب ارتباط برقرار می‌کند",
+      "translationAr": "متواصل جيد",
+      "explanationFa": "a good communicator؛ از communicate. مهارتی که در مصاحبه‌های کاری زیاد گفته می‌شود.",
+      "explanationAr": "a good communicator، من communicate.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "have responsibility for": {
+      "headword": "have responsibility for",
+      "forms": [
+        "have responsibility for"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/hæv rɪˌspɒnsəˈbɪləti fə/",
+      "pronounceFa": "هَو ریسپانسِبیلِتی فُر",
+      "pronounceAr": "هاف ريسبونسَبِلَتي فور",
+      "translationFa": "مسئولیتِ چیزی را داشتن",
+      "translationAr": "يتحمّل مسؤولية",
+      "explanationFa": "مشابه: be responsible for / be in charge of.",
+      "explanationAr": "ومثلها be responsible for وbe in charge of.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "have the final say": {
+      "headword": "have the final say",
+      "forms": [
+        "have the final say"
+      ],
+      "pos": "verb phrase",
+      "ipa": "/hæv ðə ˌfaɪnl ˈseɪ/",
+      "pronounceFa": "هَو دِ فاینِل سِی",
+      "pronounceAr": "هاف ذَ فاينَل سي",
+      "translationFa": "حرفِ آخر را زدن، تصمیم‌گیرنده‌ی نهایی بودن",
+      "translationAr": "له الكلمة الأخيرة",
+      "explanationFa": "say در اینجا اسم است (حقِ تصمیم): have a say in something یعنی در تصمیمی نقش داشتن.",
+      "explanationAr": "say هنا اسم بمعنى حقّ القرار، وhave a say in أي يشارك في القرار.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "spare": {
+      "headword": "spare",
+      "forms": [
+        "spare a couple of hours"
+      ],
+      "pos": "verb",
+      "ipa": "/speə/",
+      "pronounceFa": "اِسپِر",
+      "pronounceAr": "سبير",
+      "translationFa": "(وقت/پول) در اختیارِ کسی گذاشتن",
+      "translationAr": "يخصّص، يمنح (من وقته)",
+      "explanationFa": "Can you spare a few minutes? به‌عنوانِ صفت: spare time (وقتِ آزاد).",
+      "explanationAr": "Can you spare a few minutes?، وكصفة: spare time.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "assign": {
+      "headword": "assign",
+      "forms": [
+        "assign"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈsaɪn/",
+      "pronounceFa": "اِساین",
+      "pronounceAr": "أساين",
+      "translationFa": "واگذار کردن، تعیین کردن (کار)",
+      "translationAr": "يوزّع، يُسند",
+      "explanationFa": "assign a task/job to someone؛ اسم: assignment (تکلیف).",
+      "explanationAr": "assign a task to someone، والاسم assignment.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in charge of": {
+      "headword": "in charge of",
+      "forms": [
+        "in charge of"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˈtʃɑːdʒ əv/",
+      "pronounceFa": "این چارج اُو",
+      "pronounceAr": "إن تشارج أوف",
+      "translationFa": "مسئولِ",
+      "translationAr": "مسؤول عن",
+      "explanationFa": "be in charge of + اسم/‌-ing؛ مترادف: be responsible for.",
+      "explanationAr": "be in charge of + اسم أو -ing، ومرادفها be responsible for.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "props": {
+      "headword": "props",
+      "forms": [
+        "props"
+      ],
+      "pos": "noun (plural)",
+      "ipa": "/prɒps/",
+      "pronounceFa": "پراپس",
+      "pronounceAr": "بروبس",
+      "translationFa": "وسایلِ صحنه",
+      "translationAr": "الإكسسوارات المسرحية",
+      "explanationFa": "اشیایی که در فیلم یا نمایش استفاده می‌شوند؛ کوتاه‌شده‌ی properties.",
+      "explanationAr": "الأغراض المستخدمة في الفيلم أو المسرحية، اختصار properties.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "look after": {
+      "headword": "look after",
+      "forms": [
+        "look after"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌlʊk ˈɑːftə/",
+      "pronounceFa": "لوک افتِر",
+      "pronounceAr": "لوك آفتَر",
+      "translationFa": "رسیدگی کردن به، مراقبت کردن از",
+      "translationAr": "يعتني بـ",
+      "explanationFa": "look after children/hair and make-up؛ مترادف: take care of.",
+      "explanationAr": "look after children، ومرادفها take care of.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "in more detail": {
+      "headword": "in more detail",
+      "forms": [
+        "in more detail"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˌmɔː ˈdiːteɪl/",
+      "pronounceFa": "این مُر دیتِیل",
+      "pronounceAr": "إن مور ديتيل",
+      "translationFa": "با جزئیاتِ بیشتر",
+      "translationAr": "بمزيد من التفصيل",
+      "explanationFa": "detail در این عبارت مفرد و بدونِ a است؛ مشابه: in detail.",
+      "explanationAr": "detail هنا مفردة دون أداة، ومثلها in detail.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "operating system": {
+      "headword": "operating system",
+      "forms": [
+        "operating system"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈɒpəreɪtɪŋ ˌsɪstəm/",
+      "pronounceFa": "آپِرِیتینگ سیستِم",
+      "pronounceAr": "أوبَريتنغ سِستَم",
+      "translationFa": "سیستم‌عامل",
+      "translationAr": "نظام التشغيل",
+      "explanationFa": "نرم‌افزارِ اصلیِ کامپیوتر مثلِ Windows؛ کوتاه‌شده: OS.",
+      "explanationAr": "البرنامج الأساسي للحاسوب مثل Windows، واختصاره OS.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "give away": {
+      "headword": "give away",
+      "forms": [
+        "given away",
+        "give it away",
+        "give away"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡɪv əˈweɪ/",
+      "pronounceFa": "گیو اِوِی",
+      "pronounceAr": "غِف أواي",
+      "translationFa": "بخشیدن، مجانی دادن",
+      "translationAr": "يتبرّع بـ، يهب",
+      "explanationFa": "give away money/possessions؛ با ضمیر، ضمیر وسط می‌آید: give it away.",
+      "explanationAr": "give away money، ومع الضمير يأتي في الوسط: give it away.",
+      "cefrLevel": "B1",
       "books": [
         "Mindset 01"
       ]
