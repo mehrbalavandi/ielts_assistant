@@ -1,8 +1,8 @@
 {
-  "generatedAt": "1405-07-28 08:42",
-  "total": 5608,
-  "translated": 5004,
-  "pendingUnique": 588,
+  "generatedAt": "1405-07-28 14:30",
+  "total": 5613,
+  "translated": 4989,
+  "pendingUnique": 608,
   "items": [
     {
       "page": 1,
@@ -179,6 +179,166 @@
       "where": "table",
       "key": "what do the vertical  and horizontal  axes show?",
       "text": "What do the vertical  and horizontal    axes show?"
+    },
+    {
+      "page": 120,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "READING",
+      "where": "table",
+      "key": "in this task type the questions will not be in the same order as the passage but the options e.g. people/places will be in text order. you will need to 'jump around' the passage a bit rather than reading it from beginning to end.",
+      "text": "In this task type the questions will not be in the same order as the passage but the options e.g. people/places will be in text order. You will need to 'jump around' the passage a bit rather than reading it from beginning to end."
+    },
+    {
+      "page": 121,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "READING",
+      "where": "table",
+      "key": "being very famous would be enjoyable. no",
+      "text": "Being very famous would be enjoyable. {blk}No{/blk}"
+    },
+    {
+      "page": 127,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "for example, 'many celebrities have got into trouble after getting angry with reporters and photographers who were following them' could be added * at to support the first point in the student's second paragraph.",
+      "text": "For example, 'Many celebrities have got into trouble after getting angry with reporters and photographers who were following them' could be added * at to support the first point in the student's second paragraph."
+    },
+    {
+      "page": 127,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "you will get more marks if you give specific examples to support your points. it can be something that happened to you or a friend, something you read or something that happens in your country. make sure it provides evidence of the point you are making.",
+      "text": "You will get more marks if you give specific examples to support your points. It can be something that happened to you or a friend, something you read or something that happens in your country. Make sure it provides evidence of the point you are making."
+    },
+    {
+      "page": 127,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "replace the repeated words with pronouns.",
+      "text": "Replace the repeated words with pronouns."
+    },
+    {
+      "page": 128,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "general introduction",
+      "text": "General introduction"
+    },
+    {
+      "page": 128,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "(no opinion)",
+      "text": "(no opinion)"
+    },
+    {
+      "page": 128,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "arguments for",
+      "text": "Arguments for"
+    },
+    {
+      "page": 128,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "arguments against",
+      "text": "Arguments against"
+    },
+    {
+      "page": 128,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "my opinion (given for the first time)",
+      "text": "My opinion (given for the first time)"
+    },
+    {
+      "page": 129,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "WRITING",
+      "where": "table",
+      "key": "some people argue that the highest earning celebrities are special. they have a talent that few of us possess and they have worked incredibly hard to become the best. my view is that we all have our own skills and abilities and most of us work hard. just because someone's talent is for making things or teaching, why should they get paid so much less?",
+      "text": "Some people argue that the highest earning celebrities are special. They have a talent that few of us possess and they have worked incredibly hard to become the best. My view is that we all have our own skills and abilities and most of us work hard. Just because someone's talent is for making things or teaching, why should they get paid so much less?"
+    },
+    {
+      "page": 130,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "the youtube clips brought him a lot of 3 fans.",
+      "text": "The YouTube clips brought him a lot of 3 {blk}fans{/blk}."
+    },
+    {
+      "page": 131,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "i wouldn't like to be famous. i would hate people to 1 verb me all the time. you would always be followed by 2 noun and never able to have a private life. being followed on a good day, when you've been to the hairdresser and are wearing your best jeans, is perhaps 3 adjective, but can you imagine how it would make you feel on a bad day?",
+      "text": "I wouldn't like to be famous. I would hate people to 1 {blk}verb{/blk} me all the time. You would always be followed by 2 {blk}noun{/blk} and never able to have a private life. Being followed on a good day, when you've been to the hairdresser and are wearing your best jeans, is perhaps 3 {blk}adjective{/blk}, but can you imagine how it would make you feel on a bad day?"
+    },
+    {
+      "page": 131,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "i would love to be famous. i would adore all the 4 noun and the special treatment. everywhere i went, people would know my name and i wouldn't need to 5 verb any more. the best part, though, would be meeting other famous people. i can imagine that would be so 6 adjective. they would come to my 7 adjective yacht and i would 8 verb their mansions.",
+      "text": "I would love to be famous. I would adore all the 4 {blk}noun{/blk} and the special treatment. Everywhere I went, people would know my name and I wouldn't need to 5 {blk}verb{/blk} any more. The best part, though, would be meeting other famous people. I can imagine that would be so 6 {blk}adjective{/blk}. They would come to my 7 {blk}adjective{/blk} yacht and I would 8 {blk}verb{/blk} their mansions."
+    },
+    {
+      "page": 134,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "making a short film",
+      "text": "Making a short film"
+    },
+    {
+      "page": 134,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "when deciding which type of film to make, use the 1 talents you have among you.",
+      "text": "When deciding which type of film to make, use the 1 {blk}talents{/blk} you have among you."
+    },
+    {
+      "page": 134,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "make the plot of your film 2 simple.",
+      "text": "Make the plot of your film 2 {blk}simple{/blk}."
+    },
+    {
+      "page": 134,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "prepare a storyboard. this is a bit like a 5 comic book.",
+      "text": "Prepare a storyboard. This is a bit like a 5 {blk}comic book{/blk}."
+    },
+    {
+      "page": 134,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "cast your film. one way to find actors might be to 7 advertise.",
+      "text": "Cast your film. One way to find actors might be to 7 {blk}advertise{/blk}."
+    },
+    {
+      "page": 135,
+      "unit": "UNIT/07: FAME AND THE MEDIA",
+      "section": "SPEAKING",
+      "where": "table",
+      "key": "paul mccartney (singer and songwriter, member of the beatles) -brilliant, talented, experienced",
+      "text": "{blk}Paul McCartney (singer and songwriter, member of The Beatles) -brilliant, talented, experienced{/blk}"
     },
     {
       "page": 140,
