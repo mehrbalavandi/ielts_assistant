@@ -1932,7 +1932,7 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
               ? const EdgeInsets.only(bottom: 16.0, left: 2.0, right: 2.0)
               : const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
           padding: const EdgeInsets.all(12.0),
-          // 🌟 RD-1: کادرِ نرم (گوشه‌ی گرد) به رنگِ مهارتِ صفحه — Listening بنفش، Speaking آبی،
+          // 🌟 RD-1: کادرِ نرم (گوشه‌ی گرد) به رنگِ مهارتِ صفحه — Listening سرخابی، Speaking آبی،
           // Reading سبزِ لیمویی، Writing نارنجی (AU-9)؛ صفحه‌ی بی‌مهارت کادرِ خنثیِ کم‌رنگ.
           decoration: BoxDecoration(
             color: Colors.white,
@@ -6620,7 +6620,7 @@ class InlineAudioLink extends ConsumerWidget {
       audioPlayerProvider.select((s) => s.isPlaying),
     );
     final activeBook = ref.watch(activeBookProvider);
-    // 🌟 AU-9: رنگِ مهارت (Listening بنفش، Speaking آبی، …) از جای همین دکمه در فهرستِ کتاب؛
+    // 🌟 AU-9: رنگِ مهارت (Listening سرخابی، Speaking آبی، …) از جای همین دکمه در فهرستِ کتاب؛
     // فهرست که هنوز به پلیر نرسیده یا مهارت نامعلوم است ← رنگِ قبلیِ دکمه.
     final outline = ref.watch(
       audioPlayerProvider.select((s) => s.bookOutline),

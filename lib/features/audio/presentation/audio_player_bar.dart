@@ -96,7 +96,7 @@ class _PlayerColors {
   });
 }
 
-/// [skill]: 🌟 AU-9 — رنگِ «در حالِ پخش» (accent) رنگِ مهارتِ فایل است (Listening بنفش، Speaking
+/// [skill]: 🌟 AU-9 — رنگِ «در حالِ پخش» (accent) رنگِ مهارتِ فایل است (Listening سرخابی، Speaking
 /// آبی، …)؛ مهارتِ نامعلوم ← رنگِ تم.
 _PlayerColors _playerColors(
   BuildContext context, {
