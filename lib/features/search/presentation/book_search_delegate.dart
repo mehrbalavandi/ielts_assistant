@@ -8,6 +8,8 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart'; //
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
+import 'package:ielts_assistant/features/audio/domain/audio_skill.dart';
+import 'package:ielts_assistant/shared/widgets/outline_group_widgets.dart';
 
 class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   final WidgetRef ref;
@@ -36,21 +38,32 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
     }
   }
 
-  /// S-15: «درس 1: Relationships · Reading» برای نتیجه‌ی متن، و برای نتیجه‌ی اسکریپتِ صوتی
-  /// جای اولین دکمه‌ی همان فایل در کتاب.
-  String? _locationOf(SearchResult r) {
-    final PagedBookStore? s = store;
-    if (s == null || s.outline.isEmpty) return null;
-    if (r.audioTrackName != null) {
-      for (final entry in s.audioLinksIndex) {
-        if (entry.fileName == r.audioTrackName) {
-          return outlineLocationLabel(s.outline, entry.pageNumber, entry.paraIndex);
+  /// S-15/S-18: درس، مهارت و صفحه‌ی هر نتیجه؛ برای نتیجه‌ی اسکریپتِ صوتی جای اولین دکمه‌ی همان
+  /// فایل در کتاب.
+  final Map<SearchResult, ({OutlinePlace? place, AudioSkill skill})> _places =
+      {};
+
+  ({OutlinePlace? place, AudioSkill skill}) _placeOf(SearchResult r) =>
+      _places.putIfAbsent(r, () {
+        final PagedBookStore? s = store;
+        if (s == null || s.outline.isEmpty) {
+          return (place: null, skill: AudioSkill.other);
         }
-      }
-      return null;
-    }
-    return outlineLocationLabel(s.outline, r.pageNumber, r.paraIndex);
-  }
+        int page = r.pageNumber;
+        int para = r.paraIndex;
+        if (r.audioTrackName != null) {
+          final entry = s.audioLinksIndex
+              .where((e) => e.fileName == r.audioTrackName)
+              .firstOrNull;
+          if (entry == null) return (place: null, skill: AudioSkill.other);
+          page = entry.pageNumber;
+          para = entry.paraIndex;
+        }
+        return (
+          place: outlinePlaceAt(s.outline, page, para),
+          skill: audioSkillAt(s.outline, page, para),
+        );
+      });
 
   Timer? _debounce;
   final ValueNotifier<String> _debouncedQuery = ValueNotifier<String>('');
@@ -200,84 +213,271 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
         }
 
         final results = snapshot.data!;
-        // S-17: برگشت از صفحه ← آخرین نتیجه‌ی دیده‌شده وسطِ فهرست و هایلایت‌شده.
-        final int focus = _resumeTarget == null
-            ? -1
-            : results.indexWhere((r) => identical(r, _resumeTarget));
-        return ScrollablePositionedList.builder(
-          itemCount: results.length,
-          initialScrollIndex: focus < 0 ? 0 : focus,
-          initialAlignment: focus <= 0 ? 0 : 0.3,
-          itemBuilder: (context, index) {
-            final result = results[index];
-            final bool isAudioResult = result.audioTrackName != null;
-            final bool isLastSeen = index == focus;
-            final String? where = _locationOf(result);
-            return ListTile(
-              selected: isLastSeen,
-              selectedTileColor: Colors.indigo.withOpacity(0.10),
-              leading: Icon(
-                isAudioResult
-                    ? Icons.play_circle_fill_rounded
-                    : Icons.menu_book,
-                color: isAudioResult ? Colors.orangeAccent : Colors.indigo,
-              ),
-              title: Text(
-                result.bookTitle,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        return _buildResultList(context, results, debouncedQuery);
+      },
+    );
+  }
+
+  /// 🌟 S-18: نتیجه‌ها زیرِ سرعنوانِ درس (به ترتیبِ کتاب؛ نتیجه‌های اسکریپتِ صوتی زیرِ درسِ همان
+  /// فایل)، هر نتیجه با نشانِ مهارت، بخش و صفحه، و گزیده‌ای که عبارتِ یافته‌شده در آن پررنگ است.
+  /// ترتیبِ پیمایشِ «بعدی/قبلی» در صفحه همان ترتیبِ موتورِ جستجوست (SearchSession).
+  Widget _buildResultList(
+    BuildContext context,
+    List<SearchResult> results,
+    String debouncedQuery,
+  ) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme cs = theme.colorScheme;
+
+    // مرتب‌سازیِ پایدار بر اساسِ درس؛ بی‌درس آخر.
+    final List<int> order = List<int>.generate(results.length, (i) => i);
+    int unitKey(int i) => _placeOf(results[i]).place?.unitIndex ?? 1 << 20;
+    if (store?.outline.isNotEmpty ?? false) {
+      order.sort((a, b) {
+        final int c = unitKey(a).compareTo(unitKey(b));
+        return c != 0 ? c : a.compareTo(b);
+      });
+    }
+
+    // ردیف‌ها: null = خلاصه‌ی بالا؛ (header) = سرعنوانِ درس؛ (result) = نتیجه.
+    final List<({int? result, OutlinePlace? header, int count})> rows = [
+      (result: null, header: null, count: -1),
+    ];
+    final bool grouped = store?.outline.isNotEmpty ?? false;
+    int? lastUnit;
+    int headerRow = -1;
+    for (final int i in order) {
+      final OutlinePlace? place = _placeOf(results[i]).place;
+      final int u = place?.unitIndex ?? -1;
+      if (grouped && (headerRow < 0 || u != lastUnit)) {
+        lastUnit = u;
+        headerRow = rows.length;
+        rows.add((result: null, header: place, count: 0));
+      }
+      rows.add((result: i, header: null, count: 0));
+      if (headerRow >= 0) {
+        final r = rows[headerRow];
+        rows[headerRow] = (result: null, header: r.header, count: r.count + 1);
+      }
+    }
+
+    // S-17: برگشت از صفحه ← آخرین نتیجه‌ی دیده‌شده وسطِ فهرست و هایلایت‌شده.
+    final int focusResult = _resumeTarget == null
+        ? -1
+        : results.indexWhere((r) => identical(r, _resumeTarget));
+    final int focusRow = focusResult < 0
+        ? -1
+        : rows.indexWhere((r) => r.result == focusResult);
+
+    final Set<String> books = {for (final r in results) r.bookTitle};
+
+    return ScrollablePositionedList.builder(
+      itemCount: rows.length,
+      initialScrollIndex: focusRow < 0 ? 0 : focusRow,
+      initialAlignment: focusRow <= 0 ? 0 : 0.3,
+      padding: const EdgeInsets.only(bottom: 24),
+      itemBuilder: (context, index) {
+        final row = rows[index];
+        if (row.result == null && row.count < 0) {
+          return Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+            child: Text.rich(
+              TextSpan(
                 children: [
-                  // 🌟 S-15: درس و مهارت، بعد صفحه یا فایلِ صوتی.
-                  Text(
-                    [
-                      if (where != null) where,
-                      isAudioResult
-                          ? (result.hiddenMatchCount > 1
-                                ? 'اسکریپتِ صوتی: ${bidiIsolate(result.audioTrackName!)} (${result.hiddenMatchCount} نتیجه)'
-                                : 'اسکریپتِ صوتی: ${bidiIsolate(result.audioTrackName!)}')
-                          : 'صفحه ${result.pageNumber}',
-                    ].join(' — '),
-                    style: const TextStyle(
-                      color: Colors.blueAccent,
-                      fontSize: 11,
-                    ),
+                  TextSpan(
+                    text: '${results.length} نتیجه',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Text(
-                      result.matchedExcerpt,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+                  TextSpan(text: ' برای «${bidiIsolate(debouncedQuery)}»'),
+                  if (books.length == 1)
+                    TextSpan(text: ' در ${bidiIsolate(books.first)}'),
                 ],
               ),
-              onTap: () {
-                final bookResults = results
-                    .where((r) => r.bookId == result.bookId)
-                    .toList();
-                final tappedIndex = bookResults.indexOf(result);
-                close(
-                  context,
-                  SearchSession(
-                    // 🐞 S-13: همان عبارتی که واقعاً جستجو شد (بی‌فاصله‌ی اضافه)، نه
-                    // متنِ خامِ کادر — وگرنه هایلایتِ نارنجی با نتیجه‌ها هم‌خوان نبود.
-                    query: debouncedQuery,
-                    results: bookResults,
-                    currentIndex: tappedIndex,
-                  ),
-                );
-              },
+              style: TextStyle(color: cs.onSurfaceVariant, fontSize: 13),
+            ),
+          );
+        }
+        if (row.result == null) {
+          return UnitGroupHeader(
+            place: row.header,
+            countLabel: '${row.count} نتیجه',
+            accent: cs.primary,
+            textColor: cs.onSurface,
+            mutedColor: cs.onSurfaceVariant,
+          );
+        }
+        final SearchResult result = results[row.result!];
+        return _resultTile(
+          context,
+          result,
+          highlighted: index == focusRow,
+          showBook: books.length > 1,
+          onTap: () {
+            final bookResults = results
+                .where((r) => r.bookId == result.bookId)
+                .toList();
+            close(
+              context,
+              SearchSession(
+                // 🐞 S-13: همان عبارتی که واقعاً جستجو شد (بی‌فاصله‌ی اضافه)، نه متنِ خامِ
+                // کادر — وگرنه هایلایتِ نارنجی با نتیجه‌ها هم‌خوان نبود.
+                query: debouncedQuery,
+                results: bookResults,
+                currentIndex: bookResults.indexOf(result),
+              ),
             );
           },
         );
       },
     );
+  }
+
+  Widget _resultTile(
+    BuildContext context,
+    SearchResult result, {
+    required bool highlighted,
+    required bool showBook,
+    required VoidCallback onTap,
+  }) {
+    final ColorScheme cs = Theme.of(context).colorScheme;
+    final bool isAudio = result.audioTrackName != null;
+    final info = _placeOf(result);
+    final Color skillColor = audioSkillColor(info.skill) ?? cs.primary;
+    final String section =
+        info.place?.sectionTitle ??
+        (info.skill == AudioSkill.other ? '' : audioSkillName(info.skill));
+    final TextStyle muted = TextStyle(color: cs.onSurfaceVariant, fontSize: 12);
+
+    // جایِ نتیجه: «Reading · صفحه‌ی 19» یا «Listening · اسکریپتِ Mindset_L1_35».
+    final List<InlineSpan> where = [
+      if (section.isNotEmpty)
+        TextSpan(
+          text: bidiIsolate(section),
+          style: TextStyle(color: skillColor, fontWeight: FontWeight.w600),
+        ),
+      if (section.isNotEmpty) const TextSpan(text: '  ·  '),
+      TextSpan(
+        text: isAudio
+            ? 'اسکریپتِ ${bidiIsolate(_stem(result.audioTrackName!))}'
+            : 'صفحه‌ی ${result.pageNumber}',
+      ),
+      if (showBook) TextSpan(text: '  ·  ${bidiIsolate(result.bookTitle)}'),
+    ];
+
+    final String excerpt = result.matchedExcerpt;
+    final int ms = result.excerptMatchStart;
+    final int me = result.excerptMatchEnd;
+    final bool canMark = ms >= 0 && me > ms && me <= excerpt.length;
+    final TextStyle base = TextStyle(
+      color: cs.onSurface,
+      fontSize: 14,
+      height: 1.45,
+    );
+    final TextStyle mark = TextStyle(
+      fontWeight: FontWeight.bold,
+      color: cs.onSurface,
+      backgroundColor: Colors.amber.withOpacity(0.45),
+    );
+
+    return Material(
+      color: highlighted ? cs.primary.withOpacity(0.08) : Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          decoration: highlighted
+              ? BoxDecoration(
+                  border: BorderDirectional(
+                    start: BorderSide(color: cs.primary, width: 3),
+                  ),
+                )
+              : null,
+          padding: const EdgeInsetsDirectional.fromSTEB(16, 10, 16, 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SkillBadge(
+                skill: info.skill,
+                color: skillColor,
+                size: 38,
+                // نتیجه‌ی اسکریپتِ صوتی: نشانِ پخش (لمس ← پلیر باز می‌شود).
+                icon: isAudio ? Icons.play_arrow_rounded : null,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(children: where),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: muted,
+                          ),
+                        ),
+                        if (result.matchInHiddenAnswer)
+                          _chip(context, 'در پاسخِ پنهان', Icons.visibility_off_outlined),
+                        if (result.hiddenMatchCount > 1)
+                          _chip(context, '${result.hiddenMatchCount} مورد', null),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text.rich(
+                      canMark
+                          ? TextSpan(
+                              children: [
+                                TextSpan(text: excerpt.substring(0, ms)),
+                                TextSpan(text: excerpt.substring(ms, me), style: mark),
+                                TextSpan(text: excerpt.substring(me)),
+                              ],
+                            )
+                          : TextSpan(text: excerpt),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textDirection: textDirectionOf(excerpt),
+                      textAlign: textAlignToStartOf(context),
+                      style: base,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget _chip(BuildContext context, String text, IconData? icon) {
+    final ColorScheme cs = Theme.of(context).colorScheme;
+    return Container(
+      margin: const EdgeInsetsDirectional.only(start: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+      decoration: BoxDecoration(
+        color: cs.secondaryContainer,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            Icon(icon, size: 12, color: cs.onSecondaryContainer),
+            const SizedBox(width: 3),
+          ],
+          Text(
+            text,
+            style: TextStyle(fontSize: 11, color: cs.onSecondaryContainer),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static String _stem(String file) {
+    final int dot = file.lastIndexOf('.');
+    return dot > 0 ? file.substring(0, dot) : file;
   }
 
   @override

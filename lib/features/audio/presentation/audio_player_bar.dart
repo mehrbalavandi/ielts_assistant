@@ -17,6 +17,7 @@ import 'package:ielts_assistant/features/reader/presentation/rendering/text_rend
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
+import 'package:ielts_assistant/shared/widgets/outline_group_widgets.dart';
 
 // 🐞 برای دکمه‌ی «برو به متن»: مکانیزمِ موجودِ اسکرول (در
 // ReadingCanvas) فقط از رویِ activeSearchProvider/SearchResult کار
@@ -554,24 +555,61 @@ class _AudioPlaylistSheet extends ConsumerStatefulWidget {
       _AudioPlaylistSheetState();
 }
 
+/// AU-13: یک ردیفِ پلی‌لیست — سرعنوانِ درس یا یک فایل.
+class _PlaylistItem {
+  final OutlinePlace? header;
+  final int count;
+  final String? path;
+  final AudioLocation? location;
+  final OutlinePlace? place;
+
+  const _PlaylistItem.header(this.header, this.count)
+    : path = null,
+      location = null,
+      place = null;
+
+  const _PlaylistItem.track(this.path, this.location, this.place)
+    : header = null,
+      count = 0;
+
+  bool get isHeader => path == null;
+}
+
+/// نامِ فایل بی‌پسوند و بی‌پوشه: «Mindset_L1_35».
+String _trackStem(String path) {
+  String name = path.split('/').last.split(r'\').last;
+  final int dot = name.lastIndexOf('.');
+  if (dot > 0) name = name.substring(0, dot);
+  return name;
+}
+
 class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
-  // 🌟 S-10: ارتفاعِ ثابتِ هر ردیف (ListTileِ یک‌خطی) تا جای هر آیتم دقیقاً
-  // معلوم باشد و بشود بدونِ ساختنِ همه‌ی ردیف‌ها مستقیم به آن پرید.
-  // 🌟 AU-7: دوخطی (نامِ فایل + درس و مهارت) ← ارتفاعِ ListTileِ دوخطی.
-  static const double _rowExtent = 72.0;
+  // 🌟 S-10: ارتفاعِ ثابتِ هر ردیف تا جای هر آیتم دقیقاً معلوم باشد و بشود بدونِ ساختنِ همه‌ی
+  // ردیف‌ها مستقیم به آن پرید. 🌟 AU-13: سرعنوانِ درس‌ها ارتفاعِ خودشان را دارند.
+  static const double _rowExtent = 64.0;
+  static const double _headerExtent = UnitGroupHeader.height;
 
-  /// AU-7: برچسبِ درس و مهارتِ هر فایل (یک‌بار حساب می‌شود).
-  final Map<String, String?> _locationLabels = {};
+  /// AU-7/AU-13: جای اولین دکمه‌ی هر فایل و درسش (یک‌بار حساب می‌شود).
+  final Map<String, ({AudioLocation? loc, OutlinePlace? place})> _places = {};
 
-  String? _locationOf(String fileName) => _locationLabels.putIfAbsent(fileName, () {
-    final AudioLocation? loc = firstOccurrenceForTrack(pagedBookStore, fileName);
-    if (loc == null || pagedBookStore.outline.isEmpty) return null;
-    return outlineLocationLabel(
-      pagedBookStore.outline,
-      loc.pageNumber,
-      loc.paraIndex,
-    );
-  });
+  ({AudioLocation? loc, OutlinePlace? place}) _placeOf(String path) =>
+      _places.putIfAbsent(path, () {
+        final AudioLocation? loc = firstOccurrenceForTrack(
+          pagedBookStore,
+          path.split('/').last,
+        );
+        return (
+          loc: loc,
+          place: loc == null
+              ? null
+              : outlinePlaceAt(
+                  pagedBookStore.outline,
+                  loc.pageNumber,
+                  loc.paraIndex,
+                ),
+        );
+      });
+
   final ScrollController _scrollController = ScrollController();
   bool _didInitialScroll = false;
 
@@ -583,23 +621,88 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
     super.dispose();
   }
 
+  /// AU-13: فایل‌ها به ترتیبِ پلی‌لیست، زیرِ سرعنوانِ درسشان (هر بار که درس عوض می‌شود).
+  List<_PlaylistItem> _items(List<String> playlist) {
+    final List<_PlaylistItem> out = [];
+    // کتابِ بی‌فهرست: سرعنوانی نیست.
+    if (pagedBookStore.outline.isEmpty) {
+      for (final String path in playlist) {
+        final p = _placeOf(path);
+        out.add(_PlaylistItem.track(path, p.loc, null));
+      }
+      return out;
+    }
+    int? headerAt;
+    int? unit = -2;
+    for (final String path in playlist) {
+      final p = _placeOf(path);
+      final int u = p.place?.unitIndex ?? -1;
+      if (u != unit) {
+        if (headerAt != null) {
+          out[headerAt] = _PlaylistItem.header(
+            out[headerAt].header,
+            out.length - headerAt - 1,
+          );
+        }
+        unit = u;
+        headerAt = out.length;
+        out.add(_PlaylistItem.header(p.place, 0));
+      }
+      out.add(_PlaylistItem.track(path, p.loc, p.place));
+    }
+    if (headerAt != null) {
+      out[headerAt] = _PlaylistItem.header(
+        out[headerAt].header,
+        out.length - headerAt - 1,
+      );
+    }
+    return out;
+  }
+
+  double _extentOf(_PlaylistItem item) =>
+      item.isHeader ? _headerExtent : _rowExtent;
+
   /// 🌟 S-10: با بازشدنِ پلی‌لیست، فایلِ در حالِ پخش — یا اگر چیزی پخش نمی‌شود،
   /// آخرین فایلی که پخش شده — وسطِ فهرست دیده شود. فقط یک‌بار، تا اسکرولِ خودِ
   /// کاربر را به هم نزند.
-  void _scrollToCurrentOnce(List<String> playlist, String? target) {
-    if (_didInitialScroll || playlist.isEmpty) return;
+  void _scrollToCurrentOnce(List<_PlaylistItem> items, String? target) {
+    if (_didInitialScroll || items.isEmpty) return;
     _didInitialScroll = true;
-    final int index = target == null ? -1 : playlist.indexOf(target);
+    final int index = target == null
+        ? -1
+        : items.indexWhere((e) => e.path == target);
     if (index < 0) return;
+    double top = 0;
+    for (int k = 0; k < index; k++) {
+      top += _extentOf(items[k]);
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || !_scrollController.hasClients) return;
       final position = _scrollController.position;
       final double offset =
-          index * _rowExtent - (position.viewportDimension - _rowExtent) / 2;
+          top - (position.viewportDimension - _rowExtent) / 2;
       _scrollController.jumpTo(
         offset.clamp(position.minScrollExtent, position.maxScrollExtent),
       );
     });
+  }
+
+  Future<void> _play(String path, AudioPlayerState state) async {
+    // 🐞 رفع باگِ «هدایتِ نادرست بعدِ تپ روی پلی‌لیست»: playFile برای فایلِ متفاوت یک await
+    // _player.stop() اولش دارد — یعنی state (شاملِ targetLocation) فقط *بعدِ* آن await آپدیت
+    // می‌شود؛ پس باید await شود تا _jumpToAudioLocation جای کهنه را نخواند.
+    // 🐞 جای فایل مستقیم از pagedBookStore.audioLinksIndex (منبعِ اصلی) محاسبه می‌شود.
+    final fileName = path.split('/').last;
+    await ref
+        .read(audioPlayerProvider.notifier)
+        .playFile(
+          path,
+          newPlaylist: state.playlist,
+          newFirstOccurrence: state.firstOccurrence,
+          explicitLocation: firstOccurrenceForTrack(pagedBookStore, fileName),
+        );
+    if (!mounted) return;
+    _jumpToAudioLocation(ref, context);
   }
 
   @override
@@ -610,19 +713,14 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
     final String? markedPath =
         state.currentPath ??
         ref.read(audioPlayerProvider.notifier).lastPlayedPath;
-    _scrollToCurrentOnce(state.playlist, markedPath);
+    final List<_PlaylistItem> items = _items(state.playlist);
+    _scrollToCurrentOnce(items, markedPath);
 
-    // 🐞 رفع اخطارِ «ListTile background color or ink splashes may be
-    // invisible»: قبلاً این Containerِ بیرونی یک رنگِ توپُر داشت که بینِ
-    // ListTileها و نزدیک‌ترین Materialِ اجدادی‌شان (از خودِ مودال) می‌نشست؛
-    // چون این Container غیرشفاف بود، افکتِ ink splash را بصری می‌پوشاند.
-    // Material خودش هم color و هم borderRadius را پشتیبانی می‌کند و دقیقاً
-    // میزبانِ درستِ ink splash است (نه چیزی که جلویش را بگیرد)، پس همان
-    // Container بیرونی را با Material جایگزین کردیم.
+    // 🐞 Material (نه Containerِ رنگی) تا ink splashِ ردیف‌ها دیده شود.
     return Material(
       color: colors.bgBottom,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.7,
         child: Column(
           children: [
@@ -635,31 +733,44 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsetsDirectional.only(start: 20, end: 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "پلی‌لیستِ کتاب",
-                    style: TextStyle(
-                      color: colors.textPrimary,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  Icon(Icons.queue_music_rounded, color: colors.accent),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "پلی‌لیستِ کتاب",
+                          style: TextStyle(
+                            color: colors.textPrimary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        if (state.playlist.isNotEmpty)
+                          Text(
+                            '${state.playlist.length} فایل',
+                            style: TextStyle(
+                              color: colors.textMuted,
+                              fontSize: 12,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                   IconButton(
-                    icon: Icon(
-                      Icons.close_rounded,
-                      color: colors.textSecondary,
-                    ),
+                    icon: Icon(Icons.close_rounded, color: colors.textSecondary),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),
             ),
-            Divider(color: colors.divider, height: 20),
+            Divider(color: colors.divider, height: 16),
             Expanded(
               child: state.playlist.isEmpty
                   ? Center(
@@ -668,121 +779,145 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                         style: TextStyle(color: colors.textMuted),
                       ),
                     )
-                  // 🌟 UI-2: سرعنوانِ فارسیِ برگه راست‌به‌چپ است (جهتِ اپ)، ولی فهرستِ نامِ
-                  // فایل‌ها انگلیسی است و چپ‌به‌راست می‌ماند.
-                  : Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: ListView.builder(
+                  : ListView.builder(
                       controller: _scrollController,
-                      itemExtent: _rowExtent,
-                      itemCount: state.playlist.length,
+                      padding: const EdgeInsets.only(bottom: 16),
+                      itemExtentBuilder: (index, _) => index < items.length
+                          ? _extentOf(items[index])
+                          : null,
+                      itemCount: items.length,
                       itemBuilder: (context, index) {
-                        final path = state.playlist[index];
-                        // 🌟 S-10: بعد از اجرای دوباره‌ی برنامه (چیزی در حالِ پخش
-                        // نیست) آخرین فایلِ پخش‌شده هم مثلِ فایلِ جاری علامت دارد.
-                        final bool isCurrent = markedPath == path;
-                        final AudioSkill rowSkill = ref
-                            .read(audioPlayerProvider.notifier)
-                            .skillOfPath(path);
-                        final bool isPlayingRow = isCurrent && state.isPlaying;
-                        return ListTile(
-                          // 🌟 S-11: فایلِ در حالِ پخش زمینه‌ی ملایمِ رنگِ تأکید
-                          // و به‌جای آیکون، نمایشگرِ صوتیِ متحرک دارد.
-                          tileColor: isPlayingRow
-                              ? colors.accent.withOpacity(0.10)
-                              : null,
-                          leading: SizedBox(
-                            width: 28,
-                            height: 28,
-                            child: Center(
-                              child: AnimatedSwitcher(
-                                duration: const Duration(milliseconds: 200),
-                                child: isPlayingRow
-                                    ? _AudioMeter(
-                                        key: const ValueKey('meter'),
-                                        color: colors.accent,
-                                      )
-                                    // 🌟 AU-9: آیکون و رنگِ مهارتِ فایل
-                                    : Icon(
-                                        audioSkillIcon(rowSkill),
-                                        key: const ValueKey('icon'),
-                                        color: isCurrent
-                                            ? colors.accent
-                                            : (audioSkillColor(
-                                                    rowSkill,
-                                                    onDark: true,
-                                                  ) ??
-                                                  colors.textMuted),
-                                      ),
-                              ),
-                            ),
-                          ),
-                          // 🌟 AU-7: درس و مهارتِ هر فایل زیرِ نامش.
-                          subtitle: _locationOf(path.split('/').last) == null
-                              ? null
-                              : Text(
-                                  _locationOf(path.split('/').last)!,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color:
-                                        audioSkillColor(rowSkill, onDark: true)
-                                            ?.withOpacity(0.85) ??
-                                        colors.textMuted,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                          title: Text(
-                            path.split('/').last,
-                            style: TextStyle(
-                              color: isCurrent
-                                  ? colors.accent
-                                  : colors.textSecondary,
-                              fontWeight: isCurrent
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onTap: () async {
-                            // 🐞 رفع باگِ «هدایتِ نادرست بعدِ تپ روی پلی‌لیست»:
-                            // playFile برای فایلِ متفاوت یک await
-                            // _player.stop() اولش دارد — یعنی state (شاملِ
-                            // targetLocation) فقط *بعدِ* آن await آپدیت
-                            // می‌شود. بدونِ await صدا زدنِ playFile،
-                            // _jumpToAudioLocation بلافاصله بعدش
-                            // targetLocationِ کهنه (مالِ فایلِ قبلی) را
-                            // می‌خواند.
-                            // 🐞 قبلاً newFirstOccurrence: state.firstOccurrence
-                            // پاس داده می‌شد — که در برخی توالی‌ها (پخشِ یک
-                            // فایل، بستنِ مودال، بازکردنش از رویِ جستجو) درست
-                            // پر نبود و «برو به متن» را خراب می‌کرد. حالا
-                            // مستقیم از رویِ pagedBookStore.audioLinksIndex
-                            // (منبعِ اصلی) محاسبه می‌شود — همیشه قابلِ‌اتکا.
-                            final fileName = path.split('/').last;
-                            await ref
-                                .read(audioPlayerProvider.notifier)
-                                .playFile(
-                                  path,
-                                  newPlaylist: state.playlist,
-                                  newFirstOccurrence: state.firstOccurrence,
-                                  explicitLocation: firstOccurrenceForTrack(
-                                    pagedBookStore,
-                                    fileName,
-                                  ),
-                                );
-                            if (!context.mounted) return;
-                            _jumpToAudioLocation(ref, context);
-                          },
-                        );
+                        final _PlaylistItem item = items[index];
+                        if (item.isHeader) {
+                          return UnitGroupHeader(
+                            place: item.header,
+                            countLabel: '${item.count} فایل',
+                            accent: colors.accent,
+                            textColor: colors.textPrimary,
+                            mutedColor: colors.textMuted,
+                          );
+                        }
+                        return _trackRow(item, state, markedPath, colors);
                       },
-                    ),
                     ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _trackRow(
+    _PlaylistItem item,
+    AudioPlayerState state,
+    String? markedPath,
+    _PlayerColors colors,
+  ) {
+    final String path = item.path!;
+    // 🌟 S-10: بعد از اجرای دوباره‌ی برنامه (چیزی در حالِ پخش نیست) آخرین فایلِ پخش‌شده هم
+    // مثلِ فایلِ جاری علامت دارد.
+    final bool isCurrent = markedPath == path;
+    final bool isPlayingRow = isCurrent && state.isPlaying;
+    final AudioSkill skill = ref
+        .read(audioPlayerProvider.notifier)
+        .skillOfPath(path);
+    // 🌟 AU-9: رنگِ مهارتِ فایل؛ فایلِ جاری رنگِ تأکید.
+    final Color skillColor =
+        audioSkillColor(skill, onDark: true) ?? colors.textMuted;
+    final Color badgeColor = isCurrent ? colors.accent : skillColor;
+    final String section =
+        item.place?.sectionTitle ??
+        (skill == AudioSkill.other ? '' : audioSkillName(skill));
+    final int? page = item.location?.pageNumber;
+    final String stem = _trackStem(path);
+
+    return Material(
+      // 🌟 S-11: فایلِ جاری زمینه‌ی ملایمِ رنگِ تأکید و به‌جای آیکون نمایشگرِ صوتیِ متحرک دارد.
+      color: isCurrent ? colors.accent.withOpacity(0.10) : Colors.transparent,
+      child: InkWell(
+        onTap: () => _play(path, state),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              SkillBadge(
+                skill: skill,
+                color: badgeColor,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  child: isPlayingRow
+                      ? SizedBox.square(
+                          key: const ValueKey('meter'),
+                          dimension: 22,
+                          child: _AudioMeter(color: colors.accent),
+                        )
+                      : Icon(
+                          audioSkillIcon(skill),
+                          key: const ValueKey('icon'),
+                          size: 22,
+                          color: badgeColor,
+                        ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // نامِ فایل انگلیسی است: چپ‌به‌راست، ولی سرِ جای عنوان‌های فارسی (راست).
+                    Text(
+                      stem,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textDirection: TextDirection.ltr,
+                      textAlign: textAlignToStartOf(context),
+                      style: TextStyle(
+                        color: isCurrent ? colors.accent : colors.textPrimary,
+                        fontSize: 15,
+                        fontWeight: isCurrent
+                            ? FontWeight.bold
+                            : FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    // 🌟 AU-7/AU-13: بخش (مهارت) به رنگش و صفحه؛ درس سرعنوانِ گروه است.
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          if (section.isNotEmpty)
+                            TextSpan(
+                              text: bidiIsolate(section),
+                              style: TextStyle(
+                                color: skillColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          if (section.isNotEmpty && page != null)
+                            const TextSpan(text: '  ·  '),
+                          if (page != null) TextSpan(text: 'صفحه‌ی $page'),
+                        ],
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: colors.textMuted, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              if (isCurrent)
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 8),
+                  child: Icon(
+                    isPlayingRow
+                        ? Icons.volume_up_rounded
+                        : Icons.pause_circle_outline_rounded,
+                    size: 20,
+                    color: colors.accent,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

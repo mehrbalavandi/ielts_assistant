@@ -34,6 +34,13 @@ class SearchResult {
   final int occurrenceIndex;
   final ParagraphData paragraph;
   final String matchedExcerpt;
+
+  /// 🌟 S-18: جای عبارتِ یافته‌شده در [matchedExcerpt] (پررنگ در فهرستِ نتایج)؛ -1 = نامعلوم.
+  final int excerptMatchStart;
+  final int excerptMatchEnd;
+
+  /// 🌟 S-18: عبارت داخلِ پاسخِ پنهان ({blk}) است؛ گزیده آن را «____» نشان می‌دهد.
+  final bool matchInHiddenAnswer;
   final String query;
   final int
   hiddenMatchCount; // 🌟 اگر >۱، یعنی چند occurrence داخلِ همین یک جای‌خالی گروه شده‌اند
@@ -62,6 +69,9 @@ class SearchResult {
     required this.occurrenceIndex,
     required this.paragraph,
     required this.matchedExcerpt,
+    this.excerptMatchStart = -1,
+    this.excerptMatchEnd = -1,
+    this.matchInHiddenAnswer = false,
     required this.query,
     this.hiddenMatchCount = 1,
     this.audioTrackName,
@@ -363,7 +373,8 @@ Future<List<SearchResult>> _performSearch(
     for (var page in pages) {
       for (int pIndex = 0; pIndex < page.paragraphs.length; pIndex++) {
         var para = page.paragraphs[pIndex];
-        String rawText = _extractFullText(para);
+        final full = extractFullTextWithBreaks(para); // S-18: همان متن + مرزِ سلول‌ها
+        String rawText = full.text;
         TextSearchMapper mapper = TextSearchMapper(rawText);
         String normalizedText = _normalizeText(mapper.cleanText);
         List<List<int>> blkRanges = _findBlkRanges(rawText);
@@ -398,16 +409,13 @@ Future<List<SearchResult>> _performSearch(
           }
           final groupSize = j - i;
 
-          int cleanStartIdx = (first.matchIndex - 30).clamp(
-            0,
-            mapper.cleanText.length,
+          final SearchExcerpt excerpt = _excerpt(
+            rawText,
+            full.breaks,
+            mapper,
+            first.matchIndex,
+            lowerQuery.length,
           );
-          int cleanEndIdx = (first.matchIndex + lowerQuery.length + 30).clamp(
-            0,
-            mapper.cleanText.length,
-          );
-          String excerpt =
-              "... ${mapper.cleanText.substring(cleanStartIdx, cleanEndIdx).trim()} ...";
 
           results.add(
             SearchResult(
@@ -420,7 +428,10 @@ Future<List<SearchResult>> _performSearch(
               // blank هم حضور دارد و هایلایتِ فعال درست کار می‌کند.
               occurrenceIndex: first.occurrence,
               paragraph: para,
-              matchedExcerpt: excerpt,
+              matchedExcerpt: excerpt.text,
+              excerptMatchStart: excerpt.matchStart,
+              excerptMatchEnd: excerpt.matchEnd,
+              matchInHiddenAnswer: excerpt.hidden,
               query: query,
               hiddenMatchCount: groupSize,
             ),
@@ -448,7 +459,7 @@ Future<List<SearchResult>> _performSearch(
       final List<int> trackTimestamps = [];
       ParagraphData? firstMatchedPara;
       int firstMatchedParaIndex = -1;
-      String firstExcerpt = '';
+      SearchExcerpt firstExcerpt = const SearchExcerpt('', -1, -1);
 
       for (int pIndex = 0; pIndex < track.paragraphs.length; pIndex++) {
         var para = track.paragraphs[pIndex];
@@ -467,16 +478,13 @@ Future<List<SearchResult>> _performSearch(
           if (firstMatchedPara == null) {
             firstMatchedPara = para;
             firstMatchedParaIndex = pIndex;
-            int cleanStartIdx = (matchIndex - 30).clamp(
-              0,
-              mapper.cleanText.length,
+            firstExcerpt = _excerpt(
+              rawText,
+              const {},
+              mapper,
+              matchIndex,
+              lowerQuery.length,
             );
-            int cleanEndIdx = (matchIndex + lowerQuery.length + 30).clamp(
-              0,
-              mapper.cleanText.length,
-            );
-            firstExcerpt =
-                "... ${mapper.cleanText.substring(cleanStartIdx, cleanEndIdx).trim()} ...";
           }
 
           matchIndex = normalizedText.indexOf(
@@ -496,7 +504,9 @@ Future<List<SearchResult>> _performSearch(
             paraIndex: firstMatchedParaIndex,
             occurrenceIndex: 0,
             paragraph: firstMatchedPara,
-            matchedExcerpt: firstExcerpt,
+            matchedExcerpt: firstExcerpt.text,
+            excerptMatchStart: firstExcerpt.matchStart,
+            excerptMatchEnd: firstExcerpt.matchEnd,
             query: query,
             audioTrackName: track.audioTrackName,
             matchedStartMs: trackTimestamps.first,
@@ -511,5 +521,19 @@ Future<List<SearchResult>> _performSearch(
 }
 
 String _extractFullText(ParagraphData para) => extractFullText(para);
+
+/// 🌟 S-18: گزیده‌ی نتیجه از متنِ خام (مرزِ سلول‌ها، پاسخِ پنهان «____»، جای تطبیق).
+SearchExcerpt _excerpt(
+  String rawText,
+  Set<int> breaks,
+  TextSearchMapper mapper,
+  int cleanMatch,
+  int length,
+) {
+  final int rawStart = mapper.cleanToRaw[cleanMatch];
+  final int lastClean = (cleanMatch + length - 1).clamp(0, mapper.cleanToRaw.length - 1);
+  final int rawEnd = mapper.cleanToRaw[lastClean] + 1;
+  return buildSearchExcerpt(rawText, breaks, rawStart, rawEnd);
+}
 
 String _normalizeText(String text) => normalizeText(text);

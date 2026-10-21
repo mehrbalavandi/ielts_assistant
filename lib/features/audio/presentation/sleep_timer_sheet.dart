@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/audio/domain/audio_skill.dart';
+import 'package:ielts_assistant/shared/widgets/outline_group_widgets.dart';
 
 // 🌟 AU-8 (RULES-rendering.md): تایمرِ توقفِ پلیر، مثلِ Musicolet — توقف بعد از یک مدت، بعد از
 // پایانِ N فایل، یا بعد از پایانِ یک فایلِ مشخص. منطقش در AudioPlayerNotifier است؛ این‌جا دکمه و
@@ -394,12 +396,20 @@ class _SleepTimerSheet extends ConsumerWidget {
                   itemBuilder: (_, i) {
                     final String p = files[i];
                     final String? where = n.trackLocationLabel(p);
+                    // 🌟 AU-13: همان نشانِ رنگِ مهارتِ پلی‌لیست.
+                    final AudioSkill skill = n.skillOfPath(p);
+                    final bool current = p == s.currentPath;
+                    final Color color = current
+                        ? Theme.of(ctx).colorScheme.primary
+                        : (audioSkillColor(skill) ??
+                              Theme.of(ctx).colorScheme.onSurfaceVariant);
                     return ListTile(
-                      selected: p == s.currentPath,
-                      leading: Icon(
-                        p == s.currentPath
-                            ? Icons.graphic_eq_rounded
-                            : Icons.music_note_rounded,
+                      selected: current,
+                      leading: SkillBadge(
+                        skill: skill,
+                        color: color,
+                        size: 38,
+                        icon: current ? Icons.graphic_eq_rounded : null,
                       ),
                       title: Text(
                         _fileName(p),

@@ -88,15 +88,39 @@ String outlineDisplayTitle(String title) {
   );
 }
 
-/// 🌟 S-15: جای یک نتیجه در فهرستِ کتاب، برای فهرستِ نتایجِ جستجو: «درس 1: Relationships ·
-/// Reading». شماره‌ی درس از عنوانِ سطحِ ۱ («UNIT/01: RELATIONSHIPS») می‌آید و نامش خواناتر
-/// می‌شود (outlineDisplayTitle)؛ عنوانی که شماره ندارد همان‌طور می‌ماند. null = کتاب فهرست
-/// ندارد یا نتیجه پیش از اولین عنوان است.
-String? outlineLocationLabel(
+/// 🌟 S-18/AU-13: جای یک نقطه از کتاب در فهرست — درس (شماره و نام) و بخشش — برای فهرست‌هایی
+/// که موردها را زیرِ سرعنوانِ درس دسته می‌کنند (نتایجِ جستجو، پلی‌لیست).
+@immutable
+class OutlinePlace {
+  /// اندیسِ درس در Outline (برای دسته‌بندی).
+  final int unitIndex;
+
+  /// «4» از «UNIT/04: FOOD AND DRINK»؛ null اگر عنوان شماره ندارد.
+  final String? unitNumber;
+
+  /// نامِ خوانای درس («Food And Drink»)، یا کلِ عنوان اگر شماره نداشت.
+  final String unitTitle;
+
+  /// نامِ خوانای بخش («Listening»، «Speaking Part 2»)؛ null = پیش از اولین بخش.
+  final String? sectionTitle;
+
+  const OutlinePlace({
+    required this.unitIndex,
+    required this.unitNumber,
+    required this.unitTitle,
+    this.sectionTitle,
+  });
+
+  /// «درس 4» (یا نامِ درس اگر شماره ندارد).
+  String get unitLabel => unitNumber == null ? unitTitle : 'درس $unitNumber';
+}
+
+OutlinePlace? outlinePlaceAt(
   List<OutlineEntry> outline,
   int pageNumber,
   int paraIndex,
 ) {
+  if (outline.isEmpty) return null;
   final pos = outlineIndicesAt(outline, pageNumber, paraIndex);
   if (pos.unit < 0) return null;
   final OutlineEntry top = outline[pos.unit];
@@ -106,12 +130,29 @@ String? outlineLocationLabel(
   final RegExpMatch? m = RegExp(
     r'^\D*?0*(\d+)\s*[:.\-–]\s*(.+)$',
   ).firstMatch(top.title);
-  String label = m != null
-      ? 'درس ${m.group(1)}: ${bidiIsolate(outlineDisplayTitle(m.group(2)!.trim()))}'
-      : bidiIsolate(outlineDisplayTitle(top.title));
-  if (section != null) {
-    label += ' · ${bidiIsolate(outlineDisplayTitle(section.title))}';
-  }
+  return OutlinePlace(
+    unitIndex: pos.unit,
+    unitNumber: m?.group(1),
+    unitTitle: outlineDisplayTitle((m?.group(2) ?? top.title).trim()),
+    sectionTitle: section == null ? null : outlineDisplayTitle(section.title),
+  );
+}
+
+/// 🌟 S-15: جای یک نتیجه در فهرستِ کتاب، برای فهرستِ نتایجِ جستجو: «درس 1: Relationships ·
+/// Reading». شماره‌ی درس از عنوانِ سطحِ ۱ («UNIT/01: RELATIONSHIPS») می‌آید و نامش خواناتر
+/// می‌شود (outlineDisplayTitle)؛ عنوانی که شماره ندارد همان‌طور می‌ماند. null = کتاب فهرست
+/// ندارد یا نتیجه پیش از اولین عنوان است.
+String? outlineLocationLabel(
+  List<OutlineEntry> outline,
+  int pageNumber,
+  int paraIndex,
+) {
+  final OutlinePlace? p = outlinePlaceAt(outline, pageNumber, paraIndex);
+  if (p == null) return null;
+  String label = p.unitNumber != null
+      ? 'درس ${p.unitNumber}: ${bidiIsolate(p.unitTitle)}'
+      : bidiIsolate(p.unitTitle);
+  if (p.sectionTitle != null) label += ' · ${bidiIsolate(p.sectionTitle!)}';
   return label;
 }
 

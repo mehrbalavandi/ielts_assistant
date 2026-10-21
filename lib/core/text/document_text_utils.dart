@@ -33,8 +33,18 @@ class TextSearchMapper {
 }
 
 /// متنِ کاملِ یک پاراگراف را استخراج می‌کند (شاملِ سلول‌های جدول، به‌صورت بازگشتی).
-String extractFullText(ParagraphData para) {
-  StringBuffer sb = StringBuffer();
+String extractFullText(ParagraphData para) => _writeFullText(para, StringBuffer(), null);
+
+/// 🌟 S-18: همان متنِ [extractFullText] (همان اندیس‌ها، پس occurrenceها عوض نمی‌شوند) به‌همراهِ
+/// جاهایی که پاراگرافِ تازه‌ای از یک سلولِ جدول شروع می‌شود — گزیده‌ی نتیجه‌ی جستجو آن‌جا فاصله
+/// می‌گذارد تا «comfortable» و «Sweden» ِ دو سلولِ کنارِ هم «comfortableSweden» نشوند.
+({String text, Set<int> breaks}) extractFullTextWithBreaks(ParagraphData para) {
+  final Set<int> breaks = {};
+  final String text = _writeFullText(para, StringBuffer(), breaks);
+  return (text: text, breaks: breaks);
+}
+
+String _writeFullText(ParagraphData para, StringBuffer sb, Set<int>? breaks) {
   for (var span in para.spans) {
     if (span.type == "text") {
       sb.write(span.content);
@@ -46,13 +56,146 @@ String extractFullText(ParagraphData para) {
       for (var row in span.tableRows) {
         for (var cell in row.cells) {
           for (var cellPara in cell.paragraphs) {
-            sb.write(extractFullText(cellPara));
+            breaks?.add(sb.length);
+            _writeFullText(cellPara, sb, breaks);
           }
         }
       }
+      breaks?.add(sb.length);
     }
   }
   return sb.toString();
+}
+
+/// 🌟 S-18: گزیده‌ی یک نتیجه‌ی جستجو و جای عبارتِ یافته‌شده در آن (برای پررنگ کردن).
+/// matchStart = -1: جای عبارت معلوم نیست، یا ([hidden]) داخلِ پاسخِ پنهان است و دیده نمی‌شود.
+class SearchExcerpt {
+  final String text;
+  final int matchStart;
+  final int matchEnd;
+  final bool hidden;
+  const SearchExcerpt(this.text, this.matchStart, this.matchEnd, {this.hidden = false});
+}
+
+/// 🌟 S-18: گزیده از متنِ خام ([rawText] با {blk}): حدودِ [before]/[after] نویسه‌ی دیدنی دورِ
+/// تطبیقِ [rawStart, rawEnd)، با:
+/// - فاصله در مرزِ سلول‌ها ([breaks]) و یکی شدنِ فاصله‌ها/خطِ تازه؛
+/// - پاسخِ پنهان ({blk}…{/blk}) به‌صورتِ «____» — گزیده‌ی جستجو پاسخِ تمرین را لو نمی‌دهد؛
+/// - بریدن در مرزِ کلمه و «…» در دو سر وقتی متن ادامه دارد.
+SearchExcerpt buildSearchExcerpt(
+  String rawText,
+  Set<int> breaks,
+  int rawStart,
+  int rawEnd, {
+  int before = 45,
+  int after = 80,
+}) {
+  bool markerAt(int i) =>
+      rawText.startsWith('{blk}', i) || rawText.startsWith('{/blk}', i);
+
+  // پنجره (در نویسه‌های دیدنی).
+  int from = rawStart;
+  for (int seen = 0; from > 0 && seen < before;) {
+    from--;
+    if (rawText[from] == '}') {
+      final int o = rawText.lastIndexOf('{', from);
+      if (o >= 0 && markerAt(o)) {
+        from = o;
+        continue;
+      }
+    }
+    seen++;
+  }
+  int to = rawEnd;
+  for (int seen = 0; to < rawText.length && seen < after;) {
+    if (rawText.startsWith('{blk}', to)) {
+      to += 5;
+      continue;
+    }
+    if (rawText.startsWith('{/blk}', to)) {
+      to += 6;
+      continue;
+    }
+    to++;
+    seen++;
+  }
+
+  // داخلِ پاسخِ پنهان شروع می‌شود؟
+  bool inBlk = false;
+  {
+    final int open = rawText.lastIndexOf('{blk}', from == 0 ? 0 : from - 1);
+    if (open >= 0 && from > open) {
+      final int close = rawText.indexOf('{/blk}', open);
+      inBlk = close < 0 || close >= from;
+    }
+  }
+
+  final StringBuffer out = StringBuffer();
+  int mStart = -1;
+  int mEnd = -1;
+  bool matchHidden = false;
+  void space() {
+    if (out.isNotEmpty && !out.toString().endsWith(' ')) out.write(' ');
+  }
+
+  if (inBlk) out.write('____');
+  for (int i = from; i < to;) {
+    if (breaks.contains(i) && i != from) space();
+    if (i == rawStart) {
+      if (inBlk) matchHidden = true;
+      mStart = out.length;
+    }
+    if (rawText.startsWith('{blk}', i)) {
+      inBlk = true;
+      if (!out.toString().endsWith('____')) out.write('____');
+      i += 5;
+      continue;
+    }
+    if (rawText.startsWith('{/blk}', i)) {
+      inBlk = false;
+      i += 6;
+      continue;
+    }
+    if (!inBlk) {
+      final String ch = rawText[i];
+      if (ch.trim().isEmpty) {
+        space();
+      } else {
+        out.write(ch);
+      }
+    } else if (i >= rawStart && i < rawEnd) {
+      matchHidden = true;
+    }
+    i++;
+    if (i == rawEnd) mEnd = out.length;
+  }
+  if (mEnd < 0) mEnd = out.length;
+
+  String text = out.toString();
+  // بریدن در مرزِ کلمه.
+  int cutStart = 0;
+  if (from > 0) {
+    final int sp = text.indexOf(' ');
+    if (sp >= 0 && sp < 18 && (mStart < 0 || sp < mStart)) cutStart = sp + 1;
+  }
+  int cutEnd = text.length;
+  if (to < rawText.length) {
+    final int sp = text.lastIndexOf(' ');
+    if (sp > 0 && text.length - sp < 18 && sp >= mEnd) cutEnd = sp;
+  }
+  text = text.substring(cutStart, cutEnd).trim();
+  final int lead = text.isEmpty
+      ? 0
+      : out.toString().substring(cutStart).indexOf(text[0]);
+  final int shift = cutStart + (lead < 0 ? 0 : lead);
+  final String pre = from > 0 ? '… ' : '';
+  final String post = to < rawText.length ? ' …' : '';
+  if (matchHidden || mStart < 0) {
+    return SearchExcerpt('$pre$text$post', -1, -1, hidden: matchHidden);
+  }
+  final int s0 = (mStart - shift).clamp(0, text.length);
+  final int e0 = (mEnd - shift).clamp(s0, text.length);
+  return SearchExcerpt('$pre$text$post', s0 + pre.length, e0 + pre.length);
 }
 
 /// 🐞 S-13: عبارتِ جستجو همیشه از همین‌جا رد می‌شود — هم در موتورِ جستجو (یافتن) و هم
