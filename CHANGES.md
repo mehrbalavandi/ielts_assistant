@@ -1,17 +1,15 @@
-# تغییرات — رنگِ مهارت برای فایل‌های صوتی (AU-9)
+# تغییرات — آیکون‌های تک‌رنگِ اعلان و دکمه‌ی × (AU-10)
 
 فایل‌های تغییرکرده:
-- `lib/features/audio/domain/audio_skill.dart` (تازه): مهارت از فهرستِ کتاب، رنگ، آیکون
-- `lib/features/audio/data/media_session_service.dart`: تصویرِ اعلان به رنگِ مهارت
-- `lib/features/audio/providers/audio_player_provider.dart`: `bookOutline` در state، `skillOfPath`
-- `lib/features/audio/presentation/audio_player_bar.dart`: نوارِ کوچک، برگه‌ی پلیر و پلی‌لیست به رنگِ مهارت
-- `lib/features/reader/presentation/reading_canvas.dart`: دکمه‌ی صوتیِ داخلِ متن به رنگِ مهارت
-- `RULES-rendering.md` (AU-9)
+- `android/app/src/main/res/drawable/ic_stat_notification.xml` (تازه): آیکونِ نوارِ وضعیت (هدفون)
+- `android/app/src/main/res/drawable/ic_notification_close.xml` (تازه): ×ِ «بستن»
+- `android/app/src/main/res/raw/keep.xml` (تازه): این دو در نسخه‌ی release حذف نشوند
+- `lib/features/audio/data/media_session_service.dart`: آیکونِ اعلان، دکمه‌ی بستن، تصویرِ مهارت بی‌نوشته
+- `RULES-rendering.md` (AU-10)
 
 ## چه شد
-- Listening بنفش و Speaking آبی (Reading نارنجی، Writing سبز اگر فایلی آن‌جا باشد) در: دکمه‌های صوتیِ متنِ درس،
-  نوارِ کوچکِ پلیر، برگه‌ی پلیر (هایلایتِ کلمه‌ی در حالِ پخش)، پلی‌لیست (آیکونِ هدفون/میکروفون) و اعلانِ رسانه
-  و صفحه‌ی قفل.
-- نوارِ کوچکِ پلیر به جای «Tap to expand» درس و مهارتِ فایل را نشان می‌دهد.
-- اعلان: اندروید رنگِ زمینه را از تصویرِ اعلان برمی‌دارد، پس برای هر مهارت یک تصویرِ رنگی (آیکون و نامِ
-  مهارت) ساخته می‌شود و جای جلدِ کتاب می‌نشیند.
+- آیکونِ اعلان در نوارِ وضعیت و نشانِ کوچکِ روی تصویرِ اعلان، هدفونِ سفید است، نه مربع.
+- مربعِ سفیدِ سمتِ چپِ دکمه‌ها (دکمه‌ی «توقف» با آیکونِ مربع) حالا × است و پلیر را می‌بندد.
+- روی تصویرِ اعلان فقط آیکونِ مهارت، وسط؛ نوشته‌ی «SPEAKING» زیرِ نشانِ برنامه می‌رفت.
+
+برنامه را دوباره بسازید (منابعِ اندروید عوض شده‌اند؛ Hot Restart کافی نیست).

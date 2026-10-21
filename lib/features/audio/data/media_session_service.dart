@@ -76,6 +76,13 @@ class AppAudioHandler extends BaseAudioHandler with SeekHandler {
   }
 }
 
+/// 🌟 AU-10: «بستن» با آیکونِ × (مثلِ Musicolet)؛ MediaControl.stopِ پیش‌فرض مربعِ «توقف» بود.
+const MediaControl _closeControl = MediaControl(
+  androidIcon: 'drawable/ic_notification_close',
+  label: 'بستن',
+  action: MediaAction.stop,
+);
+
 class MediaSessionService {
   MediaSessionService._();
 
@@ -95,7 +102,9 @@ class MediaSessionService {
           androidNotificationChannelName: 'پخشِ فایل‌های صوتی',
           androidNotificationChannelDescription:
               'کنترلِ پخشِ فایل‌های صوتیِ کتاب از اعلان و صفحه‌ی قفل',
-          androidNotificationIcon: 'mipmap/launcher_icon',
+          // 🌟 AU-10: آیکونِ تک‌رنگِ اعلان (res/drawable/ic_stat_notification.xml)؛ آیکونِ رنگیِ
+          // برنامه در نوارِ وضعیت فقط یک مربعِ سفید می‌شد.
+          androidNotificationIcon: 'drawable/ic_stat_notification',
           // مکث ← اعلان می‌ماند ولی با کشیدن کنار می‌رود (مثلِ Musicolet).
           androidNotificationOngoing: false,
           androidStopForegroundOnPause: true,
@@ -145,7 +154,7 @@ class MediaSessionService {
           MediaControl.skipToPrevious,
           playing ? MediaControl.pause : MediaControl.play,
           MediaControl.skipToNext,
-          MediaControl.stop,
+          _closeControl,
         ],
         systemActions: const {
           MediaAction.seek,
@@ -203,6 +212,8 @@ class MediaSessionService {
             [Color.lerp(light, deep, 0.35)!, deep],
           ),
       );
+      // فقط آیکونِ مهارت، وسط: نامِ مهارت زیرعنوانِ اعلان هست و نوشته‌ی روی تصویر زیرِ نشانِ
+      // کوچکِ برنامه (گوشه‌ی پایینِ تصویر) می‌رفت.
       final IconData icon = audioSkillIcon(skill);
       final TextPainter iconPainter = TextPainter(
         text: TextSpan(
@@ -210,7 +221,7 @@ class MediaSessionService {
           style: TextStyle(
             fontFamily: icon.fontFamily,
             package: icon.fontPackage,
-            fontSize: 220,
+            fontSize: 260,
             color: const Color(0xF2FFFFFF),
           ),
         ),
@@ -218,23 +229,9 @@ class MediaSessionService {
       )..layout();
       iconPainter.paint(
         canvas,
-        Offset((size - iconPainter.width) / 2, 92),
+        Offset((size - iconPainter.width) / 2, (size - iconPainter.height) / 2),
       );
-      final TextPainter label = TextPainter(
-        text: TextSpan(
-          text: audioSkillName(skill).toUpperCase(),
-          style: const TextStyle(
-            fontSize: 54,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 4,
-            color: Color(0xE6FFFFFF),
-          ),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout(maxWidth: size - 40);
-      label.paint(canvas, Offset((size - label.width) / 2, 352));
       iconPainter.dispose();
-      label.dispose();
 
       final ui.Image img = await rec.endRecording().toImage(
         size.toInt(),
@@ -244,7 +241,7 @@ class MediaSessionService {
       img.dispose();
       if (png == null) return null;
       final dir = await getTemporaryDirectory();
-      final File f = File('${dir.path}/media_art_${skill.name}_v1.png');
+      final File f = File('${dir.path}/media_art_${skill.name}_v2.png');
       await f.writeAsBytes(png.buffer.asUint8List(), flush: true);
       return Uri.file(f.path);
     } catch (e) {
