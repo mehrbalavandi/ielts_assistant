@@ -326,7 +326,10 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                     onPrimary: Colors.white,
                   ),
                 ),
-          child: AnimatedSwitcher(
+          // Builder: زبانه و پنل رنگ را از Themeِ زیرِ AnimatedTheme بخوانند، نه از contextِ
+          // خودِ ناوبر (بالای آن) — وگرنه فقط دکمه‌های بخش رنگ می‌گرفتند و زمینه همان می‌ماند.
+          child: Builder(
+            builder: (context) => AnimatedSwitcher(
           duration: const Duration(milliseconds: 180),
           transitionBuilder: (child, anim) => FadeTransition(
             opacity: anim,
@@ -340,6 +343,7 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
           child: _collapsed
               ? _buildCollapsed(context, pos)
               : _buildPanel(context, pos),
+            ),
           ),
         );
       },

@@ -241,7 +241,7 @@ class MediaSessionService {
       img.dispose();
       if (png == null) return null;
       final dir = await getTemporaryDirectory();
-      final File f = File('${dir.path}/media_art_${skill.name}_v2.png');
+      final File f = File('${dir.path}/media_art_${skill.name}_v3.png');
       await f.writeAsBytes(png.buffer.asUint8List(), flush: true);
       return Uri.file(f.path);
     } catch (e) {

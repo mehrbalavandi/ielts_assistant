@@ -1933,7 +1933,7 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
               : const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
           padding: const EdgeInsets.all(12.0),
           // 🌟 RD-1: کادرِ نرم (گوشه‌ی گرد) به رنگِ مهارتِ صفحه — Listening بنفش، Speaking آبی،
-          // Reading نارنجی، Writing سبز (AU-9)؛ صفحه‌ی بی‌مهارت کادرِ خنثیِ کم‌رنگ.
+          // Reading سبزِ لیمویی، Writing نارنجی (AU-9)؛ صفحه‌ی بی‌مهارت کادرِ خنثیِ کم‌رنگ.
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(14),

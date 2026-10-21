@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 
 // 🌟 AU-9 (RULES-rendering.md): رنگِ مهارت برای همه‌چیزِ صوتی — دکمه‌ی فایلِ صوتی در متنِ درس،
-// پلی‌لیست، پلیر و تصویرِ اعلانِ رسانه/صفحه‌ی قفل. مثلِ خودِ کتاب: Listening بنفش، Speaking آبی؛
-// Reading و Writing هم رنگِ خودشان را دارند تا اگر فایلی آن‌جا بود، قاطی نشود. مهارت از جای فایل
+// پلی‌لیست، پلیر، تصویرِ اعلانِ رسانه/صفحه‌ی قفل، کادرِ صفحه و ناوبرِ فهرست. مثلِ خودِ کتاب
+// (رنگِ عنوان‌ها و کادرهای Mindset): Listening بنفش، Speaking آبی، Reading سبزِ لیمویی،
+// Writing نارنجی. مهارت از جای فایل
 // در فهرستِ کتاب (سطحِ ۲ِ Outline) خوانده می‌شود؛ هیچ اسمِ فایلی فرض نمی‌شود.
 
 enum AudioSkill { listening, speaking, reading, writing, other }
@@ -44,9 +45,9 @@ Color? audioSkillColor(AudioSkill skill, {bool onDark = false}) {
     case AudioSkill.speaking:
       return onDark ? const Color(0xFF90CAF9) : const Color(0xFF1565C0);
     case AudioSkill.reading:
-      return onDark ? const Color(0xFFFFB74D) : const Color(0xFFE65100);
+      return onDark ? const Color(0xFFC5E1A5) : const Color(0xFF689F38);
     case AudioSkill.writing:
-      return onDark ? const Color(0xFFA5D6A7) : const Color(0xFF2E7D32);
+      return onDark ? const Color(0xFFFFB74D) : const Color(0xFFEF6C00);
     case AudioSkill.other:
       return null;
   }
@@ -60,9 +61,9 @@ Color audioSkillDeepColor(AudioSkill skill) {
     case AudioSkill.speaking:
       return const Color(0xFF0D47A1);
     case AudioSkill.reading:
-      return const Color(0xFFBF360C);
+      return const Color(0xFF33691E);
     case AudioSkill.writing:
-      return const Color(0xFF1B5E20);
+      return const Color(0xFFBF360C);
     case AudioSkill.other:
       return const Color(0xFF283593);
   }
