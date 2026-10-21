@@ -314,12 +314,19 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     if (_bookAudioPlaylist.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
-        ref
-            .read(audioPlayerProvider.notifier)
-            .setPlaylist(
-              _bookAudioPlaylist,
-              firstOccurrence: _bookAudioFirstOccurrence,
-            );
+        final notifier = ref.read(audioPlayerProvider.notifier);
+        notifier.setPlaylist(
+          _bookAudioPlaylist,
+          firstOccurrence: _bookAudioFirstOccurrence,
+        );
+        // 🌟 AU-5/AU-6: دامنه‌ی تکرار (درس/مهارت) و برچسب و جلدِ کتاب در اعلانِ رسانه.
+        notifier.setBookContext(
+          outline: widget.pagedBookStore.outline,
+          bookTitle: currentBook?.title,
+          coverPath: (currentBook?.hasLocalCover ?? false)
+              ? currentBook!.localCoverPath
+              : null,
+        );
       });
     }
   }

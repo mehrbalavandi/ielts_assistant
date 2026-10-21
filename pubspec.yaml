@@ -38,6 +38,8 @@ dependencies:
   flutter_riverpod: ^3.0.3
   get_storage: ^2.1.1
   just_audio: ^0.10.5
+  # 🌟 AU-6: اعلانِ رسانه، صفحه‌ی قفل و دکمه‌های هدفون (جلسه‌ی رسانه‌ی اندروید)
+  audio_service: ^0.18.15
   path: ^1.9.1
   dio: ^5.9.0
   # 🌟 برای استخراجِ آرشیوِ ZIP کتاب پس از دانلود

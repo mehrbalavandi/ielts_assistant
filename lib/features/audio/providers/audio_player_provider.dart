@@ -7,14 +7,22 @@ import 'package:get_storage/get_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
+import 'package:ielts_assistant/features/audio/data/media_session_service.dart';
+import 'package:ielts_assistant/features/reader/domain/document_models.dart';
+import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
 
 part 'audio_player_provider.g.dart';
 
 // 🌟 Enum جدید برای مدیریت رفتار پایان فایل
+// 🌟 AU-5: سه حالتِ تکرارِ دامنه‌دار اضافه شد (ترتیب مهم است: اندیس در GetStorage ذخیره می‌شود،
+// پس حالت‌های تازه آخر می‌آیند).
 enum PlaybackMode {
   stop, // توقف بعد از اتمام
   repeatOne, // تکرار همین فایل
-  autoAdvance, // رفتن به فایل بعدی
+  autoAdvance, // رفتن به فایل بعدی (تا آخرِ کتاب، بعد توقف)
+  repeatSection, // تکرارِ فایل‌های همین مهارتِ همین درس (مثلاً Listeningِ درس ۸)
+  repeatUnit, // تکرارِ همه‌ی فایل‌های همین درس
+  repeatBook, // تکرارِ همه‌ی فایل‌های کتاب
 }
 
 // 🐞 برای قابلیتِ «پلی‌لیستِ کتاب + برگشتن به نقطه‌ی درست در متن»: مشخص
@@ -112,14 +120,40 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
   StreamSubscription? _playStateSub;
   StreamSubscription? _posSub;
   StreamSubscription? _durSub;
+  StreamSubscription? _playerStateSub;
+
+  // 🌟 AU-5/AU-6: فهرستِ کتاب (برای دامنه‌ی تکرار و برچسبِ درس/مهارت در اعلان)، نام و جلدِ کتاب.
+  List<OutlineEntry> _outline = const [];
+  String? _bookTitle;
+  String? _coverPath;
+  late MediaSessionCallbacks _sessionCallbacks;
 
   @override
   AudioPlayerState build() {
     _player = AudioPlayer();
 
+    // 🌟 AU-6: اعلانِ رسانه و صفحه‌ی قفل (فقط اندروید؛ روی بقیه handler تهی است).
+    _sessionCallbacks = MediaSessionCallbacks(
+      onPlay: () {
+        if (state.currentPath != null) _player.play();
+      },
+      onPause: () => _player.pause(),
+      onNext: playNext,
+      onPrevious: playPrevious,
+      onStop: stopAndClear,
+      onSeek: seek,
+    );
+    MediaSessionService.handler?.attach(_sessionCallbacks);
+    _playerStateSub = _player.playerStateStream.listen((_) {
+      if (ref.mounted) _syncSession();
+    });
+
     // 🌟 خواندن حالت ذخیره شده برای رفتار پایان فایل
-    final savedModeIndex = _box.read('playback_mode') ?? 0;
-    final savedMode = PlaybackMode.values[savedModeIndex];
+    final int savedModeIndex = _box.read('playback_mode') ?? 0;
+    final PlaybackMode savedMode =
+        savedModeIndex >= 0 && savedModeIndex < PlaybackMode.values.length
+        ? PlaybackMode.values[savedModeIndex]
+        : PlaybackMode.values.first;
 
     // لیسنرها (چون کدهای داخل لیسنر به صورت Asynchronous و بعداً اجرا می‌شوند،
     // دسترسی آن‌ها به state مشکلی ایجاد نمی‌کند)
@@ -150,6 +184,10 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
           _player.play();
         } else if (state.playbackMode == PlaybackMode.autoAdvance) {
           playNext();
+        } else if (state.playbackMode == PlaybackMode.repeatSection ||
+            state.playbackMode == PlaybackMode.repeatUnit ||
+            state.playbackMode == PlaybackMode.repeatBook) {
+          _advanceInScope(state.playbackMode); // 🌟 AU-5
         } else {
           // PlaybackMode.stop
           _player.seek(Duration.zero);
@@ -168,6 +206,7 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
         if (state.currentPath != null && dur != null) {
           _box.write('dur_${state.currentPath}', dur.inMilliseconds);
         }
+        _syncTrack(); // AU-6: طولِ فایل در اعلان
       }
     });
 
@@ -175,12 +214,108 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       _playStateSub?.cancel();
       _posSub?.cancel();
       _durSub?.cancel();
+      _playerStateSub?.cancel();
+      MediaSessionService.handler?.detach(_sessionCallbacks);
+      MediaSessionService.clear();
       _player.dispose();
     });
 
     // 🌟 اینجا به جای آپدیت استیت در بالا، متغیر خوانده شده را
     // مستقیماً برای مقداردهی اولیه ریترن می‌کنیم
     return AudioPlayerState(playbackMode: savedMode);
+  }
+
+  /// 🌟 AU-5/AU-6: فهرستِ کتاب، نام و جلدش (از صفحه‌ی مطالعه، همراهِ setPlaylist).
+  void setBookContext({
+    required List<OutlineEntry> outline,
+    String? bookTitle,
+    String? coverPath,
+  }) {
+    _outline = outline;
+    _bookTitle = bookTitle;
+    _coverPath = coverPath;
+  }
+
+  /// AU-5: جای اولین دکمه‌ی [path] در فهرستِ کتاب؛ null اگر نامعلوم.
+  ({int unit, int section})? _scopeOf(String path) {
+    final AudioLocation? loc = state.firstOccurrence[path];
+    if (loc == null || _outline.isEmpty) return null;
+    final pos = outlineIndicesAt(_outline, loc.pageNumber, loc.paraIndex);
+    return pos.unit < 0 ? null : pos;
+  }
+
+  /// AU-5: آیا [other] با [current] در یک دامنه‌ی تکرار است؟ (جای نامعلوم ← فقط تکرارِ کلِ کتاب
+  /// معنا دارد، پس کلِ کتاب.)
+  bool _sameScope(PlaybackMode mode, String current, String other) {
+    if (mode == PlaybackMode.repeatBook) return true;
+    final a = _scopeOf(current);
+    final b = _scopeOf(other);
+    if (a == null || b == null) return true;
+    if (mode == PlaybackMode.repeatUnit) return a.unit == b.unit;
+    return a.unit == b.unit && a.section == b.section;
+  }
+
+  /// AU-5: بعد از پایانِ فایل در حالت‌های تکرارِ دامنه‌دار: فایلِ بعدیِ همان دامنه به ترتیبِ کتاب،
+  /// و بعد از آخری دوباره اولی. اگر دامنه فقط همین فایل است، همین فایل دوباره.
+  void _advanceInScope(PlaybackMode mode) {
+    final String? current = state.currentPath;
+    final List<String> list = state.playlist;
+    if (current == null) return;
+    final int cur = list.indexOf(current);
+    final List<int> scope = [
+      for (int i = 0; i < list.length; i++)
+        if (_sameScope(mode, current, list[i])) i,
+    ];
+    if (cur < 0 || scope.length <= 1) {
+      _player.seek(Duration.zero);
+      _player.play();
+      return;
+    }
+    final int next = scope.firstWhere((i) => i > cur, orElse: () => scope.first);
+    playFile(list[next], seekToMs: 0);
+  }
+
+  /// AU-6: برچسبِ درس و مهارتِ [path] («درس 8: Natural World · Listening»).
+  String? trackLocationLabel(String path) {
+    final AudioLocation? loc = state.firstOccurrence[path];
+    if (loc == null || _outline.isEmpty) return null;
+    return outlineLocationLabel(_outline, loc.pageNumber, loc.paraIndex);
+  }
+
+  /// AU-6: فایلِ فعلی در اعلانِ رسانه.
+  void _syncTrack() {
+    if (MediaSessionService.handler == null) return;
+    final String? path = state.currentPath;
+    if (path == null) return;
+    String name = path.split('/').last.split(r'\').last;
+    final int dot = name.lastIndexOf('.');
+    if (dot > 0) name = name.substring(0, dot);
+    final String? cover = _coverPath;
+    MediaSessionService.setTrack(
+      id: path,
+      title: name,
+      subtitle: trackLocationLabel(path),
+      album: _bookTitle,
+      duration: _player.duration,
+      artUri: cover == null ? null : Uri.file(cover),
+    );
+  }
+
+  /// AU-6: وضعیتِ پخش در اعلان (با هر پخش/مکث/پرش/تغییرِ وضعیتِ بارگذاری).
+  void _syncSession() {
+    if (MediaSessionService.handler == null) return;
+    if (state.currentPath == null) {
+      MediaSessionService.clear();
+      return;
+    }
+    final ProcessingState ps = _player.processingState;
+    MediaSessionService.setPlayback(
+      playing: _player.playing,
+      position: _player.position,
+      speed: _player.speed,
+      loading: ps == ProcessingState.loading || ps == ProcessingState.buffering,
+      completed: ps == ProcessingState.completed,
+    );
   }
 
   // 🌟 متد ثبت لیست پخش (صداهای کل کتاب) + اولین وقوعِ هر فایل در کتاب
@@ -264,6 +399,7 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
         lastSource: resolvedSource,
         targetLocation: () => resolvedTarget,
       );
+      _syncTrack(); // AU-6
 
       if (path.startsWith('assets/')) {
         await _player.setAsset(path);
@@ -313,6 +449,10 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       // موقعیتِ ذخیره‌شده‌اش — همین برای «پخشِ پیوسته» هم که از همین متد
       // می‌گذرد درست است.
       playFile(state.playlist[currentIndex + 1], seekToMs: 0);
+    } else if (state.playbackMode == PlaybackMode.repeatBook &&
+        state.playlist.isNotEmpty) {
+      // 🌟 AU-5: تکرارِ کلِ کتاب ← بعد از آخرین فایل، اولی.
+      playFile(state.playlist.first, seekToMs: 0);
     } else {
       // اگر به آخر لیست رسیدیم توقف کن
       _player.stop();
@@ -331,23 +471,16 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     }
   }
 
-  // 🌟 تغییر حالت رفتار پایان فایل (Stop -> AutoAdvance -> RepeatOne)
-  void togglePlaybackMode() {
-    PlaybackMode nextMode;
-    switch (state.playbackMode) {
-      case PlaybackMode.stop:
-        nextMode = PlaybackMode.autoAdvance;
-        break;
-      case PlaybackMode.autoAdvance:
-        nextMode = PlaybackMode.repeatOne;
-        break;
-      case PlaybackMode.repeatOne:
-        nextMode = PlaybackMode.stop;
-        break;
-    }
+  /// 🌟 AU-5: انتخابِ رفتارِ پایانِ فایل (منوی دکمه‌ی تکرار).
+  void setPlaybackMode(PlaybackMode mode) {
+    state = state.copyWith(playbackMode: mode);
+    _box.write('playback_mode', mode.index); // ذخیره در حافظه
+  }
 
-    state = state.copyWith(playbackMode: nextMode);
-    _box.write('playback_mode', nextMode.index); // ذخیره در حافظه
+  // 🌟 تغییر حالت رفتار پایان فایل، چرخشی میانِ همه‌ی حالت‌ها
+  void togglePlaybackMode() {
+    final List<PlaybackMode> all = PlaybackMode.values;
+    setPlaybackMode(all[(all.indexOf(state.playbackMode) + 1) % all.length]);
   }
 
   /// 🌟 SET-1: «تنظیماتِ پیش‌فرض» — رفتارِ پایانِ فایل به حالتِ اول برمی‌گردد.
@@ -390,23 +523,33 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     state = AudioPlayerState(
       playbackMode: state.playbackMode,
       playlist: state.playlist,
+      firstOccurrence: state.firstOccurrence,
     );
+    MediaSessionService.clear(); // AU-6: اعلان هم می‌رود
   }
 
   bool isPlaying() => _player.playing;
   void pause() => _player.pause();
   void resume() => _player.play();
-  void seek(Duration position) => _player.seek(position);
+  void seek(Duration position) {
+    _player.seek(position).then((_) {
+      if (ref.mounted) _syncSession(); // AU-6
+    });
+  }
 
   void skip10Sec(bool forward) {
     final target = forward
         ? state.position + const Duration(seconds: 10)
         : state.position - const Duration(seconds: 10);
-    _player.seek(target);
+    _player.seek(target).then((_) {
+      if (ref.mounted) _syncSession(); // AU-6
+    });
   }
 
   void setSpeed(double newSpeed) {
-    _player.setSpeed(newSpeed);
+    _player.setSpeed(newSpeed).then((_) {
+      if (ref.mounted) _syncSession(); // AU-6
+    });
     state = state.copyWith(speed: newSpeed);
   }
 }

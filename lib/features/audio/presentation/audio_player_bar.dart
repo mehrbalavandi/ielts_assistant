@@ -10,6 +10,7 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart';
+import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/text_render_engine.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
@@ -527,7 +528,21 @@ class _AudioPlaylistSheet extends ConsumerStatefulWidget {
 class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
   // 🌟 S-10: ارتفاعِ ثابتِ هر ردیف (ListTileِ یک‌خطی) تا جای هر آیتم دقیقاً
   // معلوم باشد و بشود بدونِ ساختنِ همه‌ی ردیف‌ها مستقیم به آن پرید.
-  static const double _rowExtent = 56.0;
+  // 🌟 AU-7: دوخطی (نامِ فایل + درس و مهارت) ← ارتفاعِ ListTileِ دوخطی.
+  static const double _rowExtent = 72.0;
+
+  /// AU-7: برچسبِ درس و مهارتِ هر فایل (یک‌بار حساب می‌شود).
+  final Map<String, String?> _locationLabels = {};
+
+  String? _locationOf(String fileName) => _locationLabels.putIfAbsent(fileName, () {
+    final AudioLocation? loc = firstOccurrenceForTrack(pagedBookStore, fileName);
+    if (loc == null || pagedBookStore.outline.isEmpty) return null;
+    return outlineLocationLabel(
+      pagedBookStore.outline,
+      loc.pageNumber,
+      loc.paraIndex,
+    );
+  });
   final ScrollController _scrollController = ScrollController();
   bool _didInitialScroll = false;
 
@@ -665,6 +680,20 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                               ),
                             ),
                           ),
+                          // 🌟 AU-7: درس و مهارتِ هر فایل زیرِ نامش.
+                          subtitle: _locationOf(path.split('/').last) == null
+                              ? null
+                              : Text(
+                                  _locationOf(path.split('/').last)!,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textDirection: TextDirection.rtl,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: colors.textMuted,
+                                    fontSize: 12,
+                                  ),
+                                ),
                           title: Text(
                             path.split('/').last,
                             style: TextStyle(
@@ -834,6 +863,92 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
       _matches = const [];
       _searchTrack = null;
     });
+  }
+
+  /// 🌟 AU-5: منوی «پایانِ فایل»: توقف، تکرارِ همین فایل، پخشِ پیوسته تا آخرِ کتاب، تکرارِ مهارتِ
+  /// فعلیِ درسِ فعلی، تکرارِ کلِ درسِ فعلی، تکرارِ کلِ کتاب. زیرِ دو حالتِ دامنه‌دار نامِ درس/مهارتِ
+  /// فایلِ فعلی می‌آید تا معلوم باشد چه چیزی تکرار می‌شود.
+  Widget _buildPlaybackModeMenu(
+    AudioPlayerState audioState,
+    IconData icon,
+    Color color,
+    String tooltip,
+  ) {
+    final AudioPlayerNotifier notifier = ref.read(audioPlayerProvider.notifier);
+    final String? path = audioState.currentPath;
+    final String? where = path == null ? null : notifier.trackLocationLabel(path);
+    final String? unitOnly = where?.split(' · ').first;
+    PopupMenuItem<PlaybackMode> item(
+      PlaybackMode mode,
+      IconData i,
+      String title, [
+      String? subtitle,
+    ]) {
+      final bool selected = audioState.playbackMode == mode;
+      return PopupMenuItem<PlaybackMode>(
+        value: mode,
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Row(
+            children: [
+              Icon(i, size: 20, color: selected ? _colors.accent : null),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                    if (subtitle != null)
+                      Text(
+                        subtitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 11.5, color: Colors.grey),
+                      ),
+                  ],
+                ),
+              ),
+              if (selected) Icon(Icons.check_rounded, size: 18, color: _colors.accent),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return PopupMenuButton<PlaybackMode>(
+      tooltip: tooltip,
+      icon: Icon(icon, color: color),
+      initialValue: audioState.playbackMode,
+      onSelected: notifier.setPlaybackMode,
+      itemBuilder: (_) => [
+        item(PlaybackMode.stop, Icons.stop_circle_outlined, 'توقف پس از پایانِ فایل'),
+        item(PlaybackMode.repeatOne, Icons.repeat_one_rounded, 'تکرارِ همین فایل'),
+        item(
+          PlaybackMode.autoAdvance,
+          Icons.playlist_play_rounded,
+          'پخشِ پیوسته تا آخرِ کتاب',
+        ),
+        item(
+          PlaybackMode.repeatSection,
+          Icons.repeat_rounded,
+          'تکرارِ فایل‌های همین مهارت',
+          where,
+        ),
+        item(
+          PlaybackMode.repeatUnit,
+          Icons.repeat_on_rounded,
+          'تکرارِ فایل‌های همین درس',
+          unitOnly,
+        ),
+        item(PlaybackMode.repeatBook, Icons.all_inclusive_rounded, 'تکرارِ کلِ کتاب'),
+      ],
+    );
   }
 
   /// S-16: فاصله‌ی نوارِ جستجو از پایینِ ناحیه‌ی متن (کاربر با کشیدن عوضش می‌کند؛ تا بسته شدنِ
@@ -1127,6 +1242,22 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
         modeIcon = Icons.stop_circle_outlined;
         modeColor = _colors.textMuted;
         modeTooltip = "توقف پس از پایان";
+        break;
+      // 🌟 AU-5
+      case PlaybackMode.repeatSection:
+        modeIcon = Icons.repeat_rounded;
+        modeColor = _colors.accent;
+        modeTooltip = "تکرارِ فایل‌های همین مهارت";
+        break;
+      case PlaybackMode.repeatUnit:
+        modeIcon = Icons.repeat_on_rounded;
+        modeColor = _colors.accent;
+        modeTooltip = "تکرارِ فایل‌های همین درس";
+        break;
+      case PlaybackMode.repeatBook:
+        modeIcon = Icons.all_inclusive_rounded;
+        modeColor = _colors.accent;
+        modeTooltip = "تکرارِ کلِ کتاب";
         break;
     }
 
@@ -1669,12 +1800,12 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                               ),
                             ],
                           ),
-                          IconButton(
-                            icon: Icon(modeIcon, color: modeColor),
-                            tooltip: modeTooltip,
-                            onPressed: () => ref
-                                .read(audioPlayerProvider.notifier)
-                                .togglePlaybackMode(),
+                          // 🌟 AU-5: منوی رفتارِ پایانِ فایل (به جای چرخیدن با هر لمس).
+                          _buildPlaybackModeMenu(
+                            audioState,
+                            modeIcon,
+                            modeColor,
+                            modeTooltip,
                           ),
                           Text(
                             _formatDuration(audioState.duration),

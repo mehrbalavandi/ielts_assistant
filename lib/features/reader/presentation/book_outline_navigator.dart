@@ -97,20 +97,12 @@ String? outlineLocationLabel(
   int pageNumber,
   int paraIndex,
 ) {
-  bool covers(OutlineEntry e) =>
-      e.pageNumber < pageNumber ||
-      (e.pageNumber == pageNumber && (e.atPageTop || e.paraIndex <= paraIndex));
-  OutlineEntry? top;
-  for (final OutlineEntry e in outline) {
-    if (!covers(e)) break;
-    top = e;
-  }
-  if (top == null) return null;
-  OutlineEntry? section;
-  for (final OutlineEntry c in top.children) {
-    if (!covers(c)) break;
-    section = c;
-  }
+  final pos = outlineIndicesAt(outline, pageNumber, paraIndex);
+  if (pos.unit < 0) return null;
+  final OutlineEntry top = outline[pos.unit];
+  final OutlineEntry? section = pos.section < 0
+      ? null
+      : top.children[pos.section];
   final RegExpMatch? m = RegExp(
     r'^\D*?0*(\d+)\s*[:.\-–]\s*(.+)$',
   ).firstMatch(top.title);

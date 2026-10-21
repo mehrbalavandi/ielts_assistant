@@ -3,7 +3,7 @@ package com.example.ielts_assistant
 import android.annotation.SuppressLint
 import android.os.Build
 import android.provider.Settings
-import io.flutter.embedding.android.FlutterActivity
+import com.ryanheise.audioservice.AudioServiceActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
@@ -11,7 +11,9 @@ import io.flutter.plugin.common.MethodChannel
 // ANDROID_ID برای هر (کلیدِ امضای اپ + کاربرِ گوشی + دستگاه) یکتاست و با نصبِ دوباره‌ی اپ
 // عوض نمی‌شود (فقط با ریستِ کارخانه). اپ آن را با sha256 به شناسه‌ی دستگاه تبدیل می‌کند و
 // خودِ مقدار به سرور فرستاده نمی‌شود (lib/core/device/device_identity.dart).
-class MainActivity : FlutterActivity() {
+// 🌟 AU-6: AudioServiceActivity (خودش FlutterActivity است) تا اعلانِ رسانه و صفحه‌ی قفل به همین
+// موتورِ Flutter وصل شوند (audio_service).
+class MainActivity : AudioServiceActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "ielts_assistant/device")

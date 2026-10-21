@@ -112,6 +112,33 @@ class OutlineEntry {
   }
 }
 
+/// 🌟 جای یک نقطه از کتاب در فهرست (Outline): اندیسِ عنوانِ سطحِ ۱ (درس) و اندیسِ فرزندِ آن
+/// (مهارت) که این نقطه زیرشان است؛ -1 = پیش از اولین عنوان / بی‌مهارت. فهرست به ترتیبِ صفحه است.
+/// (S-15 در فهرستِ جستجو، AU-5 دامنه‌ی تکرارِ پلیر، AU-7 پلی‌لیست.)
+({int unit, int section}) outlineIndicesAt(
+  List<OutlineEntry> outline,
+  int pageNumber,
+  int paraIndex,
+) {
+  bool covers(OutlineEntry e) =>
+      e.pageNumber < pageNumber ||
+      (e.pageNumber == pageNumber && (e.atPageTop || e.paraIndex <= paraIndex));
+  int unit = -1;
+  for (int i = 0; i < outline.length; i++) {
+    if (!covers(outline[i])) break;
+    unit = i;
+  }
+  int section = -1;
+  if (unit >= 0) {
+    final List<OutlineEntry> kids = outline[unit].children;
+    for (int i = 0; i < kids.length; i++) {
+      if (!covers(kids[i])) break;
+      section = i;
+    }
+  }
+  return (unit: unit, section: section);
+}
+
 /// 🌟 N-12: بخشِ «Sample»ِ index.jsonِ نسخه‌ی نمونه (قانونِ SM-5ِ اکسترکتور): نمونه کدام
 /// Unit است و کلِ کتاب از کدام صفحه تا کدام صفحه است. index.jsonِ نمونه فقط صفحه‌های همان
 /// Unit را دارد، ولی Outlineِ کامل را — پس ناوبر همه‌ی Unitها را نشان می‌دهد و برای بقیه
