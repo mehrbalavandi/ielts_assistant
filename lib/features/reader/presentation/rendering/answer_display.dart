@@ -258,6 +258,9 @@ class _PopupPlacement {
   final Rect localRect; // مستطیلِ انتخاب‌شده، در مختصاتِ لنگر
   final Size screenSize; // اندازه‌ی Overlay
   final Size mediaSize; // اندازه‌ی صفحه هنگامِ باز شدن (برای تشخیصِ چرخش)
+  // 🐞 H-11: بزرگ‌نماییِ لنگر نسبت به Overlay (زومِ صفحه‌ی مطالعه، InteractiveViewer). دنبال‌کننده
+  // (CompositedTransformFollower) همین بزرگ‌نمایی را از لنگر می‌گیرد؛ حباب با 1/scale خنثی‌اش می‌کند.
+  final double scale;
 
   const _PopupPlacement({
     required this.below,
@@ -268,6 +271,7 @@ class _PopupPlacement {
     required this.localRect,
     required this.screenSize,
     required this.mediaSize,
+    this.scale = 1,
   });
 }
 
@@ -551,6 +555,7 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
         localRect: local,
         screenSize: screen,
         mediaSize: MediaQuery.sizeOf(context),
+        scale: toOverlay.getMaxScaleOnAxis(),
       );
     }
     return null;
@@ -790,6 +795,16 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
     // لبه‌ی چپِ صفحه می‌گذارد.
     final double dy = p.below ? p.localRect.bottom + 2 : p.localRect.top - 2;
 
+    // 🐞 H-11: صفحه زوم شده ← دنبال‌کننده همه‌چیز را scale برابر می‌کند. اندازه‌ی حباب ثابت می‌ماند:
+    // از گوشه‌ای که به لنگر می‌چسبد 1/scale کوچک (یا بزرگ) می‌شود، و جابه‌جاییِ افقی (که در
+    // مختصاتِ لنگر است) بر scale تقسیم می‌شود تا لبه‌ی چپِ نوار همچنان لبه‌ی چپِ صفحه باشد.
+    // فاصله‌ی ۲px هم به پیکسلِ واقعی.
+    final double s = (p.scale.isFinite && p.scale > 0.01) ? p.scale : 1.0;
+    final bool zoomed = (s - 1).abs() > 0.001;
+    final double dyScaled = p.below
+        ? p.localRect.bottom + 2 / s
+        : p.localRect.top - 2 / s;
+
     return _PopupOverlayMarker(
       owner: this,
       child: Stack(
@@ -802,8 +817,12 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
               showWhenUnlinked: false,
               targetAnchor: Alignment.topLeft,
               followerAnchor: p.below ? Alignment.topLeft : Alignment.bottomLeft,
-              offset: Offset(-p.originX, dy),
-              child: FadeTransition(
+              offset: zoomed ? Offset(-p.originX / s, dyScaled) : Offset(-p.originX, dy),
+              child: _zoomNeutral(
+                zoomed: zoomed,
+                scale: s,
+                below: p.below,
+                child: FadeTransition(
                 opacity: _anim,
                 child: ScaleTransition(
                   scale: Tween<double>(begin: 0.9, end: 1).animate(curved),
@@ -814,6 +833,7 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
                   ),
                   child: strip,
                 ),
+              ),
               ),
             ),
           ),
@@ -1022,4 +1042,21 @@ class AnswerPopupsCloseAllButton extends StatelessWidget {
       },
     );
   }
+}
+
+/// 🐞 H-11: حباب در زومِ صفحه اندازه‌ی واقعی‌اش را نگه می‌دارد: دنبال‌کننده بزرگ‌نماییِ لنگر را
+/// می‌گیرد و این‌جا با 1/scale از همان گوشه‌ای که به لنگر چسبیده خنثی می‌شود (انیمیشنِ بازشدن هم
+/// به پیکسلِ واقعی).
+Widget _zoomNeutral({
+  required bool zoomed,
+  required double scale,
+  required bool below,
+  required Widget child,
+}) {
+  if (!zoomed) return child;
+  return Transform.scale(
+    scale: 1 / scale,
+    alignment: below ? Alignment.topLeft : Alignment.bottomLeft,
+    child: child,
+  );
 }
