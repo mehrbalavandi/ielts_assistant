@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🌟 ناوبرِ ساختاریِ کتاب (قانون‌های N-1 … N-6ِ RULES-rendering.md).
 //
@@ -86,6 +88,41 @@ String outlineDisplayTitle(String title) {
   );
 }
 
+/// 🌟 S-15: جای یک نتیجه در فهرستِ کتاب، برای فهرستِ نتایجِ جستجو: «درس 1: Relationships ·
+/// Reading». شماره‌ی درس از عنوانِ سطحِ ۱ («UNIT/01: RELATIONSHIPS») می‌آید و نامش خواناتر
+/// می‌شود (outlineDisplayTitle)؛ عنوانی که شماره ندارد همان‌طور می‌ماند. null = کتاب فهرست
+/// ندارد یا نتیجه پیش از اولین عنوان است.
+String? outlineLocationLabel(
+  List<OutlineEntry> outline,
+  int pageNumber,
+  int paraIndex,
+) {
+  bool covers(OutlineEntry e) =>
+      e.pageNumber < pageNumber ||
+      (e.pageNumber == pageNumber && (e.atPageTop || e.paraIndex <= paraIndex));
+  OutlineEntry? top;
+  for (final OutlineEntry e in outline) {
+    if (!covers(e)) break;
+    top = e;
+  }
+  if (top == null) return null;
+  OutlineEntry? section;
+  for (final OutlineEntry c in top.children) {
+    if (!covers(c)) break;
+    section = c;
+  }
+  final RegExpMatch? m = RegExp(
+    r'^\D*?0*(\d+)\s*[:.\-–]\s*(.+)$',
+  ).firstMatch(top.title);
+  String label = m != null
+      ? 'درس ${m.group(1)}: ${bidiIsolate(outlineDisplayTitle(m.group(2)!.trim()))}'
+      : bidiIsolate(outlineDisplayTitle(top.title));
+  if (section != null) {
+    label += ' · ${bidiIsolate(outlineDisplayTitle(section.title))}';
+  }
+  return label;
+}
+
 /// N-5: آیکونِ آشنا برای چهار مهارتِ آیلتس؛ برای هر بخشِ دیگر null (حرفِ اول).
 IconData? outlineSectionIcon(String title) {
   final t = title.toLowerCase();
@@ -109,8 +146,9 @@ class BookOutlineNavigator extends StatefulWidget {
   final int currentPage;
   final int lastPage;
 
-  /// لمسِ شماره‌ی صفحه ← دیالوگِ «رفتن به صفحه».
-  final VoidCallback onPageTap;
+  /// لمسِ شماره‌ی صفحه ← دیالوگِ «رفتن به صفحه». N-16: وقتی Future تمام شد (دیالوگ با «برو»،
+  /// «انصراف»، لمسِ بیرونش یا برگشت بسته شد)، ناوبر جمع می‌شود.
+  final FutureOr<void> Function() onPageTap;
 
   /// هنگامِ اسکرول (و ۲.۵ ثانیه بعدش) شماره‌ی صفحه پررنگ‌تر است، مثلِ نشانِ قبلی.
   final bool highlightPage;
@@ -408,7 +446,10 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
         borderRadius: BorderRadius.circular(9),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: widget.onPageTap,
+          onTap: () async {
+            await widget.onPageTap();
+            if (mounted && !_collapsed) _setCollapsed(true); // 🌟 N-16
+          },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeOutCubic,

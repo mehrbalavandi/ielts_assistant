@@ -1,28 +1,17 @@
-# تغییرات — پاسخ در ترجمه هم پنهان است (TR-8)
+# تغییرات — درس در نتایجِ جستجو (S-15)، بستنِ ناوبر بعد از «رفتن به صفحه» (N-16)
 
 فایل‌های تغییرکرده:
-- `assets/data/Mindset 01/enrichment/translations.json`: در ترجمه‌ی ۵۴۹ پاراگرافِ با جای خالیِ وسطِ جمله
-  (درس‌های ۱ تا ۸)، بخشِ پاسخ بینِ `{blk}…{/blk}` است
-- `lib/features/reader/presentation/rendering/translatable_content.dart`: `_TranslationText` بخشِ پنهان را
-  با آیکونِ چشم نشان می‌دهد؛ داخلِ پنجره‌ی پاسخ نشانه‌ها برداشته می‌شوند
-- `lib/features/reader/presentation/rendering/text_render_engine.dart`: ترجمه‌ی پنجره‌ی پاسخ بی‌نشانه
-- `lib/features/reader/presentation/rendering/translation_groups.dart`: پاراگرافِ با جای خالیِ وسطِ جمله
-  هم عضوِ گروه می‌شود، وقتی ترجمه‌اش نشانه دارد
-- `lib/features/study/presentation/study_controls.dart`: عکسِ ترجمه در «مرورِ من» با «____»
-- `lib/core/text/document_text_utils.dart`: `stripBlankMarkers`، `maskBlankParts`
-- `RULES-rendering.md` (TR-7، TR-8)
-- مخزنِ CustomLayoutGenerator: `ENRICHMENT-GUIDE.md` (قاعده‌ی ۵)، `enrich.py` (بررسیِ merge)، `RULES-extraction.md` (G-9)
+- `lib/features/search/presentation/book_search_delegate.dart`: درس و مهارتِ هر نتیجه
+- `lib/features/reader/presentation/book_outline_navigator.dart`: `outlineLocationLabel`؛ جمع‌شدن بعد از بسته‌شدنِ دیالوگِ صفحه
+- `lib/features/reader/presentation/reader_screen.dart`: کتابِ باز به جستجو داده می‌شود
+- `RULES-rendering.md` (S-15، N-16)
 
 ## چه شد
-- ترجمه‌ی لمسِ طولانیِ پاراگرافی مثلِ «1 value h» دیگر جواب را لو نمی‌دهد: «ارزش قائل شدن: 👁». لمسِ چشم
-  جواب را نشان می‌دهد، لمسِ دوباره پنهانش می‌کند.
-- فهرست‌هایی که جوابشان داخلِ جمله است (مثلاً واژه‌های ۱ تا ۸ و معنی‌های a تا h) حالا هم با یک لمسِ طولانی
-  با هم ترجمه می‌شوند (TR-7)، با همه‌ی جواب‌ها پنهان.
-- پنجره‌ی خودِ پاسخ (بعد از بازکردنِ چشمِ متن) ترجمه را کامل نشان می‌دهد.
-- اکسترکتور تغییری لازم نداشت: ترجمه را با همین نشانه‌ها در JSON می‌گذارد. بعد از pull، کتاب را دوباره
-  استخراج کنید.
+- هر نتیجه‌ی جستجو حالا می‌گوید کجای کتاب است: «درس 8: Natural World · Listening — صفحه 153»؛ نتیجه‌ی
+  اسکریپتِ صوتی جای اولین دکمه‌ی همان فایل را در کتاب نشان می‌دهد.
+- دیالوگِ «رفتن به صفحه» با «برو»، «انصراف»، لمسِ بیرون یا برگشت که بسته شود، ناوبرِ کتاب هم بسته می‌شود.
 
-## چه چیزی را امتحان کنید
-- Mindset 1 ص۲ (VOCABULARY، تمرینِ ۰۳): لمسِ طولانی روی «1 value» — ترجمه‌ی گروه با چشم‌های پنهان.
-- یک جمله‌ی True/False/Not Given با جوابِ داخلِ جمله، و یک یادداشتِ لیسنینگ (مثلاً درس ۸ قورباغه‌ی گاوی).
-- پنجره‌ی پاسخِ یک جای خالیِ وسطِ جمله: ترجمه بی‌چشم و کامل.
+## یادآوری دربار‌ه‌ی TR-8 (نشانه‌های {blk} در ترجمه)
+اگر `{blk}` در ترجمه دیده می‌شود، برنامه‌ی در حالِ اجرا هنوز کدِ قبلی است: `_TranslationText` از
+StatelessWidget به StatefulWidget تبدیل شده و صفحه‌ها کش می‌شوند، پس Hot Reload کافی نیست. برنامه را
+کامل متوقف کنید و دوباره اجرا کنید (یا دست‌کم Hot Restart).

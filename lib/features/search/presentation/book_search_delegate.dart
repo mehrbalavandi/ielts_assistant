@@ -4,10 +4,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart'; // افزوده شد برای شناسایی کلاس‌ها
+import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
+import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   final WidgetRef ref;
-  BookSearchDelegate(this.ref);
+
+  /// 🌟 S-15: کتابِ باز — برای نشان دادنِ درس و مهارتِ هر نتیجه (فهرستِ کتاب).
+  final PagedBookStore? store;
+  BookSearchDelegate(this.ref, {this.store});
+
+  /// S-15: «درس 1: Relationships · Reading» برای نتیجه‌ی متن، و برای نتیجه‌ی اسکریپتِ صوتی
+  /// جای اولین دکمه‌ی همان فایل در کتاب.
+  String? _locationOf(SearchResult r) {
+    final PagedBookStore? s = store;
+    if (s == null || s.outline.isEmpty) return null;
+    if (r.audioTrackName != null) {
+      for (final entry in s.audioLinksIndex) {
+        if (entry.fileName == r.audioTrackName) {
+          return outlineLocationLabel(s.outline, entry.pageNumber, entry.paraIndex);
+        }
+      }
+      return null;
+    }
+    return outlineLocationLabel(s.outline, r.pageNumber, r.paraIndex);
+  }
 
   Timer? _debounce;
   final ValueNotifier<String> _debouncedQuery = ValueNotifier<String>('');
@@ -155,6 +177,7 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
           itemBuilder: (context, index) {
             final result = results[index];
             final bool isAudioResult = result.audioTrackName != null;
+            final String? where = _locationOf(result);
             return ListTile(
               leading: Icon(
                 isAudioResult
@@ -172,12 +195,16 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // 🌟 S-15: درس و مهارت، بعد صفحه یا فایلِ صوتی.
                   Text(
-                    isAudioResult
-                        ? (result.hiddenMatchCount > 1
-                              ? 'اسکریپتِ صوتی: ${result.audioTrackName} (${result.hiddenMatchCount} نتیجه)'
-                              : 'اسکریپتِ صوتی: ${result.audioTrackName}')
-                        : 'صفحه ${result.pageNumber}',
+                    [
+                      if (where != null) where,
+                      isAudioResult
+                          ? (result.hiddenMatchCount > 1
+                                ? 'اسکریپتِ صوتی: ${bidiIsolate(result.audioTrackName!)} (${result.hiddenMatchCount} نتیجه)'
+                                : 'اسکریپتِ صوتی: ${bidiIsolate(result.audioTrackName!)}')
+                          : 'صفحه ${result.pageNumber}',
+                    ].join(' — '),
                     style: const TextStyle(
                       color: Colors.blueAccent,
                       fontSize: 11,

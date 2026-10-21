@@ -199,7 +199,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
               onPressed: () async {
                 final SearchSession? session = await showSearch<SearchSession?>(
                   context: context,
-                  delegate: BookSearchDelegate(ref),
+                  delegate: BookSearchDelegate(ref, store: pagedBookStore),
                 );
 
                 if (session != null && context.mounted) {
