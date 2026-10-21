@@ -144,7 +144,8 @@ class ReadingCanvas extends ConsumerStatefulWidget {
   }
 }
 
-class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
+class _ReadingCanvasState extends ConsumerState<ReadingCanvas>
+    with SingleTickerProviderStateMixin {
   /// 🌟 RD-1: رنگِ مهارتِ هر صفحه (کادرِ صفحه) — مهارتِ بخشی که سرِ صفحه در آن است (بخشی که از
   /// بالای همین صفحه شروع می‌شود هم حساب است). یک‌بار برای هر صفحه.
   final Map<int, Color?> _pageSkillColors = {};
@@ -395,6 +396,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   }
 
   void _resetZoom() {
+    if (_zoomTween == null) _stopZoomAnimation();
     _transformationController.value = Matrix4.identity();
     if (mounted) setState(() => _currentScale = 1.0);
   }
@@ -408,6 +410,19 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
   /// transformationController اعمال می‌کنیم — یعنی pinch و این مسیر روی یک
   /// حالتِ مشترک کار می‌کنند و با هم ناسازگار نمی‌شوند.
   void _zoomBy(double factor, {Offset? focalPoint}) {
+    _stopZoomAnimation();
+    final Matrix4? m = _zoomedMatrix(factor, focalPoint: focalPoint);
+    if (m == null) return;
+    if (m.getMaxScaleOnAxis() == 1.0 && m.isIdentity()) {
+      _resetZoom();
+      return;
+    }
+    _transformationController.value = m;
+  }
+
+  /// ماتریسِ تبدیل بعد از زومِ [factor] حولِ [focalPoint] (با همان کلمپِ جابه‌جایی)؛ null =
+  /// تغییری نیست؛ ماتریسِ واحد = برگشت به ۱۰۰٪.
+  Matrix4? _zoomedMatrix(double factor, {Offset? focalPoint}) {
     final RenderObject? ro = _viewerKey.currentContext?.findRenderObject();
     final Size viewport = (ro is RenderBox && ro.hasSize)
         ? ro.size
@@ -420,15 +435,12 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     final double currentScale = current.getMaxScaleOnAxis();
     final double target = (currentScale * factor).clamp(_minZoom, _kMaxZoom);
     final double applied = target / currentScale;
-    if ((applied - 1.0).abs() < 0.0001) return;
+    if ((applied - 1.0).abs() < 0.0001) return null;
 
     // 🌟 عبور از ۱۰۰٪ دقیقاً روی ۱۰۰٪ بایستد: بدونِ این، پله‌های ۱.۲۵ هیچ‌وقت
     // سرِ راست به اندازه‌ی اصلی نمی‌رسند و کاربر مجبور می‌شد دکمه‌ی ریست را
     // بزند تا «۱۰۰٪» را ببیند.
-    if ((target - 1.0).abs() < 0.02) {
-      _resetZoom();
-      return;
-    }
+    if ((target - 1.0).abs() < 0.02) return Matrix4.identity();
 
     // M' = T(focal) · S(applied) · T(-focal) · M
     // یعنی نقطه‌ای که زیرِ نشانگر است، دقیقاً همان‌جا می‌ماند.
@@ -459,7 +471,108 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
       result.setTranslationRaw(viewport.width * (1 - newScale) / 2, 0.0, 0.0);
     }
 
-    _transformationController.value = result;
+    return result;
+  }
+
+  // ── 🌟 Z-1: دابل‌تپ = زوم / خروج از زوم ─────────────────────────────────
+  // با Listenerِ خام تشخیص داده می‌شود، نه GestureDetector.onDoubleTap: آن یکی لمسِ تکیِ همه‌ی
+  // فرزندان (کلمه‌ها، چشم، دکمه‌ی صوتی) را ~۳۰۰ms معطل می‌کرد تا ببیند لمسِ دوم می‌آید یا نه.
+  static const double _kDoubleTapZoom = 1.8;
+  static const Duration _kDoubleTapWindow = Duration(milliseconds: 300);
+  static const Duration _kTapMaxDuration = Duration(milliseconds: 250);
+  static const double _kTapSlop = 18;
+  static const double _kDoubleTapSlop = 40;
+
+  Offset? _tapDownPos;
+  DateTime? _tapDownAt;
+  bool _tapCancelled = false;
+  Offset? _lastTapPos;
+  DateTime? _lastTapAt;
+
+  late final AnimationController _zoomAnim = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 220),
+  )..addListener(_onZoomAnimTick);
+  Matrix4Tween? _zoomTween;
+
+  void _onZoomAnimTick() {
+    final Matrix4Tween? t = _zoomTween;
+    if (t == null) return;
+    _transformationController.value = t.evaluate(
+      CurvedAnimation(parent: _zoomAnim, curve: Curves.easeOutCubic),
+    );
+    if (_zoomAnim.isCompleted) {
+      _zoomTween = null;
+      if (t.end!.isIdentity()) _resetZoom();
+    }
+  }
+
+  void _stopZoomAnimation() {
+    if (_zoomAnim.isAnimating) _zoomAnim.stop();
+    _zoomTween = null;
+  }
+
+  void _animateZoomTo(Matrix4 target) {
+    _zoomTween = Matrix4Tween(
+      begin: _transformationController.value.clone(),
+      end: target,
+    );
+    _zoomAnim.forward(from: 0);
+  }
+
+  void _tapPointerDown(PointerDownEvent e) {
+    if (_pointerCount > 1) {
+      _tapCancelled = true;
+      _lastTapAt = null;
+      return;
+    }
+    _tapDownPos = e.position;
+    _tapDownAt = DateTime.now();
+    _tapCancelled = false;
+  }
+
+  void _tapPointerMove(PointerMoveEvent e) {
+    final Offset? d = _tapDownPos;
+    if (d != null && (e.position - d).distance > _kTapSlop) _tapCancelled = true;
+  }
+
+  void _tapPointerUp(PointerUpEvent e) {
+    final DateTime now = DateTime.now();
+    final DateTime? downAt = _tapDownAt;
+    final bool isTap =
+        !_tapCancelled &&
+        downAt != null &&
+        now.difference(downAt) <= _kTapMaxDuration &&
+        _pointerCount <= 1;
+    _tapDownAt = null;
+    _tapDownPos = null;
+    if (!isTap) {
+      _lastTapAt = null;
+      return;
+    }
+    final DateTime? last = _lastTapAt;
+    final Offset? lastPos = _lastTapPos;
+    if (last != null &&
+        lastPos != null &&
+        now.difference(last) <= _kDoubleTapWindow &&
+        (e.position - lastPos).distance <= _kDoubleTapSlop) {
+      _lastTapAt = null;
+      _onDoubleTap(e.localPosition);
+    } else {
+      _lastTapAt = now;
+      _lastTapPos = e.position;
+    }
+  }
+
+  /// زوم‌نشده ← زوم به [_kDoubleTapZoom] حولِ همان نقطه؛ زوم‌شده (بزرگ یا کوچک) ← ۱۰۰٪.
+  void _onDoubleTap(Offset localFocal) {
+    _stopZoomAnimation();
+    if (_isZoomed) {
+      _animateZoomTo(Matrix4.identity());
+      return;
+    }
+    final Matrix4? m = _zoomedMatrix(_kDoubleTapZoom, focalPoint: localFocal);
+    if (m != null) _animateZoomTo(m);
   }
 
   /// 🌟 جابه‌جاییِ افقیِ صفحه‌ی زوم‌شده با چرخِ ماوس (Shift+چرخ، چرخِ افقی
@@ -1155,6 +1268,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     _readingPageIndex.dispose();
     HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
     _transformationController.removeListener(_onTransformChanged);
+    _zoomAnim.dispose();
     _transformationController.dispose();
     super.dispose();
   }
@@ -1482,10 +1596,14 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                 onPointerDown: (e) {
                   _lastPointerDownAt = DateTime.now();
                   _pointerCount++;
+                  _stopZoomAnimation();
+                  _tapPointerDown(e); // 🌟 Z-1
                   // فقط در لحظه لمس انگشت دوم rebuild لازم است
                   if (_pointerCount == 2) setState(() {});
                 },
+                onPointerMove: _tapPointerMove, // 🌟 Z-1
                 onPointerUp: (e) {
+                  _tapPointerUp(e); // 🌟 Z-1 (پیش از کم شدنِ شمارِ انگشت‌ها)
                   final prev = _pointerCount;
                   _pointerCount = (_pointerCount - 1).clamp(0, 10);
                   if (prev == 2) {
@@ -1493,6 +1611,8 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                   }
                 },
                 onPointerCancel: (e) {
+                  _tapCancelled = true; // 🌟 Z-1
+                  _lastTapAt = null;
                   final prev = _pointerCount;
                   _pointerCount = (_pointerCount - 1).clamp(0, 10);
                   if (prev == 2) setState(() {});
