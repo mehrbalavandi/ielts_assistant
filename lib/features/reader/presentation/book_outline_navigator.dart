@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
+import 'package:ielts_assistant/features/audio/domain/audio_skill.dart';
 
 // 🌟 ناوبرِ ساختاریِ کتاب (قانون‌های N-1 … N-6ِ RULES-rendering.md).
 //
@@ -311,7 +312,21 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
           readingIndex,
           widget.indexForPageNumber,
         );
-        return AnimatedSwitcher(
+        // 🌟 N-17: ناوبر به رنگِ مهارتِ بخشی که الان خوانده می‌شود (همان رنگِ کادرِ صفحه، AU-9)؛
+        // بخشِ بی‌مهارت (سرآغازِ درس، …) رنگِ اصلیِ برنامه. تغییرِ رنگ نرم است (AnimatedTheme).
+        final ThemeData theme = Theme.of(context);
+        final Color? skill = _skillColorAt(pos);
+        return AnimatedTheme(
+          duration: const Duration(milliseconds: 350),
+          data: skill == null
+              ? theme
+              : theme.copyWith(
+                  colorScheme: theme.colorScheme.copyWith(
+                    primary: skill,
+                    onPrimary: Colors.white,
+                  ),
+                ),
+          child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 180),
           transitionBuilder: (child, anim) => FadeTransition(
             opacity: anim,
@@ -325,9 +340,20 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
           child: _collapsed
               ? _buildCollapsed(context, pos)
               : _buildPanel(context, pos),
+          ),
         );
       },
     );
+  }
+
+  /// N-17: رنگِ مهارتِ بخشِ فعلی (null = بخشِ بی‌مهارت یا بیرون از فهرست).
+  Color? _skillColorAt(OutlinePosition pos) {
+    if (pos.top == null) return null;
+    final OutlineEntry top = widget.outline[pos.top!];
+    final AudioSkill skill = pos.child == null
+        ? audioSkillFromTitle(top.title)
+        : audioSkillFromTitle(top.children[pos.child!].title);
+    return audioSkillColor(skill);
   }
 
   // ── جمع‌شده: زبانه‌ی باریک با آیکونِ بخشِ فعلی ───────────────────────────

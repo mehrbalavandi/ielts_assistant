@@ -145,6 +145,17 @@ class ReadingCanvas extends ConsumerStatefulWidget {
 }
 
 class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
+  /// 🌟 RD-1: رنگِ مهارتِ هر صفحه (کادرِ صفحه) — مهارتِ بخشی که سرِ صفحه در آن است (بخشی که از
+  /// بالای همین صفحه شروع می‌شود هم حساب است). یک‌بار برای هر صفحه.
+  final Map<int, Color?> _pageSkillColors = {};
+
+  Color? _pageSkillColor(PageData page) =>
+      _pageSkillColors.putIfAbsent(page.pageNumber, () {
+        final outline = widget.pagedBookStore.outline;
+        if (outline.isEmpty) return null;
+        return audioSkillColor(audioSkillAt(outline, page.pageNumber, 0));
+      });
+
   final TransformationController _transformationController =
       TransformationController();
   final _box = GetStorage();
@@ -1604,6 +1615,8 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
                                           ? readablePage(page, readableOptions)
                                           : page,
                                       readable: appearance.readable,
+                                      // 🌟 RD-1: کادرِ صفحه به رنگِ مهارتش
+                                      skillColor: _pageSkillColor(page),
                                       activeTarget: activeTarget,
                                       searchSession: searchSession,
                                       canvasWidth: canvasWidth,
@@ -1747,6 +1760,9 @@ class BookPageWidget extends ConsumerStatefulWidget {
   final List<String> bookAudioPlaylist;
   final Map<String, AudioLocation> bookAudioFirstOccurrence;
 
+  /// 🌟 RD-1: رنگِ مهارتِ صفحه برای کادرش (null = بخشِ بی‌مهارت ← کادرِ خنثی).
+  final Color? skillColor;
+
   const BookPageWidget({
     super.key,
     required this.page,
@@ -1760,6 +1776,7 @@ class BookPageWidget extends ConsumerStatefulWidget {
     this.bookAudioPlaylist = const [],
     this.bookAudioFirstOccurrence = const {},
     this.readable = false,
+    this.skillColor,
   });
 
   @override
@@ -1915,13 +1932,22 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
               ? const EdgeInsets.only(bottom: 16.0, left: 2.0, right: 2.0)
               : const EdgeInsets.only(bottom: 24.0, left: 8.0, right: 8.0),
           padding: const EdgeInsets.all(12.0),
-          decoration: const BoxDecoration(
+          // 🌟 RD-1: کادرِ نرم (گوشه‌ی گرد) به رنگِ مهارتِ صفحه — Listening بنفش، Speaking آبی،
+          // Reading نارنجی، Writing سبز (AU-9)؛ صفحه‌ی بی‌مهارت کادرِ خنثیِ کم‌رنگ.
+          decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: widget.skillColor == null
+                ? Border.all(color: Colors.black.withOpacity(0.06))
+                : Border.all(
+                    color: widget.skillColor!.withOpacity(0.55),
+                    width: 2,
+                  ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black12,
+                color: (widget.skillColor ?? Colors.black).withOpacity(0.10),
                 blurRadius: 10,
-                offset: Offset(0, 5),
+                offset: const Offset(0, 5),
               ),
             ],
           ),
