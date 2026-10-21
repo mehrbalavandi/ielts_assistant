@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_script_text_scale_provider.dart';
 import 'package:ielts_assistant/features/audio/presentation/sleep_timer_sheet.dart';
+import 'package:ielts_assistant/features/audio/domain/audio_skill.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
@@ -93,7 +94,12 @@ class _PlayerColors {
   });
 }
 
-_PlayerColors _playerColors(BuildContext context) {
+/// [skill]: 🌟 AU-9 — رنگِ «در حالِ پخش» (accent) رنگِ مهارتِ فایل است (Listening بنفش، Speaking
+/// آبی، …)؛ مهارتِ نامعلوم ← رنگِ تم.
+_PlayerColors _playerColors(
+  BuildContext context, {
+  AudioSkill skill = AudioSkill.other,
+}) {
   final scheme = ColorScheme.fromSeed(
     seedColor: Theme.of(context).colorScheme.primary,
     brightness: Brightness.dark,
@@ -108,7 +114,8 @@ _PlayerColors _playerColors(BuildContext context) {
     return hsl.withLightness(lightness).withSaturation(saturation).toColor();
   }
 
-  final Color accent = vivid(scheme.tertiary);
+  final Color accent =
+      audioSkillColor(skill, onDark: true) ?? vivid(scheme.tertiary);
   // 🐞 رنگِ جداگانه برای «این نتیجه‌ی جستجو است» — عمداً از رنگِ accent
   // (نارنجیِ «در حالِ پخش») متفاوت است تا با هم قاطی نشوند؛ از رویِ رنگِ
   // اصلیِ برندِ اپ (primary) ساخته می‌شود، نه یک رنگِ کاملاً بی‌ربط.
@@ -195,6 +202,11 @@ class AudioPlayerBar extends ConsumerWidget {
     WidgetRef ref,
     AudioPlayerState audioState,
   ) {
+    // 🌟 AU-9: نوارِ کوچکِ پلیر به رنگِ مهارتِ فایل؛ زیرِ نامِ فایل درس و مهارتش.
+    final AudioPlayerNotifier notifier = ref.read(audioPlayerProvider.notifier);
+    final AudioSkill skill = notifier.skillOfPath(audioState.currentPath!);
+    final Color tint = audioSkillColor(skill) ?? Colors.indigo;
+    final String? where = notifier.trackLocationLabel(audioState.currentPath!);
     return GestureDetector(
       key: const ValueKey('audioBarVisible'),
       onTap: () => _showFullPlayerModal(context, ref),
@@ -202,10 +214,8 @@ class AudioPlayerBar extends ConsumerWidget {
         height: 56,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: Colors.indigo.shade50,
-          border: const Border(
-            bottom: BorderSide(color: Colors.indigo, width: 3),
-          ),
+          color: Color.alphaBlend(tint.withOpacity(0.08), Colors.white),
+          border: Border(bottom: BorderSide(color: tint, width: 3)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.14),
@@ -222,7 +232,7 @@ class AudioPlayerBar extends ConsumerWidget {
                 audioState.isPlaying
                     ? Icons.pause_circle_filled
                     : Icons.play_circle_filled,
-                color: Colors.blueAccent,
+                color: tint,
                 size: 38,
               ),
               onPressed: () {
@@ -257,8 +267,11 @@ class AudioPlayerBar extends ConsumerWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "Tap to expand",
-                    style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+                    where ?? "Tap to expand",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textDirection: where == null ? null : TextDirection.rtl,
+                    style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -267,10 +280,10 @@ class AudioPlayerBar extends ConsumerWidget {
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
               child: audioState.isPlaying
-                  ? const Padding(
-                      key: ValueKey('barMeter'),
-                      padding: EdgeInsets.symmetric(horizontal: 6),
-                      child: _AudioMeter(color: Colors.indigo),
+                  ? Padding(
+                      key: const ValueKey('barMeter'),
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: _AudioMeter(color: tint),
                     )
                   : const SizedBox(key: ValueKey('barNoMeter'), width: 32),
             ),
@@ -653,6 +666,9 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                         // 🌟 S-10: بعد از اجرای دوباره‌ی برنامه (چیزی در حالِ پخش
                         // نیست) آخرین فایلِ پخش‌شده هم مثلِ فایلِ جاری علامت دارد.
                         final bool isCurrent = markedPath == path;
+                        final AudioSkill rowSkill = ref
+                            .read(audioPlayerProvider.notifier)
+                            .skillOfPath(path);
                         final bool isPlayingRow = isCurrent && state.isPlaying;
                         return ListTile(
                           // 🌟 S-11: فایلِ در حالِ پخش زمینه‌ی ملایمِ رنگِ تأکید
@@ -671,12 +687,17 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                                         key: const ValueKey('meter'),
                                         color: colors.accent,
                                       )
+                                    // 🌟 AU-9: آیکون و رنگِ مهارتِ فایل
                                     : Icon(
-                                        Icons.play_circle_fill_rounded,
+                                        audioSkillIcon(rowSkill),
                                         key: const ValueKey('icon'),
                                         color: isCurrent
                                             ? colors.accent
-                                            : colors.textMuted,
+                                            : (audioSkillColor(
+                                                    rowSkill,
+                                                    onDark: true,
+                                                  ) ??
+                                                  colors.textMuted),
                                       ),
                               ),
                             ),
@@ -691,7 +712,10 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
-                                    color: colors.textMuted,
+                                    color:
+                                        audioSkillColor(rowSkill, onDark: true)
+                                            ?.withOpacity(0.85) ??
+                                        colors.textMuted,
                                     fontSize: 12,
                                   ),
                                 ),
@@ -1159,8 +1183,14 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
   @override
   Widget build(BuildContext context) {
-    _colors = _playerColors(context);
     final audioState = ref.watch(audioPlayerProvider);
+    // 🌟 AU-9: رنگِ مهارتِ فایلِ فعلی
+    _colors = _playerColors(
+      context,
+      skill: audioState.currentPath == null
+          ? AudioSkill.other
+          : ref.read(audioPlayerProvider.notifier).skillOfPath(audioState.currentPath!),
+    );
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
     final double totalMs = audioState.duration.inMilliseconds.toDouble();

@@ -32,6 +32,7 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/core/text/document_text_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
+import 'package:ielts_assistant/features/audio/domain/audio_skill.dart';
 import 'package:ielts_assistant/features/audio/presentation/audio_player_bar.dart';
 import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
 import 'package:ielts_assistant/features/reader/presentation/sample_lock_dialog.dart';
@@ -6593,6 +6594,16 @@ class InlineAudioLink extends ConsumerWidget {
       audioPlayerProvider.select((s) => s.isPlaying),
     );
     final activeBook = ref.watch(activeBookProvider);
+    // 🌟 AU-9: رنگِ مهارت (Listening بنفش، Speaking آبی، …) از جای همین دکمه در فهرستِ کتاب؛
+    // فهرست که هنوز به پلیر نرسیده یا مهارت نامعلوم است ← رنگِ قبلیِ دکمه.
+    final outline = ref.watch(
+      audioPlayerProvider.select((s) => s.bookOutline),
+    );
+    final Color baseColor =
+        (pageNumber != null && paraIndex != null
+            ? audioSkillColor(audioSkillAt(outline, pageNumber!, paraIndex!))
+            : null) ??
+        this.baseColor;
 
     // 🌟 دیگر هر بار existsSync صدا زده نمی‌شود؛ فقط یک‌بار برای هر فایل
     final targetPath = InlineAudioLink.resolveAudioPath(fileName, activeBook);

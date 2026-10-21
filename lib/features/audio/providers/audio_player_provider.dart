@@ -8,6 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:ielts_assistant/features/settings/providers/audio_settings_provider.dart';
 import 'package:ielts_assistant/features/audio/data/media_session_service.dart';
+import 'package:ielts_assistant/features/audio/domain/audio_skill.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
 
@@ -75,6 +76,10 @@ class AudioPlayerState {
   /// پخش بعد از پایانِ این فایل متوقف می‌شود.
   final String? sleepAfterPath;
 
+  /// 🌟 AU-9: فهرستِ کتابِ باز (برای مهارت/درسِ هر فایل). در state است تا دکمه‌های صوتیِ متن با
+  /// رسیدنش رنگِ مهارت بگیرند.
+  final List<OutlineEntry> bookOutline;
+
   bool get sleepTimerActive =>
       sleepAt != null || sleepAfterFiles != null || sleepAfterPath != null;
 
@@ -94,6 +99,7 @@ class AudioPlayerState {
     this.sleepAt,
     this.sleepAfterFiles,
     this.sleepAfterPath,
+    this.bookOutline = const [],
   });
 
   AudioPlayerState copyWith({
@@ -112,6 +118,7 @@ class AudioPlayerState {
     DateTime? Function()? sleepAt,
     int? Function()? sleepAfterFiles,
     String? Function()? sleepAfterPath,
+    List<OutlineEntry>? bookOutline,
   }) {
     return AudioPlayerState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -135,6 +142,7 @@ class AudioPlayerState {
       sleepAfterPath: sleepAfterPath != null
           ? sleepAfterPath()
           : this.sleepAfterPath,
+      bookOutline: bookOutline ?? this.bookOutline,
     );
   }
 }
@@ -150,7 +158,6 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
   Timer? _sleepTimer; // AU-8
 
   // 🌟 AU-5/AU-6: فهرستِ کتاب (برای دامنه‌ی تکرار و برچسبِ درس/مهارت در اعلان)، نام و جلدِ کتاب.
-  List<OutlineEntry> _outline = const [];
   String? _bookTitle;
   String? _coverPath;
   late MediaSessionCallbacks _sessionCallbacks;
@@ -269,9 +276,21 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     String? bookTitle,
     String? coverPath,
   }) {
-    _outline = outline;
     _bookTitle = bookTitle;
     _coverPath = coverPath;
+    if (!identical(outline, state.bookOutline)) {
+      state = state.copyWith(bookOutline: outline);
+      _syncTrack();
+    }
+  }
+
+  List<OutlineEntry> get _outline => state.bookOutline;
+
+  /// 🌟 AU-9: مهارتِ فایلِ [path] (از جای اولین دکمه‌اش در کتاب).
+  AudioSkill skillOfPath(String path) {
+    final AudioLocation? loc = state.firstOccurrence[path];
+    if (loc == null) return AudioSkill.other;
+    return audioSkillAt(_outline, loc.pageNumber, loc.paraIndex);
   }
 
   /// AU-5: جای اولین دکمه‌ی [path] در فهرستِ کتاب؛ null اگر نامعلوم.
@@ -329,14 +348,31 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     final int dot = name.lastIndexOf('.');
     if (dot > 0) name = name.substring(0, dot);
     final String? cover = _coverPath;
-    MediaSessionService.setTrack(
+    final AudioSkill skill = skillOfPath(path);
+    final String? subtitle = trackLocationLabel(path);
+    void publish(Uri? art) => MediaSessionService.setTrack(
       id: path,
       title: name,
-      subtitle: trackLocationLabel(path),
+      subtitle: subtitle,
       album: _bookTitle,
       duration: _player.duration,
-      artUri: cover == null ? null : Uri.file(cover),
+      artUri: art,
     );
+    // 🌟 AU-9: تصویرِ اعلان به رنگِ مهارت (اندروید رنگِ پس‌زمینه‌ی پلیرِ اعلان و صفحه‌ی قفل را از
+    // تصویر می‌گیرد)؛ مهارتِ نامعلوم ← جلدِ کتاب.
+    if (skill == AudioSkill.other) {
+      publish(cover == null ? null : Uri.file(cover));
+      return;
+    }
+    final Uri? cached = MediaSessionService.cachedSkillArtwork(skill);
+    publish(cached ?? (cover == null ? null : Uri.file(cover)));
+    if (cached == null) {
+      MediaSessionService.skillArtwork(skill).then((Uri? art) {
+        if (art != null && ref.mounted && state.currentPath == path) {
+          publish(art);
+        }
+      });
+    }
   }
 
   /// AU-6: وضعیتِ پخش در اعلان (با هر پخش/مکث/پرش/تغییرِ وضعیتِ بارگذاری).
@@ -623,6 +659,7 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       playbackMode: state.playbackMode,
       playlist: state.playlist,
       firstOccurrence: state.firstOccurrence,
+      bookOutline: state.bookOutline,
     );
     MediaSessionService.clear(); // AU-6: اعلان هم می‌رود
   }
