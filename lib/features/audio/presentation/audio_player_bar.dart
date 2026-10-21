@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_player_provider.dart';
 import 'package:ielts_assistant/features/audio/providers/audio_script_text_scale_provider.dart';
+import 'package:ielts_assistant/features/audio/presentation/sleep_timer_sheet.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/data/paged_book_store.dart';
@@ -1311,6 +1312,11 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
+                ),
+                // 🌟 AU-8: تایمرِ توقف (در سرِ برگه؛ نوارِ کنترل‌های پایین روی گوشی جا ندارد)
+                SleepTimerButton(
+                  activeColor: _colors.accent,
+                  idleColor: _colors.textSecondary,
                 ),
                 // 🌟 AS-3: کوچک/بزرگ‌کردنِ متنِ اسکریپت
                 IconButton(

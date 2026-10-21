@@ -65,6 +65,19 @@ class AudioPlayerState {
   // همان وقوعِ دقیقی که رویش تپ شده (explicitLocation).
   final AudioLocation? targetLocation;
 
+  // 🌟 AU-8: تایمرِ توقف (مثلِ Musicolet) — حداکثر یکی فعال است.
+  /// پخش در این لحظه متوقف می‌شود.
+  final DateTime? sleepAt;
+
+  /// پخش بعد از پایانِ این تعداد فایلِ دیگر متوقف می‌شود (۱ = پایانِ همین فایل).
+  final int? sleepAfterFiles;
+
+  /// پخش بعد از پایانِ این فایل متوقف می‌شود.
+  final String? sleepAfterPath;
+
+  bool get sleepTimerActive =>
+      sleepAt != null || sleepAfterFiles != null || sleepAfterPath != null;
+
   AudioPlayerState({
     this.isPlaying = false,
     this.position = Duration.zero,
@@ -78,6 +91,9 @@ class AudioPlayerState {
     this.firstOccurrence = const {},
     this.lastSource = AudioTrackSource.none,
     this.targetLocation,
+    this.sleepAt,
+    this.sleepAfterFiles,
+    this.sleepAfterPath,
   });
 
   AudioPlayerState copyWith({
@@ -93,6 +109,9 @@ class AudioPlayerState {
     Map<String, AudioLocation>? firstOccurrence,
     AudioTrackSource? lastSource,
     AudioLocation? Function()? targetLocation,
+    DateTime? Function()? sleepAt,
+    int? Function()? sleepAfterFiles,
+    String? Function()? sleepAfterPath,
   }) {
     return AudioPlayerState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -109,6 +128,13 @@ class AudioPlayerState {
       targetLocation: targetLocation != null
           ? targetLocation()
           : this.targetLocation,
+      sleepAt: sleepAt != null ? sleepAt() : this.sleepAt,
+      sleepAfterFiles: sleepAfterFiles != null
+          ? sleepAfterFiles()
+          : this.sleepAfterFiles,
+      sleepAfterPath: sleepAfterPath != null
+          ? sleepAfterPath()
+          : this.sleepAfterPath,
     );
   }
 }
@@ -121,6 +147,7 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
   StreamSubscription? _posSub;
   StreamSubscription? _durSub;
   StreamSubscription? _playerStateSub;
+  Timer? _sleepTimer; // AU-8
 
   // 🌟 AU-5/AU-6: فهرستِ کتاب (برای دامنه‌ی تکرار و برچسبِ درس/مهارت در اعلان)، نام و جلدِ کتاب.
   List<OutlineEntry> _outline = const [];
@@ -179,6 +206,16 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
 
     _player.processingStateStream.listen((status) {
       if (status == ProcessingState.completed) {
+        // 🌟 AU-8: تایمرِ «بعد از N فایل / بعد از این فایل» — اینجا تمام می‌شود و پخش جلو نمی‌رود.
+        if (_sleepEndsAtThisCompletion()) {
+          _player.seek(Duration.zero);
+          _player.pause();
+          state = state.copyWith(position: Duration.zero);
+          if (state.currentPath != null) {
+            _box.write('pos_${state.currentPath}', 0);
+          }
+          return;
+        }
         if (state.playbackMode == PlaybackMode.repeatOne) {
           _player.seek(Duration.zero);
           _player.play();
@@ -215,6 +252,7 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
       _posSub?.cancel();
       _durSub?.cancel();
       _playerStateSub?.cancel();
+      _sleepTimer?.cancel();
       MediaSessionService.handler?.detach(_sessionCallbacks);
       MediaSessionService.clear();
       _player.dispose();
@@ -471,6 +509,65 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
     }
   }
 
+  // ───────── 🌟 AU-8: تایمرِ توقف ─────────
+
+  /// پخش [after] بعد متوقف (مکث) می‌شود.
+  void setSleepAfterDuration(Duration after) {
+    cancelSleepTimer();
+    _sleepTimer = Timer(after, () {
+      if (!ref.mounted) return;
+      _player.pause();
+      state = state.copyWith(sleepAt: () => null);
+    });
+    state = state.copyWith(sleepAt: () => DateTime.now().add(after));
+  }
+
+  /// پخش بعد از پایانِ [files] فایل متوقف می‌شود (۱ = پایانِ همین فایل). تکرارِ یک فایل هم یک
+  /// پایان حساب می‌شود.
+  void setSleepAfterFiles(int files) {
+    cancelSleepTimer();
+    if (files < 1) return;
+    state = state.copyWith(sleepAfterFiles: () => files);
+  }
+
+  /// پخش بعد از پایانِ فایلِ [path] متوقف می‌شود.
+  void setSleepAfterPath(String path) {
+    cancelSleepTimer();
+    state = state.copyWith(sleepAfterPath: () => path);
+  }
+
+  void cancelSleepTimer() {
+    _sleepTimer?.cancel();
+    _sleepTimer = null;
+    if (state.sleepTimerActive) {
+      state = state.copyWith(
+        sleepAt: () => null,
+        sleepAfterFiles: () => null,
+        sleepAfterPath: () => null,
+      );
+    }
+  }
+
+  /// پایانِ فایلِ فعلی تایمرِ «بعد از N فایل / بعد از این فایل» را تمام می‌کند؟ (یکی از N را هم
+  /// کم می‌کند.)
+  bool _sleepEndsAtThisCompletion() {
+    final int? left = state.sleepAfterFiles;
+    if (left != null) {
+      if (left <= 1) {
+        state = state.copyWith(sleepAfterFiles: () => null);
+        return true;
+      }
+      state = state.copyWith(sleepAfterFiles: () => left - 1);
+      return false;
+    }
+    final String? target = state.sleepAfterPath;
+    if (target != null && target == state.currentPath) {
+      state = state.copyWith(sleepAfterPath: () => null);
+      return true;
+    }
+    return false;
+  }
+
   /// 🌟 AU-5: انتخابِ رفتارِ پایانِ فایل (منوی دکمه‌ی تکرار).
   void setPlaybackMode(PlaybackMode mode) {
     state = state.copyWith(playbackMode: mode);
@@ -520,6 +617,8 @@ class AudioPlayerNotifier extends _$AudioPlayerNotifier {
 
   void stopAndClear() {
     _player.stop();
+    _sleepTimer?.cancel(); // AU-8
+    _sleepTimer = null;
     state = AudioPlayerState(
       playbackMode: state.playbackMode,
       playlist: state.playlist,
