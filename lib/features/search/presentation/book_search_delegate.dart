@@ -292,28 +292,43 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
 
     final Set<String> books = {for (final r in results) r.bookTitle};
 
-    // 🐞 S-17: ScrollablePositionedList نتیجه‌ی دیده‌شده را حتی وقتی بالای فهرست است در ۳۰٪ِ
-    // ارتفاع می‌نشاند و بالایش جای خالی می‌ماند (فهرستِ کوتاه یا نتیجه‌ی اول). بعد از اولین
-    // فریم: اگر اولین ردیف دیده می‌شود و پایین‌تر از لبه‌ی بالاست، فهرست به بالا می‌چسبد.
+    // 🐞 S-17: ScrollablePositionedList ردیفِ initialScrollIndex را در initialAlignment می‌نشاند
+    // حتی اگر ردیف‌های بالایش آن‌قدر نیستند که آن ۳۰٪ را پر کنند — بالای فهرست جای خالی می‌ماند.
+    // (چاره‌ی قبلی — بعد از اولین فریم «اگر ردیفِ ۰ پایین‌تر از لبه است، بپر بالا» — شکننده
+    // بود: هر build کنترلرِ تازه می‌ساخت و فهرستِ جای ردیف‌ها گاهی هنوز خالی بود.) حالا:
+    // ۱) اگر هدف جزوِ چند ردیفِ اول است، فهرست از بالا باز می‌شود (هدف همان‌جا دیده می‌شود)؛
+    // ۲) وگرنه در ۳۰٪، و اگر بعد از چیده شدن (تا چند فریم) باز هم جای خالی بالا ماند، به بالا
+    //    می‌چسبد.
+    const int nearTop = 8;
+    final bool openAtTop = focusRow < nearTop;
+    // کنترلرِ جدا برای هر فهرست: پیشنهادها و نتایج هنگامِ جابه‌جاییِ SearchDelegate لحظه‌ای با
+    // هم هستند و یک ItemScrollController نمی‌تواند به دو فهرست وصل باشد.
     final ItemScrollController scroll = ItemScrollController();
     final ItemPositionsListener positions = ItemPositionsListener.create();
-    if (focusRow > 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final ItemPosition? first = positions.itemPositions.value
-            .where((p) => p.index == 0)
-            .firstOrNull;
-        if (first != null && first.itemLeadingEdge > 0.001 && scroll.isAttached) {
+    if (!openAtTop) {
+      int tries = 0;
+      void check(Duration _) {
+        if (!scroll.isAttached) return;
+        final Iterable<ItemPosition> all = positions.itemPositions.value;
+        if (all.isEmpty && ++tries < 6) {
+          WidgetsBinding.instance.addPostFrameCallback(check);
+          return;
+        }
+        final ItemPosition? first = all.where((p) => p.index == 0).firstOrNull;
+        if (first != null && first.itemLeadingEdge > 0.001) {
           scroll.jumpTo(index: 0);
         }
-      });
+      }
+
+      WidgetsBinding.instance.addPostFrameCallback(check);
     }
 
     return ScrollablePositionedList.builder(
       itemScrollController: scroll,
       itemPositionsListener: positions,
       itemCount: rows.length,
-      initialScrollIndex: focusRow < 0 ? 0 : focusRow,
-      initialAlignment: focusRow <= 0 ? 0 : 0.3,
+      initialScrollIndex: openAtTop ? 0 : focusRow,
+      initialAlignment: openAtTop ? 0 : 0.3,
       padding: const EdgeInsets.only(bottom: 24),
       itemBuilder: (context, index) {
         final _Row row = rows[index];
