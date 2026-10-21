@@ -1311,6 +1311,8 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas> {
     _lastBuiltFocusAudioLink = activeTarget?.focusAudioLink;
 
     ref.listen<SearchSession?>(activeSearchProvider, (previous, next) async {
+      // 🌟 S-16: پلیر خودش به نتیجه‌ی صوتیِ بعدی رفته؛ پلیرِ تازه باز نشود.
+      if (next != null && next.handledInPlayer) return;
       if (next != null && next.results.isNotEmpty) {
         if (previous?.query != next.query ||
             previous?.currentIndex != next.currentIndex ||

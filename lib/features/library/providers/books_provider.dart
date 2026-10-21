@@ -1583,19 +1583,29 @@ class SearchSession {
   final List<dynamic> results;
   final int currentIndex;
   final int jumpTrigger;
+
+  /// 🌟 S-16: این تغییرِ نتیجه را خودِ پلیرِ صوتی انجام داده (پیمایشِ جستجو داخلِ برگه‌ی
+  /// اسکریپت، به فایلِ صوتیِ بعدی)؛ صفحه‌ی مطالعه نباید دوباره پلیر باز کند. copyWith
+  /// بدونِ ذکرش آن را false می‌کند.
+  final bool handledInPlayer;
   SearchSession({
     required this.query,
     required this.results,
     required this.currentIndex,
     this.jumpTrigger = 0,
+    this.handledInPlayer = false,
   });
-  SearchSession copyWith({int? currentIndex, int? jumpTrigger}) =>
-      SearchSession(
-        query: query,
-        results: results,
-        currentIndex: currentIndex ?? this.currentIndex,
-        jumpTrigger: jumpTrigger ?? this.jumpTrigger,
-      );
+  SearchSession copyWith({
+    int? currentIndex,
+    int? jumpTrigger,
+    bool handledInPlayer = false,
+  }) => SearchSession(
+    query: query,
+    results: results,
+    currentIndex: currentIndex ?? this.currentIndex,
+    jumpTrigger: jumpTrigger ?? this.jumpTrigger,
+    handledInPlayer: handledInPlayer,
+  );
 }
 
 final activeSearchProvider = StateProvider<SearchSession?>((ref) => null);

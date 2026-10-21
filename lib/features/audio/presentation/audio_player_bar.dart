@@ -12,6 +12,7 @@ import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/text_render_engine.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:ielts_assistant/core/text/text_direction.dart';
 
 // 🐞 برای دکمه‌ی «برو به متن»: مکانیزمِ موجودِ اسکرول (در
 // ReadingCanvas) فقط از رویِ activeSearchProvider/SearchResult کار
@@ -348,6 +349,8 @@ void showCombinedPlayerModal(
   Set<int>? searchMatchTimestamps,
   // 🌟 AS-1: برای کلمات تعاملیِ سطحِ کتاب داخلِ متنِ اسکریپت.
   PagedBookStore? pagedBookStore,
+  // 🌟 S-16: فایلی که searchMatchTimestamps مالِ آن است (نوارِ جستجوی داخلِ برگه).
+  String? searchTrackName,
 }) {
   showModalBottomSheet(
     context: context,
@@ -356,6 +359,7 @@ void showCombinedPlayerModal(
     builder: (ctx) => CombinedAudioSheet(
       audioScripts: audioScripts,
       searchMatchTimestamps: searchMatchTimestamps,
+      searchTrackName: searchTrackName,
       pagedBookStore: pagedBookStore,
     ),
   );
@@ -418,6 +422,7 @@ Future<void> openAudioSearchResult({
       ref,
       pagedBookStore.audioScripts,
       searchMatchTimestamps: timestamps,
+      searchTrackName: target.audioTrackName,
       pagedBookStore: pagedBookStore,
     );
   }
@@ -728,11 +733,15 @@ class CombinedAudioSheet extends ConsumerStatefulWidget {
   // تعاملی نمی‌شد.
   final PagedBookStore? pagedBookStore;
 
+  /// 🌟 S-16: فایلِ صوتی‌ای که [searchMatchTimestamps] مالِ آن است.
+  final String? searchTrackName;
+
   const CombinedAudioSheet({
     super.key,
     required this.audioScripts,
     this.searchMatchTimestamps,
     this.pagedBookStore,
+    this.searchTrackName,
   });
 
   @override
@@ -742,6 +751,145 @@ class CombinedAudioSheet extends ConsumerStatefulWidget {
 class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   int _lastActiveIndex = -1;
+
+  // 🌟 S-16: پیمایشِ جستجو داخلِ برگه. _matches = لحظه‌های یافته‌شده در فایلِ _searchTrack
+  // (مرتب)، _matchIndex = همانی که الان رویش هستیم.
+  List<int> _matches = const [];
+  String? _searchTrack;
+  int _matchIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _matches = (widget.searchMatchTimestamps?.toList() ?? <int>[])..sort();
+    _searchTrack = widget.searchTrackName ??
+        ref.read(audioPlayerProvider).currentPath?.split('/').last;
+  }
+
+  /// S-16: یافته‌ی بعدی/قبلی: اول داخلِ همین فایل؛ بعد از آخری، نتیجه‌ی بعدیِ جستجو — اگر
+  /// فایلِ صوتیِ دیگری است همین‌جا به آن می‌رود، اگر متنِ کتاب است برگه بسته و صفحه به آن
+  /// اسکرول می‌شود (مثلِ نوارِ جستجوی پایینِ صفحه، چرخشی).
+  Future<void> _stepSearch(int dir) async {
+    if (_matches.isEmpty) return;
+    final AudioPlayerNotifier player = ref.read(audioPlayerProvider.notifier);
+    final int next = _matchIndex + dir;
+    if (next >= 0 && next < _matches.length) {
+      setState(() => _matchIndex = next);
+      player.seek(Duration(milliseconds: _matches[next]));
+      return;
+    }
+    final searchCtl = ref.read(activeSearchProvider.notifier);
+    final SearchSession? session = searchCtl.state;
+    if (session == null || session.results.length <= 1) {
+      final int wrap = dir > 0 ? 0 : _matches.length - 1;
+      setState(() => _matchIndex = wrap);
+      player.seek(Duration(milliseconds: _matches[wrap]));
+      return;
+    }
+    final int n = session.results.length;
+    final int ni = (session.currentIndex + dir + n) % n;
+    final SearchResult target = session.results[ni] as SearchResult;
+    if (target.audioTrackName == null) {
+      // متنِ کتاب: برگه بسته می‌شود و صفحه‌ی مطالعه به نتیجه می‌رود.
+      Navigator.of(context).pop();
+      searchCtl.state = session.copyWith(
+        currentIndex: ni,
+        jumpTrigger: session.jumpTrigger + 1,
+      );
+      return;
+    }
+    final List<int> ts = [
+      ...(target.audioMatchTimestamps ??
+          [if (target.matchedStartMs != null) target.matchedStartMs!]),
+    ]..sort();
+    if (ts.isEmpty) return;
+    final int idx = dir > 0 ? 0 : ts.length - 1;
+    searchCtl.state = session.copyWith(currentIndex: ni, handledInPlayer: true);
+    if (target.audioTrackName != _searchTrack) {
+      final PagedBookStore? store = widget.pagedBookStore;
+      final BookModel? book = ref.read(activeBookProvider);
+      if (store == null || book == null) return;
+      await player.playFile(
+        InlineAudioLink.resolveAudioPath(target.audioTrackName!, book),
+        autoPlay: false,
+        seekToMs: ts[idx],
+        explicitLocation: firstOccurrenceForTrack(store, target.audioTrackName!),
+      );
+    } else {
+      player.seek(Duration(milliseconds: ts[idx]));
+    }
+    if (!mounted) return;
+    setState(() {
+      _searchTrack = target.audioTrackName;
+      _matches = ts;
+      _matchIndex = idx;
+      _lastActiveIndex = -1;
+    });
+  }
+
+  /// S-16: پایانِ جستجو (× در نوارِ جستجوی برگه): هایلایت‌ها و نوارِ پایینِ صفحه هم می‌روند.
+  void _clearSearch() {
+    ref.read(activeSearchProvider.notifier).state = null;
+    setState(() {
+      _matches = const [];
+      _searchTrack = null;
+    });
+  }
+
+  /// S-16: نوارِ جستجو بالای اسکریپت: «true» ۲ از ۸ در این فایل · نتیجه‌ی ۱۳ از ۳۱.
+  Widget _buildSearchStrip() {
+    final SearchSession? session = ref.watch(activeSearchProvider);
+    final String query = session?.query ?? '';
+    final Color fg = _colors.textSecondary;
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(14, 6, 14, 0),
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        decoration: BoxDecoration(
+          color: _colors.searchMatch.withOpacity(0.14),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: _colors.searchMatch.withOpacity(0.5)),
+        ),
+        child: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.keyboard_arrow_down, color: fg),
+              tooltip: 'یافته‌ی بعدی',
+              visualDensity: VisualDensity.compact,
+              onPressed: () => _stepSearch(1),
+            ),
+            IconButton(
+              icon: Icon(Icons.keyboard_arrow_up, color: fg),
+              tooltip: 'یافته‌ی قبلی',
+              visualDensity: VisualDensity.compact,
+              onPressed: () => _stepSearch(-1),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                [
+                  if (query.isNotEmpty) '«${bidiIsolate(query)}»',
+                  '${_matchIndex + 1} از ${_matches.length} در این فایل',
+                  if (session != null && session.results.length > 1)
+                    'نتیجه‌ی ${session.currentIndex + 1} از ${session.results.length}',
+                ].join(' · '),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: fg, fontSize: 12.5),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.close, color: _colors.textMuted, size: 20),
+              tooltip: 'پایانِ جستجو',
+              visualDensity: VisualDensity.compact,
+              onPressed: _clearSearch,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   // 🐞 در build() مقداردهی می‌شود؛ چون _buildSmallCircleButton هم به آن
   // نیاز دارد (و context ندارد)، به‌عنوانِ فیلدِ کلاس نگه داشته می‌شود.
   late _PlayerColors _colors;
@@ -851,6 +999,13 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
     final double totalMs = audioState.duration.inMilliseconds.toDouble();
+    // 🌟 S-16: جستجو فقط برای همان فایلی که یافته‌ها مالِ آن است (با «قبلی/بعدی»ِ پلیر به
+    // فایلِ دیگری رفتیم ← نوار و هایلایت‌ها نمی‌آیند).
+    final bool searchOn =
+        _matches.isNotEmpty && _searchTrack != null && _searchTrack == currentFileName;
+    final int? currentMatchMs = searchOn
+        ? _matches[_matchIndex.clamp(0, _matches.length - 1)]
+        : null;
 
     // 🐞 AudioTrackName حالا فقط یک‌بار در سطحِ خودِ تراک است (نه تکرارشده
     // روی هر پاراگراف/اسپن مثلِ قبل) — پس فقط باید تراکِ همین فایل را پیدا
@@ -1027,6 +1182,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
               ],
             ),
           ),
+          if (searchOn) _buildSearchStrip(), // 🌟 S-16
           Divider(color: _colors.divider, height: 20),
 
           // const Padding(
@@ -1096,12 +1252,18 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                         // موقعیت اولویت دارد (پاسخِ «الان کجام؟» مهم‌تر است).
                         final bool isSearchMatch =
                             !isActiveWord &&
-                            widget.searchMatchTimestamps != null &&
+                            searchOn &&
                             span.startMs != null &&
                             span.endMs != null &&
-                            widget.searchMatchTimestamps!.any(
+                            _matches.any(
                               (ms) => ms >= span.startMs! && ms < span.endMs!,
                             );
+                        // S-16: یافته‌ای که الان رویش هستیم پررنگ، بقیه کم‌رنگ‌تر.
+                        final bool isCurrentMatch =
+                            isSearchMatch &&
+                            currentMatchMs != null &&
+                            currentMatchMs >= span.startMs! &&
+                            currentMatchMs < span.endMs!;
 
                         final TextStyle baseStyle =
                             TextRenderEngine.applySpanStyle(
@@ -1149,10 +1311,14 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
                         final Color? highlightBg = isActiveWord
                             ? _colors.accent
-                            : (isSearchMatch ? _colors.searchMatch : null);
+                            : (isSearchMatch
+                                  ? (isCurrentMatch
+                                        ? _colors.searchMatch
+                                        : _colors.searchMatch.withOpacity(0.45))
+                                  : null);
                         final Color? onHighlight = isActiveWord
                             ? _colors.onAccent
-                            : (isSearchMatch ? _colors.onSearchMatch : null);
+                            : (isCurrentMatch ? _colors.onSearchMatch : null);
 
                         // 🌟 AS-1: فهرستِ خودِ پاراگراف (قالبِ قدیم) اگر هست، وگرنه
                         // کلمات تعاملیِ کلِ کتاب با همان الگوی آماده‌ی صفحه‌ها.
