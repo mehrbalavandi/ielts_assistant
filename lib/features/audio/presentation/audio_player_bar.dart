@@ -818,6 +818,8 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
     // مثلِ فایلِ جاری علامت دارد.
     final bool isCurrent = markedPath == path;
     final bool isPlayingRow = isCurrent && state.isPlaying;
+    // فایلی که الان در پلیر باز است (نه فقط «آخرین پخش‌شده» بعد از اجرای دوباره‌ی برنامه).
+    final bool isLoaded = state.currentPath == path;
     final AudioSkill skill = ref
         .read(audioPlayerProvider.notifier)
         .skillOfPath(path);
@@ -837,7 +839,7 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
       child: InkWell(
         onTap: () => _play(path, state),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsetsDirectional.only(start: 16, end: 8),
           child: Row(
             children: [
               SkillBadge(
@@ -905,17 +907,61 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                   ],
                 ),
               ),
-              if (isCurrent)
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 8),
-                  child: Icon(
-                    isPlayingRow
-                        ? Icons.volume_up_rounded
-                        : Icons.pause_circle_outline_rounded,
-                    size: 20,
-                    color: colors.accent,
+              // 🌟 AU-14: توقف (فقط فایلِ بازِ پلیر: مکث و برگشت به ابتدای فایل) و پخش/مکث.
+              if (isLoaded)
+                IconButton(
+                  tooltip: 'توقف',
+                  visualDensity: VisualDensity.compact,
+                  icon: Icon(Icons.stop_rounded, color: colors.textSecondary),
+                  onPressed: () {
+                    final n = ref.read(audioPlayerProvider.notifier);
+                    n.pause();
+                    n.seek(Duration.zero);
+                  },
+                ),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 4),
+                child: SizedBox.square(
+                  dimension: 40,
+                  child: IconButton.filled(
+                    tooltip: isPlayingRow ? 'مکث' : 'پخش',
+                    padding: EdgeInsets.zero,
+                    style: IconButton.styleFrom(
+                      backgroundColor: isCurrent
+                          ? colors.accent
+                          : colors.textMuted.withOpacity(0.16),
+                      foregroundColor: isCurrent
+                          ? colors.bgBottom
+                          : colors.textSecondary,
+                    ),
+                    icon: Icon(
+                      isPlayingRow
+                          ? Icons.pause_rounded
+                          : Icons.play_arrow_rounded,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      final n = ref.read(audioPlayerProvider.notifier);
+                      if (isPlayingRow) {
+                        n.pause();
+                      } else if (isLoaded) {
+                        n.resume();
+                      } else {
+                        // فقط پخش (بی‌پرش به متن) — برگه باز می‌ماند.
+                        n.playFile(
+                          path,
+                          newPlaylist: state.playlist,
+                          newFirstOccurrence: state.firstOccurrence,
+                          explicitLocation: firstOccurrenceForTrack(
+                            pagedBookStore,
+                            path.split('/').last,
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
+              ),
             ],
           ),
         ),
