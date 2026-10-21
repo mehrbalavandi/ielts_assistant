@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -11,6 +12,7 @@ import 'package:ielts_assistant/features/settings/providers/language_provider.da
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
 import 'package:ielts_assistant/features/study/presentation/study_controls.dart';
 import 'package:ielts_assistant/features/study/providers/study_provider.dart';
+import 'package:ielts_assistant/core/text/document_text_utils.dart';
 
 // 🌟 قانون‌های TR-1 تا TR-4 (RULES-rendering.md): ترجمه‌ی پاراگراف با لمسِ طولانی.
 //
@@ -358,7 +360,7 @@ class _TranslatableContentWrapperState
     for (final String line in translation.split('\n')) {
       if (line.trim().isEmpty) continue;
       final TextPainter tp = TextPainter(
-        text: TextSpan(text: line, style: _kTranslationStyle),
+        text: TextSpan(text: stripBlankMarkers(line), style: _kTranslationStyle),
         textDirection: TextDirection.rtl,
         maxLines: 1,
       )..layout();
@@ -424,7 +426,9 @@ class _TranslatableContentWrapperState
 
   // ───────── داخلِ ظرفِ پاسخ: درجا ─────────
 
-  Widget _buildInline(String translation, Color accent) {
+  Widget _buildInline(String rawTranslation, Color accent) {
+    // TR-8: داخلِ پنجره‌ی پاسخ، پاسخ دیگر پنهان نیست.
+    final String translation = stripBlankMarkers(rawTranslation);
     if (translation.isEmpty) return widget.originalContent;
     void flip() => setState(() => _inlineOpen = !_inlineOpen);
 
@@ -684,22 +688,111 @@ const TextStyle _kTranslationStyle = TextStyle(
 );
 
 /// متنِ ترجمه، راست‌به‌چپ (بدنه‌ی پاپ‌آپ).
-class _TranslationText extends StatelessWidget {
+///
+/// 🌟 TR-8: بخشی از ترجمه که پاسخِ جای خالی است (`{blk}…{/blk}` در داده، G-9ِ اکسترکتور) پنهان
+/// است: به جایش آیکونِ کوچکِ چشم می‌آید و لمسش همان بخش را نشان می‌دهد (لمسِ دوباره روی متنِ
+/// آشکارشده دوباره پنهانش می‌کند). وگرنه ترجمه‌ی جمله پاسخ را پیش از بازکردنِ چشمِ خودِ متن
+/// لو می‌داد.
+class _TranslationText extends StatefulWidget {
   const _TranslationText({required this.text, required this.isDark});
 
   final String text;
   final bool isDark;
 
   @override
+  State<_TranslationText> createState() => _TranslationTextState();
+}
+
+class _TranslationTextState extends State<_TranslationText> {
+  static final RegExp _hidden = RegExp(r'\{blk\}(.*?)\{/blk\}', dotAll: true);
+
+  final Set<int> _revealed = {};
+  final List<TapGestureRecognizer> _recognizers = [];
+
+  @override
+  void didUpdateWidget(_TranslationText old) {
+    super.didUpdateWidget(old);
+    if (old.text != widget.text) _revealed.clear();
+  }
+
+  @override
+  void dispose() {
+    for (final r in _recognizers) {
+      r.dispose();
+    }
+    super.dispose();
+  }
+
+  void _toggle(int i) => setState(() {
+    if (!_revealed.remove(i)) _revealed.add(i);
+  });
+
+  @override
   Widget build(BuildContext context) {
+    final bool isDark = widget.isDark;
+    final TextStyle style = _kTranslationStyle.copyWith(
+      color: isDark ? Colors.white.withOpacity(0.9) : Colors.black87,
+    );
+    final String text = widget.text;
+    if (!text.contains('{blk}')) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Text(text, textAlign: TextAlign.start, style: style),
+      );
+    }
+
+    for (final r in _recognizers) {
+      r.dispose();
+    }
+    _recognizers.clear();
+    final Color accent = translationAccent(isDark);
+    final List<InlineSpan> spans = [];
+    int pos = 0;
+    int index = 0;
+    for (final RegExpMatch m in _hidden.allMatches(text)) {
+      if (m.start > pos) spans.add(TextSpan(text: text.substring(pos, m.start)));
+      final int i = index++;
+      final String answer = m.group(1) ?? '';
+      if (_revealed.contains(i)) {
+        final TapGestureRecognizer r = TapGestureRecognizer()
+          ..onTap = () => _toggle(i);
+        _recognizers.add(r);
+        spans.add(
+          TextSpan(
+            text: answer,
+            recognizer: r,
+            style: TextStyle(
+              backgroundColor: accent.withOpacity(isDark ? 0.25 : 0.14),
+            ),
+          ),
+        );
+      } else {
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: GestureDetector(
+              onTap: () => _toggle(i),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+                decoration: BoxDecoration(
+                  color: accent.withOpacity(isDark ? 0.25 : 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(Icons.visibility_rounded, size: 14, color: accent),
+              ),
+            ),
+          ),
+        );
+      }
+      pos = m.end;
+    }
+    if (pos < text.length) spans.add(TextSpan(text: text.substring(pos)));
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Text(
-        text,
+      child: Text.rich(
+        TextSpan(style: style, children: spans),
         textAlign: TextAlign.start,
-        style: _kTranslationStyle.copyWith(
-          color: isDark ? Colors.white.withOpacity(0.9) : Colors.black87,
-        ),
       ),
     );
   }

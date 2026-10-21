@@ -12,6 +12,7 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/interactive_color.dart';
 import 'package:ielts_assistant/features/study/presentation/study_controls.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart'; // برای دسترسی به TranslatableContentWrapper
+import 'package:ielts_assistant/core/text/document_text_utils.dart';
 
 // 🌟 رفع مشکل اسکرول نادقیق جستجو:
 // یک GlobalKey فقط می‌تواند به یک ویجت وصل باشد. چون یک "occurrence" واحد
@@ -108,7 +109,8 @@ class TextRenderEngine {
 
     String? blankTranslation(List<String>? perBlank, String? whole, int i) {
       final String? t = blankTranslationRaw(perBlank, whole, i);
-      return t == null ? null : stripEchoedAnswer(t);
+      // TR-8: پنجره‌ی پاسخ است؛ پاسخ دیگر پنهان نیست.
+      return t == null ? null : stripEchoedAnswer(stripBlankMarkers(t));
     }
 
     for (final match in matches) {

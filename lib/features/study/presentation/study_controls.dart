@@ -5,6 +5,7 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
 import 'package:ielts_assistant/features/study/providers/study_provider.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
+import 'package:ielts_assistant/core/text/document_text_utils.dart';
 
 // 🌟 ST-2 تا ST-4: کنترل‌های «مرورِ من» که هم در صفحه (پاپ‌آپ/بنر/مودالِ لمسِ
 // طولانی، پنجره‌ی دیکشنری) و هم در صفحه‌ی مرور به کار می‌روند.
@@ -161,8 +162,9 @@ class PassageStudyBar extends ConsumerWidget {
           ),
           onPressed: () => notifier.put(
             passage.toItem(
-              translationFa: translationFa ?? '',
-              translationAr: translationAr ?? '',
+              // TR-8: پاسخِ پنهانِ داخلِ ترجمه مثلِ گزیده‌ی متن «____» می‌شود.
+              translationFa: maskBlankParts(translationFa ?? ''),
+              translationAr: maskBlankParts(translationAr ?? ''),
             ),
           ),
           icon: const Icon(Icons.bookmark_add_outlined, size: 20),

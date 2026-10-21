@@ -10,13 +10,13 @@ import 'package:ielts_assistant/features/reader/domain/document_models.dart';
 // هم نشان می‌دهد و همه هایلایت می‌شوند.
 //
 // قاعده (داده‌محور، بی‌هیچ اسمِ فرضی):
-// - **عضو:** پاراگرافِ فقط‌متنی (بدونِ جدول/عکس)، با ترجمه، بدونِ جای خالی، و کوتاه
+// - **عضو:** پاراگرافِ فقط‌متنی (بدونِ جدول/عکس)، با ترجمه، و کوتاه
 //   (حداکثر [_maxMemberChars] نویسه) — پاراگراف‌های متنِ ریدینگ بلندترند و گروه نمی‌شوند.
 // - **چسبیده:** spaceAfterِ قبلی + spaceBeforeِ بعدی ≤ [_maxGapPt] و همان زمینه/کادر.
 // - **پاراگرافِ پاسخ** (کلش یک {blk}، همان آیکونِ چشمِ زیرِ هر سؤال) گروه را نمی‌شکند ولی
 //   عضوش هم نیست؛ پس سؤال‌های ۱ تا ۵ با پاسخ‌های لای‌شان یک گروه‌اند و هیچ پاسخی لو نمی‌رود.
-// - **پاراگرافِ با جای خالیِ داخلِ جمله** («1 value {blk}h{/blk}») عضو نمی‌شود: ترجمه‌اش جواب
-//   را دارد و گروه همه‌ی جواب‌ها را یکجا لو می‌داد.
+// - **پاراگرافِ با جای خالیِ داخلِ جمله** («1 value {blk}h{/blk}») فقط وقتی عضو است که پاسخ در
+//   ترجمه‌اش هم پنهان است (TR-8)؛ وگرنه گروه همه‌ی جواب‌ها را یکجا لو می‌داد.
 // - گروه دست‌کم ۲ عضو، حداکثر [_maxMembers] عضو و [_maxTotalChars] نویسه دارد؛ بزرگ‌تر
 //   باشد، گروه نمی‌شود (هر پاراگراف مثلِ قبل جدا).
 // گروه‌ها فقط داخلِ یک ظرف (پاراگراف‌های سطحِ صفحه، یا پاراگراف‌های یک سلول) ساخته می‌شوند.
@@ -115,10 +115,18 @@ bool isWholeBlankAnswer(ParagraphData p) {
 bool _isMember(ParagraphData p) {
   if (_hasBlock(p)) return false;
   final String t = _rawText(p);
-  if (t.trim().isEmpty || t.contains('{blk}')) return false;
+  if (t.trim().isEmpty) return false;
   if (t.length > _maxMemberChars) return false;
-  return (p.translationFa?.trim().isNotEmpty ?? false) ||
-      (p.translationAr?.trim().isNotEmpty ?? false);
+  final String fa = p.translationFa?.trim() ?? '';
+  final String ar = p.translationAr?.trim() ?? '';
+  if (fa.isEmpty && ar.isEmpty) return false;
+  // جای خالیِ وسطِ جمله: فقط اگر پاسخ در ترجمه‌ها هم پنهان است (TR-8، {blk}ِ داخلِ ترجمه)؛
+  // ترجمه‌ی بی‌نشانه (کتابی که هنوز این‌طور ترجمه نشده) پاسخ را لو می‌داد.
+  if (t.contains('{blk}')) {
+    if (fa.isNotEmpty && !fa.contains('{blk}')) return false;
+    if (ar.isNotEmpty && !ar.contains('{blk}')) return false;
+  }
+  return true;
 }
 
 String _boxKey(ParagraphData p) {

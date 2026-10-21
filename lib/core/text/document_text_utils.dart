@@ -75,3 +75,13 @@ String normalizeText(String text) {
       .replaceAll('ؤ', 'و')
       .replaceAll('\u200c', ' ');
 }
+
+/// 🌟 TR-8: نشانه‌های {blk}/{/blk} را برمی‌دارد (متن همان می‌ماند) — برای ترجمه‌ای که جایی
+/// نشان داده می‌شود که پاسخ دیگر پنهان نیست (پنجره‌ی خودِ پاسخ)، یا برای اندازه‌گیری.
+String stripBlankMarkers(String text) =>
+    text.replaceAll('{blk}', '').replaceAll('{/blk}', '');
+
+/// 🌟 TR-8: بخش‌های پنهان ({blk}…{/blk}) را با «____» عوض می‌کند — همان کاری که گزیده‌ی متنِ
+/// «مرورِ من» با جای‌خالی‌های متنِ انگلیسی می‌کند.
+String maskBlankParts(String text) =>
+    text.replaceAll(RegExp(r'\{blk\}.*?\{/blk\}', dotAll: true), '____');
