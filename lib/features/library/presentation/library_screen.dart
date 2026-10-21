@@ -182,6 +182,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
               tooltip: "خروج از حساب",
               onPressed: () async {
                 final messenger = ScaffoldMessenger.of(context);
+                // 🌟 AUTH-2: پیش از خروج تأیید (همراهِ آنچه بعد از خروج می‌ماند).
+                if (!await confirmSignOut(context)) return;
+                if (!context.mounted) return;
                 await ref.read(authProvider.notifier).logout();
                 // 🌟 DEV-7: کتاب‌های خریده‌شده‌ی دانلودشده تا مهلتِ بعد از خروج باز می‌مانند.
                 final DateTime? until = LicenseService.signedOutUntil;
@@ -555,4 +558,53 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
       ),
     );
   }
+}
+
+/// 🌟 AUTH-2: «خروج از حساب» تأیید می‌خواهد. پنجره می‌گوید با چه حسابی واردید و بعد از خروج چه
+/// می‌ماند: کتاب‌های خریداری‌شده‌ی دانلودشده تا مهلتِ مجوز (DEV-7) و «مرورِ من» روی همین دستگاه.
+Future<bool> confirmSignOut(BuildContext context) async {
+  final Map<String, dynamic>? user = StorageService.getUser();
+  final Object? fullName =
+      user?['name'] ??
+      [user?['first_name'], user?['last_name']]
+          .whereType<Object>()
+          .join(' ')
+          .trim();
+  final String who = [
+    fullName,
+    user?['mobile'] ?? user?['email'],
+  ].whereType<Object>().map((e) => e.toString().trim()).where((e) => e.isNotEmpty).join(' — ');
+  final int grace = LicenseService.current?.signedOutGraceDays ?? 0;
+  final bool? ok = await showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      icon: const Icon(Icons.logout_rounded),
+      title: const Text('خروج از حساب'),
+      content: Text(
+        [
+          who.isEmpty
+              ? 'از حساب خارج می‌شوید؟'
+              : 'از حسابِ ${bidiIsolate(who)} خارج می‌شوید؟',
+          if (grace > 0)
+            'کتاب‌های خریداری‌شده‌ای که دانلود کرده‌اید تا $grace روزِ دیگر روی همین دستگاه باز می‌مانند؛ '
+                'بعد از آن برای مطالعه باید دوباره وارد شوید.'
+          else
+            'کتاب‌های خریداری‌شده تا ورودِ دوباره به‌طورِ کامل باز نمی‌شوند.',
+          '«مرورِ من» و تنظیمات روی همین دستگاه می‌مانند.',
+        ].join('\n\n'),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(ctx, false),
+          child: const Text('انصراف'),
+        ),
+        FilledButton(
+          style: FilledButton.styleFrom(backgroundColor: Colors.red.shade700),
+          onPressed: () => Navigator.pop(ctx, true),
+          child: const Text('خروج'),
+        ),
+      ],
+    ),
+  );
+  return ok ?? false;
 }
