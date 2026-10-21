@@ -14,6 +14,7 @@ import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/reader/presentation/reading_canvas.dart';
 import 'package:ielts_assistant/features/reader/presentation/book_outline_navigator.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/text_render_engine.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
 
@@ -1615,6 +1616,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                                   children: s.children,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
+                                      // 🌟 AS-6: لمسی که فقط پاپ‌آپِ ترجمه را بست، پلیر را جابه‌جا نمی‌کند.
+                                      if (answerPopupClosedByThisTap()) return;
                                       ref
                                           .read(audioPlayerProvider.notifier)
                                           .seek(Duration(milliseconds: seekMs));

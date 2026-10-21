@@ -249,6 +249,17 @@ class AnswerPopupAnchor extends StatefulWidget {
   State<AnswerPopupAnchor> createState() => _AnswerPopupAnchorState();
 }
 
+DateTime? _closedByTapAt;
+
+/// 🌟 AS-6: آیا همین لمس یک پاپ‌آپِ پاسخ/ترجمه را با «لمسِ بیرون» بست؟ (یک‌بارمصرف.) کارِ
+/// لمس روی چیزِ زیرِ آن (مثلاً پرشِ پلیر در اسکریپتِ صوتی) برای همین لمس انجام نمی‌شود؛ لمسِ بعدی
+/// عادی است.
+bool answerPopupClosedByThisTap() {
+  final DateTime? t = _closedByTapAt;
+  _closedByTapAt = null;
+  return t != null && DateTime.now().difference(t).inMilliseconds < 500;
+}
+
 class _PopupPlacement {
   final bool below; // حباب زیرِ لنگر است (دُم رو به بالا)
   final double maxWidth;
@@ -673,6 +684,9 @@ class _AnswerPopupAnchorState extends State<AnswerPopupAnchor>
           if (a.inflate(4).contains(e.position)) return;
         }
       }
+      // 🌟 AS-6: این لمس فقط پاپ‌آپ را بست؛ onTapِ زیرش (که بعد از این مسیرِ سراسری، با پایانِ
+      // gesture arena اجرا می‌شود) می‌تواند با answerPopupClosedByThisTap() کنار بکشد.
+      _closedByTapAt = DateTime.now();
       close();
     } else if (e is PointerCancelEvent && e.pointer == _outsidePointer) {
       _outsideDown = null;
