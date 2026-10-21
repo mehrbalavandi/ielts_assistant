@@ -271,7 +271,25 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
 
     final Set<String> books = {for (final r in results) r.bookTitle};
 
+    // 🐞 S-17: ScrollablePositionedList نتیجه‌ی دیده‌شده را حتی وقتی بالای فهرست است در ۳۰٪ِ
+    // ارتفاع می‌نشاند و بالایش جای خالی می‌ماند (فهرستِ کوتاه یا نتیجه‌ی اول). بعد از اولین
+    // فریم: اگر اولین ردیف دیده می‌شود و پایین‌تر از لبه‌ی بالاست، فهرست به بالا می‌چسبد.
+    final ItemScrollController scroll = ItemScrollController();
+    final ItemPositionsListener positions = ItemPositionsListener.create();
+    if (focusRow > 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final ItemPosition? first = positions.itemPositions.value
+            .where((p) => p.index == 0)
+            .firstOrNull;
+        if (first != null && first.itemLeadingEdge > 0.001 && scroll.isAttached) {
+          scroll.jumpTo(index: 0);
+        }
+      });
+    }
+
     return ScrollablePositionedList.builder(
+      itemScrollController: scroll,
+      itemPositionsListener: positions,
       itemCount: rows.length,
       initialScrollIndex: focusRow < 0 ? 0 : focusRow,
       initialAlignment: focusRow <= 0 ? 0 : 0.3,

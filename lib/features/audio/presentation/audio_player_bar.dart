@@ -1143,8 +1143,13 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
       bottom: bottom,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
+        // 🐞 S-16: از مقدارِ فعلی، نه از `bottom`ِ همین build — چند حرکتِ انگشت در یک فریم
+        // می‌رسد و هر کدام از همان مقدارِ کهنه حساب می‌شد، پس نوار خیلی کمتر از انگشت می‌رفت.
         onVerticalDragUpdate: (d) => setState(() {
-          _stripBottom = (bottom - d.delta.dy).clamp(0.0, maxBottom);
+          _stripBottom = (_stripBottom.clamp(0.0, maxBottom) - d.delta.dy).clamp(
+            0.0,
+            maxBottom,
+          );
         }),
         child: _buildSearchStrip(),
       ),
