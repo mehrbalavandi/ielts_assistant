@@ -15,6 +15,7 @@ import 'package:float_column/float_column.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/translatable_content.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/translation_groups.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/interactive_color.dart';
 // TranslatableContentWrapper به فایلِ خودش رفت (TR-1)؛ export تا import‌های قبلی کار کنند.
 export 'package:ielts_assistant/features/reader/presentation/rendering/translatable_content.dart';
@@ -1808,6 +1809,11 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
     final Map<String, AudioLocation> audioFirstOccurrence =
         widget.bookAudioFirstOccurrence;
 
+    // 🌟 TR-7: گروه‌های ترجمه‌ی پاراگراف‌های کوتاهِ به‌هم‌چسبیده‌ی سطحِ صفحه.
+    final List<TranslationGroup?> translationGroups = planTranslationGroups(
+      widget.page.paragraphs,
+    );
+
     for (int pIndex = 0; pIndex < widget.page.paragraphs.length; pIndex++) {
       var para = widget.page.paragraphs[pIndex];
       final isTarget =
@@ -1837,6 +1843,7 @@ class _BookPageWidgetState extends ConsumerState<BookPageWidget>
         audioFirstOccurrence: audioFirstOccurrence, // 🐞 اضافه شد
         audioPageNumber: widget.page.pageNumber, // 🐞 اضافه شد
         audioParaIndex: pIndex, // 🐞 اضافه شد
+        translationGroup: translationGroups[pIndex], // 🌟 TR-7
         rootHighlightMap: rootHighlightMap,
         mapOffset: MapOffset(),
         keyClaim:
@@ -2220,6 +2227,10 @@ Widget buildHiddenRichContent(
                 : p,
         ];
 
+  // 🌟 TR-7: گروه‌های ترجمه داخلِ همین سلول.
+  final List<TranslationGroup?> translationGroups = planTranslationGroups(
+    normalized,
+  );
   return MediaQuery(
     data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
     child: Column(
@@ -2232,6 +2243,7 @@ Widget buildHiddenRichContent(
             width,
             screenWidth,
             context,
+            translationGroup: translationGroups[i],
             prevPara: i > 0 ? normalized[i - 1] : null,
             nextPara: i < normalized.length - 1 ? normalized[i + 1] : null,
             activeBook: activeBook,
@@ -2281,6 +2293,9 @@ Widget _buildParagraph(
   KeyClaim? keyClaim,
   // W-2: پس‌زمینه‌ی ظرف (سلول/جدولِ رنگی) برای رنگِ کلماتِ تعاملی.
   Color? surfaceColor,
+  // 🌟 TR-7: گروهِ ترجمه‌ی این پاراگراف (planTranslationGroups روی همان فهرستی که این
+  // پاراگراف از آن آمده). null = ترجمه‌ی تنها، مثلِ قبل.
+  TranslationGroup? translationGroup,
 }) {
   // 🐞 پاراگرافِ «فقط‌شماره»ی لیست (Mindset 2 ص۵۳ تمرینِ ۰۶: ستونِ اولِ جدول فقط
   // شماره‌ی خودکارِ ۱ تا ۶ دارد): متن ندارد ولی Word شماره‌اش را نشان می‌دهد،
@@ -2613,10 +2628,18 @@ Widget _buildParagraph(
     }
   }
 
+  // 🌟 TR-5: پاراگرافِ «فقط پاسخ» (کلش یک {blk}، آیکونِ چشم) روی صفحه ترجمه‌ی لمسِ طولانی
+  // ندارد — ترجمه‌اش خودِ جواب است و پیش از بازکردنِ چشم لو می‌رفت. ترجمه‌ی جواب داخلِ
+  // پنجره‌ی همان چشم است.
+  final bool answerOnly = isWholeBlankAnswer(para);
   Widget paragraphContent = TranslatableContentWrapper(
-    translationFa: para.translationFa,
-    translationAr: para.translationAr,
+    translationFa: answerOnly ? null : para.translationFa,
+    translationAr: answerOnly ? null : para.translationAr,
     study: studyRef,
+    group: translationGroup,
+    groupIndex: translationGroup == null
+        ? -1
+        : translationGroupIndexOf(translationGroup, para),
     originalContent: Directionality(
       textDirection: para.direction == "RTL"
           ? TextDirection.rtl
@@ -4461,6 +4484,10 @@ Widget _buildTable(
       );
       bool isImageCell = hasImageInCell && !hasTextInCell;
 
+      // 🌟 TR-7: گروه‌های ترجمه داخلِ همین سلول.
+      final List<TranslationGroup?> cellGroups = planTranslationGroups(
+        cell.paragraphs,
+      );
       for (int pIndex = 0; pIndex < cell.paragraphs.length; pIndex++) {
         cellParagraphs.add(
           _buildParagraph(
@@ -4468,6 +4495,7 @@ Widget _buildTable(
             canvasWidth,
             screenWidth,
             context,
+            translationGroup: cellGroups[pIndex],
             isImageCell: isImageCell,
             isInsideTableCell: true,
             verbatimCellImage:

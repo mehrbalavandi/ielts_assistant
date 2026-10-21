@@ -1,9 +1,11 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/features/reader/presentation/rendering/answer_display.dart';
+import 'package:ielts_assistant/features/reader/presentation/rendering/translation_groups.dart';
 import 'package:ielts_assistant/features/settings/providers/answer_display_provider.dart';
 import 'package:ielts_assistant/features/settings/providers/language_provider.dart';
 import 'package:ielts_assistant/features/study/domain/study_item.dart';
@@ -23,6 +25,8 @@ import 'package:ielts_assistant/features/study/providers/study_provider.dart';
 // - **مرورِ من (ST-4):** همان ظرفِ لمسِ طولانی نوارِ «افزودن به مرور» (اهمیت،
 //   یادداشت) را هم دارد؛ پس پاراگرافِ بی‌ترجمه هم لمسِ طولانی دارد. پاراگرافِ
 //   ذخیره‌شده نوارِ باریکی به رنگِ اهمیتش در سمتِ راست می‌گیرد.
+// - **گروه (TR-7):** پاراگراف‌های کوتاهِ به‌هم‌چسبیده (translation_groups.dart) با یک لمسِ
+//   طولانی ترجمه‌ی همه را با هم نشان می‌دهند و همه هایلایت می‌شوند.
 
 /// رنگِ هایلایت/خطِ دورِ ترجمه (همان رنگ‌های قبلیِ کادرِ ترجمه).
 Color translationAccent(bool isDark) =>
@@ -53,6 +57,12 @@ class TranslatableContentWrapper extends ConsumerStatefulWidget {
   /// اسکریپتِ صوتی و پاراگراف‌های بی‌متن).
   final StudyPassageRef? study;
 
+  /// TR-7: گروهِ این پاراگراف (null = تنها). داخلِ ظرفِ پاسخ نادیده گرفته می‌شود.
+  final TranslationGroup? group;
+
+  /// اندیسِ همین پاراگراف در [group].
+  final int groupIndex;
+
   const TranslatableContentWrapper({
     super.key,
     required this.originalContent,
@@ -61,6 +71,8 @@ class TranslatableContentWrapper extends ConsumerStatefulWidget {
     this.isDarkMode = false,
     this.toggle = TranslationToggle.none,
     this.study,
+    this.group,
+    this.groupIndex = -1,
   });
 
   /// آیا برای این دو ترجمه چیزی برای نمایش هست؟
@@ -81,9 +93,64 @@ class _TranslatableContentWrapperState
   /// ترجمه‌ی درجا، داخلِ ظرفِ پاسخ (TR-2).
   bool _inlineOpen = false;
 
+  /// TR-7: آخرین وضعیتی که به گروه گزارش شده، و پاپ‌آپِ همین عضو (تا لمسِ طولانی روی عضوِ
+  /// دیگرِ گروه ببندَدَش).
+  bool _reportedOpen = false;
+  AnswerPopupHandle? _popup;
+
+  TranslationGroup? get _group =>
+      widget.groupIndex >= 0 ? widget.group : null;
+
+  @override
+  void didUpdateWidget(TranslatableContentWrapper old) {
+    super.didUpdateWidget(old);
+    if (!identical(old.group, widget.group) ||
+        old.groupIndex != widget.groupIndex) {
+      if (old.groupIndex >= 0) old.group?.detach(old.groupIndex, context);
+      if (_reportedOpen) {
+        final TranslationGroup? g = old.group;
+        _reportedOpen = false;
+        _later(() => g?.report(this, false));
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    final TranslationGroup? g = _group;
+    if (g != null) {
+      g.detach(widget.groupIndex, context);
+      if (_reportedOpen) _later(() => g.report(this, false));
+    }
+    super.dispose();
+  }
+
+  /// تغییرِ وضعیتِ گروه بعد از همین فریم (عضوهای دیگر را بازسازی می‌کند؛ وسطِ build/dispose
+  /// مجاز نیست).
+  static void _later(VoidCallback f) {
+    SchedulerBinding.instance.addPostFrameCallback((_) => f());
+    SchedulerBinding.instance.ensureVisualUpdate();
+  }
+
+  void _reportOpen(bool open) {
+    final TranslationGroup? g = _group;
+    if (g == null || open == _reportedOpen) return;
+    _reportedOpen = open;
+    _later(() => g.report(this, open));
+  }
+
+  /// پاپ‌آپِ گروه را می‌بندد (لمسِ طولانی روی عضوِ دیگرِ همان گروه).
+  void _closeGroupPopup() => _popup?.close();
+
   /// دوزبانه: ترجمه‌ی زبانِ انتخابی؛ اگر خالی بود، زبانِ دیگر تا خالی نماند.
+  /// عضوِ گروه (TR-7): ترجمه‌ی همه‌ی عضوها، هرکدام یک سطر.
   String _translation() {
     final bool preferAr = ref.watch(languageProvider) == 'ar';
+    final TranslationGroup? g = _group;
+    if (g != null) {
+      final String all = g.translation(preferAr: preferAr);
+      if (all.isNotEmpty) return all;
+    }
     final String? primary = preferAr
         ? widget.translationAr
         : widget.translationFa;
@@ -114,9 +181,21 @@ class _TranslatableContentWrapperState
         ? null
         : ref.watch(studyProvider.select((m) => m[studyId]?.importance));
 
+    final TranslationGroup? group = _group;
+    group?.attach(widget.groupIndex, context);
+
     // TR-1: روی صفحه — لنگرِ پاپ‌آپ همان پاراگراف است.
     return AnswerPopupAnchor(
       builder: (anchorContext, popup) {
+        _popup = popup;
+        final bool ownOpen = popup.isOpen || _sheetOpen;
+        _reportOpen(ownOpen);
+        Widget highlight(bool active) => _SourceHighlight(
+          active: active,
+          color: accent,
+          savedColor: saved?.color,
+          child: widget.originalContent,
+        );
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
           onLongPressStart: (d) =>
@@ -127,12 +206,14 @@ class _TranslatableContentWrapperState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _SourceHighlight(
-                  active: popup.isOpen || _sheetOpen,
-                  color: accent,
-                  savedColor: saved?.color,
-                  child: widget.originalContent,
-                ),
+                // TR-7: ترجمه‌ی گروه که باز است، همه‌ی عضوها هایلایت می‌شوند.
+                if (group == null)
+                  highlight(ownOpen)
+                else
+                  ValueListenableBuilder<bool>(
+                    valueListenable: group.anyOpen,
+                    builder: (_, anyOpen, __) => highlight(ownOpen || anyOpen),
+                  ),
               ],
             ),
           ),
@@ -191,15 +272,35 @@ class _TranslatableContentWrapperState
     final AnswerDisplaySettings settings = ref.read(answerDisplayProvider);
     final bool isDark = widget.isDarkMode;
 
+    // TR-7: ترجمه‌ی همین گروه را عضوِ دیگری باز کرده ← لمسِ طولانیِ دوباره می‌بندد.
+    final TranslationGroup? group = _group;
+    if (group != null) {
+      final List<Object> others = [
+        for (final Object o in group.openOwners)
+          if (!identical(o, this)) o,
+      ];
+      if (others.isNotEmpty) {
+        for (final Object o in others) {
+          if (o is _TranslatableContentWrapperState) o._closeGroupPopup();
+        }
+        return;
+      }
+    }
+
     switch (settings.translation) {
       case AnswerDisplayMode.popup:
         final RenderObject? ro = context.findRenderObject();
         final Size size = ro is RenderBox && ro.hasSize ? ro.size : Size.zero;
         final double x = localPosition.dx.clamp(0.0, size.width);
-        // اول کلِ پاراگراف (حباب زیر/بالای آن و پاراگراف دیده می‌ماند)؛ اگر پاراگراف
-        // آن‌قدر بلند است که جایی نمی‌ماند، همان خطی که لمس شد.
+        // اول کلِ پاراگراف — یا کلِ گروه (TR-7) — تا حباب زیر/بالای آن باز شود و متن دیده
+        // بماند؛ اگر آن‌قدر بلند است که جایی نمی‌ماند، همان خطی که لمس شد.
+        final Rect? groupBounds = group != null && ro is RenderBox && ro.hasSize
+            ? group.boundsIn(ro)
+            : null;
+        final double top = groupBounds?.top ?? 0;
+        final double bottom = groupBounds?.bottom ?? size.height;
         final List<Rect> rects = [
-          Rect.fromLTRB(x - 1, 0, x + 1, size.height),
+          Rect.fromLTRB(x - 1, top, x + 1, bottom),
           Rect.fromLTRB(
             x - 1,
             math.max(0, localPosition.dy - 14),
@@ -253,13 +354,16 @@ class _TranslatableContentWrapperState
   /// می‌خواهد (در حالتِ ذخیره‌شده ستاره‌ها و دکمه‌ها؛ اگر جا نشد خودش می‌شکند).
   double _popupWidth(String translation) {
     double w = 0;
-    if (translation.isNotEmpty) {
+    // ترجمه‌ی گروه (TR-7) چند سطر است: پهن‌ترین سطر.
+    for (final String line in translation.split('\n')) {
+      if (line.trim().isEmpty) continue;
       final TextPainter tp = TextPainter(
-        text: TextSpan(text: translation, style: _kTranslationStyle),
+        text: TextSpan(text: line, style: _kTranslationStyle),
         textDirection: TextDirection.rtl,
         maxLines: 1,
       )..layout();
-      w = tp.width;
+      w = math.max(w, tp.width);
+      tp.dispose();
     }
     final StudyPassageRef? study = widget.study;
     if (study != null) {
@@ -385,9 +489,9 @@ class _TranslatableContentWrapperState
   }
 }
 
-/// TR-3: هایلایتِ پاراگرافی که ترجمه‌اش باز است — زمینه‌ی کم‌رنگ و نوارِ باریکی در
-/// سمتِ چپ (بیرون از متن). اندازه و چیدمانِ پاراگراف عوض نمی‌شود (StackFit.passthrough
-/// همان قیدهای قبلی را به محتوا می‌دهد).
+/// TR-3: هایلایتِ پاراگرافی که ترجمه‌اش باز است — زمینه‌ی کم‌رنگ **فقط پشتِ خودِ متن**
+/// (هر سطر به اندازه‌ی نوشته‌اش، مثلِ انتخابِ متن؛ نه کلِ عرضِ پاراگراف) و نوارِ باریکی
+/// در سمتِ چپ (بیرون از متن). اندازه و چیدمانِ پاراگراف عوض نمی‌شود.
 class _SourceHighlight extends StatelessWidget {
   const _SourceHighlight({
     required this.active,
@@ -412,18 +516,13 @@ class _SourceHighlight extends StatelessWidget {
       fit: StackFit.passthrough,
       clipBehavior: Clip.none,
       children: [
-        Positioned.fill(
-          child: IgnorePointer(
-            child: AnimatedContainer(
-              duration: d,
-              decoration: BoxDecoration(
-                color: active ? color.withOpacity(0.12) : Colors.transparent,
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-          ),
+        TweenAnimationBuilder<double>(
+          tween: Tween<double>(end: active ? 1 : 0),
+          duration: d,
+          builder: (_, t, content) =>
+              _TextLinesHighlight(color: color, amount: t, child: content),
+          child: child,
         ),
-        child,
         if (showBar)
           Positioned(
             left: -6,
@@ -460,6 +559,121 @@ class _SourceHighlight extends StatelessWidget {
           ),
       ],
     );
+  }
+}
+
+/// زمینه‌ی رنگی پشتِ سطرهای متنِ [child]: کادرِ هر سطرِ هر `RenderParagraph`ِ داخلش
+/// (شماره‌ی فهرست، آیکونِ چشم و کلماتِ تعاملی هم، چون جزوِ همان سطرند). [amount] از ۰ تا ۱
+/// برای محو/ظاهرشدن.
+class _TextLinesHighlight extends SingleChildRenderObjectWidget {
+  const _TextLinesHighlight({
+    required this.color,
+    required this.amount,
+    super.child,
+  });
+
+  final Color color;
+  final double amount;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderTextLinesHighlight(color, amount);
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    _RenderTextLinesHighlight renderObject,
+  ) {
+    renderObject
+      ..color = color
+      ..amount = amount;
+  }
+}
+
+class _RenderTextLinesHighlight extends RenderProxyBox {
+  _RenderTextLinesHighlight(this._color, this._amount);
+
+  Color _color;
+  set color(Color v) {
+    if (v == _color) return;
+    _color = v;
+    if (_amount > 0) markNeedsPaint();
+  }
+
+  double _amount;
+  set amount(double v) {
+    if (v == _amount) return;
+    _amount = v;
+    markNeedsPaint();
+  }
+
+  /// کادرِ سطرها در مختصاتِ همین جعبه؛ کادرهای یک سطر (چند اسپن/ویجت) یکی می‌شوند.
+  List<Rect> _lineRects() {
+    final List<Rect> boxes = [];
+    final Rect bounds = Offset.zero & size;
+    void visit(RenderObject o) {
+      // متنِ داخلِ اسکرولِ افقیِ جدول ممکن است بیرون از دید باشد؛ آن‌جا زمینه نمی‌گیرد.
+      if (o is RenderAbstractViewport) return;
+      if (o is RenderParagraph && o.attached && o.hasSize) {
+        final int len = o.text
+            .toPlainText(includeSemanticsLabels: false)
+            .length;
+        if (len > 0) {
+          final Matrix4 m = o.getTransformTo(this);
+          for (final TextBox b in o.getBoxesForSelection(
+            TextSelection(baseOffset: 0, extentOffset: len),
+          )) {
+            final Rect r = MatrixUtils.transformRect(
+              m,
+              b.toRect(),
+            ).intersect(bounds);
+            if (r.width > 0.5 && r.height > 0.5) boxes.add(r);
+          }
+        }
+      }
+      o.visitChildren(visit);
+    }
+
+    final RenderBox? c = child;
+    if (c != null) visit(c);
+    boxes.sort((a, b) => a.top.compareTo(b.top));
+    final List<Rect> lines = [];
+    for (final Rect r in boxes) {
+      int hit = -1;
+      for (int i = 0; i < lines.length; i++) {
+        final Rect l = lines[i];
+        final double overlap =
+            math.min(l.bottom, r.bottom) - math.max(l.top, r.top);
+        if (overlap >= math.min(l.height, r.height) * 0.5) {
+          hit = i;
+          break;
+        }
+      }
+      if (hit < 0) {
+        lines.add(r);
+      } else {
+        lines[hit] = lines[hit].expandToInclude(r);
+      }
+    }
+    return lines;
+  }
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    if (_amount > 0 && child != null) {
+      final Paint paint = Paint()
+        ..color = _color.withOpacity(0.14 * _amount.clamp(0.0, 1.0));
+      for (final Rect r in _lineRects()) {
+        context.canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            r.shift(offset).inflate(2),
+            const Radius.circular(3),
+          ),
+          paint,
+        );
+      }
+    }
+    super.paint(context, offset);
   }
 }
 

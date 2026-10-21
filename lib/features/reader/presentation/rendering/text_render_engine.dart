@@ -97,13 +97,18 @@ class TextRenderEngine {
     int blankIndex = blankIndexStart;
 
     /// TR-5: ترجمه‌ای که پنجره‌ی همین جای خالی نشان می‌دهد.
-    String? blankTranslation(List<String>? perBlank, String? whole, int i) {
+    String? blankTranslationRaw(List<String>? perBlank, String? whole, int i) {
       if (paragraphBlankCount == null) return whole; // مسیرهای قدیمی/داخلِ پاسخ
       if (perBlank != null && i < perBlank.length) {
         final String t = perBlank[i].trim();
         return t.isEmpty ? null : t;
       }
       return paragraphBlankCount <= 1 ? whole : null;
+    }
+
+    String? blankTranslation(List<String>? perBlank, String? whole, int i) {
+      final String? t = blankTranslationRaw(perBlank, whole, i);
+      return t == null ? null : stripEchoedAnswer(t);
     }
 
     for (final match in matches) {
@@ -1827,3 +1832,26 @@ class InteractiveBlankWord extends StatelessWidget {
     );
   }
 }
+
+/// 🌟 TR-5: ترجمه‌ی پاسخی که خودِ پاسخِ انگلیسی را تکرار می‌کند («Sometimes (گاهی)»،
+/// «19th/nineteenth (نوزدهم)») فقط بخشِ فارسی/عربی را نگه می‌دارد؛ پنجره‌ی پاسخ متنِ
+/// انگلیسی را همان بالا نشان می‌دهد و تکرارش زیرِ آن زائد بود. فقط وقتی کلِ ترجمه به
+/// شکلِ «انگلیسی (فارسی)» است؛ چیزِ دیگری دست نمی‌خورد.
+String stripEchoedAnswer(String translation) {
+  final RegExpMatch? m = _echoedAnswer.firstMatch(translation);
+  if (m == null) return translation;
+  final String inner = m.group(2)!.trim();
+  // پرانتزِ داخلی باید متوازن باشد: «often (اغلب)؛ (not) always ((نه) همیشه)» دو پاسخ است،
+  // نه یک «انگلیسی (فارسی)».
+  int depth = 0;
+  for (final int c in inner.codeUnits) {
+    if (c == 0x28) depth++;
+    if (c == 0x29 && --depth < 0) return translation;
+  }
+  return inner.isEmpty || depth != 0 ? translation : inner;
+}
+
+final RegExp _echoedAnswer = RegExp(
+  r'^\s*([^\u0600-\u06FF()]*[A-Za-z][^\u0600-\u06FF()]*?)\s*\((.*[\u0600-\u06FF].*)\)\s*$',
+  dotAll: true,
+);
