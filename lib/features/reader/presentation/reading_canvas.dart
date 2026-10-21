@@ -1227,6 +1227,7 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas>
         // نگاه می‌کنیم (۲ بارِ پشتِ‌هم ثابت = تمام).
         settledChecks = viewportSteady ? settledChecks + 1 : 0;
         if (settledChecks >= 2 && kb == 0) {
+          await _revealHorizontally(ctx, id, stale);
           _searchLog('#$id done');
           return;
         }
@@ -1259,7 +1260,78 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas>
       }
     }
     _searchLog('#$id stopped after 16 rounds');
+    final BuildContext? last = currentTarget();
+    if (last != null) await _revealHorizontally(last, id, stale);
   }
+
+  /// 🌟 S-20: نتیجه‌ای که داخلِ بخشی با اسکرولِ افقی است (جدولِ پهن، عکس، ستون‌های کنارِ هم) یا
+  /// در صفحه‌ی زوم‌شده بیرون از کادر افتاده، افقی هم دیده شود — قبلاً فقط عمودی جابه‌جا می‌شد و
+  /// کلمه‌ی کهربایی پشتِ لبه‌ی جدول پنهان می‌ماند. هر Scrollableِ افقیِ بالادستِ هدف (از درون به
+  /// بیرون) فقط اگر هدف بیرون یا لبِ کادرش است، طوری می‌لغزد که هدف وسطش بنشیند؛ بعد اگر صفحه
+  /// زوم است، جابه‌جاییِ افقیِ InteractiveViewer. فقط برای خودِ کلمه/دکمه، نه کلِ پاراگراف.
+  Future<void> _revealHorizontally(
+    BuildContext target,
+    int id,
+    bool Function(String where) stale,
+  ) async {
+    if (identical(target, _fallbackParaKey.currentContext)) return;
+    final RenderObject? ro = target.findRenderObject();
+    if (ro is! RenderBox || !ro.attached || !ro.hasSize) return;
+
+    ScrollableState? sc = Scrollable.maybeOf(target);
+    while (sc != null) {
+      if (stale('reveal-x')) return;
+      final AxisDirection dir = sc.axisDirection;
+      if (dir == AxisDirection.left || dir == AxisDirection.right) {
+        final RenderObject? vro = sc.context.findRenderObject();
+        if (vro is RenderBox && vro.hasSize && ro.attached) {
+          final ScrollPosition pos = sc.position;
+          final double w = vro.size.width;
+          final Rect r = MatrixUtils.transformRect(
+            ro.getTransformTo(vro),
+            Offset.zero & ro.size,
+          );
+          const double margin = 12;
+          if (r.left < margin || r.right > w - margin) {
+            final double delta = r.center.dx - w / 2;
+            final double to =
+                (pos.pixels + (dir == AxisDirection.right ? delta : -delta))
+                    .clamp(pos.minScrollExtent, pos.maxScrollExtent);
+            _searchLog('#$id reveal-x scrollable ${f1(pos.pixels)} → ${f1(to)}');
+            if ((to - pos.pixels).abs() > 0.5) {
+              await pos.animateTo(
+                to,
+                duration: const Duration(milliseconds: 320),
+                curve: Curves.easeOutCubic,
+              );
+            }
+          }
+        }
+      }
+      sc = Scrollable.maybeOf(sc.context);
+    }
+
+    // صفحه‌ی زوم‌شده: InteractiveViewer فقط افقی جابه‌جا می‌شود (PanAxis.horizontal).
+    if (!_isZoomedIn || !ro.attached || stale('reveal-zoom')) return;
+    final RenderObject? viewer = _viewerKey.currentContext?.findRenderObject();
+    if (viewer is! RenderBox || !viewer.hasSize) return;
+    final Rect r = MatrixUtils.transformRect(
+      ro.getTransformTo(viewer),
+      Offset.zero & ro.size,
+    );
+    final double w = viewer.size.width;
+    if (r.left >= 12 && r.right <= w - 12) return;
+    final Matrix4 m = _transformationController.value.clone();
+    final double scale = m.getMaxScaleOnAxis();
+    final t = m.getTranslation();
+    final double nx = (t.x - (r.center.dx - w / 2)).clamp(w * (1 - scale), 0.0);
+    if ((nx - t.x).abs() < 0.5) return;
+    _searchLog('#$id reveal-x zoom ${f1(t.x)} → ${f1(nx)}');
+    final Matrix4 target2 = m..setTranslationRaw(nx, t.y, t.z);
+    _animateZoomTo(target2);
+  }
+
+  static String f1(double v) => v.toStringAsFixed(1);
 
   @override
   void dispose() {
