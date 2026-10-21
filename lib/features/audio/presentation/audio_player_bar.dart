@@ -555,24 +555,31 @@ class _AudioPlaylistSheet extends ConsumerStatefulWidget {
       _AudioPlaylistSheetState();
 }
 
-/// AU-13: یک ردیفِ پلی‌لیست — سرعنوانِ درس یا یک فایل.
+/// AU-13/AU-15: یک ردیفِ پلی‌لیست — سرعنوانِ درس، سرعنوانِ مهارت، یا یک فایل.
+enum _PlKind { unit, section, track }
+
 class _PlaylistItem {
-  final OutlinePlace? header;
+  final _PlKind kind;
+  final OutlinePlace? place;
   final int count;
   final String? path;
   final AudioLocation? location;
-  final OutlinePlace? place;
+  final AudioSkill skill;
+  final String title;
 
-  const _PlaylistItem.header(this.header, this.count)
-    : path = null,
-      location = null,
-      place = null;
+  /// track: آخرین فایلِ همین مهارت (پایانِ ریل). unit: خطِ جداکننده بالایش.
+  final bool flag;
 
-  const _PlaylistItem.track(this.path, this.location, this.place)
-    : header = null,
-      count = 0;
-
-  bool get isHeader => path == null;
+  const _PlaylistItem({
+    required this.kind,
+    this.place,
+    this.count = 0,
+    this.path,
+    this.location,
+    this.skill = AudioSkill.other,
+    this.title = '',
+    this.flag = false,
+  });
 }
 
 /// نامِ فایل بی‌پسوند و بی‌پوشه: «Mindset_L1_35».
@@ -586,7 +593,7 @@ String _trackStem(String path) {
 class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
   // 🌟 S-10: ارتفاعِ ثابتِ هر ردیف تا جای هر آیتم دقیقاً معلوم باشد و بشود بدونِ ساختنِ همه‌ی
   // ردیف‌ها مستقیم به آن پرید. 🌟 AU-13: سرعنوانِ درس‌ها ارتفاعِ خودشان را دارند.
-  static const double _rowExtent = 64.0;
+  static const double _rowExtent = 60.0;
   static const double _headerExtent = UnitGroupHeader.height;
 
   /// AU-7/AU-13: جای اولین دکمه‌ی هر فایل و درسش (یک‌بار حساب می‌شود).
@@ -621,46 +628,83 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
     super.dispose();
   }
 
-  /// AU-13: فایل‌ها به ترتیبِ پلی‌لیست، زیرِ سرعنوانِ درسشان (هر بار که درس عوض می‌شود).
+  AudioSkill _skillOf(AudioLocation? loc) => loc == null
+      ? AudioSkill.other
+      : audioSkillAt(pagedBookStore.outline, loc.pageNumber, loc.paraIndex);
+
+  /// AU-13/AU-15: فایل‌ها به ترتیبِ پلی‌لیست، سه‌سطحی: درس ← مهارت ← فایل (هر بار که درس یا
+  /// مهارت عوض می‌شود، سرعنوانِ تازه).
   List<_PlaylistItem> _items(List<String> playlist) {
-    final List<_PlaylistItem> out = [];
-    // کتابِ بی‌فهرست: سرعنوانی نیست.
-    if (pagedBookStore.outline.isEmpty) {
-      for (final String path in playlist) {
-        final p = _placeOf(path);
-        out.add(_PlaylistItem.track(path, p.loc, null));
-      }
-      return out;
-    }
-    int? headerAt;
-    int? unit = -2;
+    final bool grouped = pagedBookStore.outline.isNotEmpty;
+    // گروه‌ها: درس ← [مهارت ← [فایل]]
+    final List<({OutlinePlace? place, List<({int key, OutlinePlace? place, AudioSkill skill, List<String> paths})> sections})> units = [];
     for (final String path in playlist) {
       final p = _placeOf(path);
       final int u = p.place?.unitIndex ?? -1;
-      if (u != unit) {
-        if (headerAt != null) {
-          out[headerAt] = _PlaylistItem.header(
-            out[headerAt].header,
-            out.length - headerAt - 1,
+      final int sec = p.place?.sectionIndex ?? -1;
+      if (units.isEmpty || (units.last.place?.unitIndex ?? -1) != u) {
+        units.add((place: p.place, sections: []));
+      }
+      final sections = units.last.sections;
+      if (sections.isEmpty || sections.last.key != sec) {
+        sections.add((key: sec, place: p.place, skill: _skillOf(p.loc), paths: []));
+      }
+      sections.last.paths.add(path);
+    }
+
+    final List<_PlaylistItem> out = [];
+    for (int ui = 0; ui < units.length; ui++) {
+      final unit = units[ui];
+      if (grouped) {
+        out.add(
+          _PlaylistItem(
+            kind: _PlKind.unit,
+            place: unit.place,
+            count: unit.sections.fold(0, (n, s) => n + s.paths.length),
+            flag: ui > 0,
+          ),
+        );
+      }
+      for (final sec in unit.sections) {
+        final String title =
+            sec.place?.sectionTitle ??
+            (sec.skill == AudioSkill.other ? 'سایر' : audioSkillName(sec.skill));
+        if (grouped) {
+          out.add(
+            _PlaylistItem(
+              kind: _PlKind.section,
+              place: sec.place,
+              skill: sec.skill,
+              title: title,
+              count: sec.paths.length,
+            ),
           );
         }
-        unit = u;
-        headerAt = out.length;
-        out.add(_PlaylistItem.header(p.place, 0));
+        for (int k = 0; k < sec.paths.length; k++) {
+          final String path = sec.paths[k];
+          out.add(
+            _PlaylistItem(
+              kind: _PlKind.track,
+              path: path,
+              location: _placeOf(path).loc,
+              place: sec.place,
+              skill: sec.skill,
+              flag: k == sec.paths.length - 1,
+            ),
+          );
+        }
       }
-      out.add(_PlaylistItem.track(path, p.loc, p.place));
-    }
-    if (headerAt != null) {
-      out[headerAt] = _PlaylistItem.header(
-        out[headerAt].header,
-        out.length - headerAt - 1,
-      );
     }
     return out;
   }
 
-  double _extentOf(_PlaylistItem item) =>
-      item.isHeader ? _headerExtent : _rowExtent;
+  static const double _sectionExtent = SectionGroupHeader.height;
+
+  double _extentOf(_PlaylistItem item) => switch (item.kind) {
+    _PlKind.unit => _headerExtent,
+    _PlKind.section => _sectionExtent,
+    _PlKind.track => _rowExtent,
+  };
 
   /// 🌟 S-10: با بازشدنِ پلی‌لیست، فایلِ در حالِ پخش — یا اگر چیزی پخش نمی‌شود،
   /// آخرین فایلی که پخش شده — وسطِ فهرست دیده شود. فقط یک‌بار، تا اسکرولِ خودِ
@@ -788,16 +832,29 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                       itemCount: items.length,
                       itemBuilder: (context, index) {
                         final _PlaylistItem item = items[index];
-                        if (item.isHeader) {
-                          return UnitGroupHeader(
-                            place: item.header,
-                            countLabel: '${item.count} فایل',
-                            accent: colors.accent,
-                            textColor: colors.textPrimary,
-                            mutedColor: colors.textMuted,
-                          );
+                        switch (item.kind) {
+                          case _PlKind.unit:
+                            return UnitGroupHeader(
+                              place: item.place,
+                              countLabel: '${item.count} فایل',
+                              textColor: colors.textPrimary,
+                              mutedColor: colors.textMuted,
+                              dividerColor: colors.divider,
+                              divider: item.flag,
+                            );
+                          case _PlKind.section:
+                            return SectionGroupHeader(
+                              skill: item.skill,
+                              title: item.title,
+                              countLabel: '${item.count}',
+                              color:
+                                  audioSkillColor(item.skill, onDark: true) ??
+                                  colors.textMuted,
+                              mutedColor: colors.textMuted,
+                            );
+                          case _PlKind.track:
+                            return _trackRow(item, state, markedPath, colors);
                         }
-                        return _trackRow(item, state, markedPath, colors);
                       },
                     ),
             ),
@@ -820,48 +877,49 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
     final bool isPlayingRow = isCurrent && state.isPlaying;
     // فایلی که الان در پلیر باز است (نه فقط «آخرین پخش‌شده» بعد از اجرای دوباره‌ی برنامه).
     final bool isLoaded = state.currentPath == path;
-    final AudioSkill skill = ref
-        .read(audioPlayerProvider.notifier)
-        .skillOfPath(path);
-    // 🌟 AU-9: رنگِ مهارتِ فایل؛ فایلِ جاری رنگِ تأکید.
+    final AudioSkill skill = item.skill;
+    // 🌟 AU-9/AU-15: همه‌چیزِ ردیف — حتی فایلِ جاری — به رنگِ مهارتِ خودش (نه رنگِ تمِ پلیر)؛
+    // فایلِ جاری فقط پررنگ‌تر است.
     final Color skillColor =
-        audioSkillColor(skill, onDark: true) ?? colors.textMuted;
-    final Color badgeColor = isCurrent ? colors.accent : skillColor;
-    final String section =
-        item.place?.sectionTitle ??
-        (skill == AudioSkill.other ? '' : audioSkillName(skill));
+        audioSkillColor(skill, onDark: true) ?? colors.accent;
     final int? page = item.location?.pageNumber;
     final String stem = _trackStem(path);
+    final bool grouped = pagedBookStore.outline.isNotEmpty;
 
-    return Material(
-      // 🌟 S-11: فایلِ جاری زمینه‌ی ملایمِ رنگِ تأکید و به‌جای آیکون نمایشگرِ صوتیِ متحرک دارد.
-      color: isCurrent ? colors.accent.withOpacity(0.10) : Colors.transparent,
+    final Widget row = Material(
+      color: isCurrent ? skillColor.withOpacity(0.14) : Colors.transparent,
+      borderRadius: grouped
+          ? const BorderRadiusDirectional.horizontal(end: Radius.circular(12))
+          : null,
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () => _play(path, state),
         child: Padding(
-          padding: const EdgeInsetsDirectional.only(start: 16, end: 8),
+          padding: EdgeInsetsDirectional.only(start: grouped ? 10 : 16, end: 8),
           child: Row(
             children: [
               SkillBadge(
                 skill: skill,
-                color: badgeColor,
+                color: skillColor,
+                size: 38,
+                fillOpacity: isCurrent ? 0.26 : 0.12,
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 200),
                   child: isPlayingRow
                       ? SizedBox.square(
                           key: const ValueKey('meter'),
-                          dimension: 22,
-                          child: _AudioMeter(color: colors.accent),
+                          dimension: 20,
+                          child: _AudioMeter(color: skillColor),
                         )
                       : Icon(
                           audioSkillIcon(skill),
                           key: const ValueKey('icon'),
-                          size: 22,
-                          color: badgeColor,
+                          size: 20,
+                          color: skillColor,
                         ),
                 ),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -875,35 +933,22 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                       textDirection: TextDirection.ltr,
                       textAlign: textAlignToStartOf(context),
                       style: TextStyle(
-                        color: isCurrent ? colors.accent : colors.textPrimary,
+                        color: isCurrent ? skillColor : colors.textPrimary,
                         fontSize: 15,
                         fontWeight: isCurrent
                             ? FontWeight.bold
                             : FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 3),
-                    // 🌟 AU-7/AU-13: بخش (مهارت) به رنگش و صفحه؛ درس سرعنوانِ گروه است.
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          if (section.isNotEmpty)
-                            TextSpan(
-                              text: bidiIsolate(section),
-                              style: TextStyle(
-                                color: skillColor,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          if (section.isNotEmpty && page != null)
-                            const TextSpan(text: '  ·  '),
-                          if (page != null) TextSpan(text: 'صفحه‌ی $page'),
-                        ],
+                    if (page != null) ...[
+                      const SizedBox(height: 2),
+                      // 🌟 AU-15: درس و مهارت سرعنوانِ گروه‌اند؛ این‌جا فقط صفحه.
+                      Text(
+                        'صفحه‌ی $page',
+                        maxLines: 1,
+                        style: TextStyle(color: colors.textMuted, fontSize: 12),
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: colors.textMuted, fontSize: 12),
-                    ),
+                    ],
                   ],
                 ),
               ),
@@ -922,14 +967,14 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 4),
                 child: SizedBox.square(
-                  dimension: 40,
+                  dimension: 38,
                   child: IconButton.filled(
                     tooltip: isPlayingRow ? 'مکث' : 'پخش',
                     padding: EdgeInsets.zero,
                     style: IconButton.styleFrom(
                       backgroundColor: isCurrent
-                          ? colors.accent
-                          : colors.textMuted.withOpacity(0.16),
+                          ? skillColor
+                          : colors.textMuted.withOpacity(0.14),
                       foregroundColor: isCurrent
                           ? colors.bgBottom
                           : colors.textSecondary,
@@ -938,7 +983,7 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
                       isPlayingRow
                           ? Icons.pause_rounded
                           : Icons.play_arrow_rounded,
-                      size: 24,
+                      size: 22,
                     ),
                     onPressed: () {
                       final n = ref.read(audioPlayerProvider.notifier);
@@ -965,6 +1010,15 @@ class _AudioPlaylistSheetState extends ConsumerState<_AudioPlaylistSheet> {
             ],
           ),
         ),
+      ),
+    );
+    if (!grouped) return row;
+    return SkillRail(
+      color: skillColor,
+      last: item.flag,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: item.flag ? 6 : 0),
+        child: row,
       ),
     );
   }

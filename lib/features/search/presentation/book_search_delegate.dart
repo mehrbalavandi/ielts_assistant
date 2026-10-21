@@ -218,48 +218,69 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
     );
   }
 
-  /// 🌟 S-18: نتیجه‌ها زیرِ سرعنوانِ درس (به ترتیبِ کتاب؛ نتیجه‌های اسکریپتِ صوتی زیرِ درسِ همان
-  /// فایل)، هر نتیجه با نشانِ مهارت، بخش و صفحه، و گزیده‌ای که عبارتِ یافته‌شده در آن پررنگ است.
-  /// ترتیبِ پیمایشِ «بعدی/قبلی» در صفحه همان ترتیبِ موتورِ جستجوست (SearchSession).
+  /// 🌟 S-18/S-19: نتیجه‌ها سه‌سطحی — درس ← مهارت ← نتیجه — به ترتیبِ کتاب؛ داخلِ هر مهارت اول
+  /// نتیجه‌های متن، بعد (زیرِ برچسبِ «اسکریپت‌های صوتی») نتیجه‌های اسکریپتِ فایل‌های همان مهارت.
+  /// موردهای هر مهارت کنارِ ریلِ رنگیِ تورفته‌اند و میانشان خطِ جداکننده‌ی نازک؛ میانِ درس‌ها
+  /// خطِ جداکننده‌ی کامل. ترتیبِ پیمایشِ «بعدی/قبلی» در صفحه همان ترتیبِ موتورِ جستجوست.
   Widget _buildResultList(
     BuildContext context,
     List<SearchResult> results,
     String debouncedQuery,
   ) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme cs = theme.colorScheme;
+    final ColorScheme cs = Theme.of(context).colorScheme;
+    final bool grouped = store?.outline.isNotEmpty ?? false;
 
-    // مرتب‌سازیِ پایدار بر اساسِ درس؛ بی‌درس آخر.
+    // مرتب‌سازیِ پایدار: درس، مهارت، متن پیش از اسکریپت، ترتیبِ موتور.
     final List<int> order = List<int>.generate(results.length, (i) => i);
-    int unitKey(int i) => _placeOf(results[i]).place?.unitIndex ?? 1 << 20;
-    if (store?.outline.isNotEmpty ?? false) {
+    if (grouped) {
+      int unitKey(int i) => _placeOf(results[i]).place?.unitIndex ?? 1 << 20;
+      int secKey(int i) => _placeOf(results[i]).place?.sectionIndex ?? -1;
+      int audioKey(int i) => results[i].audioTrackName == null ? 0 : 1;
       order.sort((a, b) {
-        final int c = unitKey(a).compareTo(unitKey(b));
+        int c = unitKey(a).compareTo(unitKey(b));
+        if (c == 0) c = secKey(a).compareTo(secKey(b));
+        if (c == 0) c = audioKey(a).compareTo(audioKey(b));
         return c != 0 ? c : a.compareTo(b);
       });
     }
 
-    // ردیف‌ها: null = خلاصه‌ی بالا؛ (header) = سرعنوانِ درس؛ (result) = نتیجه.
-    final List<({int? result, OutlinePlace? header, int count})> rows = [
-      (result: null, header: null, count: -1),
-    ];
-    final bool grouped = store?.outline.isNotEmpty ?? false;
+    final List<_Row> rows = [_Row(_RowKind.summary)];
     int? lastUnit;
-    int headerRow = -1;
+    int? lastSec;
+    bool lastAudio = false;
+    int unitRow = -1;
+    int secRow = -1;
     for (final int i in order) {
-      final OutlinePlace? place = _placeOf(results[i]).place;
+      final info = _placeOf(results[i]);
+      final OutlinePlace? place = info.place;
       final int u = place?.unitIndex ?? -1;
-      if (grouped && (headerRow < 0 || u != lastUnit)) {
-        lastUnit = u;
-        headerRow = rows.length;
-        rows.add((result: null, header: place, count: 0));
+      final int sec = place?.sectionIndex ?? -1;
+      final bool audio = results[i].audioTrackName != null;
+      if (grouped) {
+        if (unitRow < 0 || u != lastUnit) {
+          if (secRow >= 0) rows.last.last = true;
+          unitRow = rows.length;
+          rows.add(_Row(_RowKind.unit, place: place, divider: lastUnit != null));
+          lastUnit = u;
+          lastSec = null;
+        }
+        if (secRow < 0 || sec != lastSec || rows[secRow].place?.unitIndex != u) {
+          if (rows.last.kind == _RowKind.result) rows.last.last = true;
+          secRow = rows.length;
+          rows.add(_Row(_RowKind.section, place: place, skill: info.skill));
+          lastSec = sec;
+          lastAudio = false;
+        }
+        if (audio && !lastAudio) {
+          rows.add(_Row(_RowKind.scripts, skill: info.skill));
+          lastAudio = true;
+        }
+        rows[unitRow].count++;
+        rows[secRow].count++;
       }
-      rows.add((result: i, header: null, count: 0));
-      if (headerRow >= 0) {
-        final r = rows[headerRow];
-        rows[headerRow] = (result: null, header: r.header, count: r.count + 1);
-      }
+      rows.add(_Row(_RowKind.result, result: i, skill: info.skill));
     }
+    if (rows.last.kind == _RowKind.result) rows.last.last = true;
 
     // S-17: برگشت از صفحه ← آخرین نتیجه‌ی دیده‌شده وسطِ فهرست و هایلایت‌شده.
     final int focusResult = _resumeTarget == null
@@ -295,57 +316,104 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
       initialAlignment: focusRow <= 0 ? 0 : 0.3,
       padding: const EdgeInsets.only(bottom: 24),
       itemBuilder: (context, index) {
-        final row = rows[index];
-        if (row.result == null && row.count < 0) {
-          return Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '${results.length} نتیجه',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: ' برای «${bidiIsolate(debouncedQuery)}»'),
-                  if (books.length == 1)
-                    TextSpan(text: ' در ${bidiIsolate(books.first)}'),
-                ],
-              ),
-              style: TextStyle(color: cs.onSurfaceVariant, fontSize: 13),
-            ),
-          );
-        }
-        if (row.result == null) {
-          return UnitGroupHeader(
-            place: row.header,
-            countLabel: '${row.count} نتیجه',
-            accent: cs.primary,
-            textColor: cs.onSurface,
-            mutedColor: cs.onSurfaceVariant,
-          );
-        }
-        final SearchResult result = results[row.result!];
-        return _resultTile(
-          context,
-          result,
-          highlighted: index == focusRow,
-          showBook: books.length > 1,
-          onTap: () {
-            final bookResults = results
-                .where((r) => r.bookId == result.bookId)
-                .toList();
-            close(
-              context,
-              SearchSession(
-                // 🐞 S-13: همان عبارتی که واقعاً جستجو شد (بی‌فاصله‌ی اضافه)، نه متنِ خامِ
-                // کادر — وگرنه هایلایتِ نارنجی با نتیجه‌ها هم‌خوان نبود.
-                query: debouncedQuery,
-                results: bookResults,
-                currentIndex: bookResults.indexOf(result),
+        final _Row row = rows[index];
+        final Color skillColor = audioSkillColor(row.skill) ?? cs.outline;
+        switch (row.kind) {
+          case _RowKind.summary:
+            return Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 6),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '${results.length} نتیجه',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: ' برای «${bidiIsolate(debouncedQuery)}»'),
+                    if (books.length == 1)
+                      TextSpan(text: ' در ${bidiIsolate(books.first)}'),
+                  ],
+                ),
+                style: TextStyle(color: cs.onSurfaceVariant, fontSize: 13),
               ),
             );
-          },
-        );
+          case _RowKind.unit:
+            return UnitGroupHeader(
+              place: row.place,
+              countLabel: '${row.count} نتیجه',
+              textColor: cs.onSurface,
+              mutedColor: cs.onSurfaceVariant,
+              dividerColor: cs.outlineVariant,
+              divider: row.divider,
+            );
+          case _RowKind.section:
+            final String title =
+                row.place?.sectionTitle ??
+                (row.skill == AudioSkill.other ? 'سایر' : audioSkillName(row.skill));
+            return SectionGroupHeader(
+              skill: row.skill,
+              title: title,
+              countLabel: '${row.count}',
+              color: skillColor,
+              mutedColor: cs.onSurfaceVariant,
+              icon: row.skill == AudioSkill.other ? Icons.article_outlined : null,
+            );
+          case _RowKind.scripts:
+            return SkillRail(
+              color: skillColor,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 16, 2),
+                child: Row(
+                  children: [
+                    Icon(Icons.graphic_eq_rounded, size: 15, color: cs.onSurfaceVariant),
+                    const SizedBox(width: 5),
+                    Text(
+                      'اسکریپت‌های صوتی',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: cs.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          case _RowKind.result:
+            final SearchResult result = results[row.result!];
+            final Widget tile = _resultTile(
+              context,
+              result,
+              skillColor: skillColor,
+              highlighted: index == focusRow,
+              showBook: books.length > 1,
+              divider: !row.last,
+              onTap: () {
+                final bookResults = results
+                    .where((r) => r.bookId == result.bookId)
+                    .toList();
+                close(
+                  context,
+                  SearchSession(
+                    // 🐞 S-13: همان عبارتی که واقعاً جستجو شد (بی‌فاصله‌ی اضافه)، نه متنِ خامِ
+                    // کادر — وگرنه هایلایتِ نارنجی با نتیجه‌ها هم‌خوان نبود.
+                    query: debouncedQuery,
+                    results: bookResults,
+                    currentIndex: bookResults.indexOf(result),
+                  ),
+                );
+              },
+            );
+            if (!grouped) return tile;
+            return SkillRail(
+              color: skillColor,
+              last: row.last,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: row.last ? 8 : 0),
+                child: tile,
+              ),
+            );
+        }
       },
     );
   }
@@ -353,31 +421,34 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
   Widget _resultTile(
     BuildContext context,
     SearchResult result, {
+    required Color skillColor,
     required bool highlighted,
     required bool showBook,
+    required bool divider,
     required VoidCallback onTap,
   }) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final bool isAudio = result.audioTrackName != null;
-    final info = _placeOf(result);
-    final Color skillColor = audioSkillColor(info.skill) ?? cs.primary;
-    final String section =
-        info.place?.sectionTitle ??
-        (info.skill == AudioSkill.other ? '' : audioSkillName(info.skill));
     final TextStyle muted = TextStyle(color: cs.onSurfaceVariant, fontSize: 12);
 
-    // جایِ نتیجه: «Reading · صفحه‌ی 19» یا «Listening · اسکریپتِ Mindset_L1_35».
+    // جای نتیجه: «صفحه‌ی 19» یا «▶ Mindset_L1_05» (درس و مهارت سرعنوانِ گروه‌اند).
     final List<InlineSpan> where = [
-      if (section.isNotEmpty)
-        TextSpan(
-          text: bidiIsolate(section),
-          style: TextStyle(color: skillColor, fontWeight: FontWeight.w600),
+      if (isAudio)
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: Padding(
+            padding: const EdgeInsetsDirectional.only(end: 3),
+            child: Icon(Icons.play_circle_fill_rounded, size: 16, color: skillColor),
+          ),
         ),
-      if (section.isNotEmpty) const TextSpan(text: '  ·  '),
       TextSpan(
         text: isAudio
-            ? 'اسکریپتِ ${bidiIsolate(_stem(result.audioTrackName!))}'
+            ? bidiIsolate(_stem(result.audioTrackName!))
             : 'صفحه‌ی ${result.pageNumber}',
+        style: TextStyle(
+          color: isAudio ? skillColor : cs.onSurfaceVariant,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       if (showBook) TextSpan(text: '  ·  ${bidiIsolate(result.bookTitle)}'),
     ];
@@ -398,68 +469,54 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
     );
 
     return Material(
-      color: highlighted ? cs.primary.withOpacity(0.08) : Colors.transparent,
+      color: highlighted ? skillColor.withOpacity(0.10) : Colors.transparent,
       child: InkWell(
         onTap: onTap,
         child: Container(
-          decoration: highlighted
+          decoration: divider
               ? BoxDecoration(
-                  border: BorderDirectional(
-                    start: BorderSide(color: cs.primary, width: 3),
+                  border: Border(
+                    bottom: BorderSide(color: cs.outlineVariant.withOpacity(0.6)),
                   ),
                 )
               : null,
-          padding: const EdgeInsetsDirectional.fromSTEB(16, 10, 16, 10),
-          child: Row(
+          margin: const EdgeInsetsDirectional.only(start: 12),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 9, 16, 9),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SkillBadge(
-                skill: info.skill,
-                color: skillColor,
-                size: 38,
-                // نتیجه‌ی اسکریپتِ صوتی: نشانِ پخش (لمس ← پلیر باز می‌شود).
-                icon: isAudio ? Icons.play_arrow_rounded : null,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text.rich(
-                            TextSpan(children: where),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: muted,
-                          ),
-                        ),
-                        if (result.matchInHiddenAnswer)
-                          _chip(context, 'در پاسخِ پنهان', Icons.visibility_off_outlined),
-                        if (result.hiddenMatchCount > 1)
-                          _chip(context, '${result.hiddenMatchCount} مورد', null),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Text.rich(
-                      canMark
-                          ? TextSpan(
-                              children: [
-                                TextSpan(text: excerpt.substring(0, ms)),
-                                TextSpan(text: excerpt.substring(ms, me), style: mark),
-                                TextSpan(text: excerpt.substring(me)),
-                              ],
-                            )
-                          : TextSpan(text: excerpt),
-                      maxLines: 2,
+              Row(
+                children: [
+                  Expanded(
+                    child: Text.rich(
+                      TextSpan(children: where),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      textDirection: textDirectionOf(excerpt),
-                      textAlign: textAlignToStartOf(context),
-                      style: base,
+                      style: muted,
                     ),
-                  ],
-                ),
+                  ),
+                  if (result.matchInHiddenAnswer)
+                    _chip(context, 'در پاسخِ پنهان', Icons.visibility_off_outlined),
+                  if (result.hiddenMatchCount > 1)
+                    _chip(context, '${result.hiddenMatchCount} مورد', null),
+                ],
+              ),
+              const SizedBox(height: 3),
+              Text.rich(
+                canMark
+                    ? TextSpan(
+                        children: [
+                          TextSpan(text: excerpt.substring(0, ms)),
+                          TextSpan(text: excerpt.substring(ms, me), style: mark),
+                          TextSpan(text: excerpt.substring(me)),
+                        ],
+                      )
+                    : TextSpan(text: excerpt),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textDirection: textDirectionOf(excerpt),
+                textAlign: textAlignToStartOf(context),
+                style: base,
               ),
             ],
           ),
@@ -504,4 +561,25 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
     _retryTimer?.cancel();
     super.close(context, result);
   }
+}
+
+/// S-19: ردیف‌های فهرستِ نتایج.
+enum _RowKind { summary, unit, section, scripts, result }
+
+class _Row {
+  _Row(this.kind, {this.place, this.result, this.skill = AudioSkill.other, this.divider = false});
+
+  final _RowKind kind;
+  final OutlinePlace? place;
+  final int? result;
+  final AudioSkill skill;
+
+  /// unit: خطِ جداکننده بالایش.
+  final bool divider;
+
+  /// unit/section: شمارِ نتیجه‌ها.
+  int count = 0;
+
+  /// result: آخرین نتیجه‌ی همین مهارت (پایانِ ریل، بی‌خطِ زیر).
+  bool last = false;
 }

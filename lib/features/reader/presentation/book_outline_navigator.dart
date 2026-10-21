@@ -105,11 +105,15 @@ class OutlinePlace {
   /// نامِ خوانای بخش («Listening»، «Speaking Part 2»)؛ null = پیش از اولین بخش.
   final String? sectionTitle;
 
+  /// اندیسِ بخش در درس (برای دسته‌بندیِ سطحِ دوم)؛ -1 = پیش از اولین بخش.
+  final int sectionIndex;
+
   const OutlinePlace({
     required this.unitIndex,
     required this.unitNumber,
     required this.unitTitle,
     this.sectionTitle,
+    this.sectionIndex = -1,
   });
 
   /// «درس 4» (یا نامِ درس اگر شماره ندارد).
@@ -136,6 +140,7 @@ OutlinePlace? outlinePlaceAt(
     unitNumber: m?.group(1),
     unitTitle: outlineDisplayTitle((m?.group(2) ?? top.title).trim()),
     sectionTitle: section == null ? null : outlineDisplayTitle(section.title),
+    sectionIndex: pos.section,
   );
 }
 
