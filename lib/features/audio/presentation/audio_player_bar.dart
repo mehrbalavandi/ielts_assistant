@@ -1183,6 +1183,22 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
 
   @override
   Widget build(BuildContext context) {
+    // 🐞 AU-11: پلیر از بیرون بسته شد (× در اعلان یا صفحه‌ی قفل، یا × در نوارِ کوچک) ← این برگه هم
+    // بسته می‌شود؛ وگرنه خالی می‌ماند («(متن صوتی)» و «هیچ متن صوتی…»).
+    ref.listen<String?>(
+      audioPlayerProvider.select((s) => s.currentPath),
+      (prev, next) {
+        if (prev == null || next != null || !mounted) return;
+        // خودِ همین برگه (نه برگه‌ی دیگری که شاید رویش باز است، مثلِ تایمر).
+        final ModalRoute<dynamic>? route = ModalRoute.of(context);
+        if (route == null || !route.isActive) return;
+        if (route.isCurrent) {
+          Navigator.of(context).pop();
+        } else {
+          Navigator.of(context).removeRoute(route);
+        }
+      },
+    );
     final audioState = ref.watch(audioPlayerProvider);
     // 🌟 AU-9: رنگِ مهارتِ فایلِ فعلی
     _colors = _playerColors(
