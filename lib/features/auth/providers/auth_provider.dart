@@ -290,7 +290,13 @@ class AuthNotifier extends Notifier<AuthState> {
     // مجوز) روی همین دستگاه باز می‌مانند — حتی اگر کاربر بی‌اینترنت اشتباهی خارج شده باشد.
     final String? uid = StorageService.getUser()?['id']?.toString();
     try {
-      await ref.read(dioProvider).post('/api/logout');
+      final res = await ref.read(dioProvider).post('/api/logout');
+      // 🌟 SYNC-1: مجوزِ آخر از همین لحظه و با تنظیماتِ فعلیِ پنل؛ مهلتِ بعد از خروج همان می‌شود
+      // که پنجره‌ی تأیید گفت.
+      final Object? body = res.data;
+      if (body is Map && body['license'] != null) {
+        await LicenseService.save(body['license']);
+      }
     } catch (_) {}
     await endSessionLocally(keepLicenseFor: uid);
   }

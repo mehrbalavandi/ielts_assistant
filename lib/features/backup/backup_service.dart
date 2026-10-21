@@ -307,9 +307,35 @@ class BackupNotifier extends Notifier<BackupState> {
       if (body is Map && body['license'] != null) {
         await LicenseService.save(body['license']);
       }
+      if (body is Map) await _saveUserIfSame(body['user']); // 🌟 SYNC-1
     } catch (e) {
       debugPrint('backup: device touch failed: $e');
     }
+  }
+
+  /// 🌟 SYNC-1: فقط مجوزِ تازه (و نام/موبایلِ حساب) — GET /api/license، بی‌ثبتِ دستگاه و بی‌پشتیبان.
+  /// پنجره‌ی تأییدِ خروج پیش از نشان دادنِ مهلت صدایش می‌زند تا عددِ فعلیِ پنل را بگوید.
+  /// true اگر مجوزِ تازه رسید.
+  Future<bool> refreshLicense() async {
+    if (!_loggedIn) return false;
+    try {
+      final Response<dynamic> res = await ref.read(dioProvider).get('/api/license');
+      final Object? body = res.data;
+      if (body is! Map) return false;
+      await _saveUserIfSame(body['user']);
+      return body['license'] != null && await LicenseService.save(body['license']);
+    } catch (e) {
+      debugPrint('backup: license refresh failed: $e');
+      return false;
+    }
+  }
+
+  /// حسابی که سرور برگرداند، اگر همان کاربرِ واردشده است (نامی که در سایت عوض شده).
+  Future<void> _saveUserIfSame(Object? user) async {
+    if (user is! Map || user['id'] == null) return;
+    final Object? mine = StorageService.getUser()?['id'];
+    if (mine != null && mine.toString() != user['id'].toString()) return;
+    await StorageService.saveUser(Map<String, dynamic>.from(user));
   }
 }
 

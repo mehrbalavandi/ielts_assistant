@@ -75,6 +75,21 @@ class LicenseService {
 
   static LicenseInfo? get current => _info;
 
+  /// 🌟 SYNC-1: با هر مجوزِ تازه (یا پاک شدنش) یکی زیاد می‌شود؛ پنجره‌ی تأییدِ خروج با همین
+  /// عددهای تازه‌ی سایت را بی‌بستن و بازکردن نشان می‌دهد.
+  static final ValueNotifier<int> revision = ValueNotifier<int>(0);
+
+  /// 🌟 SYNC-1: اگر همین الان خارج شود، کتاب‌های خریده‌شده تا کِی باز می‌مانند: کمترینِ «الان +
+  /// gd» و exp (اعتبارِ مجوزِ آفلاین). null = بی‌مهلت (بعد از خروج قفل) یا مجوزی نیست.
+  static DateTime? signedOutUntilIfNow() {
+    final LicenseInfo? info = _info;
+    if (info == null || info.signedOutGraceDays <= 0) return null;
+    final DateTime now = DateTime.now();
+    if (!now.isBefore(info.expiresAt)) return null;
+    final DateTime grace = now.add(Duration(days: info.signedOutGraceDays));
+    return grace.isBefore(info.expiresAt) ? grace : info.expiresAt;
+  }
+
   /// 🌟 DEV-7: کاربرِ خارج‌شده و زمانِ خروج (null = واردشده یا مهلتی نیست).
   static String? _signedOutUid;
   static DateTime? _signedOutAt;
@@ -137,6 +152,7 @@ class LicenseService {
       'sig': license['sig'],
     });
     _bumpClock(info.issuedAt.millisecondsSinceEpoch, force: true);
+    revision.value++;
     return true;
   }
 
@@ -144,6 +160,7 @@ class LicenseService {
     _info = null;
     await _box.remove(_storeKey);
     await _clearSignedOut();
+    revision.value++;
   }
 
   static Future<void> _clearSignedOut() async {

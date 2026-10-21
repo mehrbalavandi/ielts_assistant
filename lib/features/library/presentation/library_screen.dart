@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ielts_assistant/app/app_messenger.dart';
 import 'package:ielts_assistant/core/license/license_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ielts_assistant/core/app_config/app_config.dart';
 import 'package:ielts_assistant/shared/widgets/app_notice_banner.dart';
 import 'package:ielts_assistant/features/auth/presentation/login_screen.dart';
 import 'package:ielts_assistant/features/backup/backup_service.dart';
@@ -16,6 +15,7 @@ import 'package:ielts_assistant/core/storage/storage_service.dart';
 import 'package:ielts_assistant/features/update/app_update_provider.dart';
 import 'package:ielts_assistant/features/update/app_update_ui.dart';
 import 'package:ielts_assistant/core/text/text_direction.dart';
+import 'package:ielts_assistant/features/sync/server_sync.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {
   /// 🗂️ قانونِ C-2: null = ویترینِ اصلی (اگر بیش از یک دسته هست، فهرستِ دسته‌ها؛
@@ -44,10 +44,11 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     if (widget.categoryKey == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) checkForAppUpdateOnStart(context, ref);
-        // 🌟 BK-1..3: با هر بازشدنِ اپ — ثبتِ دستگاه و پشتیبانِ «مرورِ من»/تنظیمات.
-        if (mounted) ref.read(backupProvider.notifier).onAppStart();
-        // 🌟 SITE-3/4/7: اطلاعیه، حالتِ تعمیر و روش‌های ورود از پنلِ سایت
-        if (mounted) ref.read(appConfigProvider.notifier).refresh();
+        // 🌟 SYNC-1: با هر بازشدنِ اپ — تنظیماتِ پنل (SITE-3/4/7)، ثبتِ دستگاه و مجوزِ تازه،
+        // پشتیبانِ «مرورِ من»/تنظیمات (BK-1..3). فهرستِ کتاب‌ها را booksProvider خودش می‌گیرد.
+        if (mounted) {
+          ref.read(serverSyncProvider).sync(force: true, books: false);
+        }
       });
     }
 
@@ -86,6 +87,10 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
     if (state == AppLifecycleState.resumed && purchaseReturnPending) {
       purchaseReturnPending = false;
       ref.read(booksProvider.notifier).fetchBooks();
+    }
+    // 🌟 SYNC-1: برگشت به برنامه از پس‌زمینه — هر چه در پنل یا سایت عوض شده (حداکثر هر ۱۰ دقیقه).
+    if (state == AppLifecycleState.resumed && widget.categoryKey == null) {
+      ref.read(serverSyncProvider).sync();
     }
   }
 
@@ -562,49 +567,143 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen>
 
 /// 🌟 AUTH-2: «خروج از حساب» تأیید می‌خواهد. پنجره می‌گوید با چه حسابی واردید و بعد از خروج چه
 /// می‌ماند: کتاب‌های خریداری‌شده‌ی دانلودشده تا مهلتِ مجوز (DEV-7) و «مرورِ من» روی همین دستگاه.
+/// 🌟 SYNC-1: مهلت همان است که بعد از خروج واقعاً اجرا می‌شود — کمترینِ «فاصله‌ی جدا کردنِ دستگاه»
+/// (gd) و «اعتبارِ مجوزِ آفلاین» (exp) — و با بازشدنِ پنجره مجوزِ تازه از سایت گرفته می‌شود تا
+/// عددِ فعلیِ پنل را بگوید (آفلاین: آخرین مجوز، با ذکرِ تاریخش).
 Future<bool> confirmSignOut(BuildContext context) async {
-  final Map<String, dynamic>? user = StorageService.getUser();
-  final Object? fullName =
-      user?['name'] ??
-      [user?['first_name'], user?['last_name']]
-          .whereType<Object>()
-          .join(' ')
-          .trim();
-  final String who = [
-    fullName,
-    user?['mobile'] ?? user?['email'],
-  ].whereType<Object>().map((e) => e.toString().trim()).where((e) => e.isNotEmpty).join(' — ');
-  final int grace = LicenseService.current?.signedOutGraceDays ?? 0;
   final bool? ok = await showDialog<bool>(
     context: context,
-    builder: (ctx) => AlertDialog(
-      icon: const Icon(Icons.logout_rounded),
-      title: const Text('خروج از حساب'),
-      content: Text(
-        [
-          who.isEmpty
-              ? 'از حساب خارج می‌شوید؟'
-              : 'از حسابِ ${bidiIsolate(who)} خارج می‌شوید؟',
-          if (grace > 0)
-            'کتاب‌های خریداری‌شده‌ای که دانلود کرده‌اید تا $grace روزِ دیگر روی همین دستگاه باز می‌مانند؛ '
-                'بعد از آن برای مطالعه باید دوباره وارد شوید.'
-          else
-            'کتاب‌های خریداری‌شده تا ورودِ دوباره به‌طورِ کامل باز نمی‌شوند.',
-          '«مرورِ من» و تنظیمات روی همین دستگاه می‌مانند.',
-        ].join('\n\n'),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(ctx, false),
-          child: const Text('انصراف'),
-        ),
-        FilledButton(
-          style: FilledButton.styleFrom(backgroundColor: Colors.red.shade700),
-          onPressed: () => Navigator.pop(ctx, true),
-          child: const Text('خروج'),
-        ),
-      ],
-    ),
+    builder: (_) => const _SignOutDialog(),
   );
   return ok ?? false;
+}
+
+class _SignOutDialog extends ConsumerStatefulWidget {
+  const _SignOutDialog();
+
+  @override
+  ConsumerState<_SignOutDialog> createState() => _SignOutDialogState();
+}
+
+class _SignOutDialogState extends ConsumerState<_SignOutDialog> {
+  bool _refreshing = true;
+  bool _fresh = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ref
+        .read(backupProvider.notifier)
+        .refreshLicense()
+        .timeout(const Duration(seconds: 6), onTimeout: () => false)
+        .then((bool ok) {
+          if (mounted) {
+            setState(() {
+              _refreshing = false;
+              _fresh = ok;
+            });
+          }
+        });
+  }
+
+  String _who() {
+    final Map<String, dynamic>? user = StorageService.getUser();
+    final String first = [user?['first_name'], user?['last_name']]
+        .whereType<Object>()
+        .join(' ')
+        .trim();
+    final Object? fullName = user?['name'] ?? first;
+    return [fullName, user?['mobile'] ?? user?['email']]
+        .whereType<Object>()
+        .map((e) => e.toString().trim())
+        .where((e) => e.isNotEmpty)
+        .join(' — ');
+  }
+
+  /// «۵ روزِ دیگر» / «۳ ساعتِ دیگر».
+  static String _remaining(DateTime until) {
+    final Duration d = until.difference(DateTime.now());
+    if (d.inHours >= 24) return '${(d.inMinutes / (24 * 60)).ceil()} روزِ دیگر';
+    final int h = (d.inMinutes / 60).ceil();
+    return '${h < 1 ? 1 : h} ساعتِ دیگر';
+  }
+
+  static String _ago(DateTime at) {
+    final int days = DateTime.now().difference(at).inDays;
+    return days <= 0 ? 'امروز' : '$days روز پیش';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: LicenseService.revision,
+      builder: (context, revision, child) {
+        final LicenseInfo? info = LicenseService.current;
+        final bool purchased =
+            (info?.books.isNotEmpty ?? false) ||
+            ref.read(booksProvider).any((b) => b.isPurchased);
+        final DateTime? until = LicenseService.signedOutUntilIfNow();
+        final String who = _who();
+        final TextStyle? small = Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        );
+        return AlertDialog(
+          icon: const Icon(Icons.logout_rounded),
+          title: const Text('خروج از حساب'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                [
+                  who.isEmpty
+                      ? 'از حساب خارج می‌شوید؟'
+                      : 'از حسابِ ${bidiIsolate(who)} خارج می‌شوید؟',
+                  if (purchased && until != null)
+                    'کتاب‌های خریداری‌شده‌ای که دانلود کرده‌اید، بی‌اینترنت هم تا ${_remaining(until)} '
+                        'روی همین دستگاه باز می‌مانند؛ بعد از آن برای مطالعه باید دوباره وارد شوید.'
+                  else if (purchased)
+                    'کتاب‌های خریداری‌شده تا ورودِ دوباره به‌طورِ کامل باز نمی‌شوند.',
+                  '«مرورِ من» و تنظیمات روی همین دستگاه می‌مانند.',
+                ].join('\n\n'),
+              ),
+              if (purchased && _refreshing) ...[
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    const SizedBox.square(
+                      dimension: 14,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text('در حالِ گرفتنِ مهلتِ فعلی از سایت…', style: small),
+                    ),
+                  ],
+                ),
+              ] else if (purchased && !_fresh && info != null) ...[
+                const SizedBox(height: 14),
+                Text(
+                  'به سایت وصل نشد؛ این مهلت بر پایه‌ی مجوزی است که ${_ago(info.issuedAt)} '
+                  'از سایت گرفته شده.',
+                  style: small,
+                ),
+              ],
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('انصراف'),
+            ),
+            FilledButton(
+              style: FilledButton.styleFrom(backgroundColor: Colors.red.shade700),
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('خروج'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
