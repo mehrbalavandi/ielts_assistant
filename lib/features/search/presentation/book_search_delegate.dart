@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:ielts_assistant/features/library/providers/books_provider.dart';
 import 'package:ielts_assistant/features/search/data/book_search_engine.dart';
 import 'package:ielts_assistant/features/reader/domain/document_models.dart'; // افزوده شد برای شناسایی کلاس‌ها
@@ -13,7 +14,27 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
 
   /// 🌟 S-15: کتابِ باز — برای نشان دادنِ درس و مهارتِ هر نتیجه (فهرستِ کتاب).
   final PagedBookStore? store;
-  BookSearchDelegate(this.ref, {this.store});
+
+  /// 🌟 S-17: نتیجه‌ای که کاربر آخرین بار در صفحه دیده بود (برگشت از صفحه به همین فهرست): در
+  /// فهرست هایلایت و به آن اسکرول می‌شود. null = جستجوی تازه.
+  SearchResult? _resumeTarget;
+  bool _resumeShown = false;
+
+  /// [resume]: جلسه‌ی جستجوی در حالِ پیمایش (S-17)؛ همان عبارت و همان فهرست بی‌جستجوی دوباره.
+  /// عبارت را showSearch(query: …) در کادر می‌گذارد.
+  BookSearchDelegate(this.ref, {this.store, SearchSession? resume}) {
+    if (resume != null && resume.query.isNotEmpty) {
+      final List<SearchResult> results =
+          resume.results.whereType<SearchResult>().toList();
+      _debouncedQuery.value = resume.query;
+      _lastSearchQuery = resume.query;
+      _cachedSearchFuture = Future.value(results);
+      if (resume.currentIndex >= 0 && resume.currentIndex < resume.results.length) {
+        final Object? t = resume.results[resume.currentIndex];
+        if (t is SearchResult) _resumeTarget = t;
+      }
+    }
+  }
 
   /// S-15: «درس 1: Relationships · Reading» برای نتیجه‌ی متن، و برای نتیجه‌ی اسکریپتِ صوتی
   /// جای اولین دکمه‌ی همان فایل در کتاب.
@@ -106,6 +127,13 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    // S-17: برگشت به فهرست ← بی‌صفحه‌کلید، مستقیم فهرستِ نتایج (یک‌بار).
+    if (_resumeTarget != null && !_resumeShown) {
+      _resumeShown = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) showResults(context);
+      });
+    }
     if (query.trim().length < 3) return const SizedBox.shrink();
     _scheduleSearch();
     return _buildDebouncedResults();
@@ -172,13 +200,22 @@ class BookSearchDelegate extends SearchDelegate<SearchSession?> {
         }
 
         final results = snapshot.data!;
-        return ListView.builder(
+        // S-17: برگشت از صفحه ← آخرین نتیجه‌ی دیده‌شده وسطِ فهرست و هایلایت‌شده.
+        final int focus = _resumeTarget == null
+            ? -1
+            : results.indexWhere((r) => identical(r, _resumeTarget));
+        return ScrollablePositionedList.builder(
           itemCount: results.length,
+          initialScrollIndex: focus < 0 ? 0 : focus,
+          initialAlignment: focus <= 0 ? 0 : 0.3,
           itemBuilder: (context, index) {
             final result = results[index];
             final bool isAudioResult = result.audioTrackName != null;
+            final bool isLastSeen = index == focus;
             final String? where = _locationOf(result);
             return ListTile(
+              selected: isLastSeen,
+              selectedTileColor: Colors.indigo.withOpacity(0.10),
               leading: Icon(
                 isAudioResult
                     ? Icons.play_circle_fill_rounded

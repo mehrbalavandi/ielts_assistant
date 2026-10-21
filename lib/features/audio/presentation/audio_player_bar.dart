@@ -836,20 +836,51 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
     });
   }
 
-  /// S-16: نوارِ جستجو بالای اسکریپت: «true» ۲ از ۸ در این فایل · نتیجه‌ی ۱۳ از ۳۱.
+  /// S-16: فاصله‌ی نوارِ جستجو از پایینِ ناحیه‌ی متن (کاربر با کشیدن عوضش می‌کند؛ تا بسته شدنِ
+  /// برنامه یادش می‌ماند).
+  static double _stripBottom = 8;
+
+  /// S-16: نوارِ جستجوی شناور روی متن — پیش‌فرض پایین (همان‌جای نوارِ جستجوی صفحه‌ی مطالعه)،
+  /// با کشیدنِ عمودی جابه‌جا می‌شود: «نتیجه‌ی ۲۸ از ۳۱ · «true»»؛ اگر فایل بیش از یک یافته دارد،
+  /// «یافته‌ی ۲ از ۴ در این فایل» هم.
+  Widget _buildFloatingSearchStrip(double areaHeight) {
+    const double stripHeight = 52;
+    final double maxBottom = (areaHeight - stripHeight - 4).clamp(0.0, double.infinity);
+    final double bottom = _stripBottom.clamp(0.0, maxBottom);
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: bottom,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onVerticalDragUpdate: (d) => setState(() {
+          _stripBottom = (bottom - d.delta.dy).clamp(0.0, maxBottom);
+        }),
+        child: _buildSearchStrip(),
+      ),
+    );
+  }
+
   Widget _buildSearchStrip() {
     final SearchSession? session = ref.watch(activeSearchProvider);
     final String query = session?.query ?? '';
     final Color fg = _colors.textSecondary;
+    final bool many = session != null && session.results.length > 1;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(14, 6, 14, 0),
+        margin: const EdgeInsets.symmetric(horizontal: 14),
         padding: const EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
-          color: _colors.searchMatch.withOpacity(0.14),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: _colors.searchMatch.withOpacity(0.5)),
+          color: Color.alphaBlend(
+            _colors.searchMatch.withOpacity(0.22),
+            _colors.bgBottom,
+          ),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: _colors.searchMatch.withOpacity(0.6)),
+          boxShadow: const [
+            BoxShadow(color: Colors.black38, blurRadius: 10, offset: Offset(0, 3)),
+          ],
         ),
         child: Row(
           children: [
@@ -867,18 +898,35 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
             ),
             const SizedBox(width: 4),
             Expanded(
-              child: Text(
-                [
-                  if (query.isNotEmpty) '«${bidiIsolate(query)}»',
-                  '${_matchIndex + 1} از ${_matches.length} در این فایل',
-                  if (session != null && session.results.length > 1)
-                    'نتیجه‌ی ${session.currentIndex + 1} از ${session.results.length}',
-                ].join(' · '),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: fg, fontSize: 12.5),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    [
+                      if (many)
+                        'نتیجه‌ی ${session!.currentIndex + 1} از ${session!.results.length}',
+                      if (query.isNotEmpty) '«${bidiIsolate(query)}»',
+                    ].join(' · '),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: fg,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  if (_matches.length > 1)
+                    Text(
+                      'یافته‌ی ${_matchIndex + 1} از ${_matches.length} در این فایل',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: _colors.textMuted, fontSize: 11.5),
+                    ),
+                ],
               ),
             ),
+            Icon(Icons.drag_indicator_rounded, color: _colors.textMuted, size: 18),
             IconButton(
               icon: Icon(Icons.close, color: _colors.textMuted, size: 20),
               tooltip: 'پایانِ جستجو',
@@ -890,6 +938,7 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
       ),
     );
   }
+
   // 🐞 در build() مقداردهی می‌شود؛ چون _buildSmallCircleButton هم به آن
   // نیاز دارد (و context ندارد)، به‌عنوانِ فیلدِ کلاس نگه داشته می‌شود.
   late _PlayerColors _colors;
@@ -1182,7 +1231,6 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
               ],
             ),
           ),
-          if (searchOn) _buildSearchStrip(), // 🌟 S-16
           Divider(color: _colors.divider, height: 20),
 
           // const Padding(
@@ -1204,7 +1252,13 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
           //   ),
           // ),
           Expanded(
-            child: paragraphs.isEmpty
+            // 🌟 S-16: نوارِ جستجو روی متن، پایینِ آن (هم‌جای نوارِ جستجوی صفحه)؛ با کشیدن جابه‌جا
+            // می‌شود.
+            child: LayoutBuilder(
+              builder: (context, box) => Stack(
+                children: [
+                  Positioned.fill(
+                    child: paragraphs.isEmpty
                 ? Center(
                     child: Text(
                       "هیچ متن صوتی همگام‌سازی شده‌ای برای این بخش یافت نشد.",
@@ -1216,10 +1270,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                 : ScrollablePositionedList.builder(
                     itemCount: paragraphs.length,
                     itemScrollController: _itemScrollController,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 4,
-                    ),
+                    // S-16: جا برای نوارِ جستجوی شناورِ پایین، تا آخرین سطرها زیرش نمانند.
+                    padding: EdgeInsets.fromLTRB(14, 4, 14, searchOn ? 72 : 4),
                     itemBuilder: (context, index) {
                       final para = paragraphs[index];
                       final bool paraIsActive = index == activeIndex;
@@ -1447,6 +1499,11 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                       );
                     },
                   ),
+                  ),
+                  if (searchOn) _buildFloatingSearchStrip(box.maxHeight),
+                ],
+              ),
+            ),
           ),
 
           // 🐞 بخشِ ادغام‌شده: کنترل‌های کاملِ پخش، دقیقاً همان چیزی که

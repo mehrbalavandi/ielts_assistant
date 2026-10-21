@@ -101,6 +101,43 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     super.dispose();
   }
 
+  /// 🌟 S-17: صفحه‌ی جستجو. [resume] = جلسه‌ای که کاربر در حالِ پیمایشِ نتایجش است: همان عبارت و
+  /// همان فهرست، با آخرین نتیجه‌ی دیده‌شده هایلایت. اگر از فهرست بی‌انتخاب برگردد، جستجو تمام
+  /// می‌شود (نوارِ پایین می‌رود).
+  Future<void> _openSearch(
+    PagedBookStore pagedBookStore, {
+    SearchSession? resume,
+  }) async {
+    final SearchSession? session = await showSearch<SearchSession?>(
+      context: context,
+      query: resume?.query,
+      delegate: BookSearchDelegate(ref, store: pagedBookStore, resume: resume),
+    );
+    if (!mounted) return;
+    if (session == null) {
+      if (resume != null) ref.read(activeSearchProvider.notifier).state = null;
+      return;
+    }
+    // 🐞 رفعِ باگِ «مودالِ صوتی دوبار باز می‌شود»: قبلاً این‌جا
+    // برایِ نتایجِ صوتی مستقیماً openAudioSearchResult صدا زده
+    // می‌شد — ولی خودِ آن تابع activeSearchProvider را هم
+    // آپدیت می‌کند، که چون reading_canvas_screen.dart هم به
+    // همین پرووایدر listen می‌کند و شاخه‌ی صوتیِ خودش را دارد،
+    // دوباره openAudioSearchResult را صدا می‌زد — یعنی مودال دو
+    // بار باز می‌شد. حالا این‌جا فقط state تنظیم می‌شود (دقیقاً
+    // مثلِ نتایجِ متنی)؛ تنها همان listenerِ reading_canvas_screen.dart
+    // تصمیم می‌گیرد چه اتفاقی بیفتد (چه اسکرول به صفحه، چه بازکردنِ پلیر).
+    // 🐞 «جستجوی دوباره‌ی همان عبارت و تپ روی همان نتیجه، فقط نارنجی
+    // می‌کند و اسکرول نمی‌کند»: جلسه‌ی تازه با همان query و همان
+    // currentIndex از نظرِ listenerِ اسکرول (reading_canvas) «بی‌تغییر»
+    // بود و اسکرول اصلاً شروع نمی‌شد. jumpTrigger را بالا می‌بریم تا هر
+    // تپ روی نتیجه، همیشه یک پرش باشد.
+    final int prevTrigger =
+        ref.read(activeSearchProvider)?.jumpTrigger ?? 0;
+    ref.read(activeSearchProvider.notifier).state = session
+        .copyWith(jumpTrigger: prevTrigger + 1);
+  }
+
   @override
   Widget build(BuildContext context) {
     final activeBook = ref.watch(activeBookProvider);
@@ -148,7 +185,9 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
         if (searchBarVisible) {
-          ref.read(activeSearchProvider.notifier).state = null;
+          // 🌟 S-17: برگشت از پیمایشِ نتایج ← همان فهرستِ نتایج (همان عبارت، آخرین نتیجه‌ی دیده‌شده
+          // هایلایت). برگشت از خودِ فهرست جستجو را تمام می‌کند.
+          _openSearch(pagedBookStore, resume: searchSession);
         } else if (audioState.currentPath != null) {
           ref.read(audioPlayerProvider.notifier).stopAndClear();
           // سشنِ مصنوعیِ نامرئی (اگر مانده باشد) هم همین‌جا پاک می‌شود تا
@@ -196,33 +235,11 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
             // خودش را توضیح نمی‌داد.
             IconButton(
               icon: const Icon(Icons.search),
-              onPressed: () async {
-                final SearchSession? session = await showSearch<SearchSession?>(
-                  context: context,
-                  delegate: BookSearchDelegate(ref, store: pagedBookStore),
-                );
-
-                if (session != null && context.mounted) {
-                  // 🐞 رفعِ باگِ «مودالِ صوتی دوبار باز می‌شود»: قبلاً این‌جا
-                  // برایِ نتایجِ صوتی مستقیماً openAudioSearchResult صدا زده
-                  // می‌شد — ولی خودِ آن تابع activeSearchProvider را هم
-                  // آپدیت می‌کند، که چون reading_canvas_screen.dart هم به
-                  // همین پرووایدر listen می‌کند و شاخه‌ی صوتیِ خودش را دارد،
-                  // دوباره openAudioSearchResult را صدا می‌زد — یعنی مودال دو
-                  // بار باز می‌شد. حالا این‌جا فقط state تنظیم می‌شود (دقیقاً
-                  // مثلِ نتایجِ متنی)؛ تنها همان listenerِ reading_canvas_screen.dart
-                  // تصمیم می‌گیرد چه اتفاقی بیفتد (چه اسکرول به صفحه، چه بازکردنِ پلیر).
-                  // 🐞 «جستجوی دوباره‌ی همان عبارت و تپ روی همان نتیجه، فقط نارنجی
-                  // می‌کند و اسکرول نمی‌کند»: جلسه‌ی تازه با همان query و همان
-                  // currentIndex از نظرِ listenerِ اسکرول (reading_canvas) «بی‌تغییر»
-                  // بود و اسکرول اصلاً شروع نمی‌شد. jumpTrigger را بالا می‌بریم تا هر
-                  // تپ روی نتیجه، همیشه یک پرش باشد.
-                  final int prevTrigger =
-                      ref.read(activeSearchProvider)?.jumpTrigger ?? 0;
-                  ref.read(activeSearchProvider.notifier).state = session
-                      .copyWith(jumpTrigger: prevTrigger + 1);
-                }
-              },
+              // S-17: اگر جستجویی در جریان است، همان فهرست دوباره باز می‌شود.
+              onPressed: () => _openSearch(
+                pagedBookStore,
+                resume: searchBarVisible ? searchSession : null,
+              ),
             ),
             // IconButton(
             //   icon: const Icon(Icons.library_books_rounded),
