@@ -102,7 +102,10 @@ _PlayerColors _playerColors(
   AudioSkill skill = AudioSkill.other,
 }) {
   final scheme = ColorScheme.fromSeed(
-    seedColor: Theme.of(context).colorScheme.primary,
+    // 🌟 AU-12: تمِ کلِ پلیر (زمینه، نوارها، دکمه‌ها) از رنگِ مهارت ساخته می‌شود؛ مهارتِ نامعلوم ←
+    // رنگِ تمِ برنامه.
+    seedColor:
+        audioSkillColor(skill) ?? Theme.of(context).colorScheme.primary,
     brightness: Brightness.dark,
   );
   // 🐞 رفع باگِ «زیرخط رویِ هایلایت دیده نمی‌شود»: scheme.tertiary در یک
@@ -120,11 +123,22 @@ _PlayerColors _playerColors(
   // 🐞 رنگِ جداگانه برای «این نتیجه‌ی جستجو است» — عمداً از رنگِ accent
   // (نارنجیِ «در حالِ پخش») متفاوت است تا با هم قاطی نشوند؛ از رویِ رنگِ
   // اصلیِ برندِ اپ (primary) ساخته می‌شود، نه یک رنگِ کاملاً بی‌ربط.
-  final Color searchMatch = vivid(scheme.primary, lightness: 0.68);
+  // AU-12: وقتی تم رنگِ مهارت است، primary هم‌فامِ accent می‌شود؛ پس یافته‌ی جستجو کهربایی.
+  final bool skillTheme = audioSkillColor(skill) != null;
+  final Color searchMatch = skillTheme
+      ? const Color(0xFFFFCA28)
+      : vivid(scheme.primary, lightness: 0.68);
 
   return _PlayerColors(
-    bgTop: Color.lerp(scheme.surfaceContainerHigh, scheme.primary, 0.12)!,
-    bgBottom: scheme.surface,
+    // AU-12: تمِ مهارت کمی پررنگ‌تر، تا Listening و Speaking از هم پیدا باشند.
+    bgTop: Color.lerp(
+      scheme.surfaceContainerHigh,
+      scheme.primary,
+      skillTheme ? 0.24 : 0.12,
+    )!,
+    bgBottom: skillTheme
+        ? Color.lerp(scheme.surface, scheme.primary, 0.07)!
+        : scheme.surface,
     barBg: scheme.surfaceContainerHighest,
     accent: accent,
     onAccent: Colors.black,
@@ -1201,13 +1215,17 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
       },
     );
     final audioState = ref.watch(audioPlayerProvider);
-    // 🌟 AU-9: رنگِ مهارتِ فایلِ فعلی
-    _colors = _playerColors(
-      context,
-      skill: audioState.currentPath == null
-          ? AudioSkill.other
-          : ref.read(audioPlayerProvider.notifier).skillOfPath(audioState.currentPath!),
+    // 🌟 AU-9/AU-12: رنگ و تمِ مهارتِ فایلِ فعلی، و درس و مهارتش برای سرِ برگه.
+    final AudioPlayerNotifier headerNotifier = ref.read(
+      audioPlayerProvider.notifier,
     );
+    final AudioSkill headerSkill = audioState.currentPath == null
+        ? AudioSkill.other
+        : headerNotifier.skillOfPath(audioState.currentPath!);
+    final String? headerWhere = audioState.currentPath == null
+        ? null
+        : headerNotifier.trackLocationLabel(audioState.currentPath!);
+    _colors = _playerColors(context, skill: headerSkill);
     final int currentPosMs = audioState.position.inMilliseconds;
     final currentFileName = audioState.currentPath?.split('/').last ?? '';
     final double totalMs = audioState.duration.inMilliseconds.toDouble();
@@ -1344,20 +1362,54 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(
-                    audioState.currentPath?.split('/').last ??
-                        "(متن صوتی)", // = Audioscript
-                    textDirection: audioState.currentPath == null
-                        ? TextDirection.rtl
-                        : TextDirection.ltr,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        audioState.currentPath?.split('/').last ??
+                            "(متن صوتی)", // = Audioscript
+                        textDirection: audioState.currentPath == null
+                            ? TextDirection.rtl
+                            : TextDirection.ltr,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      // 🌟 AU-12: درس و مهارتِ فایل زیرِ نامش، با آیکون و رنگِ مهارت.
+                      if (headerWhere != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                audioSkillIcon(headerSkill),
+                                size: 14,
+                                color: _colors.accent,
+                              ),
+                              const SizedBox(width: 5),
+                              Flexible(
+                                child: Text(
+                                  headerWhere,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                    color: _colors.accent,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
                   ),
                 ),
                 // 🌟 AU-8: تایمرِ توقف (در سرِ برگه؛ نوارِ کنترل‌های پایین روی گوشی جا ندارد)
@@ -1750,7 +1802,8 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                                 onChanged: (v) => ref
                                     .read(audioPlayerProvider.notifier)
                                     .seek(Duration(milliseconds: v.toInt())),
-                                activeColor: Colors.blueAccent.withOpacity(0.7),
+                                // AU-12: نوارِ پیشرفت به رنگِ مهارت
+                                activeColor: _colors.accent.withOpacity(0.85),
                                 inactiveColor: Colors.white12,
                               ),
                             ],
