@@ -318,11 +318,12 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
           widget.indexForPageNumber,
         );
         // 🌟 N-17: ناوبر به رنگِ مهارتِ بخشی که الان خوانده می‌شود (همان رنگِ کادرِ صفحه، AU-9)؛
-        // بخشِ بی‌مهارت (سرآغازِ درس، …) رنگِ اصلیِ برنامه. تغییرِ رنگ نرم است (AnimatedTheme).
+        // بخشِ بی‌مهارت (سرآغازِ درس، …) رنگِ اصلیِ برنامه.
         final ThemeData theme = Theme.of(context);
         final Color? skill = _skillColorAt(pos);
-        return AnimatedTheme(
-          duration: const Duration(milliseconds: 350),
+        // 🐞 Theme، نه AnimatedTheme: میان‌یابیِ کلِ ThemeData (همه‌ی TextStyleها) هر فریم هم
+        // پرهزینه است و هم با بعضی تم‌ها خطا می‌دهد (صفحه‌ی خاکستری در release).
+        return Theme(
           data: skill == null
               ? theme
               : theme.copyWith(
@@ -331,7 +332,7 @@ class _BookOutlineNavigatorState extends State<BookOutlineNavigator> {
                     onPrimary: Colors.white,
                   ),
                 ),
-          // Builder: زبانه و پنل رنگ را از Themeِ زیرِ AnimatedTheme بخوانند، نه از contextِ
+          // Builder: زبانه و پنل رنگ را از Themeِ زیرِ همین Theme بخوانند، نه از contextِ
           // خودِ ناوبر (بالای آن) — وگرنه فقط دکمه‌های بخش رنگ می‌گرفتند و زمینه همان می‌ماند.
           child: Builder(
             builder: (context) => AnimatedSwitcher(
