@@ -5,6 +5,7 @@ import 'package:ielts_assistant/app/app.dart';
 import 'package:ielts_assistant/features/audio/data/media_session_service.dart';
 import 'package:ielts_assistant/core/device/device_identity.dart';
 import 'package:ielts_assistant/core/license/license_service.dart';
+import 'package:ielts_assistant/core/diagnostics/error_report.dart';
 
 /// نقطه‌ی ورودِ برنامه — فقط راه‌اندازیِ اولیه.
 /// 🌟 خودِ ویجتِ ریشه به app/app.dart منتقل شد: main.dart جای «چه چیزی قبل از
@@ -12,6 +13,8 @@ import 'package:ielts_assistant/core/license/license_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  // 🌟 DIAG-1: خطای build در release هم پیام و دکمه‌ی «کپیِ گزارش» دارد (نه فقط کادرِ خاکستری).
+  ErrorReport.install();
   // 🌟 DEV-1/4: شناسه‌ی دستگاه پیش از اولین درخواستِ شبکه، و وارسیِ مجوزِ آفلاینِ ذخیره‌شده
   // پیش از اولین نمایشِ ویترین.
   await DeviceIdentity.init();

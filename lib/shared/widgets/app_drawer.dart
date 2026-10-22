@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ielts_assistant/core/diagnostics/error_report.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ielts_assistant/core/app_config/app_config.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -230,6 +232,50 @@ class AppDrawer extends ConsumerWidget {
               );
             },
           ),
+
+          // 🌟 DIAG-1: فقط وقتی خطایی ثبت شده — فهرستِ خطاهای اخیر با «کپیِ همه».
+          if (ErrorReport.recent().isNotEmpty)
+            ListTile(
+              leading: const Icon(Icons.bug_report_outlined),
+              title: const Text("گزارشِ خطاها"),
+              subtitle: Text('${ErrorReport.recent().length} خطای اخیر — برای پشتیبانی کپی کنید'),
+              onTap: () {
+                final List<String> all = ErrorReport.recent();
+                Navigator.pop(context);
+                showDialog<void>(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text('گزارشِ خطاها'),
+                    content: SizedBox(
+                      width: double.maxFinite,
+                      child: SingleChildScrollView(
+                        child: SelectableText(
+                          all.join('\n\n────────\n\n'),
+                          textDirection: TextDirection.ltr,
+                          style: const TextStyle(fontSize: 11),
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(ctx),
+                        child: const Text('بستن'),
+                      ),
+                      FilledButton.icon(
+                        icon: const Icon(Icons.copy_rounded, size: 18),
+                        label: const Text('کپیِ همه'),
+                        onPressed: () {
+                          Clipboard.setData(
+                            ClipboardData(text: all.join('\n\n────────\n\n')),
+                          );
+                          Navigator.pop(ctx);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
 
           // 🌟 SITE-5: پشتیبانی و صفحه‌های سایت (پیوندها و متن‌ها از پنلِ سایت)
           Builder(
