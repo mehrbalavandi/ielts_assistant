@@ -261,7 +261,11 @@ class BackupNotifier extends Notifier<BackupState> {
       final Object? data = res.data['data'];
       if (data is Map && data.isNotEmpty) {
         for (final MapEntry<dynamic, dynamic> e in data.entries) {
-          await _box.write(e.key.toString(), e.value);
+          final String key = e.key.toString();
+          Object? value = e.value;
+          // 🐞 JSON «0.0» را «0» برمی‌گرداند؛ جای داخلِ صفحه همیشه double ذخیره شود.
+          if (key.startsWith('scroll_align_') && value is num) value = value.toDouble();
+          await _box.write(key, value);
         }
         ref.invalidate(answerDisplayProvider);
         ref.invalidate(audioStartProvider);

@@ -607,9 +607,13 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas>
 
     // خواندن موقعیت ذخیره‌شده هنگام init (قبل از اولین build)
     final currentBook = ref.read(activeBookProvider);
-    _savedIndex = _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
+    // 🐞 BK-2: پشتیبانِ تنظیمات این دو را از راهِ JSON برمی‌گرداند و «0.0» آن‌جا «0» (int) می‌شود؛
+    // read<double> در release با «type 'int' is not a subtype of type 'double?'» کلِ صفحه‌ی مطالعه
+    // را خاکستری می‌کرد. پس num خوانده و تبدیل می‌شود.
+    _savedIndex =
+        (_box.read<num>('scroll_page_${currentBook?.id ?? "default"}') ?? 0).toInt();
     _savedAlignment =
-        _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
+        (_box.read<num>('scroll_align_${currentBook?.id ?? "default"}') ?? 0).toDouble();
 
     _itemPositionsListener.itemPositions.addListener(() {
       // 🌟 این listener روی هر فریمِ اسکرول فراخوانی می‌شود. نوشتن مستقیم
@@ -1465,11 +1469,12 @@ class _ReadingCanvasState extends ConsumerState<ReadingCanvas>
       audioPlayerProvider.select((s) => s.currentPath != null),
     );
 
+    // 🐞 num، نه int/double (رجوع به initState: پشتیبان «0.0» را «0» برمی‌گرداند).
     int initialIndex =
-        _box.read('scroll_page_${currentBook?.id ?? "default"}') ?? 0;
+        (_box.read<num>('scroll_page_${currentBook?.id ?? "default"}') ?? 0).toInt();
     // 🌟 فراخوانی نقطه دقیق (Offset) ذخیره شده
     double initialAlignment =
-        _box.read('scroll_align_${currentBook?.id ?? "default"}') ?? 0.0;
+        (_box.read<num>('scroll_align_${currentBook?.id ?? "default"}') ?? 0).toDouble();
 
     // 🐞 پلی‌لیستِ کتاب‌محور برای پلیر — کش‌شده، فقط واقعاً یک‌بار به‌ازای
     // همین pagedBookStore محاسبه می‌شود.
