@@ -57,7 +57,8 @@
       "explanationAr": "أهمّ كلمات السؤال التي تبحث عنها في النص لإيجاد الإجابة؛ أساس مهارة القراءة المسحية.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "scan": {
@@ -76,7 +77,8 @@
       "explanationAr": "في القراءة يعني تصفّح النص دون قراءة كل كلمة، فقط للعثور على كلمة أو رقم أو اسم؛ ويختلف عن skim (القراءة السريعة لفهم الفكرة العامة).",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "specific information": {
@@ -94,7 +96,8 @@
       "explanationAr": "تركيب شائع في تعليمات آيلتس؛ specific (محدّد) في مقابل general (عام).",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "be close to": {
@@ -369,7 +372,8 @@
       "explanationAr": "عبارة رسمية لإضافة معلومة؛ تُستخدم في الكتابة بدل and أو also، ويليها اسم أو فعل بصيغة ing.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "on the other hand": {
@@ -442,7 +446,8 @@
       "explanationAr": "اسم لأيّ فرد من الأقارب؛ ومرادفه relation. وصفةً يعني «نسبي».",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "at a disadvantage": {
@@ -722,7 +727,8 @@
       "explanationAr": "مرادف رسمي لـ stay؛ remain friends أي يظلّون أصدقاء. مفيد لإضفاء طابع رسمي في الكتابة.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "avoid": {
@@ -759,7 +765,8 @@
       "explanationAr": "الجملة والكلمات المحيطة بالكلمة التي تساعد على فهم معناها؛ وguess from context من مهارات القراءة الأساسية.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "work out": {
@@ -797,7 +804,8 @@
       "explanationAr": "لحلّ مشكلة أو إدارة موقف؛ وماضيه dealt /delt/. مفيد جدًّا في الكتابة: deal with a problem.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "be grateful for": {
@@ -851,7 +859,8 @@
       "explanationAr": "أحد أنواع الأسئلة في قسمَي القراءة والاستماع في آيلتس؛ يجب أن تؤخذ الإجابة حرفيًّا من النص وفي حدود عدد الكلمات المسموح.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "percentage": {
@@ -887,7 +896,8 @@
       "explanationAr": "عبارة أساسية في تعليمات آيلتس؛ NO MORE THAN TWO WORDS تعني أنّ الإجابة الأطول من كلمتين تُحسب خاطئة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "passage": {
@@ -905,7 +915,8 @@
       "explanationAr": "في آيلتس يُسمّى كل نص قراءة passage (Reading Passage 1). ومن معانيه الأخرى «الممرّ».",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "according to": {
@@ -923,7 +934,8 @@
       "explanationAr": "لنقل رأي أو معلومة عن مصدر: according to the writer؛ مفيد في الكتابة للإشارة إلى الإحصاءات والآراء.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "lose marks": {
@@ -978,7 +990,8 @@
       "explanationAr": "للتعبير عن الهدف، وهي أرسمي من to؛ ويليها فعل في صيغته الأساسية: in order to get the right answer.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "generally": {
@@ -1041,7 +1054,10 @@
     "maintain": {
       "headword": "maintain",
       "forms": [
-        "maintain"
+        "maintain",
+        "maintains",
+        "maintained",
+        "maintaining"
       ],
       "pos": "verb",
       "ipa": "/meɪnˈteɪn/",
@@ -1053,7 +1069,8 @@
       "explanationAr": "maintain a relationship أي يحافظ على علاقة ويستمرّ فيها؛ بديل رسمي لـ keep في الكتابة.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "explosion": {
@@ -1461,7 +1478,8 @@
       "explanationAr": "في المهمّة الأولى من الكتابة تكون المقدّمة عادةً إعادة صياغة لنصّ السؤال بكلماتك الخاصة (paraphrase).",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "overview": {
@@ -1664,14 +1682,17 @@
       "explanationAr": "يُستخدم في المهمّة الأولى من الكتابة لرسم يوضّح عملية أو جهازًا، ويمكن أن تبدأ المقدّمة بـ The diagram shows/illustrates ….",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "demonstrate": {
       "headword": "demonstrate",
       "forms": [
         "demonstrates",
-        "demonstrate"
+        "demonstrate",
+        "demonstrated",
+        "demonstrating"
       ],
       "pos": "verb",
       "ipa": "/ˈdemənstreɪt/",
@@ -1683,7 +1704,8 @@
       "explanationAr": "بديل أكثر رسمية لـ shows، ومفيد للتنويع في مقدّمة المهمّة الأولى من الكتابة: The diagram demonstrates the process of ….",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "summary": {
@@ -1701,7 +1723,8 @@
       "explanationAr": "الفعل منها summarise. والنظرة العامة (overview) في المهمّة الأولى من الكتابة ملخّص للمخطّط كلّه لا لتفاصيله.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "ingredients": {
@@ -1726,7 +1749,8 @@
     "technique": {
       "headword": "technique",
       "forms": [
-        "technique"
+        "technique",
+        "techniques"
       ],
       "pos": "noun",
       "ipa": "/tekˈniːk/",
@@ -1738,7 +1762,8 @@
       "explanationAr": "النبر على المقطع الثاني (tech-NIQUE). ومن التراكيب الشائعة: the correct technique وlearn a technique.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "pay attention to": {
@@ -1962,7 +1987,8 @@
       "explanationAr": "له في آيلتس عادةً ثلاثة خيارات (A وB وC)، وكثيرًا ما تُصاغ الخيارات بمرادفات لا بالكلمات نفسها الواردة في التسجيل أو النص.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "assignment": {
@@ -2092,7 +2118,8 @@
       "explanationAr": "أي أن يكون رمزًا لشيء: The purse represents good fortune. ومن معانيه أيضًا «يمثّل غيره»: She represents her country.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "good fortune": {
@@ -2183,7 +2210,8 @@
       "explanationAr": "الشخص الذي يحاورك في اختبار المحادثة ويقيّمك، أمّا المتقدّم للاختبار فيسمّى candidate.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "the baby of the family": {
@@ -2698,7 +2726,8 @@
       "explanationAr": "كلمة to هنا حرف جرّ، فيليها اسم أو فعل بصيغة ing: I'm looking forward to having a sister-in-law.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "easy-going": {
@@ -2716,7 +2745,8 @@
       "explanationAr": "لوصف الشخصية: من لا ينزعج أو يقلق بسرعة، وهو أفضل في المحادثة من صفات بسيطة مثل nice.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "sentence completion": {
@@ -2734,7 +2764,8 @@
       "explanationAr": "عليك أن تكمل الجملة بكلمات مأخوذة حرفيًّا من النص، وجملة السؤال إعادة صياغة لجملة في النص، ويجب أن تكون الجملة المكتملة صحيحة نحويًّا.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "skim": {
@@ -2754,7 +2785,8 @@
       "explanationAr": "قراءة النص بسرعة لفهم موضوعه العام، وتختلف عن scan (البحث السريع عن معلومة محدّدة)، وهي عادةً أوّل خطوة في القراءة.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "paraphrase": {
@@ -2773,7 +2805,8 @@
       "explanationAr": "مهارة أساسية في آيلتس؛ فأسئلة القراءة والاستماع غالبًا إعادة صياغة للنص، وفي الكتابة تكون المقدّمة إعادة صياغة لنصّ السؤال.",
       "cefrLevel": "C1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "permanently": {
@@ -3103,7 +3136,8 @@
       "explanationAr": "البادئة un- تنفي المعنى، ومن تراكيبها الشائعة be unfamiliar with something.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "feel at home": {
@@ -3194,7 +3228,8 @@
       "explanationAr": "يأتي غالبًا بصيغة الجمع: sports facilities وrecreation facilities، وهو مفيد جدًّا في وصف الخرائط في المهمّة الأولى من الكتابة.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "campus": {
@@ -3331,7 +3366,9 @@
       "headword": "summarise",
       "forms": [
         "summarise",
-        "summarize"
+        "summarize",
+        "summarising",
+        "summarised"
       ],
       "pos": "verb",
       "ipa": "/ˈsʌməraɪz/",
@@ -3343,7 +3380,8 @@
       "explanationAr": "فعل ثابت في نصّ سؤال المهمّة الأولى من الكتابة: Summarise the information by selecting and reporting the main features.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "main features": {
@@ -3361,7 +3399,8 @@
       "explanationAr": "في المهمّة الأولى من الكتابة عليك أن تختار السمات الرئيسية لا كل التفاصيل، وهي ما تتضمّنه النظرة العامة (overview).",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "make comparisons": {
@@ -3379,7 +3418,8 @@
       "explanationAr": "الفعل المصاحب لـ comparison هو make أو draw عادةً، ويعني في وصف خريطتين المقارنة بين الماضي والحاضر.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "introductory sentence": {
@@ -3506,7 +3546,8 @@
       "explanationAr": "يُستخدم للمقارنة بين حالتين مختلفتين في جملة واحدة: In 1995 there was a car park, whereas now the reception is there.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "demolish": {
@@ -3682,7 +3723,8 @@
         "spelling",
         "spelled",
         "spelt",
-        "spell"
+        "spell",
+        "spellings"
       ],
       "pos": "verb",
       "ipa": "/spel/",
@@ -3694,7 +3736,8 @@
       "explanationAr": "ماضيه في البريطانية spelt وفي الأمريكية spelled، والتهجئة الخاطئة في الاستماع تعني إجابة خاطئة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "be due": {
@@ -3739,7 +3782,10 @@
       "headword": "hire",
       "forms": [
         "hire shop",
-        "the hire"
+        "the hire",
+        "hired",
+        "hires",
+        "hiring"
       ],
       "pos": "noun / verb",
       "ipa": "/haɪə/",
@@ -3751,7 +3797,8 @@
       "explanationAr": "يُستخدم في بريطانيا لاستئجار الأشياء مدّة قصيرة (درّاجة، سيارة، قاعة)، ومقابله الأمريكي rent: bike hire وa hire shop.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "digit": {
@@ -3789,7 +3836,8 @@
       "explanationAr": "من أكثر موضوعات الجزء 1 من المحادثة شيوعًا (Where is your home town? Has it changed?).",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "quite a few": {
@@ -3862,7 +3910,8 @@
       "explanationAr": "برودة تسبّب بعض الانزعاج، وهي أخفّ من freezing وأقلّ لطفًا من cool.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "on the coast": {
@@ -3880,7 +3929,8 @@
       "explanationAr": "حرف الجرّ معه on (لا in): a town on the north-east coast.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "inland": {
@@ -4042,7 +4092,8 @@
       "explanationAr": "أقوى من beautiful، ويُستخدم للمباني والمناظر والأعمال العظيمة: a magnificent palace.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "polluted": {
@@ -4114,7 +4165,8 @@
       "explanationAr": "أكثر رسمية من is in: The city is situated on the coast، وتُنطق نهايتها -ed بصوت /ɪd/.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "used to": {
@@ -4259,7 +4311,8 @@
       "explanationAr": "on time تعني في الموعد المحدّد تمامًا، أمّا in time فتعني قبل فوات الأوان: The bus is running on time.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "pick someone up": {
@@ -4447,7 +4500,8 @@
       "explanationAr": "اسم غير معدود (فلا يقال public transports)، ومقابله الأمريكي public transportation.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "main idea": {
@@ -4466,7 +4520,8 @@
       "explanationAr": "الرسالة العامة لفقرة أو نص، وتأتي في القراءة غالبًا في الجملة الأولى من الفقرة، وتتعلّق بها أسئلة كثيرة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "blended learning": {
@@ -4802,7 +4857,8 @@
       "explanationAr": "يتبعها اسم أو مركّب اسمي لا جملة، ومرادفها because of.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "compete for": {
@@ -4973,7 +5029,8 @@
       "explanationAr": "يأتي دون حرف جر: attend a college، وهو أكثر رسمية من go to.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "valuable": {
@@ -5010,7 +5067,8 @@
       "explanationAr": "جزء أو سمة من موقف أو موضوع: most aspects of our lives، ومفيدة في الكتابة لتناول جوانب الموضوع.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "internationally recognised": {
@@ -5250,7 +5308,8 @@
       "explanationAr": "الاتجاه العام للتغيّر، ويكثر في الكتابة الجزء 1: an upward / downward trend.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "school leaver": {
@@ -5472,7 +5531,8 @@
       "explanationAr": "رسم يبيّن تغيّر القيم بمرور الوقت بخط أو أكثر، وهو من الأنواع الشائعة في الكتابة الجزء 1.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "pie chart": {
@@ -5491,7 +5551,8 @@
       "explanationAr": "دائرة مقسّمة إلى أجزاء تبيّن حصّة كل جزء من الكل، وتوصف بالكسور مثل a third وa quarter.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "bar chart": {
@@ -5510,7 +5571,8 @@
       "explanationAr": "رسم بأعمدة أفقية أو رأسية لمقارنة القيم، ويُستخدم في الكتابة الجزء 1 للمقارنة غالبًا.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "over time": {
@@ -5590,7 +5652,9 @@
       "headword": "decline",
       "forms": [
         "decline",
-        "declined"
+        "declined",
+        "declines",
+        "declining"
       ],
       "pos": "verb / noun",
       "ipa": "/dɪˈklaɪn/",
@@ -5602,14 +5666,17 @@
       "explanationAr": "فعل واسم، وفي وصف الرسوم أكثر رسمية من fall: a decline in numbers.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "decrease": {
       "headword": "decrease",
       "forms": [
         "decrease",
-        "decreased"
+        "decreased",
+        "decreases",
+        "decreasing"
       ],
       "pos": "verb / noun",
       "ipa": "/dɪˈkriːs/ (v), /ˈdiːkriːs/ (n)",
@@ -5621,14 +5688,17 @@
       "explanationAr": "عكس increase، والنبر في الفعل على المقطع الثاني وفي الاسم على الأول.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "drop": {
       "headword": "drop",
       "forms": [
         "drop",
-        "dropped"
+        "dropped",
+        "drops",
+        "dropping"
       ],
       "pos": "verb / noun",
       "ipa": "/drɒp/",
@@ -5640,7 +5710,8 @@
       "explanationAr": "في وصف الرسوم للانخفاض المفاجئ غالبًا: a sharp drop، والماضي dropped بحرفي p.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "growth": {
@@ -5677,7 +5748,8 @@
       "explanationAr": "لتغيّر مستمرّ بانتظام وهدوء: a steady rise، والظرف steadily.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "upward trend": {
@@ -5769,7 +5841,8 @@
       "explanationAr": "مجموعة من الأشياء أو الأشخاص ذوي سمة مشتركة، وفي الرسوم يمثّل كل عمود أو جزء فئة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "unemployed": {
@@ -5805,7 +5878,8 @@
       "explanationAr": "أشيع بداية لجملة النظرة العامة في الكتابة الجزء 1.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "figures": {
@@ -5824,7 +5898,8 @@
       "explanationAr": "في وصف البيانات تعني figure «رقم»، ولها معانٍ أخرى مثل «قوام» أو «شخصية».",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "refer to": {
@@ -5954,7 +6029,8 @@
       "explanationAr": "لبدء الجملة أو الفقرة الختامية في الكتابة، ومرادفها To sum up.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "vary": {
@@ -5974,7 +6050,8 @@
       "explanationAr": "للقيم التي تختلف من مكان لآخر، والصفتان various وvariable.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "synonym": {
@@ -5993,7 +6070,8 @@
       "explanationAr": "كلمة بمعنى مشابه، وفي آيلتس يستخدم المتحدّث أو النص غالبًا مرادفات لكلمات السؤال. عكسها antonym.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "construction": {
@@ -6011,7 +6089,8 @@
       "explanationAr": "تشير إلى صناعة البناء وإلى عملية البناء نفسها، والفعل construct.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "leisure": {
@@ -6175,7 +6254,8 @@
       "explanationAr": "في اختبار الاستماع يُسمّى ما يُبثّ recording، ويُشغَّل مرة واحدة فقط.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "uncountable": {
@@ -6619,7 +6699,8 @@
       "explanationAr": "في القراءة يعني العثور بسرعة على مكان المعلومة في النص: locate information، ويختلف عن be located (يقع).",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "gapped sentence": {
@@ -7227,7 +7308,8 @@
       "forms": [
         "eliminated",
         "eliminate",
-        "eliminates"
+        "eliminates",
+        "eliminating"
       ],
       "pos": "verb",
       "ipa": "/ɪˈlɪmɪneɪt/",
@@ -7239,7 +7321,8 @@
       "explanationAr": "في المسابقات يعني «يُستبعد» (be eliminated)، وفي النصوص الأكاديمية يعني «يقضي على»: eliminate poverty.",
       "cefrLevel": "C1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "ready-made": {
@@ -7387,7 +7470,8 @@
       "explanationAr": "جزء من التعليمات الثابتة في المهمّة الأولى من الكتابة: make comparisons where relevant، أي اذكروا المقارنات المفيدة فقط.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "proportion": {
@@ -7424,7 +7508,8 @@
       "explanationAr": "في المهمّة الأولى من الكتابة حين لا يكون الرقم الدقيق معروفًا: approximately a quarter، ومرادفاتها around وabout.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "official language": {
@@ -7555,7 +7640,8 @@
       "explanationAr": "لرقم لا يتغيّر كثيرًا، ومرادفاتها level off وremain steady، وشائعة جدًّا في المهمّة الأولى.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "overweight": {
@@ -7598,7 +7684,8 @@
     "significant": {
       "headword": "significant",
       "forms": [
-        "significant"
+        "significant",
+        "significantly"
       ],
       "pos": "adjective",
       "ipa": "/sɪɡˈnɪfɪkənt/",
@@ -7610,13 +7697,15 @@
       "explanationAr": "في المهمّة الأولى: a significant increase/drop، وهي أكثر رسمية من big، والظرف significantly.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "gradual": {
       "headword": "gradual",
       "forms": [
-        "gradual"
+        "gradual",
+        "gradually"
       ],
       "pos": "adjective",
       "ipa": "/ˈɡrædʒuəl/",
@@ -7628,7 +7717,8 @@
       "explanationAr": "صفة gradually: a gradual rise/decline، وعكسها sharp أو sudden.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "occur": {
@@ -7760,7 +7850,8 @@
       "explanationAr": "خيار يُذكر في التسجيل أو النص لكنه ليس الإجابة، وغالبًا ما يصحّحه المتحدّث أو يرفضه لاحقًا.",
       "cefrLevel": "C1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "classification task": {
@@ -7981,7 +8072,8 @@
       "explanationAr": "تُستخدم بمعنى محايد (الطريقة القديمة) أو سلبي (عتيق)، وتقارب traditional في السياق الإيجابي.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "contemporary": {
@@ -8164,7 +8256,8 @@
       "explanationAr": "صفة region: regional cooking/accent/differences، وشائعة في النصوص الجغرافية.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "adapt": {
@@ -8333,7 +8426,8 @@
       "explanationAr": "ترادف take notes، وهي مهارة أساسية في الجزء 2 من المحادثة وفي الاستماع: make notes on the topic.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "juicy": {
@@ -8719,7 +8813,8 @@
       "explanationAr": "one of the highlights of the trip، وكفعل تعني «يُبرز»: highlight the main features.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "run out of": {
@@ -8895,7 +8990,9 @@
       "headword": "shopping mall",
       "forms": [
         "shopping malls",
-        "shopping mall"
+        "shopping mall",
+        "malls",
+        "big malls"
       ],
       "pos": "noun phrase",
       "ipa": "/ˈʃɒpɪŋ mɔːl/",
@@ -8907,7 +9004,8 @@
       "explanationAr": "كلمة mall أمريكية في الأصل، وفي الإنجليزية البريطانية يشيع أيضاً shopping centre، وكلاهما مقبول في المحادثة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "hang out": {
@@ -8927,7 +9025,8 @@
       "explanationAr": "غير رسمي ومناسب للحديث عن أوقات الفراغ في المحادثة: hang out with friends. في الكتابة استخدموا spend time بدلاً منه.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "move on": {
@@ -9007,7 +9106,8 @@
       "explanationAr": "It is predicted that ... تركيب مبني للمجهول رسمي للتعبير عن التوقّع في الكتابة. والاسم منه prediction.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "downtown": {
@@ -9189,7 +9289,8 @@
       "explanationAr": "ضدّ permanent (دائم): a temporary job وtemporary shops. والظرف منها temporarily.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "promotion": {
@@ -10096,7 +10197,8 @@
       "explanationAr": "في بداية الجملة للتعبير عن رأي شخصي: Personally, I prefer ... وهي طبيعية جداً في المحادثة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "in person": {
@@ -10901,7 +11003,8 @@
       "explanationAr": "بمعنى write down وmake a note of، وتكثر في الاستماع والتحضير للمحادثة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "essay plan": {
@@ -10955,7 +11058,8 @@
       "explanationAr": "في المقال تلخّص الخاتمة الرأي ولا تأتي بفكرة جديدة، وعبارة افتتاحها in conclusion.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "for instance": {
@@ -11138,7 +11242,8 @@
       "explanationAr": "لمكان يجمع كل شيء في موضع واحد، وفي هذا الدرس هي إعادة صياغة لـ in one building.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "outdoor market": {
@@ -11557,7 +11662,8 @@
       "explanationAr": "أكثر رسمية من now، وتأتي مع المضارع البسيط أو المستمر، ولا تخلطوها مع actually (في الواقع).",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "invest": {
@@ -11777,7 +11883,8 @@
       "explanationAr": "للمباني والغرف: a spacious apartment، وهي صفة أفضل من big في المحادثة.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "multi-storey car park": {
@@ -13069,7 +13176,8 @@
       "explanationAr": "جزء من معيار grammatical range and accuracy في الكتابة.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "follow directions": {
@@ -13747,7 +13855,8 @@
       "explanationAr": "صفة من fact؛ factual information أي معلومات واقعية في مقابل الرأي (opinion).",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "purpose": {
@@ -14023,7 +14132,8 @@
       "explanationAr": "الاسم بنبر على المقطع الأول، والفعل exTRACT بنبر على الثاني ومعناه «يستخرج».",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "dream of": {
@@ -14121,7 +14231,10 @@
     "underline": {
       "headword": "underline",
       "forms": [
-        "underline"
+        "underline",
+        "underlining",
+        "underlined",
+        "underlines"
       ],
       "pos": "verb",
       "ipa": "/ˌʌndəˈlaɪn/",
@@ -14133,7 +14246,8 @@
       "explanationAr": "استراتيجية شائعة: underline the key words في السؤال والنص لإيجاد المعلومات بسرعة.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "task type": {
@@ -14527,7 +14641,8 @@
     "substantial": {
       "headword": "substantial",
       "forms": [
-        "substantial"
+        "substantial",
+        "substantially"
       ],
       "pos": "adjective",
       "ipa": "/səbˈstænʃl/",
@@ -14539,7 +14654,8 @@
       "explanationAr": "substantial amounts of money أي مبالغ كبيرة، وهي صفة أكاديمية أرسم من big.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "in the wild": {
@@ -15281,7 +15397,8 @@
       "explanationAr": "الإملاء البريطاني -ise والأمريكي -ize، والاسم criticism.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "overwork": {
@@ -15342,7 +15459,9 @@
       "headword": "donate",
       "forms": [
         "donates",
-        "donate"
+        "donate",
+        "donated",
+        "donating"
       ],
       "pos": "verb",
       "ipa": "/dəʊˈneɪt/",
@@ -15354,7 +15473,8 @@
       "explanationAr": "donate money to charity، والاسم donation، وهي أرسم من give.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "replace": {
@@ -15977,7 +16097,8 @@
       "explanationAr": "fill the gaps أي يملأ الفراغات، وتكثر في تعليمات تمارين الإكمال.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "grammatical form": {
@@ -16108,7 +16229,8 @@
       "explanationAr": "بيت كبير جدًّا وباهظ، شائع في وصف حياة المشاهير.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "fill the gaps": {
@@ -16217,7 +16339,8 @@
       "explanationAr": "an approach to + اسم أو -ing، وto هنا حرف جرّ، والفعل approach بمعنى يقترب.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "technical language": {
@@ -16418,7 +16541,8 @@
       "explanationAr": "في التصوير كمية الضوء الواصلة إلى المستشعر، وعمومًا exposure to the media.",
       "cefrLevel": "C1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "therefore": {
@@ -16509,7 +16633,8 @@
       "explanationAr": "focus on + اسم أو -ing، ومرادفها concentrate on.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "lecture": {
@@ -16618,7 +16743,8 @@
       "explanationAr": "في السينما on location أي التصوير في مكان حقيقي لا في الاستوديو.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "storyboard": {
@@ -16679,7 +16805,8 @@
       "headword": "tense",
       "forms": [
         "tenses",
-        "appropriate tense"
+        "appropriate tense",
+        "correct tense"
       ],
       "pos": "noun",
       "ipa": "/tens/",
@@ -16691,7 +16818,8 @@
       "explanationAr": "في الجزء 3 وافقوا الزمن مع السؤال: الماضي أو الحاضر أو المستقبل أو الشرط.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "be famous for": {
@@ -17137,7 +17265,9 @@
       "headword": "attract",
       "forms": [
         "attracted",
-        "attract"
+        "attract",
+        "attracts",
+        "attracting"
       ],
       "pos": "verb",
       "ipa": "/əˈtrækt/",
@@ -17149,7 +17279,8 @@
       "explanationAr": "attract fans/visitors، والصفة attractive والاسم attraction.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "big break": {
@@ -17767,7 +17898,8 @@
       "explanationAr": "أرسم من at first، ومفيدة في وصف العمليات.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "fill in": {
@@ -19205,7 +19337,8 @@
       "explanationAr": "as accurately as possible، والاسم accuracy.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "have access to": {
@@ -19681,7 +19814,8 @@
       "explanationAr": "organise an essay أي ترتيب الفقرات والأفكار.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "global warming": {
@@ -20183,7 +20317,10 @@
     "require": {
       "headword": "require",
       "forms": [
-        "require"
+        "require",
+        "requires",
+        "required",
+        "requiring"
       ],
       "pos": "verb",
       "ipa": "/rɪˈkwaɪə/",
@@ -20195,7 +20332,8 @@
       "explanationAr": "أرسم من need، والاسم requirement.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "listen for": {
@@ -20267,7 +20405,8 @@
       "explanationAr": "أرسم من quickly: rose rapidly.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "carry a disease": {
@@ -20358,7 +20497,8 @@
       "explanationAr": "عنوان بمعنى physical description.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "tentacle": {
@@ -21695,7 +21835,8 @@
       "explanationAr": "الجمع valleys.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "hide": {
@@ -21787,7 +21928,8 @@
       "explanationAr": "أقوى من interesting.",
       "cefrLevel": "B1",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "originate in": {
@@ -21812,7 +21954,9 @@
       "headword": "reflect",
       "forms": [
         "reflects",
-        "reflect"
+        "reflect",
+        "reflected",
+        "reflecting"
       ],
       "pos": "verb",
       "ipa": "/rɪˈflekt/",
@@ -21824,7 +21968,8 @@
       "explanationAr": "الاسم reflection.",
       "cefrLevel": "B2",
       "books": [
-        "Mindset 01"
+        "Mindset 01",
+        "Mindset 02"
       ]
     },
     "rarely": {
@@ -22409,6 +22554,3941 @@
       "cefrLevel": "B1",
       "books": [
         "Mindset 01"
+      ]
+    },
+    "man-made": {
+      "headword": "man-made",
+      "forms": [
+        "man-made"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌmæn ˈmeɪd/",
+      "pronounceFa": "مَن مِید",
+      "pronounceAr": "مان ميد",
+      "translationFa": "ساختِ بشر، مصنوعی",
+      "translationAr": "من صنع الإنسان، اصطناعي",
+      "explanationFa": "در برابرِ natural می‌آید: man-made environment (محیطِ ساختِ بشر: ساختمان‌ها و شهرها)، man-made snow (برفِ مصنوعی). در رایتینگ برای پرهیز از تکرارِ artificial به کار می‌رود.",
+      "explanationAr": "يقابل natural: man-made environment (البيئة المبنية: المباني والمدن)، man-made snow (ثلج اصطناعي). مفيد في الكتابة بديلًا عن artificial.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "general idea": {
+      "headword": "general idea",
+      "forms": [
+        "general idea"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌdʒenrəl aɪˈdɪə/",
+      "pronounceFa": "جِنرِل آیدیه",
+      "pronounceAr": "جِنرَل آيديا",
+      "translationFa": "ایده‌ی کلی، برداشتِ کلی",
+      "translationAr": "الفكرة العامة",
+      "explanationFa": "هدفِ skimming همین است: فهمِ ایده‌ی کلیِ متن بدونِ خواندنِ جزئیات. مترادفش gist است.",
+      "explanationAr": "هو هدف القراءة الإجمالية (skimming): فهم الفكرة العامة للنص دون قراءة التفاصيل. ويرادفها gist.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "bungalow": {
+      "headword": "bungalow",
+      "forms": [
+        "bungalow",
+        "bungalows"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈbʌŋɡələʊ/",
+      "pronounceFa": "بانگِلو",
+      "pronounceAr": "بانغَلو",
+      "translationFa": "خانه‌ی یک‌طبقه (ویلایی)",
+      "translationAr": "منزل من طابق واحد",
+      "explanationFa": "در انگلیسیِ بریتانیایی خانه‌ای است که همه‌ی اتاق‌هایش در یک طبقه است؛ در اسپیکینگِ موضوعِ home برای توصیفِ نوعِ خانه به کار می‌آید.",
+      "explanationAr": "في الإنجليزية البريطانية منزل كلّ غرفه في طابق واحد؛ مفيد في محادثة موضوع المنزل لوصف نوع السكن.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "cellar": {
+      "headword": "cellar",
+      "forms": [
+        "cellar",
+        "cellars"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈselə/",
+      "pronounceFa": "سِلِه",
+      "pronounceAr": "سِلَه",
+      "translationFa": "زیرزمین (انباری)",
+      "translationAr": "قبو",
+      "explanationFa": "اتاقی زیرِ سطحِ زمین که معمولاً انباری است؛ basement بیشتر به طبقه‌ی زیرزمینیِ قابلِ سکونت گفته می‌شود.",
+      "explanationAr": "غرفة تحت مستوى الأرض تُستخدم عادة للتخزين؛ أمّا basement فطابق سفلي صالح للسكن غالبًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "remote": {
+      "headword": "remote",
+      "forms": [
+        "remote"
+      ],
+      "pos": "adjective",
+      "ipa": "/rɪˈməʊt/",
+      "pronounceFa": "ریموت",
+      "pronounceAr": "ريموت",
+      "translationFa": "دورافتاده، دور",
+      "translationAr": "ناءٍ، بعيد",
+      "explanationFa": "جایی دور از شهرها و مردم: remote island، remote area، remote village. در رایتینگ برای مناطقِ کم‌جمعیت به کار می‌رود.",
+      "explanationAr": "مكان بعيد عن المدن والناس: remote island، remote area، remote village. يُستخدم في الكتابة للمناطق قليلة السكان.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "city centre": {
+      "headword": "city centre",
+      "forms": [
+        "city centre",
+        "city center"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌsɪti ˈsentə/",
+      "pronounceFa": "سیتی سِنتِه",
+      "pronounceAr": "سِتي سِنتَه",
+      "translationFa": "مرکزِ شهر",
+      "translationAr": "وسط المدينة",
+      "explanationFa": "املای بریتانیایی centre است (آمریکایی: center). in the city centre با حرفِ اضافه‌ی in می‌آید.",
+      "explanationAr": "التهجئة البريطانية centre (والأمريكية center). وتأتي مع in: in the city centre.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "countryside": {
+      "headword": "countryside",
+      "forms": [
+        "countryside"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkʌntrisaɪd/",
+      "pronounceFa": "کانتری‌ساید",
+      "pronounceAr": "كانتري سايد",
+      "translationFa": "روستا، حومه، طبیعتِ بیرونِ شهر",
+      "translationAr": "الريف",
+      "explanationFa": "اسمِ غیرقابلِ‌شمارش است و با the می‌آید: in the countryside. در اسپیکینگ برای مقایسه‌ی زندگیِ شهری و روستایی پرکاربرد است.",
+      "explanationAr": "اسم غير معدود يأتي مع the: in the countryside. شائع في المحادثة للمقارنة بين حياة المدينة والريف.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "glamorous": {
+      "headword": "glamorous",
+      "forms": [
+        "glamorous"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈɡlæmərəs/",
+      "pronounceFa": "گلَمِرِس",
+      "pronounceAr": "غلامَرَس",
+      "translationFa": "پرزرق‌وبرق، جذاب و مجلل",
+      "translationAr": "فاخر، ساحر",
+      "explanationFa": "برای چیزی که هیجان‌انگیز، مجلل و ثروتمندانه به نظر می‌رسد: a glamorous lifestyle / interior.",
+      "explanationAr": "لشيء يبدو مثيرًا وفاخرًا ويوحي بالثراء: a glamorous lifestyle / interior.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "marble": {
+      "headword": "marble",
+      "forms": [
+        "marble"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmɑːbl/",
+      "pronounceFa": "ماب‌ل",
+      "pronounceAr": "مابِل",
+      "translationFa": "سنگِ مرمر",
+      "translationAr": "رخام",
+      "explanationFa": "از واژه‌های موضوعِ مصالحِ ساختمانی؛ به‌صورتِ صفت هم می‌آید: marble floors (کفِ مرمر).",
+      "explanationAr": "من مفردات مواد البناء، ويأتي صفةً أيضًا: marble floors (أرضيات رخامية).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "skyscraper": {
+      "headword": "skyscraper",
+      "forms": [
+        "skyscraper",
+        "skyscrapers"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈskaɪskreɪpə/",
+      "pronounceFa": "اِسکای‌اِسکریپِه",
+      "pronounceAr": "سكاي سكريبَه",
+      "translationFa": "آسمان‌خراش",
+      "translationAr": "ناطحة سحاب",
+      "explanationFa": "ساختمانِ بسیار بلندِ شهری؛ در رایتینگ و اسپیکینگِ موضوعِ شهر و معماری پرکاربرد است.",
+      "explanationAr": "مبنى شاهق في المدينة؛ شائع في الكتابة والمحادثة عن المدن والعمارة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "staircase": {
+      "headword": "staircase",
+      "forms": [
+        "staircase",
+        "staircases"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsteəkeɪs/",
+      "pronounceFa": "اِستِه‌کِیس",
+      "pronounceAr": "ستيه كيس",
+      "translationFa": "راه‌پله",
+      "translationAr": "درج",
+      "explanationFa": "مجموعه‌ی پله‌ها با نرده‌شان درونِ ساختمان؛ stairs به خودِ پله‌ها گفته می‌شود.",
+      "explanationAr": "مجموعة الدرجات مع درابزينها داخل المبنى؛ أمّا stairs فالدرجات نفسها.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "in pairs": {
+      "headword": "in pairs",
+      "forms": [
+        "in pairs"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˈpeəz/",
+      "pronounceFa": "این پِه‌ز",
+      "pronounceAr": "إن بيَز",
+      "translationFa": "دوبه‌دو، دونفره",
+      "translationAr": "في أزواج، ثنائيًا",
+      "explanationFa": "دستورِ رایجِ تمرین‌ها: in pairs (دونفره) و in groups (گروهی).",
+      "explanationAr": "تعليمات شائعة في التمارين: in pairs (ثنائيًا) وin groups (في مجموعات).",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "dream home": {
+      "headword": "dream home",
+      "forms": [
+        "dream home",
+        "dream homes"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌdriːm ˈhəʊm/",
+      "pronounceFa": "دریم هوم",
+      "pronounceAr": "دريم هوم",
+      "translationFa": "خانه‌ی رؤیایی",
+      "translationAr": "منزل الأحلام",
+      "explanationFa": "dream به‌صورتِ صفت یعنی «ایده‌آل»: dream home, dream job. برای توصیفِ آرزوها در اسپیکینگ با would به کار می‌رود.",
+      "explanationAr": "dream بوصفه صفة تعني «المثالي»: dream home، dream job. ويُستخدم مع would لوصف الأمنيات في المحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "dream house": {
+      "headword": "dream house",
+      "forms": [
+        "dream house"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌdriːm ˈhaʊs/",
+      "pronounceFa": "دریم هاوس",
+      "pronounceAr": "دريم هاوس",
+      "translationFa": "خانه‌ی رؤیایی",
+      "translationAr": "بيت الأحلام",
+      "explanationFa": "همان dream home؛ برای توصیفش با would می‌آید: My dream house would be...",
+      "explanationAr": "مثل dream home؛ ويُوصف بـwould: My dream house would be...",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "look up": {
+      "headword": "look up",
+      "forms": [
+        "look up",
+        "looking up",
+        "looked up",
+        "looks up"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌlʊk ˈʌp/",
+      "pronounceFa": "لوک آپ",
+      "pronounceAr": "لُك أب",
+      "translationFa": "(در فرهنگ لغت یا فهرست) جست‌وجو کردن",
+      "translationAr": "يبحث عن (في القاموس أو قائمة)",
+      "explanationFa": "look up a word in the dictionary؛ مفعول می‌تواند وسط بیاید: look it up.",
+      "explanationAr": "look up a word in the dictionary؛ ويمكن أن يأتي المفعول في الوسط: look it up.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "browse": {
+      "headword": "browse",
+      "forms": [
+        "browse",
+        "browsing",
+        "browsed",
+        "browses"
+      ],
+      "pos": "verb",
+      "ipa": "/braʊz/",
+      "pronounceFa": "براوز",
+      "pronounceAr": "براوز",
+      "translationFa": "(بی‌هدفِ مشخص) گشتن، ورق زدن، مرور کردن",
+      "translationAr": "يتصفّح",
+      "explanationFa": "browse the internet / a shop: نگاه کردن بدونِ دنبال کردنِ چیزی مشخص — نزدیک به skimming.",
+      "explanationAr": "browse the internet / a shop: النظر دون البحث عن شيء محدّد — قريب من القراءة الإجمالية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "catalogue": {
+      "headword": "catalogue",
+      "forms": [
+        "catalogue",
+        "catalogues",
+        "catalog"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkætəlɒɡ/",
+      "pronounceFa": "کَتِلاگ",
+      "pronounceAr": "كاتَلوغ",
+      "translationFa": "کاتالوگ، فهرستِ کالا",
+      "translationAr": "كتالوج، دليل المنتجات",
+      "explanationFa": "املای بریتانیایی catalogue و آمریکایی catalog است.",
+      "explanationAr": "التهجئة البريطانية catalogue والأمريكية catalog.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "look through": {
+      "headword": "look through",
+      "forms": [
+        "look through",
+        "looking through",
+        "looked through",
+        "looks through"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌlʊk ˈθruː/",
+      "pronounceFa": "لوک ثرو",
+      "pronounceAr": "لُك ثرو",
+      "translationFa": "(سریع) ورق زدن و نگاه انداختن",
+      "translationAr": "يُلقي نظرة سريعة، يقلّب",
+      "explanationFa": "look through a magazine / your notes: سریع نگاه کردن به چیزی برای پیدا کردن یا بررسی کردن.",
+      "explanationAr": "look through a magazine / your notes: النظر بسرعة في شيء للبحث أو المراجعة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "ignore": {
+      "headword": "ignore",
+      "forms": [
+        "ignore",
+        "ignoring",
+        "ignored",
+        "ignores"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪɡˈnɔː/",
+      "pronounceFa": "ایگنُ",
+      "pronounceAr": "إغنو",
+      "translationFa": "نادیده گرفتن، توجه نکردن",
+      "translationAr": "يتجاهل",
+      "explanationFa": "در ریدینگ: ignore unknown words — کلمه‌های ناآشنا را رها کنید تا وقتتان هدر نرود.",
+      "explanationAr": "في القراءة: ignore unknown words — تجاوزوا الكلمات غير المعروفة كي لا تضيّعوا الوقت.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "private residence": {
+      "headword": "private residence",
+      "forms": [
+        "private residence",
+        "private residences"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌpraɪvət ˈrezɪdəns/",
+      "pronounceFa": "پرایوِت رِزیدِنس",
+      "pronounceAr": "برايفِت ريزيدَنس",
+      "translationFa": "اقامتگاهِ شخصی، خانه‌ی خصوصی",
+      "translationAr": "مسكن خاص",
+      "explanationFa": "residence واژه‌ی رسمیِ «خانه» است؛ private residence در برابرِ ساختمانِ عمومی یا اداری.",
+      "explanationAr": "residence كلمة رسمية للمنزل؛ وprivate residence في مقابل المبنى العام أو الحكومي.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "residence": {
+      "headword": "residence",
+      "forms": [
+        "residence",
+        "residences"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈrezɪdəns/",
+      "pronounceFa": "رِزیدِنس",
+      "pronounceAr": "ريزيدَنس",
+      "translationFa": "اقامتگاه، محلِ سکونت",
+      "translationAr": "مسكن، مقرّ إقامة",
+      "explanationFa": "واژه‌ی رسمی برای خانه، به‌ویژه خانه‌ای بزرگ یا مهم؛ در رایتینگ جای home را برای تنوع می‌گیرد.",
+      "explanationAr": "كلمة رسمية للمنزل، ولا سيّما الكبير أو المهمّ؛ تحلّ محلّ home في الكتابة للتنويع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "named after": {
+      "headword": "named after",
+      "forms": [
+        "named after"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˈneɪmd ˌɑːftə/",
+      "pronounceFa": "نِیمد آفتِه",
+      "pronounceAr": "نيمد آفتَه",
+      "translationFa": "به نامِ ...، نام‌گرفته از",
+      "translationAr": "سُمّي باسم",
+      "explanationFa": "be named after someone/something: نامش را از کسی یا چیزی گرفته است. در آمریکایی named for هم می‌گویند.",
+      "explanationAr": "be named after someone/something: أخذ اسمه من شخص أو شيء. وفي الأمريكية named for أيضًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "mythical": {
+      "headword": "mythical",
+      "forms": [
+        "mythical"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈmɪθɪkl/",
+      "pronounceFa": "میثیک‌ل",
+      "pronounceAr": "مِثِكِل",
+      "translationFa": "افسانه‌ای، اسطوره‌ای",
+      "translationAr": "أسطوري",
+      "explanationFa": "مربوط به اسطوره‌ها (myths)؛ گاهی یعنی «خیالی و واقعی‌نبودن».",
+      "explanationAr": "متعلّق بالأساطير (myths)؛ وأحيانًا يعني «خياليًا غير حقيقي».",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "property": {
+      "headword": "property",
+      "forms": [
+        "property",
+        "properties"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈprɒpəti/",
+      "pronounceFa": "پراپِتی",
+      "pronounceAr": "بروبَتي",
+      "translationFa": "ملک، خانه یا زمین",
+      "translationAr": "عقار، ملكية",
+      "explanationFa": "در موضوعِ مسکن یعنی خانه یا ساختمان و زمین: property prices, property market. اسمِ قابلِ‌شمارش و غیرقابلِ‌شمارش هر دو است.",
+      "explanationAr": "في موضوع السكن يعني المنزل أو المبنى والأرض: property prices، property market. يأتي معدودًا وغير معدود.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "interior": {
+      "headword": "interior",
+      "forms": [
+        "interior"
+      ],
+      "pos": "noun / adjective",
+      "ipa": "/ɪnˈtɪəriə/",
+      "pronounceFa": "اینتیریِه",
+      "pronounceAr": "إنتيرِيَه",
+      "translationFa": "فضای داخلی، داخل",
+      "translationAr": "الداخل، التصميم الداخلي",
+      "explanationFa": "در برابرِ exterior (بیرون): the interior of the house؛ interior design یعنی طراحیِ داخلی.",
+      "explanationAr": "يقابل exterior (الخارج): the interior of the house؛ وinterior design يعني التصميم الداخلي.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "extravagant": {
+      "headword": "extravagant",
+      "forms": [
+        "extravagant"
+      ],
+      "pos": "adjective",
+      "ipa": "/ɪkˈstrævəɡənt/",
+      "pronounceFa": "ایکسترَوِگِنت",
+      "pronounceAr": "إكستراڤَغَنت",
+      "translationFa": "پرتجمل، ولخرجانه، بیش از حد گران",
+      "translationAr": "باذخ، مسرف",
+      "explanationFa": "برای چیزی که بیش از اندازه گران یا مجلل است؛ معمولاً بارِ منفیِ «اسراف» دارد.",
+      "explanationAr": "لشيء مكلف أو فاخر أكثر من اللازم؛ ويحمل غالبًا معنى سلبيًا هو الإسراف.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "symbol": {
+      "headword": "symbol",
+      "forms": [
+        "symbol",
+        "symbols"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsɪmbl/",
+      "pronounceFa": "سیمب‌ل",
+      "pronounceAr": "سِمبِل",
+      "translationFa": "نماد",
+      "translationAr": "رمز",
+      "explanationFa": "a symbol of something: نمادِ چیزی. صفتش symbolic است.",
+      "explanationAr": "a symbol of something: رمز لشيء. والصفة symbolic.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "spectacular": {
+      "headword": "spectacular",
+      "forms": [
+        "spectacular"
+      ],
+      "pos": "adjective",
+      "ipa": "/spekˈtækjələ/",
+      "pronounceFa": "اِسپِکتَکیولِه",
+      "pronounceAr": "سبكتاكيولَه",
+      "translationFa": "خیره‌کننده، تماشایی",
+      "translationAr": "خلّاب، مذهل",
+      "explanationFa": "هم‌آیندِ رایج: spectacular views / scenery. برای توصیفِ چشم‌انداز در اسپیکینگ جایگزینِ خوبی برای very beautiful است.",
+      "explanationAr": "تلازم شائع: spectacular views / scenery. بديل جيد لـvery beautiful عند وصف المناظر في المحادثة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "multi-storey": {
+      "headword": "multi-storey",
+      "forms": [
+        "multi-storey",
+        "multi-story"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌmʌlti ˈstɔːri/",
+      "pronounceFa": "مالتی اِستُری",
+      "pronounceAr": "مالتي ستوري",
+      "translationFa": "چندطبقه",
+      "translationAr": "متعدّد الطوابق",
+      "explanationFa": "storey (بریتانیایی) یعنی طبقه‌ی ساختمان: a multi-storey garage / car park.",
+      "explanationAr": "storey (بريطانية) تعني طابق المبنى: a multi-storey garage / car park.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "alternatively": {
+      "headword": "alternatively",
+      "forms": [
+        "alternatively"
+      ],
+      "pos": "adverb",
+      "ipa": "/ɔːlˈtɜːnətɪvli/",
+      "pronounceFa": "اُلتِرنِتیولی",
+      "pronounceAr": "أولتيرنَتِفلي",
+      "translationFa": "یا در عوض، یا اینکه",
+      "translationAr": "بدلًا من ذلك، أو",
+      "explanationFa": "برای پیشنهادِ گزینه‌ی دیگر در آغازِ جمله می‌آید؛ در رایتینگ برای معرفیِ راه‌حلِ دیگر به کار می‌رود.",
+      "explanationAr": "يأتي في أوّل الجملة لاقتراح خيار آخر؛ ويُستخدم في الكتابة لعرض حلّ بديل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "helipad": {
+      "headword": "helipad",
+      "forms": [
+        "helipad",
+        "helipads"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈhelipæd/",
+      "pronounceFa": "هِلی‌پَد",
+      "pronounceAr": "هيلي باد",
+      "translationFa": "سکوی فرودِ بالگرد",
+      "translationAr": "مهبط طائرات مروحية",
+      "explanationFa": "از helicopter + pad (سکو) ساخته شده است.",
+      "explanationAr": "مركّبة من helicopter وpad (منصّة).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "lobby": {
+      "headword": "lobby",
+      "forms": [
+        "lobby",
+        "lobbies"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈlɒbi/",
+      "pronounceFa": "لابی",
+      "pronounceAr": "لوبي",
+      "translationFa": "سرسرا، لابی",
+      "translationAr": "ردهة، بهو",
+      "explanationFa": "فضای ورودیِ هتل یا ساختمانِ بزرگ؛ به‌صورتِ فعل (lobby) یعنی برای قانونی تلاش و فشار آوردن.",
+      "explanationAr": "مساحة المدخل في فندق أو مبنى كبير؛ وفعلًا (lobby) يعني الضغط من أجل قانون.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "numerous": {
+      "headword": "numerous",
+      "forms": [
+        "numerous"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈnjuːmərəs/",
+      "pronounceFa": "نیومِرِس",
+      "pronounceAr": "نيومَرَس",
+      "translationFa": "متعدد، فراوان",
+      "translationAr": "عديد، كثير",
+      "explanationFa": "معادلِ رسمیِ many با اسمِ جمع: numerous reasons. در رایتینگِ آکادمیک کاربرد دارد.",
+      "explanationAr": "مرادف رسمي لـmany مع الاسم الجمع: numerous reasons. مفيد في الكتابة الأكاديمية.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "vast": {
+      "headword": "vast",
+      "forms": [
+        "vast"
+      ],
+      "pos": "adjective",
+      "ipa": "/vɑːst/",
+      "pronounceFa": "واست",
+      "pronounceAr": "ڤاست",
+      "translationFa": "بسیار بزرگ، پهناور",
+      "translationAr": "شاسع، ضخم",
+      "explanationFa": "قوی‌تر از big: a vast area؛ هم‌آیندِ the vast majority (اکثریتِ قاطع) در رایتینگ پرکاربرد است.",
+      "explanationAr": "أقوى من big: a vast area؛ والتلازم the vast majority (الغالبية العظمى) شائع في الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "health spa": {
+      "headword": "health spa",
+      "forms": [
+        "health spa",
+        "health spas"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈhelθ spɑː/",
+      "pronounceFa": "هِلث اِسپا",
+      "pronounceAr": "هِلث سبا",
+      "translationFa": "مرکزِ آب‌درمانی و سلامت",
+      "translationAr": "منتجع صحّي",
+      "explanationFa": "جایی برای استراحت و درمان با ماساژ، سونا و استخر.",
+      "explanationAr": "مكان للاسترخاء والعلاج بالتدليك والساونا والمسابح.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "designed to": {
+      "headword": "designed to",
+      "forms": [
+        "designed to"
+      ],
+      "pos": "phrase",
+      "ipa": "/dɪˈzaɪnd tə/",
+      "pronounceFa": "دیزایند تو",
+      "pronounceAr": "ديزايند تو",
+      "translationFa": "طراحی‌شده برای، با این هدف که",
+      "translationAr": "مُصمَّم لـ",
+      "explanationFa": "be designed to + فعل: برای هدفی ساخته شدن؛ گاهی be designed for + اسم می‌آید.",
+      "explanationAr": "be designed to + فعل: صُنع لغرض معيّن؛ وأحيانًا be designed for + اسم.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "entertain": {
+      "headword": "entertain",
+      "forms": [
+        "entertain",
+        "entertained",
+        "entertains",
+        "entertaining"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌentəˈteɪn/",
+      "pronounceFa": "اِنتِتِین",
+      "pronounceAr": "إنتَتين",
+      "translationFa": "پذیرایی کردن (از مهمان)؛ سرگرم کردن",
+      "translationAr": "يستضيف؛ يُسلّي",
+      "explanationFa": "entertain guests یعنی از مهمان‌ها در خانه پذیرایی کردن؛ اسمش entertainment (سرگرمی) است.",
+      "explanationAr": "entertain guests تعني استضافة الضيوف في المنزل؛ والاسم entertainment (الترفيه).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "living quarters": {
+      "headword": "living quarters",
+      "forms": [
+        "living quarters"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈlɪvɪŋ ˌkwɔːtəz/",
+      "pronounceFa": "لیوینگ کوُتِز",
+      "pronounceAr": "لِفِنغ كوَتَز",
+      "translationFa": "بخشِ سکونتی، محلِ زندگی",
+      "translationAr": "أماكن السكن",
+      "explanationFa": "همیشه جمع است؛ بخشی از ساختمان که افراد در آن زندگی می‌کنند (در برابرِ بخش‌های کاری یا عمومی).",
+      "explanationAr": "يأتي دائمًا بالجمع؛ جزء المبنى الذي يعيش فيه الناس (مقابل الأقسام العامّة أو أماكن العمل).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "architecture": {
+      "headword": "architecture",
+      "forms": [
+        "architecture"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈɑːkɪtektʃə/",
+      "pronounceFa": "آکیتِکچِه",
+      "pronounceAr": "آكيتِكتشَه",
+      "translationFa": "معماری",
+      "translationAr": "العمارة، الهندسة المعمارية",
+      "explanationFa": "هم سبکِ ساختمان‌ها و هم رشته‌ی طراحیِ ساختمان؛ architect معمار است و architectural صفتش. تکیه روی هجای اول است.",
+      "explanationAr": "طراز المباني وعلم تصميمها معًا؛ وarchitect المهندس المعماري، وarchitectural الصفة. النبر على المقطع الأوّل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "take off": {
+      "headword": "take off",
+      "forms": [
+        "take off",
+        "takes off",
+        "took off",
+        "taking off"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌteɪk ˈɒf/",
+      "pronounceFa": "تِیک آف",
+      "pronounceAr": "تيك أوف",
+      "translationFa": "(هواپیما) از زمین بلند شدن",
+      "translationAr": "يُقلع",
+      "explanationFa": "در برابرِ land (فرود آمدن)؛ معنای دیگرش «ناگهان موفق و محبوب شدن» است.",
+      "explanationAr": "يقابل land (يهبط)؛ ومن معانيه أيضًا «ينجح ويشتهر فجأة».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "present continuous": {
+      "headword": "present continuous",
+      "forms": [
+        "present continuous"
+      ],
+      "pos": "grammar term",
+      "ipa": "/ˌpreznt kənˈtɪnjuəs/",
+      "pronounceFa": "پرِزِنت کِنتینیوئِس",
+      "pronounceAr": "بريزَنت كَنتِنيوَس",
+      "translationFa": "حالِ استمراری",
+      "translationAr": "المضارع المستمر",
+      "explanationFa": "am/is/are + فعلِ ing‌دار؛ برای کاری که همین حالا یا این روزها در جریان است و موقتی است: I'm renting a flat for now.",
+      "explanationAr": "am/is/are + الفعل مع ing؛ لحدث يجري الآن أو حدث مؤقّت هذه الأيام: I'm renting a flat for now.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "present simple": {
+      "headword": "present simple",
+      "forms": [
+        "present simple"
+      ],
+      "pos": "grammar term",
+      "ipa": "/ˌpreznt ˈsɪmpl/",
+      "pronounceFa": "پرِزِنت سیمپ‌ل",
+      "pronounceAr": "بريزَنت سِمبِل",
+      "translationFa": "حالِ ساده",
+      "translationAr": "المضارع البسيط",
+      "explanationFa": "برای واقعیت‌های کلی، عادت‌ها و کارهای تکراری و نظرها: She lives in Mumbai. فعل‌های حالت مثلِ believe و think (به معنای «عقیده داشتن») معمولاً استمراری نمی‌شوند.",
+      "explanationAr": "للحقائق العامّة والعادات والأفعال المتكرّرة والآراء: She lives in Mumbai. وأفعال الحالة مثل believe وthink (بمعنى الاعتقاد) لا تأتي عادةً بالمستمر.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "desirable": {
+      "headword": "desirable",
+      "forms": [
+        "desirable"
+      ],
+      "pos": "adjective",
+      "ipa": "/dɪˈzaɪərəbl/",
+      "pronounceFa": "دیزایِرِب‌ل",
+      "pronounceAr": "ديزايرَبِل",
+      "translationFa": "مطلوب، دلخواه",
+      "translationAr": "مرغوب، مرغوب فيه",
+      "explanationFa": "چیزی که داشتنش خوب است و مردم می‌خواهندش: desirable facilities / area. در رایتینگِ Task 2 برای «نتیجه‌ی مطلوب» (a desirable outcome) هم می‌آید.",
+      "explanationAr": "شيء جيّد يرغب فيه الناس: desirable facilities / area. ويُستخدم في الكتابة أيضًا: a desirable outcome (نتيجة مرغوبة).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "fully equipped": {
+      "headword": "fully equipped",
+      "forms": [
+        "fully equipped",
+        "fully-equipped"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˌfʊli ɪˈkwɪpt/",
+      "pronounceFa": "فولی ایکوئیپت",
+      "pronounceAr": "فولي إكويبت",
+      "translationFa": "کاملاً مجهز",
+      "translationAr": "مجهّز تجهيزًا كاملًا",
+      "explanationFa": "equipped with something: دارای وسایلِ لازم؛ fully equipped kitchen (آشپزخانه‌ی کاملاً مجهز) در آگهیِ خانه رایج است.",
+      "explanationAr": "equipped with something: مزوَّد بما يلزم؛ وfully equipped kitchen (مطبخ مجهّز بالكامل) شائع في إعلانات المنازل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "accommodate": {
+      "headword": "accommodate",
+      "forms": [
+        "accommodate",
+        "accommodates",
+        "accommodated",
+        "accommodating"
+      ],
+      "pos": "verb",
+      "ipa": "/əˈkɒmədeɪt/",
+      "pronounceFa": "اِکامِدِیت",
+      "pronounceAr": "أكومَديت",
+      "translationFa": "جا دادن، گنجایشِ ... داشتن",
+      "translationAr": "يستوعب، يتّسع لـ",
+      "explanationFa": "The hall can accommodate 500 people: گنجایش دارد. اسمش accommodation (محلِ اقامت) است؛ املایش دو c و دو m دارد.",
+      "explanationAr": "The hall can accommodate 500 people: يتّسع لـ. والاسم accommodation (السكن)؛ ويُكتب بحرفي c وحرفي m.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "grammatically correct": {
+      "headword": "grammatically correct",
+      "forms": [
+        "grammatically correct"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ɡrəˌmætɪkli kəˈrekt/",
+      "pronounceFa": "گرِمَتیکلی کِرِکت",
+      "pronounceAr": "غرَماتِكلي كَرِكت",
+      "translationFa": "از نظرِ دستوری درست",
+      "translationAr": "صحيح نحويًا",
+      "explanationFa": "در سؤال‌های کامل‌کردنِ جمله، پاسخ باید هم با متن و هم از نظرِ دستوری با جمله جور باشد (مثلاً مفرد و جمع).",
+      "explanationAr": "في أسئلة إكمال الجمل يجب أن تطابق الإجابة النص وأن تكون صحيحة نحويًا في الجملة (المفرد والجمع مثلًا).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "mindmap": {
+      "headword": "mindmap",
+      "forms": [
+        "mindmap",
+        "mindmaps",
+        "mind map",
+        "mind maps"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmaɪnd mæp/",
+      "pronounceFa": "مایند مَپ",
+      "pronounceAr": "مايند ماب",
+      "translationFa": "نقشه‌ی ذهنی",
+      "translationAr": "خريطة ذهنية",
+      "explanationFa": "نموداری با یک ایده‌ی مرکزی و شاخه‌ها؛ برای جمع کردنِ ایده پیش از رایتینگ یا آماده شدن برای اسپیکینگ مفید است.",
+      "explanationAr": "مخطّط بفكرة مركزية وفروع؛ مفيد لجمع الأفكار قبل الكتابة أو الاستعداد للمحادثة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "in brackets": {
+      "headword": "in brackets",
+      "forms": [
+        "in brackets"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˈbrækɪts/",
+      "pronounceFa": "این بِرَکیتس",
+      "pronounceAr": "إن بْراكِتس",
+      "translationFa": "داخلِ پرانتز",
+      "translationAr": "بين قوسين",
+      "explanationFa": "در انگلیسیِ بریتانیایی brackets یعنی پرانتز ( )؛ دستورِ رایج: use the word in brackets.",
+      "explanationAr": "brackets في الإنجليزية البريطانية تعني القوسين ( )؛ تعليمات شائعة: use the word in brackets.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "for now": {
+      "headword": "for now",
+      "forms": [
+        "for now"
+      ],
+      "pos": "phrase",
+      "ipa": "/fə ˈnaʊ/",
+      "pronounceFa": "فِ ناو",
+      "pronounceAr": "فَ ناو",
+      "translationFa": "فعلاً، تا اطلاعِ ثانوی",
+      "translationAr": "في الوقت الحالي",
+      "explanationFa": "نشانه‌ی وضعیتِ موقتی است و معمولاً با حالِ استمراری می‌آید: I'm renting for now.",
+      "explanationAr": "علامة على وضع مؤقّت ويأتي غالبًا مع المضارع المستمر: I'm renting for now.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "accommodation block": {
+      "headword": "accommodation block",
+      "forms": [
+        "accommodation block",
+        "accommodation blocks"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/əˌkɒməˈdeɪʃn blɒk/",
+      "pronounceFa": "اِکامِدِیشِن بلاک",
+      "pronounceAr": "أكومَديشَن بلوك",
+      "translationFa": "ساختمانِ خوابگاهی / مسکونی",
+      "translationAr": "مبنى سكني (سكن طلابي)",
+      "explanationFa": "block در بریتانیایی یعنی یک ساختمانِ بزرگ با چند واحد: accommodation block, block of flats.",
+      "explanationAr": "block في البريطانية مبنى كبير بعدّة وحدات: accommodation block، block of flats.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "rough idea": {
+      "headword": "rough idea",
+      "forms": [
+        "rough idea"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌrʌf aɪˈdɪə/",
+      "pronounceFa": "راف آیدیه",
+      "pronounceAr": "راف آيديا",
+      "translationFa": "تصورِ تقریبی",
+      "translationAr": "فكرة تقريبية",
+      "explanationFa": "rough در این‌جا یعنی «تقریبی، نه دقیق»: a rough estimate / idea. نتیجه‌ی skimming همین تصورِ تقریبی از جای اطلاعات است.",
+      "explanationAr": "rough هنا تعني «تقريبي غير دقيق»: a rough estimate / idea. ونتيجة القراءة الإجمالية فكرة تقريبية عن أماكن المعلومات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "publisher": {
+      "headword": "publisher",
+      "forms": [
+        "publisher",
+        "publishers"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈpʌblɪʃə/",
+      "pronounceFa": "پابلیشِه",
+      "pronounceAr": "بابليشَه",
+      "translationFa": "ناشر",
+      "translationAr": "ناشر",
+      "explanationFa": "شخص یا شرکتی که کتاب، روزنامه یا مجله چاپ و پخش می‌کند؛ فعلش publish است.",
+      "explanationAr": "شخص أو شركة تطبع الكتب أو الصحف أو المجلّات وتوزّعها؛ والفعل publish.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "lifetime": {
+      "headword": "lifetime",
+      "forms": [
+        "lifetime"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈlaɪftaɪm/",
+      "pronounceFa": "لایف‌تایم",
+      "pronounceAr": "لايف تايم",
+      "translationFa": "طولِ عمر، دورانِ زندگی",
+      "translationAr": "مدى الحياة، طوال العمر",
+      "explanationFa": "during his lifetime یعنی «تا وقتی زنده بود»؛ once in a lifetime یعنی «فرصتی که فقط یک بار پیش می‌آید».",
+      "explanationAr": "during his lifetime تعني «طوال حياته»؛ وonce in a lifetime تعني «فرصة لا تتكرّر».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "formal dinner": {
+      "headword": "formal dinner",
+      "forms": [
+        "formal dinner",
+        "formal dinners"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌfɔːml ˈdɪnə/",
+      "pronounceFa": "فُرمِل دینِه",
+      "pronounceAr": "فورمَل دِنَه",
+      "translationFa": "شامِ رسمی",
+      "translationAr": "عشاء رسمي",
+      "explanationFa": "formal در برابرِ informal/casual است: لباس و آدابِ رسمی دارد.",
+      "explanationAr": "formal يقابل informal/casual: بملابس وآداب رسمية.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "inherit": {
+      "headword": "inherit",
+      "forms": [
+        "inherit",
+        "inherited",
+        "inherits",
+        "inheriting"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪnˈherɪt/",
+      "pronounceFa": "اینهِریت",
+      "pronounceAr": "إنهيرِت",
+      "translationFa": "به ارث بردن",
+      "translationAr": "يرث",
+      "explanationFa": "inherit something from someone: inherited the land from his mother. اسمش inheritance (ارث) است.",
+      "explanationAr": "inherit something from someone: inherited the land from his mother. والاسم inheritance (الإرث).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "maintenance": {
+      "headword": "maintenance",
+      "forms": [
+        "maintenance"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmeɪntənəns/",
+      "pronounceFa": "مِینتِنِنس",
+      "pronounceAr": "مينتَنَنس",
+      "translationFa": "نگهداری، تعمیر و نگهداری",
+      "translationAr": "الصيانة",
+      "explanationFa": "اسمِ فعلِ maintain است ولی املایش ai ندارد (maintenance). در رایتینگ: the cost of maintenance.",
+      "explanationAr": "اسم من الفعل maintain لكن يُكتب دون ai بعد t (maintenance). في الكتابة: the cost of maintenance.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "architect": {
+      "headword": "architect",
+      "forms": [
+        "architect",
+        "architects"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈɑːkɪtekt/",
+      "pronounceFa": "آکیتِکت",
+      "pronounceAr": "آكيتِكت",
+      "translationFa": "معمار",
+      "translationAr": "مهندس معماري",
+      "explanationFa": "ch در این واژه «ک» تلفظ می‌شود؛ architecture (معماری) اسمِ رشته است.",
+      "explanationAr": "يُنطق ch في هذه الكلمة «ك»؛ وarchitecture (العمارة) اسم المجال.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "art collector": {
+      "headword": "art collector",
+      "forms": [
+        "art collector",
+        "art collectors"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈɑːt kəˌlektə/",
+      "pronounceFa": "آرت کِلِکتِه",
+      "pronounceAr": "آرت كَلِكتَه",
+      "translationFa": "مجموعه‌دارِ آثارِ هنری",
+      "translationAr": "جامع تحف فنّية",
+      "explanationFa": "collector کسی است که چیزی را جمع می‌کند؛ a keen collector یعنی مجموعه‌داری پرشور.",
+      "explanationAr": "collector مَن يجمع شيئًا؛ وa keen collector جامع شغوف.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "valued at": {
+      "headword": "valued at",
+      "forms": [
+        "valued at"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˈvæljuːd æt/",
+      "pronounceFa": "وَلیود اَت",
+      "pronounceAr": "ڤاليود آت",
+      "translationFa": "ارزش‌گذاری‌شده به مبلغِ",
+      "translationAr": "مقدَّر بقيمة",
+      "explanationFa": "be valued at + مبلغ: قیمتِ برآوردشده؛ در توصیفِ داده‌ها و ارقام کاربرد دارد.",
+      "explanationAr": "be valued at + مبلغ: القيمة المقدّرة؛ مفيد في وصف الأرقام.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "estate": {
+      "headword": "estate",
+      "forms": [
+        "estate",
+        "estates"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪˈsteɪt/",
+      "pronounceFa": "ایستِیت",
+      "pronounceAr": "إستيت",
+      "translationFa": "املاک، ملکِ بزرگ (با زمین‌هایش)",
+      "translationAr": "ضيعة، عقار كبير",
+      "explanationFa": "خانه‌ای بزرگ با زمین‌های اطرافش؛ estate agent یعنی بنگاهِ املاک و housing estate یعنی مجموعه‌ی مسکونی.",
+      "explanationAr": "منزل كبير مع أراضيه المحيطة؛ وestate agent وكيل عقارات، وhousing estate مجمّع سكني.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "satisfied": {
+      "headword": "satisfied",
+      "forms": [
+        "satisfied"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈsætɪsfaɪd/",
+      "pronounceFa": "سَتیسفاید",
+      "pronounceAr": "ساتِسفايد",
+      "translationFa": "راضی، خشنود",
+      "translationAr": "راضٍ",
+      "explanationFa": "be satisfied with something؛ با satisfying (رضایت‌بخش) که برای خودِ چیز به کار می‌رود اشتباه نشود.",
+      "explanationAr": "be satisfied with something؛ ولا يُخلط مع satisfying (مُرضٍ) الذي يصف الشيء نفسه.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "as well as": {
+      "headword": "as well as",
+      "forms": [
+        "as well as"
+      ],
+      "pos": "linking phrase",
+      "ipa": "/əz ˈwel əz/",
+      "pronounceFa": "اِز وِل اِز",
+      "pronounceAr": "أز وِل أز",
+      "translationFa": "علاوه بر، و همچنین",
+      "translationAr": "بالإضافة إلى",
+      "explanationFa": "رابطِ افزایشی در رایتینگ؛ اگر پس از آن فعل بیاید، ing‌دار می‌شود: as well as visiting...",
+      "explanationAr": "رابط إضافة في الكتابة؛ وإن تلاه فعل يأتي بـing: as well as visiting...",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "airfield": {
+      "headword": "airfield",
+      "forms": [
+        "airfield",
+        "airfields"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈeəfiːld/",
+      "pronounceFa": "اِه‌فیلد",
+      "pronounceAr": "إيه فيلد",
+      "translationFa": "فرودگاهِ کوچک، باند پرواز",
+      "translationAr": "مطار صغير، مهبط طائرات",
+      "explanationFa": "فرودگاهی کوچک یا خصوصی که امکاناتِ فرودگاهِ بزرگ (airport) را ندارد.",
+      "explanationAr": "مطار صغير أو خاص بلا مرافق المطار الكبير (airport).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "key features": {
+      "headword": "key features",
+      "forms": [
+        "key features",
+        "key feature"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌkiː ˈfiːtʃəz/",
+      "pronounceFa": "کی فیچِز",
+      "pronounceAr": "كي فيتشَز",
+      "translationFa": "ویژگی‌های کلیدی",
+      "translationAr": "السمات الرئيسة",
+      "explanationFa": "در Writing Task 1 باید key features (مهم‌ترین روندها و ارقام) را انتخاب و گزارش کنید، نه همه‌ی جزئیات را.",
+      "explanationAr": "في Writing Task 1 يجب اختيار key features (أهمّ الاتّجاهات والأرقام) وعرضها، لا كلّ التفاصيل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "encounter": {
+      "headword": "encounter",
+      "forms": [
+        "encounter",
+        "encountered",
+        "encounters",
+        "encountering"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪnˈkaʊntə/",
+      "pronounceFa": "اینکاونتِه",
+      "pronounceAr": "إنكاونتَه",
+      "translationFa": "(به‌طورِ غیرمنتظره) روبه‌رو شدن با",
+      "translationAr": "يصادف، يواجه",
+      "explanationFa": "واژه‌ی رسمی‌تر برای meet/face: encounter a problem / a type of question.",
+      "explanationAr": "كلمة أكثر رسمية من meet/face: encounter a problem / a type of question.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "horizontal axis": {
+      "headword": "horizontal axis",
+      "forms": [
+        "horizontal axis"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌhɒrɪˈzɒntl ˈæksɪs/",
+      "pronounceFa": "هاریزانت‌ل اَکسیس",
+      "pronounceAr": "هوريزونتَل أكسِس",
+      "translationFa": "محورِ افقی (محورِ x)",
+      "translationAr": "المحور الأفقي (س)",
+      "explanationFa": "معمولاً زمان یا دسته‌ها را نشان می‌دهد؛ در Writing Task 1: The horizontal axis shows the years.",
+      "explanationAr": "يُظهر عادةً الزمن أو الفئات؛ في Writing Task 1: The horizontal axis shows the years.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "vertical axis": {
+      "headword": "vertical axis",
+      "forms": [
+        "vertical axis"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌvɜːtɪkl ˈæksɪs/",
+      "pronounceFa": "وِرتیک‌ل اَکسیس",
+      "pronounceAr": "ڤيرتِكَل أكسِس",
+      "translationFa": "محورِ عمودی (محورِ y)",
+      "translationAr": "المحور العمودي (ص)",
+      "explanationFa": "معمولاً مقدار یا درصد را نشان می‌دهد؛ The vertical axis measures the percentage of...",
+      "explanationAr": "يُظهر عادةً الكمية أو النسبة؛ The vertical axis measures the percentage of...",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "segment": {
+      "headword": "segment",
+      "forms": [
+        "segment",
+        "segments"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈseɡmənt/",
+      "pronounceFa": "سِگمِنت",
+      "pronounceAr": "سِغمَنت",
+      "translationFa": "بخش، قطاع (در نمودارِ دایره‌ای)",
+      "translationAr": "قطاع، جزء",
+      "explanationFa": "هر برشِ نمودارِ دایره‌ای؛ در رایتینگ: The largest segment represents...",
+      "explanationAr": "كلّ شريحة في الرسم الدائري؛ في الكتابة: The largest segment represents...",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "home ownership": {
+      "headword": "home ownership",
+      "forms": [
+        "home ownership",
+        "home-ownership",
+        "homeownership"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌhəʊm ˈəʊnəʃɪp/",
+      "pronounceFa": "هوم اونِشیپ",
+      "pronounceAr": "هوم أونَشِب",
+      "translationFa": "مالکیتِ خانه",
+      "translationAr": "تملّك المنازل",
+      "explanationFa": "ownership اسمِ own است؛ در Task 1 درباره‌ی مسکن: Home ownership has decreased since 2004.",
+      "explanationAr": "ownership اسم من own؛ في Task 1 عن السكن: Home ownership has decreased since 2004.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "homeowner": {
+      "headword": "homeowner",
+      "forms": [
+        "homeowner",
+        "homeowners",
+        "home owner",
+        "home owners"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈhəʊmˌəʊnə/",
+      "pronounceFa": "هوم‌اونِه",
+      "pronounceAr": "هوم أونَه",
+      "translationFa": "صاحب‌خانه، مالکِ خانه",
+      "translationAr": "مالك المنزل",
+      "explanationFa": "کسی که خانه‌اش مالِ خودش است، در برابرِ tenant (مستأجر).",
+      "explanationAr": "مَن يملك منزله، في مقابل tenant (المستأجر).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "general trend": {
+      "headword": "general trend",
+      "forms": [
+        "general trend",
+        "general trends"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌdʒenrəl ˈtrend/",
+      "pronounceFa": "جِنرِل ترِند",
+      "pronounceAr": "جِنرَل ترِند",
+      "translationFa": "روندِ کلی",
+      "translationAr": "الاتّجاه العامّ",
+      "explanationFa": "در بندِ overview (جمع‌بندیِ کلی) در Writing Task 1 باید روندِ کلی را بگویید: The general trend is upward.",
+      "explanationAr": "يجب ذكر الاتّجاه العامّ في فقرة الخلاصة (overview) في Writing Task 1: The general trend is upward.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "sharp": {
+      "headword": "sharp",
+      "forms": [
+        "sharp",
+        "sharply"
+      ],
+      "pos": "adjective",
+      "ipa": "/ʃɑːp/",
+      "pronounceFa": "شاپ",
+      "pronounceAr": "شاب",
+      "translationFa": "تند، ناگهانی و زیاد (تغییر)",
+      "translationAr": "حادّ، مفاجئ",
+      "explanationFa": "در توصیفِ نمودار: a sharp rise/fall؛ قیدش sharply است: prices rose sharply.",
+      "explanationAr": "في وصف الرسوم: a sharp rise/fall؛ والظرف sharply: prices rose sharply.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "keen": {
+      "headword": "keen",
+      "forms": [
+        "keen"
+      ],
+      "pos": "adjective",
+      "ipa": "/kiːn/",
+      "pronounceFa": "کین",
+      "pronounceAr": "كين",
+      "translationFa": "مشتاق، پرشور",
+      "translationAr": "متحمّس، شغوف",
+      "explanationFa": "a keen collector / reader: کسی که به کاری علاقه‌ی زیاد دارد؛ be keen on something هم یعنی «علاقه داشتن به».",
+      "explanationAr": "a keen collector / reader: شخص شديد الاهتمام بأمر ما؛ وbe keen on something تعني «يهتمّ بـ».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "label": {
+      "headword": "label",
+      "forms": [
+        "label",
+        "labels",
+        "labelled",
+        "labelling",
+        "labeled"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/ˈleɪbl/",
+      "pronounceFa": "لِیب‌ل",
+      "pronounceAr": "ليبِل",
+      "translationFa": "برچسب زدن، نام‌گذاری کردن؛ برچسب",
+      "translationAr": "يضع تسمية؛ تسمية",
+      "explanationFa": "در سؤال‌های diagram/map labelling باید بخش‌های تصویر را نام‌گذاری کنید؛ در بریتانیایی labelled با دو l است.",
+      "explanationAr": "في أسئلة diagram/map labelling تُسمّى أجزاء الشكل؛ وفي البريطانية labelled بحرفي l.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "accurate": {
+      "headword": "accurate",
+      "forms": [
+        "accurate"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈækjərət/",
+      "pronounceFa": "اَکیورِت",
+      "pronounceAr": "أكيورَت",
+      "translationFa": "دقیق، درست",
+      "translationAr": "دقيق",
+      "explanationFa": "در Writing Task 1 داده‌ها را باید دقیق (accurate data) گزارش کنید؛ قیدش accurately است.",
+      "explanationAr": "في Writing Task 1 يجب عرض البيانات بدقّة (accurate data)؛ والظرف accurately.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "sample answer": {
+      "headword": "sample answer",
+      "forms": [
+        "sample answer",
+        "sample answers"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌsɑːmpl ˈɑːnsə/",
+      "pronounceFa": "سامپ‌ل آنسِه",
+      "pronounceAr": "سامبِل آنسَه",
+      "translationFa": "پاسخِ نمونه",
+      "translationAr": "إجابة نموذجية",
+      "explanationFa": "پاسخی برای الگو گرفتن؛ model answer هم گفته می‌شود.",
+      "explanationAr": "إجابة يُقتدى بها؛ ويُقال أيضًا model answer.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "worldwide": {
+      "headword": "worldwide",
+      "forms": [
+        "worldwide"
+      ],
+      "pos": "adverb / adjective",
+      "ipa": "/ˌwɜːldˈwaɪd/",
+      "pronounceFa": "وُرلدوایْد",
+      "pronounceAr": "وورلد وايد",
+      "translationFa": "در سراسرِ جهان، جهانی",
+      "translationAr": "في أنحاء العالم، عالمي",
+      "explanationFa": "هم قید است و هم صفت: sold worldwide / a worldwide problem.",
+      "explanationAr": "ظرف وصفة معًا: sold worldwide / a worldwide problem.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "in comparison": {
+      "headword": "in comparison",
+      "forms": [
+        "in comparison"
+      ],
+      "pos": "linking phrase",
+      "ipa": "/ɪn kəmˈpærɪsn/",
+      "pronounceFa": "این کِمپَریسِن",
+      "pronounceAr": "إن كَمبارِسَن",
+      "translationFa": "در مقایسه",
+      "translationAr": "بالمقارنة، في المقابل",
+      "explanationFa": "رابطِ مقایسه در Task 1: in comparison (with something)؛ برای رفتن از یک نمودار به نمودارِ دیگر مفید است.",
+      "explanationAr": "رابط مقارنة في Task 1: in comparison (with something)؛ مفيد للانتقال من رسم إلى آخر.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "illustrate": {
+      "headword": "illustrate",
+      "forms": [
+        "illustrate",
+        "illustrates",
+        "illustrated",
+        "illustrating"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈɪləstreɪt/",
+      "pronounceFa": "ایلِستریت",
+      "pronounceAr": "إلَستريت",
+      "translationFa": "نشان دادن، به تصویر کشیدن",
+      "translationAr": "يوضّح، يبيّن",
+      "explanationFa": "فعلِ رایجِ جمله‌ی آغازینِ Task 1: The graph illustrates... (جایگزینِ shows).",
+      "explanationAr": "فعل شائع في الجملة الافتتاحية لـTask 1: The graph illustrates... (بديل لـshows).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "apparent": {
+      "headword": "apparent",
+      "forms": [
+        "apparent"
+      ],
+      "pos": "adjective",
+      "ipa": "/əˈpærənt/",
+      "pronounceFa": "اِپَرِنت",
+      "pronounceAr": "أپارَنت",
+      "translationFa": "آشکار، پیدا",
+      "translationAr": "واضح، ظاهر",
+      "explanationFa": "it is apparent that... یعنی «پیداست که...»؛ در جمع‌بندیِ Task 1 کاربرد دارد.",
+      "explanationAr": "it is apparent that... تعني «يتّضح أنّ...»؛ مفيد في خلاصة Task 1.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "surge": {
+      "headword": "surge",
+      "forms": [
+        "surge",
+        "surged",
+        "surges",
+        "surging"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/sɜːdʒ/",
+      "pronounceFa": "سِرج",
+      "pronounceAr": "سيرج",
+      "translationFa": "جهش کردن؛ جهش، افزایشِ ناگهانی",
+      "translationAr": "يقفز؛ طفرة، ارتفاع مفاجئ",
+      "explanationFa": "برای افزایشِ ناگهانی و زیاد: a surge in demand؛ در Task 1 جایگزینِ sudden increase است.",
+      "explanationAr": "لزيادة مفاجئة وكبيرة: a surge in demand؛ بديل لـsudden increase في Task 1.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "shoot up": {
+      "headword": "shoot up",
+      "forms": [
+        "shoot up",
+        "shot up",
+        "shoots up",
+        "shooting up"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌʃuːt ˈʌp/",
+      "pronounceFa": "شوت آپ",
+      "pronounceAr": "شوت أب",
+      "translationFa": "ناگهان بالا رفتن (قیمت یا تعداد)",
+      "translationAr": "يرتفع فجأة",
+      "explanationFa": "غیررسمی‌تر از rocket است؛ prices shot up.",
+      "explanationAr": "أقلّ رسمية من rocket؛ prices shot up.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "peak": {
+      "headword": "peak",
+      "forms": [
+        "peak",
+        "peaked",
+        "peaks",
+        "peaking"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/piːk/",
+      "pronounceFa": "پیک",
+      "pronounceAr": "بيك",
+      "translationFa": "به اوج رسیدن؛ اوج، قله",
+      "translationAr": "يبلغ الذروة؛ ذروة",
+      "explanationFa": "در Task 1: reached a peak of 50% / peaked at 50% in 2014؛ با at برای مقدار می‌آید.",
+      "explanationAr": "في Task 1: reached a peak of 50% / peaked at 50% in 2014؛ ويأتي مع at للقيمة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "collapse": {
+      "headword": "collapse",
+      "forms": [
+        "collapse",
+        "collapsed",
+        "collapses"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/kəˈlæps/",
+      "pronounceFa": "کِلَپس",
+      "pronounceAr": "كَلابس",
+      "translationFa": "فرو ریختن، سقوطِ ناگهانی",
+      "translationAr": "ينهار؛ انهيار",
+      "explanationFa": "برای سقوطِ شدید و ناگهانیِ قیمت یا بازار: the market collapsed.",
+      "explanationAr": "لهبوط شديد ومفاجئ في الأسعار أو السوق: the market collapsed.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "tumble": {
+      "headword": "tumble",
+      "forms": [
+        "tumble",
+        "tumbled",
+        "tumbles"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈtʌmbl/",
+      "pronounceFa": "تامب‌ل",
+      "pronounceAr": "تامبِل",
+      "translationFa": "به‌سرعت پایین افتادن (قیمت)",
+      "translationAr": "يهبط بسرعة",
+      "explanationFa": "در خبرهای اقتصادی برای افتِ سریعِ قیمت: share prices tumbled.",
+      "explanationAr": "في الأخبار الاقتصادية لهبوط سريع في الأسعار: share prices tumbled.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "diminish": {
+      "headword": "diminish",
+      "forms": [
+        "diminish",
+        "diminished",
+        "diminishes",
+        "diminishing"
+      ],
+      "pos": "verb",
+      "ipa": "/dɪˈmɪnɪʃ/",
+      "pronounceFa": "دیمینیش",
+      "pronounceAr": "دِمِنِش",
+      "translationFa": "کم شدن، کاستن",
+      "translationAr": "يتضاءل، يقلّ",
+      "explanationFa": "رسمی‌تر از decrease و معمولاً برای کاهشِ تدریجی است.",
+      "explanationAr": "أكثر رسمية من decrease ويُستخدم غالبًا للانخفاض التدريجي.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "dip": {
+      "headword": "dip",
+      "forms": [
+        "dip",
+        "dipped",
+        "dips"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/dɪp/",
+      "pronounceFa": "دیپ",
+      "pronounceAr": "دِب",
+      "translationFa": "افتِ کوچک و موقت",
+      "translationAr": "انخفاض طفيف مؤقّت",
+      "explanationFa": "برای کاهشِ کم که پس از آن دوباره بالا می‌رود: a slight dip in 2009.",
+      "explanationAr": "لانخفاض صغير يعقبه ارتفاع: a slight dip in 2009.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "sudden increase": {
+      "headword": "sudden increase",
+      "forms": [
+        "sudden increase"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌsʌdn ˈɪnkriːs/",
+      "pronounceFa": "سادِن اینکریس",
+      "pronounceAr": "سادَن إنكريس",
+      "translationFa": "افزایشِ ناگهانی",
+      "translationAr": "زيادة مفاجئة",
+      "explanationFa": "در اسمِ increase تکیه روی هجای اول است و در فعلِ increase روی هجای دوم.",
+      "explanationAr": "في الاسم increase يقع النبر على المقطع الأوّل، وفي الفعل على الثاني.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "sudden decrease": {
+      "headword": "sudden decrease",
+      "forms": [
+        "sudden decrease"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌsʌdn ˈdiːkriːs/",
+      "pronounceFa": "سادِن دیکریس",
+      "pronounceAr": "سادَن ديكريس",
+      "translationFa": "کاهشِ ناگهانی",
+      "translationAr": "انخفاض مفاجئ",
+      "explanationFa": "فعل‌های plummet و plunge همین معنا را می‌دهند.",
+      "explanationAr": "يؤدّي الفعلان plummet وplunge هذا المعنى.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "rocket": {
+      "headword": "rocket",
+      "forms": [
+        "rocket",
+        "rocketed",
+        "rockets",
+        "rocketing"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈrɒkɪt/",
+      "pronounceFa": "راکِت",
+      "pronounceAr": "روكِت",
+      "translationFa": "ناگهان و به‌شدت بالا رفتن",
+      "translationAr": "يرتفع ارتفاعًا صاروخيًا",
+      "explanationFa": "در Task 1 برای افزایشِ بسیار سریع: prices rocketed. معمولاً قید لازم ندارد چون خودش شدید است.",
+      "explanationAr": "في Task 1 لزيادة سريعة جدًا: prices rocketed. ولا يحتاج غالبًا إلى ظرف لأنّه قويّ بذاته.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "soar": {
+      "headword": "soar",
+      "forms": [
+        "soar",
+        "soared",
+        "soars",
+        "soaring"
+      ],
+      "pos": "verb",
+      "ipa": "/sɔː/",
+      "pronounceFa": "سُ",
+      "pronounceAr": "سو",
+      "translationFa": "به‌سرعت اوج گرفتن",
+      "translationAr": "يحلّق، يرتفع بسرعة",
+      "explanationFa": "مثلِ rocket برای افزایشِ سریع و زیاد: soaring house prices.",
+      "explanationAr": "مثل rocket لارتفاع سريع وكبير: soaring house prices.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "plummet": {
+      "headword": "plummet",
+      "forms": [
+        "plummet",
+        "plummeted",
+        "plummets",
+        "plummeting"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈplʌmɪt/",
+      "pronounceFa": "پلامیت",
+      "pronounceAr": "بلامِت",
+      "translationFa": "ناگهان و به‌شدت سقوط کردن",
+      "translationAr": "يهوي، ينخفض بشدّة",
+      "explanationFa": "در Task 1 برای کاهشِ ناگهانی و بزرگ؛ گذشته‌اش plummeted است (t دوبار نمی‌شود).",
+      "explanationAr": "في Task 1 لانخفاض مفاجئ وكبير؛ وماضيه plummeted (دون مضاعفة t).",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "plunge": {
+      "headword": "plunge",
+      "forms": [
+        "plunge",
+        "plunged",
+        "plunges",
+        "plunging"
+      ],
+      "pos": "verb",
+      "ipa": "/plʌndʒ/",
+      "pronounceFa": "پلانج",
+      "pronounceAr": "بلانج",
+      "translationFa": "ناگهان و به‌شدت پایین آمدن",
+      "translationAr": "يهبط فجأة وبشدّة",
+      "explanationFa": "هم‌معنای plummet: profits plunged by 40%.",
+      "explanationAr": "مرادف لـplummet: profits plunged by 40%.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "property market": {
+      "headword": "property market",
+      "forms": [
+        "property market",
+        "property markets"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈprɒpəti ˌmɑːkɪt/",
+      "pronounceFa": "پراپِتی ماکیت",
+      "pronounceAr": "بروبَتي ماركِت",
+      "translationFa": "بازارِ املاک، بازارِ مسکن",
+      "translationAr": "سوق العقارات",
+      "explanationFa": "خرید و فروشِ خانه و زمین؛ housing market هم گفته می‌شود.",
+      "explanationAr": "بيع المنازل والأراضي وشراؤها؛ ويُقال أيضًا housing market.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "range of vocabulary": {
+      "headword": "range of vocabulary",
+      "forms": [
+        "range of vocabulary"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌreɪndʒ əv vəˈkæbjələri/",
+      "pronounceFa": "رِینج آو وِکَبیولِری",
+      "pronounceAr": "رينج أوف ڤَكابيولَري",
+      "translationFa": "گستره‌ی واژگان",
+      "translationAr": "تنوّع المفردات",
+      "explanationFa": "یکی از معیارهای نمره‌دهیِ رایتینگ و اسپیکینگ (Lexical Resource)؛ با مترادف‌ها از تکرار پرهیز کنید.",
+      "explanationAr": "من معايير تقييم الكتابة والمحادثة (Lexical Resource)؛ تجنّبوا التكرار بالمرادفات.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "slight": {
+      "headword": "slight",
+      "forms": [
+        "slight",
+        "slightly"
+      ],
+      "pos": "adjective",
+      "ipa": "/slaɪt/",
+      "pronounceFa": "اِسلایت",
+      "pronounceAr": "سلايت",
+      "translationFa": "اندک، جزئی",
+      "translationAr": "طفيف",
+      "explanationFa": "a slight increase / rise slightly؛ gh در این واژه تلفظ نمی‌شود.",
+      "explanationAr": "a slight increase / rise slightly؛ ولا يُنطق gh في هذه الكلمة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "modest": {
+      "headword": "modest",
+      "forms": [
+        "modest"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈmɒdɪst/",
+      "pronounceFa": "مادیست",
+      "pronounceAr": "مودِست",
+      "translationFa": "متوسط، نه‌چندان زیاد",
+      "translationAr": "متواضع، معتدل",
+      "explanationFa": "در توصیفِ داده یعنی «کم ولی قابلِ‌اعتنا»: a modest increase. معنای دیگرش «فروتن» است.",
+      "explanationAr": "في وصف البيانات يعني «صغيرًا لكنّه معتبر»: a modest increase. ومن معانيه أيضًا «متواضع».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "dramatic": {
+      "headword": "dramatic",
+      "forms": [
+        "dramatic",
+        "dramatically"
+      ],
+      "pos": "adjective",
+      "ipa": "/drəˈmætɪk/",
+      "pronounceFa": "درِمَتیک",
+      "pronounceAr": "درَماتِك",
+      "translationFa": "شدید، چشمگیر و ناگهانی",
+      "translationAr": "هائل، كبير ومفاجئ",
+      "explanationFa": "a dramatic rise / fell dramatically؛ برای تغییرِ بزرگ و سریع.",
+      "explanationAr": "a dramatic rise / fell dramatically؛ لتغيير كبير وسريع.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "stable": {
+      "headword": "stable",
+      "forms": [
+        "stable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈsteɪbl/",
+      "pronounceFa": "اِستِیب‌ل",
+      "pronounceAr": "ستيبِل",
+      "translationFa": "پایدار، ثابت",
+      "translationAr": "مستقرّ، ثابت",
+      "explanationFa": "معمولاً پس از فعل می‌آید: remain stable / stay stable.",
+      "explanationAr": "يأتي عادةً بعد الفعل: remain stable / stay stable.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "unchanged": {
+      "headword": "unchanged",
+      "forms": [
+        "unchanged"
+      ],
+      "pos": "adjective",
+      "ipa": "/ʌnˈtʃeɪndʒd/",
+      "pronounceFa": "آنچِینجد",
+      "pronounceAr": "أنتشينجد",
+      "translationFa": "بدونِ تغییر",
+      "translationAr": "دون تغيير",
+      "explanationFa": "پس از فعل می‌آید: remained unchanged at 20%.",
+      "explanationAr": "يأتي بعد الفعل: remained unchanged at 20%.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "rental market": {
+      "headword": "rental market",
+      "forms": [
+        "rental market",
+        "rental markets"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈrentl ˌmɑːkɪt/",
+      "pronounceFa": "رِنت‌ل ماکیت",
+      "pronounceAr": "رِنتَل ماركِت",
+      "translationFa": "بازارِ اجاره",
+      "translationAr": "سوق الإيجار",
+      "explanationFa": "rental صفتِ rent است؛ در برابرِ buyers' market یا property market برای خرید.",
+      "explanationAr": "rental صفة من rent؛ في مقابل buyers' market أو property market للشراء.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "considerably": {
+      "headword": "considerably",
+      "forms": [
+        "considerably",
+        "considerable"
+      ],
+      "pos": "adverb",
+      "ipa": "/kənˈsɪdərəbli/",
+      "pronounceFa": "کِنسیدِرِبلی",
+      "pronounceAr": "كَنسِدَرَبلي",
+      "translationFa": "به‌طورِ قابلِ‌ملاحظه",
+      "translationAr": "بشكل كبير",
+      "explanationFa": "برای تغییرِ بزرگ در Task 1: fell considerably؛ صفتش considerable است (a considerable rise).",
+      "explanationAr": "لتغيير كبير في Task 1: fell considerably؛ والصفة considerable (a considerable rise).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "consistently": {
+      "headword": "consistently",
+      "forms": [
+        "consistently",
+        "consistent"
+      ],
+      "pos": "adverb",
+      "ipa": "/kənˈsɪstəntli/",
+      "pronounceFa": "کِنسیستِنتلی",
+      "pronounceAr": "كَنسِستَنتلي",
+      "translationFa": "به‌طورِ مداوم، همواره",
+      "translationAr": "باستمرار، بثبات",
+      "explanationFa": "برای تغییری که بی‌وقفه و یکسان ادامه دارد: grew consistently / remained consistently high.",
+      "explanationAr": "لتغيّر يستمرّ بانتظام دون انقطاع: grew consistently / remained consistently high.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "moderately": {
+      "headword": "moderately",
+      "forms": [
+        "moderately",
+        "moderate"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈmɒdərətli/",
+      "pronounceFa": "مادِرِتلی",
+      "pronounceAr": "مودَرَتلي",
+      "translationFa": "به‌طورِ متوسط، به‌میزانِ معتدل",
+      "translationAr": "باعتدال، بدرجة متوسّطة",
+      "explanationFa": "برای تغییرِ نه‌چندان بزرگ: rose moderately؛ صفتش moderate است.",
+      "explanationAr": "لتغيير غير كبير: rose moderately؛ والصفة moderate.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "interest rate": {
+      "headword": "interest rate",
+      "forms": [
+        "interest rate",
+        "interest rates"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈɪntrəst reɪt/",
+      "pronounceFa": "اینترِست رِیت",
+      "pronounceAr": "إنترَست ريت",
+      "translationFa": "نرخِ بهره",
+      "translationAr": "سعر الفائدة",
+      "explanationFa": "درصدی که بانک برای وام یا سپرده حساب می‌کند؛ در موضوعِ مسکن و اقتصاد پرکاربرد است.",
+      "explanationAr": "النسبة التي يحتسبها البنك على القرض أو الوديعة؛ شائع في موضوعي السكن والاقتصاد.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "fluctuate": {
+      "headword": "fluctuate",
+      "forms": [
+        "fluctuate",
+        "fluctuated",
+        "fluctuates",
+        "fluctuating",
+        "fluctuation",
+        "fluctuations"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈflʌktʃueɪt/",
+      "pronounceFa": "فلاکچوئِیت",
+      "pronounceAr": "فلاكتشويت",
+      "translationFa": "نوسان داشتن، بالا و پایین رفتن",
+      "translationAr": "يتذبذب، يتقلّب",
+      "explanationFa": "در Task 1 برای داده‌ای که مدام بالا و پایین می‌رود: fluctuated between 20% and 30%؛ اسمش fluctuation است.",
+      "explanationAr": "في Task 1 لبيانات ترتفع وتنخفض باستمرار: fluctuated between 20% and 30%؛ والاسم fluctuation.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "aged": {
+      "headword": "aged",
+      "forms": [
+        "aged"
+      ],
+      "pos": "adjective",
+      "ipa": "/eɪdʒd/",
+      "pronounceFa": "اِیجد",
+      "pronounceAr": "إيجد",
+      "translationFa": "در سنِ ...، ... ساله",
+      "translationAr": "في عمر ...",
+      "explanationFa": "در Task 1 برای گروه‌های سنی: people aged 25-34 (افرادِ 25 تا 34 ساله)؛ این‌جا یک هجا تلفظ می‌شود.",
+      "explanationAr": "في Task 1 للفئات العمرية: people aged 25-34 (مَن تتراوح أعمارهم بين 25 و34)؛ ويُنطق هنا مقطعًا واحدًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "furthermore": {
+      "headword": "furthermore",
+      "forms": [
+        "furthermore"
+      ],
+      "pos": "linking word",
+      "ipa": "/ˌfɜːðəˈmɔː/",
+      "pronounceFa": "فِرذِمُ",
+      "pronounceAr": "فيرذَمو",
+      "translationFa": "افزون بر این، به‌علاوه",
+      "translationAr": "علاوةً على ذلك",
+      "explanationFa": "رابطِ افزایشیِ رسمی در آغازِ جمله، با ویرگول: Furthermore, ...؛ هم‌معنای moreover و in addition.",
+      "explanationAr": "رابط إضافة رسمي في أوّل الجملة يليه فاصلة: Furthermore, ...؛ مرادف لـmoreover وin addition.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "age range": {
+      "headword": "age range",
+      "forms": [
+        "age range",
+        "age ranges"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈeɪdʒ reɪndʒ/",
+      "pronounceFa": "اِیج رِینج",
+      "pronounceAr": "إيج رينج",
+      "translationFa": "گروهِ سنی، بازه‌ی سنی",
+      "translationAr": "الفئة العمرية",
+      "explanationFa": "within this age range؛ age group هم مترادفِ رایجِ آن در Task 1 است.",
+      "explanationAr": "within this age range؛ ويرادفها age group في Task 1.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "buyers' market": {
+      "headword": "buyers' market",
+      "forms": [
+        "buyers' market"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌbaɪəz ˈmɑːkɪt/",
+      "pronounceFa": "بایِز ماکیت",
+      "pronounceAr": "بايَز ماركِت",
+      "translationFa": "بازارِ خرید (این‌جا: خریدِ خانه)",
+      "translationAr": "سوق الشراء",
+      "explanationFa": "در اقتصاد یعنی بازاری که فروشنده زیاد و قیمت پایین است و خریدار دستِ بالا را دارد؛ این‌جا در برابرِ rental market آمده است.",
+      "explanationAr": "في الاقتصاد سوق يكثر فيه البائعون وتنخفض الأسعار فتكون الأفضلية للمشتري؛ وجاء هنا مقابل rental market.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "estate agent": {
+      "headword": "estate agent",
+      "forms": [
+        "estate agent",
+        "estate agents",
+        "estate agent's"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ɪˈsteɪt ˌeɪdʒənt/",
+      "pronounceFa": "ایستِیت اِیجِنت",
+      "pronounceAr": "إستيت إيجَنت",
+      "translationFa": "بنگاه‌دار، مشاورِ املاک",
+      "translationAr": "وكيل عقارات",
+      "explanationFa": "در بریتانیا estate agent و در آمریکا real estate agent گفته می‌شود؛ موقعیتِ رایجِ بخشِ 1 لیسنینگ است.",
+      "explanationAr": "يُقال في بريطانيا estate agent وفي أمريكا real estate agent؛ موقف شائع في الجزء 1 من الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "ground floor": {
+      "headword": "ground floor",
+      "forms": [
+        "ground floor",
+        "ground-floor"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌɡraʊnd ˈflɔː/",
+      "pronounceFa": "گراند فلُ",
+      "pronounceAr": "غراوند فلو",
+      "translationFa": "طبقه‌ی همکف",
+      "translationAr": "الطابق الأرضي",
+      "explanationFa": "در بریتانیا first floor طبقه‌ی بالای همکف است، اما در آمریکا first floor همان همکف است.",
+      "explanationAr": "في بريطانيا first floor هو الطابق فوق الأرضي، أمّا في أمريكا فهو الأرضي نفسه.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "first floor": {
+      "headword": "first floor",
+      "forms": [
+        "first floor",
+        "first-floor"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌfɜːst ˈflɔː/",
+      "pronounceFa": "فِرست فلُ",
+      "pronounceAr": "فيرست فلو",
+      "translationFa": "طبقه‌ی اول (بالای همکف)",
+      "translationAr": "الطابق الأوّل",
+      "explanationFa": "در انگلیسیِ بریتانیایی، اولین طبقه بالای ground floor.",
+      "explanationAr": "في الإنجليزية البريطانية أوّل طابق فوق ground floor.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "double bedroom": {
+      "headword": "double bedroom",
+      "forms": [
+        "double bedroom",
+        "double bedrooms"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌdʌbl ˈbedruːm/",
+      "pronounceFa": "دابِل بِدروم",
+      "pronounceAr": "دابِل بِدروم",
+      "translationFa": "اتاق‌خوابِ دونفره",
+      "translationAr": "غرفة نوم مزدوجة",
+      "explanationFa": "اتاقی که جای تختِ دونفره دارد، در برابرِ single bedroom؛ در آگهی‌های خانه رایج است.",
+      "explanationAr": "غرفة تتّسع لسرير مزدوج، في مقابل single bedroom؛ شائعة في إعلانات المنازل.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "lounge": {
+      "headword": "lounge",
+      "forms": [
+        "lounge",
+        "lounges"
+      ],
+      "pos": "noun",
+      "ipa": "/laʊndʒ/",
+      "pronounceFa": "لاونج",
+      "pronounceAr": "لاونج",
+      "translationFa": "اتاقِ نشیمن، سالن",
+      "translationAr": "غرفة الجلوس، الصالة",
+      "explanationFa": "در بریتانیا همان living room یا sitting room است؛ در هتل و فرودگاه یعنی «سالنِ انتظار».",
+      "explanationAr": "في بريطانيا تعني living room أو sitting room؛ وفي الفنادق والمطارات «صالة الانتظار».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "fully-fitted": {
+      "headword": "fully-fitted",
+      "forms": [
+        "fully-fitted",
+        "fully fitted"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˌfʊli ˈfɪtɪd/",
+      "pronounceFa": "فولی فیتید",
+      "pronounceAr": "فولي فِتِد",
+      "translationFa": "کاملاً مجهز (با کابینت و وسایلِ نصب‌شده)",
+      "translationAr": "مجهّز بالكامل (بخزائن وأجهزة مركّبة)",
+      "explanationFa": "در آگهیِ املاک: a fully-fitted kitchen، یعنی کابینت‌ها و وسایلِ اصلی نصب شده‌اند.",
+      "explanationAr": "في إعلانات العقارات: a fully-fitted kitchen، أي أنّ الخزائن والأجهزة الأساسية مركّبة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "cooker": {
+      "headword": "cooker",
+      "forms": [
+        "cooker",
+        "cookers"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkʊkə/",
+      "pronounceFa": "کوکِه",
+      "pronounceAr": "كُكَه",
+      "translationFa": "اجاق‌گاز (با فِر)",
+      "translationAr": "موقد طبخ",
+      "explanationFa": "دامِ رایج: cooker وسیله است، نه آشپز (آشپز cook است).",
+      "explanationAr": "فخّ شائع: cooker جهاز وليس طبّاخًا (الطبّاخ cook).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "dishwasher": {
+      "headword": "dishwasher",
+      "forms": [
+        "dishwasher",
+        "dishwashers"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈdɪʃwɒʃə/",
+      "pronounceFa": "دیش‌واشِه",
+      "pronounceAr": "دِش ووشَه",
+      "translationFa": "ماشینِ ظرف‌شویی",
+      "translationAr": "غسّالة صحون",
+      "explanationFa": "از dish (ظرف) + washer ساخته شده است.",
+      "explanationAr": "مركّبة من dish (صحن) وwasher.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "appointment": {
+      "headword": "appointment",
+      "forms": [
+        "appointment",
+        "appointments"
+      ],
+      "pos": "noun",
+      "ipa": "/əˈpɔɪntmənt/",
+      "pronounceFa": "اِپوینتمِنت",
+      "pronounceAr": "أپوينتمَنت",
+      "translationFa": "قرارِ ملاقات، وقتِ ملاقات",
+      "translationAr": "موعد",
+      "explanationFa": "make/book an appointment؛ در لیسنینگِ بخشِ 1 زمانِ قرار از پاسخ‌های رایج است.",
+      "explanationAr": "make/book an appointment؛ ووقت الموعد من الإجابات الشائعة في الجزء 1 من الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "client": {
+      "headword": "client",
+      "forms": [
+        "client",
+        "clients"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈklaɪənt/",
+      "pronounceFa": "کلایِنت",
+      "pronounceAr": "كلايَنت",
+      "translationFa": "مشتری (خدمات)، موکل",
+      "translationAr": "عميل",
+      "explanationFa": "کسی که از خدماتِ متخصصی (بنگاه‌دار، وکیل) استفاده می‌کند؛ customer بیشتر برای خریدار از مغازه است.",
+      "explanationAr": "مَن يستفيد من خدمات مختصّ (وكيل عقارات، محامٍ)؛ أمّا customer فللمشتري من المتجر غالبًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "measurements": {
+      "headword": "measurements",
+      "forms": [
+        "measurements",
+        "measurement"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmeʒəmənts/",
+      "pronounceFa": "مِژِمِنتس",
+      "pronounceAr": "ميجَمَنتس",
+      "translationFa": "اندازه‌ها، ابعاد",
+      "translationAr": "القياسات",
+      "explanationFa": "در لیسنینگ ابعادِ اتاق را با by یا x می‌گویند: 4.2 by 3.55 metres.",
+      "explanationAr": "تُقال أبعاد الغرف في الاستماع بـby أو x: 4.2 by 3.55 metres.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "rear garden": {
+      "headword": "rear garden",
+      "forms": [
+        "rear garden",
+        "rear gardens"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌrɪə ˈɡɑːdn/",
+      "pronounceFa": "ریِه گاردِن",
+      "pronounceAr": "ريَه غاردن",
+      "translationFa": "باغچه‌ی پشتِ خانه",
+      "translationAr": "الحديقة الخلفية",
+      "explanationFa": "rear یعنی پشت (رسمی‌ترِ back)؛ در برابرِ front garden.",
+      "explanationAr": "rear تعني الخلفي (أكثر رسمية من back)؛ مقابل front garden.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "patio": {
+      "headword": "patio",
+      "forms": [
+        "patio",
+        "patios"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈpætiəʊ/",
+      "pronounceFa": "پَتیو",
+      "pronounceAr": "باتيو",
+      "translationFa": "پاسیو، حیاطِ سنگ‌فرش‌شده‌ی کنارِ خانه",
+      "translationAr": "فناء مبلّط",
+      "explanationFa": "فضای سنگ‌فرشِ بیرونِ خانه برای نشستن و غذا خوردن؛ در آگهی‌های خانه رایج است.",
+      "explanationAr": "مساحة مبلّطة خارج المنزل للجلوس وتناول الطعام؛ شائعة في إعلانات المنازل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "lawn": {
+      "headword": "lawn",
+      "forms": [
+        "lawn",
+        "lawns"
+      ],
+      "pos": "noun",
+      "ipa": "/lɔːn/",
+      "pronounceFa": "لُن",
+      "pronounceAr": "لون",
+      "translationFa": "چمن، چمن‌زار",
+      "translationAr": "مرجة عشبية",
+      "explanationFa": "بخشی از باغ که چمن کاشته و کوتاه نگه داشته می‌شود: mow the lawn.",
+      "explanationAr": "جزء من الحديقة مزروع بعشب يُقصّ قصيرًا: mow the lawn.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "flower bed": {
+      "headword": "flower bed",
+      "forms": [
+        "flower bed",
+        "flower beds",
+        "flowerbed",
+        "flowerbeds"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈflaʊə bed/",
+      "pronounceFa": "فلاوِه بِد",
+      "pronounceAr": "فلاوَه بِد",
+      "translationFa": "باغچه‌ی گل",
+      "translationAr": "حوض زهور",
+      "explanationFa": "bed در باغبانی یعنی قطعه‌ای از زمین برای کاشتِ گیاه.",
+      "explanationAr": "bed في البستنة قطعة أرض لزراعة النباتات.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "mortgage": {
+      "headword": "mortgage",
+      "forms": [
+        "mortgage",
+        "mortgages"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmɔːɡɪdʒ/",
+      "pronounceFa": "مُگیج",
+      "pronounceAr": "موغِج",
+      "translationFa": "وامِ مسکن (رهنی)",
+      "translationAr": "قرض رهن عقاري",
+      "explanationFa": "حرفِ t در آن تلفظ نمی‌شود؛ get / take out a mortgage. در موضوعِ مسکن بسیار رایج است.",
+      "explanationAr": "لا يُنطق حرف t فيها؛ get / take out a mortgage. شائعة جدًا في موضوع السكن.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "deposit": {
+      "headword": "deposit",
+      "forms": [
+        "deposit",
+        "deposits"
+      ],
+      "pos": "noun",
+      "ipa": "/dɪˈpɒzɪt/",
+      "pronounceFa": "دیپازیت",
+      "pronounceAr": "ديبوزِت",
+      "translationFa": "پیش‌پرداخت؛ سپرده",
+      "translationAr": "دفعة مقدّمة؛ وديعة",
+      "explanationFa": "در خریدِ خانه بخشی از قیمت که اول پرداخت می‌شود؛ در اجاره یعنی ودیعه.",
+      "explanationAr": "في شراء المنزل جزء من الثمن يُدفع أوّلًا؛ وفي الإيجار يعني التأمين.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "at the most": {
+      "headword": "at the most",
+      "forms": [
+        "at the most",
+        "at most"
+      ],
+      "pos": "phrase",
+      "ipa": "/ət ðə ˈməʊst/",
+      "pronounceFa": "اَت ذِ موست",
+      "pronounceAr": "أت ذَ موست",
+      "translationFa": "حداکثر، دست بالا",
+      "translationAr": "على الأكثر",
+      "explanationFa": "برای سقفِ یک عدد: three months at the most؛ در برابرِ at least (دست‌کم).",
+      "explanationAr": "لحدّ أعلى لعدد: three months at the most؛ مقابل at least (على الأقلّ).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "move in": {
+      "headword": "move in",
+      "forms": [
+        "move in",
+        "moved in",
+        "moves in",
+        "moving in"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌmuːv ˈɪn/",
+      "pronounceFa": "موو این",
+      "pronounceAr": "موڤ إن",
+      "translationFa": "به خانه‌ی جدید رفتن، ساکن شدن",
+      "translationAr": "ينتقل للسكن (في منزل جديد)",
+      "explanationFa": "در برابرِ move out (از خانه رفتن)؛ move house یعنی «اسباب‌کشی کردن».",
+      "explanationAr": "مقابل move out (يغادر المنزل)؛ وmove house تعني «ينقل السكن».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "school holiday": {
+      "headword": "school holiday",
+      "forms": [
+        "school holiday",
+        "school holidays"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌskuːl ˈhɒlədeɪ/",
+      "pronounceFa": "اِسکول هالِدِی",
+      "pronounceAr": "سكول هولَداي",
+      "translationFa": "تعطیلاتِ مدرسه",
+      "translationAr": "العطلة المدرسية",
+      "explanationFa": "در بریتانیایی holiday و در آمریکایی vacation گفته می‌شود.",
+      "explanationAr": "يُقال في البريطانية holiday وفي الأمريكية vacation.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "en-suite": {
+      "headword": "en-suite",
+      "forms": [
+        "en-suite",
+        "en suite",
+        "ensuite"
+      ],
+      "pos": "adjective / noun",
+      "ipa": "/ˌɒ̃ ˈswiːt/",
+      "pronounceFa": "آن سوییت",
+      "pronounceAr": "أون سويت",
+      "translationFa": "(حمامِ) متصل به اتاق‌خواب",
+      "translationAr": "(حمّام) ملحق بغرفة النوم",
+      "explanationFa": "واژه‌ای فرانسوی در آگهی‌های خانه و هتل: an en-suite bathroom؛ تلفظش «آن سوییت» است.",
+      "explanationAr": "كلمة فرنسية في إعلانات المنازل والفنادق: an en-suite bathroom؛ وتُنطق «أون سويت».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "shower unit": {
+      "headword": "shower unit",
+      "forms": [
+        "shower unit",
+        "shower units"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈʃaʊə ˌjuːnɪt/",
+      "pronounceFa": "شاوِه یونیت",
+      "pronounceAr": "شاوَر يونِت",
+      "translationFa": "دوش (وسیله‌ی کاملِ دوش)",
+      "translationAr": "وحدة دُش",
+      "explanationFa": "unit در این‌جا یعنی یک دستگاه یا وسیله‌ی نصب‌شده.",
+      "explanationAr": "unit هنا تعني جهازًا أو قطعة مركّبة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "get ready": {
+      "headword": "get ready",
+      "forms": [
+        "get ready",
+        "getting ready",
+        "got ready"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌɡet ˈredi/",
+      "pronounceFa": "گِت رِدی",
+      "pronounceAr": "غِت رِدي",
+      "translationFa": "آماده شدن",
+      "translationAr": "يستعدّ",
+      "explanationFa": "get ready for something / to do something؛ در توصیفِ روالِ روزانه در اسپیکینگ پرکاربرد است.",
+      "explanationAr": "get ready for something / to do something؛ شائع في وصف الروتين اليومي في المحادثة.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "make an offer": {
+      "headword": "make an offer",
+      "forms": [
+        "make an offer",
+        "make a first offer",
+        "made an offer"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌmeɪk ən ˈɒfə/",
+      "pronounceFa": "مِیک اِن آفِه",
+      "pronounceAr": "ميك أن أوفَه",
+      "translationFa": "پیشنهادِ قیمت دادن",
+      "translationAr": "يقدّم عرضًا (سعرًا)",
+      "explanationFa": "در خریدِ خانه، مبلغی که خریدار پیشنهاد می‌دهد؛ accept / reject an offer.",
+      "explanationAr": "في شراء المنزل، المبلغ الذي يعرضه المشتري؛ accept / reject an offer.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "first offer": {
+      "headword": "first offer",
+      "forms": [
+        "first offer"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌfɜːst ˈɒfə/",
+      "pronounceFa": "فِرست آفِه",
+      "pronounceAr": "فيرست أوفَه",
+      "translationFa": "پیشنهادِ اول (قیمت)",
+      "translationAr": "العرض الأوّل",
+      "explanationFa": "معمولاً کمتر از قیمتِ درخواستی است و ممکن است فروشنده آن را نپذیرد.",
+      "explanationAr": "يكون عادةً أقلّ من السعر المطلوب وقد لا يقبله البائع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "accept": {
+      "headword": "accept",
+      "forms": [
+        "accept",
+        "accepted",
+        "accepts",
+        "accepting"
+      ],
+      "pos": "verb",
+      "ipa": "/əkˈsept/",
+      "pronounceFa": "اِکسِپت",
+      "pronounceAr": "أكسِبت",
+      "translationFa": "پذیرفتن، قبول کردن",
+      "translationAr": "يقبل",
+      "explanationFa": "با except (به‌جز) که تلفظی نزدیک دارد اشتباه نشود.",
+      "explanationAr": "لا تُخلط مع except (باستثناء) القريبة منها في النطق.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "come to an agreement": {
+      "headword": "come to an agreement",
+      "forms": [
+        "come to an agreement",
+        "came to an agreement"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌkʌm tu ən əˈɡriːmənt/",
+      "pronounceFa": "کام تو اِن اِگریمِنت",
+      "pronounceAr": "كام تو أن أغريمَنت",
+      "translationFa": "به توافق رسیدن",
+      "translationAr": "يتوصّل إلى اتّفاق",
+      "explanationFa": "مترادفِ reach an agreement؛ در لیسنینگِ موضوعِ خرید و قرارداد می‌آید.",
+      "explanationAr": "مرادف reach an agreement؛ يرد في الاستماع عن الشراء والعقود.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "arrive at": {
+      "headword": "arrive at",
+      "forms": [
+        "arrive at",
+        "arrived at",
+        "arriving at"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/əˈraɪv ət/",
+      "pronounceFa": "اِرایو اَت",
+      "pronounceAr": "أرايف آت",
+      "translationFa": "(به پاسخ یا نتیجه) رسیدن",
+      "translationAr": "يتوصّل إلى",
+      "explanationFa": "arrive at an answer / a decision / a conclusion؛ در این معنا یعنی «به نتیجه رسیدن»، نه رسیدن به مکان.",
+      "explanationAr": "arrive at an answer / a decision / a conclusion؛ بمعنى التوصّل إلى نتيجة لا الوصول إلى مكان.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "respond": {
+      "headword": "respond",
+      "forms": [
+        "respond",
+        "responding",
+        "responds",
+        "responded"
+      ],
+      "pos": "verb",
+      "ipa": "/rɪˈspɒnd/",
+      "pronounceFa": "ریسپاند",
+      "pronounceAr": "ريسبوند",
+      "translationFa": "پاسخ دادن",
+      "translationAr": "يستجيب، يردّ",
+      "explanationFa": "respond to a question؛ رسمی‌تر از answer. اسمش response است.",
+      "explanationAr": "respond to a question؛ أكثر رسمية من answer. والاسم response.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "syllable stress": {
+      "headword": "syllable stress",
+      "forms": [
+        "syllable stress",
+        "stressed syllable"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈsɪləbl stres/",
+      "pronounceFa": "سیلِب‌ل اِسترِس",
+      "pronounceAr": "سِلَبِل ستريس",
+      "translationFa": "تکیه‌ی هجا",
+      "translationAr": "نبر المقطع",
+      "explanationFa": "هجایی که بلندتر و کشیده‌تر گفته می‌شود: ac-com-mo-DA-tion. جای درستِ تکیه در معیارِ Pronunciation نمره دارد.",
+      "explanationAr": "المقطع الذي يُنطق أعلى وأطول: ac-com-mo-DA-tion. ولموضع النبر الصحيح درجة في معيار Pronunciation.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "go into detail": {
+      "headword": "go into detail",
+      "forms": [
+        "go into too much detail",
+        "go into detail",
+        "going into detail"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌɡəʊ ɪntə ˈdiːteɪl/",
+      "pronounceFa": "گو اینتو دیتِیل",
+      "pronounceAr": "غو إنتو ديتيل",
+      "translationFa": "وارد جزئیات شدن",
+      "translationAr": "يدخل في التفاصيل",
+      "explanationFa": "در Speaking Part 1 پاسخ‌ها کوتاه‌اند؛ در Part 2 و 3 باید بیشتر وارد جزئیات شوید.",
+      "explanationAr": "في Speaking Part 1 تكون الإجابات قصيرة؛ أمّا في Part 2 وPart 3 فادخلوا في التفاصيل أكثر.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "pretty": {
+      "headword": "pretty",
+      "forms": [
+        "pretty"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˈprɪti/",
+      "pronounceFa": "پریتی",
+      "pronounceAr": "برِتي",
+      "translationFa": "(قید، محاوره‌ای) نسبتاً، خیلی",
+      "translationAr": "(ظرف، عامّي) إلى حدّ ما، جدًا",
+      "explanationFa": "پیش از صفت یعنی «نسبتاً»: pretty big؛ در اسپیکینگ طبیعی است، ولی در رایتینگ رسمی نیست.",
+      "explanationAr": "قبل الصفة تعني «إلى حدّ ما»: pretty big؛ طبيعية في المحادثة لكنّها غير رسمية في الكتابة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "shared": {
+      "headword": "shared",
+      "forms": [
+        "shared"
+      ],
+      "pos": "adjective",
+      "ipa": "/ʃeəd/",
+      "pronounceFa": "شِه‌د",
+      "pronounceAr": "شيَد",
+      "translationFa": "مشترک",
+      "translationAr": "مشترك",
+      "explanationFa": "shared bathroom / shared house: جایی که چند نفر با هم از آن استفاده می‌کنند.",
+      "explanationAr": "shared bathroom / shared house: مكان يستخدمه عدّة أشخاص معًا.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "ice-rink": {
+      "headword": "ice-rink",
+      "forms": [
+        "ice-rink",
+        "ice rink",
+        "ice-rinks",
+        "ice rinks"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈaɪs rɪŋk/",
+      "pronounceFa": "آیس رینک",
+      "pronounceAr": "آيس رِنك",
+      "translationFa": "پیستِ اسکیتِ روی یخ",
+      "translationAr": "حلبة تزلّج على الجليد",
+      "explanationFa": "rink یعنی پیستِ اسکیت؛ از امکاناتِ تفریحیِ مراکزِ خرید که در اسپیکینگ درباره‌ی شهر می‌آید.",
+      "explanationAr": "rink تعني حلبة التزلّج؛ من المرافق الترفيهية في مراكز التسوّق التي تُذكر في الحديث عن المدينة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "brand": {
+      "headword": "brand",
+      "forms": [
+        "brand",
+        "brands"
+      ],
+      "pos": "noun",
+      "ipa": "/brænd/",
+      "pronounceFa": "بِرَند",
+      "pronounceAr": "براند",
+      "translationFa": "برند، نامِ تجاری",
+      "translationAr": "علامة تجارية",
+      "explanationFa": "famous / designer brands؛ در موضوعِ خرید و تبلیغات پرکاربرد است.",
+      "explanationAr": "famous / designer brands؛ شائعة في موضوعي التسوّق والإعلان.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "local market": {
+      "headword": "local market",
+      "forms": [
+        "local market",
+        "local markets"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌləʊkl ˈmɑːkɪt/",
+      "pronounceFa": "لوکِل ماکیت",
+      "pronounceAr": "لوكَل ماركِت",
+      "translationFa": "بازارِ محلی",
+      "translationAr": "السوق المحلّي",
+      "explanationFa": "بازاری کوچک در محله یا شهر، در برابرِ shopping centre (مرکزِ خرید).",
+      "explanationAr": "سوق صغير في الحيّ أو البلدة، مقابل shopping centre (مركز التسوّق).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "accommodation": {
+      "headword": "accommodation",
+      "forms": [
+        "accommodation"
+      ],
+      "pos": "noun",
+      "ipa": "/əˌkɒməˈdeɪʃn/",
+      "pronounceFa": "اِکامِدِیشِن",
+      "pronounceAr": "أكومَديشَن",
+      "translationFa": "محلِ سکونت، محلِ اقامت",
+      "translationAr": "السكن، مكان الإقامة",
+      "explanationFa": "در بریتانیایی غیرقابلِ‌شمارش است (accommodations نمی‌گویند)؛ املایش دو c و دو m دارد.",
+      "explanationAr": "غير معدودة في البريطانية (لا يُقال accommodations)؛ وتُكتب بحرفي c وحرفي m.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "recommend": {
+      "headword": "recommend",
+      "forms": [
+        "recommend",
+        "recommended",
+        "recommends",
+        "recommending"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌrekəˈmend/",
+      "pronounceFa": "رِکِمِند",
+      "pronounceAr": "ريكَمِند",
+      "translationFa": "توصیه کردن، پیشنهاد کردن",
+      "translationAr": "يوصي بـ",
+      "explanationFa": "recommend something to someone؛ املایش یک c و دو m دارد. ساختارِ recommend that someone (should) do هم رایج است.",
+      "explanationAr": "recommend something to someone؛ وتُكتب بحرف c واحد وحرفي m. والتركيب recommend that someone (should) do شائع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "move house": {
+      "headword": "move house",
+      "forms": [
+        "move house",
+        "moved house",
+        "moving house"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌmuːv ˈhaʊs/",
+      "pronounceFa": "موو هاوس",
+      "pronounceAr": "موڤ هاوس",
+      "translationFa": "اسباب‌کشی کردن، خانه عوض کردن",
+      "translationAr": "ينتقل إلى منزل آخر",
+      "explanationFa": "در بریتانیایی بدونِ حرفِ تعریف می‌آید: move house (نه move a house).",
+      "explanationAr": "تأتي في البريطانية دون أداة تعريف: move house (لا move a house).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "by yourself": {
+      "headword": "by yourself",
+      "forms": [
+        "by yourself",
+        "by myself",
+        "by himself",
+        "by herself",
+        "by themselves"
+      ],
+      "pos": "phrase",
+      "ipa": "/baɪ jɔːˈself/",
+      "pronounceFa": "بای یُسِلف",
+      "pronounceAr": "باي يوسِلف",
+      "translationFa": "تنها، به‌تنهایی",
+      "translationAr": "وحدك، بمفردك",
+      "explanationFa": "یعنی alone (بی‌همراه) یا «بدونِ کمکِ دیگران»: live by yourself.",
+      "explanationAr": "تعني alone (دون رفقة) أو «دون مساعدة»: live by yourself.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "historical": {
+      "headword": "historical",
+      "forms": [
+        "historical"
+      ],
+      "pos": "adjective",
+      "ipa": "/hɪˈstɒrɪkl/",
+      "pronounceFa": "هیستاریکِل",
+      "pronounceAr": "هِستورِكَل",
+      "translationFa": "تاریخی",
+      "translationAr": "تاريخي",
+      "explanationFa": "historical یعنی «مربوط به تاریخ»، اما historic یعنی «مهم و ماندگار در تاریخ»: a historic moment.",
+      "explanationAr": "historical تعني «متعلّق بالتاريخ»، أمّا historic فتعني «مهمّ في التاريخ»: a historic moment.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "monument": {
+      "headword": "monument",
+      "forms": [
+        "monument",
+        "monuments"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmɒnjumənt/",
+      "pronounceFa": "مانیومِنت",
+      "pronounceAr": "مونيومَنت",
+      "translationFa": "بنای یادبود، اثرِ تاریخی",
+      "translationAr": "نُصُب تذكاري، معلَم تاريخي",
+      "explanationFa": "تکیه روی هجای اول است: MON-u-ment؛ historic monuments در اسپیکینگِ موضوعِ شهر رایج است.",
+      "explanationAr": "النبر على المقطع الأوّل: MON-u-ment؛ وhistoric monuments شائعة في الحديث عن المدينة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "nightlife": {
+      "headword": "nightlife",
+      "forms": [
+        "nightlife"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈnaɪtlaɪf/",
+      "pronounceFa": "نایت‌لایف",
+      "pronounceAr": "نايت لايف",
+      "translationFa": "زندگیِ شبانه، تفریحاتِ شبانه",
+      "translationAr": "الحياة الليلية",
+      "explanationFa": "سرگرمی‌های شبانه‌ی شهر (رستوران، تئاتر، کافه)؛ غیرقابلِ‌شمارش است: The nightlife is lively.",
+      "explanationAr": "أماكن الترفيه الليلي في المدينة (المطاعم والمسارح والمقاهي)؛ غير معدودة: The nightlife is lively.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "go out": {
+      "headword": "go out",
+      "forms": [
+        "go out",
+        "goes out",
+        "went out",
+        "going out"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡəʊ ˈaʊt/",
+      "pronounceFa": "گو آوت",
+      "pronounceAr": "غو آوت",
+      "translationFa": "(برای تفریح) بیرون رفتن",
+      "translationAr": "يخرج (للتنزّه)",
+      "explanationFa": "go out at night / go out with friends؛ در اسپیکینگِ موضوعِ اوقاتِ فراغت پرکاربرد است.",
+      "explanationAr": "go out at night / go out with friends؛ شائعة في الحديث عن أوقات الفراغ.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "suburbs": {
+      "headword": "suburbs",
+      "forms": [
+        "suburbs",
+        "suburb",
+        "suburban"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsʌbɜːbz/",
+      "pronounceFa": "سابِربز",
+      "pronounceAr": "سابيربز",
+      "translationFa": "حومه‌ی شهر، محله‌های بیرونِ مرکز",
+      "translationAr": "الضواحي",
+      "explanationFa": "منطقه‌ی مسکونیِ بیرونِ مرکزِ شهر؛ in the suburbs با the می‌آید؛ صفتش suburban است.",
+      "explanationAr": "منطقة سكنية خارج وسط المدينة؛ in the suburbs مع the؛ والصفة suburban.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "explore": {
+      "headword": "explore",
+      "forms": [
+        "explore",
+        "explored",
+        "explores",
+        "exploring"
+      ],
+      "pos": "verb",
+      "ipa": "/ɪkˈsplɔː/",
+      "pronounceFa": "ایکسپلُ",
+      "pronounceAr": "إكسبلو",
+      "translationFa": "کاوش کردن، بررسی کردن",
+      "translationAr": "يستكشف",
+      "explanationFa": "هم برای سفر (explore a city) و هم برای ایده‌ها (explore new ideas) به کار می‌رود.",
+      "explanationAr": "تُستخدم للسفر (explore a city) وللأفكار أيضًا (explore new ideas).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "healthcare": {
+      "headword": "healthcare",
+      "forms": [
+        "healthcare",
+        "health care"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈhelθkeə/",
+      "pronounceFa": "هِلث‌کِه",
+      "pronounceAr": "هِلث كيَه",
+      "translationFa": "بهداشت و درمان، خدماتِ درمانی",
+      "translationAr": "الرعاية الصحّية",
+      "explanationFa": "از موضوع‌های رایجِ رایتینگِ Task 2: public healthcare, the healthcare system.",
+      "explanationAr": "من موضوعات Task 2 الشائعة في الكتابة: public healthcare، the healthcare system.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "modernise": {
+      "headword": "modernise",
+      "forms": [
+        "modernise",
+        "modernised",
+        "modernisation",
+        "modernize",
+        "modernized",
+        "modernization"
+      ],
+      "pos": "verb",
+      "ipa": "/ˈmɒdənaɪz/",
+      "pronounceFa": "مادِنایز",
+      "pronounceAr": "مودَنايز",
+      "translationFa": "نوسازی کردن، امروزی کردن",
+      "translationAr": "يحدّث، يجدّد",
+      "explanationFa": "املای بریتانیایی ‎-ise و آمریکایی ‎-ize است؛ اسمش modernisation (نوسازی) است: The flat needs some modernisation.",
+      "explanationAr": "التهجئة البريطانية ‎-ise والأمريكية ‎-ize؛ والاسم modernisation (التحديث): The flat needs some modernisation.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "accessible": {
+      "headword": "accessible",
+      "forms": [
+        "accessible"
+      ],
+      "pos": "adjective",
+      "ipa": "/əkˈsesəbl/",
+      "pronounceFa": "اِکسِسِب‌ل",
+      "pronounceAr": "أكسِسَبِل",
+      "translationFa": "در دسترس، قابلِ دسترسی",
+      "translationAr": "يمكن الوصول إليه",
+      "explanationFa": "accessible through / by؛ برای مکان و هم برای اطلاعات (accessible information) به کار می‌رود.",
+      "explanationAr": "accessible through / by؛ يُستخدم للأماكن وللمعلومات أيضًا (accessible information).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "transport connections": {
+      "headword": "transport connections",
+      "forms": [
+        "transport connections",
+        "transport links"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈtrænspɔːt kəˌnekʃnz/",
+      "pronounceFa": "ترَنسپُرت کِنِکشِنز",
+      "pronounceAr": "ترانسبورت كَنِكشَنز",
+      "translationFa": "دسترسی به حمل‌ونقل (عمومی)",
+      "translationAr": "وصلات النقل",
+      "explanationFa": "good transport connections/links یعنی اتوبوس و قطارِ نزدیک و مرتب؛ در توصیفِ محله رایج است.",
+      "explanationAr": "good transport connections/links تعني حافلات وقطارات قريبة ومنتظمة؛ شائعة في وصف الأحياء.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "turn into": {
+      "headword": "turn into",
+      "forms": [
+        "turned into",
+        "turn into",
+        "turns into",
+        "turning into"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌtɜːn ˈɪntə/",
+      "pronounceFa": "تِرن اینتو",
+      "pronounceAr": "تيرن إنتو",
+      "translationFa": "تبدیل کردن/شدن به",
+      "translationAr": "يحوّل إلى / يتحوّل إلى",
+      "explanationFa": "turn something into something: could be turned into a third bedroom.",
+      "explanationAr": "turn something into something: could be turned into a third bedroom.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "well kept": {
+      "headword": "well kept",
+      "forms": [
+        "well kept",
+        "well-kept"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˌwel ˈkept/",
+      "pronounceFa": "وِل کِپت",
+      "pronounceAr": "وِل كِبت",
+      "translationFa": "خوب نگهداری‌شده، تمیز و مرتب",
+      "translationAr": "محافظ عليه جيدًا",
+      "explanationFa": "پیش از اسم با خط‌تیره می‌آید: a well-kept garden.",
+      "explanationAr": "يأتي قبل الاسم بشرطة: a well-kept garden.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "suitable": {
+      "headword": "suitable",
+      "forms": [
+        "suitable"
+      ],
+      "pos": "adjective",
+      "ipa": "/ˈsuːtəbl/",
+      "pronounceFa": "سوتِب‌ل",
+      "pronounceAr": "سوتَبِل",
+      "translationFa": "مناسب",
+      "translationAr": "مناسب",
+      "explanationFa": "suitable for someone/something؛ در Task 2 برای ارزیابیِ راه‌حل‌ها مفید است.",
+      "explanationAr": "suitable for someone/something؛ مفيد في Task 2 لتقييم الحلول.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "upstairs": {
+      "headword": "upstairs",
+      "forms": [
+        "upstairs"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˌʌpˈsteəz/",
+      "pronounceFa": "آپ‌اِستِه‌ز",
+      "pronounceAr": "أب ستيَز",
+      "translationFa": "طبقه‌ی بالا",
+      "translationAr": "في الطابق العلوي",
+      "explanationFa": "قید است و حرفِ اضافه نمی‌گیرد: go upstairs (نه go to upstairs).",
+      "explanationAr": "ظرف لا يحتاج إلى حرف جرّ: go upstairs (لا go to upstairs).",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "downstairs": {
+      "headword": "downstairs",
+      "forms": [
+        "downstairs"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˌdaʊnˈsteəz/",
+      "pronounceFa": "داون‌اِستِه‌ز",
+      "pronounceAr": "داون ستيَز",
+      "translationFa": "طبقه‌ی پایین",
+      "translationAr": "في الطابق السفلي",
+      "explanationFa": "در برابرِ upstairs؛ قید است: come downstairs.",
+      "explanationAr": "مقابل upstairs؛ ظرف: come downstairs.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "arrange a viewing": {
+      "headword": "arrange a viewing",
+      "forms": [
+        "arrange a viewing"
+      ],
+      "pos": "phrase",
+      "ipa": "/əˌreɪndʒ ə ˈvjuːɪŋ/",
+      "pronounceFa": "اِرِینج اِ ویوئینگ",
+      "pronounceAr": "أرينج أ ڤيوِنغ",
+      "translationFa": "قرارِ بازدید (از ملک) گذاشتن",
+      "translationAr": "ترتيب موعد لمعاينة (عقار)",
+      "explanationFa": "viewing در موضوعِ مسکن یعنی بازدید از خانه پیش از خرید یا اجاره.",
+      "explanationAr": "viewing في موضوع السكن تعني معاينة المنزل قبل شرائه أو استئجاره.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "heating": {
+      "headword": "heating",
+      "forms": [
+        "heating",
+        "central heating"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈhiːtɪŋ/",
+      "pronounceFa": "هیتینگ",
+      "pronounceAr": "هيتِنغ",
+      "translationFa": "گرمایش، سیستمِ گرمایی",
+      "translationAr": "التدفئة",
+      "explanationFa": "central heating (شوفاژ) در آگهی‌های خانه رایج است.",
+      "explanationAr": "central heating (التدفئة المركزية) شائعة في إعلانات المنازل.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "gardening": {
+      "headword": "gardening",
+      "forms": [
+        "gardening"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈɡɑːdnɪŋ/",
+      "pronounceFa": "گاردنینگ",
+      "pronounceAr": "غاردنِنغ",
+      "translationFa": "باغبانی",
+      "translationAr": "البستنة",
+      "explanationFa": "do some gardening؛ از سرگرمی‌های رایج در اسپیکینگ.",
+      "explanationAr": "do some gardening؛ من الهوايات الشائعة في المحادثة.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "driveway": {
+      "headword": "driveway",
+      "forms": [
+        "driveway",
+        "driveways"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈdraɪvweɪ/",
+      "pronounceFa": "درایووِی",
+      "pronounceAr": "درايف واي",
+      "translationFa": "راهِ ورودیِ خودرو (جلوی خانه)",
+      "translationAr": "ممرّ السيارة",
+      "explanationFa": "راهِ اختصاصیِ کوتاه از خیابان تا گاراژ یا درِ خانه.",
+      "explanationAr": "طريق خاص قصير من الشارع إلى المرآب أو باب المنزل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "regarding": {
+      "headword": "regarding",
+      "forms": [
+        "regarding"
+      ],
+      "pos": "preposition",
+      "ipa": "/rɪˈɡɑːdɪŋ/",
+      "pronounceFa": "ریگاردینگ",
+      "pronounceAr": "ريغاردِنغ",
+      "translationFa": "درباره‌ی، در موردِ",
+      "translationAr": "فيما يخصّ، بشأن",
+      "explanationFa": "رسمی‌تر از about؛ در نامه‌ی رسمی (General Training) رایج است: Regarding your request, ...",
+      "explanationAr": "أكثر رسمية من about؛ شائعة في الرسائل الرسمية: Regarding your request, ...",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "well connected": {
+      "headword": "well connected",
+      "forms": [
+        "well connected",
+        "well-connected"
+      ],
+      "pos": "adjective phrase",
+      "ipa": "/ˌwel kəˈnektɪd/",
+      "pronounceFa": "وِل کِنِکتید",
+      "pronounceAr": "وِل كَنِكتِد",
+      "translationFa": "با دسترسیِ خوب (به حمل‌ونقل)",
+      "translationAr": "متّصل جيدًا (بالمواصلات)",
+      "explanationFa": "برای مکانی که حمل‌ونقلِ خوبی به جاهای دیگر دارد؛ درباره‌ی آدم یعنی «با آشنایانِ بانفوذ».",
+      "explanationAr": "لمكان له مواصلات جيدة إلى غيره؛ وعن الشخص تعني «ذو علاقات نافذة».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "altogether": {
+      "headword": "altogether",
+      "forms": [
+        "altogether"
+      ],
+      "pos": "adverb",
+      "ipa": "/ˌɔːltəˈɡeðə/",
+      "pronounceFa": "اُلتِگِذِه",
+      "pronounceAr": "أولتَغيذَه",
+      "translationFa": "روی‌هم‌رفته، در مجموع",
+      "translationAr": "في المجموع",
+      "explanationFa": "How much is that altogether? با all together (همه با هم) فرق دارد.",
+      "explanationAr": "How much is that altogether? وتختلف عن all together (معًا جميعًا).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "book a place": {
+      "headword": "book a place",
+      "forms": [
+        "book a place"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌbʊk ə ˈpleɪs/",
+      "pronounceFa": "بوک اِ پلِیس",
+      "pronounceAr": "بُك أ بليس",
+      "translationFa": "جا رزرو کردن، ثبت‌نام کردن (در دوره)",
+      "translationAr": "يحجز مكانًا",
+      "explanationFa": "book a place on a course؛ با حرفِ اضافه‌ی on برای دوره می‌آید.",
+      "explanationAr": "book a place on a course؛ تأتي مع on للدورة.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "membership": {
+      "headword": "membership",
+      "forms": [
+        "membership"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈmembəʃɪp/",
+      "pronounceFa": "مِمبِرشیپ",
+      "pronounceAr": "مِمبَرشِب",
+      "translationFa": "عضویت",
+      "translationAr": "العضوية",
+      "explanationFa": "membership number / fee؛ در لیسنینگِ بخشِ 1 شماره‌ی عضویت از پاسخ‌های رایج است.",
+      "explanationAr": "membership number / fee؛ ورقم العضوية من الإجابات الشائعة في الجزء 1 من الاستماع.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "if I remember rightly": {
+      "headword": "if I remember rightly",
+      "forms": [
+        "if I remember rightly",
+        "if I remember correctly"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪf aɪ rɪˌmembə ˈraɪtli/",
+      "pronounceFa": "ایف آی ریمِمبِه رایتلی",
+      "pronounceAr": "إف آي رِمِمبَه رايتلي",
+      "translationFa": "اگر درست یادم باشد",
+      "translationAr": "إن كنت أتذكّر جيدًا",
+      "explanationFa": "برای گفتنِ چیزی که مطمئن نیستید؛ در اسپیکینگ برای یادآوریِ خاطره طبیعی است.",
+      "explanationAr": "لقول شيء لست متأكّدًا منه؛ طبيعي في المحادثة عند استرجاع ذكرى.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "take care of": {
+      "headword": "take care of",
+      "forms": [
+        "take care of",
+        "taken care of",
+        "took care of",
+        "taking care of",
+        "takes care of",
+        "taken very good care of"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌteɪk ˈkeər əv/",
+      "pronounceFa": "تِیک کِه‌ر آو",
+      "pronounceAr": "تيك كير أوف",
+      "translationFa": "مراقبت کردن از",
+      "translationAr": "يعتني بـ",
+      "explanationFa": "take (good) care of something/someone؛ مترادفِ look after.",
+      "explanationAr": "take (good) care of something/someone؛ مرادف look after.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "dimensions": {
+      "headword": "dimensions",
+      "forms": [
+        "dimensions",
+        "dimension"
+      ],
+      "pos": "noun",
+      "ipa": "/daɪˈmenʃnz/",
+      "pronounceFa": "دایمِنشِنز",
+      "pronounceAr": "دايمِنشَنز",
+      "translationFa": "ابعاد، اندازه‌ها",
+      "translationAr": "الأبعاد",
+      "explanationFa": "طول، عرض و ارتفاع؛ What are the dimensions of the room? در لیسنینگِ موضوعِ خانه رایج است.",
+      "explanationAr": "الطول والعرض والارتفاع؛ What are the dimensions of the room? شائعة في الاستماع عن المنازل.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "dining suite": {
+      "headword": "dining suite",
+      "forms": [
+        "dining suite",
+        "dining suites"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈdaɪnɪŋ swiːt/",
+      "pronounceFa": "داینینگ سوییت",
+      "pronounceAr": "داينِنغ سويت",
+      "translationFa": "دستِ میز و صندلیِ ناهارخوری",
+      "translationAr": "طقم طاولة طعام",
+      "explanationFa": "suite (مثلِ sweet تلفظ می‌شود) یعنی یک دست مبلمانِ هماهنگ: a three-piece suite.",
+      "explanationAr": "suite (تُنطق مثل sweet) تعني طقم أثاث متناسقًا: a three-piece suite.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "come in useful": {
+      "headword": "come in useful",
+      "forms": [
+        "come in useful",
+        "comes in useful",
+        "came in useful",
+        "come in very useful"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌkʌm ɪn ˈjuːsfl/",
+      "pronounceFa": "کام این یوسفِل",
+      "pronounceAr": "كام إن يوسفُل",
+      "translationFa": "به کار آمدن، مفید واقع شدن",
+      "translationAr": "يكون مفيدًا",
+      "explanationFa": "عبارتِ محاوره‌ایِ بریتانیایی؛ come in handy هم همین معنا را دارد.",
+      "explanationAr": "عبارة بريطانية في المحادثة؛ وcome in handy بالمعنى نفسه.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "put in an offer": {
+      "headword": "put in an offer",
+      "forms": [
+        "put in an offer",
+        "put in a higher one",
+        "put in a higher offer"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌpʊt ɪn ən ˈɒfə/",
+      "pronounceFa": "پوت این اِن آفِه",
+      "pronounceAr": "بُت إن أن أوفَه",
+      "translationFa": "پیشنهادِ قیمت دادن",
+      "translationAr": "يقدّم عرضًا",
+      "explanationFa": "در خرید و فروشِ خانه: put in an offer on a house؛ مترادفِ make an offer.",
+      "explanationAr": "في بيع المنازل وشرائها: put in an offer on a house؛ مرادف make an offer.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "so far": {
+      "headword": "so far",
+      "forms": [
+        "so far"
+      ],
+      "pos": "adverb phrase",
+      "ipa": "/ˌsəʊ ˈfɑː/",
+      "pronounceFa": "سو فا",
+      "pronounceAr": "سو فا",
+      "translationFa": "تا حالا، تاکنون",
+      "translationAr": "حتى الآن",
+      "explanationFa": "معمولاً با حالِ کامل می‌آید: the best property I've seen so far.",
+      "explanationAr": "يأتي عادةً مع المضارع التامّ: the best property I've seen so far.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "postcode": {
+      "headword": "postcode",
+      "forms": [
+        "postcode",
+        "postcodes"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈpəʊstkəʊd/",
+      "pronounceFa": "پوست‌کود",
+      "pronounceAr": "بوست كود",
+      "translationFa": "کدِ پستی",
+      "translationAr": "الرمز البريدي",
+      "explanationFa": "در بریتانیا postcode و در آمریکا zip code؛ در لیسنینگِ بخشِ 1 حرف‌به‌حرف خوانده می‌شود.",
+      "explanationAr": "في بريطانيا postcode وفي أمريكا zip code؛ ويُقرأ حرفًا حرفًا في الجزء 1 من الاستماع.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "on the market": {
+      "headword": "on the market",
+      "forms": [
+        "on the market"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɒn ðə ˈmɑːkɪt/",
+      "pronounceFa": "آن ذِ ماکیت",
+      "pronounceAr": "أون ذَ ماركِت",
+      "translationFa": "برای فروش گذاشته‌شده، در بازار",
+      "translationAr": "معروض للبيع",
+      "explanationFa": "be on the market for £350,000: با این قیمت برای فروش است.",
+      "explanationAr": "be on the market for £350,000: معروض للبيع بهذا السعر.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "complete the sale": {
+      "headword": "complete the sale",
+      "forms": [
+        "complete the sale",
+        "completed the sale",
+        "sale is completed"
+      ],
+      "pos": "phrase",
+      "ipa": "/kəmˌpliːt ðə ˈseɪl/",
+      "pronounceFa": "کِمپلیت ذِ سِیل",
+      "pronounceAr": "كَمبليت ذَ سيل",
+      "translationFa": "معامله (فروش) را نهایی کردن",
+      "translationAr": "يُتمّ البيع",
+      "explanationFa": "در معامله‌ی ملک، complete یعنی انتقالِ نهاییِ مالکیت و پرداختِ پول.",
+      "explanationAr": "في صفقات العقار، complete تعني النقل النهائي للملكية ودفع المال.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "survey": {
+      "headword": "survey",
+      "forms": [
+        "survey",
+        "surveys"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsɜːveɪ/",
+      "pronounceFa": "سِروِی",
+      "pronounceAr": "سيرڤي",
+      "translationFa": "کارشناسیِ ملک؛ نظرسنجی",
+      "translationAr": "معاينة العقار؛ استطلاع",
+      "explanationFa": "در خریدِ خانه یعنی بازرسیِ وضعیتِ ساختمان؛ در معنای دیگر یعنی نظرسنجی که در Task 1 فراوان می‌آید.",
+      "explanationAr": "في شراء المنزل تعني فحص حالة المبنى؛ ومن معانيها الاستطلاع الشائع في Task 1.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "in good condition": {
+      "headword": "in good condition",
+      "forms": [
+        "in good condition",
+        "in bad condition"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˌɡʊd kənˈdɪʃn/",
+      "pronounceFa": "این گود کِندیشِن",
+      "pronounceAr": "إن غُد كَندِشَن",
+      "translationFa": "در وضعیتِ خوب، سالم",
+      "translationAr": "في حالة جيدة",
+      "explanationFa": "in good / bad / poor condition؛ برای خانه، ماشین و وسایل به کار می‌رود.",
+      "explanationAr": "in good / bad / poor condition؛ تُستخدم للمنازل والسيارات والأغراض.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "contract": {
+      "headword": "contract",
+      "forms": [
+        "contract",
+        "contracts"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈkɒntrækt/",
+      "pronounceFa": "کانترَکت",
+      "pronounceAr": "كونتراكت",
+      "translationFa": "قرارداد",
+      "translationAr": "عقد",
+      "explanationFa": "sign a contract؛ در اسم تکیه روی هجای اول است (CONtract).",
+      "explanationAr": "sign a contract؛ والنبر في الاسم على المقطع الأوّل (CONtract).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "delay": {
+      "headword": "delay",
+      "forms": [
+        "delay",
+        "delayed",
+        "delays"
+      ],
+      "pos": "verb / noun",
+      "ipa": "/dɪˈleɪ/",
+      "pronounceFa": "دیلِی",
+      "pronounceAr": "ديلاي",
+      "translationFa": "عقب انداختن؛ تأخیر",
+      "translationAr": "يؤخّر؛ تأخير",
+      "explanationFa": "delay something / a delay in something؛ در لیسنینگِ موضوعِ سفر و حمل‌ونقل هم رایج است.",
+      "explanationAr": "delay something / a delay in something؛ شائعة في الاستماع عن السفر والنقل.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "go through": {
+      "headword": "go through",
+      "forms": [
+        "go through"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡəʊ ˈθruː/",
+      "pronounceFa": "گو ثرو",
+      "pronounceAr": "غو ثرو",
+      "translationFa": "(معامله یا طرح) انجام شدن، تصویب شدن",
+      "translationAr": "تتمّ (الصفقة)، يُقرّ",
+      "explanationFa": "the sale went through: معامله انجام شد. معنای دیگرش «از سر گذراندنِ سختی» است.",
+      "explanationAr": "the sale went through: تمّت الصفقة. ومن معانيها أيضًا «يمرّ بتجربة صعبة».",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "go over": {
+      "headword": "go over",
+      "forms": [
+        "go over",
+        "going over",
+        "went over"
+      ],
+      "pos": "phrasal verb",
+      "ipa": "/ˌɡəʊ ˈəʊvə/",
+      "pronounceFa": "گو اووِه",
+      "pronounceAr": "غو أوڤَه",
+      "translationFa": "مرور کردن، دوباره بررسی کردن",
+      "translationAr": "يراجع",
+      "explanationFa": "go over the details / your answers: برای جمع‌بندیِ یک گفت‌وگو یا بازبینیِ پاسخ‌ها.",
+      "explanationAr": "go over the details / your answers: لتلخيص محادثة أو مراجعة الإجابات.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "out of control": {
+      "headword": "out of control",
+      "forms": [
+        "out of control"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌaʊt əv kənˈtrəʊl/",
+      "pronounceFa": "آوت آو کِنترول",
+      "pronounceAr": "آوت أوف كَنترول",
+      "translationFa": "از کنترل خارج",
+      "translationAr": "خارج عن السيطرة",
+      "explanationFa": "get out of control؛ در برابرِ under control.",
+      "explanationAr": "get out of control؛ مقابل under control.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "shopping centre": {
+      "headword": "shopping centre",
+      "forms": [
+        "shopping centre",
+        "shopping centres",
+        "shopping center"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˈʃɒpɪŋ ˌsentə/",
+      "pronounceFa": "شاپینگ سِنتِه",
+      "pronounceAr": "شوبِنغ سِنتَه",
+      "translationFa": "مرکزِ خرید",
+      "translationAr": "مركز التسوّق",
+      "explanationFa": "در بریتانیا shopping centre و در آمریکا mall گفته می‌شود.",
+      "explanationAr": "يُقال في بريطانيا shopping centre وفي أمريكا mall.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "most importantly": {
+      "headword": "most importantly",
+      "forms": [
+        "most importantly"
+      ],
+      "pos": "adverb phrase",
+      "ipa": "/ˌməʊst ɪmˈpɔːtntli/",
+      "pronounceFa": "موست ایمپُرتِنتلی",
+      "pronounceAr": "موست إمبورتَنتلي",
+      "translationFa": "از همه مهم‌تر",
+      "translationAr": "والأهمّ من ذلك",
+      "explanationFa": "برای برجسته کردنِ مهم‌ترین دلیل در پایانِ فهرست؛ در اسپیکینگ و رایتینگ کاربرد دارد.",
+      "explanationAr": "لإبراز أهمّ سبب في آخر القائمة؛ مفيدة في المحادثة والكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "catch the bus": {
+      "headword": "catch the bus",
+      "forms": [
+        "catch the bus",
+        "catch a bus",
+        "caught the bus"
+      ],
+      "pos": "phrase",
+      "ipa": "/ˌkætʃ ðə ˈbʌs/",
+      "pronounceFa": "کَچ ذِ باس",
+      "pronounceAr": "كاتش ذَ باص",
+      "translationFa": "(به‌موقع) سوارِ اتوبوس شدن",
+      "translationAr": "يلحق بالحافلة",
+      "explanationFa": "catch a bus/train یعنی سوار شدن (پیش از رفتنش)؛ در برابرِ miss the bus (جا ماندن).",
+      "explanationAr": "catch a bus/train تعني اللحاق بها وركوبها؛ مقابل miss the bus (يفوته).",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "on sale": {
+      "headword": "on sale",
+      "forms": [
+        "on sale"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɒn ˈseɪl/",
+      "pronounceFa": "آن سِیل",
+      "pronounceAr": "أون سيل",
+      "translationFa": "برای فروش؛ (آمریکایی) حراج",
+      "translationAr": "معروض للبيع؛ (أمريكية) بالتخفيض",
+      "explanationFa": "در بریتانیایی on sale یعنی «در فروش»؛ for sale هم یعنی «فروشی»؛ in the sale یعنی «در حراج».",
+      "explanationAr": "في البريطانية on sale تعني «معروض للبيع»؛ وfor sale «للبيع»؛ وin the sale «في التخفيضات».",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "escalator": {
+      "headword": "escalator",
+      "forms": [
+        "escalator",
+        "escalators"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈeskəleɪtə/",
+      "pronounceFa": "اِسکِلِیتِه",
+      "pronounceAr": "إسكَليتَه",
+      "translationFa": "پله‌برقی",
+      "translationAr": "سلّم متحرّك",
+      "explanationFa": "تکیه روی هجای اول است: ES-ca-la-tor؛ lift (آسانسور) در آمریکایی elevator است.",
+      "explanationAr": "النبر على المقطع الأوّل: ES-ca-la-tor؛ وlift (المصعد) في الأمريكية elevator.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "in total": {
+      "headword": "in total",
+      "forms": [
+        "in total"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɪn ˈtəʊtl/",
+      "pronounceFa": "این توتِل",
+      "pronounceAr": "إن توتَل",
+      "translationFa": "روی‌هم، در مجموع",
+      "translationAr": "في المجموع",
+      "explanationFa": "برای جمعِ کلِ یک عدد؛ در Task 1 کاربرد دارد: 600 students in total.",
+      "explanationAr": "لمجموع عدد ما؛ مفيد في Task 1: 600 students in total.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "inhabitant": {
+      "headword": "inhabitant",
+      "forms": [
+        "inhabitants",
+        "inhabitant"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪnˈhæbɪtənt/",
+      "pronounceFa": "اینهَبیتِنت",
+      "pronounceAr": "إنهابِتَنت",
+      "translationFa": "ساکن، اهلِ جایی",
+      "translationAr": "ساكن",
+      "explanationFa": "معمولاً جمع می‌آید: the inhabitants of a city؛ در رایتینگ جایگزینِ رسمی‌ترِ people/residents است.",
+      "explanationAr": "تأتي غالبًا بالجمع: the inhabitants of a city؛ بديل رسمي لـpeople/residents في الكتابة.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "residential area": {
+      "headword": "residential area",
+      "forms": [
+        "residential area",
+        "residential areas"
+      ],
+      "pos": "noun phrase",
+      "ipa": "/ˌrezɪˌdenʃl ˈeəriə/",
+      "pronounceFa": "رِزیدِنشِل اِریِه",
+      "pronounceAr": "ريزيدِنشَل إيريا",
+      "translationFa": "منطقه‌ی مسکونی",
+      "translationAr": "منطقة سكنية",
+      "explanationFa": "در برابرِ commercial / industrial area؛ در توصیفِ نقشه در Task 1 هم پرکاربرد است.",
+      "explanationAr": "مقابل commercial / industrial area؛ شائعة في وصف الخرائط في Task 1.",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "these days": {
+      "headword": "these days",
+      "forms": [
+        "these days"
+      ],
+      "pos": "adverb phrase",
+      "ipa": "/ˈðiːz deɪz/",
+      "pronounceFa": "ذیز دِیز",
+      "pronounceAr": "ذيز ديز",
+      "translationFa": "این روزها، امروزه",
+      "translationAr": "في هذه الأيام",
+      "explanationFa": "برای وضعیتِ کنونی در برابرِ گذشته؛ در Speaking Part 3 برای مقایسه‌ی گذشته و حال مفید است.",
+      "explanationAr": "للوضع الحالي مقارنةً بالماضي؛ مفيد في Speaking Part 3 للمقارنة بين الماضي والحاضر.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "I'd say": {
+      "headword": "I'd say",
+      "forms": [
+        "I'd say"
+      ],
+      "pos": "phrase",
+      "ipa": "/aɪd ˈseɪ/",
+      "pronounceFa": "آید سِی",
+      "pronounceAr": "آيد سي",
+      "translationFa": "به نظرم، می‌توانم بگویم",
+      "translationAr": "أقول إنّ، أرى أنّ",
+      "explanationFa": "راهِ طبیعی برای بیانِ نظر در اسپیکینگ، کمی محتاطانه‌تر از I think.",
+      "explanationAr": "طريقة طبيعية لإبداء الرأي في المحادثة، أكثر تحفّظًا قليلًا من I think.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "environment": {
+      "headword": "environment",
+      "forms": [
+        "environment"
+      ],
+      "pos": "noun",
+      "ipa": "/ɪnˈvaɪrənmənt/",
+      "pronounceFa": "اینوایرِنمِنت",
+      "pronounceAr": "إنڤايرَنمَنت",
+      "translationFa": "محیط‌زیست؛ محیط",
+      "translationAr": "البيئة",
+      "explanationFa": "the environment (با the) یعنی طبیعت و محیط‌زیست؛ حرفِ n پیش از m را جا نیندازید (environment).",
+      "explanationAr": "the environment (مع the) تعني الطبيعة والبيئة؛ ولا تُسقطوا حرف n قبل m في الكتابة (environment).",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "geography": {
+      "headword": "geography",
+      "forms": [
+        "geography"
+      ],
+      "pos": "noun",
+      "ipa": "/dʒiˈɒɡrəfi/",
+      "pronounceFa": "جیاگرِفی",
+      "pronounceAr": "جيوغرَفي",
+      "translationFa": "جغرافیا",
+      "translationAr": "الجغرافيا",
+      "explanationFa": "تکیه روی هجای دوم است: ge-OG-ra-phy.",
+      "explanationAr": "النبر على المقطع الثاني: ge-OG-ra-phy.",
+      "cefrLevel": "A2",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "on average": {
+      "headword": "on average",
+      "forms": [
+        "on average"
+      ],
+      "pos": "phrase",
+      "ipa": "/ɒn ˈævərɪdʒ/",
+      "pronounceFa": "آن اَوِریج",
+      "pronounceAr": "أون أڤرِج",
+      "translationFa": "به‌طورِ میانگین",
+      "translationAr": "في المتوسّط",
+      "explanationFa": "در Task 1 برای میانگین‌ها: On average, people spend...",
+      "explanationAr": "في Task 1 للمتوسّطات: On average, people spend...",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "temperature": {
+      "headword": "temperature",
+      "forms": [
+        "temperature",
+        "temperatures"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈtemprətʃə/",
+      "pronounceFa": "تِمپرِچِه",
+      "pronounceAr": "تِمبرَتشَه",
+      "translationFa": "دما",
+      "translationAr": "درجة الحرارة",
+      "explanationFa": "در گفتار معمولاً سه هجا تلفظ می‌شود (TEM-pra-ture)؛ high / low temperatures.",
+      "explanationAr": "تُنطق عادةً ثلاثة مقاطع (TEM-pra-ture)؛ high / low temperatures.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
+      ]
+    },
+    "scenery": {
+      "headword": "scenery",
+      "forms": [
+        "scenery"
+      ],
+      "pos": "noun",
+      "ipa": "/ˈsiːnəri/",
+      "pronounceFa": "سینِری",
+      "pronounceAr": "سينَري",
+      "translationFa": "چشم‌انداز، مناظرِ طبیعی",
+      "translationAr": "المناظر الطبيعية",
+      "explanationFa": "غیرقابلِ‌شمارش است (sceneries نمی‌گویند)؛ beautiful / spectacular scenery.",
+      "explanationAr": "غير معدودة (لا يُقال sceneries)؛ beautiful / spectacular scenery.",
+      "cefrLevel": "B1",
+      "books": [
+        "Mindset 02"
       ]
     }
   }
