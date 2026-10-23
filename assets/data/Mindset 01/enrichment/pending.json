@@ -1,8 +1,8 @@
 {
-  "generatedAt": "1405-07-30 10:38",
-  "total": 5613,
-  "translated": 5571,
-  "pendingUnique": 42,
+  "generatedAt": "1405-08-02 00:06",
+  "total": 5614,
+  "translated": 5491,
+  "pendingUnique": 123,
   "items": [
     {
       "page": 1,
@@ -125,6 +125,118 @@
       "text": "◉ In multiple-choice tasks, you choose the correct answer from three options, A, B or C."
     },
     {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "what celebration are they talking about?",
+      "text": "What celebration are they talking about?"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "a graduation",
+      "text": "a graduation"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "a wedding",
+      "text": "a wedding"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "what food do guests have at the event?",
+      "text": "What food do guests have at the event?"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "oranges",
+      "text": "oranges"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "rice cakes",
+      "text": "rice cakes"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "what colour hat do baby girls wear at the event in korea?",
+      "text": "What colour hat do baby girls wear at the event in Korea?"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "black and silver",
+      "text": "black and silver"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "black",
+      "text": "black"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "red and silver",
+      "text": "red and silver"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "what does the baby receive from the guests?",
+      "text": "What does the baby receive from the guests?"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "a candle",
+      "text": "a candle"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "some money",
+      "text": "some money"
+    },
+    {
+      "page": 11,
+      "unit": "UNIT/01: RELATIONSHIPS",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "some tea",
+      "text": "some tea"
+    },
+    {
       "page": 12,
       "unit": "UNIT/01: RELATIONSHIPS",
       "section": "SPEAKING",
@@ -171,6 +283,14 @@
       "where": "table",
       "key": "expanded, increased (in size)",
       "text": "{blk}expanded, increased (in size){/blk}"
+    },
+    {
+      "page": 41,
+      "unit": "UNIT/03: EDUCATION AND EMPLOYMENT",
+      "section": "READING",
+      "where": "table",
+      "key": "in 1944, the uk government created a new system of education. education was divided into three parts. children who passed an exam at 11 went to grammar schools. pupils who didn't do well in the exam went to 'secondary modern' schools or technical schools. at technical schools they studied work-based subjects. in practice, however, only 0.5% of pupils went to technical schools, and this system divided students at a very young age into academic and non-academic. the system did not produce good results, and changed to a more equal system in the 1970s.",
+      "text": "In 1944, the UK government created a new system of education. Education was divided into three parts. Children who passed an exam at 11 went to grammar schools. Pupils who didn't do well in the exam went to 'secondary modern' schools or technical schools. At technical schools they studied work-based subjects. In practice, however, only 0.5% of pupils went to technical schools, and this system divided students at a very young age into academic and non-academic. The system did not produce good results, and changed to a more equal system in the 1970s."
     },
     {
       "page": 46,
@@ -339,6 +459,534 @@
       "where": "table",
       "key": "paul mccartney (singer and songwriter, member of the beatles) -brilliant, talented, experienced",
       "text": "{blk}Paul McCartney (singer and songwriter, member of The Beatles) -brilliant, talented, experienced{/blk}"
+    },
+    {
+      "page": 142,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "READING",
+      "where": "table",
+      "key": "orcas were trying to catch and hurt a group of 1 grey whales who were travelling from one place to another. the migrating whales were helped by 2 humpback whales. the whole incident lasted more than 3 seven/7 hours.",
+      "text": "Orcas were trying to catch and hurt a group of 1 {blk}grey whales{/blk} who were travelling from one place to another. The migrating whales were helped by 2 {blk}humpback whales{/blk}. The whole incident lasted more than 3 {blk}seven/7 hours{/blk}."
+    },
+    {
+      "page": 144,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "READING",
+      "where": "table",
+      "key": "now that we have a better understanding of animals, zoos try to recreate natural habitats of animals as accurately as possible. for example, polar bears live in a plain, white open space. zoos try to provide 'enrichment' for the animals to improve their wellbeing. this includes climbing frames, feeding puzzles, unusual objects and different types of food. it allows animals to behave in a normal way, such as scratching, climbing, digging and solving problems. another type of enrichment is mixing up types of animal that would naturally mix in the wild. colchester zoo in england has a 'kingdom of the wild' paddock where several species live together. they have found positive changes to the behaviour of these animals as a result.",
+      "text": "Now that we have a better understanding of animals, zoos try to recreate natural habitats of animals as accurately as possible. For example, polar bears live in a plain, white open space. Zoos try to provide 'enrichment' for the animals to improve their wellbeing. This includes climbing frames, feeding puzzles, unusual objects and different types of food. It allows animals to behave in a normal way, such as scratching, climbing, digging and solving problems. Another type of enrichment is mixing up types of animal that would naturally mix in the wild. Colchester Zoo in England has a 'kingdom of the wild' paddock where several species live together. They have found positive changes to the behaviour of these animals as a result."
+    },
+    {
+      "page": 144,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "READING",
+      "where": "table",
+      "key": "different types of technology are used to help create natural environments for animals. in indianapolis zoo, in the united states, for example, there is a 'functional forest' called the hutan trail, a series of towers and cables 20 metres above the ground. this allows the orangutans to swing around the zoo as they would swing around the forest in their native indonesia. the cables are strong enough to give them a safe and comfortable trip around the zoo. they have access to three oases, where they can go when they want to be apart from the group.",
+      "text": "Different types of technology are used to help create natural environments for animals. In Indianapolis Zoo, in the United States, for example, there is a 'functional forest' called the Hutan Trail, a series of towers and cables 20 metres above the ground. This allows the orangutans to swing around the zoo as they would swing around the forest in their native Indonesia. The cables are strong enough to give them a safe and comfortable trip around the zoo. They have access to three oases, where they can go when they want to be apart from the group."
+    },
+    {
+      "page": 145,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "READING",
+      "where": "table",
+      "key": "the first zoo to focus on protecting animals was started by 2 gerald durrell",
+      "text": "The first zoo to focus on protecting animals was started by 2 {blk}Gerald Durrell{/blk}"
+    },
+    {
+      "page": 145,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "READING",
+      "where": "table",
+      "key": "since the 1990s a number of zoos have introduced programmes which aim to breed threatened animals and return them to their 3 natural habitats. but first the animals have to learn how to survive in the 4 wild",
+      "text": "Since the 1990s a number of zoos have introduced programmes which aim to breed threatened animals and return them to their 3 {blk}natural habitats{/blk}. But first the animals have to learn how to survive in the 4 {blk}wild{/blk}"
+    },
+    {
+      "page": 145,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "READING",
+      "where": "table",
+      "key": "zoos offer animals 5 enrichment by making it challenging for them to find their food, providing them with climbing equipment, and even mixing them with other species.",
+      "text": "Zoos offer animals 5 {blk}enrichment{/blk} by making it challenging for them to find their food, providing them with climbing equipment, and even mixing them with other species."
+    },
+    {
+      "page": 147,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "WRITING",
+      "where": "table",
+      "key": "paragraph a is better because it includes the points in exercise 3. paragraph b adds new information and supporting evidence, which are not appropriate for a conclusion, though b does also give the writer's opinion and answer to the question.",
+      "text": "{blk}Paragraph A is better because it includes the points in exercise 3. Paragraph B adds new information and supporting evidence, which are not appropriate for a conclusion, though B does also give the writer's opinion and answer to the question.{/blk}"
+    },
+    {
+      "page": 148,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "WRITING",
+      "where": "table",
+      "key": "for instance, ... e",
+      "text": "For instance, ... {blk}e{/blk}"
+    },
+    {
+      "page": 148,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "WRITING",
+      "where": "table",
+      "key": "education programmes",
+      "text": "{blk}education programmes{/blk}"
+    },
+    {
+      "page": 149,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "WRITING",
+      "where": "table",
+      "key": "paragraph 3 - solutions",
+      "text": "Paragraph 3 - Solutions"
+    },
+    {
+      "page": 149,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "WRITING",
+      "where": "table",
+      "key": "to sum up, humans have created the problem of global warming. therefore, humans must also try to solve the problem. we can all try to live a 'green' lifestyle by saving electricity and not buying things we don't need. (267 words)",
+      "text": "To sum up, humans have created the problem of global warming. Therefore, humans must also try to solve the problem. We can all try to live a 'green' lifestyle by saving electricity and not buying things we don't need. (267 words)"
+    },
+    {
+      "page": 152,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "2 __ coloured coat",
+      "text": "2 __ coloured coat"
+    },
+    {
+      "page": 152,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "4 __ they require",
+      "text": "4 __ they require"
+    },
+    {
+      "page": 153,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "read the notes about the american bullfrog.",
+      "text": "Read the notes about the American bullfrog."
+    },
+    {
+      "page": 153,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "match gaps 1-6 in the notes with the questions a-f below.",
+      "text": "Match gaps 1-6 in the notes with the questions a-f below."
+    },
+    {
+      "page": 153,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "eats the food of native british frogs - insects, fish, birds and animals including 5 - e and also eats the frogs themselves!",
+      "text": "eats the food of native British frogs - insects, fish, birds and animals including 5 - {blk}e{/blk} and also eats the frogs themselves!"
+    },
+    {
+      "page": 153,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "financial cost - a total of £ 6 f already spent on research into american bullfrogs",
+      "text": "financial cost - a total of £ 6 {blk}f{/blk} already spent on research into American bullfrogs"
+    },
+    {
+      "page": 154,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "complete the notes below. write one word and/or a number for each answer.",
+      "text": "Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer."
+    },
+    {
+      "page": 154,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "LISTENING",
+      "where": "table",
+      "key": "heart attack - try to revive them",
+      "text": "heart attack - try to revive them"
+    },
+    {
+      "page": 157,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "SPEAKING",
+      "where": "table",
+      "key": "ad the part 3 questions 1-4 on the topic of animals and match them with the beginning of some students' responses a-d.",
+      "text": "ad the Part 3 questions 1-4 on the topic of animals and match them with the beginning of some students' responses a-d."
+    },
+    {
+      "page": 157,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "SPEAKING",
+      "where": "table",
+      "key": "we can stop buying things made from animals.",
+      "text": "{blk}We can stop buying things made from animals.{/blk}"
+    },
+    {
+      "page": 157,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "SPEAKING",
+      "where": "table",
+      "key": "i think there will be less hunting in the future.",
+      "text": "{blk}I think there will be less hunting in the future.{/blk}"
+    },
+    {
+      "page": 157,
+      "unit": "UNIT/08: NATURAL WORLD",
+      "section": "SPEAKING",
+      "where": "table",
+      "key": "in part 3 of the speaking test try to think of real-life examples or relate the examples to your experience. but if you can't, consider inventing a fictional example to help you develop your answer. you might say, 'for example, i heard that ...' or 'for instance, i read that...'",
+      "text": "In Part 3 of the Speaking test try to think of real-life examples or relate the examples to your experience. But if you can't, consider inventing a fictional example to help you develop your answer. You might say, 'For example, I heard that ...' or 'For instance, I read that...'"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "a: the 3rd",
+      "text": "a: the 3rd"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "b: $10.50",
+      "text": "b: $10.50"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "c: the 6th",
+      "text": "c: the 6th"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "d: 70",
+      "text": "d: 70"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "e: 19",
+      "text": "e: 19"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "f: 62",
+      "text": "f: 62"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "g: £110",
+      "text": "g: £110"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_03.mp3",
+      "where": "audio",
+      "key": "h: the 27th",
+      "text": "h: the 27th"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_04.mp3",
+      "where": "audio",
+      "key": "manager: ah, yes, of course. a party of 12 for the saturday... oh, i'm sorry, but i'm afraid our main restaurant is fully booked that evening, but we do have a small room available for private hire. it can seat up to 20 people, so there would be plenty of space for 12 of you.",
+      "text": "Manager: Ah, yes, of course. A party of 12 for the Saturday... Oh, I'm sorry, but I'm afraid our main restaurant is fully booked that evening, but we do have a small room available for private hire. It can seat up to 20 people, so there would be plenty of space for 12 of you."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_08.mp3",
+      "where": "audio",
+      "key": "nam: hi, victor! no, i'm taking a break. i'm looking at some photos, actually a family celebration. do you want to see them?",
+      "text": "Nam: Hi, Victor! No, I'm taking a break. I'm looking at some photos, actually a family celebration. Do you want to see them?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_19.mp3",
+      "where": "audio",
+      "key": "leila: i'm on my way home - i'm still waiting for the bus. i was going to get a taxi back but i've just checked my phone and there's a bus due in about 15 minutes -7.50 pm to be exact. and it seems to be running on time. it left the railway station a couple of minutes ago, so it's not too far away.",
+      "text": "Leila: I'm on my way home - I'm still waiting for the bus. I was going to get a taxi back but I've just checked my phone and there's a bus due in about 15 minutes -7.50 pm to be exact. And it seems to be running on time. It left the railway station a couple of minutes ago, so it's not too far away."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_20.mp3",
+      "where": "audio",
+      "key": "alicia: yes - galloway - that's g-a-double l-o-w-a-y. and i've got his number too. why don't you give him a ring?",
+      "text": "Alicia: Yes - Galloway - that's G-A-double L-O-W-A-Y. And I've got his number too. Why don't you give him a ring?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_21.mp3",
+      "where": "audio",
+      "key": "rita: yes, that's right - orientation week. yes, it's great fun - there are so many different events going on to help us make friends and find our way around the university. and to get around the city, come to that! but you'll remember all that, jon. you were a new student once!",
+      "text": "Rita: Yes, that's right - Orientation Week. Yes, it's great fun - there are so many different events going on to help us make friends and find our way around the university. And to get around the city, come to that! But you'll remember all that, Jon. You were a new student once!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_21.mp3",
+      "where": "audio",
+      "key": "rita: i don't have a bike but that didn't matter. we all hired them -from a little cycle hire shop on barkway street. you probably know the place.",
+      "text": "Rita: I don't have a bike but that didn't matter. We all hired them -from a little cycle hire shop on Barkway Street. You probably know the place."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_21.mp3",
+      "where": "audio",
+      "key": "rita: no, it's barkway street -b-a-r-k-w-a-y. number 22 barkway street, to be exact. it was great - we could choose a traditional bike or an electric one.",
+      "text": "Rita: No, it's Barkway Street -B-A-R-K-W-A-Y. Number 22 Barkway Street, to be exact. It was great - we could choose a traditional bike or an electric one."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_21.mp3",
+      "where": "audio",
+      "key": "rita: yes, of course i did! well, think about it why ride a traditional bike when you can get around the city much faster on an electric one! and because there was a group of us, it wasn't too expensive. in fact the cycle hire was only a $120 for the whole group. so the cost was only $15 per person and that was for three whole hours!",
+      "text": "Rita: Yes, of course I did! Well, think about it why ride a traditional bike when you can get around the city much faster on an electric one! And because there was a group of us, it wasn't too expensive. In fact the cycle hire was only a $120 for the whole group. So the cost was only $15 per person and that was for three whole hours!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_21.mp3",
+      "where": "audio",
+      "key": "rita: yes it's a really easy one to remember. it's tradelectric.com",
+      "text": "Rita: Yes it's a really easy one to remember. It's tradelectric.com"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_27.mp3",
+      "where": "audio",
+      "key": "manager: yes, we really want to attract a younger group of customers. and we haven't just given this whole area a completely new look - we've re-named it too!",
+      "text": "Manager: Yes, we really want to attract a younger group of customers. And we haven't just given this whole area a completely new look - we've re-named it too!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_28.mp3",
+      "where": "audio",
+      "key": "student: now it says on the leaflet",
+      "text": "Student: Now it says on the leaflet"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_28.mp3",
+      "where": "audio",
+      "key": "um, let me find it... ok, got it! right, so it's called food photography, and i've got here that it begins at nine thirty.",
+      "text": "um, let me find it... OK, got it! Right, so it's called Food Photography, and I've got here that it begins at nine thirty."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_28.mp3",
+      "where": "audio",
+      "key": "receptionist: that's right-it's an early start. it begins at half past nine and it goes on until four thirty. most of our weekend courses are quite short and so they're over in a couple of hours - this course is longer. according to the information i've got up here on screen, it's seven hours long.",
+      "text": "Receptionist: That's right-it's an early start. It begins at half past nine and it goes on until four thirty. Most of our weekend courses are quite short and so they're over in a couple of hours - this course is longer. According to the information I've got up here on screen, it's seven hours long."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_28.mp3",
+      "where": "audio",
+      "key": "receptionist: no, i'm afraid not. the purpose of the workshop is to teach you how to take good photos in the first place. it's a really hands-on session - in fact, you'll spend some of the day on location in a local hotel. it's just round the corner from the college",
+      "text": "Receptionist: No, I'm afraid not. The purpose of the workshop is to teach you how to take good photos in the first place. It's a really hands-on session - in fact, you'll spend some of the day on location in a local hotel. It's just round the corner from the college"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_28.mp3",
+      "where": "audio",
+      "key": "the lincoln hotel - so you'll have the opportunity to practise taking photographs using real dishes!",
+      "text": "the Lincoln Hotel - so you'll have the opportunity to practise taking photographs using real dishes!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_35.mp3",
+      "where": "audio",
+      "key": "b: it's a steak in peppercorns - it's quite a typical french dish.",
+      "text": "B: It's a steak in peppercorns - it's quite a typical French dish."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_36.mp3",
+      "where": "audio",
+      "key": "chef: i suppose one thing that everybody knows about japanese,",
+      "text": "Chef: I suppose one thing that everybody knows about Japanese,"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_36.mp3",
+      "where": "audio",
+      "key": "chinese and korean cooking is that they all use chopsticks rather than knives and forks like people in the west. the chopsticks that people use in the different countries are quite different though. in china the chopsticks tend to be made of wood and are round at the end, whereas in korea they're made of stainless steel and are rough at the end. this is because in the past the emperor would use silver chopsticks, as they changed colour if there was any poison in the dish. they can be quite tricky to use, but in korea people use a spoon to eat their rice. in japan they use a variety of things to make chopsticks. wood and plastic are the most popular now, but you can find bone, metal and even ivory ones.",
+      "text": "Chinese and Korean cooking is that they all use chopsticks rather than knives and forks like people in the West. The chopsticks that people use in the different countries are quite different though. In China the chopsticks tend to be made of wood and are round at the end, whereas in Korea they're made of stainless steel and are rough at the end. This is because in the past the emperor would use silver chopsticks, as they changed colour if there was any poison in the dish. They can be quite tricky to use, but in Korea people use a spoon to eat their rice. In Japan they use a variety of things to make chopsticks. Wood and plastic are the most popular now, but you can find bone, metal and even ivory ones."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_36.mp3",
+      "where": "audio",
+      "key": "if we look at the food of the different countries, it's very difficult to talk about china in general terms because it has many different cuisines. so it might be better if we look at korean and japanese food a little more. it's well known that koreans tend to like spicier food and red peppers can be found in a wide number of dishes. i suppose that everybody thinks of sushi when they think of japanese food, but you can also find a lot of influences from all over asia and even europe, for example tempura, which came to japan from portugal. those aren't present in chinese and korean food.",
+      "text": "If we look at the food of the different countries, it's very difficult to talk about China in general terms because it has many different cuisines. So it might be better if we look at Korean and Japanese food a little more. It's well known that Koreans tend to like spicier food and red peppers can be found in a wide number of dishes. I suppose that everybody thinks of sushi when they think of Japanese food, but you can also find a lot of influences from all over Asia and even Europe, for example tempura, which came to Japan from Portugal. Those aren't present in Chinese and Korean food."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_36.mp3",
+      "where": "audio",
+      "key": "traditionally, in both japan and in korea meat plays less of an important role than in europe, perhaps because it's so expensive due to the lack of space for keeping animals. that said, both the japanese and koreans enjoy meat. barbecues of all types are popular in korea and beef forms the basis of many special meals in both of the countries. now moving back to chinese cuisine ...",
+      "text": "Traditionally, in both Japan and in Korea meat plays less of an important role than in Europe, perhaps because it's so expensive due to the lack of space for keeping animals. That said, both the Japanese and Koreans enjoy meat. Barbecues of all types are popular in Korea and beef forms the basis of many special meals in both of the countries. Now moving back to Chinese cuisine ..."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_37.mp3",
+      "where": "audio",
+      "key": "graham: oh, yes. one of the things that i had was jellyfish. it added a nice texture to the dish, but i thought it didn't taste of much. one dish that did have a strong taste was hotpot. the dish i had was made in the sichuan style, so it was very spicy. what i found interesting was that the hotpot was put on a hotplate in the centre of the table, and we were given a dish of raw food and we chose what we wanted and put it into the pot ourselves, and got it out when it was ready. it was great fun and very sociable. and very tasty!",
+      "text": "Graham: Oh, yes. One of the things that I had was jellyfish. It added a nice texture to the dish, but I thought it didn't taste of much. One dish that did have a strong taste was hotpot. The dish I had was made in the Sichuan style, so it was very spicy. What I found interesting was that the hotpot was put on a hotplate in the centre of the table, and we were given a dish of raw food and we chose what we wanted and put it into the pot ourselves, and got it out when it was ready. It was great fun and very sociable. And very tasty!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_38.mp3",
+      "where": "audio",
+      "key": "mohammed: these days a lot of young people actually enjoy western food like pizza and fried chicken. our national food is often too spicy, especially for children and foreigners, and also it takes too long to cook. i think that it's delicious though!",
+      "text": "Mohammed: These days a lot of young people actually enjoy Western food like pizza and fried chicken. Our national food is often too spicy, especially for children and foreigners, and also it takes too long to cook. I think that it's delicious though!"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_38.mp3",
+      "where": "audio",
+      "key": "mohammed: yes, i'm not keen on sushi at all. it's so strange eating something that hasn't been cooked. i know it's very fresh and healthy but i just don't like the taste and i can't stand the texture - it's too chewy for me.",
+      "text": "Mohammed: Yes, I'm not keen on sushi at all. It's so strange eating something that hasn't been cooked. I know it's very fresh and healthy but I just don't like the taste and I can't stand the texture - it's too chewy for me."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_39.mp3",
+      "where": "audio",
+      "key": "i love it first of all because it always reminds me of home. my mother's very fond of cooking risotto and if i was unhappy, she used to make it for me and it always cheered me up. i don't live at home now and so when i'm feeling homesick and missing my family, i always try to find an italian restaurant and have some risotto! and secondly, i like it because it's a great meal to make for friends - easy to prepare, but very tasty.",
+      "text": "I love it first of all because it always reminds me of home. My mother's very fond of cooking risotto and if I was unhappy, she used to make it for me and it always cheered me up. I don't live at home now and so when I'm feeling homesick and missing my family, I always try to find an Italian restaurant and have some risotto! And secondly, I like it because it's a great meal to make for friends - easy to prepare, but very tasty."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "celebrity: well, a good way to be the best is to learn from the experts. find people you admire in your area of interest. try to get as close to them as possible. observe them carefully. if possible, talk to them. ask lots of questions. don't copy them, but try to learn from them. and don't be afraid to experiment, try something new.",
+      "text": "Celebrity: Well, a good way to be the best is to learn from the experts. Find people you admire in your area of interest. Try to get as close to them as possible. Observe them carefully. If possible, talk to them. Ask lots of questions. Don't copy them, but try to learn from them. And don't be afraid to experiment, try something new."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_61.mp3",
+      "where": "audio",
+      "key": "celebrity: getting yourself known is indeed another skill you must work on. one thing is for sure, nobody is going to come to you. you have to make opportunities for yourself. you have a product to sell and the product is you. it's much easier to do that these days, especially with the internet around. many people use social media for this.",
+      "text": "Celebrity: Getting yourself known is indeed another skill you must work on. One thing is for sure, nobody is going to come to you. You have to make opportunities for yourself. You have a product to sell and the product is you. It's much easier to do that these days, especially with the internet around. Many people use social media for this."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "remember that a film is really a story in pictures. there are lots of ways of telling a story. so choose a style of film that suits the talents of the group. if you have talented artists, but no good writers, or actors, you might want to make your film in the style of a cartoon or some other kind of animation. last year a group made an excellent film using lego bricks.",
+      "text": "Remember that a film is really a story in pictures. There are lots of ways of telling a story. So choose a style of film that suits the talents of the group. If you have talented artists, but no good writers, or actors, you might want to make your film in the style of a cartoon or some other kind of animation. Last year a group made an excellent film using Lego bricks."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "so having decided that, you can start to think of your idea for the story. think about the movies you like to watch. what is it that makes them interesting? is it the characters, the plot? as regards plot, my advice is - don't be too ambitious, don't make it complicated. keep it simple - the simplest ideas are often the ones that work the best. initially you just need to find the basic concept. you can fill in the details later. it's a good idea to keep a notebook in your pocket and carry it everywhere. you never know when a great idea will suddenly come to you! and the more ideas, the better, in my opinion.",
+      "text": "So having decided that, you can start to think of your idea for the story. Think about the movies you like to watch. What is it that makes them interesting? Is it the characters, the plot? As regards plot, my advice is - don't be too ambitious, don't make it complicated. Keep it simple - the simplest ideas are often the ones that work the best. Initially you just need to find the basic concept. You can fill in the details later. It's a good idea to keep a notebook in your pocket and carry it everywhere. You never know when a great idea will suddenly come to you! And the more ideas, the better, in my opinion."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "the next stage is to write the screenplay - for this you need to divide the story up into a series of scenes. for each scene, the screenplay should begin with a short description of where it takes place and the time of day, that is day or night. then the rest consists of the script - the lines the actors will speak, and it should also describe the camera movements, and give directions to the actors about how they should move.",
+      "text": "The next stage is to write the screenplay - for this you need to divide the story up into a series of scenes. For each scene, the screenplay should begin with a short description of where it takes place and the time of day, that is day or night. Then the rest consists of the script - the lines the actors will speak, and it should also describe the camera movements, and give directions to the actors about how they should move."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_63.mp3",
+      "where": "audio",
+      "key": "that brings me to the next stage - casting your film - finding the actors. don't just rely on your friends. be creative! perhaps you could advertise on social media. or if your film needs a doctor, perhaps you could ask one from the local hospital if they could spare a couple of hours for you?",
+      "text": "That brings me to the next stage - casting your film - finding the actors. Don't just rely on your friends. Be creative! Perhaps you could advertise on social media. Or if your film needs a doctor, perhaps you could ask one from the local hospital if they could spare a couple of hours for you?"
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_64.mp3",
+      "where": "audio",
+      "key": "i also like him because he was the world's youngest self-made billionaire at the time. if he could do it, i like to think i could do it too. finally, i admire him because he's very generous and uses his money to help people. he has given away a huge amount of his money to charity, and i believe he plans to give most of it away in the end. i think this is an excellent idea and i hope this can show other rich and powerful people that they should also help others.",
+      "text": "I also like him because he was the world's youngest self-made billionaire at the time. If he could do it, I like to think I could do it too. Finally, I admire him because he's very generous and uses his money to help people. He has given away a huge amount of his money to charity, and I believe he plans to give most of it away in the end. I think this is an excellent idea and I hope this can show other rich and powerful people that they should also help others."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "so now i'm going to talk a little about where they live. as you can probably guess, and as you can see in this first photo, their name reflects the environment they live in - tropical mountain forests.",
+      "text": "So now I'm going to talk a little about where they live. As you can probably guess, and as you can see in this first photo, their name reflects the environment they live in - tropical mountain forests."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_67.mp3",
+      "where": "audio",
+      "key": "don't make their nests high up as other species do mountain gorillas make them on the ground instead. and they sleep wherever they end their day and they rarely sleep in the same bed twice! so, i'll move on to talk about the physical features of the mountain gorilla. in other words, what it looks like. so here are some more photographs on screen for you all to have a look at. this gorilla here on the left is a male gorilla. we know that he's an older male gorilla because of the colour of his coat. as you can see, his coat is grey. he's called a silverback. younger male gorillas are called blackbacks. and there's an obvious reason for that! yes, a young adult male has a black coat. as he gets older, his coat turns from black to grey.",
+      "text": "don't make their nests high up as other species do mountain gorillas make them on the ground instead. And they sleep wherever they end their day and they rarely sleep in the same bed twice! So, I'll move on to talk about the physical features of the mountain gorilla. In other words, what it looks like. So here are some more photographs on screen for you all to have a look at. This gorilla here on the left is a male gorilla. We know that he's an older male gorilla because of the colour of his coat. As you can see, his coat is grey. He's called a silverback. Younger male gorillas are called blackbacks. And there's an obvious reason for that! Yes, a young adult male has a black coat. As he gets older, his coat turns from black to grey."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_68.mp3",
+      "where": "audio",
+      "key": "now, i'll tell you a little about its appearance. the american bullfrog is a very large - and ugly - species of frog. and when i say it's large, i mean large. interestingly, female american bullfrogs are usually much larger than the males. in fact, they can weigh up to 750 grams, whereas the males only go up to about 600 grams. take a look at its head - it's really broad and flat, isn't it? and you can see its mouth- just here - that's quite large too.",
+      "text": "Now, I'll tell you a little about its appearance. The American bullfrog is a very large - and ugly - species of frog. And when I say it's large, I mean large. Interestingly, female American bullfrogs are usually much larger than the males. In fact, they can weigh up to 750 grams, whereas the males only go up to about 600 grams. Take a look at its head - it's really broad and flat, isn't it? And you can see its mouth- just here - that's quite large too."
+    },
+    {
+      "page": 0,
+      "unit": "AUDIO SCRIPT",
+      "section": "Mindset_L1_70.mp3",
+      "where": "audio",
+      "key": "student 2: they definitely should. it seems to me that zoos need money now more than ever. many of them have very old facilities for the animals...",
+      "text": "Student 2: They definitely should. It seems to me that zoos need money now more than ever. Many of them have very old facilities for the animals..."
     }
   ]
 }
