@@ -1,0 +1,16 @@
+{
+  "audioFile": "Mindset_L2_58.mp3",
+  "words": [
+    "scenic",
+    "business"
+  ],
+  "boundariesMs": [
+    2660,
+    3940,
+    8500
+  ],
+  "scores": [
+    -0.3518,
+    -0.0126
+  ]
+}

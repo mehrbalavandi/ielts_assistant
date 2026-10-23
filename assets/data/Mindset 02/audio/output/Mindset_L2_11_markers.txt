@@ -1,0 +1,6 @@
+[2100]1:[2890] Stay[3830] in[3970] the[4100] middle[4430] lane[4940] so[5180] that[5360] you[5470] can[5670] go[5880] over[6200] the[6310] motorway.[7910]
+2:[9830] You'll[10610] have[10830] to[10960] wait[11310] on[11490] the[11660] right[12080] till[12270] it[12390] changes[13070] for[13200] you[13290] to[13410] turn.[14840]
+3:[16840] Go[17570] round[18180] and[18410] take[18630] the[18740] third[19090] exit[19520] on[19670] the[19780] right.[21230]
+4:[23200] Slow[24080] down[24440] here[24860] because[25350] it[25480] goes[25760] to[25890] the[26060] left[26460] quite[26820] sharply.[28300]
+5:[30440] When[31160] you[31290] get[31510] there,[31910] go[32250] straight[32660] across.[34250]
+6:[36320] When[37080] you[37190] get[37360] to[37460] the[37570] end[37740] of[37810] this[38020] road,[38670] take[39200] the[39390] left[39770] turn.[43320]

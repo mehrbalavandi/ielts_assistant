@@ -81,6 +81,14 @@ assets/data/Mindset 01/audio/*.rar
 
 assets/data/Mindset 02/*
 !assets/data/Mindset 02/Mindset2- *.docx
+# بازگرداندن پوشه audio
+!assets/data/Mindset 02/audio/
+assets/data/Mindset 02/audio/*.mp3
+assets/data/Mindset 02/audio/*.rar
+# بازگرداندن پوشه output
+!assets/data/Mindset 02/audio/output/
+# استثنا کردن محتویات پوشه output
+!assets/data/Mindset 02/audio/output/*
 # 🌟 غنی‌سازی (G-2، G-5): حافظه‌ی ترجمه و گزارشِ بی‌ترجمه‌ها در گیت می‌مانند
 !assets/data/Mindset 02/enrichment/
 # !assets/data/Mindset 02/Mindset2- Audio Scripts.docx
@@ -88,6 +96,14 @@ assets/data/Mindset 02/*
 
 assets/data/Mindset 03/*
 !assets/data/Mindset 03/Mindset3- *.docx
+# بازگرداندن پوشه audio
+!assets/data/Mindset 03/audio/
+assets/data/Mindset 03/audio/*.mp3
+assets/data/Mindset 03/audio/*.rar
+# بازگرداندن پوشه output
+!assets/data/Mindset 03/audio/output/
+# استثنا کردن محتویات پوشه output
+!assets/data/Mindset 03/audio/output/*
 # 🌟 غنی‌سازی (G-2، G-5): حافظه‌ی ترجمه و گزارشِ بی‌ترجمه‌ها در گیت می‌مانند
 !assets/data/Mindset 03/enrichment/
 # !assets/data/Mindset 03/Mindset3- Audio Scripts.docx
