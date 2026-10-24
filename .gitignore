@@ -65,6 +65,8 @@ assets/data/Mindset 00*/*
 
 assets/data/Mindset 01/*
 !assets/data/Mindset 01/Mindset1- *.docx
+# ایرادهای دادهٔ Word (گزارشِ غنی‌سازی، ENRICHMENT-GUIDE بخشِ ۸)
+!assets/data/Mindset 01/Mindset1- Word Errors.md
 # بازگرداندن پوشه audio
 !assets/data/Mindset 01/audio/
 assets/data/Mindset 01/audio/*.mp3
@@ -81,6 +83,8 @@ assets/data/Mindset 01/audio/*.rar
 
 assets/data/Mindset 02/*
 !assets/data/Mindset 02/Mindset2- *.docx
+# ایرادهای دادهٔ Word (گزارشِ غنی‌سازی، ENRICHMENT-GUIDE بخشِ ۸)
+!assets/data/Mindset 02/Mindset2- Word Errors.md
 # بازگرداندن پوشه audio
 !assets/data/Mindset 02/audio/
 assets/data/Mindset 02/audio/*.mp3
@@ -96,6 +100,8 @@ assets/data/Mindset 02/audio/*.rar
 
 assets/data/Mindset 03/*
 !assets/data/Mindset 03/Mindset3- *.docx
+# ایرادهای دادهٔ Word (گزارشِ غنی‌سازی، ENRICHMENT-GUIDE بخشِ ۸)
+!assets/data/Mindset 03/Mindset3- Word Errors.md
 # بازگرداندن پوشه audio
 !assets/data/Mindset 03/audio/
 assets/data/Mindset 03/audio/*.mp3
