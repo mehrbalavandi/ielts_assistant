@@ -279,6 +279,11 @@ class ParagraphData {
   final double? listMarkerScale; // فشردگیِ افقی (w:w)؛ null = ۱
   final String? listMarkerAlign; // "right" | "center"؛ null = left
   final String? listSuffix; // "space" | "nothing"؛ null = tab
+  // 🌟 AS-7 (A-4ِ اکسترکتور): فقط در اسکریپتِ صوتی — بازه‌ی شماره‌ی خودکارِ لیست (وقتی گوینده
+  // «One.» را می‌گوید). مثلِ متنِ گفته‌نشده: هایلایت نمی‌شود، بند در این بازه فعال است و لمسِ
+  // شماره پلیر را به listMarkerEndMs (شروعِ سطر) می‌برد. null = سندِ بی‌مارکرِ سرِ بند.
+  final int? listMarkerStartMs;
+  final int? listMarkerEndMs;
   final double? listTabStop; // فاصله‌ی tab stopهای پیش‌فرض (pt)؛ null = ۳۶
   // 🐞 BlankWord3: شماره‌ی لیست بیرونِ {blk} دیده شود و فقط متن مخفی شود.
   final bool keepListMarkerVisible;
@@ -318,6 +323,8 @@ class ParagraphData {
     this.listMarkerScale, // 🐞
     this.listMarkerAlign, // 🐞
     this.listSuffix, // 🐞
+    this.listMarkerStartMs, // 🌟 AS-7
+    this.listMarkerEndMs,
     this.listTabStop, // 🐞
     this.keepListMarkerVisible = false, // 🐞
     this.lineSpacing, // 🌟
@@ -367,6 +374,8 @@ class ParagraphData {
       listMarkerScale: (json['ListMarkerScale'] as num?)?.toDouble(), // 🐞
       listMarkerAlign: json['ListMarkerAlign'], // 🐞
       listSuffix: json['ListSuffix'], // 🐞
+      listMarkerStartMs: (json['ListMarkerStartMs'] as num?)?.toInt(), // 🌟 AS-7
+      listMarkerEndMs: (json['ListMarkerEndMs'] as num?)?.toInt(),
       listTabStop: (json['ListTabStop'] as num?)?.toDouble(), // 🐞
       keepListMarkerVisible: json['KeepListMarkerVisible'] == true, // 🐞
       tableSpacingFromDoc: json['TableSpacingFromDoc'] == true,
@@ -419,6 +428,8 @@ class ParagraphData {
       listMarkerScale: listMarkerScale, // 🐞
       listMarkerAlign: listMarkerAlign, // 🐞
       listSuffix: listSuffix, // 🐞
+      listMarkerStartMs: listMarkerStartMs, // 🌟 AS-7
+      listMarkerEndMs: listMarkerEndMs,
       listTabStop: listTabStop, // 🐞
       keepListMarkerVisible: keepListMarkerVisible, // 🐞
       tableSpacingFromDoc: tableSpacingFromDoc,

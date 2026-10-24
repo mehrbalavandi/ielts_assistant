@@ -1361,33 +1361,43 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
     Widget text,
     double fontSize, {
     required bool trackHasList,
+    VoidCallback? onMarkerTap,
   }) {
     final double column = fontSize * 1.7;
     final String? marker = para.listMarker?.trim();
     final bool rtl = para.direction == "RTL";
     if (marker != null && marker.isNotEmpty) {
+      Widget markerCell = ConstrainedBox(
+        constraints: BoxConstraints(minWidth: column),
+        child: Padding(
+          padding: EdgeInsetsDirectional.only(end: fontSize * 0.35),
+          child: Text(
+            marker,
+            style: TextStyle(
+              color: _colors.textPrimary,
+              fontSize: fontSize,
+              height: 1.5,
+              fontWeight: para.listMarkerBold
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+            ),
+          ),
+        ),
+      );
+      // 🌟 AS-7: لمسِ شماره ← شروعِ همان سطر (مثلِ برچسبِ گفته‌نشده، AS-5)
+      if (onMarkerTap != null) {
+        markerCell = GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onMarkerTap,
+          child: markerCell,
+        );
+      }
       return Directionality(
         textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(minWidth: column),
-              child: Padding(
-                padding: EdgeInsetsDirectional.only(end: fontSize * 0.35),
-                child: Text(
-                  marker,
-                  style: TextStyle(
-                    color: _colors.textPrimary,
-                    fontSize: fontSize,
-                    height: 1.5,
-                    fontWeight: para.listMarkerBold
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),
-                ),
-              ),
-            ),
+            markerCell,
             Expanded(child: text),
           ],
         ),
@@ -1402,6 +1412,18 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
       );
     }
     return text;
+  }
+
+  /// 🌟 AS-7: لمسِ شماره‌ی خودکارِ لیست ← شروعِ سطر: پایانِ بازه‌ی شماره، یا اگر سند آن را ندارد،
+  /// شروعِ اولین کلمه‌ی گفته‌شده‌ی بند.
+  static int? _listMarkerSeekMs(ParagraphData para) {
+    if (para.listMarkerEndMs != null) return para.listMarkerEndMs;
+    for (final s in para.spans) {
+      if (s.startMs != null && !s.unspoken && s.content.trim().isNotEmpty) {
+        return s.startMs;
+      }
+    }
+    return null;
   }
 
   Widget _buildSmallCircleButton({
@@ -1500,9 +1522,17 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
     // 🐞 کدام پاراگراف الان فعال است؟ یعنی حداقل یک اسپنِ داخلش بازه‌ی
     // زمانیِ StartMs تا EndMs، لحظه‌ی فعلی را در بر می‌گیرد. مهم: از < استفاده
     // می‌شود (نه <=) تا کلماتِ به‌هم‌چسبیده با هم هایلایت نشوند.
+    // 🌟 AS-7: بازه‌ی شماره‌ی خودکارِ لیست (گوینده «One.» را می‌گوید) هم بند را فعال می‌کند، بی
+    // آن‌که چیزی هایلایت شود — مثلِ برچسبِ گفته‌نشده (AS-5).
     int activeIndex = -1;
     for (int i = 0; i < paragraphs.length; i++) {
-      final bool hasActiveSpan = paragraphs[i].spans.any(
+      final ParagraphData p = paragraphs[i];
+      final bool inListMarker =
+          p.listMarkerStartMs != null &&
+          p.listMarkerEndMs != null &&
+          currentPosMs >= p.listMarkerStartMs! &&
+          currentPosMs < p.listMarkerEndMs!;
+      final bool hasActiveSpan = inListMarker || p.spans.any(
         (s) =>
             s.startMs != null &&
             s.endMs != null &&
@@ -1966,6 +1996,18 @@ class _CombinedAudioSheetState extends ConsumerState<CombinedAudioSheet> {
                           ),
                           baseFontSize,
                           trackHasList: trackHasList,
+                          onMarkerTap: _listMarkerSeekMs(para) == null
+                              ? null
+                              : () {
+                                  if (answerPopupClosedByThisTap()) return;
+                                  ref
+                                      .read(audioPlayerProvider.notifier)
+                                      .seek(
+                                        Duration(
+                                          milliseconds: _listMarkerSeekMs(para)!,
+                                        ),
+                                      );
+                                },
                         ),
                       );
 
