@@ -40,3 +40,30 @@
 | | صفحه | جست‌وجو | ایراد |
 |---|---|---|---|
 | [ ] | 4 / 7 | `London marathon` (Mindset_L2_18) | در کتاب «New York marathon» آمده؛ یکی از دو را با صدا تطبیق دهید. |
+
+## UNIT/03: THE NEWS AND MEDIA
+
+### کتاب
+| | صفحه | جست‌وجو | ایراد |
+|---|---|---|---|
+| [ ] | 44 | `daily basis. opinion/factual` | آخرِ پاراگرافِ A کلمه‌ی «opinion/factual» (پاسخ یا یادداشتِ تمرین) جا مانده و پنهان هم نیست. |
+| [ ] | 45 | `are ruined are ruined` | پاسخ دو بار تکرار شده و پنهان (BlkCh) نیست. درست: «Holidays {are ruined}(ruin) by air strikes.» |
+| [ ] | 45 | `were named (past simple)` و `is being developed` (کادرِ زمان‌ها) | کادر به‌جای فقط نامِ زمان‌ها، پاسخ‌ها را هم نشان می‌دهد («were named (past simple)»، «is being developed»)؛ پاسخ را از کادر بردارید. |
+| [ ] | 47 | `which words helped you choose the order` | این سؤال در جدولِ Writing دو بار آمده (¶2247 و ¶2271)؛ یکی احتمالاً باید سؤالِ دیگری باشد. |
+| [ ] | 47 | `through either journalists, press releases` | جمله‌ی مدلِ پاسخ وسط شکسته و «or members of the general public.» به پاراگرافِ بعد رفته؛ یک پاراگراف کنید. |
+| [ ] | 48 | `Then/After That` | حروفِ بزرگ: «Then/After that». |
+| [ ] | 49 | `E: 1` | پاسخ پنهان (BlkCh) نیست. |
+| [ ] | 52 | `Listen to the descriptions of sports 1-5` (Unit 3) | دستورِ تمرین از Unit 2 کپی شده و به تمرینِ این صفحه (اخبار) ربطی ندارد. |
+| [ ] | 53 | `why are the other two options are not correct` | «are» اضافه است: «…the reasons why the other two options are not correct.» |
+| [ ] | 57 | `then share your story with` (with a different partner) | جمله وسط شکسته و «the class.» به پاراگرافِ بعد رفته. |
+| [ ] | 58 | `using a suitable connecting word` (Unit 3) | دستورِ تمرین از Unit 2 کپی شده؛ با تمرینِ این صفحه (جمله‌های اخبارِ خوب/بد) جور نیست. |
+| [ ] | 58 | `we'd seen something extraordinary` | نقطه‌ی پایانِ جمله افتاده. |
+| [ ] | 59 | `eight-metre anaconda` | پاراگرافِ خبرِ آناکوندا به چند خط/پاراگراف شکسته شده («…The terrifying» / «monster. …»)؛ یک پاراگراف کنید. |
+| [ ] | 60 | `GRAMMAR FOCUS• THE PASSIVE` | «•» به‌جای «:» (مثلِ صفحه‌های دیگر: «GRAMMAR FOCUS: THE PASSIVE»). |
+| [ ] | 60 | `by falling building` | جمع: «(by falling buildings)». |
+
+### اسکریپت‌ها
+| | صفحه | جست‌وجو | ایراد |
+|---|---|---|---|
+| [ ] | 4 | `aspectjust` (Mindset_L2_20) | فاصله افتاده: «aspect just». |
+| [ ] | 6 | `fascinating at the same` (Mindset_L2_28) | جمله وسط شکسته و «time. I think you'll do well…» به پاراگرافِ بعد رفته؛ یک پاراگراف کنید. |
