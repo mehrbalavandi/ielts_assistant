@@ -690,9 +690,11 @@ const TextStyle _kTranslationStyle = TextStyle(
 /// متنِ ترجمه، راست‌به‌چپ (بدنه‌ی پاپ‌آپ).
 ///
 /// 🌟 TR-8: بخشی از ترجمه که پاسخِ جای خالی است (`{blk}…{/blk}` در داده، G-9ِ اکسترکتور) پنهان
-/// است: به جایش آیکونِ کوچکِ چشم می‌آید و لمسش همان بخش را نشان می‌دهد (لمسِ دوباره روی متنِ
-/// آشکارشده دوباره پنهانش می‌کند). وگرنه ترجمه‌ی جمله پاسخ را پیش از بازکردنِ چشمِ خودِ متن
-/// لو می‌داد.
+/// است: به جایش آیکونِ کوچکِ چشم می‌آید و لمسش همان بخش را نشان می‌دهد. وگرنه ترجمه‌ی جمله
+/// پاسخ را پیش از بازکردنِ چشمِ خودِ متن لو می‌داد.
+/// 🌟 TR-9: کنارِ بخشِ آشکارشده آیکونِ «چشمِ بسته» به همان اندازه‌ی چشم می‌آید و لمسش دوباره
+/// پنهانش می‌کند (لمسِ خودِ متن هم مثلِ قبل). قبلاً فقط خودِ متن لمس‌پذیر بود و پاسخِ یک‌حرفی
+/// («E») هدفِ لمسِ خیلی کوچکی داشت.
 class _TranslationText extends StatefulWidget {
   const _TranslationText({required this.text, required this.isDark});
 
@@ -726,6 +728,29 @@ class _TranslationTextState extends State<_TranslationText> {
   void _toggle(int i) => setState(() {
     if (!_revealed.remove(i)) _revealed.add(i);
   });
+
+  /// آیکونِ چشم (پنهان ← نشان دادن) یا چشمِ بسته (آشکار ← پنهان کردن) داخلِ متنِ ترجمه.
+  /// ناحیه‌ی لمس کمی بزرگ‌تر از خودِ قرص است (padding داخلِ GestureDetector).
+  WidgetSpan _eyePill(Color accent, bool isDark, IconData icon, int i) {
+    return WidgetSpan(
+      alignment: PlaceholderAlignment.middle,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => _toggle(i),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+            decoration: BoxDecoration(
+              color: accent.withOpacity(isDark ? 0.25 : 0.12),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, size: 14, color: accent),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -766,24 +791,10 @@ class _TranslationTextState extends State<_TranslationText> {
             ),
           ),
         );
+        // TR-9: هدفِ لمسِ هم‌اندازه‌ی چشم برای پنهان‌کردنِ دوباره
+        spans.add(_eyePill(accent, isDark, Icons.visibility_off_rounded, i));
       } else {
-        spans.add(
-          WidgetSpan(
-            alignment: PlaceholderAlignment.middle,
-            child: GestureDetector(
-              onTap: () => _toggle(i),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 2),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                decoration: BoxDecoration(
-                  color: accent.withOpacity(isDark ? 0.25 : 0.12),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(Icons.visibility_rounded, size: 14, color: accent),
-              ),
-            ),
-          ),
-        );
+        spans.add(_eyePill(accent, isDark, Icons.visibility_rounded, i));
       }
       pos = m.end;
     }
