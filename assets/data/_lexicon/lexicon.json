@@ -29064,6 +29064,46 @@
       "books": [
         "Mindset 02"
       ]
+    },
+    "recreate": {
+      "headword": "recreate",
+      "forms": [
+        "recreate",
+        "recreates",
+        "recreated",
+        "recreating"
+      ],
+      "pos": "verb",
+      "ipa": "/ˌriːkriˈeɪt/",
+      "pronounceFa": "ری‌کری‌اِیت",
+      "pronounceAr": "ري كري إيت",
+      "translationFa": "بازسازی کردن، از نو ساختن",
+      "translationAr": "يعيد إنشاء",
+      "explanationFa": "recreate a habitat / an atmosphere؛ پیشوندِ re- یعنی «دوباره». با recreation (تفریح) فرق دارد.",
+      "explanationAr": "recreate a habitat / an atmosphere؛ البادئة re- تعني «من جديد». وتختلف عن recreation (الترفيه).",
+      "cefrLevel": "B2",
+      "books": [
+        "Mindset 01"
+      ]
+    },
+    "wellbeing": {
+      "headword": "wellbeing",
+      "forms": [
+        "wellbeing",
+        "well-being"
+      ],
+      "pos": "noun",
+      "ipa": "/ˌwelˈbiːɪŋ/",
+      "pronounceFa": "وِل‌بی‌اینگ",
+      "pronounceAr": "وِل بيإنغ",
+      "translationFa": "سلامت و آسایش، بهزیستی",
+      "translationAr": "الرفاه، السلامة",
+      "explanationFa": "سلامتِ جسمی و روحی با هم: improve the wellbeing of animals / employees. در رایتینگ Task 2 پرکاربرد است.",
+      "explanationAr": "الصحّة الجسدية والنفسية معًا: improve the wellbeing of animals / employees. شائعة في Task 2 من الكتابة.",
+      "cefrLevel": "C1",
+      "books": [
+        "Mindset 01"
+      ]
     }
   }
 }
