@@ -11152,6 +11152,398 @@
       "fa": "4: از همه‌ی بازی‌های ویدیوییِ تازه‌ای که به‌زودی منتشر می‌شوند واقعاً هیجان‌زده‌ام. طاقتِ صبر ندارم!",
       "ar": "4: أنا متحمّس حقًّا لكلّ ألعاب الفيديو الجديدة التي ستصدر قريبًا. لا أطيق الانتظار!",
       "terms": []
+    },
+    "several experts have criticised the architecture of this very expensive home, comparing it to an 'unstable pile of books'. mrs ambani, however, describes her home as 'an elevated house on top of a garden' and 'a modern home with an indian heart'.": {
+      "src": "Several experts have criticised the architecture of this very expensive home, comparing it to an 'unstable pile of books'. Mrs Ambani, however, describes her home as 'an elevated house on top of a garden' and 'a modern home with an Indian heart'.",
+      "fa": "چند کارشناس معماریِ این خانه‌ی بسیار گران را نقد کرده و آن را به «توده‌ای ناپایدار از کتاب» تشبیه کرده‌اند. اما خانم آمبانی خانه‌اش را «خانه‌ای بالا رفته بر فرازِ یک باغ» و «خانه‌ای مدرن با قلبی هندی» توصیف می‌کند.",
+      "ar": "انتقد عدد من الخبراء عمارة هذا المنزل الباهظ جدًا، وشبّهوه بـ«كومة غير مستقرّة من الكتب». أمّا السيدة أمباني فتصف منزلها بأنّه «بيت مرتفع فوق حديقة» و«بيت حديث بقلب هندي».",
+      "terms": [
+        "criticise",
+        "architecture"
+      ]
+    },
+    "600": {
+      "src": "{blk}600{/blk}",
+      "fa": "600",
+      "ar": "600",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
+    },
+    "the key to paraphrasing is understanding synonyms and words or phrases with a similar meaning. match these words and expressions.": {
+      "src": "The key to paraphrasing is understanding synonyms and words or phrases with a similar meaning. Match these words and expressions.",
+      "fa": "کلیدِ بازنویسی (paraphrasing) شناختِ مترادف‌ها و کلمه‌ها یا عبارت‌های هم‌معناست. این کلمه‌ها و عبارت‌ها را با هم جفت کنید.",
+      "ar": "مفتاح إعادة الصياغة (paraphrasing) هو فهم المرادفات والكلمات أو العبارات المتقاربة في المعنى. طابقوا هذه الكلمات والعبارات.",
+      "terms": [
+        "paraphrase",
+        "synonym"
+      ]
+    },
+    "man-made snow": {
+      "src": "{blk}man-made snow{/blk}",
+      "fa": "برفِ مصنوعی",
+      "ar": "ثلج اصطناعي",
+      "terms": [
+        "man-made"
+      ],
+      "blanks": [
+        {
+          "fa": "برفِ مصنوعی",
+          "ar": "ثلج اصطناعي"
+        }
+      ]
+    },
+    "overall, australia has the biggest houses and 6 italy has the smallest. this is most probably due to the size of each country.": {
+      "src": "Overall, Australia has the biggest houses and 6 Italy has the smallest. This is most probably due to the size of each country.",
+      "fa": "در مجموع، استرالیا بزرگ‌ترین خانه‌ها را دارد و 6 ایتالیا کوچک‌ترین‌ها را. احتمالاً این به اندازه‌ی هر کشور مربوط است.",
+      "ar": "إجمالًا، لأستراليا أكبر المنازل و6 لإيطاليا أصغرها. ويعود ذلك على الأرجح إلى مساحة كلّ دولة.",
+      "terms": [
+        "overall",
+        "due to"
+      ]
+    },
+    "describing trends": {
+      "src": "DESCRIBING TRENDS",
+      "fa": "توصیفِ روندها",
+      "ar": "وصف الاتّجاهات",
+      "terms": [
+        "trend"
+      ]
+    },
+    "climb": {
+      "src": "Cl{blk}imb{/blk}",
+      "fa": "Cl{blk}imb (بالا رفتن){/blk}",
+      "ar": "Cl{blk}imb (يصعد، يرتفع){/blk}",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "بالا رفتن",
+          "ar": "يصعد، يرتفع"
+        }
+      ]
+    },
+    "since 2008, house prices in b dubai have fluctuated heavily. in 2008 prices went up by just over 40% and then plummeted dramatically to -40%.": {
+      "src": "Since 2008, house prices in {blk}B Dubai{/blk} have fluctuated heavily. In 2008 prices {blk}went up{/blk} by just over 40% and then {blk}plummeted dramatically{/blk} to -40%. ",
+      "fa": "از 2008، قیمتِ خانه در {blk}B دبی{/blk} نوسانِ شدیدی داشته است. در 2008 قیمت‌ها کمی بیش از 40% {blk}بالا رفت (went up){/blk} و سپس تا 40- درصد {blk}به‌شدت سقوط کرد (plummeted dramatically){/blk}.",
+      "ar": "منذ 2008، تذبذبت أسعار المنازل في {blk}B دبي{/blk} تذبذبًا شديدًا. ففي 2008 {blk}ارتفعت (went up){/blk} الأسعار بما يزيد قليلًا على 40% ثمّ {blk}هوت بشدّة (plummeted dramatically){/blk} إلى 40-%.",
+      "terms": [
+        "fluctuate",
+        "plummet",
+        "dramatic"
+      ],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        },
+        {
+          "fa": "بالا رفت",
+          "ar": "ارتفعت"
+        },
+        {
+          "fa": "به‌شدت سقوط کرد",
+          "ar": "هوت بشدّة"
+        }
+      ]
+    },
+    "room sizes": {
+      "src": "Room sizes",
+      "fa": "اندازه‌ی اتاق‌ها",
+      "ar": "قياسات الغرف",
+      "terms": []
+    },
+    "lounge 1: 2 4.3 x 3.28 m": {
+      "src": "Lounge 1: 2 {blk}4.3 x 3.28{/blk} m",
+      "fa": "اتاقِ نشیمنِ 1: {blk}4.3 × 3.28{/blk} متر",
+      "ar": "غرفة الجلوس 1: {blk}4.3 × 3.28{/blk} م",
+      "terms": [
+        "lounge"
+      ],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
+    },
+    "bedroom 1: 4 4.91 x 3.95 m": {
+      "src": "Bedroom 1: 4 {blk}4.91 x 3.95{/blk} m",
+      "fa": "اتاق‌خوابِ 1: {blk}4.91 × 3.95{/blk} متر",
+      "ar": "غرفة النوم 1: {blk}4.91 × 3.95{/blk} م",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "",
+          "ar": ""
+        }
+      ]
+    },
+    "at the moment, caroline lives in": {
+      "src": "At the moment, Caroline lives in",
+      "fa": "کارولین در حالِ حاضر در … زندگی می‌کند",
+      "ar": "تعيش كارولين حاليًا في",
+      "terms": []
+    },
+    "match the names with photos 1-5.": {
+      "src": "Match the names with photos 1-5.",
+      "fa": "نام‌ها را با عکس‌های 1 تا 5 جفت کنید.",
+      "ar": "طابقوا الأسماء مع الصور من 1 إلى 5.",
+      "terms": []
+    },
+    "golf": {
+      "src": "{blk}Golf{/blk}",
+      "fa": "گلف",
+      "ar": "الغولف",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "گلف",
+          "ar": "الغولف"
+        }
+      ]
+    },
+    "referred to himself as": {
+      "src": "{blk}referred to himself as{/blk}",
+      "fa": "referred to himself as (از خودش با عنوانِ … یاد می‌کرد)",
+      "ar": "referred to himself as (كان يلقّب نفسه بـ…)",
+      "terms": [
+        "refer to"
+      ],
+      "blanks": [
+        {
+          "fa": "از خودش با عنوانِ … یاد می‌کرد",
+          "ar": "كان يلقّب نفسه بـ…"
+        }
+      ]
+    },
+    "serena is so successful on the tennis court because of her rapid movement, speed of thought and powerful shots. indeed, whilst she was playing a match in the 2013 australian open, serena hit a serve* at a speed of just under 207 km per hour, the third fastest recorded among female players. this powerful serve helps put her opponents under pressure from the very start of the game.": {
+      "src": "Serena is so successful on the tennis court because of her rapid movement, speed of thought and powerful shots. Indeed, whilst she was playing a match in the 2013 Australian Open, Serena hit a serve* at a speed of just under 207 km per hour, the third fastest recorded among female players. This powerful serve helps put her opponents under pressure from the very start of the game.",
+      "fa": "سرنا به خاطرِ تحرکِ سریع، سرعتِ فکر و ضربه‌های پرقدرتش در زمینِ تنیس این‌قدر موفق است. در واقع، در حالی که در مسابقاتِ آزادِ استرالیای 2013 بازی می‌کرد، سرویسی* با سرعتی کمی کمتر از 207 کیلومتر در ساعت زد که سومین سرویسِ سریعِ ثبت‌شده در میانِ بازیکنانِ زن است. این سرویسِ پرقدرت از همان آغازِ بازی حریفانش را زیرِ فشار می‌گذارد.",
+      "ar": "تحقّق سيرينا هذا النجاح في ملعب كرة المضرب بفضل سرعة حركتها وسرعة تفكيرها وضرباتها القويّة. فبينما كانت تلعب مباراة في بطولة أستراليا المفتوحة 2013، سدّدت إرسالًا* بسرعة تقلّ قليلًا عن 207 كم في الساعة، وهو ثالث أسرع إرسال سُجّل بين اللاعبات. ويساعد هذا الإرسال القويّ على وضع منافساتها تحت الضغط منذ بداية المباراة.",
+      "terms": [
+        "opponent",
+        "under pressure"
+      ]
+    },
+    "he was also made captain in 2002 and had short spells at ac milan and paris st germain. his former boss, alex ferguson, praised david for always trying hard, playing with supreme confidence and scoring important goals.": {
+      "src": "He was also made captain in 2002 and had short spells at AC Milan and Paris St Germain. His former boss, Alex Ferguson, praised David for always trying hard, playing with supreme confidence and scoring important goals.",
+      "fa": "او در سالِ 2002 کاپیتان هم شد و مدت‌های کوتاهی در آث میلان و پاری سن ژرمن بازی کرد. مربیِ سابقش، الکس فرگوسن، دیوید را به خاطرِ اینکه همیشه تلاش می‌کرد، با اعتمادبه‌نفسِ بسیار بالا بازی می‌کرد و گل‌های مهم می‌زد، تحسین کرد.",
+      "ar": "وعُيّن قائدًا للمنتخب عام 2002، ولعب فترات قصيرة مع إيه سي ميلان وباريس سان جيرمان. وأثنى مدرّبه السابق أليكس فيرغسون على ديفيد لأنّه كان يبذل جهده دائمًا، ويلعب بثقة عالية جدًا، ويسجّل أهدافًا مهمّة.",
+      "terms": [
+        "short spell",
+        "praise",
+        "supreme confidence"
+      ]
+    },
+    "in 2013 beckham retired from professional football and played the last game of his 20-year career. although he is now retired from football, reports claim that he earns more money now than he did as a successful footballer. in 2014 it was documented that he earned £50.5 million, a large portion of which came from brand endorsements for companies such as adidas, sky sports and samsung.": {
+      "src": "In 2013 Beckham retired from professional football and played the last game of his 20-year career. Although he is now retired from football, reports claim that he earns more money now than he did as a successful footballer. In 2014 it was documented that he earned £50.5 million, a large portion of which came from brand endorsements for companies such as Adidas, Sky Sports and Samsung.",
+      "fa": "بکام در سالِ 2013 از فوتبالِ حرفه‌ای کناره گرفت و آخرین بازیِ دورانِ 20ساله‌اش را انجام داد. هرچند او اکنون از فوتبال بازنشسته شده، گزارش‌ها می‌گویند اکنون بیشتر از دورانی که فوتبالیستی موفق بود درآمد دارد. در سالِ 2014 ثبت شد که او 50.5 میلیون پوند درآمد داشته که بخشِ بزرگی از آن از تبلیغِ برند برای شرکت‌هایی مثلِ آدیداس، اسکای اسپورتس و سامسونگ بوده است.",
+      "ar": "اعتزل بيكهام كرة القدم الاحترافية عام 2013 وخاض آخر مباراة في مسيرته الممتدّة 20 عامًا. ومع أنّه معتزل الآن، تفيد التقارير بأنّه يكسب اليوم أكثر ممّا كان يكسبه لاعبًا ناجحًا. ففي عام 2014 وُثّق أنّه كسب 50.5 مليون جنيه إسترليني، جاء جزء كبير منها من الترويج لعلامات تجارية لشركات مثل أديداس وسكاي سبورتس وسامسونغ.",
+      "terms": [
+        "retired",
+        "brand endorsement"
+      ]
+    },
+    "country medal leaders of all time - badminton": {
+      "src": "Country medal leaders of all time - Badminton",
+      "fa": "کشورهای پیشتازِ مدال در تاریخ - بدمینتون",
+      "ar": "الدول المتصدّرة في الميداليات على مرّ التاريخ - كرة الريشة",
+      "terms": []
+    },
+    "slow": {
+      "src": "slow",
+      "fa": "slow (کند)",
+      "ar": "slow (بطيء)",
+      "terms": []
+    },
+    "i'm not really interested in watching football on tv and my friends don't really like it either.": {
+      "src": "{blk}I'm not really interested in watching football on TV AND my friends don't really like it either.{/blk}",
+      "fa": "I'm not really interested in watching football on TV AND my friends don't really like it either. = واقعاً به تماشای فوتبال از تلویزیون علاقه‌ای ندارم و (AND) دوستانم هم چندان دوستش ندارند.",
+      "ar": "I'm not really interested in watching football on TV AND my friends don't really like it either. = لست مهتمًّا حقًّا بمشاهدة كرة القدم على التلفاز، و(AND) أصدقائي لا يحبّونها كثيرًا أيضًا.",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "واقعاً به تماشای فوتبال از تلویزیون علاقه‌ای ندارم و دوستانم هم چندان دوستش ندارند.",
+          "ar": "لست مهتمًّا حقًّا بمشاهدة كرة القدم على التلفاز، وأصدقائي لا يحبّونها كثيرًا أيضًا."
+        }
+      ]
+    },
+    "i'm a big fan of movies. this is because i love good stories, special effects and to escape my everyday life.": {
+      "src": "I’m a big fan of movies. This is because {blk}I love good stories{/blk}, {blk}special effects{/blk} and {blk}to escape my everyday life{/blk}.",
+      "fa": "طرفدارِ پروپاقرصِ فیلم‌ها هستم. دلیلش این است که {blk}عاشقِ داستان‌های خوبم{/blk}، {blk}جلوه‌های ویژه{/blk} و {blk}فرار از زندگیِ روزمره‌ام{/blk}.",
+      "ar": "أنا من أشدّ محبّي الأفلام. والسبب أنّني {blk}أعشق القصص الجيّدة{/blk}، و{blk}المؤثّرات الخاصّة{/blk}، و{blk}الهروب من حياتي اليومية{/blk}.",
+      "terms": [
+        "big fan",
+        "special effects"
+      ],
+      "blanks": [
+        {
+          "fa": "عاشقِ داستان‌های خوبم",
+          "ar": "أعشق القصص الجيّدة"
+        },
+        {
+          "fa": "جلوه‌های ویژه",
+          "ar": "المؤثّرات الخاصّة"
+        },
+        {
+          "fa": "فرار از زندگیِ روزمره‌ام",
+          "ar": "الهروب من حياتي اليومية"
+        }
+      ]
+    },
+    "i like swimming but i wish there were more places to swim where i live.": {
+      "src": "I like swimming but I wish there were more places to swim where I live.",
+      "fa": "شنا را دوست دارم، اما کاش جاهای بیشتری برای شنا در محلِ زندگی‌ام بود.",
+      "ar": "أحبّ السباحة، لكنّني أتمنّى لو كانت هناك أماكن أكثر للسباحة حيث أعيش.",
+      "terms": []
+    },
+    "i'm really excited about all the new video games that will come out soon.": {
+      "src": "I'm really excited about all the new video games that will come out soon.",
+      "fa": "از همه‌ی بازی‌های ویدیوییِ تازه‌ای که به‌زودی منتشر می‌شوند واقعاً هیجان‌زده‌ام.",
+      "ar": "أنا متحمّس حقًّا لكلّ ألعاب الفيديو الجديدة التي ستصدر قريبًا.",
+      "terms": []
+    },
+    "listen to the recording. the first time you hear the sentences, you will hear flat (no) intonation. the second time you hear them, the speaker will use correct intonation. mark the changes in intonation with a ↗ if it rises or a ↘ if it falls.": {
+      "src": "Listen to the recording. The first time you hear the sentences, you will hear flat (no) intonation. The second time you hear them, the speaker will use correct intonation. Mark the changes in intonation with a ↗ if it rises or a ↘ if it falls.",
+      "fa": "به فایلِ صوتی گوش دهید. بارِ اول جمله‌ها را با آهنگِ صدای یکنواخت (بی‌آهنگ) می‌شنوید. بارِ دوم گوینده آهنگِ صدای درست را به کار می‌برد. تغییرِ آهنگِ صدا را اگر بالا می‌رود با ↗ و اگر پایین می‌آید با ↘ علامت بزنید.",
+      "ar": "استمعوا إلى التسجيل. في المرّة الأولى ستسمعون الجمل بتنغيم مسطّح (بلا تنغيم). وفي المرّة الثانية سيستخدم المتحدّث التنغيم الصحيح. ضعوا علامة ↗ إذا ارتفع التنغيم و↘ إذا انخفض.",
+      "terms": [
+        "intonation"
+      ]
+    },
+    "i [support/watch] liverpool football club. i've been a fan for a very long time.": {
+      "src": "I {blk}[support/watch]{/blk} Liverpool Football Club. I've been a fan for a very long time.",
+      "fa": "من {blk}طرفدارِ باشگاهِ فوتبالِ لیورپول هستم / بازی‌های باشگاهِ فوتبالِ لیورپول را تماشا می‌کنم (support/watch){/blk}. مدتِ خیلی زیادی است که هوادارشان هستم.",
+      "ar": "أنا {blk}أشجّع / أتابع (support/watch){/blk} نادي ليفربول لكرة القدم. أنا من مشجّعيه منذ وقت طويل جدًا.",
+      "terms": [],
+      "blanks": [
+        {
+          "fa": "طرفدار بودن / تماشا کردن",
+          "ar": "أشجّع / أتابع"
+        }
+      ]
+    },
+    "their international football team [shoot/tackle] plenty of times during a game but usually [score] very few goals.": {
+      "src": "Their international football team {blk}[shoot/tackle]{/blk} plenty of times during a game but usually {blk}[score]{/blk} very few goals.",
+      "fa": "تیمِ ملیِ فوتبالشان در طولِ بازی بارها {blk}شوت می‌زند / تکل می‌کند (shoot/tackle){/blk}، ولی معمولاً گل‌های خیلی کمی {blk}می‌زند (score){/blk}.",
+      "ar": "يكثر منتخبهم الوطني لكرة القدم من {blk}التسديد / الاستخلاص (shoot/tackle){/blk} خلال المباراة، لكنّه عادةً {blk}يسجّل (score){/blk} أهدافًا قليلة جدًا.",
+      "terms": [
+        "tackle"
+      ],
+      "blanks": [
+        {
+          "fa": "شوت می‌زند / تکل می‌کند",
+          "ar": "يسدّد / يستخلص الكرة"
+        },
+        {
+          "fa": "گل می‌زند",
+          "ar": "يسجّل"
+        }
+      ]
+    },
+    "caroline: hello. i'm calling about a property that you have for sale - in churchill road.": {
+      "src": "Caroline: Hello. I'm calling about a property that you have for sale - in Churchill Road.",
+      "fa": "کارولین: سلام. درباره‌ی ملکی که برای فروش دارید زنگ می‌زنم - در خیابانِ چرچیل.",
+      "ar": "كارولين: مرحبًا. أتّصل بخصوص عقار معروض لديكم للبيع - في شارع تشرشل.",
+      "terms": [
+        "property"
+      ]
+    },
+    "caroline: we've spoken to our bank and they're happy to offer us what we need, up to £300,000. we also have a 15% deposit in our bank account - about £52,000 - so that won't be a problem.": {
+      "src": "Caroline: We've spoken to our bank and they're happy to offer us what we need, up to £300,000. We also have a 15% deposit in our bank account - about £52,000 - so that won't be a problem.",
+      "fa": "کارولین: با بانکمان صحبت کرده‌ایم و حاضرند تا 300,000 پوند، یعنی همان مقداری که لازم داریم، به ما وام بدهند. 15% پیش‌پرداخت هم در حسابِ بانکی‌مان داریم - حدودِ 52,000 پوند - پس این مشکلی نیست.",
+      "ar": "كارولين: تحدّثنا مع بنكنا وهم مستعدّون لإقراضنا ما نحتاجه، حتى 300,000 جنيه. ولدينا أيضًا دفعة مقدّمة بنسبة 15% في حسابنا المصرفي - نحو 52,000 جنيه - فلن تكون هذه مشكلة.",
+      "terms": [
+        "deposit"
+      ]
+    },
+    "estate agent: i should be able to get one tomorrow. then, if they agree, we can do things quite quickly. your bank will do the survey -you know, send someone to check the house is in good condition and at the right price - and, if that's ok, we can then prepare the contracts for you and the seller to sign.": {
+      "src": "Estate agent: I should be able to get one tomorrow. Then, if they agree, we can do things quite quickly. Your bank will do the survey -you know, send someone to check the house is in good condition and at the right price - and, if that's OK, we can then prepare the contracts for you and the seller to sign.",
+      "fa": "بنگاه‌دار: باید بتوانم فردا جواب بگیرم. بعد، اگر آن‌ها موافقت کنند، می‌توانیم کارها را خیلی سریع پیش ببریم. بانکتان کارشناسی را انجام می‌دهد - یعنی کسی را می‌فرستد تا بررسی کند خانه در وضعیتِ خوبی است و قیمتش درست است - و اگر مشکلی نبود، بعد می‌توانیم قراردادها را برای امضای شما و فروشنده آماده کنیم.",
+      "ar": "وكيل العقارات: يُفترض أن أحصل على ردّ غدًا. وبعدها، إن وافقوا، يمكننا أن ننجز الأمور بسرعة كبيرة. سيُجري بنككم المعاينة - أي يرسل شخصًا للتأكّد من أنّ المنزل في حالة جيدة وبالسعر المناسب - وإن كان كلّ شيء على ما يرام، يمكننا بعد ذلك إعداد العقود ليوقّعها أنتم والبائع.",
+      "terms": [
+        "survey",
+        "in good condition",
+        "contract"
+      ]
+    },
+    "estate agent: well, it's difficult to say. if things go well, we should complete it in about two months at the most. most sales take about two months. however, if there are any problems, it could take longer, but we hope it won't be more than three months. for example, part of the house, like the roof, might be in bad condition and might need some work. or there might be plans for a new road in the local area. anything like that can delay the sale, but most of our sales go through quickly.": {
+      "src": "Estate agent: Well, it's difficult to say. If things go well, we should complete it in about two months at the most. Most sales take about two months. However, if there are any problems, it could take longer, but we hope it won't be more than three months. For example, part of the house, like the roof, might be in bad condition and might need some work. Or there might be plans for a new road in the local area. Anything like that can delay the sale, but most of our sales go through quickly.",
+      "fa": "بنگاه‌دار: خب، سخت است بگویم. اگر همه‌چیز خوب پیش برود، باید حداکثر ظرفِ حدودِ دو ماه آن را تمام کنیم. بیشترِ فروش‌ها حدودِ دو ماه طول می‌کشند. اما اگر مشکلی پیش بیاید، ممکن است بیشتر طول بکشد، ولی امیدواریم بیش از سه ماه نشود. مثلاً بخشی از خانه، مثلِ سقف، ممکن است وضعِ بدی داشته باشد و کمی کار لازم داشته باشد. یا ممکن است طرحی برای یک جاده‌ی جدید در منطقه باشد. هر چیزی از این دست می‌تواند فروش را عقب بیندازد، اما بیشترِ فروش‌های ما زود انجام می‌شوند.",
+      "ar": "وكيل العقارات: حسنًا، من الصعب أن أقول. إن سارت الأمور على ما يرام، فيُفترض أن ننهيه في نحو شهرين على الأكثر. فمعظم عمليات البيع تستغرق نحو شهرين. لكن إن ظهرت أيّ مشكلات فقد يستغرق الأمر وقتًا أطول، ونأمل ألّا يتجاوز ثلاثة أشهر. فمثلًا، قد يكون جزء من المنزل، كالسقف، في حالة سيّئة ويحتاج إلى بعض العمل. أو قد تكون هناك خطط لطريق جديد في المنطقة. وأيّ شيء من هذا القبيل قد يؤخّر البيع، لكنّ معظم عمليات البيع لدينا تتمّ بسرعة.",
+      "terms": [
+        "at the most",
+        "delay",
+        "go through"
+      ]
+    },
+    "caroline: oh, i hope nothing like that happens! we're really looking forward to moving in soon. it's not easy living a long time with relatives, and my husband has a long journey to get to work, but those aren't the things i'm really worried about. if we can move in before the end of the summer, it'll be much easier for the children to go to their new school. that's why i hope we can complete everything on time.": {
+      "src": "Caroline: Oh, I hope nothing like that happens! We're really looking forward to moving in soon. It's not easy living a long time with relatives, and my husband has a long journey to get to work, but those aren't the things I'm really worried about. If we can move in before the end of the summer, it'll be much easier for the children to go to their new school. That's why I hope we can complete everything on time.",
+      "fa": "کارولین: آه، امیدوارم چنین اتفاقی نیفتد! واقعاً بی‌صبرانه منتظریم زود به خانه‌ی جدید برویم. زندگیِ طولانی با اقوام آسان نیست و شوهرم برای رسیدن به سرِ کار راهِ زیادی می‌رود، اما این‌ها چیزهایی نیستند که واقعاً نگرانشان باشم. اگر بتوانیم پیش از پایانِ تابستان به خانه برویم، رفتنِ بچه‌ها به مدرسه‌ی جدیدشان خیلی آسان‌تر می‌شود. برای همین امیدوارم همه‌چیز را سرِ وقت تمام کنیم.",
+      "ar": "كارولين: آه، أرجو ألّا يحدث شيء كهذا! نحن نتطلّع حقًا إلى الانتقال قريبًا. فليس من السهل العيش طويلًا مع الأقارب، وزوجي يقطع طريقًا طويلًا إلى عمله، لكنّ هذه ليست الأمور التي تقلقني حقًا. إن استطعنا الانتقال قبل نهاية الصيف، فسيكون ذهاب الأطفال إلى مدرستهم الجديدة أسهل بكثير. لهذا أرجو أن ننجز كلّ شيء في الوقت المحدّد.",
+      "terms": [
+        "move in",
+        "relative",
+        "on time"
+      ]
+    },
+    "student: well - as i said i live with two other students. they both go to the same school as me. one of them is from china and the other is from india. i'm from romania, so i think we live in a pretty international house!": {
+      "src": "Student: Well - as I said I live with two other students. They both go to the same school as me. One of them is from China and the other is from India. I'm from Romania, so I think we live in a pretty international house!",
+      "fa": "دانشجو: خب - همان‌طور که گفتم، با دو دانشجوی دیگر زندگی می‌کنم. هر دو به همان مدرسه‌ی من می‌روند. یکی‌شان اهلِ چین است و دیگری اهلِ هند. من اهلِ رومانی هستم، پس فکر می‌کنم در خانه‌ای نسبتاً بین‌المللی زندگی می‌کنیم!",
+      "ar": "الطالب: حسنًا - كما قلت، أعيش مع طالبين آخرين. كلاهما يدرسان في المدرسة نفسها التي أدرس فيها. أحدهما من الصين والآخر من الهند. وأنا من رومانيا، لذا أظنّ أنّنا نعيش في منزل دولي إلى حدّ ما!",
+      "terms": [
+        "pretty"
+      ]
+    },
+    "5: my shopping mall has a lot of escalators, as there are ten floors in total.": {
+      "src": "5: My shopping mall has a lot of escalators, as there are ten floors in total.",
+      "fa": "5: مرکزِ خریدِ ما پله‌برقیِ زیادی دارد، چون روی‌هم ده طبقه است.",
+      "ar": "5: في مركزنا التجاري سلالم متحرّكة كثيرة، لأنّ فيه عشرة طوابق في المجموع.",
+      "terms": [
+        "shopping mall",
+        "escalator",
+        "in total"
+      ]
+    },
+    "16: because i live in the countryside, the scenery here is beautiful - very colourful and bright.": {
+      "src": "16: Because I live in the countryside, the scenery here is beautiful - very colourful and bright.",
+      "fa": "16: چون در روستا زندگی می‌کنم، مناظرِ این‌جا زیباست - بسیار رنگارنگ و روشن.",
+      "ar": "16: لأنّي أعيش في الريف، فالمناظر هنا جميلة - ملوّنة جدًا ومشرقة.",
+      "terms": [
+        "countryside",
+        "scenery"
+      ]
+    },
+    "for the basketball in the afternoon, you only need to bring in the balls because the nets are always up and ready, so you can do that between the sports events. in the carsley room, you'll have to get the gymnastics equipment in place in the morning. that means bringing in the vaulting horse and putting it in the middle. put one mat in front and another behind the horse, and have some other mats ready for the floor exercises. then on the side, set up the bars for the gymnastics. there are two sets of bars: one for the men and one for the women. the other equipment, such as the rings and pommel horse, are already in there, so you don't need to worry about those. it's also a good idea to bring in the tables and nets for the table tennis at the same time. there's enough room to leave them folded while the gymnastics is going on, but you'll be able to set them up more quickly later. the players should bring their own bats with them, but there's a box of bats there, so bring those in as well as we might need them.": {
+      "src": "For the basketball in the afternoon, you only need to bring in the balls because the nets are always up and ready, so you can do that between the sports events. In the Carsley Room, you'll have to get the gymnastics equipment in place in the morning. That means bringing in the vaulting horse and putting it in the middle. Put one mat in front and another behind the horse, and have some other mats ready for the floor exercises. Then on the side, set up the bars for the gymnastics. There are two sets of bars: one for the men and one for the women. The other equipment, such as the rings and pommel horse, are already in there, so you don't need to worry about those. It's also a good idea to bring in the tables and nets for the table tennis at the same time. There's enough room to leave them folded while the gymnastics is going on, but you'll be able to set them up more quickly later. The players should bring their own bats with them, but there's a box of bats there, so bring those in as well as we might need them.",
+      "fa": "برای بسکتبالِ بعدازظهر فقط باید توپ‌ها را ببرید، چون تورها همیشه نصب و آماده‌اند؛ پس می‌توانید این کار را بینِ رویدادهای ورزشی انجام دهید. در سالنِ کارسلی باید صبح وسایلِ ژیمناستیک را سرِ جایشان بگذارید. یعنی خرکِ پرش را بیاورید و وسطِ سالن بگذارید. یک تشک جلو و یک تشک پشتِ خرک بگذارید و چند تشکِ دیگر هم برای حرکاتِ زمینی آماده داشته باشید. بعد، کنارِ سالن میله‌های ژیمناستیک را نصب کنید. دو دست میله هست: یکی برای مردان و یکی برای زنان. بقیه‌ی وسایل، مثلِ حلقه‌ها و خرکِ حلقه، از قبل آن‌جا هستند، پس لازم نیست نگرانشان باشید. فکرِ خوبی است که میزها و تورهای تنیسِ روی میز را هم همان موقع ببرید. جای کافی هست که تا وقتی ژیمناستیک در جریان است تاشده بمانند، ولی بعداً می‌توانید سریع‌تر نصبشان کنید. بازیکنان باید راکت‌های خودشان را بیاورند، ولی یک جعبه راکت هم آن‌جا هست؛ پس آن‌ها را هم ببرید، چون شاید لازممان شوند.",
+      "ar": "ولكرة السلّة بعد الظهر لا تحتاجون إلا إلى إدخال الكرات، لأنّ الشِّباك منصوبة وجاهزة دائمًا، فيمكنكم فعل ذلك بين الأحداث الرياضية. وفي قاعة كارسلي عليكم وضع معدّات الجمباز في أماكنها صباحًا. أي إدخال حصان القفز ووضعه في المنتصف. ضعوا حصيرة أمام الحصان وأخرى خلفه، وجهّزوا حُصُرًا أخرى لتمارين الحركات الأرضية. ثمّ ركّبوا العارضات على الجانب. هناك مجموعتان من العارضات: واحدة للرجال وأخرى للنساء. أمّا المعدّات الأخرى، مثل الحلقات وحصان الحلق، فهي موجودة هناك أصلًا، فلا داعي للقلق بشأنها. ومن الجيّد أيضًا إدخال طاولات كرة الطاولة وشِباكها في الوقت نفسه. فهناك مساحة كافية لتركها مطويّة خلال الجمباز، لكنّكم ستتمكّنون من تركيبها بسرعة أكبر لاحقًا. ينبغي أن يُحضر اللاعبون مضاربهم معهم، لكن هناك علبة مضارب في المكان، فأدخلوها أيضًا لأنّنا قد نحتاج إليها.",
+      "terms": [
+        "gymnastics",
+        "equipment",
+        "in place",
+        "vaulting horse",
+        "floor exercises",
+        "set up",
+        "pommel horse"
+      ]
+    },
+    "for the weightlifting, get someone to help you bring in the barbells and the other weights so that you don't try to carry too much. the bench for the bench press should be in there already, so check that it is when you arrive, but you'll need to bring in the stand with the chalk for the lifters to put on their hands. i'll be there at about ten o' clock as i have an appointment first thing, so you should be ready by then. we can check everything together and then get ready to welcome the contestants and the spectators. i hope everything goes well, and i'm sure we can do it! call me if you need any extra information.": {
+      "src": "For the weightlifting, get someone to help you bring in the barbells and the other weights so that you don't try to carry too much. The bench for the bench press should be in there already, so check that it is when you arrive, but you'll need to bring in the stand with the chalk for the lifters to put on their hands. I'll be there at about ten o' clock as I have an appointment first thing, so you should be ready by then. We can check everything together and then get ready to welcome the contestants and the spectators. I hope everything goes well, and I'm sure we can do it! Call me if you need any extra information.",
+      "fa": "برای وزنه‌برداری، از کسی کمک بگیرید تا هالترها و وزنه‌های دیگر را بیاورید، که سعی نکنید چیزِ خیلی سنگینی حمل کنید. نیمکتِ پرسِ سینه باید از قبل آن‌جا باشد، پس وقتی رسیدید بررسی کنید که هست؛ ولی باید پایه‌ی پودرِ منیزیم را بیاورید تا وزنه‌برداران به دستشان بزنند. من حدودِ ساعتِ ده آن‌جا خواهم بود، چون اولِ صبح یک قرار دارم؛ پس تا آن موقع باید آماده باشید. می‌توانیم همه‌چیز را با هم بررسی کنیم و بعد آماده‌ی استقبال از شرکت‌کنندگان و تماشاگران شویم. امیدوارم همه‌چیز خوب پیش برود و مطمئنم از پسش برمی‌آییم! اگر اطلاعاتِ بیشتری لازم داشتید به من زنگ بزنید.",
+      "ar": "ولرفع الأثقال، اطلبوا من أحد مساعدتكم في إدخال قضبان الأثقال والأثقال الأخرى حتى لا تحاولوا حمل الكثير. ومقعد تمرين الضغط ينبغي أن يكون هناك أصلًا، فتحقّقوا من وجوده عند وصولكم، لكن عليكم إدخال الحامل الذي عليه مسحوق الطباشير ليضعه الرافعون على أيديهم. سأكون هناك نحو الساعة العاشرة لأنّ لديّ موعدًا في الصباح الباكر، فينبغي أن تكونوا جاهزين بحلول ذلك الوقت. يمكننا التحقّق من كلّ شيء معًا ثمّ الاستعداد لاستقبال المتسابقين والمتفرّجين. آمل أن يسير كلّ شيء على ما يرام، وأنا واثق أنّنا سننجح! اتّصلوا بي إن احتجتم إلى أيّ معلومات إضافية.",
+      "terms": [
+        "weightlifting",
+        "barbell",
+        "bench press",
+        "appointment",
+        "contestant",
+        "spectator"
+      ]
     }
   }
 }
